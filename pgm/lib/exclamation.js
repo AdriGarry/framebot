@@ -1,0 +1,59 @@
+#!/usr/bin/env node
+// Module de gestion des leds
+
+var exclamation = function(){
+
+var spawn = require('child_process').spawn;
+var Gpio = require('onoff').Gpio;
+var _leds = require('./leds.js');
+var leds = new _leds();
+
+var self = this;
+
+self.exclamation2Rappels = function(){
+	console.log('Ok Btn >> Exclamation (2 rappels)!');
+	leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
+	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh']);
+	var rdm = Math.floor(Math.random()*60) + 10;
+	console.log('Next sounds: ' + rdm + ' sec & ' + Math.floor(rdm*10/60) + ' min');
+	setTimeout(function(){ eye.write(0); }, 2000);
+	setTimeout(function(){
+		leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
+		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh']);
+		setTimeout(function(){ eye.write(0); }, 2000);
+	}, rdm * 1000);
+	setTimeout(function(){
+		leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
+		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh']);
+		setTimeout(function(){ eye.write(0); }, 2000);
+	}, rdm * 10 * 1000);
+};
+
+self.exclamationLoop = function(){
+	console.log('Ok Btn >> Exclamation Loop !');
+	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh', 'loop']);
+};
+
+self.exclamationRdmDelayLoop = function(){
+	console.log('Mode On >> Exclamation Loop With Random Delay !');
+	var exclRdmLp;
+	var rdmDelay;
+	(function loop() {
+		setTimeout(function() {
+			rdmDelay = Math.floor(Math.random() * 120); //400
+			console.log('[rdmDelay] Next Exclamation -> '
+				+ Math.round((rdmDelay/60)*10)/10 + ' min (' + rdmDelay + ' sec)');
+			leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
+			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh']);
+			if(mode.readSync() == 1){
+				console.log('exclamationRdmDelayLoop... LET\'S GO ON !!!');
+				loop();
+			}
+			else{
+				console.log('Not Going ON');
+			}
+		}, rdmDelay * 1000);
+	}());	
+};
+}
+module.exports = exclamation;

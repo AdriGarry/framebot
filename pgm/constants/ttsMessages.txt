@@ -1,0 +1,44 @@
+fr;Moi c'est Odi, et toi ?
+fr;Tout est sous controle !
+fr;J'allais justement vous en parler...
+fr;Et qu'en pensez-vous ?
+fr;La journe va etre bonne !
+fr;Je me permet de te tutoyer...
+fr;Euh, on se tutoie non ?
+fr;J'ai un plan...
+fr;C'est l'heure de l'apero, non ?
+fr;Et c'est qui le plus malin ?
+fr;Nom de Zeus !
+fr;Et alors ?
+fr;De part mes circuits et transistors !
+fr;Louer soit le grand concepteur !
+fr;Que le grand concepteur soit louer !
+en;Hello !!
+en;What's up ?
+en;Are you my friend ?
+en;Would you like a cup of tea ?
+en;It's so wonderful !
+en;Don't worry, everything is gonna be allright !
+en;Hey man, what are you doing ?
+en;Give me a beer please.
+en;I'm happy to be here !
+en;Shut the fuck up !
+en;Shut the fuck up !
+en;Hey Dude !
+en;Whats your opinion ?
+en;Mother fucker !
+en;Bonjour !
+es;Hola! Que tal ?
+es;Como te lamas ?
+es;Como te lamas ?
+es;Callate !
+es;Quieres una cerveza?
+de;Achtung ! Achtung !
+de;Nein !
+de;Nein ! Nein !
+it;Ciao !
+it;Bongiorno !
+it;Mangiare la pasta !
+it;Mangiare la pizza con mozzarella !
+it;Ma quello che un simpatico gatto !
+it;Ma quello che un simpatico gatto !

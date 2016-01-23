@@ -45,3 +45,9 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.mp3
+*.wav
+*.log
+/pgm/node_modules/*
+#/log/*
+/mp3/*
