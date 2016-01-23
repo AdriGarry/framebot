@@ -7,8 +7,8 @@ var log = 'Odi/ ';
 var fs = require('fs');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
-var _led = require('./leds.js');
-var led = new _led();
+var _leds = require('./leds.js');
+var leds = new _leds();
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
 
@@ -20,7 +20,7 @@ self.mute = function(){
 	console.log('>> MUTE ALL  :|');
 	eye.write(0);
 	belly.write(0);
-	ledsInstance.clearLeds();
+	leds.clearLeds();
 };
 
 var muteTimer;
@@ -32,7 +32,7 @@ self.autoMute = function(message){
 		setTimeout(function(){
 			deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 			console.log(message + ' > AUTO MUTE   :|');
-			ledsInstance.clearLeds();
+			leds.clearLeds();
 			eye.write(0);
 			belly.write(0);
 		}, 1600);
@@ -82,7 +82,7 @@ self.exportLog = function(){
 			if(error){
 				console.error('Error Exporting Log  /!\\');	
 			}else if(!error && response.statusCode == 200){
-				ledsInstance.blinkSatellite(180,1.15);
+				leds.blinkSatellite(180,1.15);
 				console.log('body' + body);
 				// if(body.trim() == '') body = 'No message.';
 				if(typeof body === 'undefined') body = '';
