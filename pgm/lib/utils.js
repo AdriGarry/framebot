@@ -65,8 +65,7 @@ self.recordLog = function(msg){
 };
 
 self.whatsup = function(){
-	try{
-		// console.log('Try Exporting Log...');
+	// try{
 		var logFilePath = '/home/pi/odi/log/odi.log';
 		var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
 		content = content.slice(-60);
@@ -134,9 +133,9 @@ self.whatsup = function(){
 				console.log('Export Log && Check Messages OK !!!!!!!!!!');
 			}
 		});
-	}catch(e){
-		console.error('Exception Export Log && Check Messages   /!\\ /!\\');
-	}			
+	// }catch(e){
+		// console.error('Exception Export Log && Check Messages   /!\\ /!\\');
+	// }			
 }
 
 self.sleepNode = function(sec, delay){
