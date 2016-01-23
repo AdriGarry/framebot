@@ -49,7 +49,7 @@ function startOdi(){
 	intro    +=     '###########################\r\n';
 	console.log(intro);
 	// utils.recordLog(intro);
-	utils.exportLog();
+	utils.whatsup();
 	// utils.sleepNode(4,1.5);
 
 	odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js']);
