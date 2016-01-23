@@ -72,11 +72,13 @@ ok.watch(function(err, value){
 	leds.ledOff('belly');
 	console.log('[val : ' + value + ']  Ok btn pressed for ' + pressTime + ' sec');
 	if(pressTime < 1.5){
-		// if(mode.readSync() == 0){
-			// event.emit('exclamation2Rappels', 'Exclamation2Rappels');
-		// } else {
-			event.emit('exclamation2Rappels', 'Exclamation2Rappels');
-		// }
+		utils.testConnexion(function(connexion){
+			if(connexion == true){ // && min = paire ???
+				tts.speak();
+			}else{
+				event.emit('exclamation2Rappels', 'Exclamation2Rappels');
+			}
+		});
 	}else if(pressTime > 2){
 		event.emit('playFip', 'Fip Radio');
 	}
