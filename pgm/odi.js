@@ -10,18 +10,14 @@ var _gpioPins = require('./lib/gpioPins.js');
 var gpioPins = new _gpioPins();
 var _utils = require('./lib/utils.js');
 var utils = new _utils();
-var buttons = require('./lib/buttons.js');
-var buttonsInstance = new buttons();
+var _buttons = require('./lib/buttons.js');
+var buttons = new _buttons();
 var _leds = require('./lib/leds.js');
 var leds = new _leds();
 var _clock = require('./lib/clock.js');
 var clock = new _clock();
-var log = require('./lib/log.js');
-var logInstance = new log();
 var _tts = require('./lib/tts.js');
 var tts = new _tts();
-// var remoteCtrl = require('./lib/remoteCtrl.js');
-// var remoteCtrlI = new remoteCtrl();
 
 var http = require('./lib/http.js');
 var httpInstance = new http();
@@ -47,7 +43,7 @@ clock.setAlarms();
 setInterval(function(){
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
-			logInstance.exportLog();
+			utils.exportLog();
 			//remoteCtrlI.checkMessages();
 		} else {
 			console.error('No network, can\'t check messages & export log  /!\\');
