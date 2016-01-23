@@ -24,7 +24,13 @@ then
 
 	elif [ $1 = "clone" ]
 	then
+		sudo rm -rf /home/pi/odi/
 		sudo git clone https://adrigarry:pnal6931@github.com/adrigarry/odi /home/pi/odi/
+		sudo cp /home/pi/odi/pgm/sh/git.sh /home/pi/git.sh
+		if [ ! -d "/home/pi/odi/mp3" ]
+		then
+			sudo cp -rf /home/pi/odiSave/mp3 /home/pi/odi/mp3 &
+		fi
 	else
 		sudo git status
 	fi
