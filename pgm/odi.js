@@ -49,6 +49,6 @@ setInterval(function(){
 			console.error('No network, can\'t check messages & export log  /!\\');
 		}
 	});
-}, 20*1000); //10
+}, 10*1000); //10
 
 //var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'r2d2']);
