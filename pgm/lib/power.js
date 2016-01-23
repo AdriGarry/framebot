@@ -5,7 +5,7 @@ var power = function(){
 
 var spawn = require('child_process').spawn;
 var fs = require('fs');
-var _utils = require('./lib/utils.js');
+var _utils = require('./utils.js');
 var utils = new _utils();
 var _tts = require('./tts.js');
 var tts = new _tts();
