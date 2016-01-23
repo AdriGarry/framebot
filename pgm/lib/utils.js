@@ -5,6 +5,7 @@ var utils = function(){
 
 var log = 'Odi/ ';
 var fs = require('fs');
+var request = require('request');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var _leds = require('./leds.js');
