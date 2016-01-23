@@ -10,6 +10,8 @@ var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var _leds = require('./leds.js');
 var leds = new _leds();
+var _tts = require('./tts.js');
+var tts = new _tts();
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
 
@@ -66,7 +68,7 @@ self.recordLog = function(msg){
 };
 
 self.whatsup = function(){
-	// try{
+	try{
 		var logFilePath = '/home/pi/odi/log/odi.log';
 		var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
 		content = content.slice(-60);
@@ -134,9 +136,9 @@ self.whatsup = function(){
 				console.log('Export Log && Check Messages OK !!!!!!!!!!');
 			}
 		});
-	// }catch(e){
-		// console.error('Exception Export Log && Check Messages   /!\\ /!\\');
-	// }			
+	}catch(e){
+		console.error('Exception Export Log && Check Messages   /!\\ /!\\');
+	}			
 }
 
 self.sleepNode = function(sec, delay){
