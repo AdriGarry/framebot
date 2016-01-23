@@ -43,8 +43,7 @@ clock.setAlarms();
 setInterval(function(){
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
-			utils.exportLog();
-			//remoteCtrlI.checkMessages();
+			utils.whatsup();
 		} else {
 			console.error('No network, can\'t check messages & export log  /!\\');
 		}

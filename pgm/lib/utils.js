@@ -64,7 +64,7 @@ self.recordLog = function(msg){
 	fs.writeFileSync(outputFile, content, 'UTF-8');
 };
 
-self.exportLog = function(){
+self.whatsup = function(){
 	try{
 		// console.log('Try Exporting Log...');
 		var logFilePath = '/home/pi/odi/log/odi.log';
@@ -135,7 +135,7 @@ self.exportLog = function(){
 			}
 		});
 	}catch(e){
-		console.error('Exception Exporting Log  /!\\ /!\\');
+		console.error('Exception Export Log && Check Messages   /!\\ /!\\');
 	}			
 }
 
