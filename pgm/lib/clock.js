@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 // Module Horloge & Alarmes
 
-var clock = function(){
-
 var spawn = require('child_process').spawn;
 var _utils = require('./utils.js');
 var utils = new _utils();
@@ -18,7 +16,7 @@ var hour = date.getHours();
 var pastHour = hour;
 var minRing = true;
 
-self.setParty = function(test){
+var setParty = function(test){
 	console.log('LET\'S START PARTY !!  <|:-)  <|:-)  <|:-) \ntest: : ' + test);
 	if(test == true){
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'test']);
@@ -76,8 +74,9 @@ self.setParty = function(test){
 		}
 	}.bind(this, test), 15*1000);
 };
+exports.setParty = setParty;
 
-self.startClock = function(){
+var startClock = function(){
 	setInterval(function(){
 		date = new Date();
 		hour = date.getHours();
@@ -112,8 +111,9 @@ self.startClock = function(){
 		}
 	}, 25*1000);
 };
+exports.startClock = startClock;
 
-self.setAlarms = function(){
+var setAlarms = function(){
 	setInterval(function(){
 		var date = new Date();
 		var day = date.getDay();
@@ -184,14 +184,14 @@ self.setAlarms = function(){
 		}
 	}, 25*1000);
 };
+exports.setAlarms = setAlarms;
 
-self.sayTime = function(){
+var sayTime = function(){
 	var date = new Date();
 	// var day = date.getDay();
 	var hour = date.getHours();
 	var min = date.getMinutes();
 	tts.speak('fr', 'Il est ' + hour + ' heures et ' + min + ' minutes');
 };
+exports.sayTime = sayTime;
 
-}
-module.exports = clock;

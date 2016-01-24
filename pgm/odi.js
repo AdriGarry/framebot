@@ -14,8 +14,7 @@ var _buttons = require('./lib/buttons.js');
 var buttons = new _buttons();
 var _leds = require('./lib/leds.js');
 var leds = new _leds();
-var _clock = require('./lib/clock.js');
-var clock = new _clock();
+var clock = require('./lib/clock.js');
 var _tts = require('./lib/tts.js');
 var tts = new _tts();
 
