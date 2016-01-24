@@ -35,7 +35,7 @@ setInterval(function(){
 }, 1000);
 /*setInterval(function(){
 	leds.blinkEye(100, 0.5);
-},*/ 60*1000);
+}, 60*1000);*/
 
 clock.startClock();
 clock.setAlarms();
