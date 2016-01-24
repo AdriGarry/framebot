@@ -139,6 +139,13 @@ self.whatsup = function(){
 									console.log('REMOTE > Exclamation / Random TTS !');
 									exclamation.exclamation2Rappels();
 									self.autoMute();
+								} else if(txt == 'sayTime') {
+									var date = new Date();
+									// var day = date.getDay();
+									var hour = date.getHours();
+									var min = date.getMinutes();
+									console.log('REMOTE > What\'s time is it ?   It\'s ' + hour + ':' + min);
+									tts.speak('fr', 'Il est ' + hour ' heures et ' + min + ' minutes');
 								} else {
 									tts.speak('','');
 								}

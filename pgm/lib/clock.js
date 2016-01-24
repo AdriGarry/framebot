@@ -185,5 +185,14 @@ self.setAlarms = function(){
 		}
 	}, 25*1000);
 };
+
+self.sayTime = function(){
+	var date = new Date();
+	// var day = date.getDay();
+	var hour = date.getHours();
+	var min = date.getMinutes();
+	tts.speak('fr', 'Il est ' + hour ' heures et ' + min + ' minutes');
+};
+
 }
 module.exports = clock;
