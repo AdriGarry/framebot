@@ -23,6 +23,14 @@ elif [ $1 = "bb8" ]
 then
 	sound="/home/pi/odi/mp3/sounds/autres/bb8.mp3"
 	volume=500
+elif [ $1 = "start" ]
+then
+	sound="/home/pi/odi/mp3/sounds/autres/mac-startup-sound2.mp3"
+	volume=600
+elif [ $1 = "git" ]
+then
+	sound="/home/pi/odi/mp3/sounds/autres/launchingcompleted.mp3"
+	volume=600
 elif [ $1 = "reboot" ]
 then
 	sound="/home/pi/odi/mp3/sounds/autres/beback.mp3"
