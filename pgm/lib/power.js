@@ -7,8 +7,7 @@ var spawn = require('child_process').spawn;
 var fs = require('fs');
 var _utils = require('./utils.js');
 var utils = new _utils();
-var _tts = require('./tts.js');
-var tts = new _tts();
+var tts = require('./tts.js');
 
 var self = this;
 var deploy;

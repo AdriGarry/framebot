@@ -13,8 +13,7 @@ var timer = require('./timer.js');
 var fip = require('./fip.js');
 // var _exclamation = require('./exclamation.js');
 var exclamation = require('./exclamation.js');
-var _tts = require('./tts.js');
-var tts = new _tts();
+var tts = require('./tts.js');
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
 

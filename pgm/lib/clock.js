@@ -7,8 +7,7 @@ var utils = new _utils();
 var fip = require('./fip.js');
 var _jukebox = require('./jukebox.js');
 var jukebox = new _jukebox();
-var _tts = require('./tts.js');
-var tts = new _tts();
+var tts = require('./tts.js');
 var self = this;
 
 var date = new Date();

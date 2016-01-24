@@ -10,8 +10,7 @@ var fs = require('fs');
 var request = require('request');
 var _utils = require('./lib/utils.js');
 var utils = new _utils();
-var _tts = require('./lib/tts.js');
-var tts = new _tts();
+var tts = require('./lib/tts.js');
 
 var odiPgm;
 var odiState = false;

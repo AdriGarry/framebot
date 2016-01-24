@@ -38,5 +38,4 @@ var setTimer = function(){
 	}, 1000);
 	}
 }
-
 exports.setTimer = setTimer;

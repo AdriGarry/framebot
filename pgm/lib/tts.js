@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 // Module TTS
 
-var _tts = function(){
-
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 var leds = require('./leds.js');
@@ -12,7 +10,7 @@ var self = this;
 var content;
 var messages = '/home/pi/odi/pgm/constants/ttsMessages.txt';
 
-self.speak = function(lg, txt){
+var speak = function(lg, txt){
 	if(txt == '' || txt === 'undefined'){		
 		content = fs.readFileSync(messages, 'UTF-8').toString().split('\n'); // \r\n
 		// console.log(content);//
@@ -47,8 +45,9 @@ self.speak = function(lg, txt){
 	console.log('blinkTime : ' + blinkTime);
 	leds.blinkEye((Math.floor(Math.random()*5) + 1)*50, blinkTime);
 };
+exports.speak = speak;
 
-self.speakRdmDelayLoop = function(){
+var speakRdmDelayLoop = function(){
 	console.log('Mode On >> TTS Exclamation Loop With Random Delay !!!');
 	var exclRdmLp;
 	var rdmDelay;
@@ -69,5 +68,4 @@ self.speakRdmDelayLoop = function(){
 		}, rdmDelay * 1000);
 	}());	
 };
-}
-module.exports = _tts;
+exports.speakRdmDelayLoop = speakRdmDelayLoop;
