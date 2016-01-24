@@ -151,7 +151,11 @@ self.whatsup = function(){
 									var hour = date.getHours();
 									var min = date.getMinutes();
 									console.log('REMOTE > What\'s time is it ?   It\'s ' + hour + ':' + min);
-									tts.speak('fr', 'Il est ' + hour + ' heures ' + min);
+									if(min&1){
+										tts.speak('en', 'Its ' + hour + ' and ' + min + ' minutes');
+									} else {
+										tts.speak('fr', 'Il est ' + hour + ' heures ' + min);
+									}
 								} else {
 									tts.speak('','');
 								}
