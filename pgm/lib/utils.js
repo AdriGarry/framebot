@@ -174,7 +174,7 @@ self.getMsgLastGitCommit = function(callback){
 
 self.reboot = function(){
 	// tts.speak('fr','A tout de suite !');
-	utils.whatsup();
+	self.whatsup();
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'reboot']);
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
@@ -186,7 +186,7 @@ self.reboot = function(){
 
 self.shutdown = function(){
 	// tts.speak('fr','Arret du systeme !');
-	utils.whatsup();
+	self.whatsup();
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'shutdown']);
 	// deploy = spawn('omxplayer', ['-o local', '/home/pi/odi/mp3/sounds/autres/sessionOff.mp3']);
