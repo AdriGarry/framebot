@@ -15,9 +15,6 @@ var leds = require('./lib/leds.js');
 var clock = require('./lib/clock.js');
 var tts = require('./lib/tts.js');
 
-var http = require('./lib/http.js');
-var httpInstance = new http();
-
 leds.blinkLed(100, 300);
 leds.blinkEye(100, 300);
 var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/startupOdi.sh']);

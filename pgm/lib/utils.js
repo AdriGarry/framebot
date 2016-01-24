@@ -134,13 +134,7 @@ var whatsup = function(){
 									self.autoMute();
 								} else if(txt == 'exclamation') {
 									console.log('REMOTE > Exclamation !');
-									// self.testConnexion(function(connexion){
-										// if(connexion == true){ // && min = paire ???
-											// tts.speak('','');
-										// }else{
-											exclamation.exclamation2Rappels();
-										// }
-									// });
+									exclamation.exclamation2Rappels();
 									self.autoMute();
 								} else if(txt == 'tts') {
 									console.log('REMOTE > Random TTS !');
@@ -148,15 +142,10 @@ var whatsup = function(){
 									self.autoMute();
 								} else if(txt == 'sayTime') {
 									var date = new Date();
-									// var day = date.getDay();
 									var hour = date.getHours();
 									var min = date.getMinutes();
 									console.log('REMOTE > What\'s time is it ?   It\'s ' + hour + ':' + min);
-									// if(min&1){
-										// tts.speak('en', 'Its ' + hour + ' and ' + min + ' minutes');
-									// } else {
-										tts.speak('fr', 'Il est ' + hour + ' heures ' + min);
-									// }
+									tts.speak('fr', 'Il est ' + hour + ' heures ' + min);
 								} else {
 									tts.speak('','');
 								}
@@ -213,7 +202,7 @@ var getMsgLastGitCommit = function(callback){
 exports.getMsgLastGitCommit = getMsgLastGitCommit;
 
 var reboot = function(){
-	// tts.speak('fr','A tout de suite !');
+	tts.speak('fr','A tout de suite !');
 	self.whatsup();
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'reboot']);
@@ -226,7 +215,7 @@ var reboot = function(){
 exports.reboot = reboot;
 
 var shutdown = function(){
-	// tts.speak('fr','Arret du systeme !');
+	tts.speak('fr','Arret du systeme !');
 	self.whatsup();
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'shutdown']);
