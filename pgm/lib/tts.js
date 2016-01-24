@@ -14,7 +14,7 @@ var content;
 var messages = '/home/pi/odi/pgm/constants/ttsMessages.txt';
 
 self.speak = function(lg, txt){
-	if(txt == ''){		
+	if(txt == '' || txt === 'undefined'){		
 		content = fs.readFileSync(messages, 'UTF-8').toString().split('\n'); // \r\n
 		// console.log(content);//
 		var rdmMax = content.length;
@@ -43,7 +43,7 @@ self.speak = function(lg, txt){
 		default:
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/ttsFr.sh', txt]);
 	}
-	if(txt === 'undefined') txt = ' ';
+	//if(txt === 'undefined') txt = '';
 	var blinkTime = (txt.length/15) + 1;
 	console.log('blinkTime : ' + blinkTime);
 	leds.blinkEye((Math.floor(Math.random()*5) + 1)*50, blinkTime);
