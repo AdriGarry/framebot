@@ -13,6 +13,9 @@ fr;Et alors ?
 fr;De part mes circuits et transistors !
 fr;Louer soit le grand concepteur !
 fr;Que le grand concepteur soit louer !
+fr;Un jour tu seras papa !
+fr;Le but de chaque etre est de se reproduire !
+fr;Je te vois bien fonder une famille !
 en;Hello !!
 en;What's up ?
 en;Are you my friend ?
@@ -28,6 +31,8 @@ en;Hey Dude !
 en;Whats your opinion ?
 en;Mother fucker !
 en;Bonjour !
+en;Dont you want a baby ?
+en;One day you will be father !
 es;Hola! Que tal ?
 es;Como te lamas ?
 es;Como te lamas ?
