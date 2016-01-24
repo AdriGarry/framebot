@@ -123,7 +123,8 @@ self.setAlarms = function(){
 		var sec = date.getSeconds();
 		//console.log('Alarms On');
 		if(day > 0 && day < 6){
-			if(hour == 7 && min == 30){
+			// if(hour == 7 && min == 30){
+			if(hour == 21 && min == 17){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
 				if(date.getSeconds() < 26){
