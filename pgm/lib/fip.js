@@ -3,7 +3,6 @@
 
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
-//var Gpio = require('onoff').Gpio;
 var leds = require('./leds.js');
 
 var self = this;

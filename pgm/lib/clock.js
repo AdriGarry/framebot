@@ -186,7 +186,6 @@ exports.setAlarms = setAlarms;
 
 var sayTime = function(){
 	var date = new Date();
-	// var day = date.getDay();
 	var hour = date.getHours();
 	var min = date.getMinutes();
 	tts.speak('fr', 'Il est ' + hour + ' heures et ' + min + ' minutes');
