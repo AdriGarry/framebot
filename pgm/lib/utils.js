@@ -10,12 +10,11 @@ var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var _leds = require('./leds.js');
 var leds = new _leds();
-// var _timer = require('./timer.js');
-// var timer = new _timer();
+var timer = require('./timer.js');
 var _fip = require('./fip.js');
 var fip = new _fip();
-var _exclamation = require('./exclamation.js');
-var exclamation = new _exclamation();
+// var _exclamation = require('./exclamation.js');
+var exclamation = require('./exclamation.js');
 var _tts = require('./tts.js');
 var tts = new _tts();
 var EventEmitter = require('events').EventEmitter;
@@ -130,7 +129,7 @@ self.whatsup = function(){
 									// clock.setParty();
 								} else if(txt == 'timer') {
 									console.log('REMOTE > Timer !');
-									// timer.setTimer();
+									timer.setTimer();
 								} else if(txt == 'fip') {
 									console.log('REMOTE > FIP !');
 									fip.playFip();

@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 // Module de gestion des leds
 
-var exclamation = function(){
-
 var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
 var _leds = require('./leds.js');
@@ -10,7 +8,7 @@ var leds = new _leds();
 
 var self = this;
 
-self.exclamation2Rappels = function(){
+var exclamation2Rappels = function(){
 	console.log('Ok Btn >> Exclamation (2 rappels)!');
 	leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh']);
@@ -28,13 +26,15 @@ self.exclamation2Rappels = function(){
 		setTimeout(function(){ eye.write(0); }, 2000);
 	}, rdm * 10 * 1000);
 };
+exports.exclamation2Rappels = exclamation2Rappels;
 
-self.exclamationLoop = function(){
+var exclamationLoop = function(){
 	console.log('Ok Btn >> Exclamation Loop !');
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh', 'loop']);
 };
+exports.exclamationLoop = exclamationLoop;
 
-self.exclamationRdmDelayLoop = function(){
+var exclamationRdmDelayLoop = function(){
 	console.log('Mode On >> Exclamation Loop With Random Delay !');
 	var exclRdmLp;
 	var rdmDelay;
@@ -55,5 +55,4 @@ self.exclamationRdmDelayLoop = function(){
 		}, rdmDelay * 1000);
 	}());	
 };
-}
-module.exports = exclamation;
+exports.exclamationRdmDelayLoop = exclamationRdmDelayLoop;
