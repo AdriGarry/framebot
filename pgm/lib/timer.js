@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 // Module Timer
 
-var timer = function(){
-
 var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
 var _leds = require('./leds.js');
@@ -14,7 +12,7 @@ var self = this;
 var time = 0;
 var timer = false;
 
-self.setTimer = function(){
+var setTimer = function(){
 	time = time + 60;
 	var etat = 1;
 	console.log('Seconds remaining = ' + time);
@@ -40,7 +38,6 @@ self.setTimer = function(){
 		}
 	}, 1000);
 	}
-};
-
 }
-module.exports = timer;
+
+exports.setTimer = setTimer;
