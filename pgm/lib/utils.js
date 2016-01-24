@@ -137,7 +137,11 @@ self.whatsup = function(){
 									self.autoMute();
 								} else if(txt == 'exclamation') {
 									console.log('REMOTE > Exclamation / Random TTS !');
-									exclamation.exclamation2Rappels();
+									if(connexion == true){ // && min = paire ???
+										tts.speak('','');
+									}else{
+										exclamation.exclamation2Rappels();
+									}
 									self.autoMute();
 								} else if(txt == 'sayTime') {
 									var date = new Date();
