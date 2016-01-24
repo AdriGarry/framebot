@@ -33,9 +33,9 @@ setTimeout(function(){
 setInterval(function(){
 	led.write(1);
 }, 1000);
-setInterval(function(){
+/*setInterval(function(){
 	leds.blinkEye(100, 0.5);
-}, 60*1000);
+},*/ 60*1000);
 
 clock.startClock();
 clock.setAlarms();
