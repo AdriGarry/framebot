@@ -12,6 +12,8 @@ var _leds = require('./leds.js');
 var leds = new _leds();
 var _tts = require('./tts.js');
 var tts = new _tts();
+var _power = require('./power.js');
+var power = new _power();
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
 
@@ -102,11 +104,11 @@ self.whatsup = function(){
 							console.log(lg.toUpperCase() + ' > "' + txt + '"  [' + timeMessage + ']');
 							if(lg == 'cmd'){
 								if(txt == 'reboot'){
-									powerInstance.reboot();
+									power.reboot();
 								} else if(txt == 'shutdown' || txt == 'halt') {
-									powerInstance.shutdown();
+									power.shutdown();
 								} else if(txt == 'odi') {
-									powerInstance.restartOdi();
+									power.restartOdi();
 								} else if(txt == 'mute') {
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 									console.log('>> MUTE ALL  :|');
