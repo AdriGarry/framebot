@@ -74,7 +74,7 @@ ok.watch(function(err, value){
 	if(pressTime < 1.5){
 		utils.testConnexion(function(connexion){
 			if(connexion == true){ // && min = paire ???
-				tts.speak();
+				tts.speak('','');
 			}else{
 				event.emit('exclamation2Rappels', 'Exclamation2Rappels');
 			}
