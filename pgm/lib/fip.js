@@ -8,8 +8,6 @@ var exec = require('child_process').exec;
 //var Gpio = require('onoff').Gpio;
 var leds = require('./leds.js');
 var ledsInstance = new leds();
-var _exclamation = require('./exclamation.js');
-var exclamation = new _exclamation();
 
 var self = this;
 
@@ -35,7 +33,6 @@ self.playFip = function(){
 	}
 	else{
 		console.log('I\'m already playing FIP !');
-		exclamation.exclamation2Rappels();
 	}
 };
 self.stopFip = function(message){
