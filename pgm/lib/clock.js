@@ -181,6 +181,8 @@ var setAlarms = function(){
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh', 'reboot']);
 		} else if(hour == 0 && min == 1){
 			tts.speak('fr', 'Un jour de plus vient de s\'achever.');
+		} else if(hour == 23 && min == 8){
+			tts.speak('fr', 'Un jour de plus vient de s\'achever. Ceci est un test');
 		}
 	}, 25*1000);
 };
