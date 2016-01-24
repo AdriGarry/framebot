@@ -5,7 +5,6 @@ var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
 var leds = require('./leds.js');
 var tts = require('./tts.js');
-var ttsInstance = new tts();
 
 var self = this;
 var time = 0;
@@ -15,7 +14,7 @@ var setTimer = function(){
 	time = time + 60;
 	var etat = 1;
 	console.log('Seconds remaining = ' + time);
-	ttsInstance.speak('fr','Minuterie :' + time + ' secondes');
+	tts.speak('fr','Minuterie :' + time + ' secondes');
 	if(!timer){
 	timer = true;
 	var sec = setInterval(function(){
