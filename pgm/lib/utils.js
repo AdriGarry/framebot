@@ -13,6 +13,7 @@ var exclamation = require('./exclamation.js');
 var tts = require('./tts.js');
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
+var clock = require('./lib/clock.js');
 
 var self = this;
 
@@ -122,8 +123,8 @@ var whatsup = function(){
 									console.log('REMOTE > Medley Jukebox !!');
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/jukebox.sh', 'medley']);
 									self.autoMute();
-								// } else if (txt == 'party') {
-									// clock.setParty();
+								} else if (txt == 'party') {
+									clock.setParty();
 								} else if(txt == 'timer') {
 									console.log('REMOTE > Timer !');
 									timer.setTimer();
