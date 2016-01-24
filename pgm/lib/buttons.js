@@ -76,11 +76,13 @@ ok.watch(function(err, value){
 			if(connexion == true){ // && min = paire ???
 				tts.speak('','');
 			}else{
-				event.emit('exclamation2Rappels', 'Exclamation2Rappels');
+				// event.emit('exclamation2Rappels', 'Exclamation2Rappels');
+				exclamation.exclamation2Rappels();
 			}
 		});
 	}else if(pressTime > 2){
-		event.emit('playFip', 'Fip Radio');
+		// event.emit('playFip', 'Fip Radio');
+		fip.playFip();
 	}
 	utils.autoMute();
 });

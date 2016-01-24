@@ -10,6 +10,12 @@ var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var _leds = require('./leds.js');
 var leds = new _leds();
+var _timer = require('./timer.js');
+var timer = new _timer();
+var _fip = require('./fip.js');
+var fip = new _fip();
+var _exclamation = require('./exclamation.js');
+var exclamation = new _exclamation();
 var _tts = require('./tts.js');
 var tts = new _tts();
 var EventEmitter = require('events').EventEmitter;
@@ -102,24 +108,37 @@ self.whatsup = function(){
 							console.log(lg.toUpperCase() + ' > "' + txt + '"  [' + timeMessage + ']');
 							if(lg == 'cmd'){
 								if(txt == 'reboot'){
+									console.log('REMOTE > REBOOT !');
 									self.reboot();
 								} else if(txt == 'shutdown' || txt == 'halt') {
+									console.log('REMOTE > SHUTDOWN !');
 									self.shutdown();
 								} else if(txt == 'odi') {
 									self.restartOdi();
 								} else if(txt == 'mute') {
+									console.log('REMOTE > MUTE !');
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-									console.log('>> MUTE ALL  :|');
 								} else if(txt == 'jukebox') {
-									console.log('Blue Btn >> Jukebox Loop !');
+									console.log('REMOTE > Jukebox Loop !');
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/jukebox.sh']);
 									utilsInstance.autoMute();
 								} else if(txt == 'jukebox m' || txt == 'medley') {
-									console.log('Blue Btn >> Medley Jukebox !!');
+									console.log('REMOTE > Medley Jukebox !!');
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/jukebox.sh', 'medley']);
 									utilsInstance.autoMute();
 								} else if (txt == 'party') {
 									clockInstance.setParty();
+								} else if(txt == 'timer') {
+									console.log('REMOTE > Timer !');
+									timer.setTimer();
+								} else if(txt == 'fip') {
+									console.log('REMOTE > FIP !');
+									fip.playFip();
+									utilsInstance.autoMute();
+								} else if(txt == 'exclamation') {
+									console.log('REMOTE > Exclamation / Random TTS !');
+									exclamation.exclamation2Rappels();
+									utilsInstance.autoMute();
 								} else {
 									tts.speak('','');
 								}
