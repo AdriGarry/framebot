@@ -191,7 +191,7 @@ self.sayTime = function(){
 	// var day = date.getDay();
 	var hour = date.getHours();
 	var min = date.getMinutes();
-	tts.speak('fr', 'Il est ' + hour ' heures et ' + min + ' minutes');
+	tts.speak('fr', 'Il est ' + hour + ' heures et ' + min + ' minutes');
 };
 
 }
