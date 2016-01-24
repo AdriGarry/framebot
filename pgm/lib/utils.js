@@ -136,14 +136,18 @@ self.whatsup = function(){
 									fip.playFip();
 									self.autoMute();
 								} else if(txt == 'exclamation') {
-									console.log('REMOTE > Exclamation / Random TTS !');
-									self.testConnexion(function(connexion){
-										if(connexion == true){ // && min = paire ???
-											tts.speak('','');
-										}else{
+									console.log('REMOTE > Exclamation !');
+									// self.testConnexion(function(connexion){
+										// if(connexion == true){ // && min = paire ???
+											// tts.speak('','');
+										// }else{
 											exclamation.exclamation2Rappels();
-										}
-									});
+										// }
+									// });
+									self.autoMute();
+								} else if(txt == 'tts') {
+									console.log('REMOTE > Random TTS !');
+									tts.speak('','');
 									self.autoMute();
 								} else if(txt == 'sayTime') {
 									var date = new Date();
