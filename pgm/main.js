@@ -4,8 +4,8 @@ console.log(' -> Main Manager');
 
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
-var gpioPins = require('./lib/gpioPins.js');
-var gpioPinsInstance = new gpioPins();
+var _gpioPins = require('./lib/gpioPins.js');
+var gpioPins = new _gpioPins();
 var fs = require('fs');
 var request = require('request');
 var utils = require('./lib/utils.js');
