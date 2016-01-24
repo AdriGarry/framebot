@@ -121,11 +121,11 @@ self.whatsup = function(){
 								} else if(txt == 'jukebox') {
 									console.log('REMOTE > Jukebox Loop !');
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/jukebox.sh']);
-									utilsInstance.autoMute();
+									self.autoMute();
 								} else if(txt == 'jukebox m' || txt == 'medley') {
 									console.log('REMOTE > Medley Jukebox !!');
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/jukebox.sh', 'medley']);
-									utilsInstance.autoMute();
+									self.autoMute();
 								} else if (txt == 'party') {
 									clockInstance.setParty();
 								} else if(txt == 'timer') {
@@ -134,11 +134,11 @@ self.whatsup = function(){
 								} else if(txt == 'fip') {
 									console.log('REMOTE > FIP !');
 									fip.playFip();
-									utilsInstance.autoMute();
+									self.autoMute();
 								} else if(txt == 'exclamation') {
 									console.log('REMOTE > Exclamation / Random TTS !');
 									exclamation.exclamation2Rappels();
-									utilsInstance.autoMute();
+									self.autoMute();
 								} else {
 									tts.speak('','');
 								}
