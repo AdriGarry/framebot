@@ -41,10 +41,13 @@ setInterval(function(){
 		if(!instance){
 			instance = true;
 			setTimeout(function(){
-				tts.speakRdmDelayLoop();
-				/*setTimeout(function(){
+				var date = new Date();
+				var min = date.getMinutes();
+				if(min&1){
 					exclamation.exclamationRdmDelayLoop();
-				}, 8000);*/
+				} else {
+					tts.speakRdmDelayLoop();
+				}
 			}, 20*1000);
 		}
 	}
@@ -64,7 +67,7 @@ ok.watch(function(err, value){
 	console.log('[val : ' + value + ']  Ok btn pressed for ' + pressTime + ' sec');
 	if(pressTime < 1.5){
 		utils.testConnexion(function(connexion){
-			if(connexion == true){ // && min = paire ???
+			if(min&1 || connexion == true){
 				tts.speak('','');
 			}else{
 				// event.emit('exclamation2Rappels', 'Exclamation2Rappels');
