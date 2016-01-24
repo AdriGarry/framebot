@@ -10,6 +10,8 @@ var fs = require('fs');
 var request = require('request');
 var _utils = require('./lib/utils.js');
 var utils = new _utils();
+var _tts = require('./lib/tts.js');
+var tts = new _tts();
 
 var odiPgm;
 var odiState = false;
@@ -18,7 +20,7 @@ var mute;
 utils.getMsgLastGitCommit(function(commitMsg){
 	setTimeout(function(){
 		commitMsg = commitMsg.replace('.',' point ');
-		// tts.speak('fr', commitMsg.trim());
+		tts.speak('fr', commitMsg.trim());
 	}, 1000);
 });
 
