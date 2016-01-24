@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 // Module utilitaires
 
-var utils = function(){
-
 var log = 'Odi/ ';
 var fs = require('fs');
 var request = require('request');
