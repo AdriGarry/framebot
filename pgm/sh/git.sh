@@ -14,7 +14,7 @@ then
 	then
 		sudo git reset --hard
 		sudo git pull https://adrigarry:pnal6931@github.com/adrigarry/odi
-		sudo sh /home/pi/odi/pgm/sh/sounds.sh bb8 &
+		sudo sh /home/pi/odi/pgm/sh/sounds.sh git &
 		sudo cp /home/pi/odi/pgm/sh/git.sh /home/pi/git.sh
 		if [ ! -d "/home/pi/odi/mp3" ]
 		then
