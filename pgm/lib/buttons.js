@@ -16,8 +16,7 @@ var tts = require('./tts.js');
 var clock = require('./clock.js');
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
-var _utils = require('./utils.js');
-var utils = new _utils();
+var utils = require('./utils.js');
 
 var self = this;
 var cpBtn = 1;

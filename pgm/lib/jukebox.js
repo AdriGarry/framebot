@@ -4,8 +4,7 @@
 var jukebox = function(){
 
 var spawn = require('child_process').spawn;
-var _utils = require('./utils.js');
-var utils = new _utils();
+var utils = require('./utils.js');
 
 var self = this;
 

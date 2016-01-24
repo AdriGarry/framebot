@@ -11,7 +11,6 @@ var exec = require('child_process').exec;
 var leds = require('./leds.js');
 var timer = require('./timer.js');
 var fip = require('./fip.js');
-// var _exclamation = require('./exclamation.js');
 var exclamation = require('./exclamation.js');
 var tts = require('./tts.js');
 var EventEmitter = require('events').EventEmitter;
@@ -19,17 +18,17 @@ var event = new EventEmitter();
 
 var self = this;
 
-
-self.mute = function(){
+var mute = function(){
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	console.log('>> MUTE ALL  :|');
 	eye.write(0);
 	belly.write(0);
 	leds.clearLeds();
 };
+exports.mute = mute;
 
 var muteTimer;
-self.autoMute = function(message){
+var autoMute = function(message){
 	clearTimeout(muteTimer);
 	muteTimer = setTimeout(function(){
 		//console.log('_EventEmited: ' + (message || '.'));
@@ -43,8 +42,9 @@ self.autoMute = function(message){
 		}, 1600);
 	}, 60*60*1000);
 };
+exports.autoMute = autoMute;
 
-self.testConnexion = function(callback){
+var testConnexion = function(callback){
 	require('dns').resolve('www.google.com', function(err) {
 		if(err){
 			//console.error('Odi is not connected to internet (utils.testConnexion)   /!\\');
@@ -55,9 +55,10 @@ self.testConnexion = function(callback){
 		}
 	});
 };
+exports.testConnexion = testConnexion;
 
 var outputFile = '/home/pi/odi/log/odi.log';
-self.recordLog = function(msg){
+var recordLog = function(msg){
 	try{
 		var content = fs.readFileSync(outputFile, 'UTF-8');
 	} catch(e){
@@ -68,8 +69,9 @@ self.recordLog = function(msg){
 	content += '\r\n' + msg.trim();
 	fs.writeFileSync(outputFile, content, 'UTF-8');
 };
+exports.recordLog = recordLog;
 
-self.whatsup = function(){
+var whatsup = function(){
 	try{
 		var logFilePath = '/home/pi/odi/log/odi.log';
 		var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
@@ -176,8 +178,9 @@ self.whatsup = function(){
 		console.error('Exception Export Log && Check Messages   /!\\ /!\\');
 	}			
 }
+exports.whatsup = whatsup;
 
-self.sleepNode = function(sec, delay){
+var sleepNode = function(sec, delay){
 	/*if(delay){
 		delay = 0;
 	}*/
@@ -198,8 +201,9 @@ self.sleepNode = function(sec, delay){
 		console.log('\nsleepNode:       -->  Odi going on !!\n');
 	}, delay*1000+1);	
 };
+exports.sleepNode = sleepNode;
 
-self.getMsgLastGitCommit = function(callback){
+var getMsgLastGitCommit = function(callback){
 	function getMsg(error, stdout, stderr){
 		if(error) stdout = 'Error Git Last Commit Message  /!\\';
 		console.log('LastGitCommitMsg : "' + stdout.trim() + '"');
@@ -207,8 +211,9 @@ self.getMsgLastGitCommit = function(callback){
 	}
 	exec('git log -1 --pretty=%B',{cwd: '/home/pi/odi/'}, getMsg);
 };
+exports.getMsgLastGitCommit = getMsgLastGitCommit;
 
-self.reboot = function(){
+var reboot = function(){
 	// tts.speak('fr','A tout de suite !');
 	self.whatsup();
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
@@ -219,8 +224,9 @@ self.reboot = function(){
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh', 'reboot']);
 	}, 2000);
 };
+exports.reboot = reboot;
 
-self.shutdown = function(){
+var shutdown = function(){
 	// tts.speak('fr','Arret du systeme !');
 	self.whatsup();
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
@@ -240,6 +246,4 @@ self.restartOdi = function(){
 		process.exit();
 	}, 1000);
 };
-
-}
-module.exports = utils;
+exports.shutdown = shutdown;

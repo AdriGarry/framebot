@@ -8,8 +8,7 @@ var gpioPins = require('./lib/gpioPins.js');
 var gpioPinsInstance = new gpioPins();
 var fs = require('fs');
 var request = require('request');
-var _utils = require('./lib/utils.js');
-var utils = new _utils();
+var utils = require('./utils.js');
 var tts = require('./lib/tts.js');
 
 var odiPgm;

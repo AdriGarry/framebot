@@ -2,8 +2,7 @@
 // Module Horloge & Alarmes
 
 var spawn = require('child_process').spawn;
-var _utils = require('./utils.js');
-var utils = new _utils();
+var utils = require('./utils.js');
 var fip = require('./fip.js');
 var _jukebox = require('./jukebox.js');
 var jukebox = new _jukebox();
