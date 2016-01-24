@@ -13,7 +13,7 @@ var exclamation = require('./exclamation.js');
 var tts = require('./tts.js');
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
-var clock = require('./lib/clock.js');
+var clock = require('./clock.js');
 
 var self = this;
 
