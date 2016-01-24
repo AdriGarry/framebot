@@ -126,8 +126,8 @@ self.whatsup = function(){
 									console.log('REMOTE > Medley Jukebox !!');
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/jukebox.sh', 'medley']);
 									self.autoMute();
-								} else if (txt == 'party') {
-									clockInstance.setParty();
+								// } else if (txt == 'party') {
+									// clock.setParty();
 								} else if(txt == 'timer') {
 									console.log('REMOTE > Timer !');
 									timer.setTimer();
