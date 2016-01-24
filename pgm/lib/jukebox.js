@@ -11,9 +11,8 @@ var self = this;
 self.loop = function(message){
 	utils.mute();
 	console.log('Let\'s play the Jukebox in loop mode !');
-	setTimeout(function(){
-		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/jukebox.sh']);
-	}, 200);
+	utils.sleepNode(0.5,0);
+	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/jukebox.sh']);
 };
 
 self.medley = function(message){
