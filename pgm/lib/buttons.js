@@ -18,8 +18,8 @@ var _jukebox = require('./jukebox.js');
 var jukebox = new _jukebox();
 var _tts = require('./tts.js');
 var tts = new _tts();
-var _power = require('./power.js');
-var power = new _power();
+// var _power = require('./power.js');
+// var power = new _power();
 var _clock = require('./clock.js');
 var clock = new _clock();
 var EventEmitter = require('events').EventEmitter;
@@ -121,9 +121,9 @@ white.watch(function(err, value){
 			console.log('no action defined');
 		}
 	}else if(pressTime > 2 && pressTime < 5){
-		power.reboot();
+		utils.reboot();
 	}else if(pressTime >= 5){
-		power.shutdown();
+		utils.shutdown();
 	}
 	utils.autoMute();
 });

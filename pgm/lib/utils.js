@@ -12,8 +12,6 @@ var _leds = require('./leds.js');
 var leds = new _leds();
 var _tts = require('./tts.js');
 var tts = new _tts();
-var _power = require('./power.js');
-var power = new _power();
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
 
@@ -104,11 +102,11 @@ self.whatsup = function(){
 							console.log(lg.toUpperCase() + ' > "' + txt + '"  [' + timeMessage + ']');
 							if(lg == 'cmd'){
 								if(txt == 'reboot'){
-									power.reboot();
+									self.reboot();
 								} else if(txt == 'shutdown' || txt == 'halt') {
-									power.shutdown();
+									self.shutdown();
 								} else if(txt == 'odi') {
-									power.restartOdi();
+									self.restartOdi();
 								} else if(txt == 'mute') {
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 									console.log('>> MUTE ALL  :|');
@@ -172,6 +170,39 @@ self.getMsgLastGitCommit = function(callback){
 		callback(stdout);
 	}
 	exec('git log -1 --pretty=%B',{cwd: '/home/pi/odi/'}, getMsg);
+};
+
+self.reboot = function(){
+	// tts.speak('fr','A tout de suite !');
+	utils.whatsup();
+	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'reboot']);
+	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
+	// deploy = spawn('omxplayer', ['/home/pi/odi/mp3/sounds/autres/beback.mp3', '-o local']);
+	setTimeout(function(){
+		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh', 'reboot']);
+	}, 2000);
+};
+
+self.shutdown = function(){
+	// tts.speak('fr','Arret du systeme !');
+	utils.whatsup();
+	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'shutdown']);
+	// deploy = spawn('omxplayer', ['-o local', '/home/pi/odi/mp3/sounds/autres/sessionOff.mp3']);
+	console.log('_/!\\__SHUTING DOWN RASPBERRY PI !!');
+	setTimeout(function(){
+		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/reInit_log.sh']);
+		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh']);
+	}, 2000);
+};
+
+self.restartOdi = function(){
+	//tts.speak('en','Restarting Ody ! !');
+	console.log('Restarting Odi !!');
+	setTimeout(function(){
+		process.exit();
+	}, 1000);
 };
 
 }
