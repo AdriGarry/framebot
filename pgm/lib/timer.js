@@ -3,8 +3,7 @@
 
 var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
-var _leds = require('./leds.js');
-var leds = new _leds();
+var leds = require('./leds.js');
 var tts = require('./tts.js');
 var ttsInstance = new tts();
 

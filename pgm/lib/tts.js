@@ -5,8 +5,7 @@ var _tts = function(){
 
 var spawn = require('child_process').spawn;
 var fs = require('fs');
-var _leds = require('./leds.js');
-var leds = new _leds();
+var leds = require('./leds.js');
 var request = require('request');
 
 var self = this;

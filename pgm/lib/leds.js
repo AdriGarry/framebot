@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 // Module de gestion des leds
-var leds = function(){
 
 var Gpio = require('onoff').Gpio;
 var self = this;
@@ -9,7 +8,7 @@ var cpBtn = 1;
 
 var timer;
 
-self.blinkEye = function(speed, duration){
+var blinkEye = function(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
 	timer = setInterval(function(){
@@ -21,8 +20,9 @@ self.blinkEye = function(speed, duration){
 		eye.write(0);
 	}, duration*1000);
 };
+exports.blinkEye = blinkEye;
 
-self.blinkBelly = function(speed, duration){
+var blinkBelly = function(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
 	timer = setInterval(function(){
@@ -34,8 +34,9 @@ self.blinkBelly = function(speed, duration){
 		belly.write(0);
 	}, duration*1000);
 };
+exports.blinkBelly = blinkBelly;
 
-self.blinkSatellite = function(speed, duration){
+var blinkSatellite = function(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
 	timer = setInterval(function(){
@@ -47,8 +48,9 @@ self.blinkSatellite = function(speed, duration){
 		satellite.write(0);
 	}, duration*1000);
 };
+exports.blinkSatellite = blinkSatellite;
 
-self.blinkLed = function(speed, duration){
+var blinkLed = function(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
 	timer = setInterval(function(){
@@ -60,8 +62,9 @@ self.blinkLed = function(speed, duration){
 		led.write(1);
 	}, duration*1000);
 };
+exports.blinkLed = blinkLed;
 
-self.blinkAllLeds = function(speed, duration){
+var blinkAllLeds = function(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
 	timer = setInterval(function(){
@@ -75,8 +78,9 @@ self.blinkAllLeds = function(speed, duration){
 		belly.write(0);
 	}, duration*1000);
 };
+exports.blinkAllLeds = blinkAllLeds;
 
-self.altLeds = function(speed, duration){
+var altLeds = function(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
 	timer = setInterval(function(){
@@ -90,13 +94,14 @@ self.altLeds = function(speed, duration){
 		belly.write(0);
 	}, duration*1000);
 };
+exports.altLeds = altLeds;
 
-self.clearLeds = function(){
+var clearLeds = function(){
 	clearInterval(timer);
 };
+exports.clearLeds = clearLeds;
 
-
-self.buttonPush = function(param){
+var buttonPush = function(param){
 	if(param == 'stop'){
 		belly.write(0);
 	}else{
@@ -109,9 +114,9 @@ self.buttonPush = function(param){
 		}, 1000);		
 	}
 };
+exports.buttonPush = buttonPush;
 
-
-self.ledOn = function(led){
+var ledOn = function(led){
 	if(led == 'led'){
 		led.write(1);
 	}else if(led == 'eye'){
@@ -122,8 +127,9 @@ self.ledOn = function(led){
 		satellite.write(1);
 	}
 };
+exports.ledOn = ledOn;
 
-self.ledOff = function(led){
+var ledOff = function(led){
 	if(led == 'led'){
 		led.write(0);
 	}else if(led == 'eye'){
@@ -134,20 +140,20 @@ self.ledOff = function(led){
 		satellite.write(0);
 	}
 };
+exports.ledOff = ledOff;
 
-self.allLedsOff = function(){
+var allLedsOff = function(){
 	eye.write(0);
 	belly.write(0);
 	satellite.write(0);
 	led.write(0);
 };
+exports.allLedsOff = allLedsOff;
 
-self.allLedsOn = function(){
+var allLedsOn = function(){
 	eye.write(1);
 	belly.write(1);
 	satellite.write(1);
 	led.write(1);
 };
-
-}
-module.exports = leds;
+exports.allLedsOn = allLedsOn;
