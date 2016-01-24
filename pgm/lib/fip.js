@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 // Module Fip
 
-var fip = function(){
-
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 //var Gpio = require('onoff').Gpio;
@@ -11,9 +9,12 @@ var ledsInstance = new leds();
 
 var self = this;
 
-self.instance = false;
+var instance = false;
+exports.instance = instance;
+
 self.fipInterval;
-self.playFip = function(){
+
+var playFip = function(){
 	if(!self.instance){
 		console.log('Play FIP RADIO...');
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/fip.sh']);
@@ -35,7 +36,9 @@ self.playFip = function(){
 		console.log('I\'m already playing FIP !');
 	}
 };
-self.stopFip = function(message){
+exports.playFip = playFip;
+
+var stopFip = function(message){
 	console.log(message || 'Stoping FIP RADIO.');
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	self.instance = false;
@@ -44,5 +47,4 @@ self.stopFip = function(message){
 	belly.write(0);
 	ledsInstance.clearLeds();
 };
-}
-module.exports = fip;
+exports.stopFip = stopFip;
