@@ -137,7 +137,7 @@ self.whatsup = function(){
 									self.autoMute();
 								} else if(txt == 'exclamation') {
 									console.log('REMOTE > Exclamation / Random TTS !');
-									utils.testConnexion(function(connexion){
+									self.testConnexion(function(connexion){
 										if(connexion == true){ // && min = paire ???
 											tts.speak('','');
 										}else{
