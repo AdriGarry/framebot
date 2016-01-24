@@ -67,7 +67,7 @@ ok.watch(function(err, value){
 	console.log('[val : ' + value + ']  Ok btn pressed for ' + pressTime + ' sec');
 	if(pressTime < 1.5){
 		utils.testConnexion(function(connexion){
-			if(min%2 == 0 || connexion == true){
+			if(min%2 == 0 && connexion == true){
 				tts.speak('','');
 			}else{
 				// event.emit('exclamation2Rappels', 'Exclamation2Rappels');
