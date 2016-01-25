@@ -175,8 +175,8 @@ var setAlarms = function(){
 			}
 		}
 		if(hour == 5 && min == 0){
-			console.log('REBOOTING RASPBERRY PI !!');
-			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh', 'reboot']);
+			// console.log('REBOOTING RASPBERRY PI !!');
+			// var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh', 'reboot']);
 		} else if(hour == 0 && min == 1){
 			tts.speak('fr', 'Un jour de plus vient de s\'achever.');
 		}
