@@ -13,9 +13,7 @@ var messages = '/home/pi/odi/pgm/constants/ttsMessages.txt';
 var speak = function(lg, txt){
 	if(txt == '' || txt === 'undefined'){		
 		content = fs.readFileSync(messages, 'UTF-8').toString().split('\n'); // \r\n
-		// console.log(content);//
 		var rdmMax = content.length;
-		// console.log(rdmMax);
 		var rdmNb = ((Math.floor(Math.random()*rdmMax)));
 		txt = content[rdmNb];
 		console.log('Random speech : ' + rdmNb + '/' + rdmMax);
