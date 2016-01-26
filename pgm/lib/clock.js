@@ -118,8 +118,7 @@ var setAlarms = function(){
 		var sec = date.getSeconds();
 		//console.log('Alarms On');
 		if(day > 0 && day < 6){
-			// if(hour == 7 && min == 30){
-			if(hour == 22 && min == 43){
+			if(hour == 7 && min == 30){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
 				if(date.getSeconds() < 26){
@@ -127,11 +126,11 @@ var setAlarms = function(){
 						setTimeout(function(){
 							if(connexion == true){
 									console.log('It\'s '+ hour + ':' + min 
-										+ ' !!  Let\'s listen the radio :D      ' + date);
+										+ ' !!  Let\'s listen the radio :D');
 									fip.playFip();
 							} else {
 								console.log('It\'s '+ hour + ':' + min 
-									+ ' !!  Let\'s play some music :D      ' + date);
+									+ ' !!  Let\'s play some music :D');
 								jukebox.loop();
 							}
 							utils.autoMute('Auto mute Morning');
@@ -144,11 +143,11 @@ var setAlarms = function(){
 						setTimeout(function(){
 							if(connexion == true){
 									console.log('It\'s '+ hour + ':' + min 
-										+ ' !!  Let\'s listen the radio :D      ' + date);
+										+ ' !!  Let\'s listen the radio :D');
 									fip.playFip();
 							} else {
 								console.log('It\'s '+ hour + ':' + min 
-									+ ' !!  Let\'s play some music :D      ' + date);
+									+ ' !!  Let\'s play some music :D');
 								jukebox.loop();
 							}
 							utils.autoMute('Auto mute Evening Fip');
@@ -163,7 +162,7 @@ var setAlarms = function(){
 				if(date.getSeconds() < 26){
 					setTimeout(function(){
 						console.log('It\'s '+ hour + ':' + min 
-							+ ' !!  Let\'s listen the radio :D      ' + date);
+							+ ' !!  Let\'s listen the radio :D');
 						fip.playFip();
 						utils.autoMute();					
 					}, 3000);
