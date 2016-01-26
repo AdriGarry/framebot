@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var Gpio = require('onoff').Gpio;
-
 var gpioPins = require('./gpioPins.js');
 
 console.log('All Leds ON');
