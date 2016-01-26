@@ -14,9 +14,6 @@ var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
 var utils = require('./utils.js');
 
-var self = this;
-var cpBtn = 1;
-
 mode.watch(function(err, value){
 	value = mode.readSync();
 	console.log(' Mode: ' + value + ' [mode has changed]');

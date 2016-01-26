@@ -6,7 +6,6 @@ var Gpio = require('onoff').Gpio;
 var leds = require('./leds.js');
 var tts = require('./tts.js');
 
-var self = this;
 var time = 0;
 var timer = false;
 

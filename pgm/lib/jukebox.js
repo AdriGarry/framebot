@@ -4,8 +4,6 @@
 var spawn = require('child_process').spawn;
 var utils = require('./utils.js');
 
-var self = this;
-
 var loop = function(message){
 	console.log('Let\'s play the Jukebox in loop mode !');
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/jukebox.sh']);

@@ -2,7 +2,6 @@
 // Module de gestion des leds
 
 var Gpio = require('onoff').Gpio;
-var self = this;
 
 var cpBtn = 1;
 var timer;
