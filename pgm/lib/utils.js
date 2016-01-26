@@ -106,39 +106,27 @@ var whatsup = function(){
 							if(lg == 'cmd'){
 								console.log('REMOTE > ' + txt);
 								if(txt == 'reboot'){
-									// console.log('REMOTE > REBOOT !');
 									self.reboot();
 								} else if(txt == 'shutdown' || txt == 'halt') {
-									// console.log('REMOTE > SHUTDOWN !');
 									self.shutdown();
 								} else if(txt == 'odi') {
 									self.restartOdi();
 								} else if(txt == 'mute') {
-									// console.log('REMOTE > MUTE !');
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 								} else if(txt == 'jukebox') {
-									// console.log('REMOTE > Jukebox Loop !');
 									jukebox.loop();
 								} else if(txt == 'jukebox m' || txt == 'medley') {
-									// console.log('REMOTE > Medley Jukebox !!');
 									jukebox.medley();
 								} else if (txt == 'party') {
 									clock.setParty();
 								} else if(txt == 'timer') {
-									// console.log('REMOTE > Timer !');
 									timer.setTimer();
 								} else if(txt == 'fip') {
-									// console.log('REMOTE > FIP !');
 									fip.playFip();
-									self.autoMute();
 								} else if(txt == 'exclamation') {
-									// console.log('REMOTE > Exclamation !');
 									exclamation.exclamation2Rappels();
-									self.autoMute();
 								} else if(txt == 'tts') {
-									// console.log('REMOTE > Random TTS !');
 									tts.speak('','');
-									self.autoMute();
 								} else if(txt == 'sayTime') {
 									var date = new Date();
 									var hour = date.getHours();
@@ -159,7 +147,7 @@ var whatsup = function(){
 					// console.log('Clearing messages!');
 					request('http://adrigarry.com/odiTools/clearTTS.php', function (error, response, body){});
 				}
-				console.log('Export Log && Check Messages OK !!!!!!!!!!');
+				console.log('Export Log && Check Messages OK !');
 			}
 		});
 	}catch(e){
@@ -177,8 +165,7 @@ var sleepNode = function(sec, delay){
 	if(delay > 0){
 		console.log('\nOdi is going to fall asleep in ' + delay + 'sec ...');
 	} else {
-		delay = 0;
-		//console.log('_delay set to 0;');		
+		delay = 0; //console.log('_delay set to 0;');		
 	}
 	console.log('\nsleepNode: Odi falling asleep for ' + sec + 'sec !');
 	setTimeout(function(){
