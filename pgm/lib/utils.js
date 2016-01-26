@@ -105,7 +105,7 @@ var whatsup = function(){
 							var timeMessage = txt ? txt.length/5 : 'undefined';
 							if(lg == 'cmd') lg = 'remote'
 							console.log(lg.toUpperCase() + ' > "' + txt + '"  [' + timeMessage + ']');
-							if(lg == 'cmd'){
+							if(lg == 'remote'){
 								if(txt == 'reboot'){
 									// console.log('REMOTE > REBOOT !');
 									self.reboot();
