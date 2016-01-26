@@ -8,7 +8,7 @@ var leds = require('./leds.js');
 var self = this;
 
 var exclamation2Rappels = function(){
-	console.log('Ok Btn >> Exclamation (2 rappels)!');
+	console.log('Exclamation (2 rappels)!');
 	leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh']);
 	var rdm = Math.floor(Math.random()*60) + 10;
@@ -28,13 +28,13 @@ var exclamation2Rappels = function(){
 exports.exclamation2Rappels = exclamation2Rappels;
 
 var exclamationLoop = function(){
-	console.log('Ok Btn >> Exclamation Loop !');
+	console.log('Exclamation Loop !');
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh', 'loop']);
 };
 exports.exclamationLoop = exclamationLoop;
 
 var exclamationRdmDelayLoop = function(){
-	console.log('Mode On >> Exclamation Loop With Random Delay !');
+	console.log('Exclamation Loop With Random Delay !');
 	var exclRdmLp;
 	var rdmDelay;
 	(function loop() {

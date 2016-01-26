@@ -14,8 +14,6 @@ fr;De part mes circuits et transistors !
 fr;Louer soit le grand concepteur !
 fr;Que le grand concepteur soit louer !
 fr;Un jour tu seras papa !
-fr;Le but de chaque etre est de se reproduire !
-fr;Je te vois bien fonder une famille !
 en;Hello !!
 en;What's up ?
 en;Are you my friend ?
