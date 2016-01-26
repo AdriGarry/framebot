@@ -89,7 +89,7 @@ var whatsup = function(){
 				console.error('Error Exporting Log  /!\\');	
 			}else if(!error && response.statusCode == 200){
 				leds.blinkSatellite(180,1.15);
-				console.log('body' + body);
+				// console.log('body ' + body);
 				// if(body.trim() == '') body = 'No message.';
 				if(typeof body === 'undefined') body = '';
 				if(body.indexOf('!DOCTYPE') == -1){
@@ -103,40 +103,41 @@ var whatsup = function(){
 							lg = txt[0];
 							txt = txt[1];
 							var timeMessage = txt ? txt.length/5 : 'undefined';
+							if(lg == 'cmd') lg = 'remote'
 							console.log(lg.toUpperCase() + ' > "' + txt + '"  [' + timeMessage + ']');
 							if(lg == 'cmd'){
 								if(txt == 'reboot'){
-									console.log('REMOTE > REBOOT !');
+									// console.log('REMOTE > REBOOT !');
 									self.reboot();
 								} else if(txt == 'shutdown' || txt == 'halt') {
-									console.log('REMOTE > SHUTDOWN !');
+									// console.log('REMOTE > SHUTDOWN !');
 									self.shutdown();
 								} else if(txt == 'odi') {
 									self.restartOdi();
 								} else if(txt == 'mute') {
-									console.log('REMOTE > MUTE !');
+									// console.log('REMOTE > MUTE !');
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 								} else if(txt == 'jukebox') {
-									console.log('REMOTE > Jukebox Loop !');
+									// console.log('REMOTE > Jukebox Loop !');
 									jukebox.loop();
 								} else if(txt == 'jukebox m' || txt == 'medley') {
-									console.log('REMOTE > Medley Jukebox !!');
+									// console.log('REMOTE > Medley Jukebox !!');
 									jukebox.medley();
 								} else if (txt == 'party') {
 									clock.setParty();
 								} else if(txt == 'timer') {
-									console.log('REMOTE > Timer !');
+									// console.log('REMOTE > Timer !');
 									timer.setTimer();
 								} else if(txt == 'fip') {
-									console.log('REMOTE > FIP !');
+									// console.log('REMOTE > FIP !');
 									fip.playFip();
 									self.autoMute();
 								} else if(txt == 'exclamation') {
-									console.log('REMOTE > Exclamation !');
+									// console.log('REMOTE > Exclamation !');
 									exclamation.exclamation2Rappels();
 									self.autoMute();
 								} else if(txt == 'tts') {
-									console.log('REMOTE > Random TTS !');
+									// console.log('REMOTE > Random TTS !');
 									tts.speak('','');
 									self.autoMute();
 								} else if(txt == 'sayTime') {

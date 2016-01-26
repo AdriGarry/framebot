@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Module de gestion des boutons
 
-var buttons = function(){
+// var buttons = function(){
 
 var log = 'Odi/ ';
 var spawn = require('child_process').spawn;
@@ -171,5 +171,5 @@ event.on('playFip', function(message){
 	console.log('_EventEmited: ' + (message || '.'));
 	fip.playFip();
 });
-}
-module.exports = buttons;
+// }
+// module.exports = buttons;
