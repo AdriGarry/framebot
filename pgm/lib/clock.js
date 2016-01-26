@@ -4,8 +4,7 @@
 var spawn = require('child_process').spawn;
 var utils = require('./utils.js');
 var fip = require('./fip.js');
-var _jukebox = require('./jukebox.js');
-var jukebox = new _jukebox();
+var jukebox = require('./jukebox.js');
 var tts = require('./tts.js');
 var self = this;
 
@@ -87,7 +86,7 @@ var startClock = function(){
 				if(connexion == true){
 					tts.speak('fr', 'Il est ' + hour + ' heures');
 				} else {
-					console.error('Erreur test connexion /!\\');
+					// console.error('Erreur test connexion /!\\');
 					if(cpHour > 12){
 						cpHour = hour - 12;
 					} else if(cpHour == 0){
@@ -120,7 +119,8 @@ var setAlarms = function(){
 		var sec = date.getSeconds();
 		//console.log('Alarms On');
 		if(day > 0 && day < 6){
-			if(hour == 7 && min == 30){
+			// if(hour == 7 && min == 30){
+			if(hour == 21 && min == 42){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
 				if(date.getSeconds() < 26){
@@ -169,9 +169,6 @@ var setAlarms = function(){
 						utils.autoMute();					
 					}, 3000);
 				}
-			}
-			if(hour == 4 && min == 0){
-				tts.speak('fr', 'Je pense quil faudrait que tu ailles te coucher...');
 			}
 		}
 		if(hour == 5 && min == 0){

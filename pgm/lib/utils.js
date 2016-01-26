@@ -9,6 +9,7 @@ var exec = require('child_process').exec;
 var leds = require('./leds.js');
 var timer = require('./timer.js');
 var fip = require('./fip.js');
+var jukebox = require('./jukebox.js');
 var exclamation = require('./exclamation.js');
 var tts = require('./tts.js');
 var EventEmitter = require('events').EventEmitter;
@@ -117,12 +118,10 @@ var whatsup = function(){
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 								} else if(txt == 'jukebox') {
 									console.log('REMOTE > Jukebox Loop !');
-									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/jukebox.sh']);
-									self.autoMute();
+									jukebox.loop();
 								} else if(txt == 'jukebox m' || txt == 'medley') {
 									console.log('REMOTE > Medley Jukebox !!');
-									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/jukebox.sh', 'medley']);
-									self.autoMute();
+									jukebox.medley();
 								} else if (txt == 'party') {
 									clock.setParty();
 								} else if(txt == 'timer') {
