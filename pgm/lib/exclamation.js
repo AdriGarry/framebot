@@ -5,7 +5,7 @@ var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
 var leds = require('./leds.js');
 
-var self = this;
+// var self = this;
 
 var exclamation2Rappels = function(){
 	console.log('Exclamation (2 rappels)!');

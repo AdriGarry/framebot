@@ -6,7 +6,7 @@ var utils = require('./utils.js');
 var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
 var tts = require('./tts.js');
-var self = this;
+// var self = this;
 
 var date = new Date();
 var hour = date.getHours();
