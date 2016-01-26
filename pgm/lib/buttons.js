@@ -57,7 +57,7 @@ ok.watch(function(err, value){
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
-	console.log('[val : ' + value + ']  Ok btn pressed for ' + pressTime + ' sec');
+	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec');
 	if(pressTime < 1.5){
 		utils.testConnexion(function(connexion){
 			var date = new Date();
@@ -87,7 +87,7 @@ cancel.watch(function(err, value){
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
 	leds.buttonPush('stop');
-	console.log('[val : ' + value + ']  Cancel btn pressed for ' + pressTime + ' sec');
+	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec');
 	if(pressTime > 1.5){
 		utils.mute();
 		console.log('Restarting program...');
@@ -104,7 +104,7 @@ white.watch(function(err, value){
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
-	console.log('[val : ' + value + ']  White btn pressed for   ' + pressTime + ' sec');
+	console.log('[val:' + value + ']  White btn pressed for   ' + pressTime + ' sec');
 	if(pressTime < 2){
 		if(mode.readSync() == 0){
 			timer.setTimer();
@@ -126,7 +126,7 @@ blue.watch(function(err, value){
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
-	console.log('[val : ' + value + ']  Blue btn pressed for ' + pressTime + ' sec');
+	console.log('[val:' + value + ']  Blue btn pressed for ' + pressTime + ' sec');
 	if(pressTime < 2){
 		console.log('press < 2');
 		if(mode.readSync() == 0){
