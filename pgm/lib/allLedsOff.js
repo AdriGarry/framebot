@@ -3,7 +3,6 @@
 var Gpio = require('onoff').Gpio;
 
 var gpioPins = require('./gpioPins.js');
-var gpioPinsInstance = new gpioPins();
 
 console.log('All Leds OFF');
 
