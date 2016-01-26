@@ -103,9 +103,8 @@ var whatsup = function(){
 							lg = txt[0];
 							txt = txt[1];
 							var timeMessage = txt ? txt.length/5 : 'undefined';
-							if(lg == 'cmd') lg = 'remote'
-							console.log(lg.toUpperCase() + ' > "' + txt + '"  [' + timeMessage + ']');
-							if(lg == 'remote'){
+							if(lg == 'cmd'){
+								console.log('REMOTE > ' + txt);
 								if(txt == 'reboot'){
 									// console.log('REMOTE > REBOOT !');
 									self.reboot();
@@ -150,6 +149,7 @@ var whatsup = function(){
 									tts.speak('','');
 								}
 							} else {
+								console.log(lg.toUpperCase() + ' > "' + txt + '"  [' + timeMessage + ']');
 								setTimeout(function(lg, txt){
 									tts.speak(lg,txt);
 								}.bind(this, lg, txt), timeMessage*1000);

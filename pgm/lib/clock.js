@@ -185,7 +185,11 @@ var sayTime = function(){
 	var date = new Date();
 	var hour = date.getHours();
 	var min = date.getMinutes();
-	tts.speak('fr', 'Il est ' + hour + ' heures et ' + min + ' minutes');
+	if(min == 0){
+		tts.speak('fr', 'Il est ' + hour);
+	} else {
+		tts.speak('fr', 'Il est ' + hour + ' heures et ' + min + ' minutes');
+	}
 };
 exports.sayTime = sayTime;
 
