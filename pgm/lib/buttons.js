@@ -3,7 +3,7 @@
 
 var log = 'Odi/ ';
 var spawn = require('child_process').spawn;
-var led = require('./led.js');
+var leds = require('./leds.js');
 var exclamation = require('./exclamation.js');
 var timer = require('./timer.js');
 var fip = require('./fip.js');
@@ -50,13 +50,13 @@ setInterval(function(){
 }, 1000);
 
 ok.watch(function(err, value){
-	led.ledOn('belly');
+	leds.ledOn('belly');
 	var pressTime = new Date();
 	while(ok.readSync() == 1){
 		;
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
-	led.ledOff('belly');
+	leds.ledOff('belly');
 	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec');
 	if(pressTime < 1.5){
 		utils.testConnexion(function(connexion){
@@ -78,15 +78,15 @@ ok.watch(function(err, value){
 
 cancel.watch(function(err, value){
 	utils.mute();
-	led.ledOn('belly');
-	// led.buttonPush();
+	leds.ledOn('belly');
+	// leds.buttonPush();
 	var pressTime = new Date();
 	while(cancel.readSync() == 1){
 		;
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
-	led.ledOff('belly');
-	led.buttonPush('stop');
+	leds.ledOff('belly');
+	leds.buttonPush('stop');
 	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec');
 	if(pressTime > 1.5){
 		utils.mute();
@@ -97,13 +97,13 @@ cancel.watch(function(err, value){
 	}
 });
 white.watch(function(err, value){
-	led.ledOn('belly');
+	leds.ledOn('belly');
 	var pressTime = new Date();
 	while(white.readSync() == 1){
 		;
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
-	led.ledOff('belly');
+	leds.ledOff('belly');
 	console.log('[val:' + value + ']  White btn pressed for   ' + pressTime + ' sec');
 	if(pressTime < 2){
 		if(mode.readSync() == 0){
@@ -119,13 +119,13 @@ white.watch(function(err, value){
 	utils.autoMute();
 });
 blue.watch(function(err, value){
-	led.ledOn('belly');
+	leds.ledOn('belly');
 	var pressTime = new Date();
 	while(blue.readSync() == 1){
 		;
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
-	led.ledOff('belly');
+	leds.ledOff('belly');
 	console.log('[val:' + value + ']  Blue btn pressed for ' + pressTime + ' sec');
 	if(pressTime < 2){
 		console.log('press < 2');
@@ -139,14 +139,14 @@ blue.watch(function(err, value){
 		if(mode.readSync() == 0){
 			setTimeout(function(){
 				utils.mute();
-				led.allLedsOff();
+				leds.allLedsOff();
 				console.log('TEST _A_ : mute + clock.setParty(true)');
 				clock.setParty(true);
 			}, 1200);			
 		}else{
 			setTimeout(function(){
 				utils.mute();
-				led.allLedsOff();
+				leds.allLedsOff();
 				console.log('TEST _B_ : clock.setParty(false)');
 				clock.setParty(false);
 			}, 1200);

@@ -3,7 +3,7 @@
 
 var spawn = require('child_process').spawn;
 var fs = require('fs');
-var led = require('./led.js');
+var leds = require('./leds.js');
 var request = require('request');
 
 var self = this;
@@ -41,7 +41,7 @@ var speak = function(lg, txt){
 	//if(txt === 'undefined') txt = '';
 	var blinkTime = (txt.length/15) + 1;
 	console.log('blinkTime : ' + blinkTime);
-	led.blinkEye((Math.floor(Math.random()*5) + 1)*50, blinkTime);
+	leds.blinkEye((Math.floor(Math.random()*5) + 1)*50, blinkTime);
 };
 exports.speak = speak;
 
@@ -54,7 +54,7 @@ var speakRdmDelayLoop = function(){
 			rdmDelay = Math.floor(Math.random() * 400); //400
 			console.log('[rdmDelay] Next TTS Exclamation -> '
 				+ Math.round((rdmDelay/60)*10)/10 + ' min (' + rdmDelay + ' sec)');
-			led.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
+			leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
 			self.speak('','');
 			if(mode.readSync() == 1){
 				console.log('speakRdmDelayLoop... LET\'S GO ON !!!');

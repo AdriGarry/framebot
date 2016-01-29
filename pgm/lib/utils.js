@@ -6,7 +6,7 @@ var fs = require('fs');
 var request = require('request');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
-var led = require('./led.js');
+var leds = require('./leds.js');
 var timer = require('./timer.js');
 var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
@@ -23,7 +23,7 @@ var mute = function(){
 	console.log('>> MUTE ALL  :|');
 	eye.write(0);
 	belly.write(0);
-	led.clearLeds();
+	leds.clearLeds();
 };
 exports.mute = mute;
 
@@ -36,7 +36,7 @@ var autoMute = function(message){
 		setTimeout(function(){
 			deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 			console.log(message + ' > AUTO MUTE   :|');
-			led.clearLeds();
+			leds.clearLeds();
 			eye.write(0);
 			belly.write(0);
 		}, 1600);
@@ -88,7 +88,7 @@ var whatsup = function(){
 			if(error){
 				console.error('Error Exporting Log  /!\\');	
 			}else if(!error && response.statusCode == 200){
-				led.blinkSatellite(180,1.15);
+				leds.blinkSatellite(180,1.15);
 				// console.log('body ' + body);
 				// if(body.trim() == '') body = 'No message.';
 				if(typeof body === 'undefined') body = '';
