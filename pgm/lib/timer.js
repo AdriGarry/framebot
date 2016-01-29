@@ -3,7 +3,7 @@
 
 var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
-var leds = require('./leds.js');
+var led = require('./led.js');
 var tts = require('./tts.js');
 
 var time = 0;
@@ -29,7 +29,7 @@ var setTimer = function(){
 		if(time <= 0){
 			clearInterval(sec);
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/timerSound.sh', 'end']);
-			leds.blinkAllLeds(100, 2.2);
+			led.blinkAllLeds(100, 2.2);
 			timer = false;
 //			belly.write(0);
 		}

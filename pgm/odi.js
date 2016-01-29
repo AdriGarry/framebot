@@ -11,15 +11,15 @@ var utils = require('./lib/utils.js');
 // var _buttons = require('./lib/buttons.js');
 // var buttons = new _buttons();
 var buttons = require('./lib/buttons.js');
-var leds = require('./lib/leds.js');
+var led = require('./lib/led.js');
 var clock = require('./lib/clock.js');
 var tts = require('./lib/tts.js');
 
-leds.blinkLed(100, 300);
-leds.blinkEye(100, 300);
+led.blinkLed(100, 300);
+led.blinkEye(100, 300);
 var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/startupOdi.sh']);
 setTimeout(function(){
-	leds.clearLeds();
+	led.clearLeds();
 	led.write(1);
 	eye.write(0);
 }, 500);
@@ -27,7 +27,7 @@ setInterval(function(){
 	led.write(1);
 }, 1000);
 /*setInterval(function(){
-	leds.blinkEye(100, 0.5);
+	led.blinkEye(100, 0.5);
 }, 60*1000);*/
 
 clock.startClock();

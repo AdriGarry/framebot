@@ -3,7 +3,7 @@
 
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
-var leds = require('./leds.js');
+var led = require('./led.js');
 var utils = require('./utils.js');
 
 var self = this;
@@ -18,7 +18,7 @@ var playFip = function(){
 		console.log('Play FIP RADIO...');
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/fip.sh']);
 		self.instance = true;
-		leds.altLeds(100, 1.3);
+		led.altLeds(100, 1.3);
 		
 		cancel.watch(function(err, value){
 			clearInterval(self.fipInterval);
@@ -27,7 +27,7 @@ var playFip = function(){
 		self.fipInterval = setInterval(function(){
 			if(self.instance){
 				console.log('Playing FIP RADIO...!');
-				leds.altLeds(100, 1.3);
+				led.altLeds(100, 1.3);
 			}
 		}, 13*1000);
 	}
@@ -45,6 +45,6 @@ var stopFip = function(message){
 	clearInterval(self.fipInterval);
 	eye.write(0);
 	belly.write(0);
-	leds.clearLeds();
+	led.clearLeds();
 };
 exports.stopFip = stopFip;
