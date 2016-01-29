@@ -105,7 +105,7 @@ var startClock = function(){
 			if(cpHour > 12){cpHour = hour - 12};
 			tts.speak('en', 'Its ' + hour + ' ' + ' and a half !');
 		}
-	}, 25*1000);
+	}, 30*1000);
 };
 exports.startClock = startClock;
 
@@ -175,7 +175,7 @@ var setAlarms = function(){
 		} else if(hour == 0 && min == 1){
 			tts.speak('fr', 'Un jour de plus vient de s\'achever.');
 		}
-	}, 25*1000);
+	}, 30*1000);
 };
 exports.setAlarms = setAlarms;
 
