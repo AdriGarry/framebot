@@ -3,7 +3,7 @@ import time
 import os
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(25,GPIO.IN)
+GPIO.setup(19,GPIO.IN)
 
 button_previous = 1
 button_current = 1
