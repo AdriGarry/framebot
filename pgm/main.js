@@ -41,7 +41,7 @@ function startOdi(){
 	intro    +=     '##       ODI  PGM        ##\r\n';
 	intro    +=     '###########################\r\n';
 	console.log(intro);
-	// utils.recordLog(intro);
+	utils.recordLog(intro);
 	utils.whatsup();
 	// utils.sleepNode(4,1.5);
 
