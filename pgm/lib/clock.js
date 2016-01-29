@@ -52,7 +52,7 @@ var setParty = function(test){
 			}, 2000);
 		} else if((hour == 0 && min == 13|| test == 6) && sec < 16) {
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/soundsParty.sh']);
-			console.log('A Par mes circuits et transistors !');
+			console.log('De Par mes circuits et transistors !');
 			setTimeout(function(){
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/soundsParty.sh', 'puisJeExprimer']);
 				console.log('Puis-je m\'exprimer ?');
