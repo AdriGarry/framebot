@@ -1,26 +1,30 @@
 import RPi.GPIO as GPIO
-import os
 import time
-
+import os
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(25,GPIO.IN)
 
-time.time()
-print '1st python script !!'
+button_previous = 1
+button_current = 1
+brojac = 0
+flag_pressed = 0
 
 while True:
-	if GPIO.input(19): #whiteButton
-	#start counting pressed time
-		pressed_time = time.process_time()
-	while GPIO.input(19): #call: is button still pressed
-		# just to force process wait
-		# may be possible use in this time.sleep(1) but I don't have confidence
-		pass
-	pressed_time = time.process_time()-pressed_time
-	if pressed_time<4:
-		print 'REBOOT !!'
-		#os.system("sudo reboot")
-	elif pressed_time>=4:
-		print 'SHUTDOWN !!'
-		#os.system("sudo halt")
+  button_current = GPIO.input(19);
+  flag_pressed = button_previous + button_current
+
+  if (not(flag_pressed)):
+    brojac += 1
+  else:
+    brojac = 0
+
+  if (button_current and (not button_previous)):
+    os.system("sudo shutdown -r now")
+  if ((not flag_pressed) and  brojac >= 100):
+    os.system("sudo shutdown -h now")
+    break
+
+  button_previous = button_current
+  time.sleep(0.03)
+ 
