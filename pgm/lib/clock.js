@@ -79,16 +79,11 @@ var startClock = function(mode){
 		min = date.getMinutes();
 		console.log('mode A : ' + mode);
 		if(!mode){
-			// test jour de la semaine + heure...
 			var day = date.getDay();
-			if(day > 0 && day < 6){
-				if(hour >=7){
-					mode = true;
-				}
-			}else{
-				if(hour >=11){
-					mode = true;
-				}
+			if(day > 0 && day < 6 && hour >= 7){
+				mode = true;
+			}else if(hour >=11){
+				mode = true;
 			}
 		}
 		console.log('mode B : ' + mode);
