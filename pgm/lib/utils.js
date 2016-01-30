@@ -66,7 +66,7 @@ var recordLog = function(msg){
 		//throw new Error(msg + '\r\n' + e); 
 		//this.recordLog(msg + '\r\n' + e);
 	}
-	content += '\r\n' + msg.trim();
+	content += '\r\n' + msg;//.trim();
 	fs.writeFileSync(outputFile, content, 'UTF-8');
 };
 exports.recordLog = recordLog;
