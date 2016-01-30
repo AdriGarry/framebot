@@ -27,7 +27,7 @@ var weather = function(){
 			var wind = body[11];
 			console.log('WIND=' + wind);
 			console.log(wind);
-			wind = wind.substring(wind.lastIndexOf('speed="')+1,wind.lastIndexOf('"/>'));
+			//wind = wind.substring(wind.lastIndexOf('speed="')+1,wind.lastIndexOf('"/>'));
 			// var annonceTemp = 'La tenperatur exterieur a marseille est de ' + temp + ' degret';
 			var annonceTemp = 'Point meteo : a Marseille, il fait ' + temp + ' degret, avec un vent de ' + wind + ' kilometre heure';
 			console.log(annonceTemp);
