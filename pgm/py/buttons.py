@@ -3,37 +3,61 @@ import time
 import os
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(19,GPIO.IN)
+GPIO.setup(19,GPIO.IN) # white button
+GPIO.setup(16,GPIO.IN) #cancel button
 GPIO.setup(17, GPIO.OUT)
 
-button_previous = 1
-button_current = 1
-cp = 0
-flag_pressed = 0
+# reboot
+white_previous = 1
+white_current = 1
+white_cp = 0
+white_flag = 0
+
+# shutdown
+red_previous = 1
+red_current = 1
+red_cp = 0
+red_flag = 0
 
 while True:
-  button_current = GPIO.input(19);
-  print button_current
-  flag_pressed = button_previous + button_current
-  #print flag_pressed
+  white_current = GPIO.input(19);
+  #print white_current
+  white_flag = white_previous + white_current
 
-  if (flag_pressed):
-    cp += 1
+  if (white_flag):
+    white_cp += 1
     GPIO.output(17,True)
   else:
-    cp = 0
+    white_cp = 0
     GPIO.output(17,False)
 
-  print cp
-
-  if (button_current and (not button_previous)):
+  print white_cp
+  if (white_current and (not white_previous)):
 	print 'AAA'
-  if (flag_pressed and  cp >= 40):
+  if (white_flag and  white_cp >= 40):
 	print 'REBOOT BY PYTHON SCRIPT    !!!!!'
 	os.system("sudo shutdown -r now")
-	#os.system("sudo shutdown -h now")
 	break
 
-  button_previous = button_current
+  red_current = GPIO.input(16);
+  #print red_current
+  red_flag = red_previous + red_current
+
+  if (red_flag):
+    red_cp += 1
+    GPIO.output(17,True)
+  else:
+    red_cp = 0
+    GPIO.output(17,False)
+
+  print red_cp
+  if (red_current and (not red_previous)):
+	print 'AAA'
+  if (red_flag and  red_cp >= 60):
+	print 'SHUTDOWN BY PYTHON SCRIPT    !!!!!'
+	os.system("sudo shutdown -h now")
+	break
+
+  white_previous = white_current
   time.sleep(0.1)
  
