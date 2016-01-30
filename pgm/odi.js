@@ -30,7 +30,8 @@ setInterval(function(){
 	leds.blinkEye(100, 0.5);
 }, 60*1000);*/
 
-clock.startClock();
+// clock.startClock();
+clock.startClock('quiet');
 clock.setAlarms();
 
 setInterval(function(){

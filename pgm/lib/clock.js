@@ -102,7 +102,7 @@ var startClock = function(mode){
 					}
 				});
 			}
-		} else if (min == 45 && (hour >= 7 || mode != 'quiet')){
+		} else if (min == 48 && (hour >= 7 || mode != 'quiet')){
 		// } else if (min == 41){
 			console.log('RING BELL HALF HOUR ' + hour + ':' + min);
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
