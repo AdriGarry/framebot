@@ -1,0 +1,13 @@
+{
+	"name": "odi",
+	"description": "Odi's program to autorun and interact !",
+	"version": "2.7.0",
+	"author": {
+		"name": "Adri",
+		"email": "adrigarry@gmail.com"
+	},
+	"main": "pgm/main.js",
+    "dependencies": {
+        "onoff": "~1.0.2"
+    }
+}
