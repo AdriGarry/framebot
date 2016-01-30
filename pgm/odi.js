@@ -35,7 +35,7 @@ buttons.getMode(function(modeValue){
 	}else{
 		clock.startClock(false);
 	}
-});	
+});
 
 clock.setAlarms();
 

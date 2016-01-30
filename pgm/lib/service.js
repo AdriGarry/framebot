@@ -22,9 +22,10 @@ var weather = function(){
 		// }else if(!error && response.statusCode == 200){
 		}else{
 			body = body.split('\n');
+			console.log(body);
 			var temp = body[32];
 			temp = temp.substring(temp.lastIndexOf(",")+1,temp.lastIndexOf("C"));
-			var wind = body[12].toString();
+			var wind = body[19].toString();
 			console.log('WIND=' + wind);
 			console.log(wind);
 			wind = wind.substring(wind.lastIndexOf('speed="')+1,wind.lastIndexOf('"/>'));
