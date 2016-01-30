@@ -8,8 +8,6 @@ var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var gpioPins = require('./lib/gpioPins.js');
 var utils = require('./lib/utils.js');
-// var _buttons = require('./lib/buttons.js');
-// var buttons = new _buttons();
 var buttons = require('./lib/buttons.js');
 var leds = require('./lib/leds.js');
 var clock = require('./lib/clock.js');
@@ -30,6 +28,10 @@ setInterval(function(){
 	leds.blinkEye(100, 0.5);
 }, 60*1000);*/
 
+console.log('MODE ==>  ' + buttons.getMode());
+if(buttons.getMode()){
+	
+}
 // clock.startClock(true);
 clock.startClock(false);
 clock.setAlarms();

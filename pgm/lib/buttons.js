@@ -58,6 +58,13 @@ setInterval(function(){
 	}
 }, 1000);
 
+var getMode = function(callback){
+	var value = mode.readSync();
+	console.log('Button getMode : ' + value)
+	callback(value);
+};
+exports.getMode = getMode;
+
 ok.watch(function(err, value){
 	leds.ledOn('belly');
 	var pressTime = new Date();
