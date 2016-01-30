@@ -18,7 +18,7 @@ var weather = function(){
 		if(error){
 			console.error('Error getting weather info  /!\\');	
 		}else if(!error && response.statusCode == 200){
-			xmlreader.read(response, function (err, res){
+			xmlreader.read(body, function (err, res){
 				if(err) return console.log(err);
 				// use .text() to get the content of a node: 
 				console.log(res.response.text());
