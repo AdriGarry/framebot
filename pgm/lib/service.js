@@ -8,7 +8,6 @@ var leds = require('./leds.js');
 var tts = require('./tts.js');
 
 var weather = function(){
-	
 	request.post({
 		url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
 		body: content,
@@ -16,7 +15,7 @@ var weather = function(){
 	},
 	function (error, response, body){
 		if(error){
-			console.error('Error Exporting Log  /!\\');	
+			console.error('Error getting weather info  /!\\');	
 		}else if(!error && response.statusCode == 200){
 			xmlreader.read(response, function (err, res){
 				if(err) return console.log(err);
@@ -40,6 +39,6 @@ var weather = function(){
 				console.log(res.response.who.at(1).parent().attributes().id);
 			});
 		}
-	}
+	});
 };
 exports.weather = weather;
