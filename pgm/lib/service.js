@@ -25,7 +25,7 @@ var weather = function(){
 			var temp = body[25];
 			var annonceTemp = 'La temperature exterieur a marseille est de ' + temp + ' degret';
 			console.log(annonceTemp);
-			tts.speak('fr',annonceTemp);
+			// tts.speak('fr',annonceTemp);
 			/*xmlreader.read(body, function (err, res){
 				if(err) return console.log(err);
 				// use .text() to get the content of a node: 
