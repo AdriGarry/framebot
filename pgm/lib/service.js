@@ -36,3 +36,12 @@ var weather = function(){
 	});
 };
 exports.weather = weather;
+
+var date = function(){
+	var date = new Date();
+	var day = date.getDay();
+	var month = date.getMonth();
+	var year = date.getYear();
+	tts.speak('fr','' + day + '' + month + '' + year)
+};
+exports.date = date;
