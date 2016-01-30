@@ -12,7 +12,7 @@ var weather = function(){
 	console.log('REQUEST WEATHER INFORMATIONS');
 	request.get({
 		url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
-		headers: {'Content-Type': 'text/plain'}
+		headers: {'Content-Type': 'xml'}
 	},
 	function (error, response, body){
 		// console.log(response.headers['content-type']);
