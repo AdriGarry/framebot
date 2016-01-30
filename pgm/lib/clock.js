@@ -74,10 +74,11 @@ exports.setParty = setParty;
 
 var startClock = function(mode){
 	setInterval(function(){
-		console.log('mode : ' + mode);
 		date = new Date();
 		hour = date.getHours();
 		min = date.getMinutes();
+		console.log('mode A : ' + mode);
+		console.log('mode B : ' + mode);
 		if(pastHour < hour){
 			pastHour = hour;
 			var cpHour = hour;
@@ -102,7 +103,7 @@ var startClock = function(mode){
 					}
 				});
 			}
-		} else if (min == 52){
+		} else if (min == 54){
 			console.log('RING BELL HALF HOUR ' + hour + ':' + min);
 			if(hour >= 7 || mode == true){
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);

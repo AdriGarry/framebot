@@ -31,8 +31,8 @@ setInterval(function(){
 }, 60*1000);*/
 
 // clock.startClock();
-clock.startClock(true);
-// clock.startClock(false);
+// clock.startClock(true);
+clock.startClock(false);
 clock.setAlarms();
 
 setInterval(function(){
