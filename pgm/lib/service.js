@@ -44,6 +44,8 @@ var date = function(){
 	var month = date.getMonth();
 	
 	var year = date.getYear();
-	tts.speak('fr','Nous sommes le ' + day + ' ' + month + '' + year);
+	var annonceDate = 'Nous sommes le ' + day + ' ' + month + '' + year;
+	console.log(annonceDate);
+	// tts.speak('fr',annonceDate);
 };
 exports.date = date;
