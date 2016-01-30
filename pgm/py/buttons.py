@@ -14,10 +14,10 @@ white_cp = 0
 white_flag = 0
 
 # shutdown
-red_previous = 1
-red_current = 1
-red_cp = 0
-red_flag = 0
+# red_previous = 1
+# red_current = 1
+# red_cp = 0
+# red_flag = 0
 
 while True:
   white_current = GPIO.input(19);
@@ -39,22 +39,21 @@ while True:
     os.system("sudo shutdown -r now")
     break
 
-  red_current = GPIO.input(16);
-  #print red_current
-  red_flag = red_previous + red_current
+  # red_current = GPIO.input(16);
+  # red_flag = red_previous + red_current
 
-  if (red_flag):
-    red_cp += 1
-    print red_cp
-    GPIO.output(17,True)
-  else:
-    red_cp = 0
-    GPIO.output(17,False)
+  # if (red_flag):
+    # red_cp += 1
+    # print red_cp
+    # GPIO.output(17,True)
+  # else:
+    # red_cp = 0
+    # GPIO.output(17,False)
 
-  if (red_current and (not red_previous)):
-    print 'AAA'
-  if (red_flag and  red_cp > 50):
-    print 'SHUTDOWN BY PYTHON SCRIPT    !!!!!'
+  # if (red_current and (not red_previous)):
+    # print 'AAA'
+  # if (red_flag and  red_cp > 50):
+    # print 'SHUTDOWN BY PYTHON SCRIPT    !!!!!'
     # os.system("sudo shutdown -h now")
     # break
 
