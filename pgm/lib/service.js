@@ -11,7 +11,7 @@ var tts = require('./tts.js');
 var weather = function(){
 	request.post({
 		url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
-		body: content,
+		//body: content,
 		headers: {'Content-Type': 'text/plain'}
 	},
 	function (error, response, body){
@@ -26,18 +26,18 @@ var weather = function(){
 				console.log(res.response.attributes().shop);
 			 
 				// using the .count() and the .at() function, you can loop through nodes with the same name: 
-				for(var i = 0; i < res.response.who.count(); i++){
-					console.log(res.response.who.at(i).text());
-				}
+				// for(var i = 0; i < res.response.who.count(); i++){
+					// console.log(res.response.who.at(i).text());
+				// }
 			 
 				// you can also use .each() to loop through the nodes of the same name: 
-				res.response.who.each(function (i, who){
-					console.log(who.text());
-				});
-				console.log(res.response.who.at(1).text());
+				// res.response.who.each(function (i, who){
+					// console.log(who.text());
+				// });
+				// console.log(res.response.who.at(1).text());
 
 				// you can also get the parent of a node using .parent(): 
-				console.log(res.response.who.at(1).parent().attributes().id);
+				// console.log(res.response.who.at(1).parent().attributes().id);
 			});
 		}
 	});
