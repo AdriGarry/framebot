@@ -29,7 +29,7 @@ while True:
     print white_cp
     GPIO.output(17,True)
   else:
-    white_cp = 0
+    white_cp = -30
     GPIO.output(17,False)
 
   if (white_current and (not white_previous)):
