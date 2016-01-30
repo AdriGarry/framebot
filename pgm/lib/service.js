@@ -24,32 +24,9 @@ var weather = function(){
 			body = body.split('\n');
 			var temp = body[32];
 			temp = temp.substring(temp.lastIndexOf(",")+1,temp.lastIndexOf("C"));
-			var annonceTemp = 'La temperature exterieur a marseille est de ' + temp + ' degret';
+			var annonceTemp = 'La tenpairatur exterieur a marseille est de ' + temp + ' degret';
 			console.log(annonceTemp);
 			tts.speak('fr',annonceTemp);
-			/*xmlreader.read(body, function (err, res){
-				if(err) return console.log(err);
-				// use .text() to get the content of a node: 
-				//console.log(res.response.text());
-				// use .attributes() to get the attributes of a node:
-				//console.log(res.yweather.attributes().temp);
-			 
-				// using the .count() and the .at() function, you can loop through nodes with the same name: 
-				// for(var i = 0; i < res.response.who.count(); i++){
-					// console.log(res.response.who.at(i).text());
-				// }
-			 
-				// you can also use .each() to loop through the nodes of the same name: 
-				// res.response.who.each(function (i, who){
-					// console.log(who.text());
-				// });
-				// console.log(res.response.who.at(1).text());
-
-				// you can also get the parent of a node using .parent(): 
-				// console.log(res.response.who.at(1).parent().attributes().id);
-				
-				// La temperature exterieure est de X degres celsus et le temps semble 'degage'
-			});*/
 		}
 	});
 };
