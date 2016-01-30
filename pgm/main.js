@@ -36,10 +36,6 @@ setInterval(function(){
 function startOdi(){
 	//ok.unwatch();
 	mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-	
-	// var intro = '\n\n###########################\r\n';
-	// intro    +=     '##       ODI  PGM        ##\r\n';
-	// intro    +=     '###########################\r\n';
 	var logo = fs.readFileSync('/home/pi/odi/pgm/data/logoLarry.txt', 'utf8').toString().split('\n');
 	logo = '\n\n' + logo.join('\n');
 	console.log(logo);
@@ -76,7 +72,7 @@ function startOdi(){
 	
 	odiPgm.on('exit', function(code){
 		mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-		//var mute = spawn('omxplayer', ['/home/pi/odi/mp3/sounds/shutdown.mp3']);
+		var mute = spawn('omxplayer', ['/home/pi/odi/mp3/sounds/shutdown.mp3']);
 		odiState = false;
 		console.log('\r\n>> Odi pgm KILLED  /!\\  /!\\');
 		console.log('***************************\r\n\r\n');
