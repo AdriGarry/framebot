@@ -80,6 +80,16 @@ var startClock = function(mode){
 		console.log('mode A : ' + mode);
 		if(!mode){
 			// test jour de la semaine + heure...
+			var day = date.getDay();
+			if(day > 0 && day < 6){
+				if(hour >=7){
+					mode = true;
+				}
+			}else{
+				if(hour >=11){
+					mode = true;
+				}
+			}
 		}
 		console.log('mode B : ' + mode);
 		if(pastHour < hour){
@@ -87,7 +97,7 @@ var startClock = function(mode){
 			var cpHour = hour;
 			// console.log('It\'s ' + hour + ' o\'clock');
 			console.log('CLOCK__ IT\'S ' + hour + ' O\'CLOCK');
-			if(hour >= 7 || mode == true){
+			if(mode){
 				utils.testConnexion(function(connexion){
 					if(connexion == true){
 						tts.speak('fr', 'Il est ' + hour + ' heures');
@@ -109,7 +119,7 @@ var startClock = function(mode){
 			}
 		} else if (min == 30){
 			console.log('CLOCK__ IT\'S ' + hour + ' AND A HALF');
-			if(hour >= 7 || mode == true){
+			if(mode){
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
 				if(cpHour > 12){cpHour = hour - 12};
 				tts.speak('en', 'Its ' + hour + ' ' + ' and a half !');
