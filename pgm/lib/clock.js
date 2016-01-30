@@ -72,9 +72,9 @@ var setParty = function(test){
 };
 exports.setParty = setParty;
 
-var startClock = function(quiet){
+var startClock = function(mode){
 	setInterval(function(){
-		console.log('quiet : ' + quiet);
+		console.log('mode : ' + mode);
 		date = new Date();
 		hour = date.getHours();
 		min = date.getMinutes();
@@ -82,7 +82,7 @@ var startClock = function(quiet){
 			pastHour = hour;
 			var cpHour = hour;
 			console.log('It\'s ' + hour + ' o\'clock');
-			if(hour >= 7 || quiet === 'undefined'){
+			if(hour >= 7 || mode != 'quiet'){
 				utils.testConnexion(function(connexion){
 					if(connexion == true){
 						tts.speak('fr', 'Il est ' + hour + ' heures');
@@ -102,8 +102,8 @@ var startClock = function(quiet){
 					}
 				});
 			}
-		// } else if (min == 38 && (hour >= 7 || quiet === 'undefined')){
-		} else if (min == 41){
+		} else if (min == 45 && (hour >= 7 || mode != 'quiet')){
+		// } else if (min == 41){
 			console.log('RING BELL HALF HOUR ' + hour + ':' + min);
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
 			if(cpHour > 12){cpHour = hour - 12};
