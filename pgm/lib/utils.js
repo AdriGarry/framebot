@@ -131,7 +131,6 @@ var whatsup = function(){
 									var date = new Date();
 									var hour = date.getHours();
 									var min = date.getMinutes();
-									console.log('REMOTE > What\'s time is it ?   It\'s ' + hour + ':' + min);
 									tts.speak('fr', 'Il est ' + hour + ' heures ' + min);
 								} else {
 									tts.speak('','');
@@ -147,7 +146,8 @@ var whatsup = function(){
 					// console.log('Clearing messages!');
 					request('http://adrigarry.com/odiTools/clearTTS.php', function (error, response, body){});
 				}
-				console.log('Export Log && Check Messages OK !');
+				// console.log('Export Log && Check Messages OK !');
+				console.log('Log & Messages OK !');
 			}
 		});
 	}catch(e){
