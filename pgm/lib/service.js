@@ -11,7 +11,6 @@ var tts = require('./tts.js');
 var weather = function(){
 	request.post({
 		url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
-		//body: content,
 		headers: {'Content-Type': 'text/plain'}
 	},
 	function (error, response, body){
