@@ -79,7 +79,6 @@ ok.watch(function(err, value){
 });
 
 cancel.watch(function(err, value){
-	utils.mute();
 	leds.ledOn('belly');
 	// leds.buttonPush();
 	var pressTime = new Date();
@@ -90,7 +89,9 @@ cancel.watch(function(err, value){
 	leds.ledOff('belly');
 	leds.buttonPush('stop');
 	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec');
-	if(pressTime > 1.5 && pressTime < 5){
+	if(pressTime < 1.5){
+		utils.mute();
+	}else if(pressTime > 1.5 && pressTime < 5){
 		utils.mute();
 		console.log('Restarting program...');
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
