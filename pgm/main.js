@@ -40,8 +40,8 @@ function startOdi(){
 	// var intro = '\n\n###########################\r\n';
 	// intro    +=     '##       ODI  PGM        ##\r\n';
 	// intro    +=     '###########################\r\n';
-	// var logo = fs.readFileSync('/home/pi/odi/pgm/data/logo.txt';, 'UTF-8').toString();
-	var logo = fs.readFile('/home/pi/odi/pgm/data/logo.txt', 'utf8').toString();
+	var logo = fs.readFileSync('/home/pi/odi/pgm/data/logo.txt';, 'UTF-8').toString();
+	// var logo = fs.readFile('/home/pi/odi/pgm/data/logo.txt', 'utf8').toString();
 	console.log(logo);
 	utils.recordLog(logo);
 	utils.whatsup();
