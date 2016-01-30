@@ -75,7 +75,7 @@ var whatsup = function(){
 	try{
 		var logFilePath = '/home/pi/odi/log/odi.log';
 		var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
-		content = content.slice(-60);
+		content = content.slice(-90);
 		content = content.join('\n');
 		
 		request.post({
