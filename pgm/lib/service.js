@@ -15,6 +15,8 @@ var weather = function(){
 		headers: {'Content-Type': 'text/plain'}
 	},
 	function (error, response, body){
+		console.log('response :' + response);
+		console.log('body :' + body);
 		if(error){
 			console.error('Error getting weather info  /!\\');	
 		}else if(!error && response.statusCode == 200){
