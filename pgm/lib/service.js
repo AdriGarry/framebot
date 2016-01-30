@@ -16,13 +16,13 @@ var weather = function(){
 	},
 	function (error, response, body){
 		console.log(response.headers['content-type']);
-		//console.log('*******************\nbody :' + body);
+		console.log('*******************\nbody :' + body);
 		if(error){
 			console.error('Error getting weather info  /!\\');	
 		// }else if(!error && response.statusCode == 200){
 		}else{
 			body = body.split('\n');
-			var temp = body[32];
+			var temp = body[32].substr(-3);
 			var annonceTemp = 'La temperature exterieur a marseille est de ' + temp + ' degret';
 			console.log(annonceTemp);
 			// tts.speak('fr',annonceTemp);
