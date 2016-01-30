@@ -7,7 +7,7 @@ var spawn = require('child_process').spawn;
 var gpioPins = require('./lib/gpioPins.js');
 var fs = require('fs');
 var request = require('request');
-//var utils = require('./lib/utils.js');
+var utils = require('./lib/utils.js');
 var tts = require('./lib/tts.js');
 
 var odiPgm;
