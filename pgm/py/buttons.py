@@ -55,8 +55,8 @@ while True:
     print 'AAA'
   if (red_flag and  red_cp > 50):
     print 'SHUTDOWN BY PYTHON SCRIPT    !!!!!'
-    os.system("sudo shutdown -h now")
-    break
+    # os.system("sudo shutdown -h now")
+    # break
 
   white_previous = white_current
   time.sleep(0.1)
