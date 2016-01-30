@@ -12,7 +12,7 @@ var weather = function(){
 	console.log('REQUEST WEATHER INFORMATIONS');
 	request.get({
 		url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
-		headers: {'Content-Type': 'text/xml'}
+		headers: {'Content-Type': 'text/plain'}
 	},
 	function (error, response, body){
 		console.log('body :' + body);
@@ -40,6 +40,8 @@ var weather = function(){
 
 				// you can also get the parent of a node using .parent(): 
 				// console.log(res.response.who.at(1).parent().attributes().id);
+				
+				// La temperature exterieure est de X degres celsus et le temps semble 'degage'
 			});
 		}
 	});
