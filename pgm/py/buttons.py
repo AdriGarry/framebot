@@ -34,7 +34,7 @@ while True:
 
   if (white_current and (not white_previous)):
 	print 'AAA'
-  if (white_flag and  white_cp > 40):
+  if (white_flag and  white_cp > 30):
 	print 'REBOOT BY PYTHON SCRIPT    !!!!!'
 	os.system("sudo shutdown -r now")
 	break
