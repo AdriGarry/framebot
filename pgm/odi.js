@@ -59,6 +59,8 @@ setInterval(function(){
 					console.error('No network, can\'t get weather info  /!\\');
 				}
 			});
+		}else{
+			console.log('NO WEATHER INFORMATIONS   /!\\');
 		}
 	});	
 }, 20*1000);
