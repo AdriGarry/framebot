@@ -88,12 +88,14 @@ cancel.watch(function(err, value){
 	leds.ledOff('belly');
 	leds.buttonPush('stop');
 	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec');
-	if(pressTime > 1.5){
+	if(pressTime > 1.5 && pressTime < 5){
 		utils.mute();
 		console.log('Restarting program...');
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 		deploy = spawn('node', ['/home/pi/odi/pgm/lib/allLedsOff.js']);
 		process.exit();
+	}else if(pressTime >= 5){
+		utils.shutdown();
 	}
 });
 white.watch(function(err, value){
