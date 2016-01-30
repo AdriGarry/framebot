@@ -72,7 +72,7 @@ var setParty = function(test){
 };
 exports.setParty = setParty;
 
-var startClock = function(){
+var startClock = function(quiet){
 	setInterval(function(){
 		date = new Date();
 		hour = date.getHours();
@@ -81,25 +81,27 @@ var startClock = function(){
 			pastHour = hour;
 			var cpHour = hour;
 			console.log('It\'s ' + hour + ' o\'clock');
-			utils.testConnexion(function(connexion){
-				if(connexion == true){
-					tts.speak('fr', 'Il est ' + hour + ' heures');
-				} else {
-					// console.error('Erreur test connexion /!\\');
-					if(cpHour > 12){
-						cpHour = hour - 12;
-					} else if(cpHour == 0){
-						cpHour = 12;
+			if(hour > 7 || quiet == false){
+				utils.testConnexion(function(connexion){
+					if(connexion == true){
+						tts.speak('fr', 'Il est ' + hour + ' heures');
+					} else {
+						// console.error('Erreur test connexion /!\\');
+						if(cpHour > 12){
+							cpHour = hour - 12;
+						} else if(cpHour == 0){
+							cpHour = 12;
+						}
+						var oClock = setInterval(function(){
+							console.log('RING BELL ' + cpHour);
+							var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh']);
+							cpHour--;
+							if(cpHour < 1){clearInterval(oClock);}
+						}, 1100);						
 					}
-					var oClock = setInterval(function(){
-						console.log('RING BELL ' + cpHour);
-						var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh']);
-						cpHour--;
-						if(cpHour < 1){clearInterval(oClock);}
-					}, 1100);						
-				}
-			});
-		} else if (min == 30){
+				});
+			}
+		} else if (min == 30 && (hour > 7 || quiet == false)){
 			console.log('RING BELL HALF HOUR ' + hour + ':' + min);
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
 			if(cpHour > 12){cpHour = hour - 12};
