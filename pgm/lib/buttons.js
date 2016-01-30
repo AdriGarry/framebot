@@ -184,4 +184,3 @@ event.on('playFip', function(message){
 	console.log('_EventEmited: ' + (message || '.'));
 	fip.playFip();
 });
-
