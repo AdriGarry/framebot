@@ -41,7 +41,7 @@ function startOdi(){
 	// intro    +=     '##       ODI  PGM        ##\r\n';
 	// intro    +=     '###########################\r\n';
 	var logo = fs.readFileSync('/home/pi/odi/pgm/data/logo.txt', 'utf8').toString().split('\n');
-	// var logo = fs.readFile('/home/pi/odi/pgm/data/logo.txt', 'utf8').toString();
+	logo = logo.join('\n');
 	console.log(logo);
 	utils.recordLog(logo);
 	utils.whatsup();
