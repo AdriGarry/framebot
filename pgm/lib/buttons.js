@@ -159,7 +159,6 @@ blue.watch(function(err, value){
 				clock.setParty(false);
 			}, 1200);
 		}
-	}
 	}else{
 		console.log('Push Blue button canceled !');
 	}
