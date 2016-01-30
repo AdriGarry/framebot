@@ -28,12 +28,15 @@ setInterval(function(){
 	leds.blinkEye(100, 0.5);
 }, 60*1000);*/
 
-console.log('MODE ==>  ' + buttons.getMode());
-if(buttons.getMode()){
-	
-}
-// clock.startClock(true);
-clock.startClock(false);
+buttons.getMode(function(modeValue){
+	console.log('MODEVALUE ==>  ' + modeValue);
+	if(modeValue == true){
+		clock.startClock(true);
+	}else{
+		clock.startClock(false);
+	}
+});	
+
 clock.setAlarms();
 
 setInterval(function(){
