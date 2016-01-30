@@ -122,7 +122,7 @@ var startClock = function(mode){
 			if(mode){
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
 				if(cpHour > 12){cpHour = hour - 12};
-				tts.speak('en', 'Its ' + hour + ' ' + ' and a half !');
+				tts.speak('fr', 'Il est ' + hour + ' heures et demi');
 			}
 		}
 	}, 30*1000);

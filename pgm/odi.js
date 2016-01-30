@@ -12,6 +12,7 @@ var buttons = require('./lib/buttons.js');
 var leds = require('./lib/leds.js');
 var clock = require('./lib/clock.js');
 var tts = require('./lib/tts.js');
+var service = require('./lib/service.js');
 
 leds.blinkLed(100, 300);
 leds.blinkEye(100, 300);
@@ -29,7 +30,6 @@ setInterval(function(){
 }, 60*1000);*/
 
 buttons.getMode(function(modeValue){
-	console.log('MODEVALUE ==>  ' + modeValue);
 	if(modeValue){
 		clock.startClock(true);
 	}else{
@@ -47,6 +47,16 @@ setInterval(function(){
 			console.error('No network, can\'t check messages & export log  /!\\');
 		}
 	});
-}, 10*1000); //10
+}, 10*1000);
+
+setInterval(function(){
+	utils.testConnexion(function(connexion){
+		if(connexion == true){
+			service.weather();
+		} else {
+			console.error('No network, can\'t get weather info  /!\\');
+		}
+	});
+}, 7*1000);
 
 //var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'r2d2']);

@@ -60,7 +60,7 @@ setInterval(function(){
 
 var getMode = function(callback){
 	var value = mode.readSync();
-	console.log('Button getMode : ' + value)
+	console.log('Button Mode : ' + value)
 	callback(value);
 };
 exports.getMode = getMode;
