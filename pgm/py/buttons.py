@@ -43,20 +43,7 @@ while True:
   #print red_current
   red_flag = red_previous + red_current
 
-  if (red_flag):
-    red_cp += 1
-    GPIO.output(17,True)
-  else:
-    red_cp = 0
-    GPIO.output(17,False)
 
-  print red_cp
-  if (red_current and (not red_previous)):
-	print 'AAA'
-  if (red_flag and  red_cp >= 60):
-	print 'SHUTDOWN BY PYTHON SCRIPT    !!!!!'
-	os.system("sudo shutdown -h now")
-	break
 
   white_previous = white_current
   time.sleep(0.1)
