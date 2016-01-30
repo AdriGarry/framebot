@@ -16,7 +16,7 @@ var weather = function(){
 	},
 	function (error, response, body){
 		console.log(response.headers['content-type']);
-		console.log('body :' + body);
+		console.log('*******************\nbody :' + body);
 		if(error){
 			console.error('Error getting weather info  /!\\');	
 		// }else if(!error && response.statusCode == 200){
