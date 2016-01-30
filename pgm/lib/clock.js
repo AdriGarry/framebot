@@ -73,6 +73,11 @@ var setParty = function(test){
 exports.setParty = setParty;
 
 var startClock = function(mode){
+	if(!mode){
+		console.log('Starting clock in quiet mode');
+	}else{
+		console.log('Starting clock in normal mode');
+	}
 	setInterval(function(){
 		date = new Date();
 		hour = date.getHours();

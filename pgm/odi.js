@@ -30,7 +30,7 @@ setInterval(function(){
 
 buttons.getMode(function(modeValue){
 	console.log('MODEVALUE ==>  ' + modeValue);
-	if(modeValue == true){
+	if(modeValue){
 		clock.startClock(true);
 	}else{
 		clock.startClock(false);
