@@ -4,7 +4,7 @@
 var spawn = require('child_process').spawn;
 // var Gpio = require('onoff').Gpio;
 var request = require('request');
-var xmlreader = require('xmlreader');
+//var xmlreader = require('xmlreader');
 var leds = require('./leds.js');
 var tts = require('./tts.js');
 
@@ -22,7 +22,8 @@ var weather = function(){
 		// }else if(!error && response.statusCode == 200){
 		}else{
 			body = body.split('\n');
-			var temp = body[32].substring(str.lastIndexOf(",")+1,str.lastIndexOf("C"));
+			var temp = body[32];
+			temp = .substring(str.lastIndexOf(",")+1,str.lastIndexOf("C"));
 			var annonceTemp = 'La temperature exterieur a marseille est de ' + temp + ' degret';
 			console.log(annonceTemp);
 			// tts.speak('fr',annonceTemp);
