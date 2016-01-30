@@ -78,11 +78,15 @@ var startClock = function(mode){
 		hour = date.getHours();
 		min = date.getMinutes();
 		console.log('mode A : ' + mode);
+		if(!mode){
+			// test jour de la semaine + heure...
+		}
 		console.log('mode B : ' + mode);
 		if(pastHour < hour){
 			pastHour = hour;
 			var cpHour = hour;
-			console.log('It\'s ' + hour + ' o\'clock');
+			// console.log('It\'s ' + hour + ' o\'clock');
+			console.log('CLOCK__ IT\'S ' + hour + ' O\'CLOCK');
 			if(hour >= 7 || mode == true){
 				utils.testConnexion(function(connexion){
 					if(connexion == true){
@@ -103,8 +107,8 @@ var startClock = function(mode){
 					}
 				});
 			}
-		} else if (min == 58){
-			console.log('RING BELL HALF HOUR ' + hour + ':' + min);
+		} else if (min == 30){
+			console.log('CLOCK__ IT\'S ' + hour + ' AND A HALF');
 			if(hour >= 7 || mode == true){
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
 				if(cpHour > 12){cpHour = hour - 12};

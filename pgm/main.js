@@ -37,11 +37,12 @@ function startOdi(){
 	//ok.unwatch();
 	mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	
-	var intro = '\n\n###########################\r\n';
-	intro    +=     '##       ODI  PGM        ##\r\n';
-	intro    +=     '###########################\r\n';
-	console.log(intro);
-	utils.recordLog(intro);
+	// var intro = '\n\n###########################\r\n';
+	// intro    +=     '##       ODI  PGM        ##\r\n';
+	// intro    +=     '###########################\r\n';
+	var logo = fs.readFileSync('/home/pi/odi/pgm/data/logo.txt';, 'UTF-8').toString();
+	console.log(logo);
+	utils.recordLog(logo);
 	utils.whatsup();
 	// utils.sleepNode(4,1.5);
 
