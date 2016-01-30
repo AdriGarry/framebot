@@ -26,7 +26,7 @@ var weather = function(){
 				// use .text() to get the content of a node: 
 				//console.log(res.response.text());
 				// use .attributes() to get the attributes of a node:
-				console.log(res.yweather.attributes().temp);
+				//console.log(res.yweather.attributes().temp);
 			 
 				// using the .count() and the .at() function, you can loop through nodes with the same name: 
 				// for(var i = 0; i < res.response.who.count(); i++){
