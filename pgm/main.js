@@ -36,7 +36,7 @@ setInterval(function(){
 function startOdi(){
 	//ok.unwatch();
 	mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-	var logo = fs.readFileSync('/home/pi/odi/pgm/data/logoLarry.txt', 'utf8').toString().split('\n');
+	var logo = fs.readFileSync('/home/pi/odi/pgm/data/logoStandart.txt', 'utf8').toString().split('\n');
 	logo = '\n\n\n' + logo.join('\n') + '\n\n';
 	console.log(logo);
 	utils.recordLog(logo);
