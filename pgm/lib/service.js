@@ -24,7 +24,7 @@ var weather = function(){
 			body = body.split('\n');
 			var temp = body[32];
 			temp = temp.substring(temp.lastIndexOf(",")+1,temp.lastIndexOf("C"));
-			var wind = body[12].toString();
+			var wind = body[18].toString();
 			console.log('WIND=' + wind);
 			console.log(wind);
 			//wind = wind.substring(wind.lastIndexOf('speed="')+1,wind.lastIndexOf('"/>'));
@@ -41,7 +41,8 @@ var date = function(){
 	var date = new Date();
 	var day = date.getDay();
 	var month = date.getMonth();
+	
 	var year = date.getYear();
-	tts.speak('fr','' + day + '' + month + '' + year)
+	tts.speak('fr','Nous sommes le ' + day + ' ' + month + '' + year))
 };
 exports.date = date;
