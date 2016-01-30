@@ -21,7 +21,12 @@ var weather = function(){
 			console.error('Error getting weather info  /!\\');	
 		// }else if(!error && response.statusCode == 200){
 		}else{
-			xmlreader.read(body, function (err, res){
+			body = body.split('\n');
+			var temp = body[19];
+			var annonceTemp = 'La temperature exterieur a marseille est de ' + temp + ' degret';
+			console.log(annonceTemp);
+			tts.speak('fr',annonceTemp);
+			/*xmlreader.read(body, function (err, res){
 				if(err) return console.log(err);
 				// use .text() to get the content of a node: 
 				//console.log(res.response.text());
@@ -43,7 +48,7 @@ var weather = function(){
 				// console.log(res.response.who.at(1).parent().attributes().id);
 				
 				// La temperature exterieure est de X degres celsus et le temps semble 'degage'
-			});
+			});*/
 		}
 	});
 };
