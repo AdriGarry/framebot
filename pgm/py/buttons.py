@@ -26,7 +26,7 @@ while True:
 
   if (white_flag):
     white_cp += 1
-	print white_cp
+    print white_cp
     GPIO.output(17,True)
   else:
     white_cp = 0
@@ -35,7 +35,7 @@ while True:
   if (white_current and (not white_previous)):
 	print 'AAA'
   if (white_flag and  white_cp > 30):
-	print 'REBOOT BY PYTHON SCRIPT    !!!!!'
+    print 'REBOOT BY PYTHON SCRIPT    !!!!!'
 	os.system("sudo shutdown -r now")
 	break
 
@@ -53,7 +53,7 @@ while True:
 
   if (red_current and (not red_previous)):
 	print 'AAA'
-  if (red_flag and  red_cp > 60):
+  if (red_flag and  red_cp > 50):
 	print 'SHUTDOWN BY PYTHON SCRIPT    !!!!!'
 	os.system("sudo shutdown -h now")
 	break
