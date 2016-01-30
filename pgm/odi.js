@@ -57,6 +57,6 @@ setInterval(function(){
 			console.error('No network, can\'t get weather info  /!\\');
 		}
 	});
-}, 7*1000);
+}, 20*1000);
 
 //var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'r2d2']);
