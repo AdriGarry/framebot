@@ -23,7 +23,7 @@ var weather = function(){
 		}else{
 			body = body.split('\n');
 			var temp = body[32];
-			temp = .substring(str.lastIndexOf(",")+1,str.lastIndexOf("C"));
+			temp = temp.substring(str.lastIndexOf(",")+1,str.lastIndexOf("C"));
 			var annonceTemp = 'La temperature exterieur a marseille est de ' + temp + ' degret';
 			console.log(annonceTemp);
 			// tts.speak('fr',annonceTemp);
