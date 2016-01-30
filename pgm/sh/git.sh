@@ -20,7 +20,7 @@ then
 		then
 			sudo cp -rf /home/pi/odiSave/mp3 /home/pi/odi/mp3 &
 		fi
-		#sudo rm -rf /home/pi/odi/log/*
+		sudo rm -rf /home/pi/odi/log/*
 
 	elif [ $1 = "clone" ]
 	then
