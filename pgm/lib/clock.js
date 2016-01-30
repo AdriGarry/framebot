@@ -82,7 +82,7 @@ var startClock = function(mode){
 			pastHour = hour;
 			var cpHour = hour;
 			console.log('It\'s ' + hour + ' o\'clock');
-			if(hour >= 7 || mode != 'quiet'){
+			if(hour >= 7 || mode == true){
 				utils.testConnexion(function(connexion){
 					if(connexion == true){
 						tts.speak('fr', 'Il est ' + hour + ' heures');
@@ -102,12 +102,13 @@ var startClock = function(mode){
 					}
 				});
 			}
-		} else if (min == 48 && (hour >= 7 || mode != 'quiet')){
-		// } else if (min == 41){
+		} else if (min == 52){
 			console.log('RING BELL HALF HOUR ' + hour + ':' + min);
-			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
-			if(cpHour > 12){cpHour = hour - 12};
-			tts.speak('en', 'Its ' + hour + ' ' + ' and a half !');
+			if(hour >= 7 || mode == true){
+				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
+				if(cpHour > 12){cpHour = hour - 12};
+				tts.speak('en', 'Its ' + hour + ' ' + ' and a half !');
+			}
 		}
 	}, 30*1000);
 };
