@@ -77,7 +77,7 @@ var startClock = function(mode){
 		date = new Date();
 		hour = date.getHours();
 		min = date.getMinutes();
-		console.log('mode A : ' + mode);
+		console.log('mode before clock filter : ' + mode);
 		if(!mode){
 			var day = date.getDay();
 			if(day > 0 && day < 6 && hour >= 7){
@@ -86,7 +86,7 @@ var startClock = function(mode){
 				mode = true;
 			}
 		}
-		console.log('mode B : ' + mode);
+		console.log('mode after clock filter : ' + mode);
 		if(pastHour < hour){
 			pastHour = hour;
 			var cpHour = hour;
