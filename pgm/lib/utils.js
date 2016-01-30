@@ -146,7 +146,7 @@ var whatsup = function(){
 					// console.log('Clearing messages!');
 					request('http://adrigarry.com/odiTools/clearTTS.php', function (error, response, body){});
 				}
-				console.log('Log & Msg OK !');
+				console.log('Log & Msg Ok !');
 			}
 		});
 	}catch(e){

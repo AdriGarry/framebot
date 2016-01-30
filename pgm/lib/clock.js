@@ -81,7 +81,7 @@ var startClock = function(quiet){
 			pastHour = hour;
 			var cpHour = hour;
 			console.log('It\'s ' + hour + ' o\'clock');
-			if(hour > 7 || quiet == false){
+			if(hour >= 7 || quiet == false){
 				utils.testConnexion(function(connexion){
 					if(connexion == true){
 						tts.speak('fr', 'Il est ' + hour + ' heures');
@@ -101,7 +101,7 @@ var startClock = function(quiet){
 					}
 				});
 			}
-		} else if (min == 30 && (hour > 7 || quiet == false)){
+		} else if (min == 28 && (hour >= 7 || quiet == false)){
 			console.log('RING BELL HALF HOUR ' + hour + ':' + min);
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
 			if(cpHour > 12){cpHour = hour - 12};
