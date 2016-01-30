@@ -41,5 +41,5 @@ var weather = function(){
 			});
 		}
 	}
-}
+};
 exports.weather = weather;
