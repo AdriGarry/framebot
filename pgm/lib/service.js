@@ -9,6 +9,7 @@ var leds = require('./leds.js');
 var tts = require('./tts.js');
 
 var weather = function(){
+	console.log('REQUEST WEATHER INFORMATIONS');
 	request.post({
 		url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
 		headers: {'Content-Type': 'text/plain'}
