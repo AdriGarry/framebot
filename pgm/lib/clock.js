@@ -74,6 +74,7 @@ exports.setParty = setParty;
 
 var startClock = function(quiet){
 	setInterval(function(){
+		console.log(quiet);
 		date = new Date();
 		hour = date.getHours();
 		min = date.getMinutes();
