@@ -2,6 +2,8 @@ import RPi.GPIO as GPIO
 import time
 import os
 
+GPIO.setwarnings(False)
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(19,GPIO.IN) # white button
 GPIO.setup(16,GPIO.IN) #cancel button
