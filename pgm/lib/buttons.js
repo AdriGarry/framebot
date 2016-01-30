@@ -34,13 +34,22 @@ setInterval(function(){
 		if(!instance){
 			instance = true;
 			setTimeout(function(){
-				var date = new Date();
-				var min = date.getMinutes();
-				if(min&1){
-					exclamation.exclamationRdmDelayLoop();
-				} else {
-					tts.speakRdmDelayLoop();
-				}
+				// var date = new Date();
+				// var min = date.getMinutes();
+				// if(min&1){
+					// exclamation.exclamationRdmDelayLoop();
+				// } else {
+					// tts.speakRdmDelayLoop();
+				// }
+				utils.testConnexion(function(connexion){
+					var date = new Date();
+					var min = date.getMinutes();
+					if(min%2 == 0 && connexion == true){
+						tts.speak('','');
+					}else{
+						exclamation.exclamation2Rappels();
+					}
+				});				
 			}, 20*1000);
 		}
 	}
