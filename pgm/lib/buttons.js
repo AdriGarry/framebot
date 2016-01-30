@@ -72,6 +72,8 @@ ok.watch(function(err, value){
 	}else if(pressTime > 2 && pressTime < 5){
 		// event.emit('playFip', 'Fip Radio');
 		fip.playFip();
+	}else{
+		console.log('Push Ok button canceled !');
 	}
 	utils.autoMute();
 });
@@ -96,6 +98,8 @@ cancel.watch(function(err, value){
 		process.exit();
 	}else if(pressTime >= 5 && pressTime < 8){
 		utils.shutdown();
+	}else{
+		console.log('Push Cancel button canceled !');
 	}
 });
 white.watch(function(err, value){
@@ -117,8 +121,10 @@ white.watch(function(err, value){
 		// utils.reboot();
 	// }else if(pressTime >= 5){
 		// utils.shutdown();
+	}else{
+		console.log('Push White button canceled !');
 	}
-	utils.autoMute();
+	// utils.autoMute();
 });
 blue.watch(function(err, value){
 	leds.ledOn('belly');
@@ -154,7 +160,9 @@ blue.watch(function(err, value){
 			}, 1200);
 		}
 	}
-	utils.autoMute();
+	}else{
+		console.log('Push Blue button canceled !');
+	}
 });
 
 // ################# events #################

@@ -14,5 +14,6 @@ exports.loop = loop;
 var medley = function(message){
 	console.log('Let\'s play the Jukebox in medley mode !');
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/jukebox.sh', 'medley']);
+	utils.autoMute();
 };
 exports.medley = medley;
