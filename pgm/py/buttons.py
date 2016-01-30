@@ -10,7 +10,7 @@ GPIO.setup(17, GPIO.OUT)
 # reboot
 white_previous = 1
 white_current = 1
-white_cp = 0
+white_cp = 30
 white_flag = 0
 
 # shutdown
@@ -34,7 +34,7 @@ while True:
 
   if (white_current and (not white_previous)):
 	print 'AAA'
-  if (white_flag and  white_cp > 30):
+  if (white_flag and  white_cp > 0):
     print 'REBOOT BY PYTHON SCRIPT    !!!!!'
     os.system("sudo shutdown -r now")
     break

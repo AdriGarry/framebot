@@ -94,8 +94,8 @@ cancel.watch(function(err, value){
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 		deploy = spawn('node', ['/home/pi/odi/pgm/lib/allLedsOff.js']);
 		process.exit();
-	// }else if(pressTime >= 5){
-		// utils.shutdown();
+	}else if(pressTime >= 5){
+		utils.shutdown();
 	}
 });
 white.watch(function(err, value){
