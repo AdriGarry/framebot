@@ -37,6 +37,7 @@ while True:
   if (white_current and (not white_previous)):
 	print 'Python not defined !'
   if (white_flag and  white_cp > 0):
+    GPIO.output(17,False)
     print 'REBOOT BY PYTHON SCRIPT    !!!!!'
     os.system("sudo shutdown -r now")
     break
