@@ -19,15 +19,16 @@ while True:
 
   if (flag_pressed):
     cp += 1
-	GPIO.output(17,True)
+    GPIO.output(17,True)
   else:
     cp = 0
+    GPIO.output(17,False)
 
   print cp
 
   if (button_current and (not button_previous)):
 	print 'AAA'
-  if (flag_pressed and  cp >= 30):
+  if (flag_pressed and  cp >= 40):
 	print 'REBOOT BY PYTHON SCRIPT    !!!!!'
 	os.system("sudo shutdown -r now")
 	#os.system("sudo shutdown -h now")
