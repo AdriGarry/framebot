@@ -12,10 +12,9 @@ var weather = function(){
 	console.log('REQUEST WEATHER INFORMATIONS');
 	request.get({
 		url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
-		headers: {'Content-Type': 'text/plain'}
+		headers: {'Content-Type': 'text/xml'}
 	},
 	function (error, response, body){
-		console.log('response :' + response);
 		console.log('body :' + body);
 		if(error){
 			console.error('Error getting weather info  /!\\');	
@@ -23,7 +22,7 @@ var weather = function(){
 			xmlreader.read(body, function (err, res){
 				if(err) return console.log(err);
 				// use .text() to get the content of a node: 
-				console.log(res.response.text());
+				//console.log(res.response.text());
 				// use .attributes() to get the attributes of a node: 
 				console.log(res.response.attributes().shop);
 			 
