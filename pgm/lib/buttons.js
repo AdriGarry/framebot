@@ -69,7 +69,7 @@ ok.watch(function(err, value){
 				exclamation.exclamation2Rappels();
 			}
 		});
-	}else if(pressTime > 2){
+	}else if(pressTime > 2 && pressTime < 5){
 		// event.emit('playFip', 'Fip Radio');
 		fip.playFip();
 	}
@@ -94,7 +94,7 @@ cancel.watch(function(err, value){
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 		deploy = spawn('node', ['/home/pi/odi/pgm/lib/allLedsOff.js']);
 		process.exit();
-	}else if(pressTime >= 5){
+	}else if(pressTime >= 5 && pressTime < 8){
 		utils.shutdown();
 	}
 });
@@ -136,7 +136,7 @@ blue.watch(function(err, value){
 		}else{
 			jukebox.medley();
 		}
-	}else if(pressTime > 2){
+	}else if(pressTime > 2 && pressTime < 5){
 		console.log('press > 2');
 		if(mode.readSync() == 0){
 			setTimeout(function(){
