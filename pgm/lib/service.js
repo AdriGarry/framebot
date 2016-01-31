@@ -26,7 +26,7 @@ var weather = function(){
 			var temp = body[32];
 			temp = temp.substring(temp.lastIndexOf(",")+1,temp.lastIndexOf("C"));
 			var wind = body[12].toString();
-			wind = wind.substring(wind.lastIndexOf('speed="')+1,wind.lastIndexOf('"/>'));
+			wind = wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('"/>'));
 			console.log('WIND=' + wind);
 			console.log(wind);
 			// var annonceTemp = 'La tenperatur exterieur a marseille est de ' + temp + ' degret';
