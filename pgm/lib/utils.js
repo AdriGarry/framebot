@@ -46,7 +46,7 @@ var autoMute = function(message){
 exports.autoMute = autoMute;
 
 var randomAction = function(){
-	utils.testConnexion(function(connexion){
+	self.testConnexion(function(connexion){
 		var rdm = Math.floor(Math.random()*5); // 1->4
 		console.log('rdm = ' + rdm);
 		if(rdm == 1 && connexion == true){
