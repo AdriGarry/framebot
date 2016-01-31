@@ -20,10 +20,14 @@ var weather = function(){
 			console.error('Error getting weather info  /!\\');	
 		}else if(!error && response.statusCode == 200){
 			var weather, temp, wind;
+			console.log('AAA');
 			var document = new xmldoc.XmlDocument(body);
+			console.log('BBB');
 			yweathers = document.childNamed('yweather');
+			console.log('CCC');
 			console.log('yweathers = ' + yweathers);
 			wind = yweathers.wind.attr.speed;
+			console.log('DDD');
 			console.log('Wind=' + wind);
 			
 			/*body = body.split('\n');
