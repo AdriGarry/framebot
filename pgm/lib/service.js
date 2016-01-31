@@ -10,7 +10,7 @@ var leds = require('./leds.js');
 var tts = require('./tts.js');
 var self = this;
 
-var weatherStatus = fs.readFileSync('/home/pi/odi/pgm/data/date.days.txt', 'UTF-8').toString().split('\n');
+var weatherStatus = fs.readFileSync('/home/pi/odi/pgm/data/weather.status.properties', 'UTF-8').toString().split('\n');
 var weather = function(){
 	console.log('Service Weather...');
 	request.get({
@@ -24,7 +24,7 @@ var weather = function(){
 		}else{
 			body = body.split('\n');
 			// console.log(body);
-			console.error(weatherStatus);
+			console.log(weatherStatus);
 			var weather = weatherStatus[32];
 			weather = weather.substring(weather.lastIndexOf('code="')+6,weather.lastIndexOf('code="')+8);
 			var temp = body[32];
