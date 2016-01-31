@@ -60,9 +60,8 @@ var date = function(){
 	var day = date.getDay();
 	var day = days[day];
 	var month = date.getMonth();
-	var month = months[day];
+	var month = months[month];
 	// console.log('month=' + month);
-
 	var year = date.getFullYear();
 	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
 	console.log(annonceDate);
