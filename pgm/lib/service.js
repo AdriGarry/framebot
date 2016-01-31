@@ -19,6 +19,7 @@ var weather = function(){
 		if(error){
 			console.error('Error getting weather info  /!\\');	
 		}else if(!error && response.statusCode == 200){
+			console.log(body);
 			var weather, temp, wind;
 			console.log('AAA');
 			var document = new xmldoc.XmlDocument(body);
