@@ -17,6 +17,7 @@ var mute;
 
 utils.getMsgLastGitCommit(function(commitMsg){
 	setTimeout(function(){
+		utils.recordLog('Last Commit Title : ' + commitMsg);
 		commitMsg = commitMsg.replace('.',' point ');
 		tts.speak('fr', commitMsg.trim());
 	}, 1000);
