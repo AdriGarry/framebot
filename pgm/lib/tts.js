@@ -8,7 +8,7 @@ var request = require('request');
 
 var self = this;
 var content;
-var messages = '/home/pi/odi/pgm/data/ttsMessages.txt';
+var messages = '/home/pi/odi/pgm/data/ttsMessages.properties';
 
 var speak = function(lg, txt){
 	if(txt == '' || txt === 'undefined'){		
