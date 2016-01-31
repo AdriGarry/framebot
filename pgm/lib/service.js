@@ -38,7 +38,7 @@ var weather = function(){
 			// var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' avec une temperature de ' + temp
 				// + ' degre, et ' + (isNaN(wind)?'Not a Number':wind) + ' kilometre heure de vent';
 			var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' , il fait ' + temp
-				+ ' degre avec un vent de ' + (isNaN(wind)?'Not a Number':wind) + ' kilometre a lheure';
+				+ ' degre avec ' + (isNaN(wind)?'Not a Number':wind) + ' kilometre heure de vent';
 			console.log(annonceTemp);
 			tts.speak('fr',annonceTemp);
 		}
