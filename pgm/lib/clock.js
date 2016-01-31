@@ -15,7 +15,7 @@ var pastHour = hour;
 
 var startClock = function(mode){
 	if(!mode){
-		console.log('Starting clock in quiet mode');
+		console.log('Starting clock in quiet mode     -.-');
 	}else{
 		console.log('Starting clock in normal mode');
 	}
