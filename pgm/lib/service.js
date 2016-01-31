@@ -32,7 +32,7 @@ var weather = function(){
 			// var annonceTemp = 'La tenperatur exterieur a marseille est de ' + temp + ' degret';
 			var annonceTemp = 'Point meteo : a Marseille, il fait ' + temp + ' degret, avec un vent de ' + wind + ' kilometre heure';
 			console.log(annonceTemp);
-			// tts.speak('fr',annonceTemp);
+			tts.speak('fr',annonceTemp);
 		}
 	});
 };
@@ -46,6 +46,6 @@ var date = function(){
 	var year = date.getYear();
 	var annonceDate = 'Nous sommes le ' + day + ' ' + month + '' + year;
 	console.log(annonceDate);
-	// tts.speak('fr',annonceDate);
+	tts.speak('fr',annonceDate);
 };
 exports.date = date;
