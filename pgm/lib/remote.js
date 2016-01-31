@@ -24,7 +24,7 @@ var check = function(){
 	try{
 		var logFilePath = '/home/pi/odi/log/odi.log';
 		var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
-		content = content.slice(-120); //-120
+		content = content.slice(-100); //-120
 		content = content.join('\n');
 		
 		request.post({
