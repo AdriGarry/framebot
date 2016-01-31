@@ -50,11 +50,6 @@ setInterval(function(){
 	});
 }, 10*1000);
 
-for(i=0;i<50;i++){
-	console.log(Math.floor(Math.random()*5));
-}
-
-
 // setInterval(function(){
 	// buttons.getMode(function(modeValue){
 		// if(modeValue){
