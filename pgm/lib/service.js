@@ -24,7 +24,7 @@ var weather = function(){
 		}else{
 			body = body.split('\n');
 			// console.log(body);
-			console.log(weatherStatus);
+			// console.log(weatherStatus);
 			var weather = weatherStatus[32];
 			weather = weather.substring(weather.lastIndexOf('code="')+6,weather.lastIndexOf('code="')+8);
 			var temp = body[32];
@@ -32,7 +32,7 @@ var weather = function(){
 			var wind = body[12].toString();
 			wind = Math.round(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));
 			// var annonceTemp = 'Point meteo : il fait ' + temp + ' degret, avec un vent de ' + (isNaN(wind)?'0':wind) + ' kilometre heure';
-			var annonceTemp = 'Point meteo : le temps est ' + weather + ' avec une temperature de ' + temps
+			var annonceTemp = 'Point meteo : le temps est ' + weather + ' avec une temperature de ' + temp
 				+ ' degret et ' + (isNaN(wind)?'0':wind) + ' kilometre heure de vent';
 			console.log(annonceTemp);
 			tts.speak('fr',annonceTemp);
