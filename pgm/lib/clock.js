@@ -79,8 +79,7 @@ var setAlarms = function(){
 		var sec = date.getSeconds();
 		//console.log('Alarms On');
 		if(day > 0 && day < 6){
-			// if(hour == 7 && min == 30){
-			if(hour == 3 && min == 8){
+			if(hour == 7 && min == 30){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
 				if(date.getSeconds() < 26){
@@ -124,7 +123,7 @@ var setAlarms = function(){
 			}
 		} else {
 			// if(hour == 12 && min == 0){
-			if(hour == 6 && min == 10){
+			if(hour == 6 && min == 13){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
 				if(date.getSeconds() < 26){
