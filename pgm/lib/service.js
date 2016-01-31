@@ -10,7 +10,7 @@ var leds = require('./leds.js');
 var tts = require('./tts.js');
 var self = this;
 
-var days = fs.readFileSync('/home/pi/odi/pgm/data/date.days.txt', 'UTF-8').toString().split('\n');
+var weatherStatus = fs.readFileSync('/home/pi/odi/pgm/data/date.days.txt', 'UTF-8').toString().split('\n');
 var weather = function(){
 	console.log('Service Weather...');
 	request.get({
@@ -24,12 +24,15 @@ var weather = function(){
 		}else{
 			body = body.split('\n');
 			// console.log(body);
+			var weather = weatherStatus[32];
+			weather = weather.substring(weather.lastIndexOf('code="')+6,weather.lastIndexOf('code="')+8);
 			var temp = body[32];
-			temp = temp.substring(temp.lastIndexOf(",")+1,temp.lastIndexOf("C"));
+			temp = temp.substring(temp.lastIndexOf(',')+1,temp.lastIndexOf('C'));
 			var wind = body[12].toString();
 			wind = Math.round(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));
-			console.log('WIND=' + wind);
-			var annonceTemp = 'Point meteo : il fait ' + temp + ' degret, avec un vent de ' + (isNaN(wind)?'0':wind) + ' kilometre heure';
+			// var annonceTemp = 'Point meteo : il fait ' + temp + ' degret, avec un vent de ' + (isNaN(wind)?'0':wind) + ' kilometre heure';
+			var annonceTemp = 'Point meteo : le temps est ' + weather + ' avec une temperature de ' + temps
+				+ ' degret et ' + (isNaN(wind)?'0':wind) + ' kilometre heure de vent';
 			console.log(annonceTemp);
 			tts.speak('fr',annonceTemp);
 		}
