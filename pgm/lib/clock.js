@@ -140,7 +140,7 @@ var setAlarms = function(){
 		//console.log('Alarms On');
 		if(day > 0 && day < 6){
 			// if(hour == 7 && min == 30){
-			if(hour == 2 && min == 50){
+			if(hour == 2 && min == 57){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
 				if(date.getSeconds() < 26){
@@ -149,8 +149,12 @@ var setAlarms = function(){
 							if(connexion == true){
 									console.log('It\'s '+ hour + ':' + min 
 										+ ' !!  Let\'s listen the radio :D');
-									service.info();
-									fip.playFip();
+									setTimeout(function(){
+										service.info();
+										setTimeout(function(){
+											fip.playFip();
+										}, 15*1000);
+									}, 5*1000);
 							} else {
 								console.log('It\'s '+ hour + ':' + min 
 									+ ' !!  Let\'s play some music :D');
