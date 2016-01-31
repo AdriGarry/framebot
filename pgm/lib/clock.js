@@ -123,21 +123,29 @@ var setAlarms = function(){
 			}
 		} else {
 			// if(hour == 12 && min == 0){
-			if(hour == 6 && min == 13){
+			if(hour == 6 && min == 16){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
 				if(date.getSeconds() < 26){
-					setTimeout(function(){
-						console.log('It\'s '+ hour + ':' + min 
-							+ ' !!  Let\'s listen the radio :D');
+					utils.testConnexion(function(connexion){
 						setTimeout(function(){
-							service.info();
-							setTimeout(function(){
-								fip.playFip();
-							}, 15*1000);
-						}, 5*1000);
-						utils.autoMute();					
-					}, 3000);
+							if(connexion == true){
+									console.log('It\'s '+ hour + ':' + min 
+										+ ' !!  Let\'s listen the radio :D');
+									setTimeout(function(){
+										service.info();
+										setTimeout(function(){
+											fip.playFip();
+										}, 15*1000);
+									}, 5*1000);
+							} else {
+								console.log('It\'s '+ hour + ':' + min 
+									+ ' !!  Let\'s play some music :D');
+								jukebox.loop();
+							}
+							utils.autoMute('Auto mute Morning');
+						}, 3000);
+					});
 				}
 			}
 		}
