@@ -47,15 +47,15 @@ exports.autoMute = autoMute;
 
 var randomAction = function(){
 	self.testConnexion(function(connexion){
-		var rdm = Math.floor(Math.random()*5); // 1->4
+		var rdm = Math.floor(Math.random()*7); // 1->6
 		console.log('rdm = ' + rdm);
-		if(rdm == 1 && connexion == true){
+		if(rdm <= 2 && connexion == true){
 			tts.speak('','');
-		}else if(rdm == 2 && connexion == true){
-			service.time();
 		}else if(rdm == 3 && connexion == true){
-			service.date();
+			service.time();
 		}else if(rdm == 4 && connexion == true){
+			service.date();
+		}else if(rdm == 5 && connexion == true){
 			service.weather();
 		}else{
 			exclamation.exclamation2Rappels();
