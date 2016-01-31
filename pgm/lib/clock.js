@@ -6,6 +6,7 @@ var utils = require('./utils.js');
 var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
 var tts = require('./tts.js');
+var service = require('./service.js');
 
 var date = new Date();
 var hour = date.getHours();
@@ -147,6 +148,7 @@ var setAlarms = function(){
 							if(connexion == true){
 									console.log('It\'s '+ hour + ':' + min 
 										+ ' !!  Let\'s listen the radio :D');
+									service.info();
 									fip.playFip();
 							} else {
 								console.log('It\'s '+ hour + ':' + min 

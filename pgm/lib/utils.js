@@ -16,7 +16,6 @@ var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
 var clock = require('./clock.js');
 var service = require('./service.js');
-
 var self = this;
 
 var mute = function(){

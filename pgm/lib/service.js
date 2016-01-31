@@ -8,6 +8,7 @@ var request = require('request');
 //var xmlreader = require('xmlreader');
 var leds = require('./leds.js');
 var tts = require('./tts.js');
+var self = this;
 
 var weather = function(){
 	console.log('Service Weather...');
@@ -68,3 +69,18 @@ var date = function(){
 	tts.speak('fr',annonceDate);
 };
 exports.date = date;
+
+var info = function(){
+	console.log('Service Info...');
+	tts.speak('fr','Point d\'information');
+	setTimeout(function(){
+		self.date();
+		setTimeout(function(){
+			self.time();
+			setTimeout(function(){
+				self.weather();
+			}, 5*1000);
+		}, 5*1000);
+	}, 5*1000);
+};
+exports.info = info;
