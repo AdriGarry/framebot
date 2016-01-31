@@ -49,20 +49,20 @@ setInterval(function(){
 	});
 }, 10*1000);
 
-setInterval(function(){
-	buttons.getMode(function(modeValue){
-		if(modeValue){
-			utils.testConnexion(function(connexion){
-				if(connexion == true){
-					service.weather();
-				} else {
-					console.error('No network, can\'t get weather info  /!\\');
-				}
-			});
-		}else{
-			service.date();
-		}
-	});	
-}, 20*1000);
+// setInterval(function(){
+	// buttons.getMode(function(modeValue){
+		// if(modeValue){
+			// utils.testConnexion(function(connexion){
+				// if(connexion == true){
+					// service.weather();
+				// } else {
+					// console.error('No network, can\'t get weather info  /!\\');
+				// }
+			// });
+		// }else{
+			// service.date();
+		// }
+	// });	
+// }, 20*1000);
 
 //var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'r2d2']);
