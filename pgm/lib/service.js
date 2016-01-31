@@ -33,7 +33,7 @@ var weather = function(){
 			var temp = body[32];
 			temp = temp.substring(temp.lastIndexOf(',')+1,temp.lastIndexOf('C'));
 			var wind = body[12].toString();
-			wind = Math.round(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));
+			wind = Math.floor(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));
 			var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' , il fait ' + temp
 				+ ' degre avec ' + (isNaN(wind)?'Not a Number':wind) + ' kilometre heure de vent';
 			// console.log(annonceTemp);
