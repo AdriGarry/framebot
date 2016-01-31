@@ -44,7 +44,7 @@ setInterval(function(){
 						exclamation.exclamation2Rappels();
 					}
 				});				
-			}, *60*1000); //1*60*1000
+			}, 2*60*1000); //1*60*1000
 		}
 	}
 	else{
