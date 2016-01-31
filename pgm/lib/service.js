@@ -1,13 +1,11 @@
 #!/usr/bin/env node
 // Module Service
 
-// var spawn = require('child_process').spawn;
 var fs = require('fs');
-// var Gpio = require('onoff').Gpio;
 var request = require('request');
-//var xmlreader = require('xmlreader');
 var leds = require('./leds.js');
 var tts = require('./tts.js');
+var xmldoc = require('xmldoc');
 var self = this;
 
 var weatherStatus = fs.readFileSync('/home/pi/odi/pgm/data/weather.status.properties', 'UTF-8').toString().split('\n');
@@ -21,8 +19,13 @@ var weather = function(){
 		if(error){
 			console.error('Error getting weather info  /!\\');	
 		}else if(!error && response.statusCode == 200){
-		// }else{
-			body = body.split('\n');
+			var weather, temp, wind;
+			var document = new xmldoc.XmlDocument(body);
+			yweather = document.childNamed('yweather');
+			wind = yweather:wind.attr.speed;
+			console.log('Wind=' + wind);
+			
+			/*body = body.split('\n');
 			// console.log(body);
 			// console.log(weatherStatus);
 			var weather = body[28];
@@ -33,7 +36,7 @@ var weather = function(){
 			var temp = body[32];
 			temp = temp.substring(temp.lastIndexOf(',')+1,temp.lastIndexOf('C'));
 			var wind = body[12].toString();
-			wind = Math.floor(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));
+			wind = Math.floor(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));*/
 			var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' , il fait ' + temp
 				+ ' degre avec ' + (isNaN(wind)?'Not a Number':wind) + ' kilometre heure de vent';
 			// console.log(annonceTemp);
