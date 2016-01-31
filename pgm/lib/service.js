@@ -54,8 +54,8 @@ var time = function(){
 };
 exports.time = time;
 
-var days = fs.readFileSync('/home/pi/odi/pgm/data/date.days.txt', 'UTF-8').toString().split('\n');
-var months = fs.readFileSync('/home/pi/odi/pgm/data/date.months.txt', 'UTF-8').toString().split('\n');
+var days = fs.readFileSync('/home/pi/odi/pgm/data/date.days.properties', 'UTF-8').toString().split('\n');
+var months = fs.readFileSync('/home/pi/odi/pgm/data/date.months.properties', 'UTF-8').toString().split('\n');
 var date = function(){
 	console.log('Service Date...');
 	var date = new Date();
