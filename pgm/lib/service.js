@@ -37,7 +37,7 @@ var weather = function(){
 		}
 	});
 };
-exports.weather = weather;
+exports.weather = weather; 
 
 var time = function(){
 	var date = new Date();
