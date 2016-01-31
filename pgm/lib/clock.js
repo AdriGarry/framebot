@@ -123,7 +123,7 @@ var setAlarms = function(){
 			}
 		} else {
 			// if(hour == 12 && min == 0){
-			if(hour == 6 && min == 37){
+			if(hour == 6 && min == 38){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
 				if(date.getSeconds() < 26){
