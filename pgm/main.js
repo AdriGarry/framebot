@@ -41,7 +41,7 @@ function startOdi(){
 	logo = '\n\n\n' + logo.join('\n') + '\n\n';
 	console.log(logo);
 	utils.recordLog(logo);
-	remote.whatsup();
+	remote.check();
 	// utils.sleepNode(4,1.5);
 
 	odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js']);
