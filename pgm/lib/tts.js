@@ -67,3 +67,8 @@ var speakRdmDelayLoop = function(){
 	}());	
 };
 exports.speakRdmDelayLoop = speakRdmDelayLoop;
+
+
+var getTTS = function(lg, txt){
+};
+exports.getTTS = getTTS;
