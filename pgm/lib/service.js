@@ -79,8 +79,8 @@ var info = function(){
 			self.time();
 			setTimeout(function(){
 				self.weather();
-			}, 5*1000);
-		}, 5*1000);
-	}, 5*1000);
+			}, 6*1000);
+		}, 6*1000);
+	}, 6*1000);
 };
 exports.info = info;

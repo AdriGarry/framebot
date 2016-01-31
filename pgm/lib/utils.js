@@ -129,13 +129,12 @@ var whatsup = function(){
 									tts.speak('','');
 								} else if(txt == 'serviceDate') {
 									service.date();
+								} else if(txt == 'serviceTime') {
+									service.time();
 								} else if(txt == 'serviceWeather') {
 									service.weather();
-								} else if(txt == 'serviceTime') {
-									var date = new Date();
-									var hour = date.getHours();
-									var min = date.getMinutes();
-									tts.speak('fr', 'Il est ' + hour + ' heures ' + min);
+								} else if(txt == 'serviceInfo') {
+									service.info();
 								} else {
 									tts.speak('','');
 								}
