@@ -21,8 +21,9 @@ var weather = function(){
 		}else if(!error && response.statusCode == 200){
 			var weather, temp, wind;
 			var document = new xmldoc.XmlDocument(body);
-			yweather = document.childNamed('yweather');
-			wind = yweather:wind.attr.speed;
+			yweathers = document.childNamed('yweather');
+			console.log('yweathers = ' + yweathers);
+			wind = yweathers.wind.attr.speed;
 			console.log('Wind=' + wind);
 			
 			/*body = body.split('\n');
