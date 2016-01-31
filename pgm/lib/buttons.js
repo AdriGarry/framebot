@@ -35,13 +35,6 @@ setInterval(function(){
 		if(!instance){
 			instance = true;
 			setTimeout(function(){
-				// var date = new Date();
-				// var min = date.getMinutes();
-				// if(min&1){
-					// exclamation.exclamationRdmDelayLoop();
-				// } else {
-					// tts.speakRdmDelayLoop();
-				// }
 				utils.testConnexion(function(connexion){
 					var date = new Date();
 					var min = date.getMinutes();
@@ -51,7 +44,7 @@ setInterval(function(){
 						exclamation.exclamation2Rappels();
 					}
 				});				
-			}, 1*60*1000); //1*60*1000
+			}, *60*1000); //1*60*1000
 		}
 	}
 	else{
@@ -76,16 +69,7 @@ ok.watch(function(err, value){
 	leds.ledOff('belly');
 	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec');
 	if(pressTime < 1.5){
-		utils.testConnexion(function(connexion){
-			var date = new Date();
-			var min = date.getMinutes();
-			if(min%2 == 0 && connexion == true){
-				tts.speak('','');
-			}else{
-				// event.emit('exclamation2Rappels', 'Exclamation2Rappels');
-				exclamation.exclamation2Rappels();
-			}
-		});
+		service.randomAction();
 	}else if(pressTime > 2 && pressTime < 5){
 		// event.emit('playFip', 'Fip Radio');
 		fip.playFip();

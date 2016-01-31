@@ -45,6 +45,21 @@ var autoMute = function(message){
 };
 exports.autoMute = autoMute;
 
+var randomAction = funtion(){
+	utils.testConnexion(function(connexion){
+		// var date = new Date();
+		// var min = date.getMinutes();
+		// if(min%2 == 0 && connexion == true){
+		if(rdm == 0 && connexion == true){
+			tts.speak('','');
+		}else{
+			// event.emit('exclamation2Rappels', 'Exclamation2Rappels');
+			exclamation.exclamation2Rappels();
+		}
+	});
+};
+exports.randomAction = randomAction;
+
 var testConnexion = function(callback){
 	require('dns').resolve('www.google.com', function(err) {
 		if(err){
