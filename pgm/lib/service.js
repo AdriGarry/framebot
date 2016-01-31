@@ -10,7 +10,7 @@ var leds = require('./leds.js');
 var tts = require('./tts.js');
 
 var weather = function(){
-	console.log('REQUEST WEATHER INFORMATIONS');
+	console.log('Service Weather...');
 	request.get({
 		url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
 		headers: {'Content-Type': 'xml'}
@@ -40,6 +40,7 @@ var weather = function(){
 exports.weather = weather; 
 
 var time = function(){
+	console.log('Service Time...');
 	var date = new Date();
 	var hour = date.getHours();
 	var min = date.getMinutes();
@@ -53,15 +54,14 @@ exports.time = time;
 
 var days = fs.readFileSync('/home/pi/odi/pgm/data/days.txt', 'UTF-8').toString().split('\n');
 var months = fs.readFileSync('/home/pi/odi/pgm/data/months.txt', 'UTF-8').toString().split('\n');
-console.log(months);
 var date = function(){
+	console.log('Service Date...');
 	var date = new Date();
 	var dayNb = date.getDate();
 	var day = date.getDay();
 	var day = days[day];
 	var month = date.getMonth();
 	var month = months[month];
-	// console.log('month=' + month);
 	var year = date.getFullYear();
 	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
 	console.log(annonceDate);
