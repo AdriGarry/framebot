@@ -37,7 +37,7 @@ var startClock = function(mode){
 			pastHour = hour;
 			var cpHour = hour;
 			// console.log('It\'s ' + hour + ' o\'clock');
-			console.log('CLOCK__ IT\'S ' + hour + ' O\'CLOCK');
+			console.log('IT\'S ' + hour + ' O\'CLOCK');
 			if(mode){
 				utils.testConnexion(function(connexion){
 					if(connexion == true){
@@ -57,14 +57,14 @@ var startClock = function(mode){
 						}, 1100);						
 					}
 				});
-			}else{ console.log('Clock in quiet mode  -.-'); }
+			}else{ console.log('Clock in quiet mode     -.-'); }
 		} else if (min == 30){
-			console.log('CLOCK__ IT\'S ' + hour + ' AND A HALF');
+			console.log('IT\'S ' + hour + ' AND A HALF');
 			if(mode){
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
 				if(cpHour > 12){cpHour = hour - 12};
 				tts.speak('fr', 'Il est ' + hour + ' heures et demi');
-			}else{ console.log('Clock in quiet mode  -.-'); }
+			}else{ console.log('Clock in quiet mode     -.-'); }
 		}
 	}, 30*1000);
 };
