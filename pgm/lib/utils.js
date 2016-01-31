@@ -15,6 +15,7 @@ var tts = require('./tts.js');
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
 var clock = require('./clock.js');
+var service = require('./service.js');
 
 var self = this;
 
@@ -127,6 +128,10 @@ var whatsup = function(){
 									exclamation.exclamation2Rappels();
 								} else if(txt == 'tts') {
 									tts.speak('','');
+								} else if(txt == 'date') {
+									service.date();
+								} else if(txt == 'weather') {
+									service.weather();
 								} else if(txt == 'sayTime') {
 									var date = new Date();
 									var hour = date.getHours();
