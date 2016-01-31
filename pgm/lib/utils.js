@@ -131,7 +131,6 @@ var shutdown = function(){
 };
 
 self.restartOdi = function(){
-	//tts.speak('en','Restarting Ody ! !');
 	console.log('Restarting Odi !!');
 	setTimeout(function(){
 		process.exit();

@@ -17,6 +17,7 @@ var event = new EventEmitter();
 var clock = require('./clock.js');
 var party = require('./party.js');
 var service = require('./service.js');
+var utils = require('./utils.js');
 var self = this;
 
 var check = function(){
@@ -54,11 +55,11 @@ var check = function(){
 							if(lg == 'cmd'){
 								console.log('REMOTE > ' + txt);
 								if(txt == 'reboot'){
-									self.reboot();
+									utils.reboot();
 								} else if(txt == 'shutdown' || txt == 'halt') {
-									self.shutdown();
+									utils.shutdown();
 								} else if(txt == 'odi') {
-									self.restartOdi();
+									utils.restartOdi();
 								} else if(txt == 'mute') {
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 								} else if(txt == 'jukebox') {
