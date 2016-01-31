@@ -26,9 +26,9 @@ var weather = function(){
 			// console.log(body);
 			// console.log(weatherStatus);
 			var weather = body[28];
-			console.log(weather);
+			// console.log(weather);
 			weather = weather.substring(weather.lastIndexOf('code="')+6,weather.lastIndexOf('code="')+8);
-			console.log(weather);
+			// console.log(weather);
 			weather = weatherStatus[weather];
 			var temp = body[32];
 			temp = temp.substring(temp.lastIndexOf(',')+1,temp.lastIndexOf('C'));
