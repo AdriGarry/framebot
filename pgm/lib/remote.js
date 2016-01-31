@@ -15,6 +15,7 @@ var tts = require('./tts.js');
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
 var clock = require('./clock.js');
+var party = require('./party.js');
 var service = require('./service.js');
 var self = this;
 
@@ -65,7 +66,7 @@ var check = function(){
 								} else if(txt == 'jukebox m' || txt == 'medley') {
 									jukebox.medley();
 								} else if (txt == 'party') {
-									clock.setParty();
+									party.setParty();
 								} else if(txt == 'timer') {
 									timer.setTimer();
 								} else if(txt == 'fip') {

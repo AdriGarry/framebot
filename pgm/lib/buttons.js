@@ -10,6 +10,7 @@ var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
 var tts = require('./tts.js');
 var clock = require('./clock.js');
+var party = require('./party.js');
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
 var utils = require('./utils.js');
@@ -165,15 +166,15 @@ blue.watch(function(err, value){
 			setTimeout(function(){
 				utils.mute();
 				leds.allLedsOff();
-				console.log('TEST _A_ : mute + clock.setParty(true)');
-				clock.setParty(true);
+				console.log('TEST _A_ : mute + party.setParty(true)');
+				party.setParty(true);
 			}, 1200);			
 		}else{
 			setTimeout(function(){
 				utils.mute();
 				leds.allLedsOff();
-				console.log('TEST _B_ : clock.setParty(false)');
-				clock.setParty(false);
+				console.log('TEST _B_ : party.setParty(false)');
+				party.setParty(false);
 			}, 1200);
 		}
 	}else{
