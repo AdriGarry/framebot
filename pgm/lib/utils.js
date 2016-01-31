@@ -22,9 +22,9 @@ var self = this;
 var mute = function(){
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	console.log('>> MUTE ALL  :|');
+	leds.clearLeds();
 	eye.write(0);
 	belly.write(0);
-	leds.clearLeds();
 };
 exports.mute = mute;
 
