@@ -47,7 +47,7 @@ exports.autoMute = autoMute;
 
 var randomAction = function(){
 	self.testConnexion(function(connexion){
-		var rdm = Math.floor(Math.random()*7); // 1->6
+		var rdm = Math.floor(Math.random()*8); // 1->7
 		console.log('rdm = ' + rdm);
 		if(rdm <= 2 && connexion == true){
 			tts.speak('','');
@@ -57,6 +57,8 @@ var randomAction = function(){
 			service.date();
 		}else if(rdm == 5 && connexion == true){
 			service.weather();
+		}else if(rdm == 6 && connexion == true){
+			service.info();
 		}else{
 			exclamation.exclamation2Rappels();
 		}
