@@ -18,11 +18,10 @@ var weather = function(){
 		headers: {'Content-Type': 'xml'}
 	},
 	function (error, response, body){
-		console.log('response.statusCode = ' +response.statusCode);
 		if(error){
 			console.error('Error getting weather info  /!\\');	
-		// }else if(!error && response.statusCode == 200){
-		}else{
+		}else if(!error && response.statusCode == 200){
+		// }else{
 			body = body.split('\n');
 			// console.log(body);
 			// console.log(weatherStatus);
@@ -35,11 +34,9 @@ var weather = function(){
 			temp = temp.substring(temp.lastIndexOf(',')+1,temp.lastIndexOf('C'));
 			var wind = body[12].toString();
 			wind = Math.round(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));
-			// var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' avec une temperature de ' + temp
-				// + ' degre, et ' + (isNaN(wind)?'Not a Number':wind) + ' kilometre heure de vent';
 			var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' , il fait ' + temp
 				+ ' degre avec ' + (isNaN(wind)?'Not a Number':wind) + ' kilometre heure de vent';
-			console.log(annonceTemp);
+			// console.log(annonceTemp);
 			tts.speak('fr',annonceTemp);
 		}
 	});
