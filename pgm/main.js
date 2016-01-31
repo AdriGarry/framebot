@@ -9,6 +9,7 @@ var fs = require('fs');
 var request = require('request');
 var utils = require('./lib/utils.js');
 var tts = require('./lib/tts.js');
+var remote = require('./lib/remote.js');
 
 var odiPgm;
 var odiState = false;
@@ -40,7 +41,7 @@ function startOdi(){
 	logo = '\n\n\n' + logo.join('\n') + '\n\n';
 	console.log(logo);
 	utils.recordLog(logo);
-	utils.whatsup();
+	remote.whatsup();
 	// utils.sleepNode(4,1.5);
 
 	odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js']);

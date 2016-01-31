@@ -13,6 +13,7 @@ var leds = require('./lib/leds.js');
 var clock = require('./lib/clock.js');
 var tts = require('./lib/tts.js');
 var service = require('./lib/service.js');
+var remote = require('./lib/remote.js');
 
 leds.blinkLed(100, 300);
 leds.blinkEye(100, 300);
@@ -42,7 +43,7 @@ clock.setAlarms();
 setInterval(function(){
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
-			utils.whatsup();
+			remote.whatsup();
 		} else {
 			console.error('No network, can\'t check messages & export log  /!\\');
 		}
