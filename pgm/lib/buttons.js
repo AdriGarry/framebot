@@ -69,7 +69,7 @@ ok.watch(function(err, value){
 	leds.ledOff('belly');
 	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec');
 	if(pressTime < 1.5){
-		service.randomAction();
+		utils.randomAction();
 	}else if(pressTime > 2 && pressTime < 5){
 		// event.emit('playFip', 'Fip Radio');
 		fip.playFip();

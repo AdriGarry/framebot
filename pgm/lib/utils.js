@@ -47,9 +47,6 @@ exports.autoMute = autoMute;
 
 var randomAction = function(){
 	utils.testConnexion(function(connexion){
-		// var date = new Date();
-		// var min = date.getMinutes();
-		// if(min%2 == 0 && connexion == true){
 		var rdm = Math.floor(Math.random()*5); // 1->4
 		console.log('rdm = ' + rdm);
 		if(rdm == 1 && connexion == true){
@@ -61,7 +58,6 @@ var randomAction = function(){
 		}else if(rdm == 4 && connexion == true){
 			service.weather();
 		}else{
-			// event.emit('exclamation2Rappels', 'Exclamation2Rappels');
 			exclamation.exclamation2Rappels();
 		}
 	});
