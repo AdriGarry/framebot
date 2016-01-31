@@ -45,7 +45,7 @@ var autoMute = function(message){
 };
 exports.autoMute = autoMute;
 
-var randomAction = funtion(){
+var randomAction = function(){
 	utils.testConnexion(function(connexion){
 		// var date = new Date();
 		// var min = date.getMinutes();
