@@ -36,8 +36,10 @@ var weather = function(){
 			wind = Math.round(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));
 			// var annonceTemp = 'Point meteo : il fait ' + temp + ' degret, avec un vent de ' + (isNaN(wind)?'0':wind) + ' kilometre heure';
 			wind = 'o';
-			var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' avec une temperature de ' + temp
-				+ ' degre, et ' + (isNaN(wind)?'Not a Number':wind) + ' kilometre heure de vent';
+			// var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' avec une temperature de ' + temp
+				// + ' degre, et ' + (isNaN(wind)?'Not a Number':wind) + ' kilometre heure de vent';
+			var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' , il fait ' + temp
+				+ ' degre avec un vent de ' + (isNaN(wind)?'Not a Number':wind) + ' kilometre a lheure';
 			console.log(annonceTemp);
 			tts.speak('fr',annonceTemp);
 		}
