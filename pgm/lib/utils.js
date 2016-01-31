@@ -50,8 +50,16 @@ var randomAction = function(){
 		// var date = new Date();
 		// var min = date.getMinutes();
 		// if(min%2 == 0 && connexion == true){
-		if(rdm == 0 && connexion == true){
+		var rdm = Math.floor(Math.random()*6); // 1->5
+		console.log('rdm = ' + rdm);
+		if(rdm == 1 && connexion == true){
 			tts.speak('','');
+		}else if(rdm == 2 && connexion == true){
+			service.time();
+		}else if(rdm == 3 && connexion == true){
+			service.date();
+		}else if(rdm == 4 && connexion == true){
+			service.weather();
 		}else{
 			// event.emit('exclamation2Rappels', 'Exclamation2Rappels');
 			exclamation.exclamation2Rappels();

@@ -50,8 +50,8 @@ setInterval(function(){
 	});
 }, 10*1000);
 
-for(i=0;i<13;i++){
-	console.log(Math.random()*5);
+for(i=0;i<25;i++){
+	console.log(Math.floor(Math.random()*6));
 }
 
 
