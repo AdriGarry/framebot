@@ -38,6 +38,18 @@ var weather = function(){
 };
 exports.weather = weather;
 
+var time = function(){
+	var date = new Date();
+	var hour = date.getHours();
+	var min = date.getMinutes();
+	if(min == 0){
+		tts.speak('fr', 'Il est ' + hour);
+	} else {
+		tts.speak('fr', 'Il est ' + hour + ' heures et ' + min + ' minutes');
+	}
+};
+exports.time = time;
+
 var days = fs.readFileSync('/home/pi/odi/pgm/days.txt', 'UTF-8').toString().split('\n');
 var months = fs.readFileSync('/home/pi/odi/pgm/months.txt', 'UTF-8').toString().split('\n');
 var date = function(){

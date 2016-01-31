@@ -128,11 +128,11 @@ var whatsup = function(){
 									exclamation.exclamation2Rappels();
 								} else if(txt == 'tts') {
 									tts.speak('','');
-								} else if(txt == 'date') {
+								} else if(txt == 'serviceDate') {
 									service.date();
-								} else if(txt == 'weather') {
+								} else if(txt == 'serviceWeather') {
 									service.weather();
-								} else if(txt == 'sayTime') {
+								} else if(txt == 'serviceTime') {
 									var date = new Date();
 									var hour = date.getHours();
 									var min = date.getMinutes();
