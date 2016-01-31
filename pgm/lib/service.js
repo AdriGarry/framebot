@@ -17,8 +17,6 @@ var weather = function(){
 		headers: {'Content-Type': 'xml'}
 	},
 	function (error, response, body){
-		// console.log(response.headers['content-type']);
-		// console.log('body :' + body);
 		if(error){
 			console.error('Error getting weather info  /!\\');	
 		// }else if(!error && response.statusCode == 200){
@@ -30,8 +28,7 @@ var weather = function(){
 			var wind = body[12].toString();
 			wind = Math.round(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));
 			console.log('WIND=' + wind);
-			// var annonceTemp = 'La tenperatur exterieur a marseille est de ' + temp + ' degret';
-			var annonceTemp = 'Point meteo : il fait ' + temp + ' degret, avec un vent de ' + wind + ' kilometre heure';
+			var annonceTemp = 'Point meteo : il fait ' + temp + ' degret, avec un vent de ' + isNaN(wind)?'0':wind + ' kilometre heure';
 			console.log(annonceTemp);
 			tts.speak('fr',annonceTemp);
 		}
