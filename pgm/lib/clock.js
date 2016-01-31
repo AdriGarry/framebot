@@ -23,7 +23,7 @@ var startClock = function(mode){
 		date = new Date();
 		hour = date.getHours();
 		min = date.getMinutes();
-		console.log('mode before clock filter : ' + mode);
+		// console.log('mode before clock filter : ' + mode);
 		if(!mode){
 			var day = date.getDay();
 			if(day > 0 && day < 6 && hour >= 7){
@@ -32,7 +32,7 @@ var startClock = function(mode){
 				mode = true;
 			}
 		}
-		console.log('mode after clock filter : ' + mode);
+		// console.log('mode after clock filter : ' + mode);
 		if(pastHour < hour){
 			pastHour = hour;
 			var cpHour = hour;
@@ -57,14 +57,14 @@ var startClock = function(mode){
 						}, 1100);						
 					}
 				});
-			}
+			}else{ console.log('Clock in quiet mode  -.-'); }
 		} else if (min == 30){
 			console.log('CLOCK__ IT\'S ' + hour + ' AND A HALF');
 			if(mode){
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
 				if(cpHour > 12){cpHour = hour - 12};
 				tts.speak('fr', 'Il est ' + hour + ' heures et demi');
-			}
+			}else{ console.log('Clock in quiet mode  -.-'); }
 		}
 	}, 30*1000);
 };
