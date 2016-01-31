@@ -140,7 +140,7 @@ var setAlarms = function(){
 		//console.log('Alarms On');
 		if(day > 0 && day < 6){
 			// if(hour == 7 && min == 30){
-			if(hour == 2 && min == 59){
+			if(hour == 3 && min == 1){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
 				if(date.getSeconds() < 26){
