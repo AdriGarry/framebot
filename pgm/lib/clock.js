@@ -123,14 +123,20 @@ var setAlarms = function(){
 				}
 			}
 		} else {
-			if(hour == 12 && min == 0){
+			// if(hour == 12 && min == 0){
+			if(hour == 6 && min == 10){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
 				if(date.getSeconds() < 26){
 					setTimeout(function(){
 						console.log('It\'s '+ hour + ':' + min 
 							+ ' !!  Let\'s listen the radio :D');
-						fip.playFip();
+						setTimeout(function(){
+							service.info();
+							setTimeout(function(){
+								fip.playFip();
+							}, 15*1000);
+						}, 5*1000);
 						utils.autoMute();					
 					}, 3000);
 				}
