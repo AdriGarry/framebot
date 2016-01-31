@@ -24,6 +24,7 @@ var weather = function(){
 		}else{
 			body = body.split('\n');
 			// console.log(body);
+			console.error(weatherStatus);
 			var weather = weatherStatus[32];
 			weather = weather.substring(weather.lastIndexOf('code="')+6,weather.lastIndexOf('code="')+8);
 			var temp = body[32];
