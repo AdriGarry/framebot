@@ -22,11 +22,11 @@ var weather = function(){
 		// }else if(!error && response.statusCode == 200){
 		}else{
 			body = body.split('\n');
-			console.log(body);
+			// console.log(body);
 			var temp = body[32];
 			temp = temp.substring(temp.lastIndexOf(",")+1,temp.lastIndexOf("C"));
 			var wind = body[12].toString();
-			wind = wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('"/>'));
+			wind = wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+9);
 			console.log('WIND=' + wind);
 			console.log(wind);
 			// var annonceTemp = 'La tenperatur exterieur a marseille est de ' + temp + ' degret';
