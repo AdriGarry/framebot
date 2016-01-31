@@ -38,13 +38,19 @@ var weather = function(){
 };
 exports.weather = weather;
 
+var days = fs.readFileSync('/home/pi/odi/pgm/days.txt', 'UTF-8').toString().split('\n');
+var months = fs.readFileSync('/home/pi/odi/pgm/months.txt', 'UTF-8').toString().split('\n');
 var date = function(){
 	var date = new Date();
+	var dayNb = date.getDate();
 	var day = date.getDay();
+	var day = days[day];
 	var month = date.getMonth();
-	console.log('month=' + month);
-	var year = date.getYear();
-	var annonceDate = 'Nous sommes le ' + day + ' ' + month + '' + year;
+	var month = months[day];
+	// console.log('month=' + month);
+
+	var year = date.getFullYear();
+	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
 	console.log(annonceDate);
 	tts.speak('fr',annonceDate);
 };
