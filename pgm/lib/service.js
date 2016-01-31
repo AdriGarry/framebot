@@ -42,7 +42,7 @@ var date = function(){
 	var date = new Date();
 	var day = date.getDay();
 	var month = date.getMonth();
-	
+	console.log('month=' + month);
 	var year = date.getYear();
 	var annonceDate = 'Nous sommes le ' + day + ' ' + month + '' + year;
 	console.log(annonceDate);
