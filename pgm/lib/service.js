@@ -53,6 +53,7 @@ exports.time = time;
 
 var days = fs.readFileSync('/home/pi/odi/pgm/data/days.txt', 'UTF-8').toString().split('\n');
 var months = fs.readFileSync('/home/pi/odi/pgm/data/months.txt', 'UTF-8').toString().split('\n');
+console.log(months);
 var date = function(){
 	var date = new Date();
 	var dayNb = date.getDate();
