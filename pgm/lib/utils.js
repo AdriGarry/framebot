@@ -50,7 +50,7 @@ var randomAction = function(){
 		// var date = new Date();
 		// var min = date.getMinutes();
 		// if(min%2 == 0 && connexion == true){
-		var rdm = Math.floor(Math.random()*6); // 1->5
+		var rdm = Math.floor(Math.random()*5); // 1->4
 		console.log('rdm = ' + rdm);
 		if(rdm == 1 && connexion == true){
 			tts.speak('','');
