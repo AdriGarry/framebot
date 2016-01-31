@@ -49,6 +49,7 @@ setInterval(function(){
 	});
 }, 10*1000);
 
+service.info();
 // setInterval(function(){
 	// buttons.getMode(function(modeValue){
 		// if(modeValue){
