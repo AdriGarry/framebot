@@ -52,7 +52,7 @@ var time = function(){
 	if(min == 0){
 		tts.speak('fr', 'Il est ' + hour);
 	} else {
-		tts.speak('fr', 'Il est ' + hour + ' heures et ' + min + ' minutes');
+		tts.speak('fr', 'Il est ' + hour + ' heures et ' + min + ' minutes'); 
 	}
 };
 exports.time = time;
