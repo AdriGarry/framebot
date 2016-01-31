@@ -25,7 +25,7 @@ var weather = function(){
 			console.log(body);
 			var temp = body[32];
 			temp = temp.substring(temp.lastIndexOf(",")+1,temp.lastIndexOf("C"));
-			var wind = body[15].toString();
+			var wind = body[14].toString();
 			wind = wind.substring(wind.lastIndexOf('speed="')+1,wind.lastIndexOf('"/>'));
 			console.log('WIND=' + wind);
 			console.log(wind);
