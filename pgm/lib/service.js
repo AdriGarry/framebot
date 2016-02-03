@@ -91,7 +91,7 @@ exports.info = info;
 var cpuTemp = function(){
 	var temperature = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp");
 	temperature = ((temperature/1000).toPrecision(2));
-	console.log('Service CPU Temperature...  ' + temperature + ' degres');
-	tts.speak('fr', 'Mon processeur est a ' + temperature + ' degret')
+	console.log('Service CPU Temperature...  ' + temperature + ' degrés');
+	tts.speak('fr', 'Mon processeur est a ' + temperature + ' degrés')
 };
 exports.cpuTemp = cpuTemp;
