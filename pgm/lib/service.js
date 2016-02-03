@@ -90,7 +90,9 @@ exports.info = info;
 var cpuTemp = function(){
 	console.log('Service CPU Temperature...');
 	var temperature = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp");
-	temperature = ((temperature/1000).toPrecision(1));
+	console.log('A:' + temperature);
+	var temperature2 = ((temperature/1000).toPrecision(3));
+	console.log('B:' + temperature2);
 	console.log(temperature + "°C");
 	tts.speak('fr', 'le processeur dodi est a ' + temperature + ' degres')
 };

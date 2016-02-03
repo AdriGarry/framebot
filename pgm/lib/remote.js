@@ -84,6 +84,8 @@ var check = function(){
 									service.weather();
 								} else if(txt == 'serviceInfo') {
 									service.info();
+								} else if(txt == 'serviceCpu') {
+									service.cpuTemp();
 								} else {
 									tts.speak('','');
 								}
