@@ -63,7 +63,7 @@ var startClock = function(mode){
 			if(mode){
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
 				if(cpHour > 12){cpHour = hour - 12};
-				tts.speak('fr', 'Il est ' + hour + ' heures et demi');
+				tts.speak('fr', 'Il est ' + hour + ' heures 30');
 			}else{ console.log('Clock in quiet mode     -.-'); }
 		}
 	}, 30*1000);
