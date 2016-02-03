@@ -58,7 +58,7 @@ var randomAction = function(){
 		}else if(rdm == 5 && connexion == true){
 			service.weather();
 		}else if(rdm == 6 && connexion == true){
-			service.info();
+			service.cpuTemp();
 		}else{
 			exclamation.exclamation2Rappels();
 		}

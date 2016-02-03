@@ -61,6 +61,7 @@ var date = function(){
 	console.log('Service Date...');
 	var date = new Date();
 	var dayNb = date.getDate();
+	if(dayNb == 1) dayNb = 'premier';
 	var day = date.getDay();
 	var day = days[day];
 	var month = date.getMonth();
