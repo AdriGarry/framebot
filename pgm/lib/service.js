@@ -86,3 +86,10 @@ var info = function(){
 	}, 6*1000);
 };
 exports.info = info;
+
+var cpuTemp = function(){
+	console.log('Service CPU Temperature...');
+	var temperature = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp");
+	temperature = ((temperature/1000).toPrecision(1)) + "°C";
+};
+exports.cpuTemp = cpuTemp;

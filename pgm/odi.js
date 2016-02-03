@@ -49,7 +49,9 @@ setInterval(function(){
 		}
 	});
 }, 10*1000);
-
+setInterval(function(){
+	service.cpuTemp();
+}, 5*1000);
 // setInterval(function(){
 	// buttons.getMode(function(modeValue){
 		// if(modeValue){
