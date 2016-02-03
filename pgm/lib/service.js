@@ -12,7 +12,6 @@ var self = this;
 
 var weatherStatus = fs.readFileSync('/home/pi/odi/pgm/data/weather.status.properties', 'UTF-8').toString().split('\n');
 var weather = function(){
-	console.log('Service Weather...');
 	request.get({
 		url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
 		headers: {'Content-Type': 'xml'}
@@ -35,7 +34,7 @@ var weather = function(){
 			wind = Math.floor(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));
 			var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' , il fait ' + temp
 				+ ' degre avec ' + (isNaN(wind)?'Not a Number':wind) + ' kilometre heure de vent';
-			// console.log(annonceTemp);
+			console.log('Service Weather... ' + annonceTemp);
 			tts.speak('fr',annonceTemp);
 		}
 	});
@@ -58,7 +57,6 @@ exports.time = time;
 var days = fs.readFileSync('/home/pi/odi/pgm/data/date.days.properties', 'UTF-8').toString().split('\n');
 var months = fs.readFileSync('/home/pi/odi/pgm/data/date.months.properties', 'UTF-8').toString().split('\n');
 var date = function(){
-	console.log('Service Date...');
 	var date = new Date();
 	var dayNb = date.getDate();
 	if(dayNb == 1) dayNb = 'premier';
@@ -68,7 +66,7 @@ var date = function(){
 	var month = months[month];
 	var year = date.getFullYear();
 	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
-	console.log(annonceDate);
+	console.log('Service Date... ' + annonceDate);
 	tts.speak('fr',annonceDate);
 };
 exports.date = date;
