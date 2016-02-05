@@ -35,15 +35,16 @@ setInterval(function(){
 		if(!instance){
 			instance = true;
 			setTimeout(function(){
-				utils.testConnexion(function(connexion){
-					var date = new Date();
-					var min = date.getMinutes();
-					if(min%2 == 0 && connexion == true){
-						tts.speak('','');
-					}else{
-						exclamation.exclamation2Rappels();
-					}
-				});				
+				utils.randomAction();
+				// utils.testConnexion(function(connexion){
+					// var date = new Date();
+					// var min = date.getMinutes();
+					// if(min%2 == 0 && connexion == true){
+						// tts.speak('','');
+					// }else{
+						// exclamation.exclamation2Rappels();
+					// }
+				// });				
 			}, 2*60*1000); //1*60*1000
 		}
 	}
