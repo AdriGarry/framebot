@@ -47,17 +47,17 @@ exports.autoMute = autoMute;
 
 var randomAction = function(){
 	self.testConnexion(function(connexion){
-		var rdm = Math.floor(Math.random()*8); // 1->7
+		var rdm = Math.floor(Math.random()*11); // 1->10
 		console.log('> randomAction [rdm = ' + rdm + ']');
-		if(rdm <= 2 && connexion == true){
+		if(rdm <= 3 && connexion == true){
 			tts.speak('','');
-		}else if(rdm == 3 && connexion == true){
-			service.time();
 		}else if(rdm == 4 && connexion == true){
-			service.date();
+			service.time();
 		}else if(rdm == 5 && connexion == true){
-			service.weather();
+			service.date();
 		}else if(rdm == 6 && connexion == true){
+			service.weather();
+		}else if(rdm == 7 && connexion == true){
 			service.cpuTemp();
 		}else{
 			exclamation.exclamation2Rappels();
