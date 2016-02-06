@@ -32,8 +32,8 @@ setInterval(function(){
 	var value = mode.readSync();
 	satellite.writeSync(value);
 	if(1 === value){
-		if(!instance){
-			instance = true;
+		// if(!instance){
+			// instance = true;
 			setTimeout(function(){
 				utils.randomAction();
 				// utils.testConnexion(function(connexion){
@@ -46,7 +46,7 @@ setInterval(function(){
 					// }
 				// });				
 			}, 2*10*1000); //5*60*1000
-		}
+		// }
 	}
 	else{
 		instance = false;
