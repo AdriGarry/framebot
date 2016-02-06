@@ -48,7 +48,7 @@ exports.autoMute = autoMute;
 var randomAction = function(){
 	self.testConnexion(function(connexion){
 		var rdm = Math.floor(Math.random()*8); // 1->7
-		console.log('rdm = ' + rdm);
+		console.log('> randomAction [rdm = ' + rdm + ']');
 		if(rdm <= 2 && connexion == true){
 			tts.speak('','');
 		}else if(rdm == 3 && connexion == true){
