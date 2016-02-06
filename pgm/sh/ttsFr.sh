@@ -7,5 +7,5 @@ echo $*
 url="http://translate.google.com/translate_tts?tl=fr&client=tw-ob&q=$*"
 
 sudo amixer cset numid=3 1
-sudo mplayer -softvol -volume 180 -really-quiet -noconsolecontrols "$url"
+sudo mplayer -softvol -volume 220 -really-quiet -noconsolecontrols "$url"
 # sudo mplayer -softvol -softvol-max 50 -noconsolecontrols "$url"
