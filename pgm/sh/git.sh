@@ -18,7 +18,7 @@ then
 		sudo cp /home/pi/odi/pgm/sh/git.sh /home/pi/git.sh
 		if [ ! -d "/home/pi/odi/mp3" ]
 		then
-			sudo cp -rf /home/pi/odiSave/mp3 /home/pi/odi/mp3 &
+			sudo cp -rf /home/pi/odi2/mp3 /home/pi/odi/mp3 &
 		fi
 		if [ ! -d "/home/pi/odi/log" ]
 		then
