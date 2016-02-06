@@ -32,9 +32,9 @@ setInterval(function(){
 	var value = mode.readSync();
 	satellite.writeSync(value);
 	if(1 === value){
-		// if(!instance){
-			// instance = true;
-			setTimeout(function(){
+		if(!instance){
+			instance = true;
+			setInterval(function(){
 				utils.randomAction();
 				// utils.testConnexion(function(connexion){
 					// var date = new Date();
@@ -46,7 +46,7 @@ setInterval(function(){
 					// }
 				// });				
 			}, 2*20*1000); //5*60*1000
-		// }
+		}
 	}
 	else{
 		instance = false;
@@ -55,7 +55,7 @@ setInterval(function(){
 
 var getMode = function(callback){
 	var value = mode.readSync();
-	console.log('Button Mode : ' + value)
+	console.log('Mode : ' + value)
 	callback(value);
 };
 exports.getMode = getMode;
