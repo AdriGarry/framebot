@@ -93,13 +93,13 @@ cancel.watch(function(err, value){
 	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec');
 	if(pressTime < 1.2){
 		utils.mute();
-	}else if(pressTime > 1.2 && pressTime < 5){
+	}else if(pressTime > 1.2 && pressTime < 4){
 		utils.mute();
 		console.log('Restarting program...');
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 		deploy = spawn('node', ['/home/pi/odi/pgm/lib/allLedsOff.js']);
 		process.exit();
-	}else if(pressTime >= 5 && pressTime < 8){
+	}else if(pressTime >= 4 && pressTime < 7){
 		utils.shutdown();
 	}else{
 		console.log('Push Cancel button canceled !');
