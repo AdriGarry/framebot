@@ -34,7 +34,7 @@ setInterval(function(){
 	if(1 === value){
 		if(!instance){
 			instance = true;
-			setTimeout(function(){
+			// setTimeout(function(){
 				utils.randomAction();
 				// utils.testConnexion(function(connexion){
 					// var date = new Date();
@@ -45,12 +45,12 @@ setInterval(function(){
 						// exclamation.exclamation2Rappels();
 					// }
 				// });				
-			}, 2*10*1000); //5*60*1000
+			// }, 2*10*1000); //5*60*1000
 		}
 	}else{
 		instance = false;
 	}
-}, 60*1000);
+}, 5*60*1000);
 
 var getMode = function(callback){
 	var value = mode.readSync();
