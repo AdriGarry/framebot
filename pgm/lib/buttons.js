@@ -28,13 +28,14 @@ mode.watch(function(err, value){
 });
 
 var instance = false;
+var interval;
 setInterval(function(){
 	var value = mode.readSync();
 	satellite.writeSync(value);
 	if(1 === value){
 		if(!instance){
 			instance = true;
-			setTimeout(function(){
+			interval = setInterval(function(){
 				utils.randomAction();
 				// utils.testConnexion(function(connexion){
 					// var date = new Date();
@@ -49,6 +50,7 @@ setInterval(function(){
 		}
 	}else{
 		instance = false;
+		clearInterval(interval);
 	}
 }, 1000);
 
