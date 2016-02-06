@@ -7,4 +7,12 @@ echo $*
 url="http://translate.google.com/translate_tts?tl=es&client=tw-ob&q=$*"
 
 sudo amixer cset numid=3 1
-sudo mplayer -volume 100 -really-quiet -noconsolecontrols "$url"
+
+volume=$(cat /sys/class/gpio/gpio13/value)
+
+if [ $volume = 0 ]
+then
+	sudo mplayer -softvol -volume 100 -really-quiet -noconsolecontrols "$url"
+else
+	sudo mplayer -softvol -volume 250 -really-quiet -noconsolecontrols "$url"
+fi
