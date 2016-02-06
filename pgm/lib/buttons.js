@@ -34,7 +34,7 @@ setInterval(function(){
 	if(1 === value){
 		if(!instance){
 			instance = true;
-			setInterval(function(){
+			setTimeout(function(){
 				utils.randomAction();
 				// utils.testConnexion(function(connexion){
 					// var date = new Date();
@@ -50,7 +50,7 @@ setInterval(function(){
 	}else{
 		instance = false;
 	}
-}, 1000);
+}, 60*1000);
 
 var getMode = function(callback){
 	var value = mode.readSync();
