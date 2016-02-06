@@ -48,7 +48,7 @@ setInterval(function(){
 			console.error('No network, can\'t check messages & export log  /!\\');
 		}
 	});
-}, 10*1000);
+}, 13*1000);
 
 // setInterval(function(){
 	// service.cpuTemp();
