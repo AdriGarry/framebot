@@ -14,5 +14,5 @@ if [ $volume = 0 ]
 then
 	sudo mplayer -softvol -volume 100 -really-quiet -noconsolecontrols "$url"
 else
-	sudo mplayer -softvol -volume 250 -really-quiet -noconsolecontrols "$url"
+	sudo mplayer -softvol -volume 220 -really-quiet -noconsolecontrols "$url"
 fi
