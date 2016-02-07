@@ -6,7 +6,7 @@ sudo node /home/pi/odi/pgm/lib/allLedsOn.js
 volume=$(cat /sys/class/gpio/gpio13/value)
 if [ $volume = 0 ]
 then
-	volume=600
+	volume=-600
 else
 	volume=400
 fi
