@@ -43,7 +43,6 @@ utils.testConnexion(function(connexion){
 		}
 		//if(txt === 'undefined') txt = '';
 		var blinkTime = (txt.length/15) + 1;
-		//console.log('blinkTime : ' + blinkTime);
 		leds.blinkEye((Math.floor(Math.random()*5) + 1)*50, blinkTime);
 	} else {
 		console.error('No network, can\'t get TTS data /!\\');
