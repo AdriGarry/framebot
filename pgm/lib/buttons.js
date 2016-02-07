@@ -46,7 +46,7 @@ setInterval(function(){
 						// exclamation.exclamation2Rappels();
 					// }
 				// });				
-			}, 2*10*1000); //5*60*1000
+			}, 2*40*1000); //5*60*1000
 		}
 	}else{
 		instance = false;

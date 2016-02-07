@@ -6,7 +6,7 @@ GPIO.setwarnings(False)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(19,GPIO.IN) # white button
-GPIO.setup(16,GPIO.IN) #cancel button
+GPIO.setup(26,GPIO.IN) #blue button
 GPIO.setup(17, GPIO.OUT)
 
 # reboot
@@ -16,10 +16,10 @@ white_cp = -20
 white_flag = 0
 
 # shutdown
-# red_previous = 1
-# red_current = 1
-# red_cp = 0
-# red_flag = 0
+blue_previous = 1
+blue_current = 1
+blue_cp = -25
+blue_flag = 0
 
 while True:
   white_current = GPIO.input(19);
@@ -42,24 +42,30 @@ while True:
     os.system("sudo shutdown -r now")
     break
 
-  # red_current = GPIO.input(16);
-  # red_flag = red_previous + red_current
+  white_previous = white_current
 
-  # if (red_flag):
-    # red_cp += 1
-    # print red_cp
+  #############################
+  blue_current = GPIO.input(26);
+  #print blue_current
+  blue_flag = blue_previous + blue_current
+
+  if (blue_flag):
+    blue_cp += 1
+    print blue_cp
     # GPIO.output(17,True)
-  # else:
-    # red_cp = 0
+  else:
+    blue_cp = -20
     # GPIO.output(17,False)
 
-  # if (red_current and (not red_previous)):
-    # print 'AAA'
-  # if (red_flag and  red_cp > 50):
-    # print 'SHUTDOWN BY PYTHON SCRIPT    !!!!!'
-    # os.system("sudo shutdown -h now")
-    # break
+  if (blue_current and (not blue_previous)):
+	print 'Python not defined !'
+  if (blue_flag and  blue_cp > 0):
+    GPIO.output(17,False)
+    print 'SHUTDOWN BY PYTHON SCRIPT    !!!!!'
+    os.system("sudo shutdown -h now")
+    break
 
-  white_previous = white_current
+  blue_previous = blue_current
+
   time.sleep(0.1)
  
