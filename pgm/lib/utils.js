@@ -101,7 +101,7 @@ var sleepNode = function(sec, delay){
 	if(delay > 0){
 		console.log('\nOdi is going to fall asleep in ' + delay + 'sec ...');
 	} else {
-		delay = 0; //console.log('_delay set to 0;');		
+		delay = 0;
 	}
 	console.log('\nsleepNode: Odi falling asleep for ' + sec + 'sec !');
 	setTimeout(function(){
