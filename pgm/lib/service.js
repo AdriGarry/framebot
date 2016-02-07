@@ -3,7 +3,6 @@
 
 // var spawn = require('child_process').spawn;
 var fs = require('fs');
-// var Gpio = require('onoff').Gpio;
 var request = require('request');
 //var xmlreader = require('xmlreader');
 var leds = require('./leds.js');
