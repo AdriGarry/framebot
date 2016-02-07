@@ -14,10 +14,6 @@ then
 	sudo killall omxplayer.bin
 	
 	while true; do # On scanne en boucle le dossier
-		# if ps ax | grep -v grep | grep $SERVICE > /dev/null
-			# then
-			# sleep 2; # Le script plante parfois si la pause n'est pas assez longue
-		# else
 			music=$(sudo find /home/pi/odi/mp3/jukebox -maxdepth 1 -type f | shuf | head -1)
 			volume=$(cat /sys/class/gpio/gpio13/value)
 			position=$(shuf -i 5-120 -n 1)
@@ -38,10 +34,6 @@ then
 	done
 else
 	while true; do # On scanne en boucle le dossier
-		# if ps ax | grep -v grep | grep $SERVICE > /dev/null
-			# then
-			# sleep 100; # Le script plante parfois si la pause n'est pas assez longue
-		# else
 			music=$(sudo find /home/pi/odi/mp3/jukebox -maxdepth 1 -type f | shuf | head -1)
 			# music=$(sudo find /home/pi/odi/mp3/sounds -maxdepth 1 -type f | shuf | head -1)
 			volume=$(cat /sys/class/gpio/gpio13/value)
