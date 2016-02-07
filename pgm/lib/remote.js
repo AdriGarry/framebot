@@ -86,6 +86,8 @@ var check = function(){
 									service.info();
 								} else if(txt == 'serviceCpu') {
 									service.cpuTemp();
+								} else if(txt == 'test') {
+									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'mouthTrick']);
 								} else {
 									tts.speak('','');
 								}
