@@ -85,7 +85,6 @@ var recordLog = function(msg){
 		var content = fs.readFileSync(outputFile, 'UTF-8');
 	} catch(e){
 		console.error(e);
-		//throw new Error(msg + '\r\n' + e); 
 		//this.recordLog(msg + '\r\n' + e);
 	}
 	content += '\r\n' + msg;//.trim();
