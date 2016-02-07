@@ -2,7 +2,6 @@
 
 sudo node /home/pi/odi/pgm/lib/allLedsOn.js
 
-#volume=300
 volume=$(cat /sys/class/gpio/gpio13/value)
 if [ $volume = 0 ]
 then
