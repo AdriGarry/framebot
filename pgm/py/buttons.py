@@ -18,7 +18,7 @@ white_flag = 0
 # shutdown
 blue_previous = 1
 blue_current = 1
-blue_cp = -25
+blue_cp = -4
 blue_flag = 0
 
 while True:
