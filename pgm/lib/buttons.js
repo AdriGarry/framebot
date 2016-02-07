@@ -37,15 +37,6 @@ setInterval(function(){
 			instance = true;
 			interval = setInterval(function(){
 				utils.randomAction();
-				// utils.testConnexion(function(connexion){
-					// var date = new Date();
-					// var min = date.getMinutes();
-					// if(min%2 == 0 && connexion == true){
-						// tts.speak('','');
-					// }else{
-						// exclamation.exclamation2Rappels();
-					// }
-				// });				
 			}, 2*40*1000); //5*60*1000
 		}
 	}else{
@@ -121,14 +112,9 @@ white.watch(function(err, value){
 		}else{
 			console.log('no action defined');
 		}
-	// }else if(pressTime > 2 && pressTime < 5){
-		// utils.reboot();
-	// }else if(pressTime >= 5){
-		// utils.shutdown();
 	}else{
 		console.log('Push White button canceled !');
 	}
-	// utils.autoMute();
 });
 blue.watch(function(err, value){
 	leds.ledOn('belly');
