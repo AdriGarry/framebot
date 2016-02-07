@@ -8,7 +8,7 @@ if [ $volume = 0 ]
 then
 	volume=-600
 else
-	volume=400
+	volume=300
 fi
 
 echo $1
