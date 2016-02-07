@@ -11,7 +11,6 @@ var service = require('./service.js');
 var date = new Date();
 var hour = date.getHours();
 var pastHour = hour;
-// var minRing = true;
 
 var startClock = function(mode){
 	if(!mode){
@@ -43,7 +42,6 @@ var startClock = function(mode){
 					if(connexion == true){
 						tts.speak('fr', 'Il est ' + hour + ' heures');
 					} else {
-						// console.error('Erreur test connexion /!\\');
 						if(cpHour > 12){
 							cpHour = hour - 12;
 						} else if(cpHour == 0){
