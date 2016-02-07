@@ -37,7 +37,7 @@ setInterval(function(){
 			instance = true;
 			interval = setInterval(function(){
 				utils.randomAction();
-			}, 2*15*1000); //5*60*1000
+			}, 5*60*1000); //5*60*1000
 		}
 	}else{
 		instance = false;
@@ -91,8 +91,6 @@ cancel.watch(function(err, value){
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 		deploy = spawn('node', ['/home/pi/odi/pgm/lib/allLedsOff.js']);
 		process.exit();
-	// }else if(pressTime >= 4 && pressTime < 7){
-		// utils.shutdown();
 	}else{
 		console.log('Push Cancel button canceled !');
 	}
