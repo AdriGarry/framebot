@@ -141,8 +141,8 @@ var shutdown = function(){
 	tts.speak('fr','Arret du systeme !');
 	remote.check();
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+	deploy = spawn('omxplayer', ['-o local', '/home/pi/odi/mp3/sounds/autres/sessionOff.mp3']);
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'shutdown']);
-	// deploy = spawn('omxplayer', ['-o local', '/home/pi/odi/mp3/sounds/autres/sessionOff.mp3']);
 	console.log('_/!\\__SHUTING DOWN RASPBERRY PI !!');
 	setTimeout(function(){
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/reInit_log.sh']);
