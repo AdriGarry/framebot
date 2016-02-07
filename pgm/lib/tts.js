@@ -5,7 +5,7 @@ var spawn = require('child_process').spawn;
 var fs = require('fs');
 var leds = require('./leds.js');
 var request = require('request');
-var utils = require('./lib/utils.js');
+var utils = require('./utils.js');
 
 var self = this;
 var content;
