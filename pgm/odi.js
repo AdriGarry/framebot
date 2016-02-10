@@ -16,7 +16,7 @@ var service = require('./lib/service.js');
 var remote = require('./lib/remote.js');
 
 leds.blinkLed(100, 300);
-leds.blinkEye(100, 300);
+//leds.blinkEye(100, 300);
 var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/startupOdi.sh']);
 setTimeout(function(){
 	leds.clearLeds();
