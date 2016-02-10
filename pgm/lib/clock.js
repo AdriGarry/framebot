@@ -31,6 +31,7 @@ var startClock = function(mode){
 				mode = true;
 			}
 		}
+		console.log('Clock mode : ' + mode);
 		// console.log('mode after clock filter : ' + mode);
 		if(pastHour < hour){
 			pastHour = hour;
