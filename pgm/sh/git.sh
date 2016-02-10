@@ -24,7 +24,7 @@ then
 		then
 			sudo mkdir /home/pi/odi/log &
 		fi
-		sudo rm -rf /home/pi/odi/log/*
+		#sudo rm -rf /home/pi/odi/log/*
 
 	elif [ $1 = "clone" ]
 	then

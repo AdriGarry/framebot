@@ -149,6 +149,7 @@ var setAlarms = function(){
 		if(hour == 13 && min == 13){
 			utils.testConnexion(function(connexion){
 				if(connexion == true){
+					tts.speak('fr','Auto reboot');
 					console.log('REBOOTING RASPBERRY PI !!');
 					var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh', 'reboot']);
 				}
