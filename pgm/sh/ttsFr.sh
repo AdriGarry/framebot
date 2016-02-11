@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 sudo killall omxplayer
 sudo killall mplayer
@@ -6,7 +6,7 @@ sudo killall mplayer
 echo $*
 url="http://translate.google.com/translate_tts?tl=fr&client=tw-ob&q=$*"
 
-sudo amixer cset numid=3 1
+#sudo amixer cset numid=3 1
 
 volume=$(cat /sys/class/gpio/gpio13/value)
 
@@ -16,3 +16,4 @@ then
 else
 	sudo mplayer -softvol -volume 220 -really-quiet -noconsolecontrols "$url"
 fi
+
