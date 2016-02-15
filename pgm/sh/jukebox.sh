@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 SERVICE="omxplayer" # On definit le service a utiliser (omxplayer)
 

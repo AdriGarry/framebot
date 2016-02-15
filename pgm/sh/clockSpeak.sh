@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 HR=$(datez +%1)
 MIN=$(date +%M)

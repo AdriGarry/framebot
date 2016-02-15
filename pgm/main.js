@@ -15,13 +15,13 @@ var odiPgm;
 var odiState = false;
 var mute;
 
-utils.getMsgLastGitCommit(function(commitMsg){
+/*utils.getMsgLastGitCommit(function(commitMsg){
 	setTimeout(function(){
 		utils.recordLog('Last Commit Title : ' + commitMsg);
 		commitMsg = commitMsg.replace('.',' point ');
 		tts.speak('fr', commitMsg.trim());
 	}, 1000);
-});
+});*/
 
 startOdi();
 

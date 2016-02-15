@@ -12,8 +12,8 @@ var date = new Date();
 var hour = date.getHours();
 var pastHour = hour;
 
-var startClock = function(mode){
-	if(!mode){
+var startClock = function(modeInit){
+	if(!modeInit){
 		console.log('Starting clock in quiet mode     -.-');
 	}else{
 		console.log('Starting clock in normal mode');
@@ -23,16 +23,16 @@ var startClock = function(mode){
 		hour = date.getHours();
 		min = date.getMinutes();
 		// console.log('mode before clock filter : ' + mode);
-		if(!mode){
+		if(!modeInit){
 			var day = date.getDay();
+			var mode;
 			if(day > 0 && day < 6 && hour >= 7){
 				mode = true;
 			}else if(hour >=11){
 				mode = true;
 			}
 		}
-		console.log('Clock mode : ' + mode);
-		// console.log('mode after clock filter : ' + mode);
+		console.log('Clock mode : ' + mode + ' [modeInit:' + modeInit + ']');
 		if(pastHour < hour){
 			pastHour = hour;
 			var cpHour = hour;
@@ -156,7 +156,12 @@ var setAlarms = function(){
 				}
 			});
 		} else if(hour == 0 && min == 1){
-			tts.speak('fr', 'Un jour de plus vient de s\'achever.');
+			buttons.getMode(function(modeValue){
+				if(modeValue){
+					tts.speak('fr', 'Un jour de plus vient de s\'achever.');
+				}
+			});
+			// TODO ajouter test interrupteur mode
 		}
 	}, 30*1000);
 };

@@ -1,5 +1,5 @@
-#!/bin/bash
-
+#!/bin/sh
+ 
 sudo killall omxplayer
 sudo killall mplayer
 
@@ -9,10 +9,11 @@ url="http://translate.google.com/translate_tts?tl=es&client=tw-ob&q=$*"
 sudo amixer cset numid=3 1
 
 volume=$(cat /sys/class/gpio/gpio13/value)
-
-if [ $volume = 0 ]
+if [ $volume -eq 0 ]
 then
-	sudo mplayer -softvol -volume 100 -really-quiet -noconsolecontrols "$url"
+	volume=100
 else
-	sudo mplayer -softvol -volume 220 -really-quiet -noconsolecontrols "$url"
+	volume=220
 fi
+
+sudo mplayer -softvol -volume $volume -really-quiet -noconsolecontrols "$url"

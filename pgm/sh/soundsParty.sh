@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 sudo node /home/pi/odi/pgm/lib/allLedsOn.js
 volume=300

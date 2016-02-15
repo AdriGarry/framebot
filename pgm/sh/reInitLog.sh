@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # ReInit Log
 
 sudo rm /home/pi/odi/log/odi.log

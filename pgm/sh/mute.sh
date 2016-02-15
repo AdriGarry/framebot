@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Mute
 
 if [ $1 = "auto" ]
