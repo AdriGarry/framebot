@@ -61,9 +61,9 @@ ok.watch(function(err, value){
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
 	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec');
-	if(pressTime < 1.5){
+	if(pressTime < 1){
 		utils.randomAction();
-	}else if(pressTime > 2 && pressTime < 5){
+	}else if(pressTime >= 1 && pressTime < 4){
 		// event.emit('playFip', 'Fip Radio');
 		fip.playFip();
 	}else{
@@ -83,16 +83,15 @@ cancel.watch(function(err, value){
 	leds.ledOff('belly');
 	leds.buttonPush('stop');
 	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec');
-	if(pressTime < 1.2){
-		utils.mute();
-	}else if(pressTime > 1.2 && pressTime < 4){
+	utils.mute();
+	if(pressTime >= 1 && pressTime < 4){
 		utils.mute();
 		console.log('Restarting program...');
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 		deploy = spawn('node', ['/home/pi/odi/pgm/lib/allLedsOff.js']);
 		process.exit();
 	}else{
-		console.log('Push Cancel button canceled !');
+		// console.log('Push Cancel button canceled !');
 	}
 });
 white.watch(function(err, value){

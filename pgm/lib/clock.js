@@ -79,40 +79,32 @@ var setAlarms = function(){
 		var sec = date.getSeconds();
 		if(day > 0 && day < 6){
 			if(hour == 7 && min == 30){
+			// if(hour == 20 && min == 49){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
-				if(date.getSeconds() < 26){
+				if(date.getSeconds() < 31){
 					utils.testConnexion(function(connexion){
-						setTimeout(function(){
-							if(connexion == true){
-									console.log('It\'s '+ hour + ':' + min 
-										+ ' !!  Let\'s listen the radio :D');
-									setTimeout(function(){
-										service.info();
-										setTimeout(function(){
-											fip.playFip();
-										}, 15*1000);
-									}, 5*1000);
-							} else {
-								console.log('It\'s '+ hour + ':' + min 
-									+ ' !!  Let\'s play some music :D');
-								jukebox.loop();
-							}
-							utils.autoMute('Auto mute Morning');
-						}, 3000);
+						if(connexion == true){
+							tts.speak('fr', 'Il est ' + hour + ' heures ' + min);
+							setTimeout(function(){
+								service.weather();
+							}, 5*1000);
+							setTimeout(function(){
+								fip.playFip();
+							}, 15*1000);
+						}else{
+							jukebox.loop();
+						}
+						utils.autoMute('Auto mute Morning');
 					});
 				}
-			} else if(hour == 18 && min == 45){
-				if(date.getSeconds() < 26){
+			}else if(hour == 18 && min == 45){
+				if(date.getSeconds() < 31){
 					utils.testConnexion(function(connexion){
 						setTimeout(function(){
 							if(connexion == true){
-									console.log('It\'s '+ hour + ':' + min 
-										+ ' !!  Let\'s listen the radio :D');
-									fip.playFip();
-							} else {
-								console.log('It\'s '+ hour + ':' + min 
-									+ ' !!  Let\'s play some music :D');
+								fip.playFip();
+							}else{
 								jukebox.loop();
 							}
 							utils.autoMute('Auto mute Evening Fip');
@@ -120,7 +112,7 @@ var setAlarms = function(){
 					});
 				}
 			}
-		} else {
+		}else{
 			if(hour == 12 && min == 0){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
@@ -155,7 +147,7 @@ var setAlarms = function(){
 					var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh', 'reboot']);
 				}
 			});
-		} else if(hour == 0 && min == 1){
+		}else if(hour == 0 && min == 1){
 			buttons.getMode(function(modeValue){
 				if(modeValue){
 					tts.speak('fr', 'Un jour de plus vient de s\'achever.');

@@ -72,16 +72,13 @@ exports.date = date;
 
 var info = function(){
 	console.log('Service Info...');
-	tts.speak('fr','Point d\'information');
+	self.date();
 	setTimeout(function(){
-		self.date();
+		self.time();
 		setTimeout(function(){
-			self.time();
-			setTimeout(function(){
-				self.weather();
-			}, 6*1000);
+			self.weather();
 		}, 6*1000);
-	}, 6*1000);
+	}, 5*1000);
 };
 exports.info = info;
 
