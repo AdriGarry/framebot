@@ -26,7 +26,7 @@ var startClock = function(modeInit){
 		if(!modeInit){
 			var day = date.getDay();
 			var mode;
-			if(day > 0 && day < 6 && hour >= 7){
+			if(day > 0 && day < 6 && hour >= 8){
 				mode = true;
 			}else if(hour >=11){
 				mode = true;
