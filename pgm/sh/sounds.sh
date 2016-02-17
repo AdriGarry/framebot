@@ -13,7 +13,7 @@ fi
 echo $1
 if [ $1 = "sonar" ]
 then
-	sound="/home/pi/odi/mp3/sounds/autres/sonar.wav"
+	sound="/home/pi/odi/mp3/sounds/autres/sonar.mp3"
 elif [ $1 = "test" ]
 then
 	sound="/home/pi/odi/mp3/sounds/autres/testMode.mp3"
@@ -30,7 +30,7 @@ then
 elif [ $1 = "start" ]
 then
 	sound="/home/pi/odi/mp3/sounds/autres/mac-startup-sound2.mp3"
-elif [ $1 = "git" ]
+elif [ $1 = "started" ]
 then
 	sound="/home/pi/odi/mp3/sounds/autres/launchingcompleted.mp3"
 elif [ $1 = "reboot" ]

@@ -39,7 +39,7 @@ function startOdi(){
 	//ok.unwatch();
 	mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	var logo = fs.readFileSync('/home/pi/odi/pgm/data/logoLarry.properties', 'utf8').toString().split('\n');
-	logo = '\n\n' + logo.join('\n') + '\n';
+	logo = '\n\n' + logo.join('\n') + '\nodiState:' + odiState;
 	console.log(logo);
 	utils.recordLog(logo);
 	remote.check();

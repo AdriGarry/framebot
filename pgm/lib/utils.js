@@ -149,11 +149,12 @@ var shutdown = function(){
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh']);
 	}, 2000);
 };
+exports.shutdown = shutdown;
 
-self.restartOdi = function(){
+var restartOdi = function(){
 	console.log('Restarting Odi !!');
 	setTimeout(function(){
 		process.exit();
 	}, 1000);
 };
-exports.shutdown = shutdown;
+exports.restartOdi = restartOdi;

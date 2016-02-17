@@ -62,7 +62,8 @@ ok.watch(function(err, value){
 	leds.ledOff('belly');
 	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec');
 	if(pressTime < 1){
-		utils.randomAction();
+		// utils.randomAction();
+		exclamation.exclamation2Rappels();
 	}else if(pressTime >= 1 && pressTime < 4){
 		// event.emit('playFip', 'Fip Radio');
 		fip.playFip();
@@ -85,11 +86,7 @@ cancel.watch(function(err, value){
 	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec');
 	utils.mute();
 	if(pressTime >= 1 && pressTime < 4){
-		utils.mute();
-		console.log('Restarting program...');
-		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-		deploy = spawn('node', ['/home/pi/odi/pgm/lib/allLedsOff.js']);
-		process.exit();
+		utils.restartOdi();
 	}else{
 		// console.log('Push Cancel button canceled !');
 	}
