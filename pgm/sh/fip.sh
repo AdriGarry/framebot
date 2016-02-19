@@ -2,7 +2,7 @@
 echo 'Odi/ Play random music'
 
 
-#sudo omxplayer --vol -400 /home/pi/odi/mp3/sounds/autres/radio-switch.mp3 &
+#sudo omxplayer --vol -400 /home/pi/odi/mp3/sounds/system/radio-switch.mp3 &
 #sleep 1
 
 volume=$(cat /sys/class/gpio/gpio13/value)

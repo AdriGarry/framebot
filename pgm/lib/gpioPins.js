@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Module de gestion des Pins GPIO
+// Module attribution des Pins GPIO
 
 var Gpio = require('onoff').Gpio;
 led = new Gpio(15, 'out');

@@ -26,9 +26,6 @@ setTimeout(function(){
 setInterval(function(){
 	led.write(1);
 }, 1000);
-/*setInterval(function(){
-	leds.blinkEye(100, 0.5);
-}, 60*1000);*/
 
 buttons.getMode(function(modeValue){
 	if(modeValue){
@@ -49,24 +46,5 @@ setInterval(function(){
 		}
 	});
 }, 13*1000);
-
-// setInterval(function(){
-	// service.cpuTemp();
-// }, 20*1000);
-// setInterval(function(){
-	// buttons.getMode(function(modeValue){
-		// if(modeValue){
-			// utils.testConnexion(function(connexion){
-				// if(connexion == true){
-					// service.weather();
-				// } else {
-					// console.error('No network, can\'t get weather info  /!\\');
-				// }
-			// });
-		// }else{
-			// service.date();
-		// }
-	// });	
-// }, 20*1000);
 
 //var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'r2d2']);

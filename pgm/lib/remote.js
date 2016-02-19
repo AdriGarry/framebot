@@ -92,7 +92,7 @@ var check = function(){
 									tts.speak('','');
 								}
 							} else {
-								console.log(lg.toUpperCase() + ' > "' + txt + '"  [' + timeMessage + ']');
+								// console.log(lg.toUpperCase() + ' > "' + txt + '"  [' + timeMessage + ']');
 								setTimeout(function(lg, txt){
 									tts.speak(lg,txt);
 								}.bind(this, lg, txt), timeMessage*1000);

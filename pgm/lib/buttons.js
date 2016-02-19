@@ -12,7 +12,7 @@ var tts = require('./tts.js');
 var clock = require('./clock.js');
 var party = require('./party.js');
 var EventEmitter = require('events').EventEmitter;
-var event = new EventEmitter();
+// var event = new EventEmitter();
 var utils = require('./utils.js');
 
 mode.watch(function(err, value){
@@ -149,12 +149,12 @@ blue.watch(function(err, value){
 });
 
 // ################# events #################
-event.on('exclamation2Rappels', function(message){
-	console.log('_EventEmited: ' + (message || '.'));
-	exclamation.exclamation2Rappels();
-});
+// event.on('exclamation2Rappels', function(message){
+	// console.log('_EventEmited: ' + (message || '.'));
+	// exclamation.exclamation2Rappels();
+// });
 
-event.on('playFip', function(message){
-	console.log('_EventEmited: ' + (message || '.'));
-	fip.playFip();
-});
+// event.on('playFip', function(message){
+	// console.log('_EventEmited: ' + (message || '.'));
+	// fip.playFip();
+// });

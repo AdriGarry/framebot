@@ -24,24 +24,8 @@ utils.testConnexion(function(connexion){
 			lg = txt[0];
 			txt = txt[1];
 		}
-		console.log('TTS: "' + txt + '"');
-		switch(lg) {
-			case 'en':
-				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/ttsEn.sh', txt]);
-				break;
-			case 'es':
-				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/ttsEs.sh', txt]);
-				break;
-			case 'it':
-				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/ttsIt.sh', txt]);
-				break;
-			case 'de':
-				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/ttsDe.sh', txt]);
-				break;
-			default:
-				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/ttsFr.sh', txt]);
-		}
-		//if(txt === 'undefined') txt = '';
+		console.log('TTS [' + lg + '] "' + txt + '"');
+		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts.sh', lg, txt]);
 		var blinkTime = (txt.length/15) + 1;
 		leds.blinkEye((Math.floor(Math.random()*5) + 1)*50, blinkTime);
 	} else {

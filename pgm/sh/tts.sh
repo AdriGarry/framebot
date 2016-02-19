@@ -1,10 +1,27 @@
 #!/bin/sh
  
-sudo killall omxplayer
+#sudo killall omxplayer
 sudo killall mplayer
 
+echo $1
+lg = "fr"
+case $1 in
+	"en")
+		lg="en" ;;
+	"es")
+		lg="es" ;;
+	"it")
+		lg="it" ;;
+	"de")
+		lg="de" ;;
+	*)
+		lg="fr" ;;
+esac
+
+shift
+
 echo $*
-url="http://translate.google.com/translate_tts?tl=de&client=tw-ob&q=$*"
+url="http://translate.google.com/translate_tts?tl="$lg"&client=tw-ob&q="$*
 
 sudo amixer cset numid=3 1
 

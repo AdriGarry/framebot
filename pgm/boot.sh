@@ -6,8 +6,8 @@ echo -e "\n. WAKE UP !\n"
 sudo amixer cset numid=3
 sudo node /home/pi/odi/pgm/lib/allLedsOn.js
 
-#sudo omxplayer -o local /home/pi/odi/mp3/sounds/autres/mac-startup-sound.mp3
-sudo omxplayer -o local /home/pi/odi/mp3/sounds/autres/mac-startup-sound2.mp3 | echo ".. mac startup sound 2 [fast]" &
+#sudo omxplayer -o local /home/pi/odi/mp3/sounds/system/mac-startup-sound.mp3
+sudo omxplayer -o local /home/pi/odi/mp3/sounds/system/mac-startup-sound2.mp3 | echo ".. mac startup sound 2 [fast]" &
 
 # Get Odi program
 sudo sh /home/pi/git.sh update
@@ -17,7 +17,7 @@ sudo sh /home/pi/git.sh update
 
 #sleep 1
 
-sudo omxplayer -o local /home/pi/odi/mp3/sounds/autres/launchingcompleted.mp3 | echo "... launching completed" 
+sudo omxplayer -o local /home/pi/odi/mp3/sounds/system/launchingcompleted.mp3 | echo "... launching completed" 
 sudo node /home/pi/odi/pgm/lib/allLedsOff.js
 
 sudo node /home/pi/odi/pgm/main.js & - pi
