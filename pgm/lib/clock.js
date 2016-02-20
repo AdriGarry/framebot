@@ -7,7 +7,7 @@ var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
 var tts = require('./tts.js');
 var service = require('./service.js');
-// var buttons = require('./buttons.js');
+var log = require('./log.js');
 
 var date = new Date();
 var hour = date.getHours();
@@ -150,13 +150,9 @@ var setAlarms = function(){
 					var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh', 'reboot']);
 				}
 			});
-		}else if(hour == 0 && min == 1){
-			// buttons.getMode(function(modeValue){
-				// if(modeValue){
-					// tts.speak('fr', 'Un jour de plus vient de s\'achever.');
-				// }
-			// });
-			// TODO ajouter test interrupteur mode
+		}else if(day == 2 && hour == 5 && min == 00 && sec <= 30){
+			console.log('Deleting log files  /!\\');
+			log.deleteLogFiles();
 		}
 	}, 30*1000);
 };

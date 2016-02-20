@@ -30,7 +30,7 @@ var setTimer = function(){
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/timerSound.sh']);
 		}
 		time--;
-		if(time%120 == 0){
+		if(time%120 == 0 && (time/60)>0){
 			// tts.speak('fr', 'Minuterie ' + time/60 + ' minutes');
 			tts.speak('fr', time/60 + ' minutes et compte a rebours');
 		}else if(time <= 0){

@@ -8,6 +8,7 @@ var gpioPins = require('./lib/gpioPins.js');
 var fs = require('fs');
 var request = require('request');
 var utils = require('./lib/utils.js');
+var log = require('./lib/log.js');
 var tts = require('./lib/tts.js');
 var remote = require('./lib/remote.js');
 
@@ -41,7 +42,7 @@ function startOdi(){
 	var logo = fs.readFileSync('/home/pi/odi/pgm/data/logoLarry.properties', 'utf8').toString().split('\n');
 	logo = '\n\n' + logo.join('\n') + '\nodiState:' + odiState;
 	console.log(logo);
-	utils.recordLog(logo);
+	log.recordLog(logo);
 	remote.check();
 	// utils.sleepNode(4,1.5);
 
@@ -58,8 +59,8 @@ function startOdi(){
 		min = date.getMinutes();
 		sec = date.getSeconds();
 		logDate = (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
-		console.log(logDate + ' Odi/ ' + data);
-		utils.recordLog(logDate + ' Odi/ ' + data);
+		console.log(logDate + ' Odi/ ' + data + '\n');
+		log.recordLog(logDate + ' Odi/ ' + data);
 	});
 
 	odiPgm.stderr.on('data', function(data){
@@ -68,8 +69,8 @@ function startOdi(){
 		min = date.getMinutes();
 		sec = date.getMinutes();
 		logDate = (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
-		console.log(logDate + ' O/!\\ ' + data);
-		utils.recordLog(hour + ':' + min + ':' + sec + ' O/!\\ ' + data);
+		console.log(logDate + ' O/!\\ ' + data + '\n');
+		log.recordLog(hour + ':' + min + ':' + sec + ' O/!\\ ' + data);
 	});
 	
 	odiPgm.on('exit', function(code){

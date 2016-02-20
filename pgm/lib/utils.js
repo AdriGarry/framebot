@@ -2,7 +2,6 @@
 // Module utilitaires
 
 var log = 'Odi/ ';
-var fs = require('fs');
 var request = require('request');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
@@ -19,9 +18,9 @@ var service = require('./service.js');
 var remote = require('./remote.js');
 var self = this;
 
-var mute = function(){
+var mute = function(message){
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-	console.log('>> MUTE ALL  :|');
+	console.log((message !== 'undefined')? message : '' + ' >> MUTE ALL  :|');
 	leds.clearLeds();
 	eye.write(0);
 	belly.write(0);
@@ -36,7 +35,7 @@ var autoMute = function(message){
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh', 'auto']);
 		setTimeout(function(){
 			deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-			console.log(message + ' > AUTO MUTE   :|');
+			console.log(message + ' >> AUTO MUTE   :|');
 			leds.clearLeds();
 			eye.write(0);
 			belly.write(0);
@@ -78,19 +77,6 @@ var testConnexion = function(callback){
 	});
 };
 exports.testConnexion = testConnexion;
-
-var outputFile = '/home/pi/odi/log/odi.log';
-var recordLog = function(msg){
-	try{
-		var content = fs.readFileSync(outputFile, 'UTF-8');
-	} catch(e){
-		console.error(e);
-		//this.recordLog(msg + '\r\n' + e);
-	}
-	content += '\r\n' + msg;//.trim();
-	fs.writeFileSync(outputFile, content, 'UTF-8');
-};
-exports.recordLog = recordLog;
 
 var sleepNode = function(sec, delay){
 	/*if(delay){

@@ -14,6 +14,9 @@ echo $1
 if [ $1 = "mouthTrick" ]
 then
 	music="/home/pi/odi/mp3/jukebox/milanMouthTrick.mp3"
+elif [ $1 = "urss" ]
+then
+	music="/home/pi/odi/mp3/jukebox/HymneSovietique.mp3"
 elif [ $1 = "1" ]
 then
 	music="/home/pi/odi/mp3/jukebox/blackIsTheNight.mp3"

@@ -83,19 +83,6 @@ var testConnexion = function(callback){
 };
 exports.testConnexion = testConnexion;
 
-var outputFile = '/home/pi/odi/log/odi.log';
-var recordLog = function(msg){
-	try{
-		var content = fs.readFileSync(outputFile, 'UTF-8');
-	} catch(e){
-		console.error(e);
-		//this.recordLog(msg + '\r\n' + e);
-	}
-	content += '\r\n' + msg;//.trim();
-	fs.writeFileSync(outputFile, content, 'UTF-8');
-};
-exports.recordLog = recordLog;
-
 var sleepNode = function(sec, delay){
 	/*if(delay){
 		delay = 0;

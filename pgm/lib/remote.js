@@ -50,6 +50,7 @@ var check = function(){
 						if(txt != undefined){
 							txt = txt.split(';');
 							lg = txt[0];
+							// txt = txt[1].toLowerCase();
 							txt = txt[1];
 							var timeMessage = txt ? txt.length/5 : 'undefined';
 							if(lg == 'cmd'){
@@ -86,6 +87,8 @@ var check = function(){
 									service.info();
 								} else if(txt == 'serviceCpu') {
 									service.cpuTemp();
+								} else if(txt == 'urss') {
+									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'urss']);
 								} else if(txt == 'test') {
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'mouthTrick']);
 								} else {
