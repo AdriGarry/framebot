@@ -4,7 +4,7 @@
 sudo killall mplayer
 
 echo $1
-lg = "fr"
+lg="fr"
 case $1 in
 	"en")
 		lg="en" ;;
@@ -21,7 +21,7 @@ esac
 shift
 
 echo $*
-url="http://translate.google.com/translate_tts?tl="$lg"&client=tw-ob&q="$*
+url="http://translate.google.com/translate_tts?tl=$lg&client=tw-ob&q=$*"
 
 sudo amixer cset numid=3 1
 
@@ -33,4 +33,6 @@ else
 	volume=220
 fi
 
-sudo mplayer -softvol -volume $volume -really-quiet -noconsolecontrols "$url"
+# sudo mplayer -softvol -volume $volume -really-quiet -noconsolecontrols "$url"
+sudo mplayer -softvol -volume $volume -noconsolecontrols "$url"
+# sudo mplayer -noconsolecontrols $url

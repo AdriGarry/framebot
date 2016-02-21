@@ -4,7 +4,7 @@
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 
-var outputFile = '/home/pi/odi/log/odi.log';
+var outputFile = '/home/pi/odi/log/odiNode.log';
 var recordLog = function(msg){
 	try{
 		var content = fs.readFileSync(outputFile, 'UTF-8');
@@ -17,7 +17,7 @@ var recordLog = function(msg){
 };
 exports.recordLog = recordLog;
 
-var deleteLogFiles = function(){
-	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/log.sh', 'delete']);
+var cleanLog = function(){
+	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/log.sh', 'clean']);
 };
-exports.deleteLogFiles = deleteLogFiles;
+exports.cleanLog = cleanLog;

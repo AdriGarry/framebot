@@ -3,11 +3,11 @@
 sudo node /home/pi/odi/pgm/lib/allLedsOn.js
 
 volume=$(cat /sys/class/gpio/gpio13/value)
-if [ $volume = 0 ]
+if [ $volume -eq 0 ]
 then
-	volume = -500
+	volume=-450
 else
-	volume = 350
+	volume=350
 fi
 
 echo $1
@@ -21,6 +21,12 @@ then
 	elif [ $1 = "carburant" ]
 then
 	sound="/home/pi/odi/mp3/sounds/carburant.mp3"
+elif [ $1 = "fullmetaljacket" ]
+then
+	sound="/home/pi/odi/mp3/sounds/FullMetalJacket2.mp3"
+elif [ $1 = "ressort" ]
+then
+	sound="/home/pi/odi/mp3/sounds/ressort.mp3"
 elif [ $1 = "r2d2" ]
 then
 	sound="/home/pi/odi/mp3/sounds/system/r2d2.2.mp3"

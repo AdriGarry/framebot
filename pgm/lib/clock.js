@@ -150,9 +150,10 @@ var setAlarms = function(){
 					var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh', 'reboot']);
 				}
 			});
-		}else if(day == 2 && hour == 5 && min == 00 && sec <= 30){
-			console.log('Deleting log files  /!\\');
-			log.deleteLogFiles();
+		// }else if(day == 2 && hour == 5 && min == 00 && sec <= 30){
+		// // }else if(hour == 0 && min == 25 && sec <= 30){
+			// console.log('Clean log files  /!\\');
+			// log.cleanLog();
 		}
 	}, 30*1000);
 };

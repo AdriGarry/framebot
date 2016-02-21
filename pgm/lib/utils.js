@@ -46,21 +46,47 @@ exports.autoMute = autoMute;
 
 var randomAction = function(){
 	self.testConnexion(function(connexion){
-		var rdm = Math.floor(Math.random()*13); // 1->12
-		console.log('> randomAction [rdm = ' + rdm + ']');
-		if(rdm <= 4 && connexion == true){
-			tts.speak('','');
-		}else if(rdm == 5 && connexion == true){
-			service.time();
-		}else if(rdm == 6 && connexion == true){
-			service.date();
-		}else if(rdm == 7 && connexion == true){
-			service.weather();
-		}else if(rdm == 8 && connexion == true){
-			service.cpuTemp();
-		}else{
+		if(!connexion){
 			exclamation.exclamation2Rappels();
+		}else{
+			var rdm = Math.floor(Math.random()*14); // 1->13
+			console.log('> randomAction [rdm = ' + rdm + ']');
+			switch(rdm) {
+				case rdm <= 4:
+					tts.speak('','');
+					break;
+				case rdm == 5:
+					service.time();
+					break;
+				case rdm == 6:
+					service.date();
+					break;
+				case rdm == 7 || rdm == 8:
+					service.weather();
+					break;
+				case rdm == 9:
+					service.cpuTemp();
+					break;
+				default:
+					exclamation.exclamation2Rappels();
+			}
 		}
+		
+		// var rdm = Math.floor(Math.random()*14); // 1->13
+		// console.log('> randomAction [rdm = ' + rdm + ']');
+		// if(rdm <= 4 && connexion == true){
+			// tts.speak('','');
+		// }else if(rdm == 5 && connexion == true){
+			// service.time();
+		// }else if(rdm == 6 && connexion == true){
+			// service.date();
+		// }else if((rdm == 7 || rdm == 8) && connexion == true){
+			// service.weather();
+		// }else if(rdm == 9 && connexion == true){
+			// service.cpuTemp();
+		// }else{
+			// exclamation.exclamation2Rappels();
+		// }
 	});
 };
 exports.randomAction = randomAction;
