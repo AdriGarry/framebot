@@ -2,7 +2,7 @@
 
 exclamation () {
 	volume=$(cat /sys/class/gpio/gpio13/value)
-	sound=$(sudo find /home/pi/odi/mp3/sounds -maxdepth 1 -type f | shuf | head -1)
+	sound=$(sudo find /home/pi/odi/mp3/exclamation -maxdepth 1 -type f | shuf | head -1)
 	if [ $volume = 0 ]
 	then
 		volume=-600

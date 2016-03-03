@@ -2,10 +2,10 @@
 
 if [ $1 = "almost" ]
 then
-	sudo omxplayer -o local /home/pi/odi/mp3/sounds/system/timer-almost-end.mp3
+	sudo omxplayer -o local /home/pi/odi/mp3/system/timerAlmostEnd.mp3
 elif [ $1 = "end" ]
 then
-	sudo omxplayer -o local /home/pi/odi/mp3/sounds/system/timer-end.mp3
+	sudo omxplayer -o local /home/pi/odi/mp3/system/timerEnd.mp3
 else
-	sudo omxplayer -o local --vol -200 /home/pi/odi/mp3/sounds/system/timer.mp3
+	sudo omxplayer -o local --vol -200 /home/pi/odi/mp3/system/timer.mp3
 fi

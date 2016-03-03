@@ -2,6 +2,7 @@
 // Module Horloge & Alarmes
 
 var spawn = require('child_process').spawn;
+// var CronJob = require('cron').CronJob;
 var utils = require('./utils.js');
 var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
@@ -23,7 +24,6 @@ var startClock = function(modeInit){
 		date = new Date();
 		hour = date.getHours();
 		min = date.getMinutes();
-		// console.log('mode before clock filter : ' + mode);
 		var mode = false;
 		if(!modeInit){
 			var day = date.getDay();
@@ -35,17 +35,16 @@ var startClock = function(modeInit){
 		}else{
 			mode = true;
 		}
-		console.log('Clock mode : ' + mode + ' [modeInit:' + modeInit + ']');
+		// console.log('Clock mode : ' + mode + ' [modeInit:' + modeInit + ']');
 		if(pastHour < hour){
 			pastHour = hour;
 			var cpHour = hour;
-			// console.log('It\'s ' + hour + ' o\'clock');
-			console.log('IT\'S ' + hour + ' O\'CLOCK');
+			console.log('It\'s ' + hour + ' o\'clock');
 			if(mode){
 				utils.testConnexion(function(connexion){
 					if(connexion == true){
 						tts.speak('fr', 'Il est ' + hour + ' heures');
-					} else {
+					}else{
 						if(cpHour > 12){
 							cpHour = hour - 12;
 						} else if(cpHour == 0){
@@ -61,14 +60,19 @@ var startClock = function(modeInit){
 				});
 			}else{ console.log('Clock in quiet mode     -.-'); }
 		} else if (min == 30){
-			console.log('IT\'S ' + hour + ' AND A HALF');
+			console.log('It\'s ' + hour + ' and a half');
 			if(mode){
-				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
-				if(cpHour > 12){cpHour = hour - 12};
-				tts.speak('fr', 'Il est ' + hour + ' heures 30');
+				utils.testConnexion(function(connexion){
+					if(connexion == true){
+						// if(cpHour > 12){cpHour = hour - 12};
+						tts.speak('fr', 'Il est ' + hour + ' heures 30');
+					}else{
+						var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
+					}
+				});
 			}else{ console.log('Clock in quiet mode     -.-'); }
 		}
-	}, 30*1000);
+	}, 60*1000);
 };
 exports.startClock = startClock;
 
@@ -85,7 +89,7 @@ var setAlarms = function(){
 			// if(hour == 20 && min == 49){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
-				if(date.getSeconds() < 31){
+				// if(date.getSeconds() < 31){
 					utils.testConnexion(function(connexion){
 						if(connexion == true){
 							tts.speak('fr', 'Il est ' + hour + ' heures ' + min);
@@ -100,9 +104,9 @@ var setAlarms = function(){
 						}
 						utils.autoMute('Auto mute Morning');
 					});
-				}
+				// }
 			}else if(hour == 18 && min == 45){
-				if(date.getSeconds() < 31){
+				// if(date.getSeconds() < 31){
 					utils.testConnexion(function(connexion){
 						setTimeout(function(){
 							if(connexion == true){
@@ -113,13 +117,13 @@ var setAlarms = function(){
 							utils.autoMute('Auto mute Evening Fip');
 						}, 3000);
 					});
-				}
+				// }
 			}
 		}else{
 			if(hour == 12 && min == 0){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
-				if(date.getSeconds() < 26){
+				// if(date.getSeconds() < 26){
 					utils.testConnexion(function(connexion){
 						setTimeout(function(){
 							if(connexion == true){
@@ -139,22 +143,21 @@ var setAlarms = function(){
 							utils.autoMute('Auto mute Morning');
 						}, 3000);
 					});
-				}
+				// }
 			}
 		}
 		if(hour == 13 && min == 13){
 			utils.testConnexion(function(connexion){
 				if(connexion == true){
 					tts.speak('fr','Auto reboot');
-					console.log('REBOOTING RASPBERRY PI !!');
-					var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh', 'reboot']);
+					utils.reboot();
+					// var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/power.sh', 'reboot']);
 				}
 			});
-		// }else if(day == 2 && hour == 5 && min == 00 && sec <= 30){
-		// // }else if(hour == 0 && min == 25 && sec <= 30){
-			// console.log('Clean log files  /!\\');
-			// log.cleanLog();
+		}else if(day == 2 && hour == 5 && min == 00){
+			console.log('Clean log files  /!\\');
+			log.cleanLog();
 		}
-	}, 30*1000);
+	}, 60*1000);
 };
 exports.setAlarms = setAlarms;

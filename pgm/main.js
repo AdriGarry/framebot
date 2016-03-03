@@ -32,19 +32,17 @@ ok.watch(function(err, value){
 	}
 });
 
-setInterval(function(){
+setInterval(function(){ // ==> AMELIORER GESTION & DEPLACER EN BAS DE PAGE
 	led.write(0);
 }, 10*1000);
 
 function startOdi(){
-	//ok.unwatch();
 	mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-	var logo = fs.readFileSync('/home/pi/odi/pgm/data/logoLarry.properties', 'utf8').toString().split('\n');
+	var logo = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
 	logo = '\n\n' + logo.join('\n') + '\nodiState:' + odiState;
 	console.log(logo);
 	// log.recordLog(logo);
 	remote.check();
-	// utils.sleepNode(4,1.5);
 
 	odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js']);
 	odiState = true;
@@ -75,7 +73,6 @@ function startOdi(){
 	
 	odiPgm.on('exit', function(code){
 		mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-		//var mute = spawn('omxplayer', ['/home/pi/odi/mp3/sounds/shutdown.mp3']);
 		odiState = false;
 		console.log('\r\n>> Odi pgm KILLED  /!\\  /!\\');
 		console.log('***************************\r\n\r\n');

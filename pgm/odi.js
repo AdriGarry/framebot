@@ -15,9 +15,11 @@ var tts = require('./lib/tts.js');
 var service = require('./lib/service.js');
 var remote = require('./lib/remote.js');
 
-//leds.blinkLed(100, 300);
-leds.blinkEye(100, 300);
-var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/startupOdi.sh']);
+leds.blinkLed(100, 300);
+var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'odi']);
+// var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/startupOdi.sh']);
+// var odiStartupSound = spawn('omxplayer', ['/home/pi/odi/mp3/system/startupOdi.mp3']);
+
 setTimeout(function(){
 	leds.clearLeds();
 	led.write(1);
@@ -46,5 +48,3 @@ setInterval(function(){
 		}
 	});
 }, 13*1000);
-
-//var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'r2d2']);

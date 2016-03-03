@@ -20,7 +20,7 @@ var self = this;
 
 var mute = function(message){
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-	console.log((message !== 'undefined')? message : '' + ' >> MUTE ALL  :|');
+	console.log(((message === undefined)? '' : message) + ' >> MUTE  :|');
 	leds.clearLeds();
 	eye.write(0);
 	belly.write(0);
@@ -35,7 +35,7 @@ var autoMute = function(message){
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh', 'auto']);
 		setTimeout(function(){
 			deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-			console.log(message + ' >> AUTO MUTE   :|');
+			console.log(message + ' >> AUTO MUTE  :|');
 			leds.clearLeds();
 			eye.write(0);
 			belly.write(0);
@@ -52,41 +52,29 @@ var randomAction = function(){
 			var rdm = Math.floor(Math.random()*14); // 1->13
 			console.log('> randomAction [rdm = ' + rdm + ']');
 			switch(rdm) {
-				case rdm <= 4:
+				case 1:
+				case 2:
+				case 3:
+				case 4:
 					tts.speak('','');
 					break;
-				case rdm == 5:
+				case 5:
 					service.time();
 					break;
-				case rdm == 6:
+				case 6:
 					service.date();
 					break;
-				case rdm == 7 || rdm == 8:
+				case 7:
+				case 8:
 					service.weather();
 					break;
-				case rdm == 9:
+				case 9:
 					service.cpuTemp();
 					break;
 				default:
 					exclamation.exclamation2Rappels();
 			}
-		}
-		
-		// var rdm = Math.floor(Math.random()*14); // 1->13
-		// console.log('> randomAction [rdm = ' + rdm + ']');
-		// if(rdm <= 4 && connexion == true){
-			// tts.speak('','');
-		// }else if(rdm == 5 && connexion == true){
-			// service.time();
-		// }else if(rdm == 6 && connexion == true){
-			// service.date();
-		// }else if((rdm == 7 || rdm == 8) && connexion == true){
-			// service.weather();
-		// }else if(rdm == 9 && connexion == true){
-			// service.cpuTemp();
-		// }else{
-			// exclamation.exclamation2Rappels();
-		// }
+		}		
 	});
 };
 exports.randomAction = randomAction;
@@ -126,6 +114,37 @@ var sleepNode = function(sec, delay){
 };
 exports.sleepNode = sleepNode;
 
+var reboot = function(){
+	remote.check();
+	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'reboot']);
+	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
+	setTimeout(function(){
+		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/power.sh', 'reboot']);
+	}, 1500);
+};
+exports.reboot = reboot;
+
+var shutdown = function(){
+	remote.check();
+	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'shutdown']);
+	console.log('_/!\\__SHUTING DOWN RASPBERRY PI !!');
+	setTimeout(function(){
+		// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/reInit_log.sh']);
+		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/power.sh']);
+	}, 1500);
+};
+exports.shutdown = shutdown;
+
+var restartOdi = function(){
+	console.log('Restarting Odi !!');
+	setTimeout(function(){
+		process.exit();
+	}, 800);
+};
+exports.restartOdi = restartOdi;
+
 var getMsgLastGitCommit = function(callback){
 	function getMsg(error, stdout, stderr){
 		if(error) stdout = 'Error Git Last Commit Message  /!\\';
@@ -135,38 +154,3 @@ var getMsgLastGitCommit = function(callback){
 	exec('git log -1 --pretty=%B',{cwd: '/home/pi/odi/'}, getMsg);
 };
 exports.getMsgLastGitCommit = getMsgLastGitCommit;
-
-var reboot = function(){
-	tts.speak('fr','A tout de suite !');
-	remote.check();
-	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'reboot']);
-	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
-	// deploy = spawn('omxplayer', ['/home/pi/odi/mp3/sounds/system/beback.mp3', '-o local']);
-	setTimeout(function(){
-		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh', 'reboot']);
-	}, 2000);
-};
-exports.reboot = reboot;
-
-var shutdown = function(){
-	tts.speak('fr','Arret du systeme !');
-	remote.check();
-	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-	deploy = spawn('omxplayer', ['-o local', '/home/pi/odi/mp3/sounds/system/sessionOff.mp3']);
-	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'shutdown']);
-	console.log('_/!\\__SHUTING DOWN RASPBERRY PI !!');
-	setTimeout(function(){
-		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/reInit_log.sh']);
-		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/shutdown.sh']);
-	}, 2000);
-};
-exports.shutdown = shutdown;
-
-var restartOdi = function(){
-	console.log('Restarting Odi !!');
-	setTimeout(function(){
-		process.exit();
-	}, 1000);
-};
-exports.restartOdi = restartOdi;

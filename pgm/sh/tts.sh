@@ -4,7 +4,7 @@
 sudo killall mplayer
 
 echo $1
-lg="fr"
+# lg="fr"
 case $1 in
 	"en")
 		lg="en" ;;
@@ -33,6 +33,6 @@ else
 	volume=220
 fi
 
-# sudo mplayer -softvol -volume $volume -really-quiet -noconsolecontrols "$url"
-sudo mplayer -softvol -volume $volume -noconsolecontrols "$url"
-# sudo mplayer -noconsolecontrols $url
+sudo mplayer -softvol -volume $volume -really-quiet -noconsolecontrols "$url"
+
+#si aucun son, verifier volume avec la commande alsamixer

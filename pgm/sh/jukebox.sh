@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SERVICE="omxplayer" # On definit le service a utiliser (omxplayer)
+# SERVICE="omxplayer" # On definit le service a utiliser (omxplayer)
 
 if [ $1 = "medley" ]
 then
@@ -12,7 +12,7 @@ then
 	sleep $playTime
 	sudo node /home/pi/odi/pgm/lib/allLedsOn.js
 	sudo killall omxplayer.bin
-	
+
 	while true; do # On scanne en boucle le dossier
 			music=$(sudo find /home/pi/odi/mp3/jukebox -maxdepth 1 -type f | shuf | head -1)
 			volume=$(cat /sys/class/gpio/gpio13/value)
@@ -30,12 +30,10 @@ then
 			sleep $playTime
 			sudo node /home/pi/odi/pgm/lib/allLedsOn.js
 			sudo killall omxplayer.bin
-		# fi
 	done
 else
 	while true; do # On scanne en boucle le dossier
 			music=$(sudo find /home/pi/odi/mp3/jukebox -maxdepth 1 -type f | shuf | head -1)
-			# music=$(sudo find /home/pi/odi/mp3/sounds -maxdepth 1 -type f | shuf | head -1)
 			volume=$(cat /sys/class/gpio/gpio13/value)
 			position=$(shuf -i 5-20 -n 1)
 			playTimeDec=$(mplayer -identify -ao null -vo null -frames 0 $music | grep ^ID_LENGTH= | cut -d = -f 2)
@@ -55,6 +53,5 @@ else
 			sleep $playTimeReal
 			sudo node /home/pi/odi/pgm/lib/allLedsOn.js
 			sudo killall omxplayer.bin
-		# fi
 	done
 fi

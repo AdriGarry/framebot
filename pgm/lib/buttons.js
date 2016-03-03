@@ -82,7 +82,7 @@ cancel.watch(function(err, value){
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
-	leds.buttonPush('stop');
+	// leds.buttonPush('stop');
 	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec');
 	utils.mute();
 	if(pressTime >= 1 && pressTime < 4){
