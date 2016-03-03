@@ -37,7 +37,7 @@ setInterval(function(){
 			instance = true;
 			interval = setInterval(function(){
 				utils.randomAction();
-			}, 5*60*1000); //5*60*1000
+			}, 10*60*1000); //5*60*1000
 		}
 	}else{
 		instance = false;
