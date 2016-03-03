@@ -3,9 +3,9 @@
 volume=$(cat /sys/class/gpio/gpio13/value)
 if [ $volume -eq 0 ]
 then
-	volume=-450
+	volume=-500 #-450
 else
-	volume=350
+	volume=400 #350
 fi
 
 if [ $1 = "odi" ]

@@ -105,7 +105,7 @@ var setAlarms = function(){
 						utils.autoMute('Auto mute Morning');
 					});
 				// }
-			}else if(hour == 18 && min == 45){
+			}else if(hour == 18 && min == 30){
 				// if(date.getSeconds() < 31){
 					utils.testConnexion(function(connexion){
 						setTimeout(function(){

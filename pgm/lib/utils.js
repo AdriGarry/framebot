@@ -131,7 +131,6 @@ var shutdown = function(){
 	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'shutdown']);
 	console.log('_/!\\__SHUTING DOWN RASPBERRY PI !!');
 	setTimeout(function(){
-		// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/reInit_log.sh']);
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/power.sh']);
 	}, 1500);
 };
