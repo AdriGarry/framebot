@@ -32,16 +32,18 @@ var check = function(){
 			body: content,
 			log: content,
 			headers: {'Content-Type': 'text/plain'}
+			// headers: {'Content-Type': 'text/plain;charset=utf8'}
 		},
 		function (error, response, body){
 			if(error){
 				console.error('Error Exporting Log  /!\\');	
 			}else if(!error && response.statusCode == 200){
 				leds.blinkSatellite(180,1.15);
-				// console.log('body ' + body);
-				// if(body.trim() == '') body = 'No message.';
 				if(typeof body === 'undefined') body = '';
 				if(body.indexOf('!DOCTYPE') == -1){
+					// console.log('A_: ' + body);
+					// body = body.toString("utf8");
+					// console.log('B_: ' + body);
 					messages = body.split('\r\n');
 					var lg, txt;
 					for(i=messages.length-1;i>0;i--){
@@ -50,7 +52,6 @@ var check = function(){
 						if(txt != undefined){
 							txt = txt.split(';');
 							lg = txt[0];
-							// txt = txt[1].toLowerCase();
 							txt = txt[1];
 							var timeMessage = txt ? txt.length/5 : 'undefined';
 							if(lg == 'cmd'){
@@ -96,9 +97,9 @@ var check = function(){
 								}
 							} else {
 								// console.log(lg.toUpperCase() + ' > "' + txt + '"  [' + timeMessage + ']');
-								setTimeout(function(lg, txt){
+								// setTimeout(function(lg, txt){
 									tts.speak(lg,txt);
-								}.bind(this, lg, txt), timeMessage*1000);
+								// }.bind(this, lg, txt), timeMessage*1000);
 							}
 						}
 					}

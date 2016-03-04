@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var cpLog = 0;
+// var cpLog = 0;
 console.log('>> Starting Odi pgm...');
 
 var Gpio = require('onoff').Gpio;
@@ -17,8 +17,6 @@ var remote = require('./lib/remote.js');
 
 leds.blinkLed(100, 300);
 var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'odi']);
-// var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/startupOdi.sh']);
-// var odiStartupSound = spawn('omxplayer', ['/home/pi/odi/mp3/system/startupOdi.mp3']);
 
 setTimeout(function(){
 	leds.clearLeds();

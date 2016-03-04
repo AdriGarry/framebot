@@ -30,34 +30,11 @@ utils.testConnexion(function(connexion){
 		leds.blinkEye((Math.floor(Math.random()*5) + 1)*50, blinkTime);
 	} else {
 		console.error('No network, can\'t get TTS data /!\\');
+		// var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts2.sh', lg, txt]); --> espeak
 	}
 });
 };
 exports.speak = speak;
-
-var speakRdmDelayLoop = function(){
-	console.log('Mode On >> TTS Exclamation Loop With Random Delay !!!');
-	var exclRdmLp;
-	var rdmDelay;
-	(function loop() {
-		setTimeout(function() {
-			rdmDelay = Math.floor(Math.random() * 400); //400
-			console.log('[rdmDelay] Next TTS Exclamation -> '
-				+ Math.round((rdmDelay/60)*10)/10 + ' min (' + rdmDelay + ' sec)');
-			leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
-			self.speak('','');
-			if(mode.readSync() == 1){
-				console.log('speakRdmDelayLoop... LET\'S GO ON !!!');
-				loop();
-			}
-			else{
-				console.log('Not Going ON');
-			}
-		}, rdmDelay * 1000);
-	}());	
-};
-exports.speakRdmDelayLoop = speakRdmDelayLoop;
-
 
 var getTTS = function(lg, txt){
 };

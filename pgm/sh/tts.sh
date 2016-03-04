@@ -4,7 +4,7 @@
 sudo killall mplayer
 
 echo $1
-# lg="fr"
+
 case $1 in
 	"en")
 		lg="en" ;;
@@ -21,6 +21,7 @@ esac
 shift
 
 echo $*
+
 url="http://translate.google.com/translate_tts?tl=$lg&client=tw-ob&q=$*"
 
 sudo amixer cset numid=3 1
@@ -28,11 +29,11 @@ sudo amixer cset numid=3 1
 volume=$(cat /sys/class/gpio/gpio13/value)
 if [ $volume -eq 0 ]
 then
-	volume=100
+	volume=80
 else
-	volume=220
+	volume=200
 fi
 
 sudo mplayer -softvol -volume $volume -really-quiet -noconsolecontrols "$url"
 
-#si aucun son, verifier volume avec la commande alsamixer
+#si aucun son, verifier le niveau du volume avec la commande alsamixer  /!\

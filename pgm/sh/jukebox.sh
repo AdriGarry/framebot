@@ -21,7 +21,7 @@ then
 
 			if [ $volume = 0 ]
 			then
-				sudo omxplayer -o local --pos $position --vol -600 $music > /dev/null &
+				sudo omxplayer -o local --pos $position --vol -500 $music > /dev/null &
 			else
 				sudo omxplayer -o local --pos $position --vol 300 $music > /dev/null &
 			fi
