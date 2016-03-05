@@ -60,7 +60,7 @@ ok.watch(function(err, value){
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
-	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec');
+	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec [step:1;4]');
 	if(pressTime < 1){
 		utils.randomAction();
 		// exclamation.exclamation2Rappels();
@@ -83,12 +83,13 @@ cancel.watch(function(err, value){
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
 	// leds.buttonPush('stop');
-	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec');
+	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec [step:1;4]');
 	utils.mute();
 	if(pressTime >= 1 && pressTime < 4){
 		utils.restartOdi();
 	}else{
 		// console.log('Push Cancel button canceled !');
+		// FUNCTION MUTE FOR FEW HOURS...
 	}
 });
 white.watch(function(err, value){
@@ -99,7 +100,7 @@ white.watch(function(err, value){
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
-	console.log('[val:' + value + ']  White btn pressed for   ' + pressTime + ' sec');
+	console.log('[val:' + value + ']  White btn pressed for   ' + pressTime + ' sec [step:2]');
 	if(pressTime < 2){
 		if(mode.readSync() == 0){
 			timer.setTimer();
@@ -118,16 +119,14 @@ blue.watch(function(err, value){
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
-	console.log('[val:' + value + ']  Blue btn pressed for ' + pressTime + ' sec');
+	console.log('[val:' + value + ']  Blue btn pressed for ' + pressTime + ' sec [step:2]');
 	if(pressTime < 2){
-		console.log('press < 2');
 		if(mode.readSync() == 0){
 			jukebox.loop();
 		}else{
 			jukebox.medley();
 		}
 	}else if(pressTime > 2 && pressTime < 5){
-		console.log('press > 2');
 		if(mode.readSync() == 0){
 			setTimeout(function(){
 				utils.mute();

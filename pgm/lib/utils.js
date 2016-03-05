@@ -31,7 +31,6 @@ var muteTimer;
 var autoMute = function(message){
 	clearTimeout(muteTimer);
 	muteTimer = setTimeout(function(){
-		//console.log('_EventEmited: ' + (message || '.'));
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh', 'auto']);
 		setTimeout(function(){
 			deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
@@ -51,7 +50,7 @@ var randomAction = function(){
 		}else{
 			var rdm = Math.floor(Math.random()*14); // 1->13
 			console.log('> randomAction [rdm = ' + rdm + ']');
-			switch(rdm) {
+			switch(rdm){
 				case 1:
 				case 2:
 				case 3:
