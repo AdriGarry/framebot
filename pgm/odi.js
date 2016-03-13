@@ -5,14 +5,14 @@ console.log('>> Starting Odi pgm...');
 
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
-var exec = require('child_process').exec;
+// var exec = require('child_process').exec;
 var gpioPins = require('./lib/gpioPins.js');
 var utils = require('./lib/utils.js');
 var buttons = require('./lib/buttons.js');
 var leds = require('./lib/leds.js');
 var clock = require('./lib/clock.js');
 var tts = require('./lib/tts.js');
-var service = require('./lib/service.js');
+// var service = require('./lib/service.js');
 var remote = require('./lib/remote.js');
 
 leds.blinkLed(100, 300);
