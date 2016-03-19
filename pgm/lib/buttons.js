@@ -87,9 +87,10 @@ cancel.watch(function(err, value){
 	utils.mute();
 	if(pressTime >= 1 && pressTime < 4){
 		utils.restartOdi();
-	}else{
+	}else if(pressTime >= 4){
 		// console.log('Push Cancel button canceled !');
 		// FUNCTION MUTE FOR FEW HOURS...
+		utils.restartOdi('sleep');
 	}
 });
 white.watch(function(err, value){

@@ -135,11 +135,18 @@ var shutdown = function(){
 };
 exports.shutdown = shutdown;
 
-var restartOdi = function(){
-	console.log('Restarting Odi !!');
-	setTimeout(function(){
-		process.exit();
-	}, 800);
+var restartOdi = function(mode){
+	if(mode == 'sleep'){
+		console.log('Sleeping Odi ...');
+		setTimeout(function(){
+			process.exit(13);
+		}, 500); //800
+	}else{
+		console.log('Restarting Odi !!');
+		setTimeout(function(){
+			process.exit();
+		}, 500); //800
+	}
 };
 exports.restartOdi = restartOdi;
 

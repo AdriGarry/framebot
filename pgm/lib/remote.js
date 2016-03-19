@@ -62,6 +62,8 @@ var check = function(){
 									utils.shutdown();
 								} else if(txt == 'odi') {
 									utils.restartOdi();
+								} else if(txt == 'sleep') {
+									utils.restartOdi('sleep');
 								} else if(txt == 'mute') {
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 								} else if(txt == 'jukebox') {

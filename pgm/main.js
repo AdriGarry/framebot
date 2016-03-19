@@ -24,7 +24,7 @@ var mute;
 	}, 1000);
 });*/
 
-startOdi();
+startOdi('sleep');
 
 ok.watch(function(err, value){
 	if(!odiState){
@@ -32,20 +32,82 @@ ok.watch(function(err, value){
 	}
 });
 
-setInterval(function(){ // ==> AMELIORER GESTION & DEPLACER EN BAS DE PAGE
-	led.write(0);
-}, 10*1000);
-
-function startOdi(){
+function startOdi(mode){
 	mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-	var logo = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
+	var logo;
+	var logMode;
+	if(mode == 'sleep'){
+		logMode = ' OdiSleep/ ';
+		setInterval(function(){
+			led.write(0);
+		}, 10*1000);
+		logo = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', 'utf8').toString().split('\n');
+		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js']);
+	}else{
+		logMode = ' Odi/ ';
+		setInterval(function(){
+			led.write(0);
+		}, 10*1000);
+		logo = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
+		odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js', mode]);
+	}
+	logo = '\n\n' + logo.join('\n');// + '\nodiState:' + odiState;
+	console.log(logo);
+	// log.recordLog(logo);
+	remote.check();
+
+	// odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js', mode]);
+	odiState = true;
+	var date;
+	var hour;
+	var min;
+	var sec;
+	var logDate;
+	odiPgm.stdout.on('data', function(data){
+		date = new Date();
+		hour = date.getHours();
+		min = date.getMinutes();
+		sec = date.getSeconds();
+		logDate = (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
+		console.log(logDate + logMode + data + '\r\n');
+		// log.recordLog(logDate + ' Odi/ ' + data);
+	});
+
+	odiPgm.stderr.on('data', function(data){
+		date = new Date();
+		hour = date.getHours();
+		min = date.getMinutes();
+		sec = date.getMinutes();
+		logDate = (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
+		console.log(logDate + ' O/!\\ ' + data + '\r\n');
+		// log.recordLog(hour + ':' + min + ':' + sec + ' O/!\\ ' + data);
+	});
+	
+	odiPgm.on('exit', function(code){
+		mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+		odiState = false;
+		console.log('\r\n>> Odi pgm KILLED  /!\\  /!\\');
+		console.log('***************************\r\n\r\n');
+		console.log('Code. : '+code);
+		if(code == 13){
+			startOdi('sleep');
+		}
+		else{
+			startOdi();
+		}
+	});
+}
+
+/*function sleepOdi(){
+	mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+	var logo = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', 'utf8').toString().split('\n');
 	logo = '\n\n' + logo.join('\n') + '\nodiState:' + odiState;
 	console.log(logo);
 	// log.recordLog(logo);
 	remote.check();
 
-	odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js']);
-	odiState = true;
+	// odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js']);
+	// odiState = true;
 	var date;
 	var hour;
 	var min;
@@ -76,6 +138,12 @@ function startOdi(){
 		odiState = false;
 		console.log('\r\n>> Odi pgm KILLED  /!\\  /!\\');
 		console.log('***************************\r\n\r\n');
-		startOdi();
-	});
-}
+		console.log('Code. : '+code);
+		if(code == 13){
+			sleepOdi();
+		}
+		else{
+			startOdi();
+		}
+	});	
+}*/
