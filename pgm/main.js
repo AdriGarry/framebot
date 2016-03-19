@@ -24,7 +24,11 @@ var mute;
 	}, 1000);
 });*/
 
-startOdi('sleep');
+setInterval(function(){
+	led.write(0);
+}, 10*1000);
+
+startOdi();
 
 ok.watch(function(err, value){
 	if(!odiState){
@@ -38,16 +42,10 @@ function startOdi(mode){
 	var logMode;
 	if(mode == 'sleep'){
 		logMode = ' OdiSleep/ ';
-		setInterval(function(){
-			led.write(0);
-		}, 10*1000);
 		logo = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', 'utf8').toString().split('\n');
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js']);
 	}else{
 		logMode = ' Odi/ ';
-		setInterval(function(){
-			led.write(0);
-		}, 10*1000);
 		logo = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js', mode]);
 	}
