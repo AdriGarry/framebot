@@ -76,6 +76,8 @@ var check = function(){
 									timer.setTimer();
 								} else if(txt == 'fip') {
 									fip.playFip();
+								} else if(txt == 'cigales') {
+									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'cigales']);
 								} else if(txt == 'exclamation') {
 									exclamation.exclamation2Rappels();
 								} else if(txt == 'tts') {

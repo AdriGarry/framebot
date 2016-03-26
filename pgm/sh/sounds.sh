@@ -27,6 +27,9 @@ else
 	# elif [ $1 = "cocorico" ]
 	# then
 		# sound="/home/pi/odi/mp3/system/cocorico.mp3"
+	elif [ $1 = "cigales" ]
+	then
+		sound="/home/pi/odi/mp3/cigales.mp3"
 	elif [ $1 = "test" ]
 	then
 		sound="/home/pi/odi/mp3/system/test.mp3"
