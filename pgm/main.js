@@ -40,15 +40,15 @@ function startOdi(mode){
 	mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	var logo;
 	var logMode;
-	// if(mode == 'sleep'){
-		// logMode = ' OdiSleep/ ';
-		// logo = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', 'utf8').toString().split('\n');
-		// odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js']);
-	// }else{
+	if(mode == 'sleep'){
+		logMode = ' OdiSleep/ ';
+		logo = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', 'utf8').toString().split('\n');
+		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js']);
+	}else{
 		logMode = ' Odi/ ';
 		logo = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js', mode]);
-	// }
+	}
 	logo = '\n\n' + logo.join('\n');// + '\nodiState:' + odiState;
 	console.log(logo);
 	// log.recordLog(logo);

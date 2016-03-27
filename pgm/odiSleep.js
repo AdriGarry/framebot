@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 var minToWakeUp = 180;
-console.log('>> Starting Odi pgm...  [sleep mode for ' + minToWakeUp + ' min ]');
+// console.log('>> Starting Odi pgm...  [sleep mode for ' + minToWakeUp + ' min ]');
+console.log('>> Starting Odi pgm...  [sleep mode]');
 
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
@@ -38,6 +39,6 @@ setInterval(function(){
 	});
 }, 13*1000);
 
-setTimeout(function(){
-	utils.restartOdi();
-}, minToWakeUp*60*1000);
+// setTimeout(function(){
+	// utils.restartOdi();
+// }, minToWakeUp*60*1000);
