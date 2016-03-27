@@ -83,11 +83,12 @@ cancel.watch(function(err, value){
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
 	// leds.buttonPush('stop');
-	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec [step:1;4]');
+	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec [step:1;3]');
 	utils.mute();
-	if(pressTime >= 1 && pressTime < 4){
+	console.log('pressTime : ' + pressTime);
+	if(pressTime >= 1 && pressTime < 3){
 		utils.restartOdi();
-	}else if(pressTime >= 4){
+	}else if(pressTime >= 3){
 		// console.log('Push Cancel button canceled !');
 		// FUNCTION MUTE FOR FEW HOURS...
 		utils.restartOdi('sleep');
