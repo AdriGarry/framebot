@@ -6,6 +6,20 @@ var Gpio = require('onoff').Gpio;
 var cpBtn = 1;
 var timer;
 
+var activity = function(mode){
+	console.log('led.activity started');
+	setInterval(function(){
+		led.write(1);
+	}, 2000);
+	// var loop = setInterval(function(){
+		// setTimeout(function(){
+			// clearTimeout(loop);
+		// }, 300);
+		// led.write(0);
+	// }, 1000);
+};
+exports.activity = activity;
+
 var blinkEye = function(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
@@ -57,7 +71,7 @@ var blinkLed = function(speed, duration){
 	}, speed);
 	var stopTimer = setTimeout(function(){
 		clearInterval(timer);
-		led.write(1);
+		// led.write(1);
 	}, duration*1000);
 };
 exports.blinkLed = blinkLed;

@@ -29,7 +29,13 @@ else
 		# sound="/home/pi/odi/mp3/system/cocorico.mp3"
 	elif [ $1 = "cigales" ]
 	then
-		sound="/home/pi/odi/mp3/cigales.mp3"
+		sound="/home/pi/odi/mp3/Cigales.mp3"
+	elif [ $1 = "MorningSea" ]
+	then
+		sound="/home/pi/odi/mp3/MorningSea.mp3"
+	elif [ $1 = "MorningBirds" ]
+	then
+		sound="/home/pi/odi/mp3/MorningBirds.mp3"
 	elif [ $1 = "test" ]
 	then
 		sound="/home/pi/odi/mp3/system/test.mp3"

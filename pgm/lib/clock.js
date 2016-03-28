@@ -85,6 +85,10 @@ var setAlarms = function(){
 		var min = date.getMinutes();
 		var sec = date.getSeconds();
 		if(day > 0 && day < 6){
+			if(hour == 7 && min == 26){
+				console.log('Morning Sea...');
+				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'MorningSea']);
+			}
 			if(hour == 7 && min == 30){
 			// if(hour == 20 && min == 49){
 				console.log('COCORICO !!');
@@ -120,6 +124,10 @@ var setAlarms = function(){
 				// }
 			}
 		}else{
+			if(hour == 11 && (min == 45 || min == 55)){
+				console.log('Morning Birds...');
+				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'MorningBirds']);
+			}
 			if(hour == 12 && min == 0){
 				console.log('COCORICO !!');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
@@ -150,8 +158,9 @@ var setAlarms = function(){
 			utils.testConnexion(function(connexion){
 				if(connexion == true){
 					tts.speak('fr','Auto reboot');
-					utils.reboot();
-					// var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/power.sh', 'reboot']);
+					setTimeout(function(){
+						utils.reboot();
+					}, 3000);
 				}
 			});
 		}else if(day == 2 && hour == 5 && min == 00){

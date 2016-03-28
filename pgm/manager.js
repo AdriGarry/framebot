@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-console.log(' -> Main Manager');
+console.log(' -> Program Manager Initiating...');
 
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
@@ -24,9 +24,9 @@ var mute;
 	}, 1000);
 });*/
 
-setInterval(function(){
-	led.write(0);
-}, 10*1000);
+// setInterval(function(){
+	// led.write(0);
+// }, 10*1000);
 
 startOdi();
 
@@ -43,30 +43,39 @@ function startOdi(mode){
 	if(mode == 'sleep'){
 		logMode = ' OdiSleep';
 		logo = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', 'utf8').toString().split('\n');
-		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js']);
+		// odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js']);
 	}else{
 		logMode = ' Odi';
 		logo = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
-		odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js', mode]);
+		// odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js', mode]);
 	}
+	odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js', mode]);
+	
+	
 	logo = '\n\n' + logo.join('\n');// + '\nodiState:' + odiState;
 	console.log(logo);
 	// log.recordLog(logo);
-	remote.check();
 
 	// odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js', mode]);
 	odiState = true;
 	var date;
+	var year;
+	var month;
+	var day;
 	var hour;
 	var min;
 	var sec;
 	var logDate;
 	odiPgm.stdout.on('data', function(data){
 		date = new Date();
+		year = date.getFullYear() - 2000;
+		month = date.getMonth();
+		day = date.getDate();
 		hour = date.getHours();
 		min = date.getMinutes();
 		sec = date.getSeconds();
-		logDate = (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
+		logDate =  day + '/' + month + ' ';//' + year + ' ';
+		logDate = logDate + (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
 		console.log(logDate + logMode + '/ ' + data + '\r\n');
 		// log.recordLog(logDate + ' Odi/ ' + data);
 	});
@@ -95,6 +104,7 @@ function startOdi(mode){
 			startOdi();
 		}
 	});
+	remote.check();
 }
 
 /*function sleepOdi(){
