@@ -16,11 +16,9 @@ var weather = function(){
 		headers: {'Content-Type': 'xml'}
 	},
 	function (error, response, body){
-		if(error){
-			console.error('Error getting weather info  /!\\');	
-		}else if(!error && response.statusCode == 200){
+		if(!error && response.statusCode == 200){
 			body = body.split('\n');
-			// console.log(body);
+			console.log('body : ' + body);
 			// console.log(weatherStatus);
 			var weather = body[28];
 			// console.log(weather);
@@ -35,6 +33,9 @@ var weather = function(){
 				+ ' degres avec ' + (isNaN(wind)?'0':wind) + ' kilometre heure de vent';
 			console.log('Service Weather... ' + annonceTemp);
 			tts.speak('fr',annonceTemp);
+		}else{
+			console.error('Weather request > response.statusCode : ' + response.statusCode);
+			if(error){console.error('Error getting weather info  /!\\ \n' + error);}
 		}
 	});
 };

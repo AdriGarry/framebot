@@ -58,48 +58,48 @@ var check = function(){
 								console.log('REMOTE > ' + txt);
 								if(txt == 'reboot'){
 									utils.reboot();
-								} else if(txt == 'shutdown' || txt == 'halt') {
+								}else if(txt == 'shutdown' || txt == 'halt'){
 									utils.shutdown();
-								} else if(txt == 'odi') {
+								}else if(txt == 'odi'){
 									utils.restartOdi();
-								} else if(txt == 'sleep') {
+								}else if(txt == 'sleep'){
 									utils.restartOdi('sleep');
-								} else if(txt == 'mute') {
+								}else if(txt == 'mute') {
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-								} else if(txt == 'jukebox') { // txt == 'jukebox' && mode != 'sleep'
+								}else if(txt == 'jukebox'){ // txt == 'jukebox' && mode != 'sleep'
 									jukebox.loop();
-								} else if(txt == 'jukebox m' || txt == 'medley') {
+								}else if(txt == 'jukebox m' || txt == 'medley') {
 									jukebox.medley();
-								} else if (txt == 'party') {
+								}else if (txt == 'party'){
 									party.setParty();
-								} else if(txt == 'timer') {
+								}else if(txt == 'timer'){
 									timer.setTimer();
-								} else if(txt == 'fip') {
+								}else if(txt == 'fip'){
 									fip.playFip();
-								} else if(txt == 'cigales') {
+								}else if(txt == 'cigales'){
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'cigales']);
-								} else if(txt == 'exclamation') {
+								}else if(txt == 'exclamation'){
 									exclamation.exclamation2Rappels();
-								} else if(txt == 'tts') {
+								}else if(txt == 'tts'){
 									tts.speak('','');
-								} else if(txt == 'serviceDate') {
+								}else if(txt == 'serviceDate'){
 									service.date();
-								} else if(txt == 'serviceTime') {
+								}else if(txt == 'serviceTime'){
 									service.time();
-								} else if(txt == 'serviceWeather') {
+								}else if(txt == 'serviceWeather'){
 									service.weather();
-								} else if(txt == 'serviceInfo') {
+								}else if(txt == 'serviceInfo'){
 									service.info();
-								} else if(txt == 'serviceCpu') {
+								}else if(txt == 'serviceCpu'){
 									service.cpuTemp();
-								} else if(txt == 'urss') {
+								}else if(txt == 'urss'){
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'urss']);
-								} else if(txt == 'test') {
+								}else if(txt == 'test'){
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'mouthTrick']);
-								} else {
+								}else{
 									tts.speak('','');
 								}
-							} else {
+							}else{
 								// console.log(lg.toUpperCase() + ' > "' + txt + '"  [' + timeMessage + ']');
 								// setTimeout(function(lg, txt){
 									tts.speak(lg,txt);

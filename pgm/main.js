@@ -41,11 +41,11 @@ function startOdi(mode){
 	var logo;
 	var logMode;
 	if(mode == 'sleep'){
-		logMode = ' OdiSleep/ ';
+		logMode = ' OdiSleep';
 		logo = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', 'utf8').toString().split('\n');
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js']);
 	}else{
-		logMode = ' Odi/ ';
+		logMode = ' Odi';
 		logo = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js', mode]);
 	}
@@ -67,7 +67,7 @@ function startOdi(mode){
 		min = date.getMinutes();
 		sec = date.getSeconds();
 		logDate = (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
-		console.log(logDate + logMode + data + '\r\n');
+		console.log(logDate + logMode + '/ ' + data + '\r\n');
 		// log.recordLog(logDate + ' Odi/ ' + data);
 	});
 
@@ -77,7 +77,8 @@ function startOdi(mode){
 		min = date.getMinutes();
 		sec = date.getMinutes();
 		logDate = (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
-		console.log(logDate + ' O/!\\ ' + data + '\r\n');
+		// console.log(logDate + ' O/!\\ ' + data + '\r\n');
+		console.log(logDate + logMode + '_ERR/ ' + data + '\r\n');
 		// log.recordLog(hour + ':' + min + ':' + sec + ' O/!\\ ' + data);
 	});
 	
