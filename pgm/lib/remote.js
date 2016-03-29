@@ -20,7 +20,7 @@ var service = require('./service.js');
 var utils = require('./utils.js');
 var self = this;
 
-var check = function(){
+var check = function(mode){
 	try{
 		var logFilePath = '/home/pi/odi/log/odi.log';
 		var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');

@@ -7,9 +7,12 @@ var cpBtn = 1;
 var timer;
 
 var activity = function(mode){
-	console.log('led.activity started');
+	console.log('led.activity started... mode:' + mode);
+	if(mode == 'sleep'){
+		mode = 0;
+	}else{ mode = 1;}
 	setInterval(function(){
-		led.write(1);
+		led.write(mode);
 	}, 2000);
 	// var loop = setInterval(function(){
 		// setTimeout(function(){

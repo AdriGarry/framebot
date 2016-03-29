@@ -14,9 +14,6 @@ var remote = require('./lib/remote.js');
 
 leds.blinkLed(100, 300);
 var mode = process.argv[2];
-console.log('mode : ' + mode);
-console.log('TEST');
-// /////////////////// =======> Separer en plusieurs focntions !!!!!!!!!!!!
 if(mode == 'sleep'){
 	ok.watch(function(err, value){
 		utils.restartOdi();
@@ -24,6 +21,7 @@ if(mode == 'sleep'){
 	setInterval(function(){
 		leds.blinkLed(300, 1);
 	}, 5000);
+	leds.activity(mode);
 	setInterval(function(){
 		utils.testConnexion(function(connexion){
 			if(connexion == true){

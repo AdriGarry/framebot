@@ -85,7 +85,7 @@ var setAlarms = function(){
 		var min = date.getMinutes();
 		var sec = date.getSeconds();
 		if(day > 0 && day < 6){
-			if(hour == 7 && min == 26){
+			if(hour == 7 && min == 27){
 				console.log('Morning Sea...');
 				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'MorningSea']);
 			}

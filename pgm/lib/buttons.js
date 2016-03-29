@@ -85,11 +85,9 @@ cancel.watch(function(err, value){
 	// leds.buttonPush('stop');
 	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec [step:1;3]');
 	utils.mute();
-	console.log('pressTime : ' + pressTime);
 	if(pressTime >= 1 && pressTime < 3){
 		utils.restartOdi();
 	}else if(pressTime >= 3){
-		// console.log('Push Cancel button canceled !');
 		// FUNCTION MUTE FOR FEW HOURS...
 		utils.restartOdi('sleep');
 	}
