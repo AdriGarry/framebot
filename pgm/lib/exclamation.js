@@ -42,7 +42,7 @@ var exclamationRdmDelayLoop = function(){
 				+ Math.round((rdmDelay/60)*10)/10 + ' min (' + rdmDelay + ' sec)');
 			leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh']);
-			if(mode.readSync() == 1){
+			if(etat.readSync() == 1){
 				console.log('exclamationRdmDelayLoop... LET\'S GO ON !!!');
 				loop();
 			}

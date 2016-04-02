@@ -14,10 +14,11 @@ var party = require('./party.js');
 var EventEmitter = require('events').EventEmitter;
 // var event = new EventEmitter();
 var utils = require('./utils.js');
+var service = require('./service.js');
 
-mode.watch(function(err, value){
-	value = mode.readSync();
-	console.log(' Mode: ' + value + ' [mode has changed]');
+etat.watch(function(err, value){
+	value = etat.readSync();
+	console.log(' Etat: ' + value + ' [Etat has changed]');
 	if(fip.instance){
 		fip.stopFip('Rebooting FIP RADIO (volume changed)');
 		setTimeout(function(){
@@ -30,7 +31,7 @@ mode.watch(function(err, value){
 var instance = false;
 var interval;
 setInterval(function(){
-	var value = mode.readSync();
+	var value = etat.readSync();
 	satellite.writeSync(value);
 	if(1 === value){
 		if(!instance){
@@ -45,28 +46,37 @@ setInterval(function(){
 	}
 }, 1000);
 
-var getMode = function(callback){
-	var value = mode.readSync();
-	console.log('Mode : ' + value)
+var getEtat = function(callback){
+	var value = etat.readSync();
+	console.log('Etat : ' + value)
 	callback(value);
 };
-exports.getMode = getMode;
+exports.getEtat = getEtat;
 
+var t;
 ok.watch(function(err, value){
-	leds.ledOn('belly');
 	var pressTime = new Date();
 	while(ok.readSync() == 1){
 		;
+		t = Math.round((new Date() - pressTime)/100)/10;
+		if(t%1 == 0){
+			// console.log(t);
+			belly.write(0);
+		}else{
+			belly.write(1);
+		}
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
 	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec [step:1;4]');
-	if(pressTime < 1){
+	if(pressTime < 2){
 		utils.randomAction();
 		// exclamation.exclamation2Rappels();
-	}else if(pressTime >= 1 && pressTime < 4){
+	}else if(pressTime >= 2 && pressTime < 3){
 		// event.emit('playFip', 'Fip Radio');
 		fip.playFip();
+	}else if(pressTime >= 3 && pressTime < 5){
+		service.time();
 	}else{
 		console.log('Push Ok button canceled !');
 	}
@@ -74,15 +84,19 @@ ok.watch(function(err, value){
 });
 
 cancel.watch(function(err, value){
-	leds.ledOn('belly');
-	// leds.buttonPush();
 	var pressTime = new Date();
 	while(cancel.readSync() == 1){
 		;
+		t = Math.round((new Date() - pressTime)/100)/10;
+		if(t%1 == 0){
+			// console.log(t);
+			belly.write(0);
+		}else{
+			belly.write(1);
+		}
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
-	// leds.buttonPush('stop');
 	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec [step:1;3]');
 	utils.mute();
 	if(pressTime >= 1 && pressTime < 3){
@@ -93,16 +107,22 @@ cancel.watch(function(err, value){
 	}
 });
 white.watch(function(err, value){
-	leds.ledOn('belly');
 	var pressTime = new Date();
 	while(white.readSync() == 1){
 		;
+		t = Math.round((new Date() - pressTime)/100)/10;
+		if(t%1 == 0){
+			// console.log(t);
+			belly.write(0);
+		}else{
+			belly.write(1);
+		}
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
 	console.log('[val:' + value + ']  White btn pressed for   ' + pressTime + ' sec [step:2]');
 	if(pressTime < 2){
-		if(mode.readSync() == 0){
+		if(etat.readSync() == 0){
 			timer.setTimer();
 		}else{
 			console.log('no action defined');
@@ -112,22 +132,28 @@ white.watch(function(err, value){
 	}
 });
 blue.watch(function(err, value){
-	leds.ledOn('belly');
 	var pressTime = new Date();
 	while(blue.readSync() == 1){
 		;
+		t = Math.round((new Date() - pressTime)/100)/10;
+		if(t%1 == 0){
+			// console.log(t);
+			belly.write(0);
+		}else{
+			belly.write(1);
+		}
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
 	console.log('[val:' + value + ']  Blue btn pressed for ' + pressTime + ' sec [step:2]');
 	if(pressTime < 2){
-		if(mode.readSync() == 0){
+		if(etat.readSync() == 0){
 			jukebox.loop();
 		}else{
 			jukebox.medley();
 		}
 	}else if(pressTime > 2 && pressTime < 5){
-		if(mode.readSync() == 0){
+		if(etat.readSync() == 0){
 			setTimeout(function(){
 				utils.mute();
 				leds.allLedsOff();

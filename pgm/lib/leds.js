@@ -7,7 +7,8 @@ var cpBtn = 1;
 var timer;
 
 var activity = function(mode){
-	console.log('led.activity started... mode:' + mode);
+	if(typeof mode === 'undefined') mode = 'awake';
+	console.log('led.activity started [mode:' + mode + ']');
 	if(mode == 'sleep'){
 		mode = 0;
 	}else{ mode = 1;}
