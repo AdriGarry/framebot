@@ -10,24 +10,26 @@ var remote = require('./lib/remote.js');
 var mode = process.argv[2];
 
 var minToWakeUp = 180;
-// var msg = '>> Starting Odi pgm in sleeping mode... ';
 var msg = 'Odi is in sleeping mode...';
-if(mode == 'autoWakeUp'){
-// if(1 === mode.readSync()){
+if(mode == 'sleepWakeUp'){
 	console.log('AAAA');
 	msg = msg + '  for ' + minToWakeUp/60 + ' hours';
 	setTimeout(function(){
 		utils.restartOdi();
 	}, minToWakeUp*60*1000);
+	setInterval(function(){
+		leds.blinkLed(300, 1.5);
+	}, 4000);
+}else{
+	setInterval(function(){
+		leds.blinkLed(300, 0.7);
+	}, 4000);
 }
 console.log(msg + '   -.-');
 
 ok.watch(function(err, value){
 	utils.restartOdi();
 });
-setInterval(function(){
-	leds.blinkLed(300, 1);
-}, 5000);
 leds.activity(mode);
 setInterval(function(){
 	utils.testConnexion(function(connexion){

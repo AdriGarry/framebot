@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-// console.log('>> Starting Odi pgm...');
 console.log('>> Odi is in normal mode...   :)');
 
 var Gpio = require('onoff').Gpio;
@@ -22,12 +21,10 @@ setTimeout(function(){
 	led.write(1);
 	eye.write(0);
 }, 500);
-// setInterval(function(){
-	// led.write(1);
-// }, 1000);
+
 leds.activity();
 setInterval(function(){
-	leds.blinkLed(100, 0.5);
+	leds.blinkLed(300, 1);
 }, 3000);
 
 buttons.getEtat(function(modeValue){

@@ -128,7 +128,7 @@ var shutdown = function(){
 	remote.check();
 	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'shutdown']);
-	console.log('_/!\\__SHUTING DOWN RASPBERRY PI !!');
+	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY!!');
 	setTimeout(function(){
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/power.sh']);
 	}, 1500);
@@ -136,16 +136,29 @@ var shutdown = function(){
 exports.shutdown = shutdown;
 
 var restartOdi = function(mode){
-	if(mode == 'sleep'){
-		console.log('Sleeping Odi ...');
-		setTimeout(function(){
-			process.exit(13);
-		}, 500); //800
-	}else{
+	// if(mode == 'sleep'){
+	if(typeof mode === 'undefined'){
 		console.log('Restarting Odi !!');
 		setTimeout(function(){
 			process.exit();
-		}, 500); //800
+		}, 300); //500
+	}else{
+		if(mode.indexOf('sleep') > -1){
+			console.log('Sleeping Odi ...  [' + mode + ']');
+			setTimeout(function(){
+				if(mode.indexOf('sleepWakeUp') > -1){
+					process.exit(14);
+				}else{
+					process.exit(13);
+				}
+				// process.exit(mode);
+			}, 300); //500
+		}else{
+			console.log('Restarting Odi !!');
+			setTimeout(function(){
+				process.exit();
+			}, 300); //500
+		}
 	}
 };
 exports.restartOdi = restartOdi;

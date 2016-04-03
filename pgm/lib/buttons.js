@@ -102,8 +102,11 @@ cancel.watch(function(err, value){
 	if(pressTime >= 1 && pressTime < 3){
 		utils.restartOdi();
 	}else if(pressTime >= 3){
-		// FUNCTION MUTE FOR FEW HOURS...
-		utils.restartOdi('sleep');
+		if(etat.readSync() == 1){
+			utils.restartOdi('sleepWakeUp');
+		}else{
+			utils.restartOdi('sleep');
+		}
 	}
 });
 white.watch(function(err, value){

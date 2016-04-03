@@ -9,12 +9,17 @@ var timer;
 var activity = function(mode){
 	if(typeof mode === 'undefined') mode = 'awake';
 	console.log('led.activity started [mode:' + mode + ']');
-	if(mode == 'sleep'){
+	if(mode.indexOf('sleep') > -1){
+	// if(mode == 'sleep'){
+		console.log('001');
 		mode = 0;
-	}else{ mode = 1;}
+	}else{
+		console.log('002');
+		mode = 1;
+	}
 	setInterval(function(){
 		led.write(mode);
-	}, 2000);
+	}, 1000);
 	// var loop = setInterval(function(){
 		// setTimeout(function(){
 			// clearTimeout(loop);

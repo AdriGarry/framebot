@@ -7,17 +7,17 @@ var request = require('request');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var leds = require('./leds.js');
+var utils = require('./utils.js');
 var timer = require('./timer.js');
 var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
 var exclamation = require('./exclamation.js');
 var tts = require('./tts.js');
-var EventEmitter = require('events').EventEmitter;
-var event = new EventEmitter();
-var clock = require('./clock.js');
-var party = require('./party.js');
+// var EventEmitter = require('events').EventEmitter;
+// var event = new EventEmitter();
+// var clock = require('./clock.js');
 var service = require('./service.js');
-var utils = require('./utils.js');
+var party = require('./party.js');
 var self = this;
 
 var check = function(mode){
@@ -64,9 +64,11 @@ var check = function(mode){
 									utils.restartOdi();
 								}else if(txt == 'sleep'){
 									utils.restartOdi('sleep');
+								}else if(txt == 'sleepWakeUp'){
+									utils.restartOdi('sleepWakeUp');
 								}else if(txt == 'mute') {
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-								}else if(txt == 'jukebox'){ // txt == 'jukebox' && mode != 'sleep'
+								}else if(txt == 'jukebox'){ // && mode != 'sleep'
 									jukebox.loop();
 								}else if(txt == 'jukebox m' || txt == 'medley') {
 									jukebox.medley();

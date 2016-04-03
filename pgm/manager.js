@@ -40,9 +40,11 @@ function startOdi(mode){
 	mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	var logo;
 	var logMode;
-	if(mode == 'sleep'){
-		if(1 === etat.readSync()){
-			mode = 'autoWakeUp';
+	if(typeof mode === 'undefined') mode = '';
+	// if(mode == 'sleep'){
+	if(mode.indexOf('sleep') > -1){
+		if(mode == 'sleepWakeUp'){// || 1 === etat.readSync()){
+			mode = 'sleepWakeUp';
 			logMode = ' OdiSleep!';
 		}else{
 			logMode = ' OdiSleep';
@@ -97,8 +99,9 @@ function startOdi(mode){
 		console.log('Code. : '+code);
 		if(code == 13){
 			startOdi('sleep');
-		}
-		else{
+		}else if(code == 14){
+			startOdi('sleepWakeUp');
+		}else{
 			startOdi();
 		}
 	});
