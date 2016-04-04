@@ -10,11 +10,8 @@ var activity = function(mode){
 	if(typeof mode === 'undefined') mode = 'awake';
 	console.log('led.activity started [mode:' + mode + ']');
 	if(mode.indexOf('sleep') > -1){
-	// if(mode == 'sleep'){
-		console.log('001');
 		mode = 0;
 	}else{
-		console.log('002');
 		mode = 1;
 	}
 	setInterval(function(){

@@ -105,5 +105,5 @@ function startOdi(mode){
 			startOdi();
 		}
 	});
-	remote.check();
+	remote.check('log');
 }

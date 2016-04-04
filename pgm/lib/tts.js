@@ -15,6 +15,7 @@ var speak = function(lg, txt){
 utils.testConnexion(function(connexion){
 	if(connexion == true){
 		if(txt == '' || txt === 'undefined'){
+		// if(txt == '' || typeof txt === 'undefined'){
 			content = fs.readFileSync(messages, 'UTF-8').toString().split('\n'); // \r\n
 			var rdmMax = content.length;
 			var rdmNb = ((Math.floor(Math.random()*rdmMax)));

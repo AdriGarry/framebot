@@ -12,7 +12,6 @@ var mode = process.argv[2];
 var minToWakeUp = 180;
 var msg = 'Odi is in sleeping mode...';
 if(mode == 'sleepWakeUp'){
-	console.log('AAAA');
 	msg = msg + '  for ' + minToWakeUp/60 + ' hours';
 	setTimeout(function(){
 		utils.restartOdi();
@@ -34,7 +33,7 @@ leds.activity(mode);
 setInterval(function(){
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
-			remote.check();
+			remote.check(mode);
 		} else {
 			console.error('No network, can\'t check messages & export log  /!\\');
 		}
