@@ -42,7 +42,7 @@ var check = function(mode){
 				console.log('Log Ok');
 				return;
 			}else if(error){
-				console.error('Error Exporting Log  /!\\');
+				console.error('Error Exporting Log  /!\\  ' + error);
 			}else if(!error && response.statusCode == 200){
 				leds.blinkSatellite(180,1.15);
 				if(typeof body === 'undefined') body = '';
@@ -147,15 +147,17 @@ var checkVoiceMail = function(){
 		for(i=messages.length;i>0;i--){ // CHANGER SENS
 			var z = messages[i];
 			if(typeof z !== 'undefined'){
-				console.error(z);
-				/*setTimeout(function(z){
+				// console.error(z);
+				// waitAndDo(3);
+				setTimeout(function(z){
 					txt = messages[i].split(';');
 					lg = txt[0];
 					txt = txt[1];
-					// console.error(lg,txt);
-					tts.speak(lg,txt);
+					console.error(lg,txt);
+					// tts.speak(lg,txt);
 					msgDelay = msgDelay + 5;
-				}.bind(this,z), msgDelay*1000);*/
+				// }.bind(this,z), msgDelay*1000);
+				}, msgDelay*1000);
 			}
 		}
 	}catch(e){
@@ -164,15 +166,25 @@ var checkVoiceMail = function(){
 }
 exports.checkVoiceMail = checkVoiceMail;
 
-// var TTSMessage = function(lg, txt){
-	// setTimeout(function(lg, txt){
-		// txt = messages[i].split(';');
-		// lg = txt[0];
-		// txt = txt[1];
-		// tts.speak(lg,txt);
-		// msgDelay = msgDelay + 5;
-	// }.bind(this, lg, txt), msgDelay*1000);
-// }
+/*function waitAndDo(times) {
+	if(times < 1) {
+		return;
+	}
+	setTimeout(function(){
+		// Do something here
+		console.log('Doing a request');
+		waitAndDo(times-1);
+	}, 1000);
+}*/
+var TTSMessage = function(lg, txt){
+	setTimeout(function(lg, txt){
+		txt = messages[i].split(';');
+		lg = txt[0];
+		txt = txt[1];
+		tts.speak(lg,txt);
+		msgDelay = msgDelay + 5;
+	}.bind(this, lg, txt), msgDelay*1000);
+}
 
 
 var saveMessage = function(lg, txt){
