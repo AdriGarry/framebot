@@ -24,6 +24,7 @@ var mute = function(message){
 	leds.clearLeds();
 	eye.write(0);
 	belly.write(0);
+	// AJOUTER ARRET FIP (cf fip functions...) -> stopFip() ???
 };
 exports.mute = mute;
 
@@ -38,6 +39,7 @@ var autoMute = function(message){
 			leds.clearLeds();
 			eye.write(0);
 			belly.write(0);
+			// AJOUTER ARRET FIP (cf fip functions...) -> stopFip() ???
 		}, 1600);
 	}, 60*60*1000);
 };

@@ -20,10 +20,10 @@ var playFip = function(){
 		self.instance = true;
 		leds.altLeds(100, 1.3);
 		
-		cancel.watch(function(err, value){
-			clearInterval(self.fipInterval);
-			self.instance = false;
-		});
+		cancel.watch(function(err, value){ // Partie à supprimer
+			clearInterval(self.fipInterval); // Partie à supprimer
+			self.instance = false; // Partie à supprimer
+		}); // Partie à supprimer
 		self.fipInterval = setInterval(function(){
 			if(self.instance){
 				console.log('Playing FIP RADIO...!');
