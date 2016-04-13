@@ -20,7 +20,8 @@ var service = require('./service.js');
 var party = require('./party.js');
 var self = this;
 
-var voiceMailFilePath = '/home/pi/odi/log/voicemail.log';
+// var voiceMailFilePath = '/home/pi/odi/log/voicemail.log';
+var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
 var check = function(mode){
 	try{
 		if(typeof mode === 'undefined') mode = '';
@@ -73,7 +74,8 @@ var check = function(mode){
 								}else if(txt == 'sleepWakeUp'){
 									utils.restartOdi('sleepWakeUp');
 								}else if(txt == 'mute') {
-									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+									// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+									utils.mute();
 								}else if(txt == 'jukebox' && mode.indexOf('sleep') == -1){
 									jukebox.loop();
 								}else if(txt == 'jukebox m' || txt == 'medley' && mode.indexOf('sleep') == -1) {

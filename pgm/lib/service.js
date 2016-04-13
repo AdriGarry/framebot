@@ -12,18 +12,16 @@ var self = this;
 var weatherStatus = fs.readFileSync('/home/pi/odi/pgm/data/weather.status.properties', 'UTF-8').toString().split('\n');
 var weather = function(){
 	request.get({
-		url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
+		// url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
+		url:'http://xml.weather.yahoo.com/forecastrss?w=610264&u=c',
 		headers: {'Content-Type': 'xml'}
 	},
 	function (error, response, body){
 		if(!error && response.statusCode == 200){
 			body = body.split('\n');
-			console.log('body : ' + body);
-			// console.log(weatherStatus);
+			// console.log('body : ' + body);
 			var weather = body[28];
-			// console.log(weather);
 			weather = weather.substring(weather.lastIndexOf('code="')+6,weather.lastIndexOf('code="')+8);
-			// console.log(weather);
 			weather = weatherStatus[weather];
 			var temp = body[32];
 			temp = temp.substring(temp.lastIndexOf(',')+1,temp.lastIndexOf('C'));

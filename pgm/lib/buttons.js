@@ -69,9 +69,11 @@ ok.watch(function(err, value){
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
 	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec [step:1;4]');
-	if(pressTime < 2){
+	if(pressTime < 1){
 		utils.randomAction();
 		// exclamation.exclamation2Rappels();
+	}else if(pressTime >= 1 && pressTime < 2){
+		tts.lastTTS();
 	}else if(pressTime >= 2 && pressTime < 3){
 		// event.emit('playFip', 'Fip Radio');
 		fip.playFip();

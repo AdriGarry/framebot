@@ -36,7 +36,7 @@ buttons.getEtat(function(modeValue){
 });
 
 clock.setAlarms();
-remote.checkVoiceMail();
+// remote.checkVoiceMail();
 
 setInterval(function(){
 	utils.testConnexion(function(connexion){

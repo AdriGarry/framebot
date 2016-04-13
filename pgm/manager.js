@@ -14,7 +14,7 @@ var remote = require('./lib/remote.js');
 
 var odiPgm;
 var odiState = false;
-var mute;
+// var mute;
 
 /*utils.getMsgLastGitCommit(function(commitMsg){
 	setTimeout(function(){
@@ -37,7 +37,8 @@ ok.watch(function(err, value){
 });
 
 function startOdi(mode){
-	mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+	// mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+	utils.mute();
 	var logo;
 	var logMode;
 	if(typeof mode === 'undefined') mode = '';
@@ -92,7 +93,9 @@ function startOdi(mode){
 	});
 	
 	odiPgm.on('exit', function(code){
-		mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+		// mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+		utils.mute();
+		utils.clearLastTTS();
 		odiState = false;
 		console.log('\r\n>> Odi pgm KILLED  /!\\  /!\\');
 		console.log('***************************\r\n\r\n');
