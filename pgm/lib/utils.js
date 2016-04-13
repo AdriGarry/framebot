@@ -93,6 +93,13 @@ var testConnexion = function(callback){
 };
 exports.testConnexion = testConnexion;
 
+var clearLastTTS = function(){
+	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearLastTTS']);
+	console.log('LastTTS deleted.');
+};
+exports.clearLastTTS = clearLastTTS;
+
+
 var sleepNode = function(sec, delay){
 	/*if(delay){
 		delay = 0;
