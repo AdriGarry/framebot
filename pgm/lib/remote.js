@@ -76,6 +76,8 @@ var check = function(mode){
 								}else if(txt == 'mute') {
 									// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 									utils.mute();
+								}else if(txt == 'lastTTS' && mode.indexOf('sleep') == -1){
+									tts.lastTTS();
 								}else if(txt == 'jukebox' && mode.indexOf('sleep') == -1){
 									jukebox.loop();
 								}else if(txt == 'jukebox m' || txt == 'medley' && mode.indexOf('sleep') == -1) {

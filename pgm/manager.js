@@ -14,6 +14,8 @@ var remote = require('./lib/remote.js');
 
 var odiPgm;
 var odiState = false;
+var logoNormal = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', 'utf8').toString().split('\n');
+var logoSleep = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
 // var mute;
 
 /*utils.getMsgLastGitCommit(function(commitMsg){
@@ -50,11 +52,11 @@ function startOdi(mode){
 		}else{
 			logMode = ' OdiSleep';
 		}
-		logo = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', 'utf8').toString().split('\n');
+		logo = logoNormal;
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
 	}else{
 		logMode = ' Odi';
-		logo = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
+		logo = logoSleep;
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js', mode]);
 	}
 	
