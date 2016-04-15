@@ -10,18 +10,18 @@ var deploy;
 var self = this;
 var messages = '/home/pi/odi/pgm/data/ttsMessages.properties';
 var content = fs.readFileSync(messages, 'UTF-8').toString().split('\n'); // \r\n
+var rdmMax = content.length;
 var lastTTSFilePath = '/home/pi/odi/pgm/tmp/lastTTS.log';
 
 var speak = function(lg, txt){
 utils.clearLastTTS();
 utils.testConnexion(function(connexion){
 	if(connexion == true){
-		// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearLastTTS']);
-		// console.log('LastTTS deleted.');
+		// console.log('TTS___ ' + lg +' -> ' + txt);
 		if(txt == '' || txt === 'undefined'){
 		// if(txt == '' || typeof txt === 'undefined'){
 			// content = fs.readFileSync(messages, 'UTF-8').toString().split('\n'); // \r\n
-			var rdmMax = content.length;
+			// var rdmMax = content.length;
 			var rdmNb = ((Math.floor(Math.random()*rdmMax)));
 			txt = content[rdmNb];
 			console.log('Random speech : ' + rdmNb + '/' + rdmMax);
@@ -36,16 +36,24 @@ utils.testConnexion(function(connexion){
 		/*fs.appendFile(lastTTSFilePath, lg + ';' + txt, function(err){ // NE PAS CONSERVER L'HISTORIQUE !!!
 			if(err) console.error(err);
 		});*/
+		
+		var t = (txt.length) * 300 + 2000;
+		// console.log(t);
+		console.log(txt.length);
+		var waitFor = (new Date()).getTime();
+		// console.error(waitFor);
+		// console.log(waitFor + t);
+		while((new Date()).getTime() < waitFor + t){
+			;
+		}
 		fs.writeFile(lastTTSFilePath, lg + ';' + txt, 'UTF-8', function(err){
 			if(err){
 				return console.log(err);
 			}
-			console.log('The file was saved!');
-		}); 
-		setTimeout(function(lg, txt){
-			// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearLastTTS']);
-			// console.log('LastTTS deleted.');
-		}, 20*1000);
+			console.log('I\'ll keep this message ;) ' + lg + ';' + txt);
+		});
+
+		return true;
 	} else {
 		console.error('No network, can\'t get TTS data /!\\');
 		// var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts2.sh', lg, txt]); --> espeak
@@ -67,14 +75,9 @@ var lastTTS = function(){
 	}catch(e){
 		console.error(e);
 		lg = 'en';
-		txt = '_undefined'; // Vous pouvez répéter ?
+		txt = '.undefined'; // Je n'ai rien dis !
 	}
 	console.log('LastTTS=> ' + lg + ';' + txt);
 	self.speak(lg, txt);
 };
 exports.lastTTS = lastTTS;
-
-
-var getTTS = function(lg, txt){
-};
-exports.getTTS = getTTS;

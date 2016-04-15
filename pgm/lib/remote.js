@@ -27,7 +27,7 @@ var check = function(mode){
 		if(typeof mode === 'undefined') mode = '';
 		var logFilePath = '/home/pi/odi/log/odi.log';
 		var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
-		content = content.slice(-120);
+		content = content.slice(-150); //-120
 		content = content.join('\n');
 		
 		request.post({
@@ -78,6 +78,12 @@ var check = function(mode){
 									utils.mute();
 								}else if(txt == 'lastTTS' && mode.indexOf('sleep') == -1){
 									tts.lastTTS();
+								}else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
+									// self.checkVoiceMail();
+									// remote.checkVoiceMail();
+									self.checkVoiceMail(function(r){
+										console.log('RETURN checkVoiceMail : ' + r);
+									});
 								}else if(txt == 'jukebox' && mode.indexOf('sleep') == -1){
 									jukebox.loop();
 								}else if(txt == 'jukebox m' || txt == 'medley' && mode.indexOf('sleep') == -1) {
@@ -115,12 +121,20 @@ var check = function(mode){
 								}
 							}else{
 								 if(mode.indexOf('sleep') > -1){
-									console.log('New VoiceMail : ' + lg + ' / ' + txt);
-									var message = '\r\n' + lg + ';' + txt; // AJOUTER HEURE + DATE ??
+									// console.log('New VoiceMail : ' + lg + ' / ' + txt);
+									var message = lg + ';' + txt; // AJOUTER HEURE + DATE ??
 									// var voiceMailFilePath = '/home/pi/odi/log/voicemail.log';
-									fs.appendFile(voiceMailFilePath, message, function(err){
+									/*fs.appendFile(voiceMailFilePath, message, function(err){
 										if(err) console.error(err);
-									});
+									});*/
+									
+									fs.appendFile(voiceMailFilePath, message + '\n', 'UTF-8', function(err){ //writeFile
+										if(err){
+											return console.log(err);
+										}
+										console.log('New VoiceMail Message_: ' + message);
+									}); 
+									
 								 }else{
 									 tts.speak(lg,txt);
 								 }
@@ -142,74 +156,39 @@ var check = function(mode){
 }
 exports.check = check;
 
-var checkVoiceMail = function(){
+var checkVoiceMail = function(callback){
 	try{
 		console.log('Checking VoiceMail...');
 		var messages = fs.readFileSync(voiceMailFilePath, 'UTF-8').toString().split('\n');
 		console.log(messages);
-		var msgDelay = 1;
-		for(i=messages.length;i>0;i--){ // CHANGER SENS
+		nbMsg = messages.length-1;
+		for(i=0;i<nbMsg;i++){
 			var z = messages[i];
 			if(typeof z !== 'undefined'){
-				// console.error(z);
-				// waitAndDo(3);
-				setTimeout(function(z){
 					txt = messages[i].split(';');
 					lg = txt[0];
 					txt = txt[1];
-					console.error(lg,txt);
-					// tts.speak(lg,txt);
-					msgDelay = msgDelay + 5;
-				// }.bind(this,z), msgDelay*1000);
-				}, msgDelay*1000);
+					// console.error(lg,txt);
+					if(typeof lg !== 'undefined' || typeof txt !== 'undefined'){
+						tts.speak(lg,txt);
+					}else{
+						console.log('ERROR 3 ' + lg + '  ' + txt);
+					}
+			}else{
+				console.error('ERROR 2 ' + z);
 			}
 		}
+		setTimeout(function(){
+			utils.clearVoiceMail(); // au bout d'une heure
+		}, 60*60*1000);
+		return true;
 	}catch(e){
-		console.error(e);
+		if(e.code === 'ENOENT'){
+			console.log('No VoiceMail Message !');
+			return false;
+		}else{
+			console.error(e);
+		}
 	}
 }
 exports.checkVoiceMail = checkVoiceMail;
-
-/*function waitAndDo(times) {
-	if(times < 1) {
-		return;
-	}
-	setTimeout(function(){
-		// Do something here
-		console.log('Doing a request');
-		waitAndDo(times-1);
-	}, 1000);
-}*/
-var TTSMessage = function(lg, txt){
-	setTimeout(function(lg, txt){
-		txt = messages[i].split(';');
-		lg = txt[0];
-		txt = txt[1];
-		tts.speak(lg,txt);
-		msgDelay = msgDelay + 5;
-	}.bind(this, lg, txt), msgDelay*1000);
-}
-
-
-var saveMessage = function(lg, txt){
-	// try{
-		// var contents = file.writeFileSync(voiceMailFilePath, 'test' + i, 'utf8');
-		// fs.writeSyncFile(voiceMailFilePath, 'test' + i, 'utf8', function(error){
-			// console.log('ERROR ' + error);
-		// });
-		console.log(lg + ';' + txt);
-		// fs.appendFile(voiceMailFilePath, lg + ';' + txt, function (err){
-		// });
-		
-		// console.log('callback : ' + callback);
-		console.log('Message saved!');
-		// fs.writeFile(voiceMailFilePath, 'test' + i, (error) => {
-		// if(error) throw error;
-			// console.log('Message saved!');
-			i++;
-		// });
-	// }catch(e){
-		// console.error('Exception VoiceMail   /!\\ /!\\');
-		// console.error(e);
-	// }
-}

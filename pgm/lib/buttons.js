@@ -3,6 +3,7 @@
 
 var log = 'Odi/ ';
 var spawn = require('child_process').spawn;
+var remote = require('./remote.js');
 var leds = require('./leds.js');
 var exclamation = require('./exclamation.js');
 var timer = require('./timer.js');
@@ -70,7 +71,12 @@ ok.watch(function(err, value){
 	leds.ledOff('belly');
 	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec [step:1;4]');
 	if(pressTime < 1){
-		utils.randomAction();
+		remote.checkVoiceMail(function(r){
+			console.error('RETURN  ' + r);
+			if(!r){
+				utils.randomAction();
+			}
+		});
 		// exclamation.exclamation2Rappels();
 	}else if(pressTime >= 1 && pressTime < 2){
 		tts.lastTTS();

@@ -163,6 +163,9 @@ var setAlarms = function(){
 					}, 3000);
 				}
 			});
+		}else if(hour == 12 && min == 12){
+			console.log('Il Est Midi !!!!!!');
+			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'IlEstMidi']);
 		}else if(day == 2 && hour == 5 && min == 00){
 			console.log('Clean log files  /!\\');
 			log.cleanLog();

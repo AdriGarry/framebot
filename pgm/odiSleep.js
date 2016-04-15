@@ -18,11 +18,11 @@ if(mode == 'sleepWakeUp'){
 	}, minToWakeUp*60*1000);
 	setInterval(function(){
 		leds.blinkLed(300, 1.5);
-	}, 4000);
+	}, 3000);
 }else{
 	setInterval(function(){
 		leds.blinkLed(300, 0.7);
-	}, 4000);
+	}, 3000);
 }
 console.log(msg + '   -.-');
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Module utilitaires
 
-var log = 'Odi/ ';
+// var log = 'Odi/ ';
+var fs = require('fs');
 var request = require('request');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
@@ -95,10 +96,32 @@ exports.testConnexion = testConnexion;
 
 var clearLastTTS = function(){
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearLastTTS']);
-	console.log('LastTTS deleted.');
+	// console.log('LastTTS deleted.');
 };
 exports.clearLastTTS = clearLastTTS;
 
+var clearVoiceMail = function(){
+	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearVoiceMail']);
+	console.log('VoiceMail Cleared.');
+};
+exports.clearVoiceMail = clearVoiceMail;
+
+var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
+var voiceMailSignal = function(){
+	console.log('Start checking messages...');
+	setInterval(function(){
+		fs.access(voiceMailFilePath, fs.R_OK, function(e) {
+			// console.error(e);
+			if(e == null){
+				console.log('blinkBelly');
+				leds.blinkBelly(300, 0.8);
+			}else{
+				// No message
+			}
+		});
+	}, 5000);
+};
+exports.voiceMailSignal = voiceMailSignal;
 
 var sleepNode = function(sec, delay){
 	/*if(delay){
@@ -115,7 +138,7 @@ var sleepNode = function(sec, delay){
 	setTimeout(function(){
 		var wakeUp = new Date().getTime() + (sec * 1000);
 		while (new Date().getTime() <= wakeUp) {
-			; // <-- to sleep Node
+			;
 		}
 		console.log('\nsleepNode:       -->  Odi going on !!\n');
 	}, delay*1000+1);	
@@ -123,6 +146,7 @@ var sleepNode = function(sec, delay){
 exports.sleepNode = sleepNode;
 
 var reboot = function(){
+	self.clearLastTTS();
 	remote.check();
 	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'reboot']);
@@ -134,6 +158,7 @@ var reboot = function(){
 exports.reboot = reboot;
 
 var shutdown = function(){
+	self.clearLastTTS();
 	remote.check();
 	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'shutdown']);

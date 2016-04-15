@@ -36,6 +36,9 @@ else
 	elif [ $1 = "MorningBirds" ]
 	then
 		sound="/home/pi/odi/mp3/MorningBirds.mp3"
+	elif [ $1 = "IlEstMidi" ]
+	then
+		sound="/home/pi/odi/mp3/DeLaSoulTransmittingLiveFromMars.mp3"
 	elif [ $1 = "test" ]
 	then
 		sound="/home/pi/odi/mp3/system/test.mp3"
