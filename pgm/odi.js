@@ -7,10 +7,11 @@ var spawn = require('child_process').spawn;
 var gpioPins = require('./lib/gpioPins.js');
 var utils = require('./lib/utils.js');
 var buttons = require('./lib/buttons.js');
-var leds = require('./lib/leds.js');
-var clock = require('./lib/clock.js');
-var tts = require('./lib/tts.js');
 var remote = require('./lib/remote.js');
+var leds = require('./lib/leds.js');
+var voiceMail = require('./lib/voiceMail.js');
+var tts = require('./lib/tts.js');
+var clock = require('./lib/clock.js');
 var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'odi']);
 
 leds.blinkLed(100, 300);
@@ -36,8 +37,8 @@ buttons.getEtat(function(modeValue){
 });
 
 clock.setAlarms();
-utils.voiceMailSignal();
-remote.checkVoiceMail();
+voiceMail.checkVoiceMail();
+voiceMail.voiceMailSignal();
 
 setInterval(function(){
 	utils.testConnexion(function(connexion){

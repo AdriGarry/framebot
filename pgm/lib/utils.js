@@ -6,17 +6,18 @@ var fs = require('fs');
 var request = require('request');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
+var remote = require('./remote.js');
 var leds = require('./leds.js');
 var timer = require('./timer.js');
 var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
 var exclamation = require('./exclamation.js');
 var tts = require('./tts.js');
+var voiceMail = require('./voiceMail.js');
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
 var clock = require('./clock.js');
 var service = require('./service.js');
-var remote = require('./remote.js');
 var self = this;
 
 var mute = function(message){
@@ -100,29 +101,6 @@ var clearLastTTS = function(){
 };
 exports.clearLastTTS = clearLastTTS;
 
-var clearVoiceMail = function(){
-	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearVoiceMail']);
-	console.log('VoiceMail Cleared.');
-};
-exports.clearVoiceMail = clearVoiceMail;
-
-var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
-var voiceMailSignal = function(){
-	console.log('Start checking messages...');
-	setInterval(function(){
-		fs.access(voiceMailFilePath, fs.R_OK, function(e) {
-			// console.error(e);
-			if(e == null){
-				console.log('blinkBelly');
-				leds.blinkBelly(300, 0.8);
-			}else{
-				// No message
-			}
-		});
-	}, 5000);
-};
-exports.voiceMailSignal = voiceMailSignal;
-
 var sleepNode = function(sec, delay){
 	/*if(delay){
 		delay = 0;
@@ -146,7 +124,7 @@ var sleepNode = function(sec, delay){
 exports.sleepNode = sleepNode;
 
 var reboot = function(){
-	self.clearLastTTS();
+	voiceMail.clearLastTTS();
 	remote.check();
 	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'reboot']);
@@ -158,7 +136,7 @@ var reboot = function(){
 exports.reboot = reboot;
 
 var shutdown = function(){
-	self.clearLastTTS();
+	voiceMail.clearLastTTS();
 	remote.check();
 	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'shutdown']);

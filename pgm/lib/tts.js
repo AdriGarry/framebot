@@ -39,7 +39,7 @@ utils.testConnexion(function(connexion){
 		
 		var t = (txt.length) * 300 + 2000;
 		// console.log(t);
-		console.log(txt.length);
+		// console.log(txt.length);
 		var waitFor = (new Date()).getTime();
 		// console.error(waitFor);
 		// console.log(waitFor + t);
@@ -48,9 +48,9 @@ utils.testConnexion(function(connexion){
 		}
 		fs.writeFile(lastTTSFilePath, lg + ';' + txt, 'UTF-8', function(err){
 			if(err){
-				return console.log(err);
+				return console.log('Error while saving last TTS : ' + err);
 			}
-			console.log('I\'ll keep this message ;) ' + lg + ';' + txt);
+			// console.log('I\'ll keep this message ;) ' + lg + ';' + txt);
 		});
 
 		return true;
@@ -81,3 +81,9 @@ var lastTTS = function(){
 	self.speak(lg, txt);
 };
 exports.lastTTS = lastTTS;
+
+var clearLastTTS = function(){
+	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearLastTTS']);
+	// console.log('LastTTS deleted.');
+};
+exports.clearLastTTS = clearLastTTS;

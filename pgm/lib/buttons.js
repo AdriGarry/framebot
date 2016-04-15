@@ -10,6 +10,7 @@ var timer = require('./timer.js');
 var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
 var tts = require('./tts.js');
+var voiceMail = require('./voiceMail.js');
 var clock = require('./clock.js');
 var party = require('./party.js');
 var EventEmitter = require('events').EventEmitter;
@@ -69,9 +70,9 @@ ok.watch(function(err, value){
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
-	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec [step:1;4]');
+	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec [1,2,3;5]');
 	if(pressTime < 1){
-		remote.checkVoiceMail(function(r){
+		voiceMail.checkVoiceMail(function(r){
 			console.error('RETURN  ' + r);
 			if(!r){
 				utils.randomAction();
@@ -105,7 +106,7 @@ cancel.watch(function(err, value){
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
-	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec [step:1;3]');
+	console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec [1,3]');
 	utils.mute();
 	if(pressTime >= 1 && pressTime < 3){
 		utils.restartOdi();
@@ -131,7 +132,7 @@ white.watch(function(err, value){
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
-	console.log('[val:' + value + ']  White btn pressed for   ' + pressTime + ' sec [step:2]');
+	console.log('[val:' + value + ']  White btn pressed for   ' + pressTime + ' sec [2;2]');
 	if(pressTime < 2){
 		if(etat.readSync() == 0){
 			timer.setTimer();
@@ -156,7 +157,7 @@ blue.watch(function(err, value){
 	}
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
-	console.log('[val:' + value + ']  Blue btn pressed for ' + pressTime + ' sec [step:2]');
+	console.log('[val:' + value + ']  Blue btn pressed for ' + pressTime + ' sec [2;5]');
 	if(pressTime < 2){
 		if(etat.readSync() == 0){
 			jukebox.loop();

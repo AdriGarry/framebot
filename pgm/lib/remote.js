@@ -8,6 +8,7 @@ var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var leds = require('./leds.js');
 var utils = require('./utils.js');
+var voiceMail = require('./voiceMail.js');
 var timer = require('./timer.js');
 var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
@@ -54,7 +55,7 @@ var check = function(mode){
 					messages = body.split('\r\n');
 					var lg, txt;
 					for(i=messages.length-1;i>0;i--){
-						console.log(i + ' Message(s) TTS from OdiWeb');
+						console.log(i + ' Message(s) TTS from OdiWeb ' + messages);
 						txt = messages[i];
 						if(txt != undefined){
 							txt = txt.split(';');
@@ -79,9 +80,8 @@ var check = function(mode){
 								}else if(txt == 'lastTTS' && mode.indexOf('sleep') == -1){
 									tts.lastTTS();
 								}else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
-									// self.checkVoiceMail();
-									// remote.checkVoiceMail();
-									self.checkVoiceMail(function(r){
+									// voiceMail.checkVoiceMail();
+									voiceMail.checkVoiceMail(function(r){
 										console.log('RETURN checkVoiceMail : ' + r);
 									});
 								}else if(txt == 'jukebox' && mode.indexOf('sleep') == -1){
@@ -155,40 +155,3 @@ var check = function(mode){
 	}			
 }
 exports.check = check;
-
-var checkVoiceMail = function(callback){
-	try{
-		console.log('Checking VoiceMail...');
-		var messages = fs.readFileSync(voiceMailFilePath, 'UTF-8').toString().split('\n');
-		console.log(messages);
-		nbMsg = messages.length-1;
-		for(i=0;i<nbMsg;i++){
-			var z = messages[i];
-			if(typeof z !== 'undefined'){
-					txt = messages[i].split(';');
-					lg = txt[0];
-					txt = txt[1];
-					// console.error(lg,txt);
-					if(typeof lg !== 'undefined' || typeof txt !== 'undefined'){
-						tts.speak(lg,txt);
-					}else{
-						console.log('ERROR 3 ' + lg + '  ' + txt);
-					}
-			}else{
-				console.error('ERROR 2 ' + z);
-			}
-		}
-		setTimeout(function(){
-			utils.clearVoiceMail(); // au bout d'une heure
-		}, 60*60*1000);
-		return true;
-	}catch(e){
-		if(e.code === 'ENOENT'){
-			console.log('No VoiceMail Message !');
-			return false;
-		}else{
-			console.error(e);
-		}
-	}
-}
-exports.checkVoiceMail = checkVoiceMail;
