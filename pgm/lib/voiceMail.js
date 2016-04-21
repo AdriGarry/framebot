@@ -31,7 +31,6 @@ var checkVoiceMail = function(callback){
 					txt = messages[i].split(';');
 					lg = txt[0];
 					txt = txt[1];
-					// console.error(lg,txt);
 					if(typeof lg !== 'undefined' || typeof txt !== 'undefined'){
 						tts.speak(lg,txt);
 					}else{

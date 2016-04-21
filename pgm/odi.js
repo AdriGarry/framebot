@@ -37,8 +37,12 @@ buttons.getEtat(function(modeValue){
 });
 
 clock.setAlarms();
-voiceMail.checkVoiceMail();
-voiceMail.voiceMailSignal();
+
+// setTimeout(function(){
+	// voiceMail.checkVoiceMail();
+// }, 2000);
+
+// voiceMail.voiceMailSignal();
 
 setInterval(function(){
 	utils.testConnexion(function(connexion){

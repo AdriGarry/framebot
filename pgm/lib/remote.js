@@ -81,9 +81,10 @@ var check = function(mode){
 									tts.lastTTS();
 								}else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
 									// voiceMail.checkVoiceMail();
-									voiceMail.checkVoiceMail(function(r){
-										console.log('RETURN checkVoiceMail : ' + r);
-									});
+									// voiceMail.checkVoiceMail(function(r){
+										// console.log('RETURN checkVoiceMail : ' + r);
+									// });
+									console.error('ERREUR VOICEMAIL FROM REMOTE /!\\')
 								}else if(txt == 'jukebox' && mode.indexOf('sleep') == -1){
 									jukebox.loop();
 								}else if(txt == 'jukebox m' || txt == 'medley' && mode.indexOf('sleep') == -1) {

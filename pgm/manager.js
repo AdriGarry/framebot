@@ -67,7 +67,7 @@ function startOdi(mode){
 
 	odiState = true;
 	var date;
-	var year;
+	// var year;
 	var month;
 	var day;
 	var hour;
@@ -76,20 +76,26 @@ function startOdi(mode){
 	var logDate;
 	odiPgm.stdout.on('data', function(data){
 		date = new Date();
+		month = date.getMonth();
+		day = date.getDate();
 		hour = date.getHours();
 		min = date.getMinutes();
 		sec = date.getSeconds();
-		logDate = (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
+		logDate = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';//' + year + ' ';
+		logDate = logDate + (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
 		console.log(logDate + logMode + '/ ' + data + '\r\n');
 		// log.recordLog(logDate + ' Odi/ ' + data);
 	});
 
 	odiPgm.stderr.on('data', function(data){
 		date = new Date();
+		month = date.getMonth();
+		day = date.getDate();
 		hour = date.getHours();
 		min = date.getMinutes();
 		sec = date.getMinutes();
-		logDate = (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
+		logDate = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';//' + year + ' ';
+		logDate = logDate + (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
 		console.log(logDate + logMode + '_ERROR/ ' + data + '\r\n');
 		// log.recordLog(hour + ':' + min + ':' + sec + ' O/!\\ ' + data);
 	});
