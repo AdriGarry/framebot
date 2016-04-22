@@ -29,6 +29,7 @@ utils.testConnexion(function(connexion){
 			lg = txt[0];
 			txt = txt[1];
 		}
+		
 		console.log('TTS [' + lg + '] "' + txt + '"');
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts.sh', lg, txt]);
 		var blinkTime = (txt.length/15) + 1;

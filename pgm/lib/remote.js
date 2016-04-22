@@ -55,7 +55,7 @@ var check = function(mode){
 					messages = body.split('\r\n');
 					var lg, txt;
 					for(i=messages.length-1;i>0;i--){
-						console.log(i + ' Message(s) TTS from OdiWeb ' + messages);
+						// console.log(i + ' Message(s) TTS from OdiWeb ' + messages);
 						txt = messages[i];
 						if(txt != undefined){
 							txt = txt.split(';');
@@ -148,7 +148,8 @@ var check = function(mode){
 					// console.log('Clearing messages!');
 					request('http://adrigarry.com/odiTools/clearTTS.php', function (error, response, body){});
 				}
-				console.log('Log/Msg Ok [' + mode + ']');
+				console.log('Log/Msg Ok [' + mode + ' _ ' + messages + ']');
+				// console.log(i + ' Message(s) TTS from OdiWeb ' + messages);
 			}
 		});
 	}catch(e){
