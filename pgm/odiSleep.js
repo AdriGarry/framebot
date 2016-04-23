@@ -2,6 +2,7 @@
 
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
+var CronJob = require('cron').CronJob;
 var gpioPins = require('./lib/gpioPins.js');
 var utils = require('./lib/utils.js');
 var leds = require('./lib/leds.js');
@@ -16,26 +17,28 @@ if(mode == 'sleepWakeUp'){
 	setTimeout(function(){
 		utils.restartOdi();
 	}, minToWakeUp*60*1000);
-	setInterval(function(){
+	new CronJob('*/3 * * * * *', function(){
 		leds.blinkLed(300, 1.5);
-	}, 3000);
+	}, null, true, 'Europe/Paris');
 }else{
-	setInterval(function(){
+	new CronJob('*/3 * * * * *', function(){
 		leds.blinkLed(300, 0.7);
-	}, 3000);
+	}, null, true, 'Europe/Paris');
 }
 console.log(msg + '   -.-');
 
 ok.watch(function(err, value){
 	utils.restartOdi();
 });
+
 leds.activity(mode);
-setInterval(function(){
+
+new CronJob('*/15 * * * * *', function(){
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
-			remote.check(mode);
+			remote.check();
 		} else {
 			console.error('No network, can\'t check messages & export log  /!\\');
 		}
 	});
-}, 15*1000);
+}, null, true, 'Europe/Paris');
