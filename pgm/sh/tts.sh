@@ -2,6 +2,7 @@
 #si aucun son, verifier le niveau du volume avec la commande alsamixer  /!\ 
 #sudo killall omxplayer
 sudo killall mplayer
+sudo killall espeak
 
 # echo $1
 

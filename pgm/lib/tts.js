@@ -47,7 +47,7 @@ utils.testConnexion(function(connexion){
 			if(err) console.error(err);
 		});*/
 		
-		var t = (txt.length) * 300 + 2000;
+		/*var t = (txt.length) * 300 + 2000;
 		// console.log(t);
 		// console.log(txt.length);
 		var waitFor = (new Date()).getTime();
@@ -55,7 +55,7 @@ utils.testConnexion(function(connexion){
 		// console.log(waitFor + t);
 		while((new Date()).getTime() < waitFor + t){
 			;
-		}
+		}*/
 		fs.writeFile(lastTTSFilePath, lg + ';' + txt, 'UTF-8', function(err){
 			if(err){
 				return console.log('Error while saving last TTS : ' + err);
