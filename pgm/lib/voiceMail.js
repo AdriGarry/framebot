@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+/*#!/usr/bin/env node
 // Module utilitaires
 
 // var log = 'Odi/ ';
@@ -76,4 +76,4 @@ var clearVoiceMail = function(){
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearVoiceMail']);
 	console.log('VoiceMail Cleared.');
 };
-exports.clearVoiceMail = clearVoiceMail;
+exports.clearVoiceMail = clearVoiceMail;*/
