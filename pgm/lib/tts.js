@@ -32,7 +32,7 @@ utils.testConnexion(function(connexion){
 		}
 		txt = txt.split(':');
 		voice = txt[1];
-		if(typeof voice === undefined){
+		if(typeof voice == 'undefined'){
 			voice = Math.round(Math.random()*4);
 			console.log('Voice Random = ' + voice);
 		}
