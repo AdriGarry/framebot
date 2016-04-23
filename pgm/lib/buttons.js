@@ -134,7 +134,8 @@ white.watch(function(err, value){
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
 	console.log('[val:' + value + ']  White btn pressed for   ' + pressTime + ' sec [2;2]');
-	if(pressTime < 2){
+	timer.setTimer(Math.round(pressTime));
+	/*if(pressTime < 2){
 		if(etat.readSync() == 0){
 			timer.setTimer();
 		}else{
@@ -142,7 +143,7 @@ white.watch(function(err, value){
 		}
 	}else{
 		console.log('Push White button canceled !');
-	}
+	}*/
 });
 blue.watch(function(err, value){
 	var pressTime = new Date();

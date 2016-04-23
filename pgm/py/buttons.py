@@ -12,13 +12,13 @@ GPIO.setup(17, GPIO.OUT)
 # reboot
 white_previous = 1
 white_current = 1
-white_cp = -20
+white_cp = -50
 white_flag = 0
 
 # shutdown
 blue_previous = 1
 blue_current = 1
-blue_cp = -4
+blue_cp = -50
 blue_flag = 0
 
 while True:
@@ -31,7 +31,7 @@ while True:
     print white_cp
     # GPIO.output(17,True)
   else:
-    white_cp = -20
+    white_cp = -50
     # GPIO.output(17,False)
 
   if (white_current and (not white_previous)):
@@ -54,7 +54,7 @@ while True:
     print blue_cp
     # GPIO.output(17,True)
   else:
-    blue_cp = -20
+    blue_cp = -50
     # GPIO.output(17,False)
 
   if (blue_current and (not blue_previous)):

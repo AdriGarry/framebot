@@ -28,7 +28,7 @@ leds.activity();
 /*setInterval(function(){
 	leds.blinkLed(300, 1);
 }, 3000);*/
-new CronJob('*/3 * * * * *', function() {
+new CronJob('*/3 * * * * *', function(){
 	leds.blinkLed(300, 1);
 }, null, true, 'Europe/Paris');
 
@@ -46,7 +46,7 @@ clock.setAlarms();
 // }, 2000);
 // voiceMail.voiceMailSignal();
 
-new CronJob('*/10 * * * * *', function() {
+new CronJob('*/10 * * * * *', function(){
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
 			remote.check();

@@ -64,8 +64,8 @@ utils.testConnexion(function(connexion){
 		});
 		// return true;
 	} else {
-		console.error('No network, can\'t get TTS data /!\\');
-		// var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts2.sh', lg, txt]); --> espeak
+		// console.error('No network, can\'t get TTS data /!\\');
+		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts.sh', 'espeakTTS', lg, txt]);
 	}
 });
 };

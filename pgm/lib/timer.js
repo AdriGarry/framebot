@@ -9,8 +9,14 @@ var tts = require('./tts.js');
 var time = 0;
 var timer = false;
 
-var setTimer = function(){
-	time = time + 60;
+var setTimer = function(minutes){
+	if(typeof minutes !== undefined && minutes > 1){
+		minutes = 60 * minutes;
+	}else{
+		minutes = 60;
+	}
+	console.log(minutes);
+	time = time + minutes;
 	var etat = 1;
 	
 	var min = Math.floor(time/60);
