@@ -23,10 +23,10 @@ setTimeout(function(){
 	eye.write(0);
 }, 500);
 
-leds.activity();
+/*leds.activity();
 setInterval(function(){
 	leds.blinkLed(300, 1);
-}, 3000);
+}, 3000);*/
 
 buttons.getEtat(function(modeValue){
 	if(modeValue){
