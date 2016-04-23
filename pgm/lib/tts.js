@@ -32,12 +32,12 @@ utils.testConnexion(function(connexion){
 		}
 		txt = txt.split(':');
 		voice = txt[1];
-		if(typeof voice !== undefined){
-			voice = Math.round(Math.random()*2);
-			// console.log('Voice Random = ' + voice);
+		if(typeof voice === undefined){
+			voice = Math.round(Math.random()*4);
+			console.log('Voice Random = ' + voice);
 		}
 		// console.log('Voice.. = ' + voice);
-		if(voice == 0){
+		if(voice <= 1){
 			voice = 'espeakTTS';
 		} else {
 			voice = 'googleTTS';
@@ -76,7 +76,7 @@ var lastTTS = function(){
 	}catch(e){
 		console.error(e);
 		lg = 'en';
-		txt = '.undefined'; // Je n'ai rien dis !
+		txt = '.undefined:0';
 	}
 	console.log('LastTTS=> ' + lg + ';' + txt);
 	self.speak(lg, txt);
