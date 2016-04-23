@@ -1,0 +1,3061 @@
+[33mcommit ce31b76917207eb83402b418f7bf31ae6c2942b1[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Apr 23 00:12:33 2016 +0200
+
+    VoiceMail annulé 2
+
+[33mcommit aeadd3bdad77b0e427284916f94bf5665b43634d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Apr 22 21:33:00 2016 +0200
+
+    VoiceMail annulé
+
+[33mcommit b3bc4717fe1abd8bf27752c10858b7670136a561[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Apr 21 21:08:57 2016 +0200
+
+    3.1.3
+
+[33mcommit e626c9c535773841999af750da0e23ea75dd42ba[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Apr 15 20:08:04 2016 +0200
+
+    3.1.3
+
+[33mcommit a20a7c14acb41c0185f27dffd5893569cd8a9b28[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Apr 15 04:08:14 2016 +0200
+
+    3.1.3
+    
+    VoiceMail (à finaliser)
+
+[33mcommit cad7b8e7315449c9bdf16f724ad30e2256996b73[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Apr 14 20:28:11 2016 +0200
+
+    3.1.3
+    
+    Fonction repeat OK !
+
+[33mcommit e40bfb89b727d390bd5c55e9c05fccce5a15b73d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Apr 14 01:10:32 2016 +0200
+
+    3.1.2
+    
+    clearLastTTS = function()
+
+[33mcommit c5ab8950b6c7ce485ef011342d001f1ccbd0657c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Apr 14 01:09:23 2016 +0200
+
+    3.1.2
+    
+    LastTTS, à finaliser
+
+[33mcommit 9adf7ed4c7e201a21fb44e6cda5da1e7a15e6bdb[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Apr 7 21:20:28 2016 +0200
+
+    3.1.1
+
+[33mcommit 920135917da1edc4fac774df7c8d968c2c55f34d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Apr 5 22:17:36 2016 +0200
+
+    3.1.1
+
+[33mcommit e2bf4754c870b926ea3923739352d7a6377b6d74[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Apr 4 02:17:22 2016 +0200
+
+    3.1.1
+
+[33mcommit 25617ebc7101feed6f1de055d0d9aef38c6e6ae5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Apr 3 06:16:02 2016 +0200
+
+    3.1.1
+
+[33mcommit af99a401b59f3fba6ff14f4e33ab6b4de8310611[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Apr 2 05:25:38 2016 +0200
+
+    3.1
+
+[33mcommit 6f8c1a2b6e730aeed875fb1136bc58235be6b1eb[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Wed Mar 30 08:27:09 2016 +0200
+
+    3.0.2
+
+[33mcommit 376804b0480fb4dd87c743970350a67caf058a8e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Mar 29 22:53:57 2016 +0200
+
+    3.0.2
+
+[33mcommit c0856c26981423339285f1cdccadedb9b90a0245[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Mar 29 01:57:29 2016 +0200
+
+    3.0.2
+
+[33mcommit 71e9ba0cfb32e500f2f339bac7dbcff7c68b8655[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Mar 28 22:46:12 2016 +0200
+
+    3.0.2
+
+[33mcommit f9da205638ebc6a5b494897bc2b9372583edfe91[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Mar 28 20:31:58 2016 +0200
+
+    3.0.1
+
+[33mcommit 768dd424e026565acf0fefe46a57ac21215eb1b5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Mar 28 00:43:57 2016 +0200
+
+    3.0.1
+
+[33mcommit 9062047ba65100ab1ff6bf355d3199612a992113[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Mar 28 00:24:22 2016 +0200
+
+    3.0.1
+
+[33mcommit c5a88959e071f77dd6f33e8d999a6c6cc97c2060[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Mar 26 18:17:46 2016 +0100
+
+    3.01
+
+[33mcommit ab527f157a05b5cf29d87cd84cc738d9da37af56[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Mar 20 20:44:50 2016 +0100
+
+    3.0
+
+[33mcommit 04677affcabff06492b7cc9d56a74cdbe3bfa7a2[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Mar 19 05:46:27 2016 +0100
+
+    3.0
+
+[33mcommit 89bf5f1d6119c09ad8c4fe94e7474453bc205b93[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Mar 19 05:28:38 2016 +0100
+
+    2.9.9
+
+[33mcommit a8f126b361980c1ce10d7b165c6ba72192c12089[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Mar 13 16:57:35 2016 +0100
+
+    2.9.3
+
+[33mcommit 9d5b96e1fd8695ee03c12d03203b9eed04518cc3[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Mar 5 13:04:07 2016 +0100
+
+    2.9.3
+
+[33mcommit 51583377541731f44cd295d7a6b4877829aeab1e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Mar 4 18:29:38 2016 +0100
+
+    2.9.3
+
+[33mcommit 0f500703e79362de9406f56ba34db5a8fde7fcbd[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Mar 3 18:42:28 2016 +0100
+
+    2.9.3
+
+[33mcommit 793ff75bd868967769842739d9e001927fecacdc[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Mar 3 18:42:11 2016 +0100
+
+    2.9.3
+
+[33mcommit 63c3d42b047ec1a02e88f31b7e37c66288cde300[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Mar 3 15:17:36 2016 +0100
+
+    2.9.3
+
+[33mcommit 1a4ac74386da47afeb51e0c5863dc9aa0499455b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 21 22:54:12 2016 +0100
+
+    2.9.2
+
+[33mcommit 03e5734bdc08178e6fffe92d167df343ea31828c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 20 18:22:33 2016 +0100
+
+    2.9.1
+
+[33mcommit 6f129bca5a04923dce2d9d6c60d9a70f7116458a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Feb 19 23:11:00 2016 +0100
+
+    regroupement TTS
+
+[33mcommit be3be5f52f4e329fb2bbe5121071a6f4e1540e36[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Wed Feb 17 07:44:03 2016 +0100
+
+    2.9
+
+[33mcommit d1f8712a009ffd936af2e38d5bdb21adf3c165e5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Feb 15 20:55:59 2016 +0100
+
+    2.8.8
+
+[33mcommit ee0a3b0aa0d1373d673f4cdf34fbd91cc3d99d73[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Feb 15 19:47:37 2016 +0100
+
+    2.8.8
+
+[33mcommit 39d0afdf6e674035c42911372c9907a817a93111[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Feb 15 08:21:16 2016 +0100
+
+    2.8
+
+[33mcommit 7be01ff353f38018c8cc7d91591c0b8374966168[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Feb 11 21:50:38 2016 +0100
+
+    shabang
+
+[33mcommit a68ff86ee0b5533d61c0596170fd855425d1e012[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Wed Feb 10 20:51:35 2016 +0100
+
+    2.8.8
+
+[33mcommit c7165e60d6251d826672e04c7ee6f05a7a1b8ec6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Wed Feb 10 19:25:35 2016 +0100
+
+    git
+
+[33mcommit 06020e72e22657216c8487129ee4d561214f65f9[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Wed Feb 10 19:17:39 2016 +0100
+
+    clock mode
+
+[33mcommit f00b43f6664d5a382e5d29fa7ff460d8b93809c6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Wed Feb 10 19:12:53 2016 +0100
+
+    2.8.8
+
+[33mcommit e8a6e4c06e4fd0094be66f650a5e16e51d1690c4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Feb 9 21:57:40 2016 +0100
+
+    maj clock
+
+[33mcommit b17bb8ee9240c0c8b5be33a1b6d42c67e957536c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 04:00:54 2016 +0100
+
+    2.8.8
+
+[33mcommit a4fdb249269587c625f2082355ef29cce08baf0c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 03:51:47 2016 +0100
+
+    2.8.8
+
+[33mcommit 1ab30535c7bbf99f20932daeef16f7d0c5f1f5fe[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 03:50:25 2016 +0100
+
+    215
+
+[33mcommit fd78ae495680c1a2c5b5e2689ed00bfb4086e1b5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 03:49:14 2016 +0100
+
+    250
+
+[33mcommit 09fd6f232360627a94130aeac10cb50621e295fb[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 03:31:15 2016 +0100
+
+    2.8.8
+
+[33mcommit 35d2ac6568007e7de04451ce2758872e046110ad[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 03:26:23 2016 +0100
+
+    session off
+
+[33mcommit 676ea1a366c8701369dfda01f138b3ed512d319a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 03:25:32 2016 +0100
+
+    2.8.8
+
+[33mcommit 2d891aaad338eb929f5dfc4be573801860780b95[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 03:24:54 2016 +0100
+
+    2.8.8
+
+[33mcommit 403805c754ded6c9571ee2eb9ba2eba45d5a85fc[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 03:23:42 2016 +0100
+
+    2..8.8
+
+[33mcommit 12a21df32168954ed2e3e5983a36b5dd9e3ce4a0[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 03:22:48 2016 +0100
+
+    2.8.6
+
+[33mcommit a15fd339cadeaaa1ad11c2e951a9b2a1219b08fe[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 03:00:37 2016 +0100
+
+    3h
+
+[33mcommit a0eeaad47a5d99a3286c3d24c0e40ea9f631a5ba[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 02:59:38 2016 +0100
+
+    2.8.6
+
+[33mcommit 0a23fe5670c009e67af58c1afbbb185014f8308d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 02:58:37 2016 +0100
+
+    blink
+
+[33mcommit b75a93e7dc4668050dedabd92b2098a805f6336d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 02:57:49 2016 +0100
+
+    utils
+
+[33mcommit ac8c68c473bfb084a000074253c5175cab016c99[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 02:57:06 2016 +0100
+
+    gpio
+
+[33mcommit 079233df187487aa6f9aa3e9fca32e325ae79741[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 02:56:39 2016 +0100
+
+    nettoyage
+
+[33mcommit f7c4800a981da0a1b6e7e59aa1cd93075fee5fe0[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 02:55:50 2016 +0100
+
+    2.8.7
+    
+    Nettoyage
+
+[33mcommit ae7b7baeb2eb46b36134602c9a71371edf5a6a11[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 02:54:31 2016 +0100
+
+    2.8.7
+
+[33mcommit 28e5503f9fbc1642bef90a00613c8df5328f5f27[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 02:08:45 2016 +0100
+
+    volume sound 2.8.6
+
+[33mcommit b0a3df9b74c62bef6546b3bb83edff4fd67bd6c5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 02:04:56 2016 +0100
+
+    2.8.6
+
+[33mcommit 19e996d79af8ffceb37f55778786e08558f5c625[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 02:00:08 2016 +0100
+
+    2.8.5
+
+[33mcommit b2ef2685af0018afbc494736402e0172070d1f61[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 01:29:52 2016 +0100
+
+    -600
+
+[33mcommit a295744055c47da241cb2a56a989d1ac4f61e941[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 01:27:04 2016 +0100
+
+    4
+
+[33mcommit b80f4949e2ec0efc4d180e87cccb03c71bf409bc[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 01:24:05 2016 +0100
+
+    test function
+
+[33mcommit 0cc7a04a8242e0985417a14e3f8de4320dc873cc[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 01:15:05 2016 +0100
+
+    be back
+
+[33mcommit 626af46bf1e1f8ced558e6effdfc2bee7e05c4f5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 01:14:12 2016 +0100
+
+    shutdown blue button
+
+[33mcommit 1aef75aeac793720a3e19189f992342c069736de[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 00:59:04 2016 +0100
+
+    constants
+
+[33mcommit 91d85469539a549c023c05dab72ad70f2bca32f3[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Feb 7 00:51:30 2016 +0100
+
+    22
+
+[33mcommit ae55be06b4bcb811404291aeda9b27879d416608[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 09:40:28 2016 +0100
+
+    2.8.5
+
+[33mcommit d011a85e2b0d2d21a4bcf0ac468328e201be13c7[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 08:41:24 2016 +0100
+
+    5 minutes
+
+[33mcommit 356c76343c39c8142303d19841fa77898e3df8a6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 08:25:56 2016 +0100
+
+    test
+
+[33mcommit 8af897ba21d789a9d2b08b6d5927f7f46bc06c6d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 08:09:21 2016 +0100
+
+    2.8.5
+
+[33mcommit b76ddd487aaa0ea5c717e67a71a945d5d49a3825[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 07:51:43 2016 +0100
+
+    changement random
+
+[33mcommit 99a1af995661a599709600664c378fc6558a8e48[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 07:46:05 2016 +0100
+
+    2x10
+
+[33mcommit f08a37d58e3c8b24ea9e2c3cf4d4b7b9d6c4187d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 06:10:07 2016 +0100
+
+    isNaN
+
+[33mcommit 74a6959875a719586331942869bed09d9377591d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 04:56:32 2016 +0100
+
+    mp3 repository
+
+[33mcommit d4de7787ca193212fc95ac351782f0de31be6cc8[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 04:40:28 2016 +0100
+
+    music script
+
+[33mcommit 2f1a3c9c2fb1a5c1d2915fc2fc15c42dc6984e69[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 03:13:56 2016 +0100
+
+    30 secondes
+
+[33mcommit d9220a776b5fac0560669188dd95bb8fddcbe9f0[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 03:07:44 2016 +0100
+
+    23
+
+[33mcommit 395733e85151f6cdf323e876d24f110aea04b725[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 03:07:32 2016 +0100
+
+    22
+
+[33mcommit 6e50d49488e4129e631d2ae878fb4a029a2868d3[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 02:52:39 2016 +0100
+
+    13 secondes
+
+[33mcommit 8b261959584f274f8ae88a42a3c8aff5344ba01a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 02:47:56 2016 +0100
+
+    350
+
+[33mcommit 70533698858dd798f93ed3e5f054306891bce5ac[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 02:44:54 2016 +0100
+
+    400 600
+
+[33mcommit b010c4998495756241459f8053fd77c94027e88a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 02:38:51 2016 +0100
+
+    60
+
+[33mcommit 4bda904bdef21383cf0f26ae9ca33026b05a8985[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 02:38:10 2016 +0100
+
+    800
+
+[33mcommit 3a6c426d64f5815c6f6ff148bd46b35f8366f914[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 02:30:32 2016 +0100
+
+    changements volumes jukebox
+
+[33mcommit a6af3f594dc75dbc71376391563c32dae68407e8[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 02:23:11 2016 +0100
+
+    tts volum from mode button
+
+[33mcommit 6b12e2e47344c53b885b7b318954675c8a72a0a5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 02:22:27 2016 +0100
+
+    tts volume from mode button
+
+[33mcommit 066deb5d5266482187fe9f8d932e31bf88b9d7d4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 01:35:17 2016 +0100
+
+    4 secondes power off
+
+[33mcommit 7ad41d744b36fc632f22a0d4f948073507c22353[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 01:29:21 2016 +0100
+
+    220
+
+[33mcommit 0538e2ad534ad9d1c51ca45ca86f682e54216d39[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 01:28:37 2016 +0100
+
+    set interval
+
+[33mcommit 43e758c8093ddd4aad780b71699bff77cb8a173d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 01:23:07 2016 +0100
+
+    180
+
+[33mcommit a0172bb9d2828b0561fada328818b42752d46f11[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 01:22:29 2016 +0100
+
+    20
+
+[33mcommit 4106a1063a4a1e78941f61015e3740604379f06f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 01:18:47 2016 +0100
+
+    150
+
+[33mcommit c0172b268ec376b757cad65a85b76cdf48818064[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 01:07:37 2016 +0100
+
+    crochets
+
+[33mcommit 94d8cd9c01fe595000107af46f700a3c5dd7bfe6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 00:44:44 2016 +0100
+
+    retab
+
+[33mcommit 992943f11f608d70a8a750c63ef4c89103dc8a4e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 00:44:28 2016 +0100
+
+    retab
+
+[33mcommit 4eeac915c2d887781de437f7b8d5f1939342f455[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 00:42:28 2016 +0100
+
+    50
+
+[33mcommit 2a7271206414a8db9fb607ab7c05a10c7d56723c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 00:40:11 2016 +0100
+
+    22
+
+[33mcommit 7a3fbb0278dc294a0add2ca8d5d378f12f02bd13[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 00:38:53 2016 +0100
+
+    2.8.1
+
+[33mcommit c1c886ee333c7dafa3cec77a28a615e596f2e3ec[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 00:30:09 2016 +0100
+
+    2.8
+
+[33mcommit bf3463bf20f6d776a03eee6da0234cc5a4a2aec4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Feb 6 00:26:58 2016 +0100
+
+    volume tts
+
+[33mcommit fe9acd87bd3293fb40cd185656a0ace91dc4671e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Feb 4 00:58:46 2016 +0100
+
+    service meteo
+
+[33mcommit 09b017e4383d131d790d481aeed6c7531448abf4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Feb 4 00:51:28 2016 +0100
+
+    degres
+
+[33mcommit 68876e33b3c086a3723765b1a9c5b9caff363da6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Feb 4 00:42:34 2016 +0100
+
+    services
+
+[33mcommit f12d3f98d36d2902fe4cc0a773414e53087e43ab[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Feb 4 00:35:05 2016 +0100
+
+    23
+
+[33mcommit cf48df2506e062edff892c9591640f31832c52b1[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Feb 4 00:31:53 2016 +0100
+
+    my cpu
+
+[33mcommit c1b53b7c9a2beece6ad664dd8fb77a0a30d5e49e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Feb 4 00:24:40 2016 +0100
+
+    cd
+
+[33mcommit 7b1a0327d80d362d254d0b09bd836dd72036ab99[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Feb 4 00:23:10 2016 +0100
+
+    cpu pro
+
+[33mcommit a82df41c5c2c7c6bbd2b633348d85ff644f278f6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Feb 4 00:16:36 2016 +0100
+
+    cpu
+
+[33mcommit fee39fa1b6365a0622e72dcb34bbf00b2218caeb[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Feb 4 00:08:36 2016 +0100
+
+    degres
+
+[33mcommit 444f01393b21e6e4b57b3d76136ecf04557dfd63[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Feb 4 00:05:20 2016 +0100
+
+    30
+
+[33mcommit 2bd8b57186815ec0875f96ae749a1e2ade0b8a4b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Feb 4 00:02:52 2016 +0100
+
+    20
+
+[33mcommit de0906f329d9b91d4c9045f01cdf017f9d379158[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Thu Feb 4 00:01:22 2016 +0100
+
+    cpu4
+
+[33mcommit 0eef7574dd5192fc4b81d7cfc19bf2e427a3eb9e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Wed Feb 3 23:59:31 2016 +0100
+
+    cpu3
+
+[33mcommit d389c3fe687a5abec155824cb1f0297a82c72092[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Wed Feb 3 23:57:48 2016 +0100
+
+    cpu2
+
+[33mcommit adac74f8182500b96eeb428d083621c05079e5d3[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Wed Feb 3 23:52:49 2016 +0100
+
+    cpu
+
+[33mcommit e912e254263c82024597f297d80fd20e6e28712c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 17:52:03 2016 +0100
+
+    2.8
+
+[33mcommit 3a2d330c0e74a7077f05a7c99be71e5782f067da[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 17:18:15 2016 +0100
+
+    2.8
+
+[33mcommit b9354c53594b7cf70addb0e8552be2dc9af79e82[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 17:06:00 2016 +0100
+
+    body
+
+[33mcommit c1ba467020a77b25c6beee1b5883c4009f185db4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 17:00:31 2016 +0100
+
+    temoins
+
+[33mcommit f8c9ec8f22d503c5b91ec8aee8aa951d33122be5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 16:44:51 2016 +0100
+
+    console
+
+[33mcommit e9b983bc192dabfb80c8955f0f74add3f52e951d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 16:40:19 2016 +0100
+
+    wind
+
+[33mcommit 56304cfc0f3891e22beb79aaffd253047709a56c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 10:25:25 2016 +0100
+
+    2.8
+
+[33mcommit faf3689536afc807fbfe3a2ae60e771bd265c688[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 10:22:31 2016 +0100
+
+    2.8
+
+[33mcommit 29e26c670219c6cd11feb574f5bb5dce06c6ca01[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 10:20:26 2016 +0100
+
+    2.8
+
+[33mcommit 7177fb6b06a01ac40a61a01f6f09fc172723e67d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 10:17:37 2016 +0100
+
+    2.8
+
+[33mcommit 985b207fd341498903516090536287ed874656d9[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 08:30:53 2016 +0100
+
+    2.8
+
+[33mcommit b0f2b19ea96a4e05347150a2684ba557459f2e5e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 08:07:18 2016 +0100
+
+    2.8
+
+[33mcommit c6ecc2ff97bb198e89dd146cc3307884cd5a0211[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:59:03 2016 +0100
+
+    2.8
+
+[33mcommit b62743eb06b3d2e3551e6ae0964b7524f2e7dc0f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:54:59 2016 +0100
+
+    2.8
+
+[33mcommit cf5a93e87917965f5250c04c0b090b90b46a80f0[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:50:33 2016 +0100
+
+    2.8
+
+[33mcommit a75dabee03f1c21b4ba8aa2dd153b43d27b91990[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:44:35 2016 +0100
+
+    2.8
+
+[33mcommit 74ed3baaf74d1eb7cc1ae9f228352ae56897a184[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:41:41 2016 +0100
+
+    2.8 A
+
+[33mcommit 6dc12d5541b2a29fa16be8edbec717fbce8561b0[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:39:20 2016 +0100
+
+    2.5
+
+[33mcommit 448f3cbc08d8d387c5bee7b97dcbc5c617ef62f9[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:36:51 2016 +0100
+
+    2.8
+
+[33mcommit dda05932cfa9b6bbacbdcb8db72cb896a31c9934[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:30:35 2016 +0100
+
+    2.8
+
+[33mcommit 2c5e7bd8f1897d647019a159e1b055167821449f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:24:34 2016 +0100
+
+    2.8
+
+[33mcommit c6ef00305201d2a6077aaad925a05295176db41f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:22:12 2016 +0100
+
+    2.8
+
+[33mcommit 77dfdaf6cd7a6610249a5f1dc3ced7352ab05785[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:15:28 2016 +0100
+
+    2.8
+
+[33mcommit 7eab7c90a758f41f510fe52cac1ff6bebaab05a4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:13:11 2016 +0100
+
+    2.8
+
+[33mcommit ef8da085a0c0279078d527d4a00625114a7cf553[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:11:05 2016 +0100
+
+    2.8
+
+[33mcommit 43cbf0f50e3a0c2d0424fcee65ad1c35b7e6e03b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 07:01:43 2016 +0100
+
+    2.8
+
+[33mcommit 6d468ba11a10555fdd754a534e0e4d30945c1270[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:58:20 2016 +0100
+
+    2.8
+
+[33mcommit e62519a86f8da8180122a812115d24fb9a3b395e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:55:55 2016 +0100
+
+    2.8
+
+[33mcommit 5d6310ab54cbe689403cff04a9c97b56a1c4f4e1[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:48:35 2016 +0100
+
+    test bug
+
+[33mcommit 260f1d17c6c1ffbc8e74761f70184efb37fa3964[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:44:10 2016 +0100
+
+    bug
+
+[33mcommit 890c46d6dd3ec6249ddc694808bca7d9351d59bb[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:37:05 2016 +0100
+
+    2.8
+
+[33mcommit 2d4d65a29dcd77d83761dd4f7e9e8a9a8921b193[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:35:49 2016 +0100
+
+    38
+
+[33mcommit c56fde7d9f7de26b204e7b44613f8cbb7316c818[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:35:17 2016 +0100
+
+    37
+
+[33mcommit 8fe14bc6a0e769dbd936a81bfe6e87dc2259da4a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:32:48 2016 +0100
+
+    2.8
+
+[33mcommit f1501ffbbe82df185964c45a7c9661d8e358ad1f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:32:10 2016 +0100
+
+    2.8
+    
+    Services heure, jour, et meteo
+
+[33mcommit ef7b9b3bfe6c8e6d7f6678702abf772b48289456[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:30:29 2016 +0100
+
+    32
+
+[33mcommit 9478607d9e54e429b92ac2972fbad09715d40d66[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:18:10 2016 +0100
+
+    20
+
+[33mcommit c01d425a216a88b36c4f35ffafa92a0d2321dead[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:15:17 2016 +0100
+
+    7
+
+[33mcommit aa4ffddf03beb3f145d9b2be9e651611e9f031b0[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:14:52 2016 +0100
+
+    16
+
+[33mcommit 16d497160df9963663e6ef2fd4798c2c5358ba4a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:11:30 2016 +0100
+
+    13
+
+[33mcommit 3873d23a7fa1a4ee133a96ab06aea3093721cb1c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 06:08:11 2016 +0100
+
+    reveil
+
+[33mcommit d386704fc3c3b99c67173b12615fe43090455bb6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 05:53:13 2016 +0100
+
+    14
+
+[33mcommit aedc3e516d2dd55c2e39e5aedd4aaf7c2c266ec4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 05:46:10 2016 +0100
+
+    utils
+
+[33mcommit 6ac588fb1e67f6f9a0f8d84a24aff3275b7523ad[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 05:43:07 2016 +0100
+
+    party
+
+[33mcommit 564772980d61618fb2c5b7731d000c0357eefd99[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 05:35:50 2016 +0100
+
+    23
+
+[33mcommit 605a923b900962bcc7832798b52f4693bbf85456[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 05:35:05 2016 +0100
+
+    check function in remote module
+
+[33mcommit 1f3500887f89ac6a0cd069ef21339ad04dba6ed3[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 05:30:08 2016 +0100
+
+    check
+
+[33mcommit 48f7e1a32e7417d0cc7b8650f7ae313f252798f3[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 05:18:45 2016 +0100
+
+    28
+
+[33mcommit 9ba43504ce04cf12026d08df2609ba1a74e6f6b4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 05:16:51 2016 +0100
+
+    27
+
+[33mcommit 3bf559d2cfb4cc2270cc6639541b696c31f72bed[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 05:13:10 2016 +0100
+
+    30
+
+[33mcommit 5f755ca94e829ba9922b13a0894f5e3841ac2c9c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 05:04:02 2016 +0100
+
+    33
+
+[33mcommit 82616832402a0646074e699fab679a90ccc52c32[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 04:59:06 2016 +0100
+
+    console
+
+[33mcommit 35759245344b69b532d044c60362c17fcf2106ea[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 04:54:44 2016 +0100
+
+    weather
+
+[33mcommit a96eb85da86ae7e95d86a2feb2146d7017a99008[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 04:49:27 2016 +0100
+
+    te
+
+[33mcommit f69a2b73428386ca8d6cdd454266e9f4d917dd04[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 04:44:53 2016 +0100
+
+    console
+
+[33mcommit 78bf1b154b06e285702bae5315ccbd44e86272bc[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 04:40:31 2016 +0100
+
+    1
+
+[33mcommit 47b088e1fcc9c656c97d039c34d9f9311c3c8d05[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 04:20:06 2016 +0100
+
+    git
+
+[33mcommit 5a88620b3ff5058ae33a1b47f1aa41bd681c6fca[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 04:19:25 2016 +0100
+
+    log
+
+[33mcommit 6b8b642ae8c3f1069540bfcbf7260b74932326e0[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 04:10:50 2016 +0100
+
+    123
+
+[33mcommit 4f09fc9ba0ca2c332439c1e97d5d1cca0e63492c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 04:08:23 2016 +0100
+
+    data fichiers .properties
+
+[33mcommit 0eda138d491810c8266adc2c2fe74807ccd2a30f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 04:06:49 2016 +0100
+
+    temps
+
+[33mcommit b029da701676ceb25fe5eca8aeeeb40a7d672d1a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 04:03:18 2016 +0100
+
+    properties
+
+[33mcommit 08071f3c2c121e865c606076e4c465624c26567a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 03:58:34 2016 +0100
+
+    99
+
+[33mcommit a41d2b50d998dc1950a0d700ed1cf78ed2d84e3a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 03:52:38 2016 +0100
+
+    vent
+
+[33mcommit 1aafbda2810d8f2db40eab2c8ac89f7174048aef[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 03:46:46 2016 +0100
+
+    parentheses
+
+[33mcommit 6b834df040e5ed22d4d7df6f3401baaed8683b6e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 03:36:18 2016 +0100
+
+    odi
+
+[33mcommit 245e144c09b9feeac0547f4cbad0378e004c17aa[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 03:33:18 2016 +0100
+
+    isNaN
+
+[33mcommit 5249bc7248cd2ff729dd41b07becd4ac2ce0423f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 03:28:58 2016 +0100
+
+    date.data
+
+[33mcommit 65f201ddb84914b5a7ddcad60e4a9e609cc46e98[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 03:27:51 2016 +0100
+
+    data
+
+[33mcommit d1d283fa93c3f353a1be8f0bea7a2c696b3573b5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 03:10:02 2016 +0100
+
+    rond
+
+[33mcommit 09d59abde42f8f4c8265a154ac0a0dfa1ce1f77b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 03:05:21 2016 +0100
+
+    info poin
+
+[33mcommit 82fd2b8f94b398e9d6557c2633fde7a695ac927f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 03:04:58 2016 +0100
+
+    info point
+
+[33mcommit 65a7850dd517bef6f48eeb24c6e99effd7282589[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:59:39 2016 +0100
+
+    31
+
+[33mcommit aae35ae11ac60e1faf6bd1f6483bb2a5e33a44c2[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:57:39 2016 +0100
+
+    2 heures 59
+
+[33mcommit a5bd389340c59c9190055dff13cc0cfd3b49632d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:55:09 2016 +0100
+
+    2heures 57
+
+[33mcommit 17a28eccdc39ebc36fcf6f6d8c61ecf310f8ec08[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:51:32 2016 +0100
+
+    delay 4 secondes
+
+[33mcommit 7a624c975c8a447bd16569b8de60a02d8f04b287[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:49:42 2016 +0100
+
+    1
+
+[33mcommit 2850e439ab9f88afa37f31958c3354232091eb67[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:49:03 2016 +0100
+
+    2.50
+
+[33mcommit 1d3f62e761a498dd7e6eed95b4d78a01918c5357[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:46:22 2016 +0100
+
+    23
+
+[33mcommit 6f425ac9dd4a8ad9ae5b7f66c585d4b274c63aaa[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:39:57 2016 +0100
+
+    log
+
+[33mcommit fe0d2974afa062158217c3bedb54d53113d8fce7[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:35:15 2016 +0100
+
+    comment
+
+[33mcommit 7cf8f652f2e63b76c7ad6e797b92b60a765e3010[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:34:59 2016 +0100
+
+    ok
+
+[33mcommit a2f5767c309ca14f18e91111036a1f060feaade9[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:32:57 2016 +0100
+
+    test
+
+[33mcommit 4f7bc0704b4c620b9e6ae5c2ef97eb68182792b8[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:29:39 2016 +0100
+
+    debug
+
+[33mcommit a5ee10e52ce4e395667f018f8d1d2e03a171cfb9[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:25:42 2016 +0100
+
+    data
+
+[33mcommit 54436962ed3db95d0c9fca88de4697378765b9e6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:19:46 2016 +0100
+
+    fs
+
+[33mcommit 8c6f74f611090e19986aae5315d22b8e752e81bf[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:17:28 2016 +0100
+
+    nommenclature
+
+[33mcommit 6b67f3742778f45979a4ca04bbbecad46093eb8f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:15:09 2016 +0100
+
+    20
+
+[33mcommit 5b759702a32e0626d45fdc61ac1e50e82b6e4f9e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 02:12:16 2016 +0100
+
+    20
+
+[33mcommit d1ab50079d4466b2cda51b60b15dd033b1757a3b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:57:32 2016 +0100
+
+    200
+
+[33mcommit 4314cd84f0740f1d0aee7f060916a838739e602a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:56:29 2016 +0100
+
+    40
+
+[33mcommit a5e7a86b362f30276c34cb2f1113d9ce0bc20141[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:54:59 2016 +0100
+
+    -20
+
+[33mcommit 5a574e51d9492240e190f5e6f87dbf69ff9725ae[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:54:17 2016 +0100
+
+    20
+
+[33mcommit 055c78efa534043d1c6e27218e6606de074f87a3[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:51:16 2016 +0100
+
+    month
+
+[33mcommit a4ec017fdfc0d39f61348c10346fb59004e97c65[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:50:21 2016 +0100
+
+    200
+
+[33mcommit ae7c576e4dc49ee7e34a6bc56aab8a6fbdba287c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:49:19 2016 +0100
+
+    10
+
+[33mcommit d70dc7af2843eb2c4203bd7f4d12e2dadef82e71[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:48:28 2016 +0100
+
+    MEC
+
+[33mcommit 1da4d6c2ab5380a5f743d97ad904dcd58ed5d50b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:46:08 2016 +0100
+
+    math round
+
+[33mcommit 2360accfbc8db2b8b4424c1f0163000e10c2dc8f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:43:53 2016 +0100
+
+    math round
+
+[33mcommit 0c63e9560455e71cf25fe07cac0f2966cb3e41ec[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:40:48 2016 +0100
+
+    yes
+
+[33mcommit 29fcc8ef84217cc0bb9450141522dcb428ab80cb[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:39:06 2016 +0100
+
+    +7
+
+[33mcommit cb5eeca15227952442a07f9206526271a7955c93[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:30:49 2016 +0100
+
+    12
+
+[33mcommit 3f1913176a00c4a561bded7e2d793874384b549d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:28:42 2016 +0100
+
+    14
+
+[33mcommit c5b6d791f35a9b179b223552be72fa84996ddd7e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:22:26 2016 +0100
+
+    git
+
+[33mcommit 27378ced6280cdf425381e04cc6e0b37917f8c02[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 01:17:51 2016 +0100
+
+    15
+
+[33mcommit 62c397d4f9add2923719e2a1da809b3ee8cb78b6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 00:56:53 2016 +0100
+
+    annonce date
+
+[33mcommit 5708073e131f2a3d2b69a52799a6c236b48aa5eb[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 00:55:33 2016 +0100
+
+    xml
+
+[33mcommit a5a5c7f408a302fcbb0aaa95081d1d76fd346d9d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 00:43:21 2016 +0100
+
+    tableau
+
+[33mcommit 92ab68d220f9f77f58ad6826be3145da8111cd0e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 00:28:30 2016 +0100
+
+    etoile
+
+[33mcommit c765e2cde1eb41788c3ed8dd9e4b2a8a904785f2[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 00:23:47 2016 +0100
+
+    16
+
+[33mcommit 7890158a40f4213de64430d9d82a5b77e0e61909[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 31 00:18:23 2016 +0100
+
+    15
+
+[33mcommit ff97429f44036fe4c8524a3ed16cee526b91c02a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 23:56:37 2016 +0100
+
+    14
+
+[33mcommit d56ab475f2f244bbaa7595a134212b1efa39aced[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 23:31:25 2016 +0100
+
+    1236
+
+[33mcommit eefacf69c16ea21c42a31117718921ee79cf2fbd[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 23:28:11 2016 +0100
+
+    18
+
+[33mcommit 131eec2d81c0de1437b50f51464ca1237f32151a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 23:23:43 2016 +0100
+
+    22
+
+[33mcommit 82a2097b3321d7686c58c0ae6937d6b3597bb766[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 23:15:36 2016 +0100
+
+    tostring
+
+[33mcommit b9225b1846dbc954dd0d58f3d3b18e6e2074a580[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 23:12:24 2016 +0100
+
+    12
+
+[33mcommit c5f812867794fa5568cff6111efbbbb7cc154b1a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 23:09:55 2016 +0100
+
+    321
+
+[33mcommit 02c0075fc2e0c88b66c8700974b04314b83fc246[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 23:09:35 2016 +0100
+
+    123
+
+[33mcommit 5aa51609346644ef4ee6f77cf864e5ca8b04f6b7[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 23:06:21 2016 +0100
+
+    11
+
+[33mcommit eadfeadf928024738b19dddb1e0711b3c8bf46b0[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 23:06:04 2016 +0100
+
+    wind 2
+
+[33mcommit 124a8601965303dd230491071ddf8f70b9a54a54[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 23:03:49 2016 +0100
+
+    10
+
+[33mcommit 17ac494552093c718f1a76dc4b9bfeed7802c53a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 23:01:39 2016 +0100
+
+    56
+
+[33mcommit 5160100a9614641c33bb6d5c36bd3dfa27082506[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 23:01:04 2016 +0100
+
+    wind
+
+[33mcommit 49f9a19e51ed5d671fc1617c52287784ab449012[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:52:30 2016 +0100
+
+    no weather informations
+
+[33mcommit d02e01b49e77c803807b81b618b713e5ae93cacd[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:51:25 2016 +0100
+
+    1
+
+[33mcommit 9f6008aa4df63903cf1936ea985a3439b4348b99[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:50:47 2016 +0100
+
+    15
+
+[33mcommit de2eb4cd425e5e13c9a327e2290c10fdc708b635[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:48:41 2016 +0100
+
+    toto
+
+[33mcommit 16ccdb900aa169b9eb9bc1e592bf2c4b5512bd4b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:43:44 2016 +0100
+
+    233
+
+[33mcommit 10538ee331084ac86e10ab943cec6b7c9ac688cd[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:42:02 2016 +0100
+
+    20 sec
+
+[33mcommit 9a9cd24e06077540015e08243db17a316b92c7b4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:41:03 2016 +0100
+
+    git
+
+[33mcommit 4881163c080680422979bda4d3c138ddc18deb87[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:40:33 2016 +0100
+
+    TEMP
+
+[33mcommit 1b55175f1aa53a69f47e5909fac5cbd5ae8d0bfb[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:39:06 2016 +0100
+
+    speak
+
+[33mcommit 143aef7b8fec3fc5f7721d634b1cfb1c3a3f4b5c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:38:47 2016 +0100
+
+    temp
+
+[33mcommit a02fef6571b3770b2f8b2d92a12eccd42c076c80[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:30:11 2016 +0100
+
+    temps
+
+[33mcommit 3f1d88c7a25b8a6169773f9b3a87c3bd8073fc0c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:28:02 2016 +0100
+
+    3
+
+[33mcommit a0ec1af262e1c5aab4e2ce20779af015192b7746[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:26:22 2016 +0100
+
+    substring 2
+
+[33mcommit 051fe1ad960047a843557d75251f41845656b822[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:22:48 2016 +0100
+
+    substring
+
+[33mcommit 44054fca282e205ef9db099d9efc2bf714f6cb25[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:16:58 2016 +0100
+
+    32
+
+[33mcommit 8661be3b49830b2af5d64b7e08f01c10ad51ed38[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:15:24 2016 +0100
+
+    23
+
+[33mcommit a791388a858ff5114d6063d0f1d8de35fca3c201[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:12:55 2016 +0100
+
+    text 2
+
+[33mcommit 245db39da8f9d225a068fae8898d26769a286b33[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:10:50 2016 +0100
+
+    test
+
+[33mcommit 8bffe7b9e4354fad4a99515e4dfacef2a59ec3f3[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:08:06 2016 +0100
+
+    25
+
+[33mcommit 478bbae109c26f67f89fb0ffdda1e93d82427ba0[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 22:05:34 2016 +0100
+
+    annonce temperature
+
+[33mcommit 67aec1e6df7045e545efec91283e9862a2cae548[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:59:55 2016 +0100
+
+    2
+
+[33mcommit ec01c294206306710abc971e2be423273dcfee9a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:57:18 2016 +0100
+
+    test
+
+[33mcommit d858b3e7127ad9dd549c1390515c681b6acf6b67[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:55:54 2016 +0100
+
+    2
+
+[33mcommit 862660cc0b78bf1717b9d157030ef987f15c5558[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:55:21 2016 +0100
+
+    toto
+
+[33mcommit 7e47f69b216394ba7773714273da464af561d3dd[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:52:19 2016 +0100
+
+    text plain
+
+[33mcommit 782f775dcac8b267916f5220bd66821b85b6e692[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:49:07 2016 +0100
+
+    attribute
+
+[33mcommit 36e2f1843c5c7c339a0d9fb2f8b65cc781d91771[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:47:04 2016 +0100
+
+    temp
+
+[33mcommit 7cb73255334a67c20040d17bc02e545dfcfb3d61[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:45:00 2016 +0100
+
+    temp
+
+[33mcommit 8b3ba3e0940ceccbdd0861f80e9628d4c3ee0fe5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:41:53 2016 +0100
+
+    at
+
+[33mcommit 4453e45f7d310afa0d2731ec7612b75acf7fc52e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:40:52 2016 +0100
+
+    2
+
+[33mcommit 64b0c739560c0bfbce2ace5e1b38fbadc9f90ad6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:39:17 2016 +0100
+
+    1
+
+[33mcommit fff90bdd11cb31ed1976a75d0ff5d9c140d7da76[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:38:53 2016 +0100
+
+    outside temp
+
+[33mcommit 5f0ed76392355eb29bbd576ae4962853cb40e459[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:35:11 2016 +0100
+
+    plain
+
+[33mcommit 221c0a4f27e3dfcd569f47c9e011ec9d531b37c5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:32:27 2016 +0100
+
+    rest
+
+[33mcommit 4889cca12a3732ab10a1ec87f8af3ca6c0d1a589[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:30:20 2016 +0100
+
+    xml
+
+[33mcommit 7344ab01a206c6410c3400231b050b10aeb48694[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:27:40 2016 +0100
+
+    get
+
+[33mcommit 93219b36d465f4263c69b97659c29667208252b7[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:23:16 2016 +0100
+
+    odi
+
+[33mcommit 3bb62aa89ccb7197a549f2db0fcf009ef5122ac6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:22:36 2016 +0100
+
+    body
+
+[33mcommit 702f73e84f53e9518f3a5f11299bdc493abe9140[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:20:49 2016 +0100
+
+    request
+
+[33mcommit 5e6ab1d0593f547a4e3b81db5dd3dfabc3fef334[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:19:37 2016 +0100
+
+    larry
+
+[33mcommit ceeda73c9ffe0903b9a74bb80e9c63f84f3ab56b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:17:41 2016 +0100
+
+    content 2
+
+[33mcommit 222e665c9af6f959495e7f2357babf010d00e148[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:17:20 2016 +0100
+
+    content
+
+[33mcommit e077a958833a4773dcec9e8a767987343f98936e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:15:52 2016 +0100
+
+    reques
+
+[33mcommit b1325868a990d3e2726c1bbdee883633783848ad[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:13:11 2016 +0100
+
+    200
+
+[33mcommit 07b426220f01d66aeabef268abff6b52f42d840f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:11:38 2016 +0100
+
+    long log
+
+[33mcommit c640d72bbc543def6ad7e45ae0db45824e180d16[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:09:04 2016 +0100
+
+    service
+
+[33mcommit ad8274753338fcc0de4d03ab7da9bdf246c9b9c4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:07:23 2016 +0100
+
+    service
+
+[33mcommit 2fe95c2b1299fef650855b7169ec09a19edf9285[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 21:04:08 2016 +0100
+
+    service
+
+[33mcommit f506870e11607dca2ae191cf1ae43d845f2e0ae6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 20:12:53 2016 +0100
+
+    larry
+
+[33mcommit 8f7a005b842b0d92ae767c3f0e6ac4d72001cbc6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 20:11:25 2016 +0100
+
+    clock mode
+
+[33mcommit 4983b2fe04a3e1952a79f75c2b8f31185854b2e1[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 20:04:48 2016 +0100
+
+    mode value
+
+[33mcommit 0169ce571642eef8dcd793c23f693f0f8de18fbe[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 20:00:25 2016 +0100
+
+    auto detect quiet mode clock
+
+[33mcommit d3298986b9321ff7dc11ee2be2465f5fda141c47[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 19:50:41 2016 +0100
+
+    clock mode
+
+[33mcommit 1dc695d05ce27ba6e3c767bba69ae66a7de0e327[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 19:36:25 2016 +0100
+
+    Package.json
+
+[33mcommit 116e653a024adcabeb9d373d71385f083e202659[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 19:09:06 2016 +0100
+
+    horloge mode discret
+
+[33mcommit a4dae60649257c3c27ded891150ec38860d8611b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 10:16:52 2016 +0100
+
+    espace
+
+[33mcommit 2f66bd2db86d2e3fbacee7159de50f4ec5c2e728[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 10:15:59 2016 +0100
+
+    larry tu es la ?
+
+[33mcommit a0339916589dfb35cf80211474da671960425999[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 10:13:51 2016 +0100
+
+    larry
+
+[33mcommit e3ae91a04a44b594f747508676c5e2673772d527[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 10:11:26 2016 +0100
+
+    larry
+
+[33mcommit c1342e6c25d561bec548185235d3c94d1974bcf4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 10:08:38 2016 +0100
+
+    auto reboot si connexion
+
+[33mcommit cbceef9481b74ac324ddf7e2d102239ad5422568[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 10:04:58 2016 +0100
+
+    larry
+
+[33mcommit a1def28310ad386a7238e20db93eacc739614ead[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 10:01:43 2016 +0100
+
+    3
+
+[33mcommit cd07261825b35ea252e8b67503c33726b975d8aa[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 10:00:56 2016 +0100
+
+    logoStandart
+
+[33mcommit ae566116194caf731de7aafd0433d84c61adab01[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:59:14 2016 +0100
+
+    2
+
+[33mcommit f76c77a118877dffc3679a695983c8503465a822[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:58:40 2016 +0100
+
+    larry
+
+[33mcommit 265f994f01b0a5bfa6ffc8705b3d56ecc3a7b65d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:56:37 2016 +0100
+
+    test
+
+[33mcommit e739ac2848e1fb2dd82e7a8d7bcc4164375171bf[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:53:37 2016 +0100
+
+    +1
+
+[33mcommit 4c4b1844fb0a8579637ca3e448c48987dc15c603[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:50:44 2016 +0100
+
+    kill
+
+[33mcommit ed167e853e9cf4c79b1d7f8ea75a7bb9d47f482a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:47:40 2016 +0100
+
+    1
+
+[33mcommit 1b9b4ad0f59f7871647286384686b6fd2583074e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:45:13 2016 +0100
+
+    Larry
+
+[33mcommit 8ec6709efb8324cfe0acab459c6315e4407371ac[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:44:44 2016 +0100
+
+    Larry
+
+[33mcommit 2754428bbd116e561f414ba47351471b5d718999[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:43:14 2016 +0100
+
+    Standart
+
+[33mcommit 69c57d5b416474493326ed3abfc05fcd3588dbfa[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:42:41 2016 +0100
+
+    standart
+
+[33mcommit dc74b48b436769658c6ac084a3787a2cf805ac90[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:42:21 2016 +0100
+
+    Standart
+
+[33mcommit acc12d58c1f6ccc7642f98c1a1993a681b5c4271[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:40:25 2016 +0100
+
+    univers
+
+[33mcommit d5118ded13a851463df4e4ff8e2c8c0bff7f950e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:39:47 2016 +0100
+
+    univers
+
+[33mcommit 9ce6bbd3a78abfa0cf23c4ce659581212bfcdaa7[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:39:16 2016 +0100
+
+    c
+
+[33mcommit 40c9d6149127deee550164f60bc98f02f51ebde6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:37:34 2016 +0100
+
+    1
+
+[33mcommit 64de0042b7fdb4a0b5f84d7be56e96524444b813[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:13:34 2016 +0100
+
+    larry
+
+[33mcommit 6e65b97328a8f6a0f804aa8cf90c3c6db6521413[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:09:56 2016 +0100
+
+    standart
+
+[33mcommit c75972ff68bd00c4d5d46527e51f7e15b07017a4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:08:29 2016 +0100
+
+    marge
+
+[33mcommit f27f9844189bd973f9c873a7c1f2eab5e3896512[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:07:27 2016 +0100
+
+    logo univers
+
+[33mcommit 5a62847d0817ef6728a918c3c23f2faca74ea50f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:06:27 2016 +0100
+
+    crazy
+
+[33mcommit 6697cf8d56d4b9d655415778ed7fe52cbb597177[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 09:00:22 2016 +0100
+
+    collection de logos
+
+[33mcommit 22786cb9becec9b37a0c815ef1f06ff8f49aed7f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 08:55:32 2016 +0100
+
+    odi 2.7
+
+[33mcommit a1e22860329d081cd0f2df5883c000426c1e7894[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 08:39:11 2016 +0100
+
+    odi
+
+[33mcommit 34edf989b158b3f2602a4abcd61e7896f8484f14[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 08:36:18 2016 +0100
+
+    data
+
+[33mcommit d23c3d1abc4755951ec59452e5b9545dcb1ef200[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 08:33:27 2016 +0100
+
+    echapement
+
+[33mcommit bf5c49a2a3f8d43a9002a8d235ae432acc919ce5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 08:30:22 2016 +0100
+
+    compact
+
+[33mcommit eb3ab8f2f4f96c1d8b2447636b645f3fd102cde3[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 08:25:37 2016 +0100
+
+    block
+
+[33mcommit 78f99bf60c91d962cabc8ff7d70010f382ab24ca[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 08:23:29 2016 +0100
+
+    normal
+
+[33mcommit 3f84b899f31d12e64368b8f04dc0ed9d72bbe5d4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 08:21:24 2016 +0100
+
+    espace
+
+[33mcommit 22449c1425417767fabd57f6d3f6ab091e4aadc5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 08:19:56 2016 +0100
+
+    ok
+
+[33mcommit 13a946940e6fb8751d9d8debbee0da55dd322853[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 08:17:14 2016 +0100
+
+    test
+
+[33mcommit a9f2458f7cadeff0c1c50024af0f48cfe443922a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 08:10:25 2016 +0100
+
+    join
+
+[33mcommit 5e30fecb9b5bd642c5d61dcca18ce6418ef9125e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 08:08:58 2016 +0100
+
+    1.2
+
+[33mcommit 0a221d50edd72b58cbd086c384e725342069caec[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 08:05:04 2016 +0100
+
+    quiet clock
+
+[33mcommit 216f729ae01ab1565d198bc1526bc90e2c3a6fd8[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:57:02 2016 +0100
+
+    utf8
+
+[33mcommit 3d24b077a7b9d53bdfd724e25bf96322f7a70fac[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:54:47 2016 +0100
+
+    trim
+
+[33mcommit 4049a32253c8bb96cd896de1b6f4fe959cc37c8b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:54:21 2016 +0100
+
+    logo
+
+[33mcommit 35b34437c99d36b25dc2363cad1c7f494752df54[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:51:42 2016 +0100
+
+    unicode
+
+[33mcommit 90bff2df0b5cbce9295107c5cba5d92ecad444cb[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:48:16 2016 +0100
+
+    table
+
+[33mcommit 007a3d3326f8331a08d9a04feb0a18ccd1944f2a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:45:08 2016 +0100
+
+    point virgule
+
+[33mcommit abb44832c3ec467251cbe9859f1c6b6e9b125519[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:42:23 2016 +0100
+
+    51
+
+[33mcommit 00a7568b0a33863c699753a1de58efc2b33cd1ac[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:39:54 2016 +0100
+
+    callback
+
+[33mcommit 8f3e74d4aad4e19d7043951664e258e68fba2e2a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:38:08 2016 +0100
+
+    4
+
+[33mcommit f19dd544e566343b19a21152d923e8e22a66d32f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:34:01 2016 +0100
+
+    3
+
+[33mcommit 0a1b473c32cf1d3bc11178d3fa3d546686939e28[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:33:31 2016 +0100
+
+    2
+
+[33mcommit e4a99e0b0f0e6bf0c5194883892de7e991dd9f4a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:31:49 2016 +0100
+
+    to string
+
+[33mcommit 1e406be6ed9d292a156bb2a3d507f25d1a1b0fb4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:27:28 2016 +0100
+
+    change
+
+[33mcommit b3748bcac2febdcee863bb864f86c72d07c44f30[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:26:38 2016 +0100
+
+    ascii
+
+[33mcommit 646373d87d427e580f6968c99a4392b80e89cd22[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:21:23 2016 +0100
+
+    1
+
+[33mcommit bb9dc9328b6983f83cd138b3f042c94df546e9bd[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:19:17 2016 +0100
+
+    sauts de ligne
+
+[33mcommit 302ba92c54692a1395f691681aab761fda1478e1[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:17:39 2016 +0100
+
+    saut de ligne
+
+[33mcommit cfc4ee85e5abe7aca3f69f83dc2085c85294d64d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:16:35 2016 +0100
+
+    logo 2
+
+[33mcommit 2a6bacd05069eec3e2e08184c2e14373c5d92240[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:13:34 2016 +0100
+
+    logo 1
+
+[33mcommit 7204c80ba23e07afee92533d2932dfb88b4c73a1[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 07:11:29 2016 +0100
+
+    logo
+
+[33mcommit cbabac184e6d1cdbea8ea6d9e792924f8ac85a8a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:56:51 2016 +0100
+
+    22
+
+[33mcommit a6c5d08523c76b7c7f9b46d8e9f42a0976021278[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:56:24 2016 +0100
+
+    23
+
+[33mcommit 35b482e5b615cc0de1d4134a2002e5a2a6ecd802[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:52:44 2016 +0100
+
+    54
+
+[33mcommit 1e31d71a74a2c996288325c0ee2af7cfa63508e8[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:50:37 2016 +0100
+
+    123
+
+[33mcommit 9d808b3807f89fcf52cfa916d6990e97ede447d5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:50:14 2016 +0100
+
+    re test
+
+[33mcommit 033ebd4939d26c534c7cdd99485b34fe29d04970[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:45:30 2016 +0100
+
+    test
+
+[33mcommit 002f9bcd5ccdb617f430614643d7d01786984472[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:43:11 2016 +0100
+
+    quiet
+
+[33mcommit d9379b8e3f041d9d348e0067786a2f99a541ee39[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:39:44 2016 +0100
+
+    log
+
+[33mcommit d34b1ea7e20524185b7ebd918efeb8e4e871fc31[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:35:35 2016 +0100
+
+    38.2
+
+[33mcommit 5df944e93ac3eb749f0ae018fa17e5f2798dd495[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:35:13 2016 +0100
+
+    38
+
+[33mcommit ff1cf0698b7355382253c46de4bd7145be551564[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:32:23 2016 +0100
+
+    35
+
+[33mcommit 65a4bdb05ebf1d00a48973d36eabc6f314ac7528[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:31:28 2016 +0100
+
+    console
+
+[33mcommit cf3179aba9f2e9a34043fbc52b23c9164d1e7cc9[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:29:12 2016 +0100
+
+    30
+
+[33mcommit 34a45547a0db1ca781a93319bb421e88c8abf6ab[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:27:44 2016 +0100
+
+    28
+
+[33mcommit d2b4d0a65f7fbe9a422450e5bae27caa2c6ed7db[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:24:54 2016 +0100
+
+    25
+
+[33mcommit e6af8266a56e8a874d0cc41ab01267ec4101d255[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 06:24:28 2016 +0100
+
+    clock
+
+[33mcommit 60f1a0a21adcf3399c89665682e1403422e6205e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 05:56:10 2016 +0100
+
+    Log and messages
+
+[33mcommit 11bc898cdcbfd9d989e7554580712aa1ddb2d7d5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 05:47:19 2016 +0100
+
+    log 2
+
+[33mcommit c390474d0fe8199879053507e9e4fa58f2e22346[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 05:44:02 2016 +0100
+
+    log
+
+[33mcommit cf2fa04b0eaf74835f36dd2d60ec0a6ba687bed2[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 05:43:24 2016 +0100
+
+    log
+
+[33mcommit ca39729ed1ef75904df43ef12d45a35475e9ed12[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 05:40:15 2016 +0100
+
+    constants
+
+[33mcommit 16d0a4591a43ab11abf35d15eb030c083fa3db56[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 05:04:38 2016 +0100
+
+    temoin reboot
+
+[33mcommit 9ded754f553f9b52f08082a31a09963e66280bbf[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 04:10:00 2016 +0100
+
+    version 2.6 officielle
+
+[33mcommit 32b351bf948706321ab3430c93620e7b731fda39[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:56:33 2016 +0100
+
+    mute
+
+[33mcommit 3f1b339a1ee84a77bc330cdb35d25e067ced992c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:52:48 2016 +0100
+
+    2.6
+
+[33mcommit 9d869c0821dcd507d1826810f217b6954610237b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:50:56 2016 +0100
+
+    all ok
+
+[33mcommit 3a06f05d4a791511b2f3aa8021bdbe330be020c5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:48:24 2016 +0100
+
+    test erreur 2
+
+[33mcommit f108f246c9181188303a78eff499798455742317[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:45:26 2016 +0100
+
+    test erreur
+
+[33mcommit 15d81f891e8f3d114f3e51c104ea02611046d32b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:41:26 2016 +0100
+
+    2
+
+[33mcommit 0f27b67aa618be68f053db77a7cf74fe651eef4a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:39:03 2016 +0100
+
+    temoin bouton
+
+[33mcommit 78b80cc8e743e8c44960176bf7940115d4ea5bfc[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:33:46 2016 +0100
+
+    alert annulation bouton
+
+[33mcommit 34f7ea99800fb690cf6d3def6cbd1bfecad03996[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:28:55 2016 +0100
+
+    annulation bouton
+
+[33mcommit 108051a5d767cfe8583abbb42fc3c30595a9c816[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:22:21 2016 +0100
+
+    setwarnings
+
+[33mcommit a9e286b25bc830c0fada6bd0372d9a6f3b74b5cd[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:21:34 2016 +0100
+
+    -30
+
+[33mcommit 83e59f23e93299ff37723170e307d674be5b868d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:18:44 2016 +0100
+
+    fix
+
+[33mcommit 0cfec09a292b946e294e5f7f396bb9bbd6afc9b4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:16:57 2016 +0100
+
+    setup
+
+[33mcommit 1b794ba6049fe4d9a96e2119f4b9b029638510eb[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:13:38 2016 +0100
+
+    retablissement
+
+[33mcommit 8845c174074f3997174f4dedb6d6d82687504571[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:08:49 2016 +0100
+
+    debug
+
+[33mcommit d8cd924fa5b808c1a9620aa657c04bbaed53cb51[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 03:05:40 2016 +0100
+
+    tabulations
+
+[33mcommit 13a3f3e2fc9d7e8c577d5f59d5c0b79317055355[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 02:53:30 2016 +0100
+
+    5indent
+
+[33mcommit 853981232a8f8f8ee09b5e24fc18b55886963d06[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 02:49:19 2016 +0100
+
+    3
+
+[33mcommit 0678cad8cf1ea67ac47428e168b2d48067291100[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 02:48:40 2016 +0100
+
+    2
+
+[33mcommit 32f82eb342d92fb4e0303e1e47610d81b10aba18[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 02:44:49 2016 +0100
+
+    1
+
+[33mcommit 6e2381ae5356d0de52292f601fd42e7565a5f898[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 02:40:40 2016 +0100
+
+    changement management power
+
+[33mcommit 7faa40a8f237caab9ff1ae4572cc6a6d7891f1dc[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 02:29:10 2016 +0100
+
+    script python
+
+[33mcommit 6f06558146c986352a5c5a1ce0ec94fc69c99f22[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 30 01:57:50 2016 +0100
+
+    go python
+
+[33mcommit ec491033be04015f20db773697c127e6dfe39001[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Jan 29 23:48:49 2016 +0100
+
+    test
+
+[33mcommit a586ade01dd782d4c9621841a5257d104d58a4ed[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Jan 29 23:42:57 2016 +0100
+
+    35
+
+[33mcommit e95d65df1ff6de218ae43d838161ec7566188eed[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Jan 29 23:39:35 2016 +0100
+
+    import
+
+[33mcommit 82a72f684bd8aeae7e279a597a7f656cb06ffdf9[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Jan 29 23:35:56 2016 +0100
+
+    python
+
+[33mcommit 00809ddc863dcc713e9e88c66cf13c3024e12a30[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Jan 29 22:49:24 2016 +0100
+
+    sauvegarde des log
+
+[33mcommit b5ea628ca7c8dc0aba22af083184bf8b09dd45fe[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Jan 29 22:35:03 2016 +0100
+
+    ajustement horloge
+
+[33mcommit 74cc3cd4efac6b9a0b1592519f6a8d06809c371e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Jan 29 22:34:11 2016 +0100
+
+    Revert "renommage led"
+    
+    This reverts commit ad745435239cd840fa9ebedf5c447517dc7749ee.
+
+[33mcommit ad745435239cd840fa9ebedf5c447517dc7749ee[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Jan 29 22:30:58 2016 +0100
+
+    renommage led
+
+[33mcommit a42a15d3980dfc62d5ffb275ea57dd0e907a3233[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Fri Jan 29 22:22:27 2016 +0100
+
+    record log intro
+
+[33mcommit 9670dd502de8bf09a816afa68ecc07981153e0e7[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 23:27:55 2016 +0100
+
+    all led modules 2
+
+[33mcommit c70a7b8e84c9046d9858aa7f6370abcad0073cf8[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 23:27:32 2016 +0100
+
+    all led modules
+
+[33mcommit 9710a5c3d8a780f2e67485e615420a940c3a80cb[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 22:51:02 2016 +0100
+
+    reinitialisation alarmes
+
+[33mcommit 45843a79cabb41ec70db0fbc29340acd612596b7[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 22:41:43 2016 +0100
+
+    test alarm
+
+[33mcommit 00096ff50281b328f500c4398fd09e89a08d14ad[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 22:37:20 2016 +0100
+
+    maj majeure
+
+[33mcommit eecb30156120406f4bb569b90614dd25b6967ac2[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 22:31:47 2016 +0100
+
+    self
+
+[33mcommit e0bf75cee94730cd2b552e953e1434a593eefb0e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 22:29:20 2016 +0100
+
+    maj 4
+
+[33mcommit ce21fc1c2ea69ed5a7373cef577b5dc0547e26ca[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 22:16:21 2016 +0100
+
+    maj3
+
+[33mcommit 5152ebd94bf7db66d651ff45c6d13658d1c2e287[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 22:04:12 2016 +0100
+
+    maj
+
+[33mcommit 83f671e715ca6282af2fa302a23bfbf114c0a387[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 21:58:34 2016 +0100
+
+    maj2
+
+[33mcommit a5d6cebe7f992265df416397d35381d21447a1c8[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 21:54:12 2016 +0100
+
+    maj
+
+[33mcommit b2b755632c72f1a083731e3874b16148fc2e9104[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 21:52:32 2016 +0100
+
+    maj
+
+[33mcommit 5fffd392640debd0a14f72d471d1047f878b249b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 21:42:59 2016 +0100
+
+    correctifs jukebox
+
+[33mcommit 5cc60494185a51e77e50b50fd05fa53dd6d4c28e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 19:17:07 2016 +0100
+
+    maj gitignore
+
+[33mcommit 265acbf7448915f6d44cd7d299aad06112f6b796[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Tue Jan 26 19:13:17 2016 +0100
+
+    maj gitignore
+
+[33mcommit 38ab493a68d4f1e3401611fcf73fd472460c9620[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Jan 25 01:34:42 2016 +0100
+
+    2.5
+
+[33mcommit 493229b4084e4161a9612f6f44d4c34367610eb4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Jan 25 01:30:39 2016 +0100
+
+    desactivation auto reboot a 5 heures
+
+[33mcommit b0bb43d063eced1894cbed11ecb2d972d4f71a80[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Jan 25 01:05:02 2016 +0100
+
+    2.5
+
+[33mcommit 516e3edc7a906910b9cd2cbe5cf14489f5a385ab[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Jan 25 00:55:42 2016 +0100
+
+    suppression module power
+
+[33mcommit 5cd58718b679cc5685c892ebf174a8af9d962035[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Jan 25 00:51:51 2016 +0100
+
+    modulo 2
+
+[33mcommit 7b51656d699b310f33f073f5ef2eb236af429af4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Jan 25 00:49:00 2016 +0100
+
+    modulo
+
+[33mcommit 707e0c7e32b1d7d4ab518eaec758b717ca68ad6a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Jan 25 00:44:58 2016 +0100
+
+    power
+
+[33mcommit ea67462b415f4c11f1c07b5ed1c5474bbee07163[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Jan 25 00:21:18 2016 +0100
+
+    test
+
+[33mcommit 439a8dc182527fdf25417983d49ac93611f375a4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Jan 25 00:14:31 2016 +0100
+
+    salut
+
+[33mcommit ec449a8b400418052790f2772f1a30ff1014153d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Jan 25 00:10:19 2016 +0100
+
+    maj
+
+[33mcommit 37969d2e55e01d809035ca76e6af7e7e624432b0[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Jan 25 00:04:55 2016 +0100
+
+    2
+
+[33mcommit 9b38c44e077807f2d7a457782fd171873832fe70[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Mon Jan 25 00:03:13 2016 +0100
+
+    retablissement jukebox
+
+[33mcommit 2323b0faa59b05425daae1e160f629fdb1d3b621[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 23:58:04 2016 +0100
+
+    next song
+
+[33mcommit 9237df0e9d64c793052822042a05829434f45f7b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 23:54:57 2016 +0100
+
+    on y est
+
+[33mcommit ae04905585b134cd8e6ce04b7c26f9428a06ca8c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 23:51:49 2016 +0100
+
+    clock
+
+[33mcommit d6086003613331ebd2b6ec686574ec7bd579e2e9[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 23:50:22 2016 +0100
+
+    next song jukebox
+
+[33mcommit 87ea32bbfe9ac46dc28673aae8c49d814a4eb441[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 23:36:03 2016 +0100
+
+    migration utils !
+
+[33mcommit 081238a73a0b0aa9e45f5c85a03c457b96e96b54[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 23:34:02 2016 +0100
+
+    migration utils
+
+[33mcommit dd84771c303d0ea1ccdb4549acc10ccbd5629b3c[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 23:30:47 2016 +0100
+
+    migration util
+
+[33mcommit a1dce6f56bb7d93765c8ce8ff2936f9adb7d6581[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 23:29:44 2016 +0100
+
+    util migration
+
+[33mcommit 381d46aae05a5c0029c666d6fc63e3b0591d6896[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 23:24:23 2016 +0100
+
+    tts migration
+
+[33mcommit c86863884b03e72084a4d50ba052ef5731198909[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 23:18:12 2016 +0100
+
+    fip migration
+
+[33mcommit 40323b494474572b09901eb037f12e02a7e9312f[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 23:15:27 2016 +0100
+
+    led migration
+
+[33mcommit f5f21c2cb593eb4fe10c23b4ed7b0877094b21a4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 23:07:10 2016 +0100
+
+    test
+
+[33mcommit e5986750609f8d5df272de5b1a7be424c6180435[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 23:04:56 2016 +0100
+
+    clock
+
+[33mcommit 3f8a4cf539f1c69257e45bd0aaa5e05c88d580b5[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 22:57:24 2016 +0100
+
+    fip
+
+[33mcommit 38bd0a4b9e215d55f62f6d396da14fafe3c1fafe[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 22:53:37 2016 +0100
+
+    fip !!
+
+[33mcommit fa772f58fc455ac3c8d23d9298cafa126d3ee014[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 22:46:31 2016 +0100
+
+    11
+
+[33mcommit d9ae8b30ae5c232143f316a4bf799781aeecf4c3[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 22:42:09 2016 +0100
+
+    migration exclamation
+
+[33mcommit a60fb3992a773e6c45989db2afb932c5ea287f26[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 22:30:16 2016 +0100
+
+    12
+
+[33mcommit b6817807e6151f8c9bd768d1d787f4f9fa984f66[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 22:27:19 2016 +0100
+
+    timer
+
+[33mcommit 3afdde24377a77f30b91393c0cf0eb6d7debfa26[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 21:14:48 2016 +0100
+
+    alarm test
+
+[33mcommit 63b454c16fb9539d0a9b9fc9e7fd3b1b9f460a2e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 21:10:45 2016 +0100
+
+    21
+
+[33mcommit 2d50b386a2cad3ffd4063aad4f5b0365ca70ead2[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 21:08:14 2016 +0100
+
+    horloge parlante fr
+
+[33mcommit b730f8bfd033fb0153a163b5697b9a9cfe83fcc7[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 20:58:14 2016 +0100
+
+    git sound
+
+[33mcommit 1077ea26afbdafaa23ffe04ca9f520d43aa54897[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 20:57:27 2016 +0100
+
+    jukebox jump
+
+[33mcommit 8b69e8207bb65c2957f3acbe8b1c84842bb93ef7[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 20:22:24 2016 +0100
+
+    modifications son
+
+[33mcommit 9fa52a55da907b500e299bf3f9cd1498efd07d52[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 20:18:34 2016 +0100
+
+    utils corriget
+
+[33mcommit b05e1fbe58dff93478b5778d094a8d6eeb1c24d1[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 19:33:48 2016 +0100
+
+    horloge parlante
+
+[33mcommit 3267309814dfebba35e320c4899843890d7af222[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 18:59:14 2016 +0100
+
+    self
+
+[33mcommit cbab61f7b3359695385a5790d766f3f3330ff862[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 18:57:27 2016 +0100
+
+    12
+
+[33mcommit 17d5c1ff2cde86eed9638d24aacfde68ebf3aa02[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 18:42:51 2016 +0100
+
+    yes
+
+[33mcommit 053e03cd56761428fa3223c4d25b17b43972f36d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 18:38:22 2016 +0100
+
+    changement whats time
+
+[33mcommit 0cf1f83b62d20cb882319cf73e3909fa3442bfe7[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 18:24:30 2016 +0100
+
+    git msg
+
+[33mcommit ff25c81732ccb5add71558e7decc3e276a61b9da[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 18:23:53 2016 +0100
+
+    1
+
+[33mcommit 50492f88096068a990c3d813743664ce9ffcbcc9[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 18:22:56 2016 +0100
+
+    correctif
+
+[33mcommit 019af82703a440e532be59c0eeff058b5a5b3145[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 18:21:28 2016 +0100
+
+    correctif
+
+[33mcommit 3f4f42e1eef59dabb7cde178d9da1411ed78de32[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 18:20:18 2016 +0100
+
+    1
+
+[33mcommit 8d64c25f314825fe231b7c5e17f8ca07fa1e7961[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 18:15:18 2016 +0100
+
+    correctif
+
+[33mcommit a47cf8986db9e5fa017307e911481c620ab84bc4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 18:10:42 2016 +0100
+
+    say time
+
+[33mcommit 3520dc2a42349bc2b0dcf732eec3802618517af1[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 17:53:49 2016 +0100
+
+    constants
+
+[33mcommit 95c1766e1c58ab74395aa00152b6963b66b08b16[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 17:17:41 2016 +0100
+
+    util instance
+
+[33mcommit 0408f2237a0df96d0f6d30e4a18bfd4eab0e73c4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 17:15:05 2016 +0100
+
+    correctifs mineurs
+
+[33mcommit 1568c8326375e61f7141cc08318225b5f9b11521[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 16:10:29 2016 +0100
+
+    tts
+
+[33mcommit 560ef58ad2b96e673121b586febac92ae0a37ba8[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 16:08:28 2016 +0100
+
+    tts
+
+[33mcommit 10912cee9270a5ff66bb65e8d5ba8188ca7363f6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 16:01:09 2016 +0100
+
+    2
+
+[33mcommit 45a80dcfc7569c9dba7babdcbb8e4a08ba1da14e[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 15:59:59 2016 +0100
+
+    correctif
+
+[33mcommit d4554aa2d108581da1ecd4fbc0339cc391ac9600[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 15:54:55 2016 +0100
+
+    suppression module power
+
+[33mcommit 1fc1a9b0989fcd5b3e92e99effbe6a7fa93f67e0[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sun Jan 24 15:49:10 2016 +0100
+
+    correctif module power
+
+[33mcommit 70483c4ed4b4544e42e3a1c3b043ee8837a43e66[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 15:28:46 2016 +0100
+
+    exclamation et tts
+
+[33mcommit f6a535593a2d626e0bf7babc42e1c727f20e0d7a[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 08:59:09 2016 +0100
+
+    tts
+
+[33mcommit 0ee1c6d80dd67c376250742502a00fed858ce101[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 08:54:35 2016 +0100
+
+    request
+
+[33mcommit 5a0301fbd7d5884502d8fa7a11f1ba36e3a7d921[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 08:46:02 2016 +0100
+
+    git config
+
+[33mcommit bc56109baa85c9028e41c9f1b5b8cbe4ead93bb9[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 08:41:22 2016 +0100
+
+    odi
+
+[33mcommit 1cdd7f94d98bca4dfbe5240a9a1ea35dae2c56a6[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 08:36:08 2016 +0100
+
+    exception
+
+[33mcommit 35d2e3bfb6bf12073da1eecbbfd3082dae785134[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 08:35:40 2016 +0100
+
+    exception
+
+[33mcommit 0eeed19173b6a0c6f8223403bb0525317716a443[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 08:16:54 2016 +0100
+
+    whats up
+
+[33mcommit cfe20dc13ac057043e1df35ea9e27d334ff80644[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 08:14:34 2016 +0100
+
+    recap
+
+[33mcommit 2d56d33878109f401d99afe713516978c02ad4de[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 08:07:38 2016 +0100
+
+    ok
+
+[33mcommit 59f200165b991a6aa2711f9f182cfc0e7802da6b[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 07:57:09 2016 +0100
+
+    nettoyage
+
+[33mcommit d25ad266cf8cc232ac9f856bfc62c9ddd8398fc4[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 07:53:43 2016 +0100
+
+    leds
+
+[33mcommit 98397895618e7ae662762710e996dc3c79755e50[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 07:51:19 2016 +0100
+
+    led instance
+
+[33mcommit c6d27d07ccc8594d0683b26715bbd982d236c370[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 07:48:40 2016 +0100
+
+    utils
+
+[33mcommit 48beeed66ff68a8d2b32bd74b973430e0ce31f8d[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 07:46:13 2016 +0100
+
+    buttons
+
+[33mcommit be0c72d2c0a572cb847c919c9fd1ba60d51b0940[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 07:40:46 2016 +0100
+
+    Setup 2.4
+
+[33mcommit 6bba7d098ebe27a0af20f5176d5d722191b09377[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 07:40:05 2016 +0100
+
+    Setup 2.4
+
+[33mcommit 2c444db5db0b2f75ded22d1d34e41b92ece2abc7[m
+Author: Adri <adrigarry@gmail.com>
+Date:   Sat Jan 23 07:37:15 2016 +0100
+
+    :circus_tent: Added .gitattributes & .gitignore files
