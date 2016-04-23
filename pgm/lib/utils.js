@@ -93,12 +93,6 @@ var testConnexion = function(callback){
 };
 exports.testConnexion = testConnexion;
 
-var clearLastTTS = function(){
-	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearLastTTS']);
-	// console.log('LastTTS deleted.');
-};
-exports.clearLastTTS = clearLastTTS;
-
 var sleepNode = function(sec, delay){
 	/*if(delay){
 		delay = 0;
@@ -122,7 +116,7 @@ var sleepNode = function(sec, delay){
 exports.sleepNode = sleepNode;
 
 var reboot = function(){
-	voiceMail.clearLastTTS();
+	// voiceMail.clearLastTTS();
 	remote.check();
 	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'reboot']);

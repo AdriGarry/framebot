@@ -16,7 +16,6 @@ var lastTTSFilePath = '/home/pi/odi/pgm/tmp/lastTTS.log';
 var voice;
 
 var speak = function(lg, txt){
-// self.clearLastTTS();
 utils.testConnexion(function(connexion){
 	if(connexion == true){
 		// console.log('TTS___ ' + lg +' -> ' + txt);
@@ -32,15 +31,17 @@ utils.testConnexion(function(connexion){
 			txt = txt[1];
 		}
 		txt = txt.split(':');
-		if(typeof txt[1] !== undefined){
+		console.log(txt[1]);
+		if(typeof txt[1] === undefined){
+			voice = Math.round(Math.random());
+			console.log('Voice Random = ' + voice);
+		}else{
 			if(txt[1] == 0){
 				voice = 0;
 			}else{
 				voice = 1;
 			}
-		}else{
-			voice = Math.round(Math.random());
-			console.log('Voice Random = ' + voice);
+			console.log('voice : ' + voice);
 		}
 		if(voice == 0){
 			voice = 'googleTTS';
