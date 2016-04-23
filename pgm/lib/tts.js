@@ -62,8 +62,7 @@ utils.testConnexion(function(connexion){
 			}
 			// console.log('I\'ll keep this message ;) ' + lg + ';' + txt);
 		});
-
-		return true;
+		// return true;
 	} else {
 		console.error('No network, can\'t get TTS data /!\\');
 		// var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts2.sh', lg, txt]); --> espeak

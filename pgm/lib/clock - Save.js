@@ -2,7 +2,7 @@
 // Module Horloge & Alarmes
 
 var spawn = require('child_process').spawn;
-var CronJob = require('cron').CronJob;
+// var CronJob = require('cron').CronJob;
 var utils = require('./utils.js');
 var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
@@ -20,48 +20,10 @@ var startClock = function(modeInit){
 	}else{
 		console.log('Starting clock in normal mode');
 	}
-
-	new CronJob('0 0 * * * *', function() {
-		console.log('O\'Clock');
+	setInterval(function(){
 		date = new Date();
 		hour = date.getHours();
-		console.log('It\'s ' + hour + ' o\'clock');
-		utils.testConnexion(function(connexion){
-			if(connexion == true){
-				tts.speak('fr', 'Il est ' + hour + ' heures');
-			}else{
-				if(cpHour > 12){
-					cpHour = hour - 12;
-				} else if(cpHour == 0){
-					cpHour = 12;
-				}
-				var oClock = setInterval(function(){
-					console.log('RING BELL ' + cpHour);
-					var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh']);
-					cpHour--;
-					if(cpHour < 1){clearInterval(oClock);}
-				}, 1100);
-			}
-		});
-	}, null, true, 'Europe/Paris');
-	
-		new CronJob('0 30 * * * *', function() {
-		console.log('O\'Clock');
-		date = new Date();
-		hour = date.getHours();
-		console.log('It\'s ' + hour + ' and a half');
-		utils.testConnexion(function(connexion){
-			if(connexion == true){
-				// if(cpHour > 12){cpHour = hour - 12};
-				tts.speak('fr', 'Il est ' + hour + ' heures 30');
-			}else{
-				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'half']);
-			}
-		});
-	}, null, true, 'Europe/Paris');
-
-	/*setInterval(function(){
-		
+		min = date.getMinutes();
 		var mode = false;
 		if(!modeInit){
 			var day = date.getDay();
@@ -110,7 +72,7 @@ var startClock = function(modeInit){
 				});
 			}else{ console.log('Clock in quiet mode     -.-'); }
 		}
-	}, 60*1000);*/
+	}, 60*1000);
 };
 exports.startClock = startClock;
 

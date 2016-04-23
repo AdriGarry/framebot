@@ -55,7 +55,7 @@ espeakTTS(){
 	echo "pitch => $pitch"
 	
 	#speed=140 #80->450 //175
-	speed=$(shuf -i 120-200 -n 1) #80->450
+	speed=$(shuf -i 150-250 -n 1) #80->450
 	echo "speed =>$speed"
 
 	case $1 in

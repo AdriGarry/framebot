@@ -4,6 +4,7 @@ console.log('>> Odi is in normal mode...   :)');
 
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
+var CronJob = require('cron').CronJob;
 var gpioPins = require('./lib/gpioPins.js');
 var utils = require('./lib/utils.js');
 var buttons = require('./lib/buttons.js');
@@ -23,10 +24,13 @@ setTimeout(function(){
 	eye.write(0);
 }, 500);
 
-/*leds.activity();
-setInterval(function(){
+leds.activity();
+/*setInterval(function(){
 	leds.blinkLed(300, 1);
 }, 3000);*/
+new CronJob('*/3 * * * * *', function() {
+	leds.blinkLed(300, 1);
+}, null, true, 'Europe/Paris');
 
 buttons.getEtat(function(modeValue){
 	if(modeValue){
@@ -37,14 +41,12 @@ buttons.getEtat(function(modeValue){
 });
 
 clock.setAlarms();
-
 // setTimeout(function(){
 	// voiceMail.checkVoiceMail();
 // }, 2000);
-
 // voiceMail.voiceMailSignal();
 
-setInterval(function(){
+new CronJob('*/10 * * * * *', function() {
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
 			remote.check();
@@ -52,4 +54,4 @@ setInterval(function(){
 			console.error('No network, can\'t check messages & export log  /!\\');
 		}
 	});
-}, 10*1000);
+}, null, true, 'Europe/Paris');
