@@ -31,14 +31,23 @@ utils.testConnexion(function(connexion){
 			lg = txt[0];
 			txt = txt[1];
 		}
-		
-		voice = Math.round(Math.random());
-		console.log('Voice Random = ' + voice);
-		if(voice == 1){
+		txt = txt.split(':');
+		if(typeof txt[1] !== undefined){
+			if(txt[1] == 0){
+				voice = 0;
+			}else{
+				voice = 1;
+			}
+		}else{
+			voice = Math.round(Math.random());
+			console.log('Voice Random = ' + voice);
+		}
+		if(voice == 0){
 			voice = 'googleTTS';
 		} else {
 			voice = 'espeakTTS';
 		}
+		txt = txt[0];
 		console.log('TTS [' + voice + ', ' + lg + '] "' + txt + '"');
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts.sh', voice, lg, txt]);
 		var blinkTime = (txt.length/15) + 1;
