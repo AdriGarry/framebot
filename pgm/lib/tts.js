@@ -16,7 +16,7 @@ var lastTTSFilePath = '/home/pi/odi/pgm/tmp/lastTTS.log';
 var voice;
 
 var speak = function(lg, txt){
-utils.clearLastTTS();
+// self.clearLastTTS();
 utils.testConnexion(function(connexion){
 	if(connexion == true){
 		// console.log('TTS___ ' + lg +' -> ' + txt);
@@ -90,6 +90,6 @@ exports.lastTTS = lastTTS;
 
 var clearLastTTS = function(){
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearLastTTS']);
-	// console.log('LastTTS deleted.');
+	console.log('LastTTS deleted.');
 };
 exports.clearLastTTS = clearLastTTS;

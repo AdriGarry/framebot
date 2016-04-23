@@ -102,8 +102,8 @@ function startOdi(mode){
 	
 	odiPgm.on('exit', function(code){
 		// mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
+		tts.clearLastTTS();
 		utils.mute();
-		utils.clearLastTTS();
 		odiState = false;
 		console.log('\r\n>> Odi pgm KILLED  /!\\  /!\\');
 		console.log('***************************\r\n\r\n');
