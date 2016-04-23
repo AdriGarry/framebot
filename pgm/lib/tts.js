@@ -31,22 +31,16 @@ utils.testConnexion(function(connexion){
 			txt = txt[1];
 		}
 		txt = txt.split(':');
-		console.log(txt[1]);
-		if(typeof txt[1] === undefined){
-			voice = Math.round(Math.random());
-			console.log('Voice Random = ' + voice);
-		}else{
-			if(txt[1] == 0){
-				voice = 0;
-			}else{
-				voice = 1;
-			}
-			console.log('voice : ' + voice);
+		voice = txt[1];
+		if(typeof voice !== undefined){
+			voice = Math.round(Math.random()*2);
+			// console.log('Voice Random = ' + voice);
 		}
+		// console.log('Voice.. = ' + voice);
 		if(voice == 0){
-			voice = 'googleTTS';
-		} else {
 			voice = 'espeakTTS';
+		} else {
+			voice = 'googleTTS';
 		}
 		txt = txt[0];
 		console.log('TTS [' + voice + ', ' + lg + '] "' + txt + '"');

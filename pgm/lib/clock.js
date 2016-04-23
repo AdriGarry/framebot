@@ -140,7 +140,7 @@ var setAlarms = function(){
 	new CronJob('0 13 13 * * *', function() {
 		// utils.testConnexion(function(connexion){
 			// if(connexion == true){
-				tts.speak('fr','Auto reboot');
+				tts.speak('fr','Auto reboot:0');
 				setTimeout(function(){
 					utils.reboot();
 				}, 3000);
