@@ -52,19 +52,7 @@ utils.testConnexion(function(connexion){
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts.sh', voice, lg, txt]);
 		var blinkTime = (txt.length/15) + 1;
 		leds.blinkEye((Math.round(Math.random()*5) + 1)*50, blinkTime);
-		/*fs.appendFile(lastTTSFilePath, lg + ';' + txt, function(err){ // NE PAS CONSERVER L'HISTORIQUE !!!
-			if(err) console.error(err);
-		});*/
-		
-		/*var t = (txt.length) * 300 + 2000;
-		// console.log(t);
-		// console.log(txt.length);
-		var waitFor = (new Date()).getTime();
-		// console.error(waitFor);
-		// console.log(waitFor + t);
-		while((new Date()).getTime() < waitFor + t){
-			;
-		}*/
+
 		fs.writeFile(lastTTSFilePath, lg + ';' + txt, 'UTF-8', function(err){
 			if(err){
 				return console.log('Error while saving last TTS : ' + err);
