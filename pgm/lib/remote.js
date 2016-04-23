@@ -54,7 +54,7 @@ var check = function(mode){
 					// console.log('B_: ' + body);
 					messages = body.split('\r\n');
 					var lg, txt;
-					for(i=messages.length-1;i>0;i--){
+					for(i=messages.length;i>0;i--){
 						// console.log(i + ' Message(s) TTS from OdiWeb ' + messages);
 						txt = messages[i];
 						if(txt != undefined){

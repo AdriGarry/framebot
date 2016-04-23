@@ -3,7 +3,7 @@
 #sudo killall omxplayer
 sudo killall mplayer
 
-echo $1
+# echo $1
 
 googleTTS(){
 	case $1 in
@@ -51,11 +51,11 @@ espeakTTS(){
 	fi
 	
 	#pitch=40 #0->99
-	pitch=$(shuf -i 0-99 -n 1)
+	pitch=$(shuf -i 30-90 -n 1) #0->99
 	echo "pitch => $pitch"
 	
 	#speed=140 #80->450 //175
-	speed=$(shuf -i 120-200 -n 1)
+	speed=$(shuf -i 120-200 -n 1) #80->450
 	echo "speed =>$speed"
 
 	case $1 in
@@ -74,16 +74,16 @@ espeakTTS(){
 	espeak -v $lg -s $speed -p $pitch -a $volume "$*"
 }
 
-# echo $*
+echo $*
 
 case $1 in
-	# "googleTTS")
-		# shift
-		# googleTTS $* ;;
+	"googleTTS")
+		shift
+		googleTTS $* ;;
 	"espeakTTS")
 		shift
 		espeakTTS $* ;;
 	*)
-		shift
-		googleTTS $* ;;
+		# shift
+		# googleTTS $* ;;
 esac
