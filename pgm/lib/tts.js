@@ -13,6 +13,8 @@ var content = fs.readFileSync(messages, 'UTF-8').toString().split('\n'); // \r\n
 var rdmMax = content.length;
 var lastTTSFilePath = '/home/pi/odi/pgm/tmp/lastTTS.log';
 
+var voice;
+
 var speak = function(lg, txt){
 utils.clearLastTTS();
 utils.testConnexion(function(connexion){
@@ -30,10 +32,17 @@ utils.testConnexion(function(connexion){
 			txt = txt[1];
 		}
 		
-		console.log('TTS [' + lg + '] "' + txt + '"');
-		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts.sh', lg, txt]);
+		voice = Math.round(Math.random());
+		console.log('Voice Random = ' + voice);
+		if(voice == 1){
+			voice = 'googleTTS';
+		} else {
+			voice = 'espeakTTS';
+		}
+		console.log('TTS [' + voice + ', ' + lg + '] "' + txt + '"');
+		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts.sh', voice, lg, txt]);
 		var blinkTime = (txt.length/15) + 1;
-		leds.blinkEye((Math.floor(Math.random()*5) + 1)*50, blinkTime);
+		leds.blinkEye((Math.round(Math.random()*5) + 1)*50, blinkTime);
 		/*fs.appendFile(lastTTSFilePath, lg + ';' + txt, function(err){ // NE PAS CONSERVER L'HISTORIQUE !!!
 			if(err) console.error(err);
 		});*/
