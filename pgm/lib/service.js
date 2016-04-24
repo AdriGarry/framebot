@@ -45,7 +45,7 @@ var time = function(){
 	var hour = date.getHours();
 	var min = date.getMinutes();
 	if(min == 0){
-		tts.speak('fr', 'Il est ' + hour);
+		tts.speak('fr', 'Il est ' + hour + ' heure');
 	} else {
 		tts.speak('fr', 'Il est ' + hour + ' heures et ' + min + ' minutes'); 
 	}
