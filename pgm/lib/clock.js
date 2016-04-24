@@ -74,13 +74,9 @@ var setAlarms = function(){
 	new CronJob('0 29 7 * * 1-5', function(){
 		console.log('COCORICO !!');
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
-		// if(date.getSeconds() < 31){
 		utils.testConnexion(function(connexion){
 			if(connexion == true){
-				date = new Date();
-				hour = date.getHours();
-				min = date.getMinutes();
-				tts.speak('fr', 'Il est ' + hour + ' heures ' + min);
+				service.time();
 				setTimeout(function(){
 					service.weather();
 				}, 5*1000);
@@ -116,42 +112,36 @@ var setAlarms = function(){
 		console.log('COCORICO !!');
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
 		utils.testConnexion(function(connexion){
-			setTimeout(function(){
-				if(connexion == true){
-						console.log('It\'s '+ hour + ':' + min 
-							+ ' !!  Let\'s listen the radio :D');
-						setTimeout(function(){
-							service.info();
-							setTimeout(function(){
-								fip.playFip();
-							}, 25*1000);
-						}, 5*1000);
-				} else {
-					console.log('It\'s '+ hour + ':' + min 
-						+ ' !!  Let\'s play some music :D');
-					jukebox.loop();
-				}
-				utils.autoMute('Auto mute Morning');
-			}, 3000);
+			// if(connexion == true){
+				service.time();
+				setTimeout(function(){
+					service.weather();
+				}, 5*1000);
+				setTimeout(function(){
+					//fip.playFip();
+					console.log('Il Est Midi !!!!!!');
+					var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'IlEstMidi']);
+				}, 15*1000);
+			// }else{
+				// jukebox.loop();
+			// }
+			utils.autoMute('Auto mute Morning');
 		});
+
 	}, null, true, 'Europe/Paris');
 
 
 	new CronJob('0 13 13 * * *', function() {
-		// utils.testConnexion(function(connexion){
-			// if(connexion == true){
-				tts.speak('fr','Auto reboot:0');
-				setTimeout(function(){
-					utils.reboot();
-				}, 3000);
-			// }
-		// });
+		tts.speak('fr','Auto reboot:0');
+		setTimeout(function(){
+			utils.reboot();
+		}, 3000);
 	}, null, true, 'Europe/Paris');
 
-	new CronJob('0 12 12 * * *', function() {
+	/*new CronJob('0 12 12 * * *', function() {
 		console.log('Il Est Midi !!!!!!');
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'IlEstMidi']);
-	}, null, true, 'Europe/Paris');
+	}, null, true, 'Europe/Paris');*/
 
 	new CronJob('0 0 5 * * 2', function() {
 		console.log('Clean log files  /!\\');
