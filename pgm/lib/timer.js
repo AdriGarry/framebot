@@ -21,7 +21,7 @@ var setTimer = function(minutes){
 	
 	var min = Math.floor(time/60);
 	var sec = time%60;
-	var ttsMsg = 'Minuterie : ' + ((min>0)? ((min>1)? min : ' une ') + ' minutes ' : '') + ((sec>0)? sec + ' secondes' : '');
+	var ttsMsg = 'Minuterie ' + ((min>0)? ((min>1)? min : ' une ') + ' minutes ' : '') + ((sec>0)? sec + ' secondes' : '');
 	console.log(ttsMsg);
 	tts.speak('fr', ttsMsg);
 	if(!timer){
@@ -45,7 +45,7 @@ var setTimer = function(minutes){
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/timerSound.sh', 'end']);
 			leds.blinkAllLeds(100, 2.2);
 			timer = false;
-			// belly.write(0);
+			belly.write(0);
 		}
 	}, 1000);
 	}
