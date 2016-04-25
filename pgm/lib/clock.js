@@ -18,32 +18,24 @@ var clockPattern;
 var startClock = function(modeInit){
 	if(!modeInit){
 		console.log('Starting clock in quiet mode     -.-');
-		// clockPattern = '8-23 * * 1-5';
-		// clockPatternWE = '12-23 * * 0,7';
 		new CronJob('0 0 8-23 * * 1-5', function(){
-			// console.log('ringHour');
 			ringHour();
 		}, null, true, 'Europe/Paris');
 		new CronJob('0 30 8-23 * * 1-5', function(){
-			// console.log('ringHalfHour');
 			ringHalfHour();
 		}, null, true, 'Europe/Paris');
 		new CronJob('0 0 12-23 * * 0,7', function(){
-			// console.log('ringHour');
 			ringHour();
 		}, null, true, 'Europe/Paris');
 		new CronJob('0 30 12-23 * * 0,7', function(){
-			// console.log('ringHalfHour');
 			ringHalfHour();
 		}, null, true, 'Europe/Paris');
 	}else{
 		console.log('Starting clock in normal mode');
 		new CronJob('0 0 * * * *', function(){
-			// console.log('ringHour');
 			ringHour();
 		}, null, true, 'Europe/Paris');
 		new CronJob('0 30 * * * *', function(){
-			// console.log('ringHalfHour');
 			ringHalfHour();
 		}, null, true, 'Europe/Paris');
 	}
