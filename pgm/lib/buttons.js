@@ -118,7 +118,15 @@ cancel.watch(function(err, value){
 			utils.restartOdi('sleep');
 		}
 	}
+	// console.log('Killing __Test');
+	// job.stop();
 });
+////////////////////////////////
+// var CronJob = require('cron').CronJob;
+	// var job = new CronJob('* * * * * *', function(){
+			// console.log('__Test');
+	// }, null, true, 'Europe/Paris');
+////////////////////////////////
 white.watch(function(err, value){
 	var pressTime = new Date();
 	while(white.readSync() == 1){
