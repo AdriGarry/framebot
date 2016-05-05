@@ -75,6 +75,8 @@ function startOdi(mode){
 	var sec;
 	var logDate;
 	odiPgm.stdout.on('data', function(data){
+		if(1 === etat.readSync()){ logMode = logMode.replace('i','!'); }
+		else{ logMode = logMode.replace('!','i'); }
 		date = new Date();
 		month = date.getMonth();
 		day = date.getDate();

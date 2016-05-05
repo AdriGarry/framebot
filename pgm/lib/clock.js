@@ -134,9 +134,9 @@ var setAlarms = function(){
 					service.weather();
 				}, 5*1000);
 				setTimeout(function(){
-					//fip.playFip();
-					console.log('Il Est Midi !!!!!!');
-					var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'IlEstMidi']);
+					fip.playFip();
+					// console.log('Il Est Midi !!!!!!');
+					// var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'IlEstMidi']);
 				}, 15*1000);
 			// }else{
 				// jukebox.loop();
@@ -154,10 +154,10 @@ var setAlarms = function(){
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 
-	/*new CronJob('0 12 12 * * *', function() {
+	new CronJob('0 12 12 * * *', function() {
 		console.log('Il Est Midi !!!!!!');
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'IlEstMidi']);
-	}, null, true, 'Europe/Paris');*/
+	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 0 5 * * 2', function() {
 		console.log('Clean log files  /!\\');

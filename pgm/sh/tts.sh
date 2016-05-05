@@ -52,11 +52,11 @@ espeakTTS(){
 	fi
 	
 	#pitch=40 #0->99
-	pitch=$(shuf -i 30-90 -n 1) #0->99
+	pitch=$(shuf -i 30-60 -n 1) #0->99
 	echo "pitch => $pitch"
 	
 	#speed=140 #80->450 //175
-	speed=$(shuf -i 100-200 -n 1) #80->450
+	speed=$(shuf -i 130-170 -n 1) #80->450 #100-200
 	echo "speed =>$speed"
 
 	case $1 in

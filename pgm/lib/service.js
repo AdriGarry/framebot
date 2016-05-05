@@ -32,6 +32,7 @@ var weather = function(){
 			console.log('Service Weather... ' + annonceTemp);
 			tts.speak('fr',annonceTemp);
 		}else{
+			tts.speak('fr', 'Erreur service meteo:1');
 			console.error('Weather request > response.statusCode : ' + response.statusCode);
 			if(error){console.error('Error getting weather info  /!\\ \n' + error);}
 		}

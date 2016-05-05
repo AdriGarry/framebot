@@ -39,6 +39,7 @@ setInterval(function(){
 		if(!instance){
 			instance = true;
 			interval = setInterval(function(){
+				console.log('Etat bouton On_');
 				utils.randomAction();
 			}, 10*60*1000); //5*60*1000
 		}
@@ -84,7 +85,7 @@ ok.watch(function(err, value){
 		tts.lastTTS();
 	}else if(pressTime >= 2 && pressTime < 3){
 		// event.emit('playFip', 'Fip Radio');
-		fip.playFip();
+		// fip.playFip();
 	}else if(pressTime >= 3 && pressTime < 5){
 		service.time();
 	}else{
@@ -172,7 +173,9 @@ blue.watch(function(err, value){
 		if(etat.readSync() == 0){
 			jukebox.loop();
 		}else{
-			jukebox.medley();
+			// jukebox.medley();
+			// event.emit('playFip', 'Fip Radio');
+			fip.playFip();
 		}
 	}else if(pressTime > 2 && pressTime < 5){
 		if(etat.readSync() == 0){
