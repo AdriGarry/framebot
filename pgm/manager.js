@@ -75,8 +75,8 @@ function startOdi(mode){
 	var sec;
 	var logDate;
 	odiPgm.stdout.on('data', function(data){
-		if(1 === etat.readSync()){ logMode = logMode.replace('i','!'); }
-		else{ logMode = logMode.replace('!','i'); }
+		if(1 === etat.readSync()){ logMode = logMode.replace('Odi','ODI'); }
+		else{ logMode = logMode.replace('ODI','Odi'); }
 		date = new Date();
 		month = date.getMonth();
 		day = date.getDate();
@@ -90,6 +90,8 @@ function startOdi(mode){
 	});
 
 	odiPgm.stderr.on('data', function(data){
+		if(1 === etat.readSync()){ logMode = logMode.replace('i','!'); }
+		else{ logMode = logMode.replace('!','i'); }
 		date = new Date();
 		month = date.getMonth();
 		day = date.getDate();
