@@ -22,7 +22,7 @@ var self = this;
 
 var mute = function(message){
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-	console.log(((message === undefined)? '' : message) + ' >> MUTE  :|');
+	console.log(((message === undefined)? '' : message) + ' MUTE  :|');
 	leds.clearLeds();
 	eye.write(0);
 	belly.write(0);
@@ -36,7 +36,7 @@ var autoMute = function(message){
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh', 'auto']);
 		setTimeout(function(){
 			deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-			console.log(((message === undefined)? '' : message) + ' >> AUTO MUTE  :|');
+			console.log(((message === undefined)? '' : message) + ' AUTO MUTE  :|');
 			leds.clearLeds();
 			eye.write(0);
 			belly.write(0);
