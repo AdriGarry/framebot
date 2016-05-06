@@ -10,6 +10,7 @@ var utils = require('./lib/utils.js');
 var buttons = require('./lib/buttons.js');
 var remote = require('./lib/remote.js');
 var leds = require('./lib/leds.js');
+var service = require('./lib/service.js');
 // var voiceMail = require('./lib/voiceMail.js');
 var tts = require('./lib/tts.js');
 var clock = require('./lib/clock.js');
@@ -45,6 +46,10 @@ clock.setAlarms();
 	// voiceMail.checkVoiceMail();
 // }, 2000);
 // voiceMail.voiceMailSignal();
+
+new CronJob('13 * * * * *', function(){
+	service.conversation('');
+}, null, false, 'Europe/Paris');
 
 new CronJob('*/10 * * * * *', function(){
 	utils.testConnexion(function(connexion){

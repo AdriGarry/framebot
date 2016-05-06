@@ -101,6 +101,8 @@ var check = function(mode){
 									exclamation.exclamation2Rappels();
 								// }else if(txt == 'tts' && mode.indexOf('sleep') == -1){
 									// tts.speak('','');
+								}else if(txt == 'serviceIntro' && mode.indexOf('sleep') == -1){
+									service.conversation(0);
 								}else if(txt == 'serviceDate' && mode.indexOf('sleep') == -1){
 									service.date();
 								}else if(txt == 'serviceTime' && mode.indexOf('sleep') == -1){

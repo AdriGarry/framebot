@@ -86,6 +86,7 @@ ok.watch(function(err, value){
 	}else if(pressTime >= 2 && pressTime < 3){
 		// event.emit('playFip', 'Fip Radio');
 		// fip.playFip();
+		service.conversation(0);
 	}else if(pressTime >= 3 && pressTime < 5){
 		service.time();
 	}else{

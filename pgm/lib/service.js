@@ -40,6 +40,47 @@ var weather = function(){
 };
 exports.weather = weather; 
 
+var delay = 400;
+var introTxt = ['Je suis Ody',
+	'J\'ai plusieurs fonctions, horloge, reveil, minuterie, calendrier...',
+	'Ainsi que jukebox et radio pour se mettre dans le jus',
+	'Tu peux aussi me faire dire ce que tu veux !']
+var conversation = function(messages){
+	console.log('Service Conversation... ' + messages);
+	try{
+		if(messages.constructor != Array){ //typeof messages == 'undefined' ||       // IS EMPTY ?
+			console.error(messages);
+			messages = introTxt;
+		}
+		console.log('messages.constructor : ' + messages.constructor);
+		console.log(typeof messages);
+		// if(messages.constructor == Array){
+			/*messages.forEach(function(messages){
+				console.log(messages.length + '  ->  ' + messages);
+			});*/
+		/*tts.speak('fr', messages[0]);
+		setTimeout(function(){
+			tts.speak('fr', messages[1]);
+			setTimeout(function(){
+				tts.speak('fr', messages[2]);
+				setTimeout(function(){
+						tts.speak('fr', messages[3]);
+				}, messages[2].length * delay + 500);
+			}, messages[1].length * delay + 500);
+		}, messages[0].length * delay + 500);*/
+
+		messages.forEach(function(message){
+			setTimeout(function(message){
+				tts.speak('fr', message);
+			}.bind(this, message), message.length * delay);
+		});
+	}catch(e){
+		tts.speak('fr','erreur conversation:1');
+		console.error('conversation_error : ' + e);
+	}
+};
+exports.conversation = conversation;
+
 var time = function(){
 	console.log('Service Time...');
 	var date = new Date();

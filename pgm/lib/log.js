@@ -8,7 +8,7 @@ var outputFile = '/home/pi/odi/log/odiNode.log';
 var recordLog = function(msg){
 	try{
 		var content = fs.readFileSync(outputFile, 'UTF-8');
-	} catch(e){
+	}catch(e){
 		console.error(e);
 		//this.recordLog(msg + '\r\n' + e);
 	}

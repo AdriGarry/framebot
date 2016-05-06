@@ -6,18 +6,20 @@ var Gpio = require('onoff').Gpio;
 var leds = require('./leds.js');
 
 var exclamation2Rappels = function(){
-	console.log('Exclamation (2 rappels)!');
+	console.log('Exclamation [2 recall]!');
 	leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh']);
 	var rdm = Math.floor(Math.random()*60) + 10;
 	console.log('Next sounds: ' + rdm + ' sec & ' + Math.floor(rdm*10/60) + ' min');
 	setTimeout(function(){ eye.write(0); }, 2000);
 	setTimeout(function(){
+		console.log('Exclamation recall 1');
 		leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh']);
 		setTimeout(function(){ eye.write(0); }, 2000);
 	}, rdm * 1000);
 	setTimeout(function(){
+		console.log('Exclamation recall 2');
 		leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh']);
 		setTimeout(function(){ eye.write(0); }, 2000);
