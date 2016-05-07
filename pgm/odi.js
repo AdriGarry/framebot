@@ -47,8 +47,8 @@ clock.setAlarms();
 // }, 2000);
 // voiceMail.voiceMailSignal();
 
-new CronJob('13 * * * * *', function(){
-	service.conversation('');
+new CronJob('13 * * * * *', function(){  // Cron sequence test
+	tts.conversation();
 }, null, false, 'Europe/Paris');
 
 new CronJob('*/10 * * * * *', function(){

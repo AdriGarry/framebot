@@ -17,7 +17,7 @@ var pastHour = hour;
 var clockPattern;
 var startClock = function(modeInit){
 	if(!modeInit){
-		console.log('Starting clock in quiet mode     -.-');
+		console.log('Starting Cron Clock in regular mode     -.-');
 		new CronJob('0 0 8-23 * * 1-5', function(){
 			ringHour();
 		}, null, true, 'Europe/Paris');
@@ -31,7 +31,7 @@ var startClock = function(modeInit){
 			ringHalfHour();
 		}, null, true, 'Europe/Paris');
 	}else{
-		console.log('Starting clock in normal mode');
+		console.log('Starting clock in full mode');
 		new CronJob('0 0 * * * *', function(){
 			ringHour();
 		}, null, true, 'Europe/Paris');
@@ -80,7 +80,7 @@ var ringHalfHour = function(){
 };
 
 var setAlarms = function(){
-	console.log('Alarms On');
+	console.log('Cron Alarms On');
 
 	new CronJob('0 26 7 * * 1-5', function(){
 		console.log('Morning Sea...');
@@ -104,6 +104,11 @@ var setAlarms = function(){
 			}
 			utils.autoMute('Auto mute Morning');
 		});
+	}, null, true, 'Europe/Paris');
+
+	new CronJob('0 */7 7-8 * * 1-5', function(){
+	// new CronJob('0 * * * * *', function(){
+		tts.conversation(1); // Jounee interessante
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 30 18 * * 1-5', function() {
@@ -144,6 +149,10 @@ var setAlarms = function(){
 			utils.autoMute('Auto mute Morning');
 		});
 
+	}, null, true, 'Europe/Paris');
+
+	new CronJob('0 45 15-23 * * *', function(){
+		tts.conversation(9); // Jounee interessante
 	}, null, true, 'Europe/Paris');
 
 

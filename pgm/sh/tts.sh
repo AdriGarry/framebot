@@ -46,7 +46,7 @@ espeakTTS(){
 	volume=$(cat /sys/class/gpio/gpio13/value)
 	if [ $volume -eq 0 ]
 	then
-		volume=100
+		volume=125
 	else
 		volume=200
 	fi

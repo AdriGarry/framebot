@@ -50,7 +50,7 @@ var randomAction = function(){
 		if(!connexion){
 			exclamation.exclamation2Rappels();
 		}else{
-			var rdm = Math.floor(Math.random()*14); // 1->13
+			var rdm = Math.floor(Math.random()*17); // 1->13
 			console.log('> randomAction [rdm = ' + rdm + ']');
 			switch(rdm){
 				case 1:
@@ -60,16 +60,21 @@ var randomAction = function(){
 					tts.speak('','');
 					break;
 				case 5:
+				case 6:
+				case 7:
+					tts.conversation();
+					break;
+				case 8:
 					service.time();
 					break;
-				case 6:
+				case 9:
 					service.date();
 					break;
-				case 7:
-				case 8:
+				case 10:
+				case 11:
 					service.weather();
 					break;
-				case 9:
+				case 12:
 					service.cpuTemp();
 					break;
 				default:

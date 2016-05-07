@@ -8,24 +8,25 @@ var request = require('request');
 var utils = require('./utils.js');
 var deploy;
 var self = this;
-var messages = '/home/pi/odi/pgm/data/ttsMessages.properties';
-var content = fs.readFileSync(messages, 'UTF-8').toString().split('\n'); // \r\n
-var rdmMax = content.length;
+
+var messagesPath = '/home/pi/odi/pgm/data/ttsMessages.properties';
+var messages = fs.readFileSync(messagesPath, 'UTF-8').toString().split('\n'); // \r\n
+var rdmMaxMessages = messages.length;
+
+var conversationsPath = '/home/pi/odi/pgm/data/ttsConversations.properties';
+var conversations = fs.readFileSync(conversationsPath, 'UTF-8').toString().split('\n\n'); // \r\n
+var rdmMaxConversations = conversations.length;
+
 var lastTTSFilePath = '/home/pi/odi/pgm/tmp/lastTTS.log';
 
 var voice;
-
 var speak = function(lg, txt){
 utils.testConnexion(function(connexion){
 	if(connexion == true){
-		// console.log('TTS___ ' + lg +' -> ' + txt);
 		if(txt == '' || txt === 'undefined'){
-		// if(txt == '' || typeof txt === 'undefined'){
-			// content = fs.readFileSync(messages, 'UTF-8').toString().split('\n'); // \r\n
-			// var rdmMax = content.length;
-			var rdmNb = ((Math.floor(Math.random()*rdmMax)));
-			txt = content[rdmNb];
-			console.log('Random speech : ' + rdmNb + '/' + rdmMax);
+			var rdmNb = ((Math.floor(Math.random()*rdmMaxMessages)));
+			txt = messages[rdmNb];
+			console.log('Random speech : ' + rdmNb + '/' + rdmMaxMessages);
 			txt = txt.split(';');
 			lg = txt[0];
 			txt = txt[1];
@@ -34,9 +35,8 @@ utils.testConnexion(function(connexion){
 		voice = txt[1];
 		if(typeof voice == 'undefined'){
 			voice = Math.round(Math.random()*4);
-			console.log('Voice Random = ' + voice);
+			// console.log('Voice Random = ' + voice);
 		}
-		// console.log('Voice.. = ' + voice);
 		if(voice <= 1){
 			voice = 'espeakTTS';
 		} else {
@@ -63,11 +63,45 @@ utils.testConnexion(function(connexion){
 };
 exports.speak = speak;
 
+var conversation = function(messages){
+	console.log('Service Conversation... ' + messages);
+	try{
+		// if(typeof messages == 'undefined') throw (messages);
+		if(typeof messages == 'undefined' || messages.constructor != Array){// IS EMPTY ?
+			// if(messages.constructor == Number){
+				// messages = conversations[messages];
+			// }else{
+			var rdmNb = ((Math.floor(Math.random()*rdmMaxConversations)));
+			messages = conversations[rdmNb];
+			console.log('Random conversation : ' + rdmNb + '/' + rdmMaxConversations);
+			// console.log(messages);
+			// }
+			messages = messages.split('\n');
+		}
+		// console.log('messages.constructor : ' + messages.constructor);
+		var delay = 1;
+		messages.forEach(function(message){
+			// console.log('__ ' + delay/1000);
+			setTimeout(function(message){
+				message = message.split(';');
+				var lg = message[0];
+				var txt = message[1];
+				self.speak(lg, txt);
+			}.bind(this, message), delay+1000);
+			delay += message.length*120;
+		});
+	}catch(e){
+		self.speak('fr','erreur conversation:1');
+		console.error('conversation_error : ' + e);
+	}
+};
+exports.conversation = conversation;
+
 var lastTTS = function(){
 	try{
-		var content = fs.readFileSync(lastTTSFilePath, 'UTF-8').toString().split('\n'); // PREVENIR SI FICHIER NON EXISTANT !!!
-		// console.log('content=> ' + content);
-		txt = content[content.length-1].split(';');
+		var lastMsg = fs.readFileSync(lastTTSFilePath, 'UTF-8').toString().split('\n'); // PREVENIR SI FICHIER NON EXISTANT !!!
+		// console.log('lastMsg=> ' + lastMsg);
+		txt = lastMsg[lastMsg.length-1].split(';');
 		lg = txt[0];
 		txt = txt[1];
 		if(typeof lg === 'undefined' || typeof txt === 'undefined'){
