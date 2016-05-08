@@ -101,8 +101,15 @@ var check = function(mode){
 									exclamation.exclamation2Rappels();
 								// }else if(txt == 'tts' && mode.indexOf('sleep') == -1){
 									// tts.speak('','');
-								}else if(txt == 'conversation' && mode.indexOf('sleep') == -1){
-									tts.conversation();
+								}else if(txt.indexOf('conversation') >= 0 && mode.indexOf('sleep') == -1){
+									if(/\d/.test(txt)){
+										var rdmNb = txt.replace(/[^\d.]/g, '');
+										var rdmNb = parseInt(rdmNb, 10);
+										console.log('Remote conversation random param : ' + rdmNb);
+										tts.conversation(rdmNb);
+									}else{
+										tts.conversation('random');
+									}
 								}else if(txt == 'serviceDate' && mode.indexOf('sleep') == -1){
 									service.date();
 								}else if(txt == 'serviceTime' && mode.indexOf('sleep') == -1){

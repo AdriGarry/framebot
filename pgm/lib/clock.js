@@ -17,7 +17,7 @@ var pastHour = hour;
 var clockPattern;
 var startClock = function(modeInit){
 	if(!modeInit){
-		console.log('Starting Cron Clock in regular mode     -.-');
+		console.log('Cron Clock in regular mode     -.-');
 		new CronJob('0 0 8-23 * * 1-5', function(){
 			ringHour();
 		}, null, true, 'Europe/Paris');
@@ -31,7 +31,7 @@ var startClock = function(modeInit){
 			ringHalfHour();
 		}, null, true, 'Europe/Paris');
 	}else{
-		console.log('Starting clock in full mode');
+		console.log('Cron Clock in full mode');
 		new CronJob('0 0 * * * *', function(){
 			ringHour();
 		}, null, true, 'Europe/Paris');
@@ -152,7 +152,7 @@ var setAlarms = function(){
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 45 15-23 * * *', function(){
-		tts.conversation(9); // Jounee interessante
+		tts.conversation(1); // Jounee interessante
 	}, null, true, 'Europe/Paris');
 
 

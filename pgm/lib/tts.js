@@ -66,19 +66,18 @@ exports.speak = speak;
 var conversation = function(messages){
 	console.log('Service Conversation... ' + messages);
 	try{
-		// if(typeof messages == 'undefined') throw (messages);
-		if(typeof messages == 'undefined' || messages.constructor != Array){// IS EMPTY ?
-			// if(messages.constructor == Number){
-				// messages = conversations[messages];
-			// }else{
-			var rdmNb = ((Math.floor(Math.random()*rdmMaxConversations)));
-			messages = conversations[rdmNb];
-			console.log('Random conversation : ' + rdmNb + '/' + rdmMaxConversations);
-			// console.log(messages);
-			// }
+		if(typeof messages == 'undefined') throw (messages);
+		// Mettre un 2eme Try catch imbriqué...
+		if( messages.constructor != Array){// typeof messages == 'undefined' ||       // IS EMPTY
+			if(messages.constructor == Number && messages != NaN && messages <= rdmMaxConversations-1){
+				messages = conversations[messages];
+			}else{
+				var rdmNb = ((Math.floor(Math.random()*rdmMaxConversations)));
+				messages = conversations[rdmNb];
+				console.log('Random conversation : ' + (rdmNb+1) + '/' + rdmMaxConversations);
+			}
 			messages = messages.split('\n');
 		}
-		// console.log('messages.constructor : ' + messages.constructor);
 		var delay = 1;
 		messages.forEach(function(message){
 			// console.log('__ ' + delay/1000);
