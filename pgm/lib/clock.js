@@ -106,7 +106,7 @@ var setAlarms = function(){
 		});
 	}, null, true, 'Europe/Paris');
 
-	new CronJob('0 */7 7-8 * * 1-5', function(){
+	new CronJob('0 32,40,45,55 7 * * 1-5', function(){
 	// new CronJob('0 * * * * *', function(){
 		tts.conversation(1); // Jounee interessante
 	}, null, true, 'Europe/Paris');
