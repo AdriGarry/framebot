@@ -6,6 +6,7 @@ var Gpio = require('onoff').Gpio;
 var cpBtn = 1;
 var timer;
 
+/** Fonction activity : temoin mode programme */
 var activity = function(mode){
 	if(typeof mode === 'undefined') mode = 'awake';
 	console.log('led.activity started [mode:' + mode + ']');
@@ -26,6 +27,7 @@ var activity = function(mode){
 };
 exports.activity = activity;
 
+/** Fonction clignotement Oeil */
 var blinkEye = function(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
@@ -40,6 +42,7 @@ var blinkEye = function(speed, duration){
 };
 exports.blinkEye = blinkEye;
 
+/** Fonction clignotement Ventre */
 var blinkBelly = function(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
@@ -54,6 +57,7 @@ var blinkBelly = function(speed, duration){
 };
 exports.blinkBelly = blinkBelly;
 
+/** Fonction clignotement Satellite */
 var blinkSatellite = function(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
@@ -68,6 +72,7 @@ var blinkSatellite = function(speed, duration){
 };
 exports.blinkSatellite = blinkSatellite;
 
+/** Fonction clignotement Nez */
 var blinkLed = function(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
@@ -82,6 +87,7 @@ var blinkLed = function(speed, duration){
 };
 exports.blinkLed = blinkLed;
 
+/** Fonction clignotement All Leds */
 var blinkAllLeds = function(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
@@ -98,6 +104,7 @@ var blinkAllLeds = function(speed, duration){
 };
 exports.blinkAllLeds = blinkAllLeds;
 
+/** Fonction clignotement alterne Oeil/Ventre */
 var altLeds = function(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
@@ -114,11 +121,13 @@ var altLeds = function(speed, duration){
 };
 exports.altLeds = altLeds;
 
+/** Fonction annulation clignotements */
 var clearLeds = function(){
 	clearInterval(timer);
 };
 exports.clearLeds = clearLeds;
 
+/** Fonction temoin pression bouton */
 var buttonPush = function(param){
 	if(param == 'stop'){
 		belly.write(0);
@@ -134,6 +143,7 @@ var buttonPush = function(param){
 };
 exports.buttonPush = buttonPush;
 
+/** Fonction allumage Led */
 var ledOn = function(led){
 	if(led == 'led'){
 		led.write(1);
@@ -147,6 +157,7 @@ var ledOn = function(led){
 };
 exports.ledOn = ledOn;
 
+/** Fonction extinction Led */
 var ledOff = function(led){
 	if(led == 'led'){
 		led.write(0);
@@ -160,6 +171,7 @@ var ledOff = function(led){
 };
 exports.ledOff = ledOff;
 
+/** Fonction extinction all Leds */
 var allLedsOff = function(){
 	eye.write(0);
 	belly.write(0);
@@ -168,6 +180,7 @@ var allLedsOff = function(){
 };
 exports.allLedsOff = allLedsOff;
 
+/** Fonction allumage all Leds */
 var allLedsOn = function(){
 	eye.write(1);
 	belly.write(1);

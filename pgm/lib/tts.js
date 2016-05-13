@@ -19,6 +19,7 @@ var rdmMaxConversations = conversations.length;
 
 var lastTTSFilePath = '/home/pi/odi/pgm/tmp/lastTTS.log';
 
+/** Fonction speak TTS (synthetisation vocale espeak & google translate) */
 var voice;
 var speak = function(lg, txt){
 utils.testConnexion(function(connexion){
@@ -63,6 +64,17 @@ utils.testConnexion(function(connexion){
 };
 exports.speak = speak;
 
+/** ######### */
+// var params = [process.argv[2], process.argv[3]];
+var lgParam = process.argv[2];
+var txtParam = process.argv[3];
+// console.log(lgParam + ', ' + txtParam);
+if(typeof lgParam != 'undefined' && typeof lgParam != 'undefined'){
+	// console.log(lgParam + ', ' + txtParam);
+	// self.speak(lgParam, txtParam);
+}
+
+/** Fonction conversation TTS */
 var conversation = function(messages){
 	console.log('Service Conversation... ' + messages);
 	try{
@@ -96,6 +108,7 @@ var conversation = function(messages){
 };
 exports.conversation = conversation;
 
+/** Fonction last speak TTS */
 var lastTTS = function(){
 	try{
 		var lastMsg = fs.readFileSync(lastTTSFilePath, 'UTF-8').toString().split('\n'); // PREVENIR SI FICHIER NON EXISTANT !!!
@@ -116,6 +129,7 @@ var lastTTS = function(){
 };
 exports.lastTTS = lastTTS;
 
+/** Fonction suppression last speak TTS */
 var clearLastTTS = function(){
 	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearLastTTS']);
 	console.log('LastTTS deleted.');

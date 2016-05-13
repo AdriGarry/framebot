@@ -10,6 +10,7 @@ var hour = date.getHours();
 var pastHour = hour;
 var minRing = true;
 
+/** Fonction jukebox (repeat) */
 var setParty = function(test){
 	console.log('LET\'S START PARTY !!  <|:-)  <|:-)  <|:-) \ntest: : ' + test);
 	if(test == true){

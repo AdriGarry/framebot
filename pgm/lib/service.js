@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 // Module Service
 
-// var spawn = require('child_process').spawn;
 var fs = require('fs');
 var request = require('request');
-//var xmlreader = require('xmlreader');
 var leds = require('./leds.js');
 var tts = require('./tts.js');
 var self = this;
 
+/** Fonction info meteo */
 var weatherStatus = fs.readFileSync('/home/pi/odi/pgm/data/weather.status.properties', 'UTF-8').toString().split('\n');
 var weather = function(){
 	request.get({
@@ -40,6 +39,7 @@ var weather = function(){
 };
 exports.weather = weather; 
 
+/** Fonction info heure */
 var time = function(){
 	console.log('Service Time...');
 	var date = new Date();
@@ -53,6 +53,7 @@ var time = function(){
 };
 exports.time = time;
 
+/** Fonction info date */
 var days = fs.readFileSync('/home/pi/odi/pgm/data/date.days.properties', 'UTF-8').toString().split('\n');
 var months = fs.readFileSync('/home/pi/odi/pgm/data/date.months.properties', 'UTF-8').toString().split('\n');
 var date = function(){
@@ -70,6 +71,7 @@ var date = function(){
 };
 exports.date = date;
 
+/** Fonction compilation date-heure-meteo */
 var info = function(){
 	console.log('Service Info...');
 	self.date();
@@ -82,6 +84,7 @@ var info = function(){
 };
 exports.info = info;
 
+/** Fonction info temperature processeur */
 var cpuTemp = function(){
 	var temperature = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp");
 	temperature = ((temperature/1000).toPrecision(2));

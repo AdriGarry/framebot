@@ -20,6 +20,7 @@ var clock = require('./clock.js');
 var service = require('./service.js');
 var self = this;
 
+/** Fonction mute */
 var mute = function(message){
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	console.log(((message === undefined)? '' : message) + ' MUTE  :|');
@@ -29,6 +30,7 @@ var mute = function(message){
 };
 exports.mute = mute;
 
+/** Fonction auto mute (60 minutes) */
 var muteTimer;
 var autoMute = function(message){
 	clearTimeout(muteTimer);
@@ -45,6 +47,7 @@ var autoMute = function(message){
 };
 exports.autoMute = autoMute;
 
+/** Fonction action aleatoire (exclamation, random TTS, services date, heure, meteo...) */
 var randomAction = function(){
 	self.testConnexion(function(connexion){
 		if(!connexion){
@@ -85,6 +88,7 @@ var randomAction = function(){
 };
 exports.randomAction = randomAction;
 
+/** Fonction test connexion */
 var testConnexion = function(callback){
 	require('dns').resolve('www.google.com', function(err) {
 		if(err){
@@ -98,33 +102,9 @@ var testConnexion = function(callback){
 };
 exports.testConnexion = testConnexion;
 
-var sleepNode = function(sec, delay){
-	/*if(delay){
-		delay = 0;
-	}*/
-	//if(isNaN (parseFloat(delay)){
-	//if(typeof delay == "number"){
-	if(delay > 0){
-		console.log('\nOdi is going to fall asleep in ' + delay + 'sec ...');
-	} else {
-		delay = 0;
-	}
-	console.log('\nsleepNode: Odi falling asleep for ' + sec + 'sec !');
-	setTimeout(function(){
-		var wakeUp = new Date().getTime() + (sec * 1000);
-		while (new Date().getTime() <= wakeUp) {
-			;
-		}
-		console.log('\nsleepNode:       -->  Odi going on !!\n');
-	}, delay*1000+1);	
-};
-exports.sleepNode = sleepNode;
-
+/** Fonction redemarrage RPI */
 var reboot = function(){
-	// voiceMail.clearLastTTS();
 	remote.check();
-	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'reboot']);
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
 	setTimeout(function(){
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/power.sh', 'reboot']);
@@ -132,11 +112,10 @@ var reboot = function(){
 };
 exports.reboot = reboot;
 
+/** Fonction arret RPI */
 var shutdown = function(){
 	voiceMail.clearLastTTS();
 	remote.check();
-	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'shutdown']);
 	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY!!');
 	setTimeout(function(){
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/power.sh']);
@@ -144,6 +123,7 @@ var shutdown = function(){
 };
 exports.shutdown = shutdown;
 
+/** Fonction redemarrage programme */
 var restartOdi = function(mode){
 	// if(mode == 'sleep'){
 	if(typeof mode === 'undefined'){
@@ -172,6 +152,7 @@ var restartOdi = function(mode){
 };
 exports.restartOdi = restartOdi;
 
+/** Fonction recuperation message commit */
 var getMsgLastGitCommit = function(callback){
 	function getMsg(error, stdout, stderr){
 		if(error) stdout = 'Error Git Last Commit Message  /!\\';

@@ -9,6 +9,7 @@ var tts = require('./tts.js');
 var time = 0;
 var timer = false;
 
+/** Fonction minuterie */
 var setTimer = function(minutes){
 	if(typeof minutes !== undefined && minutes > 1){
 		minutes = 60 * minutes;

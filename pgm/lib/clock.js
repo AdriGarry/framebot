@@ -14,7 +14,8 @@ var date = new Date();
 var hour = date.getHours();
 var pastHour = hour;
 
-var clockPattern;
+// var clockPattern;
+/** Fontion d'initialisation de l'horloge (jobs associes) */
 var startClock = function(modeInit){
 	if(!modeInit){
 		console.log('Cron Clock in regular mode     -.-');
@@ -42,6 +43,7 @@ var startClock = function(modeInit){
 };
 exports.startClock = startClock;
 
+/** Fontion signal heure */
 var ringHour = function(){
 	date = new Date();
 	hour = date.getHours();
@@ -65,6 +67,7 @@ var ringHour = function(){
 	});
 };
 
+/** Fontion signal demi-heure */
 var ringHalfHour = function(){
 	date = new Date();
 	hour = date.getHours();
@@ -79,6 +82,7 @@ var ringHalfHour = function(){
 	});
 };
 
+/** Fontion d'initialisation des alarmes et des taches de fond (jobs associes) */
 var setAlarms = function(){
 	console.log('Cron Alarms On');
 
@@ -106,10 +110,9 @@ var setAlarms = function(){
 		});
 	}, null, true, 'Europe/Paris');
 
-	new CronJob('0 32,40,45,55 7 * * 1-5', function(){
-	// new CronJob('0 * * * * *', function(){
+	new CronJob('0 40,55 7 * * 1-5', function(){
 		tts.conversation(1); // Jounee interessante
-	}, null, true, 'Europe/Paris');
+	}, null, false, 'Europe/Paris');
 
 	new CronJob('0 30 18 * * 1-5', function() {
 		utils.testConnexion(function(connexion){
@@ -153,7 +156,7 @@ var setAlarms = function(){
 
 	new CronJob('0 45 15-23 * * *', function(){
 		tts.conversation(1); // Jounee interessante
-	}, null, true, 'Europe/Paris');
+	}, null, false, 'Europe/Paris');
 
 
 	new CronJob('0 13 13 * * *', function() {

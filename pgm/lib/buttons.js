@@ -18,6 +18,7 @@ var EventEmitter = require('events').EventEmitter;
 var utils = require('./utils.js');
 var service = require('./service.js');
 
+/** Association switch pour volume radio */
 etat.watch(function(err, value){
 	value = etat.readSync();
 	console.log(' Etat: ' + value + ' [Etat has changed]');
@@ -30,6 +31,7 @@ etat.watch(function(err, value){
 	utils.autoMute();
 });
 
+/** Interval pour l'etat du switch + fonctions associees */
 var instance = false;
 var interval;
 setInterval(function(){
@@ -49,6 +51,7 @@ setInterval(function(){
 	}
 }, 1000);
 
+/** Fonction pour recuperer l'etat du switch */
 var getEtat = function(callback){
 	var value = etat.readSync();
 	console.log('Etat : ' + value)
@@ -57,10 +60,11 @@ var getEtat = function(callback){
 exports.getEtat = getEtat;
 
 var t;
+/** Association actions bouton Vert */
 ok.watch(function(err, value){
 	var pressTime = new Date();
 	while(ok.readSync() == 1){
-		;
+		; // Pause
 		t = Math.round((new Date() - pressTime)/100)/10;
 		if(t%1 == 0){
 			// console.log(t);
@@ -99,13 +103,13 @@ ok.watch(function(err, value){
 	utils.autoMute();
 });
 
+/** Association actions bouton Rouge */
 cancel.watch(function(err, value){
 	var pressTime = new Date();
 	while(cancel.readSync() == 1){
-		;
+		; // Pause
 		t = Math.round((new Date() - pressTime)/100)/10;
 		if(t%1 == 0){
-			// console.log(t);
 			belly.write(0);
 		}else{
 			belly.write(1);
@@ -133,13 +137,14 @@ cancel.watch(function(err, value){
 			// console.log('__Test');
 	// }, null, true, 'Europe/Paris');
 ////////////////////////////////
+
+/** Association actions bouton Blanc */
 white.watch(function(err, value){
 	var pressTime = new Date();
 	while(white.readSync() == 1){
-		;
+		; // Pause
 		t = Math.round((new Date() - pressTime)/100)/10;
 		if(t%1 == 0){
-			// console.log(t);
 			belly.write(0);
 		}else{
 			belly.write(1);
@@ -159,13 +164,14 @@ white.watch(function(err, value){
 		console.log('Push White button canceled !');
 	}*/
 });
+
+/** Association actions bouton Bleu */
 blue.watch(function(err, value){
 	var pressTime = new Date();
 	while(blue.readSync() == 1){
-		;
+		; // Pause
 		t = Math.round((new Date() - pressTime)/100)/10;
 		if(t%1 == 0){
-			// console.log(t);
 			belly.write(0);
 		}else{
 			belly.write(1);

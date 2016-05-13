@@ -18,14 +18,6 @@ var logoNormal = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', '
 var logoSleep = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
 // var mute;
 
-/*utils.getMsgLastGitCommit(function(commitMsg){
-	setTimeout(function(){
-		utils.recordLog('Last Commit Title : ' + commitMsg);
-		commitMsg = commitMsg.replace('.',' point ');
-		tts.speak('fr', commitMsg.trim());
-	}, 1000);
-});*/
-
 // setInterval(function(){
 	// led.write(0);
 // }, 10*1000);
@@ -38,6 +30,7 @@ ok.watch(function(err, value){
 	}
 });
 
+/** Fonction demarrage programme */
 function startOdi(mode){
 	// mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	utils.mute();

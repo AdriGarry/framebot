@@ -4,6 +4,7 @@
 var spawn = require('child_process').spawn;
 var utils = require('./utils.js');
 
+/** Fonction jukebox (repeat) */
 var loop = function(message){
 	utils.mute('Next jukebox song !');
 	setTimeout(function(){
@@ -14,6 +15,7 @@ var loop = function(message){
 };
 exports.loop = loop;
 
+/** Fonction medley jukebox (repeat) */
 var medley = function(message){
 	utils.mute('Next jukebox [medley] song !');
 	setTimeout(function(){

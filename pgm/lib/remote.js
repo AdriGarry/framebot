@@ -21,6 +21,7 @@ var service = require('./service.js');
 var party = require('./party.js');
 var self = this;
 
+/** Fonction check : verification ordres et envoi logs */
 // var voiceMailFilePath = '/home/pi/odi/log/voicemail.log';
 var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
 var check = function(mode){
