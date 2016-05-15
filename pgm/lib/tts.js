@@ -99,7 +99,7 @@ var conversation = function(messages){
 				var txt = message[1];
 				self.speak(lg, txt);
 			}.bind(this, message), delay+1000);
-			delay += message.length*120;
+			delay += message.length*100; //120
 		});
 	}catch(e){
 		self.speak('fr','erreur conversation:1');

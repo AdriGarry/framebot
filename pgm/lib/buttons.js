@@ -91,7 +91,7 @@ ok.watch(function(err, value){
 		// event.emit('playFip', 'Fip Radio');
 		// fip.playFip();
 		if(etat.readSync() == 1){
-			tts.conversation(0);
+			tts.conversation('');
 		}else{
 			tts.conversation('random');
 		}
