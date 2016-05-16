@@ -130,7 +130,7 @@ var restartOdi = function(mode){
 		console.log('Restarting Odi !!');
 		setTimeout(function(){
 			process.exit();
-		}, 300); //500
+		}, 100); //300
 	}else{
 		if(mode.indexOf('sleep') > -1){
 			console.log('Sleeping Odi ...  [' + mode + ']');
@@ -141,18 +141,18 @@ var restartOdi = function(mode){
 					process.exit(13);
 				}
 				// process.exit(mode);
-			}, 300); //500
+			}, 100); //300
 		}else{
 			console.log('Restarting Odi !!');
 			setTimeout(function(){
 				process.exit();
-			}, 300); //500
+			}, 100); //300
 		}
 	}
 };
 exports.restartOdi = restartOdi;
 
-/** Fonction recuperation message commit */
+/** Fonction recuperation dernier message commit */
 var getMsgLastGitCommit = function(callback){
 	function getMsg(error, stdout, stderr){
 		if(error) stdout = 'Error Git Last Commit Message  /!\\';

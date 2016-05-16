@@ -73,7 +73,8 @@ var check = function(mode){
 									utils.restartOdi();
 								}else if(txt == 'sleep'){
 									utils.restartOdi('sleep');
-								}else if(txt == 'sleepWakeUp'){
+								// }else if(txt == 'sleepWakeUp'){
+								}else if(txt.indexOf('sleepWakeUp') >= 0){
 									utils.restartOdi('sleepWakeUp');
 								}else if(txt == 'mute') {
 									// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
@@ -92,6 +93,15 @@ var check = function(mode){
 									jukebox.medley();
 								}else if (txt == 'party' && mode.indexOf('sleep') == -1){
 									party.setParty();
+								}else if(txt.indexOf('timer') >= 0 && mode.indexOf('sleep') == -1){
+									if(/\d/.test(txt)){
+										var min = txt.replace(/[^\d.]/g, '');
+										var min = parseInt(min, 10);
+										console.log('Remote timer for ' + min + ' minutes');
+										timer.setTimer(min);
+									}else{
+										timer.setTimer();
+									}
 								}else if(txt == 'timer' && mode.indexOf('sleep') == -1){
 									timer.setTimer();
 								}else if(txt == 'fip' && mode.indexOf('sleep') == -1){
