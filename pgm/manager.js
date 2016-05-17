@@ -16,11 +16,6 @@ var odiPgm;
 var odiState = false;
 var logoNormal = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
 var logoSleep = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', 'utf8').toString().split('\n');
-// var mute;
-
-// setInterval(function(){
-	// led.write(0);
-// }, 10*1000);
 
 startOdi();
 
@@ -32,7 +27,6 @@ ok.watch(function(err, value){
 
 /** Fonction demarrage programme */
 function startOdi(mode){
-	// mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 	utils.mute();
 	var logo;
 	var logMode;
@@ -44,22 +38,12 @@ function startOdi(mode){
 		logMode = ' OdiSleep!';
 		logo = logoSleep;
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
-		
-		/*if(mode == 'sleepWakeUp'){// || 1 === etat.readSync()){
-			mode = 'sleepWakeUp';
-			logMode = ' OdiSleep!';
-		}else{
-			logMode = ' OdiSleep';
-		}*/
-		logo = logoSleep;
-		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
 	}else{
 		logMode = ' Odi';
 		logo = logoNormal;
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js', mode]);
 	}
-	
-	
+
 	logo = '\n\n' + logo.join('\n');// + '\nodiState:' + odiState;
 	console.log(logo);
 	// log.recordLog(logo);
@@ -77,7 +61,7 @@ function startOdi(mode){
 		if(1 === etat.readSync()){ logMode = logMode.replace('Odi','ODI'); }
 		else{ logMode = logMode.replace('ODI','Odi'); }
 		date = new Date();
-		month = date.getMonth();
+		month = date.getMonth()+1;
 		day = date.getDate();
 		hour = date.getHours();
 		min = date.getMinutes();
@@ -92,7 +76,7 @@ function startOdi(mode){
 		if(1 === etat.readSync()){ logMode = logMode.replace('i','!'); }
 		else{ logMode = logMode.replace('!','i'); }
 		date = new Date();
-		month = date.getMonth();
+		month = date.getMonth()+1;
 		day = date.getDate();
 		hour = date.getHours();
 		min = date.getMinutes();
@@ -104,22 +88,16 @@ function startOdi(mode){
 	});
 	
 	odiPgm.on('exit', function(code){
-		// mute = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 		tts.clearLastTTS();
 		utils.mute();
 		odiState = false;
-		console.log('\r\n>> Odi pgm KILLED  /!\\  /!\\');
+		console.log('\r\n>> Exit Odi Pgm  /!\\  /!\\');
 		console.log('***************************\r\n\r\n');
 		console.log('Code. : '+code);
-		// if(code == 13){
 		console.log('.typeof mode ' + typeof code + ' => ' + code);
 		if(typeof code === 'number' && code > 0){
-		// if(/\d/.test(code)){
-			// code = parseInt(code.replace(/[^\d.]/g, ''), 10);
-			console.log('manager.startOdi.odiPgm Exit code : ' + code);
+			// console.log('manager.startOdi.odiPgm Exit code : ' + code);
 			startOdi(code);
-		// }else if(code == 14){
-			// startOdi('sleepWakeUp');
 		}else{
 			startOdi();
 		}

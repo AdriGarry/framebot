@@ -102,6 +102,12 @@ var testConnexion = function(callback){
 };
 exports.testConnexion = testConnexion;
 
+/** Fonction parse data from .properties */
+var parseData = function(){
+	// Regrouper ici les actions de parse
+};
+exports.parseData = parseData;
+
 /** Fonction redemarrage RPI */
 var reboot = function(){
 	remote.check();
@@ -123,13 +129,11 @@ var shutdown = function(){
 };
 exports.shutdown = shutdown;
 
-/** Fonction redemarrage programme */
+/** Fonction redemarrage programme/mise en veille */
 var restartOdi = function(mode){
 	console.log('utils.typeof mode : ' + typeof mode);
 	console.log('utils.mode : ' + mode);
 	if(typeof mode === 'number' && mode > 0){
-	// if(/\d/.test(mode)){
-		// mode = mode.replace(/[^\d.]/g, '');
 		mode = parseInt(mode, 10);
 		setTimeout(function(){
 			console.log('Odi is going to sleep [' + mode + ']');
@@ -141,34 +145,6 @@ var restartOdi = function(mode){
 			process.exit();
 		}, 300); // Pause pour operations et clean msg
 	}
-
-	
-	/*if(typeof mode === 'undefined'){
-		console.log('Restarting Odi !!');
-		setTimeout(function(){
-			process.exit();
-		}, 100); //300
-	}else{
-		if(mode.indexOf('sleep') > -1){
-			if(/\d/.test(mode)){
-				var sleepTime = mode.replace(/[^\d.]/g, '');
-				var sleepTime = parseInt(sleepTime, 10);
-				if(mode > 0){
-					console.log('Remote timer for ' + sleepTime + ' minutes');
-					process.exit(sleepTime);
-				}else{
-					console.log('Rien !!');
-				}
-			}else{
-				process.exit(3);
-			}
-		}else{
-			console.log('Restarting Odi !!');
-			setTimeout(function(){
-				process.exit();
-			}, 100); //300
-		}
-	}*/
 };
 exports.restartOdi = restartOdi;
 
