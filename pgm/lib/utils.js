@@ -127,19 +127,18 @@ exports.shutdown = shutdown;
 var restartOdi = function(mode){
 	console.log('utils.typeof mode : ' + typeof mode);
 	console.log('utils.mode : ' + mode);
-	console.log('mode.constructor : ' + mode.constructor);
-	if(typeof mode === 'number'){
+	if(typeof mode === 'number' && mode > 0){
 	// if(/\d/.test(mode)){
 		// mode = mode.replace(/[^\d.]/g, '');
 		mode = parseInt(mode, 10);
 		setTimeout(function(){
-			console.log('Restarting Odi in sleep mode!!');
+			console.log('Odi is going to sleep [' + mode + ']');
 			process.exit(mode);
 		}, 300); // Pause pour operations et clean msg
 	}else{
 		setTimeout(function(){
 			console.log('Restarting Odi !!');
-			process.exit('');
+			process.exit();
 		}, 300); // Pause pour operations et clean msg
 	}
 

@@ -73,11 +73,10 @@ var check = function(mode){
 									utils.restartOdi();
 								}else if(txt.indexOf('sleep') >= 0){
 									if(/\d/.test(txt)){
-										var sleepTime = txt.replace(/[^\d.]/g, '');
-										var sleepTime = parseInt(sleepTime, 10);
+										var sleepTime = parseInt(txt.replace(/[^\d.]/g, ''), 10);
 										utils.restartOdi(sleepTime);
 									}else{
-										utils.restartOdi(0);
+										utils.restartOdi(3);
 									}
 								}else if(txt == 'mute') {
 									// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);

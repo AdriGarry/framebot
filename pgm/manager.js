@@ -40,7 +40,7 @@ function startOdi(mode){
 	console.log('manager.startOdi.mode : ' + mode);
 	if(typeof mode === 'undefined') mode = '';
 	// if(typeof mode === Number){
-	if(/\d/.test(mode)){
+	if(/\d/.test(mode) && mode > 0){
 		logMode = ' OdiSleep!';
 		logo = logoSleep;
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
@@ -113,7 +113,7 @@ function startOdi(mode){
 		console.log('Code. : '+code);
 		// if(code == 13){
 		console.log('.typeof mode ' + typeof code + ' => ' + code);
-		if(typeof code === 'number'){
+		if(typeof code === 'number' && code > 0){
 		// if(/\d/.test(code)){
 			// code = parseInt(code.replace(/[^\d.]/g, ''), 10);
 			console.log('manager.startOdi.odiPgm Exit code : ' + code);

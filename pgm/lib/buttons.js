@@ -125,7 +125,7 @@ cancel.watch(function(err, value){
 		if(etat.readSync() == 0){
 			utils.restartOdi(3);
 		}else{
-			utils.restartOdi(0);
+			utils.restartOdi(12);
 		}
 	}
 	// console.log('Killing __Test');
