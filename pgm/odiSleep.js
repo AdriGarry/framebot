@@ -10,13 +10,15 @@ var remote = require('./lib/remote.js');
 
 var mode = process.argv[2];
 
-var minToWakeUp = 180;
+var sleepTime = process.argv[2];
 var msg = 'Odi is in sleeping mode...';
-if(mode == 'sleepWakeUp'){
-	msg = msg + '  for ' + minToWakeUp/60 + ' hours';
+// if(typeof mode === Number){
+if(/\d/.test(mode)){
+	sleepTime = parseInt(sleepTime.replace(/[^\d.]/g, ''), 10);
+	msg = msg + '  for ' + sleepTime + ' hours';
 	setTimeout(function(){
 		utils.restartOdi();
-	}, minToWakeUp*60*1000);
+	}, sleepTime*60*60*1000);
 	new CronJob('*/3 * * * * *', function(){
 		leds.blinkLed(300, 1.5);
 	}, null, true, 'Europe/Paris');
@@ -28,7 +30,8 @@ if(mode == 'sleepWakeUp'){
 console.log(msg + '   -.-');
 
 ok.watch(function(err, value){
-	utils.restartOdi();
+	console.log('Restarting Odi from SLEEP');
+	utils.restartOdi('');
 });
 
 leds.activity(mode);

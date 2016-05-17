@@ -14,8 +14,8 @@ var remote = require('./lib/remote.js');
 
 var odiPgm;
 var odiState = false;
-var logoNormal = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', 'utf8').toString().split('\n');
-var logoSleep = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
+var logoNormal = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
+var logoSleep = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', 'utf8').toString().split('\n');
 // var mute;
 
 // setInterval(function(){
@@ -36,20 +36,26 @@ function startOdi(mode){
 	utils.mute();
 	var logo;
 	var logMode;
+	console.log('typeof mode ' + typeof mode);
+	console.log('manager.startOdi.mode : ' + mode);
 	if(typeof mode === 'undefined') mode = '';
-	// if(mode == 'sleep'){
-	if(mode.indexOf('sleep') > -1){
-		if(mode == 'sleepWakeUp'){// || 1 === etat.readSync()){
+	// if(typeof mode === Number){
+	if(/\d/.test(mode)){
+		logMode = ' OdiSleep!';
+		logo = logoSleep;
+		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
+		
+		/*if(mode == 'sleepWakeUp'){// || 1 === etat.readSync()){
 			mode = 'sleepWakeUp';
 			logMode = ' OdiSleep!';
 		}else{
 			logMode = ' OdiSleep';
-		}
-		logo = logoNormal;
+		}*/
+		logo = logoSleep;
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
 	}else{
 		logMode = ' Odi';
-		logo = logoSleep;
+		logo = logoNormal;
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odi.js', mode]);
 	}
 	
@@ -105,10 +111,15 @@ function startOdi(mode){
 		console.log('\r\n>> Odi pgm KILLED  /!\\  /!\\');
 		console.log('***************************\r\n\r\n');
 		console.log('Code. : '+code);
-		if(code == 13){
-			startOdi('sleep');
-		}else if(code == 14){
-			startOdi('sleepWakeUp');
+		// if(code == 13){
+		console.log('.typeof mode ' + typeof code + ' => ' + code);
+		if(typeof code === 'number'){
+		// if(/\d/.test(code)){
+			// code = parseInt(code.replace(/[^\d.]/g, ''), 10);
+			console.log('manager.startOdi.odiPgm Exit code : ' + code);
+			startOdi(code);
+		// }else if(code == 14){
+			// startOdi('sleepWakeUp');
 		}else{
 			startOdi();
 		}

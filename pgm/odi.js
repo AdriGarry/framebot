@@ -54,7 +54,7 @@ new CronJob('13 * * * * *', function(){  // Cron sequence test
 new CronJob('*/10 * * * * *', function(){
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
-			remote.check(mode);
+			remote.check();//mode
 		} else {
 			console.error('No network, can\'t check messages & export log  /!\\');
 		}

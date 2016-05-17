@@ -125,30 +125,51 @@ exports.shutdown = shutdown;
 
 /** Fonction redemarrage programme */
 var restartOdi = function(mode){
-	// if(mode == 'sleep'){
-	if(typeof mode === 'undefined'){
+	console.log('utils.typeof mode : ' + typeof mode);
+	console.log('utils.mode : ' + mode);
+	console.log('mode.constructor : ' + mode.constructor);
+	if(typeof mode === 'number'){
+	// if(/\d/.test(mode)){
+		// mode = mode.replace(/[^\d.]/g, '');
+		mode = parseInt(mode, 10);
+		setTimeout(function(){
+			console.log('Restarting Odi in sleep mode!!');
+			process.exit(mode);
+		}, 300); // Pause pour operations et clean msg
+	}else{
+		setTimeout(function(){
+			console.log('Restarting Odi !!');
+			process.exit('');
+		}, 300); // Pause pour operations et clean msg
+	}
+
+	
+	/*if(typeof mode === 'undefined'){
 		console.log('Restarting Odi !!');
 		setTimeout(function(){
 			process.exit();
 		}, 100); //300
 	}else{
 		if(mode.indexOf('sleep') > -1){
-			console.log('Sleeping Odi ...  [' + mode + ']');
-			setTimeout(function(){
-				if(mode.indexOf('sleepWakeUp') > -1){
-					process.exit(14);
+			if(/\d/.test(mode)){
+				var sleepTime = mode.replace(/[^\d.]/g, '');
+				var sleepTime = parseInt(sleepTime, 10);
+				if(mode > 0){
+					console.log('Remote timer for ' + sleepTime + ' minutes');
+					process.exit(sleepTime);
 				}else{
-					process.exit(13);
+					console.log('Rien !!');
 				}
-				// process.exit(mode);
-			}, 100); //300
+			}else{
+				process.exit(3);
+			}
 		}else{
 			console.log('Restarting Odi !!');
 			setTimeout(function(){
 				process.exit();
 			}, 100); //300
 		}
-	}
+	}*/
 };
 exports.restartOdi = restartOdi;
 

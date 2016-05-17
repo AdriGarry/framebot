@@ -122,10 +122,10 @@ cancel.watch(function(err, value){
 	if(pressTime >= 1 && pressTime < 3){
 		utils.restartOdi();
 	}else if(pressTime >= 3){
-		if(etat.readSync() == 1){
-			utils.restartOdi('sleepWakeUp');
+		if(etat.readSync() == 0){
+			utils.restartOdi(3);
 		}else{
-			utils.restartOdi('sleep');
+			utils.restartOdi(0);
 		}
 	}
 	// console.log('Killing __Test');

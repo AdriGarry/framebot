@@ -10,7 +10,8 @@ var timer;
 var activity = function(mode){
 	if(typeof mode === 'undefined') mode = 'awake';
 	console.log('led.activity started [mode:' + mode + ']');
-	if(mode.indexOf('sleep') > -1){
+	// if(mode.indexOf('sleep') > -1){
+	if(typeof mode === 'number'){
 		mode = 0;
 	}else{
 		mode = 1;

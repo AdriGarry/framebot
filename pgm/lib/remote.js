@@ -71,11 +71,14 @@ var check = function(mode){
 									utils.shutdown();
 								}else if(txt == 'odi'){
 									utils.restartOdi();
-								}else if(txt == 'sleep'){
-									utils.restartOdi('sleep');
-								// }else if(txt == 'sleepWakeUp'){
-								}else if(txt.indexOf('sleepWakeUp') >= 0){
-									utils.restartOdi('sleepWakeUp');
+								}else if(txt.indexOf('sleep') >= 0){
+									if(/\d/.test(txt)){
+										var sleepTime = txt.replace(/[^\d.]/g, '');
+										var sleepTime = parseInt(sleepTime, 10);
+										utils.restartOdi(sleepTime);
+									}else{
+										utils.restartOdi(0);
+									}
 								}else if(txt == 'mute') {
 									// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
 									utils.mute();
@@ -95,8 +98,7 @@ var check = function(mode){
 									party.setParty();
 								}else if(txt.indexOf('timer') >= 0 && mode.indexOf('sleep') == -1){
 									if(/\d/.test(txt)){
-										var min = txt.replace(/[^\d.]/g, '');
-										var min = parseInt(min, 10);
+										var min = parseInt(txt.replace(/[^\d.]/g, ''), 10);
 										console.log('Remote timer for ' + min + ' minutes');
 										timer.setTimer(min);
 									}else{
