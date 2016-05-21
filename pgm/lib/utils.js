@@ -53,7 +53,7 @@ var randomAction = function(){
 		if(!connexion){
 			exclamation.exclamation2Rappels();
 		}else{
-			var rdm = Math.floor(Math.random()*17); // 1->13
+			var rdm = Math.floor(Math.random()*19); // 1->13
 			console.log('> randomAction [rdm = ' + rdm + ']');
 			switch(rdm){
 				case 1:
@@ -131,8 +131,8 @@ exports.shutdown = shutdown;
 
 /** Fonction redemarrage programme/mise en veille */
 var restartOdi = function(mode){
-	console.log('utils.typeof mode : ' + typeof mode);
-	console.log('utils.mode : ' + mode);
+	// console.log('utils.typeof mode : ' + typeof mode);
+	// console.log('utils.mode : ' + mode);
 	if(typeof mode === 'number' && mode > 0){
 		mode = parseInt(mode, 10);
 		setTimeout(function(){

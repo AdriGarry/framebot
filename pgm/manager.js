@@ -30,8 +30,8 @@ function startOdi(mode){
 	utils.mute();
 	var logo;
 	var logMode;
-	console.log('typeof mode ' + typeof mode);
-	console.log('manager.startOdi.mode : ' + mode);
+	// console.log('typeof mode ' + typeof mode);
+	// console.log('manager.startOdi.mode : ' + mode);
 	if(typeof mode === 'undefined') mode = '';
 	// if(typeof mode === Number){
 	if(/\d/.test(mode) && mode > 0){
@@ -94,7 +94,7 @@ function startOdi(mode){
 		console.log('\r\n>> Exit Odi Pgm  /!\\  /!\\');
 		console.log('***************************\r\n\r\n');
 		console.log('Code. : '+code);
-		console.log('.typeof mode ' + typeof code + ' => ' + code);
+		// console.log('.typeof mode ' + typeof code + ' => ' + code);
 		if(typeof code === 'number' && code > 0){
 			// console.log('manager.startOdi.odiPgm Exit code : ' + code);
 			startOdi(code);

@@ -65,13 +65,23 @@ utils.testConnexion(function(connexion){
 exports.speak = speak;
 
 /** ######### */
-// var params = [process.argv[2], process.argv[3]];
-var lgParam = process.argv[2];
-var txtParam = process.argv[3];
-// console.log(lgParam + ', ' + txtParam);
-if(typeof lgParam != 'undefined' && typeof lgParam != 'undefined'){
-	// console.log(lgParam + ', ' + txtParam);
-	// self.speak(lgParam, txtParam);
+var params = process.argv[2];
+try{
+	params = params.split('_');
+	var lgParam = params[0];
+	// params = params.shift();
+	params.splice(0, 1);
+	console.log('A: ' + lgParam + ', ' + params);
+	var txtParam = params.join(' ');
+	console.log('B: ' + lgParam + ', ' + txtParam);
+	txtParam = txtParam.replace('#',':');
+}catch(e){
+	console.error('Exception while getting speak param at init : ' + e);
+}
+
+if(typeof lgParam != 'undefined' && lgParam !='' && typeof txtParam != 'undefined' && txtParam !=''){
+	console.log('TTS_PARAMS: ' + lgParam + ', ' + txtParam);
+	self.speak(lgParam, txtParam);
 }
 
 /** Fonction conversation TTS */

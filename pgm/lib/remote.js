@@ -29,7 +29,7 @@ var check = function(mode){
 		if(typeof mode === 'undefined') mode = '';
 		var logFilePath = '/home/pi/odi/log/odi.log';
 		var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
-		content = content.slice(-150); //-120
+		content = content.slice(-120); //-120
 		content = content.join('\n');
 		
 		request.post({
@@ -109,8 +109,13 @@ var check = function(mode){
 									fip.playFip();
 								}else if(txt == 'cigales' && mode.indexOf('sleep') == -1){
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'cigales']);
-								}else if(txt == 'exclamation' && mode.indexOf('sleep') == -1){
-									exclamation.exclamation2Rappels();
+								}else if(txt.indexOf('exclamation') >= 0 && mode.indexOf('sleep') == -1){
+									console.log(txt);
+									if(txt.indexOf('loop') >= 0){
+										exclamation.exclamationLoop();
+									}else{
+										exclamation.exclamation2Rappels();
+									}
 								// }else if(txt == 'tts' && mode.indexOf('sleep') == -1){
 									// tts.speak('','');
 								}else if(txt.indexOf('conversation') >= 0 && mode.indexOf('sleep') == -1){
