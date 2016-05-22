@@ -17,7 +17,7 @@ var exclamation2Rappels = function(){
 		leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh']);
 		setTimeout(function(){ eye.write(0); }, 2000);
-	}, rdm * 1000);
+	}, rdm * 3 * 1000);
 	setTimeout(function(){
 		console.log('Exclamation recall 2');
 		leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);

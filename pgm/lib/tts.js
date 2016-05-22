@@ -71,12 +71,14 @@ try{
 	var lgParam = params[0];
 	// params = params.shift();
 	params.splice(0, 1);
-	console.log('A: ' + lgParam + ', ' + params);
+	// console.log('A: ' + lgParam + ', ' + params);
 	var txtParam = params.join(' ');
-	console.log('B: ' + lgParam + ', ' + txtParam);
+	// console.log('B: ' + lgParam + ', ' + txtParam);
 	txtParam = txtParam.replace('#',':');
 }catch(e){
-	console.error('Exception while getting speak param at init : ' + e);
+	if(typeof params !== 'undefined'){
+		console.error('Exception while getting speak param at init : ' + e);
+	}
 }
 
 if(typeof lgParam != 'undefined' && lgParam !='' && typeof txtParam != 'undefined' && txtParam !=''){

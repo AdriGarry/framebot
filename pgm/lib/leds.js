@@ -6,12 +6,12 @@ var Gpio = require('onoff').Gpio;
 var cpBtn = 1;
 var timer;
 
-/** Fonction activity : temoin mode programme */
+/** Fonction activity : temoin mode programme (normal/veille) */
 var activity = function(mode){
 	if(typeof mode === 'undefined') mode = 'awake';
 	console.log('led.activity started [mode:' + mode + ']');
-	// if(mode.indexOf('sleep') > -1){
-	if(typeof mode === 'number'){
+	mode = parseInt(mode, 10);
+	if(mode > 0){
 		mode = 0;
 	}else{
 		mode = 1;
@@ -19,12 +19,7 @@ var activity = function(mode){
 	setInterval(function(){
 		led.write(mode);
 	}, 1000);
-	// var loop = setInterval(function(){
-		// setTimeout(function(){
-			// clearTimeout(loop);
-		// }, 300);
-		// led.write(0);
-	// }, 1000);
+	// return ??? (code?)
 };
 exports.activity = activity;
 

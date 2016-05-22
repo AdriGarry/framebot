@@ -26,9 +26,9 @@ setTimeout(function(){
 }, 500);
 
 leds.activity();
-/*setInterval(function(){
-	leds.blinkLed(300, 1);
-}, 3000);*/
+setInterval(function(){
+	leds.blinkLed(400, 0.7);
+}, 3000);
 new CronJob('*/3 * * * * *', function(){
 	leds.blinkLed(300, 1);
 }, null, true, 'Europe/Paris');

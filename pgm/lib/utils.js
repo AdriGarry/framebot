@@ -23,7 +23,7 @@ var self = this;
 /** Fonction mute */
 var mute = function(message){
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-	console.log(((message === undefined)? '' : message) + ' MUTE  :|');
+	console.log(((message === undefined)? '' : message) + 'MUTE  :|');
 	leds.clearLeds();
 	eye.write(0);
 	belly.write(0);
@@ -38,7 +38,7 @@ var autoMute = function(message){
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh', 'auto']);
 		setTimeout(function(){
 			deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-			console.log(((message === undefined)? '' : message) + ' AUTO MUTE  :|');
+			console.log(((message === undefined)? '' : message) + 'AUTO MUTE  :|');
 			leds.clearLeds();
 			eye.write(0);
 			belly.write(0);
@@ -87,6 +87,29 @@ var randomAction = function(){
 	});
 };
 exports.randomAction = randomAction;
+
+/** Fonction parse data from .properties */
+var parseData = function(filePath){ // OU getData OU sliptData
+var data = 'KO'; // ou undefined
+	try{
+		data = fs.readFileSync(filePath, 'UTF-8').toString();
+	}catch(e){
+		console.error('Error while reading file : ' + filePath);
+		console.error(e);
+	}
+	try{
+		if(data.indexOf('\n\n') > -1){
+			data = data.split('\n\n');
+		}else{
+			data = data.split('\n');
+		}
+	}catch(e){
+		console.error('Error while spliting file : ' + filePath);
+		console.error(e);
+	}
+	return data;
+};
+exports.parseData = parseData;
 
 /** Fonction test connexion */
 var testConnexion = function(callback){

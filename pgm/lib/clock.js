@@ -160,6 +160,13 @@ var setAlarms = function(){
 
 
 	new CronJob('0 13 13 * * *', function() {
+		tts.speak('en','Auto restart:0');
+		setTimeout(function(){
+			utils.restartOdi();
+		}, 3000);
+	}, null, true, 'Europe/Paris');
+
+	new CronJob('13 13 13 * * 0', function() {
 		tts.speak('fr','Auto reboot:0');
 		setTimeout(function(){
 			utils.reboot();
