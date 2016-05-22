@@ -116,8 +116,6 @@ var check = function(mode){
 									}else{
 										exclamation.exclamation2Rappels();
 									}
-								// }else if(txt == 'tts' && mode.indexOf('sleep') == -1){
-									// tts.speak('','');
 								}else if(txt.indexOf('conversation') >= 0 && mode.indexOf('sleep') == -1){
 									if(/\d/.test(txt)){
 										var rdmNb = txt.replace(/[^\d.]/g, '');
@@ -137,8 +135,16 @@ var check = function(mode){
 									service.info();
 								}else if(txt == 'serviceCpu' && mode.indexOf('sleep') == -1){
 									service.cpuTemp();
-								}else if(txt == 'urss' && mode.indexOf('sleep') == -1){
-									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'urss']);
+								}else if(txt.indexOf('urss') >= 0 && mode.indexOf('sleep') == -1){
+									/*if(/\d/.test(txt)){
+										var rdmNb = txt.replace(/[^\d.]/g, '');
+										var rdmNb = parseInt(rdmNb, 10);
+										console.log('Remote conversation random param : ' + rdmNb);
+										deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'urss']);
+									}else{
+										deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'urss']);
+									}*/
+									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', txt]);
 								}else if(txt == 'test' && mode.indexOf('sleep') == -1){
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'mouthTrick']);
 								}else if(mode.indexOf('sleep') == -1){
