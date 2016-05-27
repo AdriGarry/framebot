@@ -1,5 +1,6 @@
 #!/bin/sh
 
+#___Sons Party mode
 sudo node /home/pi/odi/pgm/lib/allLedsOn.js
 volume=300
 if [ $1 = "startParty" ]

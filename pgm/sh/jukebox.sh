@@ -1,7 +1,10 @@
 #!/bin/sh
 
+#___Fonction Jukebox
+
 # SERVICE="omxplayer" # On definit le service a utiliser (omxplayer)
 
+#___Fonction Jukebox Meddley
 if [ $1 = "medley" ]
 then
 	position=$(shuf -e 4 51 -n 1)
@@ -31,6 +34,7 @@ then
 			sudo node /home/pi/odi/pgm/lib/allLedsOn.js
 			sudo killall omxplayer.bin
 	done
+#___Fonction Jukebox Normal
 else
 	while true; do # On scanne en boucle le dossier
 			music=$(sudo find /home/pi/odi/mp3/jukebox -maxdepth 1 -type f | shuf | head -1)

@@ -1,16 +1,19 @@
 #!/bin/sh
 
+#___Fonction ##
 reInitLogFiles () {
 	sudo > /home/pi/odi/log/odi.log
 	sudo chmod 777 /home/pi/odi/log/odi.log
 	# sudo > /home/pi/odi/log/odiNode.log
 }
 
+#___Fonction suppression fichiers de logs
 deleteLogFiles () {
 	sudo rm /home/pi/odi/log/*.log
 	sudo touch /home/pi/odi/log/odi.log
 }
 
+#___Fonction archivage des logs
 cleanLog () {
 	if [ ! -d "/home/pi/odi/log/old" ]
 	then

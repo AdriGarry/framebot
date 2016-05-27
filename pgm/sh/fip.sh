@@ -1,4 +1,7 @@
 #!/bin/sh
+
+#___Fonction FIP radio
+
 echo 'Odi/ Play random music'
 
 volume=$(cat /sys/class/gpio/gpio13/value)

@@ -182,11 +182,11 @@ blue.watch(function(err, value){
 	console.log('[val:' + value + ']  Blue btn pressed for ' + pressTime + ' sec [2;5]');
 	if(pressTime < 2){
 		if(etat.readSync() == 0){
-			jukebox.loop();
-		}else{
 			// jukebox.medley();
 			// event.emit('playFip', 'Fip Radio');
 			fip.playFip();
+		}else{
+			jukebox.loop();
 		}
 	}else if(pressTime > 2 && pressTime < 5){
 		if(etat.readSync() == 0){

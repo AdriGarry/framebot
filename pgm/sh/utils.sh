@@ -1,11 +1,13 @@
 #!/bin/sh
 
+#___Fonction nettoyage dernier message
 clearLastTTS(){
 	sudo chmod 777 /home/pi/odi/pgm/tmp/lastTTS.log
 	sudo rm -f /home/pi/odi/pgm/tmp/lastTTS.log
 	echo 
 }
 
+#___Fonction nettoyage Messagerie
 clearVoiceMail(){
 	sudo chmod 777 /home/pi/odi/pgm/tmp/voicemail.log
 	sudo rm -f /home/pi/odi/pgm/tmp/voicemail.log

@@ -1,5 +1,6 @@
 #!/bin/sh
 
+#___Fonction Musique
 sudo node /home/pi/odi/pgm/lib/allLedsOn.js
 
 volume=$(cat /sys/class/gpio/gpio13/value)
@@ -10,6 +11,7 @@ else
 	volume=300
 fi
 
+#___Fonction chansons specifiques
 echo $1
 if [ $1 = "mouthTrick" ]
 then
