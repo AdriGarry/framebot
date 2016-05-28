@@ -17,15 +17,15 @@ var odiState = false;
 var logoNormal = fs.readFileSync('/home/pi/odi/pgm/data/logo.properties', 'utf8').toString().split('\n');
 var logoSleep = fs.readFileSync('/home/pi/odi/pgm/data/logoSleep.properties', 'utf8').toString().split('\n');
 
-startOdi();
+startOdi(); // Premiere initialisation
 
 ok.watch(function(err, value){
-	if(!odiState){
-		startOdi();
+	if(!odiState){		// Detection bouton Vert pour forcer
+		startOdi();		// le lancement si besoin
 	}
 });
 
-/** Fonction demarrage programme */
+/** Fonction demarrage programme Odi */
 function startOdi(mode){
 	utils.mute();
 	var logo;
@@ -35,7 +35,8 @@ function startOdi(mode){
 	if(typeof mode === 'undefined') mode = '';
 	// if(typeof mode === Number){
 	if(/\d/.test(mode) && mode > 0){
-		logMode = ' OdiSleep!';
+		// logMode = ' OdiSleep!';
+		logMode = ' Odi...' + mode + 'h';
 		logo = logoSleep;
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
 	}else{
@@ -102,5 +103,5 @@ function startOdi(mode){
 			startOdi();
 		}
 	});
-	remote.check('log');
+	remote.synchro('log');
 }

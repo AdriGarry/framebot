@@ -16,7 +16,7 @@ var tts = require('./tts.js');
 var voiceMail = require('./voiceMail.js');
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
-var clock = require('./clock.js');
+// var clock = require('./clock.js');
 var service = require('./service.js');
 var self = this;
 
@@ -37,13 +37,16 @@ var autoMute = function(message){
 	muteTimer = setTimeout(function(){
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh', 'auto']);
 		setTimeout(function(){
+			message = ((message === undefined)? '' : message) + 'AUTO MUTE  :|';
+			fip.stopFip(message);
 			deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);
-			console.log(((message === undefined)? '' : message) + 'AUTO MUTE  :|');
 			leds.clearLeds();
 			eye.write(0);
 			belly.write(0);
 		}, 1600);
-	}, 60*60*1000);
+		console.log(message);
+	}, 13*1000);
+	// }, 60*60*1000);
 };
 exports.autoMute = autoMute;
 
@@ -111,7 +114,7 @@ var data = 'KO'; // ou undefined
 };
 exports.parseData = parseData;
 
-/** Fonction test connexion */
+/** Fonction test connexion internet */
 var testConnexion = function(callback){
 	require('dns').resolve('www.google.com', function(err) {
 		if(err){

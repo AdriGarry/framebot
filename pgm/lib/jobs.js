@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Module Horloge & Alarmes
+// Module Jobs [horloge, alarmes & taches de fond]
 
 var spawn = require('child_process').spawn;
 var CronJob = require('cron').CronJob;
@@ -18,7 +18,7 @@ var pastHour = hour;
 /** Fontion d'initialisation de l'horloge (jobs associes) */
 var startClock = function(modeInit){
 	if(!modeInit){
-		console.log('Cron Clock in regular mode     -.-');
+		console.log('Clock jobs initialised in regular mode');
 		new CronJob('0 0 8-23 * * 1-5', function(){
 			ringHour();
 		}, null, true, 'Europe/Paris');
@@ -32,7 +32,7 @@ var startClock = function(modeInit){
 			ringHalfHour();
 		}, null, true, 'Europe/Paris');
 	}else{
-		console.log('Cron Clock in full mode');
+		console.log('Cron Clock initialised in full time mode !');
 		new CronJob('0 0 * * * *', function(){
 			ringHour();
 		}, null, true, 'Europe/Paris');
@@ -84,7 +84,7 @@ var ringHalfHour = function(){
 
 /** Fontion d'initialisation des alarmes et des taches de fond (jobs associes) */
 var setAlarms = function(){
-	console.log('Cron Alarms On');
+	console.log('Alarms jobs initialised');
 
 	new CronJob('0 26 7 * * 1-5', function(){
 		console.log('Morning Sea...');
@@ -154,33 +154,37 @@ var setAlarms = function(){
 
 	}, null, true, 'Europe/Paris');
 
-	new CronJob('0 45 15-23 * * *', function(){
-		tts.conversation(1); // Jounee interessante
-	}, null, false, 'Europe/Paris');
+	new CronJob('13 15-45 17-22 * * *', function(){
+		tts.conversation(); // Conversations aleatoires dans la journee
+	}, null, true, 'Europe/Paris'); // Signal des 1/4 d'heure, entre 17h et 23h
 
+	new CronJob('0 12 12 * * *', function() {
+		console.log('Il Est Midi !!!!!!'); // Chanson 'Il Est Midi'
+		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'IlEstMidi']);
+	}, null, true, 'Europe/Paris');
+};
+exports.setAlarms = setAlarms;
 
+/** Fontion d'initialisation des taches de fond */
+var setBackgroundJobs = function(){
+	console.log('Background jobs initialised');
 	new CronJob('0 13 13 * * *', function() {
-		tts.speak('en','Auto restart:0');
+		tts.speak('en','Auto restart:0'); // Reinitialisation quotidienne
 		setTimeout(function(){
 			utils.restartOdi();
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('13 13 13 * * 0', function() {
-		tts.speak('fr','Auto reboot:0');
+		tts.speak('fr','Auto reboot:0'); // Redemarrage hebdomadaire
 		setTimeout(function(){
 			utils.reboot();
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 
-	new CronJob('0 12 12 * * *', function() {
-		console.log('Il Est Midi !!!!!!');
-		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'IlEstMidi']);
-	}, null, true, 'Europe/Paris');
-
 	new CronJob('0 0 5 * * 2', function() {
-		console.log('Clean log files  /!\\');
+		console.log('Clean log files  /!\\'); // Nettoyage des logs hebdomadaire
 		log.cleanLog();
 	}, null, true, 'Europe/Paris');
 };
-exports.setAlarms = setAlarms;
+exports.setBackgroundJobs = setBackgroundJobs;
