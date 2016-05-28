@@ -1,11 +1,13 @@
 #!/bin/sh
-#si aucun son, verifier le niveau du volume avec la commande alsamixer  /!\ 
+
+#__si aucun son, verifier le niveau du volume avec la commande alsamixer  /!\ 
 #sudo killall omxplayer
 sudo killall mplayer
 sudo killall espeak
 
-# echo $1
+echo $1
 
+#__Fonction Synthetisation vocale Google Translate
 googleTTS(){
 	case $1 in
 		"en")
@@ -39,6 +41,7 @@ googleTTS(){
 	sudo mplayer -softvol -volume $volume -really-quiet -noconsolecontrols "$url"
 }
 
+#__Fonction Synthetisation vocale Espeak
 espeakTTS(){
 	echo $*
 	#shift
@@ -56,7 +59,7 @@ espeakTTS(){
 	echo "pitch => $pitch"
 	
 	#speed=140 #80->450 //175
-	speed=$(shuf -i 130-150 -n 1) #80->450 #100-200
+	speed=$(shuf -i 100-150 -n 1) #80->450 #100-200 #130-150
 	echo "speed =>$speed"
 
 	case $1 in
@@ -85,6 +88,6 @@ case $1 in
 		shift
 		espeakTTS $* ;;
 	*)
-		# shift
-		# googleTTS $* ;;
+		shift
+		espeakTTS $* ;;
 esac
