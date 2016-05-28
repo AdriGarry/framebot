@@ -45,8 +45,8 @@ var autoMute = function(message){
 			belly.write(0);
 		}, 1600);
 		console.log(message);
-	}, 13*1000);
-	// }, 60*60*1000);
+	// }, 13*1000);
+	}, 60*60*1000);
 };
 exports.autoMute = autoMute;
 
