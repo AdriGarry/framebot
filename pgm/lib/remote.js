@@ -16,20 +16,31 @@ var exclamation = require('./exclamation.js');
 var tts = require('./tts.js');
 // var EventEmitter = require('events').EventEmitter;
 // var event = new EventEmitter();
-// var clock = require('./clock.js');
 var service = require('./service.js');
 var party = require('./party.js');
 var self = this;
 
-/** Fonction check : verification ordres et envoi logs */
-// var voiceMailFilePath = '/home/pi/odi/log/voicemail.log';
+/** Fonction trySynchro : test connexion  */
+var trySynchro = function(mode){
+	utils.testConnexion(function(connexion){
+		if(connexion == true){
+			self.synchro();//mode
+		} else {
+			console.error('No network, I can\'t synchro with remote control /!\\');
+			console.log('I\'m a teapot !!');
+		}
+	});
+}
+exports.trySynchro = trySynchro;
+
+/** Fonction synchro : verification ordres et envoi logs */
 var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
-var check = function(mode){
+var synchro = function(mode){
 	try{
 		if(typeof mode === 'undefined') mode = '';
 		var logFilePath = '/home/pi/odi/log/odi.log';
 		var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
-		content = content.slice(-120); //-120
+		content = content.slice(-130); //-120
 		content = content.join('\n');
 		
 		request.post({
@@ -38,14 +49,15 @@ var check = function(mode){
 			log: content,
 			headers: {'Content-Type': 'text/plain'}
 			// headers: {'Content-Type': 'text/plain;charset=utf8'}
-		},
-		function (error, response, body){
+		}, function (error, response, body){
 			if(mode.indexOf('log') > -1){
 				// console.log('remote.check(' + mode + ') ==> break;');
 				console.log('Log Ok');
 				return;
 			}else if(error){
-				console.error('Error Exporting Log  /!\\  ' + error);
+				console.error('Error synchro remote  /!\\  ' + error);
+				// console.error('response : ' + response);
+				// console.error('body : ' + body);
 			}else if(!error && response.statusCode == 200){
 				leds.blinkSatellite(180,1.15);
 				if(typeof body === 'undefined') body = '';
@@ -136,14 +148,6 @@ var check = function(mode){
 								}else if(txt == 'serviceCpu' && mode.indexOf('sleep') == -1){
 									service.cpuTemp();
 								}else if(txt.indexOf('urss') >= 0 && mode.indexOf('sleep') == -1){
-									/*if(/\d/.test(txt)){
-										var rdmNb = txt.replace(/[^\d.]/g, '');
-										var rdmNb = parseInt(rdmNb, 10);
-										console.log('Remote conversation random param : ' + rdmNb);
-										deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'urss']);
-									}else{
-										deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'urss']);
-									}*/
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', txt]);
 								}else if(txt == 'test' && mode.indexOf('sleep') == -1){
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'mouthTrick']);
@@ -185,7 +189,7 @@ var check = function(mode){
 			}
 		});
 	}catch(e){
-		console.error('Exception Export Log && Check Messages   /!\\ /!\\');
-	}			
+		console.error('Exception Export Log && Check Messages   /!\\ /!\\ \n' + e);
+	}
 }
-exports.check = check;
+exports.synchro = synchro;
