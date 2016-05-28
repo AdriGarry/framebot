@@ -54,7 +54,7 @@ setInterval(function(){
 /** Fonction pour recuperer l'etat du switch */
 var getEtat = function(callback){
 	var value = etat.readSync();
-	console.log('Etat : ' + value)
+	// console.log('Etat : ' + value)
 	callback(value);
 };
 exports.getEtat = getEtat;

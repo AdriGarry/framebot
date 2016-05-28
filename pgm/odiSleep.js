@@ -27,7 +27,7 @@ ok.watch(function(err, value){ // Detection bouton Vert pour sortir du mode veil
 });
 
 new CronJob('*/15 * * * * *', function(){ // Initialisation synchronisation remote
-	remote.trySynchro();
+	remote.trySynchro('sleep');
 	/*utils.testConnexion(function(connexion){
 		if(connexion == true){
 			// remote.check(mode);

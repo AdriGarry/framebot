@@ -24,10 +24,10 @@ var self = this;
 var trySynchro = function(mode){
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
-			self.synchro();//mode
+			self.synchro(mode);//mode
 		} else {
 			console.error('No network, I can\'t synchro with remote control /!\\');
-			console.log('I\'m a teapot !!');
+			console.log('And I\'m a teapot !!');
 		}
 	});
 }
@@ -40,7 +40,7 @@ var synchro = function(mode){
 		if(typeof mode === 'undefined') mode = '';
 		var logFilePath = '/home/pi/odi/log/odi.log';
 		var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
-		content = content.slice(-130); //-120
+		content = content.slice(-120); //-120
 		content = content.join('\n');
 		
 		request.post({
@@ -158,16 +158,10 @@ var synchro = function(mode){
 								}
 							}else{
 								 if(mode.indexOf('sleep') > -1){
-									// console.log('New VoiceMail : ' + lg + ' / ' + txt);
 									var message = lg + ';' + txt; // AJOUTER HEURE + DATE ??
-									// var voiceMailFilePath = '/home/pi/odi/log/voicemail.log';
-									/*fs.appendFile(voiceMailFilePath, message, function(err){
-										if(err) console.error(err);
-									});*/
-									
-									fs.appendFile(voiceMailFilePath, message + '\n', 'UTF-8', function(err){ //writeFile
+									fs.appendFile(voiceMailFilePath, message + '\r\n', function(err){ //writeFile
 										if(err){
-											return console.log(err);
+											return console.error(err);
 										}
 										console.log('New VoiceMail Message_: ' + message);
 									}); 
@@ -184,7 +178,7 @@ var synchro = function(mode){
 					// console.log('Clearing messages!');
 					request('http://adrigarry.com/odiTools/clearTTS.php', function (error, response, body){});
 				}
-				console.log('Log/Msg Ok [' + mode + ' _ ' + messages + ']');
+				console.log('Log/Msg Ok [' + mode + '_' + messages + ']');
 				// console.log(i + ' Message(s) TTS from OdiWeb ' + messages);
 			}
 		});

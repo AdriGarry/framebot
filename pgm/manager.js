@@ -25,20 +25,22 @@ ok.watch(function(err, value){
 	}
 });
 
+var logMode;
+var timeToWakeUp;
 /** Fonction demarrage programme Odi */
 function startOdi(mode){
 	utils.mute();
 	var logo;
-	var logMode;
 	// console.log('typeof mode ' + typeof mode);
 	// console.log('manager.startOdi.mode : ' + mode);
 	if(typeof mode === 'undefined') mode = '';
 	// if(typeof mode === Number){
 	if(/\d/.test(mode) && mode > 0){
-		// logMode = ' OdiSleep!';
-		logMode = ' Odi...' + mode + 'h';
+		timeToWakeUp = mode * 60; // Conversion en minutes
+		logMode = ' Odi...' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
 		logo = logoSleep;
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
+		decrementTime();
 	}else{
 		logMode = ' Odi';
 		logo = logoNormal;
@@ -58,7 +60,7 @@ function startOdi(mode){
 	var min;
 	var sec;
 	var logDate;
-	odiPgm.stdout.on('data', function(data){
+	odiPgm.stdout.on('data', function(data){ // Template log output
 		if(1 === etat.readSync()){ logMode = logMode.replace('Odi','ODI'); }
 		else{ logMode = logMode.replace('ODI','Odi'); }
 		date = new Date();
@@ -69,11 +71,11 @@ function startOdi(mode){
 		sec = date.getSeconds();
 		logDate = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';//' + year + ' ';
 		logDate = logDate + (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
-		console.log(logDate + logMode + '/ ' + data + '\r\n');
+		console.log(logDate + logMode + '/ ' + data);// + '\r\n'
 		// log.recordLog(logDate + ' Odi/ ' + data);
 	});
 
-	odiPgm.stderr.on('data', function(data){
+	odiPgm.stderr.on('data', function(data){ // Template log error
 		if(1 === etat.readSync()){ logMode = logMode.replace('i','!'); }
 		else{ logMode = logMode.replace('!','i'); }
 		date = new Date();
@@ -84,20 +86,18 @@ function startOdi(mode){
 		sec = date.getMinutes();
 		logDate = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';//' + year + ' ';
 		logDate = logDate + (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
-		console.log(logDate + logMode + '_ERROR/ ' + data + '\r\n');
+		console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
 		// log.recordLog(hour + ':' + min + ':' + sec + ' O/!\\ ' + data);
 	});
 	
-	odiPgm.on('exit', function(code){
+	odiPgm.on('exit', function(code){ // SetUpRestart Actions
 		tts.clearLastTTS();
 		utils.mute();
 		odiState = false;
 		console.log('\r\n>> Exit Odi Pgm  /!\\  /!\\');
 		console.log('***************************\r\n\r\n');
 		console.log('Code. : '+code);
-		// console.log('.typeof mode ' + typeof code + ' => ' + code);
 		if(typeof code === 'number' && code > 0){
-			// console.log('manager.startOdi.odiPgm Exit code : ' + code);
 			startOdi(code);
 		}else{
 			startOdi();
@@ -105,3 +105,12 @@ function startOdi(mode){
 	});
 	remote.synchro('log');
 }
+
+/** Fonction decrementTime : maj temps avant reveil pour logs */
+var decrementTime = function(){
+	setInterval(function(){
+		timeToWakeUp = timeToWakeUp - 1;
+		logMode = ' Odi...' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
+	}, 60*1000);
+};
+exports.decrementTime = decrementTime;
