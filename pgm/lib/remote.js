@@ -178,12 +178,14 @@ var synchro = function(mode){
 					// console.log('Clearing messages!');
 					request('http://adrigarry.com/odiTools/clearTTS.php', function (error, response, body){});
 				}
-				console.log('Log/Msg Ok [' + mode + '_' + messages + ']');
+				if(mode == 'sleep') mode = 'S';
+				// console.log('Log/Msg Ok [' + mode + '_' + messages + ']');
+				console.log('Log/Msg Ok [' + mode + (messages != '' ?'_' + messages:'') + ']');
 				// console.log(i + ' Message(s) TTS from OdiWeb ' + messages);
 			}
 		});
 	}catch(e){
-		console.error('Exception Export Log && Check Messages   /!\\ /!\\ \n' + e);
+		console.error('Exception synchro remote controle   /!\\ /!\\ \n' + e);
 	}
 }
 exports.synchro = synchro;
