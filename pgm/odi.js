@@ -59,4 +59,4 @@ new CronJob('13 * * * * *', function(){
 
 setTimeout(function(){
 	voiceMail.checkVoiceMail();
-}, 5000);
+}, 8000);
