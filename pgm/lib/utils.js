@@ -128,12 +128,6 @@ var testConnexion = function(callback){
 };
 exports.testConnexion = testConnexion;
 
-/** Fonction parse data from .properties */
-var parseData = function(){
-	// Regrouper ici les actions de parse
-};
-exports.parseData = parseData;
-
 /** Fonction redemarrage RPI */
 var reboot = function(){
 	remote.trySynchro();
