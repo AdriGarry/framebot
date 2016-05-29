@@ -113,7 +113,7 @@ var conversation = function(messages){
 				var lg = message[0];
 				var txt = message[1];
 				self.speak(lg, txt);
-			}.bind(this, message), delay+1500);
+			}.bind(this, message), delay+2000);
 			delay += message.length*120;
 		});
 	}catch(e){
