@@ -198,12 +198,12 @@ var setAutoLifeCycle = function(param){
 			utils.restart(); // redemarrer pgm
 		}, null, true, 'Europe/Paris');
 	}else{ // Set go to sleep jobs
-		console.log('Auto Sleep AutoLifeCycle jobs initialised [' + param + ']');
+		console.log('Auto Sleep AutoLifeCycle jobs initialised');
 		new CronJob('13 0 1 * * 1-5', function(){
 			utils.restart();// mettre en veille
 		}, null, true, 'Europe/Paris');
 		new CronJob('13 0 2 * * 0,6', function() {
-			// mettre en veille
+			utils.restart();// mettre en veille
 		}, null, true, 'Europe/Paris');
 	}
 };
