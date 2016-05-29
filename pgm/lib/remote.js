@@ -95,11 +95,11 @@ var synchro = function(mode){
 									utils.mute();
 								}else if(txt == 'lastTTS' && mode.indexOf('sleep') == -1){
 									tts.lastTTS();
-								// }else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
+								}else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
 									// voiceMail.checkVoiceMail();
-									// voiceMail.checkVoiceMail(function(r){
-										// console.log('RETURN checkVoiceMail : ' + r);
-									// });
+									voiceMail.checkVoiceMail(function(r){
+										console.log('RETURN checkVoiceMail : ' + r);
+									});
 									// console.error('ERREUR VOICEMAIL FROM REMOTE /!\\')
 								}else if(txt == 'jukebox' && mode.indexOf('sleep') == -1){
 									jukebox.loop();
@@ -157,16 +157,17 @@ var synchro = function(mode){
 									console.log('Odi not allowed to interact  -.-');
 								}
 							}else{
-								 if(mode.indexOf('sleep') > -1){
+								 if(mode.indexOf('sleep') > -1){ // Saving message in voicemail
 									var message = lg + ';' + txt; // AJOUTER HEURE + DATE ??
 									fs.appendFile(voiceMailFilePath, message + '\r\n', function(err){ //writeFile
 										if(err){
+											// BLINK_SATELLITE
 											return console.error(err);
 										}
 										console.log('New VoiceMail Message_: ' + message);
 									}); 
 									
-								 }else{
+								 }else{ // Saying message
 									 tts.speak(lg,txt);
 								 }
 								// setTimeout(function(lg, txt){

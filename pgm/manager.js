@@ -114,9 +114,9 @@ var decrementTime = function(){
 		if(timeToWakeUp > 0){
 			timeToWakeUp = timeToWakeUp - 1;
 			logMode = ' Odi...' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
-			console.log('decrementTime : ' + timeToWakeUp);
+			// console.log('decrementTime : ' + timeToWakeUp);
 		}else{
-			console.log('timeToWakeUp <= 0 [' + timeToWakeUp + ']  clearInterval !');
+			// console.log('timeToWakeUp <= 0 [' + timeToWakeUp + ']  clearInterval !');
 			clearInterval(decrementInterval);
 			// return;
 		}

@@ -12,7 +12,7 @@ var utils = require('./lib/utils.js');
 var remote = require('./lib/remote.js');
 var leds = require('./lib/leds.js');
 var service = require('./lib/service.js');
-// var voiceMail = require('./lib/voiceMail.js');
+var voiceMail = require('./lib/voiceMail.js');
 var tts = require('./lib/tts.js');
 var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'odi']);
 
@@ -56,3 +56,7 @@ new CronJob('13 * * * * *', function(){
 	tts.conversation('random');
 }, null, false, 'Europe/Paris'); // Switch true/false !
 
+
+setTimeout(function(){
+	voiceMail.checkVoiceMail();
+}, 5000);

@@ -24,37 +24,40 @@ var voice;
 var speak = function(lg, txt){
 utils.testConnexion(function(connexion){
 	if(connexion == true){
-		if(txt == '' || txt === 'undefined'){
-			var rdmNb = ((Math.floor(Math.random()*rdmMaxMessages)));
-			txt = messages[rdmNb];
-			console.log('Random speech : ' + rdmNb + '/' + rdmMaxMessages);
-			txt = txt.split(';');
-			lg = txt[0];
-			txt = txt[1];
-		}
-		txt = txt.split(':');
-		voice = txt[1];
-		if(typeof voice == 'undefined'){
-			voice = Math.round(Math.random()*4);
-			// console.log('Voice Random = ' + voice);
-		}
-		if(voice <= 1){
-			voice = 'espeakTTS';
-		} else {
-			voice = 'googleTTS';
-		}
-		txt = txt[0];
-		console.log('TTS [' + voice + ', ' + lg + '] "' + txt + '"');
-		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts.sh', voice, lg, txt]);
-		var blinkTime = (txt.length/15) + 1;
-		leds.blinkEye((Math.round(Math.random()*5) + 1)*50, blinkTime);
-
-		fs.writeFile(lastTTSFilePath, lg + ';' + txt, 'UTF-8', function(err){
-			if(err){
-				return console.log('Error while saving last TTS : ' + err);
+		// if(txt == '' || typeof txt === 'undefined'){
+		if(typeof txt !== 'undefined'){
+			if(txt.toUpperCase().indexOf('RANDOM') > -1){
+				var rdmNb = ((Math.floor(Math.random()*rdmMaxMessages)));
+				txt = messages[rdmNb];
+				console.log('Random speech : ' + rdmNb + '/' + rdmMaxMessages);
+				txt = txt.split(';');
+				lg = txt[0];
+				txt = txt[1];
 			}
-			// console.log('I\'ll keep this message ;) ' + lg + ';' + txt);
-		});
+			txt = txt.split(':');
+			voice = txt[1];
+			if(typeof voice == 'undefined'){
+				voice = Math.round(Math.random()*4);
+				// console.log('Voice Random = ' + voice);
+			}
+			if(voice <= 1){
+				voice = 'espeakTTS';
+			} else {
+				voice = 'googleTTS';
+			}
+			txt = txt[0];
+			console.log('TTS [' + voice + ', ' + lg + '] "' + txt + '"');
+			deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts.sh', voice, lg, txt]);
+			var blinkTime = (txt.length/15) + 1;
+			leds.blinkEye((Math.round(Math.random()*5) + 1)*50, blinkTime);
+
+			fs.writeFile(lastTTSFilePath, lg + ';' + txt, 'UTF-8', function(err){
+				if(err){
+					return console.log('Error while saving last TTS : ' + err);
+				}
+				// console.log('I\'ll keep this message ;) ' + lg + ';' + txt);
+			});
+		}
 		// return true;
 	} else {
 		// console.error('No network, can\'t get TTS data /!\\');
