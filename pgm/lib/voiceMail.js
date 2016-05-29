@@ -45,8 +45,8 @@ var checkVoiceMail = function(callback){
 	}catch(e){
 		if(e.code === 'ENOENT'){
 			console.log('No VoiceMail Message !');
-			callback(false);
-			// return false;
+			// callback(false);
+			return false;
 		}else{
 			console.error(e);
 		}
@@ -55,8 +55,8 @@ var checkVoiceMail = function(callback){
 			self.clearVoiceMail();
 		}, 2*60*60*1000); // au bout de 2 heures
 		// }, 1*60*1000); // au bout d'1 minute
-		callback(true)
-		// return true;
+		// callback(true)
+		return true;
 	}
 }
 exports.checkVoiceMail = checkVoiceMail;

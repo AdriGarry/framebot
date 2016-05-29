@@ -96,6 +96,7 @@ var synchro = function(mode){
 								}else if(txt == 'lastTTS' && mode.indexOf('sleep') == -1){
 									tts.lastTTS();
 								}else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
+									console.log('AAA => ');
 									// voiceMail.checkVoiceMail();
 									voiceMail.checkVoiceMail(function(r){
 										console.log('RETURN checkVoiceMail : ' + r);
