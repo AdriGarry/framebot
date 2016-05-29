@@ -53,7 +53,9 @@ new CronJob('*/10 * * * * *', function(){ // Initialisation synchronisation remo
 
 // ----- TEST SECTION -----//
 new CronJob('13 * * * * *', function(){
-	tts.conversation('random');
+	// tts.conversation('random');
+	var exclamation = require('./exclamation.js');
+	exclamation.exclamation2Rappels();
 }, null, false, 'Europe/Paris'); // Switch true/false !
 
 
