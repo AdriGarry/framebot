@@ -46,6 +46,7 @@ buttons.getEtat(function(modeValue){ // Demarrage de l'horloge
 
 jobs.setAlarms(); // Initialisation des alarmes
 jobs.setAutoLifeCycle();
+
 new CronJob('*/10 * * * * *', function(){ // Initialisation synchronisation remote
 	// remote.synchro();//mode
 	remote.trySynchro();
@@ -54,7 +55,7 @@ new CronJob('*/10 * * * * *', function(){ // Initialisation synchronisation remo
 
 setTimeout(function(){
 	voiceMail.checkVoiceMail();
-}, 8000);
+}, 6000);
 
 
 // ------------------------//
@@ -63,7 +64,7 @@ setTimeout(function(){
 
 setTimeout(function(){
 	tts.speak('fr', 'Leonard le cafard, ou es tu ?:1');
-}, 1000);
+}, 13000);
 
 new CronJob('13 * * * * *', function(){
 	// tts.conversation('random');

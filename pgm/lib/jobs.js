@@ -17,7 +17,7 @@ var pastHour = hour;
 // var clockPattern;
 /** Fontion d'initialisation de l'horloge (jobs associes) */
 var startClock = function(modeInit){
-	if(!modeInit){
+	if(!modeInit){ // Mode work
 		console.log('Clock jobs initialised in regular mode');
 		new CronJob('0 0 8-23 * * 1-5', function(){
 			ringHour();
@@ -31,8 +31,8 @@ var startClock = function(modeInit){
 		new CronJob('0 30 12-23 * * 0,7', function(){
 			ringHalfHour();
 		}, null, true, 'Europe/Paris');
-	}else{
-		console.log('Cron Clock initialised in full time mode !');
+	}else{ // Mode any time
+		console.log('Clock jobs initialised in any time mode !');
 		new CronJob('0 0 * * * *', function(){
 			ringHour();
 		}, null, true, 'Europe/Paris');
