@@ -27,13 +27,14 @@ var exclamation2Rappels = function(){
 };
 exports.exclamation2Rappels = exclamation2Rappels;
 
+/** Fonction Exclamtion en boucle 1 min */
 var exclamationLoop = function(){
 	console.log('Exclamation LOOP !!');
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh', 'LOOP']);
 };
 exports.exclamationLoop = exclamationLoop;
 
-var exclamationRdmDelayLoop = function(){
+var exclamationRdmDelayLoop = function(){ // Methode a Supprimer ???
 	console.log('Exclamation Loop With Random Delay !');
 	var exclRdmLp;
 	var rdmDelay;

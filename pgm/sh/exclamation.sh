@@ -29,13 +29,13 @@ exclamation () {
 }
 
 
-if [ $1 = "loop" ]
+if [ $1 = "LOOP" ]
 then
 	SERVICE="omxplayer" # On definit le service a utiliser (omxplayer)
 	while true; do # On scanne en boucle le dossier
 		if ps ax | grep -v grep | grep $SERVICE > /dev/null
 			then
-			sleep 20; # Le script plante parfois si la pause n'est pas assez longue
+			sleep 60; # Le script plante parfois si la pause n'est pas assez longue
 		else
 			exclamation
 		fi
