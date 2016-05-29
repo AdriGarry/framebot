@@ -52,8 +52,8 @@ var checkVoiceMail = function(callback){
 	}finally{
 		setTimeout(function(){ // Clearing VoiceMail
 			self.clearVoiceMail();
-		// }, 60*60*1000); // au bout d'une heure
-		}, 1*60*1000); // au bout d'une minute
+		}, 2*60*60*1000); // au bout de 2 heures
+		// }, 1*60*1000); // au bout d'1 minute
 		return true;
 	}
 }
