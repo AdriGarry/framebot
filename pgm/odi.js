@@ -66,9 +66,9 @@ setTimeout(function(){
 	tts.speak('fr', 'Leonard le cafard, ou es tu ?:1');
 }, 13000);
 
-new CronJob('13 * * * * *', function(){
+new CronJob('25 * * * * *', function(){
 	// tts.conversation('random');
 	var exclamation = require('./lib/exclamation.js');
 	exclamation.exclamation2Rappels();
-}, null, false, 'Europe/Paris'); // Switch true/false !
+}, null, true, 'Europe/Paris'); // Switch true/false !
 
