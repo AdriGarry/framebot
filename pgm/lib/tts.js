@@ -41,9 +41,9 @@ var speak = function(lg, txt){
 					// console.log('Voice Random = ' + voice);
 				}
 				if(voice <= 1){
-					voice = 'espeakTTS';
+					voice = 'espeak';
 				} else {
-					voice = 'googleTTS';
+					voice = 'google';
 				}
 				txt = txt[0];
 				console.log('TTS [' + voice + ', ' + lg + '] "' + txt + '"');

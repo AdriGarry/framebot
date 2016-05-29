@@ -31,6 +31,7 @@ var checkVoiceMail = function(callback){
 			self.clearVoiceMail();
 		}, 2*60*60*1000); // au bout de 2 heures
 		// }, 1*60*1000); // au bout d'1 minute
+		
 		return true;
 	}catch(e){
 		if(e.code === 'ENOENT'){

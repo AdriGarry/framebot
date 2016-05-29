@@ -81,10 +81,10 @@ espeakTTS(){
 echo $*
 
 case $1 in
-	"googleTTS")
+	"google")
 		shift
 		googleTTS $* ;;
-	"espeakTTS")
+	"espeak")
 		shift
 		espeakTTS $* ;;
 	*)
