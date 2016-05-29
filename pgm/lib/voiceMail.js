@@ -26,22 +26,12 @@ var checkVoiceMail = function(callback){
 		tts.speak('en', 'VoiceMail:1');
 		console.log(messages);
 		tts.conversation(messages);
-		// nbMsg = messages.length-1;
-		// for(i=0;i<nbMsg;i++){
-		// 	var z = messages[i];
-		// 	if(typeof z !== 'undefined'){
-		// 			txt = messages[i].split(';');
-		// 			lg = txt[0];
-		// 			txt = txt[1];
-		// 			if(typeof lg !== 'undefined' || typeof txt !== 'undefined'){
-		// 				tts.speak(lg,txt);
-		// 			}else{
-		// 				console.log('ERROR 3 ' + lg + '  ' + txt);
-		// 			}
-		// 	}else{
-		// 		console.error('ERROR 2 ' + z);
-		// 	}
-		// }
+
+		setTimeout(function(){ // Clearing VoiceMail
+			self.clearVoiceMail();
+		}, 2*60*60*1000); // au bout de 2 heures
+		// }, 1*60*1000); // au bout d'1 minute
+		return true;
 	}catch(e){
 		if(e.code === 'ENOENT'){
 			console.log('No VoiceMail Message !');
@@ -50,13 +40,6 @@ var checkVoiceMail = function(callback){
 		}else{
 			console.error(e);
 		}
-	}finally{
-		setTimeout(function(){ // Clearing VoiceMail
-			self.clearVoiceMail();
-		}, 2*60*60*1000); // au bout de 2 heures
-		// }, 1*60*1000); // au bout d'1 minute
-		// callback(true)
-		return true;
 	}
 }
 exports.checkVoiceMail = checkVoiceMail;
