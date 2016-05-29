@@ -56,7 +56,7 @@ new CronJob('13 * * * * *', function(){
 	// tts.conversation('random');
 	var exclamation = require('./exclamation.js');
 	exclamation.exclamation2Rappels();
-}, null, false, 'Europe/Paris'); // Switch true/false !
+}, null, true, 'Europe/Paris'); // Switch true/false !
 
 
 setTimeout(function(){
