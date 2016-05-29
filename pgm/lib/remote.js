@@ -95,6 +95,9 @@ var synchro = function(mode){
 									utils.mute();
 								}else if(txt == 'lastTTS' && mode.indexOf('sleep') == -1){
 									tts.lastTTS();
+								}else if(txt == 'clearVoiceMail' && mode.indexOf('sleep') == -1){
+									console.log('clearVoiceMail... .');
+									utils.clearVoiceMail();
 								}else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
 									console.log('AAA => ');
 									// voiceMail.checkVoiceMail();
