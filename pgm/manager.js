@@ -37,7 +37,7 @@ function startOdi(mode){
 	// if(typeof mode === Number){
 	if(/\d/.test(mode) && mode > 0){
 		timeToWakeUp = mode * 60; // Conversion en minutes
-		logMode = ' Odi...' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
+		logMode = ' O...' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
 		logo = logoSleep;
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
 		decrementTime();
@@ -113,7 +113,7 @@ var decrementTime = function(){
 	decrementInterval = setInterval(function(){
 		if(timeToWakeUp > 0){
 			timeToWakeUp = timeToWakeUp - 1;
-			logMode = ' Odi...' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
+			logMode = ' O...' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
 			// console.log('decrementTime : ' + timeToWakeUp);
 		}else{
 			// console.log('timeToWakeUp <= 0 [' + timeToWakeUp + ']  clearInterval !');
