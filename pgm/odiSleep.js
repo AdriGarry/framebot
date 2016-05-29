@@ -30,6 +30,8 @@ ok.watch(function(err, value){ // Detection bouton Vert pour sortir du mode veil
 	utils.restartOdi();
 });
 
+jobs.setAutoLifeCycle('S');
+
 new CronJob('*/15 * * * * *', function(){ // Initialisation synchronisation remote
 	remote.trySynchro('sleep');
 	/*utils.testConnexion(function(connexion){

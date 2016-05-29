@@ -86,6 +86,7 @@ var ringHalfHour = function(){
 var setAlarms = function(){
 	console.log('Alarms jobs initialised');
 
+	// WEEKDAY
 	new CronJob('0 26 7 * * 1-5', function(){
 		console.log('Morning Sea...');
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'MorningSea']);
@@ -127,6 +128,7 @@ var setAlarms = function(){
 		});
 	}, null, true, 'Europe/Paris');
 
+	// WEEKEND
 	new CronJob('0 45,55 11 * * 0,6', function() {
 		console.log('Morning Birds...');
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'MorningBirds']);
@@ -188,3 +190,25 @@ var setBackgroundJobs = function(){
 	}, null, true, 'Europe/Paris');
 };
 exports.setBackgroundJobs = setBackgroundJobs;
+
+/** Fontion d'initialisation des taches de fond en mode veille */
+var setAutoLifeCycle = function(param){
+	if(typeof param !== 'undefined' && param == 'S'){ // Set wake up jobs
+		console.log('Wake Up AutoLifeCycle jobs initialised ' + param);
+		new CronJob('0 25 7 * * 1-5', function(){
+			// redemarrer
+		}, null, true, 'Europe/Paris');
+		new CronJob('0 42 11 * * 0,6', function() {
+			// redemarrer
+		}, null, true, 'Europe/Paris');
+	}else{ // Set go to sleep jobs
+		console.log('Auto Sleep AutoLifeCycle jobs initialised ' + param);
+		new CronJob('13 0 1 * * 1-5', function(){
+			// mettre en veille
+		}, null, true, 'Europe/Paris');
+		new CronJob('13 0 2 * * 0,6', function() {
+			// mettre en veille
+		}, null, true, 'Europe/Paris');
+	}
+};
+exports.setBackgroundSleepJobs = setBackgroundSleepJobs;
