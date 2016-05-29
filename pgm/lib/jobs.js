@@ -194,7 +194,7 @@ exports.setBackgroundJobs = setBackgroundJobs;
 /** Fontion d'initialisation des taches de fond en mode veille */
 var setAutoLifeCycle = function(param){
 	if(typeof param !== 'undefined' && param == 'S'){ // Set wake up jobs
-		console.log('Wake Up AutoLifeCycle jobs initialised ' + param);
+		console.log('Wake Up AutoLifeCycle jobs initialised [' + param + ']');
 		new CronJob('0 25 7 * * 1-5', function(){
 			// redemarrer
 		}, null, true, 'Europe/Paris');
@@ -202,7 +202,7 @@ var setAutoLifeCycle = function(param){
 			// redemarrer
 		}, null, true, 'Europe/Paris');
 	}else{ // Set go to sleep jobs
-		console.log('Auto Sleep AutoLifeCycle jobs initialised ' + param);
+		console.log('Auto Sleep AutoLifeCycle jobs initialised [' + param + ']');
 		new CronJob('13 0 1 * * 1-5', function(){
 			// mettre en veille
 		}, null, true, 'Europe/Paris');

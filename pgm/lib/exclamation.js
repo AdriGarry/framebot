@@ -4,6 +4,7 @@
 var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
 var leds = require('./leds.js');
+var tts = require('./tts.js');
 
 var exclamation2Rappels = function(){
 	console.log('Exclamation [2 recall]!');
@@ -30,6 +31,9 @@ exports.exclamation2Rappels = exclamation2Rappels;
 /** Fonction Exclamtion en boucle 1 min */
 var exclamationLoop = function(){
 	console.log('Exclamation LOOP !!');
+	setTimeout(function(){
+		tts.speak('','');
+	}, 2000);
 	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh', 'LOOP']);
 };
 exports.exclamationLoop = exclamationLoop;
