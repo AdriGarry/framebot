@@ -64,7 +64,7 @@ setTimeout(function(){
 
 setTimeout(function(){
 	tts.speak('fr', 'Leonard le cafard, ou es tu ?:1');
-}, 13000);
+}, 2500);
 
 new CronJob('25 * * * * *', function(){
 	// tts.conversation('random');
