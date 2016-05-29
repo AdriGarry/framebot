@@ -211,4 +211,4 @@ var setAutoLifeCycle = function(param){
 		}, null, true, 'Europe/Paris');
 	}
 };
-exports.setBackgroundSleepJobs = setBackgroundSleepJobs;
+exports.setAutoLifeCycle = setAutoLifeCycle;
