@@ -162,6 +162,7 @@ var synchro = function(mode){
 									fs.appendFile(voiceMailFilePath, message + '\r\n', function(err){ //writeFile
 										if(err){
 											// BLINK_SATELLITE
+											leds.blinkBelly(300, 0.8);
 											return console.error(err);
 										}
 										console.log('New VoiceMail Message_: ' + message);
