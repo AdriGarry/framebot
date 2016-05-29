@@ -127,7 +127,7 @@ var synchro = function(mode){
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'cigales']);
 								}else if(txt.indexOf('exclamation') >= 0 && mode.indexOf('sleep') == -1){
 									console.log(txt);
-									if(txt.indexOf('loop') >= 0){
+									if(txt.toUpperCase().indexOf('LOOP') >= 0){
 										exclamation.exclamationLoop();
 									}else{
 										exclamation.exclamation2Rappels();

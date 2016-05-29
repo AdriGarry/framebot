@@ -28,8 +28,8 @@ var exclamation2Rappels = function(){
 exports.exclamation2Rappels = exclamation2Rappels;
 
 var exclamationLoop = function(){
-	console.log('Exclamation Loop !');
-	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh', 'loop']);
+	console.log('Exclamation LOOP !!');
+	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh', 'LOOP']);
 };
 exports.exclamationLoop = exclamationLoop;
 
