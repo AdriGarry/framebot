@@ -51,14 +51,23 @@ new CronJob('*/10 * * * * *', function(){ // Initialisation synchronisation remo
 	remote.trySynchro();
 }, null, true, 'Europe/Paris');
 
+
+setTimeout(function(){
+	voiceMail.checkVoiceMail();
+}, 6000);
+
+
+// ------------------------//
 // ----- TEST SECTION -----//
+// ------------------------//
+
+setTimeout(function(){
+	tts.speak('fr', 'Leonard le cafard, ou es tu ?:1');
+}, 1000);
+
 new CronJob('13 * * * * *', function(){
 	// tts.conversation('random');
 	var exclamation = require('./lib/exclamation.js');
 	exclamation.exclamation2Rappels();
 }, null, false, 'Europe/Paris'); // Switch true/false !
 
-
-setTimeout(function(){
-	voiceMail.checkVoiceMail();
-}, 8000);

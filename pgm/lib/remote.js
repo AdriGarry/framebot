@@ -100,10 +100,10 @@ var synchro = function(mode){
 									voiceMail.clearVoiceMail();
 								}else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
 									console.log('AAA => ');
-									// voiceMail.checkVoiceMail();
-									voiceMail.checkVoiceMail(function(r){
-										console.log('RETURN checkVoiceMail : ' + r);
-									});
+									voiceMail.checkVoiceMail();
+									// voiceMail.checkVoiceMail(function(r){
+									// 	console.log('RETURN checkVoiceMail : ' + r);
+									// });
 									// console.error('ERREUR VOICEMAIL FROM REMOTE /!\\')
 								}else if(txt == 'jukebox' && mode.indexOf('sleep') == -1){
 									jukebox.loop();
