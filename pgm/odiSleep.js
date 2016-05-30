@@ -11,11 +11,16 @@ var remote = require('./lib/remote.js');
 
 var mode = sleepTime = process.argv[2]; // Recuperation des arguments
 
-console.log('Odi started in sleeping mode for ' + sleepTime + ' hours   -.-');
+var introMsg = 'Odi started in sleeping mode';
 
-setTimeout(function(){ // Delai avant redemarrage/reveil
-	utils.restartOdi();
-}, sleepTime*60*60*1000);
+if(sleepTime < 255){
+	introMsg += ' for ' + sleepTime + ' hours';
+	setTimeout(function(){ // Delai avant redemarrage/reveil
+		utils.restartOdi();
+	}, sleepTime*60*60*1000);
+}
+
+console.log(introMsg + '   -.-');
 
 leds.activity(mode); // Initialisation du temoin d'activite 1/2
 

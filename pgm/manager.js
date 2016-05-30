@@ -35,12 +35,16 @@ function startOdi(mode){
 	// console.log('manager.startOdi.mode : ' + mode);
 	if(typeof mode === 'undefined') mode = '';
 	// if(typeof mode === Number){
-	if(/\d/.test(mode) && mode > 0){
+	if(/\d/.test(mode) && mode > 0 && mode < 255){
 		timeToWakeUp = mode * 60; // Conversion en minutes
 		logMode = ' O...' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
 		logo = logoSleep;
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
 		decrementTime();
+	}else if(/\d/.test(mode) && mode == 255){
+		logMode = ' O...';
+		logo = logoSleep;
+		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
 	}else{
 		timeToWakeUp = 0;
 		logMode = ' Odi';

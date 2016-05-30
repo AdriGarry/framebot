@@ -34,7 +34,7 @@ var exclamationLoop = function(){
 	tts.speak('en','Lets start exclamation loop');
 	setTimeout(function(){
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh', 'LOOP']);
-	}, 2000);
+	}, 5000);
 };
 exports.exclamationLoop = exclamationLoop;
 
@@ -57,6 +57,6 @@ var exclamationRdmDelayLoop = function(){ // Methode a Supprimer ???
 				console.log('Not Going ON');
 			}
 		}, rdmDelay * 1000);
-	}());	
+	}());
 };
 exports.exclamationRdmDelayLoop = exclamationRdmDelayLoop;

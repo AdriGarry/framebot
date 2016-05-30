@@ -9,7 +9,7 @@ var timer;
 /** Fonction activity : temoin mode programme (normal/veille) */
 var activity = function(mode){
 	if(typeof mode === 'undefined') mode = 'awake';
-	console.log('led.activity started [mode:' + mode + ']');
+	console.log('Led Activity initialised [' + mode + ']');
 	mode = parseInt(mode, 10);
 	if(mode > 0){
 		mode = 0;

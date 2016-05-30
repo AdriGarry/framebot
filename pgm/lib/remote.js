@@ -88,7 +88,7 @@ var synchro = function(mode){
 										var sleepTime = parseInt(txt.replace(/[^\d.]/g, ''), 10);
 										utils.restartOdi(sleepTime);
 									}else{
-										utils.restartOdi(3);
+										utils.restartOdi(255);
 									}
 								}else if(txt == 'mute') {
 									// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/mute.sh']);

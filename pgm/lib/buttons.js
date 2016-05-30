@@ -83,7 +83,6 @@ ok.watch(function(err, value){
 				// utils.randomAction();
 			// }
 		// });
-		// exclamation.exclamation2Rappels();
 		utils.randomAction();
 	}else if(pressTime >= 1 && pressTime < 2){
 		tts.lastTTS();
@@ -122,21 +121,10 @@ cancel.watch(function(err, value){
 	if(pressTime >= 1 && pressTime < 3){
 		utils.restartOdi();
 	}else if(pressTime >= 3){
-		// if(etat.readSync() == 0){
-		utils.restartOdi(3);
-		// }else{
-			// utils.restartOdi(12);
-		// }
+		utils.restartOdi(255);
 	}
-	// console.log('Killing __Test');
 	// job.stop();
 });
-////////////////////////////////
-// var CronJob = require('cron').CronJob;
-	// var job = new CronJob('* * * * * *', function(){
-			// console.log('__Test');
-	// }, null, true, 'Europe/Paris');
-////////////////////////////////
 
 /** Association actions bouton Blanc */
 white.watch(function(err, value){
@@ -209,6 +197,7 @@ blue.watch(function(err, value){
 	}
 });
 
+console.log('Buttons initialised');
 // ################# events #################
 // event.on('exclamation2Rappels', function(message){
 	// console.log('_EventEmited: ' + (message || '.'));

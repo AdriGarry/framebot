@@ -163,6 +163,7 @@ var restartOdi = function(mode){
 		setTimeout(function(){
 			console.log('Restarting Odi !!');
 			process.exit();
+			// process.exit(-1);
 		}, 300); // Pause pour operations et clean msg
 	}
 };

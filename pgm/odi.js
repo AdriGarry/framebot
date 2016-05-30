@@ -5,12 +5,12 @@ console.log('>> Odi started in normal mode...   :)');
 var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
 var gpioPins = require('./lib/gpioPins.js');
+var leds = require('./lib/leds.js');
 var buttons = require('./lib/buttons.js');
 var CronJob = require('cron').CronJob;
 var jobs = require('./lib/jobs.js');
 var utils = require('./lib/utils.js');
 var remote = require('./lib/remote.js');
-var leds = require('./lib/leds.js');
 var service = require('./lib/service.js');
 var voiceMail = require('./lib/voiceMail.js');
 var tts = require('./lib/tts.js');
@@ -64,7 +64,6 @@ setTimeout(function(){
 
 setTimeout(function(){
 	// tts.speak('fr', 'Leonard le cafard, ou es tu ?:1');
-	tts.speak('fr', 'Leonard le cafard, ou es tu ?:1');
 }, 2000);
 
 new CronJob('25 * * * * *', function(){
