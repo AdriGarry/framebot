@@ -67,7 +67,8 @@ var speak = function(lg, txt){
 };
 exports.speak = speak;
 
-/** ######### */
+
+/** Detection des parametres en cas d'appel direct depuis console (pour tests) */
 var params = process.argv[2];
 try{
 	params = params.split('_');
@@ -83,11 +84,11 @@ try{
 		console.error('Exception while getting speak param at init : ' + e);
 	}
 }
-
 if(typeof lgParam != 'undefined' && lgParam !='' && typeof txtParam != 'undefined' && txtParam !=''){
 	console.log('TTS_PARAMS: ' + lgParam + ', ' + txtParam);
 	self.speak(lgParam, txtParam);
 }
+
 
 /** Fonction conversation TTS */
 var conversation = function(messages){

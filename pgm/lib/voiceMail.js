@@ -19,6 +19,8 @@ var service = require('./service.js');
 var remote = require('./remote.js');
 var self = this;
 
+var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
+
 var checkVoiceMail = function(callback){
 	try{
 		console.log('Checking VoiceMail...');
@@ -31,12 +33,11 @@ var checkVoiceMail = function(callback){
 			self.clearVoiceMail();
 		}, 2*60*60*1000); // au bout de 2 heures
 		// }, 1*60*1000); // au bout d'1 minute
-		
+		// callback(true);
 		return true;
 	}catch(e){
 		if(e.code === 'ENOENT'){
 			console.log('No VoiceMail Message !');
-			// callback(false);
 			return false;
 		}else{
 			console.error(e);
@@ -45,7 +46,6 @@ var checkVoiceMail = function(callback){
 }
 exports.checkVoiceMail = checkVoiceMail;
 
-var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
 var voiceMailSignal = function(){
 	console.log('Start checking messages...');
 	setInterval(function(){
@@ -55,7 +55,7 @@ var voiceMailSignal = function(){
 				console.log('blinkBelly');
 				leds.blinkBelly(300, 0.8);
 			}else{
-				// No message
+				console.log('ERROR voiceMailSignal function... to debug !!') // TO DEBUG !!
 			}
 		});
 	}, 5000);

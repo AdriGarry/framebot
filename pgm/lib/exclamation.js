@@ -31,7 +31,7 @@ exports.exclamation2Rappels = exclamation2Rappels;
 /** Fonction Exclamtion en boucle 1 min */
 var exclamationLoop = function(){
 	console.log('Exclamation LOOP !!');
-	tts.speak('en','Lets start exclamation loop');
+	tts.speak('en','Exclamation loop initialised');
 	setTimeout(function(){
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh', 'LOOP']);
 	}, 5000);

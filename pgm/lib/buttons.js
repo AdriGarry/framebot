@@ -78,10 +78,10 @@ ok.watch(function(err, value){
 	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec [1,2,3;5]');
 	if(pressTime < 1){
 		// voiceMail.checkVoiceMail(function(r){
-			// console.error('RETURN  ' + r);
-			// if(!r){
-				// utils.randomAction();
-			// }
+		// 	console.error('RETURN => ' + r);
+		// 	if(!r){
+		// 		utils.randomAction();
+		// 	}
 		// });
 		utils.randomAction();
 	}else if(pressTime >= 1 && pressTime < 2){
