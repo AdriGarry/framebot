@@ -18,6 +18,8 @@ if(sleepTime < 255){
 	setTimeout(function(){ // Delai avant redemarrage/reveil
 		utils.restartOdi();
 	}, sleepTime*60*60*1000);
+}else{
+	jobs.setAutoLifeCycle('S'); // Si pas de delai alors auto reveil en fonction du jour
 }
 
 console.log(introMsg + '   -.-');
@@ -35,16 +37,6 @@ ok.watch(function(err, value){ // Detection bouton Vert pour sortir du mode veil
 	utils.restartOdi();
 });
 
-jobs.setAutoLifeCycle('S');
-
 new CronJob('*/15 * * * * *', function(){ // Initialisation synchronisation remote
 	remote.trySynchro('sleep');
-	/*utils.testConnexion(function(connexion){
-		if(connexion == true){
-			// remote.check(mode);
-			remote.synchro('sleep');
-		} else {
-			console.error('No network, can\'t check messages & export log  /!\\');
-		}
-	});*/
 }, null, true, 'Europe/Paris');

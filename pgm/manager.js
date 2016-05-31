@@ -25,6 +25,14 @@ ok.watch(function(err, value){
 	}
 });
 
+var date;
+var month;
+var day;
+var hour;
+var min;
+var sec;
+var logDate;
+
 var logMode;
 var timeToWakeUp;
 /** Fonction demarrage programme Odi */
@@ -35,16 +43,16 @@ function startOdi(mode){
 	// console.log('manager.startOdi.mode : ' + mode);
 	if(typeof mode === 'undefined') mode = '';
 	// if(typeof mode === Number){
-	if(/\d/.test(mode) && mode > 0 && mode < 255){
+	if(/\d/.test(mode) && mode == 255){
+		logMode = ' O...';
+		logo = logoSleep;
+		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
+	}else if(/\d/.test(mode) && mode > 0 && mode < 255){
 		timeToWakeUp = mode * 60; // Conversion en minutes
 		logMode = ' O...' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
 		logo = logoSleep;
 		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
 		decrementTime();
-	}else if(/\d/.test(mode) && mode == 255){
-		logMode = ' O...';
-		logo = logoSleep;
-		odiPgm = spawn('node', ['/home/pi/odi/pgm/odiSleep.js', mode]);
 	}else{
 		timeToWakeUp = 0;
 		logMode = ' Odi';
@@ -57,42 +65,18 @@ function startOdi(mode){
 	// log.recordLog(logo);
 
 	odiState = true;
-	var date;
-	// var year;
-	var month;
-	var day;
-	var hour;
-	var min;
-	var sec;
-	var logDate;
 	odiPgm.stdout.on('data', function(data){ // Template log output
 		if(1 === etat.readSync()){ logMode = logMode.replace('Odi','ODI'); }
 		else{ logMode = logMode.replace('ODI','Odi'); }
-		date = new Date();
-		month = date.getMonth()+1;
-		day = date.getDate();
-		hour = date.getHours();
-		min = date.getMinutes();
-		sec = date.getSeconds();
-		logDate = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';//' + year + ' ';
-		logDate = logDate + (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
-		console.log(logDate + logMode + '/ ' + data);// + '\r\n'
+		console.log(getLogDate() + logMode + '/ ' + data);// + '\r\n'
 		// log.recordLog(logDate + ' Odi/ ' + data);
 	});
 
 	odiPgm.stderr.on('data', function(data){ // Template log error
 		if(1 === etat.readSync()){ logMode = logMode.replace('i','!'); }
 		else{ logMode = logMode.replace('!','i'); }
-		date = new Date();
-		month = date.getMonth()+1;
-		day = date.getDate();
-		hour = date.getHours();
-		min = date.getMinutes();
-		sec = date.getMinutes();
-		logDate = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';//' + year + ' ';
-		logDate = logDate + (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
-		console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
-		console.trace(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
+		// console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
+		console.trace(getLogDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
 		// log.recordLog(hour + ':' + min + ':' + sec + ' O/!\\ ' + data);
 	});
 	
@@ -112,8 +96,21 @@ function startOdi(mode){
 	remote.synchro('log');
 }
 
+/** Fonction de MaJ & formattage de la date et heure pour les logs */
+var getLogDate = function(){
+	date = new Date();
+	month = date.getMonth()+1;
+	day = date.getDate();
+	hour = date.getHours();
+	min = date.getMinutes();
+	sec = date.getSeconds();
+	logDate = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';
+	logDate += (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
+	return logDate;
+};
+
 var decrementInterval;
-/** Fonction decrementTime : maj temps avant reveil pour logs */
+/** Fonction decrementTime : MaJ temps avant reveil pour logs */
 var decrementTime = function(){
 	decrementInterval = setInterval(function(){
 		if(timeToWakeUp > 0){
@@ -121,10 +118,7 @@ var decrementTime = function(){
 			logMode = ' O...' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
 			// console.log('decrementTime : ' + timeToWakeUp);
 		}else{
-			// console.log('timeToWakeUp <= 0 [' + timeToWakeUp + ']  clearInterval !');
-			clearInterval(decrementInterval);
-			// return;
+			// console.log('timeToWakeUp <= 0 [' + timeToWakeUp + ']  clearInterval !'); clearInterval(decrementInterval); // return;
 		}
 	}, 60*1000);
 };
-exports.decrementTime = decrementTime;

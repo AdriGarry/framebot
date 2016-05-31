@@ -77,13 +77,10 @@ ok.watch(function(err, value){
 	leds.ledOff('belly');
 	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec [1,2,3;5]');
 	if(pressTime < 1){
-		// voiceMail.checkVoiceMail(function(r){
-		// 	console.error('RETURN => ' + r);
-		// 	if(!r){
-		// 		utils.randomAction();
-		// 	}
-		// });
-		utils.randomAction();
+		if(!voiceMail.checkVoiceMail()){
+			console.log('NO VOICEMAIL MESSAGE IN TMP FOLDER !!');
+			utils.randomAction();
+		}
 	}else if(pressTime >= 1 && pressTime < 2){
 		tts.lastTTS();
 	}else if(pressTime >= 2 && pressTime < 3){

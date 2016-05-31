@@ -21,7 +21,7 @@ var party = require('./party.js');
 var self = this;
 
 /** Fonction trySynchro : test connexion  */
-var trySynchro = function(mode){
+exports.trySynchro = function trySynchro(mode){
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
 			self.synchro(mode);//mode
@@ -31,11 +31,28 @@ var trySynchro = function(mode){
 		}
 	});
 }
-exports.trySynchro = trySynchro;
+// exports.trySynchro = trySynchro;
+
+
+
+// REFACTORING REMOTE FONCTIONS...
+// Attribuer dans une variable 
+// mode.indexOf('sleep') == -1
+
+exports.prepareLogs = function prepareLogs(){
+	// Recuperation des 120 dernieres lignes de logs
+}
+exports.parseCommand = function parseCommand(){
+	// Test des commandes et action
+}
+exports.saveVoiceMail = function saveVoiceMail(){
+	// Enregistrement du message
+	voicemail.saveMessage(); // >> definir methode dans lib voiceMail.js
+}
 
 /** Fonction synchro : verification ordres et envoi logs */
 var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
-var synchro = function(mode){
+exports.synchro = function synchro(mode){
 	try{
 		if(typeof mode === 'undefined') mode = '';
 		var logFilePath = '/home/pi/odi/log/odi.log';
@@ -79,7 +96,7 @@ var synchro = function(mode){
 								console.log('REMOTE > ' + txt);
 								if(txt == 'reboot'){
 									utils.reboot();
-								}else if(txt == 'shutdown' || txt == 'halt'){
+								}else if(txt == 'shutdown'){
 									utils.shutdown();
 								}else if(txt == 'odi'){
 									utils.restartOdi();
@@ -96,15 +113,12 @@ var synchro = function(mode){
 								}else if(txt == 'lastTTS' && mode.indexOf('sleep') == -1){
 									tts.lastTTS();
 								}else if(txt == 'clearVoiceMail' && mode.indexOf('sleep') == -1){
-									console.log('clearVoiceMail... .');
 									voiceMail.clearVoiceMail();
 								}else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
-									console.log('AAA => ');
-									voiceMail.checkVoiceMail();
-									// voiceMail.checkVoiceMail(function(r){
-									// 	console.log('RETURN checkVoiceMail : ' + r);
-									// });
-									// console.error('ERREUR VOICEMAIL FROM REMOTE /!\\')
+									if(!voiceMail.checkVoiceMail()){
+										console.log('NO VOICEMAIL MESSAGE IN TMP FOLDER !!');
+										tts.speak('en', 'No message in voicemail:1');
+									}
 								}else if(txt == 'jukebox' && mode.indexOf('sleep') == -1){
 									jukebox.loop();
 								}else if(txt == 'jukebox m' || txt == 'medley' && mode.indexOf('sleep') == -1) {
@@ -155,8 +169,8 @@ var synchro = function(mode){
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', txt]);
 								}else if(txt == 'test' && mode.indexOf('sleep') == -1){
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'mouthTrick']);
-								}else if(mode.indexOf('sleep') == -1){
-									tts.speak('','');
+								// }else if(mode.indexOf('sleep') == -1){
+								// 	tts.speak('','');
 								}else{
 									console.log('Odi not allowed to interact  -.-');
 								}
@@ -194,4 +208,4 @@ var synchro = function(mode){
 		console.error('Exception synchro remote controle   /!\\ /!\\ \n' + e);
 	}
 }
-exports.synchro = synchro;
+

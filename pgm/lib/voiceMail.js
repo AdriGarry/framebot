@@ -21,11 +21,11 @@ var self = this;
 
 var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
 
-var checkVoiceMail = function(callback){
+exports.checkVoiceMail = function checkVoiceMail(callback){
 	try{
 		console.log('Checking VoiceMail...');
 		var messages = fs.readFileSync(voiceMailFilePath, 'UTF-8').toString().split('\n');
-		tts.speak('en', 'VoiceMail:1');
+		tts.speak('en', 'You have messages:1');
 		console.log(messages);
 		tts.conversation(messages);
 
@@ -33,7 +33,6 @@ var checkVoiceMail = function(callback){
 			self.clearVoiceMail();
 		}, 2*60*60*1000); // au bout de 2 heures
 		// }, 1*60*1000); // au bout d'1 minute
-		// callback(true);
 		return true;
 	}catch(e){
 		if(e.code === 'ENOENT'){
@@ -44,26 +43,31 @@ var checkVoiceMail = function(callback){
 		}
 	}
 }
-exports.checkVoiceMail = checkVoiceMail;
 
-var voiceMailSignal = function(){
+exports.voiceMailSignal = function voiceMailSignal(){
 	console.log('Start checking messages...');
 	setInterval(function(){
-		fs.access(voiceMailFilePath, fs.R_OK, function(e) {
+		fs.access(voiceMailFilePath, fs.R_OK, function(err) {
 			// console.error(e);
-			if(e == null){
+			if(err == null){
 				console.log('blinkBelly');
 				leds.blinkBelly(300, 0.8);
 			}else{
-				console.log('ERROR voiceMailSignal function... to debug !!') // TO DEBUG !!
+				console.log('ERROR voiceMailSignal function... TO DEBUG !!') // TO DEBUG !!
 			}
 		});
 	}, 5000);
 };
-exports.voiceMailSignal = voiceMailSignal;
 
-var clearVoiceMail = function(){
-	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearVoiceMail']);
-	console.log('VoiceMail Cleared.');
+exports.clearVoiceMail = function clearVoiceMail(){
+	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearVoiceMail']);
+
+	fs.unlink(voiceMailFilePath, function(err){ // SUPPRIMER METHODE SH
+		if(err){
+			if(err.code === 'ENOENT') console.log('clearVoiceMail : No message to delete !');
+		}else{
+			console.log('VoiceMail Cleared.');
+			tts.speak('en', 'VoiceMail Cleared:3');
+		}
+	});
 };
-exports.clearVoiceMail = clearVoiceMail;

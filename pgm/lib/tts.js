@@ -147,7 +147,7 @@ exports.lastTTS = lastTTS;
 
 /** Fonction suppression last speak TTS */
 var clearLastTTS = function(){
-	deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearLastTTS']);
+	// deploy = spawn('sh', ['/home/pi/odi/pgm/sh/utils.sh', 'clearLastTTS']);
 	console.log('LastTTS cleared.');
 };
 exports.clearLastTTS = clearLastTTS;
