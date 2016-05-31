@@ -88,7 +88,7 @@ var setAlarms = function(){
 
 	// WEEKDAY
 	new CronJob('0 26 7 * * 1-5', function(){
-		console.log('Morning Sea...');
+		console.log('Morning Sea... Let\'s start the day with some waves !');
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'MorningSea']);
 	}, null, true, 'Europe/Paris');
 
@@ -126,7 +126,7 @@ var setAlarms = function(){
 
 	// WEEKEND
 	new CronJob('0 45,55 11 * * 0,6', function() {
-		console.log('Morning Birds...');
+		console.log('Morning Birds... Let\'s start the day with some birds songs !');
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'MorningBirds']);
 	}, null, true, 'Europe/Paris');
 
@@ -140,9 +140,9 @@ var setAlarms = function(){
 					service.weather();
 				}, 5*1000);
 				setTimeout(function(){
-					fip.playFip();
-					// console.log('Il Est Midi !!!!!!');
-					// var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'IlEstMidi']);
+					// fip.playFip();
+					console.log('Il Est Midi !!!!!!');
+					var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'IlEstMidi']);
 				}, 15*1000);
 			// }else{
 				// jukebox.loop();
@@ -155,11 +155,6 @@ var setAlarms = function(){
 	new CronJob('13 15,45 17-22 * * *', function(){
 		tts.conversation('RANDOM'); // Conversations aleatoires dans la journee
 	}, null, true, 'Europe/Paris'); // Signal des 1/4 d'heure, entre 17h et 23h
-
-	new CronJob('0 12 12 * * *', function() {
-		console.log('Il Est Midi !!!!!!'); // Chanson 'Il Est Midi'
-		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'IlEstMidi']);
-	}, null, true, 'Europe/Paris');
 };
 exports.setAlarms = setAlarms;
 

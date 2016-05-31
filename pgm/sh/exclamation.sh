@@ -24,7 +24,7 @@ exclamation () {
 	echo $txt
 	
 	exclamationTTS $txt
-	sleep 20;
+	# sleep 20;
 	# exclamationTTS param1 param2 param3 param4
 }
 
@@ -35,7 +35,7 @@ then
 	while true; do # On scanne en boucle le dossier
 		if ps ax | grep -v grep | grep $SERVICE > /dev/null
 			then
-			sleep 60; # Le script plante parfois si la pause n'est pas assez longue
+			sleep 180; # Le script plante parfois si la pause n'est pas assez longue
 		else
 			exclamation
 		fi

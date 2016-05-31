@@ -197,7 +197,7 @@ blue.watch(function(err, value){
 	}
 });
 
-console.log('Buttons initialised');
+console.log('Buttons actions initialised');
 // ################# events #################
 // event.on('exclamation2Rappels', function(message){
 	// console.log('_EventEmited: ' + (message || '.'));

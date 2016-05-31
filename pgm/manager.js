@@ -92,6 +92,7 @@ function startOdi(mode){
 		logDate = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';//' + year + ' ';
 		logDate = logDate + (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
 		console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
+		console.trace(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
 		// log.recordLog(hour + ':' + min + ':' + sec + ' O/!\\ ' + data);
 	});
 	
