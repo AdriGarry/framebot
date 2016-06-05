@@ -78,7 +78,6 @@ ok.watch(function(err, value){
 	console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec [1,2,3;5]');
 	if(pressTime < 1){
 		if(!voiceMail.checkVoiceMail()){
-			console.log('NO VOICEMAIL MESSAGE IN TMP FOLDER !!');
 			utils.randomAction();
 		}
 	}else if(pressTime >= 1 && pressTime < 2){

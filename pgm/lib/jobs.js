@@ -97,7 +97,7 @@ var setAlarms = function(){
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
 		utils.testConnexion(function(connexion){
 			if(connexion == true){
-				service.time();
+				// service.time();
 				setTimeout(function(){
 					service.weather();
 				}, 5*1000);
@@ -162,15 +162,15 @@ exports.setAlarms = setAlarms;
 /** Fontion d'initialisation des taches de fond */
 var setBackgroundJobs = function(){
 	console.log('Background jobs initialised');
-	new CronJob('0 13 13 * * *', function() {
-		tts.speak('en','Auto restart:0'); // Reinitialisation quotidienne
+	new CronJob('13 13 13 * * 1-6', function() {
+		tts.speak('en','Auto restart:1'); // Reinitialisation quotidienne
 		setTimeout(function(){
 			utils.restartOdi();
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('13 13 13 * * 0', function() {
-		tts.speak('fr','Auto reboot:0'); // Redemarrage hebdomadaire
+		tts.speak('fr','Auto reboot:1'); // Redemarrage hebdomadaire
 		setTimeout(function(){
 			utils.reboot();
 		}, 3000);

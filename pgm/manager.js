@@ -75,8 +75,8 @@ function startOdi(mode){
 	odiPgm.stderr.on('data', function(data){ // Template log error
 		if(1 === etat.readSync()){ logMode = logMode.replace('i','!'); }
 		else{ logMode = logMode.replace('!','i'); }
-		// console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
-		console.trace(getLogDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
+		console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
+		// console.trace(getLogDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
 		// log.recordLog(hour + ':' + min + ':' + sec + ' O/!\\ ' + data);
 	});
 	

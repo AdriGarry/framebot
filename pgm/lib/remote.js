@@ -116,8 +116,7 @@ exports.synchro = function synchro(mode){
 									voiceMail.clearVoiceMail();
 								}else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
 									if(!voiceMail.checkVoiceMail()){
-										console.log('NO VOICEMAIL MESSAGE IN TMP FOLDER !!');
-										tts.speak('en', 'No message in voicemail:1');
+										tts.speak('en', 'No voicemail message:1');
 									}
 								}else if(txt == 'jukebox' && mode.indexOf('sleep') == -1){
 									jukebox.loop();
