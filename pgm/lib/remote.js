@@ -139,11 +139,11 @@ exports.synchro = function synchro(mode){
 								}else if(txt == 'cigales' && mode.indexOf('sleep') == -1){
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'cigales']);
 								}else if(txt.indexOf('exclamation') >= 0 && mode.indexOf('sleep') == -1){
-									console.log(txt);
 									if(txt.toUpperCase().indexOf('LOOP') >= 0){
 										exclamation.exclamationLoop();
 									}else{
-										exclamation.exclamation2Rappels();
+										// exclamation.exclamation2Rappels();
+										exclamation.exclamation();
 									}
 								}else if(txt.indexOf('conversation') >= 0 && mode.indexOf('sleep') == -1){
 									if(/\d/.test(txt)){

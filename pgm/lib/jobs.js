@@ -190,17 +190,21 @@ var setAutoLifeCycle = function(param){
 	if(typeof param !== 'undefined' && param == 'S'){ // Set wake up jobs
 		console.log('AutoLifeCycle jobs initialised [' + param + ':Wake Up!]');
 		new CronJob('0 25 7 * * 1-5', function(){
+			console.log('AutoLifeCycle start up !');
 			utils.restartOdi(); // redemarrer pgm
 		}, null, true, 'Europe/Paris');
 		new CronJob('0 42 11 * * 0,6', function() {
+			console.log('AutoLifeCycle start up !');
 			utils.restartOdi(); // redemarrer pgm
 		}, null, true, 'Europe/Paris');
 	}else{ // Set go to sleep jobs
 		console.log('AutoLifeCycle jobs initialised [for time to sleep]');
 		new CronJob('13 0 0 * * 1-5', function(){
+			console.log('AutoLifeCycle go to sleep !');
 			utils.restartOdi(255);// mettre en veille // 7
 		}, null, true, 'Europe/Paris');
 		new CronJob('13 0 2 * * 0,6', function() {
+			console.log('AutoLifeCycle go to sleep !');
 			utils.restartOdi(255);// mettre en veille // 9
 		}, null, true, 'Europe/Paris');
 	}

@@ -6,6 +6,13 @@ var Gpio = require('onoff').Gpio;
 var leds = require('./leds.js');
 var tts = require('./tts.js');
 
+var exclamation = function(){
+	console.log('Exclamation !');
+	leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
+	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation.sh']);
+};
+exports.exclamation = exclamation;
+
 var exclamation2Rappels = function(){
 	console.log('Exclamation [2 recall]!');
 	leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);

@@ -12,7 +12,7 @@ exclamation () {
 	sound=$(sudo find /home/pi/odi/mp3/exclamation -maxdepth 1 -type f | shuf | head -1)
 	if [ $volume = 0 ]
 	then
-		volume=-400 #-600
+		volume=-200 #-400
 	else
 		volume=400 #400
 	fi

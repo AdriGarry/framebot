@@ -42,7 +42,7 @@ exports.checkVoiceMail = function checkVoiceMail(callback){
 			console.error(e);
 		}
 	}
-}
+};
 
 exports.voiceMailSignal = function voiceMailSignal(){
 	console.log('Start checking messages...');
