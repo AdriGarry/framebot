@@ -3,6 +3,7 @@
 
 var fs = require('fs');
 var request = require('request');
+var utils = require('./utils.js');
 var leds = require('./leds.js');
 var tts = require('./tts.js');
 var self = this;
@@ -86,8 +87,7 @@ exports.info = info;
 
 /** Fonction info temperature processeur */
 var cpuTemp = function(){
-	var temperature = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp");
-	temperature = ((temperature/1000).toPrecision(2));
+	temperature = utils.getCPUTemp();
 	console.log('Service CPU Temperature...  ' + temperature + ' degres');
 	tts.speak('fr', 'Mon processeur est a ' + temperature + ' degres')
 };

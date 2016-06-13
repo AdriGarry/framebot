@@ -84,7 +84,7 @@ var randomAction = function(){
 					service.cpuTemp();
 					break;
 				default:
-					exclamation.exclamation2Rappels();
+					exclamation.exclamation();
 			}
 		}		
 	});
@@ -140,7 +140,7 @@ exports.reboot = reboot;
 
 /** Fonction arret RPI */
 var shutdown = function(){
-	voiceMail.clearLastTTS();
+	voiceMail.clearVoiceMail();
 	remote.trySynchro();
 	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY!!');
 	setTimeout(function(){
@@ -168,6 +168,16 @@ var restartOdi = function(mode){
 	}
 };
 exports.restartOdi = restartOdi;
+
+
+/** Fonction recuperation temperature CPU */
+var getCPUTemp = function(callback){
+	var temperature = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp");
+	temperature = ((temperature/1000).toPrecision(2));
+	return(temperature);
+};
+exports.getCPUTemp = getCPUTemp;
+
 
 /** Fonction recuperation dernier message commit */
 var getMsgLastGitCommit = function(callback){

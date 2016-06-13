@@ -31,8 +31,9 @@ exports.checkVoiceMail = function checkVoiceMail(callback){
 
 		setTimeout(function(){ // Clearing VoiceMail
 			self.clearVoiceMail();
-		}, 2*60*60*1000); // au bout de 2 heures
-		// }, 1*60*1000); // au bout d'1 minute
+			console.log('VoiceMail will be cleared in 5 minutes.');
+		// }, 2*60*60*1000); // au bout de 2 heures
+		}, 5*60*1000); // au bout de 5 minutes
 		return true;
 	}catch(e){
 		if(e.code === 'ENOENT'){

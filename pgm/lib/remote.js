@@ -59,6 +59,7 @@ exports.synchro = function synchro(mode){
 		var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
 		content = content.slice(-120); //-120
 		content = content.join('\n');
+		content = utils.getCPUTemp() + '\n' + content;
 		
 		request.post({
 			url:'http://adrigarry.com/odiTools/remote.php',
