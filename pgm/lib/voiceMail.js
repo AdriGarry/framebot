@@ -14,7 +14,6 @@ var exclamation = require('./exclamation.js');
 var tts = require('./tts.js');
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
-var clock = require('./clock.js');
 var service = require('./service.js');
 var remote = require('./remote.js');
 var self = this;
