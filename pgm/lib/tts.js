@@ -92,7 +92,7 @@ if(typeof lgParam != 'undefined' && lgParam !='' && typeof txtParam != 'undefine
 
 /** Fonction conversation TTS */
 var conversation = function(messages){
-	console.log('Service Conversation... ' + messages);
+	console.log('Conversation Service... ' + messages);
 	try{
 		if(typeof messages == 'undefined') throw (messages);
 		// Mettre un 2eme Try catch imbriqué...

@@ -39,17 +39,16 @@ exports.trySynchro = function trySynchro(mode){
 // Attribuer dans une variable 
 // mode.indexOf('sleep') == -1
 
+/** Fonction de formatage des logs */
 function prepareLogs(callback){
-	console.log('1 LOG prepareLogs');
-	// Recuperation des 120 dernieres lignes de logs
 	var logFilePath = '/home/pi/odi/log/odi.log';
 	var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
 	content = content.slice(-120); //-120
 	content = content.join('\n');
 	content = utils.getCPUTemp() + '\n' + content;
-	console.log('2 ' + content);
 	callback(content);
 }
+
 exports.parseCommand = function parseCommand(){
 	// Test des commandes et action
 }
@@ -59,20 +58,16 @@ var log;
 var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
 exports.synchro = function synchro(mode){
 	try{
+		console.error(mode);
 		if(typeof mode === 'undefined') mode = '';
-		/*prepareLogs(function(log){
-			console.log('3 ' + log);
-		});*/
-		var logFilePath = '/home/pi/odi/log/odi.log';
-		var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
-		content = content.slice(-120); //-120
-		content = content.join('\n');
-		content = utils.getCPUTemp() + '\n' + content;
-
+		var logs;
+		prepareLogs(function(log){
+			logs = log;
+		});
 		request.post({
 			url:'http://adrigarry.com/odiTools/remote.php',
-			body: content,
-			log: log,
+			body: logs,
+			log: logs,
 			headers: {'Content-Type': 'text/plain'}
 			// headers: {'Content-Type': 'text/plain;charset=utf8'}
 		}, function (error, response, body){
@@ -122,8 +117,8 @@ exports.synchro = function synchro(mode){
 								}else if(txt == 'lastTTS' && mode.indexOf('sleep') == -1){
 									tts.lastTTS();
 								// A REVOIR !!!!!!!!!!!!!!!!!!!!!
-								// }else if(txt.indexOf('msg') > 0 && mode.indexOf('sleep') == -1){
-								// 	voiceMail.addVoiceMailMessage(lg,txt);
+								}else if(txt.indexOf('msg') >= 0 && mode.indexOf('sleep') == -1){
+									voiceMail.addVoiceMailMessage(lg,txt.substring(3));
 								}else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
 									if(!voiceMail.checkVoiceMail()){
 										tts.speak('en', 'No voicemail message:1');
@@ -148,7 +143,7 @@ exports.synchro = function synchro(mode){
 									timer.setTimer();
 								}else if(txt == 'fip' && mode.indexOf('sleep') == -1){
 									fip.playFip();
-								}else if(txt == 'cigales' && mode.indexOf('sleep') == -1){
+								}else if(txt == 'cigales' && !mode){
 									deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'cigales']);
 								}else if(txt.indexOf('exclamation') >= 0 && mode.indexOf('sleep') == -1){
 									if(txt.toUpperCase().indexOf('LOOP') >= 0){
