@@ -57,6 +57,7 @@ setTimeout(function(){
 	voiceMail.checkVoiceMail();
 }, 6000);
 
+voiceMail.voiceMailFlag();
 
 // ------------------------//
 // ----- TEST SECTION -----//

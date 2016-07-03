@@ -17,24 +17,29 @@ var weather = function(){
 		headers: {'Content-Type': 'xml'}
 	},
 	function (error, response, body){
-		if(!error && response.statusCode == 200){
-			body = body.split('\n');
-			// console.log('body : ' + body);
-			var weather = body[28];
-			weather = weather.substring(weather.lastIndexOf('code="')+6,weather.lastIndexOf('code="')+8);
-			weather = weatherStatus[weather];
-			var temp = body[32];
-			temp = temp.substring(temp.lastIndexOf(',')+1,temp.lastIndexOf('C'));
-			var wind = body[12].toString();
-			wind = Math.floor(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));
-			var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' , il fait ' + temp
-				+ ' degres avec ' + (isNaN(wind)?'0':wind) + ' kilometre heure de vent';
-			console.log('Service Weather... ' + annonceTemp);
-			tts.speak('fr',annonceTemp);
-		}else{
-			tts.speak('fr', 'Erreur service meteo:1');
-			console.error('Weather request > response.statusCode : ' + response.statusCode);
-			if(error){console.error('Error getting weather info  /!\\ \n' + error);}
+		try{
+			if(!error && response.statusCode == 200){
+				body = body.split('\n');
+				// console.log('body : ' + body);
+				var weather = body[28];
+				weather = weather.substring(weather.lastIndexOf('code="')+6,weather.lastIndexOf('code="')+8);
+				weather = weatherStatus[weather];
+				var temp = body[32];
+				temp = temp.substring(temp.lastIndexOf(',')+1,temp.lastIndexOf('C'));
+				var wind = body[12].toString();
+				wind = Math.floor(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));
+				var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' , il fait ' + temp
+					+ ' degres avec ' + (isNaN(wind)?'0':wind) + ' kilometre heure de vent';
+				console.log('Service Weather... ' + annonceTemp);
+				tts.speak('fr',annonceTemp);
+			}else{
+				console.log('Can\'t retreive weather informations');
+				tts.speak('fr', 'Erreur service meteo:1');
+				console.error('Weather request > response.statusCode : ' + response.statusCode);
+				if(error){console.error('Error getting weather info  /!\\ \n' + error);}
+			}
+		}catch(e){
+			console.error(e);
 		}
 	});
 };

@@ -32,7 +32,7 @@ exports.checkVoiceMail = function checkVoiceMail(callback){
 			self.clearVoiceMail();
 			console.log('VoiceMail will be cleared in 5 minutes.');
 		// }, 2*60*60*1000); // au bout de 2 heures
-		}, 5*60*1000); // au bout de 5 minutes
+		}, 10*60*1000); // au bout de 5 minutes
 		return true;
 	}catch(e){
 		if(e.code === 'ENOENT'){
@@ -44,8 +44,8 @@ exports.checkVoiceMail = function checkVoiceMail(callback){
 	}
 };
 
-exports.voiceMailSignal = function voiceMailSignal(){
-	console.log('Start checking messages...');
+exports.voiceMailFlag = function voiceMailFlag(){
+	console.log('Starting voiceMail flag...');
 	setInterval(function(){
 		fs.access(voiceMailFilePath, fs.R_OK, function(err) {
 			// console.error(e);
@@ -53,7 +53,7 @@ exports.voiceMailSignal = function voiceMailSignal(){
 				console.log('blinkBelly');
 				leds.blinkBelly(300, 0.8);
 			}else{
-				console.log('ERROR voiceMailSignal function... TO DEBUG !!') // TO DEBUG !!
+				//console.log('ERROR voiceMailFlag function... TO DEBUG !!') // TO DEBUG !!
 			}
 		});
 	}, 5000);
@@ -70,4 +70,16 @@ exports.clearVoiceMail = function clearVoiceMail(){
 			tts.speak('en', 'VoiceMail Cleared:3');
 		}
 	});
+};
+
+exports.addVoiceMailMessage = function addVoiceMailMessage(lg, txt){
+	var message = lg + ';' + txt; // AJOUTER HEURE + DATE ??
+	fs.appendFile(voiceMailFilePath, message + '\r\n', function(err){ //writeFile
+		if(err){
+			// BLINK_SATELLITE
+			leds.blinkBelly(300, 0.8);
+			return console.error(err);
+		}
+		console.log('New VoiceMail Message_: ' + message);
+	}); 
 };

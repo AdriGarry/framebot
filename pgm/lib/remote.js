@@ -39,32 +39,40 @@ exports.trySynchro = function trySynchro(mode){
 // Attribuer dans une variable 
 // mode.indexOf('sleep') == -1
 
-exports.prepareLogs = function prepareLogs(){
+function prepareLogs(callback){
+	console.log('1 LOG prepareLogs');
 	// Recuperation des 120 dernieres lignes de logs
+	var logFilePath = '/home/pi/odi/log/odi.log';
+	var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
+	content = content.slice(-120); //-120
+	content = content.join('\n');
+	content = utils.getCPUTemp() + '\n' + content;
+	console.log('2 ' + content);
+	callback(content);
 }
 exports.parseCommand = function parseCommand(){
 	// Test des commandes et action
 }
-exports.saveVoiceMail = function saveVoiceMail(){
-	// Enregistrement du message
-	voicemail.saveMessage(); // >> definir methode dans lib voiceMail.js
-}
 
 /** Fonction synchro : verification ordres et envoi logs */
+var log;
 var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
 exports.synchro = function synchro(mode){
 	try{
 		if(typeof mode === 'undefined') mode = '';
+		/*prepareLogs(function(log){
+			console.log('3 ' + log);
+		});*/
 		var logFilePath = '/home/pi/odi/log/odi.log';
 		var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
 		content = content.slice(-120); //-120
 		content = content.join('\n');
 		content = utils.getCPUTemp() + '\n' + content;
-		
+
 		request.post({
 			url:'http://adrigarry.com/odiTools/remote.php',
 			body: content,
-			log: content,
+			log: log,
 			headers: {'Content-Type': 'text/plain'}
 			// headers: {'Content-Type': 'text/plain;charset=utf8'}
 		}, function (error, response, body){
@@ -113,12 +121,15 @@ exports.synchro = function synchro(mode){
 									utils.mute();
 								}else if(txt == 'lastTTS' && mode.indexOf('sleep') == -1){
 									tts.lastTTS();
-								}else if(txt == 'clearVoiceMail' && mode.indexOf('sleep') == -1){
-									voiceMail.clearVoiceMail();
+								// A REVOIR !!!!!!!!!!!!!!!!!!!!!
+								// }else if(txt.indexOf('msg') > 0 && mode.indexOf('sleep') == -1){
+								// 	voiceMail.addVoiceMailMessage(lg,txt);
 								}else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
 									if(!voiceMail.checkVoiceMail()){
 										tts.speak('en', 'No voicemail message:1');
 									}
+								}else if(txt == 'clearVoiceMail' && mode.indexOf('sleep') == -1){
+									voiceMail.clearVoiceMail();
 								}else if(txt == 'jukebox' && mode.indexOf('sleep') == -1){
 									jukebox.loop();
 								}else if(txt == 'jukebox m' || txt == 'medley' && mode.indexOf('sleep') == -1) {
@@ -176,16 +187,7 @@ exports.synchro = function synchro(mode){
 								}
 							}else{
 								 if(mode.indexOf('sleep') > -1){ // Saving message in voicemail
-									var message = lg + ';' + txt; // AJOUTER HEURE + DATE ??
-									fs.appendFile(voiceMailFilePath, message + '\r\n', function(err){ //writeFile
-										if(err){
-											// BLINK_SATELLITE
-											leds.blinkBelly(300, 0.8);
-											return console.error(err);
-										}
-										console.log('New VoiceMail Message_: ' + message);
-									}); 
-									
+									voiceMail.addVoiceMailMessage(lg,txt);
 								 }else{ // Saying message
 									 tts.speak(lg,txt);
 								 }
@@ -206,6 +208,7 @@ exports.synchro = function synchro(mode){
 		});
 	}catch(e){
 		console.error('Exception synchro remote controle   /!\\ /!\\ \n' + e);
+		console.trace(e);
 	}
 }
 

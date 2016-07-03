@@ -21,7 +21,8 @@ else
 	#___Son Demarrage Odi
 	if [ $1 = "startup" ]
 	then
-		sound="/home/pi/odi/mp3/system/bonjour.mp3"
+		#sound="/home/pi/odi/mp3/system/bonjour.mp3"
+		sound="/home/pi/odi/mp3/system/bonjourBonjour.mp3"
 	#___Son Redemarrage Odi
 	elif [ $1 = "reboot" ]
 	then
