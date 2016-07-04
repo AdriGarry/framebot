@@ -21,6 +21,21 @@ var self = this;
 var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
 var voiceMailFilePathHistory = '/home/pi/odi/log/voicemailHistory.log';
 
+exports.addVoiceMailMessage = function addVoiceMailMessage(lg, txt){
+	var message = lg + ';' + txt; // AJOUTER HEURE + DATE ??
+	fs.appendFile(voiceMailFilePath, message + '\r\n', function(err){ //writeFile
+		if(err)	return console.error(err);
+		leds.blinkBelly(300, 0.8);
+		console.log('New VoiceMail Message_: ' + message);
+	}); 
+	fs.appendFile(voiceMailFilePathHistory, message + '\r\n', function(err){ //writeFile
+		if(err){
+			return console.error(err);
+		}
+	}); 
+};
+
+var clearVoiceMailDelay;
 exports.checkVoiceMail = function checkVoiceMail(callback){
 	try{
 		console.log('Checking VoiceMail...');
@@ -30,11 +45,11 @@ exports.checkVoiceMail = function checkVoiceMail(callback){
 		console.log(messages);
 		tts.conversation(messages);
 
-		setTimeout(function(){ // Clearing VoiceMail
+		if(clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
+		clearVoiceMailDelay = setTimeout(function(){ // Clearing VoiceMail
 			self.clearVoiceMail();
-			console.log('VoiceMail will be cleared in 5 minutes.');
-		// }, 2*60*60*1000); // au bout de 2 heures
-		}, 10*60*1000); // au bout de 10 minutes
+		}, 5*60*1000);
+		console.log('VoiceMail will be cleared in 5 minutes.');
 		return true;
 	}catch(e){
 		if(e.code === 'ENOENT'){
@@ -73,16 +88,3 @@ exports.clearVoiceMail = function clearVoiceMail(){
 	});
 };
 
-exports.addVoiceMailMessage = function addVoiceMailMessage(lg, txt){
-	var message = lg + ';' + txt; // AJOUTER HEURE + DATE ??
-	fs.appendFile(voiceMailFilePath, message + '\r\n', function(err){ //writeFile
-		if(err)	return console.error(err);
-		leds.blinkBelly(300, 0.8);
-		console.log('New VoiceMail Message_: ' + message);
-	}); 
-	fs.appendFile(voiceMailFilePathHistory, message + '\r\n', function(err){ //writeFile
-		if(err){
-			return console.error(err);
-		}
-	}); 
-};

@@ -58,7 +58,7 @@ var log;
 var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
 exports.synchro = function synchro(mode){
 	try{
-		console.error(mode);
+		//console.error(mode);
 		if(typeof mode === 'undefined') mode = '';
 		var logs;
 		prepareLogs(function(log){
