@@ -34,4 +34,4 @@ var server = _http.createServer(function(req, res){
 server.listen(8080);
 console.log('Listening port 8080');
 // _tts.speak('fr', 'hey! je suis connecter');
-_tts.speak('en', 'I\'m connected to the world !:3');
+_tts.speak('en', 'I\'m connected to the world !:1');

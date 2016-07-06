@@ -91,6 +91,8 @@ var info = function(){
 exports.info = info;
 
 /** Fonction info temperature processeur */
+/** utilisation normale : 40 à 60 degres */
+/** /!\ /!\    SI > 80 degres    /!\ /!\ */
 var cpuTemp = function(){
 	temperature = utils.getCPUTemp();
 	console.log('Service CPU Temperature...  ' + temperature + ' degres');
