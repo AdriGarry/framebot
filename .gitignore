@@ -52,5 +52,6 @@ Temporary Items
 #/log/*
 /mp3/*
 /pgm/config/*
+/pgm/_*
 /data/*
 *_.*

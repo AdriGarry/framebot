@@ -34,6 +34,9 @@ new CronJob('*/3 * * * * *', function(){
 	leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
 }, null, true, 'Europe/Paris');
 
+
+var serverUI = require('./lib/serverUI.js');
+
 jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
 buttons.getEtat(function(modeValue){ // Demarrage de l'horloge
@@ -72,4 +75,3 @@ new CronJob('25 * * * * *', function(){
 	var exclamation = require('./lib/exclamation.js');
 	exclamation.exclamation2Rappels();
 }, null, 0, 'Europe/Paris'); // Switch true/false !
-

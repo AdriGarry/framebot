@@ -1,0 +1,244 @@
+<?php require_once('odiTools/tts.php') ?>
+
+<!DOCTYPE html>  
+<html lang="fr" id="odi">
+<head>
+	<title>Odi /</title> 
+	<meta charset="UTF-8">
+	<meta name="author" content="Adrien GARRY">
+	<meta name="robots" content="noindex,nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="http://adrigarry.com/styles/lib/bootstrap.min.css">
+	<link rel="stylesheet" href="http://adrigarry.com/styles/lib/font-awesome.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://adrigarry.com/odiTools/stylesOdi.css">
+	<link rel="icon" href="favicon.ico" />
+    <!--[if lt IE 9]>
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script>window.html5 || document.write('<script src="scripts/html5shiv.js"><\/script>')</script>
+    <![endif]-->
+</head>
+<body role="document" data-spy="scroll" data-target=".navbar-example" style="background:none;">
+	<header id="header" class="navbar navbar-default navbar-fixed-top">
+		<div id="divheader">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<!--<span class="icon-bar"></span>-->
+				</button>
+				<a class="navbar-brand navlink" href="http://adrigarry.com/odi" title="Retour au début"><span class="glyphicon glyphicon-console"></span><span class="glyphicon glyphicon-resize-small"></span>Odi/</a>
+			</div>
+			<nav id="menu" class="collapse navbar-collapse navbar-example" role="navigation">
+				<ul class="nav navbar-nav">
+					<li><a href="#tts" class="navlink ttsFocus" title="Text To Speech">TTS</a></li>
+					<li><a href="#log" class="navlink" title="Log Odi">Log</a></li>
+					<!--<li><a href="#about" class="navlink" title="Text To Speech">About</a></li>-->
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="http://adrigarry.com" title="Back to adrigarry.com"><span class="glyphicon glyphicon-home"></span></a></li>
+					<!--<li><a id="exitBtn" title="Exit interface"><span class="glyphicon glyphicon-remove"></span></a></li>-->
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<section id="intro">
+		<div class="container">
+			<div class="jumbotron page-header">
+				<img src="../images/odi.jpg" alt="Odi's face" href="#log" class="pull-right img-thumbnail navlink" style="margin-top:-130px;">
+				<h1>Hi, I'm Odi/</h1>
+				<br>
+					<p class="welcome"></p>
+					<a href="#tts" id="focusMessage" title="Envoyer un message" class="center-block btn btn-primary btn-lg navlink ttsFocus" role="button">START&nbsp;&nbsp;
+						<span class="glyphicon glyphicon-send"></span>
+					</a>
+				<!--</p>-->
+			</div>
+			<div id="accesdirect">
+				<center>
+				<a href="#tts" title="Odi TTS" class="navlink">
+					<span class="glyphicon glyphicon-bullhorn"></span>
+					<span>TTS</span>
+				</a>
+				<a href="#log" title="Log Odi" class="navlink">
+					<span class="glyphicon glyphicon-info-sign"></span>
+					<span>Log</span>
+				</a>
+				<!--<a href="#about" title="About Odi" class="navlink">
+					<span class="glyphicon glyphicon-info-sign"></span>
+					<span>About</span>
+				</a>-->
+				</center>
+			</div>
+		</div>
+	</section>
+	
+	<section id="tts">
+		<div class="container">
+			<header>
+				<h2><span class="glyphicon glyphicon-bullhorn"></span>TTS</h2>
+				<form id="buttonsTts" method="post" action="<?php echo $_SERVER['PHP_SELF'].'#tts' ?>">
+					<input type="text" name="cmd" id="cmd" value="" class="col-md-9 form-control noDisplay" size="13">
+					<!--<a href="http://adrigarry.com/odi#remote" class="btn btn-default btn-lg glyphicon glyphicon-remove remoteTools" title="Clear all commands"></a>-->
+					<button name="submit" value="lastTTS" class="btn btn-default btn-lg glyphicon glyphicon-repeat" title="Replay Last TTS"></button>
+				</form>
+			</header>
+			<form id="formMessage" class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF'].'#tts' ?>">
+				<fieldset>
+					<legend title="Faire parler Odi">Text To Speech</legend>
+					<h4 class="form-group text-danger text-center">
+						<span class="glyphicon glyphicon-warning-sign"></span>&nbsp;&nbsp;<em>Pas d'accent ni de caractères spéciaux&nbsp;!</em>
+					</h4>
+					<div class="ttsDropDown text-center radioBtnVoice">
+						<!--<div class="col-sm-5 text-center">
+							<label><input type="radio" name="voice" value="" checked>Random voice</label>
+						</div>-->
+						<div class="col-sm-1 text-center"></div>
+						<div class="col-sm-5 text-center">
+							<label title="Voix Google Translate"><input type="radio" name="voice" value=":3" checked>Nice voice&nbsp;</label>
+						</div>
+						<div class="col-sm-5 text-center">
+							<label title="Voix Robot Espeak"><input type="radio" name="voice" value=":1">Robot voice</label>
+						</div>
+						<div class="col-sm-1 text-center"></div>
+					</div>
+					<p class="form-group form-group-lg etage">
+						<?php
+							if(isset($error['message']))
+							{
+								//echo '<p class="alert alert-danger col-md-offset-3 col-md-9">'.$error['nom'].'</p>';
+							}
+						?>
+						<input type="text" name="message" id="message" onchange="cleanText()" class="form-control" size="35" title="Write here a message" placeholder="Message..." value="<?php if(isset($message)) {echo $message;} ?>" required>
+					</p>
+					<div class="col-xs-1 text-center"></div>
+					<div class="col-xs-5 text-center">
+						<select name="lgMessage" id="lgMessage" class="form-control" title="Choix de la langue" placeholder="Langue du message" value="<?php if(isset($lgMessage)) {echo $lgMessage;} ?>">
+							<option value="fr">Français</option>
+							<option value="en">Anglais</option>
+							<option value="es">Espagnol</option>
+							<option value="it">Italien</option>
+							<option value="de">Allemand</option>
+						</select>
+					</div>
+					<div class="col-xs-5 text-center">
+							<input type="submit" name="submit" class="btn btn-primary" title="Envoyer le message !" value="TTS it !&nbsp;&nbsp;">
+					</div>
+					<div class="col-xs-1 text-center"></div>
+				</fieldset>
+			</form>
+		</div>
+	</section>
+
+	<section id="log">
+		<div class="container">
+			<header>
+				<h2><span class="glyphicon glyphicon-info-sign"></span>Log</h2>
+				<input type="checkbox" id="switchLog" name="switchLog" class="_switch noDisplay"><!--<label for="switchLog">auto</label>-->
+			</header>
+			<div id="odiLog" href="#log" class="navlink"> <!--href="#endLog"-->
+				<i>console Off</i>
+			</div>
+		</div>
+	</section>
+
+	<!--<section id="about">
+		<div class="container">
+			<header><h2><span class="glyphicon glyphicon-info-sign"></span>About</h2></header>
+			<p><br><br>Hello, I'm Odi !...</p>
+		</div>
+	</section>-->
+
+	<section id="remote" class="noDisplay">
+		<div class="container">
+			<header><h2><span class="glyphicon glyphicon-erase"></span>Remote</h2></header>
+			<form id="buttons" method="post" action="<?php echo $_SERVER['PHP_SELF'].'#remote' ?>">
+				<input type="text" name="cmd" id="cmd" value="" class="col-md-9 form-control noDisplay" size="13">
+				<a href="http://adrigarry.com/odi#remote" class="btn btn-default btn-lg glyphicon glyphicon-remove remoteTools" title="Clear all commands"></a>
+				<a href="http://adrigarry.com/odiTools/messages.txt" target="_blank" class="btn btn-default btn-lg glyphicon glyphicon-open-file remoteTools" title="Show commands queue"></a>
+				<a href="http://adrigarry.com/odiTools/messagesHistory.txt" target="_blank" class="btn btn-default btn-lg glyphicon glyphicon-list-alt remoteTools" title="Show commands history"></a>
+				<button name="submit" value="medley" class="btn btn-default btn-lg glyphicon glyphicon-random" title="Jukebox Medley"></button>
+				<button name="submit" value="party" class="btn btn-default btn-lg glyphicon glyphicon-glass" title="Party !"></button>
+				<button name="submit" value="cigales" class="btn btn-default btn-lg glyphicon glyphicon-sunglasses" title="Cigales"></button>
+				<button name="submit" value="urss" id="URSS" class="btn btn-default btn-lg glyphicon glyphicon-star" title="URSS Hymn"></button>
+				<button name="submit" value="test" class="btn btn-default btn-lg glyphicon glyphicon-flag" title="Test"></button>
+				<button name="submit" value="jukebox" class="btn btn-default btn-lg glyphicon glyphicon-music" title="Jukebox"></button>
+				<button name="submit" value="fip" class="btn btn-default btn-lg glyphicon glyphicon-globe" title="FIP"></button>
+				<button name="submit" value="serviceCpu" class="btn btn-default btn-lg glyphicon glyphicon-qrcode" title="CPU Temperature"></button>
+				<button name="submit" value="serviceWeather" class="btn btn-default btn-lg glyphicon glyphicon-cloud" title="Weather information"></button>
+				<button name="submit" value="timer" id="Timer" class="btn btn-default btn-lg glyphicon glyphicon-hourglass" title="Timer"></button>
+				<button name="submit" value="serviceTime" class="btn btn-default btn-lg glyphicon glyphicon-time" title="What's time is it ?"></button>
+				<button name="submit" value="serviceDate" class="btn btn-default btn-lg glyphicon glyphicon-calendar" title="What's the day ?"></button>
+				<br>
+				<button name="submit" value="exclamationLOOP" id="ExclamationLoop" class="btn btn-default btn-lg glyphicon glyphicon-volume-up remoteTools" title="Exclamation LOOP !"></button>
+				<button name="submit" value="exclamation" id="Exclamation" class="btn btn-default btn-lg glyphicon glyphicon-volume-up" title="Exclamation !"></button>
+				<button name="submit" value="tts" class="btn btn-default btn-lg glyphicon glyphicon-bullhorn" title="Random TTS !"></button>
+				<button name="submit" value="conversation" id="Conversation" class="btn btn-default btn-lg glyphicon glyphicon-resize-horizontal" title="Conversation !"></button>
+				<br>
+				<button name="submit" value="clearVoiceMail" class="btn btn-default btn-lg glyphicon glyphicon-trash remoteTools" title="Clear VoiceMail"></button>
+				<button name="submit" value="voiceMail" class="btn btn-default btn-lg glyphicon glyphicon-envelope" title="VoiceMail"></button>
+				<button name="submit" value="lastTTS" class="btn btn-default btn-lg glyphicon glyphicon-repeat" title="Replay Last TTS"></button>
+				<button name="submit" value="mute" class="btn btn-default btn-lg glyphicon glyphicon-volume-off" title="Mute"></button>
+				<hr style="width:90%;margin:5px auto 1px;border-color:#aaa;">
+				<button name="submit" onclick="return confirm('Shutdown Odi ?');" value="shutdown" class="btn btn-default btn-lg glyphicon glyphicon-off active" title="Shutdown Odi"></button>
+				<button name="submit" onclick="return confirm('Reboot Odi ?');" value="reboot" class="btn btn-default btn-lg glyphicon glyphicon-refresh active" title="Reboot Odi"></button>
+				<button name="submit" value="sleep" id="Sleep" class="btn btn-default btn-lg " title="Sleep Odi"><i class="fa fa-moon-o"></i></button>
+				<!--glyphicon glyphicon-triangle-bottom-->
+				<button name="submit" value="odi" class="btn btn-default btn-lg glyphicon glyphicon-flash" title="Restart Program"></button>
+			</form>
+		</div>
+	</section>
+
+	<footer id="footer" class="navbar-bottom text-center" role="contentinfo">
+		<span class="raspi"></span>
+		<br style="clear:both;">
+	</footer>
+
+	<?php
+		if ( isset($_POST['submit']))
+		{
+			if (empty($error) && sendTTS($lgMessage,$message))
+			{
+				#echo '<div id="modalCommand" class="modal fade" tabindex="-1" role="dialog"><div class="modal-dialog"><div class="modal-content"><p class="alert alert-info">C\'est noté !<br><br><a class="btn btn-primary btn-lg center-block" role="button" data-dismiss="modal" aria-hidden="true">Fermer</a></p></div></div></div>';
+			}
+			else
+			{
+				echo '<div id="modalCommand" class="modal fade" tabindex="-1" role="dialog"><div class="modal-dialog"><div class="modal-content"><p class="alert alert-danger">/!\\ /!\\ /!\\Un problème est survenu, merci de bien vouloir ré-essayer<br><br><br><a class="btn btn-primary btn-lg center-block" role="button" data-dismiss="modal" aria-hidden="true">Fermer</a></p></div></div></div>';
+			}
+		}
+	?>
+
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<!-- <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script> -->
+	<script src="scripts/bootstrap.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			$.getScript("http://adrigarry.com/odiTools/scriptsOdi.js", function(){
+				// alert("Script loaded but not necessarily executed...");
+				/** Association addParamButton aux boutons */
+				addParamButton('#message', 'cmd;msg ');
+				addParamButton('#Timer');
+				addParamButton('#Conversation');
+				addParamButton('#Sleep');
+				addParamButton('#Exclamation');
+				addParamButton('#URSS');
+			});
+		});
+	</script>
+	<script>$('body').scrollspy({ target: '.navbar-example', offset: 300})</script>
+
+	<!-- Nouveau code Universal Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-7475813-6', 'adrigarry.com');
+		ga('send', 'pageview');
+	</script>
+</body>
+</html>

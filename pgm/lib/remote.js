@@ -39,16 +39,6 @@ exports.trySynchro = function trySynchro(mode){
 // Attribuer dans une variable 
 // mode.indexOf('sleep') == -1
 
-/** Fonction de formatage des logs */
-function prepareLogs(callback){
-	var logFilePath = '/home/pi/odi/log/odi.log';
-	var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
-	content = content.slice(-120); //-120
-	content = content.join('\n');
-	content = utils.getCPUTemp() + '\n' + content;
-	callback(content);
-}
-
 exports.parseCommand = function parseCommand(){
 	// Test des commandes et action
 }
@@ -57,11 +47,11 @@ exports.parseCommand = function parseCommand(){
 var log;
 var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
 exports.synchro = function synchro(mode){
-	try{
+	//try{
 		//console.error(mode);
 		if(typeof mode === 'undefined') mode = '';
 		var logs;
-		prepareLogs(function(log){
+		utils.prepareLogs(120, function(log){
 			logs = log;
 		});
 		request.post({
@@ -201,9 +191,9 @@ exports.synchro = function synchro(mode){
 				// console.log(i + ' Message(s) TTS from OdiWeb ' + messages);
 			}
 		});
-	}catch(e){
+	/*}catch(e){
 		console.error('Exception synchro remote controle   /!\\ /!\\ \n' + e);
 		console.trace(e);
-	}
+	}*/
 }
 

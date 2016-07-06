@@ -91,6 +91,38 @@ var randomAction = function(){
 };
 exports.randomAction = randomAction;
 
+/** Fonction de formatage des logs */
+var prepareLogs = function(lines, callback){
+	var logFilePath = '/home/pi/odi/log/odi.log';
+	var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
+	content = content.slice(-lines); //-120
+	content = content.join('\n');
+	content = self.getCPUTemp() + '\n' + content;
+	callback(content);
+	return content;
+}
+exports.prepareLogs = prepareLogs;
+
+/** Fonction pour afficher les proprietes de l'obj passe en param */
+var printObj = function(obj){
+	var cache = [];
+	JSON.stringify(obj, function(key, value) {
+		if (typeof value === 'object' && value !== null) {
+			if (cache.indexOf(value) !== -1) {
+				// Circular reference found, discard key
+				console.log('Circular reference found, discard key');
+				return;
+			}
+			// Store value in our collection
+			cache.push(value);
+		}
+		return value;
+	});
+	cache = null;
+	console.log('cache : ' + cache);
+};
+exports.printObj = printObj;
+
 /** Fonction parse data from .properties */
 var parseData = function(filePath){ // OU getData OU sliptData
 var data = 'KO'; // ou undefined
