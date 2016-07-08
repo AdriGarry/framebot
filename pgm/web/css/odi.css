@@ -746,7 +746,7 @@ html#odi #tts button.glyphicon-repeat, html#odi #tts a.glyphicon-remove {
 html#odi #remote{
 	padding-top:0px;
 }
-html#odi #remote #buttons {
+html#odi #remote #buttons, html#odi #remote #buttonsDirect {
 	width:22em;
 	text-align:center;
 	margin:0 auto 2.5em;

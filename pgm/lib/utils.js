@@ -146,6 +146,19 @@ var data = 'KO'; // ou undefined
 };
 exports.parseData = parseData;
 
+/** Fonction getFileContent */
+var getFileContent = function(filePath){
+var data = 'KO'; // ou undefined
+	try{
+		data = fs.readFileSync(filePath, 'UTF-8').toString();
+	}catch(e){
+		console.error('Error while reading file : ' + filePath);
+		console.error(e);
+	}
+	return data;
+};
+exports.getFileContent = getFileContent;
+
 /** Fonction test connexion internet */
 var testConnexion = function(callback){
 	require('dns').resolve('www.google.com', function(err) {
@@ -183,9 +196,8 @@ exports.shutdown = shutdown;
 
 /** Fonction redemarrage programme/mise en veille */
 var restartOdi = function(mode){
-	// console.log('utils.typeof mode : ' + typeof mode);
-	// console.log('utils.mode : ' + mode);
-	if(typeof mode === 'number' && mode > 0){
+	// if(typeof mode === 'number' && mode > 0){
+	if(mode > 0){
 		mode = parseInt(mode, 10);
 		setTimeout(function(){
 			console.log('Odi is going to sleep [' + mode + ']');

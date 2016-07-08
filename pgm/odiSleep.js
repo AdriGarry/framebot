@@ -8,6 +8,7 @@ var jobs = require('./lib/jobs.js');
 var utils = require('./lib/utils.js');
 var leds = require('./lib/leds.js');
 var remote = require('./lib/remote.js');
+var _server = require('./lib/server.js');
 
 var mode = sleepTime = process.argv[2]; // Recuperation des arguments
 
@@ -29,6 +30,9 @@ leds.activity(mode); // Initialisation du temoin d'activite 1/2
 new CronJob('*/3 * * * * *', function(){
 	leds.blinkLed(400, 0.7); // Initialisation du temoin d'activite 2/2
 }, null, true, 'Europe/Paris');
+
+
+_server.startUI(mode);
 
 jobs.setBackgroundJobs(); // Demarrage des taches de fond
 

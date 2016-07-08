@@ -8,10 +8,10 @@
 	<meta name="author" content="Adrien GARRY">
 	<meta name="robots" content="noindex,nofollow">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="http://adrigarry.com/styles/lib/bootstrap.min.css">
-	<link rel="stylesheet" href="http://adrigarry.com/styles/lib/font-awesome.min.css">
 	<link href='http://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="http://adrigarry.com/odiTools/stylesOdi.css">
+	<link rel="stylesheet" href="css/lib/bootstrap.min.css">
+	<link rel="stylesheet" href="css/lib/font-awesome.min.css">
+	<link rel="stylesheet" href="css/odi.css">
 	<link rel="icon" href="favicon.ico" />
     <!--[if lt IE 9]>
     	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -29,7 +29,7 @@
 					<span class="icon-bar"></span>
 					<!--<span class="icon-bar"></span>-->
 				</button>
-				<a class="navbar-brand navlink" href="http://adrigarry.com/odi" title="Retour au début"><span class="glyphicon glyphicon-console"></span><span class="glyphicon glyphicon-resize-small"></span>Odi/</a>
+				<a class="navbar-brand navlink" href="http://odi.adrigarry.com" title="Retour au début"><span class="glyphicon glyphicon-console"></span><span class="glyphicon glyphicon-resize-small"></span>Odi/</a>
 			</div>
 			<nav id="menu" class="collapse navbar-collapse navbar-example" role="navigation">
 				<ul class="nav navbar-nav">
@@ -82,7 +82,6 @@
 				<h2><span class="glyphicon glyphicon-bullhorn"></span>TTS</h2>
 				<form id="buttonsTts" method="post" action="<?php echo $_SERVER['PHP_SELF'].'#tts' ?>">
 					<input type="text" name="cmd" id="cmd" value="" class="col-md-9 form-control noDisplay" size="13">
-					<!--<a href="http://adrigarry.com/odi#remote" class="btn btn-default btn-lg glyphicon glyphicon-remove remoteTools" title="Clear all commands"></a>-->
 					<button name="submit" value="lastTTS" class="btn btn-default btn-lg glyphicon glyphicon-repeat" title="Replay Last TTS"></button>
 				</form>
 			</header>
@@ -189,6 +188,12 @@
 				<!--glyphicon glyphicon-triangle-bottom-->
 				<button name="submit" value="odi" class="btn btn-default btn-lg glyphicon glyphicon-flash" title="Restart Program"></button>
 			</form>
+			<div id="buttonsDirect">
+				<button id="odiHttp" class="btn btn-default btn-lg " title="Restart Odi by HTTP request"><i class="fa fa-wheelchair-alt"></i></button>
+				<a href="http://odi.adrigarry.com/toto?paramA=fr&paramB=bonjour" target="_blank" id="" class="btn btn-default btn-lg " title="logs x1000"><i class="fa fa-barcode"></i></a>
+				<i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+				<span class="sr-only">Loading...</span>
+			</div>
 		</div>
 	</section>
 
@@ -217,7 +222,7 @@
 
 	<script>
 		$(document).ready(function(){
-			$.getScript("http://adrigarry.com/odiTools/scriptsOdi.js", function(){
+			$.getScript("http://odi.adrigarry.com/js/odi.js", function(){
 				// alert("Script loaded but not necessarily executed...");
 				/** Association addParamButton aux boutons */
 				addParamButton('#message', 'cmd;msg ');
@@ -226,6 +231,20 @@
 				addParamButton('#Sleep');
 				addParamButton('#Exclamation');
 				addParamButton('#URSS');
+
+
+				$('#odiHttp').on('click', function(){
+					$.ajax({
+						url:'http://odi.adrigarry.com/odi',
+						type:'POST',
+						dataType: 'text',
+						// async: false,
+						success: function(data){
+							console.log('data : ' + data);
+							// $('#odiHttp').blur();
+						}
+					})
+				});				
 			});
 		});
 	</script>

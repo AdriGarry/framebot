@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 console.log('>> Odi started in normal mode...   :)');
-
 var spawn = require('child_process').spawn;
+var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'odi']);
+
 var Gpio = require('onoff').Gpio;
 var gpioPins = require('./lib/gpioPins.js');
 var leds = require('./lib/leds.js');
@@ -14,7 +15,7 @@ var remote = require('./lib/remote.js');
 var service = require('./lib/service.js');
 var voiceMail = require('./lib/voiceMail.js');
 var tts = require('./lib/tts.js');
-var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'odi']);
+var _server = require('./lib/server.js');
 
 leds.blinkLed(100, 300); // Sequence led de start
 var mode = process.argv[2]; // Recuperation des arguments
@@ -34,8 +35,7 @@ new CronJob('*/3 * * * * *', function(){
 	leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
 }, null, true, 'Europe/Paris');
 
-
-var serverUI = require('./lib/serverUI.js');
+_server.startUI(mode);
 
 jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
@@ -75,3 +75,9 @@ new CronJob('25 * * * * *', function(){
 	var exclamation = require('./lib/exclamation.js');
 	exclamation.exclamation2Rappels();
 }, null, 0, 'Europe/Paris'); // Switch true/false !
+
+
+/*var jsonString = "{\"key\":\"value\"}";
+var jsonString = utils.getFileContent('/home/pi/odi/pgm/data/commands.js');
+var jsonObj = JSON.parse(jsonString);
+console.log(jsonObj);*/
