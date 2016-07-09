@@ -1,14 +1,23 @@
 /* -------------- Feuille de style de la page des projets ------------- */
 
 .remote{
-	width: 22em;
-	text-align: center;
-	margin: 0 auto 2.5em;
+	width:30em;
+	margin:1em auto;
+	text-align:center;
 }
 
 .remote button{
-	margin: 0.25em;
-	font-size: 1.8em;
-	border: 1px solid #ccc;
-	padding: 10px 17px;
+	width:2.2em;
+	margin:0.25em;
+	font-size:2.6em;
+	border:1px solid #ccc;
+	color:#243342;
+	padding:10px 17px;
+	border-radius:3px;
+}
+
+.remote hr{
+	width:90%;
+	height:2px;
+	background-color:#adbfd2;
 }
