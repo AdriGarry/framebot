@@ -41,11 +41,10 @@ ul{
 	margin-top: -60px;
 }*/
 
-.content {
-	height: 100%;
-	padding: 10px;
-	width: 100%;
-	background:green;
+.content{
+	width:100%;
+	height:100%;
+	padding:10px;
 }
 
 /* ------------------------------ NAVBAR ------------------------------- */
@@ -125,7 +124,9 @@ ul{
 }
 
 .menu ul li.intro{
-	min-height:150px;
+	min-height:250px;
+	border-bottom:3px solid #3f5973;
+	margin-bottom:20px;
 }
 
 img.odiFace{
@@ -154,63 +155,17 @@ img.odiFace{
 }
 
 /* ------------------------------ Modal de sous-menu------------------------------- */
-.left-sub-menu {
-	text-align: right;
-	padding: 5px 2px 5px 15px;
-	width: 250px;
-	height: 100%;
-	background: white;
-	position: absolute;
-	-moz-box-shadow: 1px 0px 25px 0px #e5e5e5;
-	-webkit-box-shadow: 1px 0px 25px 0px #e5e5e5;
-	-o-box-shadow: 1px 0px 25px 0px #e5e5e5;
-	box-shadow: 1px 0px 25px 0px #e5e5e5;
-}
-
-.left-sub-menu i {
-	color: #d6e1e5;
-	cursor: pointer;
-}
-
-.left-sub-menu i:hover {
-	color: #364347;
-}
-
-.sub-menu-inputs {
-	width: 220px;
-	text-align: left;
-}
-
-.sub-menu-tabs {
-	width: 220px;
-	text-align: center;
-}
-
-.sub-menu-tabs ul {
-	width: 200px;
-	margin: 20px auto;
-	border: 1px solid #d6e1e5;
-	border-radius: 10px;
-}
-
-.sub-menu-tabs ul li {
-	padding: 10px;
-	cursor: pointer;
-}
-
-.sub-menu-tabs ul li:first-child {
-	border-top-right-radius: 10px;
-	border-top-left-radius: 10px;
-}
-
-.sub-menu-tabs ul li:last-child {
-	border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px;
-}
-
-.sub-menu-tabs ul li:hover{
-	background:#03B9F2;
-	color:#FFF;
+.left-sub-menu{
+	text-align:right;
+	padding:5px 2px 5px 15px;
+	width:700px;
+	height:100%;
+	background:#fff;
+	position:absolute;
+	-moz-box-shadow:1px 0px 25px 0px #e5e5e5;
+	-webkit-box-shadow:1px 0px 25px 0px #e5e5e5;
+	-o-box-shadow:1px 0px 25px 0px #e5e5e5;
+	box-shadow:1px 0px 25px 0px #e5e5e5;
 }
 
 /* ------------------------------ Dynamisme des menus ------------------------------- */
@@ -232,7 +187,7 @@ img.odiFace{
 .ng-sub-menu{
 	left:-250px;
 	z-index:5;
-	width:250px;
+	width:700px;
 }
 
 .ng-modal-dialog{
@@ -259,7 +214,7 @@ img.odiFace{
 }
 
 .content-area.subMenuShowed{
-	padding-left:350px;
+	padding-left:800px;
 }
 
 .content-area.subMenuMinimized{
@@ -271,9 +226,9 @@ img.odiFace{
 }
 
 .ng-sub-menu.menuShowed {
-	left: -150px;
+	left:-600px;
 }
 
 .ng-sub-menu.subMenuShowed {
-	left: 100px;
+	left:100px;
 }
