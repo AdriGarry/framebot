@@ -26,7 +26,7 @@ odiUI.controller('UIController', [ '$scope', '$location', 'constantService', fun
              * @param tabName : nom de la page à afficher
              */
              
-			$scope.goTo = function(tabName){
+			$scope.openTab = function(tabName) {
 				$scope.showMsg = false;
 				$location.path(tabName);
 			}
@@ -34,7 +34,7 @@ odiUI.controller('UIController', [ '$scope', '$location', 'constantService', fun
             /*
              * Fonction permettant d'ouvrir le menu principal
              */
-			$scope.openMenu = function(){
+			$scope.openMenu = function() {
 				$scope.leftMenuShown = true;
 				$scope.leftSubMenuShown = false;
 				$scope.leftSubMenuMinimized = false;
@@ -43,25 +43,17 @@ odiUI.controller('UIController', [ '$scope', '$location', 'constantService', fun
             /*
              * Fonction permettant de fermer le menu principal
              */
-			/*$scope.closeMenu = function() {
+			$scope.closeMenu = function() {
 				$scope.leftMenuShown = false;
 				$scope.leftSubMenuShown = false;
 				$scope.leftSubMenuMinimized = false;
-			}*/
-            
-
-            /*
-             * Fonction permettant d'ouvrir le sous-menu
-             */
-			$scope.toggleLog = function(){
-				
 			}
-
+            
             /*
              * Fonction permettant d'ouvrir le sous-menu
              */
-			$scope.showLog = function(){
-				console.log('show');
+			// $scope.showLog = function() {
+			$scope.showLog = function() {
 				$scope.leftSubMenuShown = true;
 				$scope.leftSubMenuMinimized = false;
 			}
@@ -69,8 +61,7 @@ odiUI.controller('UIController', [ '$scope', '$location', 'constantService', fun
             /*
              * Fonction permettant de fermer le sous-menu
              */
-			$scope.hideLog = function(){
-				console.log('hide');
+			$scope.hideLog = function() {
 				$scope.leftSubMenuShown = false;
 				$scope.leftSubMenuMinimized = false;
 			}
