@@ -1,29 +1,14 @@
 /* -------------- Feuille de style de la page des projets ------------- */
 
-/* ------------------ Style du bloc info du projet ------------------ */
-.projet-info {
-	width: 220px;
+.remote{
+	width: 22em;
 	text-align: center;
+	margin: 0 auto 2.5em;
 }
 
-.projet-info p{
-	margin : 0px;
-}
-
-.projet-info p:first-child{
-	margin-top:30px;
-}
-
-.projet-info .name {
-	font-size: 1.2em;
-}
-
-.projet-info .client {
-	font-size: 0.9em;
-}
-
-/* ----------------------------- Boutons ------------------------------- */
-
-.btn {
-    font-size : 0.9em;
+.remote button{
+	margin: 0.25em;
+	font-size: 1.8em;
+	border: 1px solid #ccc;
+	padding: 10px 17px;
 }

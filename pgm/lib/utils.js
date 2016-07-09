@@ -97,7 +97,7 @@ var prepareLogs = function(lines, callback){
 	var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
 	content = content.slice(-lines); //-120
 	content = content.join('\n');
-	content = self.getCPUTemp() + '\n' + content;
+	//content = self.getCPUTemp() + '\n' + content;
 	callback(content);
 	return content;
 }

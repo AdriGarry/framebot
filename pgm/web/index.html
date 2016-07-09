@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.6">
 
     <link rel="stylesheet" href="css/lib/bootstrap.css" media="all" />
-    <link rel="stylesheet" href="css/lib/font-awesome.css" media="all" />
-    <link rel="stylesheet" href="css/lib/jquery-ui.css" media="all" />
+    <link rel="stylesheet" href="css/lib/fakeScroll.css" media="all" />
+    <link rel="stylesheet" href="css/lib/font-awesome.min.css" media="all" />
+    <!--<link rel="stylesheet" href="css/lib/jquery-ui.css" media="all" />-->
     <link rel="stylesheet" href="css/odiUI.css" media="all" />
 
     <!-- Javascript des librairies -->
@@ -18,11 +19,13 @@
     <script src="js/lib/angular-animate.min.js"></script>
     <script src="js/lib/angular-route.min.js"></script>
     <script src="js/lib/jquery-ui.js"></script>
+    <script src="js/lib/jQuery.fakeScroll.js"></script>
 
     <!-- Javascript du projet -->
     <script src="js/config.js"></script>
     <script src="js/index.js"></script>
     <script src="js/tts.js"></script>
+    <script src="js/voiceMail.js"></script>
     <script src="js/remote.js"></script>
 
     <link rel="icon" href="favicon.ico" />
@@ -41,9 +44,10 @@
                 <ul>
                     <li class="intro">
                         <div onclick="window.location.href='http://odi.adrigarry.com'" class="menu-item" title="Re Init UI">
-                            <img src="img/odi.jpg" alt="Od'is face" class="odiFace">
+                            <img src="img/odi.jpg" alt="Od'is face" class=" img-circle img-thumbnail odiFace">
                             <h1>Odi</h1>
-                            <p>51°C</p>
+                            <i class="fa fa-refresh fa-spin" ng-class="!cpuInfo ? '' : 'noDisplay'"></i>
+                            <span ng-class="cpuInfo ? '' : 'noDisplay'" title="CPU Temp : {{cpuTemp}}">{{cpuTemp}}</span>
                         </div>
                     </li>
                     <li>
@@ -76,8 +80,16 @@
     </div>
     
     <!-- LOGS -->
-    <div class="ng-modal ng-slide log" ng-class="logActive ? 'logActive' : ''">
-        <p>LOGS</p>
+    <div class="ng-modal ng-slide log" ng-click="refreshLog()" ng-class="logActive ? 'logActive' : ''">
+        <ul class="fakeScroll">
+            <li ng-repeat="logLine in logData track by $index">{{logLine}}</li>
+            <a id="bottomLogs"></a>
+        </ul>
+        <!--<div class="logOptions">
+            <i class="fa fa-refresh fa-3x" title="Auto Refresh"></i>
+            <i class="fa fa-plus fa-3x" title="More Logs"></i>
+        </div>-->
+
     </div>
 
 
@@ -86,5 +98,9 @@
         <!-- Conteneur pour les templates HTML -->
         <div ng-view=""></div>
     </div>
+
+<script type="text/javascript">
+    $('.fakeScroll').fakeScroll();
+</script>
 </body>
 </html>

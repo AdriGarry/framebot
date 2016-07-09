@@ -33,8 +33,8 @@ exports.startUI = function startUI(mode){
 	/** GET SECTION */
 	/** GET SECTION */
 	ui.get('/log', function (req, res) { // Send Logs to UI
-		_utils.prepareLogs(2000, function(log){
-			console.log('UI < Logs');
+		console.log('UI < Logs');
+		_utils.prepareLogs(200, function(log){
 			res.end(log);
 		});
 	});
