@@ -35,7 +35,7 @@
     </div>-->
 
     <!-- Menu latéral -->
-    <div class='ng-modal ng-menu ng-slide' ng-class="leftMenuShown ? 'menuShowed' : ''">
+    <div class='ng-modal ng-menu ng-slide' ng-class="leftMenuShown ? 'menu' : ''">
         <div class='ng-modal-dialog'>
             <div class="menu">
                 <ul>
@@ -47,25 +47,25 @@
                         </div>
                     </li>
                     <li>
-                        <div ng-click="goTo('TTS')" class="menu-item">
+                        <div ng-click="goTo('TTS')" class="menu-item" title="Envoyer un message">
                             <i class="fa fa-commenting-o"></i>
                             <span>TTS</span>
                         </div>
                     </li>
                     <li>
-                        <div ng-click="goTo('VoiceMail')" class="menu-item">
+                        <div ng-click="goTo('VoiceMail')" class="menu-item" title="Messagerie">
                             <i class="fa fa-envelope-o"></i>
                             <span>VoiceMail</span>
                         </div>
                     </li>
                     <li>
-                        <div ng-click="goTo('Remote')" class="menu-item">
+                        <div ng-click="goTo('Remote')" class="menu-item" title="Telecommande">
                             <i class="fa fa-chain-broken"></i>
                             <span>Remote</span>
                         </div>
                     </li>
                     <li>
-                        <div ng-click="toggleLog()" class="menu-item">
+                        <div ng-click="toggleLog()" class="menu-item" title="Voir logs">
                             <i class="fa fa-code"></i>
                             <span>Log</span>
                         </div>
@@ -76,23 +76,13 @@
     </div>
     
     <!-- LOGS -->
-    
-    <!--<div class="ng-modal ng-sub-menu ng-slide"
-        ng-class="leftSubMenuShown ? (leftSubMenuMinimized ? 'subMenuMinimized' : 'subMenuShowed') : (leftMenuShown ? 'menuShowed' : '')">-->
-    <div class="ng-modal ng-slide log"
-        ng-class="logActive ? 'logActive' : ''">
-        <div class="left-sub-menu">
-            <!--<i class="fa hide-menu-arrow" ng-class="leftSubMenuMinimized ? 'fa-chevron-right' : 'fa-chevron-left'"
-                ng-click="changeMinimizedState()"></i>-->
-        </div>
+    <div class="ng-modal ng-slide log" ng-class="logActive ? 'logActive' : ''">
+        <p>LOGS</p>
     </div>
 
-    <!-- Contenue de l'application -->
-    <!-- Le ng-class permet de modifier la position du contenue en fonction de l'état des menus (caché, minimisé, présent) -->
-    <!--<div class="ng-slide content-area"
-        ng-class="leftSubMenuShown ? (leftSubMenuMinimized ? 'subMenuMinimized' : 'subMenuShowed') : (leftMenuShown ? 'menuShowed' : '')">-->
-    <div class="ng-slide content"
-        ng-class="logActive ? 'logActive' : ''">
+
+    <!-- CONTENT -->
+    <div class="ng-slide content" ng-class="logActive ? 'logActive' : ''">
         <!-- Conteneur pour les templates HTML -->
         <div ng-view=""></div>
     </div>

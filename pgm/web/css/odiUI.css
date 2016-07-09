@@ -154,14 +154,14 @@ img.odiFace{
 	line-height: 0px;
 }
 
-/* ------------------------------ Modal de sous-menu------------------------------- */
-.left-sub-menu{
-	text-align:right;
-	padding:5px 2px 5px 15px;
+/* ------------------------------ Modal LOGS------------------------------- */
+/*.left-sub-menu{*/
+.log{
+	position:absolute;
 	width:700px;
 	height:100%;
+	padding:5px 2px 5px 15px;
 	background:#fff;
-	position:absolute;
 	-moz-box-shadow:1px 0px 25px 0px #e5e5e5;
 	-webkit-box-shadow:1px 0px 25px 0px #e5e5e5;
 	-o-box-shadow:1px 0px 25px 0px #e5e5e5;
@@ -173,8 +173,6 @@ img.odiFace{
 	float:left;
 	overflow:hidden;
 	position:absolute;
-	/*margin-top:-60px;*/
-	/*padding-top:60px;*/
 	height:100%;
 }
 
@@ -192,9 +190,6 @@ img.odiFace{
 .log.menuShowed {
 	left:-600px;
 }
-.log.subMenuShowed {
-	left:100px;
-}
 
 .ng-modal-dialog{
 	position:absolute;
@@ -211,14 +206,11 @@ img.odiFace{
 	transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
 }
 
-.menuShowed{
+.menu{
 	left:0px;
 }
-.content.menuShowed{
+.content.menu{
 	padding-left:100px;
-}
-.content.subMenuShowed{
-	padding-left:800px;
 }
 
 .log{
