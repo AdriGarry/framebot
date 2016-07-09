@@ -3,6 +3,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>OdiUI</title>
+    <meta name="author" content="Adrien GARRY">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
 
     <link rel="stylesheet" href="css/lib/bootstrap.css" media="all" />
     <link rel="stylesheet" href="css/lib/font-awesome.css" media="all" />
@@ -22,111 +25,72 @@
     <script src="js/tts.js"></script>
     <script src="js/remote.js"></script>
 
+    <link rel="icon" href="favicon.ico" />
 </head>
-    <!-- Déclaration du controller global AngularJS -->
-    <body ng-controller="UIController">
+<!-- Déclaration du controller global AngularJS -->
+<body ng-controller="UIController">
 
-        <!-- Barre de navigation de l'application -->
-        <!--<div class="navbar navbar-static-top">
-        </div>-->
+    <!-- Barre de navigation de l'application -->
+    <!--<div class="navbar navbar-static-top">
+    </div>-->
 
-        <!-- Menu latéral -->
-        <div class='ng-modal ng-menu ng-slide'
-            ng-class="leftMenuShown ? 'menuShowed' : ''">
-            <div class='ng-modal-dialog'>
-                <div class="menu">
-                    <ul>
-                        <li class="intro">
-                            <div onclick="window.location.href='http://odi.adrigarry.com'" class="menu-item">
-                                <img src="img/odi.jpg" alt="Od'is face" title="My Face" class="odiFace">
-                                <p>Odi</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div ng-click="openTab('TTS')" class="menu-item">
-                                <i class="fa fa-commenting"></i>
-                                <span>TTS</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div ng-click="openTab('VoiceMail')" class="menu-item">
-                                <i class="fa fa-envelope-o"></i>
-                                <span>Remote</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div ng-click="openTab('Remote')" class="menu-item">
-                                <i class="fa fa-chain-broken"></i>
-                                <span>Remote</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div ng-click="openTab('Remote')" class="menu-item">
-                                <i class="fa fa-code"></i>
-                                <span>Log</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div ng-click="openTab('Remote')" class="menu-item">
-                                <i class="fa fa-gamepad"></i>
-                                <span>Logs</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Sous-menu latéral -->
-        <!-- Le ng-class permet de modifier la position du sous-menu en fonction de son état (caché, minimisé, présent) -->
-        <div class="ng-modal ng-sub-menu ng-slide"
-            ng-class="leftSubMenuShown ? (leftSubMenuMinimized ? 'subMenuMinimized' : 'subMenuShowed') : (leftMenuShown ? 'menuShowed' : '')">
-            <div class="left-sub-menu">
-                <i class="fa hide-menu-arrow"
-                    ng-class="leftSubMenuMinimized ? 'fa-chevron-right' : 'fa-chevron-left'"
-                    ng-click="changeMinimizedState()"></i>
-                <!-- Zone d'affichage des champs de recherche -->
-                <div ng-hide="!showSubInputs" class="sub-menu-inputs">
-                    <!-- Parcours de la liste des champs de recherche -->
-                    <div ng-repeat="input in inputsItem track by $index">
-                        <label for="input-$index" class="label-input">{{input.label}}</label>
-                        <input id="input-$index" class="rounded-input" type="text" maxlength="100" placeholder='{{input.placeholder}}'
-                            ng-model="input.searchStr" ng-blur="input.hideResults()" ng-change="input.keyPressed()">
-                        <div class="autocomplete-dropdown" ng-show="input.showDropdown">
-                            <div ng-show="input.searching">Recherche en cours...</div>
-                            <div ng-show="!input.searching && (!input.resultsList || input.resultsList.length == 0)">Aucun
-                                résultat</div>
-                            <div ng-repeat='item in input.resultsList track by $index'
-                                ng-click='input.onDropItemClick(item.id)'>{{item.label}}</div>
+    <!-- Menu latéral -->
+    <div class='ng-modal ng-menu ng-slide' ng-class="leftMenuShown ? 'menuShowed' : ''">
+        <div class='ng-modal-dialog'>
+            <div class="menu">
+                <ul>
+                    <li class="intro">
+                        <div onclick="window.location.href='http://odi.adrigarry.com'" class="menu-item">
+                            <img src="img/odi.jpg" alt="Od'is face" title="My Face" class="odiFace">
+                            <h1>Odi</h1>
+                            <p>51°C</p>
                         </div>
-                    </div>
-                </div>
-                <!-- Zone d'affichage des onglets du sous-menu -->
-                <div ng-hide="!showSubTabs" class="sub-menu-tabs">
-                    <ul>
-                        <!-- Parcours de la liste des onglets -->
-                        <li ng-repeat="tab in tabsItem.tabs track by $index" class="tabs-item"
-                            ng-class="$index == tabsItem.selectedTabsIndex ? 'selectedIndex' : ''"
-                            ng-click="tab.onClick($index)">{{tab.name}}</li>
-                    </ul>
-                </div>
+                    </li>
+                    <li>
+                        <div ng-click="goTo('TTS')" class="menu-item">
+                            <i class="fa fa-commenting-o"></i>
+                            <span>TTS</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div ng-click="goTo('VoiceMail')" class="menu-item">
+                            <i class="fa fa-envelope-o"></i>
+                            <span>VoiceMail</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div ng-click="goTo('Remote')" class="menu-item">
+                            <i class="fa fa-chain-broken"></i>
+                            <span>Remote</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div ng-click="toggleLog()" class="menu-item">
+                            <i class="fa fa-code"></i>
+                            <span>Log</span>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
+    </div>
+    
+    <!-- LOGS -->
+    <!-- Le ng-class permet de modifier la position du sous-menu en fonction de son état (caché, minimisé, présent) -->
+    <div class="ng-modal ng-sub-menu ng-slide"
+        ng-class="leftSubMenuShown ? (leftSubMenuMinimized ? 'subMenuMinimized' : 'subMenuShowed') : (leftMenuShown ? 'menuShowed' : '')">
+        <div class="left-sub-menu">
+            <!--<i class="fa hide-menu-arrow" ng-class="leftSubMenuMinimized ? 'fa-chevron-right' : 'fa-chevron-left'"
+                ng-click="changeMinimizedState()"></i>-->
+        </div>
+    </div>
 
-        <!-- Contenue de l'application -->
-        <!-- Le ng-class permet de modifier la position du contenue en fonction de l'état des menus (caché, minimisé, présent) -->
-        <div class="ng-slide content-area"
-            ng-class="leftSubMenuShown ? (leftSubMenuMinimized ? 'subMenuMinimized' : 'subMenuShowed') : (leftMenuShown ? 'menuShowed' : '')">
-            <!-- Bloc permettant d'afficher les messages d'erreurs ou warning -->
-            <div class="msg-container" ng-hide="!showMsg">
-                <div class="msg" ng-class="msgType">
-                    <i class="fa"></i>
-                    <p>{{msgLabel}}</p>
-                    <p class="close-cross" ng-click="showMsg = false">X</p>
-                </div>
-            </div>
-            <!-- Conteneur pour les templates HTML -->
-            <div ng-view=""></div>
-        </div>
-    </body>
+    <!-- Contenue de l'application -->
+    <!-- Le ng-class permet de modifier la position du contenue en fonction de l'état des menus (caché, minimisé, présent) -->
+    <div class="ng-slide content-area"
+        ng-class="leftSubMenuShown ? (leftSubMenuMinimized ? 'subMenuMinimized' : 'subMenuShowed') : (leftMenuShown ? 'menuShowed' : '')">
+        <!-- Conteneur pour les templates HTML -->
+        <div ng-view=""></div>
+    </div>
+</body>
 </html>
