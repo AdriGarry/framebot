@@ -241,7 +241,7 @@ img.odiFace{
 @media(max-width:767px){
 	/*.content{background-color:red;}*/
 	.logActive ul{
-		font-size:1.5em!important;
+		font-size:1.4em!important;
 		letter-spacing:-0.1em!important;
 	}
 }

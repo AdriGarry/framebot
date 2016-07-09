@@ -24,7 +24,7 @@ exports.startUI = function startUI(mode){
 
 	ui.get('/', function (req, res) { // Init UI
 		res.sendFile(_path.join(DIR_NAME_WEB + '/index.html'));
-		console.log('UI requested...');
+		console.log('UI initilized');
 	});
 
 	ui.use(_express.static(DIR_NAME_WEB)); // Pour fichiers statiques
