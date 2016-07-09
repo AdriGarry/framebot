@@ -23,9 +23,9 @@ html,body{
 }
 
 ul{
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
+	margin:0px;
+	padding:0px;
+	list-style:none;
 }
 
 .noDisplay{
@@ -38,8 +38,8 @@ ul{
 	background-color:#DDD;
 }
 
-.overflow {
-	overflow: hidden;
+.overflow{
+	overflow:hidden;
 }
 
 /*.content-area {
@@ -55,34 +55,34 @@ ul{
 }
 
 /* ------------------------------ Modal de menu------------------------------- */
-.menu {
-	width: 100px;
+.menu{
+	width:100px;
 	height:100%;
 	float:left;
 	overflow:hidden;
 	background:#2C3E50;
 }
 
-.menu ul {
-	margin: 0px;
-	padding: 0px;
-	height: 100%;
+.menu ul{
+	margin:0px;
+	padding:0px;
+	height:100%;
 }
 
 .menu ul li{
 	color:#DDD;
-	min-height:100px;
+	/*min-height:100px;*/
+	min-height:13%;
 }
 
 .menu ul li.intro{
-	min-height:220px;
+	/*min-height:220px;*/
+	min-height:25%;
 	/*border-bottom:3px solid #3f5973;*/
 	margin-bottom:20px;
 }
 
 img.odiFace{
-	/*margin-top:-10px;
-	margin-left:-30px;*/
 	width:90%;
 	margin-top:10px;
 	padding:1px;
@@ -101,9 +101,9 @@ img.odiFace{
 .menu ul li.intro span{
 	margin:1.5em auto 0;
 }
-.menu ul li:hover {
-	color: #FFF;
-	cursor: pointer;
+.menu ul li:hover{
+	color:#FFF;
+	cursor:pointer;
 }
 
 .menu-item{
@@ -203,6 +203,12 @@ img.odiFace{
 	letter-spacing:0.1em;
 	font-stretch:condensed;
 }
+
+.log.logActive i.fa-close{
+	float:right;
+	margin-right:0.6em;
+	color:;
+}
 /*.log.logActive .logOptions{
 	height:50px;
 	text-align:center;
@@ -221,6 +227,12 @@ img.odiFace{
 .content.logActive{
 	margin-left:600px;
 }
+
+.content h2 small {
+	color:#bbc1c4;
+	font-style:italic;
+}
+
 
 /*** DESKTOP ***/
 @media(min-width:767px){

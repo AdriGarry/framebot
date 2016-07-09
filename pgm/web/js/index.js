@@ -38,6 +38,11 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 			}
 		}
 
+		/** Fonction hide Logs */
+		$scope.hideLog = function(){
+			$scope.logActive = false;
+		}
+
 		$scope.refreshLog = function(){
 			utilService.getLogs(function(logs){
 				$scope.logData = logs.data.split('\n');

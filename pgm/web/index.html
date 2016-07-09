@@ -81,6 +81,7 @@
     
     <!-- LOGS -->
     <div class="ng-modal ng-slide log" ng-click="refreshLog()" ng-class="logActive ? 'logActive' : ''">
+        <i class="fa fa-4x fa-close" ng-click="hideLog()"></i>
         <ul class="fakeScroll">
             <li ng-repeat="logLine in logData track by $index">{{logLine}}</li>
             <a id="bottomLogs"></a>
