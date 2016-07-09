@@ -7,7 +7,6 @@
 odiUI.controller('VoiceMailController', [VoiceMailController '$scope', '$location',
 	function($scope, $location) {
 		
-		//$scope.hideLog();
 		$scope.logView = false;
 		$scope.openMenu();
 	}

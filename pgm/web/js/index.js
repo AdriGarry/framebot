@@ -56,28 +56,30 @@ odiUI.controller('UIController', [ '$scope', '$location', 'constantService',
              */
 			$scope.leftSubMenuShown = true;
 			$scope.leftSubMenuMinimized = false;
+			$scope.logActive = false;
 			$scope.toggleLog = function(){
 				$scope.leftSubMenuShown = !$scope.leftSubMenuShown;
 				$scope.leftSubMenuMinimized = !$scope.leftSubMenuMinimized;
+				$scope.logActive = !$scope.logActive;
 			}
 
             /*
              * Fonction permettant d'ouvrir le sous-menu
              */
-			$scope.showLog = function(){
-				console.log('show');
-				$scope.leftSubMenuShown = true;
-				$scope.leftSubMenuMinimized = false;
-			}
+			// $scope.showLog = function(){
+			// 	console.log('show');
+			// 	$scope.leftSubMenuShown = true;
+			// 	$scope.leftSubMenuMinimized = false;
+			// }
             
             /*
              * Fonction permettant de fermer le sous-menu
              */
-			$scope.hideLog = function(){
-				console.log('hide');
-				$scope.leftSubMenuShown = false;
-				$scope.leftSubMenuMinimized = true;
-			}
+			// $scope.hideLog = function(){
+			// 	console.log('hide');
+			// 	$scope.leftSubMenuShown = false;
+			// 	$scope.leftSubMenuMinimized = true;
+			// }
             
             /*
              * Fonction permettant de minimiser/dé-minimiser le sous-menu

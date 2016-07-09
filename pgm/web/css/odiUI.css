@@ -184,10 +184,16 @@ img.odiFace{
 	width:100px;
 }
 
-.ng-sub-menu{
+.log{
 	left:-250px;
 	z-index:5;
-	width:700px;
+	width:680px;
+}
+.log.menuShowed {
+	left:-600px;
+}
+.log.subMenuShowed {
+	left:100px;
 }
 
 .ng-modal-dialog{
@@ -208,15 +214,25 @@ img.odiFace{
 .menuShowed{
 	left:0px;
 }
-.content-area.menuShowed{
+.content.menuShowed{
 	padding-left:100px;
 }
-.content-area.subMenuShowed{
+.content.subMenuShowed{
 	padding-left:800px;
 }
-.ng-sub-menu.menuShowed {
-	left:-600px;
+
+.log{
+	margin-left:-330px;
 }
-.ng-sub-menu.subMenuShowed {
-	left:100px;
+
+.log.logActive{
+	margin-left:350px;
+}
+
+.content{
+	margin-left:50px;
+}
+
+.content.logActive{
+	margin-left:720px;
 }

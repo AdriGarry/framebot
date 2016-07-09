@@ -40,8 +40,8 @@
             <div class="menu">
                 <ul>
                     <li class="intro">
-                        <div onclick="window.location.href='http://odi.adrigarry.com'" class="menu-item">
-                            <img src="img/odi.jpg" alt="Od'is face" title="My Face" class="odiFace">
+                        <div onclick="window.location.href='http://odi.adrigarry.com'" class="menu-item" title="Re Init UI">
+                            <img src="img/odi.jpg" alt="Od'is face" class="odiFace">
                             <h1>Odi</h1>
                             <p>51°C</p>
                         </div>
@@ -76,9 +76,11 @@
     </div>
     
     <!-- LOGS -->
-    <!-- Le ng-class permet de modifier la position du sous-menu en fonction de son état (caché, minimisé, présent) -->
-    <div class="ng-modal ng-sub-menu ng-slide"
-        ng-class="leftSubMenuShown ? (leftSubMenuMinimized ? 'subMenuMinimized' : 'subMenuShowed') : (leftMenuShown ? 'menuShowed' : '')">
+    
+    <!--<div class="ng-modal ng-sub-menu ng-slide"
+        ng-class="leftSubMenuShown ? (leftSubMenuMinimized ? 'subMenuMinimized' : 'subMenuShowed') : (leftMenuShown ? 'menuShowed' : '')">-->
+    <div class="ng-modal ng-slide log"
+        ng-class="logActive ? 'logActive' : ''">
         <div class="left-sub-menu">
             <!--<i class="fa hide-menu-arrow" ng-class="leftSubMenuMinimized ? 'fa-chevron-right' : 'fa-chevron-left'"
                 ng-click="changeMinimizedState()"></i>-->
@@ -87,8 +89,10 @@
 
     <!-- Contenue de l'application -->
     <!-- Le ng-class permet de modifier la position du contenue en fonction de l'état des menus (caché, minimisé, présent) -->
-    <div class="ng-slide content-area"
-        ng-class="leftSubMenuShown ? (leftSubMenuMinimized ? 'subMenuMinimized' : 'subMenuShowed') : (leftMenuShown ? 'menuShowed' : '')">
+    <!--<div class="ng-slide content-area"
+        ng-class="leftSubMenuShown ? (leftSubMenuMinimized ? 'subMenuMinimized' : 'subMenuShowed') : (leftMenuShown ? 'menuShowed' : '')">-->
+    <div class="ng-slide content"
+        ng-class="logActive ? 'logActive' : ''">
         <!-- Conteneur pour les templates HTML -->
         <div ng-view=""></div>
     </div>

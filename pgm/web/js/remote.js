@@ -2,7 +2,6 @@
 odiUI.controller('RemoteController', ['$scope', '$location', '$timeout', 'constantService',
 	function($scope, $location, $timeout, constantService) {
 
-        //$scope.hideLog();
         $scope.logView = false;
         $scope.openMenu();
 

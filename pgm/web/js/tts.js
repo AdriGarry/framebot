@@ -7,8 +7,7 @@
 odiUI.controller('TTSController', [ '$scope', '$location',
 	function($scope, $location) {
 
-		$scope.hideLog();
-		// $scope.logView = false;
+		$scope.logView = false;
 		$scope.openMenu();
 
 } ]);
