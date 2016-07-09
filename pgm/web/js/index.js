@@ -5,7 +5,8 @@
  * @param $location : variable Angular permettant de modifier l'URL
  * @param constantService : déclaration du service pour récupérer les constantes de l'application
  */
-odiUI.controller('UIController', [ '$scope', '$location', 'constantService', function($scope, $location, sessionService, constantService) {
+odiUI.controller('UIController', [ '$scope', '$location', 'constantService',
+	function($scope, $location, sessionService, constantService) {
             
             /*
              * Fonction permettant de générer des messages
@@ -14,11 +15,11 @@ odiUI.controller('UIController', [ '$scope', '$location', 'constantService', fun
              * @param label : contenu du message
              */
              
-			$scope.throwMessage = function(type, label) {
-				$scope.msgType = type;
-				$scope.msgLabel = label;
-				$scope.showMsg = true;
-			}
+			// $scope.throwMessage = function(type, label) {
+			// 	$scope.msgType = type;
+			// 	$scope.msgLabel = label;
+			// 	$scope.showMsg = true;
+			// }
 
             /*
              * Fonction utilisé pour changer de page

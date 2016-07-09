@@ -208,27 +208,15 @@ img.odiFace{
 .menuShowed{
 	left:0px;
 }
-
 .content-area.menuShowed{
 	padding-left:100px;
 }
-
 .content-area.subMenuShowed{
 	padding-left:800px;
 }
-
-.content-area.subMenuMinimized{
-	padding-left:115px;
-}
-
-.ng-sub-menu.subMenuMinimized {
-	left: -135px;
-}
-
 .ng-sub-menu.menuShowed {
 	left:-600px;
 }
-
 .ng-sub-menu.subMenuShowed {
 	left:100px;
 }
