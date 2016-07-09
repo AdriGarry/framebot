@@ -1,0 +1,29 @@
+/* -------------- Feuille de style de la page des projets ------------- */
+
+/* ------------------ Style du bloc info du projet ------------------ */
+.projet-info {
+	width: 220px;
+	text-align: center;
+}
+
+.projet-info p{
+	margin : 0px;
+}
+
+.projet-info p:first-child{
+	margin-top:30px;
+}
+
+.projet-info .name {
+	font-size: 1.2em;
+}
+
+.projet-info .client {
+	font-size: 0.9em;
+}
+
+/* ----------------------------- Boutons ------------------------------- */
+
+.btn {
+    font-size : 0.9em;
+}

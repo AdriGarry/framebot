@@ -1,0 +1,279 @@
+/* ------------------------------ Global ------------------------------- */
+*,*::before,*::after{
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+:focus{
+	outline:0;
+}
+
+html,body{
+	font-family:"Source Sans Pro", Helvetica, Arial, sans-serif;
+	font-size:15px;
+	font-weight:normal;
+	width:100%;
+	height:100%;
+	min-height:100%;
+	margin:0px;
+	padding:0px;
+	color:#5e696d;
+	background:#F2F2F2;
+}
+
+ul{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+.hidden {
+	display: none;
+}
+
+.overflow {
+	overflow: hidden;
+}
+
+/*.content-area {
+	padding-top: 60px;
+	margin-top: -60px;
+}*/
+
+.content {
+	height: 100%;
+	padding: 10px;
+	width: 100%;
+	background:green;
+}
+
+/* ------------------------------ NAVBAR ------------------------------- */
+.navbar{
+	height:10px;
+	background-color:#666;
+}
+
+/* ------------------------------ BOUTONS ------------------------------- */
+.btn {
+	color: #fff;
+	cursor: pointer;
+	background-color: #1764b4;
+	border-radius: 4px;
+	padding: 0px;
+	border: none;
+	font-weight: normal;
+	font-size: 1em;
+}
+
+.btn-primary {
+	height: 30px;
+	width: 120px;
+	display: block;
+	margin: 5px auto;
+	line-height: 10px;
+}
+
+.btn-primary:hover {
+	background-color: #0b3768;
+}
+
+.btn-search {
+	background-color: lightGrey;
+	padding: 5px;
+}
+
+.btn-primary p {
+	margin: 0px;
+	font-size: 1.1em;
+	line-height: 17px;
+	text-align: center;
+}
+
+.btn-search div {
+	display: block;
+	float: left;
+}
+
+.btn-search:hover {
+	background-color: lightGrey;
+}
+
+@media ( min-width :700px) {
+	.btn-primary {
+		display: inline;
+	}
+}
+
+/* ------------------------------ Modal de menu------------------------------- */
+.menu {
+	width: 100px;
+	height:100%;
+	float:left;
+	background:#2C3E50;
+}
+
+.menu ul {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+}
+
+.menu ul li{
+	color:#DDD;
+	min-height:100px;
+}
+
+.menu ul li.intro{
+	min-height:150px;
+}
+
+img.odiFace{
+	margin-left:-30px;
+}
+
+.menu ul li:hover {
+	color: #FFF;
+	cursor: pointer;
+}
+
+.menu-item {
+	text-align: center;
+}
+
+.menu-item i {
+	line-height:70px;
+	font-size:3em;
+}
+
+.menu-item span {
+	display:block;
+	margin: 0px;
+	font-size: 1em;
+	line-height: 0px;
+}
+
+/* ------------------------------ Modal de sous-menu------------------------------- */
+.left-sub-menu {
+	text-align: right;
+	padding: 5px 2px 5px 15px;
+	width: 250px;
+	height: 100%;
+	background: white;
+	position: absolute;
+	-moz-box-shadow: 1px 0px 25px 0px #e5e5e5;
+	-webkit-box-shadow: 1px 0px 25px 0px #e5e5e5;
+	-o-box-shadow: 1px 0px 25px 0px #e5e5e5;
+	box-shadow: 1px 0px 25px 0px #e5e5e5;
+}
+
+.left-sub-menu i {
+	color: #d6e1e5;
+	cursor: pointer;
+}
+
+.left-sub-menu i:hover {
+	color: #364347;
+}
+
+.sub-menu-inputs {
+	width: 220px;
+	text-align: left;
+}
+
+.sub-menu-tabs {
+	width: 220px;
+	text-align: center;
+}
+
+.sub-menu-tabs ul {
+	width: 200px;
+	margin: 20px auto;
+	border: 1px solid #d6e1e5;
+	border-radius: 10px;
+}
+
+.sub-menu-tabs ul li {
+	padding: 10px;
+	cursor: pointer;
+}
+
+.sub-menu-tabs ul li:first-child {
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+
+.sub-menu-tabs ul li:last-child {
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.sub-menu-tabs ul li:hover{
+	background:#03B9F2;
+	color:#FFF;
+}
+
+/* ------------------------------ Dynamisme des menus ------------------------------- */
+.ng-modal{
+	float:left;
+	overflow:hidden;
+	position:absolute;
+	/*margin-top:-60px;*/
+	/*padding-top:60px;*/
+	height:100%;
+}
+
+.ng-menu{
+	left:-100px;
+	z-index:10;
+	width:100px;
+}
+
+.ng-sub-menu{
+	left:-250px;
+	z-index:5;
+	width:250px;
+}
+
+.ng-modal-dialog{
+	position:absolute;
+	z-index:10000;
+	width:100px;
+	height:100%;
+	background-color:#fff;
+}
+
+.ng-slide{
+	-webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+	-moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+	-o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+	transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.menuShowed{
+	left:0px;
+}
+
+.content-area.menuShowed{
+	padding-left:100px;
+}
+
+.content-area.subMenuShowed{
+	padding-left:350px;
+}
+
+.content-area.subMenuMinimized{
+	padding-left:115px;
+}
+
+.ng-sub-menu.subMenuMinimized {
+	left: -135px;
+}
+
+.ng-sub-menu.menuShowed {
+	left: -150px;
+}
+
+.ng-sub-menu.subMenuShowed {
+	left: 100px;
+}
