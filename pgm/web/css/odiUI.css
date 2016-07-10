@@ -110,6 +110,10 @@ img.odiFace{
 	cursor:pointer;
 }
 
+.menu ul li:hover span, .menu ul li.active span{
+	visibility:visible;
+}
+
 .menu-item{
 	/*height:4em;
 	min-height:13%;*/
@@ -148,17 +152,7 @@ img.odiFace{
 
 /* ------------------------------ Modal LOGS------------------------------- */
 /*.left-sub-menu{*/
-.log{
-	position:absolute;
-	width:700px;
-	height:100%;
-	padding:5px 2px 5px 15px;
-	background:#fff;
-	-moz-box-shadow:1px 0px 25px 0px #e5e5e5;
-	-webkit-box-shadow:1px 0px 25px 0px #e5e5e5;
-	-o-box-shadow:1px 0px 25px 0px #e5e5e5;
-	box-shadow:1px 0px 25px 0px #e5e5e5;
-}
+
 
 /* ------------------------------ Dynamisme des menus ------------------------------- */
 .ng-modal{
@@ -172,15 +166,6 @@ img.odiFace{
 	left:-100px;
 	z-index:10;
 	width:100px;
-}
-
-.log{
-	left:-250px;
-	z-index:5;
-	width:500px;
-}
-.log.menuShowed {
-	left:-600px;
 }
 
 .ng-modal-dialog{
@@ -206,6 +191,26 @@ img.odiFace{
 	padding-left:100px;
 }
 
+/* ------------------------------ LOGS ------------------------------- */
+.log{
+	position:absolute;
+	width:700px;
+	height:100%;
+	padding:5px 2px 5px 15px;
+	background:#fff;
+	-moz-box-shadow:1px 0px 25px 0px #e5e5e5;
+	-webkit-box-shadow:1px 0px 25px 0px #e5e5e5;
+	-o-box-shadow:1px 0px 25px 0px #e5e5e5;
+	box-shadow:1px 0px 25px 0px #e5e5e5;
+}
+.log{
+	left:-250px;
+	z-index:5;
+	width:500px;
+}
+.log.menuShowed {
+	left:-600px;
+}
 .log{
 	margin-left:-500px;
 	background-color:#1b2631;
@@ -233,16 +238,8 @@ img.odiFace{
 	margin-right:0.6em;
 	color:;
 }
-/*.log.logActive .logOptions{
-	height:50px;
-	text-align:center;
-}
-.log.logActive .logOptions i.fa{
-	margin:0 1em;
-}*/
 
-
-/** CONTENT */
+/* ------------------------------ MAIN CONTENT ------------------------------- */
 .main{
 	height:100%;
 	/*min-height:700px;*/
@@ -271,6 +268,7 @@ img.odiFace{
 	border-bottom:2px solid #ced9e4;
 }
 
+
 input[type='radio']{
 	margin-right:0.5em;
 	transform:scale(1.6);
@@ -280,13 +278,22 @@ input[type='radio']{
 	-o-transform:scale(1.6);
 }
 
-
-/*** DESKTOP ***/
-@media(min-width:767px){
+.form-control{
+	height:43px;
+	border:3px solid #dce4ec;
+	font-size:15px;
 }
-/*** RESPONSIVE ***/
+
+
+/* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */
+@media(min-width:767px){
+	.menu ul li a span{
+		visibility:hidden;
+	}
+
+}
+/* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
 @media(max-width:767px){
-	/*.content{background-color:red;}*/
 	.logActive ul{
 		font-size:1.4em!important;
 		letter-spacing:-0.1em!important;

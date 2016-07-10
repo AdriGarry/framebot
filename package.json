@@ -1,15 +1,16 @@
 {
 	"name": "odi",
 	"description": "Odi's program to autorun and interact !",
-	"version": "3.2.1",
+	"version": "3.4.1",
 	"author": {
 		"name": "Adri",
 		"email": "adrigarry@gmail.com"
 	},
 	"main": "pgm/main.js",
 	"dependencies": {
-		"onoff": "~1.0.2"
-		"request": "~2.68.1"
-		"cron": "~1.1.0"
+		"onoff": "~1.0.2",
+		"request": "~2.68.1",
+		"cron": "~1.1.0",
+		"express": ""
     }
 }
