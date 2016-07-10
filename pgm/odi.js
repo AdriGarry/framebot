@@ -68,6 +68,7 @@ voiceMail.voiceMailFlag();
 
 setTimeout(function(){
 	// tts.speak('fr', 'Leonard le cafard, ou es tu ?:1');
+	// var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', '13Heures']);
 }, 2000);
 
 new CronJob('25 * * * * *', function(){

@@ -21,10 +21,12 @@ var DIR_NAME_WEB = '/home/pi/odi/pgm/web/';
 exports.startUI = function startUI(mode){
 	var ui = _express();
 	var params;
+	var ipClient;
 
 	ui.get('/', function (req, res) { // Init UI
 		res.sendFile(_path.join(DIR_NAME_WEB + '/index.html'));
-		console.log('UI initilized');
+		ipClient = req.connection.remoteAddress;
+		console.log('UI initilized [ip: ' + ipClient + ']');
 	});
 
 	ui.use(_express.static(DIR_NAME_WEB)); // Pour fichiers statiques

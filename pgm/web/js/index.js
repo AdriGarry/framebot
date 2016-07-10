@@ -22,8 +22,8 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
         $scope.cpuInfo = false;
 		$scope.openMenu = function(){
 			$scope.leftMenuShown = true;
-			setTimeout(function(){updateCpuTemp();}, 1500);
-			setInterval(function(){updateCpuTemp();}, 10000);
+			setTimeout(function(){$scope.updateCpuTemp();}, 1500);
+			//setInterval(function(){updateCpuTemp();}, 10000);
 		}
         
 		/** Fonction show/hide Logs */
@@ -37,12 +37,13 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 		}
 
 		/** Fonction de maj de la CPU Temp */
-		function updateCpuTemp(){
-		        $scope.cpuInfo = false;
-				utilService.getCPUTemp(function(temp){
-					$scope.cpuTemp = temp.data + ' ° C';
-					$scope.cpuInfo = true;
-				});
+		$scope.updateCpuTemp = function(){
+			console.log('updateCpuTemp()');
+			$scope.cpuInfo = false;
+			utilService.getCPUTemp(function(temp){
+				$scope.cpuTemp = temp.data + ' ° C';
+				$scope.cpuInfo = true;
+			});
 		}
 
 		/** Fonction hide Logs */
@@ -66,6 +67,7 @@ odiUI.factory('utilService', ['$http', function($http){
 
 	var utilService = {};
 
+	/** Fonction de mise a jour des logs */
 	utilService.lib = "";
 	utilService.getLogs = function(callback){
 		$http({
@@ -79,20 +81,18 @@ odiUI.factory('utilService', ['$http', function($http){
 		});
 	};
 
+	/** Fonction de recuperation de la temperature du processeur */
 	utilService.getCPUTemp = function(callback){
 		$http({
 			method: 'GET',
 			url: 'http://odi.adrigarry.com/cpuTemp'
 		}).then(function successCallback(res){
-			console.log(res);
 			callback(res);
 		}, function errorCallback(res){
 			console.error(res);
 			callback(res);
 		});
 	};
-
-
 	
 	return utilService;
 }]);

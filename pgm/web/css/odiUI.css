@@ -294,6 +294,10 @@ input[type='radio']{
 }
 /* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
 @media(max-width:767px){
+	/*.menu{
+		width:70px;
+		font-size:0.8em;
+	}*/
 	.logActive ul{
 		font-size:1.4em!important;
 		letter-spacing:-0.1em!important;

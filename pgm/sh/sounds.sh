@@ -50,6 +50,9 @@ else
 	elif [ $1 = "IlEstMidi" ]
 	then
 		sound="/home/pi/odi/mp3/DeLaSoulTransmittingLiveFromMars.mp3"
+	elif [ $1 = "13Heures" ]
+	then
+		sound="/home/pi/odi/mp3/exclamation/fr_ben_voyons#1.mp3"
 	#___Son Test
 	elif [ $1 = "test" ]
 	then

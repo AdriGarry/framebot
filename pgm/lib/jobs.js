@@ -152,6 +152,12 @@ var setAlarms = function(){
 
 	}, null, true, 'Europe/Paris');
 
+	// ALL DAYS
+	new CronJob('0 1 13 * * 0,6', function() {
+		console.log('Il est 13 heures et tout va bien !');
+		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', '13Heures']);
+	}, null, true, 'Europe/Paris');
+
 	new CronJob('13 15,45 17-22 * * *', function(){
 		// tts.conversation('RANDOM'); // Conversations aleatoires dans la journee
 		utils.randomAction();

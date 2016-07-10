@@ -43,11 +43,13 @@
             <div class="menu">
                 <ul>
                     <li class="intro">
-                        <div onclick="window.location.href='http://odi.adrigarry.com'" class="menu-item" title="Re Init UI">
-                            <img src="img/odi.jpg" alt="Od'is face" class=" img-circle img-thumbnail odiFace">
-                            <h1>Odi</h1>
+                        <div class="menu-item" title="Re Init UI">
+                            <div onclick="window.location.href='http://odi.adrigarry.com'">
+                                <img src="img/odi.jpg" alt="Od'is face" class=" img-circle img-thumbnail odiFace">
+                                <h1>Odi</h1>
+                            </div>
                             <i class="fa fa-refresh fa-spin" ng-class="!cpuInfo ? '' : 'noDisplay'"></i>
-                            <span ng-class="cpuInfo ? '' : 'noDisplay'" title="CPU Temp : {{cpuTemp}}">{{cpuTemp}}</span>
+                            <span ng-class="cpuInfo ? '' : 'noDisplay'" title="CPU Temp : {{cpuTemp}}"  ng-click="updateCpuTemp()">{{cpuTemp}}</span>
                         </div>
                     </li>
                     <li class="menu-item" ng-class="view == '/TTS' ?'active':''">

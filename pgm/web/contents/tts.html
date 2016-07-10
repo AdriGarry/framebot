@@ -3,12 +3,12 @@
 <h2>TTS <small>Synthetisation vocale</small></h2>
 <hr class="introBorder">
 
-<form id="formMessage" class="" method="post" action="">
+<form class="">
 	<fieldset>
 	<h4 class="form-group text-danger text-center">
 		<i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;<em>Pas d'accent ni de caractères spéciaux&nbsp;!</em>
 	</h4>
-	<div class="ttsDropDown text-center radioBtnVoice">
+	<div class="text-center radioBtnVoice">
 		<!--<div class="col-sm-5 text-center">
 			<label><input type="radio" name="voice" value="" checked>Random voice</label>
 		</div>-->
@@ -21,9 +21,9 @@
 		</div>
 		<div class="col-sm-1 text-center"></div>
 	</div>
-	<p class="form-group form-group-lg etage">
-		<input type="text" name="message" id="message" onchange="cleanText()" class="form-control" size="35" title="Write here a message" placeholder="Message..." value="{{}}" required>
-	</p>
+	<div class="form-group form-group-lg etage">
+		<input type="text" name="message" id="ttsMessage" onchange="" class="form-control" size="35" title="Write here a message" placeholder="Message..." value="{{ttsMessage}}" required>
+	</div>
 	<div class="col-xs-1 text-center"></div>
 	<div class="col-xs-5 text-center">
 		<select name="lgMessage" id="lgMessage" class="form-control" title="Choix de la langue" placeholder="Langue du message" value="">

@@ -6,3 +6,8 @@
 	width:80%;
 	margin:0 auto;
 }
+
+
+fieldset > div{
+	min-height:5em;
+}
