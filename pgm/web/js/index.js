@@ -5,9 +5,10 @@
  * @param $location : variable Angular permettant de modifier l'URL
  * @param constantService : déclaration du service pour récupérer les constantes de l'application
  */
-odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService', 'constantService',
-	function($scope, $location, $http, utilService, constantService) {
-        
+odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService',
+	function($scope, $location, $http, utilService) {
+        $scope.logActive = true;
+
         $scope.view = $location.path() || '/TTS'; // Attribution page par defaut
         
         /* Fonction pour changer de page */
@@ -26,6 +27,15 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 			//setInterval(function(){updateCpuTemp();}, 10000);
 		};
         
+		/** Fonction de maj de la CPU Temp */
+		$scope.updateCpuTemp = function(){
+			$scope.cpuInfo = false;
+			utilService.getCPUTemp(function(temp){
+				$scope.cpuTemp = temp.data + ' ° C';
+				$scope.cpuInfo = true;
+			});
+		};
+
 		/** Fonction show/hide Logs */
 		$scope.logData;
         $scope.logActive = false;
@@ -34,15 +44,6 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 			if($scope.logActive){
 				$scope.refreshLog();
 			}
-		};
-
-		/** Fonction de maj de la CPU Temp */
-		$scope.updateCpuTemp = function(){
-			$scope.cpuInfo = false;
-			utilService.getCPUTemp(function(temp){
-				$scope.cpuTemp = temp.data + ' ° C';
-				$scope.cpuInfo = true;
-			});
 		};
 
 		/** Fonction hide Logs */
@@ -61,7 +62,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 
 } ]);
 
-/* Declaration du service util */
+/* Sercice Util */
 odiUI.factory('utilService', ['$http', function($http){
 
 	var utilService = {};
@@ -95,10 +96,3 @@ odiUI.factory('utilService', ['$http', function($http){
 	
 	return utilService;
 }]);
-
-/* Déclaration du service de constante pour stocker toutes les chaînes de caractères */
-odiUI.factory('constantService',function() { // A METTRE DANS UN OBJET JSON
-	var constantService = {};
-	constantService.wrongDtFormMessage = "";
-	return constantService;
-});

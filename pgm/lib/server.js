@@ -92,14 +92,22 @@ exports.startUI = function startUI(mode){
 	if(mode.indexOf('sleep') == -1){ /////// WHEN ALIVE
 
 		ui.post('/tts', function (req, res) { // TTS ou Add Voice Mail Message
-			var params = [];
-			console.log('UI > tts ' + params);
+			params = req.query;
+			console.log('UI > tts ');
+			console.log(params);
 			if(params){
 				//_voiceMail.addVoiceMailMessage(lg,txt.substring(3));
-				//_voiceMail.addVoiceMailMessage(lg,txt);
+				if(params['voice'] && params['lg'] && params['msg']){
+					if('voicemail' in params){
+						_voiceMail.addVoiceMailMessage(params['lg'], params['msg'] + params['voice']);
+					}else{
+						_tts.speak(params['lg'], params['msg'] + params['voice']);
+					}
+				}else{
+					console.error('Wrong Params A');
+				}
 			}else{
-				//_tts.speak(params);
-				//_tts.speak(lg,txt);
+				console.error('Wrong Params B');
 			}
 			res.writeHead(200);res.end();
 		});

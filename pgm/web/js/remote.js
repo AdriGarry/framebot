@@ -1,6 +1,6 @@
 ﻿/* Déclaration du controller de la page Projet */
-odiUI.controller('RemoteController', ['$scope', '$location', '$timeout', 'constantService',
-	function($scope, $location, $timeout, constantService) {
+odiUI.controller('RemoteController', ['$scope', '$location', '$timeout',
+	function($scope, $location, $timeout) {
 
         $scope.logView = false;
         $scope.openMenu();
