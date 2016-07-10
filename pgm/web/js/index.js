@@ -38,7 +38,6 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 
 		/** Fonction de maj de la CPU Temp */
 		$scope.updateCpuTemp = function(){
-			console.log('updateCpuTemp()');
 			$scope.cpuInfo = false;
 			utilService.getCPUTemp(function(temp){
 				$scope.cpuTemp = temp.data + ' ° C';
