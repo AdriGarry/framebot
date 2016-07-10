@@ -16,7 +16,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 			$location.path(tabName);
 			$scope.view = '/' + tabName;
 			console.log('goTo : ' + $scope.view);
-		}
+		};
 
         /* Fonction pour ouvrir le menu principal */
         $scope.cpuInfo = false;
@@ -24,7 +24,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 			$scope.leftMenuShown = true;
 			setTimeout(function(){$scope.updateCpuTemp();}, 1500);
 			//setInterval(function(){updateCpuTemp();}, 10000);
-		}
+		};
         
 		/** Fonction show/hide Logs */
 		$scope.logData;
@@ -34,7 +34,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 			if($scope.logActive){
 				$scope.refreshLog();
 			}
-		}
+		};
 
 		/** Fonction de maj de la CPU Temp */
 		$scope.updateCpuTemp = function(){
@@ -43,7 +43,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 				$scope.cpuTemp = temp.data + ' ° C';
 				$scope.cpuInfo = true;
 			});
-		}
+		};
 
 		/** Fonction hide Logs */
 		$scope.hideLog = function(){
@@ -57,7 +57,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 				scrollTop: $("#bottomLogs").prop("scrollHeight")}, 0
 				);*/
 			});
-		}
+		};
 
 } ]);
 

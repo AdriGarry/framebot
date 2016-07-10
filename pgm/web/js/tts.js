@@ -1,5 +1,5 @@
 /*
- * Déclaration du controller de la page Home
+ * DÃ©claration du controller de la page Home
  *
  * @param $scope : variable Angular pour faire le lien entre le controller et le HTML
  * @param $location : variable Angular permettant de modifier l'URL
@@ -10,36 +10,47 @@ odiUI.controller('TTSController', [ '$scope', '$location', 'TTSService',
 		$scope.logView = false;
 		$scope.openMenu();
 
-		$scope.ttsMessage = '';
+		/** Fonction init TTS object */
+		$scope.resetTTS = function(){
+			console.log('resetTTS');
+			$scope.tts = {
+				voice: ':3',
+				lg: 'fr',
+				msg: '',
+				cleanText: function(){
+					var message = $scope.tts.msg || '';
+					message = message.replace(/[Ã Ã¢]/g,'a');
+					message = message.replace(/[Ã§]/g,'c');
+					message = message.replace(/[Ã¨Ã©ÃªÃ«]/g,'e');
+					message = message.replace(/[Ã®Ã¯]/g,'i');
+					message = message.replace(/[Ã´Ã³Ã¶]/g,'o');
+					message = message.replace(/[Ã¹]/g,'u');
+					$scope.tts.msg = message;
+				},
+				submit: function(){
+					console.log('sendTTS 1');
+					console.log($scope.tts);
+					TTSService.sendTTS($scope.tts);
+					$scope.resetTTS();
+				}
+			};
+			console.log($scope.tts);
+		};
 
-		$scope.sendTTS = function(){
-			console.log('sendTTS 1');
-			TTSService.sendTTS();
-		}
+		$scope.resetTTS();
+
 	}
 ]);
 
 
-
-/* Déclaration du service de constante pour stocker toutes les chaînes de caractères */
-odiUI.factory('TTSService',function() { // A METTRE DANS UN OBJET JSON
+/* DÃ©claration du service de constante pour stocker toutes les chaÃ®nes de caractÃ¨res */
+odiUI.factory('TTSService',function() {
 	var TTSService = {};
 	
-	/** Fonction de remplassement des caracteres speciaux */
-	TTSService.cleanText = function(){
-		var message = document.getElementById('message').value;
-		message = message.replace(/[àâ]/g,'a');
-		message = message.replace(/[ç]/g,'c');
-		message = message.replace(/[èéêë]/g,'e');
-		message = message.replace(/[îï]/g,'i');
-		message = message.replace(/[ôóö]/g,'o');
-		message = message.replace(/[ù]/g,'u');
-		document.getElementById("message").value = message;
-	};
-
 	/** Fonction envoi message TTS */
-	TTSService.sendTTS = function(){
+	TTSService.sendTTS = function(tts){
 		console.log('TTSService.sendTTS 2');
+		console.log(tts);
 	};
 
 	return TTSService;
