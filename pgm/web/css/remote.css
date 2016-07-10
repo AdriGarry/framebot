@@ -1,5 +1,9 @@
 /* -------------- Feuille de style de la page des projets ------------- */
 
+.content hr.introBorder{
+	margin-bottom:3em;
+}
+
 .remote{
 	width:30em;
 	margin:1em auto;

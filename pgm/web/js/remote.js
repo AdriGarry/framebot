@@ -1,25 +1,41 @@
 ﻿/* Déclaration du controller de la page Projet */
-odiUI.controller('RemoteController', ['$scope', '$location', '$timeout',
-	function($scope, $location, $timeout) {
+odiUI.controller('RemoteController', ['$scope', '$location', '$timeout', 'RemoteService',
+	function($scope, $location, $timeout, RemoteService) {
 
         $scope.logView = false;
         $scope.openMenu();
 
+        $scope.sendCommand =  function(id){
+        	console.log('sendCommand(' + id + ')');
+        };
+
     }
 ]);
 
-/* Déclaration du service de la page Projet qui va permettre de faire appel aux web services de l'application */
-odiUI.factory('projetService', ['constantService', function(constantService) {
-
-    // Création du service projet
-	var projetService = {};
-
-	/* Fonction permettant récupérer les informations d'un projet */ 
-	projetService.getProjetById = function(id, callback) {
-        var projet = null;
-
-		callback(projet);
+/* Sercice Remote */
+odiUI.factory('RemoteService',['$http', function($http){
+	var RemoteService = {};
+	
+	/** Fonction envoi commandes */
+	RemoteService.sendCommand = function(tts, callback){
+		$http({
+			method: 'POST',
+			url: 'http://odi.adrigarry.com/'
+		}).then(function successCallback(res){
+			callback(res);
+		}, function errorCallback(res){
+			console.error(res);
+			callback(res);
+		});
 	};
 
-	return projetService;
+	RemoteService.buttons = [
+		{
+			id: 0,
+			title: '',
+			url: ''
+		}
+	];
+
+	return RemoteService;
 }]);

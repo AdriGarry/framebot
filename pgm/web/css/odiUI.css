@@ -31,6 +31,12 @@ ul{
 .noDisplay{
 	display:none;
 }
+.hidden{
+	visibility:hidden;
+}
+.visible{
+	visibility:visible;
+}
 
 
 .btn-primary{
@@ -144,12 +150,16 @@ img.odiFace{
 	font-size:1.1em;
 	line-height:0px;
 }
-.menu-item a .notif{
+/*.menu-item a .notif{
+	visibility:visible!important;
+	margin-top:-0.3em;
+    margin-right:-3em;
 	font-size:0.4em;
-	color:red;
-	display:none;
+	color:#ff3333;
 }
-
+.menu-item a .notif i{
+	font-size:1em;
+}*/
 /* ------------------------------ Modal LOGS------------------------------- */
 /*.left-sub-menu{*/
 

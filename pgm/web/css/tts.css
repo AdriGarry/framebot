@@ -1,3 +1,9 @@
+
+.content hr.introBorder{
+	margin-bottom:7em;
+}
+
+
 .radioBtnVoice label{
 	font-size:1.2em;
 }
@@ -9,5 +15,6 @@
 
 
 fieldset > div{
-	min-height:5em;
+	min-height:2em;
+	margin-top:2em;
 }

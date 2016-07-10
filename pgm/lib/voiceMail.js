@@ -48,7 +48,7 @@ exports.checkVoiceMail = function checkVoiceMail(callback){
 		if(clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
 		clearVoiceMailDelay = setTimeout(function(){ // Clearing VoiceMail
 			self.clearVoiceMail();
-		}, 5*60*1000);
+		}, 10*60*1000);
 		console.log('VoiceMail will be cleared in 5 minutes.');
 		return true;
 	}catch(e){

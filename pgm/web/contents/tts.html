@@ -22,10 +22,14 @@
 		<div class="col-xs-1 text-center"></div>
 	</div>
 	<div class="form-group form-group-lg etage">
-		<input type="text" name="message" id="ttsMessage" class="form-control" size="35" title="Write here a message" placeholder="Message..." ng-model="tts.msg" ng-change="tts.cleanText()" required autofocus>
+		<textarea rows="2" cols="50" name="message" id="ttsMessage" class="form-control" size="35" title="Write here a message" placeholder="Message..." ng-model="tts.msg" ng-change="tts.cleanText()" required autofocus></textarea>
+		<!--<input type="text" name="message" id="ttsMessage" class="form-control" size="35" title="Write here a message" placeholder="Message..." ng-model="tts.msg" ng-change="tts.cleanText()" required autofocus>-->
+		<p class="text-center infoVoiceMail" ng-class="tts.voicemail ? 'visible' : 'hidden'">
+		Ce message sera en attente dans la messagerie
+		</p>
 	</div>
 	<div class="col-xs-1 text-center"></div>
-	<div class="col-xs-5 text-center">
+	<div class="col-xs-4 text-center">
 		<select name="lgMessage" id="lgMessage" class="form-control" title="Choix de la langue" placeholder="Langue du message" ng-model="tts.lg">
 			<option value="fr">Français</option>
 			<option value="en">Anglais</option>
@@ -34,10 +38,13 @@
 			<option value="de">Allemand</option>
 		</select>
 	</div>
-	<div class="col-xs-1 text-center">
-		<label><input type="checkbox" class="form-control" ng-model="tts.voicemail">VoiceMail</label>
+	<div class="col-xs-3 text-center">
+		<label title="Envoyer dans messagerie">
+			<input type="checkbox" class="form-control noDisplay" ng-model="tts.voicemail">
+			<i class="fa fa-3x" ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>
+		</label>
 	</div>
-	<div class="col-xs-4 text-center">
+	<div class="col-xs-3 text-center">
 			<input type="submit" name="submit" class="btn btn-lg btn-primary" title="Envoyer le message !" value="TTS it !&nbsp;&nbsp;">
 	</div>
 	<div class="col-xs-1 text-center"></div>
