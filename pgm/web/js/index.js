@@ -8,9 +8,8 @@
 odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService', 'constantService',
 	function($scope, $location, $http, utilService, constantService) {
         
-        $scope.view = '/TTS' || $location.path() == ''; // Attribution page par defaut
-        console.log('goTo : ' + $scope.view);
-		console.log($scope.view);
+        $scope.view = $location.path() || '/TTS'; // Attribution page par defaut
+        
         /* Fonction pour changer de page */
 		$scope.goTo = function(tabName){
 	        $scope.logActive = false;
