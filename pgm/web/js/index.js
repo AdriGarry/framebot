@@ -22,8 +22,8 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
         $scope.cpuInfo = false;
 		$scope.openMenu = function(){
 			$scope.leftMenuShown = true;
-			setTimeout(function(){updateCpuTemp();}, 2000);
-			setTimeout(function(){updateCpuTemp();}, 10000);
+			setTimeout(function(){updateCpuTemp();}, 1500);
+			setInterval(function(){updateCpuTemp();}, 10000);
 		}
         
 		/** Fonction show/hide Logs */
