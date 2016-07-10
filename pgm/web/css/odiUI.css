@@ -42,18 +42,6 @@ ul{
 	overflow:hidden;
 }
 
-/*.content-area {
-	padding-top: 60px;
-	margin-top: -60px;
-}*/
-
-.content{
-	/*width:100%;*/
-	height:100%;
-	/*min-height:700px;*/
-	padding:10px;
-}
-
 /* ------------------------------ Modal de menu------------------------------- */
 .menu{
 	width:100px;
@@ -70,9 +58,9 @@ ul{
 }
 
 .menu ul li{
-	color:#DDD;
+	/*color:#DDD;*/
 	/*min-height:100px;*/
-	min-height:13%;
+	/*min-height:13%;*/
 }
 
 .menu ul li.intro{
@@ -107,9 +95,17 @@ img.odiFace{
 }
 
 .menu-item{
+	display:block;
+	min-height:13%;
 	text-align:center;
+	color:#DDD;
 }
-
+.menu-item:hover{
+	color:#fff;
+}
+.menu-item.active{
+	background-color:#243342;
+}
 .menu-item i{
 	line-height:70px;
 	font-size:3em;
@@ -120,6 +116,10 @@ img.odiFace{
 	margin:0px;
 	font-size:1.1em;
 	line-height:0px;
+}
+.menu-item.notif{
+	font-size:0.4em;
+	color:red;
 }
 
 /* ------------------------------ Modal LOGS------------------------------- */
@@ -219,18 +219,34 @@ img.odiFace{
 
 
 /** CONTENT */
-.content{
+.main{
+	height:100%;
+	/*min-height:700px;*/
 	margin-left:100px;
-	padding:20px;
+}
+.main.logActive{
+	margin-left:600px;
 }
 
-.content.logActive{
-	margin-left:600px;
+.content{
+	min-width:30em;
+	max-width:50em;
+	margin:0 auto;
+	padding:10px;
 }
 
 .content h2 small {
 	color:#bbc1c4;
 	font-style:italic;
+}
+
+input[type='radio']{
+	margin-right:0.5em;
+	transform:scale(1.6);
+	-moz-transform:scale(1.6);
+	-ms-transform:scale(1.6);
+	-webkit-transform:scale(1.6);
+	-o-transform:scale(1.6);
 }
 
 

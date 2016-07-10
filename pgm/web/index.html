@@ -7,7 +7,7 @@
     <meta name="robots" content="noindex,nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=0.6">
 
-    <link rel="stylesheet" href="css/lib/bootstrap.css" media="all" />
+    <link rel="stylesheet" href="css/lib/bootstrap.min.css" media="all" />
     <link rel="stylesheet" href="css/lib/fakeScroll.css" media="all" />
     <link rel="stylesheet" href="css/lib/font-awesome.min.css" media="all" />
     <!--<link rel="stylesheet" href="css/lib/jquery-ui.css" media="all" />-->
@@ -51,28 +51,28 @@
                         </div>
                     </li>
                     <li>
-                        <div ng-click="goTo('TTS')" class="menu-item" title="Envoyer un message">
+                        <a ng-click="goTo('TTS')" class="menu-item" title="Envoyer un message">
                             <i class="fa fa-commenting-o"></i>
                             <span>TTS</span>
-                        </div>
+                        </a>
                     </li>
                     <li>
-                        <div ng-click="goTo('VoiceMail')" class="menu-item" title="Messagerie">
-                            <i class="fa fa-envelope-o"></i>
+                        <a ng-click="goTo('VoiceMail')" class="menu-item" title="Messagerie">
+                            <i class="fa fa-envelope-o"><span class="notif">2</span></i>
                             <span>VoiceMail</span>
-                        </div>
+                        </a>
                     </li>
                     <li>
-                        <div ng-click="goTo('Remote')" class="menu-item" title="Telecommande">
+                        <a ng-click="goTo('Remote')" class="menu-item" title="Telecommande">
                             <i class="fa fa-chain-broken"></i>
                             <span>Remote</span>
-                        </div>
+                        </a>
                     </li>
                     <li>
-                        <div ng-click="toggleLog()" class="menu-item" title="Voir logs">
+                        <a ng-click="toggleLog()" class="menu-item" ng-class="logActive?'active':''" title="Voir logs">
                             <i class="fa fa-code"></i>
                             <span>Log</span>
-                        </div>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -95,9 +95,9 @@
 
 
     <!-- CONTENT -->
-    <div class="ng-slide content" ng-class="logActive ? 'logActive' : ''">
+    <div class="ng-slide main" ng-class="logActive ? 'logActive' : ''">
         <!-- Conteneur pour les templates HTML -->
-        <div ng-view=""></div>
+        <div ng-view="" class="ng-slide content"></div>
     </div>
 
 <script type="text/javascript">
