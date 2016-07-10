@@ -12,6 +12,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 		$scope.goTo = function(tabName){
 	        $scope.logActive = false;
 			$location.path(tabName);
+			$scope.view = tabName;
 		}
 
         /* Fonction pour ouvrir le menu principal */
