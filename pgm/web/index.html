@@ -50,19 +50,19 @@
                             <span ng-class="cpuInfo ? '' : 'noDisplay'" title="CPU Temp : {{cpuTemp}}">{{cpuTemp}}</span>
                         </div>
                     </li>
-                    <li class="menu-item" ng-class="view == 'TTS' ?'active':''">
+                    <li class="menu-item" ng-class="view == '/TTS' ?'active':''">
                         <a ng-click="goTo('TTS')" title="Envoyer un message">
                             <i class="fa fa-commenting-o"></i>
                             <span>TTS</span>
                         </a>
                     </li>
-                    <li class="menu-item" ng-class="view == 'VoiceMail' ?'active':''">
+                    <li class="menu-item" ng-class="view == '/VoiceMail' ?'active':''">
                         <a ng-click="goTo('VoiceMail')" title="Messagerie">
                             <i class="fa fa-envelope-o"><span class="notif">2</span></i>
                             <span>VoiceMail</span>
                         </a>
                     </li>
-                    <li class="menu-item" ng-class="view == 'Remote' ?'active':''">
+                    <li class="menu-item" ng-class="view == '/Remote' ?'active':''">
                         <a ng-click="goTo('Remote')" title="Telecommande">
                             <i class="fa fa-chain-broken"></i>
                             <span>Remote</span>

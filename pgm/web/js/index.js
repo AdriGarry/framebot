@@ -8,13 +8,14 @@
 odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService', 'constantService',
 	function($scope, $location, $http, utilService, constantService) {
         
-        $scope.view = $location.path(); // Attribution page auto
+        $scope.view = '/TTS' || $location.path() == ''; // Attribution page par defaut
 
         /* Fonction pour changer de page */
 		$scope.goTo = function(tabName){
 	        $scope.logActive = false;
 			$location.path(tabName);
-			$scope.view = tabName;
+			$scope.view = '/' + tabName;
+			console.log('goTo : ' + $scope.view);
 		}
 
         /* Fonction pour ouvrir le menu principal */
@@ -24,11 +25,10 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 			setTimeout(function(){
 		        $scope.cpuInfo = false;
 				utilService.getCPUTemp(function(temp){
-					console.log(temp);
 					$scope.cpuTemp = temp.data + ' ° C';
 					$scope.cpuInfo = true;
 				});
-			}, 5000);
+			}, 4000);
 		}
         
 		/** Fonction show/hide Logs */
