@@ -9,5 +9,6 @@ odiUI.controller('TTSController', [ '$scope', '$location',
 
 		$scope.logView = false;
 		$scope.openMenu();
+		$scope.view = 'TTS';
 	}
 ]);

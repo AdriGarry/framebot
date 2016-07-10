@@ -7,7 +7,9 @@
  */
 odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService', 'constantService',
 	function($scope, $location, $http, utilService, constantService) {
-            
+        
+        $scope.view = $location.path(); // Attribution page auto
+
         /* Fonction pour changer de page */
 		$scope.goTo = function(tabName){
 	        $scope.logActive = false;
