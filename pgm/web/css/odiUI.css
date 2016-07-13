@@ -60,7 +60,7 @@ ul{
 	overflow:hidden;
 }
 
-/* ------------------------------ Modal de menu------------------------------- */
+/* ------------------------------ MENU ------------------------------- */
 .menu{
 	width:100px;
 	height:100%;
@@ -85,10 +85,8 @@ ul{
 }
 
 .menu ul li.intro{
-	/*min-height:220px;*/
 	min-height:25%;
-	/*border-bottom:3px solid #3f5973;*/
-	margin-bottom:20px;
+	/*margin-bottom:20px;*/
 	color:#DDD;
 }
 
@@ -121,8 +119,6 @@ img.odiFace{
 }
 
 .menu-item{
-	/*height:4em;
-	min-height:13%;*/
 	display:block;
 	text-align:center;
 }
@@ -140,7 +136,6 @@ img.odiFace{
 	background-color:#1b2631;
 }
 .menu-item a i{
-	/*line-height:70px;*/
 	font-size:4em;
 }
 
@@ -150,19 +145,6 @@ img.odiFace{
 	font-size:1.1em;
 	line-height:0px;
 }
-/*.menu-item a .notif{
-	visibility:visible!important;
-	margin-top:-0.3em;
-    margin-right:-3em;
-	font-size:0.4em;
-	color:#ff3333;
-}
-.menu-item a .notif i{
-	font-size:1em;
-}*/
-/* ------------------------------ Modal LOGS------------------------------- */
-/*.left-sub-menu{*/
-
 
 /* ------------------------------ Dynamisme des menus ------------------------------- */
 .ng-modal{
@@ -204,27 +186,19 @@ img.odiFace{
 /* ------------------------------ LOGS ------------------------------- */
 .log{
 	position:absolute;
-	width:700px;
+	width:500px;
 	height:100%;
+	margin-left:-500px;
 	padding:5px 2px 5px 15px;
-	background:#fff;
 	-moz-box-shadow:1px 0px 25px 0px #e5e5e5;
 	-webkit-box-shadow:1px 0px 25px 0px #e5e5e5;
 	-o-box-shadow:1px 0px 25px 0px #e5e5e5;
 	box-shadow:1px 0px 25px 0px #e5e5e5;
-}
-.log{
 	left:-250px;
 	z-index:5;
-	width:500px;
-}
-.log.menuShowed {
-	left:-600px;
-}
-.log{
-	margin-left:-500px;
 	background-color:#1b2631;
 	color:#fff;
+	will-change:transform;
 }
 
 .log.logActive{
@@ -246,7 +220,7 @@ img.odiFace{
 .log.logActive i.fa-close{
 	float:right;
 	margin-right:0.6em;
-	color:;
+	/*color:;*/
 }
 
 /* ------------------------------ MAIN CONTENT ------------------------------- */
@@ -304,12 +278,15 @@ input[type='radio']{
 }
 /* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
 @media(max-width:767px){
-	/*.menu{
+	.menu{
 		width:70px;
 		font-size:0.8em;
-	}*/
-	.logActive ul{
+	}
+	.log.logActive{
+		margin-left:320px;
+	}
+	/*.logActive ul{
 		font-size:1.4em!important;
 		letter-spacing:-0.1em!important;
-	}
+	}*/
 }
