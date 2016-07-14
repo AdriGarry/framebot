@@ -6,11 +6,11 @@
 
 <form ng-submit="tts.submit()">
 	<fieldset>
-	<h4 class="form-group text-danger text-center">
+	<h5 class="form-group text-danger text-center">
 		<i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;<em>Pas d'accent ni de caractères spéciaux&nbsp;!</em>
-	</h4>
+	</h5>
 	<div class="row">
-		<div class="col-sm-2 col-sm-offset-2 col-xs-12">
+		<!--<div class="col-sm-2 col-sm-offset-2 col-xs-12">-->
 			<select name="lgMessage" id="lgMessage" class="form-control" title="Choix de la langue" placeholder="Langue du message" ng-model="tts.lg">
 				<option value="fr">Français</option>
 				<option value="en">Anglais</option>
@@ -18,8 +18,11 @@
 				<option value="it">Italien</option>
 				<option value="de">Allemand</option>
 			</select>
-		</div>
-		<div class="col-sm-6 col-xs-12 text-center radioBtnVoice">
+		<!--</div>-->
+	</div>
+	<div class="row">
+		<!--<div class="col-sm-6 col-xs-12 text-center radioBtnVoice">-->
+		<div class="text-center radioBtnVoice">
 			<label title="Voix Google Translate"><input type="radio" name="voice" value=":3" ng-model="tts.voice">Nice voice&nbsp;</label>
 			<label title="Voix Robot Espeak"><input type="radio" name="voice" value=":1" ng-model="tts.voice">Robot voice</label>
 		</div>

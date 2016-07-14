@@ -16,7 +16,6 @@ html,body{
 	width:100%;
 	height:100%!important;
 	/*min-height:700px!important;*/
-	min-height:700px!important;
 	margin:0px;
 	padding:0px;
 	color:#5e696d;
@@ -280,6 +279,9 @@ input[type='radio']{
 
 /* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */
 @media(min-width:768px){
+	html,body{
+		min-height:700px!important;
+	}
 	.menu ul li a span{
 		visibility:hidden;
 	}
@@ -287,6 +289,9 @@ input[type='radio']{
 }
 /* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
 @media(max-width:768px){
+	html,body{
+		min-height:500px!important;
+	}
 	.menu{
 		width:70px;
 	}
