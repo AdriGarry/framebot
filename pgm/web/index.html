@@ -5,7 +5,7 @@
     <title>OdiUI</title>
     <meta name="author" content="Adrien GARRY">
     <meta name="robots" content="noindex,nofollow">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="css/lib/bootstrap.min.css" media="all" />
     <link rel="stylesheet" href="css/lib/fakeScroll.css" media="all" />
@@ -83,8 +83,8 @@
     
     <!-- LOGS -->
     <div class="ng-modal ng-slide log" ng-click="refreshLog()" ng-class="logActive ? 'logActive' : ''">
-        <i class="fa fa-4x fa-close" ng-click="hideLog()"></i>
         <ul class="fakeScroll">
+            <i class="fa fa-4x fa-close" ng-click="hideLog()"></i>
             <li ng-repeat="logLine in logData track by $index">{{logLine}}</li>
             <a id="bottomLogs"></a>
         </ul>
@@ -92,7 +92,6 @@
             <i class="fa fa-refresh fa-3x" title="Auto Refresh"></i>
             <i class="fa fa-plus fa-3x" title="More Logs"></i>
         </div>-->
-
     </div>
 
 

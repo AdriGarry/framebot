@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="css/tts.css" media="all" />
 
-<h2>TTS <small>Synthetisation vocale</small></h2>
-<hr class="introBorder">
+<h2>TTS</h2>
+<!--<hr class="introBorder">-->
+<h3>Synthetisation vocale</h3>
 
 <form ng-submit="tts.submit()">
 	<fieldset>
@@ -12,18 +13,18 @@
 		<!--<div class="col-sm-5 text-center">
 			<label><input type="radio" name="voice" value="" checked>Random voice</label>
 		</div>-->
-		<div class="col-xs-1 text-center"></div>
-		<div class="col-xs-5 text-center">
+		<div class="col-sm-1 text-center"></div>
+		<div class="col-sm-5 text-center">
 			<label title="Voix Google Translate"><input type="radio" name="voice" value=":3" ng-model="tts.voice">Nice voice&nbsp;</label>
 		</div>
-		<div class="col-xs-5 text-center">
+		<div class="col-sm-5 text-center">
 			<label title="Voix Robot Espeak"><input type="radio" name="voice" value=":1" ng-model="tts.voice">Robot voice</label>
 		</div>
-		<div class="col-xs-1 text-center"></div>
+		<div class="col-sm-1 text-center"></div>
 	</div>
 	<div class="form-group form-group-lg etage">
-		<textarea rows="2" cols="50" name="message" id="ttsMessage" class="form-control" size="35" title="Write here a message" placeholder="Message..." ng-model="tts.msg" ng-change="tts.cleanText()" required autofocus></textarea>
-		<!--<input type="text" name="message" id="ttsMessage" class="form-control" size="35" title="Write here a message" placeholder="Message..." ng-model="tts.msg" ng-change="tts.cleanText()" required autofocus>-->
+		<!--<textarea rows="2" cols="50" name="message" id="ttsMessage" class="form-control" size="35" title="Write here a message" placeholder="Message..." ng-model="tts.msg" ng-change="tts.cleanText()" required autofocus></textarea>-->
+		<input type="text" name="message" id="ttsMessage" class="form-control" size="35" title="Write here a message" placeholder="Message..." ng-model="tts.msg" ng-change="tts.cleanText()" required autofocus>
 		<p class="text-center infoVoiceMail" ng-class="tts.voicemail ? 'visible' : 'hidden'">
 		Ce message sera en attente dans la messagerie
 		</p>

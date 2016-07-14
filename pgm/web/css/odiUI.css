@@ -85,8 +85,8 @@ ul{
 }
 
 .menu ul li.intro{
-	min-height:25%;
-	/*margin-bottom:20px;*/
+	/*min-height:25%;*/
+	min-height:10em;
 	color:#DDD;
 }
 
@@ -213,20 +213,18 @@ img.odiFace{
 	font-family:'Courier New';
 	font-size:0.85em;
 	line-height:0.9em;
-	letter-spacing:0.1em;
 	font-stretch:condensed;
 }
 
 .log.logActive i.fa-close{
 	float:right;
-	margin-right:0.6em;
-	/*color:;*/
+	position:fixed;
+	right:0.6em;
 }
 
 /* ------------------------------ MAIN CONTENT ------------------------------- */
 .main{
 	height:100%;
-	/*min-height:700px;*/
 	margin-left:100px;
 }
 .main.logActive{
@@ -234,14 +232,19 @@ img.odiFace{
 }
 
 .content{
-	min-width:30em;
+	min-width:15em;
 	max-width:50em;
 	margin:0 auto;
 	padding:10px;
 }
 
-.content h2 small {
+.content h3{
+	margin-bottom:0;
+}
+.content h3{
+	margin-top:0;
 	color:#bbc1c4;
+	border-top:2px solid #ced9e4;
 	font-style:italic;
 }
 
@@ -280,7 +283,22 @@ input[type='radio']{
 @media(max-width:767px){
 	.menu{
 		width:70px;
+	}
+	h1{
+		font-size:26px;
+	}
+	.menu ul li.menu-item{
+		margin:2px 0;
+		height:6em;
+	}
+	.menu-item a i{
+		font-size:3em;
+	}
+	.menu li a span{
 		font-size:0.8em;
+	}
+	.log{
+		width:300px;
 	}
 	.log.logActive{
 		margin-left:320px;
@@ -289,4 +307,10 @@ input[type='radio']{
 		font-size:1.4em!important;
 		letter-spacing:-0.1em!important;
 	}*/
+	.main.logActive{
+		margin-left:400px;
+	}
+	.main {
+		margin-left:70px;
+	}
 }
