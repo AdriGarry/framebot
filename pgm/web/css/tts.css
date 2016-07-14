@@ -3,18 +3,40 @@
 	margin-bottom:7em;
 }*/
 
-
 .radioBtnVoice label{
+	padding-top:0.5em;
 	font-size:1.2em;
 }
 
+select.form-control{
+	width:auto;
+	margin:auto;
+}
+
+label{
+	margin-right:1em;
+}
+
 #ttsMessage{
-	width:80%;
+	/*width:80%;*/
 	margin:0 auto;
 }
 
+fieldset .row{
+	margin-top:1.2em;
+}
 
-fieldset > div{
-	min-height:2em;
-	margin-top:2em;
+
+/* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */
+@media(min-width:768px){
+	fieldset, fieldset .row{
+		margin-top:2em;
+	}
+}
+/* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
+@media(max-width:768px){
+	.radioBtnVoice label{
+		font-size:1em;
+		margin-top:1em;
+	}
 }

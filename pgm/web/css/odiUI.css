@@ -32,7 +32,7 @@ ul{
 .noDisplay{
 	display:none;
 }
-.hidden{
+.vHidden{
 	visibility:hidden;
 }
 .visible{
