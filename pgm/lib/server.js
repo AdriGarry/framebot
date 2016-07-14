@@ -31,8 +31,13 @@ exports.startUI = function startUI(mode){
 
 	ui.use(_express.static(DIR_NAME_WEB)); // Pour fichiers statiques
 
+	// Middleware LOGGER
+	var logger = function(req, res, next){
+		console.log(req.url + ' [' + req.connection.remoteAddress + ']');
+		next();
+	};
+	ui.use(logger);
 
-	/** GET SECTION */
 	/** GET SECTION */
 	ui.get('/log', function (req, res) { // Send Logs to UI
 		console.log('UI < Logs');
@@ -48,8 +53,6 @@ exports.startUI = function startUI(mode){
 	});
 
 
-
-	/** POST SECTION */
 	/** POST SECTION */
 	ui.post('/odi', function (req, res) { // Restart Odi
 		console.log('UI > restart Odi');

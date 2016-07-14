@@ -227,16 +227,19 @@ img.odiFace{
 
 /* ------------------------------ MAIN CONTENT ------------------------------- */
 .main{
+	min-width:15em;
+	max-width:50em;
 	/*height:100%;*/
 	margin-left:100px;
 }
+
 .main.logActive{
 	margin-left:600px;
 }
 
 .content{
-	min-width:15em;
-	max-width:50em;
+	/*min-width:15em;
+	max-width:50em;*/
 	margin:0 auto;
 	padding:10px;
 }
@@ -313,7 +316,13 @@ input[type='radio']{
 	.main.logActive{
 		margin-left:400px;
 	}
-	.main {
+	.main{
 		margin-left:70px;
+	}
+	.content h2{
+		margin-top:0;
+	}
+	.content h3{
+		font-size:1.2em;
 	}
 }
