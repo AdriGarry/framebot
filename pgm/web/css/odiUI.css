@@ -199,7 +199,12 @@ img.odiFace{
 	-webkit-box-shadow:1px 0px 25px 0px #e5e5e5;
 	-o-box-shadow:1px 0px 25px 0px #e5e5e5;
 	box-shadow:1px 0px 25px 0px #e5e5e5;
-	will-change:transform;
+	/*will-change:transform;*/
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
 }
 
 .log.logActive{

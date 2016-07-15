@@ -4,7 +4,7 @@
 <h3>Send orders to Odi</h3>
 
 <div class="remote">
-	<button class="btn btn-lg btn-default" disabled><i class="fa fa-file-text-o"></i></button>
+	<!--<button class="btn btn-lg btn-default" disabled><i class="fa fa-file-text-o"></i></button>
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-file-text"></i></button>
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-gg"></i></button>
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-bomb"></i></button>
@@ -12,8 +12,6 @@
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-ioxhost"></i></button>
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-child"></i></button>
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-flag-checkered"></i></button>
-	<!--<button class="btn btn-lg btn-default" disabled><i class="fa fa-bug"></i></button>
-	<br>-->
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-cloud"></i></button>
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-calendar"></i></button>
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-clock-o"></i></button>
@@ -25,10 +23,18 @@
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-comments-o"></i></button>
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-comment-o"></i></button>
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-undo"></i></button>
-	<button class="btn btn-lg btn-default" disabled><i class="fa fa-volume-off"></i></button>
+	<button class="btn btn-lg btn-default" disabled><i class="fa fa-volume-off"></i></button>-->
+	<button class="btn btn-lg btn-default" ng-repeat="command in functionnalCommands | orderBy : 'id'"
+		ng-click="command.onClick()" title="{{command.title}}">
+		<i class="fa {{command.icon}}"></i>
+	</button>
 	<hr>
-	<button class="btn btn-lg btn-default" disabled><i class="fa fa-power-off"></i></button>
+	<!--<button class="btn btn-lg btn-default" disabled><i class="fa fa-power-off"></i></button>
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-refresh"></i></button>
 	<button class="btn btn-lg btn-default" disabled><i class="fa fa-moon-o"></i></button>
-	<button class="btn btn-lg btn-default" disabled><i class="fa fa-flash"></i></button>
+	<button class="btn btn-lg btn-default" disabled><i class="fa fa-flash"></i></button>-->
+	<button class="btn btn-lg btn-default" ng-repeat="command in systemCommands | orderBy : 'id'"
+		ng-click="command.onClick()" title="{{command.title}}">
+		<i class="fa {{command.icon}}"></i>
+	</button>
 </div>

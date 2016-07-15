@@ -107,7 +107,8 @@ exports.startUI = function startUI(mode){
 						_tts.speak(params['lg'], params['msg'] + params['voice']);
 					}
 				}else{
-					console.error('Wrong Params A');
+					// console.error('Wrong Params A');
+					_tts.speak();
 				}
 			}else{
 				console.error('Wrong Params B');
@@ -136,7 +137,8 @@ exports.startUI = function startUI(mode){
 		});
 
 		ui.post('/conversation', function (req, res) { // Conversation
-			if(/\d/.test(txt)){
+			params = req.query;
+			if(/\d/.test(params.m)){
 				var rdmNb = txt.replace(/[^\d.]/g, '');
 				var rdmNb = parseInt(rdmNb, 10);
 				console.log('UI >  conversation random param : ' + rdmNb);
@@ -199,12 +201,13 @@ exports.startUI = function startUI(mode){
 		});
 
 		ui.post('/timer', function (req, res) { // Timer
-			if(/\d/.test(txt)){
+			params = req.query;
+			if(/\d/.test(params.m)){
 				var min = parseInt(txt.replace(/[^\d.]/g, ''), 10);
 				console.log('UI > Timer for ' + min + ' minutes');
 				_timer.setTimer(min);
 			}else{
-				//_timer.setTimer();
+				_timer.setTimer();
 			}
 			res.writeHead(200);res.end();
 		});
