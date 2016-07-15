@@ -214,14 +214,21 @@ img.odiFace{
 	overflow-y:auto;
 	font-family:'Courier New';
 	font-size:0.85em;
-	line-height:0.9em;
+	line-height:0.95em;
 	font-stretch:condensed;
+	word-break:break-all;
 }
 
-.log.logActive i.fa-close{
+/*.log.logActive i.fa-close, */.log.logActive button.close{
 	float:right;
 	position:fixed;
-	right:0.6em;
+	right:0.5em;
+	font-size:7em;
+	color:#fff;
+	opacity:0.8;
+}
+.log.logActive button.close:hover{
+	opacity:1;
 }
 
 /* ------------------------------ MAIN CONTENT ------------------------------- */
@@ -314,6 +321,9 @@ input[type='radio']{
 	.log.logActive{
 		margin-left:320px;
 	}
+	/*.log.logActive button.close{
+		font-size:9em;
+	}*/
 	/*.logActive ul{
 		font-size:1.4em!important;
 		letter-spacing:-0.1em!important;

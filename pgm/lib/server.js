@@ -26,7 +26,7 @@ exports.startUI = function startUI(mode){
 	ui.get('/', function (req, res) { // Init UI
 		res.sendFile(_path.join(DIR_NAME_WEB + '/index.html'));
 		ipClient = req.connection.remoteAddress;
-		console.log('UI initilized [ip: ' + ipClient + ']');
+		console.log('UI initialized [' + ipClient + ']');
 	});
 
 	ui.use(_express.static(DIR_NAME_WEB)); // Pour fichiers statiques
