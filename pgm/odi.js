@@ -60,7 +60,7 @@ setTimeout(function(){
 	voiceMail.checkVoiceMail();
 }, 6000);
 
-voiceMail.voiceMailFlag();
+voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 
 // ------------------------//
 // ----- TEST SECTION -----//

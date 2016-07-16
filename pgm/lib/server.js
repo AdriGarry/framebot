@@ -24,9 +24,7 @@ var _deploy;
 
 exports.startUI = function startUI(mode){
 	var ui = _express();
-	var request;
-	var params;
-	var ipClient;
+	var request, method, params, ipClient;
 
 	ui.get('/', function (req, res) { // Init UI
 		res.sendFile(_path.join(DIR_NAME_WEB + '/index.html'));
@@ -38,8 +36,11 @@ exports.startUI = function startUI(mode){
 
 	// Middleware LOGGER
 	var logger = function(req, res, next){
-		console.log(req);
-		request = 'UI' + req.url + ' [' + req.connection.remoteAddress + ']';
+		method = req.method;
+		// console.log(method);
+		if(method == 'GET') method = '< ';
+		else method = '> ';
+		request = 'UI ' + method + req.url + ' [' + req.connection.remoteAddress + ']';
 		console.log(request);
 		_fs.appendFile(FILE_REQUEST_HISTORY, request + '\r\n', function(err){
 			if(err){
@@ -57,7 +58,7 @@ exports.startUI = function startUI(mode){
 
 	/** GET SECTION */
 	ui.get('/log', function (req, res) { // Send Logs to UI
-		console.log('UI < Logs');
+		// console.log('UI < Logs');
 		_utils.prepareLogs(200, function(log){
 			res.end(log);
 		});
@@ -65,20 +66,20 @@ exports.startUI = function startUI(mode){
 
 	ui.get('/cpuTemp', function (req, res) { // Send CPU Temp to UI
 		var temp = _utils.getCPUTemp();
-		console.log('UI < CPU Temp ' + temp);
+		// console.log('UI < CPU Temp ' + temp);
 		res.end(temp);
 	});
 
 	ui.get('/requestHistory', function (req, res) { // Send Request History
 		var temp = _utils.getCPUTemp();
-		console.log('UI < Request History');
+		// console.log('UI < Request History');
 		res.end(_fs.readFileSync(FILE_REQUEST_HISTORY, 'utf8').toString());
 	});
 
 
 	/** POST SECTION */
 	ui.post('/odi', function (req, res) { // Restart Odi
-		console.log('UI > restart Odi');
+		// console.log('UI > restart Odi');
 		_utils.restartOdi();
 		res.writeHead(200);res.end();
 	});
@@ -92,25 +93,25 @@ exports.startUI = function startUI(mode){
 		}else{
 			sleepTime = 255;
 		}
-		console.log('UI > sleep ...' + sleepTime);
+		// console.log('UI > sleep ...' + sleepTime);
 		_utils.restartOdi(sleepTime);//255
 		res.writeHead(200);res.end();
 	});
 
 	ui.post('/reboot', function (req, res) { // Reboot Odi
-		console.log('UI > reboot Odi');
+		// console.log('UI > reboot Odi');
 		_utils.reboot();
 		res.writeHead(200);res.end();
 	});
 
 	ui.post('/shutdown', function (req, res) { // Shutdown Odi
-		console.log('UI > shutdown Odi');
+		// console.log('UI > shutdown Odi');
 		_utils.shutdown();
 		res.writeHead(200);res.end();
 	});
 
 	ui.post('/mute', function (req, res) { // Mute Odi
-		console.log('UI > mute');
+		// console.log('UI > mute');
 		_utils.mute();
 		res.writeHead(200);res.end();
 	});
@@ -120,7 +121,7 @@ exports.startUI = function startUI(mode){
 
 		ui.post('/tts', function (req, res) { // TTS ou Add Voice Mail Message
 			params = req.query;
-			console.log('UI > tts');
+			// console.log('UI > tts');
 			// console.log(params);
 			if(params['voice'] && params['lg'] && params['msg']){
 				if('voicemail' in params){
@@ -138,13 +139,13 @@ exports.startUI = function startUI(mode){
 		});
 
 		ui.post('/lastTTS', function (req, res) { // Restart Odi
-			console.log('UI > restartOdi');
+			// console.log('UI > restartOdi');
 			_tts.lastTTS();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/checkVoiceMail', function (req, res) { // Check Voice Mail
-			console.log('UI > Check Voice Mail');
+			// console.log('UI > Check Voice Mail');
 			if(!_voiceMail.checkVoiceMail()){
 				_tts.speak('en', 'No voicemail message:1');			
 			}
@@ -152,7 +153,7 @@ exports.startUI = function startUI(mode){
 		});
 
 		ui.post('/clearVoiceMail', function (req, res) { // Clear Voice Mail
-			console.log('UI > Clear Voice Mail');
+			// console.log('UI > Clear Voice Mail');
 			voiceMail.clearVoiceMail();
 			res.writeHead(200);res.end();
 		});
@@ -162,29 +163,29 @@ exports.startUI = function startUI(mode){
 			if(/\d/.test(params.m)){
 				var rdmNb = txt.replace(/[^\d.]/g, '');
 				var rdmNb = parseInt(rdmNb, 10);
-				console.log('UI >  conversation random param : ' + rdmNb);
+				// console.log('UI >  conversation random param : ' + rdmNb);
 				_tts.conversation(rdmNb);
 			}else{
-				console.log('UI >  conversation random ');
+				// console.log('UI >  conversation random ');
 				_tts.conversation('random');
 			}
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/exclamation', function (req, res) { // Exclamation
-			console.log('UI > Exclamation');
+			// console.log('UI > Exclamation');
 			_exclamation.exclamation();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/exclamationLoop', function (req, res) { // Exclamation Loop
-			console.log('UI > Exclamation Loop');
+			// console.log('UI > Exclamation Loop');
 			_exclamation.exclamationLoop();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/fip', function (req, res) { // FIP Radio
-			console.log('UI > FIP Radio');
+			// console.log('UI > FIP Radio');
 			_fip.playFip();
 			res.writeHead(200);res.end();
 		});
@@ -192,31 +193,31 @@ exports.startUI = function startUI(mode){
 		ui.post('/music/*', function (req, res) { // 
 			var song; // RECUPERER LE NOM DE LA CHANSON
 			if(!song) song = 'mouthTrick';
-			console.log('UI > Music : ' + song);
+			// console.log('UI > Music : ' + song);
 			_deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', song]);
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/jukebox', function (req, res) { // Jukebox
-			console.log('UI > restartOdi');
+			// console.log('UI > Jukebox');
 			_jukebox.loop();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/medley', function (req, res) { // Medley
-			console.log('UI > restartOdi');
+			// console.log('UI > Medley');
 			_jukebox.medley();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/date', function (req, res) { // Date
-			console.log('UI > Date');
+			// console.log('UI > Date');
 			_service.date();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/time', function (req, res) { // Time
-			console.log('UI > Time');
+			// console.log('UI > Time');
 			_service.time();
 			res.writeHead(200);res.end();
 		});
@@ -225,7 +226,7 @@ exports.startUI = function startUI(mode){
 			params = req.query;
 			if(/\d/.test(params.m)){
 				var min = parseInt(txt.replace(/[^\d.]/g, ''), 10);
-				console.log('UI > Timer for ' + min + ' minutes');
+				// console.log('UI > Timer for ' + min + ' minutes');
 				_timer.setTimer(min);
 			}else{
 				_timer.setTimer();
@@ -234,48 +235,48 @@ exports.startUI = function startUI(mode){
 		});
 
 		ui.post('/meteo', function (req, res) { // Weather
-			console.log('UI > Meteo');
+			// console.log('UI > Meteo');
 			_service.weather();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/info', function (req, res) { // Info
-			console.log('UI > Info');
+			// console.log('UI > Info');
 			_service.info();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/cpuTemp', function (req, res) { // TTS CPU Temp
-			console.log('UI > FIP');
+			// console.log('UI > FIP');
 			_service.cpuTemp();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/cigales', function (req, res) { // Cigales
-			console.log('UI > Cigales');
+			// console.log('UI > Cigales');
 			_deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'cigales']);
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/setParty', function (req, res) { // Set Party Mode
-			console.log('UI > Set Party Mode !!');
+			// console.log('UI > Set Party Mode !!');
 			_party.setParty();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/test', function (req, res) { // Set Party Mode
-			console.log('UI > TEST !!');
+			// console.log('UI > TEST !!');
 			_deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'mouthTrick']);
 			res.writeHead(200);res.end();
 		});
 
 
 		ui.post('/*', function (req, res) { // Redirect Error
-			console.error('UI > Not Implemented	: ');
+			console.error('UI > Not Implemented');
 			res.writeHead(501);res.end();
 		});
 	}
-	console.log('Odi not allowed to interact  -.-');
+	// console.log('Odi not allowed to interact  -.-');
 
 	ui.listen(8080, function () { // Listen port 8080
 		console.log('Odi\'s UI server started [' + mode + ']');
