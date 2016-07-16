@@ -4,6 +4,7 @@
 var _express = require('express');
 var _path = require("path");
 var _spawn = require('child_process').spawn;
+var _fs = require('fs');
 var _utils = require('./utils.js');
 var _tts = require('./tts.js');
 var _voiceMail = require('./voiceMail.js');
@@ -17,6 +18,9 @@ var self = this;
 
 var DIR_NAME = '/home/pi/odi/pgm/';
 var DIR_NAME_WEB = '/home/pi/odi/pgm/web/';
+var FILE_REQUEST_HISTORY = '/home/pi/odi/log/requestHistory.log';
+
+var _deploy;
 
 exports.startUI = function startUI(mode){
 	var ui = _express();
@@ -33,9 +37,20 @@ exports.startUI = function startUI(mode){
 
 	// Middleware LOGGER
 	var logger = function(req, res, next){
-		console.log(req.url + ' [' + req.connection.remoteAddress + ']');
+		var request = req.url + ' [' + req.connection.remoteAddress + ']';
+		console.log(request);
+		_fs.appendFile(FILE_REQUEST_HISTORY, request + '\r\n', function(err){
+			if(err){
+				return console.error(err);
+			}
+		});
+		/*if(mode > 0){
+			console.log('Odi not allowed to interact  -.-');
+			res.end();
+		}*/
 		next();
 	};
+
 	ui.use(logger);
 
 	/** GET SECTION */
@@ -50,6 +65,12 @@ exports.startUI = function startUI(mode){
 		var temp = _utils.getCPUTemp();
 		console.log('UI < CPU Temp ' + temp);
 		res.end(temp);
+	});
+
+	ui.get('/requestHistory', function (req, res) { // Send Request History
+		var temp = _utils.getCPUTemp();
+		console.log('UI < Request History');
+		res.end(_fs.readFileSync(FILE_REQUEST_HISTORY, 'utf8').toString());
 	});
 
 
@@ -92,7 +113,8 @@ exports.startUI = function startUI(mode){
 		res.writeHead(200);res.end();
 	});
 
-	if(mode.indexOf('sleep') == -1){ /////// WHEN ALIVE
+	// if(mode.indexOf('sleep') == -1){ /////// WHEN ALIVE
+	if(mode < 1){ /////// WHEN ALIVE
 
 		ui.post('/tts', function (req, res) { // TTS ou Add Voice Mail Message
 			params = req.query;
@@ -100,7 +122,7 @@ exports.startUI = function startUI(mode){
 			console.log(params);
 			if(params){
 				//_voiceMail.addVoiceMailMessage(lg,txt.substring(3));
-				if(params['voice'] && params['lg'] && params['msg']){
+				if(params['voice'] != '' && params['lg'] != '' && params['msg'] != ''){
 					if('voicemail' in params){
 						_voiceMail.addVoiceMailMessage(params['lg'], params['msg'] + params['voice']);
 					}else{
@@ -108,7 +130,7 @@ exports.startUI = function startUI(mode){
 					}
 				}else{
 					// console.error('Wrong Params A');
-					_tts.speak();
+					_tts.speak('','RANDOM');
 				}
 			}else{
 				console.error('Wrong Params B');
@@ -242,16 +264,22 @@ exports.startUI = function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
+		ui.post('/test', function (req, res) { // Set Party Mode
+			console.log('UI > TEST !!');
+			_deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'mouthTrick']);
+			res.writeHead(200);res.end();
+		});
+
+
 		ui.post('/*', function (req, res) { // Redirect Error
 			console.error('UI > Not Implemented	: ');
 			res.writeHead(501);res.end();
 		});
-
 	}
 	console.log('Odi not allowed to interact  -.-');
 
 	ui.listen(8080, function () { // Listen port 8080
-		console.log('Odi\'s UI server started');
+		console.log('Odi\'s UI server started [' + mode + ']');
 	});
 
 }

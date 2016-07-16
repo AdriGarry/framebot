@@ -53,7 +53,7 @@ var speak = function(lg, txt){
 
 				fs.writeFile(lastTTSFilePath, lg + ';' + txt, 'UTF-8', function(err){
 					if(err){
-						return console.log('Error while saving last TTS : ' + err);
+						return console.error('Error while saving last TTS : ' + err);
 					}
 					// console.log('I\'ll keep this message ;) ' + lg + ';' + txt);
 				});

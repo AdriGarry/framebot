@@ -27,12 +27,12 @@ exports.addVoiceMailMessage = function addVoiceMailMessage(lg, txt){
 		if(err)	return console.error(err);
 		leds.blinkBelly(300, 0.8);
 		console.log('New VoiceMail Message_: ' + message);
-	}); 
+	});
 	fs.appendFile(voiceMailFilePathHistory, message + '\r\n', function(err){ //writeFile
 		if(err){
 			return console.error(err);
 		}
-	}); 
+	});
 };
 
 var clearVoiceMailDelay;

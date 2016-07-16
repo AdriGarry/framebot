@@ -13,7 +13,7 @@ odiUI.controller('RemoteController', ['$scope', '$location', '$timeout', 'Remote
 ]);
 
 /* Sercice Remote */
-odiUI.factory('RemoteService',['$http', function($http){
+odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 	var RemoteService = {};
 	
 	/** Fonction envoi commandes */
@@ -37,6 +37,18 @@ odiUI.factory('RemoteService',['$http', function($http){
 
 		RemoteService.functionnalCommands = [
 		{
+			id: 1,
+			title : 'Request History',
+			icon : 'fa fa-file-text-o',
+			url : '/requestHistory',
+			paramKey : '',
+			paramValue : '',
+			onClick : function(){
+				// RemoteService.sendCommand(this);
+				// alert('Request History to config !!')
+				$window.open('http://odi.adrigarry.com/requestHistory');
+			}
+		}, {
 			id: 11,
 			title : 'Set Party Mode',
 			icon : 'fa fa-glass',
