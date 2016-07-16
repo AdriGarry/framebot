@@ -9,8 +9,10 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 	function($scope, $location, $http, utilService) {
         $scope.logActive = true;
 
-        $scope.view = $location.path() || '/TTS'; // Attribution page par defaut
+        // $scope.view = $location.path() || '/TTS'; // Attribution page par defaut
         
+        setTimeout(function(){$scope.updateCpuTemp();}, 1500); // Recuperation temperature CPU
+
         /* Fonction pour changer de page */
 		$scope.goTo = function(tabName){
 	        $scope.logActive = false;
@@ -23,8 +25,6 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
         $scope.cpuInfo = false;
 		$scope.openMenu = function(){
 			$scope.leftMenuShown = true;
-			setTimeout(function(){$scope.updateCpuTemp();}, 1500);
-			//setInterval(function(){updateCpuTemp();}, 10000);
 		};
         
 		/** Fonction de maj de la CPU Temp */

@@ -53,7 +53,7 @@ jobs.setAutoLifeCycle();
 new CronJob('*/10 * * * * *', function(){ // Initialisation synchronisation remote
 	// remote.synchro();//mode
 	remote.trySynchro();
-}, null, true, 'Europe/Paris');
+}, null, 0, 'Europe/Paris');
 
 
 setTimeout(function(){

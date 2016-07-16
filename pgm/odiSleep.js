@@ -43,4 +43,4 @@ ok.watch(function(err, value){ // Detection bouton Vert pour sortir du mode veil
 
 new CronJob('*/15 * * * * *', function(){ // Initialisation synchronisation remote
 	remote.trySynchro('sleep');
-}, null, true, 'Europe/Paris');
+}, null, 0, 'Europe/Paris');

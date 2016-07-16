@@ -24,6 +24,7 @@ var _deploy;
 
 exports.startUI = function startUI(mode){
 	var ui = _express();
+	var request;
 	var params;
 	var ipClient;
 
@@ -37,7 +38,8 @@ exports.startUI = function startUI(mode){
 
 	// Middleware LOGGER
 	var logger = function(req, res, next){
-		var request = req.url + ' [' + req.connection.remoteAddress + ']';
+		console.log(req);
+		request = 'UI' + req.url + ' [' + req.connection.remoteAddress + ']';
 		console.log(request);
 		_fs.appendFile(FILE_REQUEST_HISTORY, request + '\r\n', function(err){
 			if(err){
@@ -118,22 +120,19 @@ exports.startUI = function startUI(mode){
 
 		ui.post('/tts', function (req, res) { // TTS ou Add Voice Mail Message
 			params = req.query;
-			console.log('UI > tts ');
-			console.log(params);
-			if(params){
-				//_voiceMail.addVoiceMailMessage(lg,txt.substring(3));
-				if(params['voice'] != '' && params['lg'] != '' && params['msg'] != ''){
-					if('voicemail' in params){
-						_voiceMail.addVoiceMailMessage(params['lg'], params['msg'] + params['voice']);
-					}else{
-						_tts.speak(params['lg'], params['msg'] + params['voice']);
-					}
+			console.log('UI > tts');
+			// console.log(params);
+			if(params['voice'] && params['lg'] && params['msg']){
+				if('voicemail' in params){
+					_voiceMail.addVoiceMailMessage(params['lg'], params['msg'] + params['voice']);
 				}else{
-					// console.error('Wrong Params A');
-					_tts.speak('','RANDOM');
+					console.log(params['voice']);
+					console.log(params['lg']);
+					console.log(params['msg']);
+					_tts.speak(params['lg'], params['msg'] + params['voice']);
 				}
 			}else{
-				console.error('Wrong Params B');
+				_tts.speak('','RANDOM'); // Random TTS
 			}
 			res.writeHead(200);res.end();
 		});

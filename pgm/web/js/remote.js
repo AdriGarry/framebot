@@ -176,8 +176,8 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 			title : 'TTS',
 			icon : 'fa fa-comment-o',
 			url : '/tts',
-			paramKey : '',
-			paramValue : '',
+			paramKey : 'msg',
+			paramValue : 'RANDOM',
 			onClick : function(){
 				RemoteService.sendCommand(this);
 			}
