@@ -127,9 +127,6 @@ exports.startUI = function startUI(mode){
 				if('voicemail' in params){
 					_voiceMail.addVoiceMailMessage(params['lg'], params['msg'] + params['voice']);
 				}else{
-					console.log(params['voice']);
-					console.log(params['lg']);
-					console.log(params['msg']);
 					_tts.speak(params['lg'], params['msg'] + params['voice']);
 				}
 			}else{

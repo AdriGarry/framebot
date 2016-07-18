@@ -222,6 +222,7 @@ img.odiFace{
 	line-height:0.95em;
 	font-stretch:condensed;
 	word-break:break-all;
+	white-space:pre-wrap;
 }
 
 /*.log.logActive i.fa-close, */.log.logActive button.close{
