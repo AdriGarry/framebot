@@ -90,7 +90,7 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 			}
 		}, {
 			id: 22,
-			title : 'FIP',
+			title : 'FIP Radio',
 			icon : 'fa fa-globe',
 			url : '/fip',
 			paramKey : '',

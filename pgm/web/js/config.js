@@ -7,9 +7,9 @@ odiUI.config(function($routeProvider) {
 	$routeProvider.when('/TTS', {
 		templateUrl : 'contents/tts.html',
 		controller : "TTSController"
-	}).when('/VoiceMail', {
-		templateUrl : 'contents/voiceMail.html',
-		controller : "VoiceMailController"
+	}).when('/Settings', {
+		templateUrl : 'contents/settings.html',
+		controller : "SettingsController"
 	}).when('/Remote', {
 		templateUrl : 'contents/remote.html',
 		controller : "RemoteController"
