@@ -87,10 +87,9 @@ exports.startUI = function startUI(mode){
 
 	ui.post('/sleep', function (req, res) { // Restart Odi
 		params = req.query;
-		console.log(params);
 		var sleepTime;
-		if(params.hasOwnProperty('sleepTime')){
-			sleepTime = params.sleepTime;
+		if(params.hasOwnProperty('h')){
+			sleepTime = params.h;
 		}else{
 			sleepTime = 255;
 		}
@@ -222,7 +221,6 @@ exports.startUI = function startUI(mode){
 
 		ui.post('/timer', function (req, res) { // Timer
 			params = req.query;
-			console.log(params.m);
 			if(!isNaN(params.m)){
 				console.log('!isNaN(params.m)');
 				var min = parseInt(params.m, 10);
@@ -272,11 +270,11 @@ exports.startUI = function startUI(mode){
 		});
 
 
-		ui.post('/*', function (req, res) { // Redirect Error
-			console.error('UI > Not Implemented');
-			res.writeHead(501);res.end();
-		});
 	}
+		ui.post('/*', function (req, res) { // Redirect Error
+			console.error('UI > I’m a teapot !');
+			res.writeHead(418);res.end();
+		});
 	// console.log('Odi not allowed to interact  -.-');
 
 	ui.listen(8080, function () { // Listen port 8080

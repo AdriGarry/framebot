@@ -12,10 +12,10 @@ var _server = require('./lib/server.js');
 
 var mode = sleepTime = process.argv[2]; // Recuperation des arguments
 
-var introMsg = 'Odi started in sleeping mode';
+var introMsg = 'Odi\'s sleeping...';
 
 if(sleepTime < 255){
-	introMsg += ' for ' + sleepTime + ' hours';
+	introMsg += ' for ' + sleepTime + ' h';
 	setTimeout(function(){ // Delai avant redemarrage/reveil
 		utils.restartOdi();
 	}, sleepTime*60*60*1000);

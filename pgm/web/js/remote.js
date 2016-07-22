@@ -21,9 +21,6 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 		// console.log(cmd);
 		var params = '';
 		if(cmd.paramKey != '' && cmd.paramValue != ''){
-			console.log(cmd.paramKey);
-			console.log(cmd.paramValue);
-			console.log(cmd);
 			params = '?' + cmd.paramKey + '=' + cmd.paramValue;
 		}
 		$http({
