@@ -45,6 +45,7 @@ var setTimer = function(minutes){
 			console.log('End Timer !');
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/timerSound.sh', 'end']);
 			leds.blinkAllLeds(100, 2.2);
+			tts.speak('fr', 'Les raviolis sont cuits !');
 			timer = false;
 			belly.write(0);
 		}

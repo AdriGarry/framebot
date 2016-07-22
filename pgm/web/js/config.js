@@ -1,5 +1,5 @@
 // Création du module AngularJS de l'application 
-var odiUI = angular.module('odiUI', [ 'ngRoute', 'ngAnimate']);
+var odiUI = angular.module('odiUI', [ 'ngRoute', 'pr.longpress']);
 
 // Configuration des routes pour chaques page de l'apllication
 odiUI.config(function($routeProvider) {

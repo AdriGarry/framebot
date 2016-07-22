@@ -17,8 +17,9 @@
     <!-- Javascript des librairies -->
     <script src="js/lib/jquery.js"></script>
     <script src="js/lib/angular.min.js"></script>
-    <script src="js/lib/angular-animate.min.js"></script>
+    <!--<script src="js/lib/angular-animate.min.js"></script>-->
     <script src="js/lib/angular-route.min.js"></script>
+    <script src="js/lib/angular-long-press.min.js"></script>
     <script src="js/lib/jquery-ui.js"></script>
     <script src="js/lib/jQuery.fakeScroll.js"></script>
 
@@ -84,7 +85,7 @@
     </div>
     
     <!-- LOGS -->
-    <div class="ng-modal ng-slide log" ng-click="refreshLog()" ng-class="logActive ? 'logActive' : ''">
+    <div class="ng-modal ng-slide log" on-long-press="refreshLog()" long-press-duration="1000" prevent-click="true"     ng-class="logActive ? 'logActive' : ''">
         <ul class="fakeScroll">
             <button type="button" class="close" aria-label="Close" ng-click="hideLog()" title="Hide Log"><span aria-hidden="true">&times;</span></button>
             <li ng-repeat="logLine in logData track by $index">{{logLine}}</li>

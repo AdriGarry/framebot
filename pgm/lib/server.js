@@ -60,7 +60,7 @@ exports.startUI = function startUI(mode){
 	/** GET SECTION */
 	ui.get('/log', function (req, res) { // Send Logs to UI
 		// console.log('UI < Logs');
-		_utils.prepareLogs(200, function(log){
+		_utils.prepareLogs(180, function(log){
 			res.end(log);
 		});
 	});
@@ -222,9 +222,12 @@ exports.startUI = function startUI(mode){
 
 		ui.post('/timer', function (req, res) { // Timer
 			params = req.query;
-			if(/\d/.test(params.m)){
-				var min = parseInt(txt.replace(/[^\d.]/g, ''), 10);
+			console.log(params.m);
+			if(!isNaN(params.m)){
+				console.log('!isNaN(params.m)');
+				var min = parseInt(params.m, 10);
 				// console.log('UI > Timer for ' + min + ' minutes');
+				console.log(min);
 				_timer.setTimer(min);
 			}else{
 				_timer.setTimer();

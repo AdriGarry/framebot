@@ -21,6 +21,9 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 		// console.log(cmd);
 		var params = '';
 		if(cmd.paramKey != '' && cmd.paramValue != ''){
+			console.log(cmd.paramKey);
+			console.log(cmd.paramValue);
+			console.log(cmd);
 			params = '?' + cmd.paramKey + '=' + cmd.paramValue;
 		}
 		$http({
@@ -129,7 +132,10 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 				RemoteService.sendCommand(this);
 			},
 			onHold : function(){
-				prompt('Duree de la veille', this.paramValue);
+				var input = prompt('Minuterie pour (min)');
+				if(input === null) return;
+				this.paramValue = input;
+				RemoteService.sendCommand(this);
 			}
 		}, {
 			id: 33,
@@ -240,7 +246,10 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 				RemoteService.sendCommand(this);
 			},
 			onHold : function(){
-				prompt('Durée de la veille', '');
+				var input = prompt('Duree de la veille');
+				if(input === null) return;
+				this.paramValue = input;
+				RemoteService.sendCommand(this);
 			}
 		}, {
 			id: 4,
