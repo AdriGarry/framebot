@@ -14,8 +14,8 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
         $scope.mode = 'waiting';
         /** Monitoring Activite */
 		setInterval(function(){
-			utilService.monitoringActivity(function(mode){
-				$scope.mode = mode;
+			utilService.monitoringActivity(function(activity){
+				$scope.activity = activity;
 			});
 		}, 5000);
 
@@ -83,16 +83,25 @@ odiUI.factory('utilService', ['$http', function($http){
 			method: 'GET',
 			url: 'http://odi.adrigarry.com/monitoringActivity'
 		}).then(function successCallback(res){
-			var activity = res.data;//isNaN(res.data) ? 'on' : res.data;
+			var data = res.data;//isNaN(res.data) ? 'on' : res.data;
 
-			var mode = {
-				lib : isNaN(activity) ? activity : 'sleep',
-				infos : activity
+			var activity = {
+				mode : isNaN(data) ? data : 'sleep',
+				mode : mode == '' ? 'ACTIVE' : mode,
+				cpuTemp : _utils.getCPUTemp(),
+				infos : data
 			};
-
-			console.log(mode);
-			callback(mode);
+			var activity = {
+				lib : isNaN(data) ? data : 'sleep',
+				infos : data
+			};
+			console.log(activity);
+			callback(activity);
 		}, function errorCallback(res){
+			var activity = {
+				mode : 'waiting',
+				cpuTemp : _utils.getCPUTemp()
+			};
 			// console.error(res);
 			callback({lib:'waiting', infos:res});
 		});

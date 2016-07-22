@@ -34,6 +34,7 @@ exports.startUI = function startUI(mode){
 
 	ui.use(_express.static(DIR_NAME_WEB)); // Pour fichiers statiques
 
+
 	// Middleware LOGGER
 	var logger = function(req, res, next){
 		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
@@ -57,6 +58,16 @@ exports.startUI = function startUI(mode){
 
 	ui.use(logger);
 
+	/** MONITORING ACTIVITY */
+	ui.get('/monitoringActivity', function (req, res){
+		var activity = {
+			mode : mode == '' ? 'ACTIVE' : mode,
+			cpuTemp : _utils.getCPUTemp()
+		};
+		res.writeHead(200);
+		res.end(JSON.stringify(activity));
+	});
+
 	/** GET SECTION */
 	ui.get('/log', function (req, res) { // Send Logs to UI
 		// console.log('UI < Logs');
@@ -66,11 +77,6 @@ exports.startUI = function startUI(mode){
 	});
 
 
-	/** MONITORING ACTIVITY */
-	ui.get('/monitoringActivity', function (req, res) { // Send Logs to UI
-		res.writeHead(200);
-		res.end(mode == '' ? 'ACTIVE' : mode);
-	});
 
 	ui.get('/cpuTemp', function (req, res) { // Send CPU Temp to UI
 		var temp = _utils.getCPUTemp();

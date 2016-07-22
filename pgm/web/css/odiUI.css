@@ -100,6 +100,7 @@ img.odiFace{
 
 .menu ul li.intro h1{
 	margin:0.3em auto;
+	font-size:2em;
 }
 
 .menu ul li.intro i{
@@ -112,7 +113,7 @@ img.odiFace{
 	display:block;
     margin:0.15em 0;
 }
-.menu ul li.intro span .fa-cog{
+.menu ul li.intro span .fa-refresh{
 	font-size:3em;
 }
 .menu ul li:hover{
