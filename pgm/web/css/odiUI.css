@@ -87,7 +87,7 @@ ul{
 
 .menu ul li.intro{
 	/*min-height:25%;*/
-	min-height:10em;
+	min-height:12em;/*10em;*/
 	color:#DDD;
 }
 
@@ -108,7 +108,12 @@ img.odiFace{
 }
 
 .menu ul li.intro span{
-	margin:1.5em auto 0;
+	/*margin:1.5em auto 0;*/
+	display:block;
+    margin:0.15em 0;
+}
+.menu ul li.intro span .fa-cog{
+	font-size:3em;
 }
 .menu ul li:hover{
 	color:#FFF;

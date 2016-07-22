@@ -10,8 +10,17 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
         $scope.logActive = true;
 
         // $scope.view = $location.path() || '/TTS'; // Attribution page par defaut
-        
-        setTimeout(function(){$scope.updateCpuTemp();}, 1500); // Recuperation temperature CPU
+        // 
+        $scope.mode = 'waiting';
+        /** Monitoring Activite */
+		setInterval(function(){
+			utilService.monitoringActivity(function(mode){
+				$scope.mode = mode;
+			});
+		}, 5000);
+
+		/** Recuperation temperature CPU */
+        setTimeout(function(){$scope.updateCpuTemp();}, 5000);
 
         /* Fonction pour changer de page */
 		$scope.goTo = function(tabName){
@@ -27,12 +36,6 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 			$scope.leftMenuShown = true;
 		};
         
-		setInterval(function(){
-			utilService.monitoringActivity(function(mode){
-				$scope.mode = mode;
-			});
-		}, 5000);
-
 		/** Fonction de maj de la CPU Temp */
 		$scope.updateCpuTemp = function(){
 			$scope.cpuInfo = false;
@@ -80,10 +83,18 @@ odiUI.factory('utilService', ['$http', function($http){
 			method: 'GET',
 			url: 'http://odi.adrigarry.com/monitoringActivity'
 		}).then(function successCallback(res){
-			callback(res.data);
+			var activity = res.data;//isNaN(res.data) ? 'on' : res.data;
+
+			var mode = {
+				lib : isNaN(activity) ? activity : 'sleep',
+				infos : activity
+			};
+
+			console.log(mode);
+			callback(mode);
 		}, function errorCallback(res){
-			console.error(res);
-			callback(res);
+			// console.error(res);
+			callback({lib:'waiting', infos:res});
 		});
 	};
 
