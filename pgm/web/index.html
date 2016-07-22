@@ -53,6 +53,9 @@
                             </div>
                             <i class="fa fa-refresh fa-spin" ng-class="!cpuInfo ? '' : 'noDisplay'"></i>
                             <span ng-class="cpuInfo ? '' : 'noDisplay'" title="CPU Temp : {{cpuTemp}}"  ng-click="updateCpuTemp()">{{cpuTemp}}</span>
+                            <span ng-show="mode != 'ACTIVE'" title="Odi's sleeping for {{mode}}">
+                                <i class="fa fa-moon-o"></i>&nbsp;{{mode}}
+                            </span>
                         </div>
                     </li>
                     <li class="menu-item" ng-class="view == '/TTS' ?'active':''">

@@ -27,6 +27,12 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 			$scope.leftMenuShown = true;
 		};
         
+		setInterval(function(){
+			utilService.monitoringActivity(function(mode){
+				$scope.mode = mode;
+			});
+		}, 5000);
+
 		/** Fonction de maj de la CPU Temp */
 		$scope.updateCpuTemp = function(){
 			$scope.cpuInfo = false;
@@ -51,6 +57,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 			$scope.logActive = false;
 		}
 
+		/** Fonction de rafraichissement des logs */
 		$scope.refreshLog = function(){
 			utilService.getLogs(function(logs){
 				$scope.logData = logs.data.split('\n');
@@ -66,6 +73,19 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 odiUI.factory('utilService', ['$http', function($http){
 
 	var utilService = {};
+
+	/** Fonction de suivi d'activite */
+	utilService.monitoringActivity = function(callback){
+		$http({
+			method: 'GET',
+			url: 'http://odi.adrigarry.com/monitoringActivity'
+		}).then(function successCallback(res){
+			callback(res.data);
+		}, function errorCallback(res){
+			console.error(res);
+			callback(res);
+		});
+	};
 
 	/** Fonction de mise a jour des logs */
 	utilService.lib = "";

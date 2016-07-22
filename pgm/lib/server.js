@@ -65,15 +65,24 @@ exports.startUI = function startUI(mode){
 		});
 	});
 
+
+	/** MONITORING ACTIVITY */
+	ui.get('/monitoringActivity', function (req, res) { // Send Logs to UI
+		res.writeHead(200);
+		res.end(mode == '' ? 'ACTIVE' : mode);
+	});
+
 	ui.get('/cpuTemp', function (req, res) { // Send CPU Temp to UI
 		var temp = _utils.getCPUTemp();
 		// console.log('UI < CPU Temp ' + temp);
+		res.writeHead(200);
 		res.end(temp);
 	});
 
 	ui.get('/requestHistory', function (req, res) { // Send Request History
 		var temp = _utils.getCPUTemp();
 		// console.log('UI < Request History');
+		res.writeHead(200);
 		res.end(_fs.readFileSync(FILE_REQUEST_HISTORY, 'utf8').toString());
 	});
 
