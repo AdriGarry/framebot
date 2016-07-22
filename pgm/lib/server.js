@@ -36,6 +36,7 @@ exports.startUI = function startUI(mode){
 
 	// Middleware LOGGER
 	var logger = function(req, res, next){
+		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
 		method = req.method;
 		// console.log(method);
 		if(method == 'GET') method = '< ';
