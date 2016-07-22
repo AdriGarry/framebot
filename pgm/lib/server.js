@@ -268,14 +268,16 @@ exports.startUI = function startUI(mode){
 			_deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'mouthTrick']);
 			res.writeHead(200);res.end();
 		});
-
-
-	}
 		ui.post('/*', function (req, res) { // Redirect Error
 			console.error('UI > I’m a teapot !');
 			res.writeHead(418);res.end();
 		});
-	// console.log('Odi not allowed to interact  -.-');
+	}else{
+		ui.post('/*', function (req, res) { // Redirect Error
+			console.error('UI > Odi\'s sleeping   -.-');
+			res.writeHead(401);res.end();
+		});
+	}
 
 	ui.listen(8080, function () { // Listen port 8080
 		console.log('Odi\'s UI server started [' + mode + ']');

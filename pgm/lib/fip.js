@@ -26,7 +26,7 @@ var playFip = function(){
 		});
 		self.fipInterval = setInterval(function(){
 			if(self.instance){
-				console.log('Playing FIP RADIO...!');
+				//console.log('Playing FIP RADIO...!');
 				leds.altLeds(100, 1.3);
 			}
 		}, 13*1000);
