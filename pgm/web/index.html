@@ -94,7 +94,7 @@
     </div>
     
     <!-- LOGS -->
-    <div class="ng-modal ng-slide log" on-long-press="refreshLog()" long-press-duration="700" prevent-click="true"     ng-class="logActive ? 'logActive' : ''">
+    <div class="ng-modal ng-slide log" ng-dblclick="refreshLog()" long-press-duration="700" prevent-click="true"     ng-class="logActive ? 'logActive' : ''"> <!-- on-long-press="refreshLog()" -->
         <ul class="fakeScroll">
             <button type="button" class="close" aria-label="Close" ng-click="hideLog()" title="Hide Log"><span aria-hidden="true">&times;</span></button>
             <li ng-repeat="logLine in logData track by $index">{{logLine}}</li>
