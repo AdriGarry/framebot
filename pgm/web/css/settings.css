@@ -4,3 +4,8 @@ table{
 	width:60%!important;
 }
 
+@media(min-width:768px){
+	table{
+		font-size:1.1em;
+	}
+}
