@@ -1,9 +1,13 @@
 /** Declaration du controller de la vue Settings */
-odiUI.controller('SettingsController', [ '$scope', '$location',
-	function($scope, $location) {
+odiUI.controller('SettingsController', [ '$scope', '$location', 'Settings',
+	function($scope, $location, Settings) {
 		
 		$scope.logView = false;
 		$scope.openMenu();
+
+		Settings.getSettings(function(data){
+			$scope.settings = data;
+		});
 	}
  ]);
 
@@ -14,27 +18,28 @@ odiUI.factory('Settings', ['$http', function($http){
 	var Settings = {};
 
 	/** Fonction de suivi d'activite */
-	Settings.monitoringActivity = function(callback){
+	Settings.getSettings = function(callback){
 		$http({
 			method: 'GET',
-			url: 'http://odi.adrigarry.com/monitoringActivity'
+			url: 'http://odi.adrigarry.com/settings'
 		}).then(function successCallback(res){
 			var data = res.data;
 			// console.log(data);
-			var activity = {
-				mode : data.mode,
-				sleepTime : data.sleepTime,
-				cpuTemp : data.cpuTemp,
-				infos : undefined
-			};
-			// console.log(activity);
-			callback(activity);
+			callback(data);
 		}, function errorCallback(res){
-			var activity = {
-				data : 'Error while retreiving settings data !'
-			};
-			console.error(activity);
-			callback(activity);
+			/*var settings = {
+				mode : {
+					lib : 'mode',
+					value : 'Error while retreiving settings data !'
+				},
+				data : {
+					lib : 'data',
+					value : res
+				}
+			};*/
+
+			/*console.error(settings);
+			callback(settings);*/
 		});
 	};
 

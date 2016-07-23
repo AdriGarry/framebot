@@ -7,6 +7,7 @@ var _spawn = require('child_process').spawn;
 var _fs = require('fs');
 var _utils = require('./utils.js');
 var _leds = require('./leds.js');
+var _buttons = require('./buttons.js');
 var _tts = require('./tts.js');
 var _voiceMail = require('./voiceMail.js');
 var _service = require('./service.js');
@@ -31,7 +32,7 @@ exports.startUI = function startUI(mode){
 		res.sendFile(_path.join(DIR_NAME_WEB + '/index.html'));
 		ipClient = req.connection.remoteAddress;
 		console.log('UI initialized [' + ipClient + ']');
-		_leds.blinkSatellite(300,2);
+		_leds.blinkSatellite(100,3);
 		if(mode < 1){
 			deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'UI']);
 		}
@@ -43,6 +44,7 @@ exports.startUI = function startUI(mode){
 	// Middleware LOGGER
 	var logger = function(req, res, next){
 		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
+		_leds.blinkSatellite(150,3);
 		method = req.method;
 		// console.log(method);
 		if(method == 'GET') method = '< ';
@@ -76,6 +78,43 @@ exports.startUI = function startUI(mode){
 		res.end(JSON.stringify(activity));
 	});
 
+	/** SETTINGS SECTION */
+	ui.get('/settings', function (req, res){
+		var settings = {
+			mode : {
+				lib : 'mode',
+				value : isNaN(mode) ? 'Démarré, opérationnel' : 'Sleep'
+			}, sleepTime : {
+				lib : 'Temps de veille',
+				value : parseInt(mode) + ' h' || '-'
+			}, cpuTemp : {
+				lib : 'Temperature processeur',
+				value : _utils.getCPUTemp() + ' ° C'
+			}, voiceMail : {
+				lib : 'VoiceMail message',
+				value : 'Not implemented'
+			}, volume : {
+				lib : 'Volume',
+				value : 'Not implemented'
+			}, alarms : {
+				lib : 'Alarms',
+				value : 'Not implemented'
+			}, jobs : {
+				lib : 'Jobs',
+				value : 'Not implemented'
+			}, etatSwitch : {
+				lib : 'Etat Switch',
+				value : _buttons.getEtat()
+			}, data : {
+				lib : 'data',
+				value : '...'
+			}
+		};
+		// console.log(settings);
+		res.writeHead(200);
+		res.end(JSON.stringify(settings));
+	});
+
 	/** GET SECTION */
 	ui.get('/log', function (req, res) { // Send Logs to UI
 		// console.log('UI < Logs');
@@ -90,23 +129,6 @@ exports.startUI = function startUI(mode){
 		res.writeHead(200);
 		res.end(_fs.readFileSync(FILE_REQUEST_HISTORY, 'utf8').toString());
 	});
-
-
-	/** SETTINGS SECTION */
-	ui.get('/settings', function (req, res){
-		var settings = {
-			mode : isNaN(mode) ? 'Démarré, opérationnel' : 'Sleep',
-			sleepTime : parseInt(mode) || undefined,
-			cpuTemp : _utils.getCPUTemp(),
-			etatSwitch : buttons.getEtat(),
-			data : 'TEST TEST TEST'
-		};
-		console.log(settings);
-		res.writeHead(200);
-		res.end(JSON.stringify(settings));
-	});
-
-
 
 	/** POST SECTION */
 	ui.post('/odi', function (req, res) { // Restart Odi

@@ -3,30 +3,15 @@
 <h2>Settings</h2>
 <h3>Odi's config</h3>
 
-<div class="text-center">
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th colspan="3">Odi's configuration...</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Mode</td>
-				<td>Démaré, normal</td>
-				<td><i>Action</i></td>
-			</tr>
-		</tbody>
-	</table>
-	{{activity}}<br>
-	{{activity.mode}}<br>
-	{{activity.sleepTime}}<br>
-	{{activity.cpuTemp}}<br>
-	{{activity.infos}}<br>
-	<hr>
-	<h4>Soon available</h4>
-	<p>No message in voice mail.</p>
-	<p>Next Alarms...</p>
-	<p>Volume/Mode...</p>
-	<!--<button class="btn btn-primary" href="#">Laisser un message <i class="fa fa-paper-plane-o"></i></button>-->
-</div>
+<table class="table table-hover center-block">
+	<thead>
+		<tr>
+			<th colspan="2">Odi's configuration...</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="conf in settings track by $index">
+			<td ng-repeat="item in conf track by $index">{{item}}</td>
+		</tr>
+	</tbody>
+</table>

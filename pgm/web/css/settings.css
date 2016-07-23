@@ -1,4 +1,6 @@
 /* -------------- Feuille de style de la page d'accueil ------------- */
 table{
-	width:70%;
+	display:table;
+	width:60%!important;
 }
+

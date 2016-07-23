@@ -55,7 +55,8 @@ setInterval(function(){
 var getEtat = function(callback){
 	var value = etat.readSync();
 	// console.log('Etat : ' + value)
-	callback(value);
+	//callback(value);
+	return value;
 };
 exports.getEtat = getEtat;
 
