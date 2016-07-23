@@ -80,13 +80,14 @@ exports.startUI = function startUI(mode){
 
 	/** SETTINGS SECTION */
 	ui.get('/settings', function (req, res){
+		console.log(mode);
 		var settings = {
 			mode : {
-				lib : 'mode',
-				value : isNaN(mode) ? 'Démarré, opérationnel' : 'Sleep'
+				lib : 'Mode',
+				value : isNaN(mode) != 'NaN' ? 'Démarré, opérationnel' : 'Sleep'
 			}, sleepTime : {
 				lib : 'Temps de veille',
-				value : parseInt(mode) + ' h' || '-'
+				value : isNaN(mode) != 'NaN' ? '-' : parseInt(mode) + ' h'
 			}, cpuTemp : {
 				lib : 'Temperature processeur',
 				value : _utils.getCPUTemp() + ' ° C'
@@ -95,19 +96,13 @@ exports.startUI = function startUI(mode){
 				value : 'Not implemented'
 			}, volume : {
 				lib : 'Volume',
-				value : 'Not implemented'
-			}, alarms : {
-				lib : 'Alarms',
-				value : 'Not implemented'
-			}, jobs : {
-				lib : 'Jobs',
-				value : 'Not implemented'
+				value : _buttons.getEtat() == 1 ? 'High' : 'Low'
 			}, etatSwitch : {
 				lib : 'Etat Switch',
 				value : _buttons.getEtat()
-			}, data : {
-				lib : 'data',
-				value : '...'
+			}, alarms : {
+				lib : 'Alarms',
+				value : 'Not implemented'
 			}
 		};
 		// console.log(settings);

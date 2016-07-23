@@ -106,9 +106,9 @@ img.odiFace{
 	height:5em;
 	padding-top:0em;
 }
-.menu ul li.intro .activity span:first-of-type{
+/*.menu ul li.intro .activity span:first-of-type{
 	border-top:1px solid #3f5973;
-}
+}*/
 .menu ul li.intro span{
 	display:block;
     /*margin:0.15em 0;*/
