@@ -32,7 +32,7 @@ exports.startUI = function startUI(mode){
 		res.sendFile(_path.join(DIR_NAME_WEB + '/index.html'));
 		ipClient = req.connection.remoteAddress;
 		console.log('UI initialized [' + ipClient + ']');
-		_leds.blinkSatellite(100,3);
+		_leds.blinkSatellite(100, 3);
 		if(mode < 1){
 			deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'UI']);
 		}
@@ -44,7 +44,7 @@ exports.startUI = function startUI(mode){
 	// Middleware LOGGER
 	var logger = function(req, res, next){
 		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
-		_leds.blinkSatellite(150,3);
+		_leds.blinkSatellite(150, 3);
 		method = req.method;
 		// console.log(method);
 		if(method == 'GET') method = '< ';
