@@ -51,12 +51,17 @@
                                 <img src="img/odi.jpg" alt="Od'is face" class=" img-circle img-thumbnail odiFace">
                                 <h1>Odi</h1>
                             </div>
-                            <i class="fa fa-spin fa-refresh" ng-class="!cpuInfo ? '' : 'noDisplay'"></i>
-                            <span ng-class="cpuInfo ? '' : 'noDisplay'" title="CPU Temp : {{cpuTemp}}"  ng-click="updateCpuTemp()">{{activity.cpuTemp}}</span>
-                            <!--activity&nbsp;:&nbsp;{{activity}}-->
-                            <span ng-show="activity.lib == 'sleep'" title="Odi's sleeping for {{activity}}">
-                                {{activity.infos}}&nbsp;<i class="fa fa-moon-o"></i>
-                            </span>
+
+                            <div class="activity" ng-click="refreshActivity()">
+                                <i class="fa fa-spin fa-refresh" ng-show="activity.mode == 'waiting'" title="{{activity.infos}}"></i><!--ng-class="!cpuInfo ? '' : 'noDisplay'"-->
+
+                                <span ng-show="activity.cpuTemp" title="CPU Temp : {{activity.cpuTemp}}" ng-click="alert('test')">{{activity.cpuTemp}} ° C</span>
+
+                                <span ng-show="activity.sleepTime" title="Odi's sleeping for {{activity.sleepTime}}">
+                                    <i class="fa fa-moon-o"></i><br>{{activity.sleepTime}}&nbsp;h
+                                </span>
+
+                            </div>
                         </div>
                     </li>
                     <li class="menu-item" ng-class="view == '/TTS' ?'active':''">

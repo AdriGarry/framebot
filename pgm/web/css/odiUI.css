@@ -80,7 +80,7 @@ ul{
 	/*color:#DDD;*/
 	/*min-height:100px;*/
 	/*min-height:13%;*/
-	margin:20% auto;
+	margin:10% auto;
 	height:7em;
 	padding:1em 0 0;
 }
@@ -99,8 +99,19 @@ img.odiFace{
 }
 
 .menu ul li.intro h1{
-	margin:0.3em auto;
+	margin:0.1em auto;
 	font-size:2em;
+}
+
+.menu ul li.intro .activity{
+	height:4.5em;
+	background-color:#121a21;
+	padding-top:0.1em;
+	border-top:1px solid #121a21;
+}
+.menu ul li.intro span{
+	display:block;
+    margin:0.15em 0;
 }
 
 .menu ul li.intro i{
@@ -108,13 +119,8 @@ img.odiFace{
 	line-height:normal;
 }
 
-.menu ul li.intro span{
-	/*margin:1.5em auto 0;*/
-	display:block;
-    margin:0.15em 0;
-}
-.menu ul li.intro span .fa-refresh{
-	font-size:3em;
+.menu ul li.intro .fa-refresh{
+	font-size:2.5em;
 }
 .menu ul li:hover{
 	color:#FFF;

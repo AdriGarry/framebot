@@ -61,9 +61,11 @@ exports.startUI = function startUI(mode){
 	/** MONITORING ACTIVITY */
 	ui.get('/monitoringActivity', function (req, res){
 		var activity = {
-			mode : mode == '' ? 'ACTIVE' : mode,
+			mode : isNaN(mode) ? 'on' : 'sleep',
+			sleepTime : parseInt(mode) || undefined,
 			cpuTemp : _utils.getCPUTemp()
 		};
+		console.log(activity);
 		res.writeHead(200);
 		res.end(JSON.stringify(activity));
 	});

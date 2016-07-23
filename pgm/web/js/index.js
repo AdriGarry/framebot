@@ -10,17 +10,25 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
         $scope.logActive = true;
 
         // $scope.view = $location.path() || '/TTS'; // Attribution page par defaut
-        // 
-        $scope.mode = 'waiting';
+
+        $scope.activity = {
+        	mode : 'waiting',
+        	sleepTime : undefined,
+        	cpuTemp : undefined,
+        	infos : 'Initializing...'
+        };
+
         /** Monitoring Activite */
 		setInterval(function(){
+			$scope.refreshActivity();
+		}, 10000);
+
+
+		$scope.refreshActivity = function(){
 			utilService.monitoringActivity(function(activity){
 				$scope.activity = activity;
 			});
-		}, 5000);
-
-		/** Recuperation temperature CPU */
-        setTimeout(function(){$scope.updateCpuTemp();}, 5000);
+		}
 
         /* Fonction pour changer de page */
 		$scope.goTo = function(tabName){
@@ -34,15 +42,6 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
         $scope.cpuInfo = false;
 		$scope.openMenu = function(){
 			$scope.leftMenuShown = true;
-		};
-        
-		/** Fonction de maj de la CPU Temp */
-		$scope.updateCpuTemp = function(){
-			$scope.cpuInfo = false;
-			utilService.getCPUTemp(function(temp){
-				$scope.cpuTemp = temp.data + ' ° C';
-				$scope.cpuInfo = true;
-			});
 		};
 
 		/** Fonction show/hide Logs */
@@ -83,27 +82,25 @@ odiUI.factory('utilService', ['$http', function($http){
 			method: 'GET',
 			url: 'http://odi.adrigarry.com/monitoringActivity'
 		}).then(function successCallback(res){
-			var data = res.data;//isNaN(res.data) ? 'on' : res.data;
-
+			var data = res.data;
+			// console.log(data);
 			var activity = {
-				mode : isNaN(data) ? data : 'sleep',
-				mode : mode == '' ? 'ACTIVE' : mode,
-				cpuTemp : _utils.getCPUTemp(),
-				infos : data
+				mode : data.mode,
+				sleepTime : data.sleepTime,
+				cpuTemp : data.cpuTemp,
+				infos : undefined
 			};
-			var activity = {
-				lib : isNaN(data) ? data : 'sleep',
-				infos : data
-			};
-			console.log(activity);
+			// console.log(activity);
 			callback(activity);
 		}, function errorCallback(res){
 			var activity = {
 				mode : 'waiting',
-				cpuTemp : _utils.getCPUTemp()
+				sleepTime : undefined,
+				cpuTemp : undefined,
+				infos : res
 			};
-			// console.error(res);
-			callback({lib:'waiting', infos:res});
+			console.error(activity);
+			callback(activity);
 		});
 	};
 
@@ -113,19 +110,6 @@ odiUI.factory('utilService', ['$http', function($http){
 		$http({
 			method: 'GET',
 			url: 'http://odi.adrigarry.com/log'
-		}).then(function successCallback(res){
-			callback(res);
-		}, function errorCallback(res){
-			console.error(res);
-			callback(res);
-		});
-	};
-
-	/** Fonction de recuperation de la temperature du processeur */
-	utilService.getCPUTemp = function(callback){
-		$http({
-			method: 'GET',
-			url: 'http://odi.adrigarry.com/cpuTemp'
 		}).then(function successCallback(res){
 			callback(res);
 		}, function errorCallback(res){
