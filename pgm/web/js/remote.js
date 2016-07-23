@@ -168,7 +168,7 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 			id: 45,
 			title : 'Verifier messages VoiceMail',
 			icon : 'fa fa-envelope',
-			url : '/voiceMail',
+			url : '/checkVoiceMail',
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
