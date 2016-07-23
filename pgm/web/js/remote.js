@@ -79,6 +79,26 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 				RemoteService.sendCommand(this);
 			}
 		}, {
+			id: 15,
+			title : 'Temp A',
+			icon : 'fa fa-anchor',
+			url : '/test',
+			paramKey : '',
+			paramValue : '',
+			onClick : function(){
+				//RemoteService.sendCommand(this);
+			}
+		}, {
+			id: 16,
+			title : 'Temp B',
+			icon : 'fa fa-fire-extinguisher',
+			url : '/test',
+			paramKey : '',
+			paramValue : '',
+			onClick : function(){
+				//RemoteService.sendCommand(this);
+			}
+		}, {
 			id: 21,
 			title : 'Jukebox',
 			icon : 'fa fa-music',
@@ -157,7 +177,7 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 		}, {
 			id: 44,
 			title : 'Clear VoiceMail',
-			icon : 'fa fa-trash',
+			icon : 'fa fa-trash-o',
 			url : '/clearVoiceMail',
 			paramKey : '',
 			paramValue : '',
