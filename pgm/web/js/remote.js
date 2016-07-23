@@ -1,4 +1,4 @@
-﻿/* Déclaration du controller de la page Projet */
+﻿/** Déclaration du controller de la vue Projet */
 odiUI.controller('RemoteController', ['$scope', '$location', '$timeout', 'RemoteService',
 	function($scope, $location, $timeout, RemoteService) {
 

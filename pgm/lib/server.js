@@ -42,9 +42,9 @@ exports.startUI = function startUI(mode){
 		// console.log(method);
 		if(method == 'GET') method = '< ';
 		else method = '> ';
-		request = ' Odi' + (method == 'GET' ? ' < ' : ' > ');
+		request = ' Odi' + (method == 'GET' ? ' > ' : ' < ');
 		request += 'UI ' + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
-		if(method == 'POST') console.log(request);
+		/*if(method == 'POST')*/ console.log(request);
 		_fs.appendFile(FILE_REQUEST_HISTORY, _utils.formatedDate() + request + '\r\n', function(err){
 			if(err){
 				return console.error(err);
@@ -78,15 +78,6 @@ exports.startUI = function startUI(mode){
 			res.end(log);
 		});
 	});
-
-
-
-	/*ui.get('/cpuTemp', function (req, res) { // Send CPU Temp to UI
-		var temp = _utils.getCPUTemp();
-		// console.log('UI < CPU Temp ' + temp);
-		res.writeHead(200);
-		res.end(temp);
-	});*/
 
 	ui.get('/requestHistory', function (req, res) { // Send Request History
 		var temp = _utils.getCPUTemp();

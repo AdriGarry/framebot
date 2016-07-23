@@ -1,9 +1,4 @@
-/*
- * Déclaration du controller de la page Home
- *
- * @param $scope : variable Angular pour faire le lien entre le controller et le HTML
- * @param $location : variable Angular permettant de modifier l'URL
-  */
+/** Déclaration du controller de la vue Home/TTS */
 odiUI.controller('TTSController', [ '$scope', '$location', 'TTSService',
 	function($scope, $location, TTSService) {
 
