@@ -9,7 +9,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 	function($scope, $location, $http, utilService) {
         $scope.logActive = true;
 
-        // $scope.view = $location.path() || '/TTS'; // Attribution page par defaut
+        $scope.view = $location.path() || '/TTS'; // Attribution page par defaut
 
         $scope.activity = {
         	mode : 'waiting',
@@ -19,6 +19,9 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
         };
 
         /** Monitoring Activite */
+		setTimeout(function(){
+			$scope.refreshActivity();
+		}, 2000);
 		setInterval(function(){
 			$scope.refreshActivity();
 		}, 10000);

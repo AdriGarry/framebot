@@ -91,6 +91,22 @@ var randomAction = function(){
 };
 exports.randomAction = randomAction;
 
+/** Fonction de formatage date & heure */
+var date, month, day, hour, min, sec;
+var formatedDate = function(){
+	date = new Date();
+	month = date.getMonth()+1;
+	day = date.getDate();
+	hour = date.getHours();
+	min = date.getMinutes();
+	sec = date.getSeconds();
+	logDate = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';
+	logDate += (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
+	callback(logDate);
+	//return logDate;
+}
+exports.prepareLogs = prepareLogs;
+
 /** Fonction de formatage des logs */
 var prepareLogs = function(lines, callback){
 	var logFilePath = '/home/pi/odi/log/odi.log';

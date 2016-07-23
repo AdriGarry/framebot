@@ -42,9 +42,10 @@ exports.startUI = function startUI(mode){
 		// console.log(method);
 		if(method == 'GET') method = '< ';
 		else method = '> ';
-		request = 'UI ' + method + req.url + ' [' + req.connection.remoteAddress + ']';
-		console.log(request);
-		_fs.appendFile(FILE_REQUEST_HISTORY, request + '\r\n', function(err){
+		request = method == 'GET' ? '< ' : '> ';
+		request += 'UI ' + req.url + ' [' + req.connection.remoteAddress + ']';
+		if(method == 'POST') console.log(request);
+		_fs.appendFile(FILE_REQUEST_HISTORY, _utils.formatedDate() + request + '\r\n', function(err){
 			if(err){
 				return console.error(err);
 			}
@@ -65,7 +66,7 @@ exports.startUI = function startUI(mode){
 			sleepTime : parseInt(mode) || undefined,
 			cpuTemp : _utils.getCPUTemp()
 		};
-		console.log(activity);
+		// console.log(activity);
 		res.writeHead(200);
 		res.end(JSON.stringify(activity));
 	});
@@ -80,12 +81,12 @@ exports.startUI = function startUI(mode){
 
 
 
-	ui.get('/cpuTemp', function (req, res) { // Send CPU Temp to UI
+	/*ui.get('/cpuTemp', function (req, res) { // Send CPU Temp to UI
 		var temp = _utils.getCPUTemp();
 		// console.log('UI < CPU Temp ' + temp);
 		res.writeHead(200);
 		res.end(temp);
-	});
+	});*/
 
 	ui.get('/requestHistory', function (req, res) { // Send Request History
 		var temp = _utils.getCPUTemp();

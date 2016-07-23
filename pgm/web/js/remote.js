@@ -155,6 +155,26 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 				RemoteService.sendCommand(this);
 			}
 		}, {
+			id: 44,
+			title : 'Clear VoiceMail',
+			icon : 'fa fa-trash',
+			url : '/clearVoiceMail',
+			paramKey : '',
+			paramValue : '',
+			onClick : function(){
+				RemoteService.sendCommand(this);
+			}
+		}, {
+			id: 45,
+			title : 'Verifier messages VoiceMail',
+			icon : 'fa fa-envelope',
+			url : '/voiceMail',
+			paramKey : '',
+			paramValue : '',
+			onClick : function(){
+				RemoteService.sendCommand(this);
+			}
+		}, {
 			id: 50,
 			title : 'Exclamation',
 			icon : 'fa fa-quote-right',

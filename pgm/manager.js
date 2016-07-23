@@ -68,7 +68,7 @@ function startOdi(mode){
 	odiPgm.stdout.on('data', function(data){ // Template log output
 		if(1 === etat.readSync()){ logMode = logMode.replace('Odi','ODI'); }
 		else{ logMode = logMode.replace('ODI','Odi'); }
-		console.log(getLogDate() + logMode + '/ ' + data);// + '\r\n'
+		console.log(utils.formatedDate() + logMode + '/ ' + data);// + '\r\n'
 		// log.recordLog(logDate + ' Odi/ ' + data);
 	});
 
@@ -76,7 +76,7 @@ function startOdi(mode){
 		if(1 === etat.readSync()){ logMode = logMode.replace('i','!'); }
 		else{ logMode = logMode.replace('!','i'); }
 		console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
-		// console.trace(getLogDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
+		// console.trace(utils.formatedDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
 		// log.recordLog(hour + ':' + min + ':' + sec + ' O/!\\ ' + data);
 	});
 	
@@ -95,19 +95,6 @@ function startOdi(mode){
 	});
 	remote.synchro('log');
 }
-
-/** Fonction de MaJ & formattage de la date et heure pour les logs */
-var getLogDate = function(){
-	date = new Date();
-	month = date.getMonth()+1;
-	day = date.getDate();
-	hour = date.getHours();
-	min = date.getMinutes();
-	sec = date.getSeconds();
-	logDate = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';
-	logDate += (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
-	return logDate;
-};
 
 var decrementInterval;
 /** Fonction decrementTime : MaJ temps avant reveil pour logs */
