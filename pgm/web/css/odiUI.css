@@ -106,8 +106,8 @@ img.odiFace{
 .menu ul li.intro .activity{
 	height:4.5em;
 	background-color:#121a21;
-	padding-top:0.1em;
-	border-top:1px solid #121a21;
+	padding-top:0;
+	border-top:1px solid #243342;
 }
 .menu ul li.intro span{
 	display:block;
@@ -120,6 +120,7 @@ img.odiFace{
 }
 
 .menu ul li.intro .fa-refresh{
+	margin-top:2em;
 	font-size:2.5em;
 }
 .menu ul li:hover{
