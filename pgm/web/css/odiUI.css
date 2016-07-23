@@ -80,14 +80,13 @@ ul{
 	/*color:#DDD;*/
 	/*min-height:100px;*/
 	/*min-height:13%;*/
-	margin:10% auto;
-	height:7em;
+	height:6em;
 	padding:1em 0 0;
 }
 
 .menu ul li.intro{
-	/*min-height:25%;*/
-	min-height:12em;/*10em;*/
+	margin-bottom:-1em;
+	/*min-height:12em;/*10em;*/
 	color:#DDD;
 }
 
@@ -104,10 +103,12 @@ img.odiFace{
 }
 
 .menu ul li.intro .activity{
-	height:4.5em;
-	background-color:#121a21;
-	padding-top:0;
-	border-top:1px solid #243342;
+	height:5em;
+	/*background-color:#121a21;*/
+	padding-top:0.1em;
+}
+.menu ul li.intro .activity span:first-child{
+	border-top:1px solid #121a21;
 }
 .menu ul li.intro span{
 	display:block;
@@ -120,7 +121,7 @@ img.odiFace{
 }
 
 .menu ul li.intro .fa-refresh{
-	margin-top:2em;
+	margin-top:0.3em;
 	font-size:2.5em;
 }
 .menu ul li:hover{
@@ -311,6 +312,10 @@ input[type='radio']{
 	.menu ul li a span{
 		visibility:hidden;
 	}
+	.menu ul li.menu-item{
+		margin:15% auto;
+	}
+
 
 }
 /* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
@@ -326,7 +331,7 @@ input[type='radio']{
 	}
 	.menu ul li.menu-item{
 		margin:2px 0;
-		height:6em;
+		height:5em;
 	}
 	.menu-item a i{
 		font-size:3em;
