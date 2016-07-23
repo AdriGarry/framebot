@@ -24,7 +24,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 		}, 2000);
 		setInterval(function(){
 			$scope.refreshActivity();
-		}, 10000);
+		}, 15000);
 
 
 		$scope.refreshActivity = function(){

@@ -6,6 +6,7 @@ var _path = require("path");
 var _spawn = require('child_process').spawn;
 var _fs = require('fs');
 var _utils = require('./utils.js');
+var _leds = require('./leds.js');
 var _tts = require('./tts.js');
 var _voiceMail = require('./voiceMail.js');
 var _service = require('./service.js');
@@ -30,6 +31,10 @@ exports.startUI = function startUI(mode){
 		res.sendFile(_path.join(DIR_NAME_WEB + '/index.html'));
 		ipClient = req.connection.remoteAddress;
 		console.log('UI initialized [' + ipClient + ']');
+		_leds.blinkSatellite(300,2);
+		if(mode < 1){
+			deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'UI']);
+		}
 	});
 
 	ui.use(_express.static(DIR_NAME_WEB)); // Pour fichiers statiques
@@ -85,6 +90,22 @@ exports.startUI = function startUI(mode){
 		res.writeHead(200);
 		res.end(_fs.readFileSync(FILE_REQUEST_HISTORY, 'utf8').toString());
 	});
+
+
+	/** SETTINGS SECTION */
+	ui.get('/settings', function (req, res){
+		var settings = {
+			mode : isNaN(mode) ? 'Démarré, opérationnel' : 'Sleep',
+			sleepTime : parseInt(mode) || undefined,
+			cpuTemp : _utils.getCPUTemp(),
+			etatSwitch : buttons.getEtat(),
+			data : 'TEST TEST TEST'
+		};
+		console.log(settings);
+		res.writeHead(200);
+		res.end(JSON.stringify(settings));
+	});
+
 
 
 	/** POST SECTION */

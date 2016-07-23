@@ -34,6 +34,10 @@ else
 	# elif [ $1 = "cocorico" ]
 	# then
 		# sound="/home/pi/odi/mp3/system/cocorico.mp3"
+	#___Son UI
+	elif [ $1 = "UI" ]
+	then
+		sound="/home/pi/odi/mp3/system/sonarUI.mp3"
 	#___Son Cigales
 	elif [ $1 = "cigales" ]
 	then
