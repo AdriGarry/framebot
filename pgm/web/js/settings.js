@@ -35,7 +35,7 @@ odiUI.factory('Settings', ['$http', function($http){
 			var settings = {
 				mode : {
 					lib : 'mode',
-					value : 'Error while retreiving settings data !'
+					value : 'Error while retreiving Odi\'s settings data !'
 				},
 				data : {
 					lib : 'data',

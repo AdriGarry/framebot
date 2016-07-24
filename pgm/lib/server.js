@@ -79,10 +79,18 @@ exports.startUI = function startUI(mode){
 
 	/** SETTINGS SECTION */
 	ui.get('/settings', function (req, res){
+		var temp = parseInt(mode);
+		var now = new Date();
+		var h = now.getHours();
+		var wakeUpTime;
+		if(temp > h){
+			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
+		}
 		var settings = {
 			mode : {
 				lib : 'Mode',
 				value : isNaN(parseFloat(mode)) ? 'Normal' : 'Sleeping for ' + parseInt(mode) + 'h'
+				//value : isNaN(parseFloat(mode)) ? 'Normal' : (wakeUpTime || wakeUpTime : 'Sleeping for ' + parseInt(mode));
 			}, cpuUsage : {
 				lib : 'Utilisation processeur',
 				value : _utils.getCPUUsage() + ' %'

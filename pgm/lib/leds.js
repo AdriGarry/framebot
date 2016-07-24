@@ -14,7 +14,7 @@ var self = this;
  }
  */
 var blink = function (config){
-	console.info(config);
+	// console.info(config);
 	try{
 		var etat = 1, loop;
 		if(config.hasOwnProperty('leds')){
