@@ -5,8 +5,8 @@
  * @param $location : variable Angular permettant de modifier l'URL
  * @param constantService : déclaration du service pour récupérer les constantes de l'application
  */
-odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService',
-	function($scope, $location, $http, utilService) {
+odiUI.controller('UIController', [ '$scope', '$location', '$http', '$sce', 'utilService',
+	function($scope, $location, $http, $sce, utilService) {
 		$scope.admin = false;
         $scope.logActive = true;
 
@@ -77,6 +77,10 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 		$scope.changeStatus = function(){
 			$scope.admin = true;
 		}
+
+		$scope.toHtml = function(html){
+			return $sce.trustAsHtml(html);
+		};
 
 } ]);
 

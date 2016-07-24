@@ -17,3 +17,10 @@ odiUI.config(function($routeProvider) {
 		redirectTo : '/TTS'
 	});
 });
+
+/*angular.module('includeHtml', ['ngSanitize'])
+	.controller('ExampleController', ['$scope', '$sce', function($scope, $sce){
+		this.includeHtml = function(html){
+		return $sce.trustAsHtml(html);
+	};
+}]);*/

@@ -94,7 +94,7 @@ exports.startUI = function startUI(mode){
 			}, volume : {
 				lib : 'Volume',
 				value : _buttons.getEtat() == 1 ? 'High' : 'Normal'
-			}, etatSwitch : {
+			}, switch : {
 				lib : 'Etat Switch',
 				value : _buttons.getEtat()
 			}, alarms : {

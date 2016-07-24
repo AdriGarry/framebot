@@ -6,6 +6,9 @@ odiUI.controller('SettingsController', [ '$scope', '$location', 'Settings',
 		$scope.openMenu();
 
 		Settings.getSettings(function(data){
+			if(data.hasOwnProperty('switch')){
+				data.switch.value = '<div class="material-switch text-center"><input id="switch" type="checkbox" ng-checked="item" /><label for="switch" class="label-primary"></label></div>';
+			}
 			$scope.settings = data;
 		});
 	}

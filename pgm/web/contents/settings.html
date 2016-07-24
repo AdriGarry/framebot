@@ -12,13 +12,15 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="conf in settings track by $index">
-				<td ng-repeat="item in conf track by $index">{{item}}</td>
+				<td ng-repeat="item in conf track by $index" ng-bind-html="toHtml(item)">
+					{{item}}
+				</td>
 			</tr>
 		</tbody>
 	</table>
 </div>
 
-<div class="material-switch pull-right">
-	<input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox" checked="" />
-	<label for="someSwitchOptionPrimary" class="label-primary"></label>
+<div class="material-switch center-block">
+	<input id="switch1" type="checkbox" checked="" />
+	<label for="switch1" class="label-primary"></label>
 </div>
