@@ -2,6 +2,9 @@
 // Module de gestion des leds
 
 var Gpio = require('onoff').Gpio;
+var CronJob = require('cron').CronJob;
+
+var self = this;
 
 /** Fonction clignotement
  * @param config : {
@@ -10,8 +13,8 @@ var Gpio = require('onoff').Gpio;
  *		loop : number (<1)
  }
  */
-exports.blink = function blink(config){
-	console.info(config);
+var blink = function (config){
+	// console.info(config);
 	try{
 		var etat = 1, loop;
 		if(config.hasOwnProperty('leds')){
@@ -37,6 +40,7 @@ exports.blink = function blink(config){
 		console.error(e);
 	}
 };
+exports.blink = blink;
 
 
 var timer;
@@ -49,10 +53,16 @@ var activity = function(mode){
 		mode = 0;
 	}else{
 		mode = 1;
+		self.blink({leds: ['nose'], speed: 100, loop: 3});
 	}
 	setInterval(function(){
 		led.write(mode);
 	}, 1000);
+
+	new CronJob('*/3 * * * * *', function(){
+		// leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
+		self.blink({leds: ['nose'], speed: 100, loop: 1}); // Initialisation du temoin d'activite 2/2
+	}, null, 0, 'Europe/Paris');
 	// return ??? (code?)
 };
 exports.activity = activity;
