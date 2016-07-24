@@ -71,14 +71,24 @@ setTimeout(function(){
 	// var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', '13Heures']);
 }, 2000);
 
-new CronJob('25 * * * * *', function(){
-	// tts.conversation('random');
-	var exclamation = require('./lib/exclamation.js');
-	exclamation.exclamation2Rappels();
-}, null, 0, 'Europe/Paris'); // Switch true/false !
+new CronJob('*/5 * * * * *', function(){
+	leds.blink({
+		leds : ['belly','eye'],
+		speed : 100,
+		duration : 1,
+		loop : 3
+	});
+}, null, 1, 'Europe/Paris'); // Switch true/false !
 
 
-/*var jsonString = "{\"key\":\"value\"}";
-var jsonString = utils.getFileContent('/home/pi/odi/pgm/data/commands.js');
-var jsonObj = JSON.parse(jsonString);
-console.log(jsonObj);*/
+
+// var player = require('player');
+/*var fs = require('fs');
+fs.readdir('/home/pi/odi/mp3/exclamation', function(err, files){
+	if(err) return;
+	files.forEach(function(f) {
+		console.log('Files: ' + f);
+	});
+});*/
+
+

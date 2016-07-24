@@ -26,16 +26,47 @@ exports.activity = activity;
 
 /** Fonction clignotement */
 exports.blink = function blink(config){
-	/*clearInterval(timer);
-	var etat = 1;
-	timer = setInterval(function(){
-		belly.write(etat);
-		etat = 1 - etat;
-	}, speed);
-	var stopTimer = setTimeout(function(){
-		clearInterval(timer);
-		belly.write(0);
-	}, duration*1000);*/
+	console.log(config);
+	clearInterval(timer);
+	var etat = 1, loop;
+	if(config.hasOwnProperty('leds')){
+		if(config.hasOwnProperty('loop')) loop = config.loop * 2;
+		timer = setInterval(function(){
+			if(loop > 0){
+				/*for(var led in config.leds){
+					if(led.indexOf(['led', 'eye', 'belly', 'satellite']) > -1){
+						console.log(led + '  => ' + etat);
+						eval(led).write(etat);
+					}else console.log('fail');
+				}*/
+				if(config.leds.indexOf('eye') > -1){
+					// console.log('Eye  => ' + etat);
+					eye.write(etat);
+					// eye.writeSync(eye.readSync() === 0 ? 1 : 0);
+				}
+				if(config.leds.indexOf('belly') > -1){
+					// console.log('Belly  => ' + etat);
+					belly.write(etat);
+					// belly.writeSync(belly.readSync() === 0 ? 1 : 0);
+				}
+				etat = 1 - etat;
+				loop--;
+			}else{
+				console.log(this);
+				this._repeat = false;
+				console.log(this);
+				/*clearInterval(timer);*/
+				allLedsOff();
+			}
+		}, config.speed);
+		/*setTimeout(function(){
+			clearInterval(timer);
+			/*for(var led in config.leds){
+				eval(led).write(0);
+			}*/
+			/*allLedsOff();
+		}, config.duration*1000);*/
+	}
 };
 
 /** Fonction clignotement Oeil */
