@@ -191,7 +191,7 @@ exports.testConnexion = testConnexion;
 
 /** Fonction redemarrage RPI */
 var reboot = function(){
-	remote.trySynchro();
+	// remote.trySynchro();
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
 	setTimeout(function(){
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/power.sh', 'reboot']);
@@ -202,7 +202,7 @@ exports.reboot = reboot;
 /** Fonction arret RPI */
 var shutdown = function(){
 	voiceMail.clearVoiceMail();
-	remote.trySynchro();
+	// remote.trySynchro();
 	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
 	setTimeout(function(){
 		deploy = spawn('sh', ['/home/pi/odi/pgm/sh/power.sh']);
