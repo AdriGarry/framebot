@@ -23,6 +23,21 @@ var activity = function(mode){
 };
 exports.activity = activity;
 
+
+/** Fonction clignotement */
+exports.blink = function blink(config){
+	/*clearInterval(timer);
+	var etat = 1;
+	timer = setInterval(function(){
+		belly.write(etat);
+		etat = 1 - etat;
+	}, speed);
+	var stopTimer = setTimeout(function(){
+		clearInterval(timer);
+		belly.write(0);
+	}, duration*1000);*/
+};
+
 /** Fonction clignotement Oeil */
 var blinkEye = function(speed, duration){
 	clearInterval(timer);

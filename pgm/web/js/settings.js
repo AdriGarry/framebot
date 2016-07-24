@@ -22,7 +22,7 @@ odiUI.factory('Settings', ['$http', function($http){
 
 	var Settings = {};
 
-	/** Fonction de suivi d'activite */
+	/** Fonction de recuperationd de la configuration Odi */
 	Settings.getSettings = function(callback){
 		$http({
 			method: 'GET',
@@ -32,7 +32,7 @@ odiUI.factory('Settings', ['$http', function($http){
 			// console.log(data);
 			callback(data);
 		}, function errorCallback(res){
-			/*var settings = {
+			var settings = {
 				mode : {
 					lib : 'mode',
 					value : 'Error while retreiving settings data !'
@@ -41,10 +41,10 @@ odiUI.factory('Settings', ['$http', function($http){
 					lib : 'data',
 					value : res
 				}
-			};*/
+			};
 
-			/*console.error(settings);
-			callback(settings);*/
+			console.error(settings);
+			callback(settings);
 		});
 	};
 
