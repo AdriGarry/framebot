@@ -29,7 +29,7 @@ leds.activity(mode); // Initialisation du temoin d'activite 1/2
 
 new CronJob('*/3 * * * * *', function(){
 	leds.blinkLed(400, 0.7); // Initialisation du temoin d'activite 2/2
-}, null, true, 'Europe/Paris');
+}, null, 0, 'Europe/Paris');
 
 
 _server.startUI(mode);

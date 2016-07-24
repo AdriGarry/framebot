@@ -24,7 +24,7 @@ var blink = function (config){
 					// console.log(config.leds[led] + '  => END');
 					eval(config.leds[led]).write(0);
 				}
-			}, config.speed * config.loop * 2 +10);
+			}, config.speed * config.loop * 2 +50);
 			for(loop = config.loop * 2; loop > 0; loop--){
 				setTimeout(function(leds){
 					for(var i in leds){
@@ -43,7 +43,6 @@ var blink = function (config){
 exports.blink = blink;
 
 
-var timer;
 /** Fonction activity : temoin mode programme (normal/veille) */
 var activity = function(mode){
 	if(typeof mode === 'undefined') mode = 'awake';
@@ -52,8 +51,8 @@ var activity = function(mode){
 	if(mode > 0){
 		mode = 0;
 	}else{
-		mode = 1;
 		self.blink({leds: ['nose'], speed: 100, loop: 3});
+		mode = 1;
 	}
 	setInterval(function(){
 		led.write(mode);
@@ -61,12 +60,14 @@ var activity = function(mode){
 
 	new CronJob('*/3 * * * * *', function(){
 		// leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
-		self.blink({leds: ['nose'], speed: 100, loop: 1}); // Initialisation du temoin d'activite 2/2
-	}, null, 0, 'Europe/Paris');
+		self.blink({leds: ['nose'], speed: 200, loop: 1}); // Initialisation du temoin d'activite 2/2
+	}, null, 1, 'Europe/Paris');
 	// return ??? (code?)
 };
 exports.activity = activity;
 
+
+var timer;
 /** Fonction verification de la config blink LEDS  */
 var findOne = function (haystack, arr){
 	return arr.some(function (v){
