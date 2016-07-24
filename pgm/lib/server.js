@@ -80,13 +80,12 @@ exports.startUI = function startUI(mode){
 
 	/** SETTINGS SECTION */
 	ui.get('/settings', function (req, res){
-		console.log(mode);
 		var settings = {
 			mode : {
 				lib : 'Mode',
-				value : isNaN(mode) != 'NaN' ? 'Normal' : 'Sleeping for ' + parseInt(mode) + 'h'
+				value : isNaN(parseFloat(mode)) ? 'Normal' : 'Sleeping for ' + parseInt(mode) + 'h'
 			}, cpuTemp : {
-				lib : 'Temp. process.',
+				lib : 'Temperature processeur',
 				value : _utils.getCPUTemp() + ' ° C'
 			}, voiceMail : {
 				lib : 'VoiceMail',
