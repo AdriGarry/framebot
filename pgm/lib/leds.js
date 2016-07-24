@@ -3,9 +3,43 @@
 
 var Gpio = require('onoff').Gpio;
 
-var cpBtn = 1;
-var timer;
+/** Fonction clignotement
+ * @param config : {
+ * 		leds : ['eye', 'satellite'...]
+ *		speed : number (50 - 200)
+ *		loop : number (<1)
+ }
+ */
+exports.blink = function blink(config){
+	console.info(config);
+	try{
+		var etat = 1, loop;
+		if(config.hasOwnProperty('leds')){
+			// config.hasOwnProperty('loop')
+			setTimeout(function(){
+				for(var led in config.leds){
+					// console.log(config.leds[led] + '  => END');
+					eval(config.leds[led]).write(0);
+				}
+			}, config.speed * config.loop * 2 +10);
+			for(loop = config.loop * 2; loop > 0; loop--){
+				setTimeout(function(leds){
+					for(var i in leds){
+						var led = leds[i]
+						// console.log('led : ' + led);
+						eval(led).write(etat);
+					}
+					etat = 1 - etat; // VOIR POUR ALTERNER ??
+				}, config.speed * loop, config.leds);
+			}
+		}
+	}catch(e){
+		console.error(e);
+	}
+};
 
+
+var timer;
 /** Fonction activity : temoin mode programme (normal/veille) */
 var activity = function(mode){
 	if(typeof mode === 'undefined') mode = 'awake';
@@ -23,51 +57,17 @@ var activity = function(mode){
 };
 exports.activity = activity;
 
-
-/** Fonction clignotement */
-exports.blink = function blink(config){
-	console.log(config);
-	clearInterval(timer);
-	var etat = 1, loop;
-	if(config.hasOwnProperty('leds')){
-		if(config.hasOwnProperty('loop')) loop = config.loop * 2;
-		timer = setInterval(function(){
-			if(loop > 0){
-				/*for(var led in config.leds){
-					if(led.indexOf(['led', 'eye', 'belly', 'satellite']) > -1){
-						console.log(led + '  => ' + etat);
-						eval(led).write(etat);
-					}else console.log('fail');
-				}*/
-				if(config.leds.indexOf('eye') > -1){
-					// console.log('Eye  => ' + etat);
-					eye.write(etat);
-					// eye.writeSync(eye.readSync() === 0 ? 1 : 0);
-				}
-				if(config.leds.indexOf('belly') > -1){
-					// console.log('Belly  => ' + etat);
-					belly.write(etat);
-					// belly.writeSync(belly.readSync() === 0 ? 1 : 0);
-				}
-				etat = 1 - etat;
-				loop--;
-			}else{
-				console.log(this);
-				this._repeat = false;
-				console.log(this);
-				/*clearInterval(timer);*/
-				allLedsOff();
-			}
-		}, config.speed);
-		/*setTimeout(function(){
-			clearInterval(timer);
-			/*for(var led in config.leds){
-				eval(led).write(0);
-			}*/
-			/*allLedsOff();
-		}, config.duration*1000);*/
-	}
+/** Fonction verification de la config blink LEDS  */
+var findOne = function (haystack, arr){
+	return arr.some(function (v){
+		return haystack.indexOf(v) >= 0;
+	});
 };
+/*var checkLedConfig = function(config){
+	if(led.some(function(v){
+		['led', 'eye', 'belly', 'satellite'].indexOf(v) > -1;
+	})){
+};*/
 
 /** Fonction clignotement Oeil */
 var blinkEye = function(speed, duration){

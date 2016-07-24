@@ -2,37 +2,42 @@
 
 console.log('>> Odi started in normal mode...   :)');
 var spawn = require('child_process').spawn;
-var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'odi']);
+var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'odi', 'noLeds']);
 
 var Gpio = require('onoff').Gpio;
 var gpioPins = require('./lib/gpioPins.js');
 var leds = require('./lib/leds.js');
+
+leds.allLedsOn();
+
 var buttons = require('./lib/buttons.js');
+leds.allLedsOff();
 var CronJob = require('cron').CronJob;
 var jobs = require('./lib/jobs.js');
 var utils = require('./lib/utils.js');
-var remote = require('./lib/remote.js');
 var service = require('./lib/service.js');
+leds.activity(); // Initialisation du temoin d'activite 1/2
 var voiceMail = require('./lib/voiceMail.js');
 var tts = require('./lib/tts.js');
 var _server = require('./lib/server.js');
 
-leds.blinkLed(100, 300); // Sequence led de start
+// Sequence led de start
+//leds.blinkLed(100, 300); // Sequence led de start
+
 var mode = process.argv[2]; // Recuperation des arguments
 
-setTimeout(function(){
+/*setTimeout(function(){
 	leds.clearLeds();
 	led.write(1);
 	eye.write(0);
-}, 500);
-
-leds.activity(); // Initialisation du temoin d'activite 1/2
-setInterval(function(){
+}, 500);*/
+/*setInterval(function(){
 	leds.blinkLed(400, 0.7);
-}, 3000);
+}, 3000);*/
 
 new CronJob('*/3 * * * * *', function(){
-	leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
+	// leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
+	leds.blink({leds: ['nose'], speed: 300, loop: 1}); // Initialisation du temoin d'activite 2/2
 }, null, true, 'Europe/Paris');
 
 _server.startUI(mode);
@@ -73,12 +78,11 @@ setTimeout(function(){
 
 new CronJob('*/5 * * * * *', function(){
 	leds.blink({
-		leds : ['belly','eye'],
-		speed : 100,
-		duration : 1,
-		loop : 3
+		leds: ['belly','eye', 'satellite', 'nose'],
+		speed: Math.random() * (200 - 50) + 50,
+		loop: 4
 	});
-}, null, 1, 'Europe/Paris'); // Switch true/false !
+}, null, 0, 'Europe/Paris'); // Switch true/false !
 
 
 

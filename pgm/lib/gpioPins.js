@@ -3,6 +3,7 @@
 
 var Gpio = require('onoff').Gpio;
 led = new Gpio(15, 'out');
+nose = new Gpio(15, 'out');
 eye = new Gpio(14, 'out');
 belly = new Gpio(17, 'out');
 satellite = new Gpio(23, 'out');
