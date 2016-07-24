@@ -1,16 +1,27 @@
 /* -------------- Feuille de style de la page d'accueil ------------- */
 table{
 	display:table;
-	width:60%!important;
+	width:100%!important;
+	padding:1em 2em;
+	background-color:#fff;
+	border-radius:2%;
 }
 
 table thead th td, table tbody tr td{
 	margin-right:2em;
+	/*min-width:10em;*/
+}
+table thead th td:nth-child(1), table tbody tr td:nth-child(1){
+	width:50%;
+}
+table thead th td:nth-child(2), table tbody tr td:nth-child(2){
+	text-align:center;
 }
 
 /* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */
 @media(min-width:768px){
 	table{
 		font-size:1.1em;
+		width:30em!important;
 	}
 }

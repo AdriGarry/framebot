@@ -86,10 +86,10 @@ exports.startUI = function startUI(mode){
 				lib : 'Mode',
 				value : isNaN(mode) != 'NaN' ? 'Démarré, opérationnel' : 'Sleeping for ' + parseInt(mode) + 'h'
 			}, cpuTemp : {
-				lib : 'Temperature processeur',
+				lib : 'Temp. process.',
 				value : _utils.getCPUTemp() + ' ° C'
 			}, voiceMail : {
-				lib : 'VoiceMail message',
+				lib : 'VoiceMail',
 				value : 'Not implemented'
 			}, volume : {
 				lib : 'Volume',
@@ -98,8 +98,8 @@ exports.startUI = function startUI(mode){
 				lib : 'Etat Switch',
 				value : _buttons.getEtat()
 			}, alarms : {
-				lib : 'Alarms',
-				value : 'Not implemented'
+				lib : 'Alarmes',
+				value : 'Not implemented gfgdsfgh hgdhd hdghdg dgh'
 			}
 		};
 		// console.log(settings);
