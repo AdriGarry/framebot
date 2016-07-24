@@ -84,7 +84,7 @@ exports.startUI = function startUI(mode){
 		var settings = {
 			mode : {
 				lib : 'Mode',
-				value : isNaN(mode) != 'NaN' ? 'Démarré, opérationnel' : 'Sleeping for ' + parseInt(mode) + 'h'
+				value : isNaN(mode) != 'NaN' ? 'Normal' : 'Sleeping for ' + parseInt(mode) + 'h'
 			}, cpuTemp : {
 				lib : 'Temp. process.',
 				value : _utils.getCPUTemp() + ' ° C'
@@ -93,13 +93,13 @@ exports.startUI = function startUI(mode){
 				value : 'Not implemented'
 			}, volume : {
 				lib : 'Volume',
-				value : _buttons.getEtat() == 1 ? 'High' : 'Low'
+				value : _buttons.getEtat() == 1 ? 'High' : 'Normal'
 			}, etatSwitch : {
 				lib : 'Etat Switch',
 				value : _buttons.getEtat()
 			}, alarms : {
 				lib : 'Alarmes',
-				value : 'Not implemented gfgdsfgh hgdhd hdghdg dgh'
+				value : '-'
 			}
 		};
 		// console.log(settings);
