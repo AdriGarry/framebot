@@ -84,10 +84,7 @@ exports.startUI = function startUI(mode){
 		var settings = {
 			mode : {
 				lib : 'Mode',
-				value : isNaN(mode) != 'NaN' ? 'Démarré, opérationnel' : 'Sleep'
-			}, sleepTime : {
-				lib : 'Temps de veille',
-				value : isNaN(mode) != 'NaN' ? '-' : parseInt(mode) + ' h'
+				value : isNaN(mode) != 'NaN' ? 'Démarré, opérationnel' : 'Sleeping for ' + parseInt(mode) + 'h'
 			}, cpuTemp : {
 				lib : 'Temperature processeur',
 				value : _utils.getCPUTemp() + ' ° C'

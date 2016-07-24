@@ -98,10 +98,10 @@ img.odiFace{
 }
 img.odiFace.odiOff{
 	display:block;
-	width:4.2em;
-	height:4.2em;
+	/*width:4.2em;*/
+	height:6em;
 	float:left;
-	margin:-4.2em auto auto 0.25em;
+	margin:-6em auto auto 0.25em;
 	opacity:0.9;
 }
 
@@ -335,6 +335,14 @@ input[type='radio']{
 	}
 	h1{
 		font-size:26px;
+	}
+	img.odiFace.odiOff{
+		display:block;
+		width:4.2em;
+		height:4.2em;
+		float:left;
+		margin:-4.2em auto auto 0.25em;
+		opacity:0.9;
 	}
 	.menu ul li.menu-item{
 		margin:2px 0;
