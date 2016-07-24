@@ -6,6 +6,7 @@ var gpioPins = require('./lib/gpioPins.js');
 var leds = require('./lib/leds.js');
 
 //leds.blink({leds: ['nose'], speed: 300, loop: 3}); // Start led sequence
+leds.activity(); // Initialisation du temoin d'activite 1/2
 
 var spawn = require('child_process').spawn;
 var odiStartupSound = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'odi', 'noLeds']);
@@ -24,7 +25,6 @@ var _server = require('./lib/server.js');
 
 // Sequence led de start
 //leds.blinkLed(100, 300); // Sequence led de start
-leds.activity(); // Initialisation du temoin d'activite 1/2
 var mode = process.argv[2]; // Recuperation des arguments
 //leds.activity(); // Initialisation du temoin d'activite 1/2
 

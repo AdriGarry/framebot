@@ -54,7 +54,7 @@ var activity = function(mode){
 		
 		mode = 1;
 	}
-	setTimeout(function(){
+	// setTimeout(function(){
 		setInterval(function(){
 			led.write(mode);
 		}, 1000);
@@ -63,8 +63,8 @@ var activity = function(mode){
 			// leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
 			self.blink({leds: ['nose'], speed: 200, loop: 1}); // Initialisation du temoin d'activite 2/2
 		}, null, 1, 'Europe/Paris');
-	}, 500);
-	blink({leds: ['nose'], speed: 200, loop: 3});
+	// }, 500);
+	//blink({leds: ['nose'], speed: 200, loop: 3});
 
 	// return ??? (code?)
 };
