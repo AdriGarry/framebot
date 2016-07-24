@@ -49,7 +49,7 @@ setInterval(function(){
 		instance = false;
 		clearInterval(interval);
 	}
-}, 1000);
+}, 2000);
 
 /** Fonction pour recuperer l'etat du switch */
 var getEtat = function(callback){

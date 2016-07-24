@@ -96,6 +96,14 @@ img.odiFace{
 	padding:1px;
 	border-radius:50%;
 }
+img.odiFace.odiOff{
+	display:block;
+	width:4.2em;
+	height:4.2em;
+	float:left;
+	margin:-4.2em auto auto 0.25em;
+	opacity:0.9;
+}
 
 .menu ul li.intro h1{
 	margin:0.1em auto;
