@@ -49,14 +49,12 @@
                             <!--<div onclick="window.location.href='http://odi.adrigarry.com'">-->
                             <div onclick="window.location.reload()">
                                 <img src="img/odi.jpg" alt="Odi's face" class=" img-circle img-thumbnail odiFace">
-                                <img src="img/snow.gif" alt="Odi not available" class=" img-circle img-thumbnail odiFace odiOff">
+                                <img src="img/snow.gif" alt="Odi not available" class=" img-circle img-thumbnail odiFace odiOff" ng-show="activity.mode == 'waiting'">
                                 <h1>Odi</h1>
                             </div>
 
-                            <div class="activity" ng-click="refreshActivity()">
-                                <i class="fa fa-spin fa-refresh" ng-show="activity.mode == 'waiting'" title="{{activity.infos}}"></i><!--ng-class="!cpuInfo ? '' : 'noDisplay'"-->
-
-                                <!--<span ng-show="activity.cpuTemp" title="CPU Temp : {{activity.cpuTemp}}" ng-click="alert('test')">{{activity.cpuTemp}} ° C</span>-->
+                            <div class="activity" ng-click="refreshActivity()" title="Refresh Activity">
+                                <i class="fa fa-spin fa-refresh" ng-show="activity.mode == 'waiting'" title="{{activity.infos}}"></i>
 
                                 <span ng-show="activity.sleepTime" title="Odi's sleeping for {{activity.sleepTime}}">
                                     <i class="fa fa-moon-o"></i><br>{{activity.sleepTime}}&nbsp;h
