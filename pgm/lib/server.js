@@ -83,6 +83,9 @@ exports.startUI = function startUI(mode){
 			mode : {
 				lib : 'Mode',
 				value : isNaN(parseFloat(mode)) ? 'Normal' : 'Sleeping for ' + parseInt(mode) + 'h'
+			}, cpuUsage : {
+				lib : 'Utilisation processeur',
+				value : _utils.getCPUUsage() + ' %'
 			}, cpuTemp : {
 				lib : 'Temperature processeur',
 				value : _utils.getCPUTemp() + ' ° C'

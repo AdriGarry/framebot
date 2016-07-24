@@ -7,7 +7,7 @@ var CronJob = require('cron').CronJob;
 var jobs = require('./lib/jobs.js');
 var utils = require('./lib/utils.js');
 var leds = require('./lib/leds.js');
-var remote = require('./lib/remote.js');
+// var remote = require('./lib/remote.js');
 var _server = require('./lib/server.js');
 
 var mode = sleepTime = process.argv[2]; // Recuperation des arguments

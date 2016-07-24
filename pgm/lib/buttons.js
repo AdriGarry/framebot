@@ -3,7 +3,7 @@
 
 var log = 'Odi/ ';
 var spawn = require('child_process').spawn;
-var remote = require('./remote.js');
+// var remote = require('./remote.js');
 var leds = require('./leds.js');
 var exclamation = require('./exclamation.js');
 var timer = require('./timer.js');

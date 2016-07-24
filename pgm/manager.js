@@ -9,7 +9,7 @@ var fs = require('fs');
 var utils = require('./lib/utils.js');
 var log = require('./lib/log.js');
 var tts = require('./lib/tts.js');
-var remote = require('./lib/remote.js');
+// var remote = require('./lib/remote.js');
 
 var odiPgm;
 var odiState = false;
@@ -92,7 +92,7 @@ function startOdi(mode){
 			startOdi();
 		}
 	});
-	remote.synchro('log');
+	//remote.synchro('log');
 }
 
 var decrementInterval;

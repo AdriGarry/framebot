@@ -15,7 +15,7 @@ var tts = require('./tts.js');
 var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
 var service = require('./service.js');
-var remote = require('./remote.js');
+// var remote = require('./remote.js');
 var self = this;
 
 var voiceMailFilePath = '/home/pi/odi/pgm/tmp/voicemail.log';
