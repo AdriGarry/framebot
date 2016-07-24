@@ -7,6 +7,7 @@
  */
 odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService',
 	function($scope, $location, $http, utilService) {
+		$scope.admin = false;
         $scope.logActive = true;
 
         $scope.view = $location.path() || '/TTS'; // Attribution page par defaut
@@ -71,6 +72,11 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', 'utilService'
 				);*/
 			});
 		};
+
+		/** Fonction pour changer de statut */
+		$scope.changeStatus = function(){
+			$scope.admin = true;
+		}
 
 } ]);
 

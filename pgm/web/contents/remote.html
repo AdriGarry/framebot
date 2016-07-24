@@ -5,15 +5,16 @@
 
 <div class="remote">
 	<button class="btn btn-lg btn-default" ng-repeat="command in functionnalCommands | orderBy : 'id'"
-		ng-click="command.onClick()" on-long-press="command.onHold()" long-press-duration="1000" prevent-click="true" title="{{command.title}}">
+		ng-click="command.onClick()" on-long-press="command.onHold()" long-press-duration="1000" prevent-click="true" title="{{command.title}}" ng-disabled="!admin">
 		<i class="fa {{command.icon}}"></i>
 	</button>
 	<hr>
 	<button class="btn btn-lg btn-default" ng-repeat="command in systemCommands | orderBy : 'id'"
 		ng-click="command.onClick()" on-long-press="command.onHold()" long-press-duration="1000"
-		title="{{command.title}}">
+		title="{{command.title}}" ng-disabled="!admin">
 		<i class="fa {{command.icon}}"></i>
 	</button>
+	{{admin}}
 
 	<!--<button class="btn btn-lg btn-default" on-long-press="onLongClick()" ng-click="onSimpleClick()" prevent-click="true" title="TEST LONG PRESS">
 		<i class="fa fa-gitlab"></i>
