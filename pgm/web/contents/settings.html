@@ -3,15 +3,22 @@
 <h2>Settings</h2>
 <h3>Config</h3>
 
-<table class="table table-hover center-block">
-	<thead>
-		<tr>
-			<th colspan="2">Odi's configuration</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="conf in settings track by $index">
-			<td ng-repeat="item in conf track by $index">{{item}}</td>
-		</tr>
-	</tbody>
-</table>
+<div class="configTable">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Odi's configuration</th><th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="conf in settings track by $index">
+				<td ng-repeat="item in conf track by $index">{{item}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="material-switch pull-right">
+	<input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox" checked="" />
+	<label for="someSwitchOptionPrimary" class="label-primary"></label>
+</div>

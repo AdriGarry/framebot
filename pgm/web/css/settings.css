@@ -1,18 +1,27 @@
 /* -------------- Feuille de style de la page d'accueil ------------- */
-table{
-	display:table;
-	width:100%!important;
-	padding:1em 2em;
+.configTable{
+	max-width:80%;
+	margin:2em auto 0;
+	padding:0.5em 2em;
 	background-color:#fff;
 	border-radius:2%;
 }
 
+table{
+	/*display:table;*/
+	/*display:inline-block!important;*/
+	/*width:100%!important;*/
+	/*max-width:70%!important;*/
+	/*margin:1em auto;*/
+}
+
 table thead th td, table tbody tr td{
-	margin-right:2em;
+	/*margin-right:2em;*/
 	/*min-width:10em;*/
 }
 table thead th td:nth-child(1), table tbody tr td:nth-child(1){
-	width:50%;
+	/*width:50%;*/
+	padding-left:2em;
 }
 table thead th td:nth-child(2), table tbody tr td:nth-child(2){
 	text-align:center;
@@ -22,6 +31,6 @@ table thead th td:nth-child(2), table tbody tr td:nth-child(2){
 @media(min-width:768px){
 	table{
 		font-size:1.1em;
-		width:20em!important;
+		/*width:20em!important;/*
 	}
 }
