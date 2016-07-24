@@ -4,7 +4,7 @@ console.log('>> Odi started in normal mode...   :)');
 var Gpio = require('onoff').Gpio;
 var gpioPins = require('./lib/gpioPins.js');
 var leds = require('./lib/leds.js');
-leds.activity(); // Initialisation du temoin d'activite 1/2
+
 //leds.blink({leds: ['nose'], speed: 300, loop: 3}); // Start led sequence
 
 var spawn = require('child_process').spawn;
@@ -24,7 +24,7 @@ var _server = require('./lib/server.js');
 
 // Sequence led de start
 //leds.blinkLed(100, 300); // Sequence led de start
-
+leds.activity(); // Initialisation du temoin d'activite 1/2
 var mode = process.argv[2]; // Recuperation des arguments
 //leds.activity(); // Initialisation du temoin d'activite 1/2
 

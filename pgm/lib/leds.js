@@ -14,7 +14,7 @@ var self = this;
  }
  */
 var blink = function (config){
-	// console.info(config);
+	console.info(config);
 	try{
 		var etat = 1, loop;
 		if(config.hasOwnProperty('leds')){
@@ -51,17 +51,21 @@ var activity = function(mode){
 	if(mode > 0){
 		mode = 0;
 	}else{
-		self.blink({leds: ['nose'], speed: 100, loop: 3});
+		
 		mode = 1;
 	}
-	setInterval(function(){
-		led.write(mode);
-	}, 1000);
+	setTimeout(function(){
+		setInterval(function(){
+			led.write(mode);
+		}, 1000);
 
-	new CronJob('*/3 * * * * *', function(){
-		// leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
-		self.blink({leds: ['nose'], speed: 200, loop: 1}); // Initialisation du temoin d'activite 2/2
-	}, null, 1, 'Europe/Paris');
+		new CronJob('*/3 * * * * *', function(){
+			// leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
+			self.blink({leds: ['nose'], speed: 200, loop: 1}); // Initialisation du temoin d'activite 2/2
+		}, null, 1, 'Europe/Paris');
+	}, 500);
+	blink({leds: ['nose'], speed: 200, loop: 3});
+
 	// return ??? (code?)
 };
 exports.activity = activity;
