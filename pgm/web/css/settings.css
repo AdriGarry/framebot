@@ -4,6 +4,11 @@ table{
 	width:60%!important;
 }
 
+table thead th td, table tbody tr td{
+	margin-right:2em;
+}
+
+/* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */
 @media(min-width:768px){
 	table{
 		font-size:1.1em;
