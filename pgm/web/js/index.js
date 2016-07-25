@@ -65,7 +65,10 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', '$sce', 'util
 
 		/** Fonction de rafraichissement des logs */
 		$scope.refreshLog = function(){
+			var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 			utilService.getLogs(function(logs){
+				//logs = logs.replace(ipRegex,'<a href="" title="Localize this IP">toto</a>');
+
 				$scope.logData = logs.data.split('\n');
 				/*$('#logActive').animate({
 				scrollTop: $("#bottomLogs").prop("scrollHeight")}, 0
