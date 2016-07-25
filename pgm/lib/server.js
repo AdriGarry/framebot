@@ -73,7 +73,16 @@ exports.startUI = function startUI(mode){
 			sleepTime : parseInt(mode) || false,
 			cpuTemp : _utils.getCPUTemp()
 		};
-		// console.log(activity);
+		console.log(activity);
+
+
+		/*if(parseInt(mode)){
+			activity.sleepTime = parseInt(mode);
+		}else{
+			activity.awake;
+		}
+		console.log(activity);*/
+
 		res.writeHead(200);
 		res.end(JSON.stringify(activity));
 	});

@@ -8,18 +8,20 @@
 odiUI.controller('UIController', [ '$scope', '$location', '$http', '$sce', 'utilService',
 	function($scope, $location, $http, $sce, utilService) {
 		$scope.admin = false;
-        $scope.logActive = true;
+		$scope.logActive = true;
+		$scope.monitoring = true;
 
-        $scope.view = $location.path() || '/TTS'; // Attribution page par defaut
+		$scope.view = $location.path() || '/TTS'; // Attribution page par defaut
 
-        $scope.activity = {
-        	mode : 'waiting',
-        	sleepTime : undefined,
-        	cpuTemp : undefined,
-        	infos : 'Initializing...'
-        };
+		$scope.activity = {
+			mode : 'waiting',
+			// awake
+			// sleepTime : undefined,
+			// cpuTemp : undefined,
+			infos : 'Initializing...'
+		};
 
-        /** Monitoring Activite */
+		/** Monitoring Activite */
 		setTimeout(function(){
 			$scope.refreshActivity();
 		}, 3000);
@@ -29,28 +31,34 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', '$sce', 'util
 
 
 		$scope.refreshActivity = function(){
+			$scope.monitoring = true;
+			$scope.activity = {
+				mode : 'waiting',
+				infos : 'Initializing...'
+			};
 			utilService.monitoringActivity(function(activity){
+				$scope.monitoring = false;
 				$scope.activity = activity;
 			});
 		}
 
-        /* Fonction pour changer de page */
+		/* Fonction pour changer de page */
 		$scope.goTo = function(tabName){
-	        $scope.logActive = false;
+			$scope.logActive = false;
 			$location.path(tabName);
 			$scope.view = '/' + tabName;
 			// console.log('goTo : ' + $scope.view);
 		};
 
-        /* Fonction pour ouvrir le menu principal */
-        $scope.cpuInfo = false;
+		/* Fonction pour ouvrir le menu principal */
+		$scope.cpuInfo = false;
 		$scope.openMenu = function(){
 			$scope.leftMenuShown = true;
 		};
 
 		/** Fonction show/hide Logs */
 		$scope.logData;
-        $scope.logActive = false;
+		$scope.logActive = false;
 		$scope.toggleLog = function(){
 			$scope.logActive = !$scope.logActive;
 			if($scope.logActive){
@@ -120,8 +128,8 @@ odiUI.factory('utilService', ['$http', function($http){
 		}, function errorCallback(res){
 			var activity = {
 				mode : 'waiting',
-				sleepTime : undefined,
-				cpuTemp : undefined,
+				// sleepTime : undefined,
+				// cpuTemp : undefined,
 				infos : res
 			};
 			console.error(activity);
