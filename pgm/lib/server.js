@@ -66,7 +66,7 @@ exports.startUI = function startUI(mode){
 	ui.use(logger);
 
 	/** MONITORING ACTIVITY */
-	ui.get('/monitoringActivity', function (req, res){
+	ui.get('/monitoring', function (req, res){
 		var activity = {
 			mode : isNaN(mode) ? 'on' : 'sleep',
 			sleepTime : parseInt(mode) || undefined,
@@ -119,7 +119,13 @@ exports.startUI = function startUI(mode){
 	/** GET SECTION */
 	ui.get('/log', function (req, res) { // Send Logs to UI
 		// console.log('UI < Logs');
-		_utils.prepareLogs(18, function(log){//180
+		var logSize = 100;
+		params = req.query;
+		if(params.hasOwnProperty('logSize') && !isNaN(params.logSize)){
+			logSize = parseInt(params.logSize);
+		}
+		//console.log(params);
+		_utils.prepareLogs(logSize, function(log){
 			res.end(log);
 		});
 	});

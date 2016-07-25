@@ -306,6 +306,14 @@ img.odiFace.odiOff{
 	opacity:1;
 }
 
+.log ul li a{
+	color:#adbfd2;
+	text-decoration:underline;
+}
+.log ul li a:hover{
+	color:#fff;
+}
+
 /* ------------------------------ MAIN CONTENT ------------------------------- */
 .main{
 	min-width:15em;
