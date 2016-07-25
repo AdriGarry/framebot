@@ -96,7 +96,7 @@
     <!-- on-long-press="refreshLog()" long-press-duration="700" prevent-click="true" -->
         <ul class="fakeScroll">
             <button type="button" class="close" aria-label="Close" ng-click="hideLog()" title="Hide Log"><span aria-hidden="true">&times;</span></button>
-            <li ng-repeat="logLine in logData track by $index">{{logLine}}</li>
+            <li ng-repeat="logLine in logData track by $index" ng-bind-html="toHtml(logLine)">{{logLine}}</li>
             <a id="bottomLogs"></a>
         </ul>
         <!--<div class="logOptions">

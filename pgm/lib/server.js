@@ -119,7 +119,7 @@ exports.startUI = function startUI(mode){
 	/** GET SECTION */
 	ui.get('/log', function (req, res) { // Send Logs to UI
 		// console.log('UI < Logs');
-		_utils.prepareLogs(180, function(log){
+		_utils.prepareLogs(18, function(log){//180
 			res.end(log);
 		});
 	});

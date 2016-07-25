@@ -67,14 +67,70 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', '$sce', 'util
 		$scope.refreshLog = function(){
 			var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 			utilService.getLogs(function(logs){
-				//logs = logs.replace(ipRegex,'<a href="" title="Localize this IP">toto</a>');
 
-				$scope.logData = logs.data.split('\n');
+				//console.log(logs);
+				var ipRegex = new RegExp("\\[([0-9]{1,3}\\.){3}([0-9]{1,3})\\]","g");
+				var ipRegex2 = new RegExp("([0-9]{1,3}\.){3}([0-9]{1,3})","g");
+				var ipLocatorSite = 'http://localiser-ip.com/?ip=';
+
+
+				// logs = logs.replace(/\[([0-9]{1,3}\.){3}([0-9]{1,3})\]/g, '<a href=http://localiser-ip.com/?ip=$1$2" title="Localize this IP" target="_blank">$2<a/>');
+
+				
+				logs = logs.replace(/\[([0-9]{1,3}\.){3}([0-9]{1,3})\]/g, function(match, capture){
+					console.log('match: ' + match);
+					var ip = match.substr(1,match.length-2);
+					console.log('ip: ' + ip);
+					return '[<a href=http://localiser-ip.com/?ip=' + ip + ' title="Localize this IP" target="_blank">' + ip + '<a/>]';
+				});
+
+				//console.log(logs);
+				/*var ips = logs.match(ipRegex);
+				ips = ips.join().match(ipRegex);
+				console.log(ips);*/
+
+				/*for(var i = ips.length;i >= 0; i--){
+					console.log(ips[i]);
+					logs = logs.replace(ips[i], '<a href=' + ipLocatorSite + ips[i] + '" title="Localize this IP" target="_blank">' + ips[i] + '<a/>');
+				}
+				console.log(logs);*/
+
+				/*logs = logs.split('\n');
+				for(var i = logs.length;i >= 0; i--){
+					logs[i] = '<li>' + logs[i] + '</li>';
+				}*/
+
+				// $scope.logData = logs;
+
+				$scope.logData = logs.split('\n');
 				/*$('#logActive').animate({
 				scrollTop: $("#bottomLogs").prop("scrollHeight")}, 0
 				);*/
 			});
 		};
+
+
+		/** Fonction de remplacement des ip par des liens pour les localiser */
+		$scope.setIpLink = function(){
+			var logs = angular.element($("ul.fakeScroll"));
+			//console.log(logs);
+			/*//console.log(logs);
+			var ipRegex = new RegExp("\\[([0-9]{1,3}\\.){3}([0-9]{1,3})\\]","g");
+			var ipRegex2 = new RegExp("([0-9]{1,3}\.){3}([0-9]{1,3})","g");
+			var ipLocatorSite = 'http://localiser-ip.com/?ip=';
+
+			//console.log(logs);
+			var ips = logs.match(ipRegex);
+			ips = ips.join().match(ipRegex2);
+			console.log(ips);
+
+			for(var i = ips.length;i >= 0; i--){
+				console.log(ips[i]);
+				logs = logs.replace(ips[i], '<a href=\"' + ipLocatorSite + ips[i] + '\" title=\"Localize this IP\" target=\"_blank\">' + ips[i] + '<a/>');
+			}
+			//console.log(logs);*/
+		};
+
 
 		/** Fonction pour changer de statut */
 		$scope.changeStatus = function(){
@@ -127,7 +183,7 @@ odiUI.factory('utilService', ['$http', function($http){
 			method: 'GET',
 			url: 'http://odi.adrigarry.com/log'
 		}).then(function successCallback(res){
-			callback(res);
+			callback(res.data);
 		}, function errorCallback(res){
 			console.error(res);
 			callback(res);
