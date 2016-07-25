@@ -68,8 +68,9 @@ exports.startUI = function startUI(mode){
 	/** MONITORING ACTIVITY */
 	ui.get('/monitoring', function (req, res){
 		var activity = {
-			mode : isNaN(mode) ? 'on' : 'sleep',
-			sleepTime : parseInt(mode) || undefined,
+			mode : isNaN(parseFloat(mode)) ? 'awake' : 'sleep',
+			awake : !parseInt(mode) || false,
+			sleepTime : parseInt(mode) || false,
 			cpuTemp : _utils.getCPUTemp()
 		};
 		// console.log(activity);
@@ -90,7 +91,6 @@ exports.startUI = function startUI(mode){
 			mode : {
 				lib : 'Mode',
 				value : isNaN(parseFloat(mode)) ? 'Normal' : 'Sleeping for ' + parseInt(mode) + 'h'
-				//value : isNaN(parseFloat(mode)) ? 'Normal' : (wakeUpTime || wakeUpTime : 'Sleeping for ' + parseInt(mode));
 			}, cpuUsage : {
 				lib : 'Utilisation processeur',
 				value : _utils.getCPUUsage() + ' %'

@@ -108,13 +108,14 @@ odiUI.factory('utilService', ['$http', function($http){
 		}).then(function successCallback(res){
 			var data = res.data;
 			// console.log(data);
-			var activity = {
+			/*var activity = {
 				mode : data.mode,
 				sleepTime : data.sleepTime,
 				cpuTemp : data.cpuTemp,
 				infos : undefined
-			};
-			// console.log(activity);
+			};*/
+			var activity = data;
+			console.log(activity);
 			callback(activity);
 		}, function errorCallback(res){
 			var activity = {

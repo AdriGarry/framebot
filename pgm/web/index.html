@@ -1,129 +1,135 @@
 <!DOCTYPE html>
 <html lang="fr" ng-app="odiUI">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>OdiUI</title>
-    <meta name="author" content="Adrien GARRY">
-    <meta name="robots" content="noindex,nofollow">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-    <meta name="viewport" content="width=device-width, user-scalable=no">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>OdiUI</title>
+	<meta name="author" content="Adrien GARRY">
+	<meta name="robots" content="noindex,nofollow">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+	<meta name="viewport" content="width=device-width, user-scalable=no">
 
-    <link rel="stylesheet" href="css/lib/bootstrap.min.css" media="all" />
-    <link rel="stylesheet" href="css/lib/fakeScroll.css" media="all" />
-    <link rel="stylesheet" href="css/lib/font-awesome.min.css" media="all" />
-    <!--<link rel="stylesheet" href="css/lib/jquery-ui.css" media="all" />-->
-    <link rel="stylesheet" href="css/odiUI.css" media="all" />
+	<link rel="stylesheet" href="css/lib/bootstrap.min.css" media="all" />
+	<link rel="stylesheet" href="css/lib/fakeScroll.css" media="all" />
+	<link rel="stylesheet" href="css/lib/font-awesome.min.css" media="all" />
+	<!--<link rel="stylesheet" href="css/lib/jquery-ui.css" media="all" />-->
+	<link rel="stylesheet" href="css/odiUI.css" media="all" />
 
-    <!-- Javascript des librairies -->
-    <script src="js/lib/jquery.js"></script>
-    <script src="js/lib/angular.min.js"></script>
-    <!--<script src="js/lib/angular-animate.min.js"></script>-->
-    <script src="js/lib/angular-route.min.js"></script>
-    <script src="js/lib/angular-long-press.min.js"></script>
-    <script src="js/lib/jquery-ui.js"></script>
-    <script src="js/lib/jQuery.fakeScroll.js"></script>
+	<!-- Javascript des librairies -->
+	<script src="js/lib/jquery.js"></script>
+	<script src="js/lib/angular.min.js"></script>
+	<!--<script src="js/lib/angular-animate.min.js"></script>-->
+	<script src="js/lib/angular-route.min.js"></script>
+	<script src="js/lib/angular-long-press.min.js"></script>
+	<script src="js/lib/jquery-ui.js"></script>
+	<script src="js/lib/jQuery.fakeScroll.js"></script>
 
-    <!-- Javascript du projet -->
-    <script src="js/config.js"></script>
-    <script src="js/index.js"></script>
-    <script src="js/tts.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/remote.js"></script>
+	<!-- Javascript du projet -->
+	<script src="js/config.js"></script>
+	<script src="js/index.js"></script>
+	<script src="js/tts.js"></script>
+	<script src="js/settings.js"></script>
+	<script src="js/remote.js"></script>
 
-    <link rel="icon" href="favicon.ico" />
+	<link rel="icon" href="favicon.ico" />
 </head>
 <!-- Déclaration du controller global AngularJS -->
 <body ng-controller="UIController">
 
-    <!-- Barre de navigation de l'application -->
-    <!--<div class="navbar navbar-static-top">
-    </div>-->
+	<!-- Barre de navigation de l'application -->
+	<!--<div class="navbar navbar-static-top">
+	</div>-->
 
-    <!-- Menu latéral -->
-    <div class='ng-modal ng-menu ng-slide' ng-class="leftMenuShown ? 'menu' : ''">
-        <div class='ng-modal-dialog'>
-            <div class="menu">
-                <ul>
-                    <li class="intro">
-                        <div class="menu-item" title="Reload UI">
-                            <!--<div onclick="window.location.href='http://odi.adrigarry.com'">-->
-                            <div onclick="window.location.reload()">
-                                <img src="img/odi.jpg" alt="Odi's face" class=" img-circle img-thumbnail odiFace">
-                                <img src="img/snow.gif" alt="Odi not available" class=" img-circle img-thumbnail odiFace odiOff" ng-show="activity.mode == 'waiting'">
-                                <h1>Odi</h1>
-                            </div>
+	<!-- Menu latéral -->
+	<div class='ng-modal ng-menu ng-slide' ng-class="leftMenuShown ? 'menu' : ''">
+		<div class='ng-modal-dialog'>
+			<div class="menu">
+				<ul>
+					<li class="intro">
+						<div class="menu-item">
+							<div onclick="window.location.reload()" title="Reload UI">
+								<img src="img/odi.jpg" alt="Odi's face" class=" img-circle img-thumbnail odiFace">
+								<img src="img/snow.gif" alt="Odi not available" class=" img-circle img-thumbnail odiFace odiOff" ng-show="activity.mode == 'waiting'">
+								<h1>Odi</h1>
+							</div>
 
-                            <div class="activity" ng-click="refreshActivity()" title="Refresh Activity">
-                                <i class="fa fa-spin fa-refresh" ng-show="activity.mode == 'waiting'" title="{{activity.infos}}"></i>
+							<div class="activity" ng-click="refreshActivity()" title="Refresh Activity">
+								<span class="refresh">
+									<i class="fa fa-spin fa-refresh" title="{{activity.infos}}"></i> 
+								<!--ng-show="activity.mode == 'waiting'" -->
+								</span>
 
-                                <span ng-show="activity.sleepTime" title="Odi's sleeping for {{activity.sleepTime}}">
-                                    <i class="fa fa-moon-o"></i><br>{{activity.sleepTime}}&nbsp;h
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="menu-item" ng-class="view == '/TTS' ?'active':''">
-                        <a ng-click="goTo('TTS')" title="Envoyer un message">
-                            <i class="fa fa-commenting-o"></i>
-                            <!--<span>TTS</span>-->
-                        </a>
-                    </li>
-                    <li class="menu-item" ng-class="view == '/Settings' ?'active':''">
-                        <a ng-click="goTo('Settings')" title="Paramètres">
-                            <i class="fa fa-cogs"></i>
-                            <!--<span>Settings</span>-->
-                        </a>
-                    </li>
-                    <li class="menu-item" ng-class="view == '/Remote' ?'active':''">
-                        <a ng-click="goTo('Remote')" ng-dblclick="changeStatus()" title="Telecommande">
-                            <i class="fa fa-chain-broken"></i>
-                            <!--<span>Remote</span>-->
-                        </a>
-                    </li>
-                    <li class="menu-item" ng-class="logActive?'active':''">
-                        <a ng-click="toggleLog()" title="Voir logs">
-                            <i class="fa fa-code"></i>
-                            <!--<span>Log</span>-->
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    
-    <!-- LOGS -->
-    <div class="ng-modal ng-slide log" ng-dblclick="refreshLog()" ng-class="logActive ? 'logActive' : ''">
-    <!-- on-long-press="refreshLog()" long-press-duration="700" prevent-click="true" -->
-        <ul class="fakeScroll">
-            <button type="button" class="close" aria-label="Close" ng-click="hideLog()" title="Hide Log"><span aria-hidden="true">&times;</span></button>
-            <li ng-repeat="logLine in logData track by $index" ng-bind-html="toHtml(logLine)">{{logLine}}</li>
-            <a id="bottomLogs"></a>
-        </ul>
-        <!--<div class="logOptions">
-            <i class="fa fa-refresh fa-3x" title="Auto Refresh"></i>
-            <i class="fa fa-plus fa-3x" title="More Logs"></i>
-        </div>-->
-    </div>
+								<span class="status" ng-show="activity.awake" title="Odi's awake !">
+									<i class="fa fa-sun-o"></i>
+								</span>
+								<span class="status" ng-show="activity.sleepTime" title="Odi's sleeping for {{activity.sleepTime}}">
+									<i class="fa fa-moon-o"></i><!--<br>{{activity.sleepTime}}&nbsp;h-->
+								</span>
+							</div>
+						</div>
+					</li>
+					<li class="menu-item" ng-class="view == '/TTS' ?'active':''">
+						<a ng-click="goTo('TTS')" title="Envoyer un message">
+							<i class="fa fa-commenting-o"></i>
+							<!--<span>TTS</span>-->
+						</a>
+					</li>
+					<li class="menu-item" ng-class="view == '/Settings' ?'active':''">
+						<a ng-click="goTo('Settings')" title="Paramètres">
+							<i class="fa fa-cogs"></i>
+							<!--<span>Settings</span>-->
+						</a>
+					</li>
+					<li class="menu-item" ng-class="view == '/Remote' ?'active':''">
+						<a ng-click="goTo('Remote')" ng-dblclick="changeStatus()" title="Telecommande">
+							<i class="fa fa-chain-broken"></i>
+							<!--<span>Remote</span>-->
+						</a>
+					</li>
+					<li class="menu-item" ng-class="logActive?'active':''">
+						<a ng-click="toggleLog()" title="Voir logs">
+							<i class="fa fa-code"></i>
+							<!--<span>Log</span>-->
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<!-- LOGS -->
+	<div class="ng-modal ng-slide log" ng-dblclick="refreshLog()" ng-class="logActive ? 'logActive' : ''">
+	<!-- on-long-press="refreshLog()" long-press-duration="700" prevent-click="true" -->
+		<ul class="fakeScroll">
+			<button type="button" class="close" aria-label="Close" ng-click="hideLog()" title="Hide Log"><span aria-hidden="true">&times;</span></button>
+			<li ng-repeat="logLine in logData track by $index" ng-bind-html="toHtml(logLine)">{{logLine}}</li>
+			<a id="bottomLogs"></a>
+			{{activity}}
+		</ul>
+		<!--<div class="logOptions">
+			<i class="fa fa-refresh fa-3x" title="Auto Refresh"></i>
+			<i class="fa fa-plus fa-3x" title="More Logs"></i>
+		</div>-->
+	</div>
 
 
-    <!-- CONTENT -->
-    <div class="ng-slide main" ng-class="logActive ? 'logActive' : ''">
-        <!-- Conteneur pour les templates HTML -->
-        <div ng-view="" class="content"></div>
-    </div>
+	<!-- CONTENT -->
+	<div class="ng-slide main" ng-class="logActive ? 'logActive' : ''">
+		<!-- Conteneur pour les templates HTML -->
+		<div ng-view="" class="content"></div>
+	</div>
 
 <script type="text/javascript">
-    $('.fakeScroll').fakeScroll();
+	$('.fakeScroll').fakeScroll();
 </script>
 
 <!-- Nouveau code Universal Analytics -->
 <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-7475813-6', 'adrigarry.com');
-    ga('send', 'pageview');
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-7475813-6', 'adrigarry.com');
+	ga('send', 'pageview');
 </script>
 
 </body>
