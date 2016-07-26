@@ -81,7 +81,7 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 		}, {
 			id: 15,
 			title : 'Temp A',
-			icon : 'fa fa-anchor',
+			icon : 'fa fa-lightbulb-o',
 			url : '/test',
 			paramKey : '',
 			paramValue : '',

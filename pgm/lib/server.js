@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 // Module server
+/** Liste codes http
+ *		200 : OK
+ *		401 : Unauthorized (sleep)
+ *		418 : I'm a teapot ! (autres requetes POST)
+ *		424 : Method failure (erreur)
+  */
 
 var _express = require('express');
 var _path = require("path");
@@ -228,6 +234,12 @@ exports.startUI = function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
+		ui.post('/idea', function (req, res) { // Idea...
+			// params = req.query;
+			_tts.speak('en', 'I\'ve got an idea !');
+			res.writeHead(200);res.end();
+		});
+
 		ui.post('/exclamation', function (req, res) { // Exclamation
 			// console.log('UI > Exclamation');
 			_exclamation.exclamation();
@@ -342,7 +354,7 @@ exports.startUI = function startUI(mode){
 			}else{
 				console.error('Error while saving voiceMail message : ');
 				console.error(params);
-				res.writeHead(200);res.end();
+				res.writeHead(424);res.end();
 			}
 		});
 
