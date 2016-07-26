@@ -144,6 +144,10 @@ img.odiFace{
 	padding:1px;
 	border-radius:50%;
 }
+img.odiFace.sleep{
+	-webkit-filter:grayscale(100%); /* Chrome, Safari, Opera */
+	filter:grayscale(100%);
+}
 img.odiFace.odiOff{
 	display:block;
 	/*width:4.2em;*/
@@ -384,7 +388,7 @@ input[type='radio']{
 .pauseUI{
 	display:none;
 	position:absolute;
-	height:100%;
+	min-height:100%;
 	top:0;
 	left:0;
 	right:0;
@@ -479,7 +483,7 @@ input[type='radio']{
 		font-size:1.2em;
 	}
 	.pauseUI.active p{
-		font-size:1em;
+		font-size:1.5em;
 	}
 	.pauseUI.active i.fa{
 		margin-top:5%;

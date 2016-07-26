@@ -51,7 +51,7 @@
 					<li class="intro">
 						<div class="menu-item">
 							<div onclick="window.location.reload()" title="Reload UI">
-								<img src="img/odi.jpg" alt="Odi's face" class=" img-circle img-thumbnail odiFace">
+								<img src="img/odi.jpg" alt="Odi's face" class=" img-circle img-thumbnail odiFace" ng-class="activity.mode == 'sleep' ? 'sleep' : ''">
 								<img src="img/snow.gif" alt="Odi not available" class=" img-circle img-thumbnail odiFace odiOff" ng-show="activity.mode == 'waiting'">
 								<h1>Odi</h1>
 							</div>
@@ -104,7 +104,6 @@
 			<button type="button" class="close" aria-label="Close" ng-click="hideLog()" title="Hide Log"><span aria-hidden="true">&times;</span></button>
 			<li ng-repeat="logLine in logData track by $index" ng-bind-html="toHtml(logLine)">{{logLine}}</li>
 			<a id="bottomLogs"></a>
-			{{activity}}
 		</ul>
 		<!--<div class="logOptions">
 			<i class="fa fa-refresh fa-3x" title="Auto Refresh"></i>

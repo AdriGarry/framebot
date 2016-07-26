@@ -28,6 +28,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 
 		/** Fonction de rafraichissement du temoin d'activite */
 		$scope.refreshActivity = function(){
+			console.log('refreshing activity !!!A');
 			console.log($scope.activity);
 			if(!$scope.activity.pauseUI){
 				$scope.activity.mode = 'waiting';
@@ -70,6 +71,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 
 		/** Fonction de rafraichissement des logs */
 		$scope.refreshLog = function(){
+			console.log('refreshing LOGS !!!B');
 			var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 			utilService.getLogs(function(logs){
 
@@ -102,12 +104,10 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 		$window.onfocus = function(){
 			$scope.activity.pauseUI = false;
 			$scope.$apply();
-			console.log('pauseUI: ' + $scope.activity.pauseUI);
 		};
 		$window.onblur = function(){
 			$scope.activity.pauseUI = true;
 			$scope.$apply();
-			console.log('pauseUI: ' + $scope.activity.pauseUI);
 		};
 } ]);
 
@@ -129,7 +129,7 @@ odiUI.factory('utilService', ['$http', function($http){
 				pauseUI: false,
 				info: res
 			};
-			console.error(activity);
+			// console.error(activity);
 			callback(activity);
 		});
 	};

@@ -175,6 +175,20 @@ exports.startUI = function startUI(mode){
 		res.writeHead(200);res.end();
 	});
 
+	ui.post('/tts', function (req, res) { // Add Voice Mail Message
+		params = req.query;
+		// console.log('UI > tts');
+		// console.log(params);
+		if(params['voice'] && params['lg'] && params['msg']){
+			_voiceMail.addVoiceMailMessage(params['lg'], params['msg'] + params['voice']);
+			res.writeHead(200);res.end();
+		}else{
+			console.error('Error while saving voiceMail message : ');
+			console.error(params);
+			res.writeHead(200);res.end();
+		}
+	});
+
 	// if(mode.indexOf('sleep') == -1){ /////// WHEN ALIVE
 	if(mode < 1){ /////// WHEN ALIVE
 
