@@ -1,25 +1,20 @@
 /*
- * Déclaration du controller global de l'application
+ * Declaration du controller global de l'application
  *
  * @param $scope : variable Angular pour faire le lien entre le controller et le HTML
  * @param $location : variable Angular permettant de modifier l'URL
- * @param constantService : déclaration du service pour récupérer les constantes de l'application
+ * @param constantService : declaration du service pour recuperer les constantes de l'application
  */
 odiUI.controller('UIController', [ '$scope', '$location', '$http', '$sce', 'utilService',
 	function($scope, $location, $http, $sce, utilService) {
 		$scope.admin = false;
 		$scope.logActive = true;
-		$scope.monitoring = true;
+		$scope.activity = {
+			mode: 'waiting',
+			info: 'Initializing Odi UI...'
+		}
 
 		$scope.view = $location.path() || '/TTS'; // Attribution page par defaut
-
-		$scope.activity = {
-			mode : 'waiting',
-			// awake
-			// sleepTime : undefined,
-			// cpuTemp : undefined,
-			infos : 'Initializing...'
-		};
 
 		/** Monitoring Activite */
 		setTimeout(function(){
@@ -30,15 +25,12 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', '$sce', 'util
 		}, 10000);
 
 
+		/** Fonction de rafraichissement du temoin d'activite */
 		$scope.refreshActivity = function(){
-			$scope.monitoring = true;
-			$scope.activity = {
-				mode : 'waiting',
-				infos : 'Initializing...'
-			};
+			$scope.activity.mode = 'waiting';
 			utilService.monitoringActivity(function(activity){
-				$scope.monitoring = false;
-				$scope.activity = activity;
+				$scope.activity.mode = activity.mode;
+				$scope.activity.info = activity.info;
 			});
 		}
 
@@ -114,23 +106,11 @@ odiUI.factory('utilService', ['$http', function($http){
 			method: 'GET',
 			url: 'http://odi.adrigarry.com/monitoring'
 		}).then(function successCallback(res){
-			var data = res.data;
-			// console.log(data);
-			/*var activity = {
-				mode : data.mode,
-				sleepTime : data.sleepTime,
-				cpuTemp : data.cpuTemp,
-				infos : undefined
-			};*/
-			var activity = data;
-			console.log(activity);
-			callback(activity);
+			callback(res.data);
 		}, function errorCallback(res){
 			var activity = {
-				mode : 'waiting',
-				// sleepTime : undefined,
-				// cpuTemp : undefined,
-				infos : res
+				mode: 'waiting',
+				infos: res
 			};
 			console.error(activity);
 			callback(activity);

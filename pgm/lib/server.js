@@ -67,22 +67,12 @@ exports.startUI = function startUI(mode){
 
 	/** MONITORING ACTIVITY */
 	ui.get('/monitoring', function (req, res){
+		console.log(/\d/.test(mode));
 		var activity = {
-			mode : isNaN(parseFloat(mode)) ? 'awake' : 'sleep',
-			awake : !parseInt(mode) || false,
-			sleepTime : parseInt(mode) || false,
-			cpuTemp : _utils.getCPUTemp()
+			mode: /\d/.test(mode) ? 'sleep' : 'awake',
+			infos: 'Waiting while retreiving activity data...'
 		};
 		console.log(activity);
-
-
-		/*if(parseInt(mode)){
-			activity.sleepTime = parseInt(mode);
-		}else{
-			activity.awake;
-		}
-		console.log(activity);*/
-
 		res.writeHead(200);
 		res.end(JSON.stringify(activity));
 	});

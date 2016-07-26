@@ -51,18 +51,15 @@
 								<img src="img/snow.gif" alt="Odi not available" class=" img-circle img-thumbnail odiFace odiOff" ng-show="activity.mode == 'waiting'">
 								<h1>Odi</h1>
 							</div>
-
 							<div class="activity" ng-click="refreshActivity()" title="Refresh Activity">
-								<span ng-class="monitoring ? '' : 'noDisplay'">
+								<span ng-class="activity.mode == 'waiting' ? '' : 'noDisplay'">
 									<i class="fa fa-spin fa-refresh" title="{{activity.infos}}"></i> 
-								<!--ng-show="activity.mode == 'waiting'" -->
 								</span>
-
-								<span ng-class="activity.mode = 'awake' ? '' : 'noDisplay'" ng-hide="monitoring" title="Odi's awake !">
+								<span ng-class="activity.mode == 'awake' ? '' : 'noDisplay'" title="Odi's awake !">
 									<i class="fa fa-sun-o"></i>
 								</span>
-								<span ng-class="activity.mode == 'sleep' ? '' : 'noDisplay'" ng-hide="monitoring" title="Odi's sleeping for {{activity.sleepTime}}">
-									<i class="fa fa-moon-o"></i><!--<br>{{activity.sleepTime}}&nbsp;h-->
+								<span ng-class="activity.mode == 'sleep' ? '' : 'noDisplay'" title="Odi's sleeping for {{activity.sleepTime}}">
+									<i class="fa fa-moon-o"></i>
 								</span>
 							</div>
 						</div>
