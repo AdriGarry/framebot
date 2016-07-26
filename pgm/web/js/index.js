@@ -33,7 +33,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 				$scope.activity.mode = 'waiting';
 				utilService.monitoringActivity(function(activity){
 					$scope.activity.mode = activity.mode;
-					$scope.activity.pauseUI = activity.pauseUI;
+					//$scope.activity.pauseUI = activity.pauseUI;
 					$scope.activity.info = activity.info;
 				});
 			}
@@ -101,10 +101,12 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 		/** Initialisation pause UI */
 		$window.onfocus = function(){
 			$scope.activity.pauseUI = false;
+			$scope.$apply();
 			console.log('pauseUI: ' + $scope.activity.pauseUI);
 		};
 		$window.onblur = function(){
 			$scope.activity.pauseUI = true;
+			$scope.$apply();
 			console.log('pauseUI: ' + $scope.activity.pauseUI);
 		};
 } ]);

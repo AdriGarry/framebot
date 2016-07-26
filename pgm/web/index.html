@@ -40,7 +40,7 @@
 	</div>-->
 
 	<!-- Menu latéral -->
-	<div class="pauseUI" ng-class="activity.pauseUI ? 'active' : ''">
+	<div class="pauseUI" ng-show="activity.pauseUI" ng-class="activity.pauseUI ? 'active' : ''">
 		<i class="fa fa-pause-circle-o"></i>
 	</div>
 	<div class='ng-modal ng-menu ng-slide' ng-class="leftMenuShown ? 'menu' : ''">
@@ -57,7 +57,7 @@
 							</div>
 							<div class="activity" ng-click="refreshActivity()" title="Refresh Activity">
 								<span ng-class="activity.mode == 'waiting' ? '' : 'noDisplay'">
-									<i class="fa fa-spin fa-refresh" title="{{activity.infos}}"></i> 
+									<i class="fa fa-spin fa-refresh" title="{{activity.info}}"></i> 
 								</span>
 								<span ng-class="activity.mode == 'awake' ? '' : 'noDisplay'" title="Odi's awake !">
 									<i class="fa fa-sun-o"></i>
