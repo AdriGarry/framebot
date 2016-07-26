@@ -5,12 +5,13 @@
  * @param $location : variable Angular permettant de modifier l'URL
  * @param constantService : declaration du service pour recuperer les constantes de l'application
  */
-odiUI.controller('UIController', [ '$scope', '$location', '$http', '$sce', 'utilService',
-	function($scope, $location, $http, $sce, utilService) {
+odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$sce', 'utilService',
+	function($scope, $location, $window, $http, $sce, utilService) {
 		$scope.admin = false;
 		$scope.logActive = true;
 		$scope.activity = {
 			mode: 'waiting',
+			pauseUI: false,
 			info: 'Initializing Odi UI...'
 		}
 
@@ -93,6 +94,15 @@ odiUI.controller('UIController', [ '$scope', '$location', '$http', '$sce', 'util
 			return $sce.trustAsHtml(html);
 		};
 
+		/** Initialisation pause UI */
+		$window.onfocus = function(){
+			$scope.activity.pauseUI = false;
+			console.log('pauseUI: ' + $scope.activity.pauseUI);
+		};
+		$window.onblur = function(){
+			$scope.activity.pauseUI = true;
+			console.log('pauseUI: ' + $scope.activity.pauseUI);
+		};
 } ]);
 
 /* Sercice Util */
