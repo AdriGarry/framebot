@@ -383,15 +383,23 @@ input[type='radio']{
 
 .pauseUI{
 	display:none;
+	position:absolute;
+	height:100%;
+	top:0;
+	left:0;
+	right:0;
+	z-index:20;
+	/*background:rgba(0, 0, 0, 0.5);*/
+	background-color:#666;
+	opacity:0.5;
 }
 .pauseUI.active{
-	width:100%;
-	height:100%;
-	display:absolute;
-	margin:0;
-	padding:0;
-	background-color:#999;
-	opacity:0.7;
+	display:block;
+}
+.pauseUI.active i.fa{
+	display:inline-block;
+	margin:5em auto 0;
+	font-size:5em;
 }
 
 /* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */

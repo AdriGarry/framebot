@@ -41,10 +41,11 @@
 
 	<!-- Menu latéral -->
 	<div class="pauseUI" ng-class="activity.pauseUI ? 'active' : ''">
-		pause UI
+		<i class="fa fa-pause-circle-o"></i>
 	</div>
 	<div class='ng-modal ng-menu ng-slide' ng-class="leftMenuShown ? 'menu' : ''">
 		<div class='ng-modal-dialog'>
+		{{activity.pauseUI}}
 			<div class="menu">
 				<ul>
 					<li class="intro">

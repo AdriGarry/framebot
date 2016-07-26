@@ -2,7 +2,7 @@
 
 <h2>Remote</h2>
 <h3>Send orders to Odi</h3>
-
+{{activity}}
 <div class="remote">
 	<button class="btn btn-lg btn-default" ng-repeat="command in functionnalCommands | orderBy : 'id'"
 		ng-click="command.onClick()" on-long-press="command.onHold()" long-press-duration="1000" prevent-click="true" title="{{command.title}}" ng-disabled="!admin">

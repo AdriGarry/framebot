@@ -13,7 +13,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 			mode: 'waiting',
 			pauseUI: false,
 			info: 'Initializing Odi UI...'
-		}
+		};
 
 		$scope.view = $location.path() || '/TTS'; // Attribution page par defaut
 
@@ -28,12 +28,16 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 
 		/** Fonction de rafraichissement du temoin d'activite */
 		$scope.refreshActivity = function(){
-			$scope.activity.mode = 'waiting';
-			utilService.monitoringActivity(function(activity){
-				$scope.activity.mode = activity.mode;
-				$scope.activity.info = activity.info;
-			});
-		}
+			console.log($scope.activity);
+			if(!$scope.activity.pauseUI){
+				$scope.activity.mode = 'waiting';
+				utilService.monitoringActivity(function(activity){
+					$scope.activity.mode = activity.mode;
+					$scope.activity.pauseUI = activity.pauseUI;
+					$scope.activity.info = activity.info;
+				});
+			}
+		};
 
 		/* Fonction pour changer de page */
 		$scope.goTo = function(tabName){
@@ -120,7 +124,8 @@ odiUI.factory('utilService', ['$http', function($http){
 		}, function errorCallback(res){
 			var activity = {
 				mode: 'waiting',
-				infos: res
+				pauseUI: false,
+				info: res
 			};
 			console.error(activity);
 			callback(activity);

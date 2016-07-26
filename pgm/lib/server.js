@@ -67,12 +67,13 @@ exports.startUI = function startUI(mode){
 
 	/** MONITORING ACTIVITY */
 	ui.get('/monitoring', function (req, res){
-		console.log(/\d/.test(mode));
+		//console.log(/\d/.test(mode));
 		var activity = {
 			mode: /\d/.test(mode) ? 'sleep' : 'awake',
-			infos: 'Waiting while retreiving activity data...'
+			pauseUI: false,
+			info: 'HEY!'
 		};
-		console.log(activity);
+		//console.log(activity);
 		res.writeHead(200);
 		res.end(JSON.stringify(activity));
 	});
@@ -87,27 +88,27 @@ exports.startUI = function startUI(mode){
 			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
 		}
 		var settings = {
-			mode : {
-				lib : 'Mode',
-				value : isNaN(parseFloat(mode)) ? 'Normal' : 'Sleeping for ' + parseInt(mode) + 'h'
-			}, cpuUsage : {
-				lib : 'Utilisation processeur',
-				value : _utils.getCPUUsage() + ' %'
-			}, cpuTemp : {
-				lib : 'Temperature processeur',
-				value : _utils.getCPUTemp() + ' ° C'
-			}, voiceMail : {
-				lib : 'VoiceMail',
-				value : 'Not implemented'
-			}, volume : {
-				lib : 'Volume',
-				value : _buttons.getEtat() == 1 ? 'High' : 'Normal'
-			}, switch : {
-				lib : 'Etat Switch',
-				value : _buttons.getEtat()
-			}, alarms : {
-				lib : 'Alarmes',
-				value : '-'
+			mode: {
+				lib: 'Mode',
+				value: isNaN(parseFloat(mode)) ? 'Normal' : 'Sleeping for ' + parseInt(mode) + 'h'
+			}, cpuUsage: {
+				lib: 'Utilisation processeur',
+				value: _utils.getCPUUsage() + ' %'
+			}, cpuTemp: {
+				lib: 'Temperature processeur',
+				value: _utils.getCPUTemp() + ' ° C'
+			}, voiceMail: {
+				lib: 'VoiceMail',
+				value: 'Not implemented'
+			}, volume: {
+				lib: 'Volume',
+				value: _buttons.getEtat() == 1 ? 'High' : 'Normal'
+			}, switch: {
+				lib: 'Etat Switch',
+				value: _buttons.getEtat()
+			}, alarms: {
+				lib: 'Alarmes',
+				value: '-'
 			}
 		};
 		// console.log(settings);
