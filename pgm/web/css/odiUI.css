@@ -389,17 +389,18 @@ input[type='radio']{
 	left:0;
 	right:0;
 	z-index:20;
-	/*background:rgba(0, 0, 0, 0.5);*/
 	background-color:#666;
-	opacity:0.5;
+	opacity:0.8;
 }
 .pauseUI.active{
 	display:block;
 }
 .pauseUI.active i.fa{
-	display:inline-block;
-	margin:5em auto 0;
-	font-size:5em;
+	display:block;
+	margin-top:0.5em;
+	color:#000;
+	font-size:25em;
+	text-align:center;
 }
 
 /* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */
