@@ -18,6 +18,8 @@ googleTTS(){
 			lg="it" ;;
 		"de")
 			lg="de" ;;
+		"ru")
+			lg="ru" ;;
 		*)
 			lg="fr" ;;
 	esac

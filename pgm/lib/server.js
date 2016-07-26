@@ -71,7 +71,7 @@ exports.startUI = function startUI(mode){
 		var activity = {
 			mode: /\d/.test(mode) ? 'sleep' : 'awake',
 			pauseUI: false,
-			info: 'HEY!'
+			info: 'Refresh status'
 		};
 		//console.log(activity);
 		res.writeHead(200);
@@ -175,20 +175,6 @@ exports.startUI = function startUI(mode){
 		res.writeHead(200);res.end();
 	});
 
-	ui.post('/tts', function (req, res) { // Add Voice Mail Message
-		params = req.query;
-		// console.log('UI > tts');
-		// console.log(params);
-		if(params['voice'] && params['lg'] && params['msg']){
-			_voiceMail.addVoiceMailMessage(params['lg'], params['msg'] + params['voice']);
-			res.writeHead(200);res.end();
-		}else{
-			console.error('Error while saving voiceMail message : ');
-			console.error(params);
-			res.writeHead(200);res.end();
-		}
-	});
-
 	// if(mode.indexOf('sleep') == -1){ /////// WHEN ALIVE
 	if(mode < 1){ /////// WHEN ALIVE
 
@@ -224,7 +210,7 @@ exports.startUI = function startUI(mode){
 
 		ui.post('/clearVoiceMail', function (req, res) { // Clear Voice Mail
 			// console.log('UI > Clear Voice Mail');
-			voiceMail.clearVoiceMail();
+			_voiceMail.clearVoiceMail();
 			res.writeHead(200);res.end();
 		});
 
@@ -346,8 +332,23 @@ exports.startUI = function startUI(mode){
 			res.writeHead(418);res.end();
 		});
 	}else{
+		ui.post('/tts', function (req, res) { // Add Voice Mail Message
+			params = req.query;
+			// console.log('UI > tts');
+			// console.log(params);
+			if(params['voice'] && params['lg'] && params['msg']){
+				_voiceMail.addVoiceMailMessage(params['lg'], params['msg'] + params['voice']);
+				res.writeHead(200);res.end();
+			}else{
+				console.error('Error while saving voiceMail message : ');
+				console.error(params);
+				res.writeHead(200);res.end();
+			}
+		});
+
 		ui.post('/*', function (req, res) { // Redirect Error
-			console.error('UI > Odi\'s sleeping   -.-');
+			//console.error('UI > Odi\'s sleeping   -.-');
+			console.log('Odi not allowed to interact  -.-');
 			res.writeHead(401);res.end();
 		});
 	}
