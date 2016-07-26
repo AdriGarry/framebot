@@ -395,9 +395,16 @@ input[type='radio']{
 .pauseUI.active{
 	display:block;
 }
+.pauseUI.active p{
+	margin-top:5%;
+	color:#dee6ed;
+	text-align:center;
+	font-size:3em;
+	font-style:italic;
+}
 .pauseUI.active i.fa{
 	display:block;
-	margin-top:0.5em;
+	margin-top:10%;
 	color:#000;
 	font-size:25em;
 	text-align:center;
@@ -470,5 +477,12 @@ input[type='radio']{
 	}
 	.content h3{
 		font-size:1.2em;
+	}
+	.pauseUI.active p{
+		font-size:1em;
+	}
+	.pauseUI.active i.fa{
+		margin-top:5%;
+		font-size:15em;
 	}
 }
