@@ -409,7 +409,7 @@ input[type='radio']{
 }
 .pauseUI.active i.fa{
 	display:block;
-	margin-top:10%;
+	margin-top:5%;
 	color:#000;
 	font-size:25em;
 	text-align:center;

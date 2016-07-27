@@ -80,14 +80,11 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 					// console.log('match: ' + match);
 					var ip = match.substr(1,match.length-2);
 					// console.log('ip: ' + ip);
-					return '[<a href=http://localiser-ip.com/?ip=' + ip 
-						+ ' title="Localize this IP" target="_blank">' + ip + '<a/>]';
+					return '[<a href="https://fr.iponmap.com/' + ip 
+						+ '" title="Localize this IP" target="_blank">' + ip + '<a/>]';
 				});
 
 				$scope.logData = logs.split('\n');
-				/*$('#logActive').animate({
-				scrollTop: $("#bottomLogs").prop("scrollHeight")}, 0
-				);*/
 			});
 		};
 
