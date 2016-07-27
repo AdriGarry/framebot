@@ -398,6 +398,7 @@ input[type='radio']{
 }
 .pauseUI.active{
 	display:block;
+	cursor:pointer;
 }
 .pauseUI.active p{
 	margin-top:5%;
