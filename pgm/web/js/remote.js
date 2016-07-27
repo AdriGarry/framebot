@@ -80,13 +80,13 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 			}
 		}, {
 			id: 15,
-			title : 'Temp A',
+			title : 'Idea !',
 			icon : 'fa fa-lightbulb-o',
-			url : '/test',
+			url : '/idea',
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				//RemoteService.sendCommand(this);
+				RemoteService.sendCommand(this);
 			}
 		}, {
 			id: 16,
