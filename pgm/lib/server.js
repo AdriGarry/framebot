@@ -8,6 +8,7 @@
   */
 
 var _express = require('express');
+var _compression = require('compression');
 var _path = require("path");
 var _spawn = require('child_process').spawn;
 var _fs = require('fs');
@@ -34,29 +35,29 @@ exports.startUI = function startUI(mode){
 	var ui = _express();
 	var request, method, params, ipClient;
 
+	ui.use(_compression()); // Compression web
+	ui.use(_express.static(DIR_NAME_WEB)); // Pour fichiers statiques
+
 	ui.get('/', function (req, res) { // Init UI
 		res.sendFile(_path.join(DIR_NAME_WEB + '/index.html'));
 		ipClient = req.connection.remoteAddress;
 		console.log('UI initialized [' + ipClient + ']');
 		_leds.blink({leds : ['satellite'], speed : 100, loop : 3});
 		if(mode < 1){
-			//deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'UI']);
+			deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'UI']);
 		}
 	});
-
-	ui.use(_express.static(DIR_NAME_WEB)); // Pour fichiers statiques
-
 
 	// Middleware LOGGER
 	var logger = function(req, res, next){
 		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
 		_leds.blink({leds : ['satellite'], speed : 180, loop : 1});
 		method = req.method;
-		if(method == 'GET') method = '< ';
+		/*if(method == 'GET') method = '< ';
 		else method = '> ';
-		request = ' Odi' + (method == 'GET' ? ' > ' : ' < ');
-		request += 'UI ' + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
-		/*if(method == 'POST')*/ console.log(request);
+		request = ' Odi' + (method == 'GET' ? ' > ' : ' < ');*/
+		request = 'UI ' + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
+		console.log(request);
 		_fs.appendFile(FILE_REQUEST_HISTORY, _utils.formatedDate() + request + '\r\n', function(err){
 			if(err){
 				return console.error(err);

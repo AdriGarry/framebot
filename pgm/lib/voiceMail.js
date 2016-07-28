@@ -53,7 +53,7 @@ exports.checkVoiceMail = function checkVoiceMail(callback){
 		return true;
 	}catch(e){
 		if(e.code === 'ENOENT'){
-			console.log('No VoiceMail Message !');
+			console.log('No VoiceMail Message');
 			return false;
 		}else{
 			console.error(e);

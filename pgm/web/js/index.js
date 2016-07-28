@@ -20,7 +20,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 		/** Monitoring Activite */
 		setTimeout(function(){
 			$scope.refreshActivity();
-		}, 3000);
+		}, 2000);
 		setInterval(function(){
 			$scope.refreshActivity();
 		}, 10000);
@@ -77,7 +77,6 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 
 				// var ipRegex = new RegExp("\\[([0-9]{1,3}\\.){3}([0-9]{1,3})\\]","g");
 				logs = logs.replace(/\[([0-9]{1,3}\.){3}([0-9]{1,3})\]/g, function(match, capture){
-					// console.log('match: ' + match);
 					var ip = match.substr(1,match.length-2);
 					// console.log('ip: ' + ip);
 					return '[<a href="https://fr.iponmap.com/' + ip 
