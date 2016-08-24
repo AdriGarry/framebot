@@ -241,6 +241,13 @@ exports.startUI = function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
+		ui.post('/russia', function (req, res) { // Russia
+			// console.log('UI > Russia');
+			// _exclamation.russia();
+			_exclamation.russiaLoop();
+			res.writeHead(200);res.end();
+		});
+
 		ui.post('/exclamation', function (req, res) { // Exclamation
 			// console.log('UI > Exclamation');
 			_exclamation.exclamation();

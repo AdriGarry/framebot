@@ -78,7 +78,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			onClick : function(){
 				self.sendCommand(this);
 			}
-		}, {
+		/*}, {
 			id: 15,
 			title : 'Idea !',
 			icon : 'fa fa-lightbulb-o',
@@ -87,7 +87,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramValue : '',
 			onClick : function(){
 				self.sendCommand(this);
-			}
+			}*/
 		}, {
 			id: 16,
 			title : 'Temp B',
@@ -97,6 +97,20 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramValue : '',
 			onClick : function(){
 				//self.sendCommand(this);
+			}
+		}, {
+			id: 20,
+			title : 'Russia !',
+			icon : 'fa fa-star',
+			url : '/russia',
+			paramKey : '',
+			paramValue : '',
+			onClick : function(){
+				self.sendCommand(this);
+			},
+			onHold : function(){
+				this.paramValue = 'hymn';
+				self.sendCommand(this);
 			}
 		}, {
 			id: 21,

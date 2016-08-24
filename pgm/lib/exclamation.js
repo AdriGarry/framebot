@@ -67,3 +67,19 @@ var exclamationRdmDelayLoop = function(){ // Methode a Supprimer ???
 	}());
 };
 exports.exclamationRdmDelayLoop = exclamationRdmDelayLoop;
+
+/** Fonction Russian */
+exports.russia = function(){
+	console.log('Russia !');
+	leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
+	var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation_russia.sh']);
+};
+
+/** Fonction Russian en boucle */
+exports.russiaLoop = function(){
+	console.log('Russia LOOP !!');
+	tts.speak('en','Russia loop initialised');
+	setTimeout(function(){
+		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/exclamation_russia.sh', 'LOOP']);
+	}, 5000);
+};

@@ -163,8 +163,9 @@ img.odiFace.odiOff{
 }
 
 .menu ul li.intro .activity{
-	height:5em;
+	height:6em;
 	padding-top:0em;
+	font-size:1em;
 	/*background-color:#999;*/
 }
 /*.menu ul li.intro .activity span{display:block;}
