@@ -23,7 +23,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 		}, 2000);
 		setInterval(function(){
 			$scope.refreshActivity();
-		}, 10000);
+		}, 20000);
 
 
 		/** Fonction de rafraichissement du temoin d'activite */

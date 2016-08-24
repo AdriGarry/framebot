@@ -140,7 +140,7 @@ ul{
 
 img.odiFace{
 	width:90%;
-	margin-top:10px;
+	margin-top:20px;
 	padding:1px;
 	border-radius:50%;
 }
@@ -477,9 +477,9 @@ input[type='radio']{
 	.main{
 		margin-left:70px;
 	}
-	.content h2{
+	/*.content h2{
 		margin-top:0;
-	}
+	}*/
 	.content h3{
 		font-size:1.2em;
 	}
