@@ -44,7 +44,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				// RemoteService.sendCommand(this);
+				// self.sendCommand(this);
 				// alert('Request History to config !!')
 				$window.open('http://odi.adrigarry.com/requestHistory');
 			}
@@ -56,7 +56,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 12,
@@ -66,7 +66,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 13,
@@ -76,7 +76,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 15,
@@ -86,7 +86,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 16,
@@ -96,7 +96,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				//RemoteService.sendCommand(this);
+				//self.sendCommand(this);
 			}
 		}, {
 			id: 21,
@@ -106,7 +106,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 22,
@@ -116,7 +116,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 23,
@@ -126,7 +126,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 31,
@@ -136,7 +136,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 32,
@@ -146,13 +146,13 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : 'm',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			},
 			onHold : function(){
 				var input = prompt('Minuterie pour (min)');
 				if(input === null) return;
 				this.paramValue = input;
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 33,
@@ -162,7 +162,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 34,
@@ -172,7 +172,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 44,
@@ -182,7 +182,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 45,
@@ -192,7 +192,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				this.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 50,
@@ -212,7 +212,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				this.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 52,
@@ -222,7 +222,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : 'msg',
 			paramValue : 'RANDOM',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 53,
@@ -232,7 +232,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 54,
@@ -242,7 +242,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}
 	];
@@ -257,7 +257,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramValue : '',
 			onClick : function(){
 				if(confirm('Shutdown Odi ?')){
-					RemoteService.sendCommand(this);
+					self.sendCommand(this);
 				}
 			}
 		}, {
@@ -269,7 +269,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramValue : '',
 			onClick : function(){
 				if(confirm('Reboot Odi ?')){
-					RemoteService.sendCommand(this);
+					self.sendCommand(this);
 				}
 			}
 		}, {
@@ -280,13 +280,13 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : 'h',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			},
 			onHold : function(){
 				var input = prompt('Duree de la veille');
 				if(input === null) return;
 				this.paramValue = input;
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 4,
@@ -296,7 +296,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}
 	];
