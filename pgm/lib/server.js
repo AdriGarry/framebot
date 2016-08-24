@@ -243,8 +243,8 @@ exports.startUI = function startUI(mode){
 
 		ui.post('/russia', function (req, res) { // Russia
 			// console.log('UI > Russia');
-			// _exclamation.russia();
-			_exclamation.russiaLoop();
+			_exclamation.russia();
+			// _exclamation.russiaLoop();
 			res.writeHead(200);res.end();
 		});
 
