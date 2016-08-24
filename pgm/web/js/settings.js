@@ -18,12 +18,10 @@ odiUI.controller('SettingsController', [ '$scope', '$location', 'Settings',
 
 
 /* Sercice Settings */
-odiUI.factory('Settings', ['$http', function($http){
-
-	var Settings = {};
+odiUI.service('Settings', ['$http', function($http){
 
 	/** Fonction de recuperationd de la configuration Odi */
-	Settings.getSettings = function(callback){
+	this.getSettings = function(callback){
 		$http({
 			method: 'GET',
 			url: 'http://odi.adrigarry.com/settings'
@@ -48,5 +46,4 @@ odiUI.factory('Settings', ['$http', function($http){
 		});
 	};
 
-	return Settings;
 }]);

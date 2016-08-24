@@ -41,11 +41,10 @@ odiUI.controller('TTSController', [ '$scope', '$location', 'TTSService',
 
 
 /* Sercice TTS */
-odiUI.factory('TTSService',['$http', function($http){
-	var TTSService = {};
+odiUI.service('TTSService',['$http', function($http){
 	
 	/** Fonction envoi message TTS */
-	TTSService.sendTTS = function(tts, callback){
+	this.sendTTS = function(tts, callback){
 		$http({
 			method: 'POST',
 			url: 'http://odi.adrigarry.com/tts?voice=' + tts.voice + '&lg=' + tts.lg 
@@ -58,5 +57,4 @@ odiUI.factory('TTSService',['$http', function($http){
 		});
 	};
 
-	return TTSService;
 }]);

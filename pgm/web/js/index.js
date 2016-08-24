@@ -28,8 +28,8 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 
 		/** Fonction de rafraichissement du temoin d'activite */
 		$scope.refreshActivity = function(){
-			console.log('refreshing activity !!!A');
-			console.log($scope.activity);
+			// console.log('refreshing activity !!!A');
+			// console.log($scope.activity);
 			if(!$scope.activity.pauseUI){
 				$scope.activity.mode = 'waiting';
 				utilService.monitoringActivity(function(activity){

@@ -13,11 +13,11 @@ odiUI.controller('RemoteController', ['$scope', '$location', '$timeout', 'Remote
 ]);
 
 /* Sercice Remote */
-odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
-	var RemoteService = {};
-	
+odiUI.service('RemoteService',['$http', '$window', function($http, $window){
+
+	var self = this;
 	/** Fonction envoi commandes */
-	RemoteService.sendCommand = function(cmd, callback){
+	this.sendCommand = function(cmd, callback){
 		// console.log(cmd);
 		var params = '';
 		if(cmd.paramKey != '' && cmd.paramValue != ''){
@@ -35,7 +35,7 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 		});
 	};
 
-		RemoteService.functionnalCommands = [
+	this.functionnalCommands = [
 		{
 			id: 1,
 			title : 'Request History',
@@ -192,7 +192,7 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				this.sendCommand(this);
 			}
 		}, {
 			id: 50,
@@ -202,7 +202,7 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				self.sendCommand(this);
 			}
 		}, {
 			id: 51,
@@ -212,7 +212,7 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){
-				RemoteService.sendCommand(this);
+				this.sendCommand(this);
 			}
 		}, {
 			id: 52,
@@ -247,7 +247,7 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 		}
 	];
 
-	RemoteService.systemCommands = [
+	this.systemCommands = [
 		{
 			id: 1,
 			title : 'Shutdown',
@@ -301,6 +301,5 @@ odiUI.factory('RemoteService',['$http', '$window', function($http, $window){
 		}
 	];
 
-	return RemoteService;
 }]);
 
