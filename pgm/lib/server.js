@@ -241,10 +241,23 @@ exports.startUI = function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/russia', function (req, res) { // Russia
+		/*ui.post('/russia', function (req, res) { // Russia
 			// console.log('UI > Russia');
 			_exclamation.russia();
 			// _exclamation.russiaLoop();
+			res.writeHead(200);res.end();
+		});*/
+
+		ui.post('/russia', function (req, res) { // Russia
+			// console.log('UI > Russia');
+			params = req.query;
+			console.log(params);
+			if(params.hasOwnProperty('hymn')){
+				//_exclamation.russiaLoop();
+				_deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'urss']);
+			}else{
+				_exclamation.russia();
+			}
 			res.writeHead(200);res.end();
 		});
 

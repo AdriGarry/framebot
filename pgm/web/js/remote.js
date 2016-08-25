@@ -28,6 +28,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			url: 'http://odi.adrigarry.com' + cmd.url + params
 		}).then(function successCallback(res){
 			// console.log(res);
+			console.log(cmd.url + params);
 			// callback(res);
 		}, function errorCallback(res){
 			console.error(res);
@@ -104,12 +105,12 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			icon : 'fa fa-star',
 			url : '/russia',
 			paramKey : '',
-			paramValue : '',
+			paramValue : '0',
 			onClick : function(){
 				self.sendCommand(this);
 			},
 			onHold : function(){
-				this.paramValue = 'hymn';
+				this.paramKey = 'hymn';
 				self.sendCommand(this);
 			}
 		}, {
