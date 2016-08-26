@@ -74,15 +74,10 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 			console.log('refreshing logs');
 			var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 			utilService.getLogs(function(logs){
-
 				// var ipRegex = new RegExp("\\[([0-9]{1,3}\\.){3}([0-9]{1,3})\\]","g");
 				logs = logs.replace(/\[([0-9]{1,3}\.){3}([0-9]{1,3})\]/g, function(match, capture){
 					var ip = match.substr(1,match.length-2);
-					console.log(logs.search(/(^192\.168\.)/g));
-					// console.log(logs.indexOf('192.168'));
-					if(logs.search(/(^192\.168\.)/g)){
-					// if(logs.indexOf('192.168.') == -1){
-						console.log('ip: ' + ip);
+					if(ip.search(/(^192\.168\.)/g)){
 						return '[<a href="https://fr.iponmap.com/' + ip 
 							+ '" title="Localize this IP" target="_blank">' + ip + '<a/>]';
 					}else{
@@ -90,7 +85,6 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 						return '[' + ip + ']';
 					}
 				});
-
 				$scope.logData = logs.split('\n');
 			});
 		};
