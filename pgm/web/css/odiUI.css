@@ -165,7 +165,7 @@ img.odiFace.odiOff{
 .menu ul li.intro .activity{
 	height:6em;
 	padding-top:0em;
-	font-size:1em;
+	font-size:0.9em;
 	/*background-color:#999;*/
 }
 /*.menu ul li.intro .activity span{display:block;}
@@ -213,16 +213,19 @@ img.odiFace.odiOff{
 }
 .menu-item a{
 	display:block;
-	color:#DDD;
+	color:#b3b3b3;
 }
-.menu-item a:hover{
+.menu-item a:hover, .menu-item.active{
 	color:#fff;
 	text-decoration:none;
 }
 .menu-item a:hover span.lib{
 }
-.menu-item.active{
+.menu-item.active.logs{
 	background-color:#1b2631;
+}
+.menu-item.active a{
+	color:#fff;
 }
 .menu-item a i{
 	font-size:4em;
@@ -425,7 +428,7 @@ input[type='radio']{
 		visibility:hidden;
 	}
 	.menu ul li.menu-item{
-		margin:15% auto;
+		margin:25% auto;/*15%*/
 	}
 
 
@@ -450,7 +453,7 @@ input[type='radio']{
 		opacity:0.9;
 	}
 	.menu ul li.menu-item{
-		margin:2px 0;
+		margin:15% 0;/*2px*/
 		height:5em;
 	}
 	.menu-item a i{

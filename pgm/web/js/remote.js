@@ -28,7 +28,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			url: 'http://odi.adrigarry.com' + cmd.url + params
 		}).then(function successCallback(res){
 			// console.log(res);
-			console.log(cmd.url + params);
+			// console.log(cmd.url + params);
 			// callback(res);
 		}, function errorCallback(res){
 			console.error(res);
