@@ -18,7 +18,7 @@ var _buttons = require('./buttons.js');
 var _tts = require('./tts.js');
 var _voiceMail = require('./voiceMail.js');
 var _service = require('./service.js');
-var _timer = require('./timer.js');
+// var _timer = require('./timer.js');
 var _fip = require('./fip.js');
 var _jukebox = require('./jukebox.js');
 var _exclamation = require('./exclamation.js');
@@ -318,9 +318,9 @@ exports.startUI = function startUI(mode){
 				var min = parseInt(params.m, 10);
 				// console.log('UI > Timer for ' + min + ' minutes');
 				console.log(min);
-				_timer.setTimer(min);
+				_service.setTimer(min);
 			}else{
-				_timer.setTimer();
+				_service.setTimer();
 			}
 			res.writeHead(200);res.end();
 		});

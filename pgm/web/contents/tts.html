@@ -5,6 +5,28 @@
 <h3>Synthetisation vocale</h3>
 
 <form ng-submit="tts.submit()">
+
+	<div layout="row">
+		<md-input-container flex="70">
+			<label>Message</label>
+			<input required name="clientName" ng-model="project.clientName">
+			<div ng-messages="projectForm.clientName.$error">
+				<div ng-message="required">Write somethink...</div>
+			</div>
+		</md-input-container>
+		<md-input-container flex="30">
+			<label>Langue</label>
+			<md-select name="type" ng-model="project.type" required>
+				<md-option value="app" selected>Français</md-option>
+				<md-option value="web">Anglais</md-option>
+			</md-select>
+		</md-input-container>
+	</div>
+	<md-button class="md-raised md-primary">Primary</md-button>
+
+
+
+
 	<fieldset>
 	<h5 class="form-group text-danger text-center">
 		<i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;<em>Pas d'accent ni de caractères spéciaux&nbsp;!</em>
