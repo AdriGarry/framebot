@@ -38,7 +38,6 @@ var mode = process.argv[2]; // Recuperation des arguments
 }, 3000);*/
 
 new CronJob('*/3 * * * * *', function(){
-	// leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
 	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Initialisation du temoin d'activite 2/2
 }, null, 0, 'Europe/Paris');
 
@@ -70,7 +69,6 @@ setTimeout(function(){
 voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 
 
-
 // ------------------------//
 // ----- TEST SECTION -----//
 // ------------------------//
@@ -80,11 +78,11 @@ setTimeout(function(){
 	// var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', '13Heures']);
 }, 2000);
 
-new CronJob('*/5 * * * * *', function(){
+new CronJob('*/4 * * * * *', function(){
 	leds.blink({
 		leds: ['belly','eye', 'satellite', 'nose'],
-		speed: Math.random() * (200 - 50) + 50,
-		loop: 4
+		speed: 90,//Math.random() * (200 - 30) + 30,
+		loop: 5
 	});
 }, null, 0, 'Europe/Paris'); // Switch true/false !
 

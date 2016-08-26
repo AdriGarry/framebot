@@ -54,19 +54,14 @@ var activity = function(mode){
 		
 		mode = 1;
 	}
-	// setTimeout(function(){
-		setInterval(function(){
-			led.write(mode);
-		}, 1000);
+	setInterval(function(){
+		led.write(mode);
+	}, 1000);
 
-		new CronJob('*/3 * * * * *', function(){
-			// leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
-			self.blink({leds: ['nose'], speed: 200, loop: 1}); // Initialisation du temoin d'activite 2/2
-		}, null, 1, 'Europe/Paris');
-	// }, 500);
-	//blink({leds: ['nose'], speed: 200, loop: 3});
-
-	// return ??? (code?)
+	new CronJob('*/3 * * * * *', function(){
+		// leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
+		self.blink({leds: ['nose'], speed: 200, loop: 1}); // Initialisation du temoin d'activite 2/2
+	}, null, 1, 'Europe/Paris');
 };
 exports.activity = activity;
 
@@ -84,82 +79,82 @@ var findOne = function (haystack, arr){
 	})){
 };*/
 
-/** Fonction clignotement Oeil */
-var blinkEye = function(speed, duration){
-	clearInterval(timer);
-	var etat = 1;
-	timer = setInterval(function(){
-		eye.write(etat);
-		etat = 1 - etat;
-	}, speed);
-	var stopTimer = setTimeout(function(){
-		clearInterval(timer);
-		eye.write(0);
-	}, duration*1000);
-};
-exports.blinkEye = blinkEye;
+// /** Fonction clignotement Oeil */
+// var blinkEye = function(speed, duration){
+// 	clearInterval(timer);
+// 	var etat = 1;
+// 	timer = setInterval(function(){
+// 		eye.write(etat);
+// 		etat = 1 - etat;
+// 	}, speed);
+// 	var stopTimer = setTimeout(function(){
+// 		clearInterval(timer);
+// 		eye.write(0);
+// 	}, duration*1000);
+// };
+// exports.blinkEye = blinkEye;
 
-/** Fonction clignotement Ventre */
-var blinkBelly = function(speed, duration){
-	clearInterval(timer);
-	var etat = 1;
-	timer = setInterval(function(){
-		belly.write(etat);
-		etat = 1 - etat;
-	}, speed);
-	var stopTimer = setTimeout(function(){
-		clearInterval(timer);
-		belly.write(0);
-	}, duration*1000);
-};
-exports.blinkBelly = blinkBelly;
+// /** Fonction clignotement Ventre */
+// var blinkBelly = function(speed, duration){
+// 	clearInterval(timer);
+// 	var etat = 1;
+// 	timer = setInterval(function(){
+// 		belly.write(etat);
+// 		etat = 1 - etat;
+// 	}, speed);
+// 	var stopTimer = setTimeout(function(){
+// 		clearInterval(timer);
+// 		belly.write(0);
+// 	}, duration*1000);
+// };
+// exports.blinkBelly = blinkBelly;
 
-/** Fonction clignotement Satellite */
-var blinkSatellite = function(speed, duration){
-	clearInterval(timer);
-	var etat = 1;
-	timer = setInterval(function(){
-		satellite.write(etat);
-		etat = 1 - etat;
-	}, speed);
-	var stopTimer = setTimeout(function(){
-		clearInterval(timer);
-		satellite.write(0);
-	}, duration*1000);
-};
-exports.blinkSatellite = blinkSatellite;
+// /** Fonction clignotement Satellite */
+// var blinkSatellite = function(speed, duration){
+// 	clearInterval(timer);
+// 	var etat = 1;
+// 	timer = setInterval(function(){
+// 		satellite.write(etat);
+// 		etat = 1 - etat;
+// 	}, speed);
+// 	var stopTimer = setTimeout(function(){
+// 		clearInterval(timer);
+// 		satellite.write(0);
+// 	}, duration*1000);
+// };
+// exports.blinkSatellite = blinkSatellite;
 
-/** Fonction clignotement Nez */
-var blinkLed = function(speed, duration){
-	clearInterval(timer);
-	var etat = 1;
-	timer = setInterval(function(){
-		led.write(etat);
-		etat = 1 - etat;
-	}, speed);
-	var stopTimer = setTimeout(function(){
-		clearInterval(timer);
-		// led.write(1);
-	}, duration*1000);
-};
-exports.blinkLed = blinkLed;
+// /** Fonction clignotement Nez */
+// var blinkLed = function(speed, duration){
+// 	clearInterval(timer);
+// 	var etat = 1;
+// 	timer = setInterval(function(){
+// 		led.write(etat);
+// 		etat = 1 - etat;
+// 	}, speed);
+// 	var stopTimer = setTimeout(function(){
+// 		clearInterval(timer);
+// 		// led.write(1);
+// 	}, duration*1000);
+// };
+// exports.blinkLed = blinkLed;
 
-/** Fonction clignotement All Leds */
-var blinkAllLeds = function(speed, duration){
-	clearInterval(timer);
-	var etat = 1;
-	timer = setInterval(function(){
-		eye.write(etat);
-		belly.write(etat);
-		etat = 1 - etat;
-	}, speed);
-	var stopTimer = setTimeout(function(){
-		clearInterval(timer);
-		eye.write(0);
-		belly.write(0);
-	}, duration*1000);
-};
-exports.blinkAllLeds = blinkAllLeds;
+// /** Fonction clignotement All Leds */
+// var blinkAllLeds = function(speed, duration){
+// 	clearInterval(timer);
+// 	var etat = 1;
+// 	timer = setInterval(function(){
+// 		eye.write(etat);
+// 		belly.write(etat);
+// 		etat = 1 - etat;
+// 	}, speed);
+// 	var stopTimer = setTimeout(function(){
+// 		clearInterval(timer);
+// 		eye.write(0);
+// 		belly.write(0);
+// 	}, duration*1000);
+// };
+// exports.blinkAllLeds = blinkAllLeds;
 
 /** Fonction clignotement alterne Oeil/Ventre */
 var altLeds = function(speed, duration){

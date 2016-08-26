@@ -49,7 +49,13 @@ var speak = function(lg, txt){
 				console.log('TTS [' + voice + ', ' + lg + '] "' + txt + '"');
 				deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts.sh', voice, lg, txt]);
 				var blinkTime = (txt.length/15) + 1;
-				leds.blinkEye((Math.round(Math.random()*5) + 1)*50, blinkTime);
+				// leds.blinkEye((Math.round(Math.random()*5) + 1)*50, blinkTime);
+				console.log(blinkTime);
+				leds.blink({
+					leds: ['eye'],
+					speed: Math.random() * (200 - 30) + 30,
+					loop: 4
+				});
 
 				fs.writeFile(lastTTSFilePath, lg + ';' + txt, 'UTF-8', function(err){
 					if(err){

@@ -28,7 +28,7 @@ console.log(introMsg + '   -.-');
 leds.activity(mode); // Initialisation du temoin d'activite 1/2
 
 new CronJob('*/3 * * * * *', function(){
-	leds.blinkLed(400, 0.7); // Initialisation du temoin d'activite 2/2
+	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Initialisation du temoin d'activite 2/2
 }, null, 0, 'Europe/Paris');
 
 

@@ -25,7 +25,12 @@ exports.addVoiceMailMessage = function addVoiceMailMessage(lg, txt){
 	var message = lg + ';' + txt; // AJOUTER HEURE + DATE ??
 	fs.appendFile(voiceMailFilePath, message + '\r\n', function(err){ //writeFile
 		if(err)	return console.error(err);
-		leds.blinkBelly(300, 0.8);
+		// leds.blinkBelly(300, 0.8);
+		leds.blink({
+			leds: ['belly'],
+			speed: 250,//Math.random() * (200 - 30) + 30,
+			loop: 2//4
+		});
 		console.log('New VoiceMail Message_: ' + message);
 	});
 	fs.appendFile(voiceMailFilePathHistory, message + '\r\n', function(err){ //writeFile
@@ -67,7 +72,12 @@ exports.voiceMailFlag = function voiceMailFlag(){
 		fs.access(voiceMailFilePath, fs.R_OK, function(err) {
 			// console.error(e);
 			if(err == null){
-				leds.blinkBelly(300, 0.8);
+				// leds.blinkBelly(300, 0.8);
+				leds.blink({
+					leds: ['belly'],
+					speed: 250,//Math.random() * (200 - 30) + 30,
+					loop: 2//4
+				});
 			}else{
 				// console.log('ERROR voiceMailFlag function... TO DEBUG !!') // TO DEBUG !!
 			}
