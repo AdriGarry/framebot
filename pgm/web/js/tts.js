@@ -5,6 +5,8 @@ odiUI.controller('TTSController', [ '$scope', '$location', 'TTSService',
 		$scope.logView = false;
 		$scope.openMenu();
 
+		$scope.ttsConfig = TTSService.ttsConfig;
+
 		$scope.tts = { // Initialisation objet TTS
 			voice: ':3',
 			lg: 'fr',
@@ -56,5 +58,19 @@ odiUI.service('TTSService',['$http', function($http){
 			callback(res);
 		});
 	};
+
+	this.ttsConfig = {
+		languageList: [
+			{code: 'fr', label: 'French'},
+			{code: 'en', label: 'English'},
+			{code: 'ru', label: 'Russian'},
+			{code: 'es', label: 'Spanish'},
+			{code: 'it', label: 'Italian'},
+			{code: 'de', label: 'German'}
+		],
+		voiceList: [
+			{code: ':3', label: 'Nice voice'},
+			{code: ':1', label: 'Robot voice'}
+		]};
 
 }]);

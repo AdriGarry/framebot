@@ -4,47 +4,70 @@
 <!--<hr class="introBorder">-->
 <h3>Synthetisation vocale</h3>
 
-<form ng-submit="tts.submit()">
+<form ng-submit="tts.submit()" class="mainContent">
+
+	<!--<div layout="row">
+	</div>-->
+		<md-radio-group ng-model="tts.voice" class="md-primary text-center center-block" >
+			<md-radio-button ng-repeat="voice in ttsConfig.voiceList track by $index" ng-value="voice.code">
+				{{voice.label}}
+			</md-radio-button>
+		</md-radio-group>
+
 
 	<div layout="row">
-		<md-input-container flex="70">
+		<md-input-container class="md-block" flex-gt-sm>
 			<label>Message</label>
-			<input required name="clientName" ng-model="project.clientName">
-			<div ng-messages="projectForm.clientName.$error">
-				<div ng-message="required">Write somethink...</div>
-			</div>
-		</md-input-container>
-		<md-input-container flex="30">
-			<label>Langue</label>
-			<md-select name="type" ng-model="project.type" required>
-				<md-option value="app" selected>Français</md-option>
-				<md-option value="web">Anglais</md-option>
-			</md-select>
+			<input required name="ttsMsg" ng-model="tts.msg">
+			<!--<input name="ttsMsg" ng-model="tts.msg" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+			<div ng-messages="ttsMsg.$error" role="alert" multiple>
+				<div ng-message="required" class="my-message">Required&nbsp;!</div>
+				<div ng-message="pattern" class="my-message">Pattern</div>
+				<div ng-message="md-maxlength" class="my-message">I prefer short messages...</div>
+			</div>-->
 		</md-input-container>
 	</div>
-	<md-button class="md-raised md-primary">Primary</md-button>
+
+		<md-input-container flex="50">
+			<label>Language</label>
+			<md-select name="type" ng-model="tts.lg">
+				<md-option ng-repeat="language in ttsConfig.languageList track by $index" ng-value="language.code"
+					ng-checked="language.code == fr">
+					{{language.label}}
+				</md-option>
+			</md-select>
+		</md-input-container>
+
+		<label title="Envoyer dans messagerie">
+			<md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="tts.voicemail" class="md-primary">
+				<i class="fa fa-3x" ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>
+			</md-checkbox>
+		</label>
+
+		<md-button type="submit" name="submit" class="md-raised md-primary pull-right" title="Send the message !">
+			Envoyer&nbsp;&nbsp;<i class="fa fa-paper-plane-o"></i>
+		</md-button>
+
+	<p class="test-center">{{tts}}</p>
+	<p class="test-center">{{tts.error}}</p>
 
 
-
-
-	<fieldset>
+	<!--<fieldset>
 	<h5 class="form-group text-danger text-center">
 		<i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;<em>Pas d'accent ni de caractères spéciaux&nbsp;!</em>
 	</h5>
 	<div class="row">
-		<!--<div class="col-sm-2 col-sm-offset-2 col-xs-12">-->
-			<select name="lgMessage" id="lgMessage" class="form-control" title="Choix de la langue" placeholder="Langue du message" ng-model="tts.lg">
-				<option value="fr">Français</option>
-				<option value="en">Anglais</option>
-				<option value="ru">Russe</option>
-				<option value="es">Espagnol</option>
-				<option value="it">Italien</option>
-				<option value="de">Allemand</option>
-			</select>
-		<!--</div>-->
+		<select name="lgMessage" id="lgMessage" class="form-control" title="Choix de la langue" placeholder="Langue du
+			message" ng-model="tts.lg">
+			<option value="fr">Français</option>
+			<option value="en">Anglais</option>
+			<option value="ru">Russe</option>
+			<option value="es">Espagnol</option>
+			<option value="it">Italien</option>
+			<option value="de">Allemand</option>
+		</select>
 	</div>
 	<div class="row">
-		<!--<div class="col-sm-6 col-xs-12 text-center radioBtnVoice">-->
 		<div class="text-center radioBtnVoice">
 			<label title="Voix Google Translate"><input type="radio" name="voice" value=":3" ng-model="tts.voice">Nice voice&nbsp;</label>
 			<label title="Voix Robot Espeak"><input type="radio" name="voice" value=":1" ng-model="tts.voice">Robot voice</label>
@@ -71,6 +94,6 @@
 			<input type="submit" name="submit" class="btn btn-lg btn-primary" title="Envoyer le message !" value="Envoyer&nbsp;!">
 	</div>
 	</div>
-	</fieldset>
+	</fieldset>-->
 	<p class="test-center">{{tts.error}}</p>
 </form>

@@ -99,14 +99,14 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 		};
 
 		/** Initialisation pause UI */
-		$window.onfocus = function(){
-			$scope.activity.pauseUI = false;
-			$scope.$apply();
-		};
-		$window.onblur = function(){
-			$scope.activity.pauseUI = true;
-			$scope.$apply();
-		};
+		// $window.onfocus = function(){
+		// 	$scope.activity.pauseUI = false;
+		// 	//$scope.$apply();
+		// };
+		// $window.onblur = function(){
+		// 	$scope.activity.pauseUI = true;
+		// 	//$scope.$apply();
+		// };
 } ]);
 
 /* Sercice Util */
