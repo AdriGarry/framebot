@@ -16,7 +16,7 @@
 
 
 	<div layout="row">
-		<md-input-container class="md-block" flex-gt-sm>
+		<md-input-container class="md-block ttsMessage" flex-gt-sm>
 			<label>Message</label>
 			<input required name="ttsMsg" ng-model="tts.msg">
 			<!--<input name="ttsMsg" ng-model="tts.msg" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
@@ -38,10 +38,15 @@
 			</md-select>
 		</md-input-container>
 
-		<label title="Envoyer dans messagerie">
+		<!--<label title="Envoyer dans messagerie">
 			<md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="tts.voicemail" class="md-primary">
 				<i class="fa fa-3x" ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>
 			</md-checkbox>
+		</label>-->
+
+		<label title="Envoyer dans messagerie" class="pointer">
+			<input type="checkbox" class="noDisplay" ng-model="tts.voicemail">
+			<i class="fa fa-3x" ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>
 		</label>
 
 		<md-button type="submit" name="submit" class="md-raised md-primary pull-right" title="Send the message !">
@@ -95,5 +100,6 @@
 	</div>
 	</div>
 	</fieldset>-->
-	<p class="test-center">{{tts.error}}</p>
+
+	<!--<p class="test-center">{{tts.error}}</p>-->
 </form>

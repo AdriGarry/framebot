@@ -85,7 +85,9 @@ ul{
 .visible{
 	visibility:visible;
 }
-
+.pointer{
+	cursor:pointer;
+}
 
 .btn-primary{
 	background-color:#2C3E50;
