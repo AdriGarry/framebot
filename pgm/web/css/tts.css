@@ -8,6 +8,32 @@
 	font-size:1.2em;
 }
 
+form{
+
+}
+
+.voiceSwitch{
+	margin-left:50%!important;
+}
+.voiceSwitch .md-container .md-bar{
+	background-color:rgba(255,87,34,0.5);
+}
+.voiceSwitch .md-container .md-thumb{
+	background-color:rgb(255,87,34);
+	color:rgb(255,87,34);
+}
+.voiceSwitch span:first-child{
+	float:left;
+	margin-left:-10em;
+}
+.voiceSwitch span:last-child{
+}
+
+form .sendBtn{
+	display:flex;
+	margin-bottom:2em;
+}
+
 /*select.form-control{
 	width:auto;
 	margin:auto;
@@ -35,11 +61,18 @@ form .ttsMessage input{
 	fieldset, fieldset .row{
 		margin-top:2em;
 	}
+	form .layout-row{
+		margin-top:1em;
+		margin-bottom:1em;
+	}
 }
 /* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
 @media(max-width:768px){
-	.radioBtnVoice label{
+	/*.radioBtnVoice label{
 		font-size:1em;
 		margin-top:1em;
+	}*/
+	.mainContent{
+		padding:0.5em 0;
 	}
 }

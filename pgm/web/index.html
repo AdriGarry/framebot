@@ -51,15 +51,15 @@
 <!-- Déclaration du controller global AngularJS -->
 <body ng-controller="UIController">
 
-	<!-- Barre de navigation de l'application -->
-	<!--<div class="navbar navbar-static-top">
-	</div>-->
 
-	<!-- Menu latéral -->
+
+	<!-- PAUSE UI (not activated) -->
 	<div class="pauseUI" ng-show="activity.pauseUI" ng-class="activity.pauseUI ? 'active' : ''">
 		<p>click to resume UI...</p>
 		<i class="fa fa-pause-circle-o"></i>
 	</div>
+
+	<!-- Menu latéral -->
 	<div class='ng-modal ng-menu ng-slide' ng-class="leftMenuShown ? 'menu' : ''">
 		<div class='ng-modal-dialog'>
 			<div class="menu">
@@ -85,25 +85,25 @@
 						</div>
 					</li>
 					<li class="menu-item" ng-class="view == '/TTS' ?'active':''">
-						<a ng-click="goTo('TTS')" title="Envoyer un message">
+						<a ng-click="goTo('TTS')" title="Send a message">
 							<i class="fa fa-commenting-o"></i>
 							<!--<span>TTS</span>-->
 						</a>
 					</li>
 					<li class="menu-item" ng-class="view == '/Settings' ?'active':''">
-						<a ng-click="goTo('Settings')" title="Paramètres">
+						<a ng-click="goTo('Settings')" title="Settings">
 							<i class="fa fa-cogs"></i>
 							<!--<span>Settings</span>-->
 						</a>
 					</li>
 					<li class="menu-item" ng-class="view == '/Remote' ?'active':''">
-						<a ng-click="goTo('Remote')" ng-dblclick="changeStatus()" title="Telecommande">
+						<a ng-click="goTo('Remote')" ng-dblclick="changeStatus()" title="Remote">
 							<i class="fa fa-chain-broken"></i>
 							<!--<span>Remote</span>-->
 						</a>
 					</li>
 					<li class="menu-item logs" ng-class="logActive?'active':''">
-						<a ng-click="toggleLog()" title="Voir logs">
+						<a ng-click="toggleLog()" title="Show logs">
 							<i class="fa fa-code"></i>
 							<!--<span>Log</span>-->
 						</a>

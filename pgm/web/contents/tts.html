@@ -2,21 +2,37 @@
 
 <h2>TTS</h2>
 <!--<hr class="introBorder">-->
-<h3>Synthetisation vocale</h3>
+<h3>Voice synthesizing</h3>
 
 <form ng-submit="tts.submit()" class="mainContent">
-
-	<!--<div layout="row">
-	</div>-->
-		<md-radio-group ng-model="tts.voice" class="md-primary text-center center-block" >
-			<md-radio-button ng-repeat="voice in ttsConfig.voiceList track by $index" ng-value="voice.code">
-				{{voice.label}}
-			</md-radio-button>
-		</md-radio-group>
-
+	<div layout="row">
+		<md-switch ng-model="tts.voice" ng-true-value="':1'" ng-false-value="':3'" class="voiceSwitch md-primary"
+			ng-class="tts.voice == ':3' ? 'md-warn' : ''">
+			<span>Human Voice</span>
+			<span>Robot Voice</span>
+		</md-switch>
+	</div>
 
 	<div layout="row">
-		<md-input-container class="md-block ttsMessage" flex-gt-sm>
+		<div flex="10"></div>
+		<md-input-container flex="50"><!--flex="50"-->
+			<label>Language</label>
+			<md-select name="type" ng-model="tts.lg">
+				<md-option ng-repeat="language in ttsConfig.languageList track by $index" ng-value="language.code"
+					ng-checked="language.code == fr">
+					{{language.label}}
+				</md-option>
+			</md-select>
+		</md-input-container>
+
+		<label title="Envoyer dans messagerie" class="pointer text-center"  flex="30">
+			<input type="checkbox" class="noDisplay" ng-model="tts.voicemail">
+			<i class="fa fa-3x" ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>
+		</label>
+	</div>
+
+	<div layout="row">
+		<md-input-container class="md-block center-block ttsMessage" flex="90">
 			<label>Message</label>
 			<input required name="ttsMsg" ng-model="tts.msg">
 			<!--<input name="ttsMsg" ng-model="tts.msg" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
@@ -28,34 +44,15 @@
 		</md-input-container>
 	</div>
 
-		<md-input-container flex="50">
-			<label>Language</label>
-			<md-select name="type" ng-model="tts.lg">
-				<md-option ng-repeat="language in ttsConfig.languageList track by $index" ng-value="language.code"
-					ng-checked="language.code == fr">
-					{{language.label}}
-				</md-option>
-			</md-select>
-		</md-input-container>
-
-		<!--<label title="Envoyer dans messagerie">
-			<md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="tts.voicemail" class="md-primary">
-				<i class="fa fa-3x" ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>
-			</md-checkbox>
-		</label>-->
-
-		<label title="Envoyer dans messagerie" class="pointer">
-			<input type="checkbox" class="noDisplay" ng-model="tts.voicemail">
-			<i class="fa fa-3x" ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>
-		</label>
-
-		<md-button type="submit" name="submit" class="md-raised md-primary pull-right" title="Send the message !">
-			Envoyer&nbsp;&nbsp;<i class="fa fa-paper-plane-o"></i>
+	<div class="row sendBtn">
+		<div flex="60"></div>
+		<md-button type="submit" name="submit" class="md-raised md-primary pull-right" title="Send the message !" flex="20">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;<i class="fa"
+				ng-class="tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 		</md-button>
-
-	<p class="test-center">{{tts}}</p>
-	<p class="test-center">{{tts.error}}</p>
-
+		<!--<p class="test-center">{{tts}}</p>-->
+		<p class="test-center">{{tts.error}}</p>
+	</div>
+</form>
 
 	<!--<fieldset>
 	<h5 class="form-group text-danger text-center">
@@ -100,6 +97,3 @@
 	</div>
 	</div>
 	</fieldset>-->
-
-	<!--<p class="test-center">{{tts.error}}</p>-->
-</form>

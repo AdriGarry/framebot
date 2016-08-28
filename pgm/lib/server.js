@@ -99,10 +99,10 @@ exports.startUI = function startUI(mode){
 				lib: 'Mode',
 				value: isNaN(parseFloat(mode)) ? 'Normal' : 'Sleeping for ' + parseInt(mode) + 'h'
 			}, cpuUsage: {
-				lib: 'Utilisation processeur',
+				lib: 'CPU usage',
 				value: _utils.getCPUUsage() + ' %'
 			}, cpuTemp: {
-				lib: 'Temperature processeur',
+				lib: 'CPU temperature',
 				value: _utils.getCPUTemp() + ' ° C'
 			}, voiceMail: {
 				lib: 'VoiceMail',
@@ -111,10 +111,10 @@ exports.startUI = function startUI(mode){
 				lib: 'Volume',
 				value: _buttons.getEtat() == 1 ? 'High' : 'Normal'
 			}, switch: {
-				lib: 'Etat Switch',
+				lib: 'Switch',
 				value: _buttons.getEtat()
 			}, alarms: {
-				lib: 'Alarmes',
+				lib: 'Alarms',
 				value: '-'
 			}
 		};
