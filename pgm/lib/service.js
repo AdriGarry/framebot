@@ -4,7 +4,7 @@
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 var Gpio = require('onoff').Gpio;
-// var leds = require('./leds.js');
+var leds = require('./leds.js');
 var request = require('request');
 var utils = require('./utils.js');
 var tts = require('./tts.js');
