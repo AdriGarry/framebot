@@ -138,7 +138,7 @@ white.watch(function(err, value){
 	pressTime = Math.round((new Date() - pressTime)/100)/10;
 	leds.ledOff('belly');
 	console.log('[val:' + value + ']  White btn pressed for   ' + pressTime + ' sec [2;2]');
-	timer.setTimer(Math.round(pressTime));
+	service.setTimer(Math.round(pressTime));
 	/*if(pressTime < 2){
 		if(etat.readSync() == 0){
 			timer.setTimer();
