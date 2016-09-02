@@ -2,6 +2,7 @@
 // Module Jobs [horloge, alarmes & taches de fond]
 
 var spawn = require('child_process').spawn;
+var fs = require('fs');
 var CronJob = require('cron').CronJob;
 var utils = require('./utils.js');
 var fip = require('./fip.js');
@@ -81,6 +82,19 @@ var ringHalfHour = function(){
 		}
 	});
 };
+
+
+/*exports.setupJobs = function(){
+	console.log('setup jobs in progress...');
+	var jobsData;
+	fs.readFile('/home/pi/odi/pgm/data/jobs.json', 'utf8', function (err, data) {
+		console.log(data);
+		if (err) throw err;
+		jobsData = JSON.parse(data);
+	});
+	console.log(jobsData);
+};*/
+
 
 /** Fontion d'initialisation des alarmes et des taches de fond (jobs associes) */
 var setAlarms = function(){

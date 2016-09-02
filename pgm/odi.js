@@ -1,5 +1,7 @@
 #!/usr/bin/env node
-console.log('>> Odi started in normal mode...   :)');
+
+var mode = process.argv[2]; // Recuperation des arguments
+console.log('>> Odi started in normal mode [' + mode + ']');
 
 var Gpio = require('onoff').Gpio;
 var gpioPins = require('./lib/gpioPins.js');
@@ -25,9 +27,8 @@ var _server = require('./lib/server.js');
 
 // Sequence led de start
 //leds.blinkLed(100, 300); // Sequence led de start
-var mode = process.argv[2]; // Recuperation des arguments
-//leds.activity(); // Initialisation du temoin d'activite 1/2
 
+//leds.activity(); // Initialisation du temoin d'activite 1/2
 /*setTimeout(function(){
 	leds.clearLeds();
 	led.write(1);
@@ -72,6 +73,8 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 // ------------------------//
 // ----- TEST SECTION -----//
 // ------------------------//
+
+// jobs.setupJobs();
 
 setTimeout(function(){
 	// tts.speak('fr', 'Leonard le cafard, ou es tu ?:1');
