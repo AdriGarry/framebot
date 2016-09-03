@@ -46,13 +46,7 @@ _server.startUI(mode);
 
 jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
-buttons.getEtat(function(modeValue){ // Demarrage de l'horloge
-	if(modeValue){
-		jobs.startClock(true);
-	}else{
-		jobs.startClock(false);
-	}
-});
+jobs.startClock(buttons.getEtat()); // Starting speaking clock
 
 jobs.setAlarms(); // Initialisation des alarmes
 jobs.setAutoLifeCycle();
