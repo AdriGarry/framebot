@@ -2,14 +2,13 @@
 odiUI.controller('RemoteController', ['$scope', '$location', '$timeout', 'RemoteService',
 	function($scope, $location, $timeout, RemoteService) {
 
-        $scope.logView = false;
-        $scope.openMenu();
+		$scope.logView = false;
+		$scope.openMenu();
 
 
 		$scope.functionnalCommands = RemoteService.functionnalCommands;
 		$scope.systemCommands = RemoteService.systemCommands;
-
-    }
+	}
 ]);
 
 /* Sercice Remote */

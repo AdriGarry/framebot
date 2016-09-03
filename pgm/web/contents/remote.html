@@ -5,12 +5,12 @@
 
 <div class="remote">
 	<button class="btn btn-lg btn-default" ng-repeat="command in functionnalCommands | orderBy : 'id'"
-		ng-click="command.onClick()" on-long-press="command.onHold()" long-press-duration="1000" prevent-click="true" title="{{command.title}}" ng-disabled="!admin">
+		ng-click="command.onClick();showToast(command.title +  '' + command.paramKey || '' + command.paramValue || '')" on-long-press="command.onHold();showToast(command.title +  '' + command.paramKey || '' + command.paramValue || '')" long-press-duration="1000" prevent-click="true" title="{{command.title}}" ng-disabled="!admin">
 		<i class="fa {{command.icon}}"></i>
 	</button>
 	<hr>
 	<button class="btn btn-lg btn-default" ng-repeat="command in systemCommands | orderBy : 'id'"
-		ng-click="command.onClick();refreshActivityDelay()" on-long-press="command.onHold()" long-press-duration="1000"
+		ng-click="command.onClick();showToast(command.title);refreshActivityDelay()" on-long-press="command.onHold()" long-press-duration="1000"
 		title="{{command.title}}" ng-disabled="!admin">
 		<i class="fa {{command.icon}}"></i>
 	</button>

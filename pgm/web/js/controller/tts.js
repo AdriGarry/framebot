@@ -24,7 +24,8 @@ odiUI.controller('TTSController', [ '$scope', '$location', 'TTSService',
 				$scope.tts.msg = message;
 			},
 			submit: function(){
-				// console.log($scope.tts);
+				console.log($scope.tts);
+				$scope.showToast($scope.tts.msg);
 				TTSService.sendTTS($scope.tts, function(callback){
 					if(callback.status != 200) $scope.tts.error = 'UNE ERREUR EST SURVENUE';
 					// console.log(callback);
