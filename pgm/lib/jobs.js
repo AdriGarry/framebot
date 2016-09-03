@@ -84,7 +84,7 @@ var ringHalfHour = function(){
 };
 
 
-/*exports.setupJobs = function(){
+/*exports.setupJobs = function setupJobs(){
 	console.log('setup jobs in progress...');
 	var jobsData;
 	fs.readFile('/home/pi/odi/pgm/data/jobs.json', 'utf8', function (err, data) {

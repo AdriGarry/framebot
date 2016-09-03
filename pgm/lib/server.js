@@ -98,24 +98,25 @@ exports.startUI = function startUI(mode){
 			mode: {
 				lib: 'Mode',
 				value: isNaN(parseFloat(mode)) ? 'Normal' : 'Sleeping for ' + parseInt(mode) + 'h'
+			}, switch: {
+				lib: 'Switch',
+				value: _buttons.getEtat()
+			}, volume: {
+				lib: 'Volume',
+				value: _buttons.getEtat() == 1 ? 'High' : 'Normal'
+			}, voiceMail: {
+				lib: 'VoiceMail',
+				value: _voiceMail.areThereAnyMessages() + ' '
+					+ (_voiceMail.areThereAnyMessages() > 1 ? ' messages' : 'message')
+			}, alarms: {
+				lib: 'Alarms',
+				value: '<i>Soon available</i>'
 			}, cpuUsage: {
 				lib: 'CPU usage',
 				value: _utils.getCPUUsage() + ' %'
 			}, cpuTemp: {
 				lib: 'CPU temperature',
 				value: _utils.getCPUTemp() + ' ° C'
-			}, voiceMail: {
-				lib: 'VoiceMail',
-				value: 'Not implemented'
-			}, volume: {
-				lib: 'Volume',
-				value: _buttons.getEtat() == 1 ? 'High' : 'Normal'
-			}, switch: {
-				lib: 'Switch',
-				value: _buttons.getEtat()
-			}, alarms: {
-				lib: 'Alarms',
-				value: '-'
 			}
 		};
 		// console.log(settings);

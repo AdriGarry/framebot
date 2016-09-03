@@ -151,6 +151,6 @@ exports.info = info;
 var cpuTemp = function(){
 	temperature = utils.getCPUTemp();
 	console.log('Service CPU Temperature...  ' + temperature + ' degres');
-	tts.speak('fr', 'Mon processeur est a ' + temperature + ' degres')
+	tts.speak('fr', 'Mon processeur est a ' + temperature + ' degree')
 };
 exports.cpuTemp = cpuTemp;
