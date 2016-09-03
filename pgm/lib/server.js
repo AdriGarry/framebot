@@ -97,7 +97,7 @@ exports.startUI = function startUI(mode){
 		var settings = {
 			mode: {
 				lib: 'Mode',
-				value: isNaN(parseFloat(mode)) ? 'Normal' : 'Sleeping for ' + parseInt(mode) + 'h'
+				value: isNaN(parseFloat(mode)) ? 'Ready' : 'Sleeping for ' + parseInt(mode) + 'h'
 			}, switch: {
 				lib: 'Switch',
 				value: _buttons.getEtat()

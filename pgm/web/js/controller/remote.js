@@ -34,6 +34,9 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			console.error(res);
 			// callback(res);
 		});
+		if(cmd.refreshActivity){
+			// $scope.refreshActivity();
+		}
 	};
 
 	this.functionnalCommands = [
@@ -308,6 +311,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			title : 'Restart Odi',
 			icon : 'fa fa-flash',
 			url : '/odi',
+			refreshActivity : true,
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){

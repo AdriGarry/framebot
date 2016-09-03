@@ -5,8 +5,8 @@
  * @param $location : variable Angular permettant de modifier l'URL
  * @param constantService : declaration du service pour recuperer les constantes de l'application
  */
-odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$sce', 'utilService',
-	function($scope, $location, $window, $http, $sce, utilService) {
+odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$sce', '$timeout', 'utilService',
+	function($scope, $location, $window, $http, $sce, $timeout, utilService) {
 		$scope.admin = false;
 		$scope.logActive = true;
 		$scope.activity = {
@@ -23,8 +23,13 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 		}, 2000);
 		setInterval(function(){
 			$scope.refreshActivity();
-		}, 20000);
+		}, 10000);
 
+
+		/** Fonction de rafraichissement du temoin d'activite */
+		$scope.refreshActivityDelay = function(){
+			$timeout($scope.refreshActivity, 500);
+		}
 
 		/** Fonction de rafraichissement du temoin d'activite */
 		$scope.refreshActivity = function(){

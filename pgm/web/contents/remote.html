@@ -10,7 +10,7 @@
 	</button>
 	<hr>
 	<button class="btn btn-lg btn-default" ng-repeat="command in systemCommands | orderBy : 'id'"
-		ng-click="command.onClick()" on-long-press="command.onHold()" long-press-duration="1000"
+		ng-click="command.onClick();refreshActivityDelay()" on-long-press="command.onHold()" long-press-duration="1000"
 		title="{{command.title}}" ng-disabled="!admin">
 		<i class="fa {{command.icon}}"></i>
 	</button>
