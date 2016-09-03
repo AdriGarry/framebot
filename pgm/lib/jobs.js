@@ -154,9 +154,7 @@ var setAlarms = function(){
 					service.weather();
 				}, 5*1000);
 				setTimeout(function(){
-					// fip.playFip();
-					console.log('Il Est Midi !!!!!!');
-					var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'IlEstMidi']);
+					fip.playFip();
 				}, 15*1000);
 			// }else{
 				// jukebox.loop();

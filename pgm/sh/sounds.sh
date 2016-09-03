@@ -46,19 +46,16 @@ then
 #___Son Cigales
 elif [ $1 = "cigales" ]
 then
-	sound="/home/pi/odi/mp3/Cigales.mp3"
+	sound="/home/pi/odi/mp3/system/cigales.mp3"
 #___Son Mer du matin
 elif [ $1 = "MorningSea" ]
 then
-	sound="/home/pi/odi/mp3/MorningSea.mp3"
+	sound="/home/pi/odi/mp3/system/morningSea.mp3"
 #___Son oiseaux du matin
 elif [ $1 = "MorningBirds" ]
 then
-	sound="/home/pi/odi/mp3/MorningBirds.mp3"
-#___Chanson 'Il est Midi'
-elif [ $1 = "IlEstMidi" ]
-then
-	sound="/home/pi/odi/mp3/DeLaSoulTransmittingLiveFromMars.mp3"
+	sound="/home/pi/odi/mp3/system/morningBirds.mp3"
+#___Chanson Il est 13H et tout va bien
 elif [ $1 = "13Heures" ]
 then
 	sound="/home/pi/odi/mp3/exclamation/fr_ben_voyons#1.mp3"
