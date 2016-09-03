@@ -2,7 +2,7 @@
 	margin-left:50%;
 }*/
 md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content{
-	background-color:#3f5973;/*#2C3E50*//*rgb(63,81,181)*/
+	background-color:#ff6333;/*rgb(255,87,34);/*#3f5973*//*#2C3E50*//*rgb(63,81,181)*/
 }
 
 /* ------------------------------ Material Switch ------------------------------- */
