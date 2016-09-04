@@ -49,11 +49,16 @@
 <!-- Déclaration du controller global AngularJS -->
 <body ng-controller="UIController">
 
+	<!-- RESFRESH UI -->
+	<div class="reloadUI active" ng-show="activity.reloadUI">
+		<md-progress-circular md-diameter="200">
+		</md-progress-circular>
+	</div>
 	<!-- PAUSE UI (not activated) -->
-	<div class="pauseUI" ng-show="activity.pauseUI" ng-class="activity.pauseUI ? 'active' : ''">
+	<!--<div class="pauseUI" ng-show="activity.pauseUI" ng-class="activity.pauseUI ? 'active' : ''">
 		<p>click to resume UI...</p>
 		<i class="fa fa-pause-circle-o"></i>
-	</div>
+	</div>-->
 
 	<!-- Menu latéral -->
 	<div class='ng-modal ng-menu ng-slide' ng-class="leftMenuShown ? 'menu' : ''">
@@ -62,7 +67,7 @@
 				<ul>
 					<li class="intro">
 						<div class="menu-item">
-							<div onclick="window.location.reload()" title="Reload UI">
+							<div onclick="window.location.reload()" title="Reload UI" ng-click="activity.reloadUI = true">
 								<img src="img/odi.jpg" alt="Odi's face" class=" img-circle img-thumbnail odiFace" ng-class="activity.mode == 'sleep' ? 'sleep' : ''">
 								<img src="img/snow.gif" alt="Odi not available" class=" img-circle img-thumbnail odiFace odiOff" ng-show="activity.mode == 'waiting'">
 								<h1>Odi</h1>

@@ -6,7 +6,7 @@ md-toast .md-toast-content span{
 }
 md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content{
 	/*background-color:#3f5973;*/
-	background-color:#ff6333;
+	background-color:#0097A8;/*#ff6333;*/
 }
 
 /* ------------------------------ Material Switch ------------------------------- */
@@ -439,7 +439,7 @@ input[type='radio']{
 }
 
 
-.pauseUI{
+/*.pauseUI{
 	display:none;
 	position:absolute;
 	min-height:100%;
@@ -467,6 +467,28 @@ input[type='radio']{
 	color:#000;
 	font-size:25em;
 	text-align:center;
+}*/
+
+.reloadUI{
+	display:none;
+	position:absolute;
+	min-height:100%;
+	top:0;
+	left:0;
+	right:0;
+	z-index:20;
+	background-color:#666;
+	opacity:0.8;
+}
+.reloadUI.active{
+	display:block;
+	cursor:wait;
+}
+.reloadUI.active md-progress-circular{
+	margin:8em auto;
+}
+.reloadUI.active md-progress-circular path{
+	stroke:#333;
 }
 
 /* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */

@@ -11,6 +11,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 		$scope.logActive = true;
 		$scope.activity = {
 			mode: 'waiting',
+			reloadUI: false,
 			pauseUI: false,
 			info: 'Initializing Odi UI...'
 		};
@@ -23,7 +24,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 				$mdToast.simple()
 				.textContent(lib)
 				.position('top right')
-				.hideDelay(25000)
+				.hideDelay(2500)
 			);
 		};
 
@@ -43,7 +44,6 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 
 		/** Fonction de rafraichissement du temoin d'activite */
 		$scope.refreshActivity = function(){
-			// console.log('refreshing activity !!!A');
 			// console.log($scope.activity);
 			if(!$scope.activity.pauseUI){
 				$scope.activity.mode = 'waiting';
@@ -113,15 +113,18 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 			return $sce.trustAsHtml(html);
 		};
 
+		// $scope.rebootUI = function(){
+		// }
+
 		/** Initialisation pause UI */
-		// $window.onfocus = function(){
-		// 	$scope.activity.pauseUI = false;
-		// 	//$scope.$apply();
-		// };
-		// $window.onblur = function(){
-		// 	$scope.activity.pauseUI = true;
-		// 	//$scope.$apply();
-		// };
+		/*$window.onfocus = function(){
+			$scope.activity.pauseUI = false;
+			//$scope.$apply();
+		};
+		$window.onblur = function(){
+			$scope.activity.pauseUI = true;
+			//$scope.$apply();
+		};*/
 } ]);
 
 /* Sercice Util */
