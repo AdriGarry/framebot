@@ -113,7 +113,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 			},
 			onHold : function(){
 				this.paramKey = 'hymn';
-				self.sendCommand(this);
+				// self.sendCommand(this);
 			}
 		}, {
 			id: 21,
@@ -169,7 +169,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 				var input = prompt('Minuterie pour (min)');
 				if(input === null) return;
 				this.paramValue = input;
-				self.sendCommand(this);
+				//self.sendCommand(this);
 			}
 		}, {
 			id: 33,
@@ -303,14 +303,14 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 				var input = prompt('Duree de la veille');
 				if(input === null) return;
 				this.paramValue = input;
-				self.sendCommand(this);
+				// self.sendCommand(this);
 			}
 		}, {
 			id: 4,
 			title : 'Restart Odi',
 			icon : 'fa fa-flash',
 			url : '/odi',
-			refreshActivity : true,
+			refreshActivity : true, /////// TODO 
 			paramKey : '',
 			paramValue : '',
 			onClick : function(){

@@ -82,27 +82,47 @@
 						</div>
 					</li>
 					<li class="menu-item" ng-class="view == '/TTS' ?'active':''">
+						<!--<md-button ng-click="goTo('TTS')">
+							<md-tooltip md-direction="right">
+								Text to Speach
+							</md-tooltip>
+							<i class="fa fa-4x fa-commenting-o"></i>
+						</md-button>-->
 						<a ng-click="goTo('TTS')" title="Send a message">
 							<i class="fa fa-commenting-o"></i>
-							<!--<span>TTS</span>-->
 						</a>
 					</li>
 					<li class="menu-item" ng-class="view == '/Settings' ?'active':''">
+						<!--<md-button ng-click="goTo('Settings')">
+							<md-tooltip md-direction="right">
+								Odi's settings
+							</md-tooltip>
+							<i class="fa fa-4x fa-cogs"></i>
+						</md-button>-->
 						<a ng-click="goTo('Settings')" title="Settings">
 							<i class="fa fa-cogs"></i>
-							<!--<span>Settings</span>-->
 						</a>
 					</li>
 					<li class="menu-item" ng-class="view == '/Remote' ?'active':''">
+						<!--<md-button ng-click="goTo('Remote')" ng-dblclick="changeStatus()">
+							<md-tooltip md-direction="right">
+								Remote
+							</md-tooltip>
+							<i class="fa fa-4x fa-chain-broken"></i>
+						</md-button>-->
 						<a ng-click="goTo('Remote')" ng-dblclick="changeStatus()" title="Remote">
 							<i class="fa fa-chain-broken"></i>
-							<!--<span>Remote</span>-->
 						</a>
 					</li>
 					<li class="menu-item logs" ng-class="logActive?'active':''">
+						<!--<md-button ng-click="toggleLog()">
+							<md-tooltip md-direction="right" ng-hide="logActive">
+								Show logs
+							</md-tooltip>
+							<i class="fa fa-4x fa-code"></i>
+						</md-button>-->
 						<a ng-click="toggleLog()" title="Show logs">
 							<i class="fa fa-code"></i>
-							<!--<span>Log</span>-->
 						</a>
 					</li>
 				</ul>

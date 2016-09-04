@@ -17,15 +17,13 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 
 		$scope.view = $location.path() || '/TTS'; // Attribution page par defaut
 
+		/** Pop down toas function */
 		$scope.showToast = function(lib) {
-			console.log('TOAST' + lib);
 			$mdToast.show(
 				$mdToast.simple()
 				.textContent(lib)
-				//.position({bottom:false, top:true, left:false, right:true})
-				//.position('false true false true')
 				.position('top right')
-				.hideDelay(2500)//2500
+				.hideDelay(25000)
 			);
 		};
 

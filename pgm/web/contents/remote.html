@@ -1,17 +1,32 @@
 <link rel="stylesheet" href="css/remote.css" media="all" />
 
+<!--<md-toolbar>
+	<div class="md-toolbar-tools">
+		<md-button aria-label="Go Back">
+			Reload UI
+		</md-button>
+		<h2>
+			<span>Remote <small><i>Send orders to Odi</i></small></span>
+		</h2>
+		<span flex></span>
+		<md-button class="md-fab md-mini" aria-label="Favorite">
+			<md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
+		</md-button>
+	</div>
+</md-toolbar>-->
+
 <h2>Remote</h2>
 <h3>Send orders to Odi</h3>
 
 <div class="remote">
 	<button class="btn btn-lg btn-default" ng-repeat="command in functionnalCommands | orderBy : 'id'"
-		ng-click="command.onClick();showToast(command.title +  ' ' + (command.paramKey || '') + ' ' + (command.paramValue || ''))" on-long-press="command.onHold();showToast(command.title +  ' ' + (command.paramKey || '') + (command.paramValue || ''))" long-press-duration="1000" prevent-click="true" title="{{command.title}}" ng-disabled="!admin">
+		ng-click="command.onClick();showToast(command.title +  ' ' + (command.paramValue || ''))"
+		on-long-press="command.onHold();showToast(command.paramValue + ' added to ' + command.title + ' command')" long-press-duration="1000" prevent-click="true" title="{{command.title}}" ng-disabled="!admin">
 		<i class="fa {{command.icon}}"></i>
 	</button>
 	<hr>
 	<button class="btn btn-lg btn-default" ng-repeat="command in systemCommands | orderBy : 'id'"
-		ng-click="command.onClick();showToast(command.title);refreshActivityDelay()" on-long-press="command.onHold()" long-press-duration="1000"
-		title="{{command.title}}" ng-disabled="!admin">
+		ng-click="command.onClick();showToast(command.title +  ' ' + (command.paramValue || ''));refreshActivityDelay()" on-long-press="command.onHold();showToast(command.paramValue + ' added to ' + command.title + ' command')" long-press-duration="1000" title="{{command.title}}" ng-disabled="!admin">
 		<i class="fa {{command.icon}}"></i>
 	</button>
 </div>

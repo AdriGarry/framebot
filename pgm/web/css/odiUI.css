@@ -1,6 +1,9 @@
 /*md-toast{
 	margin-left:50%;
 }*/
+md-toast .md-toast-content span{
+	font-size:1.5em;
+}
 md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content{
 	/*background-color:#3f5973;*/
 	background-color:#ff6333;
@@ -135,10 +138,6 @@ ul{
 }
 
 .menu ul li.menu-item{
-	/*color:#DDD;*/
-	/*min-height:100px;*/
-	/*min-height:13%;*/
-	/*height:6em;*/
 	padding:0.5em 0;
 }
 
@@ -169,7 +168,7 @@ img.odiFace.odiOff{
 }
 
 .menu ul li.intro h1{
-	margin:0.1em auto;
+	margin:0.2em auto;
 	font-size:2em;
 }
 
@@ -235,6 +234,7 @@ img.odiFace.odiOff{
 	display:block;
 	text-align:center;
 }
+
 .menu-item a{
 	display:block;
 	color:#b3b3b3;
@@ -242,6 +242,9 @@ img.odiFace.odiOff{
 .menu-item a:hover, .menu-item.active{
 	color:#fff;
 	text-decoration:none;
+}
+.menu-item.active:not(.logs){
+	/*border-left:2px solid #fff;*/
 }
 .menu-item a:hover span.lib{
 }
@@ -254,13 +257,29 @@ img.odiFace.odiOff{
 .menu-item a i{
 	font-size:4.5em;
 }
-
-.menu-item a span{
+/*.menu-item a span{
 	display:block;
 	margin:0.6em 0 0;
 	font-size:1.1em;
 	line-height:0px;
+}*/
+
+/*.menu-item button{
+	width:100%;
+	margin:0;
+	padding:1em 0;
+	color:#b3b3b3;
 }
+.menu-item.active button{
+	color:#fff;
+}
+.menu-item button md-tooltip{
+	font-size:3em;
+}
+
+.menu-item.logs.active button{
+	background-color:#1b2631;
+}*/
 
 /* ------------------------------ Dynamisme des menus ------------------------------- */
 .ng-modal{
@@ -485,7 +504,8 @@ input[type='radio']{
 	}
 	.menu ul li.menu-item{
 		margin:15% 0;/*2px*/
-		height:5em;
+		/*height:5em;*/
+		padding:1em 0;
 	}
 	.menu-item a i{
 		font-size:3em;
