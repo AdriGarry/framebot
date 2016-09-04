@@ -34,7 +34,7 @@
 	<div layout="row">
 		<md-input-container class="md-block center-block ttsMessage" flex="90">
 			<label>Message</label>
-			<input required name="ttsMsg" ng-model="tts.msg">
+			<input required name="ttsMsg" ng-model="tts.msg" ng-change="tts.cleanText()">
 			<!--<input name="ttsMsg" ng-model="tts.msg" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
 			<div ng-messages="ttsMsg.$error" role="alert" multiple>
 				<div ng-message="required" class="my-message">Required&nbsp;!</div>
