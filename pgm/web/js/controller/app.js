@@ -19,10 +19,10 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 		$scope.view = $location.path() || '/TTS'; // Attribution page par defaut
 
 		/** Pop down toas function */
-		$scope.showToast = function(lib) {
+		$scope.showToast = function(label) {
 			$mdToast.show(
 				$mdToast.simple()
-				.textContent(lib)
+				.textContent(label)
 				.position('top right')
 				.hideDelay(2500)
 			);
@@ -86,6 +86,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 
 		/** Fonction de rafraichissement des logs */
 		$scope.refreshLog = function(){
+			$scope.showToast('Logs');
 			console.log('refreshing logs');
 			var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 			utilService.getLogs(function(logs){
