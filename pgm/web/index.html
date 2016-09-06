@@ -73,16 +73,18 @@
 								<h1>Odi</h1>
 							</div>
 							<div class="activity" ng-click="refreshActivity()" title="Refresh Activity">
-								<md-progress-circular ng-show="activity.mode == 'waiting'" md-diameter="105">
+								<md-progress-circular ng-show="activity.mode == 'waiting'" md-diameter="106">
 								</md-progress-circular>
-								<!--<span ng-class="activity.mode == 'waiting' ? '' : 'noDisplay'">
-									<i class="fa fa-spin fa-refresh" title="{{activity.info}}"></i> 
-								</span>-->
+								<span ng-class="activity.mode == 'waiting' ? '' : 'noDisplay'">
+									<!--<i class="fa fa-spin fa-refresh" title="{{activity.info}}"></i>
+									<i class="fa fa-2x fa-spin fa-circle-o-notch" title="{{activity.info}}"></i>-->
+									<i class="fa fa-2x">.</i>
+								</span>
 								<span ng-class="activity.mode == 'awake' ? '' : 'noDisplay'" title="Odi's awake !">
-									<i class="fa fa-sun-o"></i>
+									<i class="fa fa-3x fa-sun-o"></i>
 								</span>
 								<span ng-class="activity.mode == 'sleep' ? '' : 'noDisplay'" title="Odi's sleeping for {{activity.sleepTime}}">
-									<i class="fa fa-moon-o"></i>
+									<i class="fa fa-3x fa-moon-o"></i>
 								</span>
 							</div>
 						</div>
