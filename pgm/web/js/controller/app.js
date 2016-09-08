@@ -12,7 +12,7 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 		$scope.logActive = true;
 		$scope.activity = {
 			mode: 'waiting',
-			reloadUI: false,
+			loadUI: false,
 			pauseUI: false,
 			info: 'Initializing Odi UI...'
 		};
