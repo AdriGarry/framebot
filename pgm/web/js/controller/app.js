@@ -1,3 +1,4 @@
+'use strict'
 /*
  * Declaration du controller global de l'application
  *

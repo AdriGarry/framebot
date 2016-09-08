@@ -25,7 +25,7 @@ var voiceMail = require('./lib/voiceMail.js');
 var tts = require('./lib/tts.js');
 var _server = require('./lib/server.js');
 
-// Sequence led de start
+// LED Start sequence
 //leds.blinkLed(100, 300); // Sequence led de start
 
 //leds.activity(); // Initialisation du temoin d'activite 1/2
@@ -43,13 +43,13 @@ new CronJob('*/3 * * * * *', function(){
 }, null, 0, 'Europe/Paris');
 
 _server.startUI(mode);
-
-jobs.setBackgroundJobs(); // Demarrage des taches de fond
+buttons.initButtonAwake();
 
 jobs.startClock(buttons.getEtat()); // Starting speaking clock
 
 jobs.setAlarms(); // Initialisation des alarmes
-jobs.setAutoLifeCycle();
+jobs.setAutoLifeCycle(); // Initialisation du rythme de vie j/n
+jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
 new CronJob('*/10 * * * * *', function(){ // Initialisation synchronisation remote
 	// remote.synchro();//mode

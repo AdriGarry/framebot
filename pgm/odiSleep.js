@@ -7,7 +7,6 @@ var CronJob = require('cron').CronJob;
 var jobs = require('./lib/jobs.js');
 var utils = require('./lib/utils.js');
 var leds = require('./lib/leds.js');
-// var remote = require('./lib/remote.js');
 var _server = require('./lib/server.js');
 
 var mode = sleepTime = process.argv[2]; // Recuperation des arguments
@@ -15,15 +14,15 @@ var mode = sleepTime = process.argv[2]; // Recuperation des arguments
 var introMsg = 'Odi\'s sleeping...';
 
 if(sleepTime < 255){
-	introMsg += ' for ' + sleepTime + ' h';
+	introMsg += ' for ' + sleepTime + 'h';
+	console.log(introMsg + '   -.-');
 	setTimeout(function(){ // Delai avant redemarrage/reveil
 		utils.restartOdi();
 	}, sleepTime*60*60*1000);
 }else{
+	console.log(introMsg + '   -.-');
 	jobs.setAutoLifeCycle('S'); // Si pas de delai alors auto reveil en fonction du jour
 }
-
-console.log(introMsg + '   -.-');
 
 leds.activity(mode); // Initialisation du temoin d'activite 1/2
 
