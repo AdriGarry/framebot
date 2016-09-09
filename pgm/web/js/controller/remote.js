@@ -308,7 +308,7 @@ odiUI.service('RemoteService',['$http', '$window', function($http, $window){
 		}, {
 			id: 4,
 			title : 'Restart Odi',
-			icon : 'fa fa-flash',
+			icon : 'fa fa-sun-o', //fa-flash
 			url : '/odi',
 			refreshActivity : true, /////// TODO 
 			paramKey : '',
