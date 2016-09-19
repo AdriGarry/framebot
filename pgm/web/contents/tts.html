@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="css/tts.css" media="all" />
 
 <h2>TTS</h2>
-<!--<hr class="introBorder">-->
 <h3>Voice synthesizing</h3>
 
 <form ng-submit="tts.submit()" class="mainContent">
@@ -45,55 +44,10 @@
 	</div>
 
 	<div class="row sendBtn">
-		<div flex="60"></div>
-		<md-button type="submit" name="submit" class="md-raised md-primary pull-right" ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send the message !" flex="20">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
+		<md-button type="submit" name="submit" class="md-raised" ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send<span ng-show="tts.voicemail"> voicemail</span>
+			&nbsp;&nbsp;&nbsp;
 			<i class="fa" ng-class="tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 		</md-button>
-		<!--<p class="test-center">{{tts}}</p>-->
 		<p class="test-center">{{tts.error}}</p>
 	</div>
 </form>
-
-	<!--<fieldset>
-	<h5 class="form-group text-danger text-center">
-		<i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;<em>Pas d'accent ni de caractères spéciaux&nbsp;!</em>
-	</h5>
-	<div class="row">
-		<select name="lgMessage" id="lgMessage" class="form-control" title="Choix de la langue" placeholder="Langue du
-			message" ng-model="tts.lg">
-			<option value="fr">Français</option>
-			<option value="en">Anglais</option>
-			<option value="ru">Russe</option>
-			<option value="es">Espagnol</option>
-			<option value="it">Italien</option>
-			<option value="de">Allemand</option>
-		</select>
-	</div>
-	<div class="row">
-		<div class="text-center radioBtnVoice">
-			<label title="Voix Google Translate"><input type="radio" name="voice" value=":3" ng-model="tts.voice">Nice voice&nbsp;</label>
-			<label title="Voix Robot Espeak"><input type="radio" name="voice" value=":1" ng-model="tts.voice">Robot voice</label>
-		</div>
-	</div>
-
-	<div class="form-group form-group-lg row">
-		<div class="col-xs-10 col-xs-offset-1 text-center">
-			<input type="text" name="message" id="ttsMessage" class="form-control" size="35" title="Write here a message" placeholder="Message..." ng-model="tts.msg" ng-change="tts.cleanText()" required autofocus>
-			<p class="text-center infoVoiceMail" ng-class="tts.voicemail ? 'visible' : 'vHidden'">
-				Ce message sera en attente dans la messagerie
-			</p>
-		</div>
-	</div>
-
-	<div class="row">
-	<div class="col-xs-4 col-xs-offset-2 text-center">
-		<label title="Envoyer dans messagerie">
-			<input type="checkbox" class="form-control noDisplay" ng-model="tts.voicemail">
-			<i class="fa fa-3x" ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>
-		</label>
-	</div>
-	<div class="col-xs-4 text-center">
-			<input type="submit" name="submit" class="btn btn-lg btn-primary" title="Envoyer le message !" value="Envoyer&nbsp;!">
-	</div>
-	</div>
-	</fieldset>-->

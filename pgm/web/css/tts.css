@@ -29,28 +29,18 @@ form{
 .voiceSwitch span:last-child{
 }
 
+form .infoVoiceMail{
+	margin-top:1em;
+}
+
 form .sendBtn{
 	display:flex;
 	margin-bottom:2em;
 }
 
-/*select.form-control{
-	width:auto;
-	margin:auto;
-}
-
-label{
-	margin-right:1em;
-}
-
-#ttsMessage{
+form .sendBtn button{
 	margin:0 auto;
 }
-
-fieldset .row{
-	margin-top:1.2em;
-}*/
-
 
 form .ttsMessage input{
 	font-size:1.2em;
@@ -68,10 +58,6 @@ form .ttsMessage input{
 }
 /* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
 @media(max-width:768px){
-	/*.radioBtnVoice label{
-		font-size:1em;
-		margin-top:1em;
-	}*/
 	.mainContent{
 		padding:0.5em 0;
 	}
