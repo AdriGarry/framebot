@@ -387,6 +387,28 @@ md-toolbar{
 	box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 2px 2px rgba(0, 0, 0, 0.098), 0px 0px 5px 1px rgba(0, 0, 0, 0.084);
 }
 
+/*md-toolbar button.reloadUI:hover{
+	background-color:#999;
+	border-radius:50%;
+}*/
+
+md-toolbar .reloadUI{
+	color:#2C3E50;
+}
+md-toolbar .reloadUI label{
+	opacity:0;
+	font-size:0.8em;
+}
+md-toolbar .reloadUI:hover label{
+	opacity:0.5;
+}
+md-toolbar .reloadUI button{
+	opacity:0.5;
+}
+md-toolbar .reloadUI:hover button{
+	opacity:0.8;
+}
+
 .main{
 	min-width:50%;/*15em*/
 	max-width:50em;

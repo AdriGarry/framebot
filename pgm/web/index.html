@@ -70,13 +70,13 @@
 			<div class="menu">
 				<ul>
 					<li class="intro">
-						<div class="menu-item">
-							<div onclick="window.location.reload()" title="Reload UI" ng-click="activity.loadUI = true">
+						<div class="menu-item" ng-click="refreshActivity()" title="Refresh Activity">
+							<div>
 								<img src="img/odi.jpg" alt="Odi's face" class=" img-circle img-thumbnail odiFace" ng-class="activity.mode == 'sleep' ? 'sleep' : ''">
 								<img src="img/snow.gif" alt="Odi not available" class=" img-circle img-thumbnail odiFace odiOff" ng-show="activity.mode == 'waiting'">
 								<h1>Odi</h1>
 							</div>
-							<div class="activity" ng-click="refreshActivity()" title="Refresh Activity">
+							<div class="activity">
 								<md-progress-circular ng-show="activity.mode == 'waiting'" md-diameter="106">
 								</md-progress-circular>
 								<span ng-class="activity.mode == 'waiting' ? '' : 'noDisplay'">
@@ -120,23 +120,25 @@
 
 	<!-- LOGS -->
 	<div class="ng-modal ng-slide log" ng-dblclick="refreshLog()" ng-class="logActive ? 'logActive' : ''">
-	<!-- on-long-press="refreshLog()" long-press-duration="700" prevent-click="true" -->
 		<ul class="fakeScroll">
 			<button type="button" class="close" aria-label="Close" ng-click="hideLog()" title="Hide Log"><span aria-hidden="true">&times;</span></button>
 			<li ng-repeat="logLine in logData track by $index" ng-bind-html="toHtml(logLine)">{{logLine}}</li>
 			<a id="bottomLogs"></a>
 		</ul>
-		<!--<div class="logOptions">
-			<i class="fa fa-refresh fa-3x" title="Auto Refresh"></i>
-			<i class="fa fa-plus fa-3x" title="More Logs"></i>
-		</div>-->
 	</div>
 
 	<!-- CONTENT -->
 	<md-toolbar class="ng-slide" ng-class="logActive ? 'logActive' : ''">
 		<div class="md-toolbar-tools ng-slide">
 			<h2>{{viewTitle}} <small>{{viewSubtitle}}</small></h2>
-			<!--<span flex></span>-->
+			<span flex></span>
+			<span class="reloadUI">
+				<label>Reload UI</label>
+				<md-button class="md-icon-button" onclick="window.location.reload()" ng-click="activity.loadUI = true" 
+					aria-label="ReloadUI" title="Reload UI">
+					<i class="fa fa-2x fa-refresh"></i>
+				</md-button>
+			</span>
 		</div>
 	</md-toolbar>
 	<div class="main ng-slide" ng-class="logActive ? 'logActive' : ''">
