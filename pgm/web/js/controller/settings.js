@@ -5,6 +5,8 @@ odiUI.controller('SettingsController', [ '$scope', '$location', 'Settings',
 		$scope.logView = false;
 		$scope.openMenu();
 
+		// $scope.viewTitle = 'Settings';
+
 		Settings.getSettings(function(data){
 			if(data.hasOwnProperty('switch')){
 				var tmp = data.switch.value == 1 ? 'checked' : '';

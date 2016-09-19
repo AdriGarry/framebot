@@ -142,10 +142,9 @@ ul{
 }
 
 .menu ul li.intro{
-	/*height:6em;*/
 	margin:-0.5em 0 -1em;
-	/*min-height:12em;/*10em;*/
 	color:#DDD;
+	/*background-color:#263238;*/
 }
 
 img.odiFace{
@@ -311,7 +310,7 @@ img.odiFace.odiOff{
 }
 
 .menu{
-	position:relative;
+	position:absolute;/*relative*/
 	left:0px;
 }
 .content.menu{
@@ -380,11 +379,19 @@ img.odiFace.odiOff{
 }
 
 /* ------------------------------ MAIN CONTENT ------------------------------- */
+md-toolbar{
+	width:auto;
+	flex-direction:inherit;
+	color:#5e696d!important;
+	background-color:#F2F2F2!important;
+	box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 2px 2px rgba(0, 0, 0, 0.098), 0px 0px 5px 1px rgba(0, 0, 0, 0.084);
+}
+
 .main{
-	min-width:15em;
+	min-width:50%;/*15em*/
 	max-width:50em;
-	/*height:100%;*/
-	margin-left:100px;
+	/*margin-left:100px;*/
+	margin-left:calc(7em + 2%);
 }
 
 .main.logActive{
@@ -394,8 +401,14 @@ img.odiFace.odiOff{
 .content{
 	/*min-width:15em;
 	max-width:50em;*/
-	margin:0 auto;
+	margin:3% auto 0;
 	padding:10px;
+}
+
+.content md-content{
+	color:#5e696d;
+	background-color:#fff;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
 
 .content h3{
@@ -419,7 +432,7 @@ img.odiFace.odiOff{
 	width:95%;
 	margin:2em auto 0;
 	padding:0.5em 1em;
-	background-color:#fff;
+	/*background-color:#fff;*/
 	border-radius:2%;
 }
 
@@ -511,6 +524,15 @@ input[type='radio']{
 	.menu ul li.menu-item{
 		margin:25% auto;/*15%*/
 	}
+	md-toolbar{
+		padding-left:100px;
+	}
+	md-toolbar.logActive{
+		width:calc(100% + 250px);
+	}
+	md-toolbar.logActive .md-toolbar-tools{
+		margin-left:250px;
+	}
 
 
 }
@@ -557,17 +579,22 @@ input[type='radio']{
 	.log.logActive{
 		margin-left:320px;
 	}
-	/*.log.logActive button.close{
-		font-size:9em;
-	}*/
-	/*.logActive ul{
-		font-size:1.4em!important;
-		letter-spacing:-0.1em!important;
-	}*/
+	md-toolbar{
+		padding-left:70px;
+	}
+	md-toolbar.logActive{
+		width:200%;
+		/*width:calc(100% + 250px);*/
+	}
+	md-toolbar.logActive .md-toolbar-tools{
+		margin-left:150px;
+	}
+
 	.main.logActive{
 		margin-left:400px;
 	}
 	.main{
+		min-width:80%;
 		margin-left:70px;
 	}
 	/*.content h2{

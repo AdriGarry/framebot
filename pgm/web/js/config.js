@@ -6,13 +6,19 @@ odiUI.config(function($routeProvider) {
 
 	$routeProvider.when('/TTS', {
 		templateUrl : 'contents/tts.html',
-		controller : "TTSController"
+		controller : 'TTSController',
+		title : 'TTS',
+		subtitle : 'Voice synthesizing'
 	}).when('/Settings', {
 		templateUrl : 'contents/settings.html',
-		controller : "SettingsController"
+		controller : 'SettingsController',
+		title : 'Settings',
+		subtitle : 'Config'
 	}).when('/Remote', {
 		templateUrl : 'contents/remote.html',
-		controller : "RemoteController"
+		controller : 'RemoteController',
+		title : 'Remote',
+		subtitle : 'Send orders to Odi'
 	}).otherwise({
 		redirectTo : '/TTS'
 	});

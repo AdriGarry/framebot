@@ -15,9 +15,10 @@
 	</div>
 </md-toolbar>-->
 
-<h2>Remote</h2>
-<h3>Send orders to Odi</h3>
+<!--<h2>Remote</h2>
+<h3>Send orders to Odi</h3>-->
 
+<!--<md-content flex layout-padding>-->
 <div class="remote">
 	<button class="btn btn-lg btn-default" ng-repeat="command in functionnalCommands | orderBy : 'id'"
 		ng-click="command.onClick();showToast(command.title +  ' ' + (command.paramValue || ''))"
@@ -30,3 +31,4 @@
 		<i class="fa {{command.icon}}"></i>
 	</button>
 </div>
+<!--</md-content>-->

@@ -6,8 +6,8 @@
  * @param $location : variable Angular permettant de modifier l'URL
  * @param constantService : declaration du service pour recuperer les constantes de l'application
  */
-odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$sce', '$timeout', '$mdToast', 'utilService',
-	function($scope, $location, $window, $http, $sce, $timeout, $mdToast, utilService) {
+odiUI.controller('UIController', ['$rootScope', '$scope', '$route', '$location', '$window', '$http', '$sce', '$timeout', '$mdToast', 'utilService',
+	function($rootScope, $scope, $route, $location, $window, $http, $sce, $timeout, $mdToast, utilService) {
 		$scope.admin = false;
 		$scope.logActive = true;
 		$scope.activity = {
@@ -18,6 +18,14 @@ odiUI.controller('UIController', [ '$scope', '$location', '$window', '$http', '$
 		};
 
 		$scope.view = $location.path() || '/TTS'; // Attribution page par defaut
+
+		// $scope.viewTitle = $location.path().substr(1);
+		// $scope.viewTitle = $route.current.viewTitle;
+		$rootScope.$on("$routeChangeSuccess", function(currentRoute, previousRoute){
+			//Change page title, based on Route information
+			$scope.viewTitle = $route.current.title;
+			$scope.viewSubtitle = $route.current.subtitle;
+		});
 
 		/** Pop down toas function */
 		$scope.showToast = function(label) {

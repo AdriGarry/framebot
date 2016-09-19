@@ -5,6 +5,8 @@ odiUI.controller('TTSController', [ '$scope', '$location', 'TTSService',
 		$scope.logView = false;
 		$scope.openMenu();
 
+		// $scope.viewTitle = 'TTS';
+
 		$scope.ttsConfig = TTSService.ttsConfig;
 
 		$scope.tts = { // Initialisation objet TTS

@@ -5,6 +5,8 @@ odiUI.controller('RemoteController', ['$scope', '$location', '$timeout', 'Remote
 		$scope.logView = false;
 		$scope.openMenu();
 
+		// $scope.viewTitle = 'Remote';
+
 
 		$scope.functionnalCommands = RemoteService.functionnalCommands;
 		$scope.systemCommands = RemoteService.systemCommands;
