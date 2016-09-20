@@ -132,11 +132,6 @@ exports.startUI = function startUI(mode){
 				value: '<i>Soon available</i>',
 				color: 'orange',
 				size : 1
-			}, jobs: {
-				lib: 'Jobs',
-				value: '<i>Soon available</i>',
-				color: 'yellow',
-				size : 1
 			}, about: {
 				lib: 'About',
 				value: 'Hi,<br>I\'m Odi the robot !<br>>_',
