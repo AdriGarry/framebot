@@ -88,6 +88,7 @@ exports.startUI = function startUI(mode){
 	/** SETTINGS SECTION */
 	ui.get('/settings', function (req, res){
 		var temp = parseInt(mode);
+		//console.log(temp);
 		var now = new Date();
 		var h = now.getHours();
 		var wakeUpTime;
@@ -97,26 +98,50 @@ exports.startUI = function startUI(mode){
 		var settings = {
 			mode: {
 				lib: 'Mode',
-				value: isNaN(parseFloat(mode)) ? 'Ready' : 'Sleeping for ' + parseInt(mode) + 'h'
+				value: isNaN(parseFloat(mode)) ? 'Ready' : 'Sleeping for ' + parseInt(mode) + 'h',
+				color: 'blue',
+				size : 2
 			}, switch: {
 				lib: 'Switch',
-				value: _buttons.getEtat()
+				value: _buttons.getEtat(),
+				color: 'blueGrey',
+				size : 2
 			}, volume: {
 				lib: 'Volume',
-				value: _buttons.getEtat() == 1 ? 'High' : 'Normal'
+				value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'High' : 'Normal') : 'Mute',
+				color: 'teal',
+				size : 1
 			}, voiceMail: {
 				lib: 'VoiceMail',
-				value: _voiceMail.areThereAnyMessages() + ' '
-					+ (_voiceMail.areThereAnyMessages() > 1 ? ' messages' : 'message')
-			}, alarms: {
-				lib: 'Alarms',
-				value: '<i>Soon available</i>'
+				value: _voiceMail.areThereAnyMessages()/* + ' '
+					+ (_voiceMail.areThereAnyMessages() > 1 ? ' messages' : 'message')*/,
+				color: 'indigo',
+				size : 2
 			}, cpuUsage: {
 				lib: 'CPU usage',
-				value: _utils.getCPUUsage() + ' %'
+				value: _utils.getCPUUsage(),// + ' %',
+				color: 'cyan',
+				size : 2
 			}, cpuTemp: {
 				lib: 'CPU temperature',
-				value: _utils.getCPUTemp() + ' ° C'
+				value: _utils.getCPUTemp(),// + ' ° C',
+				color: 'lime',
+				size : 2
+			}, alarms: {
+				lib: 'Alarms',
+				value: '<i>Soon available</i>',
+				color: 'orange',
+				size : 1
+			}, jobs: {
+				lib: 'Jobs',
+				value: '<i>Soon available</i>',
+				color: 'yellow',
+				size : 1
+			}, about: {
+				lib: 'About',
+				value: 'Hi,<br>I\'m Odi the robot !<br>>_',
+				color: 'indigo',
+				size : 2
 			}
 		};
 		// console.log(settings);

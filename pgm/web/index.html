@@ -132,13 +132,10 @@
 		<div class="md-toolbar-tools ng-slide">
 			<h2>{{viewTitle}} <small>{{viewSubtitle}}</small></h2>
 			<span flex></span>
-			<span class="reloadUI">
-				<label>Reload UI</label>
-				<md-button class="md-icon-button" onclick="window.location.reload()" ng-click="activity.loadUI = true" 
-					aria-label="ReloadUI" title="Reload UI">
-					<i class="fa fa-2x fa-refresh"></i>
-				</md-button>
-			</span>
+			<md-button class="md-icon-button" onclick="setTimeout(function(){window.location.reload()},500);" ng-click="activity.loadUI = true" 
+				aria-label="ReloadUI" title="Reload UI">
+				<i class="fa fa-2x fa-refresh"></i>
+			</md-button>
 		</div>
 	</md-toolbar>
 	<div class="main ng-slide" ng-class="logActive ? 'logActive' : ''">

@@ -392,7 +392,7 @@ md-toolbar{
 	border-radius:50%;
 }*/
 
-md-toolbar .reloadUI{
+/*md-toolbar .reloadUI{
 	color:#2C3E50;
 }
 md-toolbar .reloadUI label{
@@ -407,7 +407,7 @@ md-toolbar .reloadUI button{
 }
 md-toolbar .reloadUI:hover button{
 	opacity:0.8;
-}
+}*/
 
 .main{
 	min-width:50%;/*15em*/
@@ -433,7 +433,7 @@ md-toolbar .reloadUI:hover button{
 	box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
 
-.content h3{
+/*.content h3{
 	margin-bottom:0;
 }
 .content h3{
@@ -441,7 +441,7 @@ md-toolbar .reloadUI:hover button{
 	color:#bbc1c4;
 	border-top:2px solid #ced9e4;
 	font-style:italic;
-}
+}*/
 
 .content hr.introBorder{
 	width:20em;
@@ -473,6 +473,38 @@ input[type='radio']{
 	font-size:15px;
 }
 
+md-grid-list figure{
+	font-size:1.3em;
+}
+md-grid-list figure > span{
+	margin-top:-1em;
+}
+md-grid-list span.value{
+	vertical-align:middle;
+}
+md-grid-list figure md-grid-tile-footer{
+	height:40px;
+	font-size:1.3em!important;
+}
+
+md-grid-list figure .about{
+	display:block;
+	font-family:"Courier New";
+	padding:0 10px;
+	font-size:0.9em;
+	font-weight:bold;
+}
+
+/*#0097A8*/
+.blue{background:rgba(187, 222, 251, 1);}
+.blueGrey{background:rgba(207, 216, 220, 1);}
+.purple{background:rgba(209, 196, 233, 1);}
+.indigo{background:rgba(197, 202, 233, 1);}
+.yellow{background:rgba(255, 236, 179, 1);}
+.lime{background:rgba(240, 244, 195, 1);}
+.cyan{background:rgba(178, 235, 242, 1);}
+.teal{background:rgba(178, 223, 219, 1);}
+.orange{background:rgba(255, 204, 188, 1);}
 
 /*.pauseUI{
 	display:none;
@@ -555,7 +587,9 @@ input[type='radio']{
 	md-toolbar.logActive .md-toolbar-tools{
 		margin-left:250px;
 	}
-
+	md-grid-list figure md-grid-tile-footer h3{
+		font-size:0.8em!important;
+	}
 
 }
 /* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
@@ -619,12 +653,15 @@ input[type='radio']{
 		min-width:80%;
 		margin-left:70px;
 	}
-	/*.content h2{
-		margin-top:0;
-	}*/
-	.content h3{
-		font-size:1.2em;
+
+	md-grid-list figure{
+		font-size:0.8em!important;
 	}
+	md-grid-list figure md-grid-tile-footer{
+		height:auto;
+		padding:1px 0;
+	}
+
 	.pauseUI.active p{
 		font-size:1.5em;
 	}

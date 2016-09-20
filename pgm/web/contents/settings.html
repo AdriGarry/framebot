@@ -4,7 +4,7 @@
 <h3>Config</h3>-->
 
 <md-content flex layout-padding>
-<div class="configTable">
+<!--<div class="configTable">
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -19,7 +19,24 @@
 			</tr>
 		</tbody>
 	</table>
-</div>
+</div>-->
+
+<md-grid-list md-cols="1" md-cols-xs="2" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="1:1"
+	md-row-height="4:3" md-gutter="12px">
+	<md-grid-tile ng-repeat="conf in settings track by $index"
+		md-rowspan="conf.size" md-colspan="conf.size" md-colspan-sm="1" md-colspan-xs="1" ng-class="conf.color"><!-- ng-class="conf.color"-->
+		<!--<md-icon></md-icon>-->
+		<span ng-bind-html="toHtml(conf.value)"></span>
+		<md-grid-tile-footer><h3>{{conf.lib}}</h3></md-grid-tile-footer>
+	</md-grid-tile>
+</md-grid-list>
+
+<!--<md-progress-circular md-mode="determinate" value="12">12%</md-progress-circular>
+
+<svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+              <use xlink:href="#piechart" mask="url(#piemask)" />
+              <text x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82<tspan font-size="0.2" dy="-0.07">%</tspan></text>
+            </svg>-->
 </md-content>
 
 <!--<div class="material-switch center-block">

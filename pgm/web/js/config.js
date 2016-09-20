@@ -12,8 +12,8 @@ odiUI.config(function($routeProvider) {
 	}).when('/Settings', {
 		templateUrl : 'contents/settings.html',
 		controller : 'SettingsController',
-		title : 'Settings',
-		subtitle : 'Config'
+		title : 'Dashboard',
+		subtitle : 'Settings'
 	}).when('/Remote', {
 		templateUrl : 'contents/remote.html',
 		controller : 'RemoteController',

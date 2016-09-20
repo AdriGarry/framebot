@@ -1,13 +1,14 @@
 /* -------------- Feuille de style de la page d'accueil ------------- */
-.configTable{
+
+figure label.switch{
+	transform:rotate(270deg);
+}
+/*.configTable{
 	margin:2em auto 0;
 	background-color:#fff;
 	border-radius:2%;
 }
-
-table tbody tr td:nth-child(2) div{
-	/*padding-left:2em;*/
-}
+*/
 
 /* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */
 @media(min-width:768px){
@@ -22,5 +23,8 @@ table tbody tr td:nth-child(2) div{
 	table tbody tr td:nth-child(1){
 		/*width:50%;*/
 		padding-left:2em;
+	}
+	figure label.switch{
+		zoom:1.8;
 	}
 }
