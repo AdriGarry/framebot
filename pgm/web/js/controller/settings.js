@@ -8,6 +8,19 @@ odiUI.controller('SettingsController', [ '$scope', '$location', 'Settings',
 		// $scope.viewTitle = 'Settings';
 
 		Settings.getSettings(function(data){
+			if(data.hasOwnProperty('mode')){
+				tmp = data.mode.value;
+				if(data.mode.value == 'Ready'){
+					data.mode.value = '<span class="fa-2x" title="I\'m ready !">' + tmp + '</span>';
+				}else{
+					if(data.mode.value == 255){
+						data.mode.value = '<i class="fa fa-4x fa-moon-o" title="Odi\'s sleeping"></i>';
+					}else{
+						data.mode.value = '<span class="fa-4x">' + tmp + '</span><i class="fa fa-3x fa-moon-o"></i>';
+					}
+					
+				}
+			}
 			if(data.hasOwnProperty('switch')){
 				var tmp = data.switch.value == 1 ? 'checked' : '';
 				data.switch.value = '<div class="material-switch"><input id="switch" type="checkbox"';
