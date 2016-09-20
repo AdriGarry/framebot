@@ -8,6 +8,16 @@ odiUI.controller('SettingsController', [ '$scope', '$location', 'Settings',
 		// $scope.viewTitle = 'Settings';
 
 		Settings.getSettings(function(data){
+			console.log(data);
+			console.log(data.mode);
+			/*for(var item in data){
+				console.log(item);
+				console.log(item.value);
+				if(item.value && item.value.indexOf('Soon available') > -1){
+					delete data.item;
+					console.log('delete ' + item);
+				}
+			}*/
 			if(data.hasOwnProperty('mode')){
 				tmp = data.mode.value;
 				if(data.mode.value == 'Ready'){
@@ -28,12 +38,17 @@ odiUI.controller('SettingsController', [ '$scope', '$location', 'Settings',
 			}
 			if(data.hasOwnProperty('volume')){
 				tmp = data.volume.value;
-				data.volume.value = '<i class="fa fa-4x fa-' + (tmp == 'Normal' ? 'volume-down' : tmp == 'Mute' ? 'bell-slash' : 'volume-up')  + '"></i>';
+				data.volume.value = '<i class="fa fa-4x fa-'
+					+ (tmp == 'Normal' ? 'volume-down' : tmp == 'Mute' ? 'bell-slash' : 'volume-up') + '"></i></center>';
+			}
+			if(data.hasOwnProperty('jukebox')){
+				tmp = data.jukebox.value;
+				data.jukebox.value = '<i class="fa fa-3x fa-music"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-3x fa-random"></i>';
 			}
 			if(data.hasOwnProperty('voiceMail')){
 				tmp = data.voiceMail.value;
 				data.voiceMail.value = '<span class="value fa-4x">' + tmp + '</span><i class="fa fa-2x fa-envelope'
-					+ (tmp == 0 ? '-o' :'') + '"></i>';
+					+ (tmp == 0 ? '-o' :'') + '"></i>';//<br><button class="btn btn-default"><i class="fa fa-2x fa-trash"></i></button>';
 			}
 			if(data.hasOwnProperty('cpuTemp')){
 				tmp = data.cpuTemp.value;

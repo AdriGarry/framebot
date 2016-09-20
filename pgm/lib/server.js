@@ -100,43 +100,81 @@ exports.startUI = function startUI(mode){
 				lib: 'Mode',
 				value: isNaN(parseFloat(mode)) ? 'Ready' : parseInt(mode),
 				color: 'blue',
-				size : 2
+				rowspan : 1,
+				colspan: 1
 			}, switch: {
 				lib: 'Switch',
 				value: _buttons.getEtat(),
 				color: 'blueGrey',
-				size : 2
+				rowspan : 1,
+				colspan: 1
 			}, volume: {
 				lib: 'Volume',
 				value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'High' : 'Normal') : 'Mute',
+				color: 'lime',
+				rowspan : 1,
+				colspan: 1
+			}, tts: {
+				lib: 'TTS - Exclamation',
+				value: '<i>Soon available</i>',
+				color: 'cyan',
+				rowspan : 1,
+				colspan: 2
+			}, jukebox: {
+				lib: 'Jukebox & Radio',
+				value: '<i>Soon available</i>',
 				color: 'teal',
-				size : 1
+				rowspan : 1,
+				colspan: 1
 			}, voiceMail: {
 				lib: 'VoiceMail',
 				value: _voiceMail.areThereAnyMessages()/* + ' '
 					+ (_voiceMail.areThereAnyMessages() > 1 ? ' messages' : 'message')*/,
 				color: 'indigo',
-				size : 2
+				rowspan : 1,
+				colspan: 1
+			}, dateTime: {
+				lib: 'Date & Time',
+				value: '<i class="fa fa-3x fa-calendar"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-3x fa-clock-o"></i><br><i>Soon available</i>',
+				color: 'blue',
+				rowspan: 1,
+				colspan: 2
+			}, timer: {
+				lib: 'timer',
+				value: '<i class="fa fa-3x fa-hourglass"></i>',
+				color: 'blue',
+				rowspan: 1,
+				colspan: 1
 			}, cpuUsage: {
 				lib: 'CPU usage',
 				value: _utils.getCPUUsage(),// + ' %',
-				color: 'cyan',
-				size : 2
+				color: 'blueGrey',
+				rowspan : 1,
+				colspan: 1
 			}, cpuTemp: {
 				lib: 'CPU temperature',
 				value: _utils.getCPUTemp(),// + ' ° C',
 				color: 'lime',
-				size : 2
+				rowspan : 1,
+				colspan: 1
 			}, alarms: {
 				lib: 'Alarms',
 				value: '<i>Soon available</i>',
 				color: 'orange',
-				size : 1
+				rowspan : 1,
+				colspan: 1
 			}, about: {
 				lib: 'About',
 				value: 'Hi,<br>I\'m Odi the robot !',
 				color: 'indigo',
-				size : 2
+				rowspan : 1,
+				colspan: 1
+			}, system: {
+				lib: 'System',
+				value: '<i>Soon available</i>',
+				color: 'lime',
+				rowspan : 1,
+				colspan: 1
 			}
 		};
 		// console.log(settings);

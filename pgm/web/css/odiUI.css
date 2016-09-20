@@ -310,7 +310,8 @@ img.odiFace.odiOff{
 }
 
 .menu{
-	position:absolute;/*relative*/
+	position:fixed;/*absolute*/
+	top:0;
 	left:0px;
 }
 .content.menu{
@@ -380,7 +381,9 @@ img.odiFace.odiOff{
 
 /* ------------------------------ MAIN CONTENT ------------------------------- */
 md-toolbar{
-	width:auto;
+	position:fixed;
+	top:0;
+	width:100%;
 	flex-direction:inherit;
 	color:#5e696d!important;
 	background-color:#F2F2F2!important;
@@ -413,6 +416,7 @@ md-toolbar .reloadUI:hover button{
 	min-width:50%;/*15em*/
 	max-width:50em;
 	/*margin-left:100px;*/
+	padding-top:40px;
 	margin-left:calc(7em + 2%);
 }
 
