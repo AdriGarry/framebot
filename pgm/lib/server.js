@@ -134,7 +134,7 @@ exports.startUI = function startUI(mode){
 				size : 1
 			}, about: {
 				lib: 'About',
-				value: 'Hi,<br>I\'m Odi the robot !<br>>_',
+				value: 'Hi,<br>I\'m Odi the robot !',
 				color: 'indigo',
 				size : 2
 			}
