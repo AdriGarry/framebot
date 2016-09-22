@@ -61,14 +61,16 @@
 		<md-button ng-click="hideLogs()" class="hideLogs md-primary" hide-gt-md aria-label="Hide logs">
 			<i class="fa fa-3x fa-times"></i>
 		</md-button>
-
 	</md-sidenav>
 
-	<div class="main" layout="column" layout-align="top center">
+<!--<div layout="column" layout-align="top center">-->
+	<div class="main" layout-align="top center">
+	<md-content flex layout-padding>
 		<p>{{message}}</p>
 		<md-button ng-click="showLogs()" class="md-fab md-primary md-hue-2 logButton" aria-label="Logs">
 			<i class="fa fa-2x fa-rocket"></i>
 		</md-button>
+
 		<!--<ul ng-repeat="i in [1,2,3,4,5,6,7,8]">
 			<li ng-repeat="i in [1,2,3,4,5,6,7,8]">{{i}}</li>
 		</ul>-->
@@ -90,7 +92,9 @@
 			<h3>ABOUT...</h3>
 			<p>adrigarry.com</p>
 		</footer>
+	</md-content>
 	</div>
+<!--</div>-->
 
 </body>
 </html>

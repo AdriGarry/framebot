@@ -5,6 +5,10 @@ md-toolbar.toolbar{
 	background-color:#2C3E50;
 }
 
+button>i{
+	vertical-align:middle;
+}
+
 /*************** LOGS ***************/
 .logButton{
 	position:fixed;
@@ -24,7 +28,7 @@ md-sidenav{
 	padding-top:5em;
 }
 md-grid-list{
-	position:initial;
+	/*position:initial;*/
 }
 
 .blue{background:rgba(187, 222, 251, 1);}
@@ -39,7 +43,6 @@ md-grid-list{
 
 /*************** FOOTER ***************/
 footer{
-	width:100%;
 	min-height:5em;
 	margin-top:2em;
 	color:#fff;
