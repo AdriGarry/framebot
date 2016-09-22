@@ -1,9 +1,20 @@
 'use strict'
-app.controller('UIController', function($scope, $timeout, $mdSidenav, UIService){
+app.controller('UIController', function($scope, $timeout, $mdSidenav, $mdToast, UIService){
+	$scope.admin = false;
 	$scope.message = 'UI V3';
 
 	$scope.logData;
 	$scope.showLogs = showLogs();
+
+	/** Function to pop down toast */
+	$scope.showToast = function(label) {
+		$mdToast.show(
+			$mdToast.simple()
+			.textContent(label)
+			.position('top right')
+			.hideDelay(2500)
+		);
+	};
 
 	/** Function to show Logs */
 	function showLogs(){
@@ -25,7 +36,7 @@ app.controller('UIController', function($scope, $timeout, $mdSidenav, UIService)
 
 	/** Function to refresh logs */
 	$scope.refreshLog = function(){
-		//$scope.showToast('Logs');
+		$scope.showToast('Logs');
 		console.log('refreshing logs');
 		var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 		UIService.getLogs(function(logs){
@@ -41,7 +52,6 @@ app.controller('UIController', function($scope, $timeout, $mdSidenav, UIService)
 				}
 			});
 			$scope.logData = logs.split('\n');
-			console.log($scope.logData);
 		});
 	};
 
@@ -75,22 +85,22 @@ app.controller('UIController', function($scope, $timeout, $mdSidenav, UIService)
 				color: 'lime',
 				rowspan : 1,
 				colspan: 1
-			}, tts: {
-				lib: 'TTS - Exclamation',
-				value: '<i>Soon available</i>',
-				color: 'cyan',
-				rowspan : 1,
-				colspan: 2
-			}, jukebox: {
-				lib: 'Jukebox',
-				value: '<i>Soon available</i>',
-				color: 'teal',
-				rowspan : 1,
-				colspan: 1
 			}, voiceMail: {
 				lib: 'VoiceMail',
 				value: 0,
 				color: 'indigo',
+				rowspan : 1,
+				colspan: 1
+			}, exclamation: {
+				lib: 'Exclamation',
+				value: '<i>Soon available</i>',
+				color: 'cyan',
+				rowspan : 1,
+				colspan: 1
+			}, jukebox: {
+				lib: 'Jukebox',
+				value: '<i>Soon available</i>',
+				color: 'teal',
 				rowspan : 1,
 				colspan: 1
 			}, dateTime: {
@@ -120,7 +130,7 @@ app.controller('UIController', function($scope, $timeout, $mdSidenav, UIService)
 			}, system: {
 				lib: 'System',
 				value: '<i>Soon available</i>',
-				color: 'lime',
+				color: 'lightGreen',
 				rowspan : 1,
 				colspan: 1
 			}
@@ -131,7 +141,7 @@ app.controller('UIController', function($scope, $timeout, $mdSidenav, UIService)
 
 
 
-/* Sercice Util */
+/* UIFactory FACTORY // SERVICE ??? */
 app.factory('UIService', ['$http', function($http){
 
 	var UIService = {};

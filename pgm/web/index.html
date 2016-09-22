@@ -33,7 +33,7 @@
 </head>
 <body ng-controller="UIController">
 
-	<md-toolbar class="toolbar">
+	<md-toolbar class="toolbar" ng-dblclick="admin = true">
 		<div class="md-toolbar-tools">
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" ng-class="activity.mode == 'sleep' ? 'sleep' : ''">
 			<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" ng-show="activity.mode == 'waiting'">
@@ -49,10 +49,10 @@
 			<!--<md-button ng-click="hideLogs()" class="hideLogs md-icon-button md-button md-ink-ripple" title="Hide logs" aria-label="Hide logs">
 				<i class="fa fa-times"></i>
 			</md-button>-->
-	<div class="logs">
+	<div class="logs" ng-dblclick="refreshLog()">
 		<!--<div>22/09 13:54:47 Odi/ [val:1]  Cancel btn pressed for 1.3 sec [1,3]<br>22/09 13:54:47 Odi/ MUTE  :|<br>22/09 13:54:47 Odi/ Restarting di !!<br>LastTTS cleared.<br>MUTE  :|<br><br>>> Exit Odi Pgm [code:0]<br>************************<br><br>MUTE  :|<br>  _____       _         <br> /\  __`\    /\ \  __    <br> \ \ \/\ \   \_\ \/\_\   <br>  \ \ \ \ \  /'_` \/\ \  <br>   \ \ \_\ \/\ \L\ \ \ \ <br>    \ _____\ \___,_\ \_\<br>     \/_____/\/__,_ /\/_/<br>22/09 13:54:48 Odi/ >> Odi started in normal mode []<br>22/09 13:54:49 Odi/ Led Activity nitialised [awake]<br>22/09 13:54:52 Odi/ Buttons actions initialised<br>22/09 13:54:52 Odi/ Clock jobs initialised in regular mode<br>22/9 3:54:52 Odi/ Alarms jobs initialised<br>22/09 13:54:52 Odi/ AutoLifeCycle jobs initialised [for time to sleep]<br>22/09 13:54:52 Odi/ ackground jobs initialised<br>22/09 13:54:53 Odi/ Starting voiceMail flag...<br>22/09 13:54:53 Odi/ Odi's UI server started []<br>22/09 3:54:57 Odi/ UI /mute [192.168.1.254]<br>22/09 13:54:57 Odi/ MUTE  :|<br>22/09 13:54:58 Odi/ UI /monitoring [192.168.1.254]<br>22/09 3:54:59 Odi/ Checking VoiceMail...<br>22/09 13:54:59 Odi/ No VoiceMail Message<br>22/09 13:54:59 Odi/ UI /odi [192.168.1.254]<br>22/09 3:54:59 Odi/ Restarting Odi !!<br>LastTTS cleared.<br>MUTE  :|<br><br>>> Exit Odi Pgm [code:0]<br>************************<br><br>MUTE  :|<br  _____       __         <br> /\  __`\    /\ \  __    <br> \ \ \/\ \   \_\ \/\_\   <br>  \ \ \ \ \  /'_` \/\ \  <br>   \ \ \_\ \/\ \L\ \ \  br>    \ \_____\ \___,_\ \_\<br>     \/_____/\/__,_ /\/_/<br>22/09 13:55:00 Odi/ >> Odi started in normal mode []<br>22/09 13:55:01 Odi/ ed ctivity initialised [awake]<br>22/09 13:55:04 Odi/ Buttons actions initialised<br>22/09 13:55:04 Odi/ Clock jobs initialised in regular modebr>22/09 13:55:04 Odi/ Alarms jobs initialised<br>22/09 13:55:04 Odi/ AutoLifeCycle jobs initialised [for time to sleep]<br>22/09 3:55:04 Odi/ Background jobs initialised<br>22/09 13:55:04 Odi/ Starting voiceMail flag...<br>22/09 13:55:04 Odi/ Odi's UI server started []br>22/09 13:55:05 Odi/ UI /log?logSize=300 [192.168.1.254]<br>10<br>9<br>8<br>7<br>6<br>5<br>4<br>3<br>2<br>1<br>0-->
 
-		<ul class="fakeScroll">
+		<ul><!-- class="fakeScroll"-->
 			<!--<button type="button" class="close" aria-label="Close" ng-click="hideLog()" title="Hide Log"><span aria-hidden="true">&times;</span></button>-->
 			<li ng-repeat="logLine in logData track by $index">{{logLine}}</li><!-- ng-bind-html="toHtml(logLine)"-->
 			<a id="bottomLogs"></a>
@@ -70,13 +70,13 @@
 
 	<div class="main" layout-align="top center">
 		<md-content flex layout-padding>
-			<md-button ng-click="showLogs()" class="md-fab md-primary md-hue-2 logButton" title="Logs" aria-label="Logs">
+			<md-button ng-click="showLogs()" ng-show="admin" class="md-fab md-primary md-hue-2 logButton" title="Logs" aria-label="Logs">
 				<i class="fa fa-2x fa-rocket"></i>
 			</md-button>
 
 			<md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
 				md-row-height="4:3" md-gutter="12px">
-				<md-grid-tile md-rowspan="1" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="lime">
+				<md-grid-tile md-rowspan="1" md-rowspan-xs="2" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="lightGreen">
 					<form ng-submit="tts.submit()" class="mainContent">
 						<!--<div layout="row">
 							<md-switch ng-model="tts.voice" ng-true-value="':1'" ng-false-value="':3'" class="voiceSwitch md-primary"
@@ -106,7 +106,7 @@
 
 						<md-input-container class="md-block center-block ttsMessage" flex="90">
 							<label>Message</label>
-							<input required name="ttsMsg" ng-model="tts.msg" ng-change="tts.cleanText()">
+							<input name="ttsMsg" ng-model="tts.msg" ng-change="tts.cleanText()"><!--required-->
 							<!--<input name="ttsMsg" ng-model="tts.msg" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
 							<div ng-messages="ttsMsg.$error" role="alert" multiple>
 								<div ng-message="required" class="my-message">Required&nbsp;!</div>

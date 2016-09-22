@@ -1,4 +1,4 @@
-/** Odi UI CSS**/
+/*------------------------------ Odi UI CSS ------------------------------- */
 
 ul{margin:0;padding:0;}
 
@@ -35,7 +35,16 @@ button>i{
 	vertical-align:text-bottom;
 }
 
-/*************** LOGS ***************/
+/*------------------------------ TOAST ------------------------------- */
+md-toast .md-toast-content span{
+	font-size:1.5em;
+}
+md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content{
+	/*background-color:#3f5973;*/
+	background-color:#0097A8;/*#ff6333;*/
+}
+
+/*------------------------------ LOGS ------------------------------- */
 .logButton{
 	position:fixed;
 	left:1em;
@@ -94,8 +103,7 @@ md-sidenav div{
 }
 
 
-
-/*************** MAIN ***************/
+/*------------------------------ MAIN ------------------------------- */
 .main{
 	padding-top:60px;/*5em*/
 }
@@ -115,7 +123,7 @@ md-grid-list md-grid-tile{
 
 .blue{background:rgba(187, 222, 251, 1);}
 .blueGrey{background:rgba(207, 216, 220, 1);}
-.purple{background:rgba(209, 196, 233, 1);}
+.lightGreen{background:rgba(220, 237, 200, 1);}
 .indigo{background:rgba(197, 202, 233, 1);}
 .yellow{background:rgba(255, 236, 179, 1);}
 .lime{background:rgba(240, 244, 195, 1);}
@@ -123,11 +131,13 @@ md-grid-list md-grid-tile{
 .teal{background:rgba(178, 223, 219, 1);}
 .orange{background:rgba(255, 204, 188, 1);}
 
+.purple{background:rgba(209, 196, 233, 1);}
+
 .md-primary{
 	background-color:#F44235!important;
 }
 
-/*************** FOOTER ***************/
+/* ------------------------------ FOOTER ------------------------------- */
 footer{
 	min-height:5em;
 	margin-top:2em;
