@@ -1,6 +1,6 @@
 'use strict'
 app.controller('UIController', function($scope, $timeout, $mdSidenav){
-	$scope.message = 'UIController V3';
+	$scope.message = 'UI V3';
 
 	$scope.showLogs = showLogs();
 	function showLogs(){
@@ -13,9 +13,11 @@ app.controller('UIController', function($scope, $timeout, $mdSidenav){
 	};
 	$scope.hideLogs = function(){
 		// Component lookup should always be available since we are not using `ng-if`
+		// $timeout(function(){
 		$mdSidenav('logs').close().then(function(){
 			console.log('hideLogs()');
 		});
+		// }, 200);
 	};
 
 
@@ -45,7 +47,7 @@ app.controller('UIController', function($scope, $timeout, $mdSidenav){
 				rowspan : 1,
 				colspan: 2
 			}, jukebox: {
-				lib: 'Jukebox & Radio',
+				lib: 'Jukebox',
 				value: '<i>Soon available</i>',
 				color: 'teal',
 				rowspan : 1,
@@ -65,31 +67,19 @@ app.controller('UIController', function($scope, $timeout, $mdSidenav){
 			}, timer: {
 				lib: 'timer',
 				value: '<i class="fa fa-3x fa-hourglass"></i>',
-				color: 'blue',
+				color: 'indigo',
 				rowspan: 1,
 				colspan: 1
-			}, cpuUsage: {
-				lib: 'CPU usage',
-				value: 2,
-				color: 'blueGrey',
-				rowspan : 1,
-				colspan: 1
-			}, cpuTemp: {
-				lib: 'CPU temperature',
+			}, cpu: {
+				lib: 'CPU',
 				value: 38,
 				color: 'lime',
 				rowspan : 1,
-				colspan: 1
+				colspan: 2
 			}, alarms: {
 				lib: 'Alarms',
 				value: '<i>Soon available</i>',
 				color: 'orange',
-				rowspan : 1,
-				colspan: 1
-			}, about: {
-				lib: 'About',
-				value: 'Hi,<br>I\'m Odi the robot !',
-				color: 'indigo',
 				rowspan : 1,
 				colspan: 1
 			}, system: {
