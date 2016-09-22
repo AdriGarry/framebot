@@ -1,14 +1,60 @@
 /** Odi UI CSS**/
 
-body>md-toolbar{
+md-toolbar.toolbar{
 	position:fixed;
-}
-.main{
-	padding-top:2em;
+	background-color:#2C3E50;
 }
 
+/*************** LOGS ***************/
 .logButton{
 	position:fixed;
 	left:1em;
 	bottom:3em;
+}
+md-sidenav{
+	width:70%;
+	max-width:70%;
+}
+.hideLogs{
+	float:right;
+}
+
+/*************** MAIN ***************/
+.main{
+	padding-top:5em;
+}
+md-grid-list{
+	position:initial;
+}
+
+.blue{background:rgba(187, 222, 251, 1);}
+.blueGrey{background:rgba(207, 216, 220, 1);}
+.purple{background:rgba(209, 196, 233, 1);}
+.indigo{background:rgba(197, 202, 233, 1);}
+.yellow{background:rgba(255, 236, 179, 1);}
+.lime{background:rgba(240, 244, 195, 1);}
+.cyan{background:rgba(178, 235, 242, 1);}
+.teal{background:rgba(178, 223, 219, 1);}
+.orange{background:rgba(255, 204, 188, 1);}
+
+/*************** FOOTER ***************/
+footer{
+	width:100%;
+	min-height:5em;
+	margin-top:2em;
+	color:#fff;
+	background-color:#263238;
+	text-align:center;
+	font-size:1.3em;
+}
+
+
+
+/* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */
+@media(min-width:768px){
+
+}
+/* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
+@media(max-width:768px){
+
 }
