@@ -1,5 +1,8 @@
 /** Odi UI CSS**/
 
+ul{margin:0;padding:0;}
+
+
 md-toolbar.toolbar{
 	position:fixed;
 	background-color:#607D8B;/*#2C3E50*/
@@ -38,6 +41,11 @@ button>i{
 	left:1em;
 	bottom:2em;
 }
+.logButton.active{
+	left:1em;
+	bottom:2em;
+	margin-left:70%;
+}
 md-sidenav{
 	width:70%;
 	max-width:70%;
@@ -49,9 +57,16 @@ md-sidenav div{
 	overflow:auto;
 }
 
+.logs ul{
+	font-family:'Courier New';
+	font-size:0.85em;
+	line-height:0.95em;
+	font-stretch:condensed;
+	word-break:break-all;
+	white-space:pre-wrap;
+}
+
 /*md-sidenav md-toolbar*/ .tools{
-	/*position:fixed;
-	bottom:0;*/
 	width:100%;
 	height:70px;
 	background-color:#2C3E50!important;
@@ -68,12 +83,10 @@ md-sidenav div{
 }
 
 .hideLogs{
-	/*float:right;*/
 	position:absolute;
 	right:0;
 	margin-right:0;
 	color:rgba(255,255,255,0.87);
-	/*font-size:7em;*/
 	zoom:1.8;
 }
 .hideLogs i{
@@ -136,6 +149,14 @@ footer{
 @media(max-width:768px){
 	img.odiFace.odiOff{
 		margin-left:-3.5em;
+	}
+
+	.logs ul{
+		font-size:0.75em;
+		line-height:0.95em;
+		font-stretch:condensed;
+		word-break:break-all;
+		white-space:pre-wrap;
 	}
 
 	md-grid-list md-grid-tile md-grid-tile-footer{

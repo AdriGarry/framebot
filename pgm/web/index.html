@@ -39,33 +39,38 @@
 			<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" ng-show="activity.mode == 'waiting'">
 			<h1>Odi UI</h1>
 			<span flex></span>
-			<md-button class="md-icon-button" title="Refresh" aria-label="Refresh"><!--md-fab md-mini-->
+			<md-button class="md-icon-button"  title="Reload UI" aria-label="Reload UI" onclick="setTimeout(function(){window.location.reload()},500);"><!--md-fab md-mini-->
 				<i class="fa fa-2x fa-retweet"></i>
 			</md-button>
 		</div>
 	</md-toolbar>
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
-			<md-button ng-click="hideLogs()" class="hideLogs md-icon-button md-button md-ink-ripple" title="Hide logs" aria-label="Hide logs">
+			<!--<md-button ng-click="hideLogs()" class="hideLogs md-icon-button md-button md-ink-ripple" title="Hide logs" aria-label="Hide logs">
 				<i class="fa fa-times"></i>
-				<!--<span>X</span>-->
-			</md-button>
+			</md-button>-->
 	<div class="logs">
-		<div>22/09 13:54:47 Odi/ [val:1]  Cancel btn pressed for 1.3 sec [1,3]<br>22/09 13:54:47 Odi/ MUTE  :|<br>22/09 13:54:47 Odi/ Restarting di !!<br>LastTTS cleared.<br>MUTE  :|<br><br>>> Exit Odi Pgm [code:0]<br>************************<br><br>MUTE  :|<br>  _____       _         <br> /\  __`\    /\ \  __    <br> \ \ \/\ \   \_\ \/\_\   <br>  \ \ \ \ \  /'_` \/\ \  <br>   \ \ \_\ \/\ \L\ \ \ \ <br>    \ _____\ \___,_\ \_\<br>     \/_____/\/__,_ /\/_/<br>22/09 13:54:48 Odi/ >> Odi started in normal mode []<br>22/09 13:54:49 Odi/ Led Activity nitialised [awake]<br>22/09 13:54:52 Odi/ Buttons actions initialised<br>22/09 13:54:52 Odi/ Clock jobs initialised in regular mode<br>22/9 3:54:52 Odi/ Alarms jobs initialised<br>22/09 13:54:52 Odi/ AutoLifeCycle jobs initialised [for time to sleep]<br>22/09 13:54:52 Odi/ ackground jobs initialised<br>22/09 13:54:53 Odi/ Starting voiceMail flag...<br>22/09 13:54:53 Odi/ Odi's UI server started []<br>22/09 3:54:57 Odi/ UI /mute [192.168.1.254]<br>22/09 13:54:57 Odi/ MUTE  :|<br>22/09 13:54:58 Odi/ UI /monitoring [192.168.1.254]<br>22/09 3:54:59 Odi/ Checking VoiceMail...<br>22/09 13:54:59 Odi/ No VoiceMail Message<br>22/09 13:54:59 Odi/ UI /odi [192.168.1.254]<br>22/09 3:54:59 Odi/ Restarting Odi !!<br>LastTTS cleared.<br>MUTE  :|<br><br>>> Exit Odi Pgm [code:0]<br>************************<br><br>MUTE  :|<br  _____       __         <br> /\  __`\    /\ \  __    <br> \ \ \/\ \   \_\ \/\_\   <br>  \ \ \ \ \  /'_` \/\ \  <br>   \ \ \_\ \/\ \L\ \ \  br>    \ \_____\ \___,_\ \_\<br>     \/_____/\/__,_ /\/_/<br>22/09 13:55:00 Odi/ >> Odi started in normal mode []<br>22/09 13:55:01 Odi/ ed ctivity initialised [awake]<br>22/09 13:55:04 Odi/ Buttons actions initialised<br>22/09 13:55:04 Odi/ Clock jobs initialised in regular modebr>22/09 13:55:04 Odi/ Alarms jobs initialised<br>22/09 13:55:04 Odi/ AutoLifeCycle jobs initialised [for time to sleep]<br>22/09 3:55:04 Odi/ Background jobs initialised<br>22/09 13:55:04 Odi/ Starting voiceMail flag...<br>22/09 13:55:04 Odi/ Odi's UI server started []br>22/09 13:55:05 Odi/ UI /log?logSize=300 [192.168.1.254]<br>10<br>9<br>8<br>7<br>6<br>5<br>4<br>3<br>2<br>1<br>0
-		<a id="bottomLogs"></a>
+		<!--<div>22/09 13:54:47 Odi/ [val:1]  Cancel btn pressed for 1.3 sec [1,3]<br>22/09 13:54:47 Odi/ MUTE  :|<br>22/09 13:54:47 Odi/ Restarting di !!<br>LastTTS cleared.<br>MUTE  :|<br><br>>> Exit Odi Pgm [code:0]<br>************************<br><br>MUTE  :|<br>  _____       _         <br> /\  __`\    /\ \  __    <br> \ \ \/\ \   \_\ \/\_\   <br>  \ \ \ \ \  /'_` \/\ \  <br>   \ \ \_\ \/\ \L\ \ \ \ <br>    \ _____\ \___,_\ \_\<br>     \/_____/\/__,_ /\/_/<br>22/09 13:54:48 Odi/ >> Odi started in normal mode []<br>22/09 13:54:49 Odi/ Led Activity nitialised [awake]<br>22/09 13:54:52 Odi/ Buttons actions initialised<br>22/09 13:54:52 Odi/ Clock jobs initialised in regular mode<br>22/9 3:54:52 Odi/ Alarms jobs initialised<br>22/09 13:54:52 Odi/ AutoLifeCycle jobs initialised [for time to sleep]<br>22/09 13:54:52 Odi/ ackground jobs initialised<br>22/09 13:54:53 Odi/ Starting voiceMail flag...<br>22/09 13:54:53 Odi/ Odi's UI server started []<br>22/09 3:54:57 Odi/ UI /mute [192.168.1.254]<br>22/09 13:54:57 Odi/ MUTE  :|<br>22/09 13:54:58 Odi/ UI /monitoring [192.168.1.254]<br>22/09 3:54:59 Odi/ Checking VoiceMail...<br>22/09 13:54:59 Odi/ No VoiceMail Message<br>22/09 13:54:59 Odi/ UI /odi [192.168.1.254]<br>22/09 3:54:59 Odi/ Restarting Odi !!<br>LastTTS cleared.<br>MUTE  :|<br><br>>> Exit Odi Pgm [code:0]<br>************************<br><br>MUTE  :|<br  _____       __         <br> /\  __`\    /\ \  __    <br> \ \ \/\ \   \_\ \/\_\   <br>  \ \ \ \ \  /'_` \/\ \  <br>   \ \ \_\ \/\ \L\ \ \  br>    \ \_____\ \___,_\ \_\<br>     \/_____/\/__,_ /\/_/<br>22/09 13:55:00 Odi/ >> Odi started in normal mode []<br>22/09 13:55:01 Odi/ ed ctivity initialised [awake]<br>22/09 13:55:04 Odi/ Buttons actions initialised<br>22/09 13:55:04 Odi/ Clock jobs initialised in regular modebr>22/09 13:55:04 Odi/ Alarms jobs initialised<br>22/09 13:55:04 Odi/ AutoLifeCycle jobs initialised [for time to sleep]<br>22/09 3:55:04 Odi/ Background jobs initialised<br>22/09 13:55:04 Odi/ Starting voiceMail flag...<br>22/09 13:55:04 Odi/ Odi's UI server started []br>22/09 13:55:05 Odi/ UI /log?logSize=300 [192.168.1.254]<br>10<br>9<br>8<br>7<br>6<br>5<br>4<br>3<br>2<br>1<br>0-->
+
+		<ul class="fakeScroll">
+			<!--<button type="button" class="close" aria-label="Close" ng-click="hideLog()" title="Hide Log"><span aria-hidden="true">&times;</span></button>-->
+			<li ng-repeat="logLine in logData track by $index">{{logLine}}</li><!-- ng-bind-html="toHtml(logLine)"-->
+			<a id="bottomLogs"></a>
+		</ul>
+
 		</div>
 	</div>
 
 		<div class="tools">
-			<md-button class="md-fab md-primary" title="Reload UI" aria-label="Reload UI" onclick="setTimeout(function(){window.location.reload()},500);"><i class="fa fa-2x fa-repeat"></i></md-button>
 			<md-button class="md-fab md-primary" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
 			<md-button class="md-fab md-primary" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
+			<md-button class="md-fab md-primary" ng-click="hideLogs()" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
 		</div>
 	</md-sidenav>
 
 	<div class="main" layout-align="top center">
 		<md-content flex layout-padding>
-			<md-button ng-click="showLogs()" class="md-fab md-primary md-hue-2 logButton" aria-label="Logs">
+			<md-button ng-click="showLogs()" class="md-fab md-primary md-hue-2 logButton" title="Logs" aria-label="Logs">
 				<i class="fa fa-2x fa-rocket"></i>
 			</md-button>
 
@@ -132,7 +137,8 @@
 
 			<footer>
 				<h3>ABOUT...</h3>
-				<p>adrigarry.com</p>
+				<p>{{message}}</p>
+				<p><small>adrigarry.com</small></p>
 			</footer>
 		</md-content>
 	</div>
