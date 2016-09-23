@@ -57,7 +57,7 @@
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="blue">
-		<span class="fa-2x">Ready</span>
+		<span>Ready</span>
 		<md-grid-tile-footer><h3>Mode</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
@@ -67,22 +67,46 @@
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="lime">
-		<i class="fa fa-4x fa-volume-down"></i>
+		<i class="fa fa-2x fa-volume-down"></i>
 		<md-grid-tile-footer><h3>Volume</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="indigo">
-		<md-grid-tile-footer><h3>Mode</h3></md-grid-tile-footer>
+		<md-grid-tile-footer><h3>Voicemail</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="cyan">
-		<md-grid-tile-footer><h3>Mode</h3></md-grid-tile-footer>
+		<md-grid-tile-footer><h3>Exclamation</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile ng-repeat="conf in tuiles track by $index" onclick="" ng-click="expandTuile(conf)"
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="teal">
+		<md-grid-tile-footer><h3>Jukebox</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="2" md-colspan-sm="2" md-colspan-xs="2" class="blue">
+		<md-grid-tile-footer><h3>Date & Time</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="indigo">
+		<md-grid-tile-footer><h3>Timer</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="2" md-colspan-sm="2" md-colspan-xs="2" class="lime">
+		<md-grid-tile-footer><h3>CPU</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="orange">
+		<md-grid-tile-footer><h3>Alarms</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="lightGreen">
+		<md-grid-tile-footer><h3>System</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<!--<md-grid-tile ng-repeat="conf in tuiles track by $index" onclick="" ng-click="expandTuile(conf)"
 		md-rowspan="{{conf.rowspan}}" md-colspan="{{conf.colspan}}" md-colspan-sm="{{conf.colspan}}" md-colspan-xs="{{conf.colspan}}" ng-class="conf.color">
 		<span ng-bind-html="toHtml(conf.value)"></span>
 		<p>{{message}}</p>
 		<md-grid-tile-footer><h3>{{conf.lib}}{{conf.size}}</h3></md-grid-tile-footer>
-	</md-grid-tile>
+	</md-grid-tile>-->
 </md-grid-list>

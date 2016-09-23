@@ -1,7 +1,6 @@
 'use strict'
 app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdToast, UIService){
 	$scope.admin = false;
-	$scope.message = 'UI V3';
 
 	$scope.logData;
 	$scope.showLogs = showLogs();

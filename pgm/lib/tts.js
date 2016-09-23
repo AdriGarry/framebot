@@ -50,7 +50,7 @@ var speak = function(lg, txt){
 				deploy = spawn('sh', ['/home/pi/odi/pgm/sh/tts.sh', voice, lg, txt]);
 				var blinkTime = (txt.length/15) + 1;
 				// leds.blinkEye((Math.round(Math.random()*5) + 1)*50, blinkTime);
-				console.log(blinkTime);
+				//console.log(blinkTime);
 				leds.blink({
 					leds: ['eye'],
 					speed: Math.random() * (200 - 30) + 30,

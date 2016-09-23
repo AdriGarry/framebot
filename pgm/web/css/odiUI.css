@@ -171,6 +171,11 @@ md-grid-list md-grid-tile form{
 .orange{background:rgba(255, 204, 188, 1);}
 .purple{background:rgba(209, 196, 233, 1);}
 
+md-grid-list md-grid-tile md-grid-tile-footer{
+	height:auto;
+	padding:5px 0;
+}
+
 
 /* ------------------------------ TTS ------------------------------- */
 .voiceSwitch{
@@ -219,14 +224,18 @@ footer{
 
 /* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */
 @media(min-width:768px){
+	/*figure{
+		font-size:2em;
+	}*/
+
 	md-grid-list md-grid-tile md-grid-tile-footer h3{
-		font-size:1.4em;
-	}
-	md-input-container button.md-button i.fa{
 		font-size:1.3em;
 	}
+	/*md-input-container button.md-button i.fa{
+		font-size:1.3em;
+	}*/
 	md-switch.switch{
-		zoom:1.8;
+		zoom:1.5;
 	}
 }
 /* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
@@ -249,10 +258,16 @@ footer{
 		white-space:pre-wrap;
 	}
 
+
 	md-grid-list md-grid-tile md-grid-tile-footer{
-		height:20px;
+		padding:1px 0;
 	}
 	md-grid-list md-grid-tile md-grid-tile-footer h3{
 		margin-left:5px;
+		font-size:3vw;
 	}
 }
+
+/*figure{
+	font-size:4vw;
+}*/
