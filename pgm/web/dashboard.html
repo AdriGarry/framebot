@@ -1,0 +1,64 @@
+<md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
+	md-row-height="4:3" md-gutter="12px">
+
+	<md-grid-tile ng-click="expandTuile(ttsTuile)" md-rowspan="{{ttsTuile.rowspan}}" md-colspan="{{ttsTuile.colspan}}" md-colspan-sm="{{ttsTuile.colspan}}" md-colspan-xs="{{ttsTuile.colspan}}" ng-class="ttsTuile.color">
+
+	<!--<md-grid-tile md-rowspan="1" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="lightGreen"
+		ng-focus="expandTuile(this)">-->
+		<form ng-submit="tts.submit()" class="mainContent">
+			<div layout="row" ng-show="ttsTuile.rowspan == 2">
+				<md-switch ng-model="tts.voice" ng-true-value="':1'" ng-false-value="':3'" class="voiceSwitch"
+					ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'">
+					<span>Human Voice</span>
+					<span>Robot Voice</span>
+				</md-switch>
+			</div>
+
+			<div layout="row" ng-show="ttsTuile.rowspan == 2">
+				<div flex="10"></div>
+				<md-input-container flex="50">
+					<label>Language</label>
+					<md-select name="type" ng-model="tts.lg">
+						<md-option ng-repeat="language in ttsConfig.languageList track by $index" ng-value="language.code"
+							ng-checked="language.code == fr">
+							{{language.label}}
+						</md-option>
+					</md-select>
+				</md-input-container>
+
+				<label title="Envoyer dans messagerie" class="pointer text-center"  flex="30">
+					<!--<input type="checkbox" class=".noDisplay" ng-model="tts.voicemail">
+					<i class="fa fa-2x" ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>-->
+					<md-checkbox ng-model="tts.voicemail" title="TEST" aria-label="TEST"
+						ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'">VoiceMail</md-checkbox>
+				</label>
+			</div>
+		<div layout="row">
+		</div>
+		<div layout="row">
+			<md-input-container flex="70" class="md-block">
+				<label>Message</label>
+				<input name="ttsMsg" ng-model="tts.msg" ng-change="tts.cleanText()"><!--required-->
+				<!--<input name="ttsMsg" ng-model="tts.msg" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+				<div ng-messages="ttsMsg.$error" role="alert" multiple>
+					<div ng-message="required" class="my-message">Required&nbsp;!</div>
+				</div>-->
+			</md-input-container>
+			<md-input-container flex="30" class="md-block centerText">
+				<md-button type="submit" name="submit" class="md-raised" ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
+					<i class="fa" ng-class="tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
+				</md-button>
+			</md-input-container>
+		</div>
+	</form>
+
+
+		<md-grid-tile-footer><h3>TTS - Voice synthesizing</h3></md-grid-tile-footer>
+	</md-grid-tile>
+	<md-grid-tile ng-repeat="conf in tuiles track by $index" onclick="" ng-click="expandTuile(conf)"
+		md-rowspan="{{conf.rowspan}}" md-colspan="{{conf.colspan}}" md-colspan-sm="{{conf.colspan}}" md-colspan-xs="{{conf.colspan}}" ng-class="conf.color">
+		<span ng-bind-html="toHtml(conf.value)"></span>
+		<p>{{message}}</p>
+		<md-grid-tile-footer><h3>{{conf.lib}}{{conf.size}}</h3></md-grid-tile-footer>
+	</md-grid-tile>
+</md-grid-list>

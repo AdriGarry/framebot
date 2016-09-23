@@ -120,7 +120,7 @@ md-sidenav div{
 }
 
 .tools button>i{
-	vertical-align:middle;
+	vertical-align:sub;/*middle*/
 }
 
 .hideLogs{
@@ -198,12 +198,11 @@ md-switch.voiceSwitch, md-checkbox{
 	margin-left:-10em;
 }
 
-
 /* ------------------------------ FOOTER ------------------------------- */
 footer{
 	min-height:5em;
 	margin-top:2em;
-	color:#fff;
+	color:#485f6a;
 	background-color:#263238;
 	text-align:center;
 	font-size:1.3em;
@@ -215,6 +214,9 @@ footer{
 @media(min-width:768px){
 	md-grid-list md-grid-tile md-grid-tile-footer h3{
 		font-size:1.4em;
+	}
+	md-input-container button.md-button i.fa{
+		font-size:1.3em;
 	}
 }
 /* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */

@@ -30,7 +30,6 @@ app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdT
 
 	$scope.expandTuile = function(obj){
 		console.log('expandTuile()');
-		console.log(obj);
 		obj.rowspan = 2;
 	};
 
