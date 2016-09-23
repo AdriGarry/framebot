@@ -24,6 +24,9 @@ ul{margin:0;padding:0;}
 md-checkbox.md-default-theme:not([disabled]).md-warn.md-checked .md-icon, md-checkbox:not([disabled]).md-warn.md-checked .md-icon{
 	background-color:#F44235!important;
 }
+.md-button.md-primary[disabled], .md-button.md-warn[disabled]{
+	background-color:#1B2631!important;
+}
 
 md-progress-circular{
 	margin:30% auto 20%;
@@ -209,7 +212,6 @@ md-grid-list md-grid-tile form{
 .teal{background:rgba(178, 223, 219, 1);}
 .orange{background:rgba(255, 204, 188, 1);}
 .purple{background:rgba(209, 196, 233, 1);}
-.red{background-color:rgba(255, 205, 210, 1);}
 
 md-grid-list md-grid-tile md-grid-tile-footer{
 	height:auto;

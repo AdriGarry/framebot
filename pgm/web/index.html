@@ -55,15 +55,16 @@
 			<md-progress-circular md-diameter="150" ng-hide="logData"></md-progress-circular>
 		</div>
 		<div class="tools">
-			<md-button class="md-fab md-warn" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
-			<md-button class="md-fab md-warn" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
+			<md-button class="md-fab md-warn" ng-disabled="!admin" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
+			<md-button class="md-fab md-warn" ng-disabled="!admin" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
 			<md-button class="md-fab md-warn" ng-click="hideLogs()" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
 		</div>
 	</md-sidenav>
 
 	<div class="main" layout-align="top center">
 		<md-content flex layout-padding>
-			<md-button ng-click="showLogs()" ng-show="admin" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
+			<md-button ng-click="showLogs()" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
+			<!--ng-show="admin"-->
 				<i class="fa fa-2x fa-rocket"></i>
 			</md-button>
 
