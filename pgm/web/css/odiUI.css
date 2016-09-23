@@ -206,7 +206,8 @@ md-switch.switch{
 
 /* ------------------------------ FOOTER ------------------------------- */
 footer{
-	min-height:5em;
+	/*min-height:5em;*/
+	padding:2em 0!important;
 	margin-top:2em;
 	color:#485f6a;
 	background-color:#263238;
