@@ -21,6 +21,7 @@
 
 	<script src="js/config.js"></script>
 	<script src="js/controller.js"></script>
+	<script src="js/Tuile.js"></script>
 
 	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
 	<link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
@@ -39,54 +40,50 @@
 			<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" ng-show="activity.mode == 'waiting'">
 			<h1>Odi UI</h1>
 			<span flex></span>
-			<md-button class="md-icon-button"  title="Reload UI" aria-label="Reload UI" onclick="setTimeout(function(){window.location.reload()},500);"><!--md-fab md-mini-->
-				<i class="fa fa-2x fa-retweet"></i>
+			<md-button class="md-icon-button"  title="Reload UI" aria-label="Reload UI" onclick="setTimeout(function(){window.location.reload()},500);">
+				<i class="fa fa-2x fa-refresh" ng-class="{'fa-spin':spin}" ng-mouseenter="spin=true" ng-mouseleave="spin=false"></i><!--retweet/repeat-->
 			</md-button>
 		</div>
 	</md-toolbar>
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
-			<!--<md-button ng-click="hideLogs()" class="hideLogs md-icon-button md-button md-ink-ripple" title="Hide logs" aria-label="Hide logs">
-				<i class="fa fa-times"></i>
-			</md-button>-->
-	<div class="logs" ng-dblclick="refreshLog()">
-		<!--<div>22/09 13:54:47 Odi/ [val:1]  Cancel btn pressed for 1.3 sec [1,3]<br>22/09 13:54:47 Odi/ MUTE  :|<br>22/09 13:54:47 Odi/ Restarting di !!<br>LastTTS cleared.<br>MUTE  :|<br><br>>> Exit Odi Pgm [code:0]<br>************************<br><br>MUTE  :|<br>  _____       _         <br> /\  __`\    /\ \  __    <br> \ \ \/\ \   \_\ \/\_\   <br>  \ \ \ \ \  /'_` \/\ \  <br>   \ \ \_\ \/\ \L\ \ \ \ <br>    \ _____\ \___,_\ \_\<br>     \/_____/\/__,_ /\/_/<br>22/09 13:54:48 Odi/ >> Odi started in normal mode []<br>22/09 13:54:49 Odi/ Led Activity nitialised [awake]<br>22/09 13:54:52 Odi/ Buttons actions initialised<br>22/09 13:54:52 Odi/ Clock jobs initialised in regular mode<br>22/9 3:54:52 Odi/ Alarms jobs initialised<br>22/09 13:54:52 Odi/ AutoLifeCycle jobs initialised [for time to sleep]<br>22/09 13:54:52 Odi/ ackground jobs initialised<br>22/09 13:54:53 Odi/ Starting voiceMail flag...<br>22/09 13:54:53 Odi/ Odi's UI server started []<br>22/09 3:54:57 Odi/ UI /mute [192.168.1.254]<br>22/09 13:54:57 Odi/ MUTE  :|<br>22/09 13:54:58 Odi/ UI /monitoring [192.168.1.254]<br>22/09 3:54:59 Odi/ Checking VoiceMail...<br>22/09 13:54:59 Odi/ No VoiceMail Message<br>22/09 13:54:59 Odi/ UI /odi [192.168.1.254]<br>22/09 3:54:59 Odi/ Restarting Odi !!<br>LastTTS cleared.<br>MUTE  :|<br><br>>> Exit Odi Pgm [code:0]<br>************************<br><br>MUTE  :|<br  _____       __         <br> /\  __`\    /\ \  __    <br> \ \ \/\ \   \_\ \/\_\   <br>  \ \ \ \ \  /'_` \/\ \  <br>   \ \ \_\ \/\ \L\ \ \  br>    \ \_____\ \___,_\ \_\<br>     \/_____/\/__,_ /\/_/<br>22/09 13:55:00 Odi/ >> Odi started in normal mode []<br>22/09 13:55:01 Odi/ ed ctivity initialised [awake]<br>22/09 13:55:04 Odi/ Buttons actions initialised<br>22/09 13:55:04 Odi/ Clock jobs initialised in regular modebr>22/09 13:55:04 Odi/ Alarms jobs initialised<br>22/09 13:55:04 Odi/ AutoLifeCycle jobs initialised [for time to sleep]<br>22/09 3:55:04 Odi/ Background jobs initialised<br>22/09 13:55:04 Odi/ Starting voiceMail flag...<br>22/09 13:55:04 Odi/ Odi's UI server started []br>22/09 13:55:05 Odi/ UI /log?logSize=300 [192.168.1.254]<br>10<br>9<br>8<br>7<br>6<br>5<br>4<br>3<br>2<br>1<br>0-->
-
-		<ul><!-- class="fakeScroll"-->
-			<!--<button type="button" class="close" aria-label="Close" ng-click="hideLog()" title="Hide Log"><span aria-hidden="true">&times;</span></button>-->
-			<li ng-repeat="logLine in logData track by $index">{{logLine}}</li><!-- ng-bind-html="toHtml(logLine)"-->
-			<a id="bottomLogs"></a>
-		</ul>
-
+		<div class="logs" ng-dblclick="refreshLog()">
+			<ul><!-- class="fakeScroll"-->
+				<li ng-repeat="logLine in logData track by $index">{{logLine}}</li><!-- ng-bind-html="toHtml(logLine)"-->
+				<a id="bottomLogs"></a>
+			</ul>
+			<md-progress-circular ng-hide="logData" md-diameter="200"></md-progress-circular><!--ng-hide="logData"-->
 		</div>
-	</div>
-
 		<div class="tools">
-			<md-button class="md-fab md-primary" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
-			<md-button class="md-fab md-primary" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
-			<md-button class="md-fab md-primary" ng-click="hideLogs()" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
+			<md-button class="md-fab md-warn" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
+			<md-button class="md-fab md-warn" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
+			<md-button class="md-fab md-warn" ng-click="hideLogs()" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
 		</div>
 	</md-sidenav>
 
 	<div class="main" layout-align="top center">
 		<md-content flex layout-padding>
-			<md-button ng-click="showLogs()" ng-show="admin" class="md-fab md-primary md-hue-2 logButton" title="Logs" aria-label="Logs">
+			<md-button ng-click="showLogs()" ng-show="admin" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
 				<i class="fa fa-2x fa-rocket"></i>
 			</md-button>
 
 			<md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
 				md-row-height="4:3" md-gutter="12px">
-				<md-grid-tile md-rowspan="1" md-rowspan-xs="2" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="lightGreen">
+
+				<md-grid-tile ng-click="expandTuile(ttsTuile)" md-rowspan="{{ttsTuile.rowspan}}" md-colspan="{{ttsTuile.colspan}}" md-colspan-sm="{{ttsTuile.colspan}}" md-colspan-xs="{{ttsTuile.colspan}}" ng-class="ttsTuile.color">
+
+				<!--<md-grid-tile md-rowspan="1" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="lightGreen"
+					ng-focus="expandTuile(this)">-->
 					<form ng-submit="tts.submit()" class="mainContent">
-						<!--<div layout="row">
-							<md-switch ng-model="tts.voice" ng-true-value="':1'" ng-false-value="':3'" class="voiceSwitch md-primary"
-								ng-class="tts.voice == ':3' ? 'md-warn' : ''">
+						<div layout="row" ng-show="ttsTuile.rowspan == 2">
+							<md-switch ng-model="tts.voice" ng-true-value="':1'" ng-false-value="':3'" class="voiceSwitch"
+								ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'">
 								<span>Human Voice</span>
 								<span>Robot Voice</span>
 							</md-switch>
 						</div>
 
-						<div layout="row">
+						<div layout="row" ng-show="ttsTuile.rowspan == 2">
 							<div flex="10"></div>
 							<md-input-container flex="50">
 								<label>Language</label>
@@ -99,35 +96,35 @@
 							</md-input-container>
 
 							<label title="Envoyer dans messagerie" class="pointer text-center"  flex="30">
-								<input type="checkbox" class="noDisplay" ng-model="tts.voicemail">
-								<i class="fa fa-3x" ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>
+								<!--<input type="checkbox" class=".noDisplay" ng-model="tts.voicemail">
+								<i class="fa fa-2x" ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>-->
+								<md-checkbox ng-model="tts.voicemail" title="TEST" aria-label="TEST"
+									ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'">VoiceMail</md-checkbox>
 							</label>
-						</div>-->
-
-						<md-input-container class="md-block center-block ttsMessage" flex="90">
+						</div>
+					<div layout="row">
+					</div>
+					<div layout="row">
+						<md-input-container flex="70" class="md-block">
 							<label>Message</label>
 							<input name="ttsMsg" ng-model="tts.msg" ng-change="tts.cleanText()"><!--required-->
 							<!--<input name="ttsMsg" ng-model="tts.msg" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
 							<div ng-messages="ttsMsg.$error" role="alert" multiple>
 								<div ng-message="required" class="my-message">Required&nbsp;!</div>
-								<div ng-message="pattern" class="my-message">Pattern</div>
-								<div ng-message="md-maxlength" class="my-message">I prefer short messages...</div>
 							</div>-->
 						</md-input-container>
-
-						<!--<div class="row sendBtn">
-							<md-button type="submit" name="submit" class="md-raised" ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send<span ng-show="tts.voicemail"> voicemail</span>
-								&nbsp;&nbsp;&nbsp;
+						<md-input-container flex="30" class="md-block centerText">
+							<md-button type="submit" name="submit" class="md-raised" ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
 								<i class="fa" ng-class="tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 							</md-button>
-							<p class="test-center">{{tts.error}}</p>
-						</div>-->
-					</form>
+						</md-input-container>
+					</div>
+				</form>
 
 
 					<md-grid-tile-footer><h3>TTS - Voice synthesizing</h3></md-grid-tile-footer>
 				</md-grid-tile>
-				<md-grid-tile ng-repeat="conf in tuiles track by $index" onclick="console.log('test');"
+				<md-grid-tile ng-repeat="conf in tuiles track by $index" onclick="" ng-click="expandTuile(conf)"
 					md-rowspan="{{conf.rowspan}}" md-colspan="{{conf.colspan}}" md-colspan-sm="{{conf.colspan}}" md-colspan-xs="{{conf.colspan}}" ng-class="conf.color">
 					<span ng-bind-html="toHtml(conf.value)"></span>
 					<p>{{message}}</p>

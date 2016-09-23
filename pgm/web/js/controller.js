@@ -1,5 +1,5 @@
 'use strict'
-app.controller('UIController', function($scope, $timeout, $mdSidenav, $mdToast, UIService){
+app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdToast, UIService){
 	$scope.admin = false;
 	$scope.message = 'UI V3';
 
@@ -12,23 +12,42 @@ app.controller('UIController', function($scope, $timeout, $mdSidenav, $mdToast, 
 			$mdToast.simple()
 			.textContent(label)
 			.position('top right')
-			.hideDelay(2500)
+			.hideDelay(1500)
 		);
 	};
 
+	$scope.ttsTuile = {
+		lib: 'TTS - Voice synthesizing',
+		value: '...',
+		color: 'lightGreen',
+		rowspan : 1,
+		colspan: 3
+	};
+	$scope.tts = {
+		voice: ':3'
+	};
+
+
+	$scope.expandTuile = function(obj){
+		console.log('expandTuile()');
+		console.log(obj);
+		obj.rowspan = 2;
+	};
+
+
 	/** Function to show Logs */
 	function showLogs(){
+		$scope.logData = undefined;
 		return function(){
-			// Component lookup should always be available since we are not using `ng-if`
 			$mdSidenav('logs').toggle().then(function(){
-				// console.log('showLogs()');
-				$scope.refreshLog();
+				// $timeout(function() {
+					$scope.refreshLog();
+				// }, 3000);
 			});
 		}
 	};
 	/** Function to hide Logs */
 	$scope.hideLogs = function(){
-		// Component lookup should always be available since we are not using `ng-if`
 		$mdSidenav('logs').close().then(function(){
 			// console.log('hideLogs()');
 		});
@@ -36,6 +55,7 @@ app.controller('UIController', function($scope, $timeout, $mdSidenav, $mdToast, 
 
 	/** Function to refresh logs */
 	$scope.refreshLog = function(){
+		$scope.logData = undefined;
 		$scope.showToast('Logs');
 		console.log('refreshing logs');
 		var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
@@ -56,9 +76,9 @@ app.controller('UIController', function($scope, $timeout, $mdSidenav, $mdToast, 
 	};
 
 	/** Function to inject HTML code */
-	// $scope.toHtml = function(html){
-	// 	return $sce.trustAsHtml(html);
-	// };
+	$scope.toHtml = function(html){
+		// return $sce.trustAsHtml(html);
+	};
 
 
 
@@ -86,7 +106,7 @@ app.controller('UIController', function($scope, $timeout, $mdSidenav, $mdToast, 
 				rowspan : 1,
 				colspan: 1
 			}, voiceMail: {
-				lib: 'VoiceMail',
+				lib: 'Voicemail',
 				value: 0,
 				color: 'indigo',
 				rowspan : 1,
@@ -110,7 +130,7 @@ app.controller('UIController', function($scope, $timeout, $mdSidenav, $mdToast, 
 				rowspan: 1,
 				colspan: 2
 			}, timer: {
-				lib: 'timer',
+				lib: 'Timer',
 				value: '<i class="fa fa-3x fa-hourglass"></i>',
 				color: 'indigo',
 				rowspan: 1,
@@ -146,6 +166,22 @@ app.factory('UIService', ['$http', function($http){
 
 	var UIService = {};
 
+	/** Function to get logs */
+	var logSize = 150;
+	UIService.lib = '';
+	UIService.getLogs = function(callback){
+		$http({
+			method: 'GET',
+			url: 'http://odi.adrigarry.com/log?logSize=' + logSize
+		}).then(function successCallback(res){
+			callback(res.data);
+		}, function errorCallback(res){
+			console.error(res);
+			callback(res);
+		});
+		logSize += 50;
+	};
+
 	/** Fonction de suivi d'activite */
 	// utilService.monitoringActivity = function(callback){
 	// 	$http({
@@ -164,21 +200,5 @@ app.factory('UIService', ['$http', function($http){
 	// 	});
 	// };
 
-	/** Function to get logs */
-	var logSize = 100;
-	UIService.lib = '';
-	UIService.getLogs = function(callback){
-		$http({
-			method: 'GET',
-			url: 'http://odi.adrigarry.com/log?logSize=' + logSize
-		}).then(function successCallback(res){
-			callback(res.data);
-		}, function errorCallback(res){
-			console.error(res);
-			callback(res);
-		});
-		logSize += 50;
-	};
-	
 	return UIService;
 }]);
