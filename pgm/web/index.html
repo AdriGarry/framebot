@@ -52,7 +52,7 @@
 				<li ng-repeat="logLine in logData track by $index">{{logLine}}</li><!-- ng-bind-html="toHtml(logLine)"-->
 				<a id="bottomLogs"></a>
 			</ul>
-			<md-progress-circular ng-hide="logData" md-diameter="200"></md-progress-circular><!--ng-hide="logData"-->
+			<md-progress-circular md-diameter="150" ng-hide="logData"></md-progress-circular>
 		</div>
 		<div class="tools">
 			<md-button class="md-fab md-warn" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
@@ -67,9 +67,11 @@
 				<i class="fa fa-2x fa-rocket"></i>
 			</md-button>
 
-			<div ng-include src="'dashboard.html'"></div>
+			<md-progress-circular md-diameter="150" ng-show="loading"></md-progress-circular>
 
-			<footer>
+			<div ng-include src="'dashboard.html'" ng-hide="loading" ng-class="loading ? '' : 'ng-slide'"></div>
+
+			<footer ng-hide="loading">
 				<!--<h3>ABOUT...</h3>
 				<p><small>{{message}}</small></p>-->
 				<p>adrigarry.com</p>

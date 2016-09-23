@@ -1,7 +1,7 @@
 <md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
 	md-row-height="4:3" md-gutter="12px">
 
-	<md-grid-tile ng-click="expandTuile(ttsTuile)" md-rowspan="{{ttsTuile.rowspan}}" md-colspan="{{ttsTuile.colspan}}" md-colspan-sm="{{ttsTuile.colspan}}" md-colspan-xs="{{ttsTuile.colspan}}" ng-class="ttsTuile.color">
+	<md-grid-tile ng-click="expandTuile(ttsTuile)" md-rowspan="{{ttsTuile.rowspan}}" md-colspan="{{ttsTuile.colspan}}" md-colspan-sm="{{ttsTuile.colspan}}" md-colspan-xs="{{ttsTuile.colspan}}" ng-class="ttsTuile.color" class="ng-slide">
 
 	<!--<md-grid-tile md-rowspan="1" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="lightGreen"
 		ng-focus="expandTuile(this)">-->
@@ -56,50 +56,90 @@
 		<md-grid-tile-footer><h3>TTS - Voice synthesizing</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="blue">
-		<span>Ready</span>
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="teal">
+		<span class="responsive">Ready</span>
 		<md-grid-tile-footer><h3>Mode</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="blueGrey">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide blueGrey">
 		<md-switch class="switch" ng-disabled="true" title="TEST" aria-label="TEST" ng-model="disabledModel"></md-switch>
 		<md-grid-tile-footer><h3>Switch</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="lime">
-		<i class="fa fa-2x fa-volume-down"></i>
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide cyan">
+		<i class="responsive fa fa-volume-down"></i>
 		<md-grid-tile-footer><h3>Volume</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="indigo">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide indigo">
+		<i class="responsive fa fa-envelope"></i>
 		<md-grid-tile-footer><h3>Voicemail</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="cyan">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lime">
+		<i class="responsive fa fa-comments-o"></i>
 		<md-grid-tile-footer><h3>Exclamation</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="teal">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide teal">
+		<i class="responsive fa fa-music"></i>
 		<md-grid-tile-footer><h3>Jukebox</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="2" md-colspan-sm="2" md-colspan-xs="2" class="blue">
+	<md-grid-tile md-rowspan="1" md-colspan="2" md-colspan-sm="2" md-colspan-xs="2" class="ng-slide blue">
+		<i class="responsive fa fa-clock-o"></i>
 		<md-grid-tile-footer><h3>Date & Time</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="indigo">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide orange">
+		<i class="responsive fa fa-hourglass-half"></i>
 		<md-grid-tile-footer><h3>Timer</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="2" md-colspan-sm="2" md-colspan-xs="2" class="lime">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lime">
+		<div class="responsive">
+			<span class="value">2<small>%</small></span><i class="fa fa-heartbeat"></i><span class="value">51<small>°C</small></span>
+		</div>
 		<md-grid-tile-footer><h3>CPU</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="orange">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide teal">
+		<i class="responsive fa fa-cloud"></i>
+		<md-grid-tile-footer><h3>Weather</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide indigo">
+		<i class="responsive fa fa-bell-o"></i>
 		<md-grid-tile-footer><h3>Alarms</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="lightGreen">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide indigo">
+		<i class="responsive fa fa-flag-checkered"></i>
+		<md-grid-tile-footer><h3>Test</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide indigo">
+		<i class="responsive fa fa-glass"></i>
+		<md-grid-tile-footer><h3>Party</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide red">
+		<i class="responsive fa fa-star"></i>
+		<md-grid-tile-footer><h3>RUSSIA</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide blue">
+		<i class="responsive fa fa-bug"></i>
+		<md-grid-tile-footer><h3>Cigales</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide orange">
+		<i class="responsive fa fa-file-text-o"></i>
+		<md-grid-tile-footer><h3>Request history</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lightGreen">
+		<i class="responsive fa fa-power-off"></i>
 		<md-grid-tile-footer><h3>System</h3></md-grid-tile-footer>
 	</md-grid-tile>
 

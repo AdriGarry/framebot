@@ -1,5 +1,6 @@
 'use strict'
 app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdToast, UIService){
+	$scope.loading = false;/*true*/
 	$scope.admin = false;
 
 	$scope.logData;
@@ -18,7 +19,7 @@ app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdT
 	$scope.ttsTuile = {
 		lib: 'TTS - Voice synthesizing',
 		value: '...',
-		color: 'lightGreen',
+		color: 'blue',
 		rowspan : 1,
 		colspan: 3
 	};
@@ -54,7 +55,7 @@ app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdT
 	/** Function to refresh logs */
 	$scope.refreshLog = function(){
 		$scope.logData = undefined;
-		$scope.showToast('Logs');
+		//$scope.showToast('Logs');
 		console.log('refreshing logs');
 		var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 		UIService.getLogs(function(logs){
@@ -154,7 +155,9 @@ app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdT
 			}
 		};
 
-
+		$timeout(function(){
+			$scope.loading = false;
+		}, 1000);
 });
 
 
@@ -165,7 +168,7 @@ app.factory('UIService', ['$http', function($http){
 	var UIService = {};
 
 	/** Function to get logs */
-	var logSize = 150;
+	var logSize = 100;
 	UIService.lib = '';
 	UIService.getLogs = function(callback){
 		$http({

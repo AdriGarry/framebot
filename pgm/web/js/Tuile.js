@@ -25,10 +25,18 @@
 // });
 
 
-function Tuile(id, lib, color, row, col){
+function Tuile(id, title, color, row, col){
 	this.id = id;
-	this.lib = lib;
+	this.title = title;
 	this.color = color;
 	this.row = row;
 	this.col = col;
+	this.onclick = function(){
+		self.sendCommand(this);
+	};
+	this.onHold = function(){
+		this.paramKey = 'hymn';
+		// self.sendCommand(this);
+	}
+
 }
