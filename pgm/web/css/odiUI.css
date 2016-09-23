@@ -198,6 +198,12 @@ md-switch.voiceSwitch, md-checkbox{
 	margin-left:-10em;
 }
 
+/* ------------------------------ SWITCH ------------------------------- */
+md-switch.switch{
+	transform:rotate(270deg);
+}
+
+
 /* ------------------------------ FOOTER ------------------------------- */
 footer{
 	min-height:5em;
@@ -217,6 +223,9 @@ footer{
 	}
 	md-input-container button.md-button i.fa{
 		font-size:1.3em;
+	}
+	md-switch.switch{
+		zoom:1.8;
 	}
 }
 /* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */

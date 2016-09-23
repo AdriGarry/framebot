@@ -55,6 +55,30 @@
 
 		<md-grid-tile-footer><h3>TTS - Voice synthesizing</h3></md-grid-tile-footer>
 	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="blue">
+		<span class="fa-2x">Ready</span>
+		<md-grid-tile-footer><h3>Mode</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="blueGrey">
+		<md-switch class="switch" ng-disabled="true" title="TEST" aria-label="TEST" ng-model="disabledModel"></md-switch>
+		<md-grid-tile-footer><h3>Switch</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="lime">
+		<i class="fa fa-4x fa-volume-down"></i>
+		<md-grid-tile-footer><h3>Volume</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="indigo">
+		<md-grid-tile-footer><h3>Mode</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="cyan">
+		<md-grid-tile-footer><h3>Mode</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
 	<md-grid-tile ng-repeat="conf in tuiles track by $index" onclick="" ng-click="expandTuile(conf)"
 		md-rowspan="{{conf.rowspan}}" md-colspan="{{conf.colspan}}" md-colspan-sm="{{conf.colspan}}" md-colspan-xs="{{conf.colspan}}" ng-class="conf.color">
 		<span ng-bind-html="toHtml(conf.value)"></span>
