@@ -56,13 +56,13 @@
 		<md-grid-tile-footer><h3>TTS - Voice synthesizing</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="teal">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="teal" ng-click="openBottomSheet()">
 		<span class="responsive">Ready</span>
 		<md-grid-tile-footer><h3>Mode</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide blueGrey">
-		<md-switch class="switch" ng-disabled="true" title="TEST" aria-label="TEST" ng-model="disabledModel"></md-switch>
+		<md-switch class="switch" ng-disabled="true" title="Switch position" aria-label="Switch position" ng-model="disabledModel"></md-switch>
 		<md-grid-tile-footer><h3>Switch</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
@@ -109,6 +109,7 @@
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lime">
 		<div class="responsive">
 			<span class="value">2<small>%</small></span><i class="fa fa-heartbeat"></i><span class="value">51<small>°C</small></span>
+			<!--<div class="inline"><i class="fa fa-heartbeat"></i></div><div class="value inline">2<small>%</small></div><div class="value inline">51<small>°C</small></div>-->
 		</div>
 		<md-grid-tile-footer><h3>CPU</h3></md-grid-tile-footer>
 	</md-grid-tile>

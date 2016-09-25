@@ -3,6 +3,7 @@
 /*------------------------------ GENERIC ------------------------------- */
 ul{margin:0;padding:0;}
 .noDisplay{display:none;}
+.inline{display:inline;}
 .center{
 	margin-left:auto;
 	margin-right:auto;
@@ -118,7 +119,7 @@ md-sidenav div{
 .logs ul{
 	font-family:'Courier New';
 	font-size:0.85em;
-	line-height:0.95em;
+	line-height:1em;/*0.95em*/
 	font-stretch:condensed;
 	word-break:break-all;
 	white-space:pre-wrap;
@@ -137,7 +138,7 @@ md-sidenav div{
 }
 
 .tools button>i{
-	vertical-align:sub;/*middle*/
+	vertical-align:middle;
 }
 
 .hideLogs{
@@ -198,10 +199,10 @@ md-grid-list md-grid-tile md-grid-tile-footer h3{
 	font-size:20px;
 }
 
-
 md-grid-list md-grid-tile form{
 	width:90%;
 }
+
 .blue{background:rgba(187, 222, 251, 1);}
 .blueGrey{background:rgba(207, 216, 220, 1);}
 .lightGreen{background:rgba(220, 237, 200, 1);}
@@ -250,6 +251,20 @@ md-switch.switch{
 	transform:rotate(270deg);
 }
 
+
+
+
+/* ------------------------------ BOTTOM SHEET ------------------------------- */
+md-bottom-sheet{
+	text-align:center;
+}
+md-bottom-sheet .md-subheader{
+	font-size:2em;
+	color:#3f515a;
+}
+md-bottom-sheet button{
+	margin:0 2em;
+}
 
 /* ------------------------------ FOOTER ------------------------------- */
 footer{

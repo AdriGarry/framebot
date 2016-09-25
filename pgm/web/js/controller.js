@@ -1,5 +1,5 @@
 'use strict'
-app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdToast, UIService){
+app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdBottomSheet, $mdToast, UIService){
 	$scope.loading = false;/*true*/
 	$scope.admin = false;
 
@@ -75,91 +75,47 @@ app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdT
 	};
 
 	/** Function to inject HTML code */
-	$scope.toHtml = function(html){
-		// return $sce.trustAsHtml(html);
+	// $scope.toHtml = function(html){
+	// 	console.log('toHtml()');
+	// 	return $sce.trustAsHtml(html);
+	// };
+
+	$scope.openBottomSheet = function(){
+		$scope.alert = '';
+		$mdBottomSheet.show({
+			templateUrl: 'content/bottom-sheet.html',
+			controller: 'BottomSheetCtrl',
+			clickOutsideToClose: true
+		}).then(function(clickedItem){
+			$mdToast.show(
+				$mdToast.simple()
+				.textContent(clickedItem + ' clicked!')
+				.position('top right')
+				.hideDelay(1500)
+			);
+		});
 	};
 
 
-
-
-
-
-
-	$scope.tuiles = {
-			mode: {
-				lib: 'Mode',
-				value: 'Ready',
-				color: 'blue',
-				rowspan : 1,
-				colspan: 1
-			}, switch: {
-				lib: 'Switch',
-				value: 1,
-				color: 'blueGrey',
-				rowspan : 1,
-				colspan: 1
-			}, volume: {
-				lib: 'Volume',
-				value: 'Normal',
-				color: 'lime',
-				rowspan : 1,
-				colspan: 1
-			}, voiceMail: {
-				lib: 'Voicemail',
-				value: 0,
-				color: 'indigo',
-				rowspan : 1,
-				colspan: 1
-			}, exclamation: {
-				lib: 'Exclamation',
-				value: '<i>Soon available</i>',
-				color: 'cyan',
-				rowspan : 1,
-				colspan: 1
-			}, jukebox: {
-				lib: 'Jukebox',
-				value: '<i>Soon available</i>',
-				color: 'teal',
-				rowspan : 1,
-				colspan: 1
-			}, dateTime: {
-				lib: 'Date & Time',
-				value: '<i class="fa fa-3x fa-calendar"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-3x fa-clock-o"></i><br><i>Soon available</i>',
-				color: 'blue',
-				rowspan: 1,
-				colspan: 2
-			}, timer: {
-				lib: 'Timer',
-				value: '<i class="fa fa-3x fa-hourglass"></i>',
-				color: 'indigo',
-				rowspan: 1,
-				colspan: 1
-			}, cpu: {
-				lib: 'CPU',
-				value: 38,
-				color: 'lime',
-				rowspan : 1,
-				colspan: 2
-			}, alarms: {
-				lib: 'Alarms',
-				value: '<i>Soon available</i>',
-				color: 'orange',
-				rowspan : 1,
-				colspan: 1
-			}, system: {
-				lib: 'System',
-				value: '<i>Soon available</i>',
-				color: 'lightGreen',
-				rowspan : 1,
-				colspan: 1
-			}
-		};
-
-		$timeout(function(){
-			$scope.loading = false;
-		}, 1000);
+	/*$timeout(function(){
+		$scope.loading = false;
+	}, 1000);*/
 });
 
+
+app.controller('BottomSheetCtrl', function($scope, $mdBottomSheet){
+
+	$scope.listItemClick = function(item){
+		console.log(item);
+		$mdBottomSheet.hide(item);
+	};
+
+	$scope.buttons = [
+		{label: 'Restart Odi', icon: 'bolt', url: ''},
+		{label: 'Sleep Odi', icon: 'moon-o', url: ''},
+		{label: 'Shutdown Odi', icon: 'power-off', url: ''}
+	];
+});
 
 
 /* UIFactory FACTORY // SERVICE ??? */

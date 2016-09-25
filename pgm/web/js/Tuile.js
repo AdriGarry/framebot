@@ -1,21 +1,4 @@
-// /* service */
-// app.service('TuileService', function(){
-
-// 	this.
-
-
-// 	var TemplateModel = {};
-
-// 	/** Function to get logs */
-// 	var logSize = 100;
-// 	TemplateModel.lib = '';
-// 	TemplateModel.getLogs = function(){
-// 	};
-	
-// 	return TemplateModel;
-// }]);
-
-
+/* service */
 
 // //service style, probably the simplest one
 // myApp.service('helloWorldFromService', function() {
@@ -24,19 +7,37 @@
 //     };
 // });
 
-
-function Tuile(id, title, color, row, col){
+/** Tuile object constructor **/
+function Tuile(id, title, color, row, col, value){
+	// Basic attributes
 	this.id = id;
 	this.title = title;
 	this.color = color;
 	this.row = row;
 	this.col = col;
+
+	// Info attributes
+	this.value = value;
+
+	// Action attributes
 	this.onclick = function(){
-		self.sendCommand(this);
+		//self.sendCommand(this);
 	};
 	this.onHold = function(){
 		this.paramKey = 'hymn';
 		// self.sendCommand(this);
 	}
+	this.onDBclick = function(){
+		//self.sendCommand(this);
+	};
+
+	// Bottom Sheet attributes
+	this.bottomSheet = [{
+		button: '',
+		label: ''
+	},{
+		button: '',
+		label: ''
+	}];
 
 }

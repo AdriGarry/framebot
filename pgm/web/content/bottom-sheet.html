@@ -1,0 +1,10 @@
+<md-bottom-sheet class="md-grid" layout="column">
+	<md-subheader layout-align="center center" ng-cloak>Additional Actions</md-subheader>
+	<div ng-cloak>
+		<md-button ng-repeat="button in buttons track by $index" class="md-grid-item-content" ng-click="listItemClick(button)">
+			<i class="fa fa-{{button.icon}}"></i>
+			<div class="md-grid-text">{{button.label}}</div>
+		</md-button>
+	</div>
+</md-bottom-sheet>
+
