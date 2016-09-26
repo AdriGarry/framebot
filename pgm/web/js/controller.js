@@ -95,12 +95,6 @@ app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdB
 				clickOutsideToClose: true
 			}).then(function(clickedItem){
 				$scope.showToast(clickedItem + ' clicked!');
-				// $mdToast.show(
-				// 	$mdToast.simple()
-				// 	.textContent(clickedItem + ' clicked!')
-				// 	.position('top right')
-				// 	.hideDelay(1500)
-				// );
 			});
 		}
 	};

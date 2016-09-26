@@ -41,9 +41,15 @@ md-toolbar.toolbar{
 	position:fixed;
 	background-color:#607D8B;/*#2C3E50*/
 }
+md-toolbar.toolbar span[flex] + i{
+	margin:0 2%;
+	font-size:1.6em;
+}
 
 img.odiFace{
-	height:90%;
+	position:absolute;
+	height:150%;/*90%*/
+	top:1px;
 	margin-left:5px;
 	margin-right:20px;
 	border-radius:50%;
@@ -62,6 +68,7 @@ img.odiFace.odiOff{
 }
 
 .toolbar h1{
+	margin-left:5em;
 	font-size:1.2em;
 }
 
@@ -269,7 +276,7 @@ md-bottom-sheet .md-subheader{
 	color:#3f515a;
 }
 md-bottom-sheet button{
-	margin:0 2em;
+	margin:0 5%!important;
 }
 
 /* ------------------------------ FOOTER ------------------------------- */
