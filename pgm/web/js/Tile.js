@@ -1,3 +1,4 @@
+'use strict'
 /* service */
 
 // //service style, probably the simplest one
@@ -8,7 +9,7 @@
 // });
 
 /** Tuile object constructor **/
-function Tuile(id, title, color, row, col, value){
+function Tile(id, title, color, row, col, value, bottomSheetButtonList){
 	// Basic attributes
 	this.id = id;
 	this.title = title;
@@ -21,25 +22,17 @@ function Tuile(id, title, color, row, col, value){
 
 	// Action attributes
 	this.onclick = function(){
-		//self.sendCommand(this);
 	};
 	this.onHold = function(){
-		this.paramKey = 'hymn';
-		// self.sendCommand(this);
+		// this.paramKey = 'hymn';
 	}
 	this.onDBclick = function(){
-		//self.sendCommand(this);
 	};
 
-	// Bottom Sheet attributes
-	this.bottomSheet = [{
-		button: '',
-		label: '',
-		url: ''
-	},{
-		button: '',
-		label: '',
-		url: ''
-	}];
+	// Bottom Sheet
+	this.bottomSheetButtonList = [];
+	for(var bottomSheetButton in List){
+		this.bottomSheetButtonList.push(bottomSheetButton);
+	}
 
 }

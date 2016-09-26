@@ -184,6 +184,18 @@ md-grid-list md-grid-tile{
 	cursor:pointer;
 }
 
+/*md-grid-tile:hover,*/ figure .responsive:hover{
+	color:#34444b;
+}
+
+md-grid-tile figure button.reduceTile{
+	float:right;
+	top:0;
+	position:absolute;
+	right:0;
+	color:#607D8B;
+}
+
 /*figure *:not(md-grid-tile-footer, button)*/
 figure .responsive{
 	/*width:100%;*/
@@ -195,6 +207,7 @@ figure .mainInfo{
 	font-size:10vw;
 	vertical-align:middle;
 }
+
 md-grid-list .value{
 	margin:0 5%;
 }
@@ -263,7 +276,9 @@ md-switch.switch{
 
 /* ------------------------------ BOTTOM SHEET ------------------------------- */
 md-bottom-sheet{
+	position:fixed;
 	text-align:center;
+	color:#3f515a;
 }
 md-bottom-sheet .md-subheader{
 	font-size:2em;

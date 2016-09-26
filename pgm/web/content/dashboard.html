@@ -1,10 +1,12 @@
 <md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
 	md-row-height="4:3" md-gutter="12px">
 
-	<md-grid-tile ng-click="expandTuile(ttsTuile)" md-rowspan="{{ttsTuile.rowspan}}" md-colspan="{{ttsTuile.colspan}}" md-colspan-sm="{{ttsTuile.colspan}}" md-colspan-xs="{{ttsTuile.colspan}}" ng-class="ttsTuile.color" class="ng-slide">
+	<md-grid-tile ng-click="expandTile(ttsTuile)" md-rowspan="{{ttsTuile.rowspan}}" md-colspan="{{ttsTuile.colspan}}" md-colspan-sm="{{ttsTuile.colspan}}" md-colspan-xs="{{ttsTuile.colspan}}" ng-class="ttsTuile.color" class="ng-slide">
+		<md-button ng-show="ttsTuile.rowspan == 2" ng-click="reduceTile(ttsTuile)" class="md-icon-button reduceTile"
+			title="Reduce Tile" aria-label="Reduce Tile"><i class="fa fa-2x fa-close"></i></md-button>
 
 	<!--<md-grid-tile md-rowspan="1" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="lightGreen"
-		ng-focus="expandTuile(this)">-->
+		ng-focus="expandTile(this)">-->
 		<form ng-submit="tts.submit()" class="mainContent">
 			<div layout="row" ng-show="ttsTuile.rowspan == 2">
 				<md-switch ng-model="tts.voice" ng-true-value="':1'" ng-false-value="':3'" class="voiceSwitch"
@@ -71,7 +73,7 @@
 		<md-grid-tile-footer><h3>Volume</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide indigo">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide indigo" ng-click="openBottomSheet()">
 		<div class="responsive">
 		<span class="mainInfo">1</span>
 		<i class="fa fa-envelope"></i>
@@ -79,12 +81,12 @@
 		<md-grid-tile-footer><h3>Voicemail</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lime">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lime" ng-click="openBottomSheet()">
 		<i class="responsive mainInfo fa fa-commenting-o"></i>
 		<md-grid-tile-footer><h3>Exclamation</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide teal">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide teal" ng-click="openBottomSheet()">
 		<i class="responsive mainInfo fa fa-music"></i>
 		<md-grid-tile-footer><h3>Jukebox</h3></md-grid-tile-footer>
 	</md-grid-tile>
@@ -104,7 +106,7 @@
 		<md-grid-tile-footer><h3>Time</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide orange">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide orange" ng-click="openBottomSheet()">
 		<i class="responsive mainInfo fa fa-hourglass-half"></i>
 		<md-grid-tile-footer><h3>Timer</h3></md-grid-tile-footer>
 	</md-grid-tile>
@@ -132,7 +134,7 @@
 		<md-grid-tile-footer><h3>Weather</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide indigo">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide indigo" ng-click="openBottomSheet()">
 		<i class="responsive mainInfo fa fa-bell-o"></i>
 		<md-grid-tile-footer><h3>Alarms</h3></md-grid-tile-footer>
 	</md-grid-tile>
@@ -142,17 +144,17 @@
 		<md-grid-tile-footer><h3>Party</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide orange">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide orange" ng-click="openBottomSheet()">
 		<i class="responsive mainInfo fa fa-star"></i>
 		<md-grid-tile-footer><h3>RUSSIA</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide blue">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide blue" ng-click="openBottomSheet()">
 		<i class="responsive mainInfo fa fa-flag-checkered"></i>
 		<md-grid-tile-footer><h3>Test</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide blueGrey">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide blueGrey" ng-click="openBottomSheet()">
 		<i class="responsive mainInfo fa fa-file-text-o"></i>
 		<md-grid-tile-footer><h3>Request history</h3></md-grid-tile-footer>
 	</md-grid-tile>
@@ -162,12 +164,12 @@
 		<md-grid-tile-footer><h3>Cigales</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lightGreen">
+	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lightGreen" ng-click="openBottomSheet()">
 		<i class="responsive mainInfo fa fa-power-off"></i>
 		<md-grid-tile-footer><h3>System</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<!--<md-grid-tile ng-repeat="conf in tuiles track by $index" onclick="" ng-click="expandTuile(conf)"
+	<!--<md-grid-tile ng-repeat="conf in tuiles track by $index" onclick="" ng-click="expandTile(conf)"
 		md-rowspan="{{conf.rowspan}}" md-colspan="{{conf.colspan}}" md-colspan-sm="{{conf.colspan}}" md-colspan-xs="{{conf.colspan}}" ng-class="conf.color">
 		<span ng-bind-html="toHtml(conf.value)"></span>
 		<p>{{message}}</p>

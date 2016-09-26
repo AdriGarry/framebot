@@ -21,7 +21,8 @@
 
 	<script src="js/config.js"></script>
 	<script src="js/controller.js"></script>
-	<script src="js/Tuile.js"></script>
+	<script src="js/objects.js"></script>
+	<script src="js/Tile.js"></script>
 
 	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
 	<link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
@@ -46,6 +47,8 @@
 		</div>
 	</md-toolbar>
 
+	{{object}}
+
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
 		<div class="logs" ng-dblclick="refreshLog()">
 			<ul><!-- class="fakeScroll"-->
@@ -55,8 +58,8 @@
 			<md-progress-circular md-diameter="150" ng-hide="logData"></md-progress-circular>
 		</div>
 		<div class="tools">
-			<md-button class="md-fab md-warn" ng-disabled="!admin" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
-			<md-button class="md-fab md-warn" ng-disabled="!admin" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
+			<md-button class="md-fab md-warn" ng-show="admin" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button><!--ng-disabled="!admin"-->
+			<md-button class="md-fab md-warn" ng-show="admin" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
 			<md-button class="md-fab md-warn" ng-click="hideLogs()" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
 		</div>
 	</md-sidenav>

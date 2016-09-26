@@ -1,10 +1,14 @@
 'use strict'
-app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdBottomSheet, $mdToast, UIService){
+app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdBottomSheet, $mdToast, UIService, Tile){
 	$scope.loading = false;/*true*/
 	$scope.admin = false;
 
 	$scope.logData;
 	$scope.showLogs = showLogs();
+
+
+	$scope.object = new Tile();
+	console.log($scope.object);
 
 	/** Function to pop down toast */
 	$scope.showToast = function(label) {
@@ -28,9 +32,16 @@ app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdB
 	};
 
 
-	$scope.expandTuile = function(obj){
-		console.log('expandTuile()');
+	/** Function to expand Tile */
+	$scope.expandTile = function(obj){
 		obj.rowspan = 2;
+	};
+	/** Function to reduce Tile */
+	$scope.reduceTile = function(obj){
+		console.log('reduceTile');
+		console.log(obj);
+		obj.rowspan = 1;
+		console.log(obj);
 	};
 
 
