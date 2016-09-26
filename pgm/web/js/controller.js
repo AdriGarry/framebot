@@ -87,19 +87,22 @@ app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdB
 	};
 
 	$scope.openBottomSheet = function(){
-		$scope.alert = '';
-		$mdBottomSheet.show({
-			templateUrl: 'content/bottom-sheet.html',
-			controller: 'BottomSheetCtrl',
-			clickOutsideToClose: true
-		}).then(function(clickedItem){
-			$mdToast.show(
-				$mdToast.simple()
-				.textContent(clickedItem + ' clicked!')
-				.position('top right')
-				.hideDelay(1500)
-			);
-		});
+		if($scope.admin){
+			$scope.alert = '';
+			$mdBottomSheet.show({
+				templateUrl: 'content/bottom-sheet.html',
+				controller: 'BottomSheetCtrl',
+				clickOutsideToClose: true
+			}).then(function(clickedItem){
+				$scope.showToast(clickedItem + ' clicked!');
+				// $mdToast.show(
+				// 	$mdToast.simple()
+				// 	.textContent(clickedItem + ' clicked!')
+				// 	.position('top right')
+				// 	.hideDelay(1500)
+				// );
+			});
+		}
 	};
 
 

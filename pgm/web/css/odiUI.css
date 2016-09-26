@@ -37,22 +37,6 @@ md-progress-circular path{
 	stroke:#90A4AE;
 }
 
-@media(max-width: 959px){
-	md-toast{
-		/*top:0;*/
-	}
-	/*md-toast.ng-leave.ng-leave-active.md-swipeup .md-toast-content{
-		-webkit-transform:translate3d(0,-50%,0);
-		transform:translate3d(0,-50%,0)
-	}
-	md-toast.ng-leave.ng-leave-active.md-swipedown .md-toast-content{
-		-webkit-transform:translate3d(0,50%,0);
-		transform:translate3d(0,50%,0)
-	}*/
-}
-
-
-
 md-toolbar.toolbar{
 	position:fixed;
 	background-color:#607D8B;/*#2C3E50*/
@@ -310,6 +294,9 @@ footer p{
 
 /* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */
 @media(min-width:768px){
+	md-toast.md-right{
+		right:5%;
+	}
 	/*figure{
 		font-size:2em;
 	}*/
