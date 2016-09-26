@@ -39,22 +39,18 @@ app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdB
 		$scope.logData = undefined;
 		return function(){
 			$mdSidenav('logs').toggle().then(function(){
-				// $timeout(function() {
-					$scope.refreshLog();
-				// }, 3000);
+				$scope.refreshLog();
 			});
 		}
 	};
 	/** Function to hide Logs */
 	$scope.hideLogs = function(){
-		$mdSidenav('logs').close().then(function(){
-			// console.log('hideLogs()');
-		});
+		$mdSidenav('logs').close().then(function(){});
 	};
 
 	/** Function to refresh logs */
 	$scope.refreshLog = function(){
-		$scope.logData = undefined;
+		//$scope.logData = undefined;
 		//$scope.showToast('Logs');
 		console.log('refreshing logs');
 		var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
@@ -75,10 +71,9 @@ app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdB
 	};
 
 	/** Function to inject HTML code */
-	// $scope.toHtml = function(html){
-	// 	console.log('toHtml()');
-	// 	return $sce.trustAsHtml(html);
-	// };
+	$scope.toHtml = function(html){
+		return $sce.trustAsHtml(html);
+	};
 
 	$scope.openBottomSheet = function(){
 		$scope.alert = '';
@@ -111,9 +106,9 @@ app.controller('BottomSheetCtrl', function($scope, $mdBottomSheet){
 	};
 
 	$scope.buttons = [
-		{label: 'Restart Odi', icon: 'bolt', url: ''},
+		{label: 'Shutdown Odi', icon: 'power-off', url: ''},
 		{label: 'Sleep Odi', icon: 'moon-o', url: ''},
-		{label: 'Shutdown Odi', icon: 'power-off', url: ''}
+		{label: 'Restart Odi', icon: 'bolt', url: ''}
 	];
 });
 

@@ -49,7 +49,7 @@
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
 		<div class="logs" ng-dblclick="refreshLog()">
 			<ul><!-- class="fakeScroll"-->
-				<li ng-repeat="logLine in logData track by $index">{{logLine}}</li><!-- ng-bind-html="toHtml(logLine)"-->
+				<li ng-repeat="logLine in logData track by $index" ng-bind-html="toHtml(logLine)">{{logLine}}</li><!-- ng-bind-html="toHtml(logLine)"-->
 				<a id="bottomLogs"></a>
 			</ul>
 			<md-progress-circular md-diameter="150" ng-hide="logData"></md-progress-circular>

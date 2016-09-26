@@ -124,7 +124,13 @@ md-sidenav div{
 	word-break:break-all;
 	white-space:pre-wrap;
 }
-
+.logs ul li a{
+	color:#adbfd2;
+	text-decoration:underline;
+}
+.logs ul li a:hover{
+	color:#fff;
+}
 /*md-sidenav md-toolbar*/ .tools{
 	width:100%;
 	height:70px;
@@ -180,18 +186,19 @@ md-grid-list md-grid-tile{
 
 /*figure *:not(md-grid-tile-footer, button)*/
 figure .responsive{
-	width:100%;
+	/*width:100%;*/
 	text-align:center;
 	color:#3f515a;
 	font-size:5vw;
 }
-figure .responsive.fa{
+figure .mainInfo{
 	font-size:10vw;
+	vertical-align:middle;
 }
-md-grid-list span.value{
+md-grid-list .value{
 	margin:0 5%;
 }
-md-grid-list span.value small{
+md-grid-list .value small{
 	font-size:0.7em;
 	vertical-align:text-top;
 }
@@ -276,7 +283,7 @@ footer{
 	font-size:1.3em;
 }
 footer p{
-	margin-bottom:0;
+	margin:3em auto 0;
 }
 
 .ng-slide{
@@ -295,6 +302,9 @@ footer p{
 	/*md-input-container button.md-button i.fa{
 		font-size:1.3em;
 	}*/
+	.logButton{
+		zoom:1.3;
+	}
 	md-switch.switch{
 		zoom:1.5;
 	}
@@ -319,7 +329,6 @@ footer p{
 		white-space:pre-wrap;
 	}
 
-
 	figure .responsive{
 		margin-top:-0.3em;
 	}
@@ -330,5 +339,8 @@ footer p{
 	md-grid-list md-grid-tile md-grid-tile-footer h3{
 		margin-left:5px;
 		font-size:3vw;
+	}
+	md-switch.switch{
+		margin-top:0;
 	}
 }

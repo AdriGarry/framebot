@@ -67,22 +67,25 @@
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide cyan">
-		<i class="responsive fa fa-volume-down"></i>
+		<i class="responsive mainInfo fa fa-volume-down"></i>
 		<md-grid-tile-footer><h3>Volume</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide indigo">
-		<i class="responsive fa fa-envelope"></i>
+		<div class="responsive">
+		<span class="mainInfo">1</span>
+		<i class="fa fa-envelope"></i>
+		</div>
 		<md-grid-tile-footer><h3>Voicemail</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lime">
-		<i class="responsive fa fa-comments-o"></i>
+		<i class="responsive mainInfo fa fa-commenting-o"></i>
 		<md-grid-tile-footer><h3>Exclamation</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide teal">
-		<i class="responsive fa fa-music"></i>
+		<i class="responsive mainInfo fa fa-music"></i>
 		<md-grid-tile-footer><h3>Jukebox</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
@@ -92,65 +95,75 @@
 	</md-grid-tile>-->
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide blue">
-		<i class="responsive fa fa-calendar"></i>
+		<i class="responsive mainInfo fa fa-calendar"></i>
 		<md-grid-tile-footer><h3>Date</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide blue">
-		<i class="responsive fa fa-clock-o"></i>
+		<i class="responsive mainInfo fa fa-clock-o"></i>
 		<md-grid-tile-footer><h3>Time</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide orange">
-		<i class="responsive fa fa-hourglass-half"></i>
+		<i class="responsive mainInfo fa fa-hourglass-half"></i>
 		<md-grid-tile-footer><h3>Timer</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lime">
 		<div class="responsive">
-			<span class="value">2<small>%</small></span><i class="fa fa-heartbeat"></i><span class="value">51<small>°C</small></span>
+			<!--<span class="value">2<small>%</small></span><i class="fa fa-heartbeat"></i><span class="value">51<small>°C</small></span>-->
+			<!--<div class="inline"><i class="fa fa-heartbeat"></i></div><div class="value inline">2<small>%</small></div><div class="value inline">51<small>°C</small></div>-->
+			<table>
+				<tr>
+					<td rowspan="2" class="mainInfo"><i class="fa fa-heartbeat"></i></td>
+					<td><div class="value inline">2<small>%</small></div></td>
+				</tr>
+				<tr>
+					<td><div class="value inline">51<small>°C</small></div></td>
+				</tr>
+			</table>
 			<!--<div class="inline"><i class="fa fa-heartbeat"></i></div><div class="value inline">2<small>%</small></div><div class="value inline">51<small>°C</small></div>-->
 		</div>
 		<md-grid-tile-footer><h3>CPU</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide teal">
-		<i class="responsive fa fa-cloud"></i>
+		<i class="responsive mainInfo fa fa-cloud"></i>
 		<md-grid-tile-footer><h3>Weather</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide indigo">
-		<i class="responsive fa fa-bell-o"></i>
+		<i class="responsive mainInfo fa fa-bell-o"></i>
 		<md-grid-tile-footer><h3>Alarms</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide indigo">
-		<i class="responsive fa fa-glass"></i>
+		<i class="responsive mainInfo fa fa-glass"></i>
 		<md-grid-tile-footer><h3>Party</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide orange">
-		<i class="responsive fa fa-star"></i>
+		<i class="responsive mainInfo fa fa-star"></i>
 		<md-grid-tile-footer><h3>RUSSIA</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide blue">
-		<i class="responsive fa fa-flag-checkered"></i>
+		<i class="responsive mainInfo fa fa-flag-checkered"></i>
 		<md-grid-tile-footer><h3>Test</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide blueGrey">
-		<i class="responsive fa fa-file-text-o"></i>
+		<i class="responsive mainInfo fa fa-file-text-o"></i>
 		<md-grid-tile-footer><h3>Request history</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lime">
-		<i class="responsive fa fa-bug"></i>
+		<i class="responsive mainInfo fa fa-bug"></i>
 		<md-grid-tile-footer><h3>Cigales</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lightGreen">
-		<i class="responsive fa fa-power-off"></i>
+		<i class="responsive mainInfo fa fa-power-off"></i>
 		<md-grid-tile-footer><h3>System</h3></md-grid-tile-footer>
 	</md-grid-tile>
 

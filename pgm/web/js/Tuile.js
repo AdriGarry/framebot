@@ -34,10 +34,12 @@ function Tuile(id, title, color, row, col, value){
 	// Bottom Sheet attributes
 	this.bottomSheet = [{
 		button: '',
-		label: ''
+		label: '',
+		url: ''
 	},{
 		button: '',
-		label: ''
+		label: '',
+		url: ''
 	}];
 
 }
