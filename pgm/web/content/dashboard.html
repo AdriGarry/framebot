@@ -169,6 +169,14 @@
 		<md-grid-tile-footer><h3>System</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
+	<md-grid-tile ng-click="expandTile(tile)"
+		md-rowspan="{{tile.rowspan}}" md-colspan="{{tile.colspan}}" md-colspan-sm="{{tile.colspan}}" md-colspan-xs="{{tile.colspan}}" ng-class="tile.color">
+		{{tile.value}}
+		<br>{{admin}}
+		<md-grid-tile-footer><h3>{{tile.label}}</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+
 	<!--<md-grid-tile ng-repeat="conf in tuiles track by $index" onclick="" ng-click="expandTile(conf)"
 		md-rowspan="{{conf.rowspan}}" md-colspan="{{conf.colspan}}" md-colspan-sm="{{conf.colspan}}" md-colspan-xs="{{conf.colspan}}" ng-class="conf.color">
 		<span ng-bind-html="toHtml(conf.value)"></span>

@@ -7,17 +7,14 @@ app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdB
 	$scope.showLogs = showLogs();
 
 
-	$scope.object = new Tile();
-	console.log($scope.object);
+	/*$scope.object = new Tile();
+	console.log($scope.object);*/
+	$scope.tile = new Tile(1, 'TileTitle', 'orange', 1, 2, 1, [{label: 'RESTART', icon: 'bolt', url: 'url1'},{label: 'REFRESH', icon: 'refresh', url:'url2'}]);
+	console.log($scope.tile);
 
 	/** Function to pop down toast */
 	$scope.showToast = function(label) {
-		$mdToast.show(
-			$mdToast.simple()
-			.textContent(label)
-			.position('top right')
-			.hideDelay(1500)
-		);
+		$mdToast.show($mdToast.simple().textContent(label).position('top right').hideDelay(1500));
 	};
 
 	$scope.ttsTuile = {
@@ -34,7 +31,7 @@ app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdB
 
 	/** Function to expand Tile */
 	$scope.expandTile = function(obj){
-		obj.rowspan = 2;
+		if(obj.hasOwnProperty('rowspan')) obj.rowspan = 2;
 	};
 	/** Function to reduce Tile */
 	$scope.reduceTile = function(obj){
@@ -71,7 +68,7 @@ app.controller('UIController', function($scope, $timeout, $sce, $mdSidenav, $mdB
 				var ip = match.substr(1,match.length-2);
 				if(ip.search(/(^192\.168\.)/g)){
 					return '[<a href="https://fr.iponmap.com/' + ip 
-						+ '" title="Localize this IP" target="_blank">' + ip + '<a/>]';
+						+ '" title="Localize this IP" target="_blank">' + ip + '</a>]';
 				}else{
 					// console.log('ipELSE: ' + ip);
 					return '[' + ip + ']';
