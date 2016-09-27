@@ -76,6 +76,25 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $sce, $mdS
 	};
 
 
+
+
+	/** Function to refresh Dashboard **/
+	$scope.refreshDashboard = function(){
+		console.log('refreshDashboard()');
+		DashboardService.refresh(function(data){
+			console.log('AAA');
+			$scope.dashboard.loading = true;
+			// $scope.dashboard.tileList;
+			angular.forEach(data, function(tile, key){
+				console.log(key);
+				//console.log(tile);
+				console.log($scope.dashboard.tileList[key]);
+				if($scope.dashboard.tileList[key]) $scope.dashboard.tileList[key].value = data[key].value;
+				//tile.value = 
+				//this.push(key + ': ' + value);
+			});//, log
+		});
+	}
 	/** Function on click on Tile **/
 	$scope.tileAction = function(tile){
 		// console.log('tileAction()');
@@ -86,7 +105,6 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $sce, $mdS
 			$scope.action(tile.actionList[0]);
 		}
 	}
-
 	/** Function to open bottom sheet **/
 	$scope.openBottomSheet = function(bottomSheetList){
 		// console.log('openBottomSheet()');
@@ -102,7 +120,6 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $sce, $mdS
 			});
 		}
 	};
-
 	/** Function on click on bottom sheet **/
 	$scope.bottomSheetAction = function(button){
 		console.log('bottomSheetAction()');
@@ -110,7 +127,6 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $sce, $mdS
 		$scope.action(button);
 		$mdBottomSheet.hide(button);
 	};
-
 	/** Function to send action **/
 	$scope.action = function(button){
 		UIService.sendCommand(button);
@@ -122,6 +138,7 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $sce, $mdS
 		return $sce.trustAsHtml(html);
 	};
 
+	$scope.refreshDashboard();
 	/*$timeout(function(){
 		$scope.loading = false;
 	}, 1000);*/
@@ -191,17 +208,16 @@ app.factory('UIService', ['$http', function($http){
 }]);
 
 /* Dashboard Factory FACTORY // SERVICE ??? */
-app.factory('DashboardService', function(Tile){
+app.factory('DashboardService', function($http, Tile){
 	var VALUE = 'value', ICON = 'icon', CUSTOM = 'custom';
 	var DashboardService = {};
 
 	/** Function to initialize dashboard */
 	var value = 'VALUE';
 	DashboardService.initTiles = { //Tile(id, label, color, rowspan, colspan, viewMode, value, actionList)
-		mode: new Tile(1, 'Mode', 'teal', 1, 1, VALUE, 'Ready',
+		mode: new Tile(1, 'Mode', 'teal', 1, 1, VALUE, '',
 			[{label: 'Sleep', icon: 'moon-o', url: '/sleep'},{label: 'Restart', icon: 'bolt', url: '/odi'}]),
-		switch: new Tile(2, 'Switch', 'blueGrey', 1, 1, CUSTOM, '', 
-			[]).bindHTML('switch'),
+		switch: new Tile(2, 'Switch', 'blueGrey', 1, 1, CUSTOM, '', []).bindHTML('switch'),
 		volume: new Tile(3, 'Volume', 'cyan', 1, 1, CUSTOM, 'normal',
 			[{url: '/mute'}]).bindHTML('volume'),
 		voicemail: new Tile(4, 'Voicemail', 'indigo', 1, 1, CUSTOM, '1',
@@ -234,26 +250,23 @@ app.factory('DashboardService', function(Tile){
 			[{url: '/cigales'}]),
 		system: new Tile(18, 'System', 'lightGreen', 1, 1, ICON, 'power-off',
 			[{label: 'Shutdown Odi', icon: 'power-off', url: '/shutdown'},{label: 'Reboot Odi', icon: 'refresh', url: '/reboot'}]),
+		about: new Tile(19, 'About', 'lightGreen', 1, 1, VALUE, '', [])
 	};
 
 
-	/** Fonction de suivi d'activite */
-	// utilService.monitoringActivity = function(callback){
-	// 	$http({
-	// 		method: 'GET',
-	// 		url: 'http://odi.adrigarry.com/monitoring'
-	// 	}).then(function successCallback(res){
-	// 		callback(res.data);
-	// 	}, function errorCallback(res){
-	// 		var activity = {
-	// 			mode: 'waiting',
-	// 			pauseUI: false,
-	// 			info: res
-	// 		};
-	// 		console.error(activity);
-	// 		callback(activity);
-	// 	});
-	// };
+	/** Function to update dashboard from Odi */
+	DashboardService.refresh = function(callback){
+		$http({
+			method: 'GET',
+			url: 'http://odi.adrigarry.com/dashboard'
+		}).then(function successCallback(res){
+			callback(res.data);
+		}, function errorCallback(res){
+			/*var activity = {mode: 'waiting',pauseUI: false,info: res};*/
+			console.log(activity);
+			callback(activity);
+		});
+	};
 
 
 	/** Function to refresh dashboard */

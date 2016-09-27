@@ -85,6 +85,33 @@ exports.startUI = function startUI(mode){
 		res.end(JSON.stringify(activity));
 	});
 
+	/** DASHBOARD SECTION */
+	ui.get('/dashboard', function (req, res){
+		console.log('/DASHBOARD');
+		var temp = parseInt(mode);
+		//console.log(temp);
+		var now = new Date();
+		var h = now.getHours();
+		var wakeUpTime;
+		if(temp > h){
+			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
+		}
+		var dashboard = {
+			mode: {value: isNaN(parseFloat(mode)) ? 'Ready' : parseInt(mode)},
+			switch: {value: _buttons.getEtat()}, 
+			volume: {value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'High' : 'Normal') : 'Mute'},
+			voicemail: {value: _voiceMail.areThereAnyMessages()},
+			jukebox: {value: '<i>Soon available</i>'},
+			timer: {value: '<i class="fa fa-3x fa-hourglass"></i>'},
+			cpu: {temp: _utils.getCPUTemp()},
+			alarms: {value: '<i>Soon available</i>'},
+			system: {value: '<i>Soon available</i>'}
+		};
+		res.writeHead(200);
+		res.end(JSON.stringify(dashboard));
+	});
+
+
 	/** SETTINGS SECTION */
 	ui.get('/settings', function (req, res){
 		var temp = parseInt(mode);
@@ -177,7 +204,6 @@ exports.startUI = function startUI(mode){
 				colspan: 1
 			}
 		};
-		// console.log(settings);
 		res.writeHead(200);
 		res.end(JSON.stringify(settings));
 	});
