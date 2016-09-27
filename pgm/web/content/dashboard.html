@@ -59,7 +59,8 @@
 
 	<md-grid-tile ng-repeat="tile in dashboard.tileList track by $index" md-rowspan="{{tile.rowspan}}"
 		md-colspan="{{tile.colspan}}" md-colspan-sm="{{tile.colspan}}" md-colspan-xs="{{tile.colspan}}"
-		class="ng-slide" ng-class="tile.color" ng-click="tile.actionList.length>1 && openBottomSheet(tile.actionList)">
+		class="ng-slide" ng-class="tile.color" ng-click="tileAction(tile)">
+		<!-- ng-click="tile.actionList.length>1 && openBottomSheet(tile.actionList)"-->
 
 		<span class="responsive" ng-show="tile.viewMode=='value'">{{tile.value}}</span>
 

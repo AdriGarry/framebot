@@ -59,8 +59,8 @@
 			<md-progress-circular md-diameter="150" ng-hide="logData"></md-progress-circular>
 		</div>
 		<div class="tools">
-			<md-button class="md-fab md-warn" ng-show="admin" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button><!--ng-disabled="!admin"-->
-			<md-button class="md-fab md-warn" ng-show="admin" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
+			<md-button class="md-fab md-warn" ng-click="action({label: '', url: '/sleep'})" ng-show="admin" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
+			<md-button class="md-fab md-warn" ng-click="action({label: '', url: '/odi'})" ng-show="admin" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
 			<md-button class="md-fab md-warn" ng-click="hideLogs()" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
 		</div>
 	</md-sidenav>

@@ -21,8 +21,13 @@ app.factory('Tile', function(){
 		//this.html = '';
 
 		// Action attributes
-		this.action = '';
+		//this.action = '';
 		this.actionList = actionList;
+
+		// console.log(this.actionList);
+		if(this.actionList.length>0 && !this.actionList[0].hasOwnProperty('label')){
+			this.actionList[0].label = this.label;
+		}
 	}
 
 	// Define the "instance" methods using the prototype and standard prototypal inheritance.
