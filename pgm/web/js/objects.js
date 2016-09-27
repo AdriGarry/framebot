@@ -18,7 +18,7 @@ app.factory('Tile', function(){
 		// Info attributes
 		this.value = value;
 		this.viewMode = viewMode; // 'icon' || 'value' || 'custom'
-		this.html = '';
+		//this.html = '';
 
 		// Action attributes
 		this.action = '';
@@ -40,23 +40,39 @@ app.factory('Tile', function(){
 		},
 		bindHTML: function(element){
 			// console.log('bindHTML()');
-			console.log(element);
+			// console.log(element);
 			var html = '';
 			switch(element){
 				case 'switch':
 					html = '<md-switch class="switch" ng-disabled="true" title="Switch position" aria-label="Switch position" ng-model="disabledModel"></md-switch>';
-				break;
+					html = '<i>TEST</i>';
+					break;
 				case 'volume':
-					html = '';
-				break;
+					html = '<i class="mainInfo fa fa-' + (this.value == 'high' ? 'volume-up' : (this.value == 'sleep' ? 'bell-slash-o' : 'volume-down')) + '"></i>';
+					break;
+				case 'voicemail':
+					html = '<span class="mainInfo">' + this.value + '</span><i class="fa fa-envelope"></i>';
+					break;
+				case 'jukebox':
+					html = '<i class="mainInfo fa fa-' + (this.value == 'jukebox' ? 'random' : (this.value == 'fip' ? 'globe' : 'music')) + '"></i>';
+					break;
+				case 'timer':
+					html = '<i class="mainInfo fa fa-hourglass-half"></i>';
+					break;
+				case 'cpu':
+					html = '<table><tr><td rowspan="2" class="mainInfo"><i class="fa fa-heartbeat"></i></td><td>';
+					html += '<div class="value inline">' + this.value.usage + '<small>%</small></div></td></tr><tr><td>';
+					html += '<div class="value inline">' + this.value.temp + '<small>°C</small></div></td></tr></table>';
+					break;
+				case 'alarms':
+					html = '<i class="mainInfo fa fa-bell-o"></i>';
+					break;
 				default:
-					html = '';
+					html = '<i>No component specified!</i>';
 				break;
 			}
-			console.log(html);
-			this.html = html;
-			console.log(this);
-			//return html;
+			this.value = html;
+			return this;
 		}
 
 		/*onclick: function(){

@@ -65,15 +65,15 @@
 
 		<i class="responsive mainInfo fa fa-{{tile.value}}" ng-show="tile.viewMode=='icon'"></i>
 
-		<span class="responsive" ng-bind-html="toHtml(tile.html)" ng-show="tile.viewMode=='custom'">{{tile.value}}</span>
+		<span class="responsive" ng-bind-html="toHtml(tile.value)" ng-show="tile.viewMode=='custom'"></span>
 
-		<md-grid-tile-footer><h3>{{tile.label}}<small>_{{tile.value}}</small></h3></md-grid-tile-footer>
+		<md-grid-tile-footer><h3>{{tile.label}}<i class="fa fa-dot-circle-o" ng-show="tile.actionList.length>1 && admin"></i></h3></md-grid-tile-footer><!--<small>{{tile.value}}</small>-->
 	</md-grid-tile>
 
 <!-- ######################## -->
 
 
-	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="teal" ng-click="openBottomSheet()">
+	<!--<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="teal" ng-click="openBottomSheet()">
 		<span class="responsive">Ready</span>
 		<md-grid-tile-footer><h3>Mode</h3></md-grid-tile-footer>
 	</md-grid-tile>
@@ -106,11 +106,6 @@
 		<md-grid-tile-footer><h3>Jukebox</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<!--<md-grid-tile md-rowspan="1" md-colspan="2" md-colspan-sm="2" md-colspan-xs="2" class="ng-slide blue">
-		<i class="responsive fa fa-clock-o"></i>
-		<md-grid-tile-footer><h3>Date & Time</h3></md-grid-tile-footer>
-	</md-grid-tile>-->
-
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide blue">
 		<i class="responsive mainInfo fa fa-calendar"></i>
 		<md-grid-tile-footer><h3>Date</h3></md-grid-tile-footer>
@@ -128,8 +123,6 @@
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lime">
 		<div class="responsive">
-			<!--<span class="value">2<small>%</small></span><i class="fa fa-heartbeat"></i><span class="value">51<small>°C</small></span>-->
-			<!--<div class="inline"><i class="fa fa-heartbeat"></i></div><div class="value inline">2<small>%</small></div><div class="value inline">51<small>°C</small></div>-->
 			<table>
 				<tr>
 					<td rowspan="2" class="mainInfo"><i class="fa fa-heartbeat"></i></td>
@@ -139,7 +132,6 @@
 					<td><div class="value inline">51<small>°C</small></div></td>
 				</tr>
 			</table>
-			<!--<div class="inline"><i class="fa fa-heartbeat"></i></div><div class="value inline">2<small>%</small></div><div class="value inline">51<small>°C</small></div>-->
 		</div>
 		<md-grid-tile-footer><h3>CPU</h3></md-grid-tile-footer>
 	</md-grid-tile>
@@ -182,6 +174,6 @@
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide lightGreen" ng-click="openBottomSheet()">
 		<i class="responsive mainInfo fa fa-power-off"></i>
 		<md-grid-tile-footer><h3>System</h3></md-grid-tile-footer>
-	</md-grid-tile>
+	</md-grid-tile>-->
 
 </md-grid-list>
