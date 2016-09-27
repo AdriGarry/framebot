@@ -1,7 +1,8 @@
 <md-bottom-sheet class="md-grid" layout="column">
 	<md-subheader layout-align="center center" ng-cloak>Options</md-subheader>
 	<div ng-cloak>
-		<md-button ng-repeat="button in buttons track by $index" class="md-grid-item-content" ng-click="listItemClick(button)">
+		<md-button ng-repeat="button in bottomSheetButtonList track by $index" ng-click="bottomSheetBtnClick(button)"
+			class="md-grid-item-content">
 			<i class="fa fa-2x fa-{{button.icon}}"></i>
 			<div class="md-grid-text">{{button.label}}</div>
 		</md-button>

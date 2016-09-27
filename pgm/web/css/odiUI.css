@@ -39,6 +39,7 @@ md-progress-circular path{
 
 md-toolbar.toolbar{
 	position:fixed;
+	top:0;
 	background-color:#607D8B;/*#2C3E50*/
 }
 md-toolbar.toolbar span[flex] + i{
@@ -77,6 +78,9 @@ button>i{
 }
 
 /*------------------------------ TOAST ------------------------------- */
+md-toast{
+	position:fixed;
+}
 md-toast .md-toast-content span{
 	font-size:1.5em;
 }

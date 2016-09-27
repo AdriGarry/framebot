@@ -1,14 +1,14 @@
 <md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
 	md-row-height="4:3" md-gutter="12px">
 
-	<md-grid-tile ng-click="expandTile(ttsTuile)" md-rowspan="{{ttsTuile.rowspan}}" md-colspan="{{ttsTuile.colspan}}" md-colspan-sm="{{ttsTuile.colspan}}" md-colspan-xs="{{ttsTuile.colspan}}" ng-class="ttsTuile.color" class="ng-slide">
-		<md-button ng-show="ttsTuile.rowspan == 2" ng-click="reduceTile(ttsTuile)" class="md-icon-button reduceTile"
+	<md-grid-tile ng-click="expandTile(ttsTile)" md-rowspan="{{ttsTile.rowspan}}" md-colspan="{{ttsTile.colspan}}" md-colspan-sm="{{ttsTile.colspan}}" md-colspan-xs="{{ttsTile.colspan}}" ng-class="ttsTile.color" class="ng-slide">
+		<md-button ng-show="ttsTile.rowspan == 2" ng-click="reduceTile(ttsTile)" class="md-icon-button reduceTile"
 			title="Reduce Tile" aria-label="Reduce Tile"><i class="fa fa-2x fa-close"></i></md-button>
 
 	<!--<md-grid-tile md-rowspan="1" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="lightGreen"
 		ng-focus="expandTile(this)">-->
 		<form ng-submit="tts.submit()" class="mainContent">
-			<div layout="row" ng-show="ttsTuile.rowspan == 2">
+			<div layout="row" ng-show="ttsTile.rowspan == 2">
 				<md-switch ng-model="tts.voice" ng-true-value="':1'" ng-false-value="':3'" class="voiceSwitch"
 					ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'">
 					<span>Human Voice</span>
@@ -16,7 +16,7 @@
 				</md-switch>
 			</div>
 
-			<div layout="row" ng-show="ttsTuile.rowspan == 2">
+			<div layout="row" ng-show="ttsTile.rowspan == 2">
 				<div flex="10"></div>
 				<md-input-container flex="50">
 					<label>Language</label>
@@ -35,28 +35,43 @@
 						ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'">VoiceMail</md-checkbox>
 				</label>
 			</div>
-		<div layout="row">
-		</div>
-		<div layout="row">
-			<md-input-container flex="70" class="md-block">
-				<label>Message</label>
-				<input name="ttsMsg" ng-model="tts.msg" ng-change="tts.cleanText()"><!--required-->
-				<!--<input name="ttsMsg" ng-model="tts.msg" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
-				<div ng-messages="ttsMsg.$error" role="alert" multiple>
-					<div ng-message="required" class="my-message">Required&nbsp;!</div>
-				</div>-->
-			</md-input-container>
-			<md-input-container flex="30" class="md-block centerText">
-				<md-button type="submit" name="submit" class="md-raised" ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
-					<i class="fa" ng-class="tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
-				</md-button>
-			</md-input-container>
-		</div>
-	</form>
-
-
+			<div layout="row">
+			</div>
+			<div layout="row">
+				<md-input-container flex="70" class="md-block">
+					<label>Message</label>
+					<input name="ttsMsg" ng-model="tts.msg" ng-change="tts.cleanText()"><!--required-->
+					<!--<input name="ttsMsg" ng-model="tts.msg" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+					<div ng-messages="ttsMsg.$error" role="alert" multiple>
+						<div ng-message="required" class="my-message">Required&nbsp;!</div>
+					</div>-->
+				</md-input-container>
+				<md-input-container flex="30" class="md-block centerText">
+					<md-button type="submit" name="submit" class="md-raised" ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
+						<i class="fa" ng-class="tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
+					</md-button>
+				</md-input-container>
+			</div>
+		</form>
 		<md-grid-tile-footer><h3>TTS - Voice synthesizing</h3></md-grid-tile-footer>
 	</md-grid-tile>
+
+
+	<md-grid-tile ng-repeat="tile in dashboard.tileList track by $index" md-rowspan="{{tile.rowspan}}"
+		md-colspan="{{tile.colspan}}" md-colspan-sm="{{tile.colspan}}" md-colspan-xs="{{tile.colspan}}"
+		class="ng-slide" ng-class="tile.color" ng-click="tile.actionList.length>1 && openBottomSheet(tile.actionList)">
+
+		<span class="responsive" ng-show="tile.viewMode=='value'">{{tile.value}}</span>
+
+		<i class="responsive mainInfo fa fa-{{tile.value}}" ng-show="tile.viewMode=='icon'"></i>
+
+		<span class="responsive" ng-bind-html="toHtml(tile.html)" ng-show="tile.viewMode=='custom'">{{tile.value}}</span>
+
+		<md-grid-tile-footer><h3>{{tile.label}}<small>_{{tile.value}}</small></h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+<!-- ######################## -->
+
 
 	<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="teal" ng-click="openBottomSheet()">
 		<span class="responsive">Ready</span>
@@ -169,18 +184,4 @@
 		<md-grid-tile-footer><h3>System</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile ng-click="expandTile(tile)"
-		md-rowspan="{{tile.rowspan}}" md-colspan="{{tile.colspan}}" md-colspan-sm="{{tile.colspan}}" md-colspan-xs="{{tile.colspan}}" ng-class="tile.color">
-		{{tile.value}}
-		<br>{{admin}}
-		<md-grid-tile-footer><h3>{{tile.label}}</h3></md-grid-tile-footer>
-	</md-grid-tile>
-
-
-	<!--<md-grid-tile ng-repeat="conf in tuiles track by $index" onclick="" ng-click="expandTile(conf)"
-		md-rowspan="{{conf.rowspan}}" md-colspan="{{conf.colspan}}" md-colspan-sm="{{conf.colspan}}" md-colspan-xs="{{conf.colspan}}" ng-class="conf.color">
-		<span ng-bind-html="toHtml(conf.value)"></span>
-		<p>{{message}}</p>
-		<md-grid-tile-footer><h3>{{conf.lib}}{{conf.size}}</h3></md-grid-tile-footer>
-	</md-grid-tile>-->
 </md-grid-list>
