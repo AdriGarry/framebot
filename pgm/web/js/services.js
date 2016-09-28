@@ -87,7 +87,7 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 			[{label: 'Sleep', icon: 'moon-o', url: '/sleep'},{label: 'Restart', icon: 'bolt', url: '/odi'}]),
 		switch: new Tile(2, 'Switch', 'blueGrey', 1, 1, CUSTOM, '', []).bindHTML('switch'),
 		volume: new Tile(3, 'Volume', 'cyan', 1, 1, CUSTOM, 'normal',
-			[{url: '/mute'}]).bindHTML('volume'),
+			[{label: 'Mute', url: '/mute'}]).bindHTML('volume'),
 		voicemail: new Tile(4, 'Voicemail', 'indigo', 1, 1, CUSTOM, '1',
 			[{label: 'Empty voicemail', icon: 'trash-o', url: '/clearVoiceMail'},{label: 'Play voicemail', icon: 'play', url: '/checkVoiceMail'}]).bindHTML('voicemail'),
 		exclamation: new Tile(5, 'Exclamation', 'lime', 1, 1, ICON, 'commenting-o',

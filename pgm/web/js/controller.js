@@ -103,6 +103,8 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 
 	/** Function to send action **/
 	$scope.action = function(button){
+		// console.log(button);
+		$scope.showToast(button.label);
 		UIService.sendCommand(button);
 	};
 	/** Function on click on Tile **/
@@ -126,14 +128,12 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 				controller: 'UIController',
 				clickOutsideToClose: true
 			}).then(function(action){
-				$scope.showToast(action.label);
+				// $scope.showToast(action.label);
 			});
 		}
 	};
 	/** Function on click on bottom sheet **/
 	$scope.bottomSheetAction = function(button){
-		// console.log('bottomSheetAction()');
-		// console.log(button);
 		$scope.action(button);
 		$mdBottomSheet.hide(button);
 	};
