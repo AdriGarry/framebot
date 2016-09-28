@@ -69,6 +69,7 @@ app.factory('Tile', function(){
 					break;
 				case 'timer':
 					html = '<i class="mainInfo fa fa-hourglass-half"></i>';
+					if(this.value > 0) html += '&nbsp;' + Math.trunc(this.value/60) + ':' + (this.value%60 < 10 ? ('0' + this.value%60) : this.value%60);
 					break;
 				case 'cpu':
 					html = '<table><tr><td rowspan="2" class="mainInfo"><i class="fa fa-heartbeat"></i></td><td>';

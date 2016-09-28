@@ -50,6 +50,7 @@ Temporary Items
 *.log
 /pgm/node_modules/*
 #/log/*
+/conf/
 /medias/*
 /mp3/*
 /pgm/config/*

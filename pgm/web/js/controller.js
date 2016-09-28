@@ -2,7 +2,7 @@
 app.controller('UIController', function($rootScope, $scope, $timeout, $interval, $sce, $mdSidenav,
 		$mdBottomSheet, $mdToast, UIService){
 	$scope.loading = false;/*true*/
-	$scope.admin = false;
+	$scope.adri = false;
 
 	$scope.logData;
 	$scope.showLogs = showLogs();
@@ -109,7 +109,7 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 	};
 	/** Function on click on Tile **/
 	$scope.tileAction = function(tile){
-		if($scope.admin){
+		if($scope.adri){
 			if(tile.actionList.length>1){
 				$scope.openBottomSheet(tile.actionList);
 			}else{
@@ -120,7 +120,7 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 	/** Function to open bottom sheet **/
 	$scope.openBottomSheet = function(bottomSheetList){
 		// console.log('openBottomSheet()');
-		if($scope.admin){
+		if($scope.adri){
 			$rootScope.bottomSheetButtonList = bottomSheetList;
 			$scope.alert = '';
 			$mdBottomSheet.show({
@@ -165,7 +165,7 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 	/*var setAdminCp = 0;
 	$scope.tryAdmin = function(){
 		setAdminCp++;
-		if(setAdminCp > 2) $scope.admin = true;
+		if(setAdminCp > 2) $scope.adri = true;
 	}*/
 });
 
