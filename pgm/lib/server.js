@@ -87,9 +87,7 @@ exports.startUI = function startUI(mode){
 
 	/** DASHBOARD SECTION */
 	ui.get('/dashboard', function (req, res){
-		console.log('/DASHBOARD');
 		var temp = parseInt(mode);
-		//console.log(temp);
 		var now = new Date();
 		var h = now.getHours();
 		var wakeUpTime;
@@ -99,13 +97,12 @@ exports.startUI = function startUI(mode){
 		var dashboard = {
 			mode: {value: isNaN(parseFloat(mode)) ? 'Ready' : parseInt(mode)},
 			switch: {value: _buttons.getEtat()}, 
-			volume: {value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'High' : 'Normal') : 'Mute'},
+			volume: {value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'high' : 'normal') : 'mute'},
 			voicemail: {value: _voiceMail.areThereAnyMessages()},
 			jukebox: {value: '<i>Soon available</i>'},
-			timer: {value: '<i class="fa fa-3x fa-hourglass"></i>'},
-			cpu: {temp: _utils.getCPUTemp()},
-			alarms: {value: '<i>Soon available</i>'},
-			system: {value: '<i>Soon available</i>'}
+			timer: {value: 0},
+			cpu: {value: {usage: _utils.getCPUUsage(), temp: _utils.getCPUTemp()}},
+			alarms: {value: '<i>Soon available</i>'}
 		};
 		res.writeHead(200);
 		res.end(JSON.stringify(dashboard));

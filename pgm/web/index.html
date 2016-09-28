@@ -21,6 +21,7 @@
 
 	<script src="js/config.js"></script>
 	<script src="js/controller.js"></script>
+	<script src="js/services.js"></script>
 	<script src="js/objects.js"></script>
 	<!--<script src="js/Tile.js"></script>-->
 
@@ -35,7 +36,7 @@
 </head>
 <body ng-controller="UIController">
 
-	<md-toolbar class="toolbar" ng-dblclick="admin=true">
+	<md-toolbar class="toolbar" ng-dblclick="admin=true" ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools">
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" ng-class="activity.mode == 'sleep' ? 'sleep' : ''">
 			<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" ng-show="activity.mode == 'waiting'">
@@ -74,7 +75,7 @@
 
 			<md-progress-circular md-diameter="150" ng-show="loading"></md-progress-circular>
 
-			<div ng-include src="'content/dashboard.html'" ng-hide="loading" ng-class="loading ? '' : 'ng-slide'"></div>
+			<div ng-include src="'templates/dashboard.html'" ng-hide="loading" ng-class="loading ? '' : 'ng-slide'"></div>
 
 			<footer ng-hide="loading">
 				<!--<h3>ABOUT...</h3>
