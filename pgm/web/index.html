@@ -39,12 +39,12 @@
 	<md-toolbar class="toolbar" ng-dblclick="admin=true" ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools">
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" ng-class="dashboard.tileList.mode.value > 0 ? 'sleep' : ''">
-			<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" ng-show="activity.mode == 'waiting'">
+			<!--<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" ng-show="activity.mode == 'waiting'">-->
 			<h1>Odi UI</h1>
 			<span flex></span>
 			<i ng-show="admin" class="fa fa-key"></i>
 			<md-button class="md-icon-button"  title="Reload UI" aria-label="Reload UI" onclick="setTimeout(function(){window.location.reload()},500);">
-				<i class="fa fa-2x fa-refresh" ng-class="{'fa-spin':spin}" ng-mouseenter="spin=true" ng-mouseleave="spin=false"></i><!--retweet/repeat-->
+				<i class="fa fa-2x fa-refresh" ng-class="{'fa-spin':spin}" ng-mouseenter="spin=true" ng-mouseleave="spin=false"></i>
 			</md-button>
 		</div>
 	</md-toolbar>
@@ -63,7 +63,7 @@
 			<md-button class="md-fab md-warn" ng-click="action({label: '', url: '/sleep'})" ng-show="admin" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
 			<md-button class="md-fab md-warn" ng-click="action({label: '', url: '/mute'})" ng-show="admin" title="Mute Odi" aria-label="Mute Odi"><i class="fa fa-2x fa-bell-slash-o"></i></md-button>
 			<md-button class="md-fab md-warn" ng-click="action({label: '', url: '/odi'})" ng-show="admin" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
-			<md-button class="md-fab md-warn" ng-click="hideLogs()" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
+			<md-button class="md-fab md-warn" ng-click="hideLogs()" on-long-press="admin = true" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
 		</div>
 	</md-sidenav>
 

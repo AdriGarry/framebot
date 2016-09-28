@@ -221,7 +221,7 @@ md-grid-list md-grid-tile md-grid-tile-footer h3{
 }
 md-grid-list md-grid-tile md-grid-tile-footer h3 i{
 	position:absolute;
-	right:1em;
+	right:3%;
 	margin-top:2px;
 }
 
@@ -345,6 +345,9 @@ footer p{
 }
 /* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
 @media(max-width:768px){
+	.toolbar h1{
+		margin-left:4.5em;
+	}
 	.main{
 		padding-top:80px;/*5em*/
 	}
