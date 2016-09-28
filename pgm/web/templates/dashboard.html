@@ -65,7 +65,7 @@
 
 		<i class="responsive mainInfo fa fa-{{tile.value}}" ng-show="tile.viewMode=='icon'"></i>
 
-		<span class="responsive" ng-bind-html="toHtml(tile.value)" ng-show="tile.viewMode=='custom'"></span>
+		<span class="responsive" ng-bind-html="toHtml(tile.html)" ng-show="tile.viewMode=='custom'"></span>
 
 		<md-grid-tile-footer><h3>{{tile.label}}<i class="fa fa-dot-circle-o" ng-show="tile.actionList.length>1 && admin"></i></h3></md-grid-tile-footer>
 	</md-grid-tile>

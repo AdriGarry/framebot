@@ -11,7 +11,7 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 		mode: '',
 		loading: false,
 		ttsTile: {
-			label: 'TTS - Voice synthesizing11',
+			label: 'TTS - Voice synthesizing',
 			color: 'blue',
 			rowspan : 1,
 			colspan: 3,
@@ -52,6 +52,22 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 		voice: ':3'
 	};
 
+
+	/** Function to refresh Dashboard **/
+	$scope.refreshDashboard = function(){
+		console.log('refreshDashboard()');
+		DashboardService.refresh(function(data){
+			// console.log(data);
+			$scope.dashboard.loading = true;
+			angular.forEach(data, function(tile, key){
+				$scope.dashboard.tileList[key].value = data[key].value;
+				$scope.dashboard.tileList[key].bindHTML(key);
+				// $timeout(function(){$scope.dashboard.loading = false;}, 100);
+				$scope.dashboard.loading = false;
+			});
+		});
+	}
+
 	/** Function to pop down toast */
 	$scope.showToast = function(label) {
 		$mdToast.show($mdToast.simple().textContent(label).position('top right').hideDelay(1500));
@@ -89,21 +105,6 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 		});
 	};
 
-
-	/** Function to refresh Dashboard **/
-	$scope.refreshDashboard = function(){
-		console.log('refreshDashboard()');
-		DashboardService.refresh(function(data){
-			// console.log(data);
-			$scope.dashboard.loading = true;
-			angular.forEach(data, function(tile, key){
-				$scope.dashboard.tileList[key].value = data[key].value;
-				$scope.dashboard.tileList[key].bindHTML(key);
-				// $timeout(function(){$scope.dashboard.loading = false;}, 100);
-				$scope.dashboard.loading = false;
-			});
-		});
-	}
 
 	/** Function to send action **/
 	$scope.action = function(button){

@@ -18,7 +18,7 @@ app.factory('Tile', function(){
 		// Info attributes
 		this.value = value;
 		this.viewMode = viewMode; // 'icon' || 'value' || 'custom'
-		//this.html = '';
+		this.html = '';
 
 		// Action attributes
 		//this.action = '';
@@ -83,7 +83,7 @@ app.factory('Tile', function(){
 					html = '<i>No component specified!</i>';
 				break;
 			}
-			this.value = html;
+			this.html = html;
 			return this;
 		}
 
