@@ -2,15 +2,13 @@
 	md-row-height="4:3" md-gutter="12px">
 
 	<md-grid-tile ng-click="expandTile(dashboard.ttsTile)" md-rowspan="{{dashboard.ttsTile.rowspan}}" md-colspan="{{dashboard.ttsTile.colspan}}" md-colspan-sm="{{dashboard.ttsTile.colspan}}" md-colspan-xs="{{dashboard.ttsTile.colspan}}" ng-class="dashboard.ttsTile.color" class="ng-slide">
-		<md-button ng-show="dashboard.ttsTile.rowspan == 2" ng-click="reduceTile(dashboard.ttsTile)" class="md-icon-button reduceTile"
-			title="Reduce Tile" aria-label="Reduce Tile"><i class="fa fa-2x fa-close"></i></md-button>
+		<!--<md-button ng-show="dashboard.ttsTile.rowspan == 2" ng-click="reduceTile(dashboard.ttsTile)" class="md-icon-button reduceTile"
+			title="Reduce Tile" aria-label="Reduce Tile"><i class="fa fa-2x fa-close"></i></md-button>-->
 
-	<!--<md-grid-tile md-rowspan="1" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="lightGreen"
-		ng-focus="expandTile(this)">-->
-		<form ng-submit="tts.submit()" class="mainContent">
+		<form ng-submit="dashboard.ttsTile.submit()" class="mainContent">
 			<div layout="row" ng-show="dashboard.ttsTile.rowspan == 2">
-				<md-switch ng-model="tts.voice" ng-true-value="':1'" ng-false-value="':3'" class="voiceSwitch"
-					ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'">
+				<md-switch ng-model="dashboard.ttsTile.voice" ng-true-value="':1'" ng-false-value="':3'" class="voiceSwitch desktopZoom"
+					ng-class="dashboard.ttsTile.voice == ':3' ? 'md-warn' : 'md-primary'">
 					<span>Human Voice</span>
 					<span>Robot Voice</span>
 				</md-switch>
@@ -20,19 +18,18 @@
 				<div flex="10"></div>
 				<md-input-container flex="50">
 					<label>Language</label>
-					<md-select name="type" ng-model="tts.lg">
-						<md-option ng-repeat="language in ttsConfig.languageList track by $index" ng-value="language.code"
+					<md-select name="type" ng-model="dashboard.ttsTile.lg">
+						<md-option ng-repeat="language in dashboard.ttsTile.conf.languageList track by $index" ng-value="language.code"
 							ng-checked="language.code == fr">
 							{{language.label}}
 						</md-option>
 					</md-select>
 				</md-input-container>
 
-				<label title="Envoyer dans messagerie" class="pointer text-center"  flex="30">
+				<label class="pointer text-center desktopZoom" flex="30">
 					<!--<input type="checkbox" class=".noDisplay" ng-model="tts.voicemail">
 					<i class="fa fa-2x" ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>-->
-					<md-checkbox ng-model="tts.voicemail" title="TEST" aria-label="TEST"
-						ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'">VoiceMail</md-checkbox>
+					<md-checkbox ng-model="dashboard.ttsTile.voicemail" ng-class="dashboard.ttsTile.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send in voicemail" aria-label="Send in voicemail">VoiceMail</md-checkbox>
 				</label>
 			</div>
 			<div layout="row">
@@ -40,18 +37,19 @@
 			<div layout="row">
 				<md-input-container flex="70" class="md-block">
 					<label>Message</label>
-					<input name="ttsMsg" ng-model="tts.msg" ng-change="tts.cleanText()"><!--required-->
+					<input name="ttsMsg" ng-model="dashboard.ttsTile.msg" ng-change="dashboard.ttsTile.cleanText()"><!--required-->
 					<!--<input name="ttsMsg" ng-model="tts.msg" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
 					<div ng-messages="ttsMsg.$error" role="alert" multiple>
 						<div ng-message="required" class="my-message">Required&nbsp;!</div>
 					</div>-->
 				</md-input-container>
 				<md-input-container flex="30" class="md-block centerText">
-					<md-button type="submit" name="submit" class="md-raised" ng-class="tts.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
-						<i class="fa" ng-class="tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
+					<md-button type="submit" name="submit" class="md-raised" ng-class="dashboard.ttsTile.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
+						<i class="fa" ng-class="dashboard.ttsTile.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 					</md-button>
 				</md-input-container>
 			</div>
+			<!--{{dashboard.ttsTile}}-->
 		</form>
 		<md-grid-tile-footer><h3>{{dashboard.ttsTile.label}}</h3></md-grid-tile-footer>
 	</md-grid-tile>
@@ -67,7 +65,12 @@
 
 		<span class="responsive" ng-bind-html="toHtml(tile.html)" ng-show="tile.viewMode=='custom'"></span>
 
-		<md-grid-tile-footer><h3>{{tile.label}}<i class="fa fa-dot-circle-o" ng-show="tile.actionList.length>1 && admin"></i></h3></md-grid-tile-footer>
+		<md-grid-tile-footer><h3>{{tile.label}}<i class="fa fa-bars" ng-show="tile.actionList.length>1 && admin"></i></h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="1" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="ng-slide grey">
+		<p class="responsive">Hi,<br>I'm Odi !</p>
+		<md-grid-tile-footer><h3>About</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 <!-- ######################## -->

@@ -52,9 +52,9 @@ md-toolbar.toolbar span[flex] + i{
 
 img.odiFace{
 	position:absolute;
-	height:150%;/*90%*/
+	height:180%;/*150%*//*90%*/
 	top:1px;
-	margin-left:5px;
+	margin-left:0;
 	margin-right:20px;
 	border-radius:50%;
 	border:2px solid;
@@ -72,7 +72,7 @@ img.odiFace.odiOff{
 }
 
 .toolbar h1{
-	margin-left:5em;
+	margin-left:4em;
 	font-size:1.2em;
 }
 
@@ -201,6 +201,9 @@ figure .responsive{
 	color:#3f515a;
 	font-size:5vw;
 }
+figure p.responsive{
+	text-align:left;
+}
 figure .mainInfo{
 	font-size:10vw;
 	vertical-align:middle;
@@ -226,7 +229,9 @@ md-grid-list md-grid-tile form{
 	width:90%;
 }
 
+.grey{background:rgba(0, 0, 0, 0.08);}
 .blue{background:rgba(187, 222, 251, 1);}
+.lightBlue{background:rgba(187, 222, 251, 0.3);}
 .blueGrey{background:rgba(207, 216, 220, 1);}
 .lightGreen{background:rgba(220, 237, 200, 1);}
 .indigo{background:rgba(197, 202, 233, 1);}
@@ -268,6 +273,13 @@ md-switch.voiceSwitch, md-checkbox{
 	float:left;
 	margin-left:-10em;
 }
+
+md-input-container + label{
+	margin-top:1em;
+	margin-left:1em;
+}
+
+
 
 /* ------------------------------ SWITCH ------------------------------- */
 md-switch.switch{
@@ -326,12 +338,16 @@ footer p{
 	.logButton{
 		zoom:1.3;
 	}
-	md-switch.switch{
+	.desktopZoom{
+		color:rgba(0,0,0,0.6);
 		zoom:1.5;
 	}
 }
 /* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
 @media(max-width:768px){
+	.main{
+		padding-top:80px;/*5em*/
+	}
 	md-input-container{
 		margin:0;
 	}

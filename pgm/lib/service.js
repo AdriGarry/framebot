@@ -113,6 +113,15 @@ var setTimer = function(minutes){
 }
 exports.setTimer = setTimer;
 
+/** Function to return minutes left on timer **/
+exports.timeLeftTimer = function timeLeftTimer(){
+	return time;
+};
+
+/** Function to stop timer **/
+exports.stopTimer = function stopTimer(){
+	time = 0;
+};
 
 /** Fonction info date */
 var days = fs.readFileSync('/home/pi/odi/pgm/data/date.days.properties', 'UTF-8').toString().split('\n');

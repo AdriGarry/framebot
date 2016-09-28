@@ -38,18 +38,12 @@ var setTimer = function(minutes){
 		}
 		time--;
 		if(time%120 == 0 && (time/60)>0){
-			// tts.speak('fr', 'Minuterie ' + time/60 + ' minutes');
 			tts.speak('fr', time/60 + ' minutes et compte a rebours');
 		}else if(time <= 0){
 			clearInterval(sec);
 			console.log('End Timer !');
 			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/timerSound.sh', 'end']);
-			// leds.blinkAllLeds(100, 2.2);
-			leds.blink({
-				leds: ['belly','eye', 'satellite', 'nose'],
-				speed: 90,
-				loop: 12
-			});
+			leds.blink({leds: ['belly','eye', 'satellite', 'nose'], speed: 90, loop: 12});
 			tts.speak('fr', 'Les raviolis sont cuits !');
 			timer = false;
 			belly.write(0);
@@ -58,3 +52,17 @@ var setTimer = function(minutes){
 	}
 }
 exports.setTimer = setTimer;
+
+/** Function to return minutes left on timer **/
+exports.timeLeftTimer = function timeLeftTimer(){
+	console.log('timeLeft()');
+	console.log(time);
+	return time;
+};
+
+/** Function to stop timer **/
+exports.stopTimer = function stopTimer(){
+	console.log(time);
+	time = 0;
+	//return time;
+};

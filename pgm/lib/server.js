@@ -100,7 +100,7 @@ exports.startUI = function startUI(mode){
 			volume: {value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'high' : 'normal') : 'mute'},
 			voicemail: {value: _voiceMail.areThereAnyMessages()},
 			jukebox: {value: '<i>Soon available</i>'},
-			timer: {value: 0},
+			timer: {value: _service.timeLeftTimer()},
 			cpu: {value: {usage: _utils.getCPUUsage(), temp: _utils.getCPUTemp()}},
 			alarms: {value: '<i>Soon available</i>'}
 		};
@@ -401,6 +401,8 @@ exports.startUI = function startUI(mode){
 				// console.log('UI > Timer for ' + min + ' minutes');
 				console.log(min);
 				_service.setTimer(min);
+			}else if(params.hasOwnProperty('stop')){
+				_service.stopTimer();
 			}else{
 				_service.setTimer();
 			}
