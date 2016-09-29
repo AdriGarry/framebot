@@ -1,14 +1,20 @@
 'use strict'
 
 /* UI Service */
-app.service('UIService', ['$http', 'Tile', function($http, Tile){
+app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANTS, Tile){
 
 	/** Function to update dashboard from Odi **/
 	this.refreshDashboard = function(callback){
 		$http({
-			headers: {ui: 'v3'},
+			headers: {
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': 'http://adrigarry.com',
+				/*'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+				'Access-Control-Allow-Headers':'X-Requested-With',*/
+				ui: 'v3'
+			},
 			method: 'GET',
-			url: 'http://odi.adrigarry.com/dashboard'
+			url: CONSTANTS.URL_ODI + '/dashboard'
 		}).then(function successCallback(res){
 			callback(res.data);
 		}, function errorCallback(res){
@@ -25,7 +31,7 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 		$http({
 			headers: {ui: 'v3'},
 			method: 'POST',
-			url: 'http://odi.adrigarry.com' + uri + params
+			url: CONSTANTS.URL_ODI + uri + params
 		}).then(function successCallback(res){
 			// console.log(res);// console.log(cmd.url + params);
 			// callback(res);
@@ -58,7 +64,7 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 		$http({
 			headers: {ui: 'v3'},
 			method: 'POST',
-			url: 'http://odi.adrigarry.com/tts?voice=' + tts.voice + '&lg=' + tts.lg 
+			url: CONSTANTS.URL_ODI + '/tts?voice=' + tts.voice + '&lg=' + tts.lg 
 				+ '&msg=' + tts.msg + (tts.voicemail ? '&voicemail' : '')
 		}).then(function successCallback(res){
 			callback(res);
@@ -74,7 +80,7 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 		$http({
 			headers: {ui: 'v3'},
 			method: 'GET',
-			url: 'http://odi.adrigarry.com/log?logSize=' + logSize
+			url: CONSTANTS.URL_ODI + '/log?logSize=' + logSize
 		}).then(function successCallback(res){
 			callback(res.data);
 		}, function errorCallback(res){
@@ -92,7 +98,7 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 		switch: new Tile(2, 'Switch', 'blueGrey', 1, 1, CUSTOM, '', []).bindHTML('switch'),
 		volume: new Tile(3, 'Volume', 'cyan', 1, 1, CUSTOM, 'normal',
 			[{label: 'Mute', url: '/mute'}]).bindHTML('volume'),
-		voicemail: new Tile(4, 'Voicemail', 'indigo', 1, 1, CUSTOM, '1',
+		voicemail: new Tile(4, 'Voicemail', 'indigo', 1, 1, CUSTOM, 0,
 			[{label: 'Empty voicemail', icon: 'trash-o', url: '/clearVoiceMail'},{label: 'Play voicemail', icon: 'play', url: '/checkVoiceMail'}]).bindHTML('voicemail'),
 		exclamation: new Tile(5, 'Exclamation', 'lime', 1, 1, ICON, 'commenting-o',
 			[{label: 'Conversation', icon: 'comments-o', url: '/conversation'},{label: 'TTS', icon: 'commenting-o', url: '/tts?msg=RANDOM'},{label: 'Exclamation', icon: 'bullhorn', url: '/exclamation'},{label: 'Last TTS', icon: 'undo', url: '/lastTTS'}]),
@@ -114,8 +120,8 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 			[{url: '/setParty'}]),
 		russia: new Tile(14, 'Russia', 'orange', 1, 1, ICON, 'star',
 			[{label: 'Subway / Street', icon: 'subway', url: '/russia'},{label: 'Hymn', icon: 'star', url: '/russia?hymn'}]),
-		test: new Tile(15, 'Test', 'blue', 1, 1, ICON, 'lightbulb-o',
-			[{label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{label: 'Test', icon: 'flag-checkered', url:'/test'}]),
+		idea: new Tile(15, 'Idea', 'blue', 1, 1, ICON, 'lightbulb-o',
+			[{label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk'},{label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{label: 'Test', icon: 'flag-checkered', url:'/test'}]),
 		logs: new Tile(16, 'Logs', 'blueGrey', 1, 1, ICON, 'file-text-o',
 			[{label: 'Voicemail History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/voicemailHistory'},{label: 'Request History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/requestHistory'}]),
 		cigales: new Tile(17, 'Cigales', 'lime', 1, 1, ICON, 'bug',

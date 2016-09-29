@@ -311,8 +311,9 @@ md-bottom-sheet .md-subheader{
 	font-size:2em;
 	color:#3f515a;
 }
-md-bottom-sheet button{
-	margin:0 5%!important;
+md-bottom-sheet button.md-button{
+	margin:0 5%;
+	padding-top:1em;
 }
 
 /* ------------------------------ FOOTER ------------------------------- */

@@ -391,6 +391,11 @@ exports.startUI = function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
+		ui.post('/naheulbeuk', function (req, res) { // Nahleubeuk
+			_deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'Naheulbeuk']);
+			res.writeHead(200);res.end();
+		});
+
 		ui.post('/date', function (req, res) { // Date
 			// console.log('UI > Date');
 			_service.date();

@@ -63,6 +63,10 @@ then
 elif [ $1 = "test" ]
 then
 	sound="/home/pi/odi/mp3/system/test.mp3"
+#___Donjon de Naheulbeuk
+elif [ $1 = "Naheulbeuk" ]
+then
+	sound="/home/pi/odi/mp3/others/Donjon-De-Naheulbeuk-Integrale.mp3"
 elif [ $1 = "new" ]
 #___Son Test derniere maj
 then
@@ -72,5 +76,14 @@ else
 	sound="/home/pi/odi/mp3/exclamation/ressort.mp3"
 fi
 
-sudo omxplayer -o local --vol $volume $sound
-sudo node /home/pi/odi/pgm/lib/allLedsOff.js
+#___Donjon de Naheulbeuk
+if [ $1 = "Naheulbeuk" ]
+then
+	position=$(shuf -i 0-20000 -n 1)
+	sudo node /home/pi/odi/pgm/lib/allLedsOff.js
+	sudo omxplayer -o local --pos $position --vol $volume $sound > /dev/null &
+
+else
+	sudo omxplayer -o local --vol $volume $sound
+	sudo node /home/pi/odi/pgm/lib/allLedsOff.js
+fi

@@ -1,6 +1,6 @@
 'use strict'
 app.controller('UIController', function($rootScope, $scope, $timeout, $interval, $sce, $window, $mdSidenav,
-		$mdBottomSheet, $mdToast, UIService){
+		$mdBottomSheet, $mdToast, CONSTANTS, UIService){
 	$scope.loading = false;/*true*/
 	$scope.pauseUI = false;
 	$scope.irda = false;
@@ -55,28 +55,15 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 	/** Function to refresh Dashboard **/
 	$scope.refreshDashboard = function(){
 		console.log('refreshDashboard()');
+		$scope.dashboard.loading = true;
 		UIService.refreshDashboard(function(data){
-			// console.log(data);
-			$scope.dashboard.loading = true;
 			angular.forEach(data, function(tile, key){
 				$scope.dashboard.tileList[key].value = data[key].value;
 				$scope.dashboard.tileList[key].bindHTML(key);
-				// $timeout(function(){$scope.dashboard.loading = false;}, 100);
-				$scope.dashboard.loading = false;
 			});
+			$timeout(function(){$scope.dashboard.loading = false;}, 100);
 		});
 	}
-
-	/** Initialisation pause UI */
-	$window.onfocus = function(){
-		$scope.pauseUI = false;
-		//$scope.$apply();
-	};
-	$window.onblur = function(){
-		$scope.pauseUI = true;
-		//$scope.$apply();
-	};
-
 
 	/** Function to pop down toast */
 	$scope.showToast = function(label) {
@@ -98,15 +85,14 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 	};
 	/** Function to refresh logs */
 	$scope.refreshLog = function(){
-		//$scope.logData = undefined;
 		// console.log('refreshing logs');
+		//$scope.logData = undefined;
 		var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 		UIService.updateLogs(function(logs){
-			// var ipRegex = new RegExp("\\[([0-9]{1,3}\\.){3}([0-9]{1,3})\\]","g");
 			logs = logs.replace(/\[([0-9]{1,3}\.){3}([0-9]{1,3})\]/g, function(match, capture){
 				var ip = match.substr(1,match.length-2);
 				if(ip.search(/(^192\.168\.)/g)){
-					return '[<a href="https://fr.iponmap.com/' + ip + '" title="Localize this IP" target="_blank">' + ip + '</a>]';
+					return '[<a href="'+ CONSTANTS.URL_IP_LOCALIZATOR + ip + '" title="Localize this IP" target="_blank">' + ip + '</a>]';
 				}else{
 					return '[' + ip + ']';
 				}
@@ -137,7 +123,7 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 		}
 	}
 	/** Function to open bottom sheet **/
-	$scope.openBottomSheet = function(bottomSheetList){ // console.log('openBottomSheet()');
+	$scope.openBottomSheet = function(bottomSheetList){
 		if($scope.irda){
 			$rootScope.bottomSheetButtonList = bottomSheetList;
 			$scope.alert = '';
@@ -183,15 +169,3 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 		if(setAdminCp > 2) $scope.irda = true;
 	}*/
 });
-
-/*app.controller('BottomSheetCtrl', function($scope, $mdBottomSheet){
-	$scope.listItemClick = function(item){
-		console.log(item);
-		$mdBottomSheet.hide(item);
-	};
-	$scope.buttons = [
-		{label: 'Shutdown Odi', icon: 'power-off', url: ''},
-		{label: 'Sleep Odi', icon: 'moon-o', url: ''},
-		{label: 'Restart Odi', icon: 'bolt', url: ''}
-	];
-});*/
