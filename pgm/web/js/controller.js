@@ -2,6 +2,7 @@
 app.controller('UIController', function($rootScope, $scope, $timeout, $interval, $sce, $window, $mdSidenav,
 		$mdBottomSheet, $mdToast, UIService){
 	$scope.loading = false;/*true*/
+	$scope.pauseUI = false;
 	$scope.irda = false;
 
 	$scope.logData;
@@ -36,15 +37,16 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 				$scope.dashboard.ttsTile.msg = message;
 			},
 			submit: function(){
-				console.log($scope.dashboard.ttsTile);
-				$scope.showToast($scope.dashboard.ttsTile.msg);
-				// LIMITER / TRONQUER la longueur du message !!! WWWWWWWW => 200
+				if($scope.dashboard.ttsTile.msg != ''){
+					$scope.showToast($scope.dashboard.ttsTile.msg);
+					// LIMITER / TRONQUER la longueur du message !!! WWWWWWWW => 200
 
-				UIService.sendTTS($scope.dashboard.ttsTile, function(callback){
-					if(callback.status != 200) $scope.dashboard.ttsTile.error = 'UNE ERREUR EST SURVENUE';
-					// console.log(callback);
-				});
-				$scope.dashboard.ttsTile.msg = ''; $scope.dashboard.ttsTile.error = ''; // Reinit TTS
+					UIService.sendTTS($scope.dashboard.ttsTile, function(callback){
+						if(callback.status != 200) $scope.dashboard.ttsTile.error = 'UNE ERREUR EST SURVENUE';
+						// console.log(callback);
+					});
+					$scope.dashboard.ttsTile.msg = ''; $scope.dashboard.ttsTile.error = ''; // Reinit TTS
+				}
 			}
 		},
 		tileList: UIService.initDashboardTiles
@@ -64,6 +66,17 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 			});
 		});
 	}
+
+	/** Initialisation pause UI */
+	$window.onfocus = function(){
+		$scope.pauseUI = false;
+		//$scope.$apply();
+	};
+	$window.onblur = function(){
+		$scope.pauseUI = true;
+		//$scope.$apply();
+	};
+
 
 	/** Function to pop down toast */
 	$scope.showToast = function(label) {
