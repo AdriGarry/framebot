@@ -80,7 +80,7 @@ app.factory('Tile', function(){
 					html = '<i class="mainInfo fa fa-bell-o"></i>';
 					break;
 				case 'about':
-					html = 'Hi,<br> I\'m Odi !';
+					html = '<p class="responsive">Hi,<br> I\'m Odi !</p>';
 					break;
 				default:
 					html = '<i>No component specified!</i>';

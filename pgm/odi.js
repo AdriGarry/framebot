@@ -28,16 +28,6 @@ var _server = require('./lib/server.js');
 // LED Start sequence
 //leds.blinkLed(100, 300); // Sequence led de start
 
-//leds.activity(); // Initialisation du temoin d'activite 1/2
-/*setTimeout(function(){
-	leds.clearLeds();
-	led.write(1);
-	eye.write(0);
-}, 500);*/
-/*setInterval(function(){
-	leds.blinkLed(400, 0.7);
-}, 3000);*/
-
 new CronJob('*/3 * * * * *', function(){
 	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Initialisation du temoin d'activite 2/2
 }, null, 0, 'Europe/Paris');

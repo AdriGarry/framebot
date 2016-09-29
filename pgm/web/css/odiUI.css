@@ -75,6 +75,11 @@ img.odiFace.odiOff{
 	margin-left:4em;
 	font-size:1.2em;
 }
+.toolbar h1 span{
+	margin-left:5px;
+	font-style:italic;
+	color:#7893a1;
+}
 
 button>i{
 	vertical-align:text-bottom;

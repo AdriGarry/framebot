@@ -54,7 +54,6 @@
 		<md-grid-tile-footer><h3>{{dashboard.ttsTile.label}}</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-
 	<md-grid-tile ng-repeat="tile in dashboard.tileList track by $index" md-rowspan="{{tile.rowspan}}"
 		md-colspan="{{tile.colspan}}" md-colspan-sm="{{tile.colspan}}" md-colspan-xs="{{tile.colspan}}"
 		class="ng-slide" ng-class="tile.color" ng-click="tileAction(tile)">
@@ -67,17 +66,5 @@
 
 		<md-grid-tile-footer><h3>{{tile.label}}<i class="fa fa-bars" ng-show="tile.actionList.length>1 && irda"></i></h3></md-grid-tile-footer>
 	</md-grid-tile>
-
-	<md-grid-tile md-rowspan="1" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="ng-slide grey">
-		<p class="responsive">Hi,<br>I'm Odi !</p>
-		<md-grid-tile-footer><h3>About</h3></md-grid-tile-footer>
-	</md-grid-tile>
-
-<!-- ######################## -->
-
-	<!--<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="ng-slide blueGrey">
-		<md-switch class="switch" ng-disabled="true" title="Switch position" aria-label="Switch position" ng-model="disabledModel"></md-switch>
-		<md-grid-tile-footer><h3>Switch</h3></md-grid-tile-footer>
-	</md-grid-tile>-->
 
 </md-grid-list>
