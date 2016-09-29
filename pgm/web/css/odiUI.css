@@ -317,14 +317,19 @@ md-bottom-sheet button{
 
 /* ------------------------------ FOOTER ------------------------------- */
 footer{
-	color:#c2d0d6;
 	text-align:center;
 	font-size:1.3em;
 }
 footer p{
 	margin:3em auto 0;
 }
-
+footer p a{
+	color:#c2d0d6;
+	text-decoration:none;
+}
+footer p a:hover{
+	color:#94adb8;
+}
 
 /* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */
 @media(min-width:768px){
