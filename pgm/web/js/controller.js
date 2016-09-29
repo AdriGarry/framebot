@@ -2,7 +2,7 @@
 app.controller('UIController', function($rootScope, $scope, $timeout, $interval, $sce, $mdSidenav,
 		$mdBottomSheet, $mdToast, UIService){
 	$scope.loading = false;/*true*/
-	$scope.adri = false;
+	$scope.irda = false;
 
 	$scope.logData;
 	$scope.showLogs = showLogs();
@@ -38,6 +38,8 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 			submit: function(){
 				console.log($scope.dashboard.ttsTile);
 				$scope.showToast($scope.dashboard.ttsTile.msg);
+				// LIMITER / TRONQUER la longueur du message !!! WWWWWWWW => 200
+
 				UIService.sendTTS($scope.dashboard.ttsTile, function(callback){
 					if(callback.status != 200) $scope.dashboard.ttsTile.error = 'UNE ERREUR EST SURVENUE';
 					// console.log(callback);
@@ -109,7 +111,7 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 	};
 	/** Function on click on Tile **/
 	$scope.tileAction = function(tile){
-		if($scope.adri){
+		if($scope.irda){
 			if(tile.actionList.length>1){
 				$scope.openBottomSheet(tile.actionList);
 			}else{
@@ -118,9 +120,8 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 		}
 	}
 	/** Function to open bottom sheet **/
-	$scope.openBottomSheet = function(bottomSheetList){
-		// console.log('openBottomSheet()');
-		if($scope.adri){
+	$scope.openBottomSheet = function(bottomSheetList){ // console.log('openBottomSheet()');
+		if($scope.irda){
 			$rootScope.bottomSheetButtonList = bottomSheetList;
 			$scope.alert = '';
 			$mdBottomSheet.show({
@@ -156,16 +157,13 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 	};
 	/** Function to reduce Tile */
 	$scope.reduceTile = function(obj){
-		console.log('reduceTile');
-		console.log(obj);
 		obj.rowspan = 1;
-		console.log(obj);
 	};
 
 	/*var setAdminCp = 0;
 	$scope.tryAdmin = function(){
 		setAdminCp++;
-		if(setAdminCp > 2) $scope.adri = true;
+		if(setAdminCp > 2) $scope.irda = true;
 	}*/
 });
 

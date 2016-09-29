@@ -80,35 +80,39 @@ var setTimer = function(minutes){
 	console.log(ttsMsg);
 	tts.speak('fr', ttsMsg);
 	if(!timer){
-	timer = true;
-	var sec = setInterval(function(){
-		belly.write(etat);
-		etat = 1 - etat;
-		if(time < 10){
-			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/timerSound.sh', 'almost']);
-		}
-		else{
-			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/timerSound.sh']);
-		}
-		time--;
-		if(time%120 == 0 && (time/60)>0){
-			// tts.speak('fr', 'Minuterie ' + time/60 + ' minutes');
-			tts.speak('fr', time/60 + ' minutes et compte a rebours');
-		}else if(time <= 0){
-			clearInterval(sec);
-			console.log('End Timer !');
-			var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/timerSound.sh', 'end']);
-			// leds.blinkAllLeds(100, 2.2);
-			leds.blink({
-				leds: ['belly','eye', 'satellite', 'nose'],
-				speed: 90,
-				loop: 12
-			});
-			tts.speak('fr', 'Les raviolis sont cuits !');
-			timer = false;
-			belly.write(0);
-		}
-	}, 1000);
+		timer = true;
+		var sec = setInterval(function(){
+			belly.write(etat);
+			etat = 1 - etat;
+			if(time < 10){
+				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/timerSound.sh', 'almost']);
+			}
+			else{
+				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/timerSound.sh']);
+			}
+			time--;
+			if(time%120 == 0 && (time/60)>0){
+				// tts.speak('fr', 'Minuterie ' + time/60 + ' minutes');
+				tts.speak('fr', time/60 + ' minutes et compte a rebours');
+			}else if(time <= 0 && time > -5){
+				clearInterval(sec);
+				console.log('End Timer !');
+				var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/timerSound.sh', 'end']);
+				// leds.blinkAllLeds(100, 2.2);
+				leds.blink({
+					leds: ['belly','eye', 'satellite', 'nose'],
+					speed: 90,
+					loop: 12
+				});
+				tts.speak('fr', 'Les raviolis sont cuits !');
+				timer = false;
+				belly.write(0);
+			}else if(time > -2){
+				clearInterval(sec);
+				console.log('Timer canceled!');
+				belly.write(0);
+			}
+		}, 1000);
 	}
 }
 exports.setTimer = setTimer;
@@ -120,7 +124,9 @@ exports.timeLeftTimer = function timeLeftTimer(){
 
 /** Function to stop timer **/
 exports.stopTimer = function stopTimer(){
-	time = 0;
+	time = -5;
+	timer = false;
+	belly.write(0);
 };
 
 /** Fonction info date */

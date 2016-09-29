@@ -6,6 +6,7 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 	/** Function to update dashboard from Odi **/
 	this.refreshDashboard = function(callback){
 		$http({
+			headers: {ui: 'v3'},
 			method: 'GET',
 			url: 'http://odi.adrigarry.com/dashboard'
 		}).then(function successCallback(res){
@@ -22,6 +23,7 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 		var uri = obj.url;
 		var params = '';
 		$http({
+			headers: {ui: 'v3'},
 			method: 'POST',
 			url: 'http://odi.adrigarry.com' + uri + params
 		}).then(function successCallback(res){
@@ -54,6 +56,7 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 	/** Function to send TTS **/
 	this.sendTTS = function(tts, callback){
 		$http({
+			headers: {ui: 'v3'},
 			method: 'POST',
 			url: 'http://odi.adrigarry.com/tts?voice=' + tts.voice + '&lg=' + tts.lg 
 				+ '&msg=' + tts.msg + (tts.voicemail ? '&voicemail' : '')
@@ -69,6 +72,7 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 	var logSize = 100;
 	this.updateLogs = function(callback){
 		$http({
+			headers: {ui: 'v3'},
 			method: 'GET',
 			url: 'http://odi.adrigarry.com/log?logSize=' + logSize
 		}).then(function successCallback(res){
@@ -99,7 +103,7 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 		time: new Tile(8, 'Time', 'blue', 1, 1, ICON, 'clock-o',
 			[{url: '/time'}]),
 		timer: new Tile(9, 'Timer', 'orange', 1, 1, CUSTOM, 'hourglass-hald',
-			[{label: 'Stop timer', icon: 'stop', url: '/timer?stop'},{label: 'Increment 1', icon: 'plus', url: '/timer'}]).bindHTML('timer'),
+			[{label: 'Stop timer', icon: 'stop', url: '/timer?stop'},{label: 'Timer +1', icon: 'plus', url: '/timer'}]).bindHTML('timer'),
 		cpu: new Tile(10, 'CPU', 'lime', 1, 1, CUSTOM, {usage: 2, temp: 51},
 			[{url: '/cpuTemp'}]).bindHTML('cpu'),
 		weather: new Tile(11, 'Weather', 'teal', 1, 1, ICON, 'cloud',
@@ -112,13 +116,13 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 			[{label: 'Subway / Street', icon: 'subway', url: '/russia'},{label: 'Hymn', icon: 'star', url: '/russia?hymn'}]),
 		test: new Tile(15, 'Test', 'blue', 1, 1, ICON, 'lightbulb-o',
 			[{label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{label: 'Test', icon: 'flag-checkered', url:'/test'}]),
-		requestHistory: new Tile(16, 'Request History', 'blueGrey', 1, 1, ICON, 'file-text-o',
+		logs: new Tile(16, 'Logs', 'blueGrey', 1, 1, ICON, 'file-text-o',
 			[{label: '???', icon: 'file-text-o', url: ''},{label: 'Request History', icon: 'file-text-o', url: '/requestHistory'}]),
 		cigales: new Tile(17, 'Cigales', 'lime', 1, 1, ICON, 'bug',
 			[{url: '/cigales'}]),
 		system: new Tile(18, 'System', 'lightGreen', 1, 1, ICON, 'power-off',
-			[{label: 'Shutdown Odi', icon: 'power-off', url: '/shutdown'},{label: 'Reboot Odi', icon: 'refresh', url: '/reboot'}])/*,
-		about: new Tile(19, 'About', 'lightGreen', 1, 2, VALUE, 'Hi, I\'m Odi !', [])*/
+			[{label: 'Shutdown Odi', icon: 'power-off', url: '/shutdown'},{label: 'Reboot Odi', icon: 'refresh', url: '/reboot'}]),
+		about: new Tile(19, 'About', 'grey', 1, 3, CUSTOM, '', []).bindHTML('about')
 	};
 
 }]);

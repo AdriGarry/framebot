@@ -56,8 +56,9 @@ exports.startUI = function startUI(mode){
 		/*if(method == 'GET') method = '< ';
 		else method = '> ';
 		request = ' Odi' + (method == 'GET' ? ' > ' : ' < ');*/
-		request = 'UI ' + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
+		request = 'UI' + req.headers.ui + ' ' + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
 		console.log(request);
+		// console.log(req.headers);
 		_fs.appendFile(FILE_REQUEST_HISTORY, _utils.formatedDate() + request + '\r\n', function(err){
 			if(err){
 				return console.error(err);

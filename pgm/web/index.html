@@ -42,7 +42,7 @@
 			<!--<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" ng-show="activity.mode == 'waiting'">-->
 			<h1>Odi UI</h1>
 			<span flex></span>
-			<!--<i ng-show="adri" class="fa fa-key"></i>-->
+			<!--<i ng-show="irda" class="fa fa-key"></i>-->
 			<md-button class="md-icon-button"  title="Reload UI" aria-label="Reload UI" onclick="setTimeout(function(){window.location.reload()},500);">
 				<i class="fa fa-2x fa-refresh" ng-class="{'fa-spin':spin}" ng-mouseenter="spin=true" ng-mouseleave="spin=false"></i>
 			</md-button>
@@ -60,17 +60,17 @@
 			<md-progress-circular md-diameter="150" ng-hide="logData"></md-progress-circular>
 		</div>
 		<div class="tools">
-			<md-button class="md-fab md-warn" ng-click="action({label: '', url: '/sleep'})" ng-show="adri" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
-			<md-button class="md-fab md-warn" ng-click="action({label: '', url: '/mute'})" ng-show="adri" title="Mute Odi" aria-label="Mute Odi"><i class="fa fa-2x fa-bell-slash-o"></i></md-button>
-			<md-button class="md-fab md-warn" ng-click="action({label: '', url: '/odi'})" ng-show="adri" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
-			<md-button class="md-fab md-warn" ng-click="hideLogs()" on-long-press="adri = true" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
+			<md-button class="md-fab md-warn" ng-click="action({label: 'Sleep', url: '/sleep'})" ng-show="irda" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
+			<md-button class="md-fab md-warn" ng-click="action({label: 'Mute', url: '/mute'})" ng-show="irda" title="Mute Odi" aria-label="Mute Odi"><i class="fa fa-2x fa-bell-slash-o"></i></md-button>
+			<md-button class="md-fab md-warn" ng-click="action({label: 'Restart Odi', url: '/odi'})" ng-show="irda" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
+			<md-button class="md-fab md-warn" ng-click="hideLogs()" on-long-press="irda=true" long-press-duration="2000" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
 		</div>
 	</md-sidenav>
 
 	<div class="main" layout-align="top center">
 		<md-content flex layout-padding>
-			<md-button ng-click="showLogs()" on-long-press="adri = true" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
-			<!--ng-show="adri"-->
+			<md-button ng-click="showLogs()" on-long-press="irda = true" long-press-duration="2000" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
+			<!--ng-show="irda"-->
 				<i class="fa fa-2x fa-rocket"></i>
 			</md-button>
 
