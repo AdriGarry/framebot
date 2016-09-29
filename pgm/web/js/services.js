@@ -19,7 +19,7 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 
 	/** Function to send command to Odi **/
 	this.sendCommand = function(obj, callback){
-		console.log('UIService.sendCommand()');
+		// console.log('UIService.sendCommand()');
 		var uri = obj.url;
 		var params = '';
 		$http({
@@ -117,7 +117,7 @@ app.service('UIService', ['$http', 'Tile', function($http, Tile){
 		test: new Tile(15, 'Test', 'blue', 1, 1, ICON, 'lightbulb-o',
 			[{label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{label: 'Test', icon: 'flag-checkered', url:'/test'}]),
 		logs: new Tile(16, 'Logs', 'blueGrey', 1, 1, ICON, 'file-text-o',
-			[{label: '???', icon: 'file-text-o', url: ''},{label: 'Request History', icon: 'file-text-o', url: '/requestHistory'}]),
+			[{label: 'Voicemail History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/voicemailHistory'},{label: 'Request History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/requestHistory'}]),
 		cigales: new Tile(17, 'Cigales', 'lime', 1, 1, ICON, 'bug',
 			[{url: '/cigales'}]),
 		system: new Tile(18, 'System', 'lightGreen', 1, 1, ICON, 'power-off',

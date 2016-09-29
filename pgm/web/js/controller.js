@@ -1,5 +1,5 @@
 'use strict'
-app.controller('UIController', function($rootScope, $scope, $timeout, $interval, $sce, $mdSidenav,
+app.controller('UIController', function($rootScope, $scope, $timeout, $interval, $sce, $window, $mdSidenav,
 		$mdBottomSheet, $mdToast, UIService){
 	$scope.loading = false;/*true*/
 	$scope.irda = false;
@@ -106,8 +106,12 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 	/** Function to send action **/
 	$scope.action = function(button){
 		// console.log(button);
-		$scope.showToast(button.label);
-		UIService.sendCommand(button);
+		if(button.url.indexOf('http://') > -1){
+			$window.open(button.url);
+		}else{
+			$scope.showToast(button.label);
+			UIService.sendCommand(button);
+		}
 	};
 	/** Function on click on Tile **/
 	$scope.tileAction = function(tile){

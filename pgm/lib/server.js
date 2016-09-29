@@ -28,6 +28,7 @@ var self = this;
 var DIR_NAME = '/home/pi/odi/pgm/';
 var DIR_NAME_WEB = '/home/pi/odi/pgm/web/';
 var FILE_REQUEST_HISTORY = '/home/pi/odi/log/requestHistory.log';
+var FILE_VOICEMAIL_HISTORY = '/home/pi/odi/log/voicemailHistory.log';
 
 var _deploy;
 
@@ -56,14 +57,17 @@ exports.startUI = function startUI(mode){
 		/*if(method == 'GET') method = '< ';
 		else method = '> ';
 		request = ' Odi' + (method == 'GET' ? ' > ' : ' < ');*/
-		request = 'UI' + req.headers.ui + ' ' + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
+		request = ' UI' + req.headers.ui + ' ' + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
 		console.log(request);
 		// console.log(req.headers);
-		_fs.appendFile(FILE_REQUEST_HISTORY, _utils.formatedDate() + request + '\r\n', function(err){
-			if(err){
-				return console.error(err);
-			}
-		});
+
+		if(req.connection.remoteAddress.indexOf('192.168') == -1){
+			_fs.appendFile(FILE_REQUEST_HISTORY, _utils.formatedDate() + request + '\r\n', function(err){
+				if(err){
+					return console.error(err);
+				}
+			});
+		}
 		/*if(mode > 0){
 			console.log('Odi not allowed to interact  -.-');
 			res.end();
@@ -221,10 +225,15 @@ exports.startUI = function startUI(mode){
 	});
 
 	ui.get('/requestHistory', function (req, res) { // Send Request History
-		var temp = _utils.getCPUTemp();
 		// console.log('UI < Request History');
 		res.writeHead(200);
 		res.end(_fs.readFileSync(FILE_REQUEST_HISTORY, 'utf8').toString());
+	});
+
+	ui.get('/voicemailHistory', function (req, res) { // Send Voicemail History
+		// console.log('UI < Voicemail History');
+		res.writeHead(200);
+		res.end(_fs.readFileSync(FILE_VOICEMAIL_HISTORY, 'utf8').toString());
 	});
 
 	/** POST SECTION */
