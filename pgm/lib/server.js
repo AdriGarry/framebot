@@ -100,7 +100,9 @@ exports.startUI = function startUI(mode){
 			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
 		}
 		var dashboard = {
-			mode: {value: isNaN(parseFloat(mode)) ? 'Ready' : parseInt(mode)},
+			mode: {value: {
+				mode: isNaN(parseFloat(mode)) ? 'Ready' : 'Sleep',
+				param: isNaN(parseFloat(mode)) ? _service.getStartTime() : parseInt(mode)}},
 			switch: {value: _buttons.getEtat()}, 
 			volume: {value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'high' : 'normal') : 'mute'},
 			voicemail: {value: _voiceMail.areThereAnyMessages()},

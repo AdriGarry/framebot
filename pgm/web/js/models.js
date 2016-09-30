@@ -3,7 +3,7 @@
 
 /** Tile object **/
 app.factory('Tile', function(){
-	// Define the constructor function.
+	// Tile constructor function
 	function Tile(id, label, color, rowspan, colspan, viewMode, value, actionList){
 
 		// Basic attributes
@@ -24,30 +24,23 @@ app.factory('Tile', function(){
 		if(this.actionList.length>0 && !this.actionList[0].hasOwnProperty('label')) this.actionList[0].label = this.label;
 	}
 
-	// Define the "instance" methods using the prototype and standard prototypal inheritance.
+	// Tile object own properties
 	Tile.prototype = {
-		// Action attributes
-		/*click: function(){
-			console.log('click()');
-			// console.log(this);
-			if(this.actionList && this.actionList.constructor === Array && this.actionList.length > 0){
-				console.log('IF()');
-				//openBottomSheet
-			}else{
-				console.log('ELSE()');
-			}
-		},*/
+		/*onHold: function(element){
+			console.log('onHold()');
+			console.log(element);
+		}*/
 		bindHTML: function(element){
-			// console.log('bindHTML()');
-			// console.log(element);
 			var html = '';
 			switch(element){
 				case 'mode':
-					if(!isNaN(this.value)){
+					// if(!isNaN(this.value)){
+					if(this.value.mode == 'Sleep'){
 						html = '<i class="mainInfo fa fa-moon-o"></i>';
-						if(this.value < 255) html += '&nbsp;' + this.value;
+						if(this.value.param < 255) html += '&nbsp;' + this.value.param;
 					}else{
-						html = this.value;// + '<br><small>Last restart : 2h</small>';
+						html = '<span class="mode">' + this.value.mode
+						+ '<small><span class="desktopOnlyInline">since </span>' + this.value.param + '</small></span>';
 					}
 					break;
 				case 'switch':

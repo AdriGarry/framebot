@@ -61,6 +61,14 @@ var time = function(){
 };
 exports.time = time;
 
+/** Function to return */
+var startTime = new Date();
+exports.getStartTime = function getStartTime(){
+	var hour = startTime.getHours();
+	var min = startTime.getMinutes();
+	return (hour > 12 ? hour-12 : hour) + '.' + (min<10?'0':'') + min + ' ' + (hour > 12  ? 'PM' : 'AM');
+};
+
 var time = 0;
 var timer = false;
 /** Fonction minuterie */
