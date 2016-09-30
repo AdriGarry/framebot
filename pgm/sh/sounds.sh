@@ -80,6 +80,7 @@ fi
 if [ $1 = "Naheulbeuk" ]
 then
 	position=$(shuf -i 0-20000 -n 1)
+	sudo killall omxplayer.bin
 	sudo node /home/pi/odi/pgm/lib/allLedsOff.js
 	sudo omxplayer -o local --pos $position --vol $volume $sound > /dev/null &
 
