@@ -36,7 +36,8 @@
 <body ng-controller="UIController">
 	<md-toolbar class="toolbar" ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools">
-			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" ng-class="dashboard.tileList.mode.value > 0 ? 'sleep' : ''">
+			<img src="img/odi.jpg" alt="Odi's face" class="odiFace"
+				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''">
 			<!--<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" ng-show="activity.mode == 'waiting'">-->
 			<h1>Odi UI<span>v3</span></h1>
 			<span flex></span>

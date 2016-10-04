@@ -18,7 +18,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 		}).then(function successCallback(res){
 			callback(res.data);
 		}, function errorCallback(res){
-			console.log(res);
+			console.error(res);
 			//callback(activity);
 		});
 	};
@@ -87,7 +87,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 			console.error(res);
 			callback(res);
 		});
-		logSize += 50;
+		logSize += 100;
 	};
 
 	/** Return object with dashboard tiles initialized **/
