@@ -59,7 +59,6 @@ exports.startUI = function startUI(mode){
 		request = ' Odi' + (method == 'GET' ? ' > ' : ' < ');*/
 		request = ' UI' + req.headers.ui + ' ' + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
 		console.log(request);
-		// console.log(req.headers);
 
 		if(req.connection.remoteAddress.indexOf('192.168') == -1){
 			_fs.appendFile(FILE_REQUEST_HISTORY, _utils.formatedDate() + request + '\r\n', function(err){
@@ -72,7 +71,13 @@ exports.startUI = function startUI(mode){
 			console.log('Odi not allowed to interact  -.-');
 			res.end();
 		}*/
-		next();
+
+		if(req.headers.ui === 'v3'){
+			next();
+		}else{
+			res.status(401);//Unauthorized
+			res.end();
+		}
 	};
 
 	ui.use(logger);
@@ -113,62 +118,6 @@ exports.startUI = function startUI(mode){
 		};
 		res.writeHead(200);
 		res.end(JSON.stringify(dashboard));
-	});
-
-
-	/** SETTINGS SECTION */
-	ui.get('/settings', function (req, res){
-		var temp = parseInt(mode);
-		//console.log(temp);
-		var now = new Date();
-		var h = now.getHours();
-		var wakeUpTime;
-		if(temp > h){
-			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
-		}
-		var settings = {
-			mode: {lib: 'Mode',
-				value: isNaN(parseFloat(mode)) ? 'Ready' : parseInt(mode),
-			}, switch: {
-				lib: 'Switch', value: _buttons.getEtat(),
-			}, volume: {
-				lib: 'Volume',
-				value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'High' : 'Normal') : 'Mute',
-			}, tts: {
-				lib: 'TTS - Exclamation',
-				value: '<i>Soon available</i>',
-			}, jukebox: {
-				lib: 'Jukebox & Radio',
-				value: '<i>Soon available</i>',
-			}, voiceMail: {
-				lib: 'VoiceMail',
-				value: _voiceMail.areThereAnyMessages()/* + ' '
-					+ (_voiceMail.areThereAnyMessages() > 1 ? ' messages' : 'message')*/,
-			}, dateTime: {
-				lib: 'Date & Time',
-				value: '<i class="fa fa-3x fa-calendar"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-3x fa-clock-o"></i><br><i>Soon available</i>',
-			}, timer: {
-				lib: 'timer',
-				value: '<i class="fa fa-3x fa-hourglass"></i>',
-			}, cpuUsage: {
-				lib: 'CPU usage',
-				value: _utils.getCPUUsage(),// + ' %',
-			}, cpuTemp: {
-				lib: 'CPU temperature',
-				value: _utils.getCPUTemp(),// + ' ° C',
-			}, alarms: {
-				lib: 'Alarms',
-				value: '<i>Soon available</i>',
-			}, about: {
-				lib: 'About',
-				value: 'Hi,<br>I\'m Odi the robot !',
-			}, system: {
-				lib: 'System',
-				value: '<i>Soon available</i>',
-			}
-		};
-		res.writeHead(200);
-		res.end(JSON.stringify(settings));
 	});
 
 	/** GET SECTION */
@@ -449,6 +398,62 @@ exports.startUI = function startUI(mode){
 	ui.listen(8080, function () { // Listen port 8080
 		console.log('Odi\'s UI server started [' + mode + ']');
 		_leds.blink({leds: ['satellite'], speed : 120, loop : 3})
+	});
+
+
+	/** SETTINGS SECTION */
+	ui.get('/settings', function (req, res){
+		var temp = parseInt(mode);
+		//console.log(temp);
+		var now = new Date();
+		var h = now.getHours();
+		var wakeUpTime;
+		if(temp > h){
+			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
+		}
+		var settings = {
+			mode: {lib: 'Mode',
+				value: isNaN(parseFloat(mode)) ? 'Ready' : parseInt(mode),
+			}, switch: {
+				lib: 'Switch', value: _buttons.getEtat(),
+			}, volume: {
+				lib: 'Volume',
+				value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'High' : 'Normal') : 'Mute',
+			}, tts: {
+				lib: 'TTS - Exclamation',
+				value: '<i>Soon available</i>',
+			}, jukebox: {
+				lib: 'Jukebox & Radio',
+				value: '<i>Soon available</i>',
+			}, voiceMail: {
+				lib: 'VoiceMail',
+				value: _voiceMail.areThereAnyMessages()/* + ' '
+					+ (_voiceMail.areThereAnyMessages() > 1 ? ' messages' : 'message')*/,
+			}, dateTime: {
+				lib: 'Date & Time',
+				value: '<i class="fa fa-3x fa-calendar"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-3x fa-clock-o"></i><br><i>Soon available</i>',
+			}, timer: {
+				lib: 'timer',
+				value: '<i class="fa fa-3x fa-hourglass"></i>',
+			}, cpuUsage: {
+				lib: 'CPU usage',
+				value: _utils.getCPUUsage(),// + ' %',
+			}, cpuTemp: {
+				lib: 'CPU temperature',
+				value: _utils.getCPUTemp(),// + ' ° C',
+			}, alarms: {
+				lib: 'Alarms',
+				value: '<i>Soon available</i>',
+			}, about: {
+				lib: 'About',
+				value: 'Hi,<br>I\'m Odi the robot !',
+			}, system: {
+				lib: 'System',
+				value: '<i>Soon available</i>',
+			}
+		};
+		res.writeHead(200);
+		res.end(JSON.stringify(settings));
 	});
 
 }
