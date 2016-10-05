@@ -57,7 +57,7 @@ exports.startUI = function startUI(mode){
 		/*if(method == 'GET') method = '< ';
 		else method = '> ';
 		request = ' Odi' + (method == 'GET' ? ' > ' : ' < ');*/
-		request = ' UI' + req.headers.ui + ' ' + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
+		request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : 'REQ ') + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
 		console.log(request);
 
 		if(req.connection.remoteAddress.indexOf('192.168') == -1){
