@@ -1,25 +1,25 @@
 <md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
 	md-row-height="4:3" md-gutter="12px">
 
-	<md-grid-tile ng-click="expandTile(dashboard.ttsTile)" md-rowspan="{{dashboard.ttsTile.rowspan}}" md-colspan="{{dashboard.ttsTile.colspan}}" md-colspan-sm="{{dashboard.ttsTile.colspan}}" md-colspan-xs="{{dashboard.ttsTile.colspan}}" ng-class="dashboard.ttsTile.color" class="ng-slide">
-		<!--<md-button ng-show="dashboard.ttsTile.rowspan == 2" ng-click="reduceTile(dashboard.ttsTile)" class="md-icon-button reduceTile"
+	<md-grid-tile data-ng-click="expandTile(dashboard.ttsTile)" md-rowspan="{{dashboard.ttsTile.rowspan}}" md-colspan="{{dashboard.ttsTile.colspan}}" md-colspan-sm="{{dashboard.ttsTile.colspan}}" md-colspan-xs="{{dashboard.ttsTile.colspan}}" data-ng-class="dashboard.ttsTile.color" class="ng-slide">
+		<!--<md-button data-ng-show="dashboard.ttsTile.rowspan == 2" data-ng-click="reduceTile(dashboard.ttsTile)" class="md-icon-button reduceTile"
 			title="Reduce Tile" aria-label="Reduce Tile"><i class="fa fa-2x fa-close"></i></md-button>-->
 
-		<form ng-submit="dashboard.ttsTile.submit()" class="mainContent">
-			<div layout="row" ng-show="dashboard.ttsTile.rowspan == 2">
-				<md-switch ng-model="dashboard.ttsTile.voice" ng-true-value="':1'" ng-false-value="':3'" class="voiceSwitch desktopZoom"
+		<form data-ng-submit="dashboard.ttsTile.submit()" class="mainContent">
+			<div layout="row" data-ng-show="dashboard.ttsTile.rowspan == 2">
+				<md-switch data-ng-model="dashboard.ttsTile.voice" data-ng-true-value="':1'" data-ng-false-value="':3'" class="voiceSwitch desktopZoom"
 					ng-class="dashboard.ttsTile.voice == ':3' ? 'md-warn' : 'md-primary'">
 					<span>Human Voice</span>
 					<span>Robot Voice</span>
 				</md-switch>
 			</div>
 
-			<div layout="row" ng-show="dashboard.ttsTile.rowspan == 2">
+			<div layout="row" data-ng-show="dashboard.ttsTile.rowspan == 2">
 				<div flex="10"></div>
 				<md-input-container flex="50">
 					<label>Language</label>
-					<md-select name="type" ng-model="dashboard.ttsTile.lg">
-						<md-option ng-repeat="language in dashboard.ttsTile.conf.languageList track by $index" ng-value="language.code"
+					<md-select name="type" data-ng-model="dashboard.ttsTile.lg">
+						<md-option data-ng-repeat="language in dashboard.ttsTile.conf.languageList track by $index" data-ng-value="language.code"
 							ng-checked="language.code == fr">
 							{{language.label}}
 						</md-option>
@@ -27,9 +27,9 @@
 				</md-input-container>
 
 				<label class="pointer text-center desktopZoom" flex="30">
-					<!--<input type="checkbox" class=".noDisplay" ng-model="tts.voicemail">
-					<i class="fa fa-2x" ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>-->
-					<md-checkbox ng-model="dashboard.ttsTile.voicemail" ng-class="dashboard.ttsTile.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send in voicemail" aria-label="Send in voicemail">VoiceMail</md-checkbox>
+					<!--<input type="checkbox" class=".noDisplay" data-ng-model="tts.voicemail">
+					<i class="fa fa-2x" data-ng-class="tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>-->
+					<md-checkbox data-ng-model="dashboard.ttsTile.voicemail" data-ng-class="dashboard.ttsTile.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send in voicemail" aria-label="Send in voicemail">VoiceMail</md-checkbox>
 				</label>
 			</div>
 			<div layout="row">
@@ -37,15 +37,15 @@
 			<div layout="row">
 				<md-input-container flex="70" class="md-block">
 					<label>Message</label>
-					<input name="ttsMsg" ng-model="dashboard.ttsTile.msg" ng-change="dashboard.ttsTile.cleanText()"><!--required-->
-					<!--<input name="ttsMsg" ng-model="tts.msg" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
-					<div ng-messages="ttsMsg.$error" role="alert" multiple>
-						<div ng-message="required" class="my-message">Required&nbsp;!</div>
+					<input name="ttsMsg" data-ng-model="dashboard.ttsTile.msg" data-ng-change="dashboard.ttsTile.cleanText()"><!--required-->
+					<!--<input name="ttsMsg" data-ng-model="tts.msg" required data-ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+					<div data-ng-messages="ttsMsg.$error" role="alert" multiple>
+						<div data-ng-message="required" class="my-message">Required&nbsp;!</div>
 					</div>-->
 				</md-input-container>
 				<md-input-container flex="30" class="md-block centerText">
-					<md-button type="submit" name="submit" class="md-raised" ng-class="dashboard.ttsTile.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
-						<i class="fa" ng-class="dashboard.ttsTile.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
+					<md-button type="submit" name="submit" class="md-raised" data-ng-class="dashboard.ttsTile.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
+						<i class="fa" data-ng-class="dashboard.ttsTile.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 					</md-button>
 				</md-input-container>
 			</div>
@@ -54,17 +54,17 @@
 		<md-grid-tile-footer><h3>{{dashboard.ttsTile.label}}</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
-	<md-grid-tile ng-repeat="tile in dashboard.tileList track by $index" md-rowspan="{{tile.rowspan}}"
+	<md-grid-tile data-ng-repeat="tile in dashboard.tileList track by $index" md-rowspan="{{tile.rowspan}}"
 		md-colspan="{{tile.colspan}}" md-colspan-sm="{{tile.colspan}}" md-colspan-xs="{{tile.colspan}}"
-		class="ng-slide" ng-class="tile.color" ng-click="tileAction(tile)">
+		class="ng-slide" data-ng-class="tile.color" data-ng-click="tileAction(tile)">
 
-		<span class="responsive" ng-show="tile.viewMode=='value'">{{tile.value}}</span>
+		<span class="responsive" data-ng-show="tile.viewMode=='value'">{{tile.value}}</span>
 
-		<i class="responsive mainInfo fa fa-{{tile.value}}" ng-show="tile.viewMode=='icon'"></i>
+		<i class="responsive mainInfo fa fa-{{tile.value}}" data-ng-show="tile.viewMode=='icon'"></i>
 
-		<span class="responsive" ng-bind-html="toHtml(tile.html)" ng-show="tile.viewMode=='custom'"></span>
+		<span class="responsive" data-ng-bind-html="toHtml(tile.html)" data-ng-show="tile.viewMode=='custom'"></span>
 
-		<md-grid-tile-footer><h3>{{tile.label}}<i class="fa fa-bars" ng-show="tile.actionList.length>1 && irda"></i></h3></md-grid-tile-footer>
+		<md-grid-tile-footer><h3>{{tile.label}}<i class="fa fa-bars" data-ng-show="tile.actionList.length>1 && irda"></i></h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 </md-grid-list>

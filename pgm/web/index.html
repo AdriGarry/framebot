@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="odiUI">
+<html data-ng-app="odiUI">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>OdiUI</title>
@@ -33,49 +33,49 @@
 	<meta name="application-name" content="Odi UI">
 	<meta name="theme-color" content="#2c3e50">
 </head>
-<body ng-controller="UIController">
-	<md-toolbar class="toolbar" ng-class="dashboard.loading ? 'md-warn' : ''">
+<body data-ng-controller="UIController">
+	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools">
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace"
 				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''">
-			<!--<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" ng-show="activity.mode == 'waiting'">-->
+			<!--<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" data-ng-show="activity.mode == 'waiting'">-->
 			<h1>Odi UI<span>v3</span></h1>
 			<span flex></span>
-			<!--<i ng-show="irda" class="fa fa-key"></i>-->
-			<md-button class="md-icon-button"  title="Reload UI" aria-label="Reload UI" onclick="setTimeout(function(){window.location.reload()},500);">
-				<i class="fa fa-2x fa-refresh" ng-class="{'fa-spin':spin}" ng-mouseenter="spin=true" ng-mouseleave="spin=false"></i>
+			<!--<i data-ng-show="irda" class="fa fa-key"></i>-->
+			<md-button class="md-icon-button" title="Reload UI" aria-label="Reload UI" onclick="setTimeout(function(){window.location.reload()},500);">
+				<i class="fa fa-2x fa-refresh" data-ng-class="{'fa-spin':spin}" data-ng-mouseenter="spin=true" data-ng-mouseleave="spin=false"></i>
 			</md-button>
 		</div>
 	</md-toolbar>
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
-		<div class="logs" ng-dblclick="refreshLog()">
+		<div class="logs" data-ng-dblclick="refreshLog()">
 			<ul><!-- class="fakeScroll"-->
-				<li ng-repeat="logLine in logData track by $index" ng-bind-html="toHtml(logLine)">{{logLine}}</li><!-- ng-bind-html="toHtml(logLine)"-->
+				<li data-ng-repeat="logLine in logData track by $index" data-ng-bind-html="toHtml(logLine)">{{logLine}}</li><!-- data-ng-bind-html="toHtml(logLine)"-->
 				<a id="bottomLogs"></a>
 			</ul>
-			<md-progress-circular md-diameter="150" ng-hide="logData"></md-progress-circular>
+			<md-progress-circular md-diameter="150" data-ng-hide="logData"></md-progress-circular>
 		</div>
 		<div class="tools">
-			<md-button class="md-fab md-warn" ng-click="action({label: 'Sleep', url: '/sleep'})" ng-show="irda" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
-			<md-button class="md-fab md-warn" ng-click="action({label: 'Mute', url: '/mute'})" ng-show="irda" title="Mute Odi" aria-label="Mute Odi"><i class="fa fa-2x fa-bell-slash-o"></i></md-button>
-			<md-button class="md-fab md-warn" ng-click="action({label: 'Restart Odi', url: '/odi'})" ng-show="irda" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
-			<md-button class="md-fab md-warn" ng-click="hideLogs()" on-long-press="irda=true" long-press-duration="2000" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
+			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Sleep', url: '/sleep'})" data-ng-show="irda" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
+			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-show="irda" title="Mute Odi" aria-label="Mute Odi"><i class="fa fa-2x fa-bell-slash-o"></i></md-button>
+			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="irda" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
+			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" on-long-press="irda=true" long-press-duration="2000" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
 		</div>
 	</md-sidenav>
 
 	<div class="main" layout-align="top center">
 		<md-content flex layout-padding>
-			<md-button ng-click="showLogs()" on-long-press="irda = true" long-press-duration="2000" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
+			<md-button data-ng-click="showLogs()" on-long-press="irda = true" long-press-duration="2000" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
 			<!--ng-show="irda"-->
 				<i class="fa fa-2x fa-rocket"></i>
 			</md-button>
 
-			<md-progress-circular md-diameter="150" ng-show="loading"></md-progress-circular>
+			<md-progress-circular md-diameter="150" data-ng-show="loading"></md-progress-circular>
 
-			<div ng-include src="'templates/dashboard.html'" ng-hide="loading" ng-class="loading ? '' : 'ng-slide'"></div>
+			<div data-ng-include src="'templates/dashboard.html'" data-ng-hide="loading" data-ng-class="loading ? '' : 'ng-slide'"></div>
 
-			<footer ng-hide="loading">
+			<footer data-ng-hide="loading">
 				<p><a href="http://adrigarry.com" target="_blank" title="Adrien Garry">adrigarry.com</a></p>
 			</footer>
 		</md-content>
