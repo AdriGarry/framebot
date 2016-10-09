@@ -69,7 +69,8 @@ var randomAction = function(){
 				case 5:
 				case 6:
 				case 7:
-					tts.conversation('RANDOM');
+					exclamation.exclamation();
+					// tts.conversation('RANDOM');
 					break;
 				case 8:
 					service.time();

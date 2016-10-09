@@ -160,7 +160,9 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 	};
 	/** Function to reduce Tile */
 	$scope.reduceTile = function(obj){
+		console.log(obj);
 		obj.rowspan = 1;
+		console.log(obj);
 	};
 
 	/*var setAdminCp = 0;

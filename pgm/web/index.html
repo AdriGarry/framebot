@@ -58,9 +58,10 @@
 		</div>
 		<div class="tools">
 			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Sleep', url: '/sleep'})" data-ng-show="irda" title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
-			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-show="irda" title="Mute Odi" aria-label="Mute Odi"><i class="fa fa-2x fa-bell-slash-o"></i></md-button>
 			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="irda" title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
-			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" on-long-press="irda=true" long-press-duration="2000" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
+			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-show="irda" title="Mute Odi" aria-label="Mute Odi"><i class="fa fa-2x fa-bell-slash-o"></i></md-button>
+			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" on-long-press="irda=true" data-ng-hide="irda"
+			long-press-duration="2000" title="Hide Logs" aria-label="Hide Logs"><i class="fa fa-2x fa-arrow-left"></i></md-button>
 		</div>
 	</md-sidenav>
 
