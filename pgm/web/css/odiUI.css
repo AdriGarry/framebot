@@ -17,7 +17,7 @@ ul{margin:0;padding:0;}
 	background-color:#F44235!important;
 }*/
 
-.md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab{
+.md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab:not(.muteButton){
 	background-color:#4051B5!important;/*#F44235*/
 }
 
@@ -105,6 +105,22 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content{
 	background-color:#0097A8;/*#ff6333;*/
 }
 
+/*------------------------------ Mute Button ------------------------------- */
+button.muteButton{
+	position:fixed;
+	left:2.7em;
+	bottom:10em;
+	padding:0;
+	background-color:#607D8B!important;
+	opacity:0.7;
+}
+button.muteButton:hover{
+	background-color:#f43325!important
+	opacity:0.9;
+}
+button.muteButton i.fa{
+	font-size:1em;
+}
 /*------------------------------ LOGS ------------------------------- */
 .logButton{
 	position:fixed;
@@ -385,6 +401,11 @@ footer p a:hover{
 	}
 	img.odiFace.odiOff{
 		margin-left:-3.5em;
+	}
+
+	button.muteButton{
+		left:1.5em;
+		bottom:7em;
 	}
 
 	.logs ul{

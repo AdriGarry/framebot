@@ -67,6 +67,10 @@
 
 	<div class="main" layout-align="top center">
 		<md-content flex layout-padding>
+			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" class="md-fab md-primary md-hue-2 md-mini muteButton"
+			 title="Mute Odi" aria-label="Mute Odi"><!--data-ng-hide="dashboard.ttsTile.rowspan == 2"-->
+				<i class="fa fa-bell-slash-o"></i>
+			</md-button>
 			<md-button data-ng-click="showLogs()" on-long-press="irda = true" long-press-duration="2000" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
 			<!--ng-show="irda"-->
 				<i class="fa fa-2x fa-rocket"></i>
