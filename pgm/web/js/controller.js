@@ -101,7 +101,6 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 		});
 	};
 
-
 	/** Function to send action **/
 	$scope.action = function(button){
 		// console.log(button);
@@ -153,6 +152,15 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 	$interval(function(){
 		$scope.refreshDashboard();
 	}, 10000);
+
+	$scope.grant = function(){
+		console.log('grant()');
+		var pwd = prompt('Password');
+		console.log(pwd);
+		UIService.sendCommand({label:'', url:'/grant', data: pwd}, function(data){
+			$scope.irda = data;
+		});
+	}
 
 	/** Function to expand Tile */
 	$scope.expandTile = function(obj){

@@ -81,6 +81,12 @@ img.odiFace.odiOff{
 	font-style:italic;
 	color:#7893a1;
 }
+.toolbar .fa-key{
+	opacity:0.5;
+}
+.toolbar .admin .fa-key{
+	opacity:1;
+}
 
 button>i{
 	vertical-align:text-bottom;
@@ -164,6 +170,10 @@ md-sidenav div{
 	background-color:#2C3E50!important;
 	text-align:center;
 }
+
+md-sidenav md-toolbar .tools{
+}
+
 .tools button{
 	margin-left:5%;
 	margin-right:5%;

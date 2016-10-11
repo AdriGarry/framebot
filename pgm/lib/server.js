@@ -28,6 +28,7 @@ var self = this;
 var DIR_NAME = '/home/pi/odi/pgm/';
 var DIR_NAME_WEB = '/home/pi/odi/pgm/web/';
 var FILE_REQUEST_HISTORY = '/home/pi/odi/log/requestHistory.log';
+var FILE_GRANT = '/home/pi/odi/pgm/data/pwd.properties';
 var FILE_VOICEMAIL_HISTORY = '/home/pi/odi/log/voicemailHistory.log';
 
 var _deploy;
@@ -183,6 +184,15 @@ exports.startUI = function startUI(mode){
 		_utils.mute();
 		res.writeHead(200);res.end();
 	});
+
+	var granted = false;
+	var pwd = _fs.readFileSync(FILE_GRANT, 'UTF-8');
+	ui.post('/grant', function (req, res) { // Get grant status
+		if(req.headers.pwd == pwd) granted = true;
+		res.send(granted);
+		if(req.headers.pwd == pwd) granted = false;
+	});
+
 
 	// if(mode.indexOf('sleep') == -1){ /////// WHEN ALIVE
 	if(mode < 1){ /////// WHEN ALIVE
