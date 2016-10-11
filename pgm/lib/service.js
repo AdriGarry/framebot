@@ -115,7 +115,7 @@ var setTimer = function(minutes){
 				tts.speak('fr', 'Les raviolis sont cuits !');
 				timer = false;
 				belly.write(0);
-			}else if(time > -2){
+			}else if(time < -2){
 				clearInterval(sec);
 				console.log('Timer canceled!');
 				belly.write(0);
@@ -134,6 +134,7 @@ exports.timeLeftTimer = function timeLeftTimer(){
 exports.stopTimer = function stopTimer(){
 	time = -5;
 	timer = false;
+	tts.speak('en', 'Timer canceled');
 	belly.write(0);
 };
 

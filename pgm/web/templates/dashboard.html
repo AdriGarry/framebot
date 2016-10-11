@@ -1,5 +1,5 @@
 <md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
-	md-row-height="4:3" md-gutter="12px">
+	md-row-height="4:3" md-gutter="12px" data-ng-class="irda? 'pointer' : ''">
 
 	<md-grid-tile data-ng-click="expandTile(dashboard.ttsTile)" md-rowspan="{{dashboard.ttsTile.rowspan}}" md-colspan="{{dashboard.ttsTile.colspan}}" md-colspan-sm="{{dashboard.ttsTile.colspan}}" md-colspan-xs="{{dashboard.ttsTile.colspan}}" data-ng-class="dashboard.ttsTile.color" class="ng-slide">
 		<!--<md-button data-ng-show="dashboard.ttsTile.rowspan == 2" data-ng-click="reduceTile(dashboard.ttsTile)" class="md-icon-button reduceTile"
@@ -47,7 +47,6 @@
 					</md-button>
 				</md-input-container>
 			</div>
-			<!--{{dashboard.ttsTile}}-->
 		</form>
 		<md-grid-tile-footer><h3>{{dashboard.ttsTile.label}}</h3></md-grid-tile-footer>
 	</md-grid-tile>

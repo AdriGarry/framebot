@@ -146,7 +146,7 @@ var lastTTS = function(){
 		lg = 'en';
 		txt = '.undefined:0';
 	}
-	console.log('LastTTS=> ' + lg + ';' + txt);
+	console.log('LastTTS -> [' + lg + '] ' + txt);
 	self.speak(lg, txt);
 };
 exports.lastTTS = lastTTS;

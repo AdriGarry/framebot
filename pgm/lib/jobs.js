@@ -127,6 +127,11 @@ var setAlarms = function(){
 		});
 	}, null, true, 'Europe/Paris');
 
+	new CronJob('0 15,18-20 8 * * 1-5', function(){
+		console.log('COCORICO !!');
+		tts.speak('fr', 'go go go, allez au boulot:1');
+	}, null, true, 'Europe/Paris');
+
 	new CronJob('0 30 18 * * 1-5', function() {
 		utils.testConnexion(function(connexion){
 			setTimeout(function(){
@@ -167,7 +172,7 @@ var setAlarms = function(){
 	}, null, true, 'Europe/Paris');
 
 	// ALL DAYS
-	new CronJob('0 1 13 * * 0,6', function() {
+	new CronJob('0 1 13 * * *', function() {
 		console.log('Il est 13 heures et tout va bien !');
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', '13Heures']);
 	}, null, true, 'Europe/Paris');
@@ -178,30 +183,6 @@ var setAlarms = function(){
 	}, null, true, 'Europe/Paris'); // Signal des 1/4 d'heure, entre 17h et 23h
 };
 exports.setAlarms = setAlarms;
-
-/** Fontion d'initialisation des taches de fond */
-var setBackgroundJobs = function(){
-	console.log('Background jobs initialised');
-	new CronJob('13 13 13 * * 1-6', function() {
-		tts.speak('en','Auto restart:1'); // Reinitialisation quotidienne
-		setTimeout(function(){
-			utils.restartOdi();
-		}, 3000);
-	}, null, true, 'Europe/Paris');
-
-	new CronJob('13 13 13 * * 0', function() {
-		tts.speak('fr','Auto reboot:1'); // Redemarrage hebdomadaire
-		setTimeout(function(){
-			utils.reboot();
-		}, 3000);
-	}, null, true, 'Europe/Paris');
-
-	new CronJob('0 0 5 * * 2', function() {
-		console.log('Clean log files  /!\\'); // Nettoyage des logs hebdomadaire
-		log.cleanLog();
-	}, null, true, 'Europe/Paris');
-};
-exports.setBackgroundJobs = setBackgroundJobs;
 
 // renvoyer param -1 pour le mode veille sans reveil automatique ?
 // (du coup envoyer -1 comme param par défaut depuis la remote !?)
@@ -230,3 +211,27 @@ var setAutoLifeCycle = function(param){
 		}, null, true, 'Europe/Paris');
 	}
 };exports.setAutoLifeCycle = setAutoLifeCycle;
+
+/** Fontion d'initialisation des taches de fond */
+var setBackgroundJobs = function(){
+	console.log('Background jobs initialised');
+	new CronJob('13 13 13 * * 1-6', function() {
+		tts.speak('en','Auto restart:1'); // Reinitialisation quotidienne
+		setTimeout(function(){
+			utils.restartOdi();
+		}, 3000);
+	}, null, true, 'Europe/Paris');
+
+	new CronJob('13 13 13 * * 0', function() {
+		tts.speak('fr','Auto reboot:1'); // Redemarrage hebdomadaire
+		setTimeout(function(){
+			utils.reboot();
+		}, 3000);
+	}, null, true, 'Europe/Paris');
+
+	new CronJob('0 0 5 * * 2', function() {
+		console.log('Clean log files  /!\\'); // Nettoyage des logs hebdomadaire
+		log.cleanLog();
+	}, null, true, 'Europe/Paris');
+};
+exports.setBackgroundJobs = setBackgroundJobs;

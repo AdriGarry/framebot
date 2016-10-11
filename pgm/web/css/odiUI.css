@@ -209,7 +209,7 @@ md-grid-list{
 	/*max-width:1000px;*/
 	margin:0 auto;
 }
-md-grid-list md-grid-tile .pointer{
+md-grid-list.pointer md-grid-tile{
 	cursor:pointer;
 }
 
@@ -236,7 +236,7 @@ figure p.responsive{
 	text-align:left;
 }
 figure .mainInfo{
-	font-size:10vw;
+	font-size:8vw;/*10*/
 	vertical-align:middle;
 }
 
@@ -319,8 +319,8 @@ span.responsive span.mode small{
 }
 
 /* ------------------------------ SWITCH ------------------------------- */
-md-switch.switch, md-switch.switch *{
-	transform:rotate(270deg);
+.pointer md-switch.switch, .pointer md-switch.switch *{
+	/*transform:rotate(270deg);*/
 	cursor:not-allowed;
 }
 
@@ -422,6 +422,9 @@ footer p a:hover{
 
 	span.responsive span.mode small{
 		font-size:0.6em;
+	}
+	figure .mainInfo{
+		font-size:10vw;
 	}
 	md-grid-list md-grid-tile md-grid-tile-footer{
 		padding:1px 0;
