@@ -26,7 +26,6 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 	/** Function to send command to Odi **/
 	this.sendCommand = function(obj, callback){
 		// console.log('UIService.sendCommand()');
-		console.log(obj);
 		var uri = obj.url;
 		var params = '';
 		$http({
@@ -34,7 +33,6 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 			method: 'POST',
 			url: CONSTANTS.URL_ODI + uri + params
 		}).then(function successCallback(res){
-			console.log(res.data);
 			if(res.data != null) callback(res.data);
 			//return res;
 		}, function errorCallback(res){

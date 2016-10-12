@@ -69,7 +69,7 @@ exports.voiceMailFlag = function voiceMailFlag(){
 	setInterval(function(){
 		nbMessages = areThereAnyMessages();
 		if(nbMessages > 0){
-			console.log('Odi have ' + nbMessages + ' message(s)');
+			//console.log('Odi have ' + nbMessages + ' message(s)');
 			leds.blink({
 				leds: ['belly'],
 				speed: 200,

@@ -68,10 +68,6 @@ exports.startUI = function startUI(mode){
 				}
 			});
 		}
-		/*if(mode > 0){
-			console.log('Odi not allowed to interact  -.-');
-			res.end();
-		}*/
 
 		if(req.headers.ui === 'v3'){
 			next();
