@@ -70,7 +70,7 @@ var randomAction = function(){
 				case 5:
 				case 6:
 				case 7:
-					exclamation.exclamation();
+					service.sayOdiAge();
 					// tts.conversation('RANDOM');
 					break;
 				case 8:
@@ -293,13 +293,15 @@ var getCPUTemp = function(callback){
 };
 exports.getCPUTemp = getCPUTemp;
 
-/** Function to get Odi's age
+/** Function to return Odi's age
  * @return age in days
  */
-var dateOfBirth = new Date('August 8, 2015 00:00:00'), age = 0;
+var dateOfBirth = new Date('August 9, 2015 00:00:00'), age = 0;
 var getOdiAge = function(){
 	age = Math.abs(dateOfBirth.getTime() - new Date());
+	// console.log(age);
 	age = Math.ceil(age / (1000 * 3600 * 24));
+	// console.log(age);
 	return age;
 };
 exports.getOdiAge = getOdiAge;

@@ -103,24 +103,27 @@ var setAlarms = function(){
 
 	// WEEKDAY
 //	new CronJob('0 26 7 * * 1-5', function(){
-	new CronJob('0 8 7 * * 1-5', function(){
+	new CronJob('0 10 7 * * 1-5', function(){
 		console.log('Morning Sea... Let\'s start the day with some waves !');
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'MorningSea']);
 	}, null, true, 'Europe/Paris');
 
 //	new CronJob('0 29 7 * * 1-5', function(){
-	new CronJob('0 11 7 * * 1-5', function(){
+	new CronJob('0 13 7 * * 1-5', function(){
 		console.log('COCORICO !!');
 		var deploy = spawn('sh', ['/home/pi/odi/pgm/sh/clock.sh', 'cocorico']);
 		utils.testConnexion(function(connexion){
 			if(connexion == true){
-				// service.time();
 				setTimeout(function(){
-					service.weather();
-				}, 5*1000);
+					service.time();
+				}, 4000);
+				setTimeout(function(){
+					//service.weather();
+					service.sayOdiAge();
+				}, 7*1000);
 				setTimeout(function(){
 					fip.playFip();
-				}, 15*1000);
+				}, 13*1000);
 			}else{
 				jukebox.loop();
 			}
@@ -192,7 +195,7 @@ var setAutoLifeCycle = function(param){
 	if(typeof param !== 'undefined' && param == 'S'){ // Set wake up jobs
 		console.log('AutoLifeCycle jobs initialised [' + param + ':Wake Up!]');
 		// new CronJob('0 25 7 * * 1-5', function(){
-		new CronJob('0 7 7 * * 1-5', function(){
+		new CronJob('0 9 7 * * 1-5', function(){
 			console.log('AutoLifeCycle start up !');
 			utils.restartOdi(); // redemarrer pgm
 		}, null, true, 'Europe/Paris');

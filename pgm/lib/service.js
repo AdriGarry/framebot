@@ -62,12 +62,25 @@ var time = function(){
 };
 exports.time = time;
 
-/** Function to return */
+/** Function to return last Odi's start/restart time */
 var startTime = new Date();
 exports.getStartTime = function getStartTime(){
 	var hour = startTime.getHours();
 	var min = startTime.getMinutes();
 	return (hour > 12 ? hour-12 : hour) + '.' + (min<10?'0':'') + min + ' ' + (hour > 12  ? 'PM' : 'AM');
+};
+
+/** Function to TTS Odi's age */
+var age, years, mouths, birthDay;
+exports.sayOdiAge = function sayOdiAge(){
+	age = utils.getOdiAge();
+	years = Math.floor(age/365);
+	mouths = Math.floor((age%365)/30);
+	var rdm = ['Aujourd\'hui, ', 'A ce jour, ', 'A cet instant, '];
+	birthDay = rdm[Math.floor(Math.random() * rdm.length)]
+	birthDay += 'j\'ai ' + years + ' ans et ' + mouths + ' mois !';// et ' + days + ' jours !';
+	console.log('sayOdiAge() \'' + birthDay + '\'')
+	tts.speak('fr', birthDay);
 };
 
 var time = 0;

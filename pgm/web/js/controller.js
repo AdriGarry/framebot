@@ -151,7 +151,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 	$scope.refreshDashboard();
 	$interval(function(){
 		$scope.refreshDashboard();
-	}, 10000);
+	}, 13000);
 
 	$scope.grant = function(){
 		var pwd = prompt('Password');
@@ -178,5 +178,5 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 	}*/
 
 	// if($location.$$absUrl.split('?')[1] == new Date().getUTCDate()) $scope.irda = true;
-	if([new Date().getUTCDate().toString(), 'Odi2016'].indexOf($location.$$absUrl.split('?')[1]) > -1) $scope.irda = true;
+	if([new Date().getUTCDate().toString(), 'Odi2015'].indexOf($location.$$absUrl.split('?')[1]) > -1) $scope.irda = true;
 });

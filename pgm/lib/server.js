@@ -321,6 +321,12 @@ exports.startUI = function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
+		ui.post('/age', function (req, res) { // Odi's Age
+			// console.log('UI > Odi\'s age');
+			_service.sayOdiAge();
+			res.writeHead(200);res.end();
+		});
+
 		ui.post('/time', function (req, res) { // Time
 			// console.log('UI > Time');
 			_service.time();

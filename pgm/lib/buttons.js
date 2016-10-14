@@ -102,6 +102,7 @@ exports.initButtonAwake = function initButtonAwake(){
 	/** Association actions bouton Rouge */
 	cancel.watch(function(err, value){
 		var pressTime = new Date();
+		utils.mute();
 		while(cancel.readSync() == 1){
 			; // Pause
 			t = Math.round((new Date() - pressTime)/100)/10;
@@ -114,7 +115,7 @@ exports.initButtonAwake = function initButtonAwake(){
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		leds.ledOff('belly');
 		console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec [1,3]');
-		utils.mute();
+		// utils.mute();
 		if(pressTime >= 1 && pressTime < 3){
 			utils.restartOdi();
 		}else if(pressTime >= 3){

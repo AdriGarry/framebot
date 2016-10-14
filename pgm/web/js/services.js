@@ -111,7 +111,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 		timer: new Tile(9, 'Timer', 'orange', 1, 1, CUSTOM, 'hourglass-hald',
 			[{label: 'Stop timer', icon: 'stop', url: '/timer?stop'},{label: 'Timer +1', icon: 'plus', url: '/timer'}]).bindHTML('timer'),
 		date: new Tile(7, 'Date', 'blue', 1, 1, ICON, 'calendar',
-			[{url: '/date'}]),
+			[{label: 'Odi\'s age', icon: 'birthday-cake', url: '/age'},{label: 'Today', icon: 'calendar', url: '/date'}]),
 		time: new Tile(8, 'Time', 'blue', 1, 1, ICON, 'clock-o',
 			[{url: '/time'}]),
 		alarms: new Tile(12, 'Alarms', 'indigo', 1, 1, CUSTOM, 'bell-o',

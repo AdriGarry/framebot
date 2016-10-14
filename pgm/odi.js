@@ -59,7 +59,7 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 // ----- TEST SECTION -----//
 // ------------------------//
 
-console.log(utils.getOdiAge() / 365);
+// console.log(service.sayOdiAge());
 
 // jobs.setupJobs();
 
