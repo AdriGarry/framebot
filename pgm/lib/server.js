@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 // Module server
 /** Liste codes http
  *		200 : OK
@@ -40,15 +41,18 @@ exports.startUI = function startUI(mode){
 	ui.use(_compression()); // Compression web
 	ui.use(_express.static(DIR_NAME_WEB)); // Pour fichiers statiques
 
-	ui.get('/', function (req, res) { // Init UI
+	/*ui.get('/', function (req, res) { // Init UI
 		res.sendFile(_path.join(DIR_NAME_WEB + '/index.html'));
 		ipClient = req.connection.remoteAddress;
 		console.log('UI initialized [' + ipClient + ']');
 		_leds.blink({leds : ['satellite'], speed : 100, loop : 3});
+		console.log('MODE');
+		console.log(mode);
 		if(mode < 1){
 			deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'UI']);
 		}
-	});
+		//res.set('Content-Type', 'text/javascript');
+	});*/
 
 	// Middleware LOGGER
 	var logger = function(req, res, next){
@@ -68,8 +72,7 @@ exports.startUI = function startUI(mode){
 				}
 			});
 		}
-
-		if(req.headers.ui === 'v3'){
+		if(req.headers.ui === 'v3' || req.url == '/voicemailHistory' || req.url == '/requestHistory'){
 			next();
 		}else{
 			res.status(401);//Unauthorized

@@ -177,5 +177,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 		if(setAdminCp > 2) $scope.irda = true;
 	}*/
 
-	if($location.$$absUrl.split('?')[1] == new Date().getUTCDate()) $scope.irda = true;
+	// if($location.$$absUrl.split('?')[1] == new Date().getUTCDate()) $scope.irda = true;
+	if([new Date().getUTCDate().toString(), 'Odi2016'].indexOf($location.$$absUrl.split('?')[1]) > -1) $scope.irda = true;
 });

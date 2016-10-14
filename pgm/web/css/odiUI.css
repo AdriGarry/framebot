@@ -447,3 +447,10 @@ footer p a:hover{
 		margin-top:0;
 	}
 }
+
+/* ------------------------------ FIREFOX ONLY ------------------------------- */
+@-moz-document url-prefix(){
+	button.muteButton{
+		left:auto;
+	}
+}

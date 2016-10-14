@@ -293,6 +293,17 @@ var getCPUTemp = function(callback){
 };
 exports.getCPUTemp = getCPUTemp;
 
+/** Function to get Odi's age
+ * @return age in days
+ */
+var dateOfBirth = new Date('August 8, 2015 00:00:00'), age = 0;
+var getOdiAge = function(){
+	age = Math.abs(dateOfBirth.getTime() - new Date());
+	age = Math.ceil(age / (1000 * 3600 * 24));
+	return age;
+};
+exports.getOdiAge = getOdiAge;
+
 
 /** Fonction recuperation dernier message commit */
 var getMsgLastGitCommit = function(callback){

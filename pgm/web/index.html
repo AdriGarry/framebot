@@ -36,7 +36,7 @@
 <body data-ng-controller="UIController">
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools">
-			<img src="img/odi.jpg" alt="Odi's face" class="odiFace"
+			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" onclick="setTimeout(function(){window.location.reload()},300);"
 				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''">
 			<!--<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" data-ng-show="activity.mode == 'waiting'">-->
 			<h1>Odi UI<span>v3</span></h1>
@@ -44,7 +44,7 @@
 			<md-button class="md-icon-button" data-ng-click="grant()" data-ng-class="irda ? 'admin' : ''" title="Admin" aria-label="Admin" onclick="grant()">
 				<i class="fa fa-2x fa-key"></i>
 			</md-button>
-			<md-button class="md-icon-button" title="Reload UI" aria-label="Reload UI" onclick="setTimeout(function(){window.location.reload()},500);">
+			<md-button class="md-icon-button" title="Reload UI" aria-label="Reload UI" onclick="setTimeout(function(){window.open('http://odi.adrigarry.com','_self')},300);">
 				<i class="fa fa-2x fa-refresh" data-ng-class="{'fa-spin':spin}" data-ng-mouseenter="spin=true" data-ng-mouseleave="spin=false"></i>
 			</md-button>
 		</div>
