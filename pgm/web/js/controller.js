@@ -1,5 +1,5 @@
 'use strict'
-app.controller('UIController', function($rootScope, $scope, $timeout, $interval, $sce, $window, $mdSidenav,
+app.controller('UIController', function($rootScope, $scope, $location, $timeout, $interval, $sce, $window, $mdSidenav,
 		$mdBottomSheet, $mdToast, CONSTANTS, UIService){
 	$scope.loading = false;/*true*/
 	$scope.pauseUI = false;
@@ -176,4 +176,6 @@ app.controller('UIController', function($rootScope, $scope, $timeout, $interval,
 		setAdminCp++;
 		if(setAdminCp > 2) $scope.irda = true;
 	}*/
+
+	if($location.$$absUrl.split('?')[1] == new Date().getUTCDate()) $scope.irda = true;
 });

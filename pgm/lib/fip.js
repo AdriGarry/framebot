@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 // Module Fip
 
 var spawn = require('child_process').spawn;

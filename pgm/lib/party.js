@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 // Module Party
 
 var spawn = require('child_process').spawn;

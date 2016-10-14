@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+'use strict'
 
 var mode = process.argv[2]; // Recuperation des arguments
 console.log('>> Odi started in normal mode [' + mode + ']');

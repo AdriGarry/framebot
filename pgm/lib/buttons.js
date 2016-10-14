@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 // Module de gestion des boutons
 
 var log = 'Odi/ ';

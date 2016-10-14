@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 // Module Jukebox
 
 var spawn = require('child_process').spawn;

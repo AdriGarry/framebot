@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 // Module attribution des Pins GPIO
 
 var Gpio = require('onoff').Gpio;

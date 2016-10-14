@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 // Module utilitaires
 
 var fs = require('fs');
