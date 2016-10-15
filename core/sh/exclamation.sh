@@ -9,7 +9,7 @@ exclamationTTS () {
 exclamation () {
 	echo 'exclamation !_!'
 	volume=$(cat /sys/class/gpio/gpio13/value)
-	sound=$(sudo find /home/pi/odi/data/mp3/exclamation -maxdepth 1 -type f | shuf | head -1)
+	sound=$(sudo find /home/pi/odi/media/mp3/exclamation -maxdepth 1 -type f | shuf | head -1)
 	if [ $volume = 0 ]
 	then
 		volume=-200 #-400

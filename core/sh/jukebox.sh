@@ -10,14 +10,14 @@ then
 	position=$(shuf -e 4 51 -n 1)
 	playTime=$(shuf -i 5-13 -n 1)
 	echo $position " -> " $(($position+$playTime)) " [" $playTime "s]"
-	sudo omxplayer -o local --pos $position --vol 200 /home/pi/odi/data/mp3/jukebox/originsOfTheVillain1.mp3 > /dev/null &
+	sudo omxplayer -o local --pos $position --vol 200 /home/pi/odi/media/mp3/jukebox/originsOfTheVillain1.mp3 > /dev/null &
 	sudo node /home/pi/odi/core/modules/allLedsOff.js
 	sleep $playTime
 	sudo node /home/pi/odi/core/modules/allLedsOn.js
 	sudo killall omxplayer.bin
 
 	while true; do # On scanne en boucle le dossier
-			music=$(sudo find /home/pi/odi/data/mp3/jukebox -maxdepth 1 -type f | shuf | head -1)
+			music=$(sudo find /home/pi/odi/media/mp3/jukebox -maxdepth 1 -type f | shuf | head -1)
 			volume=$(cat /sys/class/gpio/gpio13/value)
 			position=$(shuf -i 5-120 -n 1)
 			playTime=$(shuf -i 3-7 -n 1)
@@ -37,7 +37,7 @@ then
 #___Fonction Jukebox Normal
 else
 	while true; do # On scanne en boucle le dossier
-			music=$(sudo find /home/pi/odi/data/mp3/jukebox -maxdepth 1 -type f | shuf | head -1)
+			music=$(sudo find /home/pi/odi/media/mp3/jukebox -maxdepth 1 -type f | shuf | head -1)
 			volume=$(cat /sys/class/gpio/gpio13/value)
 			position=$(shuf -i 5-20 -n 1)
 			playTimeDec=$(mplayer -identify -ao null -vo null -frames 0 $music | grep ^ID_LENGTH= | cut -d = -f 2)

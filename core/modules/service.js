@@ -12,7 +12,7 @@ var tts = require('./tts.js');
 var self = this;
 
 /** Fonction info meteo */
-var weatherStatus = fs.readFileSync('/home/pi/odi/data/intern/weather.status.properties', 'UTF-8').toString().split('\n');
+var weatherStatus = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');
 var weather = function(){
 	request.get({
 		// url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
@@ -153,8 +153,8 @@ exports.stopTimer = function stopTimer(){
 };
 
 /** Fonction info date */
-var days = fs.readFileSync('/home/pi/odi/data/intern/date.days.properties', 'UTF-8').toString().split('\n');
-var months = fs.readFileSync('/home/pi/odi/data/intern/date.months.properties', 'UTF-8').toString().split('\n');
+var days = fs.readFileSync('/home/pi/odi/data/date.days.properties', 'UTF-8').toString().split('\n');
+var months = fs.readFileSync('/home/pi/odi/data/date.months.properties', 'UTF-8').toString().split('\n');
 var date = function(){
 	var date = new Date();
 	var dayNb = date.getDate();

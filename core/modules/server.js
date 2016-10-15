@@ -33,7 +33,7 @@ var self = this;
 /*var DIR_NAME = '/home/pi/odi/core/';
 var DIR_NAME_WEB = '/home/pi/odi/web/';*/
 var FILE_REQUEST_HISTORY = LOG_PATH + 'requestHistory.log';
-var FILE_GRANT = DATA_PATH + 'intern/pwd.properties';
+var FILE_GRANT = DATA_PATH + 'pwd.properties';
 var FILE_VOICEMAIL_HISTORY = LOG_PATH + 'voicemailHistory.log';
 
 var _deploy;
@@ -192,13 +192,14 @@ exports.startUI = function startUI(mode){
 	if(mode < 1){ /////// WHEN ALIVE
 
 		ui.post('/tts', function (req, res) { // TTS ou Add Voice Mail Message
-			params = req.query;
+			tts = req.query;
 			// console.log(params);
-			if(params['voice'] && params['lg'] && params['msg']){
-				if('voicemail' in params){
+			if(tts.voice && tts.lg && tts.msg){
+				if(tts.hasOwnProperty('voicemail')){
 					_voiceMail.addVoiceMailMessage(params['lg'], params['msg'] + params['voice']);
 				}else{
-					_tts.speak(params['lg'], params['msg'] + params['voice']);
+					// _tts.speak(params['lg'], params['msg'] + params['voice']);
+					_tts.new({voice: tts.voice, lg: tts.lg, msg: tts.msg});
 				}
 			}else{
 				_tts.speak('','RANDOM'); // Random TTS

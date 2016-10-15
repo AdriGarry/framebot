@@ -5,11 +5,11 @@
 var fs = require('fs');
 var Player = require('player');
 
-var jukeboxPath = '/home/pi/odi/data/mp3/jukebox/';
-var exclamationPath = '/home/pi/odi/data/mp3/exclamation';
+var jukeboxPath = MEDIA_PATH + 'mp3/jukebox/';
+var exclamationPath = MEDIA_PATH + 'mp3/exclamation';
 
 var jukeboxList = [];
-fs.readdir('/home/pi/odi/data/mp3/exclamation', function(err, files){
+fs.readdir(MEDIA_PATH + 'mp3/exclamation', function(err, files){
 	if(err) return;
 	files.forEach(function(songName) {
 		jukeboxList.push(songName);

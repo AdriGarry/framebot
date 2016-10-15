@@ -37,7 +37,8 @@
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools">
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''"
-				onclick="setTimeout(function(){window.location.reload()},300)">
+				onclick="setTimeout(function(){window.location.reload()},300)"
+				data-ng-dblclick="action({label: 'Restart Odi', url: '/odi'})">
 			<h1>Odi UI<span>v3</span></h1>
 			<span flex></span>
 

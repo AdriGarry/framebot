@@ -10,10 +10,10 @@ var utils = require('./utils.js');
 var deploy;
 var self = this;
 
-var MESSAGES_PATH = '/home/pi/odi/data/intern/ttsMessages.properties';
+var MESSAGES_PATH = '/home/pi/odi/data/ttsMessages.properties';
 var messages = fs.readFileSync(MESSAGES_PATH, 'UTF-8').toString().split('\n'); // \r\n
 var rdmMaxMessages = messages.length;
-var CONVERSATIONS_PATH = '/home/pi/odi/data/intern/ttsConversations.properties';
+var CONVERSATIONS_PATH = '/home/pi/odi/data/ttsConversations.properties';
 var conversations = fs.readFileSync(CONVERSATIONS_PATH, 'UTF-8').toString().split('\n\n'); // \r\n
 var rdmMaxConversations = conversations.length;
 var LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.log';
@@ -55,7 +55,7 @@ var singleton = function(){ //defining a var instead of this (works for variable
 			delay += currentTTS.msg.length*1200;
 			console.log(delay/1000);
 		}
-		console.log('proceedTTSQueue() ttsQueue empty');
+		// console.log('proceedTTSQueue() ttsQueue empty');
 	}
 	exports.proceedTTSQueue = proceedTTSQueue;
 

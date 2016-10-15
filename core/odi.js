@@ -94,11 +94,3 @@ new CronJob('*/2 * * * * *', function(){
 	console.log(utils.getCPUUsage());
 }, null, 0, 'Europe/Paris'); // Switch true/false !
 
-// var player = require('player');
-/*var fs = require('fs');
-fs.readdir('/home/pi/odi/data/mp3/exclamation', function(err, files){
-	if(err) return;
-	files.forEach(function(f) {
-		console.log('Files: ' + f);
-	});
-});*/
