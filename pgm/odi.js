@@ -59,6 +59,13 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 // ----- TEST SECTION -----//
 // ------------------------//
 
+/*for(var i=0;i<10;i++){
+	console.log(Math.round(Math.random()*1));
+}*/
+
+tts.newTTS({msg:'salut'});
+tts.newTTS({msg:'comment tu vas ?'});
+tts.newTTS({});
 // console.log(service.sayOdiAge());
 
 // jobs.setupJobs();

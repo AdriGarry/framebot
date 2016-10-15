@@ -26,6 +26,10 @@ var _exclamation = require('./exclamation.js');
 var _party = require('./party.js');
 var self = this;
 
+
+_tts.newTTS({msg:'et bien ecoute sa va !'});
+
+
 var DIR_NAME = '/home/pi/odi/pgm/';
 var DIR_NAME_WEB = '/home/pi/odi/pgm/web/';
 var FILE_REQUEST_HISTORY = '/home/pi/odi/log/requestHistory.log';
