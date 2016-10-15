@@ -50,6 +50,9 @@ Temporary Items
 *.log
 *.properties
 
+/pgm/node_modules/*
+*_.*
+
 #/log/*
 #/conf/
 #/media/*
@@ -57,6 +60,3 @@ Temporary Items
 #/pgm/config/*
 #/pgm/_*
 #/data/*
-
-/pgm/node_modules/*
-*_.*
