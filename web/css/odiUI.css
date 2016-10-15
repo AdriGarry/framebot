@@ -68,9 +68,8 @@ img.odiFace.sleep{
 img.odiFace.odiOff{
 	display:block;
 	float:left;
-	height:90%;
-	margin-left:-4em;
-	opacity:0.9;
+	height:160%;
+	opacity:0.85;
 }
 
 .toolbar h1{
