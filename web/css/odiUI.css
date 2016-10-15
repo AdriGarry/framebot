@@ -29,7 +29,7 @@ md-checkbox.md-default-theme:not([disabled]).md-warn.md-checked .md-icon, md-che
 	background-color:#1B2631!important;
 }
 
-md-progress-circular{
+.logs md-progress-circular{
 	margin:30% auto 20%;
 	/*zoom:2;*/
 }
@@ -48,6 +48,12 @@ md-toolbar.toolbar.md-warn{
 md-toolbar.toolbar span[flex] + i{
 	margin:0 2%;
 	font-size:1.6em;
+}
+
+md-toolbar.md-toolbar md-progress-circular path{
+	color:red;
+	z-index:10;
+	stroke:red;
 }
 
 img.odiFace{
@@ -75,6 +81,7 @@ img.odiFace.odiOff{
 .toolbar h1{
 	margin-left:4em;
 	font-size:1.2em;
+	/*cursor:pointer;*/
 }
 .toolbar h1 span{
 	margin-left:5px;

@@ -10,6 +10,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 
 	$scope.dashboard = {
 		autoRefresh: true,
+		loopInterval: 0,
 		loading: false,
 		ttsTile: {
 			label: 'TTS - Voice synthesizing',
@@ -152,8 +153,13 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 	/** Start auto update Dashboard (10s) **/
 	$scope.refreshDashboard();
 	$interval(function(){
-		$scope.refreshDashboard();
-	}, 10000);
+		$scope.dashboard.loopInterval++;
+		console.log($scope.dashboard.loopInterval);
+		if($scope.dashboard.loopInterval > 100){
+			$scope.refreshDashboard();
+			$scope.dashboard.loopInterval = 0;
+		}
+	}, 100);
 
 	$scope.grant = function(){
 		var pwd = prompt('Password');

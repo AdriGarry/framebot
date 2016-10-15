@@ -432,6 +432,10 @@ exports.startUI = function startUI(mode){
 			}, alarms: {
 				lib: 'Alarms',
 				value: '<i>Soon available</i>',
+			}, stats: {
+				lib: 'Stats',
+				value: 'X refresh (dashboard)',
+				value: 'X refresh (dashboard)',
 			}, about: {
 				lib: 'About',
 				value: 'Hi,<br>I\'m Odi the robot !',

@@ -49,7 +49,7 @@ Temporary Items
 *.wav
 *.log
 /pgm/node_modules/*
-#/log/*
+/log/*
 /conf/
 /medias/*
 /mp3/*
