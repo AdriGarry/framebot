@@ -381,7 +381,7 @@ exports.startUI = function startUI(mode){
 
 		ui.post('/test', function (req, res) { // Set Party Mode
 			// console.log('UI > TEST !!');
-			_deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/music.sh', 'mouthTrick']);
+			_deploy = _spawn('sh', ['/home/pi/odi/pgm/sh/sounds.sh', 'test']); //mouthTrick
 			res.writeHead(200);res.end();
 		});
 		ui.post('/*', function (req, res) { // Redirect Error

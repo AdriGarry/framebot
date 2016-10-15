@@ -59,6 +59,7 @@ img.odiFace{
 	/*margin-right:20px;*/
 	border-radius:50%;
 	border:2px solid;
+	cursor:pointer;
 }
 img.odiFace.sleep{
 	-webkit-filter:grayscale(100%); /* Chrome, Safari, Opera */

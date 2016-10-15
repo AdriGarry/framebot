@@ -9,7 +9,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 	$scope.showLogs = showLogs();
 
 	$scope.dashboard = {
-		mode: '',
+		autoRefresh: true,
 		loading: false,
 		ttsTile: {
 			label: 'TTS - Voice synthesizing',
@@ -54,15 +54,17 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 
 	/** Function to refresh Dashboard **/
 	$scope.refreshDashboard = function(){
-		console.log('refreshDashboard()');
-		$scope.dashboard.loading = true;
-		UIService.refreshDashboard(function(data){
-			angular.forEach(data, function(tile, key){
-				$scope.dashboard.tileList[key].value = data[key].value;
-				$scope.dashboard.tileList[key].bindHTML(key);
+		if($scope.dashboard.autoRefresh){
+			console.log('refreshDashboard()');
+			$scope.dashboard.loading = true;
+			UIService.refreshDashboard(function(data){
+				angular.forEach(data, function(tile, key){
+					$scope.dashboard.tileList[key].value = data[key].value;
+					$scope.dashboard.tileList[key].bindHTML(key);
+				});
+				$timeout(function(){$scope.dashboard.loading = false;}, 100);
 			});
-			$timeout(function(){$scope.dashboard.loading = false;}, 100);
-		});
+		}
 	}
 
 	/** Function to pop down toast */
@@ -151,7 +153,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 	$scope.refreshDashboard();
 	$interval(function(){
 		$scope.refreshDashboard();
-	}, 13000);
+	}, 10000);
 
 	$scope.grant = function(){
 		var pwd = prompt('Password');

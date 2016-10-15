@@ -76,7 +76,7 @@ exports.sayOdiAge = function sayOdiAge(){
 	age = utils.getOdiAge();
 	years = Math.floor(age/365);
 	mouths = Math.floor((age%365)/30);
-	var rdm = ['Aujourd\'hui, ', 'A ce jour, ', 'A cet instant, '];
+	var rdm = ['Aujourd\'hui, ', 'A ce jour, ', 'A cet instant, ', ''];
 	birthDay = rdm[Math.floor(Math.random() * rdm.length)]
 	birthDay += 'j\'ai ' + years + ' ans et ' + mouths + ' mois !';// et ' + days + ' jours !';
 	console.log('sayOdiAge() \'' + birthDay + '\'')

@@ -62,7 +62,8 @@ then
 #___Son Test
 elif [ $1 = "test" ]
 then
-	sound="/home/pi/odi/mp3/system/test.mp3"
+	# sound="/home/pi/odi/mp3/system/test.mp3"
+	sound="/home/pi/odi/mp3/system/DescenteInfinie.mp3"
 #___Donjon de Naheulbeuk
 elif [ $1 = "Naheulbeuk" ]
 then
