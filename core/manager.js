@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-console.log(' -> Manager Initiating...');
+console.log(' -> CORE Manager initiating...');
 
 /** Odi's global variables  */
 global.ODI_PATH = '/home/pi/odi/';
@@ -8,7 +8,6 @@ global.CORE_PATH = '/home/pi/odi/core/';
 global.DATA_PATH = '/home/pi/odi/data/';
 global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
-
 
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
@@ -83,9 +82,9 @@ function startOdi(mode){
 		tts.clearLastTTS();
 		utils.mute();
 		odiState = false;
-		console.log('\r\n>> Exit Odi Pgm [code:' + code + ']');
-		console.log('************************\r\n\r\n');
-		// console.log('Code. : '+code);
+		// console.log('\r\n~~~~~~~~~~~~~~~~~~~~~~~~~' + '~~~~~~~~' + (code>10 ? (code>100 ? '~~~' : '~~') : '~'));
+		console.log('\r\n-------------------------' + '--------' + (code>10 ? (code>100 ? '---' : '--') : '-'));
+		console.log('>> Odi CORE restarting... [code:' + code + ']\r\n\r\n');
 		if(typeof code === 'number' && code > 0){
 			startOdi(code);
 		}else{

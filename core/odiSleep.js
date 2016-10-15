@@ -1,5 +1,12 @@
 #!/usr/bin/env node
 
+/** Odi's global variables  */
+global.ODI_PATH = '/home/pi/odi/';
+global.CORE_PATH = '/home/pi/odi/core/';
+global.DATA_PATH = '/home/pi/odi/data/';
+global.LOG_PATH = '/home/pi/odi/log/';
+global.WEB_PATH = '/home/pi/odi/web/';
+
 var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
 var gpioPins = require('./modules/gpioPins.js');

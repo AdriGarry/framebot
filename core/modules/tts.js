@@ -29,14 +29,14 @@ var singleton = function(){ //defining a var instead of this (works for variable
 	}
 
 	/** Function to add TTS message in queue and proceed */
-	this.newTTS = function(tts){
+	this.new = function(tts){
 		// console.log('newTTS() ' + tts.msg);
 		if(tts.hasOwnProperty('msg')){
 			var ttsQueueLength = ttsQueue.length;
 			// console.log(ttsQueueLength);
 			ttsQueue.push(tts);
 			console.log('newTTS() ' + tts.msg);
-			console.log(ttsQueue);
+			//console.log(ttsQueue);
 			if(!ttsQueueLength) self.proceedTTSQueue();
 		}else console.error('newTTS() Wrong TTS object');
 	}
@@ -53,7 +53,7 @@ var singleton = function(){ //defining a var instead of this (works for variable
 				self.playTTS(currentTTS);
 			}.bind(this, currentTTS), delay+2500);/*+2500*/
 			delay += currentTTS.msg.length*1200;
-			console.log(delay);
+			console.log(delay/1000);
 		}
 		console.log('proceedTTSQueue() ttsQueue empty');
 	}
@@ -225,9 +225,9 @@ var singleton = function(){ //defining a var instead of this (works for variable
 	// exports.clearLastTTS = clearLastTTS;
 
 }
-/* ************************************************************************
+/* __________________________________________________**********************
 SINGLETON CLASS DEFINITION
-************************************************************************ */
+__________________________________________________********************** */
 singleton.instance = null;
 /**
  * Singleton getInstance definition

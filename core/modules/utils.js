@@ -24,7 +24,7 @@ var self = this;
 
 /** Fonction mute */
 var mute = function(message){
-	var deploy = spawn('sh', ['/home/pi/odi/core/sh/mute.sh']);
+	var deploy = spawn('sh', [CORE_PATH + 'sh/mute.sh']);
 	console.log(((message === undefined)? '' : message) + 'MUTE  :|');
 	leds.clearLeds();
 	eye.write(0);
@@ -37,11 +37,11 @@ var muteTimer;
 var autoMute = function(message){
 	clearTimeout(muteTimer);
 	muteTimer = setTimeout(function(){
-		var deploy = spawn('sh', ['/home/pi/odi/core/sh/mute.sh', 'auto']);
+		var deploy = spawn('sh', [CORE_PATH + 'sh/mute.sh', 'auto']);
 		setTimeout(function(){
 			message = ((message === undefined)? '' : message) + 'AUTO MUTE  :|';
 			fip.stopFip(message);
-			deploy = spawn('sh', ['/home/pi/odi/core/sh/mute.sh']);
+			deploy = spawn('sh', [CORE_PATH + 'sh/mute.sh']);
 			leds.clearLeds();
 			eye.write(0);
 			belly.write(0);
@@ -111,8 +111,7 @@ exports.formatedDate = function formatedDate(){
 
 /** Fonction de formatage des logs */
 var prepareLogs = function(lines, callback){
-	var logFilePath = '/home/pi/odi/log/odi.log';
-	var content = fs.readFileSync(logFilePath, 'UTF-8').toString().split('\n');
+	var content = fs.readFileSync(LOG_PATH + 'odi.log', 'UTF-8').toString().split('\n');
 	content = content.slice(-lines); //-120
 	content = content.join('\n');
 	//content = self.getCPUTemp() + '\n' + content;
@@ -196,7 +195,7 @@ var reboot = function(){
 	// remote.trySynchro();
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
 	setTimeout(function(){
-		deploy = spawn('sh', ['/home/pi/odi/core/sh/power.sh', 'reboot']);
+		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh', 'reboot']);
 	}, 1500);
 };
 exports.reboot = reboot;
@@ -207,7 +206,7 @@ var shutdown = function(){
 	// remote.trySynchro();
 	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
 	setTimeout(function(){
-		deploy = spawn('sh', ['/home/pi/odi/core/sh/power.sh']);
+		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh']);
 	}, 1500);
 };
 exports.shutdown = shutdown;
@@ -314,6 +313,6 @@ var getMsgLastGitCommit = function(callback){
 		console.log('LastGitCommitMsg : "' + stdout.trim() + '"');
 		callback(stdout);
 	}
-	exec('git log -1 --pretty=%B',{cwd: '/home/pi/odi/'}, getMsg);
+	exec('git log -1 --pretty=%B',{cwd: 'ODI_PATH'}, getMsg);
 };
 exports.getMsgLastGitCommit = getMsgLastGitCommit;

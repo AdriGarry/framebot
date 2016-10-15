@@ -1,8 +1,15 @@
 #!/usr/bin/env node
 'use strict'
 
+/** Odi's global variables  */
+global.ODI_PATH = '/home/pi/odi/';
+global.CORE_PATH = '/home/pi/odi/core/';
+global.DATA_PATH = '/home/pi/odi/data/';
+global.LOG_PATH = '/home/pi/odi/log/';
+global.WEB_PATH = '/home/pi/odi/web/';
+
 var mode = process.argv[2]; // Recuperation des arguments
-console.log('>> Odi Core started [mode:' + mode + ']');
+console.log('>> Odi Core started' + (mode ? ' [mode:' + mode + ']' : ''));
 
 var Gpio = require('onoff').Gpio;
 var gpioPins = require('./modules/gpioPins.js');
@@ -12,7 +19,7 @@ var leds = require('./modules/leds.js');
 leds.activity(); // Initialisation du temoin d'activite 1/2
 
 var spawn = require('child_process').spawn;
-var odiStartupSound = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'odi', 'noLeds']);
+var odiStartupSound = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
 
 // leds.allLedsOn();
 
@@ -64,15 +71,14 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 }*/
 
 console.log(tts);
-tts.newTTS({msg:'salut'});
-tts.newTTS({msg:'comment tu vas ?'});
-tts.newTTS({});
+tts.new({msg:'salut'});
+tts.new({msg:'comment tu vas ?'});
+tts.new({});
 // console.log(service.sayOdiAge());
 
 // jobs.setupJobs();
 
 setTimeout(function(){
-	// tts.speak('fr', 'Leonard le cafard, ou es tu ?:1');
 	// var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', '13Heures']);
 }, 2000);
 
