@@ -22,6 +22,7 @@
 	<script src="js/conf.js"></script>
 	<script src="js/controller.js"></script>
 	<script src="js/services.js"></script>
+	<script src="js/directives.js"></script>
 	<script src="js/models.js"></script>
 
 	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
@@ -43,7 +44,7 @@
 			<h1 data-ng-dblclick="action({label: 'Restart Odi', url: '/odi'})">Odi UI<span>v3</span></h1>
 			<span flex></span>
 			<md-switch class="switch md-primary" aria-label="Dashboard refresh" title="Dashboard refresh" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch><!--data-ng-if="irda"-->
-			<md-button class="md-icon-button" data-ng-click="grant()" data-ng-class="irda ? 'admin' : ''" title="Admin" aria-label="Admin" onclick="grant()">
+			<md-button class="md-icon-button" data-ng-click="showDialogGrant($event)" data-ng-class="irda ? 'admin' : ''" title="Admin" aria-label="Admin"><!-- grant()-->
 				<i class="fa fa-2x fa-key"></i>
 			</md-button>
 			<!--<md-button class="md-icon-button" title="Reload UI" aria-label="Reload UI" onclick="setTimeout(function(){window.open('http://odi.adrigarry.com','_self')},300);">

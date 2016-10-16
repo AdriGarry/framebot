@@ -357,7 +357,10 @@ span.responsive span.mode small{
 }
 
 
-
+/* ------------------------------ DIALOG ------------------------------- */
+md-dialog md-dialog-content h2 i.fa{
+	float:right
+}
 
 /* ------------------------------ BOTTOM SHEET ------------------------------- */
 md-bottom-sheet{

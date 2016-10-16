@@ -71,7 +71,7 @@ var singleton = function(){ //defining a var instead of this (works for variable
 					onAir = false;
 					leds.toggle({led: 'eye', mode: 0});
 					// leds.toggle({led: 'belly', mode: 0});
-				}, currentTTS.msg.length*50 + 1000);//50
+				}, currentTTS.msg.length*50 + 1000);//*30 + 1500
 			}
 		}, 500);
 	}

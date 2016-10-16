@@ -49,9 +49,8 @@ Temporary Items
 *.wav
 *.log
 *.properties
-
-/pgm/node_modules/*
 *_.*
+admin.js
 
 #/log/*
 #/conf/

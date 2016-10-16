@@ -1,6 +1,6 @@
 'use strict'
 app.controller('UIController', function($rootScope, $scope, $location, $timeout, $interval, $sce, $window, $mdSidenav,
-		$mdBottomSheet, $mdToast, CONSTANTS, UIService){
+		$mdDialog, $mdBottomSheet, $mdToast, CONSTANTS, UIService){
 	$scope.loading = false;/*true*/
 	$scope.pauseUI = false;
 	$scope.irda = false;
@@ -149,9 +149,56 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 		$mdBottomSheet.hide(button);
 	};
 
+
+	/*$scope.showDialogGrant = function(ev){
+		// Appending dialog to document.body to cover sidenav in docs app
+		var confirm = $mdDialog.prompt()
+			.title('Enter Password')
+			// .textContent('To get admin')
+			.placeholder('Password')
+			//.ariaLabel('Dog name')
+			//.initialValue('Buddy')
+			.targetEvent(ev)
+			.clickOutsideToClose(true)
+			.ok('Access')
+			.cancel('Cancel');
+
+		$mdDialog.show(confirm).then(function(result){
+			//TRY GRANT
+			$scope.grant(result);
+			console.log(result);
+		});
+	};*/
+
+	$scope.showDialogGrant = function(ev){
+		$mdDialog.show({
+			controller: DialogController,
+			templateUrl: 'templates/dialog-admin.html',
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose:true,
+			fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints
+		}).then(function(answer){
+			$scope.grant(answer);
+			console.log(answer);
+		});
+	};
+
+	function DialogController($scope, $mdDialog){
+		$scope.hide = function(){
+			$mdDialog.hide();
+		};
+		$scope.cancel = function(){
+			$mdDialog.cancel();
+		};
+		$scope.answer = function(answer){
+			$mdDialog.hide(answer);
+		};
+	}
+
+
 	/** Function to inject HTML code */
 	$scope.toHtml = function(html){
-		// console.log(html);
 		return $sce.trustAsHtml(html);
 	};
 
@@ -165,9 +212,9 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 		}
 	}, 100);
 
-	$scope.grant = function(){
-		var pwd = prompt('Password');
-		UIService.sendCommand({label:'', url:'/grant', data: pwd}, function(data){
+	$scope.grant = function(param){
+		console.log(param);
+		UIService.sendCommand({url:'/grant', data:param}, function(data){
 			$scope.irda = data;
 		});
 	}
@@ -183,12 +230,9 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 		console.log(obj);
 	};
 
-	/*var setAdminCp = 0;
-	$scope.tryAdmin = function(){
-		setAdminCp++;
-		if(setAdminCp > 2) $scope.irda = true;
-	}*/
-
-	// if($location.$$absUrl.split('?')[1] == new Date().getUTCDate()) $scope.irda = true;
-	if([new Date().getUTCDate().toString(), 'Odi2015'].indexOf($location.$$absUrl.split('?')[1]) > -1) $scope.irda = true;
+	var param = $location.$$absUrl.split('?')[1];
+	if(param){
+		console.log('param : ' + param);
+		$scope.grant(param);
+	}
 });

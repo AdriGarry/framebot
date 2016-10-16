@@ -24,6 +24,7 @@ var _fip = require('./fip.js');
 var _jukebox = require('./jukebox.js');
 var _exclamation = require('./exclamation.js');
 var _party = require('./party.js');
+var _admin = require('./admin.js');
 var self = this;
 
 
@@ -181,11 +182,19 @@ exports.startUI = function startUI(mode){
 	});
 
 	var granted = false;
-	var pwd = _fs.readFileSync(FILE_GRANT, 'UTF-8');
+	//var pwd = _fs.readFileSync(FILE_GRANT, 'UTF-8');
 	ui.post('/grant', function (req, res) { // Get grant status
-		if(req.headers.pwd == pwd) granted = true;
+
+		// console.log(req.headers);
+		// console.log(req.headers.pwd.slice(-2));
+		var pattern = req.headers.pwd;
+		// if(pattern && new Date().getUTCDate().toString() == pattern.slice(-2)){
+		if(pattern && _admin.checkPassword(pattern)){
+			console.log('>> User granted /!\\');
+			granted = true;
+		}
 		res.send(granted);
-		if(req.headers.pwd == pwd) granted = false;
+		if(granted) granted = false;
 	});
 
 

@@ -1,0 +1,21 @@
+<md-dialog>
+	<md-dialog-content class="md-dialog-content">
+		<h2 class="md-title">Admin<i class="fa fa-2x fa-user-secret"></i></h2>
+		<!--<i class="fa fa-key"></i>-->
+		<!--<i class="fa fa-2x fa-user-secret">-->
+
+		<!--<input ng-keypress="dialog.keypress($event)" md-autofocus="" ng-model="dialog.result" placeholder="Password" class="ng-valid md-input md-autofocus ng-touched ng-dirty ng-valid-parse ng-empty" aria-label="Password" id="input_21" aria-invalid="false" style="">-->
+
+		<form data-ng-submit="answer(pwd)">
+			<md-input-container class="md-block" flex-gt-sm>
+				<label>Password</label>
+				<input type="password" data-ng-model="pwd" data-focus="true" inputmode="numeric">
+			</md-input-container>
+		</form>
+
+		<md-dialog-actions>
+			<md-button class="md-raised" data-ng-click="cancel()">Cancel</md-button>&nbsp;&nbsp;&nbsp;
+			<md-button class="md-raised md-primary" data-ng-click="answer(pwd)">Access</md-button>
+		</md-dialog-actions>
+	</md-dialog-content>
+</md-dialog>
