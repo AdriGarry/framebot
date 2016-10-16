@@ -18,7 +18,9 @@ var setParty = function(test){
 			var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'test']);
 			console.log('test = ' + test);
 			//tts.speak('en', 'test mode');
+			tts.new({lg:'en', msg:'test mode'});
 			//tts.speak('en', 'LET\'S START PARTY IN TEST MODE!!');
+			tts.new({lg:'en', msg:'LET\'S START PARTY IN TEST MODE!!'});
 	}/* else {
 			tts.speak('en', 'LET\'S START PARTY !!');
 	}*/

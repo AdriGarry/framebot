@@ -25,7 +25,8 @@ var setTimer = function(minutes){
 	var sec = time%60;
 	var ttsMsg = 'Minuterie ' + ((min>0)? ((min>1)? min : ' une ') + ' minutes ' : '') + ((sec>0)? sec + ' secondes' : '');
 	console.log(ttsMsg);
-	tts.speak('fr', ttsMsg);
+	// tts.speak('fr', ttsMsg);
+	tts.new({lg:'fr', msg:ttsMsg});
 	if(!timer){
 	timer = true;
 	var sec = setInterval(function(){
@@ -39,13 +40,15 @@ var setTimer = function(minutes){
 		}
 		time--;
 		if(time%120 == 0 && (time/60)>0){
-			tts.speak('fr', time/60 + ' minutes et compte a rebours');
+			// tts.speak('fr', time/60 + ' minutes et compte a rebours');
+			tts.new({lg:'fr', msg:time/60 + ' minutes et compte a rebours'});
 		}else if(time <= 0){
 			clearInterval(sec);
 			console.log('End Timer !');
 			var deploy = spawn('sh', ['/home/pi/odi/core/sh/timerSound.sh', 'end']);
 			leds.blink({leds: ['belly','eye', 'satellite', 'nose'], speed: 90, loop: 12});
-			tts.speak('fr', 'Les raviolis sont cuits !');
+			// tts.speak('fr', 'Les raviolis sont cuits !');
+			tts.new({lg:'fr', msg:'Les raviolis sont cuits !'});
 			timer = false;
 			belly.write(0);
 		}

@@ -43,8 +43,8 @@ exports.checkVoiceMail = function checkVoiceMail(callback){
 	try{
 		console.log('Checking VoiceMail...');
 		var messages = fs.readFileSync(voiceMailFilePath, 'UTF-8').toString().split('\n');
-		// tts.speak('en', 'You have messages:1');
-		tts.speak('en', 'Messages:1');
+		// tts.speak('en', 'Messages:1');
+		tts.new({voice:'espeak', lg:'en', msg:'Messages'});
 		console.log(messages);
 		tts.conversation(messages);
 
@@ -115,7 +115,8 @@ exports.clearVoiceMail = function clearVoiceMail(){
 			if(err.code === 'ENOENT') console.log('clearVoiceMail : No message to delete !');
 		}else{
 			console.log('VoiceMail Cleared.');
-			tts.speak('en', 'VoiceMail Cleared:3');
+			// tts.speak('en', 'VoiceMail Cleared:3');
+			tts.new({lg:'en', msg:'VoiceMail Cleared:3'});
 		}
 	});
 };

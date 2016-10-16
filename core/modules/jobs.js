@@ -53,7 +53,7 @@ var ringHour = function(){
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
 			// tts.speak('fr', 'Il est ' + hour + ' heures');
-			tts.new({lg:'fr', msg: 'Il est ' + hour + ' heures'});
+			tts.new({lg:'fr', msg:'Il est ' + hour + ' heures'});
 		}else{
 			if(cpHour > 12){
 				cpHour = hour - 12;
@@ -78,8 +78,8 @@ var ringHalfHour = function(){
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
 			// if(cpHour > 12){cpHour = hour - 12};
-			tts.speak('fr', 'Il est ' + hour + ' heures 30');
-			tts.new({lg: 'fr', msg: 'Il est ' + hour + ' heures 30'});
+			// tts.speak('fr', 'Il est ' + hour + ' heures 30');
+			tts.new({lg:'fr', msg:'Il est ' + hour + ' heures 30'});
 		}else{
 			var deploy = spawn('sh', ['/home/pi/odi/core/sh/clock.sh', 'half']);
 		}
@@ -136,7 +136,7 @@ var setAlarms = function(){
 	new CronJob('0 15,18-20 8 * * 1-5', function(){
 		console.log('COCORICO !!');
 		// tts.speak('fr', 'go go go, allez au boulot:1');
-		tts.new({lg: 'fr', msg: 'go go go, allez au boulot:1'});
+		tts.new({lg:'fr', msg:'go go go, allez au boulot:1'});
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 30 18 * * 1-5', function() {
@@ -224,7 +224,7 @@ var setBackgroundJobs = function(){
 	console.log('Background jobs initialised');
 	new CronJob('13 13 13 * * 1-6', function() {
 		// tts.speak('en','Auto restart:1'); // Reinitialisation quotidienne
-		tts.new({voice: 'espeak', lg: 'en', msg: 'Auto restart'}); // Reinitialisation quotidienne
+		tts.new({voice:'espeak', lg:'en', msg:'Auto restart'}); // Reinitialisation quotidienne
 		setTimeout(function(){
 			utils.restartOdi();
 		}, 3000);
@@ -232,7 +232,7 @@ var setBackgroundJobs = function(){
 
 	new CronJob('13 13 13 * * 0', function() {
 		// tts.speak('fr','Auto reboot:1'); // Redemarrage hebdomadaire
-		tts.new({voice: 'espeak', lg: 'fr', msg: 'Auto reboot:1'}); // Redemarrage hebdomadaire
+		tts.new({voice:'espeak', lg:'fr', msg:'Auto reboot:1'}); // Redemarrage hebdomadaire
 		setTimeout(function(){
 			utils.reboot();
 		}, 3000);

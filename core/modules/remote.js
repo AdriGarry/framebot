@@ -112,7 +112,7 @@ exports.synchro = function synchro(mode){
 									voiceMail.addVoiceMailMessage(lg,txt.substring(3));
 								}else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
 									if(!voiceMail.checkVoiceMail()){
-										tts.speak('en', 'No voicemail message:1');
+										tts.new({lg:'en', msg:'No voicemail message:1'});
 									}
 								}else if(txt == 'clearVoiceMail' && mode.indexOf('sleep') == -1){
 									voiceMail.clearVoiceMail();
@@ -175,11 +175,9 @@ exports.synchro = function synchro(mode){
 								 if(mode.indexOf('sleep') > -1){ // Saving message in voicemail
 									voiceMail.addVoiceMailMessage(lg,txt);
 								 }else{ // Saying message
-									 tts.speak(lg,txt);
+									 // tts.speak(lg,txt);
+									 tts.new({lg:lg, msg:txt});
 								 }
-								// setTimeout(function(lg, txt){
-								// tts.speak(lg,txt);
-								// }.bind(this, lg, txt), timeMessage*1000);
 							}
 						}
 					}

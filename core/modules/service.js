@@ -124,7 +124,8 @@ var setTimer = function(minutes){
 			time--;
 			if(time%120 == 0 && (time/60)>0){
 				// tts.speak('fr', 'Minuterie ' + time/60 + ' minutes');
-				_tts.speak('fr', time/60 + ' minutes et compte a rebours');
+				// _tts.speak('fr', time/60 + ' minutes et compte a rebours');
+				_tts.new({lg:'fr', msg:time/60 + ' minutes et compte a rebours'});
 			}else if(time <= 0 && time > -5){
 				clearInterval(sec);
 				console.log('End Timer !');
@@ -135,7 +136,8 @@ var setTimer = function(minutes){
 					speed: 90,
 					loop: 12
 				});
-				_tts.speak('fr', 'Les raviolis sont cuits !');
+				// _tts.speak('fr', 'Les raviolis sont cuits !');
+				_tts.new({lg:'fr', msg:'Les raviolis sont cuits !'});
 				timer = false;
 				belly.write(0);
 			}else if(time < -2){
@@ -157,7 +159,8 @@ exports.timeLeftTimer = function timeLeftTimer(){
 exports.stopTimer = function stopTimer(){
 	time = -5;
 	timer = false;
-	_tts.speak('en', 'Timer canceled');
+	// _tts.speak('en', 'Timer canceled');
+	_tts.new({lg:'en', msg:'Timer canceled'});
 	belly.write(0);
 };
 
@@ -175,7 +178,8 @@ var date = function(){
 	var year = date.getFullYear();
 	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
 	console.log('Service Date... ' + annonceDate);
-	_tts.speak('fr',annonceDate);
+	// _tts.speak('fr',annonceDate);
+	_tts.new({lg:'fr', msg:annonceDate});
 };
 exports.date = date;
 
@@ -198,7 +202,8 @@ exports.info = info;
 var cpuTemp = function(){
 	temperature = utils.getCPUTemp();
 	console.log('Service CPU Temperature...  ' + temperature + ' degres');
-	_tts.speak('fr', 'Mon processeur est a ' + temperature + ' degree')
+	// _tts.speak('fr', 'Mon processeur est a ' + temperature + ' degree')
+	_tts.new({lg:'fr', msg:'Mon processeur est a ' + temperature + ' degree'});
 };
 exports.cpuTemp = cpuTemp;
 
