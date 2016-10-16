@@ -33,6 +33,7 @@ var voiceMail = require('./modules/voiceMail.js');
 var tts = require('./modules/tts.js');
 var _server = require('./modules/server.js');
 
+tts.listenQueue();
 // LED Start sequence
 //leds.blinkLed(100, 300); // Sequence led de start
 
@@ -66,21 +67,17 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 // ----- TEST SECTION -----//
 // ------------------------//
 
-/*for(var i=0;i<10;i++){
-	console.log(Math.round(Math.random()*1));
-}*/
-
 // console.log(tts);
-tts.listenQueue();
-tts.new({voice: 'espeak', msg:'hey !'});
+/*tts.new({voice: 'espeak', msg:'hey !'});
 tts.new({voice: 'google', msg:'salut'});
 tts.new({voice: 'espeak', msg:'comment tu vas en cette belle journee?'});
 tts.new({voice: 'google', msg:'sa va, et toi ?'});
 tts.new({voice: 'espeak', msg:'bien'});
 tts.new({voice: 'espeak', msg:'oui, je dirais meme que je vais bien !!'});
 tts.new({voice: 'google', msg:'cool'});
-tts.new({});
+tts.new({});*/
 // console.log(service.sayOdiAge());
+
 
 // jobs.setupJobs();
 
@@ -95,9 +92,5 @@ new CronJob('*/4 * * * * *', function(){
 		speed: 90,//Math.random() * (200 - 30) + 30,
 		loop: 5
 	});
-}, null, 0, 'Europe/Paris'); // Switch true/false !
-
-new CronJob('*/2 * * * * *', function(){
-	console.log(utils.getCPUUsage());
 }, null, 0, 'Europe/Paris'); // Switch true/false !
 
