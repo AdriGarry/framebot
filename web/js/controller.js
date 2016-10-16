@@ -93,7 +93,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 		// var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 		UIService.updateLogs(function(logs){
 			logs = logs.replace(/\[([0-9]{1,3}\.){3}([0-9]{1,3})\]/g, function(match, capture){
-				console.log(match);
 				var ip = match.substr(1,match.length-2);
 				if(ip.search(/(^192\.168\.)/g)){
 					return '[<a href="'+ CONSTANTS.URL_IP_LOCALIZATOR + ip + '" title="Localize this IP" target="_blank">' + ip + '</a>]';
@@ -103,9 +102,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 			});
 			// $scope.logData = logs.split('\n');
 
-			// logs = logs.replace(/[[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}]/g, function(match){
-			logs = logs.replace(new RegExp('[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', 'g'), function(match, capture){
-				console.log(match);
+			logs = logs.replace(new RegExp('[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', 'g'), function(match){
 				return '<span class="timeLog">' + match + '</span>';
 			});
 			$scope.logData = logs.split('\n');
@@ -162,7 +159,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 	$scope.refreshDashboard();
 	$interval(function(){
 		if($scope.dashboard.autoRefresh) $scope.dashboard.loopInterval++;
-		// console.log($scope.dashboard.loopInterval);
 		if($scope.dashboard.loopInterval > 100){
 			$scope.refreshDashboard();
 			$scope.dashboard.loopInterval = 0;
