@@ -55,7 +55,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 
 	/** Function to refresh Dashboard **/
 	$scope.refreshDashboard = function(){
-		if($scope.dashboard.autoRefresh){
+		// if($scope.dashboard.autoRefresh){
 			console.log('refreshDashboard()');
 			$scope.dashboard.loading = true;
 			UIService.refreshDashboard(function(data){
@@ -65,7 +65,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 				});
 				$timeout(function(){$scope.dashboard.loading = false;}, 100);
 			});
-		}
+		// }
 	}
 
 	/** Function to pop down toast */
@@ -90,15 +90,23 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 	$scope.refreshLog = function(){
 		// console.log('refreshing logs');
 		//$scope.logData = undefined;
-		var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
+		// var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 		UIService.updateLogs(function(logs){
 			logs = logs.replace(/\[([0-9]{1,3}\.){3}([0-9]{1,3})\]/g, function(match, capture){
+				console.log(match);
 				var ip = match.substr(1,match.length-2);
 				if(ip.search(/(^192\.168\.)/g)){
 					return '[<a href="'+ CONSTANTS.URL_IP_LOCALIZATOR + ip + '" title="Localize this IP" target="_blank">' + ip + '</a>]';
 				}else{
 					return '[' + ip + ']';
 				}
+			});
+			// $scope.logData = logs.split('\n');
+
+			// logs = logs.replace(/[[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}]/g, function(match){
+			logs = logs.replace(new RegExp('[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', 'g'), function(match, capture){
+				console.log(match);
+				return '<span class="timeLog">' + match + '</span>';
 			});
 			$scope.logData = logs.split('\n');
 		});
@@ -153,8 +161,8 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 	/** Start auto update Dashboard (10s) **/
 	$scope.refreshDashboard();
 	$interval(function(){
-		$scope.dashboard.loopInterval++;
-		console.log($scope.dashboard.loopInterval);
+		if($scope.dashboard.autoRefresh) $scope.dashboard.loopInterval++;
+		// console.log($scope.dashboard.loopInterval);
 		if($scope.dashboard.loopInterval > 100){
 			$scope.refreshDashboard();
 			$scope.dashboard.loopInterval = 0;

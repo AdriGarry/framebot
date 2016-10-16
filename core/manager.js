@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-console.log(' -> CORE Manager initiating...');
-
 /** Odi's global variables  */
 global.ODI_PATH = '/home/pi/odi/';
 global.CORE_PATH = '/home/pi/odi/core/';
@@ -9,19 +7,24 @@ global.DATA_PATH = '/home/pi/odi/data/';
 global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
 
+var fs = require('fs');
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
 var gpioPins = require('./modules/gpioPins.js');
-var fs = require('fs');
 var utils = require('./modules/utils.js');
-var log = require('./modules/log.js');
+// var log = require('./modules/log.js');
 var tts = require('./modules/tts.js');
 // var remote = require('./modules/remote.js');
 
 var odiPgm, odiState = false;
 var logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
 var logoSleep = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
+var coreLogo = fs.readFileSync(DATA_PATH + 'coreLogo.properties', 'utf8').toString().split('\n');
 
+// console.log('\r\n' + coreLogo.join('\n') + '  initiating...');
+console.log('\r\n' + coreLogo.join('\n') + '__initiating...');
+
+/* ------------- START PGM -------------*/
 startOdi(); // Premiere initialisation
 
 ok.watch(function(err, value){
@@ -84,6 +87,7 @@ function startOdi(mode){
 		odiState = false;
 		console.log('\r\n-------------------------' + '--------' + (code>10 ? (code>100 ? '---' : '--') : '-'));
 		console.log('>> Odi CORE restarting... [code:' + code + ']\r\n\r\n');
+		// console.log('\r\n' + coreLogo.join('\n') + '__refreshing...');
 		if(typeof code === 'number' && code > 0){
 			startOdi(code);
 		}else{
