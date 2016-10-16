@@ -65,7 +65,8 @@ var randomAction = function(){
 				case 2:
 				case 3:
 				case 4:
-					tts.speak('','');
+					// tts.speak('','');
+					tts.new({msg:'RANDOM'}); // Random TTS
 					break;
 				case 5:
 				case 6:

@@ -19,10 +19,10 @@ var tts = require('./modules/tts.js');
 var odiPgm, odiState = false;
 var logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
 var logoSleep = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
-var coreLogo = fs.readFileSync(DATA_PATH + 'coreLogo.properties', 'utf8').toString().split('\n');
+// var coreLogo = fs.readFileSync(DATA_PATH + 'coreLogo.properties', 'utf8').toString().split('\n');
 
-// console.log('\r\n' + coreLogo.join('\n') + '  initiating...');
-console.log('\r\n' + coreLogo.join('\n') + '__initiating...');
+// console.log('\r\n' + coreLogo.join('\n') + '__initiating...');
+console.log('\r\n---------------------------\r\n>> Odi\'s CORE initiating...');
 
 /* ------------- START PGM -------------*/
 startOdi(); // Premiere initialisation
@@ -85,8 +85,8 @@ function startOdi(mode){
 		tts.clearLastTTS();
 		utils.mute();
 		odiState = false;
-		console.log('\r\n-------------------------' + '--------' + (code>10 ? (code>100 ? '---' : '--') : '-'));
-		console.log('>> Odi CORE restarting... [code:' + code + ']\r\n\r\n');
+		console.log('\r\n-----------------------------------' + (code>10 ? (code>100 ? '---' : '--') : '-'));
+		console.log('>> Odi\'s CORE restarting... [code:' + code + ']\r\n\r\n');
 		// console.log('\r\n' + coreLogo.join('\n') + '__refreshing...');
 		if(typeof code === 'number' && code > 0){
 			startOdi(code);

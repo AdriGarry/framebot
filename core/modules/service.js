@@ -8,8 +8,11 @@ var Gpio = require('onoff').Gpio;
 var leds = require('./leds.js');
 var request = require('request');
 var utils = require('./utils.js');
-var tts = require('./tts.js');
+var _tts = require('./tts.js');
 var self = this;
+
+
+// _tts.new({msg:'Leonard ou es tu ?'});
 
 /** Fonction info meteo */
 var weatherStatus = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');
@@ -34,10 +37,11 @@ var weather = function(){
 				var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' , il fait ' + temp
 					+ ' degres avec ' + (isNaN(wind)?'0':wind) + ' kilometre heure de vent';
 				console.log('Service Weather... ' + annonceTemp);
-				tts.speak('fr',annonceTemp);
+				// tts.speak('fr',annonceTemp);
+				_tts.new({lg: 'fr', msg: annonceTemp});
 			}else{
 				console.log('Can\'t retreive weather informations');
-				tts.speak('fr', 'Erreur service meteo:1');
+				_tts.new({voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo'});
 				console.error('Weather request > response.statusCode : ' + response.statusCode);
 				if(error){console.error('Error getting weather info  /!\\ \n' + error);}
 			}
@@ -55,9 +59,12 @@ var time = function(){
 	var hour = date.getHours();
 	var min = date.getMinutes();
 	if(min == 0){
-		tts.speak('fr', 'Il est ' + hour + ' heure');
-	} else {
-		tts.speak('fr', 'Il est ' + hour + ' heures et ' + min + ' minutes'); 
+		// tts.speak('fr', 'Il est ' + hour + ' heure');
+		_tts.new({lg: 'fr', msg: 'Il est ' + hour + ' heure'});
+	}else{
+		// tts.speak('fr', 'Il est ' + hour + ' heures et ' + min + ' minutes'); 
+		var tmp = 'Il est ' + hour + ' heures et ' + min + ' minutes';
+		_tts.new({lg: 'fr', msg: tmp});
 	}
 };
 exports.time = time;
@@ -80,7 +87,8 @@ exports.sayOdiAge = function sayOdiAge(){
 	birthDay = rdm[Math.floor(Math.random() * rdm.length)]
 	birthDay += 'j\'ai ' + years + ' ans et ' + mouths + ' mois !';// et ' + days + ' jours !';
 	console.log('sayOdiAge() \'' + birthDay + '\'')
-	tts.speak('fr', birthDay);
+	// tts.speak('fr', birthDay);
+	_tts.new({lg: 'fr', msg: birthDay});
 };
 
 var time = 0;
@@ -100,7 +108,8 @@ var setTimer = function(minutes){
 	var sec = time%60;
 	var ttsMsg = 'Minuterie ' + ((min>0)? ((min>1)? min : ' une ') + ' minutes ' : '') + ((sec>0)? sec + ' secondes' : '');
 	console.log(ttsMsg);
-	tts.speak('fr', ttsMsg);
+	// tts.speak('fr', ttsMsg);
+	_tts.new({lg: 'fr', msg: ttsMsg});
 	if(!timer){
 		timer = true;
 		var sec = setInterval(function(){
@@ -115,7 +124,7 @@ var setTimer = function(minutes){
 			time--;
 			if(time%120 == 0 && (time/60)>0){
 				// tts.speak('fr', 'Minuterie ' + time/60 + ' minutes');
-				tts.speak('fr', time/60 + ' minutes et compte a rebours');
+				_tts.speak('fr', time/60 + ' minutes et compte a rebours');
 			}else if(time <= 0 && time > -5){
 				clearInterval(sec);
 				console.log('End Timer !');
@@ -126,7 +135,7 @@ var setTimer = function(minutes){
 					speed: 90,
 					loop: 12
 				});
-				tts.speak('fr', 'Les raviolis sont cuits !');
+				_tts.speak('fr', 'Les raviolis sont cuits !');
 				timer = false;
 				belly.write(0);
 			}else if(time < -2){
@@ -148,7 +157,7 @@ exports.timeLeftTimer = function timeLeftTimer(){
 exports.stopTimer = function stopTimer(){
 	time = -5;
 	timer = false;
-	tts.speak('en', 'Timer canceled');
+	_tts.speak('en', 'Timer canceled');
 	belly.write(0);
 };
 
@@ -166,7 +175,7 @@ var date = function(){
 	var year = date.getFullYear();
 	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
 	console.log('Service Date... ' + annonceDate);
-	tts.speak('fr',annonceDate);
+	_tts.speak('fr',annonceDate);
 };
 exports.date = date;
 
@@ -189,6 +198,17 @@ exports.info = info;
 var cpuTemp = function(){
 	temperature = utils.getCPUTemp();
 	console.log('Service CPU Temperature...  ' + temperature + ' degres');
-	tts.speak('fr', 'Mon processeur est a ' + temperature + ' degree')
+	_tts.speak('fr', 'Mon processeur est a ' + temperature + ' degree')
 };
 exports.cpuTemp = cpuTemp;
+
+
+
+
+
+// console.log('===> TEST !! tts');
+// console.log(tts);
+
+setTimeout(function(){
+	//_tts.new({voice: 'espeak', msg: 'Leonard le cafard, ou es tu ?'});
+}, 6000);

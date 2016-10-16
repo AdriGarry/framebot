@@ -14,7 +14,7 @@ var self = this;
  *		loop : number (<1)
  }
  */
-var blink = function (config){
+var blink = function(config){
 	// console.info(config);
 	try{
 		var etat = 1, loop;
@@ -42,6 +42,25 @@ var blink = function (config){
 	}
 };
 exports.blink = blink;
+
+/** Function to toggle a led
+ * @param config : {
+ * 		led : 'eye'
+ *		mode : true/false
+ }
+ */
+var toggle = function(config){
+	// console.info('toogle() ' + config.led + (config.mode ? ' on':' off'));
+	if(['nose', 'eye', 'satellite', 'belly'].indexOf(config.led) > -1){
+		eval(config.led).write(config.mode? 1 : 0);
+	}
+	/*try{
+	}catch(e){
+		console.error(e);
+	}*/
+
+};
+exports.toggle = toggle;
 
 
 /** Fonction activity : temoin mode programme (normal/veille) */
@@ -74,88 +93,7 @@ var findOne = function (haystack, arr){
 		return haystack.indexOf(v) >= 0;
 	});
 };
-/*var checkLedConfig = function(config){
-	if(led.some(function(v){
-		['led', 'eye', 'belly', 'satellite'].indexOf(v) > -1;
-	})){
-};*/
 
-// /** Fonction clignotement Oeil */
-// var blinkEye = function(speed, duration){
-// 	clearInterval(timer);
-// 	var etat = 1;
-// 	timer = setInterval(function(){
-// 		eye.write(etat);
-// 		etat = 1 - etat;
-// 	}, speed);
-// 	var stopTimer = setTimeout(function(){
-// 		clearInterval(timer);
-// 		eye.write(0);
-// 	}, duration*1000);
-// };
-// exports.blinkEye = blinkEye;
-
-// /** Fonction clignotement Ventre */
-// var blinkBelly = function(speed, duration){
-// 	clearInterval(timer);
-// 	var etat = 1;
-// 	timer = setInterval(function(){
-// 		belly.write(etat);
-// 		etat = 1 - etat;
-// 	}, speed);
-// 	var stopTimer = setTimeout(function(){
-// 		clearInterval(timer);
-// 		belly.write(0);
-// 	}, duration*1000);
-// };
-// exports.blinkBelly = blinkBelly;
-
-// /** Fonction clignotement Satellite */
-// var blinkSatellite = function(speed, duration){
-// 	clearInterval(timer);
-// 	var etat = 1;
-// 	timer = setInterval(function(){
-// 		satellite.write(etat);
-// 		etat = 1 - etat;
-// 	}, speed);
-// 	var stopTimer = setTimeout(function(){
-// 		clearInterval(timer);
-// 		satellite.write(0);
-// 	}, duration*1000);
-// };
-// exports.blinkSatellite = blinkSatellite;
-
-// /** Fonction clignotement Nez */
-// var blinkLed = function(speed, duration){
-// 	clearInterval(timer);
-// 	var etat = 1;
-// 	timer = setInterval(function(){
-// 		led.write(etat);
-// 		etat = 1 - etat;
-// 	}, speed);
-// 	var stopTimer = setTimeout(function(){
-// 		clearInterval(timer);
-// 		// led.write(1);
-// 	}, duration*1000);
-// };
-// exports.blinkLed = blinkLed;
-
-// /** Fonction clignotement All Leds */
-// var blinkAllLeds = function(speed, duration){
-// 	clearInterval(timer);
-// 	var etat = 1;
-// 	timer = setInterval(function(){
-// 		eye.write(etat);
-// 		belly.write(etat);
-// 		etat = 1 - etat;
-// 	}, speed);
-// 	var stopTimer = setTimeout(function(){
-// 		clearInterval(timer);
-// 		eye.write(0);
-// 		belly.write(0);
-// 	}, duration*1000);
-// };
-// exports.blinkAllLeds = blinkAllLeds;
 
 /** Fonction clignotement alterne Oeil/Ventre */
 var altLeds = function(speed, duration){

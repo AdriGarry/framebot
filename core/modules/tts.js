@@ -11,8 +11,8 @@ var deploy;
 var self = this;
 
 var MESSAGES_PATH = '/home/pi/odi/data/ttsMessages.properties';
-var messages = fs.readFileSync(MESSAGES_PATH, 'UTF-8').toString().split('\n'); // \r\n
-var rdmMaxMessages = messages.length;
+var messageList = fs.readFileSync(MESSAGES_PATH, 'UTF-8').toString().split('\n'); // \r\n
+var rdmMaxMessages = messageList.length;
 var CONVERSATIONS_PATH = '/home/pi/odi/data/ttsConversations.properties';
 var conversations = fs.readFileSync(CONVERSATIONS_PATH, 'UTF-8').toString().split('\n\n'); // \r\n
 var rdmMaxConversations = conversations.length;
@@ -23,6 +23,7 @@ var singleton = function(){ //defining a var instead of this (works for variable
 	var that = this;
 	/** TTS queue */
 	var ttsQueue = [];
+	var onAir = false;
 
 	if(singleton.caller != singleton.getInstance){
 		throw new Error("This object cannot be instanciated");
@@ -34,36 +35,52 @@ var singleton = function(){ //defining a var instead of this (works for variable
 		if(tts.hasOwnProperty('msg')){
 			var ttsQueueLength = ttsQueue.length;
 			// console.log(ttsQueueLength);
+
+			if(tts.msg.toUpperCase().indexOf('RANDOM') > -1){
+				var rdmNb = ((Math.floor(Math.random()*rdmMaxMessages)));
+				tmp = messageList[rdmNb];
+				console.log('Random TTS : ' + rdmNb + '/' + rdmMaxMessages);
+				tmp = tmp.split(';');
+				tts.lg = tmp[0];
+				tmp = tmp[1];
+				tts.msg = tmp.split(':')[0];
+				tts.voice = tmp.split(':')[1];
+			}
+
 			ttsQueue.push(tts);
 			console.log('newTTS() ' + tts.msg);
-			//console.log(ttsQueue);
-			if(!ttsQueueLength) self.proceedTTSQueue();
 		}else console.error('newTTS() Wrong TTS object');
 	}
 
 	/** Function to proceed TTS queue */
 	var currentTTS, delay;
-	var proceedTTSQueue = function(){
-		console.log('proceedTTSQueue()');
-		delay = 0;
-		while(ttsQueue.length > 0){
-			currentTTS = ttsQueue.shift()
-			// self.playTTS(currentTTS);
-			setTimeout(function(currentTTS){
+	// var proceedTTSQueue = function(){
+	this.listenQueue = function(){
+		// console.log('proceedTTSQueue()');
+		console.log('listenQueue()...');
+		delay = 1;
+		// while(ttsQueue.length > 0){
+		setInterval(function(){
+			if(!onAir && ttsQueue.length > 0){
+				onAir = true;
+				leds.toggle({led: 'eye', mode: 1});
+				// leds.toggle({led: 'belly', mode: 1});
+				currentTTS = ttsQueue.shift();
 				self.playTTS(currentTTS);
-			}.bind(this, currentTTS), delay+2500);/*+2500*/
-			delay += currentTTS.msg.length*1200;
-			console.log(delay/1000);
-		}
-		// console.log('proceedTTSQueue() ttsQueue empty');
+				setTimeout(function(){
+					onAir = false;
+					leds.toggle({led: 'eye', mode: 0});
+					// leds.toggle({led: 'belly', mode: 0});
+				}, currentTTS.msg.length*50 + 1000);//50
+			}
+		}, 500);
 	}
-	exports.proceedTTSQueue = proceedTTSQueue;
 
 	/** Function to play TTS message */
 	var VOICE_LIST = ['google', 'espeak'];
 	var LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
 	var playTTS = function(tts){
-		if(!tts.hasOwnProperty('voice' || VOICE_LIST.indexOf(tts.voice) == -1)){ // Random voice if undefined
+		if(!tts.hasOwnProperty('voice') || VOICE_LIST.indexOf(tts.voice) == -1){ // Random voice if undefined
 			var tmp = Math.round(Math.random()*1);
 			if(tmp) tts.voice = 'google';
 			else tts.voice = 'espeak';
@@ -73,11 +90,11 @@ var singleton = function(){ //defining a var instead of this (works for variable
 		}
 		console.log('playTTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 		deploy = spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]);
-		leds.blink({
+		/*leds.blink({
 			leds: ['eye'],
 			speed: Math.random() * (200 - 30) + 30,
 			loop: 4
-		});
+		});*/
 
 		fs.writeFile(LAST_TTS_PATH, tts.lg + ';' + tts.msg, 'UTF-8', function(err){
 			if(err) return console.error('Error while saving last TTS : ' + err);
@@ -95,7 +112,7 @@ var singleton = function(){ //defining a var instead of this (works for variable
 				if(typeof txt !== 'undefined'){
 					if(txt.toUpperCase().indexOf('RANDOM') > -1){
 						var rdmNb = ((Math.floor(Math.random()*rdmMaxMessages)));
-						txt = messages[rdmNb];
+						txt = messageList[rdmNb];
 						console.log('Random speech : ' + rdmNb + '/' + rdmMaxMessages);
 						txt = txt.split(';');
 						lg = txt[0];
@@ -185,12 +202,14 @@ var singleton = function(){ //defining a var instead of this (works for variable
 					message = message.split(';');
 					var lg = message[0];
 					var txt = message[1];
-					that.speak(lg, txt);
+					// that.speak(lg, txt);
+					that.new({lg: lg, msg :txt});
 				}.bind(this, message), delay+2500);
 				delay += message.length*120;
 			});
 		}catch(e){
-			self.speak('fr','erreur conversation:1');
+			// self.speak('fr','erreur conversation:1');
+			self.new({lg:'fr', msg: 'erreur conversation:1'});
 			console.error('conversation_error : ' + e);
 		}
 	};
@@ -213,7 +232,8 @@ var singleton = function(){ //defining a var instead of this (works for variable
 			txt = '.undefined:0';
 		}
 		console.log('LastTTS -> [' + lg + '] ' + txt);
-		self.speak(lg, txt);
+		// self.speak(lg, txt);
+		self.new({lg: lg, msg: txt});
 	};
 	// exports.lastTTS = lastTTS;
 
@@ -235,9 +255,9 @@ singleton.instance = null;
  */
 singleton.getInstance = function(){
 	if(this.instance === null){
+		console.log('new TTS singleton');
 		this.instance = new singleton();
-	}
+	}else console.log('initial TTS singleton');
 	return this.instance;
 }
-
 module.exports = singleton.getInstance();

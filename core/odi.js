@@ -70,17 +70,24 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 	console.log(Math.round(Math.random()*1));
 }*/
 
-console.log(tts);
-tts.new({msg:'salut'});
-tts.new({msg:'comment tu vas ?'});
+// console.log(tts);
+tts.listenQueue();
+tts.new({voice: 'espeak', msg:'hey !'});
+tts.new({voice: 'google', msg:'salut'});
+tts.new({voice: 'espeak', msg:'comment tu vas en cette belle journee?'});
+tts.new({voice: 'google', msg:'sa va, et toi ?'});
+tts.new({voice: 'espeak', msg:'bien'});
+tts.new({voice: 'espeak', msg:'oui, je dirais meme plus que je vais bien !!'});
+tts.new({voice: 'google', msg:'cool'});
 tts.new({});
 // console.log(service.sayOdiAge());
 
 // jobs.setupJobs();
 
 setTimeout(function(){
+	tts.new({voice: 'espeak', msg: 'Il pleut dehors'});
 	// var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', '13Heures']);
-}, 2000);
+}, 8000);
 
 new CronJob('*/4 * * * * *', function(){
 	leds.blink({

@@ -27,7 +27,7 @@ var _party = require('./party.js');
 var self = this;
 
 
-//_tts.new({msg:'et bien ecoute sa va !'});
+// _tts.new({msg:'Leonard ou es tu ?'});
 
 
 /*var DIR_NAME = '/home/pi/odi/core/';
@@ -196,13 +196,14 @@ exports.startUI = function startUI(mode){
 			// console.log(params);
 			if(tts.voice && tts.lg && tts.msg){
 				if(tts.hasOwnProperty('voicemail')){
-					_voiceMail.addVoiceMailMessage(params['lg'], params['msg'] + params['voice']);
+					_voiceMail.addVoiceMailMessage(tts.lg, tts.msg + tts.voice);
 				}else{
 					// _tts.speak(params['lg'], params['msg'] + params['voice']);
 					_tts.new({voice: tts.voice, lg: tts.lg, msg: tts.msg});
 				}
 			}else{
-				_tts.speak('','RANDOM'); // Random TTS
+				// _tts.speak('','RANDOM'); // Random TTS
+				_tts.new({msg:'RANDOM'}); // Random TTS
 			}
 			res.writeHead(200);res.end();
 		});
@@ -214,7 +215,8 @@ exports.startUI = function startUI(mode){
 
 		ui.post('/checkVoiceMail', function (req, res) { // Check Voice Mail
 			if(!_voiceMail.checkVoiceMail()){
-				_tts.speak('en', 'No voicemail message:1');			
+				// _tts.speak('en', 'No voicemail message:1');
+				_tts.new({voice: 'google', lg: 'en',msg: 'No voicemail message'});
 			}
 			res.writeHead(200);res.end();
 		});
@@ -229,7 +231,9 @@ exports.startUI = function startUI(mode){
 			if(/\d/.test(params.m)){
 				var rdmNb = txt.replace(/[^\d.]/g, '');
 				var rdmNb = parseInt(rdmNb, 10);
-				_tts.conversation(rdmNb);
+				//_tts.conversation(rdmNb);
+				_tts.new({voice: 'espeak', lg: 'fr', msg:'CONVERSATION NON DEFINI !'});
+
 			}else{
 				_tts.conversation('random');
 			}
@@ -238,7 +242,8 @@ exports.startUI = function startUI(mode){
 
 		ui.post('/idea', function (req, res) { // Idea...
 			// params = req.query;
-			_tts.speak('en', 'I\'ve got an idea !');
+			// _tts.speak('en', 'I\'ve got an idea !');
+			_tts.new({lg: 'en', msg: 'I\'ve got an idea !'});
 			res.writeHead(200);res.end();
 		});
 
