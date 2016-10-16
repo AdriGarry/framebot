@@ -30,7 +30,6 @@ var self = this;
 
 // _tts.new({msg:'Leonard ou es tu ?'});
 
-
 /*var DIR_NAME = '/home/pi/odi/core/';
 var DIR_NAME_WEB = '/home/pi/odi/web/';*/
 var FILE_REQUEST_HISTORY = LOG_PATH + 'requestHistory.log';
