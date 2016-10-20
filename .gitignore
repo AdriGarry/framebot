@@ -49,6 +49,7 @@ Temporary Items
 *.wav
 *.log
 *.properties
+*.json
 *_.*
 admin.js
 

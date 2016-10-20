@@ -11,8 +11,8 @@ var utils = require('./utils.js');
 var _tts = require('./tts.js');
 var self = this;
 
-
 // _tts.new({msg:'Leonard ou es tu ?'});
+console.log(_tts);
 
 /** Fonction info meteo */
 var weatherStatus = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');

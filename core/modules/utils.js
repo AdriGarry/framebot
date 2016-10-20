@@ -22,7 +22,7 @@ var event = new EventEmitter();
 var service = require('./service.js');
 var self = this;
 
-console.log(tts);
+//console.log(tts);
 
 /** Fonction mute */
 var mute = function(message){

@@ -10,6 +10,7 @@ global.WEB_PATH = '/home/pi/odi/web/';
 
 var mode = process.argv[2]; // Recuperation des arguments
 console.log('>> Odi Core started' + (mode ? ' [mode:' + mode + ']' : ''));
+// ODI's Core version...
 
 var Gpio = require('onoff').Gpio;
 var gpioPins = require('./modules/gpioPins.js');
@@ -83,9 +84,9 @@ tts.new({msg: 'RANDOM'});
 // jobs.setupJobs();
 
 setTimeout(function(){
-	tts.new({voice: 'espeak', msg: 'Il pleut dehors'});
-	// var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', '13Heures']);
-}, 8000);
+	// tts.new({voice: 'espeak', msg: 'Il pleut dehors'});
+	service.time();
+}, 5000);
 
 new CronJob('*/4 * * * * *', function(){
 	leds.blink({
