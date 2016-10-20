@@ -210,7 +210,7 @@ module.exports = {
 
 	/** Fonction suppression last speak TTS */
 	clearLastTTS: function(){
-		// deploy = spawn('sh', ['/home/pi/odi/core/sh/utils.sh', 'clearLastTTS']);
+		deploy = spawn('sh', ['/home/pi/odi/core/sh/utils.sh', 'clearLastTTS']);
 		console.log('LastTTS cleared.');
 	},
 }

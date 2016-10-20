@@ -109,7 +109,7 @@ exports.startUI = function startUI(mode){
 			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
 		}
 		var dashboard = {
-			mode: {value: {
+			/*mode: {value: {
 				mode: isNaN(parseFloat(mode)) ? 'Ready' : 'Sleep',
 				param: isNaN(parseFloat(mode)) ? _service.getStartTime() : parseInt(mode)}},
 			switch: {value: _buttons.getEtat()}, 
@@ -118,7 +118,7 @@ exports.startUI = function startUI(mode){
 			jukebox: {value: '<i>Soon available</i>'},
 			timer: {value: _service.timeLeftTimer()},
 			cpu: {value: {usage: _utils.getCPUUsage(), temp: _utils.getCPUTemp()}},
-			alarms: {value: '<i>Soon available</i>'}
+			alarms: {value: '<i>Soon available</i>'}*/
 		};
 		res.writeHead(200);
 		res.end(JSON.stringify(dashboard));

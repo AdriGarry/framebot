@@ -12,7 +12,7 @@ var _tts = require('./tts.js');
 var self = this;
 
 // _tts.new({msg:'Leonard ou es tu ?'});
-console.log(_tts);
+// console.log(_tts);
 
 /** Fonction info meteo */
 var weatherStatus = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');
@@ -207,12 +207,6 @@ var cpuTemp = function(){
 };
 exports.cpuTemp = cpuTemp;
 
-
-
-
-
-// console.log('===> TEST !! tts');
-// console.log(tts);
 
 setTimeout(function(){
 	//_tts.new({voice: 'espeak', msg: 'Leonard le cafard, ou es tu ?'});
