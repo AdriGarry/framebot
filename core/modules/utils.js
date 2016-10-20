@@ -22,6 +22,8 @@ var event = new EventEmitter();
 var service = require('./service.js');
 var self = this;
 
+console.log(tts);
+
 /** Fonction mute */
 var mute = function(message){
 	var deploy = spawn('sh', [CORE_PATH + 'sh/mute.sh']);

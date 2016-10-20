@@ -23,6 +23,7 @@ var odiStartupSound = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds'])
 
 // leds.allLedsOn();
 
+var tts = require('./modules/tts.js');
 var buttons = require('./modules/buttons.js');
 // leds.allLedsOff();
 var CronJob = require('cron').CronJob;
@@ -30,7 +31,6 @@ var jobs = require('./modules/jobs.js');
 var utils = require('./modules/utils.js');
 var service = require('./modules/service.js');
 var voiceMail = require('./modules/voiceMail.js');
-var tts = require('./modules/tts.js');
 var _server = require('./modules/server.js');
 
 tts.listenQueue();
@@ -77,6 +77,7 @@ tts.new({voice: 'espeak', msg:'oui, je dirais meme que je vais bien !!'});
 tts.new({voice: 'google', msg:'cool'});
 tts.new({});*/
 // console.log(service.sayOdiAge());
+tts.new({msg: 'RANDOM'});
 
 
 // jobs.setupJobs();

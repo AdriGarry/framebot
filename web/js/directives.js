@@ -1,4 +1,4 @@
-app.directive('focus', function($timeout){
+/*app.directive('focus', function($timeout){
 	return function(scope, element, attrs){
 	scope.$watch(attrs.focus, function(newValue){
 		$timeout(function(){
@@ -6,7 +6,7 @@ app.directive('focus', function($timeout){
 		});
 	}, true);
 	};
-});
+});*/
 
 /*app.directive('focus', function($timeout, $parse){
 	return{

@@ -133,10 +133,9 @@ var setAlarms = function(){
 		});
 	}, null, true, 'Europe/Paris');
 
-	new CronJob('0 15,18-20 8 * * 1-5', function(){
-		console.log('COCORICO !!');
+	new CronJob('0 20,22-25 8 * * 1-5', function(){
 		// tts.speak('fr', 'go go go, allez au boulot:1');
-		tts.new({lg:'fr', msg:'go go go, allez au boulot:1'});
+		tts.new({lg:'fr', voice: 'espeak', msg:'go go go, allez au boulot'});
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 30 18 * * 1-5', function() {
@@ -232,7 +231,7 @@ var setBackgroundJobs = function(){
 
 	new CronJob('13 13 13 * * 0', function() {
 		// tts.speak('fr','Auto reboot:1'); // Redemarrage hebdomadaire
-		tts.new({voice:'espeak', lg:'fr', msg:'Auto reboot:1'}); // Redemarrage hebdomadaire
+		tts.new({voice:'espeak', lg:'fr', msg:'Auto reboot'}); // Redemarrage hebdomadaire
 		setTimeout(function(){
 			utils.reboot();
 		}, 3000);

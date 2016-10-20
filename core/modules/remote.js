@@ -112,7 +112,7 @@ exports.synchro = function synchro(mode){
 									voiceMail.addVoiceMailMessage(lg,txt.substring(3));
 								}else if(txt == 'voiceMail' && mode.indexOf('sleep') == -1){
 									if(!voiceMail.checkVoiceMail()){
-										tts.new({lg:'en', msg:'No voicemail message:1'});
+										tts.new({voice: 'espeak', lg:'en', msg:'No voicemail message'});
 									}
 								}else if(txt == 'clearVoiceMail' && mode.indexOf('sleep') == -1){
 									voiceMail.clearVoiceMail();

@@ -10,9 +10,15 @@ var utils = require('./utils.js');
 var deploy;
 var self = this;
 
-var MESSAGES_PATH = '/home/pi/odi/data/ttsMessages.properties';
-var messageList = fs.readFileSync(MESSAGES_PATH, 'UTF-8').toString().split('\n'); // \r\n
-var rdmMaxMessages = messageList.length;
+// var messageList = require('/home/pi/odi/data/ttsMessages.json');
+var messageList = JSON.parse(fs.readFileSync('/home/pi/odi/data/ttsMessages.json', 'utf8'));
+// console.log(messageList);
+var messageListLength = messageList.length;
+// console.log(messageListLength);
+
+/*var OLD_MESSAGES_PATH = '/home/pi/odi/data/ttsMessages.properties';
+var oldMessageList = fs.readFileSync(OLD_MESSAGES_PATH, 'UTF-8').toString().split('\n'); // \r\n
+var oldRdmMaxMessages = oldMessageList.length;*/
 var CONVERSATIONS_PATH = '/home/pi/odi/data/ttsConversations.properties';
 var conversations = fs.readFileSync(CONVERSATIONS_PATH, 'UTF-8').toString().split('\n\n'); // \r\n
 var rdmMaxConversations = conversations.length;
@@ -37,14 +43,17 @@ var singleton = function(){ //defining a var instead of this (works for variable
 			// console.log(ttsQueueLength);
 
 			if(tts.msg.toUpperCase().indexOf('RANDOM') > -1){
-				var rdmNb = ((Math.floor(Math.random()*rdmMaxMessages)));
-				tmp = messageList[rdmNb];
-				console.log('Random TTS : ' + rdmNb + '/' + rdmMaxMessages);
+				var rdmNb = ((Math.floor(Math.random()*messageListLength)));
+				tts = messageList[rdmNb];
+				console.log('Random TTS : ' + rdmNb + '/' + messageListLength);
+				/*var rdmNb = ((Math.floor(Math.random()*oldRdmMaxMessages)));
+				tmp = oldMessageList[rdmNb];
+				console.log('Random TTS : ' + rdmNb + '/' + oldRdmMaxMessages);
 				tmp = tmp.split(';');
 				tts.lg = tmp[0];
 				tmp = tmp[1];
 				tts.msg = tmp.split(':')[0];
-				tts.voice = tmp.split(':')[1];
+				tts.voice = tmp.split(':')[1];*/
 			}
 
 			ttsQueue.push(tts);
@@ -57,7 +66,7 @@ var singleton = function(){ //defining a var instead of this (works for variable
 	// var proceedTTSQueue = function(){
 	this.listenQueue = function(){
 		// console.log('proceedTTSQueue()');
-		console.log('listenQueue()...');
+		console.log('Start listening TTS queue...');
 		delay = 1;
 		// while(ttsQueue.length > 0){
 		setInterval(function(){
@@ -90,11 +99,7 @@ var singleton = function(){ //defining a var instead of this (works for variable
 		}
 		console.log('playTTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 		deploy = spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]);
-		/*leds.blink({
-			leds: ['eye'],
-			speed: Math.random() * (200 - 30) + 30,
-			loop: 4
-		});*/
+		/*leds.blink({leds: ['eye'], speed: Math.random() * (200 - 30) + 30, loop: 4});*/
 
 		fs.writeFile(LAST_TTS_PATH, tts.lg + ';' + tts.msg, 'UTF-8', function(err){
 			if(err) return console.error('Error while saving last TTS : ' + err);
@@ -111,9 +116,9 @@ var singleton = function(){ //defining a var instead of this (works for variable
 				// if(txt == '' || typeof txt === 'undefined'){
 				if(typeof txt !== 'undefined'){
 					if(txt.toUpperCase().indexOf('RANDOM') > -1){
-						var rdmNb = ((Math.floor(Math.random()*rdmMaxMessages)));
-						txt = messageList[rdmNb];
-						console.log('Random speech : ' + rdmNb + '/' + rdmMaxMessages);
+						var rdmNb = ((Math.floor(Math.random()*oldRdmMaxMessages)));
+						txt = oldMessageList[rdmNb];
+						console.log('Random speech : ' + rdmNb + '/' + oldRdmMaxMessages);
 						txt = txt.split(';');
 						lg = txt[0];
 						txt = txt[1];
@@ -157,7 +162,7 @@ var singleton = function(){ //defining a var instead of this (works for variable
 	};
 	// exports.speak = speak;
 
-	/** Detection des parametres en cas d'appel direct (pour tests) */
+	/** Detection des parametres en cas d'appel direct (pour tests ou exclamation TTS) */
 	/*var params = process.argv[2];
 	try{
 		params = params.split('_');
@@ -209,7 +214,7 @@ var singleton = function(){ //defining a var instead of this (works for variable
 			});
 		}catch(e){
 			// self.speak('fr','erreur conversation:1');
-			self.new({lg:'fr', msg: 'erreur conversation:1'});
+			self.new({voice: 'espeak', lg:'fr', msg: 'erreur conversation'});
 			console.error('conversation_error : ' + e);
 		}
 	};
