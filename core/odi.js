@@ -67,7 +67,6 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 // ----- TEST SECTION -----//
 // ------------------------//
 
-// console.log(tts);
 /*tts.speak({voice: 'espeak', msg:'hey !'});
 tts.speak({voice: 'google', msg:'salut'});
 tts.speak({voice: 'espeak', msg:'comment tu vas en cette belle journee?'});
@@ -79,9 +78,6 @@ tts.speak({});*/
 // console.log(service.sayOdiAge());
 // service.time();
 // tts.speak({msg: 'RANDOM'});
-
-
-// jobs.setupJobs();
 
 setTimeout(function(){
 	// tts.speak({voice: 'espeak', msg: 'Il pleut dehors'});
