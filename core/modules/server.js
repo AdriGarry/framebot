@@ -199,7 +199,8 @@ function startUI(mode){
 			// console.log(params);
 			if(tts.voice && tts.lg && tts.msg){
 				if(tts.hasOwnProperty('voicemail')){
-					_voiceMail.addVoiceMailMessage(tts.lg, tts.msg + tts.voice);
+					// _voiceMail.addVoiceMailMessage(tts.lg, tts.msg + tts.voice);
+					_voiceMail.addVoiceMailMessage({voice: tts.voice, lg: tts.lg, msg: tts.msg});
 				}else{
 					// _tts.speak(params['lg'], params['msg'] + params['voice']);
 					_tts.speak({voice: tts.voice, lg: tts.lg, msg: tts.msg});

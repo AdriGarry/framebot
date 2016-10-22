@@ -9,7 +9,7 @@ var exec = require('child_process').exec;
 var os = require("os");
 var leds = require('./leds.js');
 var fip = require('./fip.js');
-var voiceMail = require('./voiceMail.js');
+// var voiceMail = require('./voiceMail.js');
 const self = this;
 
 /*module.exports = {
@@ -125,7 +125,7 @@ function prepareLogs(lines, callback){
 };
 exports.prepareLogs = prepareLogs;
 
-/** Fonction getFileContent */
+/** Fonction getFileContent */ // NOT USED !!
 var getFileContent = function(filePath){ // 
 var data = 'KO'; // ou undefined
 	try{
@@ -137,6 +137,33 @@ var data = 'KO'; // ou undefined
 	return data;
 };
 exports.getFileContent = getFileContent;
+
+/** Function to append object in JSON file */
+var fileData;
+var appendJsonFile = function(filePath, obj, callback){
+	fs.exists(filePath, function(exists){
+		if(exists){
+			console.log("yes file exists");
+			fs.readFile(filePath, function(err, data){
+			if(err) console.log(err);
+			else{
+				fileData = JSON.parse(data);
+				fileData.push(obj);
+				fileData = JSON.stringify(fileData);
+				console.log(fileData);
+				fs.writeFile(filePath, fileData);
+			}});
+		}else{
+			console.log("file not exists")
+			fileData = [];
+			fileData.push(obj);
+			fileData = JSON.stringify(fileData);
+			console.log(fileData);
+			fs.writeFile(filePath, fileData);
+		}
+	});
+};
+exports.appendJsonFile = appendJsonFile;
 
 /** Function to test internet connexion */
 var testConnexion = function(callback){
@@ -163,7 +190,7 @@ exports.reboot = reboot;
 
 /** Function to shut down RPI */
 var shutdown = function(){
-	voiceMail.clearVoiceMail();
+	// voiceMail.clearVoiceMail();
 	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
 	setTimeout(function(){
 		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh']);

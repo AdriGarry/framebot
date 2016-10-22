@@ -12,7 +12,7 @@ var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
 var gpioPins = require('./modules/gpioPins.js');
 var utils = require('./modules/utils.js');
-var tts = require('./modules/tts.js');
+// var tts = require('./modules/tts.js');
 
 var odiPgm, odiState = false;
 var logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
@@ -70,11 +70,11 @@ function startOdi(mode){
 		if(1 === etat.readSync()){ logMode = logMode.replace('i','!'); }
 		else{ logMode = logMode.replace('!','i'); }
 		// console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
-		console.trace(utils.formatedDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
+		console.error(utils.formatedDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
 	});
 	
 	odiPgm.on('exit', function(code){ // SetUpRestart Actions
-		tts.clearLastTTS();
+		// tts.clearLastTTS();
 		utils.mute();
 		odiState = false;
 		console.log('\r\n-----------------------------------' + (code>10 ? (code>100 ? '---' : '--') : '-'));

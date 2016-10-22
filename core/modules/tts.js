@@ -7,7 +7,7 @@ var fs = require('fs');
 var leds = require('./leds.js');
 var request = require('request');
 var utils = require('./utils.js');
-var deploy;
+// var deploy;
 const self = this;
 
 const messageList = JSON.parse(fs.readFileSync('/home/pi/odi/data/ttsMessages.json', 'utf8'));
@@ -38,40 +38,79 @@ module.exports = { // Singleton
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts){
-	// console.log('newTTS() ' + tts.msg);
+	console.log(tts);
+	// console.log(tts.constructor);
+	if(tts.constructor === Array){
+		console.log('TTS ARRAY !!');
+		tts.forEach(function(message){
+			if(message.msg){
+				ttsQueue.push(message);
+			}
+		});
+	}
+
 	if(tts.hasOwnProperty('msg')){
 		var ttsQueueLength = ttsQueue.length;
-		// console.log(ttsQueueLength);
 		if(tts.msg.toUpperCase().indexOf('RANDOM') > -1){ // OR UNDEFINED !!
 			var rdmNb = ((Math.floor(Math.random()*messageListLength)));
 			tts = messageList[rdmNb];
 			console.log('Random TTS : ' + rdmNb + '/' + messageListLength);
 		}
 		ttsQueue.push(tts);
-		console.log('newTTS() ' + tts.msg);
+		console.log('newTTS() "' + tts.msg + '"');
 	}else console.error('newTTS() Wrong TTS object');
 }
+
+/** Fonction conversation TTS */
+var conversation = function(messages){
+	console.log('Conversation Service... ' + messages);
+	try{
+		if(typeof messages == 'undefined') throw (messages);
+		// Mettre un 2eme Try catch imbriqué...
+		if( messages.constructor != Array){// typeof messages == 'undefined' ||       // IS EMPTY
+			if(messages.constructor == Number && messages != NaN && messages <= rdmMaxConversations-1){
+				messages = conversations[messages];
+			}else{
+				var rdmNb = ((Math.floor(Math.random()*rdmMaxConversations)));
+				messages = conversations[rdmNb];
+				console.log('Random conversation : ' + (rdmNb+1) + '/' + rdmMaxConversations);
+			}
+			messages = messages.split('\n');
+		}
+		var delay = 1;
+		messages.forEach(function(message){
+				speak({lg: lg, msg :txt});
+			// console.log('__ ' + delay/1000);
+			setTimeout(function(message){
+			}.bind(this, message), delay+2500);
+			delay += message.length*120;
+		});
+	}catch(e){
+		// self.speak('fr','erreur conversation:1');
+		self.new({voice: 'espeak', lg:'fr', msg: 'erreur conversation'});
+		console.error('conversation_error : ' + e);
+	}
+};
+
 
 /** Function to proceed TTS queue */
 var currentTTS, delay;
 // var listenQueue = function(){
-	console.log('Start listening TTS queue...');
-	delay = 1;
-	// while(ttsQueue.length > 0){
-	setInterval(function(){
-		if(!onAir && ttsQueue.length > 0){
-			onAir = true;
-			leds.toggle({led: 'eye', mode: 1});
-			// leds.toggle({led: 'belly', mode: 1});
-			currentTTS = ttsQueue.shift();
-			playTTS(currentTTS);
-			setTimeout(function(){
-				onAir = false;
-				leds.toggle({led: 'eye', mode: 0});
-				// leds.toggle({led: 'belly', mode: 0});
-			}, currentTTS.msg.length*50 + 1000);//*30 + 1500
-		}
-	}, 500);
+console.log('Start listening TTS queue...');
+delay = 1;
+setInterval(function(){
+	if(!onAir && ttsQueue.length > 0){
+		onAir = true;
+		leds.toggle({led: 'eye', mode: 1});
+		// leds.toggle({led: 'belly', mode: 1});
+		currentTTS = ttsQueue.shift();
+		playTTS(currentTTS);
+		setTimeout(function(){
+			onAir = false;
+			leds.toggle({led: 'eye', mode: 0});
+		}, currentTTS.msg.length*50 + 1000);//*30 + 1500
+	}
+}, 500);
 // }
 
 /** Function to play TTS message (espeak / google translate) */
@@ -87,7 +126,7 @@ var playTTS = function(tts){
 		tts.lg = 'fr';
 	}
 	console.log('playTTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
-	deploy = spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]);
+	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]);
 	/*leds.blink({leds: ['eye'], speed: Math.random() * (200 - 30) + 30, loop: 4});*/
 
 	fs.writeFile(LAST_TTS_PATH, tts.lg + ';' + tts.msg, 'UTF-8', function(err){

@@ -5,6 +5,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 
 	/** Function to update dashboard from Odi **/
 	this.refreshDashboard = function(callback){
+		console.log('refreshDashboard()');
 		$http({
 			headers: {
 				'Content-Type': 'application/json',

@@ -6,28 +6,36 @@ var fs = require('fs');
 // var spawn = require('child_process').spawn;
 var leds = require('./leds.js');
 var tts = require('./tts.js');
+var utils = require('./utils.js');
 
 const self = this;
 
-const voiceMailFilePath = '/home/pi/odi/tmp/voicemail.log';
-const voiceMailFilePathHistory = '/home/pi/odi/log/voicemailHistory.log';
+// const voiceMailFilePath = '/home/pi/odi/tmp/voicemail.log';
+const voiceMailFilePath = '/home/pi/odi/tmp/voicemail.json';
+// const voiceMailFilePathHistory = '/home/pi/odi/log/voicemailHistory.log';
+const voiceMailFilePathHistory = '/home/pi/odi/log/voicemailHistory.json';
 
-function addVoiceMailMessage(lg, txt){
-	var message = lg + ';' + txt; // AJOUTER HEURE + DATE ??
-	fs.appendFile(voiceMailFilePath, message + '\r\n', function(err){ //writeFile
+// function addVoiceMailMessage(lg, txt){
+function addVoiceMailMessage(tts){
+	tts = JSON.stringify(tts);
+	console.log(tts);
+	/*var messages = require('voiceMailFilePath.json');
+	fs.appendFile(voiceMailFilePath, tts + '\r\n', function(err){ //writeFile
 		if(err)	return console.error(err);
 		leds.blink({
 			leds: ['belly'],
 			speed: 250,
 			loop: 2
 		});
-		console.log('New VoiceMail Message_: ' + message);
+		console.log('New VoiceMail Message_: ' + tts);
 	});
-	fs.appendFile(voiceMailFilePathHistory, message + '\r\n', function(err){ //writeFile
+	fs.appendFile(voiceMailFilePathHistory, tts + '\r\n', function(err){ //writeFile
 		if(err){
 			return console.error(err);
 		}
-	});
+	});*/
+	utils.appendJsonFile(voiceMailFilePath, tts);
+	utils.appendJsonFile(voiceMailFilePathHistory, tts);
 };
 exports.addVoiceMailMessage = addVoiceMailMessage;
 
@@ -35,11 +43,11 @@ var clearVoiceMailDelay;
 function checkVoiceMail(callback){
 	try{
 		console.log('Checking VoiceMail...');
-		var messages = fs.readFileSync(voiceMailFilePath, 'UTF-8').toString().split('\n');
-		tts.speak({voice:'espeak', lg:'en', msg:'Messages'});
+		var messages = fs.readFileSync(voiceMailFilePath, 'UTF-8');//.toString().split('\n')
+		messages = JSON.parse(messages);
 		console.log(messages);
-		tts.conversation(messages);
-
+		tts.speak({voice:'espeak', lg:'en', msg:'Messages'});
+		tts.speak(messages);
 		if(clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
 		clearVoiceMailDelay = setTimeout(function(){ // Clearing VoiceMail
 			self.clearVoiceMail();
