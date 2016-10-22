@@ -36,8 +36,6 @@ var date, month, day, hour, min, sec;
 function startOdi(mode){
 	utils.mute();
 	var logo;
-	// console.log('typeof mode ' + typeof mode);
-	// console.log('manager.startOdi.mode : ' + mode);
 	if(typeof mode === 'undefined') mode = '';
 	// if(typeof mode === Number){
 	if(/\d/.test(mode) && mode == 255){
@@ -57,24 +55,22 @@ function startOdi(mode){
 		odiPgm = spawn('node', [CORE_PATH + 'odi.js', mode]);
 	}
 
-	logo = '\n\n' + logo.join('\n');// + '\nodiState:' + odiState;
+	logo = '\n\n' + logo.join('\n');
 	console.log(logo);
-	// log.recordLog(logo);
 
 	odiState = true;
 	odiPgm.stdout.on('data', function(data){ // Template log output
 		if(1 === etat.readSync()){ logMode = logMode.replace('Odi','ODI'); }
 		else{ logMode = logMode.replace('ODI','Odi'); }
+		// console.log(logDate + logMode + '/ ' + data);// + '\r\n'
 		console.log(utils.formatedDate() + logMode + '/ ' + data);// + '\r\n'
-		// log.recordLog(logDate + ' Odi/ ' + data);
 	});
 
 	odiPgm.stderr.on('data', function(data){ // Template log error
 		if(1 === etat.readSync()){ logMode = logMode.replace('i','!'); }
 		else{ logMode = logMode.replace('!','i'); }
-		console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
-		// console.trace(utils.formatedDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
-		// log.recordLog(hour + ':' + min + ':' + sec + ' O/!\\ ' + data);
+		// console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
+		console.trace(utils.formatedDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
 	});
 	
 	odiPgm.on('exit', function(code){ // SetUpRestart Actions
@@ -83,7 +79,6 @@ function startOdi(mode){
 		odiState = false;
 		console.log('\r\n-----------------------------------' + (code>10 ? (code>100 ? '---' : '--') : '-'));
 		console.log('>> Odi\'s CORE restarting... [code:' + code + ']\r\n\r\n');
-		// console.log('\r\n' + coreLogo.join('\n') + '__refreshing...');
 		if(typeof code === 'number' && code > 0){
 			startOdi(code);
 		}else{
