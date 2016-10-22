@@ -60,7 +60,7 @@ exports.exclamation2Rappels = exclamation2Rappels;
 var exclamationLoop = function(){
 	console.log('Exclamation LOOP !!');
 	// tts.speak('en','Exclamation loop initialised');
-	tts.new({lg:'en', msg:'Exclamation loop initialised'});
+	tts.speak({lg:'en', msg:'Exclamation loop initialised'});
 	setTimeout(function(){
 		var deploy = spawn('sh', ['/home/pi/odi/core/sh/exclamation.sh', 'LOOP']);
 	}, 5000);
@@ -111,7 +111,7 @@ exports.russia = function(){
 exports.russiaLoop = function(){
 	console.log('Russia LOOP !!');
 	// tts.speak('en','Russia loop initialised');
-	tts.new({lg:'en', msg:'Russia loop initialised'});
+	tts.speak({lg:'en', msg:'Russia loop initialised'});
 	setTimeout(function(){
 		var deploy = spawn('sh', ['/home/pi/odi/core/sh/exclamation_russia.sh', 'LOOP']);
 	}, 5000);

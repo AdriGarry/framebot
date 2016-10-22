@@ -100,8 +100,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 					return '[' + ip + ']';
 				}
 			});
-			// $scope.logData = logs.split('\n');
-
 			logs = logs.replace(new RegExp('[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', 'g'), function(match){
 				return '<span class="timeLog">' + match + '</span>';
 			});
@@ -119,6 +117,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 			UIService.sendCommand(button);
 		}
 	};
+
 	/** Function on click on Tile **/
 	$scope.tileAction = function(tile){
 		if($scope.irda){
@@ -129,6 +128,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 			}
 		}
 	}
+
 	/** Function to open bottom sheet **/
 	$scope.openBottomSheet = function(bottomSheetList){
 		if($scope.irda){
@@ -143,32 +143,12 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 			});
 		}
 	};
+
 	/** Function on click on bottom sheet **/
 	$scope.bottomSheetAction = function(button){
 		$scope.action(button);
 		$mdBottomSheet.hide(button);
 	};
-
-
-	/*$scope.showDialogGrant = function(ev){
-		// Appending dialog to document.body to cover sidenav in docs app
-		var confirm = $mdDialog.prompt()
-			.title('Enter Password')
-			// .textContent('To get admin')
-			.placeholder('Password')
-			//.ariaLabel('Dog name')
-			//.initialValue('Buddy')
-			.targetEvent(ev)
-			.clickOutsideToClose(true)
-			.ok('Access')
-			.cancel('Cancel');
-
-		$mdDialog.show(confirm).then(function(result){
-			//TRY GRANT
-			$scope.grant(result);
-			console.log(result);
-		});
-	};*/
 
 	$scope.showDialogGrant = function(ev){
 		$mdDialog.show({

@@ -12,20 +12,16 @@ var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
 var gpioPins = require('./modules/gpioPins.js');
 var utils = require('./modules/utils.js');
-// var log = require('./modules/log.js');
 var tts = require('./modules/tts.js');
-// var remote = require('./modules/remote.js');
 
 var odiPgm, odiState = false;
 var logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
 var logoSleep = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
-// var coreLogo = fs.readFileSync(DATA_PATH + 'coreLogo.properties', 'utf8').toString().split('\n');
 
-// console.log('\r\n' + coreLogo.join('\n') + '__initiating...');
 console.log('\r\n---------------------------\r\n>> Odi\'s CORE initiating...');
 
-/* ------------- START PGM -------------*/
-startOdi(); // Premiere initialisation
+/* ------------- START CORE -------------*/
+startOdi(); // First initialisation
 
 ok.watch(function(err, value){
 	if(!odiState){		// Detection bouton Vert pour forcer

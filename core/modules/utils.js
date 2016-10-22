@@ -1,31 +1,67 @@
 #!/usr/bin/env node
 
-// Module utilitaires
+// Module utils
 
-// var log = 'Odi/ ';
 var fs = require('fs');
 var request = require('request');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var os = require("os");
-//var remote = require('./remote.js');
 var leds = require('./leds.js');
-// var timer = require('./timer.js');
 var fip = require('./fip.js');
-var jukebox = require('./jukebox.js');
-var exclamation = require('./exclamation.js');
-var tts = require('./tts.js');
 var voiceMail = require('./voiceMail.js');
-var EventEmitter = require('events').EventEmitter;
-var event = new EventEmitter();
-// var clock = require('./clock.js');
-var service = require('./service.js');
-var self = this;
+const self = this;
 
-//console.log(tts);
+/*module.exports = {
+	mute: function(message){
+		return mute(message);
+	},
+	autoMute: function(message){
+		return autoMute(message);
+	},
+	getStartTime: function(){
+		return getStartTime();
+	},
+	formatedDate: function(){
+		return formatedDate();
+	},
+	prepareLogs: function(lines, callback){
+		return prepareLogs(lines, callback);
+	},
+	getFileContent: function(filePath){
+		return getFileContent(filePath);
+	},
+	testConnexion: function(callback){
+		return testConnexion(callback);
+	},
+	reboot: function(){
+		return reboot();
+	},
+	shutdown: function(){
+		return shutdown();
+	},
+	restartOdi: function(mode){
+		return restartOdi(mode);
+	},
+	cpuAverage: function(){
+		return cpuAverage();
+	},
+	getCPUUsage: function(){
+		return getCPUUsage();
+	},
+	getCPUTemp: function(callback){
+		return getCPUTemp(callback);
+	},
+	getOdiAge: function(){
+		return getOdiAge();
+	},
+	getMsgLastGitCommit: function(callback){
+		return getMsgLastGitCommit(callback);
+	}
+}*/
 
-/** Fonction mute */
-var mute = function(message){
+/** Function to mute Odi */
+function mute(message){
 	var deploy = spawn('sh', [CORE_PATH + 'sh/mute.sh']);
 	console.log(((message === undefined)? '' : message) + 'MUTE  :|');
 	leds.clearLeds();
@@ -34,9 +70,9 @@ var mute = function(message){
 };
 exports.mute = mute;
 
-/** Fonction auto mute (60 minutes) */
+/** Function to auto mute Odi in 60 minutes */
 var muteTimer;
-var autoMute = function(message){
+function autoMute(message){
 	clearTimeout(muteTimer);
 	muteTimer = setTimeout(function(){
 		var deploy = spawn('sh', [CORE_PATH + 'sh/mute.sh', 'auto']);
@@ -54,52 +90,18 @@ var autoMute = function(message){
 };
 exports.autoMute = autoMute;
 
-/** Fonction action aleatoire (exclamation, random TTS, services date, heure, meteo...) */
-var randomAction = function(){
-	self.testConnexion(function(connexion){
-		if(!connexion){
-			exclamation.exclamation2Rappels();
-		}else{
-			var rdm = Math.floor(Math.random()*19); // 1->13
-			console.log('> randomAction [rdm = ' + rdm + ']');
-			switch(rdm){
-				case 1:
-				case 2:
-				case 3:
-				case 4:
-					// tts.speak('','');
-					tts.new({msg:'RANDOM'}); // Random TTS
-					break;
-				case 5:
-				case 6:
-				case 7:
-					service.sayOdiAge();
-					// tts.conversation('RANDOM');
-					break;
-				case 8:
-					service.time();
-					break;
-				case 9:
-					service.date();
-					break;
-				case 10:
-				case 11:
-					service.weather();
-					break;
-				case 12:
-					service.cpuTemp();
-					break;
-				default:
-					exclamation.exclamation();
-			}
-		}		
-	});
+/** Function to return last Odi's start/restart time */
+const startTime = new Date();
+exports.getStartTime = function getStartTime(){
+	var hour = startTime.getHours();
+	var min = startTime.getMinutes();
+	return (hour > 12 ? hour-12 : hour) + '.' + (min<10?'0':'') + min + ' ' + (hour > 12  ? 'PM' : 'AM');
 };
-exports.randomAction = randomAction;
 
-/** Fonction de formatage date & heure */
+/** Function to get date & time (jj/mm hh:mm:ss) */
 var date, month, day, hour, min, sec, now;
 exports.formatedDate = function formatedDate(){
+// var formatedDate = function(){
 	date = new Date();
 	month = date.getMonth()+1;
 	day = date.getDate();
@@ -110,64 +112,21 @@ exports.formatedDate = function formatedDate(){
 	now += (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
 	//callback(now);
 	return now;
-}
+};
 
 /** Fonction de formatage des logs */
-var prepareLogs = function(lines, callback){
+function prepareLogs(lines, callback){
 	var content = fs.readFileSync(LOG_PATH + 'odi.log', 'UTF-8').toString().split('\n');
 	content = content.slice(-lines); //-120
 	content = content.join('\n');
 	//content = self.getCPUTemp() + '\n' + content;
 	callback(content);
 	return content;
-}
+};
 exports.prepareLogs = prepareLogs;
 
-/** Fonction pour afficher les proprietes de l'obj passe en param */
-var printObj = function(obj){
-	var cache = [];
-	JSON.stringify(obj, function(key, value) {
-		if (typeof value === 'object' && value !== null) {
-			if (cache.indexOf(value) !== -1) {
-				// Circular reference found, discard key
-				console.log('Circular reference found, discard key');
-				return;
-			}
-			// Store value in our collection
-			cache.push(value);
-		}
-		return value;
-	});
-	cache = null;
-	console.log('cache : ' + cache);
-};
-exports.printObj = printObj;
-
-/** Fonction parse data from .properties */
-var parseData = function(filePath){ // OU getData OU sliptData
-var data = 'KO'; // ou undefined
-	try{
-		data = fs.readFileSync(filePath, 'UTF-8').toString();
-	}catch(e){
-		console.error('Error while reading file : ' + filePath);
-		console.error(e);
-	}
-	try{
-		if(data.indexOf('\n\n') > -1){
-			data = data.split('\n\n');
-		}else{
-			data = data.split('\n');
-		}
-	}catch(e){
-		console.error('Error while spliting file : ' + filePath);
-		console.error(e);
-	}
-	return data;
-};
-exports.parseData = parseData;
-
 /** Fonction getFileContent */
-var getFileContent = function(filePath){
+var getFileContent = function(filePath){ // 
 var data = 'KO'; // ou undefined
 	try{
 		data = fs.readFileSync(filePath, 'UTF-8').toString();
@@ -179,7 +138,7 @@ var data = 'KO'; // ou undefined
 };
 exports.getFileContent = getFileContent;
 
-/** Fonction test connexion internet */
+/** Function to test internet connexion */
 var testConnexion = function(callback){
 	require('dns').resolve('www.google.com', function(err) {
 		if(err){
@@ -193,9 +152,8 @@ var testConnexion = function(callback){
 };
 exports.testConnexion = testConnexion;
 
-/** Fonction redemarrage RPI */
+/** Function to reboot RPI */
 var reboot = function(){
-	// remote.trySynchro();
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
 	setTimeout(function(){
 		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh', 'reboot']);
@@ -203,10 +161,9 @@ var reboot = function(){
 };
 exports.reboot = reboot;
 
-/** Fonction arret RPI */
+/** Function to shut down RPI */
 var shutdown = function(){
 	voiceMail.clearVoiceMail();
-	// remote.trySynchro();
 	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
 	setTimeout(function(){
 		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh']);
@@ -214,7 +171,7 @@ var shutdown = function(){
 };
 exports.shutdown = shutdown;
 
-/** Fonction redemarrage programme/mise en veille */
+/** Function to restart/sleep Odi's core */
 var restartOdi = function(mode){
 	// if(typeof mode === 'number' && mode > 0){
 	if(mode > 0){
@@ -242,9 +199,7 @@ function cpuAverage() {
 
 	//Loop through CPU cores
 	for(var i = 0, len = cpus.length; i < len; i++) {
-		//Select CPU core
-		var cpu = cpus[i];
-
+		var cpu = cpus[i]; // Select CPU core
 		//Total up the time in the cores tick
 		for(type in cpu.times) {
 			totalTick += cpu.times[type];
@@ -261,11 +216,10 @@ function cpuAverage() {
 //Grab first CPU Measure
 var startMeasure = cpuAverage();
 
-/** Fonction utilisation CPU */
-var getCPUUsage = function(){
+/** Function to get CPU usage */
+function getCPUUsage(){
 	//Grab second Measure
-	var endMeasure = cpuAverage(); 
-
+	var endMeasure = cpuAverage();
 	//Calculate the difference in idle and total time between the measures
 	var idleDifference = endMeasure.idle - startMeasure.idle;
 	/*console.log(idleDifference);
@@ -275,19 +229,16 @@ var getCPUUsage = function(){
 	/*console.log(totalDifference);
 	console.log(endMeasure.total);
 	console.log(startMeasure.total);*/
-
 	//Calculate the average percentage CPU usage
 	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference);
-
-	//Output result to console
 	// console.log('CPU usage : ' + percentageCPU + ' %');
 	return(percentageCPU);
 };
 exports.getCPUUsage = getCPUUsage;
 
 
-/** Fonction recuperation temperature CPU */
-var getCPUTemp = function(callback){
+/** Function to get CPU temperature */
+function getCPUTemp(callback){
 	var temperature = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp");
 	temperature = ((temperature/1000).toPrecision(2));
 	// console.log('CPU temperature : ' + temperature + ' ° C');
@@ -299,7 +250,7 @@ exports.getCPUTemp = getCPUTemp;
  * @return age in days
  */
 var dateOfBirth = new Date('August 9, 2015 00:00:00'), age = 0;
-var getOdiAge = function(){
+function getOdiAge(){
 	age = Math.abs(dateOfBirth.getTime() - new Date());
 	// console.log(age);
 	age = Math.ceil(age / (1000 * 3600 * 24));
@@ -309,8 +260,8 @@ var getOdiAge = function(){
 exports.getOdiAge = getOdiAge;
 
 
-/** Fonction recuperation dernier message commit */
-var getMsgLastGitCommit = function(callback){
+/** Fonction to get last git commit message */
+function getMsgLastGitCommit(callback){
 	function getMsg(error, stdout, stderr){
 		if(error) stdout = 'Error Git Last Commit Message  /!\\';
 		console.log('LastGitCommitMsg : "' + stdout.trim() + '"');

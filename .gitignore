@@ -51,6 +51,7 @@ Temporary Items
 *.properties
 *.json
 *_.*
+*old*
 admin.js
 
 #/log/*

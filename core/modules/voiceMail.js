@@ -1,33 +1,25 @@
 #!/usr/bin/env node
 
-// Module utilitaires
+// Module voicemail
 
 var fs = require('fs');
-var request = require('request');
-var spawn = require('child_process').spawn;
-var exec = require('child_process').exec;
+// var spawn = require('child_process').spawn;
 var leds = require('./leds.js');
-var fip = require('./fip.js');
-var jukebox = require('./jukebox.js');
-var exclamation = require('./exclamation.js');
 var tts = require('./tts.js');
-var EventEmitter = require('events').EventEmitter;
-var event = new EventEmitter();
 
-var self = this;
+const self = this;
 
-var voiceMailFilePath = '/home/pi/odi/tmp/voicemail.log';
-var voiceMailFilePathHistory = '/home/pi/odi/log/voicemailHistory.log';
+const voiceMailFilePath = '/home/pi/odi/tmp/voicemail.log';
+const voiceMailFilePathHistory = '/home/pi/odi/log/voicemailHistory.log';
 
-exports.addVoiceMailMessage = function addVoiceMailMessage(lg, txt){
+function addVoiceMailMessage(lg, txt){
 	var message = lg + ';' + txt; // AJOUTER HEURE + DATE ??
 	fs.appendFile(voiceMailFilePath, message + '\r\n', function(err){ //writeFile
 		if(err)	return console.error(err);
-		// leds.blinkBelly(300, 0.8);
 		leds.blink({
 			leds: ['belly'],
-			speed: 250,//Math.random() * (200 - 30) + 30,
-			loop: 2//4
+			speed: 250,
+			loop: 2
 		});
 		console.log('New VoiceMail Message_: ' + message);
 	});
@@ -37,14 +29,14 @@ exports.addVoiceMailMessage = function addVoiceMailMessage(lg, txt){
 		}
 	});
 };
+exports.addVoiceMailMessage = addVoiceMailMessage;
 
 var clearVoiceMailDelay;
-exports.checkVoiceMail = function checkVoiceMail(callback){
+function checkVoiceMail(callback){
 	try{
 		console.log('Checking VoiceMail...');
 		var messages = fs.readFileSync(voiceMailFilePath, 'UTF-8').toString().split('\n');
-		// tts.speak('en', 'Messages:1');
-		tts.new({voice:'espeak', lg:'en', msg:'Messages'});
+		tts.speak({voice:'espeak', lg:'en', msg:'Messages'});
 		console.log(messages);
 		tts.conversation(messages);
 
@@ -63,6 +55,7 @@ exports.checkVoiceMail = function checkVoiceMail(callback){
 		}
 	}
 };
+exports.checkVoiceMail = checkVoiceMail;
 
 exports.voiceMailFlag = function voiceMailFlag(){
 	console.log('Starting voiceMail flag...');
@@ -93,6 +86,7 @@ exports.voiceMailFlag = function voiceMailFlag(){
 	}, 5000);
 };
 
+/** Function to return number of voicemail message(s) */
 var areThereAnyMessages = function(){
 	var nbMessages;
 	try{
@@ -107,17 +101,16 @@ var areThereAnyMessages = function(){
 };
 exports.areThereAnyMessages = areThereAnyMessages;
 
-exports.clearVoiceMail = function clearVoiceMail(){
-	// deploy = spawn('sh', ['/home/pi/odi/core/sh/utils.sh', 'clearVoiceMail']);
-
-	fs.unlink(voiceMailFilePath, function(err){ // SUPPRIMER METHODE SH
+/** Function to clear all voicemail messages */
+function clearVoiceMail(){
+	fs.unlink(voiceMailFilePath, function(err){
 		if(err){
 			if(err.code === 'ENOENT') console.log('clearVoiceMail : No message to delete !');
 		}else{
 			console.log('VoiceMail Cleared.');
 			// tts.speak('en', 'VoiceMail Cleared:3');
-			tts.new({lg:'en', msg:'VoiceMail Cleared:3'});
+			tts.speak({lg:'en', msg:'VoiceMail Cleared:3'});
 		}
 	});
 };
-
+exports.clearVoiceMail = clearVoiceMail;

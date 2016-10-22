@@ -8,15 +8,13 @@ var Gpio = require('onoff').Gpio;
 var leds = require('./leds.js');
 var request = require('request');
 var utils = require('./utils.js');
-var _tts = require('./tts.js');
-var self = this;
+var tts = require('./tts.js');
+var exclamation = require('./exclamation.js');
+const self = this;
 
-// _tts.new({msg:'Leonard ou es tu ?'});
-// console.log(_tts);
-
-/** Fonction info meteo */
+/** Function to retreive weather info */
 var weatherStatus = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');
-var weather = function(){
+function weather(){
 	request.get({
 		// url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
 		url:'http://xml.weather.yahoo.com/forecastrss?w=610264&u=c',
@@ -38,10 +36,10 @@ var weather = function(){
 					+ ' degres avec ' + (isNaN(wind)?'0':wind) + ' kilometre heure de vent';
 				console.log('Service Weather... ' + annonceTemp);
 				// tts.speak('fr',annonceTemp);
-				_tts.new({lg: 'fr', msg: annonceTemp});
+				tts.speak({lg: 'fr', msg: annonceTemp});
 			}else{
 				console.log('Can\'t retreive weather informations');
-				_tts.new({voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo'});
+				tts.speak({voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo'});
 				console.error('Weather request > response.statusCode : ' + response.statusCode);
 				if(error){console.error('Error getting weather info  /!\\ \n' + error);}
 			}
@@ -53,33 +51,41 @@ var weather = function(){
 exports.weather = weather; 
 
 /** Fonction info heure */
-var time = function(){
+function time(){
 	console.log('Service Time...');
 	var date = new Date();
 	var hour = date.getHours();
 	var min = date.getMinutes();
 	if(min == 0){
-		// tts.speak('fr', 'Il est ' + hour + ' heure');
-		_tts.new({lg: 'fr', msg: 'Il est ' + hour + ' heure'});
+		tts.speak({lg: 'fr', msg: 'Il est ' + hour + ' heure'});
 	}else{
-		// tts.speak('fr', 'Il est ' + hour + ' heures et ' + min + ' minutes'); 
 		var tmp = 'Il est ' + hour + ' heures et ' + min + ' minutes';
-		_tts.new({lg: 'fr', msg: tmp});
+		tts.speak({lg: 'fr', msg: tmp});
 	}
 };
 exports.time = time;
 
-/** Function to return last Odi's start/restart time */
-var startTime = new Date();
-exports.getStartTime = function getStartTime(){
-	var hour = startTime.getHours();
-	var min = startTime.getMinutes();
-	return (hour > 12 ? hour-12 : hour) + '.' + (min<10?'0':'') + min + ' ' + (hour > 12  ? 'PM' : 'AM');
+/** Function to say current date */
+const days = fs.readFileSync('/home/pi/odi/data/date.days.properties', 'UTF-8').toString().split('\n');
+const months = fs.readFileSync('/home/pi/odi/data/date.months.properties', 'UTF-8').toString().split('\n');
+var date = function(){
+	var date = new Date();
+	var dayNb = date.getDate();
+	if(dayNb == 1) dayNb = 'premier';
+	var day = date.getDay();
+	var day = days[day];
+	var month = date.getMonth();
+	var month = months[month];
+	var year = date.getFullYear();
+	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
+	console.log('Service Date... ' + annonceDate);
+	tts.speak({lg:'fr', msg:annonceDate});
 };
+exports.date = date;
 
 /** Function to TTS Odi's age */
 var age, years, mouths, birthDay;
-exports.sayOdiAge = function sayOdiAge(){
+function sayOdiAge(){
 	age = utils.getOdiAge();
 	years = Math.floor(age/365);
 	mouths = Math.floor((age%365)/30);
@@ -87,14 +93,14 @@ exports.sayOdiAge = function sayOdiAge(){
 	birthDay = rdm[Math.floor(Math.random() * rdm.length)]
 	birthDay += 'j\'ai ' + years + ' ans et ' + mouths + ' mois !';// et ' + days + ' jours !';
 	console.log('sayOdiAge() \'' + birthDay + '\'')
-	// tts.speak('fr', birthDay);
-	_tts.new({lg: 'fr', msg: birthDay});
+	tts.speak({lg: 'fr', msg: birthDay});
 };
+exports.sayOdiAge = sayOdiAge;
 
-var time = 0;
-var timer = false;
-/** Fonction minuterie */
-var setTimer = function(minutes){
+
+/** Function to set timer */
+var time = 0, timer = false;
+function setTimer(minutes){
 	if(typeof minutes !== undefined && minutes > 1){
 		minutes = 60 * minutes;
 	}else{
@@ -108,8 +114,7 @@ var setTimer = function(minutes){
 	var sec = time%60;
 	var ttsMsg = 'Minuterie ' + ((min>0)? ((min>1)? min : ' une ') + ' minutes ' : '') + ((sec>0)? sec + ' secondes' : '');
 	console.log(ttsMsg);
-	// tts.speak('fr', ttsMsg);
-	_tts.new({lg: 'fr', msg: ttsMsg});
+	tts.speak({lg: 'fr', msg: ttsMsg});
 	if(!timer){
 		timer = true;
 		var sec = setInterval(function(){
@@ -123,21 +128,17 @@ var setTimer = function(minutes){
 			}
 			time--;
 			if(time%120 == 0 && (time/60)>0){
-				// tts.speak('fr', 'Minuterie ' + time/60 + ' minutes');
-				// _tts.speak('fr', time/60 + ' minutes et compte a rebours');
-				_tts.new({lg:'fr', msg:time/60 + ' minutes et compte a rebours'});
+				tts.speak({lg:'fr', msg:time/60 + ' minutes et compte a rebours'});
 			}else if(time <= 0 && time > -5){
 				clearInterval(sec);
 				console.log('End Timer !');
 				var deploy = spawn('sh', ['/home/pi/odi/core/sh/timerSound.sh', 'end']);
-				// leds.blinkAllLeds(100, 2.2);
 				leds.blink({
 					leds: ['belly','eye', 'satellite', 'nose'],
 					speed: 90,
 					loop: 12
 				});
-				// _tts.speak('fr', 'Les raviolis sont cuits !');
-				_tts.new({lg:'fr', msg:'Les raviolis sont cuits !'});
+				tts.speak({lg:'fr', msg:'Les raviolis sont cuits !'});
 				timer = false;
 				belly.write(0);
 			}else if(time < -2){
@@ -159,42 +160,52 @@ exports.timeLeftTimer = function timeLeftTimer(){
 exports.stopTimer = function stopTimer(){
 	time = -5;
 	timer = false;
-	// _tts.speak('en', 'Timer canceled');
-	_tts.new({lg:'en', msg:'Timer canceled'});
+	tts.speak({lg:'en', msg:'Timer canceled'});
 	belly.write(0);
 };
 
-/** Fonction info date */
-var days = fs.readFileSync('/home/pi/odi/data/date.days.properties', 'UTF-8').toString().split('\n');
-var months = fs.readFileSync('/home/pi/odi/data/date.months.properties', 'UTF-8').toString().split('\n');
-var date = function(){
-	var date = new Date();
-	var dayNb = date.getDate();
-	if(dayNb == 1) dayNb = 'premier';
-	var day = date.getDay();
-	var day = days[day];
-	var month = date.getMonth();
-	var month = months[month];
-	var year = date.getFullYear();
-	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
-	console.log('Service Date... ' + annonceDate);
-	// _tts.speak('fr',annonceDate);
-	_tts.new({lg:'fr', msg:annonceDate});
+/** Fonction action aleatoire (exclamation, random TTS, services date, heure, meteo...) */
+var randomAction = function(){
+	self.testConnexion(function(connexion){
+		if(!connexion){
+			exclamation.exclamation2Rappels();
+		}else{
+			var rdm = Math.floor(Math.random()*19); // 1->13
+			console.log('> randomAction [rdm = ' + rdm + ']');
+			switch(rdm){
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+					tts.speak({msg:'RANDOM'}); // Random TTS
+					break;
+				case 5:
+				case 6:
+				case 7:
+					// sayOdiAge();
+					tts.conversation('RANDOM');
+					break;
+				case 8:
+					time();
+					break;
+				case 9:
+					date();
+					break;
+				case 10:
+				case 11:
+					weather();
+					break;
+				case 12:
+					cpuTemp();
+					break;
+				default:
+					exclamation.exclamation();
+			}
+		}
+	});
 };
-exports.date = date;
+// exports.randomAction = randomAction;
 
-/** Fonction compilation date-heure-meteo */
-var info = function(){
-	console.log('Service Info...');
-	self.date();
-	setTimeout(function(){
-		self.time();
-		setTimeout(function(){
-			self.weather();
-		}, 6*1000);
-	}, 5*1000);
-};
-exports.info = info;
 
 /** Fonction info temperature processeur */
 /** utilisation normale : 40 à 60 degres */
@@ -202,12 +213,6 @@ exports.info = info;
 var cpuTemp = function(){
 	temperature = utils.getCPUTemp();
 	console.log('Service CPU Temperature...  ' + temperature + ' degres');
-	// _tts.speak('fr', 'Mon processeur est a ' + temperature + ' degree')
-	_tts.new({lg:'fr', msg:'Mon processeur est a ' + temperature + ' degree'});
+	tts.speak({lg:'fr', msg:'Mon processeur est a ' + temperature + ' degree'});
 };
 exports.cpuTemp = cpuTemp;
-
-
-setTimeout(function(){
-	//_tts.new({voice: 'espeak', msg: 'Leonard le cafard, ou es tu ?'});
-}, 6000);

@@ -34,7 +34,6 @@ var service = require('./modules/service.js');
 var voiceMail = require('./modules/voiceMail.js');
 var _server = require('./modules/server.js');
 
-tts.listenQueue();
 // LED Start sequence
 //leds.blinkLed(100, 300); // Sequence led de start
 
@@ -69,23 +68,24 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 // ------------------------//
 
 // console.log(tts);
-/*tts.new({voice: 'espeak', msg:'hey !'});
-tts.new({voice: 'google', msg:'salut'});
-tts.new({voice: 'espeak', msg:'comment tu vas en cette belle journee?'});
-tts.new({voice: 'google', msg:'sa va, et toi ?'});
-tts.new({voice: 'espeak', msg:'bien'});
-tts.new({voice: 'espeak', msg:'oui, je dirais meme que je vais bien !!'});
-tts.new({voice: 'google', msg:'cool'});
-tts.new({});*/
+/*tts.speak({voice: 'espeak', msg:'hey !'});
+tts.speak({voice: 'google', msg:'salut'});
+tts.speak({voice: 'espeak', msg:'comment tu vas en cette belle journee?'});
+tts.speak({voice: 'google', msg:'sa va, et toi ?'});
+tts.speak({voice: 'espeak', msg:'bien'});
+tts.speak({voice: 'espeak', msg:'oui, je dirais meme que je vais bien !!'});
+tts.speak({voice: 'google', msg:'cool'});
+tts.speak({});*/
 // console.log(service.sayOdiAge());
-tts.new({msg: 'RANDOM'});
+// service.time();
+// tts.speak({msg: 'RANDOM'});
 
 
 // jobs.setupJobs();
 
 setTimeout(function(){
-	// tts.new({voice: 'espeak', msg: 'Il pleut dehors'});
-	service.time();
+	// tts.speak({voice: 'espeak', msg: 'Il pleut dehors'});
+	// service.time();
 }, 5000);
 
 new CronJob('*/4 * * * * *', function(){

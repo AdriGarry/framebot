@@ -9,7 +9,6 @@ var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
 var tts = require('./tts.js');
 var service = require('./service.js');
-var log = require('./log.js');
 
 var date = new Date();
 var hour = date.getHours();

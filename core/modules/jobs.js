@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// Module Jobs [horloge, alarmes & taches de fond]
+// Module Jobs [clock, alarms & background tasks]
 
 var spawn = require('child_process').spawn;
 var fs = require('fs');
@@ -10,14 +10,13 @@ var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
 var tts = require('./tts.js');
 var service = require('./service.js');
-var log = require('./log.js');
 
 var date = new Date();
 var hour = date.getHours();
 var pastHour = hour;
 
 // var clockPattern;
-/** Fontion d'initialisation de l'horloge (jobs associes) */
+/** Function to init clock  */
 var startClock = function(modeInit){
 	if(!modeInit){ // Mode work
 		console.log('Clock jobs initialised in regular mode');
@@ -45,7 +44,7 @@ var startClock = function(modeInit){
 };
 exports.startClock = startClock;
 
-/** Fontion signal heure */
+/** Funtion to say time (hours) */
 var ringHour = function(){
 	date = new Date();
 	hour = date.getHours();
@@ -53,7 +52,7 @@ var ringHour = function(){
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
 			// tts.speak('fr', 'Il est ' + hour + ' heures');
-			tts.new({lg:'fr', msg:'Il est ' + hour + ' heures'});
+			tts.speak({lg:'fr', msg:'Il est ' + hour + ' heures'});
 		}else{
 			if(cpHour > 12){
 				cpHour = hour - 12;
@@ -70,7 +69,7 @@ var ringHour = function(){
 	});
 };
 
-/** Fontion signal demi-heure */
+/** Funtion to say time (half hours) */
 var ringHalfHour = function(){
 	date = new Date();
 	hour = date.getHours();
@@ -79,38 +78,23 @@ var ringHalfHour = function(){
 		if(connexion == true){
 			// if(cpHour > 12){cpHour = hour - 12};
 			// tts.speak('fr', 'Il est ' + hour + ' heures 30');
-			tts.new({lg:'fr', msg:'Il est ' + hour + ' heures 30'});
+			tts.speak({lg:'fr', msg:'Il est ' + hour + ' heures 30'});
 		}else{
 			var deploy = spawn('sh', ['/home/pi/odi/core/sh/clock.sh', 'half']);
 		}
 	});
 };
 
-
-/*exports.setupJobs = function setupJobs(){
-	console.log('setup jobs in progress...');
-	var jobsData;
-	fs.readFile('/home/pi/odi/core/data/jobs.json', 'utf8', function (err, data) {
-		console.log(data);
-		if (err) throw err;
-		jobsData = JSON.parse(data);
-	});
-	console.log(jobsData);
-};*/
-
-
-/** Fontion d'initialisation des alarmes et des taches de fond (jobs associes) */
+/** Function to set alarms */
 var setAlarms = function(){
 	console.log('Alarms jobs initialised');
 
 	// WEEKDAY
-//	new CronJob('0 26 7 * * 1-5', function(){
 	new CronJob('0 10 7 * * 1-5', function(){
 		console.log('Morning Sea... Let\'s start the day with some waves !');
 		var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
 	}, null, true, 'Europe/Paris');
 
-//	new CronJob('0 29 7 * * 1-5', function(){
 	new CronJob('0 13 7 * * 1-5', function(){
 		console.log('COCORICO !!');
 		var deploy = spawn('sh', ['/home/pi/odi/core/sh/clock.sh', 'cocorico']);
@@ -134,8 +118,7 @@ var setAlarms = function(){
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 20,22-25 8 * * 1-5', function(){
-		// tts.speak('fr', 'go go go, allez au boulot:1');
-		tts.new({lg:'fr', voice: 'espeak', msg:'go go go, allez au boulot'});
+		tts.speak({lg:'fr', voice: 'espeak', msg:'go go go, allez au boulot'});
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 30 18 * * 1-5', function() {
@@ -190,55 +173,50 @@ var setAlarms = function(){
 };
 exports.setAlarms = setAlarms;
 
-// renvoyer param -1 pour le mode veille sans reveil automatique ?
-// (du coup envoyer -1 comme param par défaut depuis la remote !?)
-/** Fontion d'initialisation des taches de fond en mode veille */
+/** Function to set auto life cycles */
 var setAutoLifeCycle = function(param){
 	if(typeof param !== 'undefined' && param == 'S'){ // Set wake up jobs
 		console.log('AutoLifeCycle jobs initialised [' + param + ':Wake Up!]');
-		// new CronJob('0 25 7 * * 1-5', function(){
 		new CronJob('0 9 7 * * 1-5', function(){
 			console.log('AutoLifeCycle start up !');
-			utils.restartOdi(); // redemarrer pgm
+			utils.restartOdi();
 		}, null, true, 'Europe/Paris');
 		new CronJob('0 42 11 * * 0,6', function() {
 			console.log('AutoLifeCycle start up !');
-			utils.restartOdi(); // redemarrer pgm
+			utils.restartOdi();
 		}, null, true, 'Europe/Paris');
 	}else{ // Set go to sleep jobs
 		console.log('AutoLifeCycle jobs initialised [for time to sleep]');
 		new CronJob('13 0 0 * * 1-5', function(){
 			console.log('AutoLifeCycle go to sleep !');
-			utils.restartOdi(255);// mettre en veille // 7
+			utils.restartOdi(255);
 		}, null, true, 'Europe/Paris');
 		new CronJob('13 0 2 * * 0,6', function() {
 			console.log('AutoLifeCycle go to sleep !');
-			utils.restartOdi(255);// mettre en veille // 9
+			utils.restartOdi(255);
 		}, null, true, 'Europe/Paris');
 	}
 };exports.setAutoLifeCycle = setAutoLifeCycle;
 
-/** Fontion d'initialisation des taches de fond */
+/** Function to set background tasks */
 var setBackgroundJobs = function(){
 	console.log('Background jobs initialised');
 	new CronJob('13 13 13 * * 1-6', function() {
-		// tts.speak('en','Auto restart:1'); // Reinitialisation quotidienne
-		tts.new({voice:'espeak', lg:'en', msg:'Auto restart'}); // Reinitialisation quotidienne
+		tts.speak({voice:'espeak', lg:'en', msg:'Auto restart'}); // Daily restart Odi's core
 		setTimeout(function(){
 			utils.restartOdi();
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('13 13 13 * * 0', function() {
-		// tts.speak('fr','Auto reboot:1'); // Redemarrage hebdomadaire
-		tts.new({voice:'espeak', lg:'fr', msg:'Auto reboot'}); // Redemarrage hebdomadaire
+		tts.speak({voice:'espeak', lg:'fr', msg:'Auto reboot'}); // Weekly RPI reboot
 		setTimeout(function(){
 			utils.reboot();
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 0 5 * * 2', function() {
-		console.log('Clean log files  /!\\'); // Nettoyage des logs hebdomadaire
+		console.log('Clean log files  /!\\'); // Weekly cleaning of logs
 		log.cleanLog();
 	}, null, true, 'Europe/Paris');
 };

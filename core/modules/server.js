@@ -25,20 +25,15 @@ var _jukebox = require('./jukebox.js');
 var _exclamation = require('./exclamation.js');
 var _party = require('./party.js');
 var _admin = require('./admin.js');
-var self = this;
+const self = this;
 
-
-// _tts.new({msg:'Leonard ou es tu ?'});
-
-/*var DIR_NAME = '/home/pi/odi/core/';
-var DIR_NAME_WEB = '/home/pi/odi/web/';*/
-var FILE_REQUEST_HISTORY = LOG_PATH + 'requestHistory.log';
-var FILE_GRANT = DATA_PATH + 'pwd.properties';
-var FILE_VOICEMAIL_HISTORY = LOG_PATH + 'voicemailHistory.log';
+const FILE_REQUEST_HISTORY = LOG_PATH + 'requestHistory.log';
+const FILE_GRANT = DATA_PATH + 'pwd.properties';
+const FILE_VOICEMAIL_HISTORY = LOG_PATH + 'voicemailHistory.log';
 
 var _deploy;
 
-exports.startUI = function startUI(mode){
+function startUI(mode){
 	var ui = _express();
 	var request, method, params, ipClient;
 
@@ -53,7 +48,7 @@ exports.startUI = function startUI(mode){
 		console.log('MODE');
 		console.log(mode);
 		if(mode < 1){
-			deploy = _spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'UI']);
+			_deploy = _spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'UI']);
 		}
 		//res.set('Content-Type', 'text/javascript');
 	});
@@ -109,16 +104,16 @@ exports.startUI = function startUI(mode){
 			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
 		}
 		var dashboard = {
-			/*mode: {value: {
+			mode: {value: {
 				mode: isNaN(parseFloat(mode)) ? 'Ready' : 'Sleep',
-				param: isNaN(parseFloat(mode)) ? _service.getStartTime() : parseInt(mode)}},
+				param: isNaN(parseFloat(mode)) ? _utils.getStartTime() : parseInt(mode)}},
 			switch: {value: _buttons.getEtat()}, 
 			volume: {value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'high' : 'normal') : 'mute'},
 			voicemail: {value: _voiceMail.areThereAnyMessages()},
 			jukebox: {value: '<i>Soon available</i>'},
 			timer: {value: _service.timeLeftTimer()},
 			cpu: {value: {usage: _utils.getCPUUsage(), temp: _utils.getCPUTemp()}},
-			alarms: {value: '<i>Soon available</i>'}*/
+			alarms: {value: '<i>Soon available</i>'}
 		};
 		res.writeHead(200);
 		res.end(JSON.stringify(dashboard));
@@ -207,11 +202,11 @@ exports.startUI = function startUI(mode){
 					_voiceMail.addVoiceMailMessage(tts.lg, tts.msg + tts.voice);
 				}else{
 					// _tts.speak(params['lg'], params['msg'] + params['voice']);
-					_tts.new({voice: tts.voice, lg: tts.lg, msg: tts.msg});
+					_tts.speak({voice: tts.voice, lg: tts.lg, msg: tts.msg});
 				}
 			}else{
 				// _tts.speak('','RANDOM'); // Random TTS
-				_tts.new({msg:'RANDOM'}); // Random TTS
+				_tts.speak({msg:'RANDOM'}); // Random TTS
 			}
 			res.writeHead(200);res.end();
 		});
@@ -224,7 +219,7 @@ exports.startUI = function startUI(mode){
 		ui.post('/checkVoiceMail', function (req, res) { // Check Voice Mail
 			if(!_voiceMail.checkVoiceMail()){
 				// _tts.speak('en', 'No voicemail message:1');
-				_tts.new({voice: 'google', lg: 'en',msg: 'No voicemail message'});
+				_tts.speak({voice: 'google', lg: 'en',msg: 'No voicemail message'});
 			}
 			res.writeHead(200);res.end();
 		});
@@ -240,7 +235,7 @@ exports.startUI = function startUI(mode){
 				var rdmNb = txt.replace(/[^\d.]/g, '');
 				var rdmNb = parseInt(rdmNb, 10);
 				//_tts.conversation(rdmNb);
-				_tts.new({voice: 'espeak', lg: 'fr', msg:'CONVERSATION NON DEFINI !'});
+				_tts.speak({voice: 'espeak', lg: 'fr', msg:'CONVERSATION NON DEFINI !'});
 
 			}else{
 				_tts.conversation('random');
@@ -251,7 +246,7 @@ exports.startUI = function startUI(mode){
 		ui.post('/idea', function (req, res) { // Idea...
 			// params = req.query;
 			// _tts.speak('en', 'I\'ve got an idea !');
-			_tts.new({lg: 'en', msg: 'I\'ve got an idea !'});
+			_tts.speak({lg: 'en', msg: 'I\'ve got an idea !'});
 			res.writeHead(200);res.end();
 		});
 
@@ -460,5 +455,5 @@ exports.startUI = function startUI(mode){
 		res.writeHead(200);
 		res.end(JSON.stringify(settings));
 	});
-
 }
+exports.startUI = startUI;
