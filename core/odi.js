@@ -69,9 +69,9 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 // ------------------------//
 
 var ttsTmp = {lg: "fr", voice: "espeak", msg: "test voicemail"};
-utils.appendJsonFile('/home/pi/odi/tmp/voicemail.json', ttsTmp, function(callback){
+/*utils.appendJsonFile('/home/pi/odi/tmp/voicemail.json', ttsTmp, function(callback){
 	console.log(callback);
-})
+})*/
 
 /*tts.speak({voice: 'espeak', msg:'hey !'});
 tts.speak({voice: 'google', msg:'salut'});

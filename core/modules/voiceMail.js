@@ -39,6 +39,10 @@ function addVoiceMailMessage(tts){
 };
 exports.addVoiceMailMessage = addVoiceMailMessage;
 
+
+// FONCTION GENERIQUE POUR RECUPERER LES MESSAGES
+
+
 var clearVoiceMailDelay;
 function checkVoiceMail(callback){
 	try{
@@ -98,8 +102,10 @@ exports.voiceMailFlag = function voiceMailFlag(){
 var areThereAnyMessages = function(){
 	var nbMessages;
 	try{
-		nbMessages = fs.readFileSync(voiceMailFilePath, 'UTF-8')
-			.toString().split('\n').length -1;
+		// nbMessages = fs.readFileSync(voiceMailFilePath, 'UTF-8').toString().split('\n').length -1;
+		var messages = fs.readFileSync(voiceMailFilePath, 'UTF-8');
+		console.log('areThereAnyMessages()');
+		console.log(messages);
 	}catch(e){
 		nbMessages = 0;
 	}
@@ -117,7 +123,7 @@ function clearVoiceMail(){
 		}else{
 			console.log('VoiceMail Cleared.');
 			// tts.speak('en', 'VoiceMail Cleared:3');
-			tts.speak({lg:'en', msg:'VoiceMail Cleared:3'});
+			tts.speak({lg:'en', voice: 'google', msg:'VoiceMail Cleared'});
 		}
 	});
 };

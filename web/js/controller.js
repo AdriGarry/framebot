@@ -212,7 +212,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 
 	var param = $location.$$absUrl.split('?')[1];
 	if(param){
-		console.log('param : ' + param);
+		// console.log('param : ' + param);
 		$scope.grant(param);
 	}
 });
