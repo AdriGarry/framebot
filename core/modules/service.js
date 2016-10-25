@@ -204,7 +204,7 @@ var randomAction = function(){
 		}
 	});
 };
-// exports.randomAction = randomAction;
+exports.randomAction = randomAction;
 
 
 /** Fonction info temperature processeur */

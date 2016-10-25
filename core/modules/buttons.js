@@ -38,7 +38,7 @@ exports.initButtonAwake = function initButtonAwake(){
 				instance = true;
 				interval = setInterval(function(){
 					console.log('Etat bouton On_');
-					utils.randomAction();
+					service.randomAction();
 				}, 10*60*1000); //5*60*1000
 			}
 		}else{
@@ -79,7 +79,7 @@ exports.initButtonAwake = function initButtonAwake(){
 		console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec [1,2,3;5]');
 		if(pressTime < 1){
 			if(!voiceMail.checkVoiceMail()){
-				utils.randomAction();
+				service.randomAction();
 			}
 		}else if(pressTime >= 1 && pressTime < 2){
 			tts.lastTTS();

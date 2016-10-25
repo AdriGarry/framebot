@@ -193,7 +193,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 	}, 100);
 
 	$scope.grant = function(param){
-		console.log(param);
 		UIService.sendCommand({url:'/grant', data:param}, function(data){
 			$scope.irda = data;
 		});
