@@ -166,7 +166,7 @@ exports.stopTimer = function stopTimer(){
 
 /** Fonction action aleatoire (exclamation, random TTS, services date, heure, meteo...) */
 var randomAction = function(){
-	self.testConnexion(function(connexion){
+	utils.testConnexion(function(connexion){
 		if(!connexion){
 			exclamation.exclamation2Rappels();
 		}else{
@@ -182,7 +182,7 @@ var randomAction = function(){
 				case 5:
 				case 6:
 				case 7:
-					// sayOdiAge();
+					sayOdiAge();
 					tts.conversation('RANDOM');
 					break;
 				case 8:

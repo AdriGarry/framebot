@@ -138,6 +138,33 @@ var data = 'KO'; // ou undefined
 };
 exports.getFileContent = getFileContent;
 
+/** Fonction getJsonFileContent */
+var getJsonFileContent = function(filePath, callback){
+	console.log('getJsonFileContent()');
+	// try{
+		fs.readFile(filePath, function(err, data){
+			// if(err){
+			// 	if(err.code === 'ENOENT'){
+			// 		console.log('No file : ' + filePath);
+
+			// 	}else{
+			// 		//throw err;
+			// 	}
+			// }
+			if(err && err.code === 'ENOENT'){
+				console.error('No file : ' + filePath);
+				callback(null);
+			}
+			callback(data);
+		});
+	// }catch(e){
+	// 	console.error('Error while reading file : ' + filePath);
+	// 	console.error(e);
+	// }
+};
+exports.getJsonFileContent = getJsonFileContent;
+
+
 /** Function to append object in JSON file */
 var fileData;
 var appendJsonFile = function(filePath, obj, callback){
@@ -145,14 +172,15 @@ var appendJsonFile = function(filePath, obj, callback){
 		if(exists){
 			console.log("yes file exists");
 			fs.readFile(filePath, function(err, data){
-			if(err) console.log(err);
-			else{
-				fileData = JSON.parse(data);
-				fileData.push(obj);
-				fileData = JSON.stringify(fileData);
-				console.log(fileData);
-				fs.writeFile(filePath, fileData);
-			}});
+				if(err) console.log(err);
+				else{
+					fileData = JSON.parse(data);
+					fileData.push(obj);
+					fileData = JSON.stringify(fileData);
+					console.log(fileData);
+					fs.writeFile(filePath, fileData);
+				}
+			});
 		}else{
 			console.log("file not exists")
 			fileData = [];
@@ -273,7 +301,7 @@ function getCPUTemp(callback){
 };
 exports.getCPUTemp = getCPUTemp;
 
-/** Function to return Odi's age
+/** Function to return Odi's age => To service.js
  * @return age in days
  */
 var dateOfBirth = new Date('August 9, 2015 00:00:00'), age = 0;
