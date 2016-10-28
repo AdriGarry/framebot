@@ -10,11 +10,13 @@ var utils = require('./utils.js');
 // var deploy;
 const self = this;
 
-const messageList = JSON.parse(fs.readFileSync('/home/pi/odi/data/ttsMessages.json', 'utf8'));
+// const messageList = JSON.parse(fs.readFileSync('/home/pi/odi/data/ttsMessages.json', 'utf8'));
+const messageList = require('/home/pi/odi/data/ttsMessages.json');
 const messageListLength = messageList.length;
 
 const CONVERSATIONS_PATH = '/home/pi/odi/data/ttsConversations.properties';
-const conversations = fs.readFileSync(CONVERSATIONS_PATH, 'UTF-8').toString().split('\n\n'); // \r\n
+// const conversations = fs.readFileSync(CONVERSATIONS_PATH, 'UTF-8').toString().split('\n\n'); // \r\n
+const conversations = require(CONVERSATIONS_PATH);
 const rdmMaxConversations = conversations.length;
 const LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.log';
 

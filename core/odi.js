@@ -50,12 +50,12 @@ jobs.setAlarms(); // Initialisation des alarmes
 jobs.setAutoLifeCycle(); // Initialisation du rythme de vie j/n
 jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
-tts.clearLastTTS();
+tts.clearLastTTS(); // A REMONTER PLUS HAUT
+
 // new CronJob('*/10 * * * * *', function(){ // Initialisation synchronisation remote
 // 	// remote.synchro();//mode
 // 	remote.trySynchro();
 // }, null, 0, 'Europe/Paris');
-
 
 setTimeout(function(){
 	voiceMail.checkVoiceMail();
@@ -69,9 +69,9 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 // ------------------------//
 
 var ttsTmp = {lg: "fr", voice: "espeak", msg: "test voicemail"};
-utils.appendJsonFile('/home/pi/odi/tmp/voicemail.json', ttsTmp, function(callback){
+/*utils.appendJsonFile('/home/pi/odi/tmp/voicemail.json', ttsTmp, function(callback){
 	console.log(callback);
-});
+});*/
 
 /*tts.speak({voice: 'espeak', msg:'hey !'});
 tts.speak({voice: 'google', msg:'salut'});
