@@ -54,7 +54,7 @@
 	<md-grid-tile data-ng-repeat="tile in dashboard.tileList track by $index" md-rowspan="{{tile.rowspan}}"
 		md-colspan="{{tile.colspan}}" md-colspan-sm="{{tile.colspan}}" md-colspan-xs="{{tile.colspan}}"
 		class="ng-slide" data-ng-class="tile.color" data-ng-click="tileAction(tile)">
-		<i class="fa fa-2x fa-ellipsis-h adminFlag" data-ng-show="tile.actionList.length>1 && irda"></i>
+		<i class="fa fa-lg fa-ellipsis-h adminFlag" data-ng-show="tile.actionList.length>1 && irda"></i>
 
 		<span class="responsive" data-ng-show="tile.viewMode=='value'">{{tile.value}}</span>
 

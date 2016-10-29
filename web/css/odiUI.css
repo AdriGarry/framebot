@@ -296,8 +296,8 @@ md-grid-list md-grid-tile md-grid-tile-footer h3 i.active{
 }
 md-grid-list md-grid-tile i.adminFlag{
 	position:absolute;
-	top:1em;
-	right:1em;
+	top:0.3em;
+	right:0.6em;
 	color:#34444b;
 }
 /*md-grid-list md-grid-tile md-grid-tile-footer h3 i.adminFlag{
