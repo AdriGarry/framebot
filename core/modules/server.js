@@ -97,8 +97,7 @@ function startUI(mode){
 	/** TOGGLE DEBUG MODE */
 	ui.post('/toggleDebug', function (req, res) { // Time
 		console.debug('UI > Toggle debug');
-		_utils.setConfig('debug');
-		_utils.restartOdi();
+		_utils.setConfig('debug', null, true);
 		res.writeHead(200);res.end();
 	});
 
@@ -114,14 +113,16 @@ function startUI(mode){
 		var dashboard = {
 			mode: {value: {
 				mode: CONFIG.debug ? 'Debug' : (isNaN(parseFloat(mode)) ? 'Ready' : 'Sleep'),
-				param: isNaN(parseFloat(mode)) ? _utils.getStartTime() : parseInt(mode)}},
-			switch: {value: _buttons.getEtat()}, 
-			volume: {value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'high' : 'normal') : 'mute'},
-			voicemail: {value: _voiceMail.areThereAnyMessages()},
-			jukebox: {value: '<i>Soon available</i>'},
-			timer: {value: _service.timeLeftTimer()},
-			cpu: {value: {usage: _utils.getCPUUsage(), temp: _utils.getCPUTemp()}},
-			alarms: {value: '<i>Soon available</i>'}
+				param: isNaN(parseFloat(mode)) ? _utils.getStartTime() : parseInt(mode)},
+				active: CONFIG.debug},
+			switch: {value: _buttons.getEtat(), active: false}, 
+			volume: {value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'high' : 'normal') : 'mute', active: false},
+			voicemail: {value: _voiceMail.areThereAnyMessages(), active: _voiceMail.areThereAnyMessages()>0 ? true : false},
+			jukebox: {value: '<i>Soon available</i>', active: false},
+			timer: {value: _service.timeLeftTimer(), active: _service.timeLeftTimer()>0 ? true : false},
+			cpu: {value: {usage: _utils.getCPUUsage(), temp: _utils.getCPUTemp()}, active: false},
+			alarms: {value: '<i>Soon available</i>', active: false},
+			debug: {value: CONFIG.debug}
 		};
 		res.writeHead(200);
 		res.end(JSON.stringify(dashboard));

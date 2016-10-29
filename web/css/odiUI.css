@@ -296,21 +296,24 @@ md-grid-list md-grid-tile form{
 .grey{background:rgba(0, 0, 0, 0.08);}
 .blue{background:rgba(187, 222, 251, 1);}
 .lightBlue{background:rgba(187, 222, 251, 0.3);}
-.blueGrey{background:rgba(207, 216, 220, 1);}
-.lightGreen{background:rgba(220, 237, 200, 1);}
-.indigo{background:rgba(197, 202, 233, 1);}
-.yellow{background:rgba(255, 236, 179, 1);}
-.lime{background:rgba(240, 244, 195, 1);}
-.cyan{background:rgba(178, 235, 242, 1);}
-.teal{background:rgba(178, 223, 219, 1);}
-.orange{background:rgba(255, 204, 188, 1);}
-.purple{background:rgba(209, 196, 233, 1);}
+.blueGrey{background:rgba(207, 216, 220, 0.9);}
+.lightGreen{background:rgba(220, 237, 200, 0.9);}
+.indigo{background:rgba(197, 202, 233, 0.9);}
+.yellow{background:rgba(255, 236, 179, 0.9);}
+.lime{background:rgba(240, 244, 195, 0.9);}
+.cyan{background:rgba(178, 235, 242, 0.9);}
+.teal{background:rgba(178, 223, 219, 0.9);}
+.orange{background:rgba(255, 204, 188, 0.9);}
+.purple{background:rgba(209, 196, 233, 0.9);}
 
 md-grid-list md-grid-tile md-grid-tile-footer{
 	height:auto;
 	padding:5px 0;
 }
 
+md-grid-list md-grid-tile md-grid-tile-footer.active{
+	background:rgba(0,0,0,0.7);
+}
 
 /* ------------------------------ TTS ------------------------------- */
 .voiceSwitch{

@@ -3,18 +3,13 @@
 /** Odi's global variables  */
 global.ODI_PATH = '/home/pi/odi/';
 global.CORE_PATH = '/home/pi/odi/core/';
-global.CONFIG_FILE = '/home/pi/odi/data/conf.json';
+global.CONFIG_FILE = '/home/pi/odi/conf.json';
 global.DATA_PATH = '/home/pi/odi/data/';
 global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
 
 /** Setting up Odi's config */
 global.CONFIG = require(CONFIG_FILE);
-
-// /** Debug Mode */
-// if(CONFIG.debug) console.debug = console.log;
-// else console.debug = function(){};
-// console.debug('-> ->  MANAGER DEBUG ON');
 
 var fs = require('fs');
 var Gpio = require('onoff').Gpio;
@@ -27,29 +22,9 @@ var odiPgm, odiState = false;
 var logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
 var logoSleep = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
 
+/* ------------- START CORE -------------*/
 console.log('\r\n---------------------------\r\n>> Odi\'s CORE initiating...');
 
-/** Init config file if not exists */
-/*fs.exists(CONFIG_FILE, function(exists){
-	console.log('fs.exists...', exists);
-	if(exists){
-		console.log('LOADING CONFIG FROM FILE...', exists);
-		global.CONFIG = require(CONFIG_FILE);
-	}else{
-		global.CONFIG = {
-			info: 'Odi !',
-			debug: false
-		};
-		// fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG) , 'utf-8');//, null, 2
-		console.log('Setting up config file...', CONFIG);
-		fs.writeFileSync(CONFIG_FILE, JSON.stringify(CONFIG), 'UTF-8');
-	}
-});*/
-
-/** Setting up Odi's config */
-
-
-/* ------------- START CORE -------------*/
 startOdi(); // First initialisation
 
 ok.watch(function(err, value){
@@ -92,7 +67,7 @@ function startOdi(mode){
 		if(1 === etat.readSync()){ logMode = logMode.replace('Odi','ODI'); }
 		else{ logMode = logMode.replace('ODI','Odi'); }
 		// console.log(logDate + logMode + '/ ' + data);// + '\r\n'
-		if(CONFIG.debug) console.log(utils.formatedDate() + logMode + '/D ' + data);// + '\r\n'
+		if(CONFIG.debug) console.log(utils.formatedDate() + logMode + ' >_  ' + data);// + '\r\n'
 		else console.log(utils.formatedDate() + logMode + '/ ' + data);// + '\r\n'
 	});
 
@@ -100,7 +75,7 @@ function startOdi(mode){
 		if(1 === etat.readSync()){ logMode = logMode.replace('i','!'); }
 		else{ logMode = logMode.replace('!','i'); }
 		// console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
-		if(CONFIG.debug) console.trace(utils.formatedDate() + logMode + '_ERROR/D ' + data);// + '\r\n'
+		if(CONFIG.debug) console.trace(utils.formatedDate() + logMode + '_ERROR >_ ' + data);// + '\r\n'
 		else console.error(utils.formatedDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
 	});
 	

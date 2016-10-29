@@ -3,7 +3,7 @@
 /** Odi's global variables  */
 global.ODI_PATH = '/home/pi/odi/';
 global.CORE_PATH = '/home/pi/odi/core/';
-global.CONFIG_FILE = '/home/pi/odi/data/conf.json';
+global.CONFIG_FILE = '/home/pi/odi/conf.json';
 global.DATA_PATH = '/home/pi/odi/data/';
 global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';

@@ -5,7 +5,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 
 	/** Function to update dashboard from Odi **/
 	this.refreshDashboard = function(callback){
-		console.log('refreshDashboard()');
+		// console.log('refreshDashboard()');
 		$http({
 			headers: {
 				'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 			[{url: '/cigales'}]),
 		system: new Tile(18, 'System', 'lightGreen', 1, 1, ICON, 'power-off',
 			[{label: 'Shutdown Odi', icon: 'power-off', url: '/shutdown'},{label: 'Reboot Odi', icon: 'refresh', url: '/reboot'}]),
-		about: new Tile(19, 'About', 'grey', 1, 3, CUSTOM, '', []).bindHTML('about')
+		about: new Tile(19, 'About', 'grey', 1, 2, CUSTOM, '', []).bindHTML('about')
 	};
 
 }]);

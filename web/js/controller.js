@@ -60,8 +60,14 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 			$scope.dashboard.loading = true;
 			UIService.refreshDashboard(function(data){
 				angular.forEach(data, function(tile, key){
-					$scope.dashboard.tileList[key].value = data[key].value;
-					$scope.dashboard.tileList[key].bindHTML(key);
+					switch(key){
+						case 'debug':
+							$scope.dashboard.debug = data.debug.value;
+						break;
+						default:
+							$scope.dashboard.tileList[key].value = data[key].value;
+							$scope.dashboard.tileList[key].bindHTML(key);
+					}
 				});
 				$timeout(function(){$scope.dashboard.loading = false;}, 100);
 			});

@@ -201,6 +201,15 @@ var setAutoLifeCycle = function(param){
 /** Function to set background tasks */
 var setBackgroundJobs = function(){
 	console.log('Background jobs initialised');
+	new CronJob('0 2,32 * * * * *', function() {
+	// new CronJob('*/5 * * * * * ', function() {
+		console.log('TEST IF ODI IS IN DEBUT MODE...');
+		if(CONFIG.debug){
+			console.debug('ODI IS IN DEBUG MODE? LET\'S RESTART !!!');
+			utils.setConfig('debug', null, true);
+		}
+	}, null, true, 'Europe/Paris');
+
 	new CronJob('13 13 13 * * 1-6', function() {
 		tts.speak({voice:'espeak', lg:'en', msg:'Auto restart'}); // Daily restart Odi's core
 		setTimeout(function(){

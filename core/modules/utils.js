@@ -126,7 +126,7 @@ function prepareLogs(lines, callback){
 exports.prepareLogs = prepareLogs;
 
 /** Function to set/edit Odi's config */
-var setConfig = function(key, value){
+var setConfig = function(key, value, restart){
 	console.debug('setConfig()', key, value);
 	getJsonFileContent(CONFIG_FILE, function(data){
 		var config = JSON.parse(data);
@@ -140,6 +140,7 @@ var setConfig = function(key, value){
 		global.CONFIG = config;
 		console.debug(CONFIG);
 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
+		if(restart) restartOdi();
 	});
 };
 exports.setConfig = setConfig;
