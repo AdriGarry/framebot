@@ -84,6 +84,11 @@ var ttsTmp = {lg: "fr", voice: "espeak", msg: "test voicemail"};
 	console.log(callback);
 });*/
 
+
+/*utils.getMsgLastGitCommit(function(msg){
+	console.debug('LAST COMMIT MSG :', msg);
+});*/
+
 /*tts.speak({voice: 'espeak', msg:'hey !'});
 tts.speak({voice: 'google', msg:'salut'});
 tts.speak({voice: 'espeak', msg:'comment tu vas en cette belle journee?'});

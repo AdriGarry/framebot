@@ -54,6 +54,7 @@
 	<md-grid-tile data-ng-repeat="tile in dashboard.tileList track by $index" md-rowspan="{{tile.rowspan}}"
 		md-colspan="{{tile.colspan}}" md-colspan-sm="{{tile.colspan}}" md-colspan-xs="{{tile.colspan}}"
 		class="ng-slide" data-ng-class="tile.color" data-ng-click="tileAction(tile)">
+		<i class="fa fa-2x fa-ellipsis-h adminFlag" data-ng-show="tile.actionList.length>1 && irda"></i>
 
 		<span class="responsive" data-ng-show="tile.viewMode=='value'">{{tile.value}}</span>
 
@@ -61,7 +62,8 @@
 
 		<span class="responsive" data-ng-bind-html="toHtml(tile.html)" data-ng-show="tile.viewMode=='custom'"></span>
 
-		<md-grid-tile-footer data-ng-class="tile.active ? 'active' : ''"><h3>{{tile.label}} - {{tile.active}}<i class="fa fa-eercast" data-ng-show="tile.actionList.length>1 && irda"></i></h3></md-grid-tile-footer>
+		<md-grid-tile-footer data-ng-class="tile.active ? 'active' : ''"><h3>
+			<i class="fa fa-arrow-right active" data-ng-if="tile.active"></i>{{tile.label}}</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 </md-grid-list>

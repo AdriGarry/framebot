@@ -117,6 +117,7 @@ function startUI(mode){
 		if(temp > h){
 			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
 		}
+		var etatBtn = _buttons.getEtat();
 		var cpuTemp = _utils.getCPUTemp();
 		var dashboard = {
 			mode: {value: {
@@ -124,7 +125,7 @@ function startUI(mode){
 				param: isNaN(parseFloat(mode)) ? _utils.getStartTime() : parseInt(mode)},
 				active: CONFIG.debug},
 			switch: {value: _buttons.getEtat(), active: true}, 
-			volume: {value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'high' : 'normal') : 'mute', active: false},
+			volume: {value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute', active: etatBtn == 1 ? true : false},
 			voicemail: {value: _voiceMail.areThereAnyMessages(), active: _voiceMail.areThereAnyMessages()>0 ? true : false},
 			jukebox: {value: '<i>Soon available</i>', active: false},
 			timer: {value: _service.timeLeftTimer(), active: _service.timeLeftTimer()>0 ? true : false},

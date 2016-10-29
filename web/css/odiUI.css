@@ -272,6 +272,10 @@ figure .responsive{
 figure p.responsive{
 	text-align:left;
 }
+figure table.cpu tr td{
+    width:55%;
+    text-align:left;
+}
 figure .mainInfo{
 	font-size:8vw;/*10*/
 	vertical-align:middle;
@@ -287,12 +291,21 @@ md-grid-list .value small{
 md-grid-list md-grid-tile md-grid-tile-footer h3{
 	font-size:20px;
 }
-md-grid-list md-grid-tile md-grid-tile-footer h3 i{
+md-grid-list md-grid-tile md-grid-tile-footer h3 i.active{
+	margin-right:0.5em;
+}
+md-grid-list md-grid-tile i.adminFlag{
+	position:absolute;
+	top:1em;
+	right:1em;
+	color:#34444b;
+}
+/*md-grid-list md-grid-tile md-grid-tile-footer h3 i.adminFlag{
 	position:absolute;
 	right:3%;
 	margin-top:2px;
 }
-
+*/
 md-grid-list md-grid-tile form{
 	width:90%;
 }
@@ -316,7 +329,7 @@ md-grid-list md-grid-tile md-grid-tile-footer{
 }
 
 md-grid-list md-grid-tile.active, md-grid-list md-grid-tile md-grid-tile-footer.active{
-	background:rgba(0,0,0,0.7);
+	background:rgba(0,0,0,0.6);
 }
 
 /* ------------------------------ TTS ------------------------------- */
