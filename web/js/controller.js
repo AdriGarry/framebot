@@ -64,8 +64,12 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 						case 'debug':
 							$scope.dashboard.debug = data.debug.value;
 						break;
+						case 'version':
+							$scope.dashboard.version = data.version.value;
+						break;
 						default:
 							$scope.dashboard.tileList[key].value = data[key].value;
+							$scope.dashboard.tileList[key].active = data[key].active;
 							$scope.dashboard.tileList[key].bindHTML(key);
 					}
 				});

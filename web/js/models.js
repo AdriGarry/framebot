@@ -65,6 +65,9 @@ app.factory('Tile', function(){
 					if(this.value > 0) html += '&nbsp;' + Math.trunc(this.value/60) + ':' + (this.value%60 < 10 ? ('0' + this.value%60) : this.value%60);
 					break;
 				case 'cpu':
+					// html = '<table><tr><td rowspan="2" class="mainInfo"><i class="fa fa-heartbeat"></i></td><td>';
+					// html += '<div class="value inline">' + this.value.usage + '<small>%</small></div></td></tr><tr><td>';
+					// html += '<div class="value inline">' + this.value.temp + '<small>°C</small></div></td></tr></table>';
 					html = '<table><tr><td rowspan="2" class="mainInfo"><i class="fa fa-heartbeat"></i></td><td>';
 					html += '<div class="value inline">' + this.value.usage + '<small>%</small></div></td></tr><tr><td>';
 					html += '<div class="value inline">' + this.value.temp + '<small>°C</small></div></td></tr></table>';

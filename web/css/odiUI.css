@@ -96,10 +96,14 @@ img.odiFace.odiOff{
 	font-size:1.2em;
 	cursor:pointer;
 }
-.toolbar h1 span{
-	margin-left:5px;
+.toolbar sup.version{
+	margin-right:1em;
+	font-size:0.7em;
 	font-style:italic;
-	color:#7893a1;
+	color:#879fab;
+}
+.toolbar .debug{
+	font-style:italic;
 }
 .toolbar .fa-key{
 	opacity:0.5;
@@ -311,7 +315,7 @@ md-grid-list md-grid-tile md-grid-tile-footer{
 	padding:5px 0;
 }
 
-md-grid-list md-grid-tile md-grid-tile-footer.active{
+md-grid-list md-grid-tile.active, md-grid-list md-grid-tile md-grid-tile-footer.active{
 	background:rgba(0,0,0,0.7);
 }
 
@@ -424,7 +428,7 @@ footer p a:hover{
 	.desktopOnlyInline{display:none;}
 
 	.toolbar h1{
-		margin-left:4.5em;
+		margin-left:4em;
 	}
 	.main{
 		padding-top:80px;

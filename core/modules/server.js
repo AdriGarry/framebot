@@ -40,7 +40,7 @@ function startUI(mode){
 	ui.use(_compression()); // Compression web
 	ui.use(_express.static(WEB_PATH)); // Pour fichiers statiques
 
-	ui.get('/', function (req, res) { // Init UI
+	ui.get('/', function(req, res){ // Init UI
 		res.sendFile(_path.join(WEB_PATH + 'index.html'));
 		ipClient = req.connection.remoteAddress;
 		console.log('UI initialized [' + ipClient + ']');
@@ -82,7 +82,7 @@ function startUI(mode){
 	ui.use(logger);
 
 	/** MONITORING ACTIVITY */
-	ui.get('/monitoring', function (req, res){
+	ui.get('/monitoring', function(req, res){
 		//console.log(/\d/.test(mode));
 		var activity = {
 			mode: /\d/.test(mode) ? 'sleep' : 'awake',
@@ -95,14 +95,21 @@ function startUI(mode){
 	});
 
 	/** TOGGLE DEBUG MODE */
-	ui.post('/toggleDebug', function (req, res) { // Time
+	ui.post('/toggleDebug', function(req, res){
 		console.debug('UI > Toggle debug');
 		_utils.setConfig('debug', null, true);
 		res.writeHead(200);res.end();
 	});
 
+	/** RESET CONFIG */
+	ui.post('/resetConfig', function(req, res){
+		console.debug('UI > Reset config');
+		_utils.resetConfig(true);
+		res.writeHead(200);res.end();
+	});
+
 	/** DASHBOARD SECTION */
-	ui.get('/dashboard', function (req, res){
+	ui.get('/dashboard', function(req, res){
 		var temp = parseInt(mode);
 		var now = new Date();
 		var h = now.getHours();
@@ -122,6 +129,7 @@ function startUI(mode){
 			timer: {value: _service.timeLeftTimer(), active: _service.timeLeftTimer()>0 ? true : false},
 			cpu: {value: {usage: _utils.getCPUUsage(), temp: _utils.getCPUTemp()}, active: false},
 			alarms: {value: '<i>Soon available</i>', active: false},
+			version: {value: CONFIG.version},
 			debug: {value: CONFIG.debug}
 		};
 		res.writeHead(200);
@@ -129,7 +137,7 @@ function startUI(mode){
 	});
 
 	/** GET SECTION */
-	ui.get('/log', function (req, res) { // Send Logs to UI
+	ui.get('/log', function(req, res){ // Send Logs to UI
 		var logSize = 100;
 		params = req.query;
 		if(params.hasOwnProperty('logSize') && !isNaN(params.logSize)){
@@ -141,23 +149,23 @@ function startUI(mode){
 		});
 	});
 
-	ui.get('/requestHistory', function (req, res) { // Send Request History
+	ui.get('/requestHistory', function(req, res) { // Send Request History
 		res.writeHead(200);
 		res.end(_fs.readFileSync(FILE_REQUEST_HISTORY, 'utf8').toString());
 	});
 
-	ui.get('/voicemailHistory', function (req, res) { // Send Voicemail History
+	ui.get('/voicemailHistory', function(req, res) { // Send Voicemail History
 		res.writeHead(200);
 		res.end(_fs.readFileSync(FILE_VOICEMAIL_HISTORY, 'utf8').toString());
 	});
 
 	/** POST SECTION */
-	ui.post('/odi', function (req, res) { // Restart Odi
+	ui.post('/odi', function(req, res){ // Restart Odi
 		_utils.restartOdi();
 		res.writeHead(200);res.end();
 	});
 
-	ui.post('/sleep', function (req, res) { // Restart Odi
+	ui.post('/sleep', function(req, res){ // Restart Odi
 		params = req.query;
 		var sleepTime;
 		if(params.hasOwnProperty('h')){
@@ -169,24 +177,24 @@ function startUI(mode){
 		res.writeHead(200);res.end();
 	});
 
-	ui.post('/reboot', function (req, res) { // Reboot Odi
+	ui.post('/reboot', function(req, res){ // Reboot Odi
 		_utils.reboot();
 		res.writeHead(200);res.end();
 	});
 
-	ui.post('/shutdown', function (req, res) { // Shutdown Odi
+	ui.post('/shutdown', function(req, res){ // Shutdown Odi
 		_utils.shutdown();
 		res.writeHead(200);res.end();
 	});
 
-	ui.post('/mute', function (req, res) { // Mute Odi
+	ui.post('/mute', function(req, res){ // Mute Odi
 		_utils.mute();
 		res.writeHead(200);res.end();
 	});
 
 	var granted = false;
 	//var pwd = _fs.readFileSync(FILE_GRANT, 'UTF-8');
-	ui.post('/grant', function (req, res) { // Get grant status
+	ui.post('/grant', function(req, res){ // Get grant status
 
 		// console.log(req.headers);
 		// console.log(req.headers.pwd.slice(-2));
@@ -203,7 +211,7 @@ function startUI(mode){
 
 	if(mode < 1){ /////// WHEN ALIVE
 
-		ui.post('/tts', function (req, res) { // TTS ou Add Voice Mail Message
+		ui.post('/tts', function(req, res){ // TTS ou Add Voice Mail Message
 			tts = req.query;
 			// console.log(params);
 			if(tts.voice && tts.lg && tts.msg){
@@ -221,12 +229,12 @@ function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/lastTTS', function (req, res) { // Restart Odi
+		ui.post('/lastTTS', function(req, res){ // Restart Odi
 			_tts.lastTTS();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/checkVoiceMail', function (req, res) { // Check Voice Mail
+		ui.post('/checkVoiceMail', function(req, res){ // Check Voice Mail
 			if(!_voiceMail.checkVoiceMail()){
 				// _tts.speak('en', 'No voicemail message:1');
 				_tts.speak({voice: 'google', lg: 'en',msg: 'No voicemail message'});
@@ -234,12 +242,12 @@ function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/clearVoiceMail', function (req, res) { // Clear Voice Mail
+		ui.post('/clearVoiceMail', function(req, res){ // Clear Voice Mail
 			_voiceMail.clearVoiceMail();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/conversation', function (req, res) { // Conversation
+		ui.post('/conversation', function(req, res){ // Conversation
 			params = req.query;
 			if(/\d/.test(params.m)){
 				var rdmNb = txt.replace(/[^\d.]/g, '');
@@ -253,21 +261,21 @@ function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/idea', function (req, res) { // Idea...
+		ui.post('/idea', function(req, res){ // Idea...
 			// params = req.query;
 			// _tts.speak('en', 'I\'ve got an idea !');
 			_tts.speak({lg: 'en', msg: 'I\'ve got an idea !'});
 			res.writeHead(200);res.end();
 		});
 
-		/*ui.post('/russia', function (req, res) { // Russia
+		/*ui.post('/russia', function(req, res){ // Russia
 			// console.log('UI > Russia');
 			_exclamation.russia();
 			// _exclamation.russiaLoop();
 			res.writeHead(200);res.end();
 		});*/
 
-		ui.post('/russia', function (req, res) { // Russia
+		ui.post('/russia', function(req, res){ // Russia
 			params = req.query;
 			console.log(params);
 			if(params.hasOwnProperty('hymn')){
@@ -279,60 +287,60 @@ function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/exclamation', function (req, res) { // Exclamation
+		ui.post('/exclamation', function(req, res){ // Exclamation
 			_exclamation.exclamation();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/exclamationLoop', function (req, res) { // Exclamation Loop
+		ui.post('/exclamationLoop', function(req, res){ // Exclamation Loop
 			_exclamation.exclamationLoop();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/fip', function (req, res) { // FIP Radio
+		ui.post('/fip', function(req, res){ // FIP Radio
 			_fip.playFip();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/music/*', function (req, res) { // 
+		ui.post('/music/*', function(req, res){ // 
 			var song; // RECUPERER LE NOM DE LA CHANSON
 			if(!song) song = 'mouthTrick';
 			_deploy = _spawn('sh', [CORE_PATH + 'sh/music.sh', song]);
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/jukebox', function (req, res) { // Jukebox
+		ui.post('/jukebox', function(req, res){ // Jukebox
 			_jukebox.loop();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/medley', function (req, res) { // Medley
+		ui.post('/medley', function(req, res){ // Medley
 			_jukebox.medley();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/naheulbeuk', function (req, res) { // Nahleubeuk
+		ui.post('/naheulbeuk', function(req, res){ // Nahleubeuk
 			_deploy = _spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'Naheulbeuk']);
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/date', function (req, res) { // Date
+		ui.post('/date', function(req, res){ // Date
 			_service.date();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/age', function (req, res) { // Odi's Age
+		ui.post('/age', function(req, res){ // Odi's Age
 			_service.sayOdiAge();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/time', function (req, res) { // Time
+		ui.post('/time', function(req, res){ // Time
 			// console.log('UI > Time');
 			_service.time();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/timer', function (req, res) { // Timer
+		ui.post('/timer', function(req, res){ // Timer
 			params = req.query;
 			if(!isNaN(params.m)){
 				console.log('!isNaN(params.m)');
@@ -347,41 +355,41 @@ function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/meteo', function (req, res) { // Weather
+		ui.post('/meteo', function(req, res){ // Weather
 			_service.weather();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/info', function (req, res) { // Info
+		ui.post('/info', function(req, res){ // Info
 			_service.info();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/cpuTemp', function (req, res) { // TTS CPU Temp
+		ui.post('/cpuTemp', function(req, res){ // TTS CPU Temp
 			_service.cpuTemp();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/cigales', function (req, res) { // Cigales
+		ui.post('/cigales', function(req, res){ // Cigales
 			_deploy = _spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'cigales']);
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/setParty', function (req, res) { // Set Party Mode
+		ui.post('/setParty', function(req, res){ // Set Party Mode
 			_party.setParty();
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/test', function (req, res) { // Set Party Mode
+		ui.post('/test', function(req, res){ // Set Party Mode
 			_deploy = _spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'test']); //mouthTrick
 			res.writeHead(200);res.end();
 		});
-		ui.post('/*', function (req, res) { // Redirect Error
+		ui.post('/*', function(req, res){ // Redirect Error
 			console.error('UI > I’m a teapot !');
 			res.writeHead(418);res.end();
 		});
 	}else{
-		ui.post('/tts', function (req, res) { // Add Voice Mail Message
+		ui.post('/tts', function(req, res){ // Add Voice Mail Message
 			params = req.query;
 			// console.log(params);
 			if(params['voice'] && params['lg'] && params['msg']){
@@ -394,21 +402,21 @@ function startUI(mode){
 			}
 		});
 
-		ui.post('/*', function (req, res) { // Redirect Error
+		ui.post('/*', function(req, res){ // Redirect Error
 			//console.error('UI > Odi\'s sleeping   -.-');
 			console.log('Odi not allowed to interact  -.-');
 			res.writeHead(401);res.end();
 		});
 	}
 
-	ui.listen(8080, function () { // Listen port 8080
+	ui.listen(8080, function() { // Listen port 8080
 		console.log('Odi\'s UI server started [' + mode + ']');
 		_leds.blink({leds: ['satellite'], speed : 120, loop : 3})
 	});
 
 
 	/** SETTINGS SECTION */
-	ui.get('/settings', function (req, res){
+	ui.get('/settings', function(req, res){
 		var temp = parseInt(mode);
 		//console.log(temp);
 		var now = new Date();

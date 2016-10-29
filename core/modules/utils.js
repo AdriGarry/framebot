@@ -145,6 +145,14 @@ var setConfig = function(key, value, restart){
 };
 exports.setConfig = setConfig;
 
+/** Function to reset Odi's config */
+var resetConfig = function(restart){
+	console.debug('resetConfig()');
+	fs.createReadStream(DATA_PATH + 'conf.json').pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
+	if(restart) restartOdi();
+};
+exports.resetConfig = resetConfig;
+
 /** Fonction getFileContent */ // NOT USED !!
 var getFileContent = function(filePath){ // 
 var data = 'KO'; // ou undefined
