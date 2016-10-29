@@ -27,14 +27,13 @@ exports.addVoiceMailMessage = addVoiceMailMessage;
 
 
 var clearVoiceMailDelay;
-function checkVoiceMail(callback){
+function checkVoiceMail(cb){
 	// try{
 		console.log('Checking VoiceMail...');
-		console.log('checkVoiceMail()');
 		utils.getJsonFileContent(voiceMailFilePath, function(messages){
 			if(messages){
 				messages = JSON.parse(messages);
-				console.log(messages);
+				console.debug(messages);
 				tts.speak({voice:'espeak', lg:'en', msg:'Messages'});
 				tts.speak(messages);
 				if(clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
@@ -42,12 +41,12 @@ function checkVoiceMail(callback){
 					self.clearVoiceMail();
 				}, 10*60*1000);
 				console.log('VoiceMail will be cleared in 10 minutes.');
-				return true; // for other action...
+				cb(true); // for other action
 			}else{
 				console.log('No VoiceMail Message');
-		 		return false; // for other action...
+		 		cb(false); // for other action
 			}
-		});
+		}, callback);
 	// }catch(e){
 	// 	if(e.code === 'ENOENT'){
 	// 		console.log('No VoiceMail Message');
@@ -76,24 +75,25 @@ exports.voiceMailFlag = function voiceMailFlag(){
 
 /** Function to return number of voicemail message(s) */
 var areThereAnyMessages = function(){
-	// console.log('areThereAnyMessages()');
 	var nbMessages = 0;
-	// try{
-		// var messages = fs.readFileSync(voiceMailFilePath, 'UTF-8');
-		utils.getJsonFileContent(voiceMailFilePath, function(messages){
-			if(messages){
-				messages = JSON.parse(messages);
-				// console.log(messages);
-				nbMessages = messages.length; // -1 ?
-				// console.log(nbMessages);
-			}
-		});
-	// }catch(e){
-	// 	nbMessages = 0;
-	// }
-	/*console.log('AreThereAnyMessages ? '
-		+ (nbMessages > 0 ? 'YES, ' + nbMessages + ' messages !' : 'NO'));*/
+	try{
+		var messages = fs.readFileSync(voiceMailFilePath, 'UTF-8');
+		messages = JSON.parse(messages);
+		nbMessages = messages.length;
+		// utils.getJsonFileContent(voiceMailFilePath, function(messages){
+		// 	if(messages){
+		// 		messages = JSON.parse(messages);
+		// 		nbMessages = messages.length; // -1 ?
+		// 		console.log(nbMessages);
+		// 		return nbMessages || 0;
+		// 	}
+		// });
+
+	}catch(e){
+		nbMessages = 0;
+	}
 	return nbMessages;
+	//console.debug('AreThereAnyMessages ? ' + (nbMessages > 0 ? 'YES, ' + nbMessages + ' messages !' : 'NO'));
 };
 exports.areThereAnyMessages = areThereAnyMessages;
 

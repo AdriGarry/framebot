@@ -134,7 +134,7 @@ var setConfig = function(key, value, restart){
 			if(key == item){
 				if(!value) config[item] = !config[item];
 				else config[item] = value;
-				console.log('NEW CONFIG ' + item + ' value: ' + config[item]);
+				console.log('NEW CONFIG ' + item + ' value: ' + config[item], restart ? 'AND RESTART !' : '');
 			}
 		}
 		global.CONFIG = config;
@@ -197,17 +197,21 @@ var appendJsonFile = function(filePath, obj, callback){
 				if(err) console.log(err);
 				else{
 					fileData = JSON.parse(data);
+					console.debug('obj', obj);
+					console.debug('fileData', fileData);
 					fileData.push(obj);
-					fileData = JSON.stringify(fileData);
-					console.log(fileData);
+					fileData = JSON.stringify(fileData).replace(/\\/g, "").replace(/\"{/g, "{").replace(/\}"/g, "}");
+					console.debug(fileData);
 					fs.writeFile(filePath, fileData);
 				}
 			});
 		}else{
 			console.debug("file not exists")
 			fileData = [];
+			console.debug('obj', obj);
+			console.debug('fileData', fileData);
 			fileData.push(obj);
-			fileData = JSON.stringify(fileData);
+			fileData = JSON.stringify(fileData).replace(/\\/g, "").replace(/\"{/g, "{").replace(/\}"/g, "}");
 			console.debug(fileData);
 			fs.writeFile(filePath, fileData);
 		}

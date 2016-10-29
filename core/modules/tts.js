@@ -40,27 +40,25 @@ module.exports = { // Singleton
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts){
-	console.log('New tts', tts);
-	// if(tts.constructor === Array){
-	if(tts.constructor === Array){
-		console.log('TTS ARRAY !!');
+	if(Array.isArray(tts)){
+		console.log('TTS array object... processing');
 		tts.forEach(function(message){
 			if(message.msg){
-				ttsQueue.push(message);
+				speak(message);
 			}
 		});
+	}else{
+		if(tts.hasOwnProperty('msg')){
+			var ttsQueueLength = ttsQueue.length;
+			if(tts.msg.toUpperCase().indexOf('RANDOM') > -1){ // OR UNDEFINED !!
+				var rdmNb = ((Math.floor(Math.random()*messageListLength)));
+				tts = messageList[rdmNb];
+				console.log('Random TTS : ' + rdmNb + '/' + messageListLength);
+			}
+			ttsQueue.push(tts);
+			console.log('newTTS [' + tts.lg + ', ' + tts.voice + '] "' + tts.msg + '"');
+		}else console.debug(console.error('newTTS() Wrong TTS object ', tts));
 	}
-
-	if(tts.hasOwnProperty('msg')){
-		var ttsQueueLength = ttsQueue.length;
-		if(tts.msg.toUpperCase().indexOf('RANDOM') > -1){ // OR UNDEFINED !!
-			var rdmNb = ((Math.floor(Math.random()*messageListLength)));
-			tts = messageList[rdmNb];
-			console.log('Random TTS : ' + rdmNb + '/' + messageListLength);
-		}
-		ttsQueue.push(tts);
-		console.log('newTTS() "' + tts.msg + '"');
-	}else console.error('newTTS() Wrong TTS object');
 }
 
 /** Fonction conversation TTS */
@@ -110,7 +108,7 @@ setInterval(function(){
 		setTimeout(function(){
 			onAir = false;
 			leds.toggle({led: 'eye', mode: 0});
-		}, currentTTS.msg.length*50 + 1000);//*30 + 1500
+		}, currentTTS.msg.length*50 + 1500);//*30 + 1500
 	}
 }, 500);
 // }

@@ -70,9 +70,9 @@ tts.clearLastTTS(); // A REMONTER PLUS HAUT
 
 setTimeout(function(){
 	voiceMail.checkVoiceMail();
-}, 6000);
+}, 5000);
 
-//voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
+voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 
 
 // ------------------------//
@@ -80,6 +80,7 @@ setTimeout(function(){
 // ------------------------//
 
 var ttsTmp = {lg: "fr", voice: "espeak", msg: "test voicemail"};
+// console.log(ttsTmp);
 /*utils.appendJsonFile('/home/pi/odi/tmp/voicemail.json', ttsTmp, function(callback){
 	console.log(callback);
 });*/

@@ -242,10 +242,14 @@ function startUI(mode){
 		});
 
 		ui.post('/checkVoiceMail', function(req, res){ // Check Voice Mail
-			if(!_voiceMail.checkVoiceMail()){
-				// _tts.speak('en', 'No voicemail message:1');
-				_tts.speak({voice: 'google', lg: 'en',msg: 'No voicemail message'});
-			}
+			// if(!_voiceMail.checkVoiceMail()){
+			// 	_tts.speak({voice: 'espeak', lg: 'en',msg: 'No voicemail message'});
+			// }
+			_voiceMail.checkVoiceMail(function(anyMessage){
+				if(!anyMessage){
+					_tts.speak({voice: 'espeak', lg: 'en',msg: 'No voicemail message'});
+				}
+			});
 			res.writeHead(200);res.end();
 		});
 

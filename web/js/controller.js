@@ -17,7 +17,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 			color: 'grey',/*lightBlue*/
 			rowspan : 1,
 			colspan: 3,
-			voice: ':3',
+			voice: 'google',
 			lg: 'fr',
 			msg: '',
 			voicemail: false,

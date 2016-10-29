@@ -7,8 +7,8 @@
 
 		<form data-ng-submit="dashboard.ttsTile.submit()" class="mainContent">
 			<div layout="row" data-ng-show="dashboard.ttsTile.rowspan == 2">
-				<md-switch data-ng-model="dashboard.ttsTile.voice" data-ng-true-value="':1'" data-ng-false-value="':3'" class="voiceSwitch desktopZoom"
-					ng-class="dashboard.ttsTile.voice == ':3' ? 'md-warn' : 'md-primary'">
+				<md-switch data-ng-model="dashboard.ttsTile.voice" data-ng-true-value="'espeak'" data-ng-false-value="'google'" class="voiceSwitch desktopZoom"
+					ng-class="dashboard.ttsTile.voice == 'google' ? 'md-warn' : 'md-primary'">
 					<span>Human Voice</span>
 					<span>Robot Voice</span>
 				</md-switch>
