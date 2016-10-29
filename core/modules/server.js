@@ -98,6 +98,7 @@ function startUI(mode){
 	ui.post('/toggleDebug', function (req, res) { // Time
 		console.debug('UI > Toggle debug');
 		_utils.setConfig('debug');
+		_utils.restartOdi();
 		res.writeHead(200);res.end();
 	});
 
@@ -112,7 +113,7 @@ function startUI(mode){
 		}
 		var dashboard = {
 			mode: {value: {
-				mode: isNaN(parseFloat(mode)) ? 'Ready' : 'Sleep',
+				mode: CONFIG.debug ? 'Debug' : (isNaN(parseFloat(mode)) ? 'Ready' : 'Sleep'),
 				param: isNaN(parseFloat(mode)) ? _utils.getStartTime() : parseInt(mode)}},
 			switch: {value: _buttons.getEtat()}, 
 			volume: {value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'high' : 'normal') : 'mute'},

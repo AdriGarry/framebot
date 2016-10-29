@@ -105,7 +105,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 			[{label: 'Conversation', icon: 'comments-o', url: '/conversation'},{label: 'TTS', icon: 'commenting-o', url: '/tts?msg=RANDOM'},{label: 'Exclamation', icon: 'bullhorn', url: '/exclamation'},{label: 'Last TTS', icon: 'undo', url: '/lastTTS'}]),
 		jukebox: new Tile(6, 'Jukebox', 'teal', 1, 1, CUSTOM, 'fip',
 			[{label: 'Jukebox', icon: 'random', url: '/jukebox'},{label: 'FIP Radio', icon: 'globe', url: '/fip'}]).bindHTML('jukebox'),
-		cpu: new Tile(10, 'CPU', 'lime', 1, 1, CUSTOM, {usage: 2, temp: 51},
+		cpu: new Tile(10, 'CPU', 'lime', 1, 2, CUSTOM, {usage: 2, temp: 51},
 			[{url: '/cpuTemp'}]).bindHTML('cpu'),
 		weather: new Tile(11, 'Weather', 'teal', 1, 1, ICON, 'cloud',
 			[{url: '/meteo'}]),
