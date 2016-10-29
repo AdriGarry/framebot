@@ -125,6 +125,25 @@ function prepareLogs(lines, callback){
 };
 exports.prepareLogs = prepareLogs;
 
+/** Function to set/edit Odi's config */
+var setConfig = function(key, value){
+	console.debug('setConfig()', key, value);
+	getJsonFileContent(CONFIG_FILE, function(data){
+		var config = JSON.parse(data);
+		for(var item in config){
+			if(key == item){
+				if(!value) config[item] = !config[item];
+				else config[item] = value;
+				console.log('NEW CONFIG ' + item + ' value: ' + config[item]);
+			}
+		}
+		global.CONFIG = config;
+		console.debug(CONFIG);
+		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
+	});
+};
+exports.setConfig = setConfig;
+
 /** Fonction getFileContent */ // NOT USED !!
 var getFileContent = function(filePath){ // 
 var data = 'KO'; // ou undefined
@@ -140,21 +159,14 @@ exports.getFileContent = getFileContent;
 
 /** Fonction getJsonFileContent */
 var getJsonFileContent = function(filePath, callback){
-	console.log('getJsonFileContent()');
+	// console.debug('getJsonFileContent() ', filePath);
 	// try{
 		fs.readFile(filePath, function(err, data){
-			// if(err){
-			// 	if(err.code === 'ENOENT'){
-			// 		console.log('No file : ' + filePath);
-
-			// 	}else{
-			// 		//throw err;
-			// 	}
-			// }
 			if(err && err.code === 'ENOENT'){
-				console.error('No file : ' + filePath);
+				// console.debug(console.error('No file : ' + filePath));
 				callback(null);
 			}
+			// console.debug(data);
 			callback(data);
 		});
 	// }catch(e){
@@ -168,9 +180,10 @@ exports.getJsonFileContent = getJsonFileContent;
 /** Function to append object in JSON file */
 var fileData;
 var appendJsonFile = function(filePath, obj, callback){
+	console.debug('appendJsonFile() ', filePath, obj);
 	fs.exists(filePath, function(exists){
 		if(exists){
-			console.log("yes file exists");
+			console.debug("yes file exists");
 			fs.readFile(filePath, function(err, data){
 				if(err) console.log(err);
 				else{
@@ -182,11 +195,11 @@ var appendJsonFile = function(filePath, obj, callback){
 				}
 			});
 		}else{
-			console.log("file not exists")
+			console.debug("file not exists")
 			fileData = [];
 			fileData.push(obj);
 			fileData = JSON.stringify(fileData);
-			console.log(fileData);
+			console.debug(fileData);
 			fs.writeFile(filePath, fileData);
 		}
 	});
@@ -244,7 +257,6 @@ var restartOdi = function(mode){
 	}
 };
 exports.restartOdi = restartOdi;
-
 
 //Create function to get CPU information
 function cpuAverage() {

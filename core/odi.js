@@ -4,9 +4,20 @@
 /** Odi's global variables  */
 global.ODI_PATH = '/home/pi/odi/';
 global.CORE_PATH = '/home/pi/odi/core/';
+global.CONFIG_FILE = '/home/pi/odi/data/conf.json';
 global.DATA_PATH = '/home/pi/odi/data/';
 global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
+global.TMP_PATH = '/home/pi/odi/tmp/';
+
+/** Setting up Odi's config */
+global.CONFIG = require(CONFIG_FILE);
+console.log('global.CONFIG', global.CONFIG);
+
+/** Debug Mode */
+if(CONFIG.debug) console.debug = console.log;
+else console.debug = function(){};
+console.debug('\n---------------------\n', '-> ->  DEBUG MODE !!');
 
 var mode = process.argv[2]; // Recuperation des arguments
 console.log('>> Odi Core started' + (mode ? ' [mode:' + mode + ']' : ''));
@@ -61,7 +72,7 @@ setTimeout(function(){
 	voiceMail.checkVoiceMail();
 }, 6000);
 
-voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
+//voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 
 
 // ------------------------//

@@ -65,7 +65,7 @@ exports.voiceMailFlag = function voiceMailFlag(){
 	setInterval(function(){
 		// nbMessages = areThereAnyMessages();
 		areThereAnyMessages(function(nbMessages){
-			console.log('nbMessages : ' + nbMessages);
+			console.log('nbMessages : ', nbMessages);
 			if(nbMessages > 0){ // if(nbMessages)
 				//console.log('Odi have ' + nbMessages + ' message(s)');
 				leds.blink({leds: ['belly'], speed: 200, loop: 2});
@@ -76,16 +76,16 @@ exports.voiceMailFlag = function voiceMailFlag(){
 
 /** Function to return number of voicemail message(s) */
 var areThereAnyMessages = function(){
-	console.log('areThereAnyMessages()');
+	// console.log('areThereAnyMessages()');
 	var nbMessages = 0;
 	// try{
 		// var messages = fs.readFileSync(voiceMailFilePath, 'UTF-8');
 		utils.getJsonFileContent(voiceMailFilePath, function(messages){
 			if(messages){
 				messages = JSON.parse(messages);
-				console.log(messages);
+				// console.log(messages);
 				nbMessages = messages.length; // -1 ?
-				console.log(nbMessages);
+				// console.log(nbMessages);
 			}
 		});
 	// }catch(e){

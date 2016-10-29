@@ -94,6 +94,13 @@ function startUI(mode){
 		res.end(JSON.stringify(activity));
 	});
 
+	/** TOGGLE DEBUG MODE */
+	ui.post('/toggleDebug', function (req, res) { // Time
+		console.debug('UI > Toggle debug');
+		_utils.setConfig('debug');
+		res.writeHead(200);res.end();
+	});
+
 	/** DASHBOARD SECTION */
 	ui.get('/dashboard', function (req, res){
 		var temp = parseInt(mode);

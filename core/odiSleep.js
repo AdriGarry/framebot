@@ -3,9 +3,19 @@
 /** Odi's global variables  */
 global.ODI_PATH = '/home/pi/odi/';
 global.CORE_PATH = '/home/pi/odi/core/';
+global.CONFIG_FILE = '/home/pi/odi/data/conf.json';
 global.DATA_PATH = '/home/pi/odi/data/';
 global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
+
+/** Setting up Odi's config */
+global.CONFIG = require(CONFIG_FILE);
+console.log('global.CONFIG', global.CONFIG);
+
+/** Debug Mode */
+if(CONFIG.debug) console.debug = console.log;
+else console.debug = function(){};
+console.debug('\n---------------------\n', '-> ->  DEBUG MODE !!');
 
 var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;

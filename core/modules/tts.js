@@ -16,7 +16,7 @@ const messageListLength = messageList.length;
 
 const CONVERSATIONS_PATH = '/home/pi/odi/data/ttsConversations.properties';
 // const conversations = fs.readFileSync(CONVERSATIONS_PATH, 'UTF-8').toString().split('\n\n'); // \r\n
-const conversations = require(CONVERSATIONS_PATH);
+const conversations = require('/home/pi/odi/data/ttsConversations.json');
 const rdmMaxConversations = conversations.length;
 const LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.log';
 
@@ -40,8 +40,8 @@ module.exports = { // Singleton
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts){
-	console.log(tts);
-	// console.log(tts.constructor);
+	console.log('New tts', tts);
+	// if(tts.constructor === Array){
 	if(tts.constructor === Array){
 		console.log('TTS ARRAY !!');
 		tts.forEach(function(message){
@@ -127,7 +127,7 @@ var playTTS = function(tts){
 	if(!tts.hasOwnProperty('lg') || LG_LIST.indexOf(tts.lg) == -1){ // Fr language if undefined
 		tts.lg = 'fr';
 	}
-	console.log('playTTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
+	console.debug('playTTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]);
 	/*leds.blink({leds: ['eye'], speed: Math.random() * (200 - 30) + 30, loop: 4});*/
 
