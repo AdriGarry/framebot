@@ -68,9 +68,10 @@ app.factory('Tile', function(){
 					// html = '<table><tr><td rowspan="2" class="mainInfo"><i class="fa fa-heartbeat"></i></td><td>';
 					// html += '<div class="value inline">' + this.value.usage + '<small>%</small></div></td></tr><tr><td>';
 					// html += '<div class="value inline">' + this.value.temp + '<small>°C</small></div></td></tr></table>';
-					html = '<table class="cpu"><tr><td><i class="mainInfo fa fa-microchip"></i>';
+					html = '<table class="cpu"><tr><td><i class="mainInfo fa fa-microchip"></i>&nbsp;';
 					html += '<div class="value inline">' + this.value.usage + '<small>%</small></div></td>';
-					html += '<td><i class="mainInfo fa fa-thermometer-half"></i>&nbsp;' + this.value.temp + '<small>°C</small></div></td></tr></table>';
+					html += '<td><i class="mainInfo fa fa-thermometer-half"></i>&nbsp;<div class="value inline">' 
+					+ this.value.temp + '<small>°C</small></div></td></tr></table>';
 					break;
 				case 'alarms':
 					html = '<i class="mainInfo fa fa-bell-o"></i>';

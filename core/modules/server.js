@@ -121,11 +121,11 @@ function startUI(mode){
 		var cpuTemp = _utils.getCPUTemp();
 		var dashboard = {
 			mode: {value: {
-				mode: CONFIG.debug ? 'Debug' : (isNaN(parseFloat(mode)) ? 'Ready' : 'Sleep'),
+				mode: isNaN(parseFloat(mode)) ? 'Ready' : 'Sleep',
 				param: isNaN(parseFloat(mode)) ? _utils.getStartTime() : parseInt(mode)},
 				active: CONFIG.debug},
-			switch: {value: _buttons.getEtat(), active: true}, 
-			volume: {value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute', active: etatBtn == 1 ? true : false},
+			switch: {value: etatBtn, active: etatBtn ? true : false}, 
+			volume: {value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute', active: (isNaN(temp) && etatBtn == 1) ? true : false},
 			voicemail: {value: _voiceMail.areThereAnyMessages(), active: _voiceMail.areThereAnyMessages()>0 ? true : false},
 			jukebox: {value: '<i>Soon available</i>', active: false},
 			timer: {value: _service.timeLeftTimer(), active: _service.timeLeftTimer()>0 ? true : false},
