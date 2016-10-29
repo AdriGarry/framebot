@@ -69,6 +69,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 						break;
 						default:
 							$scope.dashboard.tileList[key].value = data[key].value;
+							$scope.dashboard.tileList[key].value = data[key].value;
 							$scope.dashboard.tileList[key].active = data[key].active;
 							$scope.dashboard.tileList[key].bindHTML(key);
 					}

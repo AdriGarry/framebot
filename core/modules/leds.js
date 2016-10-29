@@ -5,7 +5,20 @@
 var Gpio = require('onoff').Gpio;
 var CronJob = require('cron').CronJob;
 
-var self = this;
+//var self = this;
+
+module.exports = {
+	blink: blink,
+	toggle: toggle,
+	activity: activity,
+	altLeds: altLeds,
+	clearLeds: clearLeds,
+	buttonPush: buttonPush,
+	ledOn: ledOn,
+	ledOff: ledOff,
+	allLedsOn: allLedsOn,
+	allLedsOff: allLedsOff
+}
 
 /** Fonction clignotement
  * @param config : {
@@ -14,12 +27,11 @@ var self = this;
  *		loop : number (<1)
  }
  */
-var blink = function(config){
-	// console.info(config);
+function blink(config){
+	// console.log(config);
 	try{
 		var etat = 1, loop;
 		if(config.hasOwnProperty('leds')){
-			// config.hasOwnProperty('loop')
 			setTimeout(function(){
 				for(var led in config.leds){
 					// console.log(config.leds[led] + '  => END');
@@ -41,7 +53,7 @@ var blink = function(config){
 		console.error(e);
 	}
 };
-exports.blink = blink;
+// exports.blink = blink;
 
 /** Function to toggle a led
  * @param config : {
@@ -49,54 +61,42 @@ exports.blink = blink;
  *		mode : true/false
  }
  */
-var toggle = function(config){
-	// console.info('toogle() ' + config.led + (config.mode ? ' on':' off'));
+function toggle(config){
+	// console.log('toogle() ' + config.led + (config.mode ? ' on':' off'));
 	if(['nose', 'eye', 'satellite', 'belly'].indexOf(config.led) > -1){
 		eval(config.led).write(config.mode? 1 : 0);
 	}
-	/*try{
-	}catch(e){
-		console.error(e);
-	}*/
-
 };
-exports.toggle = toggle;
+// exports.toggle = toggle;
 
-
-/** Fonction activity : temoin mode programme (normal/veille) */
-var activity = function(mode){
+/** Function activity : program mode flag (ready/sleep) */
+function activity(mode){
 	if(typeof mode === 'undefined') mode = 'awake';
 	console.log('Led Activity initialised [' + mode + ']');
 	mode = parseInt(mode, 10);
-	if(mode > 0){
-		mode = 0;
-	}else{
-		
-		mode = 1;
-	}
+	if(mode > 0) mode = 0;
+	else mode = 1;
 	setInterval(function(){
 		led.write(mode);
-	}, 1000);
+	}, 900);
 
 	new CronJob('*/3 * * * * *', function(){
 		// leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
-		self.blink({leds: ['nose'], speed: 200, loop: 1}); // Initialisation du temoin d'activite 2/2
+		blink({leds: ['nose'], speed: 200, loop: 1}); // Initialisation du temoin d'activite 2/2
 	}, null, 1, 'Europe/Paris');
 };
-exports.activity = activity;
+// exports.activity = activity;
 
-
-var timer;
 /** Fonction verification de la config blink LEDS  */
-var findOne = function (haystack, arr){
+/*function findOne(haystack, arr){ // NOT EXPORTED !!
 	return arr.some(function (v){
 		return haystack.indexOf(v) >= 0;
 	});
-};
+};*/
 
-
-/** Fonction clignotement alterne Oeil/Ventre */
-var altLeds = function(speed, duration){
+var timer;
+/** Function to start inverted blink (Eye/Belly) */
+function altLeds(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
 	timer = setInterval(function(){
@@ -110,16 +110,16 @@ var altLeds = function(speed, duration){
 		belly.write(0);
 	}, duration*1000);
 };
-exports.altLeds = altLeds;
+// exports.altLeds = altLeds;
 
-/** Fonction annulation clignotements */
-var clearLeds = function(){
+/** Function to cancel blinkState */
+function clearLeds(){
 	clearInterval(timer);
 };
-exports.clearLeds = clearLeds;
+// exports.clearLeds = clearLeds;
 
-/** Fonction temoin pression bouton */
-var buttonPush = function(param){
+/** Function pushed button flag */
+function buttonPush(param){
 	if(param == 'stop'){
 		belly.write(0);
 	}else{
@@ -132,10 +132,10 @@ var buttonPush = function(param){
 		}, 1000);		
 	}
 };
-exports.buttonPush = buttonPush;
+// exports.buttonPush = buttonPush;
 
-/** Fonction allumage Led */
-var ledOn = function(led){
+/** Function to swith on a led */
+function ledOn(led){
 	if(led == 'led'){
 		led.write(1);
 	}else if(led == 'eye'){
@@ -146,10 +146,10 @@ var ledOn = function(led){
 		satellite.write(1);
 	}
 };
-exports.ledOn = ledOn;
+// exports.ledOn = ledOn;
 
-/** Fonction extinction Led */
-var ledOff = function(led){
+/** Function to swith off a led */
+function ledOff(led){
 	if(led == 'led'){
 		led.write(0);
 	}else if(led == 'eye'){
@@ -160,22 +160,22 @@ var ledOff = function(led){
 		satellite.write(0);
 	}
 };
-exports.ledOff = ledOff;
+// exports.ledOff = ledOff;
 
-/** Fonction extinction all Leds */
-var allLedsOff = function(){
-	eye.write(0);
-	belly.write(0);
-	satellite.write(0);
-	led.write(0);
-};
-exports.allLedsOff = allLedsOff;
-
-/** Fonction allumage all Leds */
-var allLedsOn = function(){
+/** Function to switch on all leds */
+function allLedsOn(){
 	eye.write(1);
 	belly.write(1);
 	satellite.write(1);
 	led.write(1);
 };
-exports.allLedsOn = allLedsOn;
+// exports.allLedsOn = allLedsOn;
+
+/** Function to swith off all leds */
+function allLedsOff(){
+	eye.write(0);
+	belly.write(0);
+	satellite.write(0);
+	led.write(0);
+};
+// exports.allLedsOff = allLedsOff;
