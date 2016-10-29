@@ -298,7 +298,7 @@ md-grid-list md-grid-tile i.adminFlag{
 	position:absolute;
 	top:0.3em;
 	right:0.6em;
-	color:#34444b;
+	color:#546d78;
 }
 /*md-grid-list md-grid-tile md-grid-tile-footer h3 i.adminFlag{
 	position:absolute;
@@ -488,6 +488,13 @@ footer p a:hover{
 	span.responsive span.mode small{
 		font-size:0.6em;
 	}
+
+	md-grid-list md-grid-tile i.adminFlag{
+		top:0.2em;
+		right:0.3em;
+		font-size:0.8em;
+	}
+
 	figure .mainInfo{
 		font-size:10vw;
 	}

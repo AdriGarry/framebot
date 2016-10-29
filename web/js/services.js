@@ -121,14 +121,14 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 			[{url: '/setParty'}]),
 		russia: new Tile(14, 'Russia', 'orange', 1, 1, ICON, 'star',
 			[{label: 'Subway / Street', icon: 'subway', url: '/russia'},{label: 'Hymn', icon: 'star', url: '/russia?hymn'}]),
-		logs: new Tile(16, 'Logs', 'blueGrey', 1, 1, ICON, 'file-text-o',
-			[{label: 'Voicemail History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/voicemailHistory'},{label: 'Request History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/requestHistory'},{label: 'Config', icon: 'sliders', url: 'http://odi.adrigarry.com/config.json'}]),
-		cigales: new Tile(17, 'Cigales', 'lime', 1, 1, ICON, 'bug',
-			[{url: '/cigales'}]),
 		idea: new Tile(15, 'Idea', 'blue', 1, 1, ICON, 'lightbulb-o',
 			[{label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk'},{label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{label: 'Test', icon: 'flag-checkered', url:'/test'}]),
+		cigales: new Tile(17, 'Cigales', 'lime', 1, 1, ICON, 'bug',
+			[{url: '/cigales'}]),
 		system: new Tile(18, 'System', 'lightGreen', 1, 1, ICON, 'power-off',
 			[{label: 'Shutdown Odi', icon: 'power-off', url: '/shutdown'},{label: 'Reboot Odi', icon: 'refresh', url: '/reboot'}]),
+		logs: new Tile(16, 'Logs', 'blueGrey', 1, 1, ICON, 'file-text-o',
+			[{label: 'Voicemail History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/voicemailHistory'},{label: 'Request History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/requestHistory'},{label: 'Config', icon: 'sliders', url: 'http://odi.adrigarry.com/config.json'}]),
 		about: new Tile(19, 'About', 'grey', 1, 2, CUSTOM, '', []).bindHTML('about')
 	};
 

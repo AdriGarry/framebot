@@ -51,7 +51,7 @@ function weather(){
 exports.weather = weather; 
 
 /** Fonction info heure */
-function time(){
+function timeNow(){
 	console.log('Service Time...');
 	var date = new Date();
 	var hour = date.getHours();
@@ -63,7 +63,7 @@ function time(){
 		tts.speak({lg: 'fr', msg: tmp});
 	}
 };
-exports.time = time;
+exports.timeNow = timeNow;
 
 /** Function to say current date */
 const days = fs.readFileSync('/home/pi/odi/data/date.days.properties', 'UTF-8').toString().split('\n');
@@ -186,7 +186,7 @@ var randomAction = function(){
 					tts.conversation('RANDOM');
 					break;
 				case 8:
-					time();
+					timeNow();
 					break;
 				case 9:
 					date();
