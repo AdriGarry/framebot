@@ -71,7 +71,7 @@ function startUI(mode){
 				}
 			});
 		}
-		if(req.headers.ui === 'v3' || req.url == '/voicemailHistory' || req.url == '/requestHistory'){
+		if(req.headers.ui === 'v3' || req.url == '/config.json' || req.url == '/voicemailHistory' || req.url == '/requestHistory'){
 			next();
 		}else{
 			res.status(401);//Unauthorized
@@ -117,17 +117,18 @@ function startUI(mode){
 		if(temp > h){
 			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
 		}
+		var cpuTemp = _utils.getCPUTemp();
 		var dashboard = {
 			mode: {value: {
 				mode: CONFIG.debug ? 'Debug' : (isNaN(parseFloat(mode)) ? 'Ready' : 'Sleep'),
 				param: isNaN(parseFloat(mode)) ? _utils.getStartTime() : parseInt(mode)},
 				active: CONFIG.debug},
-			switch: {value: _buttons.getEtat(), active: false}, 
+			switch: {value: _buttons.getEtat(), active: true}, 
 			volume: {value: isNaN(temp) ? (_buttons.getEtat() == 1 ? 'high' : 'normal') : 'mute', active: false},
 			voicemail: {value: _voiceMail.areThereAnyMessages(), active: _voiceMail.areThereAnyMessages()>0 ? true : false},
 			jukebox: {value: '<i>Soon available</i>', active: false},
 			timer: {value: _service.timeLeftTimer(), active: _service.timeLeftTimer()>0 ? true : false},
-			cpu: {value: {usage: _utils.getCPUUsage(), temp: _utils.getCPUTemp()}, active: false},
+			cpu: {value: {usage: _utils.getCPUUsage(), temp: cpuTemp}, active: cpuTemp > 55 ? true : false},
 			alarms: {value: '<i>Soon available</i>', active: false},
 			version: {value: CONFIG.version},
 			debug: {value: CONFIG.debug}
@@ -147,6 +148,11 @@ function startUI(mode){
 		_utils.prepareLogs(logSize, function(log){
 			res.end(log);
 		});
+	});
+
+	ui.get('/config.json', function(req, res) { // Send Request History
+		res.writeHead(200);
+		res.end(_fs.readFileSync(CONFIG_FILE, 'utf8').toString());
 	});
 
 	ui.get('/requestHistory', function(req, res) { // Send Request History

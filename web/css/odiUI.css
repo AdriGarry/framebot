@@ -98,9 +98,9 @@ img.odiFace.odiOff{
 }
 .toolbar sup.version{
 	margin-right:1em;
-	font-size:0.7em;
+	font-size:0.6em;
 	font-style:italic;
-	color:#879fab;
+	color:#b4c3cb;
 }
 .toolbar .debug{
 	font-style:italic;
@@ -411,7 +411,7 @@ footer p a:hover{
 		right:5%;
 	}
 	/*img + h1*/.toolbar h1{
-		margin-left:4.5em;
+		margin-left:5em;
 	}
 	.logButton{
 		zoom:1.3;
@@ -428,7 +428,7 @@ footer p a:hover{
 	.desktopOnlyInline{display:none;}
 
 	.toolbar h1{
-		margin-left:4em;
+		margin-left:3.6em;/*4em*/
 	}
 	.main{
 		padding-top:80px;
