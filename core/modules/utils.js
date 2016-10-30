@@ -313,7 +313,8 @@ function getCPUTemp(callback){
 /** Function to return Odi's age => To service.js
  * @return age in days
  */
-const DATE_BIRTH = new Date('August 9, 2015 00:00:00'), age = 0;
+const DATE_BIRTH = new Date('August 9, 2015 00:00:00');
+var age = 0;
 function getOdiAge(){
 	age = Math.abs(DATE_BIRTH.getTime() - new Date());
 	age = Math.ceil(age / (1000 * 3600 * 24));

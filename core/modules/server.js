@@ -119,6 +119,7 @@ function startUI(mode){
 		}
 		var etatBtn = buttons.getEtat();
 		var cpuTemp = utils.getCPUTemp();
+		var cpuUsage = utils.getCPUUsage();
 		var dashboard = {
 			mode: {value: {
 				mode: isNaN(parseFloat(mode)) ? 'Ready' : 'Sleep',
@@ -129,7 +130,7 @@ function startUI(mode){
 			voicemail: {value: voiceMail.areThereAnyMessages(), active: voiceMail.areThereAnyMessages()>0 ? true : false},
 			jukebox: {value: '<i>Soon available</i>', active: false},
 			timer: {value: service.timeLeftTimer(), active: service.timeLeftTimer()>0 ? true : false},
-			cpu: {value: {usage: utils.getCPUUsage(), temp: cpuTemp}, active: cpuTemp > 55 ? true : false},
+			cpu: {value: {usage: cpuUsage, temp: cpuTemp}, active: (cpuTemp > 55 || cpuUsage >= 20) ? true : false},
 			alarms: {value: '<i>Soon available</i>', active: false},
 			version: {value: CONFIG.version},
 			debug: {value: CONFIG.debug}

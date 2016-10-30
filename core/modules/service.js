@@ -183,7 +183,7 @@ var randomAction = function(){
 				case 6:
 				case 7:
 					sayOdiAge();
-					tts.conversation('RANDOM');
+					//tts.conversation('RANDOM');
 					break;
 				case 8:
 					timeNow();
@@ -193,7 +193,8 @@ var randomAction = function(){
 					break;
 				case 10:
 				case 11:
-					weather();
+					// weather();
+					adriExclamation();
 					break;
 				case 12:
 					cpuTemp();
@@ -206,6 +207,12 @@ var randomAction = function(){
 };
 exports.randomAction = randomAction;
 
+/** Function 'Aaaadri' speech */
+var adriExclamation = function(){
+	console.log('adriExclamation()');
+	tts.speak({voice: 'google', lg:'ru', msg:'hey, a3'});
+};
+exports.adriExclamation = adriExclamation;
 
 /** Fonction info temperature processeur */
 /** utilisation normale : 40 à 60 degres */

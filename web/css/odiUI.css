@@ -102,9 +102,6 @@ img.odiFace.odiOff{
 	font-style:italic;
 	color:#b4c3cb;
 }
-.toolbar .debug{
-	font-style:italic;
-}
 .toolbar .fa-key{
 	opacity:0.5;
 }
@@ -180,6 +177,9 @@ md-sidenav div{
 	font-stretch:condensed;
 	word-break:break-all;
 	white-space:pre-wrap;
+}
+.logs ul li{
+	line-height:1.1em;
 }
 .logs ul li .timeLog{
 	color:#b3b3b3;

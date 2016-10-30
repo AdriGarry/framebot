@@ -45,6 +45,7 @@ function speak(tts){
 		var rdmNb = ((Math.floor(Math.random()*messageListLength)));
 		tts = messageList[rdmNb];
 		console.log('Random TTS : ' + rdmNb + '/' + messageListLength);
+		ttsQueue.push(tts);
 	}else{
 		if(tts.hasOwnProperty('msg')){
 			var ttsQueueLength = ttsQueue.length;

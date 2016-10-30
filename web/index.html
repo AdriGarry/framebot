@@ -45,7 +45,7 @@
 				<sup class="version" title="version">{{dashboard.version}}&nbsp;</sup>
 			</h1>
 			<span flex></span>
-			<!--<i class="debug fa fa-2x fa-fw fa-terminal" data-ng-if="dashboard.debug"></i>&nbsp;-->
+			<i class="debug fa fa-2x fa-fw fa-circle" data-ng-if="dashboard.debug"></i>&nbsp;
 			<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch><!--data-ng-if="irda"-->
 			<md-button class="md-icon-button" data-ng-click="showDialogGrant($event)" data-ng-class="irda ? 'admin' : ''" title="Admin" aria-label="Admin"><!-- grant()-->
 				<i class="fa fa-2x fa-lg fa-key"></i>
@@ -80,8 +80,7 @@
 				<i class="fa fa-bell-slash-o"></i>
 			</md-button>
 			<md-button data-ng-click="showLogs()" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
-				<i class="fa fa-2x fa-flag-checkered" data-ng-if="dashboard.debug"></i><!--rocket/eercast-->
-				<i class="fa fa-2x fa-flag-o" data-ng-if="!dashboard.debug"></i>
+				<i class="fa fa-2x fa-rocket"></i>
 			</md-button>
 
 			<md-progress-circular md-diameter="150" data-ng-show="loading"></md-progress-circular>

@@ -105,7 +105,8 @@ var setAlarms = function(){
 				}, 4000);
 				setTimeout(function(){
 					//service.weather();
-					service.sayOdiAge();
+					// service.sayOdiAge();
+					spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'bonjourBonjour']);
 				}, 7*1000);
 				setTimeout(function(){
 					fip.playFip();
@@ -202,8 +203,6 @@ var setAutoLifeCycle = function(param){
 var setBackgroundJobs = function(){
 	console.log('Background jobs initialised');
 	new CronJob('0 2,32 * * * *', function() {
-	// new CronJob('*/5 * * * * * ', function() {
-		console.debug('TEST IF ODI IS IN DEBUT MODE...');
 		if(CONFIG.debug){
 			console.debug('ODI IS IN DEBUG MODE? LET\'S RESTART !!');
 			utils.setConfig('debug', null, true);

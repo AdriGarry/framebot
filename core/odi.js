@@ -12,16 +12,16 @@ global.TMP_PATH = '/home/pi/odi/tmp/';
 
 /** Setting up Odi's config */
 global.CONFIG = require(CONFIG_FILE);
-console.log('CONFIG', CONFIG);
 
 /** Debug Mode */
 if(CONFIG.debug) console.debug = console.log;
 else console.debug = function(o){};
-console.debug('\n---------------------\n', '-> ->  DEBUG MODE !!');
 
 var mode = process.argv[2]; // Recuperation des arguments
-console.log('>> Odi Core started' + (mode ? ' [mode:' + mode + ']' : ''));
-// ODI's Core version...
+console.log('>> Odi Core started',(mode ? '[mode:' + mode + ']' : ''));
+console.debug('\n---------------------\n', '-> ->  DEBUG MODE !!');
+
+console.log('CONFIG', CONFIG);
 
 var Gpio = require('onoff').Gpio;
 var gpioPins = require('./modules/gpioPins.js');
@@ -79,6 +79,8 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 // ----- TEST SECTION -----//
 // ------------------------//
 
+service.adriExclamation();
+
 var ttsTmp = {lg: "fr", voice: "espeak", msg: "test voicemail"};
 // console.log(ttsTmp);
 /*utils.appendJsonFile('/home/pi/odi/tmp/voicemail.json', ttsTmp, function(callback){
@@ -105,6 +107,7 @@ tts.speak({});*/
 setTimeout(function(){
 	// tts.speak({voice: 'espeak', msg: 'Il pleut dehors'});
 	// service.time();
+	// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'bonjourBonjour']);
 }, 5000);
 
 new CronJob('*/4 * * * * *', function(){
