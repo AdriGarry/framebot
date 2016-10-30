@@ -12,53 +12,26 @@ var fip = require('./fip.js');
 // var voiceMail = require('./voiceMail.js');
 const self = this;
 
-/*module.exports = {
-	mute: function(message){
-		return mute(message);
-	},
-	autoMute: function(message){
-		return autoMute(message);
-	},
-	getStartTime: function(){
-		return getStartTime();
-	},
-	formatedDate: function(){
-		return formatedDate();
-	},
-	prepareLogs: function(lines, callback){
-		return prepareLogs(lines, callback);
-	},
-	getFileContent: function(filePath){
-		return getFileContent(filePath);
-	},
-	testConnexion: function(callback){
-		return testConnexion(callback);
-	},
-	reboot: function(){
-		return reboot();
-	},
-	shutdown: function(){
-		return shutdown();
-	},
-	restartOdi: function(mode){
-		return restartOdi(mode);
-	},
-	cpuAverage: function(){
-		return cpuAverage();
-	},
-	getCPUUsage: function(){
-		return getCPUUsage();
-	},
-	getCPUTemp: function(callback){
-		return getCPUTemp(callback);
-	},
-	getOdiAge: function(){
-		return getOdiAge();
-	},
-	getMsgLastGitCommit: function(callback){
-		return getMsgLastGitCommit(callback);
-	}
-}*/
+module.exports = {
+	mute: mute,
+	autoMute: autoMute,
+	getStartTime : getStartTime,
+	formatedDate: formatedDate,
+	prepareLogs: prepareLogs,
+	setConfig: setConfig,
+	resetConfig: resetConfig,
+	getFileContent: getFileContent,
+	getJsonFileContent: getJsonFileContent,
+	appendJsonFile: appendJsonFile,
+	testConnexion: testConnexion,
+	restartOdi: restartOdi,
+	reboot: reboot,
+	shutdown: shutdown,
+	getCPUUsage: getCPUUsage,
+	getCPUTemp: getCPUTemp,
+	getOdiAge: getOdiAge,
+	getMsgLastGitCommit: getMsgLastGitCommit
+};
 
 /** Function to mute Odi */
 function mute(message){
@@ -68,7 +41,7 @@ function mute(message){
 	eye.write(0);
 	belly.write(0);
 };
-exports.mute = mute;
+// exports.mute = mute;
 
 /** Function to auto mute Odi in 60 minutes */
 var muteTimer;
@@ -88,11 +61,11 @@ function autoMute(message){
 	// }, 13*1000);
 	}, 60*60*1000);
 };
-exports.autoMute = autoMute;
+// exports.autoMute = autoMute;
 
 /** Function to return last Odi's start/restart time */
 const startTime = new Date();
-exports.getStartTime = function getStartTime(){
+function getStartTime(){
 	var hour = startTime.getHours();
 	var min = startTime.getMinutes();
 	return (hour > 12 ? hour-12 : hour) + '.' + (min<10?'0':'') + min + ' ' + (hour > 12  ? 'PM' : 'AM');
@@ -100,7 +73,7 @@ exports.getStartTime = function getStartTime(){
 
 /** Function to get date & time (jj/mm hh:mm:ss) */
 var date, month, day, hour, min, sec, now;
-exports.formatedDate = function formatedDate(){
+function formatedDate(){
 // var formatedDate = function(){
 	date = new Date();
 	month = date.getMonth()+1;
@@ -119,14 +92,13 @@ function prepareLogs(lines, callback){
 	var content = fs.readFileSync(LOG_PATH + 'odi.log', 'UTF-8').toString().split('\n');
 	content = content.slice(-lines); //-120
 	content = content.join('\n');
-	//content = self.getCPUTemp() + '\n' + content;
 	callback(content);
 	return content;
 };
-exports.prepareLogs = prepareLogs;
+// exports.prepareLogs = prepareLogs;
 
 /** Function to set/edit Odi's config */
-var setConfig = function(key, value, restart){
+function setConfig(key, value, restart){
 	console.debug('setConfig()', key, value);
 	getJsonFileContent(CONFIG_FILE, function(data){
 		var config = JSON.parse(data);
@@ -143,18 +115,18 @@ var setConfig = function(key, value, restart){
 		if(restart) restartOdi();
 	});
 };
-exports.setConfig = setConfig;
+// exports.setConfig = setConfig;
 
 /** Function to reset Odi's config */
-var resetConfig = function(restart){
+function resetConfig(restart){
 	console.debug('resetConfig()');
 	fs.createReadStream(DATA_PATH + 'conf.json').pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
 	if(restart) restartOdi();
 };
-exports.resetConfig = resetConfig;
+// exports.resetConfig = resetConfig;
 
 /** Fonction getFileContent */ // NOT USED !!
-var getFileContent = function(filePath){ // 
+function getFileContent(filePath){ // 
 var data = 'KO'; // ou undefined
 	try{
 		data = fs.readFileSync(filePath, 'UTF-8').toString();
@@ -164,10 +136,10 @@ var data = 'KO'; // ou undefined
 	}
 	return data;
 };
-exports.getFileContent = getFileContent;
+// exports.getFileContent = getFileContent;
 
 /** Fonction getJsonFileContent */
-var getJsonFileContent = function(filePath, callback){
+function getJsonFileContent(filePath, callback){
 	// console.debug('getJsonFileContent() ', filePath);
 	// try{
 		fs.readFile(filePath, function(err, data){
@@ -183,12 +155,12 @@ var getJsonFileContent = function(filePath, callback){
 	// 	console.error(e);
 	// }
 };
-exports.getJsonFileContent = getJsonFileContent;
+// exports.getJsonFileContent = getJsonFileContent;
 
 
 /** Function to append object in JSON file */
 var fileData;
-var appendJsonFile = function(filePath, obj, callback){
+function appendJsonFile(filePath, obj, callback){
 	console.debug('appendJsonFile() ', filePath, obj);
 	fs.exists(filePath, function(exists){
 		if(exists){
@@ -200,7 +172,7 @@ var appendJsonFile = function(filePath, obj, callback){
 					console.debug('obj', obj);
 					console.debug('fileData', fileData);
 					fileData.push(obj);
-					fileData = JSON.stringify(fileData).replace(/\\/g, "").replace(/\"{/g, "{").replace(/\}"/g, "}");
+					fileData = JSON.stringify(fileData, null, 2).replace(/\\/g, "").replace(/\"{/g, "{").replace(/\}"/g, "}");
 					console.debug(fileData);
 					fs.writeFile(filePath, fileData);
 				}
@@ -211,16 +183,16 @@ var appendJsonFile = function(filePath, obj, callback){
 			console.debug('obj', obj);
 			console.debug('fileData', fileData);
 			fileData.push(obj);
-			fileData = JSON.stringify(fileData).replace(/\\/g, "").replace(/\"{/g, "{").replace(/\}"/g, "}");
+			fileData = JSON.stringify(fileData, null, 2).replace(/\\/g, "").replace(/\"{/g, "{").replace(/\}"/g, "}");
 			console.debug(fileData);
 			fs.writeFile(filePath, fileData);
 		}
 	});
 };
-exports.appendJsonFile = appendJsonFile;
+// exports.appendJsonFile = appendJsonFile;
 
 /** Function to test internet connexion */
-var testConnexion = function(callback){
+function testConnexion(callback){
 	require('dns').resolve('www.google.com', function(err) {
 		if(err){
 			//console.error('Odi is not connected to internet (utils.testConnexion)   /!\\');
@@ -231,29 +203,10 @@ var testConnexion = function(callback){
 		}
 	});
 };
-exports.testConnexion = testConnexion;
-
-/** Function to reboot RPI */
-var reboot = function(){
-	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
-	setTimeout(function(){
-		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh', 'reboot']);
-	}, 1500);
-};
-exports.reboot = reboot;
-
-/** Function to shut down RPI */
-var shutdown = function(){
-	// voiceMail.clearVoiceMail();
-	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
-	setTimeout(function(){
-		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh']);
-	}, 1500);
-};
-exports.shutdown = shutdown;
+// exports.testConnexion = testConnexion;
 
 /** Function to restart/sleep Odi's core */
-var restartOdi = function(mode){
+function restartOdi(mode){
 	// if(typeof mode === 'number' && mode > 0){
 	if(mode > 0){
 		mode = parseInt(mode, 10);
@@ -269,7 +222,26 @@ var restartOdi = function(mode){
 		}, 300); // Pause pour operations et clean msg
 	}
 };
-exports.restartOdi = restartOdi;
+// exports.restartOdi = restartOdi;
+
+/** Function to reboot RPI */
+function reboot(){
+	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
+	setTimeout(function(){
+		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh', 'reboot']);
+	}, 1500);
+};
+// exports.reboot = reboot;
+
+/** Function to shut down RPI */
+function shutdown(){
+	// voiceMail.clearVoiceMail();
+	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
+	setTimeout(function(){
+		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh']);
+	}, 1500);
+};
+// exports.shutdown = shutdown;
 
 //Create function to get CPU information
 function cpuAverage() {
@@ -314,30 +286,27 @@ function getCPUUsage(){
 	// console.log('CPU usage : ' + percentageCPU + ' %');
 	return(percentageCPU);
 };
-exports.getCPUUsage = getCPUUsage;
+// exports.getCPUUsage = getCPUUsage;
 
 
 /** Function to get CPU temperature */
 function getCPUTemp(callback){
 	var temperature = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp");
 	temperature = ((temperature/1000).toPrecision(2));
-	// console.log('CPU temperature : ' + temperature + ' ° C');
 	return(temperature);
 };
-exports.getCPUTemp = getCPUTemp;
+// exports.getCPUTemp = getCPUTemp;
 
 /** Function to return Odi's age => To service.js
  * @return age in days
  */
-var dateOfBirth = new Date('August 9, 2015 00:00:00'), age = 0;
+const DATE_BIRTH = new Date('August 9, 2015 00:00:00'), age = 0;
 function getOdiAge(){
-	age = Math.abs(dateOfBirth.getTime() - new Date());
-	// console.log(age);
+	age = Math.abs(DATE_BIRTH.getTime() - new Date());
 	age = Math.ceil(age / (1000 * 3600 * 24));
-	// console.log(age);
 	return age;
 };
-exports.getOdiAge = getOdiAge;
+// exports.getOdiAge = getOdiAge;
 
 
 /** Fonction to get last git commit message */
@@ -349,4 +318,4 @@ function getMsgLastGitCommit(callback){
 	}
 	exec('git log -1 --pretty=%B',{cwd: 'ODI_PATH'}, getMsg);
 };
-exports.getMsgLastGitCommit = getMsgLastGitCommit;
+// exports.getMsgLastGitCommit = getMsgLastGitCommit;

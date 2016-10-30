@@ -43,7 +43,7 @@ var jobs = require('./modules/jobs.js');
 var utils = require('./modules/utils.js');
 var service = require('./modules/service.js');
 var voiceMail = require('./modules/voiceMail.js');
-var _server = require('./modules/server.js');
+var server = require('./modules/server.js');
 
 // LED Start sequence
 //leds.blinkLed(100, 300); // Sequence led de start
@@ -52,7 +52,7 @@ new CronJob('*/3 * * * * *', function(){
 	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Initialisation du temoin d'activite 2/2
 }, null, 0, 'Europe/Paris');
 
-_server.startUI(mode);
+server.startUI(mode);
 buttons.initButtonAwake();
 
 jobs.startClock(buttons.getEtat()); // Starting speaking clock

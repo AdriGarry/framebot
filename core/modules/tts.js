@@ -24,22 +24,37 @@ var ttsQueue = []; // TTS queue
 var onAir = false;
 
 module.exports = { // Singleton
-	speak: function(tts){
-		return speak(tts);
+	speak: speak,
+	conversation: function(){
+		console.log('FUNCTION NOT YET MIGRATED...');
 	},
-	/*listenQueue: function(){
-		return listenQueue();
-	},*/
-	clearLastTTS: function(){
-		return clearLastTTS();
-	},
-	lastTTS: function(){
-		return lastTTS();
-	}
-}
+	clearLastTTS: clearLastTTS,
+	lastTTS: lastTTS
+};
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts){
+	if(Array.isArray(tts)){
+		console.log('TTS array object... processing');
+		tts.forEach(function(message){
+			if(message.msg){
+				speak(message);
+			}
+		});
+	}else if(!tts || (tts.msg.toUpperCase().indexOf('RANDOM') > -1)){ // OR UNDEFINED !!
+		var rdmNb = ((Math.floor(Math.random()*messageListLength)));
+		tts = messageList[rdmNb];
+		console.log('Random TTS : ' + rdmNb + '/' + messageListLength);
+	}else{
+		if(tts.hasOwnProperty('msg')){
+			var ttsQueueLength = ttsQueue.length;
+			ttsQueue.push(tts);
+			console.log('newTTS [' + tts.lg + ', ' + tts.voice + '] "' + tts.msg + '"');
+		}else console.debug(console.error('newTTS() Wrong TTS object ', tts));
+	}
+};
+
+/*function speak(tts){
 	if(Array.isArray(tts)){
 		console.log('TTS array object... processing');
 		tts.forEach(function(message){
@@ -59,7 +74,7 @@ function speak(tts){
 			console.log('newTTS [' + tts.lg + ', ' + tts.voice + '] "' + tts.msg + '"');
 		}else console.debug(console.error('newTTS() Wrong TTS object ', tts));
 	}
-}
+}*/
 
 /** Fonction conversation TTS */
 var conversation = function(messages){
@@ -127,13 +142,13 @@ var playTTS = function(tts){
 	}
 	console.debug('playTTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]);
-	/*leds.blink({leds: ['eye'], speed: Math.random() * (200 - 30) + 30, loop: 4});*/
+	console.debug('tts.msg.length',tts.msg.length);
+	leds.blink({leds: ['eye'], speed: Math.random() * (200 - 30) + 30, loop: tts.msg.length});
 
 	fs.writeFile(LAST_TTS_PATH, tts.lg + ';' + tts.msg, 'UTF-8', function(err){
 		if(err) return console.error('Error while saving last TTS : ' + err);
 	});
 }
-// exports.playTTS = playTTS;
 
 /** Detection des parametres en cas d'appel direct (pour tests ou exclamation TTS) */
 /*var params = process.argv[2];
@@ -192,8 +207,8 @@ var conversation = function(messages){
 };
 // exports.conversation = conversation;
 
-/** Fonction last speak TTS */
-var lastTTS = function(){
+/** Function last TTS message */
+function lastTTS(){
 	console.log('lastTTS()');
 	try{
 		var lastMsg = fs.readFileSync(LAST_TTS_PATH, 'UTF-8').toString().split('\n'); // PREVENIR SI FICHIER NON EXISTANT !!!
@@ -213,11 +228,9 @@ var lastTTS = function(){
 	// self.speak(lg, txt);
 	speak({lg: lg, msg: txt});
 };
-// exports.lastTTS = lastTTS;
 
-/** Fonction suppression last speak TTS */
-var clearLastTTS = function(){
+/** Function to delete last TTS message */
+function clearLastTTS(){
 	spawn('sh', ['/home/pi/odi/core/sh/utils.sh', 'clearLastTTS']);
 	console.log('LastTTS cleared.');
 };
-// exports.clearLastTTS = clearLastTTS;

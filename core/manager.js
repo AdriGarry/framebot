@@ -64,18 +64,18 @@ function startOdi(mode){
 
 	odiState = true;
 	odiPgm.stdout.on('data', function(data){ // Template log output
-		if(1 === etat.readSync()){ logMode = logMode.replace('Odi','ODI'); }
-		else{ logMode = logMode.replace('ODI','Odi'); }
+		if(1 === etat.readSync()) logMode = logMode.replace('Odi','ODI');
+		else logMode = logMode.replace('ODI','Odi');
 		// console.log(logDate + logMode + '/ ' + data);// + '\r\n'
 		if(CONFIG.debug) console.log(utils.formatedDate() + logMode + ' >_  ' + data);// + '\r\n'
 		else console.log(utils.formatedDate() + logMode + '/ ' + data);// + '\r\n'
 	});
 
 	odiPgm.stderr.on('data', function(data){ // Template log error
-		if(1 === etat.readSync()){ logMode = logMode.replace('i','!'); }
-		else{ logMode = logMode.replace('!','i'); }
+		if(1 === etat.readSync()) logMode = logMode.replace('i','!');
+		else logMode = logMode.replace('!','i');
 		// console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
-		if(CONFIG.debug) console.trace(utils.formatedDate() + logMode + '_ERROR >_ ' + data);// + '\r\n'
+		if(CONFIG.debug) console.error(utils.formatedDate() + logMode + '_ERROR >_ ' + data);// + '\r\n'
 		else console.error(utils.formatedDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
 	});
 	

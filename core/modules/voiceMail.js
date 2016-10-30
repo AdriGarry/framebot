@@ -10,27 +10,31 @@ var utils = require('./utils.js');
 
 const self = this;
 
-const voiceMailFilePath = '/home/pi/odi/tmp/voicemail.json';
-const voiceMailFilePathHistory = '/home/pi/odi/log/voicemailHistory.json';
+const VOICEMAIL_FILE = '/home/pi/odi/tmp/voicemail.json';
+const VOICEMAIL_FILE_HISTORY = '/home/pi/odi/log/voicemailHistory.json';
+
+module.exports = {
+	addVoiceMailMessage: addVoiceMailMessage,
+	checkVoiceMail: checkVoiceMail,
+	voiceMailFlag: voiceMailFlag,
+	areThereAnyMessages: areThereAnyMessages,
+	clearVoiceMail: clearVoiceMail
+};
 
 // function addVoiceMailMessage(lg, txt){
 function addVoiceMailMessage(tts){
 	tts = JSON.stringify(tts);
-	console.log(tts);
-	utils.appendJsonFile(voiceMailFilePath, tts);
-	utils.appendJsonFile(voiceMailFilePathHistory, tts);
+	utils.appendJsonFile(VOICEMAIL_FILE, tts);
+	utils.appendJsonFile(VOICEMAIL_FILE_HISTORY, tts);
 };
-exports.addVoiceMailMessage = addVoiceMailMessage;
-
-
-// FONCTION GENERIQUE POUR RECUPERER LES MESSAGES => UTILS.JS => utils.getJsonFileContent()
+// exports.addVoiceMailMessage = addVoiceMailMessage;
 
 
 var clearVoiceMailDelay;
-function checkVoiceMail(cb){
+function checkVoiceMail(callback){
 	// try{
 		console.log('Checking VoiceMail...');
-		utils.getJsonFileContent(voiceMailFilePath, function(messages){
+		utils.getJsonFileContent(VOICEMAIL_FILE, function(messages){
 			if(messages){
 				messages = JSON.parse(messages);
 				console.debug(messages);
@@ -38,15 +42,15 @@ function checkVoiceMail(cb){
 				tts.speak(messages);
 				if(clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
 				clearVoiceMailDelay = setTimeout(function(){ // Clearing VoiceMail
-					self.clearVoiceMail();
+					clearVoiceMail();
 				}, 10*60*1000);
 				console.log('VoiceMail will be cleared in 10 minutes.');
-				cb(true); // for other action
+				if(callback) callback(true); // for other action
 			}else{
 				console.log('No VoiceMail Message');
-		 		cb(false); // for other action
+		 		if(callback) callback(false); // for other action
 			}
-		}, callback);
+		});
 	// }catch(e){
 	// 	if(e.code === 'ENOENT'){
 	// 		console.log('No VoiceMail Message');
@@ -56,31 +60,28 @@ function checkVoiceMail(cb){
 	// 	}
 	// }
 };
-exports.checkVoiceMail = checkVoiceMail;
+// exports.checkVoiceMail = checkVoiceMail;
 
-exports.voiceMailFlag = function voiceMailFlag(){
+function voiceMailFlag(){
 	console.log('Starting voiceMail flag...');
 	var nbMessages;
 	setInterval(function(){
-		// nbMessages = areThereAnyMessages();
-		areThereAnyMessages(function(nbMessages){
-			console.log('nbMessages : ', nbMessages);
-			if(nbMessages > 0){ // if(nbMessages)
-				//console.log('Odi have ' + nbMessages + ' message(s)');
-				leds.blink({leds: ['belly'], speed: 200, loop: 2});
-			}
-		});
+		nbMessages = areThereAnyMessages();
+		if(nbMessages > 0){ // if(nbMessages)
+			leds.blink({leds: ['belly'], speed: 200, loop: 2});
+		}
 	}, 5000);
 };
+// exports.voiceMailFlag = voiceMailFlag;
 
 /** Function to return number of voicemail message(s) */
-var areThereAnyMessages = function(){
+function areThereAnyMessages(){
 	var nbMessages = 0;
 	try{
-		var messages = fs.readFileSync(voiceMailFilePath, 'UTF-8');
+		var messages = fs.readFileSync(VOICEMAIL_FILE, 'UTF-8');
 		messages = JSON.parse(messages);
 		nbMessages = messages.length;
-		// utils.getJsonFileContent(voiceMailFilePath, function(messages){
+		// utils.getJsonFileContent(VOICEMAIL_FILE, function(messages){
 		// 	if(messages){
 		// 		messages = JSON.parse(messages);
 		// 		nbMessages = messages.length; // -1 ?
@@ -95,11 +96,11 @@ var areThereAnyMessages = function(){
 	return nbMessages;
 	//console.debug('AreThereAnyMessages ? ' + (nbMessages > 0 ? 'YES, ' + nbMessages + ' messages !' : 'NO'));
 };
-exports.areThereAnyMessages = areThereAnyMessages;
+// exports.areThereAnyMessages = areThereAnyMessages;
 
 /** Function to clear all voicemail messages */
 function clearVoiceMail(){
-	fs.unlink(voiceMailFilePath, function(err){
+	fs.unlink(VOICEMAIL_FILE, function(err){
 		if(err){
 			if(err.code === 'ENOENT') console.log('clearVoiceMail : No message to delete !');
 		}else{
@@ -108,4 +109,4 @@ function clearVoiceMail(){
 		}
 	});
 };
-exports.clearVoiceMail = clearVoiceMail;
+// exports.clearVoiceMail = clearVoiceMail;

@@ -24,7 +24,7 @@ var CronJob = require('cron').CronJob;
 var jobs = require('./modules/jobs.js');
 var utils = require('./modules/utils.js');
 var leds = require('./modules/leds.js');
-var _server = require('./modules/server.js');
+var server = require('./modules/server.js');
 
 var mode = sleepTime = process.argv[2]; // Recuperation des arguments
 
@@ -48,7 +48,7 @@ new CronJob('*/3 * * * * *', function(){
 }, null, 0, 'Europe/Paris');
 
 
-_server.startUI(mode);
+server.startUI(mode);
 
 jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
@@ -56,7 +56,3 @@ ok.watch(function(err, value){ // Detection bouton Vert pour sortir du mode veil
 	console.log('Ok button pressed, canceling sleep mode & restarting Odi !');
 	utils.restartOdi();
 });
-
-new CronJob('*/15 * * * * *', function(){ // Initialisation synchronisation remote
-	remote.trySynchro('sleep');
-}, null, 0, 'Europe/Paris');
