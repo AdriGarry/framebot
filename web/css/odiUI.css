@@ -47,7 +47,7 @@ md-toolbar.toolbar.md-warn{
 }
 md-toolbar.toolbar span[flex] + i{
 	margin:0 2%;
-	font-size:1.6em;
+	/*font-size:1.6em;*/
 }
 md-toolbar.toolbar md-progress-circular{
 	position:fixed;
@@ -168,6 +168,13 @@ md-sidenav div{
 	height:calc(100vh - 70px);
 	color:#fff;
 	overflow:auto;
+}
+
+.logs i.debugLog{
+	position:absolute;
+	top:0;
+	right:0;
+	color:#F44235;
 }
 
 .logs ul{

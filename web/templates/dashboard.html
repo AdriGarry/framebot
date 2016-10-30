@@ -35,7 +35,7 @@
 			<div layout="row">
 				<md-input-container flex="70" class="md-block">
 					<label>Message</label>
-					<input name="ttsMsg" data-ng-model="dashboard.ttsTile.msg" data-ng-change="dashboard.ttsTile.cleanText()"><!--required-->
+					<input type="search" name="ttsMsg" data-ng-model="dashboard.ttsTile.msg" data-ng-change="dashboard.ttsTile.cleanText()"><!--required-->
 					<!--<input name="ttsMsg" data-ng-model="tts.msg" required data-ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
 					<div data-ng-messages="ttsMsg.$error" role="alert" multiple>
 						<div data-ng-message="required" class="my-message">Required&nbsp;!</div>

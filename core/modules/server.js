@@ -62,7 +62,7 @@ function startUI(mode){
 		/*if(method == 'GET') method = '< ';
 		else method = '> ';
 		request = ' Odi' + (method == 'GET' ? ' > ' : ' < ');*/
-		request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : '??? ') + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
+		request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : 'NO_IP ') + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
 		console.log(request);
 
 		if(req.connection.remoteAddress.indexOf('192.168') == -1){
@@ -344,7 +344,7 @@ function startUI(mode){
 
 		ui.post('/time', function(req, res){ // Time
 			// console.log('UI > Time');
-			service.time();
+			service.timeNow();
 			res.writeHead(200);res.end();
 		});
 

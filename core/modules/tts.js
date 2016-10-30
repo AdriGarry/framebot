@@ -50,7 +50,7 @@ function speak(tts){
 		if(tts.hasOwnProperty('msg')){
 			var ttsQueueLength = ttsQueue.length;
 			ttsQueue.push(tts);
-			console.log('newTTS [' + tts.lg + ', ' + tts.voice + '] "' + tts.msg + '"');
+			console.log('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
 		}else console.debug(console.error('newTTS() Wrong TTS object ', tts));
 	}
 };

@@ -92,7 +92,7 @@ exports.initButtonAwake = function initButtonAwake(){
 				tts.conversation('random');
 			}
 		}else if(pressTime >= 3 && pressTime < 5){
-			service.time();
+			service.timeNow();
 		}else{
 			console.log('Push Ok button canceled !');
 		}

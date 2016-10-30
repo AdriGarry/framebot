@@ -101,12 +101,12 @@ tts.speak({voice: 'espeak', msg:'oui, je dirais meme que je vais bien !!'});
 tts.speak({voice: 'google', msg:'cool'});
 tts.speak({});*/
 // console.log(service.sayOdiAge());
-// service.time();
+// service.timeNow();
 // tts.speak({msg: 'RANDOM'});
 
 setTimeout(function(){
 	// tts.speak({voice: 'espeak', msg: 'Il pleut dehors'});
-	// service.time();
+	// service.timeNow();
 	// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'bonjourBonjour']);
 }, 5000);
 

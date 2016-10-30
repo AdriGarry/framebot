@@ -101,12 +101,12 @@ var setAlarms = function(){
 		utils.testConnexion(function(connexion){
 			if(connexion == true){
 				setTimeout(function(){
-					service.time();
+					spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'bonjourBonjour']);
 				}, 4000);
 				setTimeout(function(){
 					//service.weather();
 					// service.sayOdiAge();
-					spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'bonjourBonjour']);
+					service.timeNow();
 				}, 7*1000);
 				setTimeout(function(){
 					fip.playFip();
@@ -146,7 +146,7 @@ var setAlarms = function(){
 		var deploy = spawn('sh', ['/home/pi/odi/core/sh/clock.sh', 'cocorico']);
 		utils.testConnexion(function(connexion){
 			// if(connexion == true){
-				service.time();
+				service.timeNow();
 				setTimeout(function(){
 					service.weather();
 				}, 5*1000);

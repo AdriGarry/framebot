@@ -8,9 +8,6 @@ global.DATA_PATH = '/home/pi/odi/data/';
 global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
 
-/** Setting up Odi's config */
-global.CONFIG = require(CONFIG_FILE);
-
 var fs = require('fs');
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
@@ -19,8 +16,8 @@ var utils = require('./modules/utils.js');
 // var tts = require('./modules/tts.js');
 
 var odiPgm, odiState = false;
-var logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
-var logoSleep = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
+const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
+const logoSleep = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
 
 /* ------------- START CORE -------------*/
 console.log('\r\n---------------------------\r\n>> Odi\'s CORE initiating...');
@@ -38,6 +35,13 @@ var date, month, day, hour, min, sec;
 
 /** Fonction demarrage programme Odi */
 function startOdi(mode){
+	/** Setting up Odi's config */
+	var tmpA = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+	console.log('tmpA', tmpA);
+	console.log('DEBUG :', tmpA.debug);
+	// global.CONFIG = require(CONFIG_FILE, 'utf8');
+	global.CONFIG = tmpA;
+
 	utils.mute();
 	var logo;
 	if(typeof mode === 'undefined') mode = '';

@@ -45,7 +45,6 @@ function updateVersionFromGithub(){
 	server.getLastVersionFromGithub();
 };
 
-
 /** Function to mute Odi */
 function mute(message){
 	var deploy = spawn('sh', [CORE_PATH + 'sh/mute.sh']);
@@ -54,7 +53,6 @@ function mute(message){
 	eye.write(0);
 	belly.write(0);
 };
-// exports.mute = mute;
 
 /** Function to auto mute Odi in 60 minutes */
 var muteTimer;
@@ -74,7 +72,6 @@ function autoMute(message){
 	// }, 13*1000);
 	}, 60*60*1000);
 };
-// exports.autoMute = autoMute;
 
 /** Function to return last Odi's start/restart time */
 const startTime = new Date();
@@ -108,7 +105,6 @@ function prepareLogs(lines, callback){
 	callback(content);
 	return content;
 };
-// exports.prepareLogs = prepareLogs;
 
 /** Function to set/edit Odi's config */
 function setConfig(key, value, restart){
@@ -128,7 +124,6 @@ function setConfig(key, value, restart){
 		if(restart) restartOdi();
 	});
 };
-// exports.setConfig = setConfig;
 
 /** Function to reset Odi's config */
 function resetConfig(restart){
@@ -136,7 +131,6 @@ function resetConfig(restart){
 	fs.createReadStream(DATA_PATH + 'conf.json').pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
 	if(restart) restartOdi();
 };
-// exports.resetConfig = resetConfig;
 
 /** Fonction getFileContent */ // NOT USED !!
 function getFileContent(filePath){ // 
@@ -149,7 +143,6 @@ var data = 'KO'; // ou undefined
 	}
 	return data;
 };
-// exports.getFileContent = getFileContent;
 
 /** Fonction getJsonFileContent */
 function getJsonFileContent(filePath, callback){
@@ -157,7 +150,7 @@ function getJsonFileContent(filePath, callback){
 	// try{
 		fs.readFile(filePath, function(err, data){
 			if(err && err.code === 'ENOENT'){
-				// console.debug(console.error('No file : ' + filePath));
+				console.debug(console.error('No file : ' + filePath));
 				callback(null);
 			}
 			// console.debug(data);
@@ -168,7 +161,6 @@ function getJsonFileContent(filePath, callback){
 	// 	console.error(e);
 	// }
 };
-// exports.getJsonFileContent = getJsonFileContent;
 
 
 /** Function to append object in JSON file */
@@ -202,7 +194,6 @@ function appendJsonFile(filePath, obj, callback){
 		}
 	});
 };
-// exports.appendJsonFile = appendJsonFile;
 
 /** Function to test internet connexion */
 function testConnexion(callback){
@@ -216,7 +207,6 @@ function testConnexion(callback){
 		}
 	});
 };
-// exports.testConnexion = testConnexion;
 
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode){
@@ -235,7 +225,6 @@ function restartOdi(mode){
 		}, 300); // Pause pour operations et clean msg
 	}
 };
-// exports.restartOdi = restartOdi;
 
 /** Function to reboot RPI */
 function reboot(){
@@ -244,7 +233,6 @@ function reboot(){
 		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh', 'reboot']);
 	}, 1500);
 };
-// exports.reboot = reboot;
 
 /** Function to shut down RPI */
 function shutdown(){
@@ -254,7 +242,6 @@ function shutdown(){
 		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh']);
 	}, 1500);
 };
-// exports.shutdown = shutdown;
 
 //Create function to get CPU information
 function cpuAverage() {
@@ -299,8 +286,6 @@ function getCPUUsage(){
 	// console.log('CPU usage : ' + percentageCPU + ' %');
 	return(percentageCPU);
 };
-// exports.getCPUUsage = getCPUUsage;
-
 
 /** Function to get CPU temperature */
 function getCPUTemp(callback){
@@ -308,7 +293,6 @@ function getCPUTemp(callback){
 	temperature = ((temperature/1000).toPrecision(2));
 	return(temperature);
 };
-// exports.getCPUTemp = getCPUTemp;
 
 /** Function to return Odi's age => To service.js
  * @return age in days
@@ -320,8 +304,6 @@ function getOdiAge(){
 	age = Math.ceil(age / (1000 * 3600 * 24));
 	return age;
 };
-// exports.getOdiAge = getOdiAge;
-
 
 /** Fonction to get last git commit message */
 function getMsgLastGitCommit(callback){
@@ -332,4 +314,3 @@ function getMsgLastGitCommit(callback){
 	}
 	exec('git log -1 --pretty=%B',{cwd: 'ODI_PATH'}, getMsg);
 };
-// exports.getMsgLastGitCommit = getMsgLastGitCommit;

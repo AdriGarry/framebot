@@ -12,6 +12,19 @@ var tts = require('./tts.js');
 var exclamation = require('./exclamation.js');
 const self = this;
 
+module.exports = {
+	weather: weather,
+	timeNow: timeNow,
+	date: date,
+	sayOdiAge: sayOdiAge,
+	setTimer: setTimer,
+	timeLeftTimer: timeLeftTimer,
+	stopTimer: stopTimer,
+	randomAction: randomAction,
+	adriExclamation: adriExclamation,
+	cpuTemp: cpuTemp
+}
+
 /** Function to retreive weather info */
 var weatherStatus = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');
 function weather(){
@@ -48,9 +61,8 @@ function weather(){
 		}
 	});
 };
-exports.weather = weather; 
 
-/** Fonction info heure */
+/** Function TTS time */
 function timeNow(){
 	console.log('Service Time...');
 	var date = new Date();
@@ -63,12 +75,11 @@ function timeNow(){
 		tts.speak({lg: 'fr', msg: tmp});
 	}
 };
-exports.timeNow = timeNow;
 
 /** Function to say current date */
 const days = fs.readFileSync('/home/pi/odi/data/date.days.properties', 'UTF-8').toString().split('\n');
 const months = fs.readFileSync('/home/pi/odi/data/date.months.properties', 'UTF-8').toString().split('\n');
-var date = function(){
+function date(){
 	var date = new Date();
 	var dayNb = date.getDate();
 	if(dayNb == 1) dayNb = 'premier';
@@ -81,7 +92,6 @@ var date = function(){
 	console.log('Service Date... ' + annonceDate);
 	tts.speak({lg:'fr', msg:annonceDate});
 };
-exports.date = date;
 
 /** Function to TTS Odi's age */
 var age, years, mouths, birthDay;
@@ -95,8 +105,6 @@ function sayOdiAge(){
 	console.log('sayOdiAge() \'' + birthDay + '\'')
 	tts.speak({lg: 'fr', msg: birthDay});
 };
-exports.sayOdiAge = sayOdiAge;
-
 
 /** Function to set timer */
 var time = 0, timer = false;
@@ -149,23 +157,22 @@ function setTimer(minutes){
 		}, 1000);
 	}
 }
-exports.setTimer = setTimer;
 
 /** Function to return minutes left on timer **/
-exports.timeLeftTimer = function timeLeftTimer(){
+function timeLeftTimer(){
 	return time;
 };
 
 /** Function to stop timer **/
-exports.stopTimer = function stopTimer(){
+function stopTimer(){
 	time = -5;
 	timer = false;
 	tts.speak({lg:'en', msg:'Timer canceled'});
 	belly.write(0);
 };
 
-/** Fonction action aleatoire (exclamation, random TTS, services date, heure, meteo...) */
-var randomAction = function(){
+/** Functionrandom action (exclamation, random TTS, time, day, weather...) */
+function randomAction(){
 	utils.testConnexion(function(connexion){
 		if(!connexion){
 			exclamation.exclamation2Rappels();
@@ -205,21 +212,16 @@ var randomAction = function(){
 		}
 	});
 };
-exports.randomAction = randomAction;
 
 /** Function 'Aaaadri' speech */
-var adriExclamation = function(){
+function adriExclamation(){
 	console.log('adriExclamation()');
 	tts.speak({voice: 'google', lg:'ru', msg:'hey, a3'});
 };
-exports.adriExclamation = adriExclamation;
 
-/** Fonction info temperature processeur */
-/** utilisation normale : 40 à 60 degres */
-/** /!\ /!\    SI > 80 degres    /!\ /!\ */
-var cpuTemp = function(){
+/** Function cpu temperature TTS */
+function cpuTemp(){
 	temperature = utils.getCPUTemp();
 	console.log('Service CPU Temperature...  ' + temperature + ' degres');
 	tts.speak({lg:'fr', msg:'Mon processeur est a ' + temperature + ' degree'});
 };
-exports.cpuTemp = cpuTemp;
