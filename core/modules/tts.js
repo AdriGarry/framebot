@@ -124,7 +124,7 @@ var playTTS = function(tts){
 	console.log('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]);
 	console.debug('tts.msg.length',tts.msg.length);
-	leds.blink({leds: ['eye'], speed: Math.random() * (200 - 30) + 30, loop: tts.msg.length/2});
+	leds.blink({leds: ['eye'], speed: Math.random() * (200 - 50) + 30, loop: (tts.msg.length/2)+2});
 
 	fs.writeFile(LAST_TTS_PATH, tts.lg + ';' + tts.msg, 'UTF-8', function(err){
 		if(err) return console.error('Error while saving last TTS : ' + err);
