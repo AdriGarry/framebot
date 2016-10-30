@@ -34,15 +34,6 @@ const ALLOWED_REQUESTS = ['/config.json', '/voicemailHistory', '/requestHistory'
 
 var deploy;
 
-
-/*setTimeout(function(){
-	tts.speak({voice: 'google', lg: 'en', msg:'That\'s not a problem !'}); // TODO
-	tts.speak({voice: 'espeak', lg: 'en', msg:'Yes, I can manage it !'}); // TODO
-	tts.speak({voice: 'google', lg: 'en', msg:'Can you give me more informations ?'}); // TODO
-	tts.speak({voice: 'espeak', lg: 'en', msg:'oh come on !'}); // TODO
-}, 5000);*/
-
-
 function startUI(mode){
 	var ui = express();
 	var request, method, params, ipClient;
