@@ -85,32 +85,23 @@ var ttsTmp = {lg: "fr", voice: "espeak", msg: "test voicemail"};
 	console.log(callback);
 });*/
 
-
-/*utils.getMsgLastGitCommit(function(msg){
-	console.debug('LAST COMMIT MSG :', msg);
-});*/
-
-tts.speak({voice: 'espeak', msg:'hey !'});
+/*tts.speak({voice: 'espeak', msg:'hey !'});
 tts.speak({voice: 'google', msg:'salut'});
 tts.speak({voice: 'espeak', msg:'comment tu vas en cette belle journee?'});
 tts.speak({voice: 'google', msg:'sa va, et toi ?'});
 tts.speak({voice: 'espeak', msg:'bien'});
 tts.speak({voice: 'espeak', msg:'oui, je dirais meme que je vais bien !!'});
-tts.speak({voice: 'google', msg:'cool'});
-tts.speak({});
-tts.speak({});
-tts.speak({});
-tts.speak({});
+tts.speak({voice: 'google', msg:'cool'});*/
 // console.log(service.sayOdiAge());
 // service.timeNow();
 // tts.speak({msg: 'RANDOM'});
 
 setTimeout(function(){
-	// tts.speak({voice: 'espeak', msg: 'Il pleut dehors'});
-	// service.timeNow();
-	// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'bonjourBonjour']);
 	service.adriExclamation();
-}, 20000);
+}, 55000);
+setTimeout(function(){
+	tts.speak({voice: 'espeak', msg: 'Il pleut dehors'});
+}, 60000);
 
 new CronJob('*/4 * * * * *', function(){
 	leds.blink({

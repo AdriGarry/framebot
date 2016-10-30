@@ -57,28 +57,6 @@ function speak(tts){
 	}
 };
 
-/*function speak(tts){
-	if(Array.isArray(tts)){
-		console.log('TTS array object... processing');
-		tts.forEach(function(message){
-			if(message.msg){
-				speak(message);
-			}
-		});
-	}else{
-		if(tts.hasOwnProperty('msg')){
-			var ttsQueueLength = ttsQueue.length;
-			if(tts.msg.toUpperCase().indexOf('RANDOM') > -1){ // OR UNDEFINED !!
-				var rdmNb = ((Math.floor(Math.random()*messageListLength)));
-				tts = messageList[rdmNb];
-				console.log('Random TTS : ' + rdmNb + '/' + messageListLength);
-			}
-			ttsQueue.push(tts);
-			console.log('newTTS [' + tts.lg + ', ' + tts.voice + '] "' + tts.msg + '"');
-		}else console.debug(console.error('newTTS() Wrong TTS object ', tts));
-	}
-}*/
-
 /** Fonction conversation TTS */
 var conversation = function(messages){
 	console.log('Conversation Service... ' + messages);
@@ -146,7 +124,7 @@ var playTTS = function(tts){
 	console.log('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]);
 	console.debug('tts.msg.length',tts.msg.length);
-	leds.blink({leds: ['eye'], speed: Math.random() * (200 - 30) + 30, loop: tts.msg.length});
+	leds.blink({leds: ['eye'], speed: Math.random() * (200 - 30) + 30, loop: tts.msg.length/2});
 
 	fs.writeFile(LAST_TTS_PATH, tts.lg + ';' + tts.msg, 'UTF-8', function(err){
 		if(err) return console.error('Error while saving last TTS : ' + err);

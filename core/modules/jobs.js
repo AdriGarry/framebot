@@ -204,7 +204,7 @@ var setBackgroundJobs = function(){
 	console.log('Background jobs initialised');
 	new CronJob('0 2,32 * * * *', function() {
 		if(CONFIG.debug){
-			console.debug('ODI IS IN DEBUG MODE? LET\'S RESTART !!');
+			console.debug('Canceling debug mode... & Restart !!');
 			utils.setConfig('debug', null, true);
 		}
 	}, null, true, 'Europe/Paris');
