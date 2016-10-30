@@ -172,9 +172,9 @@ md-sidenav div{
 
 .logs i.debugLog{
 	position:absolute;
-	top:0.5em;
-	right:1em;
-	color:#F44235;
+	top:1em;
+	right:2em;
+	color:rgba(255,255,255,0.87);/*#F44235*/
 }
 
 .logs ul{
