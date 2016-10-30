@@ -33,6 +33,19 @@ module.exports = {
 	getMsgLastGitCommit: getMsgLastGitCommit
 };
 
+setTimeout(function(){
+	updateVersionFromGithub();
+}, 10000);
+
+/** Function to update Odi's program version from github */
+function updateVersionFromGithub(){
+	console.log('updateVersionFromGithub()...');
+
+	var server = require('./server.js');
+	server.getLastVersionFromGithub();
+};
+
+
 /** Function to mute Odi */
 function mute(message){
 	var deploy = spawn('sh', [CORE_PATH + 'sh/mute.sh']);

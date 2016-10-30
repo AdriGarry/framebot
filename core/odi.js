@@ -12,11 +12,11 @@ global.TMP_PATH = '/home/pi/odi/tmp/';
 
 /** Setting up Odi's config */
 global.CONFIG = require(CONFIG_FILE);
-console.log('global.CONFIG', global.CONFIG);
+console.log('CONFIG', CONFIG);
 
 /** Debug Mode */
 if(CONFIG.debug) console.debug = console.log;
-else console.debug = function(){};
+else console.debug = function(o){};
 console.debug('\n---------------------\n', '-> ->  DEBUG MODE !!');
 
 var mode = process.argv[2]; // Recuperation des arguments

@@ -480,3 +480,33 @@ function startUI(mode){
 	});*/
 }
 exports.startUI = startUI;
+
+
+
+var http = require('http');
+function getLastVersionFromGithub(){
+	var options = {
+		host: 'http://github.com',
+		port: 80,
+		path: '/AdriGarry/odi/commits/master'
+	};
+	// options.host = 'www.google.com';
+	// options.path = '/index';
+
+	var html = '';
+
+	http.get(options, function(res){
+		console.log("Got response: " + res.statusCode);
+		res.setEncoding('utf8');
+		res.on('data', function (chunk) {
+			console.log('BODY: ',chunk);
+			html += chunk;
+		});
+		res.on('end', function () {
+			console.log(html);
+		});
+	}).on('error', function(e) {
+		console.error("Got error: " + e.message);
+	});
+};
+exports.getLastVersionFromGithub = getLastVersionFromGithub;
