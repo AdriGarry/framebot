@@ -79,8 +79,6 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 // ----- TEST SECTION -----//
 // ------------------------//
 
-service.adriExclamation();
-
 var ttsTmp = {lg: "fr", voice: "espeak", msg: "test voicemail"};
 // console.log(ttsTmp);
 /*utils.appendJsonFile('/home/pi/odi/tmp/voicemail.json', ttsTmp, function(callback){
@@ -92,14 +90,17 @@ var ttsTmp = {lg: "fr", voice: "espeak", msg: "test voicemail"};
 	console.debug('LAST COMMIT MSG :', msg);
 });*/
 
-/*tts.speak({voice: 'espeak', msg:'hey !'});
+tts.speak({voice: 'espeak', msg:'hey !'});
 tts.speak({voice: 'google', msg:'salut'});
 tts.speak({voice: 'espeak', msg:'comment tu vas en cette belle journee?'});
 tts.speak({voice: 'google', msg:'sa va, et toi ?'});
 tts.speak({voice: 'espeak', msg:'bien'});
 tts.speak({voice: 'espeak', msg:'oui, je dirais meme que je vais bien !!'});
 tts.speak({voice: 'google', msg:'cool'});
-tts.speak({});*/
+tts.speak({});
+tts.speak({});
+tts.speak({});
+tts.speak({});
 // console.log(service.sayOdiAge());
 // service.timeNow();
 // tts.speak({msg: 'RANDOM'});
@@ -108,7 +109,8 @@ setTimeout(function(){
 	// tts.speak({voice: 'espeak', msg: 'Il pleut dehors'});
 	// service.timeNow();
 	// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'bonjourBonjour']);
-}, 5000);
+	service.adriExclamation();
+}, 20000);
 
 new CronJob('*/4 * * * * *', function(){
 	leds.blink({

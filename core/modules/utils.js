@@ -30,19 +30,8 @@ module.exports = {
 	getCPUUsage: getCPUUsage,
 	getCPUTemp: getCPUTemp,
 	getOdiAge: getOdiAge,
+	updateVersionFromGithub: updateVersionFromGithub,
 	getMsgLastGitCommit: getMsgLastGitCommit
-};
-
-setTimeout(function(){
-	updateVersionFromGithub();
-}, 10000);
-
-/** Function to update Odi's program version from github */
-function updateVersionFromGithub(){
-	console.log('updateVersionFromGithub()...');
-
-	var server = require('./server.js');
-	server.getLastVersionFromGithub();
 };
 
 /** Function to mute Odi */
@@ -305,7 +294,15 @@ function getOdiAge(){
 	return age;
 };
 
-/** Fonction to get last git commit message */
+/** Function to update Odi's program version from github */
+function updateVersionFromGithub(){
+	console.log('updateVersionFromGithub()...');
+
+	var server = require('./server.js');
+	server.getLastVersionFromGithub();
+};
+
+/** Function to get last git commit message */
 function getMsgLastGitCommit(callback){
 	function getMsg(error, stdout, stderr){
 		if(error) stdout = 'Error Git Last Commit Message  /!\\';

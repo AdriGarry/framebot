@@ -34,6 +34,7 @@ module.exports = { // Singleton
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts){
+	console.debug(tts);
 	if(Array.isArray(tts)){
 		console.log('TTS array object... processing');
 		tts.forEach(function(message){
@@ -41,16 +42,17 @@ function speak(tts){
 				speak(message);
 			}
 		});
-	}else if(!tts || (tts.msg.toUpperCase().indexOf('RANDOM') > -1)){ // OR UNDEFINED !!
+	}else if(!tts || (!Object.keys(tts).length > 0) || (tts.msg.toUpperCase().indexOf('RANDOM') > -1)){ // OR UNDEFINED !!
 		var rdmNb = ((Math.floor(Math.random()*messageListLength)));
 		tts = messageList[rdmNb];
 		console.log('Random TTS : ' + rdmNb + '/' + messageListLength);
+		console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
 		ttsQueue.push(tts);
 	}else{
 		if(tts.hasOwnProperty('msg')){
 			var ttsQueueLength = ttsQueue.length;
 			ttsQueue.push(tts);
-			console.log('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
+			console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
 		}else console.debug(console.error('newTTS() Wrong TTS object ', tts));
 	}
 };
@@ -141,7 +143,7 @@ var playTTS = function(tts){
 	if(!tts.hasOwnProperty('lg') || LG_LIST.indexOf(tts.lg) == -1){ // Fr language if undefined
 		tts.lg = 'fr';
 	}
-	console.debug('playTTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
+	console.log('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]);
 	console.debug('tts.msg.length',tts.msg.length);
 	leds.blink({leds: ['eye'], speed: Math.random() * (200 - 30) + 30, loop: tts.msg.length});

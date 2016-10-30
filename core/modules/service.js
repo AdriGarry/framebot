@@ -25,6 +25,17 @@ module.exports = {
 	cpuTemp: cpuTemp
 }
 
+
+setTimeout(function(){
+	// updateVersionFromGithub();
+	tts.speak({voice: 'espeak', msg:'Leonard le cafard, ou es-tu ?'}); // TODO
+	tts.speak({voice: 'google', msg:'Attention a toi si je te trouve...'}); // TODO
+	tts.speak({voice: 'espeak', msg:'Oui, je vais tenvoyer Bouts !'}); // TODO
+	tts.speak({voice: 'google', msg:'Et tu vas passer un sale quart d\'heure !!'}); // TODO
+}, 8000);
+
+
+
 /** Function to retreive weather info */
 var weatherStatus = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');
 function weather(){
