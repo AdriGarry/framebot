@@ -47,12 +47,12 @@ function startOdi(mode){
 	if(typeof mode === 'undefined') mode = '';
 	// if(typeof mode === Number){
 	if(/\d/.test(mode) && mode == 255){
-		logMode = ' O...';
+		logMode = ' O';
 		logo = logoSleep;
 		odiPgm = spawn('node', [CORE_PATH + 'odiSleep.js', mode]);
 	}else if(/\d/.test(mode) && mode > 0 && mode < 255){
 		timeToWakeUp = mode * 60; // Conversion en minutes
-		logMode = ' O...' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
+		logMode = ' O' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
 		logo = logoSleep;
 		odiPgm = spawn('node', [CORE_PATH + 'odiSleep.js', mode]);
 		decrementTime();
