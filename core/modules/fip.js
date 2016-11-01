@@ -3,8 +3,8 @@
 // Module Fip
 
 var spawn = require('child_process').spawn;
-var hardware = require('./hardware.js');
 var leds = require('./leds.js');
+// var hardware = require('./hardware.js');
 // var utils = require('./utils.js');
 
 var self = this;
@@ -42,7 +42,9 @@ function playFip(){
 	else{
 		console.log('I\'m already playing FIP !');
 	}
-	hardware.mute(60, 'Auto Mute FIP');
+	//utils.mute(60, 'Auto Mute FIP');
+
+	// TODO SET TIMEOUT ... stopFip();
 };
 
 /** Function to stop FIP radio */

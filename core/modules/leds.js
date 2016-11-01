@@ -5,8 +5,6 @@
 var Gpio = require('onoff').Gpio;
 var CronJob = require('cron').CronJob;
 
-//var self = this;
-
 module.exports = {
 	blink: blink,
 	toggle: toggle,

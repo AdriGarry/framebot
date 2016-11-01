@@ -16,9 +16,15 @@ var date = new Date();
 var hour = date.getHours();
 var pastHour = hour;
 
-// var clockPattern;
+module.exports = {
+	startClock: startClock,
+	setAlarms: setAlarms,
+	setAutoLifeCycle: setAutoLifeCycle,
+	setBackgroundJobs: setBackgroundJobs
+}
+
 /** Function to init clock  */
-var startClock = function(modeInit){
+function startClock(modeInit){
 	if(!modeInit){ // Mode work
 		console.log('Clock jobs initialised in regular mode');
 		new CronJob('0 0 8-23 * * 1-5', function(){
@@ -43,10 +49,9 @@ var startClock = function(modeInit){
 		}, null, true, 'Europe/Paris');
 	}
 };
-exports.startClock = startClock;
 
 /** Funtion to say time (hours) */
-var ringHour = function(){
+function ringHour(){
 	date = new Date();
 	hour = date.getHours();
 	console.log('It\'s ' + hour + ' o\'clock');
@@ -70,7 +75,7 @@ var ringHour = function(){
 };
 
 /** Funtion to say time (half hours) */
-var ringHalfHour = function(){
+function ringHalfHour(){
 	date = new Date();
 	hour = date.getHours();
 	console.log('It\'s ' + hour + ' and a half');
@@ -86,7 +91,7 @@ var ringHalfHour = function(){
 };
 
 /** Function to set alarms */
-var setAlarms = function(){
+function setAlarms(){
 	console.log('Alarms jobs initialised');
 
 	// WEEKDAY
@@ -153,7 +158,7 @@ var setAlarms = function(){
 				}, 15*1000);
 			// }else{
 				// jukebox.loop();
-				// hardware.mute(60, 'Auto mute Morning');
+				// utils.mute(60, 'Auto mute Morning');
 			// }
 		});
 
@@ -170,10 +175,9 @@ var setAlarms = function(){
 		service.randomAction();
 	}, null, true, 'Europe/Paris'); // Signal des 1/4 d'heure, entre 17h et 23h
 };
-exports.setAlarms = setAlarms;
 
 /** Function to set auto life cycles */
-var setAutoLifeCycle = function(param){
+function setAutoLifeCycle(param){
 	if(typeof param !== 'undefined' && param == 'S'){ // Set wake up jobs
 		console.log('AutoLifeCycle jobs initialised [' + param + ':Wake Up!]');
 		new CronJob('0 8 7 * * 1-5', function(){
@@ -195,10 +199,10 @@ var setAutoLifeCycle = function(param){
 			hardware.restartOdi(255);
 		}, null, true, 'Europe/Paris');
 	}
-};exports.setAutoLifeCycle = setAutoLifeCycle;
+};
 
 /** Function to set background tasks */
-var setBackgroundJobs = function(){
+function setBackgroundJobs(){
 	console.log('Background jobs initialised');
 
 	new CronJob('13 13 13 * * 1-6', function() {
@@ -220,4 +224,3 @@ var setBackgroundJobs = function(){
 		hardware.cleanLog();
 	}, null, true, 'Europe/Paris');
 };
-exports.setBackgroundJobs = setBackgroundJobs;

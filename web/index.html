@@ -45,7 +45,7 @@
 				<sup class="version" title="version">{{dashboard.version}}&nbsp;</sup>
 			</h1>
 			<span flex></span>
-			<i class="debug fa fa-circle" data-ng-if="dashboard.debug"></i>&nbsp;
+			<i class="debug fa fa-circle" data-ng-if="dashboard.debug" title="DEBUG mode"></i>&nbsp;
 			<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch><!--data-ng-if="irda"-->
 			<md-button class="md-icon-button" data-ng-click="showDialogGrant($event)" data-ng-class="irda ? 'admin' : ''" title="Admin" aria-label="Admin"><!-- grant()-->
 				<i class="fa fa-2x fa-lg fa-key"></i>
@@ -58,7 +58,7 @@
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
 		<div class="logs" data-ng-dblclick="refreshLog()">
-			<i class="debugLog fa fa-circle" data-ng-if="dashboard.debug"></i>
+			<i class="debugLog fa fa-circle" data-ng-if="dashboard.debug" title="DEBUG mode"></i>
 			<ul><!-- class="fakeScroll"-->
 				<li data-ng-repeat="logLine in logData track by $index" data-ng-bind-html="toHtml(logLine)">{{logLine}}</li><!-- data-ng-bind-html="toHtml(logLine)"-->
 				<a id="bottomLogs"></a>

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-// Module de gestion des boutons
+// Module Button
 
-var log = 'Odi/ ';
+// var log = 'Odi/ ';
 var spawn = require('child_process').spawn;
 var leds = require(CORE_PATH + 'modules/leds.js');
 var hardware = require(CORE_PATH + 'modules/hardware.js');
@@ -15,15 +15,19 @@ var party = require(CORE_PATH + 'modules/party.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
 var service = require(CORE_PATH + 'modules/service.js');
 
+module.exports = {
+	getEtat: getEtat,
+	initButtonAwake: initButtonAwake,
+}
+
 /** Function to get switch state */
-var getEtat = function(callback){
+function getEtat(callback){
 	var switchState = etat.readSync();
 	return switchState;
 };
-exports.getEtat = getEtat;
 
 /** Button initialization in normal mode */
-exports.initButtonAwake = function initButtonAwake(){
+function initButtonAwake(){
 	/** Interval pour l'etat du switch + fonctions associees */
 	var instance = false;
 	var interval;
@@ -47,7 +51,7 @@ exports.initButtonAwake = function initButtonAwake(){
 	/** Switch watch for radio volume */
 	etat.watch(function(err, value){
 		value = etat.readSync();
-		console.log(' Etat: ' + value + ' [Etat has changed]');
+		console.log('Etat:', value, '[Etat has changed]');
 		if(fip.instance){
 			fip.stopFip('Rebooting FIP RADIO (volume changed)');
 			setTimeout(function(){
@@ -86,14 +90,14 @@ exports.initButtonAwake = function initButtonAwake(){
 		}else{
 			console.log('Push Ok button canceled !');
 		}
-		hardware.mute(60, 'Random action mute');
+		utils.mute(60, 'Random action mute');
 	});
 
 	/** Red (cancel) button watch */
 	cancel.watch(function(err, value){
 		var pressTime = new Date();
 		tts.clearTTSQueue();
-		hardware.mute();
+		utils.mute();
 		while(cancel.readSync() == 1){
 			; // Pause
 			t = Math.round((new Date() - pressTime)/100)/10;
@@ -106,7 +110,7 @@ exports.initButtonAwake = function initButtonAwake(){
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		leds.ledOff('belly');
 		console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec [1,3]');
-		// hardware.mute();
+		// utils.mute();
 		if(pressTime >= 1 && pressTime < 3){
 			hardware.restartOdi();
 		}else if(pressTime >= 3){
@@ -156,14 +160,14 @@ exports.initButtonAwake = function initButtonAwake(){
 		}else if(pressTime > 2 && pressTime < 5){
 			if(etat.readSync() == 0){
 				setTimeout(function(){
-					hardware.mute();
+					utils.mute();
 					leds.allLedsOff();
 					console.log('TEST _A_ : mute + party.setParty(true)');
 					party.setParty(true);
 				}, 1200);			
 			}else{
 				setTimeout(function(){
-					hardware.mute();
+					utils.mute();
 					leds.allLedsOff();
 					console.log('TEST _B_ : party.setParty(false)');
 					party.setParty(false);

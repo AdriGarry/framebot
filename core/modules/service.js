@@ -11,7 +11,7 @@ var request = require('request');
 var utils = require('./utils.js');
 var tts = require('./tts.js');
 var exclamation = require('./exclamation.js');
-const self = this;
+var self = this;
 
 module.exports = {
 	timeNow: timeNow,

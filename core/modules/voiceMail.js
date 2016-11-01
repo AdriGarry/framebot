@@ -8,8 +8,6 @@ var leds = require('./leds.js');
 var tts = require('./tts.js');
 var utils = require('./utils.js');
 
-const self = this;
-
 const VOICEMAIL_FILE = '/home/pi/odi/tmp/voicemail.json';
 const VOICEMAIL_FILE_HISTORY = '/home/pi/odi/log/voicemailHistory.json';
 

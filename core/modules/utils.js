@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 
-// Module utils
+// Module Utils
 
 var fs = require('fs');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var os = require("os");
-var leds = require('./leds.js');
 var hardware = require('./hardware.js');
 var leds = require('./leds.js');
-var fip = require('./fip.js');
-const self = this;
+// var fip = require('./fip.js');
+var self = this;
 
 module.exports = {
+	mute: mute,
 	getStartTime : getStartTime,
 	formatedDate: formatedDate,
 	prepareLogs: prepareLogs,
@@ -22,6 +22,33 @@ module.exports = {
 	getJsonFileContent: getJsonFileContent,
 	appendJsonFile: appendJsonFile,
 	testConnexion: testConnexion
+};
+
+var muteTimer, delay;
+/** Function to mute Odi */
+function mute(delay, message){ // delay: min
+	clearTimeout(muteTimer);
+	// console.debug('mute()', 'delay:', delay, 'message:', message);
+	delay = (delay && !isNaN(delay)) ? delay : 0;
+	if(delay < 10){
+		stopAll();
+	}else{
+		muteTimer = setTimeout(function(){
+			spawn('sh', [CORE_PATH + 'sh/mute.sh', 'auto']);
+			setTimeout(function(){
+				stopAll();
+			}, 1600);
+		}, delay*60*1000);
+	}
+};
+
+/** Function to stop all sounds & leds */
+function stopAll(message){
+	spawn('sh', [CORE_PATH + 'sh/mute.sh']);
+	console.log('>> MUTE  -.-', message ? '"' + message + '"' : '');
+	// leds.clearLeds();
+	eye.write(0);
+	belly.write(0);
 };
 
 /** Function to return last Odi's start/restart time */

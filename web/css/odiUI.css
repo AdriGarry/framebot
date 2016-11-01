@@ -102,6 +102,10 @@ img.odiFace.odiOff{
 	font-style:italic;
 	color:#b4c3cb;
 }
+.toolbar i.debug{
+	cursor:help;
+}
+
 .toolbar .fa-key{
 	opacity:0.5;
 }
@@ -175,6 +179,7 @@ md-sidenav div{
 	top:1em;
 	right:2em;
 	color:rgba(255,255,255,0.87);/*#F44235*/
+	cursor:help;
 }
 
 .logs ul{
@@ -252,6 +257,9 @@ md-grid-list{
 	/*position:initial;*/
 	/*max-width:1000px;*/
 	margin:0 auto;
+}
+md-grid-list md-grid-tile + md-grid-tile{
+	cursor:no-drop;
 }
 md-grid-list.pointer md-grid-tile{
 	cursor:pointer;

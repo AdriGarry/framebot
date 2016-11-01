@@ -26,7 +26,7 @@ var jukebox = require(CORE_PATH + 'modules/jukebox.js');
 var exclamation = require(CORE_PATH + 'modules/exclamation.js');
 var party = require(CORE_PATH + 'modules/party.js');
 var admin = require(CORE_PATH + 'modules/admin.js');
-const self = this;
+var self = this;
 
 const FILE_REQUEST_HISTORY = LOG_PATH + 'requestHistory.log';
 const FILE_GRANT = DATA_PATH + 'pwd.properties';
@@ -35,7 +35,7 @@ const ALLOWED_REQUESTS = ['/config.json', '/voicemailHistory', '/requestHistory'
 
 var deploy;
 
-hardware.mute(1, 'ODI');
+// utils.mute(1, 'ODI');
 
 module.exports = {
 	startUI: startUI
@@ -202,7 +202,7 @@ function startUI(mode){
 
 	ui.post('/mute', function(req, res){ // Mute Odi
 		tts.clearTTSQueue();
-		hardware.mute();
+		utils.mute();
 		res.writeHead(200);res.end();
 	});
 
