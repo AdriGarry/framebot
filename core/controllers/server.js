@@ -35,6 +35,8 @@ const ALLOWED_REQUESTS = ['/config.json', '/voicemailHistory', '/requestHistory'
 
 var deploy;
 
+hardware.mute(1, 'ODI');
+
 module.exports = {
 	startUI: startUI
 };

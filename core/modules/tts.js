@@ -10,7 +10,7 @@ var utils = require('./utils.js');
 const self = this;
 
 const LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.log';
-// const RDM_MESSAGE_LIST = require('/home/pi/odi/data/ttsMessages.json'); // DO ASYNC
+
 var RDM_MESSAGE_LIST, RDM_MESSAGE_LIST_LENGTH;
 fs.readFile('/home/pi/odi/data/ttsMessages.json', function(err, data){
 	if(err && err.code === 'ENOENT'){
@@ -20,8 +20,7 @@ fs.readFile('/home/pi/odi/data/ttsMessages.json', function(err, data){
 	RDM_MESSAGE_LIST = JSON.parse(data);
 	RDM_MESSAGE_LIST_LENGTH = RDM_MESSAGE_LIST.length;
 });
-// const RDM_CONVERSATION_LIST = require('/home/pi/odi/data/ttsConversations.json'); // DO ASYNC
-// const RDM_CONVERSATION_LIST_LENGTH = RDM_CONVERSATION_LIST.length;
+
 var RDM_CONVERSATION_LIST, RDM_CONVERSATION_LIST_LENGTH;
 fs.readFile('/home/pi/odi/data/ttsConversations.json', function(err, data){
 	if(err && err.code === 'ENOENT'){

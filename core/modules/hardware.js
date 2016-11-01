@@ -7,7 +7,6 @@ var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var os = require("os");
 var leds = require('./leds.js');
-const self = this;
 
 module.exports = {
 	mute: mute,
@@ -26,7 +25,7 @@ var muteTimer, delay;
 /** Function to mute Odi */
 function mute(delay, message){ // delay: min
 	clearTimeout(muteTimer);
-	console.debug('mute()', 'delay:', delay, 'message:', message);
+	// console.debug('mute()', 'delay:', delay, 'message:', message);
 	delay = (delay && !isNaN(delay)) ? delay : 0;
 	if(delay < 1){
 		stopAll();
