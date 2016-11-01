@@ -274,6 +274,11 @@ function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
+		ui.post('/adriExclamation', function(req, res){ // Idea...
+			service.adriExclamation();
+			res.writeHead(200);res.end();
+		});
+
 		/*ui.post('/russia', function(req, res){ // Russia
 			// console.log('UI > Russia');
 			exclamation.russia();

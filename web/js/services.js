@@ -122,7 +122,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 		russia: new Tile(14, 'Russia', 'orange', 1, 1, ICON, 'star',
 			[{label: 'Subway / Street', icon: 'subway', url: '/russia'},{label: 'Hymn', icon: 'star', url: '/russia?hymn'}]),
 		idea: new Tile(15, 'Idea', 'blue', 1, 1, ICON, 'lightbulb-o',
-			[{label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk'},{label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{label: 'Test', icon: 'flag-checkered', url:'/test'}]),
+			[{label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk'},{label: 'AAAdri', icon: 'font', url: '/adriExclamation'},{label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{label: 'Test', icon: 'flag-checkered', url:'/test'}]),
 		cigales: new Tile(17, 'Cigales', 'lime', 1, 1, ICON, 'bug',
 			[{url: '/cigales'}]),
 		system: new Tile(18, 'System', 'lightGreen', 1, 1, ICON, 'power-off',

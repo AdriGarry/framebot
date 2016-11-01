@@ -105,10 +105,7 @@ tts.speak({voice: 'espeak', msg: 'Et oui, sait moi Odi, je suis de retour !'});
 
 setTimeout(function(){
 	service.adriExclamation();
-}, 55000);
-setTimeout(function(){
-	tts.speak({voice: 'espeak', msg: 'Il pleut dehors'});
-}, 55500);
+}, 120000);
 
 new CronJob('*/4 * * * * *', function(){
 	leds.blink({

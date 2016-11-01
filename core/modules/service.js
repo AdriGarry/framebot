@@ -178,11 +178,14 @@ function randomAction(){
 		}
 	});
 };
-
 /** Function 'Aaaadri' speech */
 function adriExclamation(){
+	var aa = 'aa';
 	console.log('adriExclamation()');
-	tts.speak({voice: 'google', lg:'ru', msg:'hey, a3'});
+	aa += aa.repeat(Math.round(Math.random()*6));
+	console.debug('adriExclamation()');
+	tts.speak({voice: 'espeak', lg:'fr', msg: aa + 'dri'});
+	// tts.speak({voice: 'google', lg:'ru', msg:'hey, a3'});
 };
 
 /** Function cpu temperature TTS */
