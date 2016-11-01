@@ -27,7 +27,7 @@ function mute(delay, message){ // delay: min
 	clearTimeout(muteTimer);
 	// console.debug('mute()', 'delay:', delay, 'message:', message);
 	delay = (delay && !isNaN(delay)) ? delay : 0;
-	if(delay < 1){
+	if(delay < 10){
 		stopAll();
 	}else{
 		muteTimer = setTimeout(function(){
