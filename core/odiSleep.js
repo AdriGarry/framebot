@@ -19,13 +19,13 @@ console.debug('\n---------------------\n', '-> ->  DEBUG MODE !!');
 
 var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
-var hardware = require('./modules/hardware.js');
+var hardware = require('./hardware.js');
 var gpioPins = require('./modules/gpioPins.js');
 var CronJob = require('cron').CronJob;
 var jobs = require('./modules/jobs.js');
 var utils = require('./modules/utils.js');
 var leds = require('./modules/leds.js');
-var server = require('./controllers/server.js');
+var server = require('./modules/server.js');
 
 var mode = sleepTime = process.argv[2]; // Recuperation des arguments
 
