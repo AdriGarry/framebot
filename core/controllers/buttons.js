@@ -4,16 +4,16 @@
 
 var log = 'Odi/ ';
 var spawn = require('child_process').spawn;
-var leds = require('./leds.js');
-var hardware = require('./hardware.js');
-var fip = require('./fip.js');
-var jukebox = require('./jukebox.js');
-var tts = require('./tts.js');
-var voiceMail = require('./voiceMail.js');
-var party = require('./party.js');
+var leds = require(CORE_PATH + 'modules/leds.js');
+var hardware = require(CORE_PATH + 'modules/hardware.js');
+var fip = require(CORE_PATH + 'modules/fip.js');
+var jukebox = require(CORE_PATH + 'modules/jukebox.js');
+var tts = require(CORE_PATH + 'modules/tts.js');
+var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
+var party = require(CORE_PATH + 'modules/party.js');
 // var EventEmitter = require('events').EventEmitter;
-var utils = require('./utils.js');
-var service = require('./service.js');
+var utils = require(CORE_PATH + 'modules/utils.js');
+var service = require(CORE_PATH + 'modules/service.js');
 
 /** Function to get switch state */
 var getEtat = function(callback){
