@@ -59,10 +59,9 @@ function startUI(mode){
 		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
 		leds.blink({leds : ['satellite'], speed : 180, loop : 1});
 		method = req.method;
-		/*if(method == 'GET') method = '< ';
-		else method = '> ';
-		request = ' Odi' + (method == 'GET' ? ' > ' : ' < ');*/
-		request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : ' ?? ') + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
+		// request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : ' ?? ') + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
+		request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : 'NO_IP ') + req.url.replace('%20',' ');
+		request += req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : ' [' + req.connection.remoteAddress + ']';
 		console.log(request);
 
 		if(req.connection.remoteAddress.indexOf('192.168') == -1){
@@ -70,7 +69,7 @@ function startUI(mode){
 				if(err) return console.error(err);
 			});
 		}
-		// if(req.headers.ui === 'v3' || req.url == '/config.json' || req.url == '/voicemailHistory' || req.url == '/requestHistory'){
+
 		if(req.headers.ui === 'v3' || ALLOWED_REQUESTS.indexOf(req.url) > -1){
 			next();
 		}else{
