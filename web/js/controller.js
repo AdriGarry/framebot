@@ -203,6 +203,11 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 		}
 	}, 100);
 
+	/** Stop auto refresh after 2 min */
+	$timeout(function(){
+		$scope.dashboard.autoRefresh = false;
+	}, 2*60*1000);
+
 	$scope.grant = function(param){
 		UIService.sendCommand({url:'/grant', data:param}, function(data){
 			$scope.irda = data;

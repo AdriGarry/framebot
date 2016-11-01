@@ -74,16 +74,20 @@ setTimeout(function(){
 
 voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 
+/** If debug mode, set a timer to cancel in 20 min */
+if(CONFIG.debug){
+	console.debug('Setting up time out to cancel Debug mode !!');
+	setTimeout(function(){
+		console.debug('Canceling debug mode... & Restart !!');
+		utils.setConfig('debug', null, true);
+	}, 20*60*1000);
+}
 
 // ------------------------//
 // ----- TEST SECTION -----//
 // ------------------------//
 
-var ttsTmp = {lg: "fr", voice: "espeak", msg: "test voicemail"};
-// console.log(ttsTmp);
-/*utils.appendJsonFile('/home/pi/odi/tmp/voicemail.json', ttsTmp, function(callback){
-	console.log(callback);
-});*/
+//tts.speak([{voice: 'google', lg: 'fr', msg:'un'}, {voice: 'espeak', lg: 'fr', msg:'deux'}, {voice: 'google', lg: 'fr', msg:'trois'}]);
 
 /*tts.speak({voice: 'espeak', msg:'hey !'});
 tts.speak({voice: 'google', msg:'salut'});
@@ -101,7 +105,7 @@ setTimeout(function(){
 }, 55000);
 setTimeout(function(){
 	tts.speak({voice: 'espeak', msg: 'Il pleut dehors'});
-}, 60000);
+}, 55500);
 
 new CronJob('*/4 * * * * *', function(){
 	leds.blink({

@@ -42,13 +42,13 @@
 					</div>-->
 				</md-input-container>
 				<md-input-container flex="30" class="md-block centerText">
-					<md-button type="submit" name="submit" class="md-raised" data-ng-class="dashboard.ttsTile.voice == ':3' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
+					<md-button type="submit" name="submit" class="md-raised" data-ng-class="dashboard.ttsTile.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
 						<i class="fa" data-ng-class="dashboard.ttsTile.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 					</md-button>
 				</md-input-container>
 			</div>
 		</form>
-		<md-grid-tile-footer data-ng-class="dashboard.ttsTile.rowspan == 2 ? 'active' : ''"><h3>{{dashboard.ttsTile.label}}</h3></md-grid-tile-footer>
+		<md-grid-tile-footer><h3>{{dashboard.ttsTile.label}}</h3></md-grid-tile-footer>
 	</md-grid-tile>
 
 	<md-grid-tile data-ng-repeat="tile in dashboard.tileList track by $index" md-rowspan="{{tile.rowspan}}"

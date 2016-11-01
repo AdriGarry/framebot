@@ -102,6 +102,7 @@ exports.initButtonAwake = function initButtonAwake(){
 	/** Association actions bouton Rouge */
 	cancel.watch(function(err, value){
 		var pressTime = new Date();
+		tts.clearTTSQueue();
 		utils.mute();
 		while(cancel.readSync() == 1){
 			; // Pause

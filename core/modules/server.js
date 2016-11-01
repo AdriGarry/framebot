@@ -62,7 +62,7 @@ function startUI(mode){
 		/*if(method == 'GET') method = '< ';
 		else method = '> ';
 		request = ' Odi' + (method == 'GET' ? ' > ' : ' < ');*/
-		request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : 'NO_IP ') + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
+		request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : ' ?? ') + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
 		console.log(request);
 
 		if(req.connection.remoteAddress.indexOf('192.168') == -1){
@@ -195,6 +195,7 @@ function startUI(mode){
 	});
 
 	ui.post('/mute', function(req, res){ // Mute Odi
+		tts.clearTTSQueue();
 		utils.mute();
 		res.writeHead(200);res.end();
 	});

@@ -137,8 +137,8 @@ var setAlarms = function(){
 
 	// WEEKEND
 	new CronJob('0 45,55 11 * * 0,6', function() {
-		console.log('Morning Birds... Let\'s start the day with some birds songs !');
-		var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningBirds']);
+		console.log('Morning Sea... Let\'s start the day with some waves !');
+		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 0 12 * * 0,6', function() {
@@ -178,11 +178,11 @@ exports.setAlarms = setAlarms;
 var setAutoLifeCycle = function(param){
 	if(typeof param !== 'undefined' && param == 'S'){ // Set wake up jobs
 		console.log('AutoLifeCycle jobs initialised [' + param + ':Wake Up!]');
-		new CronJob('0 0 7 * * 1-5', function(){
+		new CronJob('0 8 7 * * 1-5', function(){
 			console.log('AutoLifeCycle start up !');
 			utils.restartOdi();
 		}, null, true, 'Europe/Paris');
-		new CronJob('0 30 11 * * 0,6', function() {
+		new CronJob('0 42 11 * * 0,6', function() {
 			console.log('AutoLifeCycle start up !');
 			utils.restartOdi();
 		}, null, true, 'Europe/Paris');
@@ -202,13 +202,7 @@ var setAutoLifeCycle = function(param){
 /** Function to set background tasks */
 var setBackgroundJobs = function(){
 	console.log('Background jobs initialised');
-	new CronJob('0 2,32 * * * *', function() {
-		if(CONFIG.debug){
-			console.debug('Canceling debug mode... & Restart !!');
-			utils.setConfig('debug', null, true);
-		}
-	}, null, true, 'Europe/Paris');
-
+	
 	new CronJob('13 13 13 * * 1-6', function() {
 		tts.speak({voice:'espeak', lg:'en', msg:'Auto restart'}); // Daily restart Odi's core
 		setTimeout(function(){

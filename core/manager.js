@@ -13,7 +13,6 @@ var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
 var gpioPins = require('./modules/gpioPins.js');
 var utils = require('./modules/utils.js');
-// var tts = require('./modules/tts.js');
 
 var odiPgm, odiState = false;
 const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
@@ -33,14 +32,10 @@ ok.watch(function(err, value){
 var logDate, logMode, timeToWakeUp;
 var date, month, day, hour, min, sec;
 
-/** Fonction demarrage programme Odi */
+/** Function to start up Odi */
 function startOdi(mode){
 	/** Setting up Odi's config */
-	var tmpA = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-	console.log('tmpA', tmpA);
-	console.log('DEBUG :', tmpA.debug);
-	// global.CONFIG = require(CONFIG_FILE, 'utf8');
-	global.CONFIG = tmpA;
+	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
 
 	utils.mute();
 	var logo;
@@ -95,10 +90,10 @@ function startOdi(mode){
 			startOdi();
 		}
 	});
-}
+};
 
 var decrementInterval;
-/** Fonction decrementTime : MaJ temps avant reveil pour logs */
+/** Funtion to decrement time (time before wake up log while sleeping */
 var decrementTime = function(){
 	decrementInterval = setInterval(function(){
 		if(timeToWakeUp > 0){

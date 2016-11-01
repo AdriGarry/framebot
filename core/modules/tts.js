@@ -25,9 +25,10 @@ var onAir = false;
 
 module.exports = { // Singleton
 	speak: speak,
-	conversation: function(){
+	/*conversation: function(){
 		console.log('FUNCTION NOT YET MIGRATED...');
-	},
+	},*/
+	clearTTSQueue: clearTTSQueue,
 	clearLastTTS: clearLastTTS,
 	lastTTS: lastTTS
 };
@@ -97,13 +98,12 @@ delay = 1;
 setInterval(function(){
 	if(!onAir && ttsQueue.length > 0){
 		onAir = true;
-		leds.toggle({led: 'eye', mode: 1});
-		// leds.toggle({led: 'belly', mode: 1});
+		// leds.toggle({led: 'eye', mode: 1});
 		currentTTS = ttsQueue.shift();
 		playTTS(currentTTS);
 		setTimeout(function(){
 			onAir = false;
-			leds.toggle({led: 'eye', mode: 0});
+			// leds.toggle({led: 'eye', mode: 0});
 		}, currentTTS.msg.length*50 + 1500);//*30 + 1500
 	}
 }, 500);
@@ -129,7 +129,12 @@ var playTTS = function(tts){
 	fs.writeFile(LAST_TTS_PATH, tts.lg + ';' + tts.msg, 'UTF-8', function(err){
 		if(err) return console.error('Error while saving last TTS : ' + err);
 	});
-}
+};
+
+/** Function to clear TTS Queue */
+function clearTTSQueue(){
+	ttsQueue = [];
+};
 
 /** Detection des parametres en cas d'appel direct (pour tests ou exclamation TTS) */
 /*var params = process.argv[2];
