@@ -11,7 +11,6 @@ var request = require('request');
 var utils = require('./utils.js');
 var tts = require('./tts.js');
 var exclamation = require('./exclamation.js');
-var self = this;
 
 module.exports = {
 	timeNow: timeNow,
@@ -40,11 +39,8 @@ function timeNow(){
 	}
 };
 
-/** Function to say current date */
-// const days = fs.readFileSync('/home/pi/odi/data/date.days.properties', 'UTF-8').toString().split('\n');
-// const months = fs.readFileSync('/home/pi/odi/data/date.months.properties', 'UTF-8').toString().split('\n');
-
 var CALENDAR = require('/home/pi/odi/data/calendar.json');
+/** Function to say current date */
 function date(){
 	var date = new Date();
 	var dayNb = date.getDate();
