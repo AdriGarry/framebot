@@ -142,7 +142,6 @@ function getJsonFileContent(filePath, callback){
 	// }
 };
 
-
 /** Function to append object in JSON file */
 var fileData;
 function appendJsonFile(filePath, obj, callback){

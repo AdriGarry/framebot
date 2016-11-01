@@ -19,7 +19,7 @@ console.debug('\n---------------------\n', '-> ->  DEBUG MODE !!');
 
 var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
-var hardware = require('./hardware.js');
+var hardware = require('./modules/hardware.js');
 var gpioPins = require('./modules/gpioPins.js');
 var CronJob = require('cron').CronJob;
 var jobs = require('./modules/jobs.js');

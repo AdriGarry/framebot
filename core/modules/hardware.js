@@ -18,6 +18,7 @@ module.exports = {
 	getCPUUsage: getCPUUsage,
 	getCPUTemp: getCPUTemp,
 	getOdiAge: getOdiAge,
+	cleanLog: cleanLog,
 	getMsgLastGitCommit: getMsgLastGitCommit
 };
 
@@ -111,10 +112,16 @@ function getCPUTemp(callback){
  * @return age in days
  */
 var age = 0;
+const DATE_BIRTH = new Date('August 9, 2015 00:00:00');
 function getOdiAge(){
-	age = Math.abs(('August 9, 2015 00:00:00').getTime() - new Date());
+	age = Math.abs(DATE_BIRTH.getTime() - new Date());
 	age = Math.ceil(age / (1000 * 3600 * 24));
 	return age;
+};
+
+/** Function to clean and archive logs */
+function cleanLog(){
+	var deploy = spawn('sh', ['/home/pi/odi/core/sh/log.sh', 'clean']);
 };
 
 /** Function to get last git commit message */

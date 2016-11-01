@@ -52,7 +52,6 @@ var ringHour = function(){
 	console.log('It\'s ' + hour + ' o\'clock');
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
-			// tts.speak('fr', 'Il est ' + hour + ' heures');
 			tts.speak({lg:'fr', msg:'Il est ' + hour + ' heures'});
 		}else{
 			if(cpHour > 12){
@@ -220,7 +219,7 @@ var setBackgroundJobs = function(){
 
 	new CronJob('0 0 5 * * 2', function() {
 		console.log('Clean log files  /!\\'); // Weekly cleaning of logs
-		log.cleanLog();
+		hardware.cleanLog();
 	}, null, true, 'Europe/Paris');
 };
 exports.setBackgroundJobs = setBackgroundJobs;
