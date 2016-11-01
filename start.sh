@@ -5,6 +5,14 @@ echo "start.sh -> Start Odi Pgm..."
 # configFile="/home/pi/odi/tmp"
 # tmpDir="/home/pi/odi/tmp"
 
+# TEST IF LOG DIRECTORY EXISTS
+if [ ! -d /home/pi/odi/log ];
+then
+	mkdir /home/pi/odi/log
+	echo "Creating Log file"
+fi
+
+
 # TEST IF CONF FILE EXISTS
 if [ ! -f /home/pi/odi/conf.json ];
 then

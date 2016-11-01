@@ -7,27 +7,38 @@ var fs = require('fs');
 var leds = require('./leds.js');
 var request = require('request');
 var utils = require('./utils.js');
-// var deploy;
 const self = this;
 
-// const messageList = JSON.parse(fs.readFileSync('/home/pi/odi/data/ttsMessages.json', 'utf8'));
-const messageList = require('/home/pi/odi/data/ttsMessages.json');
-const messageListLength = messageList.length;
-
-const CONVERSATIONS_PATH = '/home/pi/odi/data/ttsConversations.properties';
-// const conversations = fs.readFileSync(CONVERSATIONS_PATH, 'UTF-8').toString().split('\n\n'); // \r\n
-const conversations = require('/home/pi/odi/data/ttsConversations.json');
-const rdmMaxConversations = conversations.length;
 const LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.log';
+// const RDM_MESSAGE_LIST = require('/home/pi/odi/data/ttsMessages.json'); // DO ASYNC
+var RDM_MESSAGE_LIST, RDM_MESSAGE_LIST_LENGTH;
+fs.readFile('/home/pi/odi/data/ttsMessages.json', function(err, data){
+	if(err && err.code === 'ENOENT'){
+		console.debug(console.error('No file : ' + filePath));
+		callback(null);
+	}
+	RDM_MESSAGE_LIST = JSON.parse(data);
+	RDM_MESSAGE_LIST_LENGTH = RDM_MESSAGE_LIST.length;
+});
+// const RDM_CONVERSATION_LIST = require('/home/pi/odi/data/ttsConversations.json'); // DO ASYNC
+// const RDM_CONVERSATION_LIST_LENGTH = RDM_CONVERSATION_LIST.length;
+var RDM_CONVERSATION_LIST, RDM_CONVERSATION_LIST_LENGTH;
+fs.readFile('/home/pi/odi/data/ttsConversations.json', function(err, data){
+	if(err && err.code === 'ENOENT'){
+		console.debug(console.error('No file : ' + filePath));
+		callback(null);
+	}
+	RDM_CONVERSATION_LIST = JSON.parse(data);
+	RDM_CONVERSATION_LIST_LENGTH = RDM_CONVERSATION_LIST.length;
+});
+
 
 var ttsQueue = []; // TTS queue
 var onAir = false;
 
 module.exports = { // Singleton
 	speak: speak,
-	/*conversation: function(){
-		console.log('FUNCTION NOT YET MIGRATED...');
-	},*/
+	randomConversation: randomConversation,
 	clearTTSQueue: clearTTSQueue,
 	clearLastTTS: clearLastTTS,
 	lastTTS: lastTTS
@@ -44,9 +55,9 @@ function speak(tts){
 			}
 		});
 	}else if(!tts || (!Object.keys(tts).length > 0) || (tts.msg.toUpperCase().indexOf('RANDOM') > -1)){ // OR UNDEFINED !!
-		var rdmNb = ((Math.floor(Math.random()*messageListLength)));
-		tts = messageList[rdmNb];
-		console.log('Random TTS : ' + rdmNb + '/' + messageListLength);
+		var rdmNb = ((Math.floor(Math.random()*RDM_MESSAGE_LIST_LENGTH)));
+		tts = RDM_MESSAGE_LIST[rdmNb];
+		console.log('Random TTS : ' + rdmNb + '/' + RDM_MESSAGE_LIST_LENGTH);
 		console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
 		ttsQueue.push(tts);
 	}else{
@@ -58,37 +69,15 @@ function speak(tts){
 	}
 };
 
-/** Fonction conversation TTS */
-var conversation = function(messages){
-	console.log('Conversation Service... ' + messages);
-	try{
-		if(typeof messages == 'undefined') throw (messages);
-		// Mettre un 2eme Try catch imbriqué...
-		if( messages.constructor != Array){// typeof messages == 'undefined' ||       // IS EMPTY
-			if(messages.constructor == Number && messages != NaN && messages <= rdmMaxConversations-1){
-				messages = conversations[messages];
-			}else{
-				var rdmNb = ((Math.floor(Math.random()*rdmMaxConversations)));
-				messages = conversations[rdmNb];
-				console.log('Random conversation : ' + (rdmNb+1) + '/' + rdmMaxConversations);
-			}
-			messages = messages.split('\n');
-		}
-		var delay = 1;
-		messages.forEach(function(message){
-				speak({lg: lg, msg :txt});
-			// console.log('__ ' + delay/1000);
-			setTimeout(function(message){
-			}.bind(this, message), delay+2500);
-			delay += message.length*120;
-		});
-	}catch(e){
-		// self.speak('fr','erreur conversation:1');
-		self.new({voice: 'espeak', lg:'fr', msg: 'erreur conversation'});
-		console.error('conversation_error : ' + e);
-	}
+/** Function to launch random conversation */
+function randomConversation(){
+	console.debug('randomConversation()');
+	var rdmNb = ((Math.floor(Math.random()*RDM_CONVERSATION_LIST_LENGTH))); // IMPORT JSON FILE
+	var conversation = RDM_CONVERSATION_LIST[rdmNb];
+	console.debug(conversation);
+	console.log('Random conversation : ' + (rdmNb+1) + '/' + RDM_CONVERSATION_LIST_LENGTH);
+	speak(conversation);
 };
-
 
 /** Function to proceed TTS queue */
 var currentTTS, delay;
@@ -156,42 +145,6 @@ if(typeof lgParam != 'undefined' && lgParam !='' && typeof txtParam != 'undefine
 	console.log('TTS_PARAMS: ' + lgParam + ', ' + txtParam);
 	self.speak(lgParam, txtParam);
 }*/
-
-
-/** Fonction conversation TTS */
-var conversation = function(messages){
-	console.log('Conversation Service... ' + messages);
-	try{
-		if(typeof messages == 'undefined') throw (messages);
-		// Mettre un 2eme Try catch imbriqué...
-		if( messages.constructor != Array){// typeof messages == 'undefined' ||       // IS EMPTY
-			if(messages.constructor == Number && messages != NaN && messages <= rdmMaxConversations-1){
-				messages = conversations[messages];
-			}else{
-				var rdmNb = ((Math.floor(Math.random()*rdmMaxConversations)));
-				messages = conversations[rdmNb];
-				console.log('Random conversation : ' + (rdmNb+1) + '/' + rdmMaxConversations);
-			}
-			messages = messages.split('\n');
-		}
-		var delay = 1;
-		messages.forEach(function(message){
-			// console.log('__ ' + delay/1000);
-			setTimeout(function(message){
-				message = message.split(';');
-				var lg = message[0];
-				var txt = message[1];
-				that.new({lg: lg, msg :txt});
-			}.bind(this, message), delay+2500);
-			delay += message.length*120;
-		});
-	}catch(e){
-		// self.speak('fr','erreur conversation:1');
-		self.new({voice: 'espeak', lg:'fr', msg: 'erreur conversation'});
-		console.error('conversation_error : ' + e);
-	}
-};
-// exports.conversation = conversation;
 
 /** Function last TTS message */
 function lastTTS(){

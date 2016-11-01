@@ -13,9 +13,9 @@ var exclamation = require('./exclamation.js');
 const self = this;
 
 module.exports = {
-	weather: weather,
 	timeNow: timeNow,
 	date: date,
+	weather: weather,
 	sayOdiAge: sayOdiAge,
 	setTimer: setTimer,
 	timeLeftTimer: timeLeftTimer,
@@ -24,6 +24,20 @@ module.exports = {
 	adriExclamation: adriExclamation,
 	cpuTemp: cpuTemp
 }
+
+/** Function TTS time */
+function timeNow(){
+	console.log('Service Time...');
+	var date = new Date();
+	var hour = date.getHours();
+	var min = date.getMinutes();
+	if(min == 0){
+		tts.speak({lg: 'fr', msg: 'Il est ' + hour + ' heure'});
+	}else{
+		var tmp = 'Il est ' + hour + ' heures et ' + min + ' minutes';
+		tts.speak({lg: 'fr', msg: tmp});
+	}
+};
 
 /** Function to retreive weather info */
 var weatherStatus = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');
@@ -60,20 +74,6 @@ function weather(){
 			console.error(e);
 		}
 	});
-};
-
-/** Function TTS time */
-function timeNow(){
-	console.log('Service Time...');
-	var date = new Date();
-	var hour = date.getHours();
-	var min = date.getMinutes();
-	if(min == 0){
-		tts.speak({lg: 'fr', msg: 'Il est ' + hour + ' heure'});
-	}else{
-		var tmp = 'Il est ' + hour + ' heures et ' + min + ' minutes';
-		tts.speak({lg: 'fr', msg: tmp});
-	}
 };
 
 /** Function to say current date */
@@ -177,27 +177,22 @@ function randomAction(){
 		if(!connexion){
 			exclamation.exclamation2Rappels();
 		}else{
-			var rdm = Math.floor(Math.random()*19); // 1->13
-			console.log('> randomAction [rdm = ' + rdm + ']');
+			var rdm = Math.floor(Math.random()*25);
+			console.log('randomAction [rdm = ' + rdm + ']');
 			switch(rdm){
 				case 1:
 				case 2:
 				case 3:
 				case 4:
+				case 5:
 					tts.speak({msg:'RANDOM'}); // Random TTS
 					break;
-				case 5:
 				case 6:
 				case 7:
-					sayOdiAge();
-					//tts.conversation('RANDOM');
-					break;
 				case 8:
-					timeNow();
+					tts.randomConversation();
 					break;
 				case 9:
-					date();
-					break;
 				case 10:
 				case 11:
 					// weather();
@@ -205,6 +200,15 @@ function randomAction(){
 					break;
 				case 12:
 					cpuTemp();
+					break;
+				case 13:
+					sayOdiAge();
+					break;
+				case 14:
+					timeNow();
+					break;
+				case 15:
+					date();
 					break;
 				default:
 					exclamation.exclamation();

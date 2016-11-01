@@ -84,13 +84,7 @@ exports.initButtonAwake = function initButtonAwake(){
 		}else if(pressTime >= 1 && pressTime < 2){
 			tts.lastTTS();
 		}else if(pressTime >= 2 && pressTime < 3){
-			// event.emit('playFip', 'Fip Radio');
-			// fip.playFip();
-			if(etat.readSync() == 1){
-				tts.conversation('');
-			}else{
-				tts.conversation('random');
-			}
+			tts.randomConversation('');
 		}else if(pressTime >= 3 && pressTime < 5){
 			service.timeNow();
 		}else{

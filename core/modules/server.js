@@ -256,16 +256,7 @@ function startUI(mode){
 		});
 
 		ui.post('/conversation', function(req, res){ // Conversation
-			params = req.query;
-			if(/\d/.test(params.m)){
-				var rdmNb = txt.replace(/[^\d.]/g, '');
-				var rdmNb = parseInt(rdmNb, 10);
-				//tts.conversation(rdmNb);
-				tts.speak({voice: 'espeak', lg: 'fr', msg:'CONVERSATION NON DEFINI !'});
-
-			}else{
-				tts.conversation('random');
-			}
+			tts.randomConversation();
 			res.writeHead(200);res.end();
 		});
 
