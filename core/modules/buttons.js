@@ -5,27 +5,24 @@
 var log = 'Odi/ ';
 var spawn = require('child_process').spawn;
 var leds = require('./leds.js');
-// var exclamation = require('./exclamation.js');
+var hardware = require('./hardware.js');
 var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
 var tts = require('./tts.js');
 var voiceMail = require('./voiceMail.js');
 var party = require('./party.js');
 var EventEmitter = require('events').EventEmitter;
-// var event = new EventEmitter();
 var utils = require('./utils.js');
 var service = require('./service.js');
 
-/** Fonction pour recuperer l'etat du switch */
+/** Function to get switch state */
 var getEtat = function(callback){
 	var switchState = etat.readSync();
-	// console.log('Switch state : ' + switchState)
-	//callback(switchState);
 	return switchState;
 };
 exports.getEtat = getEtat;
 
-/** Initialisation des boutons mode normal */
+/** Button initialization in normal mode */
 exports.initButtonAwake = function initButtonAwake(){
 	/** Interval pour l'etat du switch + fonctions associees */
 	var instance = false;
@@ -47,7 +44,7 @@ exports.initButtonAwake = function initButtonAwake(){
 		}
 	}, 2000);
 
-	/** Association switch pour volume radio */
+	/** Switch watch for radio volume */
 	etat.watch(function(err, value){
 		value = etat.readSync();
 		console.log(' Etat: ' + value + ' [Etat has changed]');
@@ -61,7 +58,7 @@ exports.initButtonAwake = function initButtonAwake(){
 	});
 
 	var t;
-	/** Association actions bouton Vert */
+	/** Green (ok) button watch */
 	ok.watch(function(err, value){
 		var pressTime = new Date();
 		while(ok.readSync() == 1){
@@ -93,7 +90,7 @@ exports.initButtonAwake = function initButtonAwake(){
 		utils.autoMute();
 	});
 
-	/** Association actions bouton Rouge */
+	/** Red (cancel) button watch */
 	cancel.watch(function(err, value){
 		var pressTime = new Date();
 		tts.clearTTSQueue();
@@ -116,10 +113,9 @@ exports.initButtonAwake = function initButtonAwake(){
 		}else if(pressTime >= 3){
 			utils.restartOdi(255);
 		}
-		// job.stop();
 	});
 
-	/** Association actions bouton Blanc */
+	/** White (white) button watch */
 	white.watch(function(err, value){
 		var pressTime = new Date();
 		while(white.readSync() == 1){
@@ -135,18 +131,9 @@ exports.initButtonAwake = function initButtonAwake(){
 		leds.ledOff('belly');
 		console.log('[val:' + value + ']  White btn pressed for   ' + pressTime + ' sec [2;2]');
 		service.setTimer(Math.round(pressTime));
-		/*if(pressTime < 2){
-			if(etat.readSync() == 0){
-				timer.setTimer();
-			}else{
-				console.log('no action defined');
-			}
-		}else{
-			console.log('Push White button canceled !');
-		}*/
 	});
 
-	/** Association actions bouton Bleu */
+	/** Blue (blue) button watch */
 	blue.watch(function(err, value){
 		var pressTime = new Date();
 		while(blue.readSync() == 1){
@@ -163,8 +150,6 @@ exports.initButtonAwake = function initButtonAwake(){
 		console.log('[val:' + value + ']  Blue btn pressed for ' + pressTime + ' sec [2;5]');
 		if(pressTime < 2){
 			if(etat.readSync() == 0){
-				// jukebox.medley();
-				// event.emit('playFip', 'Fip Radio');
 				fip.playFip();
 			}else{
 				jukebox.loop();
@@ -189,17 +174,5 @@ exports.initButtonAwake = function initButtonAwake(){
 			console.log('Push Blue button canceled !');
 		}
 	});
-
 	console.log('Buttons actions initialised');
 };
-
-// ################# events #################
-// event.on('exclamation2Rappels', function(message){
-	// console.log('_EventEmited: ' + (message || '.'));
-	// exclamation.exclamation2Rappels();
-// });
-
-// event.on('playFip', function(message){
-	// console.log('_EventEmited: ' + (message || '.'));
-	// fip.playFip();
-// });

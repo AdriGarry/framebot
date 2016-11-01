@@ -6,6 +6,7 @@ var spawn = require('child_process').spawn;
 var fs = require('fs');
 var Gpio = require('onoff').Gpio;
 var leds = require('./leds.js');
+var hardware = require('./hardware.js');
 var request = require('request');
 var utils = require('./utils.js');
 var tts = require('./tts.js');
@@ -15,14 +16,14 @@ const self = this;
 module.exports = {
 	timeNow: timeNow,
 	date: date,
-	weather: weather,
 	sayOdiAge: sayOdiAge,
 	setTimer: setTimer,
 	timeLeftTimer: timeLeftTimer,
 	stopTimer: stopTimer,
 	randomAction: randomAction,
 	adriExclamation: adriExclamation,
-	cpuTemp: cpuTemp
+	cpuTemp: cpuTemp,
+	weather: weather
 }
 
 /** Function TTS time */
@@ -39,54 +40,19 @@ function timeNow(){
 	}
 };
 
-/** Function to retreive weather info */
-var weatherStatus = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');
-function weather(){
-	request.get({
-		// url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
-		url:'http://xml.weather.yahoo.com/forecastrss?w=610264&u=c',
-		headers: {'Content-Type': 'xml'}
-	},
-	function (error, response, body){
-		try{
-			if(!error && response.statusCode == 200){
-				body = body.split('\n');
-				// console.log('body : ' + body);
-				var weather = body[28];
-				weather = weather.substring(weather.lastIndexOf('code="')+6,weather.lastIndexOf('code="')+8);
-				weather = weatherStatus[weather];
-				var temp = body[32];
-				temp = temp.substring(temp.lastIndexOf(',')+1,temp.lastIndexOf('C'));
-				var wind = body[12].toString();
-				wind = Math.floor(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));
-				var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' , il fait ' + temp
-					+ ' degres avec ' + (isNaN(wind)?'0':wind) + ' kilometre heure de vent';
-				console.log('Service Weather... ' + annonceTemp);
-				// tts.speak('fr',annonceTemp);
-				tts.speak({lg: 'fr', msg: annonceTemp});
-			}else{
-				console.log('Can\'t retreive weather informations');
-				tts.speak({voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo'});
-				console.error('Weather request > response.statusCode : ' + response.statusCode);
-				if(error){console.error('Error getting weather info  /!\\ \n' + error);}
-			}
-		}catch(e){
-			console.error(e);
-		}
-	});
-};
-
 /** Function to say current date */
-const days = fs.readFileSync('/home/pi/odi/data/date.days.properties', 'UTF-8').toString().split('\n');
-const months = fs.readFileSync('/home/pi/odi/data/date.months.properties', 'UTF-8').toString().split('\n');
+// const days = fs.readFileSync('/home/pi/odi/data/date.days.properties', 'UTF-8').toString().split('\n');
+// const months = fs.readFileSync('/home/pi/odi/data/date.months.properties', 'UTF-8').toString().split('\n');
+
+var CALENDAR = require('/home/pi/odi/data/calendar.json');
 function date(){
 	var date = new Date();
 	var dayNb = date.getDate();
 	if(dayNb == 1) dayNb = 'premier';
 	var day = date.getDay();
-	var day = days[day];
+	var day = CALENDAR.days[day];
 	var month = date.getMonth();
-	var month = months[month];
+	var month = CALENDAR.months[month];
 	var year = date.getFullYear();
 	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
 	console.log('Service Date... ' + annonceDate);
@@ -96,12 +62,12 @@ function date(){
 /** Function to TTS Odi's age */
 var age, years, mouths, birthDay;
 function sayOdiAge(){
-	age = utils.getOdiAge();
+	age = hardware.getOdiAge();
 	years = Math.floor(age/365);
 	mouths = Math.floor((age%365)/30);
 	var rdm = ['Aujourd\'hui, ', 'A ce jour, ', 'A cet instant, ', ''];
 	birthDay = rdm[Math.floor(Math.random() * rdm.length)]
-	birthDay += 'j\'ai ' + years + ' ans et ' + mouths + ' mois !';// et ' + days + ' jours !';
+	birthDay += 'j\'ai ' + years + ' ans et ' + mouths + ' mois !';
 	console.log('sayOdiAge() \'' + birthDay + '\'')
 	tts.speak({lg: 'fr', msg: birthDay});
 };
@@ -228,4 +194,41 @@ function cpuTemp(){
 	temperature = utils.getCPUTemp();
 	console.log('Service CPU Temperature...  ' + temperature + ' degres');
 	tts.speak({lg:'fr', msg:'Mon processeur est a ' + temperature + ' degree'});
+};
+
+/** Function to retreive weather info */
+var weatherStatus = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');
+function weather(){
+	request.get({
+		// url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
+		url:'http://xml.weather.yahoo.com/forecastrss?w=610264&u=c',
+		headers: {'Content-Type': 'xml'}
+	},
+	function (error, response, body){
+		try{
+			if(!error && response.statusCode == 200){
+				body = body.split('\n');
+				// console.log('body : ' + body);
+				var weather = body[28];
+				weather = weather.substring(weather.lastIndexOf('code="')+6,weather.lastIndexOf('code="')+8);
+				weather = weatherStatus[weather];
+				var temp = body[32];
+				temp = temp.substring(temp.lastIndexOf(',')+1,temp.lastIndexOf('C'));
+				var wind = body[12].toString();
+				wind = Math.floor(wind.substring(wind.lastIndexOf('speed="')+7,wind.lastIndexOf('speed="')+10));
+				var annonceTemp = 'Meteo Marseille : le temps est ' + weather + ' , il fait ' + temp
+					+ ' degres avec ' + (isNaN(wind)?'0':wind) + ' kilometre heure de vent';
+				console.log('Service Weather... ' + annonceTemp);
+				// tts.speak('fr',annonceTemp);
+				tts.speak({lg: 'fr', msg: annonceTemp});
+			}else{
+				console.log('Can\'t retreive weather informations');
+				tts.speak({voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo'});
+				console.error('Weather request > response.statusCode : ' + response.statusCode);
+				if(error){console.error('Error getting weather info  /!\\ \n' + error);}
+			}
+		}catch(e){
+			console.error(e);
+		}
+	});
 };

@@ -19,6 +19,7 @@ console.debug('\n---------------------\n', '-> ->  DEBUG MODE !!');
 
 var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
+var hardware = require('./hardware.js');
 var gpioPins = require('./modules/gpioPins.js');
 var CronJob = require('cron').CronJob;
 var jobs = require('./modules/jobs.js');
@@ -34,7 +35,7 @@ if(sleepTime < 255){
 	introMsg += ' for ' + sleepTime + 'h';
 	console.log(introMsg + '   -.-');
 	setTimeout(function(){ // Delai avant redemarrage/reveil
-		utils.restartOdi();
+		hardware.restartOdi();
 	}, sleepTime*60*60*1000);
 }else{
 	console.log(introMsg + '   -.-');
@@ -54,5 +55,5 @@ jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
 ok.watch(function(err, value){ // Detection bouton Vert pour sortir du mode veille
 	console.log('Ok button pressed, canceling sleep mode & restarting Odi !');
-	utils.restartOdi();
+	hardware.restartOdi();
 });

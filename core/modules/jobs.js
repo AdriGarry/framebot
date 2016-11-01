@@ -5,6 +5,7 @@
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 var CronJob = require('cron').CronJob;
+var hardware = require('./hardware.js');
 var utils = require('./utils.js');
 var fip = require('./fip.js');
 var jukebox = require('./jukebox.js');
@@ -180,21 +181,21 @@ var setAutoLifeCycle = function(param){
 		console.log('AutoLifeCycle jobs initialised [' + param + ':Wake Up!]');
 		new CronJob('0 8 7 * * 1-5', function(){
 			console.log('AutoLifeCycle start up !');
-			utils.restartOdi();
+			hardware.restartOdi();
 		}, null, true, 'Europe/Paris');
 		new CronJob('0 42 11 * * 0,6', function() {
 			console.log('AutoLifeCycle start up !');
-			utils.restartOdi();
+			hardware.restartOdi();
 		}, null, true, 'Europe/Paris');
 	}else{ // Set go to sleep jobs
 		console.log('AutoLifeCycle jobs initialised [for time to sleep]');
 		new CronJob('3 0 0 * * 1-5', function(){
 			console.log('AutoLifeCycle go to sleep !');
-			utils.restartOdi(255);
+			hardware.restartOdi(255);
 		}, null, true, 'Europe/Paris');
 		new CronJob('3 0 2 * * 0,6', function() {
 			console.log('AutoLifeCycle go to sleep !');
-			utils.restartOdi(255);
+			hardware.restartOdi(255);
 		}, null, true, 'Europe/Paris');
 	}
 };exports.setAutoLifeCycle = setAutoLifeCycle;

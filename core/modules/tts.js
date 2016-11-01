@@ -44,6 +44,26 @@ module.exports = { // Singleton
 	lastTTS: lastTTS
 };
 
+
+/** Function to proceed TTS queue */
+var currentTTS, delay;
+// var listenQueue = function(){
+console.log('Start listening TTS queue...');
+delay = 1;
+setInterval(function(){
+	if(!onAir && ttsQueue.length > 0){
+		onAir = true;
+		// leds.toggle({led: 'eye', mode: 1});
+		currentTTS = ttsQueue.shift();
+		playTTS(currentTTS);
+		setTimeout(function(){
+			onAir = false;
+			// leds.toggle({led: 'eye', mode: 0});
+		}, currentTTS.msg.length*60 + 1500);//*30 + 1500
+	}
+}, 500);
+// }
+
 /** Function to add TTS message in queue and proceed */
 function speak(tts){
 	console.debug(tts);
@@ -78,25 +98,6 @@ function randomConversation(){
 	console.log('Random conversation : ' + (rdmNb+1) + '/' + RDM_CONVERSATION_LIST_LENGTH);
 	speak(conversation);
 };
-
-/** Function to proceed TTS queue */
-var currentTTS, delay;
-// var listenQueue = function(){
-console.log('Start listening TTS queue...');
-delay = 1;
-setInterval(function(){
-	if(!onAir && ttsQueue.length > 0){
-		onAir = true;
-		// leds.toggle({led: 'eye', mode: 1});
-		currentTTS = ttsQueue.shift();
-		playTTS(currentTTS);
-		setTimeout(function(){
-			onAir = false;
-			// leds.toggle({led: 'eye', mode: 0});
-		}, currentTTS.msg.length*50 + 1500);//*30 + 1500
-	}
-}, 500);
-// }
 
 /** Function to play TTS message (espeak / google translate) */
 const VOICE_LIST = ['google', 'espeak'];

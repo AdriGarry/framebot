@@ -100,6 +100,8 @@ tts.speak({voice: 'google', msg:'cool'});*/
 // service.timeNow();
 // tts.speak({msg: 'RANDOM'});
 
+tts.speak({voice: 'espeak', msg: 'Et oui, sait moi Odi, je suis de retour !'});
+
 setTimeout(function(){
 	service.adriExclamation();
 }, 55000);

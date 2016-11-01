@@ -16,7 +16,7 @@ fi
 # TEST IF CONF FILE EXISTS
 if [ ! -f /home/pi/odi/conf.json ];
 then
-	sudo cp /home/pi/odi/data/conf.json /home/pi/odi/conf.json
+	sudo cp /home/pi/odi/data/defaultConf.json /home/pi/odi/conf.json
 	sudo chmod 777 /home/pi/odi/conf.json
 	echo "Config file reset"
 fi

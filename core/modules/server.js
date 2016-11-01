@@ -16,6 +16,7 @@ var fs = require('fs');
 var utils = require('./utils.js');
 var leds = require('./leds.js');
 var buttons = require('./buttons.js');
+var hardware = require('./hardware.js');
 var tts = require('./tts.js');
 var voiceMail = require('./voiceMail.js');
 var service = require('./service.js');
@@ -117,8 +118,8 @@ function startUI(mode){
 			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
 		}
 		var etatBtn = buttons.getEtat();
-		var cpuTemp = utils.getCPUTemp();
-		var cpuUsage = utils.getCPUUsage();
+		var cpuTemp = hardware.getCPUTemp();
+		var cpuUsage = hardware.getCPUUsage();
 		var dashboard = {
 			mode: {value: {
 				mode: isNaN(parseFloat(mode)) ? (CONFIG.debug ? 'Debug' : 'Ready') : 'Sleep',
@@ -167,7 +168,7 @@ function startUI(mode){
 
 	/** POST SECTION */
 	ui.post('/odi', function(req, res){ // Restart Odi
-		utils.restartOdi();
+		hardware.restartOdi();
 		res.writeHead(200);res.end();
 	});
 
@@ -179,17 +180,17 @@ function startUI(mode){
 		}else{
 			sleepTime = 255;
 		}
-		utils.restartOdi(sleepTime);//255
+		hardware.restartOdi(sleepTime);//255
 		res.writeHead(200);res.end();
 	});
 
 	ui.post('/reboot', function(req, res){ // Reboot Odi
-		utils.reboot();
+		hardware.reboot();
 		res.writeHead(200);res.end();
 	});
 
 	ui.post('/shutdown', function(req, res){ // Shutdown Odi
-		utils.shutdown();
+		hardware.shutdown();
 		res.writeHead(200);res.end();
 	});
 
@@ -472,33 +473,3 @@ function startUI(mode){
 	});*/
 }
 exports.startUI = startUI;
-
-
-
-var http = require('http');
-function getLastVersionFromGithub(){
-	var options = {
-		host: 'http://github.com',
-		port: 80,
-		path: '/AdriGarry/odi/commits/master'
-	};
-	// options.host = 'www.google.com';
-	// options.path = '/index';
-
-	var html = '';
-
-	http.get(options, function(res){
-		console.log("Got response: " + res.statusCode);
-		res.setEncoding('utf8');
-		res.on('data', function (chunk) {
-			console.log('BODY: ',chunk);
-			html += chunk;
-		});
-		res.on('end', function () {
-			console.log(html);
-		});
-	}).on('error', function(e) {
-		console.error("Got error: " + e.message);
-	});
-};
-exports.getLastVersionFromGithub = getLastVersionFromGithub;
