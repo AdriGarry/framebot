@@ -6,7 +6,7 @@ var fs = require('fs');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var os = require("os");
-var leds = require('./leds.js');
+// var leds = require('./leds.js');
 const self = this;
 
 module.exports = {
