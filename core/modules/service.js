@@ -191,7 +191,7 @@ function adriExclamation(){
 
 /** Function cpu temperature TTS */
 function cpuTemp(){
-	temperature = utils.getCPUTemp();
+	temperature = hardware.getCPUTemp();
 	console.log('Service CPU Temperature...  ' + temperature + ' degres');
 	tts.speak({lg:'fr', msg:'Mon processeur est a ' + temperature + ' degree'});
 };

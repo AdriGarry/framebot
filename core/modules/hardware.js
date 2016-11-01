@@ -7,11 +7,10 @@ var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var os = require("os");
 var leds = require('./leds.js');
-var fip = require('./fip.js');
-// var voiceMail = require('./voiceMail.js');
 const self = this;
 
 module.exports = {
+	mute: mute,
 	restartOdi: restartOdi,
 	reboot: reboot,
 	shutdown: shutdown,
@@ -20,6 +19,34 @@ module.exports = {
 	getOdiAge: getOdiAge,
 	cleanLog: cleanLog,
 	getMsgLastGitCommit: getMsgLastGitCommit
+};
+
+
+var muteTimer, delay;
+/** Function to mute Odi */
+function mute(delay, message){ // delay: min
+	clearTimeout(muteTimer);
+	// console.debug('mute()', 'delay:', delay, 'message:', message);
+	delay = (delay && !isNaN(delay)) ? delay : 0;
+	if(delay < 1){
+		stopAll();
+	}else{
+		muteTimer = setTimeout(function(){
+			spawn('sh', [CORE_PATH + 'sh/mute.sh', 'auto']);
+			setTimeout(function(){
+				stopAll();
+			}, 1600);
+		}, delay*60*1000);
+	}
+};
+
+/** Function to stop all sounds & leds */
+function stopAll(message){
+	spawn('sh', [CORE_PATH + 'sh/mute.sh']);
+	console.log('>> MUTE  -.-', message ? '"' + message + '"' : '');
+	// leds.clearLeds();
+	eye.write(0);
+	belly.write(0);
 };
 
 /** Function to restart/sleep Odi's core */

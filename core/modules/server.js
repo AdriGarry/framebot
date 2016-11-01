@@ -35,6 +35,10 @@ const ALLOWED_REQUESTS = ['/config.json', '/voicemailHistory', '/requestHistory'
 
 var deploy;
 
+module.exports = {
+	startUI: startUI
+};
+
 function startUI(mode){
 	var ui = express();
 	var request, method, params, ipClient;
@@ -61,7 +65,7 @@ function startUI(mode){
 		leds.blink({leds : ['satellite'], speed : 180, loop : 1});
 		method = req.method;
 		// request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : ' ?? ') + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
-		request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : 'NO_IP ') + req.url.replace('%20',' ');
+		request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : '## ') + req.url.replace('%20',' ');
 		request += req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : ' [' + req.connection.remoteAddress + ']';
 		console.log(request);
 
@@ -196,7 +200,7 @@ function startUI(mode){
 
 	ui.post('/mute', function(req, res){ // Mute Odi
 		tts.clearTTSQueue();
-		utils.mute();
+		hardware.mute();
 		res.writeHead(200);res.end();
 	});
 
@@ -413,63 +417,4 @@ function startUI(mode){
 		console.log('Odi\'s UI server started [' + mode + ']');
 		leds.blink({leds: ['satellite'], speed : 120, loop : 3})
 	});
-
-
-	/** SETTINGS SECTION */
-	/*ui.get('/settings', function(req, res){
-		var temp = parseInt(mode);
-		var now = new Date();
-		var h = now.getHours();
-		var wakeUpTime;
-		if(temp > h){
-			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
-		}
-		var settings = {
-			mode: {lib: 'Mode',
-				value: isNaN(parseFloat(mode)) ? 'Ready' : parseInt(mode),
-			}, switch: {
-				lib: 'Switch', value: buttons.getEtat(),
-			}, volume: {
-				lib: 'Volume',
-				value: isNaN(temp) ? (buttons.getEtat() == 1 ? 'High' : 'Normal') : 'Mute',
-			}, tts: {
-				lib: 'TTS - Exclamation',
-				value: '<i>Soon available</i>',
-			}, jukebox: {
-				lib: 'Jukebox & Radio',
-				value: '<i>Soon available</i>',
-			}, voiceMail: {
-				lib: 'VoiceMail',
-				value: voiceMail.areThereAnyMessages(),
-			}, dateTime: {
-				lib: 'Date & Time',
-				value: '<i class="fa fa-3x fa-calendar"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-3x fa-clock-o"></i><br><i>Soon available</i>',
-			}, timer: {
-				lib: 'timer',
-				value: '<i class="fa fa-3x fa-hourglass"></i>',
-			}, cpuUsage: {
-				lib: 'CPU usage',
-				value: utils.getCPUUsage(),// + ' %',
-			}, cpuTemp: {
-				lib: 'CPU temperature',
-				value: utils.getCPUTemp(),// + ' ° C',
-			}, alarms: {
-				lib: 'Alarms',
-				value: '<i>Soon available</i>',
-			}, stats: {
-				lib: 'Stats',
-				value: 'X refresh (dashboard)',
-				value: 'X refresh (dashboard)',
-			}, about: {
-				lib: 'About',
-				value: 'Hi,<br>I\'m Odi the robot !',
-			}, system: {
-				lib: 'System',
-				value: '<i>Soon available</i>',
-			}
-		};
-		res.writeHead(200);
-		res.end(JSON.stringify(settings));
-	});*/
-}
-exports.startUI = startUI;
+};

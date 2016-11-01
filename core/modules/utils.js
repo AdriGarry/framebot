@@ -8,12 +8,11 @@ var exec = require('child_process').exec;
 var os = require("os");
 var leds = require('./leds.js');
 var hardware = require('./hardware.js');
+var leds = require('./leds.js');
 var fip = require('./fip.js');
 const self = this;
 
 module.exports = {
-	mute: mute,
-	autoMute: autoMute,
 	getStartTime : getStartTime,
 	formatedDate: formatedDate,
 	prepareLogs: prepareLogs,
@@ -23,34 +22,6 @@ module.exports = {
 	getJsonFileContent: getJsonFileContent,
 	appendJsonFile: appendJsonFile,
 	testConnexion: testConnexion
-};
-
-/** Function to mute Odi */
-function mute(message){
-	var deploy = spawn('sh', [CORE_PATH + 'sh/mute.sh']);
-	console.log(((message === undefined)? '' : message) + 'MUTE  :|');
-	leds.clearLeds();
-	eye.write(0);
-	belly.write(0);
-};
-
-/** Function to auto mute Odi in 60 minutes */
-var muteTimer;
-function autoMute(message){
-	clearTimeout(muteTimer);
-	muteTimer = setTimeout(function(){
-		var deploy = spawn('sh', [CORE_PATH + 'sh/mute.sh', 'auto']);
-		setTimeout(function(){
-			message = ((message === undefined)? '' : message) + 'AUTO MUTE  :|';
-			fip.stopFip(message);
-			deploy = spawn('sh', [CORE_PATH + 'sh/mute.sh']);
-			leds.clearLeds();
-			eye.write(0);
-			belly.write(0);
-		}, 1600);
-		console.log(message);
-	// }, 13*1000);
-	}, 60*60*1000);
 };
 
 /** Function to return last Odi's start/restart time */
@@ -118,7 +89,7 @@ var data = 'KO'; // ou undefined
 	try{
 		data = fs.readFileSync(filePath, 'UTF-8').toString();
 	}catch(e){
-		console.error('Error while reading file : ' + filePath);
+		console.error('getFileContent() ERROR : ' + filePath);
 		console.error(e);
 	}
 	return data;

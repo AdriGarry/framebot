@@ -3,21 +3,28 @@
 // Module Fip
 
 var spawn = require('child_process').spawn;
-//var exec = require('child_process').exec;
+var hardware = require('./hardware.js');
 var leds = require('./leds.js');
-var utils = require('./utils.js');
+// var utils = require('./utils.js');
 
 var self = this;
 
 var instance = false;
-exports.instance = instance;
+//exports.instance = instance;
 
 self.fipInterval;
 
-var playFip = function(){
+module.exports = {
+	instance: instance,	
+	playFip: playFip,
+	stopFip: stopFip
+}
+
+/** Function to play FIP radio */
+function playFip(){
 	if(!self.instance){
 		console.log('Play FIP RADIO...');
-		var deploy = spawn('sh', ['/home/pi/odi/core/sh/fip.sh']);
+		spawn('sh', ['/home/pi/odi/core/sh/fip.sh']);
 		self.instance = true;
 		leds.altLeds(100, 1.3);
 		
@@ -35,17 +42,16 @@ var playFip = function(){
 	else{
 		console.log('I\'m already playing FIP !');
 	}
-	utils.autoMute();
+	hardware.mute(60, 'Auto Mute FIP');
 };
-exports.playFip = playFip;
 
-var stopFip = function(message){
-	console.log(message || 'Stoping FIP RADIO.');
-	var deploy = spawn('sh', ['/home/pi/odi/core/sh/mute.sh']);
+/** Function to stop FIP radio */
+function stopFip(message){
+	console.debug(message || 'Stoping FIP RADIO.');
+	spawn('sh', ['/home/pi/odi/core/sh/mute.sh']);
 	self.instance = false;
 	clearInterval(self.fipInterval);
 	eye.write(0);
 	belly.write(0);
 	leds.clearLeds();
 };
-exports.stopFip = stopFip;

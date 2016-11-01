@@ -13,6 +13,7 @@ var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
 var gpioPins = require('./modules/gpioPins.js');
 var utils = require('./modules/utils.js');
+var hardware = require('./modules/hardware.js');
 
 var odiPgm, odiState = false;
 const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
@@ -37,7 +38,7 @@ function startOdi(mode){
 	/** Setting up Odi's config */
 	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
 
-	utils.mute();
+	hardware.mute(0);
 	var logo;
 	if(typeof mode === 'undefined') mode = '';
 	// if(typeof mode === Number){
@@ -80,7 +81,7 @@ function startOdi(mode){
 	
 	odiPgm.on('exit', function(code){ // SetUpRestart Actions
 		// tts.clearLastTTS();
-		utils.mute();
+		hardware.mute();
 		odiState = false;
 		console.log('\r\n-----------------------------------' + (code>10 ? (code>100 ? '---' : '--') : '-'));
 		console.log('>> Odi\'s CORE restarting... [code:' + code + ']\r\n\r\n');

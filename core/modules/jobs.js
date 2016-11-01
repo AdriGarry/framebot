@@ -114,7 +114,6 @@ var setAlarms = function(){
 			}else{
 				jukebox.loop();
 			}
-			utils.autoMute('Auto mute Morning');
 		});
 	}, null, true, 'Europe/Paris');
 
@@ -130,7 +129,6 @@ var setAlarms = function(){
 				}else{
 					jukebox.loop();
 				}
-				utils.autoMute('Auto mute Evening Fip');
 			}, 3000);
 		});
 	}, null, true, 'Europe/Paris');
@@ -155,8 +153,8 @@ var setAlarms = function(){
 				}, 15*1000);
 			// }else{
 				// jukebox.loop();
+				// hardware.mute(60, 'Auto mute Morning');
 			// }
-			utils.autoMute('Auto mute Morning');
 		});
 
 	}, null, true, 'Europe/Paris');

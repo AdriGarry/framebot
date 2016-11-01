@@ -11,7 +11,7 @@ var jukebox = require('./jukebox.js');
 var tts = require('./tts.js');
 var voiceMail = require('./voiceMail.js');
 var party = require('./party.js');
-var EventEmitter = require('events').EventEmitter;
+// var EventEmitter = require('events').EventEmitter;
 var utils = require('./utils.js');
 var service = require('./service.js');
 
@@ -54,7 +54,6 @@ exports.initButtonAwake = function initButtonAwake(){
 				fip.playFip();
 			}, 100);
 		}
-		utils.autoMute();
 	});
 
 	var t;
@@ -87,14 +86,14 @@ exports.initButtonAwake = function initButtonAwake(){
 		}else{
 			console.log('Push Ok button canceled !');
 		}
-		utils.autoMute();
+		hardware.mute(60, 'Random action mute');
 	});
 
 	/** Red (cancel) button watch */
 	cancel.watch(function(err, value){
 		var pressTime = new Date();
 		tts.clearTTSQueue();
-		utils.mute();
+		hardware.mute();
 		while(cancel.readSync() == 1){
 			; // Pause
 			t = Math.round((new Date() - pressTime)/100)/10;
@@ -107,11 +106,11 @@ exports.initButtonAwake = function initButtonAwake(){
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		leds.ledOff('belly');
 		console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec [1,3]');
-		// utils.mute();
+		// hardware.mute();
 		if(pressTime >= 1 && pressTime < 3){
-			utils.restartOdi();
+			hardware.restartOdi();
 		}else if(pressTime >= 3){
-			utils.restartOdi(255);
+			hardware.restartOdi(255);
 		}
 	});
 
@@ -157,14 +156,14 @@ exports.initButtonAwake = function initButtonAwake(){
 		}else if(pressTime > 2 && pressTime < 5){
 			if(etat.readSync() == 0){
 				setTimeout(function(){
-					utils.mute();
+					hardware.mute();
 					leds.allLedsOff();
 					console.log('TEST _A_ : mute + party.setParty(true)');
 					party.setParty(true);
 				}, 1200);			
 			}else{
 				setTimeout(function(){
-					utils.mute();
+					hardware.mute();
 					leds.allLedsOff();
 					console.log('TEST _B_ : party.setParty(false)');
 					party.setParty(false);
