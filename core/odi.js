@@ -101,11 +101,13 @@ tts.speak({voice: 'google', msg:'cool'});*/
 // service.timeNow();
 // tts.speak({msg: 'RANDOM'});
 
-tts.speak({voice: 'espeak', msg: 'Et oui, sait moi Odi, je suis de retour !'});
+setTimeout(function(){
+	tts.speak({voice: 'espeak', msg: 'Et oui, sait moi Odi, je suis de retour !'});
+}, 5*60*1000);
 
 setTimeout(function(){
 	service.adriExclamation();
-}, 120000);
+}, 7*60*1000);
 
 new CronJob('*/4 * * * * *', function(){
 	leds.blink({
