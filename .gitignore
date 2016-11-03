@@ -61,3 +61,4 @@ admin.js
 #/pgm/config/*
 #/pgm/_*
 #/data/*
+*.jpg
