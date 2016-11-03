@@ -106,6 +106,9 @@ var playTTS = function(tts){
 		var tmp = Math.round(Math.random()*1);
 		if(tmp) tts.voice = 'google';
 		else tts.voice = 'espeak';
+
+		// TODO test if utils.testConnexion(function(connexion){
+		//if(connexion == true){
 	}
 	if(!tts.hasOwnProperty('lg') || LG_LIST.indexOf(tts.lg) == -1){ // Fr language if undefined
 		tts.lg = 'fr';

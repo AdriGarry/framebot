@@ -55,6 +55,7 @@ function ringHour(){
 	date = new Date();
 	hour = date.getHours();
 	console.log('It\'s ' + hour + ' o\'clock');
+	//tts.speak({lg:'fr', msg:'Il est ' + hour + ' heures'});
 	utils.testConnexion(function(connexion){
 		if(connexion == true){
 			tts.speak({lg:'fr', msg:'Il est ' + hour + ' heures'});
@@ -102,7 +103,7 @@ function setAlarms(){
 
 	new CronJob('0 13 7 * * 1-5', function(){
 		console.log('COCORICO !!');
-		var deploy = spawn('sh', ['/home/pi/odi/core/sh/clock.sh', 'cocorico']);
+		var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
 		utils.testConnexion(function(connexion){
 			if(connexion == true){
 				setTimeout(function(){
@@ -146,7 +147,7 @@ function setAlarms(){
 
 	new CronJob('0 0 12 * * 0,6', function() {
 		console.log('COCORICO !!');
-		var deploy = spawn('sh', ['/home/pi/odi/core/sh/clock.sh', 'cocorico']);
+		var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
 		utils.testConnexion(function(connexion){
 			// if(connexion == true){
 				service.timeNow();
