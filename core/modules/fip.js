@@ -15,7 +15,7 @@ var instance = false;
 self.fipInterval;
 
 module.exports = {
-	instance: instance,	
+	instance: self.instance,	
 	playFip: playFip,
 	stopFip: stopFip
 }

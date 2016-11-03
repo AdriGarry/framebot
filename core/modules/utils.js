@@ -174,12 +174,13 @@ function appendJsonFile(filePath, obj, callback){
 
 /** Function to test internet connexion */
 function testConnexion(callback){
+	//console.debug('testConnexion()...');
 	require('dns').resolve('www.google.com', function(err) {
 		if(err){
-			//console.error('Odi is not connected to internet (utils.testConnexion)   /!\\');
+			// console.debug('Odi is not connected to internet (utils.testConnexion)   /!\\');
 			callback(false);
 		}else{
-			//console.log('Odi is online   :');
+			//console.debug('Odi is online   :');
 			callback(true);
 		}
 	});
