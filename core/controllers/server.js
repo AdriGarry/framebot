@@ -210,8 +210,10 @@ function startUI(mode){
 	ui.post('/grant', function(req, res){ // Get grant status
 		var pattern = req.headers.pwd;
 		if(pattern && admin.checkPassword(pattern)){
-			console.log('>> Admin granted /!\\');
 			granted = true;
+			console.log('>> Admin granted !');
+		}else{
+			console.log('>> User NOT granted /!\\');
 		}
 		res.send(granted);
 		if(granted) granted = false;

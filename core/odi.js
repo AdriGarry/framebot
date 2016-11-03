@@ -37,13 +37,13 @@ var odiStartupSound = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds'])
 
 var tts = require('./modules/tts.js');
 var buttons = require('./controllers/buttons.js');
+var server = require('./controllers/server.js');
+var jobs = require('./controllers/jobs.js');
 // leds.allLedsOff();
 var CronJob = require('cron').CronJob;
-var jobs = require('./modules/jobs.js');
 var utils = require('./modules/utils.js');
 var service = require('./modules/service.js');
 var voiceMail = require('./modules/voiceMail.js');
-var server = require('./controllers/server.js');
 
 // LED Start sequence
 //leds.blinkLed(100, 300); // Sequence led de start

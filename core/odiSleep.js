@@ -22,10 +22,10 @@ var Gpio = require('onoff').Gpio;
 var hardware = require('./modules/hardware.js');
 var gpioPins = require('./modules/gpioPins.js');
 var CronJob = require('cron').CronJob;
-var jobs = require('./modules/jobs.js');
 var utils = require('./modules/utils.js');
 var leds = require('./modules/leds.js');
 var server = require('./controllers/server.js');
+var jobs = require('./controllers/jobs.js');
 
 var mode = sleepTime = process.argv[2]; // Recuperation des arguments
 

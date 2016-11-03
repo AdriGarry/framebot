@@ -35,7 +35,12 @@
 			<div layout="row">
 				<md-input-container flex="70" class="md-block">
 					<label>Message</label>
-					<input type="search" name="ttsMsg" data-ng-model="dashboard.ttsTile.msg" data-ng-change="dashboard.ttsTile.cleanText()"><!--required-->
+					<input type="search" name="ttsMsg" list="examples" data-ng-model="dashboard.ttsTile.msg" data-ng-change="dashboard.ttsTile.cleanText()"><!--required-->
+					<datalist id="examples">
+						<option value="Hey, je suis Odi !">
+						<option value="Je monte les escaliers !">
+						<option value="Vive la biere !">
+					</datalist>
 					<!--<input name="ttsMsg" data-ng-model="tts.msg" required data-ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
 					<div data-ng-messages="ttsMsg.$error" role="alert" multiple>
 						<div data-ng-message="required" class="my-message">Required&nbsp;!</div>
@@ -43,7 +48,7 @@
 				</md-input-container>
 				<md-input-container flex="30" class="md-block centerText">
 					<md-button type="submit" name="submit" class="md-raised" data-ng-class="dashboard.ttsTile.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
-						<i class="fa" data-ng-class="dashboard.ttsTile.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
+						<i class="fa fa-lg" data-ng-class="dashboard.ttsTile.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 					</md-button>
 				</md-input-container>
 			</div>

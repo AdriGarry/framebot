@@ -167,7 +167,6 @@ function lastTTS(){
 		txt = '.undefined:0';
 	}
 	console.log('LastTTS -> [' + lg + '] ' + txt);
-	// self.speak(lg, txt);
 	speak({lg: lg, msg: txt});
 };
 

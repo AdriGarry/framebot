@@ -5,12 +5,12 @@
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 var CronJob = require('cron').CronJob;
-var hardware = require('./hardware.js');
-var utils = require('./utils.js');
-var fip = require('./fip.js');
-var jukebox = require('./jukebox.js');
-var tts = require('./tts.js');
-var service = require('./service.js');
+var hardware = require(CORE_PATH + 'modules/hardware.js');
+var utils = require(CORE_PATH + 'modules/utils.js');
+var fip = require(CORE_PATH + 'modules/fip.js');
+var jukebox = require(CORE_PATH + 'modules/jukebox.js');
+var tts = require(CORE_PATH + 'modules/tts.js');
+var service = require(CORE_PATH + 'modules/service.js');
 
 var date = new Date();
 var hour = date.getHours();
@@ -97,13 +97,13 @@ function setAlarms(){
 
 	// WEEKDAY
 	new CronJob('0 10 7 * * 1-5', function(){
-		console.log('Morning Sea... Let\'s start the day with some waves !');
-		var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
+		console.log('Morning Sea... Let\'s start the day with some waves !'); // 2m 41s
+		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 13 7 * * 1-5', function(){
 		console.log('COCORICO !!');
-		var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
+		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
 		utils.testConnexion(function(connexion){
 			if(connexion == true){
 				setTimeout(function(){
