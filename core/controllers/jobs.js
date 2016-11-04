@@ -209,14 +209,14 @@ function setBackgroundJobs(){
 	new CronJob('13 13 13 * * 1-6', function() {
 		tts.speak({voice:'espeak', lg:'en', msg:'Auto restart'}); // Daily restart Odi's core
 		setTimeout(function(){
-			utils.restartOdi();
+			hardware.restartOdi();
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('13 13 13 * * 0', function() {
 		tts.speak({voice:'espeak', lg:'fr', msg:'Auto reboot'}); // Weekly RPI reboot
 		setTimeout(function(){
-			utils.reboot();
+			hardware.reboot();
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 
