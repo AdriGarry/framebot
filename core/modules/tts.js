@@ -43,26 +43,6 @@ module.exports = { // Singleton
 	lastTTS: lastTTS
 };
 
-
-/** Function to proceed TTS queue */
-var currentTTS, delay;
-// var listenQueue = function(){
-console.log('Start listening TTS queue...');
-delay = 1;
-setInterval(function(){
-	if(!onAir && ttsQueue.length > 0){
-		onAir = true;
-		// leds.toggle({led: 'eye', mode: 1});
-		currentTTS = ttsQueue.shift();
-		playTTS(currentTTS);
-		setTimeout(function(){
-			onAir = false;
-			// leds.toggle({led: 'eye', mode: 0});
-		}, currentTTS.msg.length*60 + 1500);//*30 + 1500
-	}
-}, 500);
-// }
-
 /** Function to add TTS message in queue and proceed */
 function speak(tts){
 	console.debug(tts);
@@ -86,7 +66,31 @@ function speak(tts){
 			console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
 		}else console.debug(console.error('newTTS() Wrong TTS object ', tts));
 	}
+	if(ttsQueue.length > 0) proceedQueue(); // NEW
 };
+
+/** Function to proceed TTS queue */
+var queueInteval, currentTTS;
+function proceedQueue(){  // NEW  // NEW  // NEW  // NEW
+	console.debug('Start processing TTS queue...');
+	queueInteval = setInterval(function(){
+		if(!onAir && ttsQueue.length > 0){
+			onAir = true;
+			// leds.toggle({led: 'eye', mode: 1});
+			currentTTS = ttsQueue.shift();
+			playTTS(currentTTS);
+			setTimeout(function(){
+				onAir = false;
+				// leds.toggle({led: 'eye', mode: 0});
+			}, currentTTS.msg.length*60 + 1500);//*30 + 1500
+			if(ttsQueue.length == 0){
+				console.debug('No more TTS, stop processing TTS queue!');
+				clearInterval(queueInteval);
+			}
+		}
+	}, 500);
+};
+
 
 /** Function to launch random conversation */
 function randomConversation(){

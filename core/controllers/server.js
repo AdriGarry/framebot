@@ -26,7 +26,6 @@ var jukebox = require(CORE_PATH + 'modules/jukebox.js');
 var exclamation = require(CORE_PATH + 'modules/exclamation.js');
 var party = require(CORE_PATH + 'modules/party.js');
 var admin = require(CORE_PATH + 'modules/admin.js');
-var self = this;
 
 const FILE_REQUEST_HISTORY = LOG_PATH + 'requestHistory.log';
 const FILE_GRANT = DATA_PATH + 'pwd.properties';
@@ -34,8 +33,6 @@ const FILE_VOICEMAIL_HISTORY = LOG_PATH + 'voicemailHistory.json';
 const ALLOWED_REQUESTS = ['/config.json', '/voicemailHistory', '/requestHistory'];
 
 var deploy;
-
-// utils.mute(1, 'ODI');
 
 module.exports = {
 	startUI: startUI
