@@ -165,7 +165,7 @@ function allLedsOn(){
 	eye.write(1);
 	belly.write(1);
 	satellite.write(1);
-	led.write(1);
+	led.write(1); // EXCEPT ACTIVITY LED ??
 };
 // exports.allLedsOn = allLedsOn;
 
@@ -174,6 +174,20 @@ function allLedsOff(){
 	eye.write(0);
 	belly.write(0);
 	satellite.write(0);
-	led.write(0);
+	led.write(0); // EXCEPT ACTIVITY LED ??
 };
 // exports.allLedsOff = allLedsOff;
+
+/** Params detection for direct call */
+var params = process.argv[2];
+if(params){
+	console.log(params);
+	var gpioPins = require('./gpioPins.js');
+	if(params === 'allLedsOn'){
+		console.log('All Leds On');
+		allLedsOn();
+	}else if(params === 'allLedsOff'){
+		console.log('All Leds Off');
+		allLedsOff();
+	}
+}

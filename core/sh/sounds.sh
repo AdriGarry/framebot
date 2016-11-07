@@ -14,7 +14,8 @@ if [ $2 = "noLeds" ]
 then
 	echo $2
 else
-	sudo node /home/pi/odi/core/modules/allLedsOn.js
+	#sudo node /home/pi/odi/core/modules/allLedsOn.js
+	sudo node /home/pi/odi/core/modules/leds.js allLedsOn
 fi
 
 echo $1
@@ -85,10 +86,12 @@ if [ $1 = "Naheulbeuk" ]
 then
 	position=$(shuf -i 0-20000 -n 1)
 	sudo killall omxplayer.bin
-	sudo node /home/pi/odi/core/modules/allLedsOff.js
+	#sudo node /home/pi/odi/core/modules/allLedsOff.js
+	sudo node /home/pi/odi/core/modules/leds.js allLedsOff
 	sudo omxplayer -o local --pos $position --vol $volume $sound > /dev/null &
 
 else
 	sudo omxplayer -o local --vol $volume $sound
-	sudo node /home/pi/odi/core/modules/allLedsOff.js
+	#sudo node /home/pi/odi/core/modules/allLedsOff.js
+	sudo node /home/pi/odi/core/modules/leds.js allLedsOff
 fi

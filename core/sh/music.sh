@@ -1,7 +1,8 @@
 #!/bin/sh
 
 #___Fonction Musique
-sudo node /home/pi/odi/core/modules/allLedsOn.js
+#sudo node /home/pi/odi/core/modules/allLedsOn.js
+sudo node /home/pi/odi/core/modules/leds.js allLedsOn
 
 volume=$(cat /sys/class/gpio/gpio13/value)
 if [ $volume -eq 0 ]
@@ -36,4 +37,5 @@ else
 fi
 
 sudo omxplayer -o local --vol $volume $music
-sudo node /home/pi/odi/core/modules/allLedsOff.js
+#sudo node /home/pi/odi/core/modules/allLedsOff.js
+sudo node /home/pi/odi/core/modules/leds.js allLedsOff
