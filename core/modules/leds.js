@@ -11,7 +11,7 @@ module.exports = {
 	activity: activity,
 	altLeds: altLeds,
 	clearLeds: clearLeds,
-	buttonPush: buttonPush,
+	//buttonPush: buttonPush,
 	ledOn: ledOn,
 	ledOff: ledOff,
 	allLedsOn: allLedsOn,
@@ -51,7 +51,6 @@ function blink(config){
 		console.error(e);
 	}
 };
-// exports.blink = blink;
 
 /** Function to toggle a led
  * @param config : {
@@ -65,7 +64,6 @@ function toggle(config){
 		eval(config.led).write(config.mode? 1 : 0);
 	}
 };
-// exports.toggle = toggle;
 
 /** Function activity : program mode flag (ready/sleep) */
 function activity(mode){
@@ -83,7 +81,6 @@ function activity(mode){
 		blink({leds: ['nose'], speed: 200, loop: 1}); // Initialisation du temoin d'activite 2/2
 	}, null, 1, 'Europe/Paris');
 };
-// exports.activity = activity;
 
 /** Fonction verification de la config blink LEDS  */
 /*function findOne(haystack, arr){ // NOT EXPORTED !!
@@ -108,16 +105,14 @@ function altLeds(speed, duration){
 		belly.write(0);
 	}, duration*1000);
 };
-// exports.altLeds = altLeds;
 
 /** Function to cancel blinkState */
 function clearLeds(){
 	clearInterval(timer);
 };
-// exports.clearLeds = clearLeds;
 
 /** Function pushed button flag */
-function buttonPush(param){
+/*function buttonPush(param){
 	if(param == 'stop'){
 		belly.write(0);
 	}else{
@@ -129,8 +124,7 @@ function buttonPush(param){
 			belly.write(1);
 		}, 1000);		
 	}
-};
-// exports.buttonPush = buttonPush;
+};*/
 
 /** Function to swith on a led */
 function ledOn(led){
@@ -144,7 +138,6 @@ function ledOn(led){
 		satellite.write(1);
 	}
 };
-// exports.ledOn = ledOn;
 
 /** Function to swith off a led */
 function ledOff(led){
@@ -158,7 +151,6 @@ function ledOff(led){
 		satellite.write(0);
 	}
 };
-// exports.ledOff = ledOff;
 
 /** Function to switch on all leds */
 function allLedsOn(){
@@ -167,7 +159,6 @@ function allLedsOn(){
 	satellite.write(1);
 	led.write(1); // EXCEPT ACTIVITY LED ??
 };
-// exports.allLedsOn = allLedsOn;
 
 /** Function to swith off all leds */
 function allLedsOff(){
@@ -176,7 +167,6 @@ function allLedsOff(){
 	satellite.write(0);
 	led.write(0); // EXCEPT ACTIVITY LED ??
 };
-// exports.allLedsOff = allLedsOff;
 
 /** Params detection for direct call */
 var params = process.argv[2];
