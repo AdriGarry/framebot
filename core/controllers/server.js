@@ -40,7 +40,7 @@ module.exports = {
 
 function startUI(mode){
 	var ui = express();
-	var request, method, params, ipClient;
+	var request, ip, params, ipClient;
 
 	ui.use(compression()); // Compression web
 	ui.use(express.static(WEB_PATH)); // Pour fichiers statiques
@@ -59,10 +59,10 @@ function startUI(mode){
 	});
 
 	// Middleware LOGGER
-	var logger = function(req, res, next){
+	/*var logger = function(req, res, next){
 		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
 		leds.blink({leds : ['satellite'], speed : 180, loop : 1});
-		method = req.method;
+		// method = req.method;
 		// request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : ' ?? ') + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
 		request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : '## ') + req.url.replace('%20',' ');
 		request += req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : ' [' + req.connection.remoteAddress + ']';
@@ -80,6 +80,33 @@ function startUI(mode){
 			res.status(401);//Unauthorized
 			res.end();
 		}
+	};*/
+	// Middleware LOGGER
+	var logger = function(req, res, next){
+		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
+		leds.blink({leds : ['satellite'], speed : 180, loop : 1});
+		//method = req.method;
+
+		// request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : '## ') + req.url.replace('%20',' ');
+		// request += req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : ' [' + req.connection.remoteAddress + ']';
+		// console.log(request);
+
+		if(req.connection.remoteAddress.indexOf('192.168') == -1){ // Logging not local requests
+			fs.appendFile(FILE_REQUEST_HISTORY, utils.formatedDate() + request + '\r\n', function(err){
+				if(err) return console.error(err);
+			});
+		}
+
+		if(req.headers.ui === 'v3' || ALLOWED_REQUESTS.indexOf(req.url) > -1){ // Allowed requests
+			request = req.headers.ui + ' ' + req.url.replace('%20',' ');
+			next();
+		}else{ // Not allowed requests
+			request = '401 ' + req.url.replace('%20',' ');
+			res.status(401); // Unauthorized
+			res.end();
+		}
+		ip = req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : '[' + req.connection.remoteAddress + ']';
+		console.log(request, ip);
 	};
 
 	ui.use(logger);
