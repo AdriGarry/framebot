@@ -37,7 +37,7 @@
 <body data-ng-controller="UIController">
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools">
-			<md-progress-circular md-mode="determinate" value="{{dashboard.loopInterval}}" onclick="setTimeout(function(){window.location.reload()},300)" data-ng-show="dashboard.autoRefresh"></md-progress-circular>
+			<md-progress-circular md-mode="determinate" value="{{dashboard.loopInterval}}" onclick="setTimeout(function(){window.location.reload()},300)" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh"></md-progress-circular>
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
 				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''"
 				onclick="setTimeout(function(){window.location.reload()},300)">
@@ -81,11 +81,11 @@
 
 	<div class="main" layout-align="top center">
 		<md-content flex layout-padding>
-			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" class="md-fab md-primary md-hue-2 md-mini ng-slide muteButton"
+			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" class="md-fab md-primary md-hue-2 md-mini muteButton"
 			title="Mute Odi" aria-label="Mute Odi"> <!--on-long-press="irda=true" long-press-duration="4000"-->
 				<i class="fa fa-bell-slash-o"></i>
 			</md-button>
-			<md-button data-ng-click="showLogs()" class="md-fab md-warn md-hue-2 ng-slide logButton" title="Logs" aria-label="Logs">
+			<md-button data-ng-click="showLogs()" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
 				<i class="fa fa-2x fa-rocket"></i>
 			</md-button>
 

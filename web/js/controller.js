@@ -161,7 +161,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 		$mdBottomSheet.hide(button);
 	};
 
-	$scope.showDialogGrant = function(ev){
+	$scope.showDialogGrant = function(ev){ // TODO COMPONENT !!
 		$mdDialog.show({
 			controller: DialogController,
 			templateUrl: 'templates/dialog-admin.html',
@@ -203,10 +203,13 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 		}
 	}, 100);
 
-	/** Stop auto refresh after 2 min */
+	/** Stop auto refresh after 1 min */
+	$timeout(function(){
+		$scope.dashboard.autoRefresh = 'warn';
+	}, 50*1000);
 	$timeout(function(){
 		$scope.dashboard.autoRefresh = false;
-	}, 2*60*1000);
+	}, 1*60*1000);
 
 	$scope.grant = function(param){
 		UIService.sendCommand({url:'/grant', data:param}, function(data){
@@ -226,8 +229,5 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 	};
 
 	var param = $location.$$absUrl.split('?')[1];
-	if(param){
-		// console.log('param : ' + param);
-		$scope.grant(param);
-	}
+	if(param) $scope.grant(param);
 });
