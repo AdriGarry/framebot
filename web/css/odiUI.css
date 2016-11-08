@@ -504,6 +504,9 @@ footer p a:hover{
 		font-size:0.6em;
 	}
 
+	md-grid-list md-grid-tile[md-rowspan="2"] div.ttsMsg{
+		margin-top:-1em;
+	}
 	md-grid-list md-grid-tile i.adminFlag{
 		top:0.2em;
 		right:0.3em;
