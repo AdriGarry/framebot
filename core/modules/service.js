@@ -219,7 +219,7 @@ function weather(){
 					+ ' degres avec ' + (isNaN(wind)?'0':wind) + ' kilometre heure de vent';
 				console.log('Service Weather... ' + annonceTemp);
 				// tts.speak('fr',annonceTemp);
-				tts.speak({lg: 'fr', msg: annonceTemp});
+				tts.speak({voice: 'google', lg: 'fr', msg: annonceTemp});
 			}else{
 				console.log('Can\'t retreive weather informations');
 				tts.speak({voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo'});
