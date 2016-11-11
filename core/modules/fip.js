@@ -6,7 +6,7 @@ var spawn = require('child_process').spawn;
 var leds = require('./leds.js');
 // var hardware = require('./hardware.js');
 // var utils = require('./utils.js');
-
+console.log('fip this', this);
 var self = this;
 
 var instance = false;
