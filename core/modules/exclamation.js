@@ -7,7 +7,16 @@ var Gpio = require('onoff').Gpio;
 var leds = require('./leds.js');
 var tts = require('./tts.js');
 
-var exclamation = function(){
+module.exports = {
+	exclamation: exclamation,
+	exclamation2Rappels: exclamation2Rappels,
+	exclamationLoop: exclamationLoop,
+	exclamationRdmDelayLoop: exclamationRdmDelayLoop,
+	russia: russia,
+	russiaLoop: russiaLoop
+};
+
+function exclamation(){
 	console.log('Exclamation !');
 	// leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
 	leds.blink({
@@ -16,10 +25,9 @@ var exclamation = function(){
 		loop: 6
 	});
 	var deploy = spawn('sh', ['/home/pi/odi/core/sh/exclamation.sh']);
-};
-exports.exclamation = exclamation;
+}
 
-var exclamation2Rappels = function(){
+function exclamation2Rappels(){
 	console.log('Exclamation [2 recall]!');
 	// leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
 	leds.blink({
@@ -53,21 +61,18 @@ var exclamation2Rappels = function(){
 		var deploy = spawn('sh', ['/home/pi/odi/core/sh/exclamation.sh']);
 		setTimeout(function(){ eye.write(0); }, 2000);
 	}, rdm * 10 * 1000);
-};
-exports.exclamation2Rappels = exclamation2Rappels;
+}
 
 /** Fonction Exclamtion en boucle 1 min */
-var exclamationLoop = function(){
+function exclamationLoop(){
 	console.log('Exclamation LOOP !!');
 	// tts.speak('en','Exclamation loop initialised');
 	tts.speak({lg:'en', msg:'Exclamation loop initialised'});
 	setTimeout(function(){
 		var deploy = spawn('sh', ['/home/pi/odi/core/sh/exclamation.sh', 'LOOP']);
 	}, 5000);
-};
-exports.exclamationLoop = exclamationLoop;
-
-var exclamationRdmDelayLoop = function(){ // Methode a Supprimer ???
+}
+function exclamationRdmDelayLoop(){ // Methode a Supprimer ???
 	console.log('Exclamation Loop With Random Delay !');
 	var exclRdmLp;
 	var rdmDelay;
@@ -92,11 +97,10 @@ var exclamationRdmDelayLoop = function(){ // Methode a Supprimer ???
 			}
 		}, rdmDelay * 1000);
 	}());
-};
-exports.exclamationRdmDelayLoop = exclamationRdmDelayLoop;
+}
 
 /** Fonction Russian */
-exports.russia = function(){
+function russia(){
 	console.log('Russia !');
 	// leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
 	leds.blink({
@@ -105,14 +109,14 @@ exports.russia = function(){
 		loop: 6
 	});
 	var deploy = spawn('sh', ['/home/pi/odi/core/sh/exclamation_russia.sh']);
-};
+}
 
 /** Fonction Russian en boucle */
-exports.russiaLoop = function(){
+function russiaLoop(){
 	console.log('Russia LOOP !!');
 	// tts.speak('en','Russia loop initialised');
 	tts.speak({lg:'en', msg:'Russia loop initialised'});
 	setTimeout(function(){
 		var deploy = spawn('sh', ['/home/pi/odi/core/sh/exclamation_russia.sh', 'LOOP']);
 	}, 5000);
-};
+}

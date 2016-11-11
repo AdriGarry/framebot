@@ -59,29 +59,6 @@ function startUI(mode){
 	});
 
 	// Middleware LOGGER
-	/*var logger = function(req, res, next){
-		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
-		leds.blink({leds : ['satellite'], speed : 180, loop : 1});
-		// method = req.method;
-		// request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : ' ?? ') + req.url.replace('%20',' ') + ' [' + req.connection.remoteAddress + ']';
-		request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : '## ') + req.url.replace('%20',' ');
-		request += req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : ' [' + req.connection.remoteAddress + ']';
-		console.log(request);
-
-		if(req.connection.remoteAddress.indexOf('192.168') == -1){
-			fs.appendFile(FILE_REQUEST_HISTORY, utils.formatedDate() + request + '\r\n', function(err){
-				if(err) return console.error(err);
-			});
-		}
-
-		if(req.headers.ui === 'v3' || ALLOWED_REQUESTS.indexOf(req.url) > -1){
-			next();
-		}else{
-			res.status(401);//Unauthorized
-			res.end();
-		}
-	};*/
-	// Middleware LOGGER
 	var logger = function(req, res, next){
 		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
 		leds.blink({leds : ['satellite'], speed : 180, loop : 1});
@@ -110,7 +87,6 @@ function startUI(mode){
 			res.end();
 		}
 	};
-
 	ui.use(logger);
 
 	/** MONITORING ACTIVITY */
