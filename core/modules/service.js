@@ -157,8 +157,7 @@ function randomAction(){
 				case 9:
 				case 10:
 				case 11:
-					// weather();
-					adriExclamation();
+					weather();
 					break;
 				case 12:
 					cpuTemp();
@@ -171,6 +170,10 @@ function randomAction(){
 					break;
 				case 15:
 					date();
+					break;
+				case 16:
+				case 17:
+					adriExclamation();
 					break;
 				default:
 					exclamation.exclamation();
@@ -196,7 +199,6 @@ function cpuTemp(){
 };
 
 
-// var weatherStatusList = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');
 var WEATHER_STATUS_LIST;
 fs.readFile('/home/pi/odi/data/weatherStatus.json', function(err, data){
 	if(err && err.code === 'ENOENT'){

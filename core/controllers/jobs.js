@@ -107,16 +107,15 @@ function setAlarms(){
 		utils.testConnexion(function(connexion){
 			if(connexion == true){
 				setTimeout(function(){
-					spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'bonjourBonjour']);
+					// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'bonjourBonjour']);
+					service.timeNow();
 				}, 4000);
 				setTimeout(function(){
-					//service.weather();
-					// service.sayOdiAge();
-					service.timeNow();
-				}, 7*1000);
+					service.weather();
+				}, 7000);
 				setTimeout(function(){
 					fip.playFip();
-				}, 13*1000);
+				}, 13000);
 			}else{
 				jukebox.loop();
 			}

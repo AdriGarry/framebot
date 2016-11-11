@@ -19,7 +19,7 @@ else console.debug = function(o){};
 
 var mode = process.argv[2]; // Recuperation des arguments
 console.log('>> Odi Core started',(mode ? '[mode:' + mode + ']' : ''));
-console.debug('\n---------------------\n', '-> ->  DEBUG MODE !!');
+console.debug('-> ->  DEBUG MODE !!');//'\n---------------------\n', 
 
 console.log('CONFIG', CONFIG);
 
@@ -80,7 +80,7 @@ if(CONFIG.debug){
 	setTimeout(function(){
 		console.debug('Canceling debug mode... & Restart !!');
 		utils.setConfig('debug', null, true);
-	}, 20*60*1000);
+	}, 10*60*1000);
 }
 
 
