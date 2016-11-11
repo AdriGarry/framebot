@@ -22,7 +22,7 @@ module.exports = {
 	randomAction: randomAction,
 	adriExclamation: adriExclamation,
 	cpuTemp: cpuTemp,
-	weather: weather
+	weather: weatherService
 }
 
 /** Function TTS time */
@@ -195,9 +195,50 @@ function cpuTemp(){
 	tts.speak({lg:'fr', msg:'Mon processeur est a ' + temperature + ' degree'});
 };
 
+
+// var weatherStatusList = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');
+var WEATHER_STATUS_LIST;
+fs.readFile('/home/pi/odi/data/weatherStatus.json', function(err, data){
+	if(err && err.code === 'ENOENT'){
+		console.debug(console.error('No file : ' + filePath));
+		callback(null);
+	}
+	WEATHER_STATUS_LIST = JSON.parse(data);
+});
 /** Function to retreive weather info */
-var weatherStatus = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');
-function weather(){
+var weatherData, weatherStatus, weatherTemp, wind, weatherSpeech;
+function weatherService(){
+	console.debug('weatherService()');
+	request.get({
+		url: 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20%28select%20woeid%20from%20geo.places%281%29%20where%20text%3D%22Marseille%2C%20france%22%29and%20u=%27c%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
+		headers: {'Content-Type': 'json'}
+	}, function (error, response, body){
+		try{
+			if(!error && response.statusCode == 200){
+				weatherData = JSON.parse(body);
+				weatherStatus = weatherData.query.results.channel.item.condition.code;
+				weatherStatus = WEATHER_STATUS_LIST[weatherStatus];
+				weatherTemp = weatherData.query.results.channel.item.condition.temp;
+				wind = weatherData.query.results.channel.wind.speed;
+				var weatherSpeech = 'Meteo Marseille : le temps est ' + weatherStatus + ', il fait ' + weatherTemp
+					+ ' degres avec ' + (isNaN(wind)?'0':Math.round(wind)) + ' kilometre heure de vent';
+				console.log('Service Weather...');
+				tts.speak({voice: 'google', lg: 'fr', msg: weatherSpeech});
+			}else{
+				console.log('Can\'t retreive weather informations');
+				tts.speak({voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo'});
+				console.error('Weather request > response.statusCode', response.statusCode);
+				if(error){console.error('Error getting weather info  /!\\ \n' + error);}
+			}
+		}catch(e){
+			console.error(e);
+		}
+	});
+};
+
+/** Function to retreive weather info */
+/*var weatherStatus = fs.readFileSync('/home/pi/odi/data/weather.status.properties', 'UTF-8').toString().split('\n');
+function weather2(){
 	request.get({
 		// url:'http://weather.yahooapis.com/forecastrss?w=610264&u=c',
 		url:'http://xml.weather.yahoo.com/forecastrss?w=610264&u=c',
@@ -230,4 +271,4 @@ function weather(){
 			console.error(e);
 		}
 	});
-};
+};*/

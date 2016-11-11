@@ -97,16 +97,18 @@ function startUI(mode){
 			});
 		}
 
+		ip = req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : '[' + req.connection.remoteAddress + ']';
+
 		if(req.headers.ui === 'v3' || ALLOWED_REQUESTS.indexOf(req.url) > -1){ // Allowed requests
 			request = req.headers.ui + ' ' + req.url.replace('%20',' ');
+			console.log(request, ip);
 			next();
 		}else{ // Not allowed requests
 			request = '401 ' + req.url.replace('%20',' ');
+			console.log(request, ip);
 			res.status(401); // Unauthorized
 			res.end();
 		}
-		ip = req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : '[' + req.connection.remoteAddress + ']';
-		console.log(request, ip);
 	};
 
 	ui.use(logger);
