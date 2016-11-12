@@ -8,8 +8,6 @@ var exec = require('child_process').exec;
 var os = require("os");
 var hardware = require('./hardware.js');
 var leds = require('./leds.js');
-// var fip = require('./fip.js');
-var self = this;
 
 module.exports = {
 	mute: mute,
@@ -24,11 +22,14 @@ module.exports = {
 	testConnexion: testConnexion
 };
 
+// console.log('utils.js CONFIG', CONFIG);
+
 var muteTimer, delay;
 /** Function to mute Odi */
 function mute(delay, message){ // delay: min
 	clearTimeout(muteTimer);
 	// console.debug('mute()', 'delay:', delay, 'message:', message);
+	//console.log('mute()', 'delay:', delay, 'message:', message);
 	delay = (delay && !isNaN(delay)) ? delay : 0;
 	if(delay < 10){
 		stopAll();
