@@ -72,6 +72,7 @@ function exclamationLoop(){
 		var deploy = spawn('sh', ['/home/pi/odi/core/sh/exclamation.sh', 'LOOP']);
 	}, 5000);
 }
+
 function exclamationRdmDelayLoop(){ // Methode a Supprimer ???
 	console.log('Exclamation Loop With Random Delay !');
 	var exclRdmLp;

@@ -11,8 +11,12 @@ var hour = date.getHours();
 var pastHour = hour;
 var minRing = true;
 
-/** Fonction jukebox (repeat) */
-var setParty = function(test){
+module.exports = {
+	setParty: setParty
+}
+
+/** Function jukebox (repeat) */
+function setParty(test){
 	console.log('LET\'S START PARTY !!  <|:-)  <|:-)  <|:-) \ntest: : ' + test);
 	if(test == true){
 			var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'test']);
@@ -73,5 +77,4 @@ var setParty = function(test){
 			service.weather();
 		}
 	}.bind(this, test), 15*1000);
-};
-exports.setParty = setParty;
+}

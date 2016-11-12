@@ -38,6 +38,8 @@ module.exports = {
 	startUI: startUI
 };
 
+console.log('server.js CONFIG', CONFIG);
+
 function startUI(mode){
 	var ui = express();
 	var request, ip, params, ipClient;

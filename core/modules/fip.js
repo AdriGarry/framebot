@@ -4,12 +4,11 @@
 
 var spawn = require('child_process').spawn;
 var leds = require('./leds.js');
-// var hardware = require('./hardware.js');
 // var utils = require('./utils.js');
-console.log('fip this', this);
+var utils = require(CORE_PATH + 'modules/utils.js');
 var self = this;
 
-var instance = false;
+self.instance = false;
 //exports.instance = instance;
 
 self.fipInterval;
@@ -42,10 +41,10 @@ function playFip(){
 	else{
 		console.log('I\'m already playing FIP !');
 	}
-	//utils.mute(60, 'Auto Mute FIP');
+	utils.mute(60, 'Auto Mute FIP');
 
 	// TODO SET TIMEOUT ... stopFip();
-};
+}
 
 /** Function to stop FIP radio */
 function stopFip(message){
@@ -56,4 +55,6 @@ function stopFip(message){
 	eye.write(0);
 	belly.write(0);
 	leds.clearLeds();
-};
+}
+
+console.log('fip this', this);

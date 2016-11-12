@@ -22,7 +22,9 @@ var Gpio = require('onoff').Gpio;
 var hardware = require('./modules/hardware.js');
 var gpioPins = require('./modules/gpioPins.js');
 var CronJob = require('cron').CronJob;
-var utils = require('./modules/utils.js');
+// var utils = require('./modules/utils.js');
+var utils = require(CORE_PATH + 'modules/utils.js');
+
 var leds = require('./modules/leds.js');
 var server = require('./controllers/server.js');
 var jobs = require('./controllers/jobs.js');

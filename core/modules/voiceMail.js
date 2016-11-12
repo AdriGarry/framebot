@@ -6,7 +6,8 @@ var fs = require('fs');
 // var spawn = require('child_process').spawn;
 var leds = require('./leds.js');
 var tts = require('./tts.js');
-var utils = require('./utils.js');
+// var utils = require('./utils.js');
+var utils = require(CORE_PATH + 'modules/utils.js');
 
 const VOICEMAIL_FILE = '/home/pi/odi/tmp/voicemail.json';
 const VOICEMAIL_FILE_HISTORY = '/home/pi/odi/log/voicemailHistory.json';

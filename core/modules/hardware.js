@@ -7,7 +7,7 @@ var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var os = require("os");
 var leds = require('./leds.js');
-var tts = require('./tts.js'); // TODO proceedQueue() in mute()
+// var tts = require('./tts.js'); // TODO: stop proceedQueue() in mute()
 
 module.exports = {
 	// mute: mute,

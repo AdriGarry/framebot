@@ -41,7 +41,9 @@ var server = require('./controllers/server.js');
 var jobs = require('./controllers/jobs.js');
 // leds.allLedsOff();
 var CronJob = require('cron').CronJob;
-var utils = require('./modules/utils.js');
+//var utils = require('./modules/utils.js');
+var utils = require(CORE_PATH + 'modules/utils.js');
+
 var service = require('./modules/service.js');
 var voiceMail = require('./modules/voiceMail.js');
 

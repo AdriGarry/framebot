@@ -8,7 +8,8 @@ var Gpio = require('onoff').Gpio;
 var leds = require('./leds.js');
 var hardware = require('./hardware.js');
 var request = require('request');
-var utils = require('./utils.js');
+//var utils = require('./utils.js');
+var utils = require(CORE_PATH + 'modules/utils.js');
 var tts = require('./tts.js');
 var exclamation = require('./exclamation.js');
 
