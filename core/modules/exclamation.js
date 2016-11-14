@@ -4,8 +4,8 @@
 
 var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
-var leds = require('./leds.js');
-var tts = require('./tts.js');
+var leds = require(CORE_PATH + 'modules/leds.js');
+var tts = require(CORE_PATH + 'modules/tts.js');
 
 module.exports = {
 	exclamation: exclamation,

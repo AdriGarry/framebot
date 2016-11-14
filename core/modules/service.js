@@ -5,13 +5,12 @@
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 var Gpio = require('onoff').Gpio;
-var leds = require('./leds.js');
-var hardware = require('./hardware.js');
 var request = require('request');
-//var utils = require('./utils.js');
+var leds = require(CORE_PATH + 'modules/leds.js');
+var hardware = require(CORE_PATH + 'modules/hardware.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
-var tts = require('./tts.js');
-var exclamation = require('./exclamation.js');
+var tts = require(CORE_PATH + 'modules/tts.js');
+var exclamation = require(CORE_PATH + 'modules/exclamation.js');
 
 module.exports = {
 	timeNow: timeNow,

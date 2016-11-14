@@ -3,8 +3,8 @@
 // Module Party
 
 var spawn = require('child_process').spawn;
-var tts = require('./tts.js');
-var service = require('./service.js');
+var tts = require(CORE_PATH + 'modules/tts.js');
+var service = require(CORE_PATH + 'modules/service.js');
 
 var date = new Date();
 var hour = date.getHours();

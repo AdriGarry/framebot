@@ -3,8 +3,7 @@
 // Module Fip
 
 var spawn = require('child_process').spawn;
-var leds = require('./leds.js');
-// var utils = require('./utils.js');
+var leds = require(CORE_PATH + 'modules/leds.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
 var self = this;
 

@@ -6,8 +6,8 @@ var fs = require('fs');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var os = require("os");
-var hardware = require('./hardware.js');
-var leds = require('./leds.js');
+var hardware = require(CORE_PATH + 'modules/hardware.js');
+var leds = require(CORE_PATH + 'modules/leds.js');
 
 module.exports = {
 	mute: mute,
@@ -28,8 +28,7 @@ var muteTimer, delay;
 /** Function to mute Odi */
 function mute(delay, message){ // delay: min
 	clearTimeout(muteTimer);
-	// console.debug('mute()', 'delay:', delay, 'message:', message);
-	//console.log('mute()', 'delay:', delay, 'message:', message);
+	console.debug('mute()', 'delay:', delay, 'message:', message);
 	delay = (delay && !isNaN(delay)) ? delay : 0;
 	if(delay < 10){
 		stopAll();
@@ -41,7 +40,7 @@ function mute(delay, message){ // delay: min
 			}, 1600);
 		}, delay*60*1000);
 	}
-};
+}
 
 /** Function to stop all sounds & leds */
 function stopAll(message){
@@ -50,7 +49,7 @@ function stopAll(message){
 	// leds.clearLeds();
 	eye.write(0);
 	belly.write(0);
-};
+}
 
 /** Function to return last Odi's start/restart time */
 const startTime = new Date();
@@ -58,7 +57,7 @@ function getStartTime(){
 	var hour = startTime.getHours();
 	var min = startTime.getMinutes();
 	return (hour > 12 ? hour-12 : hour) + '.' + (min<10?'0':'') + min + ' ' + (hour > 12  ? 'PM' : 'AM');
-};
+}
 
 /** Function to get date & time (jj/mm hh:mm:ss) */
 var date, month, day, hour, min, sec, now;
@@ -74,7 +73,7 @@ function formatedDate(){
 	now += (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
 	//callback(now);
 	return now;
-};
+}
 
 /** Fonction de formatage des logs */
 function prepareLogs(lines, callback){
@@ -83,7 +82,7 @@ function prepareLogs(lines, callback){
 	content = content.join('\n');
 	callback(content);
 	return content;
-};
+}
 
 /** Function to set/edit Odi's config */
 function setConfig(key, value, restart){
@@ -102,14 +101,14 @@ function setConfig(key, value, restart){
 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
 		if(restart) hardware.restartOdi();
 	});
-};
+}
 
 /** Function to reset Odi's config */
 function resetConfig(restart){
 	console.debug('resetConfig()');
 	fs.createReadStream(DATA_PATH + 'conf.json').pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
 	if(restart) hardware.restartOdi();
-};
+}
 
 /** Fonction getFileContent */ // NOT USED !!
 function getFileContent(filePath){ // 
@@ -121,7 +120,7 @@ var data = 'KO'; // ou undefined
 		console.error(e);
 	}
 	return data;
-};
+}
 
 /** Fonction getJsonFileContent */
 function getJsonFileContent(filePath, callback){
@@ -139,7 +138,7 @@ function getJsonFileContent(filePath, callback){
 	// 	console.error('Error while reading file : ' + filePath);
 	// 	console.error(e);
 	// }
-};
+}
 
 /** Function to append object in JSON file */
 var fileData;
@@ -171,7 +170,7 @@ function appendJsonFile(filePath, obj, callback){
 			fs.writeFile(filePath, fileData);
 		}
 	});
-};
+}
 
 /** Function to test internet connexion */
 function testConnexion(callback){
@@ -185,8 +184,10 @@ function testConnexion(callback){
 			callback(true);
 		}
 	});
-};
+}
 
-String.prototype.repeat = function(num){
+String.prototype.repeat = function(num){ //  ??????????????????????
 	return new Array(num + 1).join(this);
 }
+
+//////////////////////
