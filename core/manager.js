@@ -11,9 +11,7 @@ global.WEB_PATH = '/home/pi/odi/web/';
 var fs = require('fs');
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
-var gpioPins = require('./modules/gpioPins.js');
-var utils = require('./modules/utils.js');
-// var hardware = require('./modules/hardware.js');
+var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
 
 var odiPgm, odiState = false;
 const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
@@ -38,7 +36,8 @@ function startOdi(mode){
 	/** Setting up Odi's config */
 	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
 
-	utils.mute(0);
+	spawn('sh', [CORE_PATH + 'sh/mute.sh']); // Mute // + LEDS ???
+	
 	var logo;
 	if(typeof mode === 'undefined') mode = '';
 	// if(typeof mode === Number){
@@ -67,21 +66,20 @@ function startOdi(mode){
 		if(1 === etat.readSync()) logMode = logMode.replace('Odi','ODI');
 		else logMode = logMode.replace('ODI','Odi');
 		// console.log(logDate + logMode + '/ ' + data);// + '\r\n'
-		if(CONFIG.debug) console.log(utils.formatedDate() + logMode + '\u2022 ' + data);// + '\r\n'
-		else console.log(utils.formatedDate() + logMode + '/ ' + data);// + '\r\n'
+		if(CONFIG.debug) console.log(/*utils.*/formatedDate() + logMode + '\u2022 ' + data);// + '\r\n'
+		else console.log(/*utils.*/formatedDate() + logMode + '/ ' + data);// + '\r\n'
 	});
 
 	odiPgm.stderr.on('data', function(data){ // Template log error
 		if(1 === etat.readSync()) logMode = logMode.replace('i','!');
 		else logMode = logMode.replace('!','i');
 		// console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
-		if(CONFIG.debug) console.error(utils.formatedDate() + logMode + '\u2022 ERROR ' + data);// + '\r\n'
-		else console.error(utils.formatedDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
+		if(CONFIG.debug) console.error(/*utils.*/formatedDate() + logMode + '\u2022 ERROR ' + data);// + '\r\n'
+		else console.error(/*utils.*/formatedDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
 	});
 	
 	odiPgm.on('exit', function(code){ // SetUpRestart Actions
-		// tts.clearLastTTS();
-		utils.mute();
+		spawn('sh', [CORE_PATH + 'sh/mute.sh']);  // Mute // + LEDS ???
 		odiState = false;
 		console.log('\r\n-----------------------------------' + (code>10 ? (code>100 ? '---' : '--') : '-'));
 		console.log('>> Odi\'s CORE restarting... [code:' + code + ']\r\n\r\n');
@@ -106,3 +104,20 @@ var decrementTime = function(){
 		}
 	}, 60*1000);
 };
+
+
+/** Function to get date & time (jj/mm hh:mm:ss) */
+var date, month, day, hour, min, sec, now;
+function formatedDate(){
+	date = new Date();
+	month = date.getMonth()+1;
+	day = date.getDate();
+	hour = date.getHours();
+	min = date.getMinutes();
+	sec = date.getSeconds();
+	now = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';
+	now += (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
+	return now;
+};
+
+

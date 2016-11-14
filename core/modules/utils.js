@@ -22,7 +22,7 @@ module.exports = {
 	testConnexion: testConnexion
 };
 
-// console.log('utils.js CONFIG', CONFIG);
+console.log('utils.js CONFIG', CONFIG);
 
 var muteTimer, delay;
 /** Function to mute Odi */
