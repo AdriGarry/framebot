@@ -2,18 +2,17 @@
 
 // Module Button
 
-// var log = 'Odi/ ';
 var spawn = require('child_process').spawn;
 var leds = require(CORE_PATH + 'modules/leds.js');
 var hardware = require(CORE_PATH + 'modules/hardware.js');
-var fip = require(CORE_PATH + 'modules/fip.js');
 var jukebox = require(CORE_PATH + 'modules/jukebox.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
 var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
-var party = require(CORE_PATH + 'modules/party.js');
-// var EventEmitter = require('events').EventEmitter;
+var fip = require(CORE_PATH + 'modules/fip.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
 var service = require(CORE_PATH + 'modules/service.js');
+var party = require(CORE_PATH + 'modules/party.js');
+// var EventEmitter = require('events').EventEmitter;
 
 module.exports = {
 	getEtat: getEtat,
@@ -52,7 +51,7 @@ function initButtonAwake(){
 	etat.watch(function(err, value){
 		value = etat.readSync();
 		console.log('Etat:', value, '[Etat has changed]');
-		if(fip.instance){
+		if(fip.playing){
 			fip.stopFip('Rebooting FIP RADIO (volume changed)');
 			setTimeout(function(){
 				fip.playFip();

@@ -27,16 +27,11 @@ module.exports = {
 
 /** Function TTS time */
 function timeNow(){
-	console.log('Service Time...');
+	console.log('Service Time');
 	var date = new Date();
 	var hour = date.getHours();
 	var min = date.getMinutes();
-	if(min == 0){
-		tts.speak({lg: 'fr', msg: 'Il est ' + hour + ' heure'});
-	}else{
-		var tmp = 'Il est ' + hour + ' heures et ' + min + ' minutes';
-		tts.speak({lg: 'fr', msg: tmp});
-	}
+	tts.speak({lg: 'fr', msg: 'Il est ' + hour + ' heure ' + (min>0 ? min : '')});
 };
 
 var CALENDAR = require('/home/pi/odi/data/calendar.json');

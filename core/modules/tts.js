@@ -106,6 +106,7 @@ function randomConversation(){
 const VOICE_LIST = ['google', 'espeak'];
 const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
 var playTTS = function(tts){
+	// TEST IF INTERNET CONNEXION
 	if(!tts.hasOwnProperty('voice') || VOICE_LIST.indexOf(tts.voice) == -1){ // Random voice if undefined
 		var tmp = Math.round(Math.random()*1);
 		if(tmp) tts.voice = 'google';

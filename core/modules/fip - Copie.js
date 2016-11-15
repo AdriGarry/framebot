@@ -7,36 +7,30 @@ var leds = require(CORE_PATH + 'modules/leds.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
 var self = this;
 
-var playing = false;
+var instance = false;
 
-var fipInterval;
+self.fipInterval;
 
 module.exports = {
-	playing: isPlaying,
+	instance: instance,
 	playFip: playFip,
 	stopFip: stopFip
 }
 
-/** Function to return playing status */
-function isPlaying(){
-	return playing;
-}
-
 /** Function to play FIP radio */
 function playFip(){
-	if(!playing){
+	if(!self.instance){
 		console.log('Play FIP RADIO...');
 		spawn('sh', ['/home/pi/odi/core/sh/fip.sh']);
-		playing = true;
-		console.log('playing', playing);
+		self.instance = true;
 		leds.altLeds(100, 1.3);
 		
 		cancel.watch(function(err, value){
-			clearInterval(fipInterval);
-			playing;
+			clearInterval(self.fipInterval);
+			self.instance = false;
 		});
-		fipInterval = setInterval(function(){
-			if(playing){
+		self.fipInterval = setInterval(function(){
+			if(self.instance){
 				//console.log('Playing FIP RADIO...!');
 				leds.altLeds(100, 1.3);
 			}
@@ -58,8 +52,8 @@ function playFip(){
 function stopFip(message){
 	console.debug(message || 'Stoping FIP RADIO.');
 	spawn('sh', ['/home/pi/odi/core/sh/mute.sh']);
-	playing = false;
-	clearInterval(fipInterval);
+	self.instance = false;
+	clearInterval(self.fipInterval);
 	eye.write(0);
 	belly.write(0);
 	leds.clearLeds();

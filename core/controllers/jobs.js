@@ -27,31 +27,23 @@ module.exports = {
 function startClock(modeInit){
 	if(!modeInit){ // Mode work
 		console.log('Clock jobs initialised in regular mode');
-		new CronJob('0 0 8-23 * * 1-5', function(){
-			ringHour();
+		// new CronJob('0 0,30 8-23 * * 1-5', function(){
+		new CronJob('0 0,30 8-23 * * 1-5', function(){
+			service.timeNow();
 		}, null, true, 'Europe/Paris');
-		new CronJob('0 30 8-23 * * 1-5', function(){
-			ringHalfHour();
-		}, null, true, 'Europe/Paris');
-		new CronJob('0 0 12-23 * * 0,7', function(){
-			ringHour();
-		}, null, true, 'Europe/Paris');
-		new CronJob('0 30 12-23 * * 0,7', function(){
-			ringHalfHour();
+		new CronJob('0 0,30 12-23 * * 0,7', function(){
+			service.timeNow();
 		}, null, true, 'Europe/Paris');
 	}else{ // Mode any time
 		console.log('Clock jobs initialised in any time mode !');
-		new CronJob('0 0 * * * *', function(){
-			ringHour();
-		}, null, true, 'Europe/Paris');
-		new CronJob('0 30 * * * *', function(){
-			ringHalfHour();
+		new CronJob('0 0,30 * * * *', function(){
+			service.timeNow();
 		}, null, true, 'Europe/Paris');
 	}
 };
 
 /** Funtion to say time (hours) */
-function ringHour(){
+/*function ringHour(){
 	date = new Date();
 	hour = date.getHours();
 	console.log('It\'s ' + hour + ' o\'clock');
@@ -73,10 +65,10 @@ function ringHour(){
 			}, 1100);
 		}
 	});
-};
+};*/
 
 /** Funtion to say time (half hours) */
-function ringHalfHour(){
+/*function ringHalfHour(){
 	date = new Date();
 	hour = date.getHours();
 	console.log('It\'s ' + hour + ' and a half');
@@ -89,7 +81,7 @@ function ringHalfHour(){
 			var deploy = spawn('sh', ['/home/pi/odi/core/sh/clock.sh', 'half']);
 		}
 	});
-};
+};*/
 
 /** Function to set alarms */
 function setAlarms(){
@@ -101,7 +93,7 @@ function setAlarms(){
 		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
 	}, null, true, 'Europe/Paris');
 
-	new CronJob('0 13 7 * * 1-5', function(){
+	new CronJob('30 13 7 * * 1-5', function(){
 		console.log('COCORICO !!');
 		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
 		utils.testConnexion(function(connexion){
