@@ -95,7 +95,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 	var VALUE = 'value', ICON = 'icon', CUSTOM = 'custom';
 	this.initDashboardTiles = { //Tile(id, label, color, rowspan, colspan, viewMode, value, actionList)
 		mode: new Tile(1, 'Mode', 'teal', 1, 1, CUSTOM, '-',
-			[{label: 'Reset', icon: 'retweet', url: '/resetConfig'},{label: 'Debug', icon: 'terminal', url: '/toggleDebug'},{label: 'Sleep', icon: 'moon-o', url: '/sleep'},{label: 'Restart', icon: 'bolt', url: '/odi'}]),
+			[{label: 'Reset', icon: 'retweet', url: '/resetConfig'},{label: '!Debug', icon: 'terminal', url: '/toggleDebug'},{label: 'Sleep', icon: 'moon-o', url: '/sleep'},{label: 'Restart', icon: 'bolt', url: '/odi'}]),
 		switch: new Tile(2, 'Switch', 'blueGrey', 1, 1, CUSTOM, '', []).bindHTML('switch'),
 		volume: new Tile(3, 'Volume', 'cyan', 1, 1, CUSTOM, 'normal',
 			[{label: 'Mute', url: '/mute'}]).bindHTML('volume'),

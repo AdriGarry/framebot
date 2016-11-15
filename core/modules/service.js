@@ -32,7 +32,7 @@ function timeNow(){
 	var hour = date.getHours();
 	var min = date.getMinutes();
 	tts.speak({lg: 'fr', msg: 'Il est ' + hour + ' heure ' + (min>0 ? min : '')});
-};
+}
 
 var CALENDAR = require('/home/pi/odi/data/calendar.json');
 /** Function to say current date */
@@ -48,7 +48,7 @@ function date(){
 	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
 	console.log('Service Date... ' + annonceDate);
 	tts.speak({lg:'fr', msg:annonceDate});
-};
+}
 
 /** Function to TTS Odi's age */
 var age, years, mouths, birthDay;
@@ -61,7 +61,7 @@ function sayOdiAge(){
 	birthDay += 'j\'ai ' + years + ' ans et ' + mouths + ' mois !';
 	console.log('sayOdiAge() \'' + birthDay + '\'')
 	tts.speak({lg: 'fr', msg: birthDay});
-};
+}
 
 /** Function to set timer */
 var time = 0, timer = false;
@@ -118,7 +118,7 @@ function setTimer(minutes){
 /** Function to return minutes left on timer **/
 function timeLeftTimer(){
 	return time;
-};
+}
 
 /** Function to stop timer **/
 function stopTimer(){
@@ -126,7 +126,7 @@ function stopTimer(){
 	timer = false;
 	tts.speak({lg:'en', msg:'Timer canceled'});
 	belly.write(0);
-};
+}
 
 /** Functionrandom action (exclamation, random TTS, time, day, weather...) */
 function randomAction(){
@@ -175,23 +175,23 @@ function randomAction(){
 			}
 		}
 	});
-};
+}
+
 /** Function 'Aaaadri' speech */
 function adriExclamation(){
-	var aa = 'aa';
+	var aadri = 'aa';
 	console.log('adriExclamation()');
-	aa += aa.repeat(Math.round(Math.random()*6));
-	console.debug('adriExclamation()');
-	tts.speak({voice: 'espeak', lg:'fr', msg: aa + 'dri'});
-	// tts.speak({voice: 'google', lg:'ru', msg:'hey, a3'});
-};
+	aadri += aadri.repeat(Math.round(Math.random()*6)) + 'dri';
+	console.debug('adriExclamation()', aadri);
+	tts.speak({voice: 'espeak', lg:'fr', msg: aadri});
+}
 
 /** Function cpu temperature TTS */
 function cpuTemp(){
 	temperature = hardware.getCPUTemp();
 	console.log('Service CPU Temperature...  ' + temperature + ' degres');
 	tts.speak({lg:'fr', msg:'Mon processeur est a ' + temperature + ' degree'});
-};
+}
 
 
 var WEATHER_STATUS_LIST;
@@ -231,4 +231,4 @@ function weatherService(){
 			console.error(e);
 		}
 	});
-};
+}

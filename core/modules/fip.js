@@ -28,13 +28,13 @@ function playFip(){
 		console.log('Play FIP RADIO...');
 		spawn('sh', ['/home/pi/odi/core/sh/fip.sh']);
 		playing = true;
-		console.log('playing', playing);
 		leds.altLeds(100, 1.3);
 		
-		cancel.watch(function(err, value){
+		cancel.watch(function(err, value){ // TODO : remove ???
 			clearInterval(fipInterval);
 			playing;
 		});
+
 		fipInterval = setInterval(function(){
 			if(playing){
 				//console.log('Playing FIP RADIO...!');
@@ -44,6 +44,7 @@ function playFip(){
 	}
 	else{
 		console.log('I\'m already playing FIP !');
+		// PLAY FIP WITH !VOLUME (invert volume)
 	}
 
 	// TODO SET TIMEOUT ... stopFip();
