@@ -1,5 +1,11 @@
 #!/bin/sh
 
+#___Stop Odi Core Pgm
+sudo killall node
+sudo killall omxplayer
+sudo killall mplayer
+sudo killall espeak
+
 #___Delete config file for reinitialization
 sudo rm /home/pi/odi/conf.json
 
