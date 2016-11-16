@@ -24,8 +24,8 @@ console.debug('-> ->  DEBUG MODE !!');//'\n---------------------\n',
 console.log('CONFIG', CONFIG);
 
 var Gpio = require('onoff').Gpio;
-var gpioPins = require('./modules/gpioPins.js');
-var leds = require('./modules/leds.js');
+var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
+var leds = require(CORE_PATH + 'modules/leds.js');
 
 //leds.blink({leds: ['nose'], speed: 300, loop: 3}); // Start led sequence
 leds.activity(); // Initialisation du temoin d'activite 1/2
@@ -35,17 +35,16 @@ var odiStartupSound = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds'])
 
 // leds.allLedsOn();
 
-var tts = require('./modules/tts.js');
-var buttons = require('./controllers/buttons.js');
-var server = require('./controllers/server.js');
-var jobs = require('./controllers/jobs.js');
+var utils = require(CORE_PATH + 'modules/utils.js');
+var tts = require(CORE_PATH + 'modules/tts.js'); tts.clearLastTTS(); // Clear last TTS
+var buttons = require(CORE_PATH + 'controllers/buttons.js');
+var server = require(CORE_PATH + 'controllers/server.js');
+var jobs = require(CORE_PATH + 'controllers/jobs.js');
 // leds.allLedsOff();
 var CronJob = require('cron').CronJob;
-//var utils = require('./modules/utils.js');
-var utils = require(CORE_PATH + 'modules/utils.js');
 
-var service = require('./modules/service.js');
-var voiceMail = require('./modules/voiceMail.js');
+var service = require(CORE_PATH + 'modules/service.js');
+var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 
 // LED Start sequence
 //leds.blinkLed(100, 300); // Sequence led de start
@@ -63,7 +62,6 @@ jobs.setAlarms(); // Initialisation des alarmes
 jobs.setAutoLifeCycle(); // Initialisation du rythme de vie j/n
 jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
-tts.clearLastTTS(); // A REMONTER PLUS HAUT
 
 // new CronJob('*/10 * * * * *', function(){ // Initialisation synchronisation remote
 // 	// remote.synchro();//mode

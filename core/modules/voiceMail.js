@@ -18,14 +18,16 @@ module.exports = {
 	clearVoiceMail: clearVoiceMail
 };
 
+/** Function to persist voicemail message */
 function addVoiceMailMessage(tts){
+	console.log('New voicemail message :', tts);
 	tts = JSON.stringify(tts);
 	utils.appendJsonFile(VOICEMAIL_FILE, tts);
 	utils.appendJsonFile(VOICEMAIL_FILE_HISTORY, tts);
 }
 
-
 var clearVoiceMailDelay;
+/** Function to check voicemail, and play */
 function checkVoiceMail(callback){
 	// try{
 		console.log('Checking VoiceMail...');
@@ -56,6 +58,7 @@ function checkVoiceMail(callback){
 	// }
 }
 
+/** Function voicemail flag (blink belly if any message) */
 function voiceMailFlag(){
 	console.log('Starting voiceMail flag...');
 	var nbMessages;
@@ -74,15 +77,6 @@ function areThereAnyMessages(){
 		var messages = fs.readFileSync(VOICEMAIL_FILE, 'UTF-8');
 		messages = JSON.parse(messages);
 		nbMessages = messages.length;
-		// utils.getJsonFileContent(VOICEMAIL_FILE, function(messages){
-		// 	if(messages){
-		// 		messages = JSON.parse(messages);
-		// 		nbMessages = messages.length; // -1 ?
-		// 		console.log(nbMessages);
-		// 		return nbMessages || 0;
-		// 	}
-		// });
-
 	}catch(e){
 		nbMessages = 0;
 	}
@@ -96,7 +90,7 @@ function clearVoiceMail(){
 		if(err){
 			if(err.code === 'ENOENT') console.log('clearVoiceMail : No message to delete !');
 		}else{
-			console.log('VoiceMail Cleared.');
+			console.log('VoiceMail Cleared !');
 			tts.speak({lg:'en', voice: 'google', msg:'VoiceMail Cleared'});
 		}
 	});

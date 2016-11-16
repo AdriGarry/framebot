@@ -16,7 +16,7 @@ module.exports = {
 	prepareLogs: prepareLogs,
 	setConfig: setConfig,
 	resetConfig: resetConfig,
-	getFileContent: getFileContent,
+	//getFileContent: getFileContent,
 	getJsonFileContent: getJsonFileContent,
 	appendJsonFile: appendJsonFile,
 	testConnexion: testConnexion
@@ -103,13 +103,17 @@ function setConfig(key, value, restart){
 
 /** Function to reset Odi's config */
 function resetConfig(restart){
-	console.debug('resetConfig()');
-	fs.createReadStream(DATA_PATH + 'conf.json').pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
-	if(restart) hardware.restartOdi();
+	console.log('resetConfig()', restart ? 'and restart' : '');
+	fs.createReadStream(DATA_PATH + 'defaultConf.json').pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
+	if(restart){
+		// setTimeout(function(){
+			hardware.restartOdi();
+		// }, 2000);
+	}
 }
 
-/** Fonction getFileContent */ // NOT USED !!
-function getFileContent(filePath){ // 
+/** Function getFileContent */ // NOT USED !!
+/*function getFileContent(filePath){ // 
 var data = 'KO'; // ou undefined
 	try{
 		data = fs.readFileSync(filePath, 'UTF-8').toString();
@@ -118,24 +122,18 @@ var data = 'KO'; // ou undefined
 		console.error(e);
 	}
 	return data;
-}
+}*/
 
-/** Fonction getJsonFileContent */
+/** Function getJsonFileContent */
 function getJsonFileContent(filePath, callback){
-	// console.debug('getJsonFileContent() ', filePath);
-	// try{
-		fs.readFile(filePath, function(err, data){
-			if(err && err.code === 'ENOENT'){
-				console.debug(console.error('No file : ' + filePath));
-				callback(null);
-			}
-			// console.debug(data);
-			callback(data);
-		});
-	// }catch(e){
-	// 	console.error('Error while reading file : ' + filePath);
-	// 	console.error(e);
-	// }
+	console.debug('getJsonFileContent() ', filePath);
+	fs.readFile(filePath, function(err, data){
+		if(err && err.code === 'ENOENT'){
+			console.error('No file : ' + filePath);
+			callback(null);
+		}
+		callback(data);
+	});
 }
 
 /** Function to append object in JSON file */
@@ -144,7 +142,7 @@ function appendJsonFile(filePath, obj, callback){
 	console.debug('appendJsonFile() ', filePath, obj);
 	fs.exists(filePath, function(exists){
 		if(exists){
-			console.debug("yes file exists");
+			console.debug("Yes file exists");
 			fs.readFile(filePath, function(err, data){
 				if(err) console.log(err);
 				else{
@@ -158,7 +156,7 @@ function appendJsonFile(filePath, obj, callback){
 				}
 			});
 		}else{
-			console.debug("file not exists")
+			console.debug("File not exists")
 			fileData = [];
 			console.debug('obj', obj);
 			console.debug('fileData', fileData);
