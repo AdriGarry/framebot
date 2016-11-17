@@ -107,7 +107,7 @@ function setAlarms(){
 				}, 7000);
 				setTimeout(function(){
 					fip.playFip();
-				}, 13000);
+				}, 20000);
 			}else{
 				jukebox.loop();
 			}

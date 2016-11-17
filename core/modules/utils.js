@@ -44,7 +44,7 @@ function mute(delay, message){ // delay: min
 function stopAll(message){
 	spawn('sh', [CORE_PATH + 'sh/mute.sh']);
 	console.log('>> MUTE  -.-', message ? '"' + message + '"' : '');
-	// leds.clearLeds();
+	leds.clearLeds();
 	eye.write(0);
 	belly.write(0);
 }
