@@ -49,14 +49,6 @@ function stopAll(message){
 	belly.write(0);
 }
 
-/** Function to return last Odi's start/restart time */
-const startTime = new Date();
-function getStartTime(){
-	var hour = startTime.getHours();
-	var min = startTime.getMinutes();
-	return (hour > 12 ? hour-12 : hour) + '.' + (min<10?'0':'') + min + ' ' + (hour > 12  ? 'PM' : 'AM');
-}
-
 /** Function to get date & time (jj/mm hh:mm:ss) */
 var date, month, day, hour, min, sec, now;
 function formatedDate(){
@@ -180,6 +172,14 @@ function testConnexion(callback){
 			callback(true);
 		}
 	});
+}
+
+/** Function to return last Odi's start/restart time */
+const startHour = new Date().getHours();
+const startMin = new Date().getMinutes();
+const startTime = (startHour > 12 ? startHour-12 : startHour) + '.' + (startMin<10?'0':'') + startMin + ' ' + (startHour > 12  ? 'PM' : 'AM');
+function getStartTime(){
+	return startTime;
 }
 
 /** Function to repeat/concat a string */
