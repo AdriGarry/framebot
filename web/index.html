@@ -72,7 +72,7 @@
 			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="irda"
 				title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
 			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-show="irda"
-				title="Reload UI" aria-label="Reload UI"><i class="fa fa-2x fa-bell-slash-o"></i></md-button>
+				title="Mute" aria-label="Mute"><i class="fa fa-2x fa-bell-slash-o"></i></md-button>
 			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" data-ng-hide="irda" title="Hide Logs"
 				aria-label="Hide Logs">
 			<i class="fa fa-2x fa-arrow-left"></i></md-button>
@@ -81,10 +81,10 @@
 
 	<div class="main" layout-align="top center">
 		<md-content flex layout-padding>
-			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" class="md-fab md-primary md-hue-2 md-mini muteButton"
-			title="Mute Odi" aria-label="Mute Odi"> <!--on-long-press="irda=true" long-press-duration="4000"-->
+			<!--<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" class="md-fab md-primary md-hue-2 md-mini muteButton"
+			title="Mute Odi" aria-label="Mute Odi">
 				<i class="fa fa-bell-slash-o"></i>
-			</md-button>
+			</md-button>-->
 			<md-button data-ng-click="showLogs()" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
 				<i class="fa fa-2x fa-rocket"></i>
 			</md-button>
