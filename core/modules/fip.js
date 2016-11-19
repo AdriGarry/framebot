@@ -4,6 +4,7 @@
 
 var spawn = require('child_process').spawn;
 var leds = require(CORE_PATH + 'modules/leds.js');
+var hardware = require('./hardware.js');
 // var utils = require(CORE_PATH + 'modules/utils.js');
 var self = this;
 
@@ -66,4 +67,4 @@ function stopFip(message){
 	leds.clearLeds();
 }
 
-console.log('fip this', this);
+// console.log('fip this', this);

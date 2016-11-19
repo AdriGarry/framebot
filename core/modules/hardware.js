@@ -7,7 +7,7 @@ var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var os = require("os");
 var leds = require(CORE_PATH + 'modules/leds.js');
-// var tts = require('./tts.js'); // TODO: stop proceedQueue() in mute()
+var tts = require('./tts.js'); // TODO: stop proceedQueue() in mute()
 
 module.exports = {
 	mute: mute,
@@ -41,6 +41,7 @@ function mute(delay, message){ // delay: min
 
 /** Function to stop all sounds & leds */
 function stopAll(message){
+	tts.clearTTSQueue();
 	spawn('sh', [CORE_PATH + 'sh/mute.sh']);
 	console.log('>> MUTE  -.-', message ? '"' + message + '"' : '');
 	leds.clearLeds();
