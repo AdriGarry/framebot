@@ -19,7 +19,7 @@ module.exports = {
 	getOdiAge: getOdiAge,
 	cleanLog: cleanLog,
 	getMsgLastGitCommit: getMsgLastGitCommit
-};
+}
 
 var muteTimer, delay;
 /** Function to mute Odi */

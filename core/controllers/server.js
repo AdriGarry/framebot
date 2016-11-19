@@ -36,7 +36,7 @@ var deploy;
 
 module.exports = {
 	startUI: startUI
-};
+}
 
 function startUI(mode){
 	var ui = express();

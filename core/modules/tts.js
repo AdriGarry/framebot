@@ -111,11 +111,11 @@ var playTTS = function(tts){
 		if(tmp) tts.voice = 'google';
 		else tts.voice = 'espeak';
 
-		utils.testConnexion(function(connexion){
+		/*utils.testConnexion(function(connexion){
 			if(connexion == true){
 			}else{
 			}
-		});
+		});*/
 
 	}
 	if(!tts.hasOwnProperty('lg') || LG_LIST.indexOf(tts.lg) == -1){ // Fr language if undefined
