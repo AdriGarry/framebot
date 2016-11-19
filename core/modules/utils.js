@@ -10,13 +10,11 @@ var hardware = require(CORE_PATH + 'modules/hardware.js');
 var leds = require(CORE_PATH + 'modules/leds.js');
 
 module.exports = {
-	// mute: mute,
 	getStartTime : getStartTime,
 	formatedDate: formatedDate,
 	prepareLogs: prepareLogs,
 	setConfig: setConfig,
 	resetConfig: resetConfig,
-	//getFileContent: getFileContent,
 	getJsonFileContent: getJsonFileContent,
 	appendJsonFile: appendJsonFile,
 	testConnexion: testConnexion
@@ -76,18 +74,6 @@ function resetConfig(restart){
 		// }, 2000);
 	}
 }
-
-/** Function getFileContent */ // NOT USED !!
-/*function getFileContent(filePath){ // 
-var data = 'KO'; // ou undefined
-	try{
-		data = fs.readFileSync(filePath, 'UTF-8').toString();
-	}catch(e){
-		console.error('getFileContent() ERROR : ' + filePath);
-		console.error(e);
-	}
-	return data;
-}*/
 
 /** Function getJsonFileContent */
 function getJsonFileContent(filePath, callback){
