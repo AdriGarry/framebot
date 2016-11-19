@@ -204,7 +204,7 @@ function startUI(mode){
 
 	ui.post('/mute', function(req, res){ // Mute Odi
 		tts.clearTTSQueue();
-		utils.mute();
+		hardware.mute();
 		res.writeHead(200);res.end();
 	});
 

@@ -531,6 +531,15 @@ footer p a:hover{
 	}
 }
 
+@media(min-width:1500px){
+	figure .responsive{
+		font-size:4.5vw;
+	}
+	figure .mainInfo{
+		font-size:7vw;
+	}
+}
+
 /* ------------------------------ FIREFOX ONLY ------------------------------- */
 @-moz-document url-prefix(){
 	button.muteButton{

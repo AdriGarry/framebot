@@ -4,7 +4,7 @@
 
 var spawn = require('child_process').spawn;
 var leds = require(CORE_PATH + 'modules/leds.js');
-var utils = require(CORE_PATH + 'modules/utils.js');
+// var utils = require(CORE_PATH + 'modules/utils.js');
 var self = this;
 
 var playing = false;
@@ -52,7 +52,7 @@ function playFip(){
 		stopFip();
 	}, 60*60*1000);
 
-	utils.mute(60, 'Auto Mute FIP');
+	hardware.mute(60, 'Auto Mute FIP');
 }
 
 /** Function to stop FIP radio */

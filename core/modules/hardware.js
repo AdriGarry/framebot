@@ -10,7 +10,7 @@ var leds = require(CORE_PATH + 'modules/leds.js');
 // var tts = require('./tts.js'); // TODO: stop proceedQueue() in mute()
 
 module.exports = {
-	// mute: mute,
+	mute: mute,
 	restartOdi: restartOdi,
 	reboot: reboot,
 	shutdown: shutdown,
@@ -21,6 +21,32 @@ module.exports = {
 	getMsgLastGitCommit: getMsgLastGitCommit
 };
 
+var muteTimer, delay;
+/** Function to mute Odi */
+function mute(delay, message){ // delay: min
+	clearTimeout(muteTimer);
+	console.debug('mute()', 'delay:', delay, 'message:', message);
+	delay = (delay && !isNaN(delay)) ? delay : 0;
+	if(delay < 10){
+		stopAll();
+	}else{
+		muteTimer = setTimeout(function(){
+			spawn('sh', [CORE_PATH + 'sh/mute.sh', 'auto']);
+			setTimeout(function(){
+				stopAll();
+			}, 1600);
+		}, delay*60*1000);
+	}
+}
+
+/** Function to stop all sounds & leds */
+function stopAll(message){
+	spawn('sh', [CORE_PATH + 'sh/mute.sh']);
+	console.log('>> MUTE  -.-', message ? '"' + message + '"' : '');
+	leds.clearLeds();
+	eye.write(0);
+	belly.write(0);
+}
 
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode){

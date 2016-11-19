@@ -33,14 +33,12 @@ fs.readFile('/home/pi/odi/data/ttsConversations.json', function(err, data){
 });
 
 
-var ttsQueue = []; // TTS queue
-var onAir = false;
+var onAir = false, ttsQueue = [], lastTtsMsg = {voice: 'espeak', lg: 'en', msg: '.undefined'};
 
 module.exports = { // Singleton
 	speak: speak,
 	randomConversation: randomConversation,
 	clearTTSQueue: clearTTSQueue,
-	clearLastTTS: clearLastTTS,
 	lastTTS: lastTTS
 }
 
@@ -128,9 +126,10 @@ var playTTS = function(tts){
 	console.debug('tts.msg.length :',tts.msg.length);
 	leds.blink({leds: ['eye'], speed: Math.random() * (150 - 50) + 30, loop: (tts.msg.length/2)+2});
 
-	fs.writeFile(LAST_TTS_PATH, JSON.stringify(tts), 'UTF-8', function(err){ // TODO to JSON file
+	lastTtsMsg = tts;
+	/*fs.writeFile(LAST_TTS_PATH, JSON.stringify(tts), 'UTF-8', function(err){ // TODO to JSON file
 		if(err) return console.error('Error while saving last TTS : ' + err);
-	});
+	});*/
 }
 
 /** Function to clear TTS Queue */
@@ -161,41 +160,6 @@ if(typeof lgParam != 'undefined' && lgParam !='' && typeof txtParam != 'undefine
 
 /** Function last TTS message */
 function lastTTS(){
-	try{
-		var lastTts = JSON.parse(fs.readFileSync(LAST_TTS_PATH, 'UTF-8')); // PREVENIR SI FICHIER NON EXISTANT !!!
-	}catch(e){
-		console.error(e);
-		lastTts = {voice: 'espeak', lg: 'en', msg: '.undefined'};
-	}
-	console.log('LastTTS ->', lastTts);
-	speak(lastTts);
-
-	/*try{
-		var lastMsg = fs.readFileSync(LAST_TTS_PATH, 'UTF-8').toString().split('\n'); // PREVENIR SI FICHIER NON EXISTANT !!!
-		// console.log('lastMsg=> ' + lastMsg);
-		txt = lastMsg[lastMsg.length-1].split(';');
-		lg = txt[0];
-		txt = txt[1];
-		if(typeof lg === 'undefined' || typeof txt === 'undefined'){
-			throw e;
-		}
-	}catch(e){
-		console.error(e);
-		lg = 'en';
-		txt = '.undefined:0';
-	}
-	console.log('LastTTS -> [' + lg + '] ' + txt);
-	speak({lg: lg, msg: txt});*/
-}
-
-/** Function to delete last TTS message */
-function clearLastTTS(){
-	fs.unlink(LAST_TTS_PATH, function(err){
-		if(err){
-			if(err.code === 'ENOENT') console.log('clearLastTTS : No last TTS recorded');
-		}else{
-			console.log('LastTTS cleared.');
-		}
-	});
-
+	console.log('LastTTS ->', lastTtsMsg);
+	speak(lastTtsMsg);
 }

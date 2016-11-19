@@ -36,7 +36,7 @@ var odiStartupSound = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds'])
 // leds.allLedsOn();
 
 var utils = require(CORE_PATH + 'modules/utils.js');
-var tts = require(CORE_PATH + 'modules/tts.js'); tts.clearLastTTS(); // Clear last TTS
+var tts = require(CORE_PATH + 'modules/tts.js');
 var buttons = require(CORE_PATH + 'controllers/buttons.js');
 var server = require(CORE_PATH + 'controllers/server.js');
 var jobs = require(CORE_PATH + 'controllers/jobs.js');

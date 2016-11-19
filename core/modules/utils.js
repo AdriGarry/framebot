@@ -10,7 +10,7 @@ var hardware = require(CORE_PATH + 'modules/hardware.js');
 var leds = require(CORE_PATH + 'modules/leds.js');
 
 module.exports = {
-	mute: mute,
+	// mute: mute,
 	getStartTime : getStartTime,
 	formatedDate: formatedDate,
 	prepareLogs: prepareLogs,
@@ -21,33 +21,6 @@ module.exports = {
 	appendJsonFile: appendJsonFile,
 	testConnexion: testConnexion
 };
-
-var muteTimer, delay;
-/** Function to mute Odi */
-function mute(delay, message){ // delay: min
-	clearTimeout(muteTimer);
-	console.debug('mute()', 'delay:', delay, 'message:', message);
-	delay = (delay && !isNaN(delay)) ? delay : 0;
-	if(delay < 10){
-		stopAll();
-	}else{
-		muteTimer = setTimeout(function(){
-			spawn('sh', [CORE_PATH + 'sh/mute.sh', 'auto']);
-			setTimeout(function(){
-				stopAll();
-			}, 1600);
-		}, delay*60*1000);
-	}
-}
-
-/** Function to stop all sounds & leds */
-function stopAll(message){
-	spawn('sh', [CORE_PATH + 'sh/mute.sh']);
-	console.log('>> MUTE  -.-', message ? '"' + message + '"' : '');
-	leds.clearLeds();
-	eye.write(0);
-	belly.write(0);
-}
 
 /** Function to get date & time (jj/mm hh:mm:ss) */
 var date, month, day, hour, min, sec, now;

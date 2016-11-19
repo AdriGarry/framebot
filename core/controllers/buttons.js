@@ -89,14 +89,14 @@ function initButtonAwake(){
 		}else{
 			console.log('Push Ok button canceled !');
 		}
-		utils.mute(60, 'Random action mute');
+		hardware.mute(60, 'Random action mute');
 	});
 
 	/** Red (cancel) button watch */
 	cancel.watch(function(err, value){
 		var pressTime = new Date();
 		tts.clearTTSQueue();
-		utils.mute();
+		hardware.mute();
 		while(cancel.readSync() == 1){
 			; // Pause
 			t = Math.round((new Date() - pressTime)/100)/10;
@@ -109,7 +109,7 @@ function initButtonAwake(){
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		leds.ledOff('belly');
 		console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec [1,3]');
-		// utils.mute();
+		// hardware.mute();
 		if(pressTime >= 1 && pressTime < 3){
 			hardware.restartOdi();
 		}else if(pressTime >= 3){
@@ -159,14 +159,14 @@ function initButtonAwake(){
 		}else if(pressTime > 2 && pressTime < 5){
 			if(etat.readSync() == 0){
 				setTimeout(function(){
-					utils.mute();
+					hardware.mute();
 					leds.allLedsOff();
 					console.log('TEST _A_ : mute + party.setParty(true)');
 					party.setParty(true);
 				}, 1200);			
 			}else{
 				setTimeout(function(){
-					utils.mute();
+					hardware.mute();
 					leds.allLedsOff();
 					console.log('TEST _B_ : party.setParty(false)');
 					party.setParty(false);

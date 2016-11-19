@@ -150,7 +150,7 @@ function setAlarms(){
 				}, 15*1000);
 			// }else{
 				// jukebox.loop();
-				// utils.mute(60, 'Auto mute Morning');
+				// hardware.mute(60, 'Auto mute Morning');
 			// }
 		});
 
