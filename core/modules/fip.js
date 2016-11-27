@@ -16,12 +16,12 @@ module.exports = {
 	playing: isPlaying,
 	playFip: playFip,
 	stopFip: stopFip
-}
+};
 
 /** Function to return playing status */
 function isPlaying(){
 	return playing;
-}
+};
 
 /** Function to play FIP radio */
 function playFip(){
@@ -54,7 +54,7 @@ function playFip(){
 	}, 60*60*1000);
 
 	hardware.mute(60, 'Auto Mute FIP');
-}
+};
 
 /** Function to stop FIP radio */
 function stopFip(message){
@@ -65,6 +65,6 @@ function stopFip(message){
 	eye.write(0);
 	belly.write(0);
 	leds.clearLeds();
-}
+};
 
 // console.log('fip this', this);

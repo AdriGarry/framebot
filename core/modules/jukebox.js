@@ -10,7 +10,7 @@ var utils = require(CORE_PATH + 'modules/utils.js');
 module.exports = {
 	loop: loop,
 	medley: medley
-}
+};
 
 /** Function jukebox (repeat) */
 function loop(message){

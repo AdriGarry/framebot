@@ -17,7 +17,7 @@ var party = require(CORE_PATH + 'modules/party.js');
 module.exports = {
 	getEtat: getEtat,
 	initButtonAwake: initButtonAwake,
-}
+};
 
 /** Function to get switch state */
 function getEtat(callback){

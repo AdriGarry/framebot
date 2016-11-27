@@ -72,6 +72,10 @@ then
 elif [ $1 = "Naheulbeuk" ]
 then
 	sound="/home/pi/odi/media/mp3/others/Donjon-De-Naheulbeuk-Integrale.mp3"
+#___Aventuriers du Survivaure
+elif [ $1 = "Survivaure" ]
+then
+	sound="/home/pi/odi/media/mp3/others/Aventuriers-Du-Survivaure-Integrale.mp3"
 elif [ $1 = "new" ]
 #___Son Test derniere maj
 then
@@ -81,9 +85,10 @@ else
 	sound="/home/pi/odi/media/mp3/exclamation/ressort.mp3"
 fi
 
-#___Donjon de Naheulbeuk
-if [ $1 = "Naheulbeuk" ]
+#___Naheulbeuk || Survivaure
+if [ $1 = "Naheulbeuk" ] || [ $1 = "Survivaure" ]
 then
+	echo "Donjon-De-Naheulbeuk-Integrale || Aventuriers-Du-Survivaure-Integrale"
 	position=$(shuf -i 0-20000 -n 1)
 	sudo killall omxplayer.bin
 	#sudo node /home/pi/odi/core/modules/allLedsOff.js

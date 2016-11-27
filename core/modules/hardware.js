@@ -19,7 +19,7 @@ module.exports = {
 	getOdiAge: getOdiAge,
 	cleanLog: cleanLog,
 	getMsgLastGitCommit: getMsgLastGitCommit
-}
+};
 
 var muteTimer, delay;
 /** Function to mute Odi */
@@ -37,7 +37,7 @@ function mute(delay, message){ // delay: min
 			}, 1600);
 		}, delay*60*1000);
 	}
-}
+};
 
 /** Function to stop all sounds & leds */
 function stopAll(message){
@@ -47,7 +47,7 @@ function stopAll(message){
 	leds.clearLeds();
 	eye.write(0);
 	belly.write(0);
-}
+};
 
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode){
@@ -104,7 +104,7 @@ function cpuAverage() {
 
 	//Return the average Idle and Tick times
 	return {idle: totalIdle / cpus.length,  total: totalTick / cpus.length};
-}
+};
 
 //Grab first CPU Measure
 var startMeasure = cpuAverage();

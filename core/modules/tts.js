@@ -40,7 +40,7 @@ module.exports = { // Singleton
 	randomConversation: randomConversation,
 	clearTTSQueue: clearTTSQueue,
 	lastTTS: lastTTS
-}
+};
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts){
@@ -66,7 +66,7 @@ function speak(tts){
 		}else console.debug(console.error('newTTS() Wrong TTS object ', tts));
 	}
 	if(ttsQueue.length > 0) proceedQueue(); // NEW
-}
+};
 
 /** Function to proceed TTS queue */
 var queueInteval, currentTTS;
@@ -88,7 +88,7 @@ function proceedQueue(){  // NEW  // NEW  // NEW  // NEW
 			}
 		}
 	}, 500);
-}
+};
 
 
 /** Function to launch random conversation */
@@ -99,7 +99,7 @@ function randomConversation(){
 	console.debug(conversation);
 	console.log('Random conversation : ' + (rdmNb+1) + '/' + RDM_CONVERSATION_LIST_LENGTH);
 	speak(conversation);
-}
+};
 
 /** Function to play TTS message (espeak / google translate) */
 const VOICE_LIST = ['google', 'espeak'];
@@ -130,12 +130,12 @@ var playTTS = function(tts){
 	/*fs.writeFile(LAST_TTS_PATH, JSON.stringify(tts), 'UTF-8', function(err){ // TODO to JSON file
 		if(err) return console.error('Error while saving last TTS : ' + err);
 	});*/
-}
+};
 
 /** Function to clear TTS Queue */
 function clearTTSQueue(){
 	ttsQueue = [];
-}
+};
 
 /** Detection des parametres en cas d'appel direct (pour tests ou exclamation TTS) */
 /*var params = process.argv[2];
@@ -162,4 +162,4 @@ if(typeof lgParam != 'undefined' && lgParam !='' && typeof txtParam != 'undefine
 function lastTTS(){
 	console.log('LastTTS ->', lastTtsMsg);
 	speak(lastTtsMsg);
-}
+};

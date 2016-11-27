@@ -36,7 +36,7 @@ var deploy;
 
 module.exports = {
 	startUI: startUI
-}
+};
 
 function startUI(mode){
 	var ui = express();
@@ -336,6 +336,11 @@ function startUI(mode){
 
 		ui.post('/naheulbeuk', function(req, res){ // Nahleubeuk
 			deploy = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'Naheulbeuk']);
+			res.writeHead(200);res.end();
+		});
+
+		ui.post('/survivaure', function(req, res){ // Survivaure
+			deploy = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'Survivaure']);
 			res.writeHead(200);res.end();
 		});
 

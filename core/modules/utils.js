@@ -18,7 +18,7 @@ module.exports = {
 	getJsonFileContent: getJsonFileContent,
 	appendJsonFile: appendJsonFile,
 	testConnexion: testConnexion
-}
+};
 
 /** Function to get date & time (jj/mm hh:mm:ss) */
 var date, month, day, hour, min, sec, now;
@@ -34,7 +34,7 @@ function formatedDate(){
 	now += (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
 	//callback(now);
 	return now;
-}
+};
 
 /** Fonction de formatage des logs */
 function prepareLogs(lines, callback){
@@ -43,7 +43,7 @@ function prepareLogs(lines, callback){
 	content = content.join('\n');
 	callback(content);
 	return content;
-}
+};
 
 /** Function to set/edit Odi's config */
 function setConfig(key, value, restart){
@@ -62,7 +62,7 @@ function setConfig(key, value, restart){
 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
 		if(restart) hardware.restartOdi();
 	});
-}
+};
 
 /** Function to reset Odi's config */
 function resetConfig(restart){
@@ -73,7 +73,7 @@ function resetConfig(restart){
 			hardware.restartOdi();
 		// }, 2000);
 	}
-}
+};
 
 /** Function getJsonFileContent */
 function getJsonFileContent(filePath, callback){
@@ -85,7 +85,7 @@ function getJsonFileContent(filePath, callback){
 		}
 		callback(data);
 	});
-}
+};
 
 /** Function to append object in JSON file */
 var fileData;
@@ -117,7 +117,7 @@ function appendJsonFile(filePath, obj, callback){
 			fs.writeFile(filePath, fileData);
 		}
 	});
-}
+};
 
 /** Function to test internet connexion */
 function testConnexion(callback){
@@ -131,7 +131,7 @@ function testConnexion(callback){
 			callback(true);
 		}
 	});
-}
+};
 
 /** Function to return last Odi's start/restart time */
 const startHour = new Date().getHours();
@@ -139,9 +139,9 @@ const startMin = new Date().getMinutes();
 const startTime = (startHour > 12 ? startHour-12 : startHour) + '.' + (startMin<10?'0':'') + startMin + ' ' + (startHour > 12  ? 'PM' : 'AM');
 function getStartTime(){
 	return startTime;
-}
+};
 
 /** Function to repeat/concat a string */
 String.prototype.repeat = function(num){
 	return new Array(num + 1).join(this);
-}
+};

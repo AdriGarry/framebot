@@ -118,7 +118,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 		alarms: new Tile(12, 'Alarms', 'teal', 1, 1, CUSTOM, 'bell-o',
 			[{url: ''}]).bindHTML('alarms'),
 		idea: new Tile(15, 'Idea', 'indigo', 1, 1, ICON, 'lightbulb-o',
-			[{label: 'Survivaure', icon: 'space-shuttle', url: '/'},{label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk'},{label: 'AAAdri', icon: 'font', url: '/adriExclamation'},{label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{label: 'Test', icon: 'flag-checkered', url:'/test'}]),
+			[{label: 'Survivaure', icon: 'space-shuttle', url: '/survivaure'},{label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk'},{label: 'AAAdri', icon: 'font', url: '/adriExclamation'},{label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{label: 'Test', icon: 'flag-checkered', url:'/test'}]),
 		russia: new Tile(14, 'Russia', 'orange', 1, 1, ICON, 'star',
 			[{label: 'Subway / Street', icon: 'subway', url: '/russia'},{label: 'Hymn', icon: 'star', url: '/russia?hymn'}]),
 		party: new Tile(13, 'Party', 'blue', 1, 1, ICON, 'glass',
