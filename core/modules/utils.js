@@ -85,8 +85,8 @@ function isAlarm(){
 	var now = new Date();
 	var d = now.getDay(), h = now.getHours(), m = now.getMinutes();
 	Object.keys(CONFIG.alarms).forEach(function(key,index){//key: the name of the object key && index: the ordinal position of the key within the object 
-		console.log('Alarm', key, CONFIG.alarms[key]);// A SUPPRIMER
-		if(CONFIG.alarms[key].d.contains(d) && h == CONFIG.alarms[key].h && m == CONFIG.alarms[key].m){ // invert tests args?
+		// console.log('Alarm', key, CONFIG.alarms[key]);// A SUPPRIMER
+		if(CONFIG.alarms[key].d.indexOf(d) > -1 && h == CONFIG.alarms[key].h && m == CONFIG.alarms[key].m){ // invert tests args?
 			console.log('ALARM TIME...');
 			return true;
 		}
@@ -177,6 +177,6 @@ String.prototype.repeat = function(num){
 };
 
 /** Function to test if an array contains an element */
-Array.prototype.contains = function(element){
-    return this.indexOf(element) > -1;
-};
+/*Array.prototype.contains = function(element){
+	return this.indexOf(element) > -1;
+};*/

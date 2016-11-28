@@ -48,6 +48,7 @@ function blink(config){
 			}
 		}
 	}catch(e){
+		console.trace(e);
 		console.error(e);
 	}
 };
@@ -60,7 +61,7 @@ function blink(config){
  */
 function toggle(config){
 	// console.log('toogle() ' + config.led + (config.mode ? ' on':' off'));
-	if(['nose', 'eye', 'satellite', 'belly'].contains(config.led)){
+	if(['nose', 'eye', 'satellite', 'belly'].indexOf(config.led) > -1){
 		eval(config.led).write(config.mode? 1 : 0);
 	}
 };

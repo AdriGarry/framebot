@@ -65,7 +65,7 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 //		time.cocorico();
 //	Else:
 setTimeout(function(){
-	console.debug('Alarms', CONFIG.alarms);
+	console.log('Alarms', CONFIG.alarms);
 	if(utils.isAlarm()){
 		time.cocorico();
 	}else{
@@ -112,12 +112,3 @@ setTimeout(function(){
 setTimeout(function(){
 	//jobs.cocorico();
 }, 20*1000);
-
-new CronJob('*/4 * * * * *', function(){
-	leds.blink({
-		leds: ['belly','eye', 'satellite', 'nose'],
-		speed: 90,//Math.random() * (200 - 30) + 30,
-		loop: 5
-	});
-}, null, 0, 'Europe/Paris'); // Switch true/false !
-

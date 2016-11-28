@@ -106,7 +106,7 @@ const VOICE_LIST = ['google', 'espeak'];
 const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
 var playTTS = function(tts){
 	// TEST IF INTERNET CONNEXION
-	if(!tts.hasOwnProperty('voice') || !VOICE_LIST.contains(tts.voice)){ // Random voice if undefined
+	if(!tts.hasOwnProperty('voice') || !VOICE_LIST.indexOf(tts.voice) > -1){ // Random voice if undefined
 		var tmp = Math.round(Math.random()*1);
 		if(tmp) tts.voice = 'google';
 		else tts.voice = 'espeak';
@@ -118,7 +118,7 @@ var playTTS = function(tts){
 		});*/
 
 	}
-	if(!tts.hasOwnProperty('lg') || !LG_LIST.contains(tts.lg)){ // Fr language if undefined
+	if(!tts.hasOwnProperty('lg') || !LG_LIST.indexOf(tts.lg) > -1){ // Fr language if undefined
 		tts.lg = 'fr';
 	}
 	console.log('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
