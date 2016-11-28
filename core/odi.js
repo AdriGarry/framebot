@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 
-/** Odi's global variables  */
+/** Odi's global variables & config */
 global.ODI_PATH = '/home/pi/odi/';
 global.CORE_PATH = '/home/pi/odi/core/';
 global.CONFIG_FILE = '/home/pi/odi/conf.json';
@@ -9,15 +9,13 @@ global.DATA_PATH = '/home/pi/odi/data/';
 global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
 global.TMP_PATH = '/home/pi/odi/tmp/';
-
-/** Setting up Odi's config */
 global.CONFIG = require(CONFIG_FILE);
 
 /** Debug Mode */
 if(CONFIG.debug) console.debug = console.log;
 else console.debug = function(o){};
 
-var mode = process.argv[2]; // Recuperation des arguments
+var mode = process.argv[2]; // Get parameters
 console.log('>> Odi Core started',(mode ? '[mode:' + mode + ']' : ''));
 console.debug('-> ->  DEBUG MODE !!');//'\n---------------------\n', 
 
@@ -34,7 +32,6 @@ var spawn = require('child_process').spawn;
 var odiStartupSound = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
 
 // leds.allLedsOn();
-
 var utils = require(CORE_PATH + 'modules/utils.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
 var buttons = require(CORE_PATH + 'controllers/buttons.js');
@@ -43,6 +40,9 @@ var time = require(CORE_PATH + 'modules/time.js');
 var jobs = require(CORE_PATH + 'controllers/jobs.js');
 // leds.allLedsOff();
 var CronJob = require('cron').CronJob;
+new CronJob('*/3 * * * * *', function(){
+	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Initialisation du temoin d'activite 2/2
+}, null, 0, 'Europe/Paris');
 
 var service = require(CORE_PATH + 'modules/service.js');
 var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
@@ -50,30 +50,23 @@ var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 // LED Start sequence
 //leds.blinkLed(100, 300); // Sequence led de start
 
-new CronJob('*/3 * * * * *', function(){
-	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Initialisation du temoin d'activite 2/2
-}, null, 0, 'Europe/Paris');
-
 server.startUI(mode);
 buttons.initButtonAwake();
 
 jobs.startClock(buttons.getEtat()); // Starting speaking clock
-
 jobs.setAlarms(); // Initialisation des alarmes
 jobs.setAutoLifeCycle(); // Initialisation du rythme de vie j/n
 jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
+voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 
-// new CronJob('*/10 * * * * *', function(){ // Initialisation synchronisation remote
-// 	// remote.synchro();//mode
-// 	remote.trySynchro();
-// }, null, 0, 'Europe/Paris');
-
+// TODO  test if alarm match...
+//	If yes
+//		time.cocorico();
+//	Else:
 setTimeout(function(){
 	voiceMail.checkVoiceMail();
 }, 3000);
-
-voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){
