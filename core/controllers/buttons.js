@@ -11,6 +11,7 @@ var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 var fip = require(CORE_PATH + 'modules/fip.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
 var service = require(CORE_PATH + 'modules/service.js');
+var time = require(CORE_PATH + 'modules/time.js');
 var party = require(CORE_PATH + 'modules/party.js');
 // var EventEmitter = require('events').EventEmitter;
 
@@ -85,7 +86,7 @@ function initButtonAwake(){
 		}else if(pressTime >= 2 && pressTime < 3){
 			tts.randomConversation('');
 		}else if(pressTime >= 3 && pressTime < 5){
-			service.timeNow();
+			time.timeNow();
 		}else{
 			console.log('Push Ok button canceled !');
 		}

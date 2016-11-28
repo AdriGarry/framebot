@@ -39,6 +39,7 @@ var utils = require(CORE_PATH + 'modules/utils.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
 var buttons = require(CORE_PATH + 'controllers/buttons.js');
 var server = require(CORE_PATH + 'controllers/server.js');
+var time = require(CORE_PATH + 'modules/time.js');
 var jobs = require(CORE_PATH + 'controllers/jobs.js');
 // leds.allLedsOff();
 var CronJob = require('cron').CronJob;
@@ -70,7 +71,7 @@ jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
 setTimeout(function(){
 	voiceMail.checkVoiceMail();
-}, 5000);
+}, 3000);
 
 voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 
@@ -97,8 +98,8 @@ tts.speak({voice: 'google', msg:'sa va, et toi ?'});
 tts.speak({voice: 'espeak', msg:'bien'});
 tts.speak({voice: 'espeak', msg:'oui, je dirais meme que je vais bien !!'});
 tts.speak({voice: 'google', msg:'cool'});*/
-// console.log(service.sayOdiAge());
-// service.timeNow();
+// console.log(time.sayOdiAge());
+// time.now();
 // tts.speak({msg: 'RANDOM'});
 
 setTimeout(function(){
@@ -106,7 +107,7 @@ setTimeout(function(){
 }, 5*60*1000);
 
 setTimeout(function(){
-	jobs.cocorico();
+	//jobs.cocorico();
 }, 20*1000);
 
 new CronJob('*/4 * * * * *', function(){

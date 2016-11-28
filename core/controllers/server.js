@@ -18,9 +18,9 @@ var leds = require(CORE_PATH + 'modules/leds.js');
 var buttons = require(CORE_PATH + 'controllers/buttons.js');
 var hardware = require(CORE_PATH + 'modules/hardware.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
-var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 var service = require(CORE_PATH + 'modules/service.js');
-// var timer = require(CORE_PATH + 'modules/timer.js');
+var time = require(CORE_PATH + 'modules/time.js');
+var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 var fip = require(CORE_PATH + 'modules/fip.js');
 var jukebox = require(CORE_PATH + 'modules/jukebox.js');
 var exclamation = require(CORE_PATH + 'modules/exclamation.js');
@@ -137,7 +137,7 @@ function startUI(mode){
 			volume: {value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute', active: (isNaN(temp) && etatBtn == 1) ? true : false},
 			voicemail: {value: voiceMail.areThereAnyMessages(), active: voiceMail.areThereAnyMessages()>0 ? true : false},
 			jukebox: {value: '<i>Soon available</i>', active: false},
-			timer: {value: service.timeLeftTimer(), active: service.timeLeftTimer()>0 ? true : false},
+			timer: {value: time.timeLeftTimer(), active: time.timeLeftTimer()>0 ? true : false},
 			cpu: {value: {usage: cpuUsage, temp: cpuTemp}, active: (cpuTemp > 55 || cpuUsage >= 20) ? true : false},
 			alarms: {value: '<i>Soon available</i>', active: false},
 			version: {value: CONFIG.version},
@@ -345,18 +345,18 @@ function startUI(mode){
 		});
 
 		ui.post('/date', function(req, res){ // Date
-			service.date();
+			time.today();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/age', function(req, res){ // Odi's Age
-			service.sayOdiAge();
+			time.sayOdiAge();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/time', function(req, res){ // Time
 			// console.log('UI > Time');
-			service.timeNow();
+			time.now();
 			res.writeHead(200);res.end();
 		});
 
@@ -366,11 +366,11 @@ function startUI(mode){
 				console.log('!isNaN(params.m)');
 				var min = parseInt(params.m, 10);
 				console.log(min);
-				service.setTimer(min);
+				time.setTimer(min);
 			}else if(params.hasOwnProperty('stop')){
-				service.stopTimer();
+				time.stopTimer();
 			}else{
-				service.setTimer();
+				time.setTimer();
 			}
 			res.writeHead(200);res.end();
 		});

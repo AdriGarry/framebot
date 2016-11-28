@@ -11,6 +11,7 @@ var fip = require(CORE_PATH + 'modules/fip.js');
 var jukebox = require(CORE_PATH + 'modules/jukebox.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
 var service = require(CORE_PATH + 'modules/service.js');
+var time = require(CORE_PATH + 'modules/time.js');
 var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 
 var date = new Date();
@@ -31,15 +32,15 @@ function startClock(modeInit){
 		console.log('Clock jobs initialised in regular mode');
 		// new CronJob('0 0,30 8-23 * * 1-5', function(){
 		new CronJob('0 0,30 8-23 * * 1-5', function(){
-			service.timeNow();
+			time.now();
 		}, null, true, 'Europe/Paris');
 		new CronJob('0 0,30 12-23 * * 0,7', function(){
-			service.timeNow();
+			time.now();
 		}, null, true, 'Europe/Paris');
 	}else{ // Mode any time
 		console.log('Clock jobs initialised in any time mode !');
 		new CronJob('0 0,30 * * * *', function(){
-			service.timeNow();
+			time.now();
 		}, null, true, 'Europe/Paris');
 	}
 };
@@ -53,7 +54,7 @@ function cocorico(){
 	console.log('voiceMailMsg', voiceMailMsg);
 
 	setTimeout(function(){
-		service.timeNow();
+		time.now();
 	}, 4000);
 	setTimeout(function(){
 		service.weather();
@@ -115,7 +116,7 @@ function setAlarms(){
 		var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
 		utils.testConnexion(function(connexion){
 			// if(connexion == true){
-				service.timeNow();
+				time.now();
 				setTimeout(function(){
 					service.weather();
 				}, 5*1000);
