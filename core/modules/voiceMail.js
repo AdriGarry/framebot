@@ -24,7 +24,7 @@ function addVoiceMailMessage(tts){
 	tts = JSON.stringify(tts);
 	utils.appendJsonFile(VOICEMAIL_FILE, tts);
 	utils.appendJsonFile(VOICEMAIL_FILE_HISTORY, tts);
-}
+};
 
 var clearVoiceMailDelay;
 /** Function to check voicemail, and play */
@@ -56,7 +56,7 @@ function checkVoiceMail(callback){
 	// 		console.error(e);
 	// 	}
 	// }
-}
+};
 
 /** Function voicemail flag (blink belly if any message) */
 function voiceMailFlag(){
@@ -68,7 +68,7 @@ function voiceMailFlag(){
 			leds.blink({leds: ['belly'], speed: 200, loop: 2});
 		}
 	}, 5000);
-}
+};
 
 /** Function to return number of voicemail message(s) */
 function areThereAnyMessages(){
@@ -82,7 +82,7 @@ function areThereAnyMessages(){
 	}
 	return nbMessages;
 	//console.debug('AreThereAnyMessages ? ' + (nbMessages > 0 ? 'YES, ' + nbMessages + ' messages !' : 'NO'));
-}
+};
 
 /** Function to clear all voicemail messages */
 function clearVoiceMail(){
@@ -94,4 +94,4 @@ function clearVoiceMail(){
 			tts.speak({lg:'en', voice: 'google', msg:'VoiceMail Cleared'});
 		}
 	});
-}
+};

@@ -11,6 +11,7 @@ var fip = require(CORE_PATH + 'modules/fip.js');
 var jukebox = require(CORE_PATH + 'modules/jukebox.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
 var service = require(CORE_PATH + 'modules/service.js');
+var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 
 var date = new Date();
 var hour = date.getHours();
@@ -19,9 +20,10 @@ var pastHour = hour;
 module.exports = {
 	startClock: startClock,
 	setAlarms: setAlarms,
+	cocorico: cocorico,
 	setAutoLifeCycle: setAutoLifeCycle,
 	setBackgroundJobs: setBackgroundJobs
-}
+};
 
 /** Function to init clock  */
 function startClock(modeInit){
@@ -42,46 +44,35 @@ function startClock(modeInit){
 	}
 };
 
-/** Funtion to say time (hours) */
-/*function ringHour(){
-	date = new Date();
-	hour = date.getHours();
-	console.log('It\'s ' + hour + ' o\'clock');
-	//tts.speak({lg:'fr', msg:'Il est ' + hour + ' heures'});
-	utils.testConnexion(function(connexion){
-		if(connexion == true){
-			tts.speak({lg:'fr', msg:'Il est ' + hour + ' heures'});
-		}else{
-			if(cpHour > 12){
-				cpHour = hour - 12;
-			} else if(cpHour == 0){
-				cpHour = 12;
-			}
-			var oClock = setInterval(function(){
-				console.log('RING BELL ' + cpHour);
-				var deploy = spawn('sh', ['/home/pi/odi/core/sh/clock.sh']);
-				cpHour--;
-				if(cpHour < 1){clearInterval(oClock);}
-			}, 1100);
-		}
-	});
-};*/
+/** Function alarm */
+function cocorico(){
+	console.log('COCORICO !!');
+	//spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
 
-/** Funtion to say time (half hours) */
-/*function ringHalfHour(){
-	date = new Date();
-	hour = date.getHours();
-	console.log('It\'s ' + hour + ' and a half');
-	utils.testConnexion(function(connexion){
-		if(connexion == true){
-			// if(cpHour > 12){cpHour = hour - 12};
-			// tts.speak('fr', 'Il est ' + hour + ' heures 30');
-			tts.speak({lg:'fr', msg:'Il est ' + hour + ' heures 30'});
-		}else{
-			var deploy = spawn('sh', ['/home/pi/odi/core/sh/clock.sh', 'half']);
-		}
-	});
-};*/
+	var voiceMailMsg = voiceMail.areThereAnyMessages();
+	console.log('voiceMailMsg', voiceMailMsg);
+
+	setTimeout(function(){
+		service.timeNow();
+	}, 4000);
+	setTimeout(function(){
+		service.weather();
+	}, 7000);
+	setTimeout(function(){
+		voiceMail.checkVoiceMail();
+	}, 18000);
+	setTimeout(function(){
+		utils.testConnexion(function(connexion){
+			if(connexion == true){
+				fip.playFip();
+			}else{
+				jukebox.loop();
+			}
+		});
+	}, voiceMailMsg*3000+20000);
+	console.log('voiceMailMsg*5000+30000', voiceMailMsg*3000+20000);
+};
+
 
 /** Function to set alarms */
 function setAlarms(){
@@ -94,24 +85,7 @@ function setAlarms(){
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('30 13 7 * * 1-5', function(){
-		console.log('COCORICO !!');
-		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
-		utils.testConnexion(function(connexion){
-			if(connexion == true){
-				setTimeout(function(){
-					// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'bonjourBonjour']);
-					service.timeNow();
-				}, 4000);
-				setTimeout(function(){
-					service.weather();
-				}, 7000);
-				setTimeout(function(){
-					fip.playFip();
-				}, 20000);
-			}else{
-				jukebox.loop();
-			}
-		});
+		cocorico();
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 20,22-25 8 * * 1-5', function(){

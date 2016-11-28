@@ -13,7 +13,7 @@ var minRing = true;
 
 module.exports = {
 	setParty: setParty
-}
+};
 
 /** Function jukebox (repeat) */
 function setParty(test){
@@ -77,4 +77,4 @@ function setParty(test){
 			service.weather();
 		}
 	}.bind(this, test), 15*1000);
-}
+};
