@@ -115,7 +115,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 			[{label: 'Odi\'s age', icon: 'birthday-cake', url: '/age'},{label: 'Today', icon: 'calendar', url: '/date'}]),
 		time: new Tile(8, 'Time', 'blue', 1, 1, ICON, 'clock-o',
 			[{url: '/time'}]),
-		alarms: new Tile(12, 'Alarms', 'teal', 1, 1, CUSTOM, 'bell-o',
+		alarms: new Tile(12, 'Alarms', 'blueGrey', 1, 1, CUSTOM, 'bell-o',
 			[{url: ''}]).bindHTML('alarms'),
 		idea: new Tile(15, 'Idea', 'indigo', 1, 1, ICON, 'lightbulb-o',
 			[{label: 'Survivaure', icon: 'space-shuttle', url: '/survivaure'},{label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk'},{label: 'AAAdri', icon: 'font', url: '/adriExclamation'},{label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{label: 'Test', icon: 'flag-checkered', url:'/test'}]),

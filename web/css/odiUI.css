@@ -142,8 +142,8 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content{
 /*------------------------------ Mute Button ------------------------------- */
 button.muteButton{
 	position:fixed;
-	left:2.7em;
-	bottom:10em;
+	right:2.7em;
+	bottom:3em;
 	padding:0;
 	background-color:#607D8B!important;
 	opacity:0.7;
@@ -237,6 +237,14 @@ md-sidenav md-toolbar .tools{
 	font-size:1.5em;
 }
 
+/*------------------------------ SETTINGS ------------------------------- */
+.confButton.md-button.md-primary.md-fab:not(.muteButton){
+	position:fixed;
+	right:1em;
+	bottom:2em;
+	color:rgba(255,255,255,0.87)!important;
+	background-color:#607D8B!important;
+}
 
 /*------------------------------ MAIN ------------------------------- */
 .main{
@@ -487,8 +495,8 @@ footer p a:hover{
 	}
 
 	button.muteButton{
-		left:1.5em;
-		bottom:7em;
+		right:1.5em;
+		bottom:2em;
 	}
 
 	.logs ul{

@@ -88,6 +88,13 @@
 			<md-button data-ng-click="showLogs()" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
 				<i class="fa fa-2x fa-rocket"></i>
 			</md-button>
+			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" class="md-fab md-primary md-hue-2 md-mini muteButton"
+			title="Mute Odi" aria-label="Mute Odi">
+				<i class="fa fa-bell-slash-o"></i>
+			</md-button>
+			<!--<md-button class="md-fab md-primary md-hue-2 confButton" title="Settings" aria-label="Settings">
+				<i class="fa fa-2x fa-cog"></i><!--cogs-->
+			</md-button>-->
 
 			<md-progress-circular md-diameter="150" data-ng-show="loading"></md-progress-circular>
 
