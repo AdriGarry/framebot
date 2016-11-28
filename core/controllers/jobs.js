@@ -86,7 +86,7 @@ function setAlarms(){
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('30 13 7 * * 1-5', function(){
-		cocorico();
+		time.cocorico();
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 20,22-25 8 * * 1-5', function(){
