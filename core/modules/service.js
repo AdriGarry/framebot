@@ -8,7 +8,7 @@ var Gpio = require('onoff').Gpio;
 var request = require('request');
 var leds = require(CORE_PATH + 'modules/leds.js');
 var hardware = require(CORE_PATH + 'modules/hardware.js');
-var utils = require(CORE_PATH + 'modules/utils.js');
+//var utils = require(CORE_PATH + 'modules/utils.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
 var time = require(CORE_PATH + 'modules/time.js');
 var exclamation = require(CORE_PATH + 'modules/exclamation.js');
@@ -28,10 +28,10 @@ module.exports = {
 
 /** Functionrandom action (exclamation, random TTS, time, day, weather...) */
 function randomAction(){
-	utils.testConnexion(function(connexion){
+	/*utils.testConnexion(function(connexion){
 		if(!connexion){
 			exclamation.exclamation2Rappels();
-		}else{
+		}else{*/
 			var rdm = Math.floor(Math.random()*25);
 			console.log('randomAction [rdm = ' + rdm + ']');
 			switch(rdm){
@@ -71,8 +71,8 @@ function randomAction(){
 				default:
 					exclamation.exclamation();
 			}
-		}
-	});
+		/*}
+	});*/
 };
 
 /** Function 'Aaaadri' speech */
