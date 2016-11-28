@@ -65,8 +65,19 @@ voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 //		time.cocorico();
 //	Else:
 setTimeout(function(){
-	voiceMail.checkVoiceMail();
+	console.debug('Alarms', CONFIG.alarms);
+	if(utils.isAlarm()){
+		time.cocorico();
+	}else{
+		voiceMail.checkVoiceMail();
+	}
+	new CronJob('5 * * * * *', function(){ // A DEPLACER AILLEURS ???
+		if(utils.isAlarm()){
+			time.cocorico();
+		}
+	}, null, true, 'Europe/Paris');
 }, 3000);
+// TEST à faire dans odiSleep (ou dans jobs.js?) => cronJob toutes les min pour reboot...
 
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){
@@ -76,7 +87,6 @@ if(CONFIG.debug){
 		utils.setConfig('debug', null, true);
 	}, 10*60*1000);
 }
-
 
 // ------------------------//
 // ----- TEST SECTION -----//

@@ -10,14 +10,16 @@ var hardware = require(CORE_PATH + 'modules/hardware.js');
 var leds = require(CORE_PATH + 'modules/leds.js');
 
 module.exports = {
-	getStartTime : getStartTime,
 	formatedDate: formatedDate,
 	prepareLogs: prepareLogs,
 	setConfig: setConfig,
+	setAlarm: setAlarm,
+	isAlarm: isAlarm,
 	resetConfig: resetConfig,
 	getJsonFileContent: getJsonFileContent,
 	appendJsonFile: appendJsonFile,
-	testConnexion: testConnexion
+	testConnexion: testConnexion,
+	getStartTime : getStartTime
 };
 
 /** Function to get date & time (jj/mm hh:mm:ss) */
@@ -62,6 +64,34 @@ function setConfig(key, value, restart){
 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
 		if(restart) hardware.restartOdi();
 	});
+};
+
+/** Function to set Odi's custom alarm */
+function setAlarm(alarm){
+	console.debug('setAlarm()', alarm);
+	getJsonFileContent(CONFIG_FILE, function(data){
+		var config = JSON.parse(data);
+		config.alarms.custom.h = alarm.h;
+		config.alarms.custom.m = alarm.m;
+		global.CONFIG = config;
+		console.debug(CONFIG);
+		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
+		if(restart) hardware.restartOdi();
+	});
+};
+
+/** Function to test if alarm now */
+function isAlarm(){
+	var now = new Date();
+	var d = now.getDay(), h = now.getHours(), m = now.getMinutes();
+	Object.keys(CONFIG.alarms).forEach(function(key,index){//key: the name of the object key && index: the ordinal position of the key within the object 
+		console.log('Alarm', key, CONFIG.alarms[key]);// A SUPPRIMER
+		if(CONFIG.alarms[key].d.contains(d) && h == CONFIG.alarms[key].h && m == CONFIG.alarms[key].m){ // invert tests args?
+			console.log('ALARM TIME...');
+			return true;
+		}
+	});
+	return false;
 };
 
 /** Function to reset Odi's config */
@@ -144,4 +174,9 @@ function getStartTime(){
 /** Function to repeat/concat a string */
 String.prototype.repeat = function(num){
 	return new Array(num + 1).join(this);
+};
+
+/** Function to test if an array contains an element */
+Array.prototype.contains = function(element){
+    return this.indexOf(element) > -1;
 };

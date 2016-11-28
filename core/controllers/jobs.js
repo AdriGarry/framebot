@@ -51,8 +51,6 @@ function cocorico(){
 	spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
 
 	var voiceMailMsg = voiceMail.areThereAnyMessages();
-	console.log('voiceMailMsg', voiceMailMsg);
-
 	setTimeout(function(){
 		time.now();
 	}, 4000);
@@ -71,7 +69,6 @@ function cocorico(){
 			}
 		});
 	}, voiceMailMsg*3000+20000);
-	console.log('voiceMailMsg*5000+30000', voiceMailMsg*3000+20000);
 };
 
 
@@ -86,7 +83,7 @@ function setAlarms(){
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('30 13 7 * * 1-5', function(){
-		time.cocorico();
+		cocorico();
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 20,22-25 8 * * 1-5', function(){
@@ -112,7 +109,8 @@ function setAlarms(){
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 0 12 * * 0,6', function(){
-		console.log('COCORICO !!');
+		cocorico();
+		/*console.log('COCORICO !!');
 		var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
 		utils.testConnexion(function(connexion){
 			// if(connexion == true){
@@ -127,7 +125,7 @@ function setAlarms(){
 				// jukebox.loop();
 				// hardware.mute(60, 'Auto mute Morning');
 			// }
-		});
+		});*/
 
 	}, null, true, 'Europe/Paris');
 

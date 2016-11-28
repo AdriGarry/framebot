@@ -60,7 +60,7 @@ function blink(config){
  */
 function toggle(config){
 	// console.log('toogle() ' + config.led + (config.mode ? ' on':' off'));
-	if(['nose', 'eye', 'satellite', 'belly'].indexOf(config.led) > -1){
+	if(['nose', 'eye', 'satellite', 'belly'].contains(config.led)){
 		eval(config.led).write(config.mode? 1 : 0);
 	}
 };

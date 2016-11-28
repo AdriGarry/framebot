@@ -4,17 +4,14 @@
 
 var spawn = require('child_process').spawn;
 var fs = require('fs');
-// var Gpio = require('onoff').Gpio;
-// var request = require('request');
 var leds = require(CORE_PATH + 'modules/leds.js');
 var hardware = require(CORE_PATH + 'modules/hardware.js');
-// var utils = require(CORE_PATH + 'modules/utils.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
-// var exclamation = require(CORE_PATH + 'modules/exclamation.js');
 
 module.exports = {
 	now: now,
 	today: today,
+	//cocorico: cocorico, // cocorico() function A DEPLACER ICI !!
 	sayOdiAge: sayOdiAge,
 	setTimer: setTimer,
 	timeLeftTimer: timeLeftTimer,

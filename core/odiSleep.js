@@ -59,3 +59,9 @@ ok.watch(function(err, value){ // Detection bouton Vert pour sortir du mode veil
 	console.log('Ok button pressed, canceling sleep mode & restarting Odi !');
 	hardware.restartOdi();
 });
+
+new CronJob('* * * * * *', function(){
+	if(utils.isAlarm()){
+		hardware.restartOdi();
+	}
+}, null, true, 'Europe/Paris');
