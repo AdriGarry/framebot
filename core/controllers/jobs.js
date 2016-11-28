@@ -46,39 +46,29 @@ function startClock(modeInit){
 };
 
 /** Function alarm */
-function cocorico(mode){
-	console.log('mode', mode);
-	var alarmDelay = 1;
-	if(mode == 'slow'){ // Morning sea..
-		console.log('Morning Sea... Let\'s start the day with some waves !'); // 2m 41s ==> REDUIRE A 1m55sec !!!
-		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
-		delay = 2*60*1000;
-	}
+function cocorico(){
+	console.log('COCORICO !!');
+	spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
 
+	var voiceMailMsg = voiceMail.areThereAnyMessages();
 	setTimeout(function(){
-		console.log('COCORICO !!');
-		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
-
-		var voiceMailMsg = voiceMail.areThereAnyMessages();
-		setTimeout(function(){
-			time.now();
-		}, 4000);
-		setTimeout(function(){
-			service.weather();
-		}, 7000);
-		setTimeout(function(){
-			voiceMail.checkVoiceMail();
-		}, 18000);
-		setTimeout(function(){
-			utils.testConnexion(function(connexion){
-				if(connexion == true){
-					fip.playFip();
-				}else{
-					jukebox.loop();
-				}
-			});
-		}, voiceMailMsg*3000+20000);
-	}, alarmDelay);
+		time.now();
+	}, 4000);
+	setTimeout(function(){
+		service.weather();
+	}, 7000);
+	setTimeout(function(){
+		voiceMail.checkVoiceMail();
+	}, 18000);
+	setTimeout(function(){
+		utils.testConnexion(function(connexion){
+			if(connexion == true){
+				fip.playFip();
+			}else{
+				jukebox.loop();
+			}
+		});
+	}, voiceMailMsg*3000+20000);
 };
 
 
