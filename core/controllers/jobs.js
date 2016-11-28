@@ -48,7 +48,7 @@ function startClock(modeInit){
 /** Function alarm */
 function cocorico(){
 	console.log('COCORICO !!');
-	//spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
+	spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
 
 	var voiceMailMsg = voiceMail.areThereAnyMessages();
 	console.log('voiceMailMsg', voiceMailMsg);
