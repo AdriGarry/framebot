@@ -75,6 +75,10 @@ app.factory('Tile', function(){
 					break;
 				case 'alarms':
 					html = '<i class="mainInfo fa fa-bell-o"></i>';
+					html += this.value.weekDay.h + ':' + this.value.weekDay.h + '<br>';
+					html += this.value.weekEnd.h + ':' + this.value.weekEnd.m + '<br>';
+					html += this.value.custom.h + ':' + this.value.custom.m;
+					console.log(this.value);
 					break;
 				case 'about':
 					html = '<p class="responsive">Hi,<br> I\'m Odi !</p>';

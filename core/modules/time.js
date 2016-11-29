@@ -5,13 +5,20 @@
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 var leds = require(CORE_PATH + 'modules/leds.js');
+var utils = require(CORE_PATH + 'modules/utils.js');
 var hardware = require(CORE_PATH + 'modules/hardware.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
+var service = require(CORE_PATH + 'modules/service.js');
+var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
+var fip = require(CORE_PATH + 'modules/fip.js');
+var jukebox = require(CORE_PATH + 'modules/jukebox.js');
 
 module.exports = {
 	now: now,
 	today: today,
 	cocorico: cocorico,
+	setAlarm: setAlarm,
+	isAlarm: isAlarm,
 	sayOdiAge: sayOdiAge,
 	setTimer: setTimer,
 	timeLeftTimer: timeLeftTimer,
@@ -20,7 +27,7 @@ module.exports = {
 
 /** Function TTS time now */
 function now(){
-	console.debug('Service Time');
+	console.debug('time.now()');
 	var date = new Date();
 	var hour = date.getHours();
 	var min = date.getMinutes();
@@ -45,14 +52,14 @@ function today(){
 
 /** Function alarm */
 function cocorico(mode){
-	console.log('mode', mode);
+	console.log('cocorico MODE:', mode);
 	var alarmDelay = 1;
-	//if(mode == 'slow'){ // Morning sea...
-	if(!mode){ // Morning sea...
+	if(mode == 'slow'){ // Morning sea...
 		console.log('Morning Sea... Let\'s start the day with some waves !'); // 2m 41s ==> REDUIRE A 1m55sec !!!
 		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
-		delay = 2*60*1000;
+		alarmDelay = 2*60*1000;
 	}
+	console.log('alarmDelay', alarmDelay);
 
 	setTimeout(function(){
 		console.log('COCORICO !!');
@@ -60,14 +67,20 @@ function cocorico(mode){
 
 		var voiceMailMsg = voiceMail.areThereAnyMessages();
 		setTimeout(function(){
-			time.now();
+			tts.speak({voice: 'google', lg:'fr', msg:'Bien le bonjour !'});
+			now();
 		}, 4000);
 		setTimeout(function(){
-			service.weather();
+			console.log('--> service', service);
+			//service.weather();
+			today();
 		}, 7000);
 		setTimeout(function(){
 			voiceMail.checkVoiceMail();
 		}, 18000);
+		setTimeout(function(){
+			tts.speak({voice: 'espeak', lg:'fr', msg:'Allez hop, un peu de musique pour commencer la journer!'});
+		}, voiceMailMsg*3000+20000);
 		setTimeout(function(){
 			utils.testConnexion(function(connexion){
 				if(connexion == true){
@@ -76,8 +89,37 @@ function cocorico(mode){
 					jukebox.loop();
 				}
 			});
-		}, voiceMailMsg*3000+20000);
+		}, voiceMailMsg*3000+25000);
 	}, alarmDelay);
+};
+
+/** Function to set Odi's custom alarm */
+function setAlarm(alarm){
+	console.debug('time.setAlarm()', alarm);
+	getJsonFileContent(CONFIG_FILE, function(data){
+		var config = JSON.parse(data);
+		config.alarms.custom.h = alarm.h;
+		config.alarms.custom.m = alarm.m;
+		global.CONFIG = config;
+		console.debug(CONFIG);
+		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
+		if(restart) hardware.restartOdi();
+	});
+};
+
+/** Function to test if alarm now */
+function isAlarm(){
+	var isAlarm = false, now = new Date();
+	var d = now.getDay(), h = now.getHours(), m = now.getMinutes();
+	Object.keys(CONFIG.alarms).forEach(function(key,index){//key: the name of the object key && index: the ordinal position of the key within the object 
+		// console.log('Alarm', key, CONFIG.alarms[key]);// A SUPPRIMER
+		if(CONFIG.alarms[key].d.indexOf(d) > -1 && h == CONFIG.alarms[key].h && m == CONFIG.alarms[key].m){
+			console.log('ALARM TIME...');
+			isAlarm = true;
+		}
+	});
+	console.debug('time.isAlarm()', isAlarm);
+	return isAlarm;
 };
 
 /** Function to TTS Odi's age */

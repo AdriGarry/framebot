@@ -52,7 +52,7 @@ function speak(tts){
 				speak(message);
 			}
 		});
-	}else if(!tts || (!Object.keys(tts).length > 0) || (tts.msg.toUpperCase().indexOf('RANDOM') == -1)){ // OR UNDEFINED !!
+	}else if(!tts || (!Object.keys(tts).length > 0) || (tts.msg.toUpperCase().indexOf('RANDOM') > -1)){ // OR UNDEFINED !!
 		var rdmNb = ((Math.floor(Math.random()*RDM_MESSAGE_LIST_LENGTH)));
 		tts = RDM_MESSAGE_LIST[rdmNb];
 		console.log('Random TTS : ' + rdmNb + '/' + RDM_MESSAGE_LIST_LENGTH);

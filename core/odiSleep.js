@@ -21,6 +21,7 @@ var gpioPins = require('./modules/gpioPins.js');
 var CronJob = require('cron').CronJob;
 // var utils = require('./modules/utils.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
+var time = require('./modules/time.js');
 
 var leds = require('./modules/leds.js');
 var server = require('./controllers/server.js');
@@ -59,7 +60,7 @@ ok.watch(function(err, value){ // Detection bouton Vert pour sortir du mode veil
 });
 
 new CronJob('0 * * * * *', function(){
-	if(utils.isAlarm()){
+	if(time.isAlarm()){
 		console.log('Alarm... wake up !!');
 		hardware.restartOdi();
 	}

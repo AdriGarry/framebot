@@ -61,17 +61,16 @@ jobs.setBackgroundJobs(); // Demarrage des taches de fond
 voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 
 console.log('Alarms', CONFIG.alarms);
-if(utils.isAlarm()){
-	time.cocorico();
+if(time.isAlarm()){
+	time.cocorico('slow');
 }else{
 	voiceMail.checkVoiceMail();
+	new CronJob('5 * * * * *', function(){ // A DEPLACER AILLEURS ???
+		if(time.isAlarm()){
+			time.cocorico('slow');
+		}
+	}, null, true, 'Europe/Paris');
 }
-new CronJob('5 * * * * *', function(){ // A DEPLACER AILLEURS ???
-	if(utils.isAlarm()){
-		time.cocorico();
-	}
-}, null, true, 'Europe/Paris');
-
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){
 console.debug('Setting up time out to cancel Debug mode !!');

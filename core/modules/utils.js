@@ -15,8 +15,6 @@ module.exports = {
 	formatedDate: formatedDate,
 	prepareLogs: prepareLogs,
 	setConfig: setConfig,
-	setAlarm: setAlarm,
-	isAlarm: isAlarm,
 	resetConfig: resetConfig,
 	getJsonFileContent: getJsonFileContent,
 	appendJsonFile: appendJsonFile,
@@ -68,34 +66,6 @@ function setConfig(key, value, restart){
 	});
 };
 
-/** Function to set Odi's custom alarm */
-function setAlarm(alarm){
-	console.debug('setAlarm()', alarm);
-	getJsonFileContent(CONFIG_FILE, function(data){
-		var config = JSON.parse(data);
-		config.alarms.custom.h = alarm.h;
-		config.alarms.custom.m = alarm.m;
-		global.CONFIG = config;
-		console.debug(CONFIG);
-		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
-		if(restart) hardware.restartOdi();
-	});
-};
-
-/** Function to test if alarm now */
-function isAlarm(){
-	var now = new Date();
-	var d = now.getDay(), h = now.getHours(), m = now.getMinutes();
-	Object.keys(CONFIG.alarms).forEach(function(key,index){//key: the name of the object key && index: the ordinal position of the key within the object 
-		// console.log('Alarm', key, CONFIG.alarms[key]);// A SUPPRIMER
-		if(CONFIG.alarms[key].d.indexOf(d) > -1 && h == CONFIG.alarms[key].h && m == CONFIG.alarms[key].m){ // invert tests args?
-			console.log('ALARM TIME...');
-			return true;
-		}
-	});
-	return false;
-};
-
 /** Function to reset Odi's config */
 function resetConfig(restart){
 	console.log('resetConfig()', restart ? 'and restart' : '');
@@ -114,8 +84,9 @@ function getJsonFileContent(filePath, callback){
 		if(err && err.code === 'ENOENT'){
 			console.error('No file : ' + filePath);
 			callback(null);
+		}else{
+			callback(data);
 		}
-		callback(data);
 	});
 };
 

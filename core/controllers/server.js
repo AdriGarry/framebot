@@ -139,7 +139,7 @@ function startUI(mode){
 			jukebox: {value: '<i>Soon available</i>', active: false},
 			timer: {value: time.timeLeftTimer(), active: time.timeLeftTimer()>0 ? true : false},
 			cpu: {value: {usage: cpuUsage, temp: cpuTemp}, active: (cpuTemp > 55 || cpuUsage >= 20) ? true : false},
-			alarms: {value: '<i>Soon available</i>', active: false},
+			alarms: {value: CONFIG.alarms, active: false},
 			version: {value: CONFIG.version},
 			debug: {value: CONFIG.debug}
 		};
