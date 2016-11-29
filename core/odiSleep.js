@@ -1,16 +1,13 @@
 #!/usr/bin/env node
 
-/** Odi's global variables  */
+/** Odi's global variables & config */
 global.ODI_PATH = '/home/pi/odi/';
 global.CORE_PATH = '/home/pi/odi/core/';
 global.CONFIG_FILE = '/home/pi/odi/conf.json';
 global.DATA_PATH = '/home/pi/odi/data/';
 global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
-
-/** Setting up Odi's config */
 global.CONFIG = require(CONFIG_FILE);
-console.log('global.CONFIG', global.CONFIG);
 
 /** Debug Mode */
 if(CONFIG.debug) console.debug = console.log;
@@ -44,12 +41,13 @@ if(sleepTime < 255){
 	jobs.setAutoLifeCycle('S'); // Si pas de delai alors auto reveil en fonction du jour
 }
 
+console.log('global.CONFIG', global.CONFIG);
+
 leds.activity(mode); // Initialisation du temoin d'activite 1/2
 
 new CronJob('*/3 * * * * *', function(){
 	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Initialisation du temoin d'activite 2/2
 }, null, 0, 'Europe/Paris');
-
 
 server.startUI(mode);
 

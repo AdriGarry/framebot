@@ -20,8 +20,8 @@ var pastHour = hour;
 
 module.exports = {
 	startClock: startClock,
-	setAlarms: setAlarms,
-	cocorico: cocorico,
+	setAlarms: setUpAlarms, // RENOMMER FONCTION !!!
+	//cocorico: cocorico,
 	setAutoLifeCycle: setAutoLifeCycle,
 	setBackgroundJobs: setBackgroundJobs
 };
@@ -45,46 +45,8 @@ function startClock(modeInit){
 	}
 };
 
-/** Function alarm */
-function cocorico(mode){
-	console.log('mode', mode);
-	var alarmDelay = 1;
-	//if(mode == 'slow'){ // Morning sea...
-	if(!mode){ // Morning sea...
-		console.log('Morning Sea... Let\'s start the day with some waves !'); // 2m 41s ==> REDUIRE A 1m55sec !!!
-		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
-		delay = 2*60*1000;
-	}
-
-	setTimeout(function(){
-		console.log('COCORICO !!');
-		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
-
-		var voiceMailMsg = voiceMail.areThereAnyMessages();
-		setTimeout(function(){
-			time.now();
-		}, 4000);
-		setTimeout(function(){
-			service.weather();
-		}, 7000);
-		setTimeout(function(){
-			voiceMail.checkVoiceMail();
-		}, 18000);
-		setTimeout(function(){
-			utils.testConnexion(function(connexion){
-				if(connexion == true){
-					fip.playFip();
-				}else{
-					jukebox.loop();
-				}
-			});
-		}, voiceMailMsg*3000+20000);
-	}, alarmDelay);
-};
-
-
 /** Function to set alarms */
-function setAlarms(){
+function setUpAlarms(){
 	console.log('Alarms jobs initialised');
 
 	// WEEKDAY
@@ -94,7 +56,7 @@ function setAlarms(){
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('30 13 7 * * 1-5', function(){
-		cocorico();
+		time.cocorico();
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 20,22-25 8 * * 1-5', function(){
@@ -120,24 +82,7 @@ function setAlarms(){
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 0 12 * * 0,6', function(){
-		cocorico();
-		/*console.log('COCORICO !!');
-		var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
-		utils.testConnexion(function(connexion){
-			// if(connexion == true){
-				time.now();
-				setTimeout(function(){
-					service.weather();
-				}, 5*1000);
-				setTimeout(function(){
-					fip.playFip();
-				}, 15*1000);
-			// }else{
-				// jukebox.loop();
-				// hardware.mute(60, 'Auto mute Morning');
-			// }
-		});*/
-
+		time.cocorico();
 	}, null, true, 'Europe/Paris');
 
 	// ALL DAYS
@@ -148,7 +93,7 @@ function setAlarms(){
 
 	new CronJob('13 15,45 17-22 * * *', function(){
 		// tts.randomConversation(); // Conversations aleatoires dans la journee
-		service.randomAction();
+		utils.randomAction();
 	}, null, true, 'Europe/Paris'); // Signal des 1/4 d'heure, entre 17h et 23h
 };
 

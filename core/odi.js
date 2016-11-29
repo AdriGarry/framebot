@@ -106,5 +106,5 @@ setTimeout(function(){
 }, 5*60*1000);
 
 setTimeout(function(){
-	//jobs.cocorico();
+	//time.cocorico();
 }, 20*1000);
