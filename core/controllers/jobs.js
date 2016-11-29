@@ -49,7 +49,8 @@ function startClock(modeInit){
 function cocorico(mode){
 	console.log('mode', mode);
 	var alarmDelay = 1;
-	if(mode == 'slow'){ // Morning sea..
+	//if(mode == 'slow'){ // Morning sea...
+	if(!mode){ // Morning sea...
 		console.log('Morning Sea... Let\'s start the day with some waves !'); // 2m 41s ==> REDUIRE A 1m55sec !!!
 		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
 		delay = 2*60*1000;

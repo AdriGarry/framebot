@@ -60,10 +60,6 @@ jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
 voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 
-// TODO  test if alarm match...
-//	If yes
-//		time.cocorico();
-//	Else:
 setTimeout(function(){
 	console.log('Alarms', CONFIG.alarms);
 	if(utils.isAlarm()){

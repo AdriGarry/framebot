@@ -60,8 +60,9 @@ ok.watch(function(err, value){ // Detection bouton Vert pour sortir du mode veil
 	hardware.restartOdi();
 });
 
-new CronJob('* * * * * *', function(){
+new CronJob('0 * * * * *', function(){
 	if(utils.isAlarm()){
+		console.log('Alarm... wake up !!');
 		hardware.restartOdi();
 	}
 }, null, true, 'Europe/Paris');

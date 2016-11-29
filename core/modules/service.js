@@ -26,7 +26,7 @@ module.exports = {
 	weather: weatherService
 };
 
-/** Functionrandom action (exclamation, random TTS, time, day, weather...) */
+/** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction(){
 	/*utils.testConnexion(function(connexion){
 		if(!connexion){
