@@ -60,7 +60,7 @@ jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
 voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 
-setTimeout(function(){
+//setTimeout(function(){
 	console.log('Alarms', CONFIG.alarms);
 	if(utils.isAlarm()){
 		time.cocorico();
@@ -72,8 +72,7 @@ setTimeout(function(){
 			time.cocorico();
 		}
 	}, null, true, 'Europe/Paris');
-}, 3000);
-// TEST à faire dans odiSleep (ou dans jobs.js?) => cronJob toutes les min pour reboot...
+//}, 3000);
 
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){

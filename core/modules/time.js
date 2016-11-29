@@ -20,7 +20,7 @@ module.exports = {
 
 /** Function TTS time now */
 function now(){
-	console.log('Service Time');
+	console.debug('Service Time');
 	var date = new Date();
 	var hour = date.getHours();
 	var min = date.getMinutes();
