@@ -9,11 +9,8 @@ global.DATA_PATH = '/home/pi/odi/data/';
 global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
 global.TMP_PATH = '/home/pi/odi/tmp/';
-setInterval(function(){
-	console.log('CONFIG reload');
-	//global.CONFIG = require(CONFIG_FILE);
-	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-}, 2*60*1000);
+var fs = require('fs');
+global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
 
 /** Debug Mode */
 if(CONFIG.debug) console.debug = console.log;
@@ -64,7 +61,7 @@ jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
 voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
 
-console.log('Alarms', CONFIG.alarms);
+// ALARMS
 if(time.isAlarm()){
 	time.cocorico('slow');
 }else{
@@ -75,11 +72,20 @@ if(time.isAlarm()){
 		}
 	}, null, true, 'Europe/Paris');
 }
+
+utils.setConfig('startTime', new Date().getHours()+':'+new Date().getMinutes(), false);
+
+setInterval(function(){
+	console.log('CONFIG reload');
+	//global.CONFIG = require(CONFIG_FILE);
+	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+}, 2*60*1000);
+
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){
 console.debug('Setting up time out to cancel Debug mode !!');
 setTimeout(function(){
-	console.debug('Canceling debug mode... & Restart !!');
+	console.debug('>> Canceling debug mode... & Restart !!');
 	utils.setConfig('debug', null, true);
 }, 10*60*1000);
 }
@@ -89,17 +95,6 @@ setTimeout(function(){
 // ------------------------//
 
 //tts.speak([{voice: 'google', lg: 'fr', msg:'un'}, {voice: 'espeak', lg: 'fr', msg:'deux'}, {voice: 'google', lg: 'fr', msg:'trois'}]);
-
-/*tts.speak({voice: 'espeak', msg:'hey !'});
-tts.speak({voice: 'google', msg:'salut'});
-tts.speak({voice: 'espeak', msg:'comment tu vas en cette belle journee?'});
-tts.speak({voice: 'google', msg:'sa va, et toi ?'});
-tts.speak({voice: 'espeak', msg:'bien'});
-tts.speak({voice: 'espeak', msg:'oui, je dirais meme que je vais bien !!'});
-tts.speak({voice: 'google', msg:'cool'});*/
-// console.log(time.sayOdiAge());
-// time.now();
-// tts.speak({msg: 'RANDOM'});
 
 setTimeout(function(){
 	// tts.speak({voice: 'espeak', msg: 'Et oui, sait moi Odi, je suis de retour !'});

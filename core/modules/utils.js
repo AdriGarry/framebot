@@ -19,7 +19,7 @@ module.exports = {
 	getJsonFileContent: getJsonFileContent,
 	appendJsonFile: appendJsonFile,
 	testConnexion: testConnexion,
-	getStartTime : getStartTime
+	//getStartTime : getStartTime
 };
 
 /** Function to get date & time (jj/mm hh:mm:ss) */
@@ -56,7 +56,7 @@ function setConfig(key, value, restart){
 			if(key == item){
 				if(!value) config[item] = !config[item];
 				else config[item] = value;
-				console.log('NEW CONFIG ' + item + ' value: ' + config[item], restart ? 'AND RESTART !' : '');
+				console.log('CONFIG updated:', item, config[item], restart ? 'AND RESTART !' : '');
 			}
 		}
 		global.CONFIG = config;
