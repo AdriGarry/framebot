@@ -9,7 +9,11 @@ global.DATA_PATH = '/home/pi/odi/data/';
 global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
 global.TMP_PATH = '/home/pi/odi/tmp/';
-global.CONFIG = require(CONFIG_FILE);
+setInterval(function(){
+	console.log('CONFIG reload');
+	//global.CONFIG = require(CONFIG_FILE);
+	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+}, 2*60*1000);
 
 /** Debug Mode */
 if(CONFIG.debug) console.debug = console.log;

@@ -46,7 +46,7 @@ function today(){
 	var month = CALENDAR.months[month];
 	var year = date.getFullYear();
 	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
-	console.log('Service Date... ' + annonceDate);
+	console.debug('time.today()' + annonceDate);
 	tts.speak({lg:'fr', msg:annonceDate});
 };
 

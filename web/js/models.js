@@ -74,11 +74,15 @@ app.factory('Tile', function(){
 					+ this.value.temp + '<small>°C</small></div></td></tr></table>';
 					break;
 				case 'alarms':
-					html = '<i class="mainInfo fa fa-bell-o"></i>';
-					html += this.value.weekDay.h + ':' + this.value.weekDay.h + '<br>';
-					html += this.value.weekEnd.h + ':' + this.value.weekEnd.m + '<br>';
-					html += this.value.custom.h + ':' + this.value.custom.m;
-					console.log(this.value);
+					html = '<table class="alarms"><tr><td><i class="mainInfo fa fa-bell-o"></i></td><td><table>';
+					var dayList = this.value, d = new Date().getDay();
+					Object.keys(dayList).forEach(function(key,index){//key: the name of the object key && index: the ordinal position of the key within the object 
+						//console.log(key, index, dayList[key].d);// A SUPPRIMER
+						if(dayList[key].d && dayList[key].d.indexOf(d) > -1){
+							html += '<tr><td><small class="value">' + dayList[key].h + ':' + dayList[key].m + '</td></tr>';
+						}
+					});
+					html += '</table></td></tr></table>';
 					break;
 				case 'about':
 					html = '<p class="responsive">Hi,<br> I\'m Odi !</p>';

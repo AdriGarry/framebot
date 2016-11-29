@@ -48,16 +48,15 @@ function startClock(modeInit){
 /** Function to set alarms */
 function setUpAlarms(){
 	console.log('Alarms jobs initialised');
-
 	// WEEKDAY
-	new CronJob('0 10 7 * * 1-5', function(){
+	/*new CronJob('0 10 7 * * 1-5', function(){
 		console.log('Morning Sea... Let\'s start the day with some waves !'); // 2m 41s
 		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
-	}, null, true, 'Europe/Paris');
+	}, null, true, 'Europe/Paris');*/
 
-	new CronJob('30 13 7 * * 1-5', function(){
+	/*new CronJob('30 13 7 * * 1-5', function(){
 		time.cocorico();
-	}, null, true, 'Europe/Paris');
+	}, null, true, 'Europe/Paris');*/
 
 	new CronJob('0 20,22-25 8 * * 1-5', function(){
 		tts.speak({lg:'fr', voice: 'espeak', msg:'go go go, allez au boulot'});
@@ -76,14 +75,14 @@ function setUpAlarms(){
 	}, null, true, 'Europe/Paris');
 
 	// WEEKEND
-	new CronJob('0 45,55 11 * * 0,6', function(){
+	/*new CronJob('0 45,55 11 * * 0,6', function(){
 		console.log('Morning Sea... Let\'s start the day with some waves !');
 		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 0 12 * * 0,6', function(){
 		time.cocorico();
-	}, null, true, 'Europe/Paris');
+	}, null, true, 'Europe/Paris');*/
 
 	// ALL DAYS
 	new CronJob('0 1 13 * * *', function(){

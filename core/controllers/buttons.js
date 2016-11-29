@@ -133,7 +133,7 @@ function initButtonAwake(){
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		leds.ledOff('belly');
 		console.log('[val:' + value + ']  White btn pressed for   ' + pressTime + ' sec [2;2]');
-		service.setTimer(Math.round(pressTime));
+		time.setTimer(Math.round(pressTime));
 	});
 
 	/** Blue (blue) button watch */
