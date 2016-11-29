@@ -41,7 +41,7 @@ if(sleepTime < 255){
 	jobs.setAutoLifeCycle('S'); // Si pas de delai alors auto reveil en fonction du jour
 }
 
-console.log('global.CONFIG', global.CONFIG);
+console.log('CONFIG', global.CONFIG);
 
 leds.activity(mode); // Initialisation du temoin d'activite 1/2
 

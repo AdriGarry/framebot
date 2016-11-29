@@ -14,9 +14,59 @@ var time = require(CORE_PATH + 'modules/time.js');
 var exclamation = require(CORE_PATH + 'modules/exclamation.js');
 
 module.exports = {
+	randomAction: randomAction,
 	adriExclamation: adriExclamation,
 	cpuTemp: cpuTemp,
 	weather: weatherService
+};
+
+/** Function random action (exclamation, random TTS, time, day, weather...) */
+function randomAction(){
+	/*utils.testConnexion(function(connexion){
+		if(!connexion){
+			exclamation.exclamation2Rappels();
+		}else{*/
+			var rdm = Math.floor(Math.random()*25);
+			console.log('randomAction [rdm = ' + rdm + ']');
+			switch(rdm){
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+					tts.speak({msg:'RANDOM'}); // Random TTS
+					break;
+				case 6:
+				case 7:
+				case 8:
+					tts.randomConversation();
+					break;
+				case 9:
+				case 10:
+				case 11:
+					weatherService();
+					break;
+				case 12:
+					cpuTemp();
+					break;
+				case 13:
+					time.sayOdiAge();
+					break;
+				case 14:
+					time.now();
+					break;
+				case 15:
+					time.today();
+					break;
+				case 16:
+				case 17:
+					adriExclamation();
+					break;
+				default:
+					exclamation.exclamation();
+			}
+		/*}
+	});*/
 };
 
 /** Function 'Aaaadri' speech */
