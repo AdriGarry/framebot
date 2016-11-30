@@ -161,7 +161,9 @@ function startUI(mode){
 
 	ui.get('/config.json', function(req, res) { // Send Config file
 		res.writeHead(200);
-		res.end(fs.readFileSync(CONFIG_FILE, 'utf8').toString());
+		//res.end(fs.readFileSync(CONFIG_FILE, 'utf8').toString());
+		console.debug(CONFIG.toString);
+		res.end(JSON.stringify(CONFIG));
 	});
 
 	ui.get('/requestHistory', function(req, res) { // Send Request History
