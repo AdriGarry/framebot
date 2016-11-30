@@ -10,6 +10,7 @@
 
 	<link rel="stylesheet" href="css/lib/font-awesome.min.css" media="all" />
 	<link rel="stylesheet" href="css/lib/angular-material.min.css" media="all" />
+	<!-- <link rel="stylesheet" href="css/lib/picker.css" media="all" /> -->
 	<link rel="stylesheet" href="css/odiUI.css" media="all" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 
@@ -18,6 +19,12 @@
 	<script src="js/lib/angular-animate.min.js"></script>
 	<script src="js/lib/angular-aria.min.js"></script>
 	<script src="js/lib/angular-long-press.min.js"></script>
+	<!-- <script src="js/lib/picker.js"></script> -->
+
+	<!-- <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js'></script>
+	<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-messages.min.js'></script>
+	<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js'></script> -->
 
 	<script src="js/conf.js"></script>
 	<script src="js/controller.js"></script>
@@ -97,6 +104,13 @@
 			</md-button>-->
 
 			<md-progress-circular md-diameter="150" data-ng-show="loading"></md-progress-circular>
+
+			<!-- <center>
+				<sm-date-time-picker fname="Alarm" lable="loginTime" form="empForm" value="alarmTime" 
+					flex="100" is-required="true" format="HH:mm">
+				</sm-date-time-picker>
+			</center> -->
+
 
 			<div data-ng-include src="'templates/dashboard.html'" data-ng-hide="loading" data-ng-class="loading ? '' : 'ng-slide'"></div>
 

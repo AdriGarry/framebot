@@ -1,6 +1,6 @@
 'use strict'
 app.controller('UIController', function($rootScope, $scope, $location, $timeout, $interval, $sce, $window, $mdSidenav,
-		$mdDialog, $mdBottomSheet, $mdToast, CONSTANTS, UIService){
+		$mdDialog, $mdBottomSheet, $mdToast, CONSTANTS, UIService/*, smDateTimePicker*/){
 	$scope.loading = false;/*true*/
 	$scope.pauseUI = false;
 	$scope.irda = false;
@@ -131,9 +131,13 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 
 	/** Function on click on Tile **/
 	$scope.tileAction = function(tile){
+		console.log('tile', tile);
 		if($scope.irda){
 			if(tile.actionList.length>1){
 				$scope.openBottomSheet(tile.actionList);
+			}else if(tile.label == 'Alarms'){
+				console.log('ALARMS...');
+				showTimePicker();
 			}else{
 				$scope.action(tile.actionList[0]);
 			}
@@ -160,6 +164,17 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 		$scope.action(button);
 		$mdBottomSheet.hide(button);
 	};
+
+	/** Function to show time picker **/
+	/*function showTimePicker(ev){
+		$mdDialog.show({
+			//templateUrl: 'temp.html',
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose:true,
+			fullscreen: false
+		});
+	};*/
 
 	$scope.showDialogGrant = function(ev){ // TODO COMPONENT !!
 		$mdDialog.show({
