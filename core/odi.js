@@ -18,11 +18,12 @@ if(CONFIG.debug) console.debug = console.log;
 else console.debug = function(o){};
 
 var mode = process.argv[2]; // Get parameters
-console.log('>> Odi Core started',(mode ? '[mode:' + mode + ']' : ''));
+console.log('>> Odi Core start sequence...',(mode ? '[mode:' + mode + ']' : ''));
 console.debug('-> ->  DEBUG MODE !!');//'\n---------------------\n', 
 
 console.log('CONFIG', CONFIG);
 
+// console.log('Start sequence...');
 var Gpio = require('onoff').Gpio;
 var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
 var leds = require(CORE_PATH + 'modules/leds.js');
@@ -35,33 +36,27 @@ var odiStartupSound = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds'])
 
 // leds.allLedsOn();
 var utils = require(CORE_PATH + 'modules/utils.js');
-var tts = require(CORE_PATH + 'modules/tts.js');
-var buttons = require(CORE_PATH + 'controllers/buttons.js');
-var server = require(CORE_PATH + 'controllers/server.js');
-var time = require(CORE_PATH + 'modules/time.js');
-var jobs = require(CORE_PATH + 'controllers/jobs.js');
 // leds.allLedsOff();
 var CronJob = require('cron').CronJob;
 new CronJob('*/3 * * * * *', function(){
 	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Initialisation du temoin d'activite 2/2
 }, null, 0, 'Europe/Paris');
 
-var service = require(CORE_PATH + 'modules/service.js');
-var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
-
 // LED Start sequence
 //leds.blinkLed(100, 300); // Sequence led de start
 
+var server = require(CORE_PATH + 'controllers/server.js');
 server.startUI(mode);
+
+var buttons = require(CORE_PATH + 'controllers/buttons.js');
 buttons.initButtonAwake();
 
+var jobs = require(CORE_PATH + 'controllers/jobs.js');
 jobs.startClock(buttons.getEtat()); // Starting speaking clock
-jobs.setAlarms(); // Initialisation des alarmes
-jobs.setAutoLifeCycle(); // Initialisation du rythme de vie j/n
-jobs.setBackgroundJobs(); // Demarrage des taches de fond
 
-voiceMail.voiceMailFlag(); // A initialiser dans checkVoiceMail()
-
+//var service = require(CORE_PATH + 'modules/service.js');
+var time = require(CORE_PATH + 'modules/time.js');
+var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 // ALARMS
 if(time.isAlarm()){
 	time.cocorico('slow');
@@ -74,6 +69,10 @@ if(time.isAlarm()){
 	}, null, true, 'Europe/Paris');
 }
 
+jobs.setAlarms(); // Initialisation des alarmes
+jobs.setAutoLifeCycle(); // Initialisation du rythme de vie j/n
+jobs.setBackgroundJobs(); // Demarrage des taches de fond
+voiceMail.voiceMailFlag();
 utils.setConfig('startTime', new Date().getHours()+':'+new Date().getMinutes(), false);
 
 /** If debug mode, set a timer to cancel in 20 min */
@@ -88,6 +87,7 @@ setTimeout(function(){
 // ------------------------//
 // ----- TEST SECTION -----//
 // ------------------------//
+var tts = require(CORE_PATH + 'modules/tts.js');
 
 //tts.speak([{voice: 'google', lg: 'fr', msg:'un'}, {voice: 'espeak', lg: 'fr', msg:'deux'}, {voice: 'google', lg: 'fr', msg:'trois'}]);
 
