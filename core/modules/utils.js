@@ -13,6 +13,7 @@ var exclamation = require(CORE_PATH + 'modules/exclamation.js');
 module.exports = {
 	// randomAction: randomAction,
 	formatedDate: formatedDate,
+	logConfigArray: logConfigArray,
 	prepareLogs: prepareLogs,
 	setConfig: setConfig,
 	resetConfig: resetConfig,
@@ -38,7 +39,27 @@ function formatedDate(){
 	return now;
 };
 
-/** Fonction de formatage des logs */
+/** Function to log CONFIG array */
+function logConfigArray(){
+	var confArray = '\n|        ODI\'s CONFIG          |' + '\n|------------------------------|';
+	Object.keys(CONFIG).forEach(function(key,index){
+		//if(typeof CONFIG[key] == 'Object'){
+		if(key == 'alarms'){
+			Object.keys(CONFIG[key]).forEach(function(key2,index2){
+				if(key2 != 'd'){
+					confArray += '| ' + (index2>0 ? ' '.repeat(10) : key + ' '.repeat(10-key.length)) + ' | ' + key2 + ' '
+						+ (CONFIG[key][key2].h<10?' ':'') + CONFIG[key][key2].h + ':' + (CONFIG[key][key2].m<10?'0':'')
+						+ CONFIG[key][key2].m + ' '.repeat(16-(key2.length+CONFIG[key][key2].length+1)) + ' |\n';
+				}
+			});
+		}else{
+			confArray += '| ' + key + ' '.repeat(10-key.length) + ' | ' + CONFIG[key] + ' '.repeat(16-CONFIG[key].length) + ' |\n';
+		}
+	});
+	console.log(confArray);
+};
+
+/** Function to format logs */
 function prepareLogs(lines, callback){
 	var content = fs.readFileSync(LOG_PATH + 'odi.log', 'UTF-8').toString().split('\n');
 	content = content.slice(-lines); //-120

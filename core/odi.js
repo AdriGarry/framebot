@@ -21,7 +21,9 @@ var mode = process.argv[2]; // Get parameters
 console.log('>> Odi Core start sequence...',(mode ? '[mode:' + mode + ']' : ''));
 console.debug('-> ->  DEBUG MODE !!');//'\n---------------------\n', 
 
-console.log('CONFIG', CONFIG);
+//console.log('CONFIG', CONFIG);
+var utils = require(CORE_PATH + 'modules/utils.js');
+utils.logConfigArray();
 
 // console.log('Start sequence...');
 var Gpio = require('onoff').Gpio;
@@ -35,7 +37,6 @@ var spawn = require('child_process').spawn;
 var odiStartupSound = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
 
 // leds.allLedsOn();
-var utils = require(CORE_PATH + 'modules/utils.js');
 // leds.allLedsOff();
 var CronJob = require('cron').CronJob;
 new CronJob('*/3 * * * * *', function(){
