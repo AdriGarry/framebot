@@ -79,7 +79,7 @@ app.factory('Tile', function(){
 					Object.keys(dayList).forEach(function(key,index){//key: the name of the object key && index: the ordinal position of the key within the object 
 						//console.log(key, index, dayList[key].d);// A SUPPRIMER
 						if(dayList[key].d && dayList[key].d.indexOf(d) > -1){
-							html += '<tr><td><small class="value">' + dayList[key].h + ':' + dayList[key].m + '</td></tr>';
+							html += '<tr><td><small class="value">' + dayList[key].h + ':' + (dayList[key].m<10?'0':'') + dayList[key].m + '</td></tr>';
 						}
 					});
 					html += '</table></td></tr></table>';

@@ -9,8 +9,9 @@ global.DATA_PATH = '/home/pi/odi/data/';
 global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
 global.TMP_PATH = '/home/pi/odi/tmp/';
-var fs = require('fs');
-global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+global.CONFIG = require(CONFIG_FILE);
+/*var fs = require('fs');
+global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));*/
 
 /** Debug Mode */
 if(CONFIG.debug) console.debug = console.log;
@@ -75,12 +76,6 @@ if(time.isAlarm()){
 
 utils.setConfig('startTime', new Date().getHours()+':'+new Date().getMinutes(), false);
 
-setInterval(function(){
-	console.log('CONFIG reload');
-	//global.CONFIG = require(CONFIG_FILE);
-	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-}, 2*60*1000);
-
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){
 console.debug('Setting up time out to cancel Debug mode !!');
@@ -101,5 +96,9 @@ setTimeout(function(){
 }, 5*60*1000);
 
 setTimeout(function(){
-	//time.cocorico();
+	/*utils.setConfig('alarms', {
+		weekDay: {h:7, m:10, d: [1,2,3,4,5]},
+		weekEnd: {"h":11, m :59, d: [0,6]},
+		custom: {h:1, m:1, d: [0,1,2,3,4,5,6]}
+	}, false);*/
 }, 20*1000);

@@ -142,7 +142,7 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content{
 /*------------------------------ Mute Button ------------------------------- */
 button.muteButton{
 	position:fixed;
-	right:2.7em;
+	right:2.5em;
 	bottom:3em;
 	padding:0;
 	background-color:#607D8B!important;
@@ -153,9 +153,9 @@ button.muteButton:hover{
 	background-color:#f43325!important
 	opacity:0.9;
 }
-button.muteButton i.fa{
+/*button.muteButton i.fa{
 	font-size:1em;
-}
+}*/
 /*------------------------------ LOGS ------------------------------- */
 .logButton{
 	position:fixed;
@@ -465,6 +465,12 @@ footer p a:hover{
 	.desktopZoom{
 		color:rgba(0,0,0,0.6);
 		zoom:1.5;
+	}
+	md-bottom-sheet{
+		margin-bottom:3em;
+	}
+	md-bottom-sheet button.md-button{
+		font-size:1em;
 	}
 }
 /* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
