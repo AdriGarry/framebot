@@ -19,8 +19,10 @@ var Gpio = require('onoff').Gpio;
 var hardware = require('./modules/hardware.js');
 var gpioPins = require('./modules/gpioPins.js');
 var CronJob = require('cron').CronJob;
-// var utils = require('./modules/utils.js');
+
 var utils = require(CORE_PATH + 'modules/utils.js');
+utils.setConfig('startTime', new Date().getHours()+':'+new Date().getMinutes(), false);
+
 var time = require('./modules/time.js');
 
 var leds = require('./modules/leds.js');
@@ -41,8 +43,6 @@ if(sleepTime < 255){
 	console.log(introMsg + '   -.-');
 	jobs.setAutoLifeCycle('S'); // Si pas de delai alors auto reveil en fonction du jour
 }
-
-console.log('CONFIG', global.CONFIG);
 
 leds.activity(mode); // Initialisation du temoin d'activite 1/2
 

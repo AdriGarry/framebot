@@ -162,7 +162,8 @@ function startUI(mode){
 	ui.get('/config.json', function(req, res) { // Send Config file
 		res.writeHead(200);
 		//res.end(fs.readFileSync(CONFIG_FILE, 'utf8').toString());
-		console.debug(CONFIG.toString);
+		//console.debug(CONFIG.toString);
+		utils.logConfigArray();
 		res.end(JSON.stringify(CONFIG));
 	});
 
@@ -432,7 +433,7 @@ function startUI(mode){
 	}
 
 	ui.listen(8080, function() { // Listen port 8080
-		console.log('Odi\'s UI server started [' + mode + ']');
+		console.log('UI server started [' + mode + ']');
 		leds.blink({leds: ['satellite'], speed : 120, loop : 3})
 	});
 };

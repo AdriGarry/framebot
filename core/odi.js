@@ -21,9 +21,8 @@ var mode = process.argv[2]; // Get parameters
 console.log('>> Odi Core start sequence...',(mode ? '[mode:' + mode + ']' : ''));
 console.debug('-> ->  DEBUG MODE !!');//'\n---------------------\n', 
 
-//console.log('CONFIG', CONFIG);
 var utils = require(CORE_PATH + 'modules/utils.js');
-utils.logConfigArray();
+utils.setConfig('startTime', new Date().getHours()+':'+new Date().getMinutes(), false);
 
 // console.log('Start sequence...');
 var Gpio = require('onoff').Gpio;
@@ -74,7 +73,6 @@ jobs.setAlarms(); // Initialisation des alarmes
 jobs.setAutoLifeCycle(); // Initialisation du rythme de vie j/n
 jobs.setBackgroundJobs(); // Demarrage des taches de fond
 voiceMail.voiceMailFlag();
-utils.setConfig('startTime', new Date().getHours()+':'+new Date().getMinutes(), false);
 
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){

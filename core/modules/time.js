@@ -101,7 +101,8 @@ function setAlarm(alarm){
 		config.alarms.custom.h = alarm.h;
 		config.alarms.custom.m = alarm.m;
 		global.CONFIG = config;
-		console.debug(CONFIG);
+		//console.debug(CONFIG);
+		utils.logConfigArray();
 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
 		if(restart) hardware.restartOdi();
 	});
