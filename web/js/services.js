@@ -26,13 +26,15 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 
 	/** Function to send command to Odi **/
 	this.sendCommand = function(obj, callback){
-		// console.log('UIService.sendCommand()');
+		console.log('UIService.sendCommand()', obj);
+		console.log('data', obj.params);
 		var uri = obj.url;
-		var params = '';
+		//var params = '';
 		$http({
 			headers: {ui: 'v3', pwd: obj.data},
 			method: 'POST',
-			url: CONSTANTS.URL_ODI + uri + params
+			url: CONSTANTS.URL_ODI + uri /*+ params*/,
+			data: obj.params
 		}).then(function successCallback(res){
 			if(res.data != null) callback(res.data);
 			//return res;
@@ -116,7 +118,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 		time: new Tile(8, 'Time', 'blue', 1, 1, ICON, 'clock-o',
 			[{url: '/time'}]),
 		alarms: new Tile(12, 'Alarms', 'blueGrey', 1, 1, CUSTOM, 'bell-o',
-			[{url: ''}]).bindHTML('alarms'),
+			[{url: '/alarm', params: {h:8,m:12,test:'bouts'}}]).bindHTML('alarms'),
 		idea: new Tile(15, 'Idea', 'indigo', 1, 1, ICON, 'lightbulb-o',
 			[{label: 'Survivaure', icon: 'space-shuttle', url: '/survivaure'},{label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk'},{label: 'AAAdri', icon: 'font', url: '/adriExclamation'},{label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{label: 'Test', icon: 'flag-checkered', url:'/test'}]),
 		russia: new Tile(14, 'Russia', 'orange', 1, 1, ICON, 'star',

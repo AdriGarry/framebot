@@ -103,6 +103,16 @@ function startUI(mode){
 	});
 
 	/** TOGGLE DEBUG MODE */
+	ui.post('/alarm', function(req, res){ // TODO re-passer en ui.post !!!
+		console.debug('UI > Alarm');
+		// console.log('req', req);
+		params = req.query;
+		console.log('/alarm     > params', params);
+		//utils.setConfig('alarm', null, true);
+		res.writeHead(200);res.end();
+	});
+
+	/** TOGGLE DEBUG MODE */
 	ui.post('/toggleDebug', function(req, res){
 		console.debug('UI > Toggle debug');
 		utils.setConfig('debug', null, true);
