@@ -4,7 +4,6 @@
 
 var spawn = require('child_process').spawn;
 var hardware = require('./hardware.js');
-//var utils = require('./utils.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
 
 module.exports = {

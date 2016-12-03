@@ -20,8 +20,7 @@ var pastHour = hour;
 
 module.exports = {
 	startClock: startClock,
-	setAlarms: setUpAlarms, // RENOMMER FONCTION !!!
-	//cocorico: cocorico,
+	setJobs: setJobs, // RENOMMER FONCTION !!!
 	setAutoLifeCycle: setAutoLifeCycle,
 	setBackgroundJobs: setBackgroundJobs
 };
@@ -46,18 +45,10 @@ function startClock(modeInit){
 };
 
 /** Function to set alarms */
-function setUpAlarms(){
+function setJobs(){
 	console.log('Alarms jobs initialised');
+
 	// WEEKDAY
-	/*new CronJob('0 10 7 * * 1-5', function(){
-		console.log('Morning Sea... Let\'s start the day with some waves !'); // 2m 41s
-		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
-	}, null, true, 'Europe/Paris');*/
-
-	/*new CronJob('30 13 7 * * 1-5', function(){
-		time.cocorico();
-	}, null, true, 'Europe/Paris');*/
-
 	new CronJob('0 20,22-25 8 * * 1-5', function(){
 		tts.speak({lg:'fr', voice: 'espeak', msg:'go go go, allez au boulot'});
 	}, null, true, 'Europe/Paris');
@@ -74,16 +65,6 @@ function setUpAlarms(){
 		});
 	}, null, true, 'Europe/Paris');
 
-	// WEEKEND
-	/*new CronJob('0 45,55 11 * * 0,6', function(){
-		console.log('Morning Sea... Let\'s start the day with some waves !');
-		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
-	}, null, true, 'Europe/Paris');
-
-	new CronJob('0 0 12 * * 0,6', function(){
-		time.cocorico();
-	}, null, true, 'Europe/Paris');*/
-
 	// ALL DAYS
 	new CronJob('0 1 13 * * *', function(){
 		console.log('Il est 13 heures et tout va bien !');
@@ -99,15 +80,15 @@ function setUpAlarms(){
 /** Function to set auto life cycles */
 function setAutoLifeCycle(param){
 	if(typeof param !== 'undefined' && param == 'S'){ // Set wake up jobs
-		console.log('AutoLifeCycle jobs initialised [' + param + ':Wake Up!]');
-		new CronJob('0 8 7 * * 1-5', function(){
-			console.log('AutoLifeCycle start up !');
-			hardware.restartOdi();
-		}, null, true, 'Europe/Paris');
-		new CronJob('0 42 11 * * 0,6', function() {
-			console.log('AutoLifeCycle start up !');
-			hardware.restartOdi();
-		}, null, true, 'Europe/Paris');
+		// console.log('AutoLifeCycle jobs initialised [' + param + ':Wake Up!]');
+		// new CronJob('0 8 7 * * 1-5', function(){
+		// 	console.log('AutoLifeCycle start up !');
+		// 	hardware.restartOdi();
+		// }, null, true, 'Europe/Paris');
+		// new CronJob('0 42 11 * * 0,6', function() {
+		// 	console.log('AutoLifeCycle start up !');
+		// 	hardware.restartOdi();
+		// }, null, true, 'Europe/Paris');
 	}else{ // Set go to sleep jobs
 		console.log('AutoLifeCycle jobs initialised [for time to sleep]');
 		new CronJob('3 0 0 * * 1-5', function(){

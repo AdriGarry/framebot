@@ -69,7 +69,7 @@ if(time.isAlarm()){
 	}, null, true, 'Europe/Paris');
 }
 
-jobs.setAlarms(); // Initialisation des alarmes
+jobs.setJobs(); // Initialisation des alarmes
 jobs.setAutoLifeCycle(); // Initialisation du rythme de vie j/n
 jobs.setBackgroundJobs(); // Demarrage des taches de fond
 voiceMail.voiceMailFlag();
