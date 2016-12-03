@@ -71,23 +71,29 @@ function speak(tts){
 /** Function to proceed TTS queue */
 var queueInteval, currentTTS;
 function proceedQueue(){  // NEW  // NEW  // NEW  // NEW
+	// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'tone']);
+	var isFirst = true;
 	console.debug('Start processing TTS queue...');
-	queueInteval = setInterval(function(){
-		if(!onAir && ttsQueue.length > 0){
-			onAir = true;
-			// leds.toggle({led: 'eye', mode: 1});
-			currentTTS = ttsQueue.shift();
-			playTTS(currentTTS);
-			setTimeout(function(){
-				onAir = false;
-				// leds.toggle({led: 'eye', mode: 0});
-			}, currentTTS.msg.length*60 + 1500);//*30 + 1500
-			if(ttsQueue.length == 0){
-				console.debug('No more TTS, stop processing TTS queue!');
-				clearInterval(queueInteval);
+	// setTimeout(function(){
+		queueInteval = setInterval(function(){
+			if(!onAir && ttsQueue.length > 0){
+				onAir = true;
+				// leds.toggle({led: 'eye', mode: 1});
+				currentTTS = ttsQueue.shift();
+				playTTS(currentTTS, isFirst);
+				setTimeout(function(){
+					onAir = false;
+					// leds.toggle({led: 'eye', mode: 0});
+				}, currentTTS.msg.length*60 + 1500);//*30 + 1500
+				if(ttsQueue.length == 0){
+					console.debug('No more TTS, stop processing TTS queue!');
+					clearInterval(queueInteval);
+				}
+				isFirst = true;
+				console.log('isFirst', isFirst);
 			}
-		}
-	}, 500);
+		}, 500);
+	// }, 1500);
 };
 
 /** Function to launch random conversation */
@@ -103,7 +109,7 @@ function randomConversation(){
 /** Function to play TTS message (espeak / google translate) */
 const VOICE_LIST = ['google', 'espeak'];
 const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
-var playTTS = function(tts){
+var playTTS = function(tts, isFirst){
 	// TEST IF INTERNET CONNEXION
 	if(!tts.hasOwnProperty('voice') || !VOICE_LIST.indexOf(tts.voice) == -1){ // Random voice if undefined
 		var tmp = Math.round(Math.random()*1);
@@ -121,7 +127,8 @@ var playTTS = function(tts){
 		tts.lg = 'fr';
 	}
 	console.log('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
-	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]);
+	console.log('isFirst', isFirst);
+	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, isFirst, tts.msg]);
 	console.debug('tts.msg.length :',tts.msg.length);
 	leds.blink({leds: ['eye'], speed: Math.random() * (150 - 50) + 30, loop: (tts.msg.length/2)+2});
 

@@ -85,11 +85,32 @@ echo $*
 case $1 in
 	"google")
 		shift
+		shift
+		echo $1
+		if [ "$1" = "true" ]
+		then
+			sudo omxplayer -o local --vol 1 /home/pi/odi/media/mp3/system/tone.mp3
+		fi
+		shift
 		googleTTS $* ;;
 	"espeak")
 		shift
+		shift
+		echo $1
+		if [ "$1" = "true" ]
+		then
+			sudo omxplayer -o local --vol 1 /home/pi/odi/media/mp3/system/tone.mp3
+		fi
+		shift
 		espeakTTS $* ;;
 	*)
+		shift
+		shift
+		echo $1
+		if [ "$1" = "true" ]
+		then
+			sudo omxplayer -o local --vol 1 /home/pi/odi/media/mp3/system/tone.mp3
+		fi
 		shift
 		espeakTTS $* ;;
 esac

@@ -87,8 +87,9 @@ setTimeout(function(){
 // ----- TEST SECTION -----//
 // ------------------------//
 var tts = require(CORE_PATH + 'modules/tts.js');
-
 //tts.speak([{voice: 'google', lg: 'fr', msg:'un'}, {voice: 'espeak', lg: 'fr', msg:'deux'}, {voice: 'google', lg: 'fr', msg:'trois'}]);
+
+//spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'tone']);
 
 setTimeout(function(){
 	// tts.speak({voice: 'espeak', msg: 'Et oui, sait moi Odi, je suis de retour !'});

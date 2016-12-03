@@ -40,6 +40,9 @@ then
 elif [ $1 = "shutdown" ]
 then
 	sound="/home/pi/odi/media/mp3/system/sessionOff.mp3"
+elif [ $1 = "tone" ]
+then
+	sound="/home/pi/odi/media/mp3/system/tone.mp3"
 elif [ $1 = "cocorico" ]
 then
 	sound="/home/pi/odi/media/mp3/system/cocorico.mp3"
