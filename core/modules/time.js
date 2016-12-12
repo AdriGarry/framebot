@@ -113,7 +113,7 @@ function isAlarm(){
 	var isAlarm = false, now = new Date();
 	var d = now.getDay(), h = now.getHours(), m = now.getMinutes();
 	Object.keys(CONFIG.alarms).forEach(function(key,index){//key: the name of the object key && index: the ordinal position of the key within the object 
-		// console.log('Alarm', key, CONFIG.alarms[key]);// A SUPPRIMER
+		console.debug('Alarm', key, CONFIG.alarms[key]);// A SUPPRIMER
 		if(CONFIG.alarms[key].d.indexOf(d) > -1 && h == CONFIG.alarms[key].h && m == CONFIG.alarms[key].m){
 			console.log('ALARM TIME...');
 			isAlarm = true;

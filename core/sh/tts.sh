@@ -24,9 +24,8 @@ googleTTS(){
 			lg="fr" ;;
 	esac
 
-	shift
-
 	echo $*
+	shift
 
 	url="http://translate.google.com/translate_tts?tl=$lg&client=tw-ob&q=$*"
 
@@ -46,7 +45,6 @@ googleTTS(){
 #__Fonction Synthetisation vocale Espeak
 espeakTTS(){
 	echo $*
-	#shift
 
 	volume=$(cat /sys/class/gpio/gpio13/value)
 	if [ $volume -eq 0 ]
@@ -82,35 +80,22 @@ espeakTTS(){
 
 echo $*
 
+echo "First of queue ? " $1
+if [ "$1" = "true" ]
+then
+	sudo omxplayer -o local --vol 1 /home/pi/odi/media/mp3/system/tone.mp3
+fi
+shift
+
+
 case $1 in
 	"google")
-		shift
-		shift
-		echo $1
-		if [ "$1" = "true" ]
-		then
-			sudo omxplayer -o local --vol 1 /home/pi/odi/media/mp3/system/tone.mp3
-		fi
 		shift
 		googleTTS $* ;;
 	"espeak")
 		shift
-		shift
-		echo $1
-		if [ "$1" = "true" ]
-		then
-			sudo omxplayer -o local --vol 1 /home/pi/odi/media/mp3/system/tone.mp3
-		fi
-		shift
 		espeakTTS $* ;;
 	*)
-		shift
-		shift
-		echo $1
-		if [ "$1" = "true" ]
-		then
-			sudo omxplayer -o local --vol 1 /home/pi/odi/media/mp3/system/tone.mp3
-		fi
 		shift
 		espeakTTS $* ;;
 esac

@@ -128,7 +128,7 @@ var playTTS = function(tts, isFirst){
 	}
 	console.log('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	console.log('isFirst', isFirst);
-	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, isFirst, tts.msg]);
+	spawn('sh', ['/home/pi/odi/core/sh/tts.sh',  isFirst, tts.voice,tts.lg, tts.msg]);
 	console.debug('tts.msg.length :',tts.msg.length);
 	leds.blink({leds: ['eye'], speed: Math.random() * (150 - 50) + 30, loop: (tts.msg.length/2)+2});
 
