@@ -102,8 +102,3 @@ setTimeout(function(){
 		custom: {h:1, m:1, d: [0,1,2,3,4,5,6]}
 	}, false);*/
 }, 20*1000);
-
-
-new CronJob('*/5 * * * * *', function(){ // A DEPLACER AILLEURS ???
-	tts.speak([{voice: 'google', lg: 'fr', msg:'un'}]);
-}, null, 0, 'Europe/Paris');
