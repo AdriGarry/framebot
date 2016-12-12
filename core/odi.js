@@ -70,7 +70,7 @@ if(time.isAlarm()){
 }
 
 jobs.setJobs(); // Initialisation des alarmes
-jobs.setAutoLifeCycle(); // Initialisation du rythme de vie j/n
+jobs.setAutoSleep(); // Initialisation du rythme de vie j/n
 jobs.setBackgroundJobs(); // Demarrage des taches de fond
 voiceMail.voiceMailFlag();
 

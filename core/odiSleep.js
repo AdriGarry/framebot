@@ -41,7 +41,7 @@ if(sleepTime < 255){
 	}, sleepTime*60*60*1000);
 }else{
 	console.log(introMsg + '   -.-');
-	jobs.setAutoLifeCycle('S'); // Si pas de delai alors auto reveil en fonction du jour
+	//jobs.setAutoLifeCycle('S'); // Si pas de delai alors auto reveil en fonction du jour
 }
 
 leds.activity(mode); // Initialisation du temoin d'activite 1/2

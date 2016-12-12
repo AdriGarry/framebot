@@ -21,7 +21,7 @@ var pastHour = hour;
 module.exports = {
 	startClock: startClock,
 	setJobs: setJobs, // RENOMMER FONCTION !!!
-	setAutoLifeCycle: setAutoLifeCycle,
+	setAutoSleep: setAutoSleep,
 	setBackgroundJobs: setBackgroundJobs
 };
 
@@ -77,29 +77,18 @@ function setJobs(){
 	}, null, true, 'Europe/Paris'); // Signal des 1/4 d'heure, entre 17h et 23h
 };
 
-/** Function to set auto life cycles */
-function setAutoLifeCycle(param){
-	if(typeof param !== 'undefined' && param == 'S'){ // Set wake up jobs
-		// console.log('AutoLifeCycle jobs initialised [' + param + ':Wake Up!]');
-		// new CronJob('0 8 7 * * 1-5', function(){
-		// 	console.log('AutoLifeCycle start up !');
-		// 	hardware.restartOdi();
-		// }, null, true, 'Europe/Paris');
-		// new CronJob('0 42 11 * * 0,6', function() {
-		// 	console.log('AutoLifeCycle start up !');
-		// 	hardware.restartOdi();
-		// }, null, true, 'Europe/Paris');
-	}else{ // Set go to sleep jobs
-		console.log('AutoLifeCycle jobs initialised [for time to sleep]');
-		new CronJob('3 0 0 * * 1-5', function(){
-			console.log('AutoLifeCycle go to sleep !');
-			hardware.restartOdi(255);
-		}, null, true, 'Europe/Paris');
-		new CronJob('3 0 2 * * 0,6', function(){
-			console.log('AutoLifeCycle go to sleep !');
-			hardware.restartOdi(255);
-		}, null, true, 'Europe/Paris');
-	}
+/** Function to set auto sleep life cycles */
+function setAutoSleep(){
+	console.log('Auto Sleep Life Cycle jobs initialised');
+	new CronJob('3 0 0 * * 1-5', function(){
+		console.log('AutoLifeCycle go to sleep !');
+		hardware.restartOdi(255);
+	}, null, true, 'Europe/Paris');
+
+	new CronJob('3 0 2 * * 0,6', function(){
+		console.log('AutoLifeCycle go to sleep !');
+		hardware.restartOdi(255);
+	}, null, true, 'Europe/Paris');
 };
 
 /** Function to set background tasks */
