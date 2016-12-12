@@ -65,31 +65,35 @@ function cocorico(mode){
 		console.log('COCORICO !!');
 		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
 
-		var voiceMailMsg = voiceMail.areThereAnyMessages();
-		setTimeout(function(){
-			tts.speak({voice: 'google', lg:'fr', msg:'Bien le bonjour !'});
-			now();
-		}, 4000);
-		setTimeout(function(){
-			console.log('--> service', service);
-			//service.weather();
-			today();
-		}, 7000);
-		setTimeout(function(){
-			voiceMail.checkVoiceMail();
-		}, 18000);
-		setTimeout(function(){
-			tts.speak({voice: 'espeak', lg:'fr', msg:'Allez hop, un peu de musique pour commencer la journer!'});
-		}, voiceMailMsg*3000+20000);
-		setTimeout(function(){
-			utils.testConnexion(function(connexion){
-				if(connexion == true){
-					fip.playFip();
-				}else{
-					jukebox.loop();
-				}
-			});
-		}, voiceMailMsg*3000+25000);
+		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'birthday']);
+
+		setTimeout(function(){ // ANNIF
+			var voiceMailMsg = voiceMail.areThereAnyMessages();
+			setTimeout(function(){
+				tts.speak({voice: 'google', lg:'fr', msg:'Bien le bonjour !'});
+				now();
+			}, 4000);
+			setTimeout(function(){
+				console.log('--> service', service);
+				//service.weather();
+				today();
+			}, 7000);
+			setTimeout(function(){
+				voiceMail.checkVoiceMail();
+			}, 18000);
+			setTimeout(function(){
+				tts.speak({voice: 'espeak', lg:'fr', msg:'Allez hop, un peu de musique pour commencer la journer!'});
+			}, voiceMailMsg*3000+20000);
+			setTimeout(function(){
+				utils.testConnexion(function(connexion){
+					if(connexion == true){
+						fip.playFip();
+					}else{
+						jukebox.loop();
+					}
+				});
+			}, voiceMailMsg*3000+25000);
+		}, 55*1000); // ANNIF
 	}, alarmDelay);
 };
 

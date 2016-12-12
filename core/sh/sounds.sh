@@ -54,6 +54,10 @@ then
 elif [ $1 = "cigales" ]
 then
 	sound="/home/pi/odi/media/mp3/system/cigales.mp3"
+#___Son Annif
+elif [ $1 = "birthday" ]
+then
+	sound="/home/pi/odi/media/mp3/system/birthday.mp3"
 #___Son Mer du matin
 elif [ $1 = "MorningSea" ]
 then
