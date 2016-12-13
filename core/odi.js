@@ -102,3 +102,7 @@ setTimeout(function(){
 		custom: {h:1, m:1, d: [0,1,2,3,4,5,6]}
 	}, false);*/
 }, 20*1000);
+
+new CronJob('13 7-10 8 * * *', function(){ // A DEPLACER AILLEURS ???
+	tts.speak([{voice: 'google', lg: 'fr', msg:'monte le son !'}, {voice: 'espeak', lg: 'fr', msg:'Oui, envoie le son, monte mon interrupteur !'}, {voice: 'google', lg: 'fr', msg:'ALLEZ ALLEZ !'}, {voice: 'espeak', lg: 'fr', msg:'GO GO GO !'}]);
+}, null, true, 'Europe/Paris');
