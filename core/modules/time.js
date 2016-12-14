@@ -65,9 +65,8 @@ function cocorico(mode){
 		console.log('COCORICO !!');
 		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
 
-		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'birthday']);
-
-		setTimeout(function(){ // ANNIF
+		// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'birthday']);
+		// setTimeout(function(){ // ANNIF
 			var voiceMailMsg = voiceMail.areThereAnyMessages();
 			setTimeout(function(){
 				tts.speak({voice: 'google', lg:'fr', msg:'Bien le bonjour !'});
@@ -93,7 +92,7 @@ function cocorico(mode){
 					}
 				});
 			}, voiceMailMsg*3000+25000);
-		}, 55*1000); // ANNIF
+		// }, 55*1000); // ANNIF
 	}, alarmDelay);
 };
 
