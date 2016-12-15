@@ -21,7 +21,8 @@ var gpioPins = require('./modules/gpioPins.js');
 var CronJob = require('cron').CronJob;
 
 var utils = require(CORE_PATH + 'modules/utils.js');
-utils.setConfig('startTime', new Date().getHours()+':'+new Date().getMinutes(), false);
+//utils.setConfig('startTime', new Date().getHours()+':'+new Date().getMinutes(), false);
+utils.setConfig({mode: 'asleep', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
 
 var time = require('./modules/time.js');
 

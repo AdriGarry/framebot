@@ -69,24 +69,41 @@ function prepareLogs(lines, callback){
 };
 
 /** Function to set/edit Odi's config */
-function setConfig(key, value, restart){
-	console.debug('setConfig()', key, value);
+function setConfig(newConf, restart){
+	console.log('setConfig(newConf)', newConf);
 	getJsonFileContent(CONFIG_FILE, function(data){
 		var config = JSON.parse(data);
-		for(var item in config){
-			if(key == item){
-				if(!value) config[item] = !config[item];
-				else config[item] = value;
-				console.log('CONFIG updated:', item, config[item], restart ? 'AND RESTART !' : '');
-			}
-		}
+		Object.keys(newConf).forEach(function(key,index){//key: the name of the object key && index: the ordinal position of the key within the object 
+			// console.log('key', key, 'index', index);
+			// console.log('newConf[key]', newConf[key]);
+			config[key] = newConf[key];
+		});
 		global.CONFIG = config;
-		//console.debug(CONFIG);
-		logConfigArray();
 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
+		logConfigArray();
 		if(restart) hardware.restartOdi();
 	});
 };
+
+// /** Function to set/edit Odi's config */
+// function setConfig(key, value, restart){
+// 	console.debug('setConfig()', key, value);
+// 	getJsonFileContent(CONFIG_FILE, function(data){
+// 		var config = JSON.parse(data);
+// 		for(var item in config){
+// 			if(key == item){
+// 				if(!value) config[item] = !config[item];
+// 				else config[item] = value;
+// 				console.log('CONFIG updated:', item, config[item], restart ? 'AND RESTART !' : '');
+// 			}
+// 		}
+// 		global.CONFIG = config;
+// 		//console.debug(CONFIG);
+// 		logConfigArray();
+// 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
+// 		if(restart) hardware.restartOdi();
+// 	});
+// };
 
 /** Function to reset Odi's config */
 function resetConfig(restart){

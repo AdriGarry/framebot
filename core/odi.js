@@ -9,6 +9,13 @@ global.DATA_PATH = '/home/pi/odi/data/';
 global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
 global.TMP_PATH = '/home/pi/odi/tmp/';
+
+var Gpio = require('onoff').Gpio;
+var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
+var leds = require(CORE_PATH + 'modules/leds.js');
+//leds.allLedsOn();
+leds.toggle({led:'eye', mode: 1});
+
 global.CONFIG = require(CONFIG_FILE);
 /*var fs = require('fs');
 global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));*/
@@ -21,35 +28,27 @@ var mode = process.argv[2]; // Get parameters
 console.log('>> Odi Core start sequence...',(mode ? '[mode:' + mode + ']' : ''));
 console.debug('-> ->  DEBUG MODE !!');//'\n---------------------\n', 
 
-var utils = require(CORE_PATH + 'modules/utils.js');
-utils.setConfig('startTime', new Date().getHours()+':'+new Date().getMinutes(), false);
-
-// console.log('Start sequence...');
-var Gpio = require('onoff').Gpio;
-var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
-var leds = require(CORE_PATH + 'modules/leds.js');
-
-//leds.blink({leds: ['nose'], speed: 300, loop: 3}); // Start led sequence
-leds.activity(); // Initialisation du temoin d'activite 1/2
-
 var spawn = require('child_process').spawn;
 var odiStartupSound = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
 
-// leds.allLedsOn();
-// leds.allLedsOff();
+var utils = require(CORE_PATH + 'modules/utils.js');
+utils.setConfig({mode: 'ready', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
+
+leds.activity(); // Initialisation du temoin d'activite 1/2
+
+var server = require(CORE_PATH + 'controllers/server.js');
+server.startUI(mode);
+
 var CronJob = require('cron').CronJob;
 new CronJob('*/3 * * * * *', function(){
 	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Initialisation du temoin d'activite 2/2
 }, null, 0, 'Europe/Paris');
 
-// LED Start sequence
-//leds.blinkLed(100, 300); // Sequence led de start
-
-var server = require(CORE_PATH + 'controllers/server.js');
-server.startUI(mode);
-
 var buttons = require(CORE_PATH + 'controllers/buttons.js');
 buttons.initButtonAwake();
+
+console.log('TOUT OK !!')
+leds.toggle({led:'eye', mode: 0});
 
 var jobs = require(CORE_PATH + 'controllers/jobs.js');
 jobs.startClock(buttons.getEtat()); // Starting speaking clock
@@ -94,11 +93,3 @@ var tts = require(CORE_PATH + 'modules/tts.js');
 setTimeout(function(){
 	// tts.speak({voice: 'espeak', msg: 'Et oui, sait moi Odi, je suis de retour !'});
 }, 5*60*1000);
-
-setTimeout(function(){
-	/*utils.setConfig('alarms', {
-		weekDay: {h:7, m:10, d: [1,2,3,4,5]},
-		weekEnd: {"h":11, m :59, d: [0,6]},
-		custom: {h:1, m:1, d: [0,1,2,3,4,5,6]}
-	}, false);*/
-}, 20*1000);
