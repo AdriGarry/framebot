@@ -20,7 +20,7 @@ var pastHour = hour;
 
 module.exports = {
 	startClock: startClock,
-	setJobs: setJobs, // RENOMMER FONCTION !!!
+	setInteractJobs: setInteractJobs,
 	setAutoSleep: setAutoSleep,
 	setBackgroundJobs: setBackgroundJobs
 };
@@ -28,7 +28,6 @@ module.exports = {
 /** Function to init clock  */
 function startClock(modeInit){
 	if(!modeInit){ // Mode work
-		console.log('Clock jobs initialised in regular mode');
 		// new CronJob('0 0,30 8-23 * * 1-5', function(){
 		new CronJob('0 0,30 8-23 * * 1-5', function(){
 			time.now();
@@ -36,18 +35,17 @@ function startClock(modeInit){
 		new CronJob('0 0,30 12-23 * * 0,7', function(){
 			time.now();
 		}, null, true, 'Europe/Paris');
+		console.log('Clock jobs initialised in regular mode');
 	}else{ // Mode any time
-		console.log('Clock jobs initialised in any time mode !');
 		new CronJob('0 0,30 * * * *', function(){
 			time.now();
 		}, null, true, 'Europe/Paris');
+		console.log('Clock jobs initialised in any time mode !');
 	}
 };
 
 /** Function to set alarms */
-function setJobs(){
-	console.log('Alarms jobs initialised');
-
+function setInteractJobs(){
 	// WEEKDAY
 	new CronJob('0 20,22-25 8 * * 1-5', function(){
 		tts.speak({lg:'fr', voice: 'espeak', msg:'go go go, allez au boulot'});
@@ -75,11 +73,11 @@ function setJobs(){
 		// tts.randomConversation(); // Conversations aleatoires dans la journee
 		service.randomAction();
 	}, null, true, 'Europe/Paris'); // Signal des 1/4 d'heure, entre 17h et 23h
+	console.log('Interact jobs initialised');
 };
 
 /** Function to set auto sleep life cycles */
 function setAutoSleep(){
-	console.log('Auto Sleep Life Cycle jobs initialised');
 	new CronJob('3 0 0 * * 1-5', function(){
 		console.log('AutoLifeCycle go to sleep !');
 		hardware.restartOdi(255);
@@ -89,12 +87,11 @@ function setAutoSleep(){
 		console.log('AutoLifeCycle go to sleep !');
 		hardware.restartOdi(255);
 	}, null, true, 'Europe/Paris');
+	console.log('Auto Sleep Life Cycle jobs initialised');
 };
 
 /** Function to set background tasks */
 function setBackgroundJobs(){
-	console.log('Background jobs initialised');
-
 	new CronJob('13 13 13 * * 1-6', function(){
 		tts.speak({voice:'espeak', lg:'en', msg:'Auto restart'}); // Daily restart Odi's core
 		setTimeout(function(){
@@ -105,7 +102,7 @@ function setBackgroundJobs(){
 	new CronJob('13 13 13 * * 0', function(){
 		tts.speak({voice:'espeak', lg:'fr', msg:'Auto reboot'}); // Weekly RPI reboot
 		setTimeout(function(){
-			//hardware.reboot(); // A REMETTRE UNE FOIS LE SCRIPT DE DEMARRAGE OK !!
+			hardware.reboot();
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 
@@ -113,4 +110,5 @@ function setBackgroundJobs(){
 		console.log('Clean log files  /!\\'); // Weekly cleaning of logs
 		hardware.cleanLog();
 	}, null, true, 'Europe/Paris');
+	console.log('Background jobs initialised');
 };

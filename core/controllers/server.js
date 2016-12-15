@@ -108,14 +108,15 @@ function startUI(mode){
 		// console.log('req', req);
 		params = req.query;
 		console.log('/alarm     > params', params);
-		//utils.setConfig('alarm', null, true);
+		//utils.setConfig('alarm', null, true); // NOUVEAU FORMAT OBJET ... /!\
 		res.writeHead(200);res.end();
 	});
 
 	/** TOGGLE DEBUG MODE */
 	ui.post('/toggleDebug', function(req, res){
 		console.debug('UI > Toggle debug');
-		utils.setConfig('debug', null, true);
+		//utils.setConfig('debug', null, true); // NOUVEAU FORMAT OBJET ... /!\
+		utils.setConfig({debug: !CONFIG.debug}, true);
 		res.writeHead(200);res.end();
 	});
 

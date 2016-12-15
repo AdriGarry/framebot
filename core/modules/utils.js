@@ -11,22 +11,20 @@ var leds = require(CORE_PATH + 'modules/leds.js');
 var exclamation = require(CORE_PATH + 'modules/exclamation.js');
 
 module.exports = {
-	// randomAction: randomAction,
 	formatedDate: formatedDate,
+	now: now,
 	logConfigArray: logConfigArray,
-	prepareLogs: prepareLogs,
 	setConfig: setConfig,
 	resetConfig: resetConfig,
+	prepareLogs: prepareLogs,
 	getJsonFileContent: getJsonFileContent,
 	appendJsonFile: appendJsonFile,
 	testConnexion: testConnexion,
-	//getStartTime : getStartTime
 };
 
 /** Function to get date & time (jj/mm hh:mm:ss) */
 var date, month, day, hour, min, sec, now;
 function formatedDate(){
-// var formatedDate = function(){
 	date = new Date();
 	month = date.getMonth()+1;
 	day = date.getDate();
@@ -35,28 +33,98 @@ function formatedDate(){
 	sec = date.getSeconds();
 	now = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';
 	now += (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
-	//callback(now);
+	return now;
+};
+
+/** Function to return date time. Pattern: 'DT' */
+function now(param, date){
+	if(typeof date === 'undefined') date = new Date();
+	var D = date.getDate();
+	var M = date.getMonth();
+	var h = date.getHours();
+	var m = date.getMinutes();
+	var now = '';
+
+	for(var i = 0; i < param.length; i++){
+
+			switch(param[i]){
+				case 'D':
+					now += D + '/' + M;
+					break;
+				case 'T':
+					now += h + ':' + (m<10 ? '0' : '') + m;
+					break;
+				case ' ':
+					now += ' ';
+					break;
+				default:
+					now += param[i];
+			}
+	}
+	/*if(param.indexOf('d')){
+		now += D + '/' + M + ' ';
+	}
+	if(param.indexOf('t')){
+		now += (h<10 ? ' ' : '') + h + ':' + (m<10 ? '0' : '') + m + ' ';
+	}*/
 	return now;
 };
 
 /** Function to log CONFIG array */
 function logConfigArray(){
-	var confArray = '\n|-------------------------------|\n|             CONFIG            |' + '\n|-------------------------------|\n';
+	var col1 = 10, col2 = 15;
+	var confArray = '\n|------------------------------|\n|            CONFIG            |' + '\n|------------------------------|\n';
 	Object.keys(CONFIG).forEach(function(key,index){
 		//if(typeof CONFIG[key] == 'Object'){
 		if(key == 'alarms'){
 			Object.keys(CONFIG[key]).forEach(function(key2,index2){
 				if(key2 != 'd'){
-					confArray += '| ' + (index2>0 ? ' '.repeat(10) : key + ' '.repeat(10-key.toString().length)) + ' | ' + key2 + ' '
-						+ CONFIG[key][key2].h + ':' + (CONFIG[key][key2].m<10?'0':'') + CONFIG[key][key2].m
-						+ ' '.repeat(16-(key2.toString().length+CONFIG[key][key2].h.toString().length+CONFIG[key][key2].m.toString().length+(CONFIG[key][key2].m<10?3:2))) + ' |\n';
+					// confArray += '| ' + (index2>0 ? ' '.repeat(col1) : key + ' '.repeat(col1-key.toString().length)) + ' | ' + key2 + ' '
+					// 	+ (CONFIG[key][key2].h<10?' ':'') + CONFIG[key][key2].h + ':' + (CONFIG[key][key2].m<10?'0':'') + CONFIG[key][key2].m
+					// 	+ ' '.repeat(col2-(key2.toString().length+CONFIG[key][key2].h.toString().length+CONFIG[key][key2].m.toString().length+(CONFIG[key][key2].m<10?2:1))) + ' |\n';
+					var c1 = (index2>0 ? ' '.repeat(col1) : key + ' '.repeat(col1-key.toString().length));
+					var c2 = key2 + ' ' + (CONFIG[key][key2].h<10?' ':'') + CONFIG[key][key2].h + ':' + (CONFIG[key][key2].m<10?'0':'') + CONFIG[key][key2].m;
+					confArray += '| ' + c1 + ' | ' + c2 + ' '.repeat(col2-c2.length) + ' |\n';
 				}
 			});
 		}else{
-			confArray += '| ' + key + ' '.repeat(10-key.length) + ' | ' + CONFIG[key] + ' '.repeat(16-CONFIG[key].toString().length) + ' |\n';
+			confArray += '| ' + key + ' '.repeat(col1-key.length) + ' | ' + CONFIG[key] + ' '.repeat(col2-CONFIG[key].toString().length) + ' |\n';
 		}
 	});
-	console.log(confArray + '|-------------------------------|');
+	console.log(confArray + '|------------------------------|');
+};
+
+/** Function to set/edit Odi's config */
+function setConfig(newConf, restart){
+	console.log('setConfig(newConf)', newConf);
+	//logConfigArray();
+	getJsonFileContent(CONFIG_FILE, function(data){
+		var config = JSON.parse(data);
+		Object.keys(newConf).forEach(function(key,index){
+			config[key] = newConf[key];
+		});
+		config.update = now('T (D)');
+		//console.log('now("dt")', now('dt'));
+		global.CONFIG = config;
+		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
+		if(restart){
+			hardware.restartOdi();
+		}
+		logConfigArray();
+	});
+};
+
+/** Function to reset Odi's config */
+function resetConfig(restart){
+	console.log('resetConfig()', restart ? 'and restart' : '');
+	logConfigArray();
+//	config.update = now('dt');
+	fs.createReadStream(DATA_PATH + 'defaultConf.json').pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
+	if(restart){
+		// setTimeout(function(){
+			hardware.restartOdi();
+		// }, 2000);
+	}
 };
 
 /** Function to format logs */
@@ -66,54 +134,6 @@ function prepareLogs(lines, callback){
 	content = content.join('\n');
 	callback(content);
 	return content;
-};
-
-/** Function to set/edit Odi's config */
-function setConfig(newConf, restart){
-	console.log('setConfig(newConf)', newConf);
-	getJsonFileContent(CONFIG_FILE, function(data){
-		var config = JSON.parse(data);
-		Object.keys(newConf).forEach(function(key,index){//key: the name of the object key && index: the ordinal position of the key within the object 
-			// console.log('key', key, 'index', index);
-			// console.log('newConf[key]', newConf[key]);
-			config[key] = newConf[key];
-		});
-		global.CONFIG = config;
-		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
-		logConfigArray();
-		if(restart) hardware.restartOdi();
-	});
-};
-
-// /** Function to set/edit Odi's config */
-// function setConfig(key, value, restart){
-// 	console.debug('setConfig()', key, value);
-// 	getJsonFileContent(CONFIG_FILE, function(data){
-// 		var config = JSON.parse(data);
-// 		for(var item in config){
-// 			if(key == item){
-// 				if(!value) config[item] = !config[item];
-// 				else config[item] = value;
-// 				console.log('CONFIG updated:', item, config[item], restart ? 'AND RESTART !' : '');
-// 			}
-// 		}
-// 		global.CONFIG = config;
-// 		//console.debug(CONFIG);
-// 		logConfigArray();
-// 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
-// 		if(restart) hardware.restartOdi();
-// 	});
-// };
-
-/** Function to reset Odi's config */
-function resetConfig(restart){
-	console.log('resetConfig()', restart ? 'and restart' : '');
-	fs.createReadStream(DATA_PATH + 'defaultConf.json').pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
-	if(restart){
-		// setTimeout(function(){
-			hardware.restartOdi();
-		// }, 2000);
-	}
 };
 
 /** Function getJsonFileContent */

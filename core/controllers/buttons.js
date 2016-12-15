@@ -177,5 +177,5 @@ function initButtonAwake(){
 			console.log('Push Blue button canceled !');
 		}
 	});
-	console.log('Buttons actions initialised');
+	console.log('Buttons initialised');
 };

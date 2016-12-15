@@ -34,52 +34,49 @@ var odiStartupSound = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds'])
 var utils = require(CORE_PATH + 'modules/utils.js');
 utils.setConfig({mode: 'ready', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
 
-leds.activity(); // Initialisation du temoin d'activite 1/2
+leds.activity(); // Activity flag 1/2
 
 var server = require(CORE_PATH + 'controllers/server.js');
 server.startUI(mode);
 
 var CronJob = require('cron').CronJob;
 new CronJob('*/3 * * * * *', function(){
-	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Initialisation du temoin d'activite 2/2
+	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Activity flag 2/2
 }, null, 0, 'Europe/Paris');
 
 var buttons = require(CORE_PATH + 'controllers/buttons.js');
 buttons.initButtonAwake();
 
-console.log('TOUT OK !!')
 leds.toggle({led:'eye', mode: 0});
 
 var jobs = require(CORE_PATH + 'controllers/jobs.js');
 jobs.startClock(buttons.getEtat()); // Starting speaking clock
 
-//var service = require(CORE_PATH + 'modules/service.js');
 var time = require(CORE_PATH + 'modules/time.js');
 var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
-// ALARMS
-if(time.isAlarm()){
+if(time.isAlarm()){// ALARMS
 	time.cocorico('slow');
 }else{
 	voiceMail.checkVoiceMail();
-	new CronJob('5 * * * * *', function(){ // A DEPLACER AILLEURS ???
+	new CronJob('5 * * * * *', function(){
 		if(time.isAlarm()){
 			time.cocorico('slow');
 		}
 	}, null, true, 'Europe/Paris');
 }
 
-jobs.setJobs(); // Initialisation des alarmes
-jobs.setAutoSleep(); // Initialisation du rythme de vie j/n
-jobs.setBackgroundJobs(); // Demarrage des taches de fond
+jobs.setInteractJobs();
+jobs.setAutoSleep();
+jobs.setBackgroundJobs();
 voiceMail.voiceMailFlag();
 
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){
-console.debug('Setting up time out to cancel Debug mode !!');
-setTimeout(function(){
-	console.debug('>> Canceling debug mode... & Restart !!');
-	utils.setConfig('debug', null, true);
-}, 10*60*1000);
+	console.debug('Setting up time out to cancel Debug mode !!');
+	setTimeout(function(){
+		console.debug('>> Canceling debug mode... & Restart !!');
+		utils.setConfig({debug: !CONFIG.debug}, true);
+	}, 10*60*1000);
 }
 
 // ------------------------//
@@ -90,6 +87,6 @@ var tts = require(CORE_PATH + 'modules/tts.js');
 
 //spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'tone']);
 
-setTimeout(function(){
-	// tts.speak({voice: 'espeak', msg: 'Et oui, sait moi Odi, je suis de retour !'});
-}, 5*60*1000);
+/*setinterval(function(){
+	utils.now('DT');
+}, 5*1000);*/

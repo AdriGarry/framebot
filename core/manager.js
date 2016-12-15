@@ -12,6 +12,7 @@ var fs = require('fs');
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
 var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
+var utils = require(CORE_PATH + 'modules/utils.js');
 
 var odiPgm, odiState = false;
 const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');

@@ -55,9 +55,9 @@ function cocorico(mode){
 	console.log('cocorico MODE:', mode);
 	var alarmDelay = 1;
 	if(mode == 'slow'){ // Morning sea...
-		console.log('Morning Sea... Let\'s start the day with some waves !'); // 2m 41s ==> REDUIRE A 1m55sec !!!
+		console.log('Morning Sea... Let\'s start the day with some waves !');
 		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
-		alarmDelay = 2*60*1000;
+		alarmDelay = 2*62*1000;
 	}
 	console.log('alarmDelay', alarmDelay);
 
@@ -115,8 +115,7 @@ function setAlarm(alarm){
 function isAlarm(){
 	var isAlarm = false, now = new Date();
 	var d = now.getDay(), h = now.getHours(), m = now.getMinutes();
-	Object.keys(CONFIG.alarms).forEach(function(key,index){//key: the name of the object key && index: the ordinal position of the key within the object 
-		console.debug('Alarm', key, CONFIG.alarms[key]);// A SUPPRIMER
+	Object.keys(CONFIG.alarms).forEach(function(key,index){
 		if(CONFIG.alarms[key].d.indexOf(d) > -1 && h == CONFIG.alarms[key].h && m == CONFIG.alarms[key].m){
 			console.log('ALARM TIME...');
 			isAlarm = true;

@@ -30,32 +30,31 @@ var leds = require('./modules/leds.js');
 var server = require('./controllers/server.js');
 var jobs = require('./controllers/jobs.js');
 
-var mode = sleepTime = process.argv[2]; // Recuperation des arguments
+var mode = sleepTime = process.argv[2]; // Retreive args
 
 var introMsg = 'Odi\'s sleeping...';
 
 if(sleepTime < 255){
 	introMsg += ' for ' + sleepTime + 'h';
 	console.log(introMsg + '   -.-');
-	setTimeout(function(){ // Delai avant redemarrage/reveil
+	setTimeout(function(){ // Delay until restart awake
 		hardware.restartOdi();
 	}, sleepTime*60*60*1000);
 }else{
 	console.log(introMsg + '   -.-');
-	//jobs.setAutoLifeCycle('S'); // Si pas de delai alors auto reveil en fonction du jour
 }
 
-leds.activity(mode); // Initialisation du temoin d'activite 1/2
+leds.activity(mode); // Activity flag 1/2
 
 new CronJob('*/3 * * * * *', function(){
-	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Initialisation du temoin d'activite 2/2
+	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Activity flag 2/2
 }, null, 0, 'Europe/Paris');
 
 server.startUI(mode);
 
-jobs.setBackgroundJobs(); // Demarrage des taches de fond
+jobs.setBackgroundJobs();
 
-ok.watch(function(err, value){ // Detection bouton Vert pour sortir du mode veille
+ok.watch(function(err, value){ // Green button watch for restart awake
 	console.log('Ok button pressed, canceling sleep mode & restarting Odi !');
 	hardware.restartOdi();
 });
