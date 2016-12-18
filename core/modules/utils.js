@@ -61,12 +61,6 @@ function now(param, date){
 					now += param[i];
 			}
 	}
-	/*if(param.indexOf('d')){
-		now += D + '/' + M + ' ';
-	}
-	if(param.indexOf('t')){
-		now += (h<10 ? ' ' : '') + h + ':' + (m<10 ? '0' : '') + m + ' ';
-	}*/
 	return now;
 };
 
@@ -79,9 +73,6 @@ function logConfigArray(){
 		if(key == 'alarms'){
 			Object.keys(CONFIG[key]).forEach(function(key2,index2){
 				if(key2 != 'd'){
-					// confArray += '| ' + (index2>0 ? ' '.repeat(col1) : key + ' '.repeat(col1-key.toString().length)) + ' | ' + key2 + ' '
-					// 	+ (CONFIG[key][key2].h<10?' ':'') + CONFIG[key][key2].h + ':' + (CONFIG[key][key2].m<10?'0':'') + CONFIG[key][key2].m
-					// 	+ ' '.repeat(col2-(key2.toString().length+CONFIG[key][key2].h.toString().length+CONFIG[key][key2].m.toString().length+(CONFIG[key][key2].m<10?2:1))) + ' |\n';
 					var c1 = (index2>0 ? ' '.repeat(col1) : key + ' '.repeat(col1-key.toString().length));
 					var c2 = key2 + ' ' + (CONFIG[key][key2].h<10?' ':'') + CONFIG[key][key2].h + ':' + (CONFIG[key][key2].m<10?'0':'') + CONFIG[key][key2].m;
 					confArray += '| ' + c1 + ' | ' + c2 + ' '.repeat(col2-c2.length) + ' |\n';
@@ -103,7 +94,7 @@ function setConfig(newConf, restart){
 		Object.keys(newConf).forEach(function(key,index){
 			config[key] = newConf[key];
 		});
-		config.update = now('T (D)');
+		//config.update = now('T (D)');
 		//console.log('now("dt")', now('dt'));
 		global.CONFIG = config;
 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));

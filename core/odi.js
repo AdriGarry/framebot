@@ -32,7 +32,8 @@ var spawn = require('child_process').spawn;
 var odiStartupSound = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
 
 var utils = require(CORE_PATH + 'modules/utils.js');
-utils.setConfig({mode: 'ready', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
+// utils.setConfig({mode: 'ready', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
+utils.setConfig({mode: 'ready', startTime: utils.now('T (D)')}, false);
 
 leds.activity(); // Activity flag 1/2
 
