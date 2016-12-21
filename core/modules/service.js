@@ -38,27 +38,25 @@ function randomAction(){
 					break;
 				case 6:
 				case 7:
-				case 8:
 					tts.randomConversation();
 					break;
+				case 8:
 				case 9:
 				case 10:
-				case 11:
 					weatherService();
 					break;
-				case 12:
+				case 11:
 					cpuTemp();
 					break;
-				case 13:
+				case 12:
 					time.sayOdiAge();
 					break;
-				case 14:
+				case 13:
 					time.now();
 					break;
-				case 15:
+				case 16:
 					time.today();
 					break;
-				case 16:
 				case 17:
 					adriExclamation();
 					break;

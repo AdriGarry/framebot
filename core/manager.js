@@ -62,16 +62,19 @@ function startOdi(mode){
 	logo = '\n\n' + logo.join('\n');
 	console.log(logo);
 
+	etat.watch(function(err, value){
+		value = etat.readSync();
+		if(1 == value) logMode = ' ODI';
+		else logMode = ' Odi';
+	});
+
+
 	odiState = true;
 	odiPgm.stdout.on('data', function(data){ // Template log output
-		if(1 === etat.readSync()) logMode = logMode.replace('Odi','ODI');
-		else logMode = logMode.replace('ODI','Odi');
 		console.log(utils.logTime('D/M h:m:s') + logMode + '/ ' + data);
 	});
 
 	odiPgm.stderr.on('data', function(data){ // Template log error
-		if(1 === etat.readSync()) logMode = logMode.replace('i','!');
-		else logMode = logMode.replace('!','i');
 		console.error(utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
 	});
 	
