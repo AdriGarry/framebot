@@ -13,7 +13,7 @@ var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
 var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
-console.log('MANAGER logTime', utils.logTime('D/M h:m:s'));
+// console.log('MASTER logTime', utils.logTime('D/M h:m:s'));
 var odiPgm, odiState = false;
 const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
 const logoSleep = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
@@ -29,7 +29,7 @@ ok.watch(function(err, value){
 	}
 });
 
-var logDate, logMode, timeToWakeUp;
+var logDate, logMode = getLogMode(), timeToWakeUp;
 var date, month, day, hour, min, sec;
 
 /** Function to start up Odi */
@@ -63,9 +63,7 @@ function startOdi(mode){
 	console.log(logo);
 
 	etat.watch(function(err, value){
-		value = etat.readSync();
-		if(1 == value) logMode = ' ODI';
-		else logMode = ' Odi';
+		logMode = getLogMode();
 	});
 
 
@@ -90,6 +88,14 @@ function startOdi(mode){
 		}
 	});
 };
+
+function getLogMode(){
+	value = etat.readSync();
+	console.log('master.getLogMode()', value);
+	if(1 == value) return ' ODI';
+	else return ' Odi';
+}
+
 
 var decrementInterval;
 /** Funtion to decrement time (time before wake up log while sleeping */

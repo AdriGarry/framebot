@@ -90,7 +90,7 @@ function proceedQueue(){  // NEW  // NEW  // NEW  // NEW
 					clearInterval(queueInteval);
 				}
 				isFirst = true;
-				console.log('isFirst', isFirst);
+				// console.log('isFirst', isFirst);
 			}
 		}, 500);
 	// }, 1500);
