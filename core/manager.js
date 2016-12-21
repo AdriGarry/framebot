@@ -13,7 +13,7 @@ var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
 var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
-
+console.log('MANAGER logTime', utils.logTime('D/M h:m:s'));
 var odiPgm, odiState = false;
 const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
 const logoSleep = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
@@ -21,11 +21,11 @@ const logoSleep = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8')
 /* ------------- START CORE -------------*/
 console.log('\r\n---------------------------\r\n>> Odi\'s CORE initiating...');
 
-startOdi(); // First initialisation
+startOdi(); // First init
 
 ok.watch(function(err, value){
-	if(!odiState){		// Detection bouton Vert pour forcer
-		startOdi();		// le lancement si besoin
+	if(!odiState){ // Watch green button to force start... DEPRECATED ???
+		startOdi();
 	}
 });
 
@@ -47,7 +47,7 @@ function startOdi(mode){
 		logo = logoSleep;
 		odiPgm = spawn('node', [CORE_PATH + 'odiSleep.js', mode]);
 	}else if(/\d/.test(mode) && mode > 0 && mode < 255){
-		timeToWakeUp = mode * 60; // Conversion en minutes
+		timeToWakeUp = mode * 60; // Convert to minutes
 		logMode = ' O' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
 		logo = logoSleep;
 		odiPgm = spawn('node', [CORE_PATH + 'odiSleep.js', mode]);
@@ -66,17 +66,13 @@ function startOdi(mode){
 	odiPgm.stdout.on('data', function(data){ // Template log output
 		if(1 === etat.readSync()) logMode = logMode.replace('Odi','ODI');
 		else logMode = logMode.replace('ODI','Odi');
-		// console.log(logDate + logMode + '/ ' + data);// + '\r\n'
-		if(CONFIG.debug) console.log(/*utils.*/formatedDate() + logMode + '\u2022 ' + data);// + '\r\n'
-		else console.log(/*utils.*/formatedDate() + logMode + '/ ' + data);// + '\r\n'
+		console.log(utils.logTime('D/M h:m:s') + logMode + '/ ' + data);
 	});
 
 	odiPgm.stderr.on('data', function(data){ // Template log error
 		if(1 === etat.readSync()) logMode = logMode.replace('i','!');
 		else logMode = logMode.replace('!','i');
-		// console.log(logDate + logMode + '_ERROR/ ' + data);// + '\r\n'
-		if(CONFIG.debug) console.error(/*utils.*/formatedDate() + logMode + '\u2022 ERROR ' + data);// + '\r\n'
-		else console.error(/*utils.*/formatedDate() + logMode + '_ERROR/ ' + data);// + '\r\n'
+		console.error(utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
 	});
 	
 	odiPgm.on('exit', function(code){ // SetUpRestart Actions
@@ -105,20 +101,3 @@ var decrementTime = function(){
 		}
 	}, 60*1000);
 };
-
-
-/** Function to get date & time (jj/mm hh:mm:ss) */
-var date, month, day, hour, min, sec, now;
-function formatedDate(){
-	date = new Date();
-	month = date.getMonth()+1;
-	day = date.getDate();
-	hour = date.getHours();
-	min = date.getMinutes();
-	sec = date.getSeconds();
-	now = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';
-	now += (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
-	return now;
-};
-
-

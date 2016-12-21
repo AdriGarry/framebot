@@ -21,7 +21,8 @@ global.CONFIG = require(CONFIG_FILE);
 global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));*/
 
 /** Debug Mode */
-if(CONFIG.debug) console.debug = console.log;
+if(CONFIG.debug) console.debug = function(o){console.log('\u2022 ' + o);}
+// if(CONFIG.debug) console.debug = console.log;
 else console.debug = function(o){};
 
 var mode = process.argv[2]; // Get parameters
@@ -33,7 +34,7 @@ var odiStartupSound = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds'])
 
 var utils = require(CORE_PATH + 'modules/utils.js');
 // utils.setConfig({mode: 'ready', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
-utils.setConfig({mode: 'ready', startTime: utils.now('T (D)')}, false);
+utils.setConfig({mode: 'ready', startTime: utils.logTime('h:m (D/M)')}, false);
 
 leds.activity(); // Activity flag 1/2
 
@@ -88,6 +89,6 @@ var tts = require(CORE_PATH + 'modules/tts.js');
 
 //spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'tone']);
 
-/*setinterval(function(){
-	utils.now('DT');
-}, 5*1000);*/
+setTimeout(function(){
+	utils.logTime('D/M h:m:s');
+}, 5*1000);

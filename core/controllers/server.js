@@ -64,12 +64,8 @@ function startUI(mode){
 		leds.blink({leds : ['satellite'], speed : 180, loop : 1});
 		//method = req.method;
 
-		// request = (req.headers.ui ? 'UI' + req.headers.ui + ' ' : '## ') + req.url.replace('%20',' ');
-		// request += req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : ' [' + req.connection.remoteAddress + ']';
-		// console.log(request);
-
 		if(req.connection.remoteAddress.indexOf('192.168') == -1){ // Logging not local requests
-			fs.appendFile(FILE_REQUEST_HISTORY, utils.formatedDate() + request + '\r\n', function(err){
+			fs.appendFile(FILE_REQUEST_HISTORY, utils.logTime('D/M h:m:s') + request + '\r\n', function(err){
 				if(err) return console.error(err);
 			});
 		}

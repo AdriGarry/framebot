@@ -11,8 +11,8 @@ var leds = require(CORE_PATH + 'modules/leds.js');
 var exclamation = require(CORE_PATH + 'modules/exclamation.js');
 
 module.exports = {
-	formatedDate: formatedDate,
-	now: now,
+	logTime: logTime,
+	// now: now,
 	logConfigArray: logConfigArray,
 	setConfig: setConfig,
 	resetConfig: resetConfig,
@@ -23,7 +23,7 @@ module.exports = {
 };
 
 /** Function to get date & time (jj/mm hh:mm:ss) */
-var date, month, day, hour, min, sec, now;
+/*var date, month, day, hour, min, sec, now;
 function formatedDate(){
 	date = new Date();
 	month = date.getMonth()+1;
@@ -34,33 +34,40 @@ function formatedDate(){
 	now = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';
 	now += (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
 	return now;
-};
+};*/
 
 /** Function to return date time. Pattern: 'DT' */
-function now(param, date){
+function logTime(param, date){
 	if(typeof date === 'undefined') date = new Date();
 	var D = date.getDate();
 	var M = date.getMonth();
 	var h = date.getHours();
 	var m = date.getMinutes();
+	var s = date.getSeconds();
 	var now = '';
 
 	for(var i = 0; i < param.length; i++){
-
-			switch(param[i]){
-				case 'D':
-					now += D + '/' + M;
-					break;
-				case 'T':
-					now += h + ':' + (m<10 ? '0' : '') + m;
-					break;
-				case ' ':
-					now += ' ';
-					break;
-				default:
-					now += param[i];
-			}
+		switch(param[i]){
+			case 'D':
+				now += D;
+				break;
+			case 'M':
+				now += M;
+				break;
+			case 'h':
+				now += (h<10 ? '0' : '') + h;
+				break;
+			case 'm':
+				now += (m<10 ? '0' : '') + m;
+				break;
+			case 's':
+				now += (s<10 ? '0' : '') + s;
+				break;
+			default:
+				now += param[i];
+		}
 	}
+	// console.log('utils.now(param)', param, now);
 	return now;
 };
 
