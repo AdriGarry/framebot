@@ -69,7 +69,7 @@ function cocorico(mode){
 		// setTimeout(function(){ // ANNIF
 			var voiceMailMsg = voiceMail.areThereAnyMessages();
 			setTimeout(function(){
-				tts.speak({voice: 'google', lg:'fr', msg:'Bien le bonjour !'});
+				tts.speak({voice: 'google', lg:'fr', msg:'Hey! Allez debout!'});
 				now();
 			}, 4000);
 			setTimeout(function(){

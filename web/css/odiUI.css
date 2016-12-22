@@ -150,7 +150,6 @@ button.muteButton{
 	z-index:100!important;
 }
 button.muteButton:hover{
-	background-color:#f43325!important
 	opacity:0.9;
 }
 /*button.muteButton i.fa{
