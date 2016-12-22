@@ -79,8 +79,16 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 		// }
 	}
 
+	/** Function to reloadUI */
+	$scope.reloadUI = function(){
+		console.log('reloadUI');
+		$timeout(function(){
+			$window.location.reload();
+		}, 300);
+	};
+
 	/** Function to pop down toast */
-	$scope.showToast = function(label) {
+	$scope.showToast = function(label){
 		$mdToast.show($mdToast.simple().textContent(label).position('top right').hideDelay(1500));
 	};
 

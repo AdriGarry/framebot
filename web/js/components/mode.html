@@ -1,0 +1,9 @@
+<span data-ng-show="$ctrl.info.value.mode == 'Sleep'">
+	<i class="mainInfo fa fa-moon-o"></i>&nbsp; {{$ctrl.info.value.param}}
+</span>
+<span data-ng-show="$ctrl.info.value.mode == 'Ready'">
+	<span class="mode">{{$ctrl.info.value.mode}}
+		<small><span class="desktopOnlyInline">since </span>{{$ctrl.info.value.param}}</small>
+	</span>
+</span>
+<md-grid-tile-footer><h3>{{$ctrl.info.label}}</h3></md-grid-tile-footer>

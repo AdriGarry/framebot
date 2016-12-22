@@ -1,0 +1,18 @@
+<table class="alarms">
+	<tr>
+		<td>
+			<i class="mainInfo fa fa-bell-o"></i>
+		</td>
+		<td>
+			<table>
+				<tr data-ng-repeat="time in $ctrl.info.value">
+					<td>
+						<small class="value">{{time.h}}:{{time.m}}</small>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<!-- {{$ctrl.info}} -->
+<md-grid-tile-footer><h3>{{$ctrl.info.label}}</h3></md-grid-tile-footer>

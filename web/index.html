@@ -31,6 +31,9 @@
 	<script src="js/services.js"></script>
 	<!--<script src="js/directives.js"></script>-->
 	<script src="js/models.js"></script>
+	<script src="js/components/tts.js"></script>
+	<script src="js/components/mode.js"></script>
+	<script src="js/components/alarm.js"></script>
 
 	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
 	<link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
@@ -44,10 +47,9 @@
 <body data-ng-controller="UIController">
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools">
-			<md-progress-circular md-mode="determinate" value="{{dashboard.loopInterval}}" onclick="setTimeout(function(){window.location.reload()},300)" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh"></md-progress-circular>
+			<md-progress-circular md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh" data-ng-click="reloadUI()"></md-progress-circular><!-- onclick="setTimeout(function(){window.location.reload()},300)"-->
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
-				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''"
-				onclick="setTimeout(function(){window.location.reload()},300)">
+				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()"><!--onclick="setTimeout(function(){window.location.reload()},300)"-->
 			<!--<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" data-ng-show="dashboard.loading">-->
 			<h1 data-ng-dblclick="irda && action({label: 'Restart Odi', url: '/odi'})">Odi UI
 				<sup class="version" title="version">{{dashboard.version}}&nbsp;</sup>
@@ -92,6 +94,7 @@
 			title="Mute Odi" aria-label="Mute Odi">
 				<i class="fa fa-bell-slash-o"></i>
 			</md-button>-->
+
 			<md-button data-ng-click="showLogs()" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
 				<i class="fa fa-2x fa-rocket"></i>
 			</md-button>
@@ -105,12 +108,21 @@
 
 			<md-progress-circular md-diameter="150" data-ng-show="loading"></md-progress-circular>
 
-			<!-- <center>
-				<sm-date-time-picker fname="Alarm" lable="loginTime" form="empForm" value="alarmTime" 
-					flex="100" is-required="true" format="HH:mm">
-				</sm-date-time-picker>
-			</center> -->
-
+			<div class="dashboard" data-ng-if="irda">
+				<md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
+					md-row-height="4:3" md-gutter="12px" class="ng-slide" data-ng-class="irda? 'pointer' : ''">
+					<md-grid-tile md-rowspan="1" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="grey ng-slide">
+						<tts data-info="dashboard.ttsTile"></tts>
+					</md-grid-tile>
+					<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="teal ng-slide">
+						<mode data-info="dashboard.tileList.mode"></mode>
+					</md-grid-tile>
+					<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="blueGrey ng-slide">
+						<alarm data-info="dashboard.tileList.alarms"></alarm>
+					</md-grid-tile>
+				</md-grid-list>
+			</div>
+			<br>
 
 			<div data-ng-include src="'templates/dashboard.html'" data-ng-hide="loading" data-ng-class="loading ? '' : 'ng-slide'"></div>
 

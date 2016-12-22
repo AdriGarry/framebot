@@ -27,7 +27,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 	/** Function to send command to Odi **/
 	this.sendCommand = function(obj, callback){
 		console.log('UIService.sendCommand()', obj);
-		console.log('data', obj.params);
+		// console.log('data', obj.params);
 		var uri = obj.url;
 		//var params = '';
 		$http({
