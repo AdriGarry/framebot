@@ -1,10 +1,10 @@
 /** mode component */
 app.component('tts', {
 	bindings: {
-		info: '='
+		tile: '='
 	},
 	templateUrl: '/js/components/tts.html',
 	controller: function(){
-		console.log('TTS_ this.info', this.info);
+		console.log('TTS_ this.tile', this.tile);
 	}
 });

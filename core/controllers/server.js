@@ -138,7 +138,8 @@ function startUI(mode){
 		var dashboard = {
 			mode: {value: {
 				mode: isNaN(parseFloat(mode)) ? (CONFIG.debug ? 'Debug' : 'Ready') : 'Sleep',
-				param: isNaN(parseFloat(mode)) ? CONFIG.startTime : parseInt(mode)},
+				param: isNaN(parseFloat(mode)) ? CONFIG.startTime : parseInt(mode),
+				switch: etatBtn ? true : false},
 				active: CONFIG.debug},
 			switch: {value: etatBtn, active: etatBtn ? true : false}, 
 			volume: {value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute', active: (isNaN(temp) && etatBtn == 1) ? true : false},

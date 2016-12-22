@@ -5,7 +5,7 @@
 		</td>
 		<td>
 			<table>
-				<tr data-ng-repeat="time in $ctrl.info.value">
+				<tr data-ng-repeat="time in $ctrl.tile.value">
 					<td>
 						<small class="value">{{time.h}}:{{time.m}}</small>
 					</td>
@@ -15,4 +15,4 @@
 	</tr>
 </table>
 <!-- {{$ctrl.info}} -->
-<md-grid-tile-footer><h3>{{$ctrl.info.label}}</h3></md-grid-tile-footer>
+<md-grid-tile-footer><h3>{{$ctrl.tile.label}}</h3></md-grid-tile-footer>

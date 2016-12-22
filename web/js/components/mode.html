@@ -1,9 +1,32 @@
-<span data-ng-show="$ctrl.info.value.mode == 'Sleep'">
-	<i class="mainInfo fa fa-moon-o"></i>&nbsp; {{$ctrl.info.value.param}}
+<i class="fa fa-2x fa-ellipsis-h adminFlag"></i>
+<span data-ng-show="$ctrl.tile.value.mode == 'Sleep'">
+	<i class="mainInfo fa fa-moon-o"></i>&nbsp; {{$ctrl.tile.value.param}}
 </span>
-<span data-ng-show="$ctrl.info.value.mode == 'Ready'">
-	<span class="mode">{{$ctrl.info.value.mode}}
-		<small><span class="desktopOnlyInline">since </span>{{$ctrl.info.value.param}}</small>
+<span data-ng-show="$ctrl.tile.value.mode == 'Ready'">
+	<span class="switch">
+		<i class="fa fa-rotate-270 fa-2x" data-ng-class="$ctrl.tile.value.switch ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
 	</span>
+	<div class="mode">{{$ctrl.tile.value.mode}}</div>
+	<div class="since">since {{$ctrl.tile.value.param}}</div>
 </span>
-<md-grid-tile-footer><h3>{{$ctrl.info.label}}</h3></md-grid-tile-footer>
+<md-grid-tile-footer><h3>{{$ctrl.tile.label}}</h3></md-grid-tile-footer>
+
+<style type="text/css">
+mode span{
+	color:#34444b;
+}
+mode .switch{
+	position:absolute;
+	top:1em;
+	left:1em;
+	color:#496069;
+}
+mode .mode{
+	text-align:center;
+	font-size:5vw;
+}
+mode .since{
+	text-align:center;
+	font-size:1em;
+}
+</style>
