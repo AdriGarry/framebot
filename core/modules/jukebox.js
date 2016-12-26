@@ -3,7 +3,7 @@
 // Module Jukebox
 
 var spawn = require('child_process').spawn;
-var hardware = require('./hardware.js');
+var hardware = require(CORE_PATH + 'modules/hardware.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
 
 module.exports = {
@@ -16,7 +16,9 @@ function loop(message){
 	hardware.mute(0, 'Next jukebox song !');
 	setTimeout(function(){
 		console.log('Jukebox in loop mode !');
-		spawn('sh', ['/home/pi/odi/core/sh/jukebox.sh']);
+		// spawn('sh', ['/home/pi/odi/core/sh/jukebox.sh']);
+		spawn('sh', [CORE_PATH + 'sh/jukebox.sh', 'medley']);
+		console.log('jukebox.loop() ERROR to debug...');
 		hardware.mute(60, 'Auto mute jukebox !');
 	}, 200);
 };
