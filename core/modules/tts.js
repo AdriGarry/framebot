@@ -54,6 +54,7 @@ function speak(tts){
 		});
 	}else if(!tts || (!Object.keys(tts).length > 0) || (tts.msg.toUpperCase().indexOf('RANDOM') > -1)){ // OR UNDEFINED !!
 		var rdmNb = ((Math.floor(Math.random()*RDM_MESSAGE_LIST_LENGTH)));
+		console.log('tts.js> rdmNb: ', rdmNb);
 		tts = RDM_MESSAGE_LIST[rdmNb];
 		console.log('Random TTS : ' + rdmNb + '/' + RDM_MESSAGE_LIST_LENGTH);
 		console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
