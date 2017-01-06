@@ -13,14 +13,9 @@ var playing = false;
 var fipInterval;
 
 module.exports = {
-	playing: isPlaying,
+	playing: playing,
 	playFip: playFip,
 	stopFip: stopFip
-};
-
-/** Function to return playing status */
-function isPlaying(){
-	return playing;
 };
 
 /** Function to play FIP radio */
@@ -66,5 +61,3 @@ function stopFip(message){
 	belly.write(0);
 	leds.clearLeds();
 };
-
-// console.log('fip this', this);

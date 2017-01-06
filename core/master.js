@@ -66,7 +66,6 @@ function startOdi(mode){
 		logMode = getLogMode();
 	});
 
-
 	odiState = true;
 	odiPgm.stdout.on('data', function(data){ // Template log output
 		console.log(utils.logTime('D/M h:m:s') + logMode + '/ ' + data);
@@ -91,11 +90,12 @@ function startOdi(mode){
 
 function getLogMode(){
 	value = etat.readSync();
-	console.log('master.getLogMode()', value);
+	if(value != etat.readSync()){
+		getLogMode();
+	}
 	if(1 == value) return ' ODI';
 	else return ' Odi';
 }
-
 
 var decrementInterval;
 /** Funtion to decrement time (time before wake up log while sleeping */

@@ -4,7 +4,7 @@ app.component('mode', {
 		tile: '=',
 	},
 	templateUrl: '/js/components/mode.html',
-	controller: function(){
+	controller: function($scope){
 		console.log('MODE_ this.tile', this.tile);
 	}
 });

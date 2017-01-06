@@ -12,7 +12,6 @@ var exclamation = require(CORE_PATH + 'modules/exclamation.js');
 
 module.exports = {
 	logTime: logTime,
-	// now: now,
 	logConfigArray: logConfigArray,
 	setConfig: setConfig,
 	resetConfig: resetConfig,
@@ -22,25 +21,11 @@ module.exports = {
 	testConnexion: testConnexion,
 };
 
-/** Function to get date & time (jj/mm hh:mm:ss) */
-/*var date, month, day, hour, min, sec, now;
-function formatedDate(){
-	date = new Date();
-	month = date.getMonth()+1;
-	day = date.getDate();
-	hour = date.getHours();
-	min = date.getMinutes();
-	sec = date.getSeconds();
-	now = (day<10?'0':'') + day + '/' + (month<10?'0':'') + month + ' ';
-	now += (hour<10?'0':'') + hour + ':' + (min<10?'0':'') + min + ':' + (sec<10?'0':'') + sec;
-	return now;
-};*/
-
 /** Function to return date time. Pattern: 'DT' */
 function logTime(param, date){
 	if(typeof date === 'undefined') date = new Date();
 	var D = date.getDate();
-	var M = date.getMonth();
+	var M = date.getMonth()+1;
 	var h = date.getHours();
 	var m = date.getMinutes();
 	var s = date.getSeconds();
@@ -49,10 +34,10 @@ function logTime(param, date){
 	for(var i = 0; i < param.length; i++){
 		switch(param[i]){
 			case 'D':
-				now += D;
+				now += (D<10 ? '0' : '') + D;
 				break;
 			case 'M':
-				now += M;
+				now += (M<10 ? '0' : '') + M;
 				break;
 			case 'h':
 				now += (h<10 ? '0' : '') + h;

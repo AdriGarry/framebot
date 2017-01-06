@@ -60,13 +60,12 @@ function initButtonAwake(){
 		}
 	});
 
-	var t;
 	/** Green (ok) button watch */
 	ok.watch(function(err, value){
 		var pressTime = new Date();
 		while(ok.readSync() == 1){
 			; // Pause
-			t = Math.round((new Date() - pressTime)/100)/10;
+			var t = Math.round((new Date() - pressTime)/100)/10;
 			if(t%1 == 0){
 				// console.log(t);
 				belly.write(0);
