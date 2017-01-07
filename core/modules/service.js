@@ -13,6 +13,8 @@ var tts = require(CORE_PATH + 'modules/tts.js');
 var time = require(CORE_PATH + 'modules/time.js');
 var exclamation = require(CORE_PATH + 'modules/exclamation.js');
 
+//var order = require(CORE_PATH + 'controllers/orders.js');
+
 module.exports = {
 	randomAction: randomAction,
 	adriExclamation: adriExclamation,

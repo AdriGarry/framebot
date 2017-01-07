@@ -66,7 +66,9 @@ function logConfigArray(){
 			Object.keys(CONFIG[key]).forEach(function(key2,index2){
 				if(key2 != 'd'){
 					var c1 = (index2>0 ? ' '.repeat(col1) : key + ' '.repeat(col1-key.toString().length));
-					var c2 = key2 + ' ' + (CONFIG[key][key2].h<10?' ':'') + CONFIG[key][key2].h + ':' + (CONFIG[key][key2].m<10?'0':'') + CONFIG[key][key2].m;
+					var c2 = key2 + ' ' + (CONFIG[key][key2].h<10?' ':'') + CONFIG[key][key2].h + ':';
+					c2 += (CONFIG[key][key2].m<10?'0':'') + CONFIG[key][key2].m;
+					if(typeof CONFIG[key][key2].mode === 'string') c2 += ' ' + CONFIG[key][key2].mode.charAt(0);//String(CONFIG[key][key2].mode).charAt(0)
 					confArray += '| ' + c1 + ' | ' + c2 + ' '.repeat(col2-c2.length) + ' |\n';
 				}
 			});

@@ -26,7 +26,7 @@ module.exports = {
 };
 
 /** Function TTS time now */
-function now(){
+function now(voice){  // TODO  prendre en compte le parametre voix (créer un objet tts avant de le passer en parametre)
 	console.debug('time.now()');
 	var date = new Date();
 	var hour = date.getHours();
@@ -36,7 +36,7 @@ function now(){
 
 var CALENDAR = require(DATA_PATH + 'calendar.json');
 /** Function to say current date */
-function today(){
+function today(voice){  // TODO  prendre en compte le parametre voix (créer un objet tts avant de le passer en parametre)
 	var date = new Date();
 	var dayNb = date.getDate();
 	if(dayNb == 1) dayNb = 'premier';
@@ -70,15 +70,15 @@ function cocorico(mode){
 			var voiceMailMsg = voiceMail.areThereAnyMessages();
 			console.log('voiceMailMsg', voiceMailMsg);
 			setTimeout(function(){
-				tts.speak({voice: 'google', lg:'fr', msg:'Bonjour bonjour !'});
+				tts.speak({voice: 'espeak', lg:'fr', msg:'Bonjour bonjour !'});
 				now();
 			}, 4000);
 			setTimeout(function(){
 				today();
 			}, 9000);
 			setTimeout(function(){
-				order.emit('weather', 'morning weather');
-
+				//order.emit('weather', 'morning weather');
+				tts.speak({lg: 'fr', msg: 'Toujours pas de meteo, il faut faire quelque chose !'});
 				//service.weather();
 				//voiceMail.checkVoiceMail();
 			}, 20000);
@@ -102,12 +102,12 @@ function cocorico(mode){
 	}, alarmDelay);
 };
 
-var EventEmitter = require('events').EventEmitter;
+/*var EventEmitter = require('events').EventEmitter;
 var order = new EventEmitter();
 order.on('weather', function(message){
 	console.log('weather event');
 	// service.weather();
-});
+});*/
 
 /** Function to set Odi's custom alarm */
 function setAlarm(alarm){
@@ -130,8 +130,9 @@ function isAlarm(){
 	var d = now.getDay(), h = now.getHours(), m = now.getMinutes();
 	Object.keys(CONFIG.alarms).forEach(function(key,index){
 		if(CONFIG.alarms[key].d.indexOf(d) > -1 && h == CONFIG.alarms[key].h && m == CONFIG.alarms[key].m){
-			console.log('ALARM TIME...');
+			console.log('ALARM TIME...', CONFIG.alarms[key].h + ':' + CONFIG.alarms[key].m);
 			isAlarm = true;
+			cocorico(CONFIG.alarms[key].mode);
 		}
 	});
 	console.debug('time.isAlarm()', isAlarm);

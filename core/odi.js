@@ -57,16 +57,25 @@ jobs.startClock(buttons.getEtat()); // Starting speaking clock
 
 var time = require(CORE_PATH + 'modules/time.js');
 var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
-if(time.isAlarm()){// ALARMS
-	time.cocorico('sea');
-}else{
+// if(time.isAlarm()){// ALARMS
+// 	time.cocorico('sea'); // ============> TODO TODO TODO !!!
+// }else{
+// 	voiceMail.checkVoiceMail();
+// 	new CronJob('5 * * * * *', function(){
+// 		if(time.isAlarm()){
+// 			time.cocorico('sea'); // ============> TODO TODO TODO !!!
+// 		}
+// 	}, null, true, 'Europe/Paris');
+// }
+
+
+if(!time.isAlarm()){// ALARMS
 	voiceMail.checkVoiceMail();
 	new CronJob('5 * * * * *', function(){
-		if(time.isAlarm()){
-			time.cocorico('sea');
-		}
+		time.isAlarm()
 	}, null, true, 'Europe/Paris');
 }
+
 
 jobs.setInteractJobs();
 jobs.setAutoSleep();
@@ -94,4 +103,3 @@ setTimeout(function(){
 	utils.logTime('D/M h:m:s');
 }, 5*1000);
 
-time.cocorico('sea');
