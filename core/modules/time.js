@@ -34,7 +34,7 @@ function now(){
 	tts.speak({lg: 'fr', msg: 'Il est ' + hour + ' heure ' + (min>0 ? min : '')});
 };
 
-var CALENDAR = require('/home/pi/odi/data/calendar.json');
+var CALENDAR = require(DATA_PATH + 'calendar.json');
 /** Function to say current date */
 function today(){
 	var date = new Date();
@@ -54,35 +54,41 @@ function today(){
 function cocorico(mode){
 	console.log('cocorico MODE:', mode);
 	var alarmDelay = 1;
-	if(mode == 'slow'){ // Morning sea...
+	if(mode == 'sea'){ // Morning sea...
 		console.log('Morning Sea... Let\'s start the day with some waves !');
-		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'MorningSea']);
+		spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'MorningSea']);
 		alarmDelay = 2*62*1000;
 	}
 	console.log('alarmDelay', alarmDelay);
 
 	setTimeout(function(){
 		console.log('COCORICO !!');
-		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'cocorico']);
+		spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'cocorico']);
 
 		// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'birthday']);
 		// setTimeout(function(){ // ANNIF
 			var voiceMailMsg = voiceMail.areThereAnyMessages();
+			console.log('voiceMailMsg', voiceMailMsg);
 			setTimeout(function(){
-				tts.speak({voice: 'google', lg:'fr', msg:'Hey! Allez debout!'});
+				tts.speak({voice: 'google', lg:'fr', msg:'Bonjour bonjour !'});
 				now();
 			}, 4000);
 			setTimeout(function(){
-				console.log('--> service', service);
-				//service.weather();
 				today();
-			}, 7000);
+			}, 9000);
 			setTimeout(function(){
+				order.emit('weather', 'morning weather');
+
+				//service.weather();
+				//voiceMail.checkVoiceMail();
+			}, 20000);
+			setTimeout(function(){
+				// tts.speak({voice: 'espeak', lg:'fr', msg:'Allez hop, un peu de musique pour commencer la journer!'});
 				voiceMail.checkVoiceMail();
-			}, 18000);
-			setTimeout(function(){
-				tts.speak({voice: 'espeak', lg:'fr', msg:'Allez hop, un peu de musique pour commencer la journer!'});
 			}, voiceMailMsg*3000+20000);
+			setTimeout(function(){
+				tts.speak({voice: 'google', lg:'fr', msg:'En avant la musique !'});
+			}, voiceMailMsg*3000+30000);
 			setTimeout(function(){
 				utils.testConnexion(function(connexion){
 					if(connexion == true){
@@ -91,10 +97,17 @@ function cocorico(mode){
 						jukebox.loop();
 					}
 				});
-			}, voiceMailMsg*3000+25000);
+			}, voiceMailMsg*3000+40000);
 		// }, 55*1000); // ANNIF
 	}, alarmDelay);
 };
+
+var EventEmitter = require('events').EventEmitter;
+var order = new EventEmitter();
+order.on('weather', function(message){
+	console.log('weather event');
+	// service.weather();
+});
 
 /** Function to set Odi's custom alarm */
 function setAlarm(alarm){
@@ -160,10 +173,10 @@ function setTimer(minutes){
 			belly.write(etat);
 			etat = 1 - etat;
 			if(time < 10){
-				var deploy = spawn('sh', ['/home/pi/odi/core/sh/timerSound.sh', 'almost']);
+				var deploy = spawn('sh', [CORE_PATH + 'sh/timerSound.sh', 'almost']);
 			}
 			else{
-				var deploy = spawn('sh', ['/home/pi/odi/core/sh/timerSound.sh']);
+				var deploy = spawn('sh', [CORE_PATH + 'sh/timerSound.sh']);
 			}
 			time--;
 			if(time%120 == 0 && (time/60)>0){
@@ -171,7 +184,7 @@ function setTimer(minutes){
 			}else if(time <= 0 && time > -5){
 				clearInterval(sec);
 				console.log('End Timer !');
-				var deploy = spawn('sh', ['/home/pi/odi/core/sh/timerSound.sh', 'end']);
+				var deploy = spawn('sh', [CORE_PATH + 'sh/timerSound.sh', 'end']);
 				leds.blink({
 					leds: ['belly','eye', 'satellite', 'nose'],
 					speed: 90,

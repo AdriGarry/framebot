@@ -10,6 +10,7 @@ global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
 global.TMP_PATH = '/home/pi/odi/tmp/';
 
+var orders = require(CORE_PATH + 'controllers/orders.js');
 var Gpio = require('onoff').Gpio;
 var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
 var leds = require(CORE_PATH + 'modules/leds.js');
@@ -57,12 +58,12 @@ jobs.startClock(buttons.getEtat()); // Starting speaking clock
 var time = require(CORE_PATH + 'modules/time.js');
 var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 if(time.isAlarm()){// ALARMS
-	time.cocorico('slow');
+	time.cocorico('sea');
 }else{
 	voiceMail.checkVoiceMail();
 	new CronJob('5 * * * * *', function(){
 		if(time.isAlarm()){
-			time.cocorico('slow');
+			time.cocorico('sea');
 		}
 	}, null, true, 'Europe/Paris');
 }
@@ -92,3 +93,5 @@ var tts = require(CORE_PATH + 'modules/tts.js');
 setTimeout(function(){
 	utils.logTime('D/M h:m:s');
 }, 5*1000);
+
+time.cocorico('sea');
