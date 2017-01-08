@@ -1,0 +1,13 @@
+<md-dialog>
+	<md-dialog-content class="md-dialog-content">
+		<h2 class="md-title">{{modal.label}}</h2>
+
+		<ul>
+			<li data-ng-repeat="line in modal.data">{{line}}</li>
+		</ul>
+
+		<md-dialog-actions>
+			<md-button class="md-raised" data-ng-click="close()">Close</md-button>&nbsp;&nbsp;&nbsp;
+		</md-dialog-actions>
+	</md-dialog-content>
+</md-dialog>

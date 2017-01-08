@@ -1,5 +1,5 @@
 'use strict'
-app.controller('UIController', function($rootScope, $scope, $location, $timeout, $interval, $sce, $window, $mdSidenav,
+app.controller('UIController', function($rootScope, $scope, $location, $http, $timeout, $interval, $sce, $window, $mdSidenav,
 		$mdDialog, $mdBottomSheet, $mdToast, CONSTANTS, UIService/*, smDateTimePicker*/){
 	$scope.loading = false;/*true*/
 	$scope.pauseUI = false;
@@ -128,9 +128,25 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 
 	/** Function to send action **/
 	$scope.action = function(button){
-		// console.log(button);
 		if(button.url.indexOf('http://') > -1){
-			$window.open(button.url);
+			//$window.open(button.url);
+			$http({
+				headers: {ui: 'v3'},
+				method: 'GET',
+				url: button.url
+			}).then(function successCallback(res){
+				console.log('res', res);
+				var data = res.data;
+				if(typeof data == 'string'){
+					data = $sce.trustAsHtml(res.data.replace(/\n/g,'<br>'));
+				}else{
+					//data = res.data.replace(/\n/g,'<br>');
+				}
+				$scope.showDialog({label: button.label, data: data});
+			}, function errorCallback(res){
+				console.error(res);
+				$scope.showDialog({label: button.label, data: 'ERROR !'});
+			});
 		}else{
 			$scope.showToast(button.label);
 			UIService.sendCommand(button);
@@ -184,33 +200,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 		});
 	};*/
 
-	$scope.showDialogGrant = function(ev){ // TODO COMPONENT !!
-		$mdDialog.show({
-			controller: DialogController,
-			templateUrl: 'templates/dialog-admin.html',
-			parent: angular.element(document.body),
-			targetEvent: ev,
-			clickOutsideToClose:true,
-			fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints
-		}).then(function(answer){
-			$scope.grant(answer);
-			console.log(answer);
-		});
-	};
-
-	function DialogController($scope, $mdDialog){
-		$scope.hide = function(){
-			$mdDialog.hide();
-		};
-		$scope.cancel = function(){
-			$mdDialog.cancel();
-		};
-		$scope.answer = function(answer){
-			$mdDialog.hide(answer);
-		};
-	}
-
-
 	/** Function to inject HTML code */
 	$scope.toHtml = function(html){
 		return $sce.trustAsHtml(html);
@@ -253,4 +242,67 @@ app.controller('UIController', function($rootScope, $scope, $location, $timeout,
 
 	var param = $location.$$absUrl.split('?')[1];
 	if(param) $scope.grant(param);
+
+	$scope.showDialog = function(modal){ // TODO COMPONENT !!
+		/*$mdDialog.show(
+			$mdDialog.alert()
+			.parent(angular.element(document.querySelector('#popupContainer')))
+			.clickOutsideToClose(true)
+			.title(modal.label)
+			.textContent(modal.data)
+			.ariaLabel(modal.label)
+			.ok('Close')
+		);*/
+		console.log('modal', modal);
+		//$scope.modal.label = modal.label;
+		//$scope.modal.data = modal.data;
+		$mdDialog.show({
+			controller: DialogController,
+			templateUrl: 'templates/dialog.html',
+			parent: angular.element(document.body),
+			//targetEvent: ev,
+			clickOutsideToClose:true,
+			fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints
+		});
+
+	};
+
+	/*function DialogController($scope, $mdDialog){
+		$scope.hide = function(){
+			$mdDialog.hide();
+		};
+		$scope.cancel = function(){
+			$mdDialog.cancel();
+		};
+		$scope.answer = function(answer){
+			$mdDialog.hide(answer);
+		};
+	}*/
+
+	$scope.showAdminDialog = function(ev){ // TODO COMPONENT !!
+		$mdDialog.show({
+			controller: AdminDialogController,
+			templateUrl: 'templates/dialog-admin.html',
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose:true,
+			fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints
+		}).then(function(answer){
+			$scope.grant(answer);
+		});
+	};
+
+	// function AdminDialogController($scope, $mdDialog){
+	// 	$scope.hide = function(){
+	// 		$mdDialog.hide();
+	// 	};
+	// 	$scope.cancel = function(){
+	// 		$mdDialog.cancel();
+	// 	};
+	// 	$scope.answer = function(answer){
+	// 		$mdDialog.hide(answer);
+	// 	};
+	// }
+
+
 });
