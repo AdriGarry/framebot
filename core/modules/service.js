@@ -16,10 +16,57 @@ var exclamation = require(CORE_PATH + 'modules/exclamation.js');
 //var order = require(CORE_PATH + 'controllers/orders.js');
 
 module.exports = {
-	//randomAction: randomAction,
+	randomAction: randomAction,
 	adriExclamation: adriExclamation,
 	cpuTemp: cpuTemp,
 	weather: weatherService
+};
+
+/** Function random action (exclamation, random TTS, time, day, weather...) */
+function randomAction(){
+	/*utils.testConnexion(function(connexion){
+		if(!connexion){
+			exclamation.exclamation2Rappels();
+		}else{*/
+			var rdm = Math.floor(Math.random()*25);
+			console.log('randomAction [rdm = ' + rdm + ']');
+			switch(rdm){
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+					tts.speak({msg:'RANDOM'}); // Random TTS
+					break;
+				case 6:
+				case 7:
+					tts.randomConversation();
+					break;
+				case 8:
+				case 9:
+				case 10:
+					weatherService();
+					break;
+				case 11:
+					cpuTemp();
+					break;
+				case 12:
+					time.sayOdiAge();
+					break;
+				case 13:
+					time.now();
+					break;
+				case 16:
+					time.today();
+					break;
+				case 17:
+					adriExclamation();
+					break;
+				default:
+					exclamation.exclamation();
+			}
+		/*}
+	});*/
 };
 
 /** Function 'Aaaadri' speech */
@@ -37,7 +84,6 @@ function cpuTemp(){
 	console.log('Service CPU Temperature...  ' + temperature + ' degres');
 	tts.speak({lg:'fr', msg:'Mon processeur est a ' + temperature + ' degree'});
 };
-
 
 var WEATHER_STATUS_LIST;
 fs.readFile('/home/pi/odi/data/weatherStatus.json', function(err, data){

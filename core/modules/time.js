@@ -8,7 +8,7 @@ var leds = require(CORE_PATH + 'modules/leds.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
 var hardware = require(CORE_PATH + 'modules/hardware.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
-var service = require(CORE_PATH + 'modules/service.js');
+// var service = require(CORE_PATH + 'modules/service.js');
 var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 var fip = require(CORE_PATH + 'modules/fip.js');
 var jukebox = require(CORE_PATH + 'modules/jukebox.js');
@@ -77,8 +77,8 @@ function cocorico(mode){
 			}, 9000);
 			setTimeout(function(){
 				//order.emit('weather', 'morning weather');
-				// tts.speak({lg: 'fr', msg: 'Toujours pas de meteo, il faut faire quelque chose !'});
-				service.weather();
+				tts.speak({lg: 'fr', msg: 'Toujours pas de meteo, il faut faire quelque chose !'});
+				//service.weather();
 				//voiceMail.checkVoiceMail();
 			}, 20000);
 			setTimeout(function(){

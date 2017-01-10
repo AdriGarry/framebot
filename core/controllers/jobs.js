@@ -71,7 +71,7 @@ function setInteractJobs(){
 
 	new CronJob('13 15,45 17-22 * * *', function(){
 		// tts.randomConversation(); // Conversations aleatoires dans la journee
-		utils.randomAction();
+		service.randomAction();
 	}, null, true, 'Europe/Paris'); // Signal des 1/4 d'heure, entre 17h et 23h
 	console.log('Interact jobs initialised');
 };
