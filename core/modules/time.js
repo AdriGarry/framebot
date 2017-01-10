@@ -59,7 +59,7 @@ function cocorico(mode){
 		spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'MorningSea']);
 		alarmDelay = 2*62*1000;
 	}
-	console.log('alarmDelay', alarmDelay);
+	console.debug('alarmDelay', alarmDelay);
 
 	setTimeout(function(){
 		console.log('COCORICO !!');
@@ -70,18 +70,20 @@ function cocorico(mode){
 			var voiceMailMsg = voiceMail.areThereAnyMessages();
 			console.log('voiceMailMsg', voiceMailMsg);
 			setTimeout(function(){
+				now();
+			}, 4000);
+			setTimeout(function(){
 				today();
-			}, 5000);
+			}, 9000);
 			setTimeout(function(){
 				//order.emit('weather', 'morning weather');
-				tts.speak({lg: 'fr', msg: 'Toujours pas de meteo, il faut faire quelque chose !'});
-				//service.weather();
+				// tts.speak({lg: 'fr', msg: 'Toujours pas de meteo, il faut faire quelque chose !'});
+				service.weather();
 				//voiceMail.checkVoiceMail();
-			}, 16000);
+			}, 20000);
 			setTimeout(function(){
-				// tts.speak({voice: 'espeak', lg:'fr', msg:'Allez hop, un peu de musique pour commencer la journer!'});
 				voiceMail.checkVoiceMail();
-			}, voiceMailMsg*3000+16000);
+			}, voiceMailMsg*3000+20000);
 			setTimeout(function(){
 				utils.testConnexion(function(connexion){
 					if(connexion == true){
@@ -90,7 +92,7 @@ function cocorico(mode){
 						jukebox.loop();
 					}
 				});
-			}, voiceMailMsg*3000+26000);
+			}, voiceMailMsg*3000+36000);
 		// }, 55*1000); // ANNIF
 	}, alarmDelay);
 };
