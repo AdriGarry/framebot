@@ -38,7 +38,6 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 		}).then(function successCallback(res){
 			if(res.data != null){
 				callback(res.data);
-				console.log('res.data', res.data);
 			}
 			//return res;
 		}, function errorCallback(res){

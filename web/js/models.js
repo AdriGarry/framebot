@@ -35,6 +35,9 @@ app.factory('Tile', function(){
 			switch(element){
 				case 'mode':
 					// if(!isNaN(this.value)){
+					console.log('this.value.switch', this.value.switch);
+					if(this.value.switch){
+					}
 					if(this.value.mode == 'Sleep'){
 						html = '<i class="mainInfo fa fa-moon-o"></i>';
 						if(this.value.param < 255) html += '&nbsp;' + this.value.param;

@@ -39,14 +39,15 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $t
 			},
 			submit: function(){
 				if($scope.dashboard.ttsTile.msg != ''){
-					$scope.showToast($scope.dashboard.ttsTile.msg);
-					// LIMITER / TRONQUER la longueur du message !!! WWWWWWWW => 200
-
 					UIService.sendTTS($scope.dashboard.ttsTile, function(callback){
-						if(callback.status != 200) $scope.dashboard.ttsTile.error = 'UNE ERREUR EST SURVENUE';
-						// console.log(callback);
+						if(callback.status != 200){
+							$scope.dashboard.ttsTile.error = 'UNE ERREUR EST SURVENUE';
+						}
+						else{
+							$scope.showToast($scope.dashboard.ttsTile.msg);// LIMITER / TRONQUER la longueur du message !!! WWWWWWWW => 200
+							$scope.dashboard.ttsTile.msg = ''; $scope.dashboard.ttsTile.error = ''; // Reinit TTS
+						}
 					});
-					$scope.dashboard.ttsTile.msg = ''; $scope.dashboard.ttsTile.error = ''; // Reinit TTS
 				}
 			}
 		},
@@ -77,7 +78,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $t
 				$timeout(function(){$scope.dashboard.loading = false;}, 100);
 			});
 		// }
-	}
+	};
 
 	/** Function to reloadUI */
 	$scope.reloadUI = function(){
