@@ -10,7 +10,7 @@ var leds = require(CORE_PATH + 'modules/leds.js');
 var hardware = require(CORE_PATH + 'modules/hardware.js');
 //var utils = require(CORE_PATH + 'modules/utils.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
-//var time = require(CORE_PATH + 'modules/time.js');
+var time = require(CORE_PATH + 'modules/time.js');
 var exclamation = require(CORE_PATH + 'modules/exclamation.js');
 
 //var order = require(CORE_PATH + 'controllers/orders.js');

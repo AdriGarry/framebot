@@ -36,7 +36,10 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 			url: CONSTANTS.URL_ODI + uri /*+ params*/,
 			data: obj.params
 		}).then(function successCallback(res){
-			if(res.data != null) callback(res.data);
+			if(res.data != null){
+				callback(res.data);
+				console.log('res.data', res.data);
+			}
 			//return res;
 		}, function errorCallback(res){
 			console.error(res);

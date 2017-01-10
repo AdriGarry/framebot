@@ -148,14 +148,15 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $t
 				$scope.showDialog({label: button.label, data: 'ERROR !'});
 			});
 		}else{
-			$scope.showToast(button.label);
-			UIService.sendCommand(button);
+			UIService.sendCommand(button, function(data){
+				$scope.showToast(button.label);
+			});
 		}
 	};
 
 	/** Function on click on Tile **/
 	$scope.tileAction = function(tile){
-		console.log('tile', tile);
+		//console.log('tile', tile);
 		if($scope.irda){
 			if(tile.actionList.length>1){
 				$scope.openBottomSheet(tile.actionList);
