@@ -37,12 +37,15 @@ app.factory('Tile', function(){
 					// if(!isNaN(this.value)){
 					console.log('this.value.switch', this.value.switch);
 					if(this.value.switch){
+						html = '<i class="modeSwitch fa fa-rotate-270 fa-2x fa-toggle-on"></i>';
+					}else{
+						html = '<i class="modeSwitch fa fa-rotate-270 fa-2x fa-toggle-off"></i>';
 					}
 					if(this.value.mode == 'Sleep'){
-						html = '<i class="mainInfo fa fa-moon-o"></i>';
+						html += '<i class="mainInfo fa fa-moon-o"></i>';
 						if(this.value.param < 255) html += '&nbsp;' + this.value.param;
 					}else{
-						html = '<span class="mode">' + this.value.mode
+						html += '<span class="mode">' + this.value.mode
 						+ '<small><span class="desktopOnlyInline">since </span>' + this.value.param + '</small></span>';
 					}
 					break;
