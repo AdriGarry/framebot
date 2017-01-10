@@ -71,7 +71,8 @@
 		<div class="logs" data-ng-dblclick="refreshLog()">
 			<i class="debugLog fa fa-circle" data-ng-if="dashboard.debug" title="DEBUG mode"></i>
 			<ul><!-- class="fakeScroll"-->
-				<li data-ng-repeat="logLine in logData track by $index" data-ng-bind-html="toHtml(logLine)">{{logLine}}</li><!-- data-ng-bind-html="toHtml(logLine)"-->
+				<!-- <li data-ng-repeat="logLine in logData track by $index" data-ng-bind-html="toHtml(logLine)"></li> -->
+				<li data-ng-repeat="logLine in logData track by $index" data-ng-bind-html="toHtml(logLine | formatLog)"></li>
 				<a id="bottomLogs"></a>
 			</ul>
 			<md-progress-circular md-diameter="150" data-ng-hide="logData"></md-progress-circular>
