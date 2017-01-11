@@ -34,11 +34,11 @@ app.factory('Tile', function(){
 			var html = '';
 			switch(element){
 				case 'mode':
-					if(this.value.switch){
+					/*if(this.value.switch){
 						html = '<i class="modeSwitch fa fa-rotate-270 fa-2x fa-toggle-on"></i>';
 					}else{
 						html = '<i class="modeSwitch fa fa-rotate-270 fa-2x fa-toggle-off"></i>';
-					}
+					}*/
 					if(this.value.mode == 'Sleep'){
 						html += '<i class="mainInfo fa fa-moon-o"></i>';
 						if(this.value.param < 255) html += '&nbsp;' + this.value.param;
