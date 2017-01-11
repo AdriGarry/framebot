@@ -108,9 +108,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	};
 	/** Function to refresh logs */
 	$scope.refreshLog = function(){
-		// console.log('refreshing logs');
-		//$scope.logData = undefined;
-		// var ipRegex = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 		UIService.updateLogs(function(logs){
 			/*logs = logs.replace(/\[([0-9]{1,3}\.){3}([0-9]{1,3})\]/g, function(match, capture){
 				var ip = match.substr(1,match.length-2);
@@ -124,7 +121,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 				return '<span class="timeLog">' + match + '</span>';
 			});*/
 			$scope.logData = logs.split('\n');
-			//$scope.logData = $filter('odiFilterTest')(logs.split('\n')); TO DELETE
 		});
 	};
 
@@ -137,13 +133,13 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 				method: 'GET',
 				url: button.url
 			}).then(function successCallback(res){
-				console.log('res', res);
+				//console.log('res', res);
 				var data = res.data;
-				if(typeof data == 'string'){
+				/*if(typeof data == 'string'){
 					data = $sce.trustAsHtml(res.data.replace(/\n/g,'<br>'));
 				}else{
 					//data = res.data.replace(/\n/g,'<br>');
-				}
+				}*/
 				$scope.showDialog({label: button.label, data: data});
 			}, function errorCallback(res){
 				console.error(res);
@@ -262,6 +258,11 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		$mdDialog.show({
 			controller: DialogController,
 			templateUrl: 'templates/dialog.html',
+			/*template: '<md-dialog><md-dialog-content class="md-dialog-content"><h2 class="md-title">' +
+			modal.label +
+			'</h2><ul><li data-ng-repeat="line in modal.data">' +
+			line +
+			'</li></ul><md-dialog-actions><md-button class="md-raised" data-ng-click="close()">Close</md-button>&nbsp;&nbsp;&nbsp;</md-dialog-actions></md-dialog-content></md-dialog>',*/
 			parent: angular.element(document.body),
 			//targetEvent: ev,
 			clickOutsideToClose:true,

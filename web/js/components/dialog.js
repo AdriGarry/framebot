@@ -1,12 +1,13 @@
 /** mode component */
 
 function DialogController($scope, $mdDialog){
-
+	// console.log('$scope', $scope);
 	$scope.close = function(){
 		$mdDialog.cancel();
 	};
 }
-
+// items) {
+//         $scope.items = items;
 
 function AdminDialogController($scope, $mdDialog){
 	$scope.hide = function(){
