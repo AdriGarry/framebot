@@ -231,7 +231,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	if(param) $scope.grant(param);
 
 	$scope.showDialog = function(modal){ // TODO COMPONENT !!
-		console.log('showDialog', modal);
 		$mdDialog.show({
 			controller: DialogController,
 			templateUrl: 'templates/dialog.html',
@@ -240,7 +239,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			},
 			parent: angular.element(document.body),
 			clickOutsideToClose:true,
-			fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints
+			fullscreen: false // Only for -xs, -sm breakpoints
 		});
 	};
 
