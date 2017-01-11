@@ -30,6 +30,7 @@ var admin = require(CORE_PATH + 'modules/admin.js');
 const FILE_REQUEST_HISTORY = LOG_PATH + 'requestHistory.log';
 const FILE_GRANT = DATA_PATH + 'pwd.properties';
 const FILE_VOICEMAIL_HISTORY = LOG_PATH + 'voicemailHistory.json';
+
 const ALLOWED_REQUESTS = ['/config.json', '/voicemailHistory', '/requestHistory'];
 
 var deploy;

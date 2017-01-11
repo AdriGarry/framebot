@@ -128,22 +128,9 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	$scope.action = function(button){
 		if(button.url.indexOf('http://') > -1){
 			//$window.open(button.url);
-			$http({
-				headers: {ui: 'v3'},
-				method: 'GET',
-				url: button.url
-			}).then(function successCallback(res){
-				//console.log('res', res);
-				var data = res.data;
-				/*if(typeof data == 'string'){
-					data = $sce.trustAsHtml(res.data.replace(/\n/g,'<br>'));
-				}else{
-					//data = res.data.replace(/\n/g,'<br>');
-				}*/
+			UIService.getRequest(button.url, function(data){
+				//console.log('data', data);
 				$scope.showDialog({label: button.label, data: data});
-			}, function errorCallback(res){
-				console.error(res);
-				$scope.showDialog({label: button.label, data: 'ERROR !'});
 			});
 		}else{
 			UIService.sendCommand(button, function(data){
@@ -199,11 +186,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		});
 	};*/
 
-	/** Function to inject HTML code */
-	$scope.toHtml = function(html){
-		return $sce.trustAsHtml(html);
-	};
-
 	/** Start auto update Dashboard (10s) **/
 	$scope.refreshDashboard();
 	$interval(function(){
@@ -228,10 +210,16 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		});
 	}
 
+	/** Function to inject HTML code */
+	$scope.toHtml = function(html){
+		return $sce.trustAsHtml(html);
+	};
+
 	/** Function to expand Tile */
 	$scope.expandTile = function(obj){
 		if(obj.hasOwnProperty('rowspan')) obj.rowspan = 2;
 	};
+
 	/** Function to reduce Tile */
 	$scope.reduceTile = function(obj){
 		console.log(obj);
@@ -243,32 +231,17 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	if(param) $scope.grant(param);
 
 	$scope.showDialog = function(modal){ // TODO COMPONENT !!
-		/*$mdDialog.show(
-			$mdDialog.alert()
-			.parent(angular.element(document.querySelector('#popupContainer')))
-			.clickOutsideToClose(true)
-			.title(modal.label)
-			.textContent(modal.data)
-			.ariaLabel(modal.label)
-			.ok('Close')
-		);*/
-		console.log('modal', modal);
-		//$scope.modal.label = modal.label;
-		//$scope.modal.data = modal.data;
+		console.log('showDialog', modal);
 		$mdDialog.show({
 			controller: DialogController,
 			templateUrl: 'templates/dialog.html',
-			/*template: '<md-dialog><md-dialog-content class="md-dialog-content"><h2 class="md-title">' +
-			modal.label +
-			'</h2><ul><li data-ng-repeat="line in modal.data">' +
-			line +
-			'</li></ul><md-dialog-actions><md-button class="md-raised" data-ng-click="close()">Close</md-button>&nbsp;&nbsp;&nbsp;</md-dialog-actions></md-dialog-content></md-dialog>',*/
+			locals: {
+				modal: modal
+			},
 			parent: angular.element(document.body),
-			//targetEvent: ev,
 			clickOutsideToClose:true,
 			fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints
 		});
-
 	};
 
 	/*function DialogController($scope, $mdDialog){

@@ -3,7 +3,7 @@
 		<h2 class="md-title">{{modal.label}}</h2>
 
 		<ul>
-			<li data-ng-repeat="line in modal.data">{{line}}</li>
+			<li data-ng-repeat="(key, value) in modal.data track by $index">{{key}} {{value}}</li>
 		</ul>
 
 		<md-dialog-actions>

@@ -24,6 +24,25 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 		});
 	};
 
+	/** Function to retreive file from Odi */
+	this.getRequest = function(url, callback){
+		console.log('refreshDashboard()');
+		$http({
+			headers: {ui: 'v3'},
+			method: 'GET',
+			url: url
+		}).then(function successCallback(res){
+			callback(res.data);
+			/*if(typeof data == 'string'){
+				data = $sce.trustAsHtml(res.data.replace(/\n/g,'<br>'));
+			}else{
+				//data = res.data.replace(/\n/g,'<br>');
+			}*/
+		}, function errorCallback(res){
+			console.error(res);
+		});
+	};
+
 	/** Function to send command to Odi **/
 	this.sendCommand = function(obj, callback){
 		console.log('UIService.sendCommand()', obj);
