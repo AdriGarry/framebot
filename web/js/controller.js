@@ -92,6 +92,10 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	$scope.showToast = function(label){
 		$mdToast.show($mdToast.simple().textContent(label).position('top right').hideDelay(1500));
 	};
+	/** Function to pop down error toast */
+	$scope.showErrorToast = function(label){
+		$mdToast.show($mdToast.simple().textContent(label).position('top right').hideDelay(2000).toastClass('error'));
+	};
 
 	/** Function to show Logs */
 	function showLogs(){
@@ -136,6 +140,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			UIService.sendCommand(button, function(data){
 				$scope.showToast(button.label);
 			});
+			// TODO test pour showErrorToast
 		}
 	};
 
@@ -243,18 +248,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		});
 	};
 
-	/*function DialogController($scope, $mdDialog){
-		$scope.hide = function(){
-			$mdDialog.hide();
-		};
-		$scope.cancel = function(){
-			$mdDialog.cancel();
-		};
-		$scope.answer = function(answer){
-			$mdDialog.hide(answer);
-		};
-	}*/
-
 	$scope.showAdminDialog = function(ev){ // TODO COMPONENT !!
 		$mdDialog.show({
 			controller: AdminDialogController,
@@ -267,18 +260,5 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			$scope.grant(answer);
 		});
 	};
-
-	// function AdminDialogController($scope, $mdDialog){
-	// 	$scope.hide = function(){
-	// 		$mdDialog.hide();
-	// 	};
-	// 	$scope.cancel = function(){
-	// 		$mdDialog.cancel();
-	// 	};
-	// 	$scope.answer = function(answer){
-	// 		$mdDialog.hide(answer);
-	// 	};
-	// }
-
 
 });

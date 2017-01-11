@@ -139,8 +139,10 @@ md-toast .md-toast-content span{
 	font-size:1.5em;
 }
 md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content{
-	/*background-color:#3f5973;*/
 	background-color:#0097A8;/*#ff6333;*/
+}
+md-toast.error .md-toast-content, md-toast.error .md-toast-content{
+	background-color:rgb(244,81,30);
 }
 
 /*------------------------------ Mute Button ------------------------------- */
