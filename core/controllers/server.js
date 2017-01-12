@@ -66,7 +66,8 @@ function startUI(mode){
 		//method = req.method;
 
 		if(req.connection.remoteAddress.indexOf('192.168') == -1){ // Logging not local requests
-			fs.appendFile(FILE_REQUEST_HISTORY, utils.logTime('D/M h:m:s ') + request + '\r\n', function(err){
+			var newRequest = utils.logTime('D/M h:m:s ') + request + ' [' + req.connection.remoteAddress + ']\r\n';
+			fs.appendFile(FILE_REQUEST_HISTORY, newRequest, function(err){
 				if(err) return console.error(err);
 			});
 		}

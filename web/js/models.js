@@ -44,7 +44,7 @@ app.factory('Tile', function(){
 						if(this.value.param < 255) html += '&nbsp;' + this.value.param;
 					}else{
 						html += '<span class="mode">' + this.value.mode
-						+ '<small><span class="desktopOnlyInline">since </span>' + this.value.param + '</small></span>';
+						+ '<small><span class="desktopOnlyInline"></span>' + this.value.param + '</small></span>';
 					}
 					break;
 				case 'switch':

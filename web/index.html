@@ -47,7 +47,7 @@
 </head>
 <body data-ng-controller="UIController">
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
-		<div class="md-toolbar-tools">
+		<div class="md-toolbar-tools"><!-- TODO component toolbar -->
 			<md-progress-circular md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh" data-ng-click="reloadUI()"></md-progress-circular><!-- onclick="setTimeout(function(){window.location.reload()},300)"-->
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
 				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()"><!--onclick="setTimeout(function(){window.location.reload()},300)"-->
@@ -57,11 +57,16 @@
 			</h1>
 			<span flex></span>
 			<i class="debug fa fa-circle" data-ng-if="dashboard.debug" title="DEBUG mode"></i>&nbsp;
-			<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch><!--data-ng-if="irda"-->
+
+			<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch>&nbsp;<!--data-ng-if="irda"-->
+			<md-button class="md-icon-button" data-ng-if="irda" title="Admin" aria-label="Admin">
+				<i class="fa fa-2x fa-lg fa-wrench"></i>&nbsp;
+			</md-button>
 			<md-button class="md-icon-button" data-ng-click="showAdminDialog($event)" data-ng-class="irda ? 'admin' : ''" title="Admin" aria-label="Admin"><!-- grant()-->
 				<i class="fa fa-2x fa-lg fa-key"></i>
 			</md-button>
 		</div>
+		<md-progress-linear md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''"  data-ng-click="reloadUI()"></md-progress-linear><!--data-ng-show="dashboard.autoRefresh"-->
 	</md-toolbar>
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">

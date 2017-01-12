@@ -53,6 +53,11 @@ md-toolbar.toolbar span[flex] + i{
 	margin:0 2%;
 	/*font-size:1.6em;*/
 }
+
+.md-toolbar-tools{
+	z-index:100;
+}
+
 md-toolbar.toolbar md-progress-circular{
 	position:fixed;
 	width:auto!important;

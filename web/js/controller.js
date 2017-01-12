@@ -150,11 +150,10 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		if($scope.irda){
 			if(tile.actionList.length>1){
 				$scope.openBottomSheet(tile.actionList);
-			// }else if(tile.label == 'Alarms'){
-			// 	console.log('ALARMS...');
-			// 	showTimePicker();
-			}else{
+			}else if(tile.actionList.length==1){
 				$scope.action(tile.actionList[0]);
+			}else{
+				console.log('No action affected.');
 			}
 		}
 	}

@@ -86,7 +86,7 @@ voiceMail.voiceMailFlag();
 if(CONFIG.debug){
 	console.debug('Setting up time out to cancel Debug mode !!');
 	setTimeout(function(){
-		console.debug('>> Canceling debug mode... & Restart !!');
+		console.debug('>> CANCELING DEBUG MODE... & Restart !!');
 		utils.setConfig({debug: !CONFIG.debug}, true);
 	}, 10*60*1000);
 }
