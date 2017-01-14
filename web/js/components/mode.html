@@ -1,15 +1,19 @@
-<i class="fa fa-2x fa-ellipsis-h adminFlag"></i>
-<span data-ng-show="$ctrl.tile.value.mode == 'Sleep'">
-	<i class="mainInfo fa fa-moon-o"></i>&nbsp; {{$ctrl.tile.value.param}}
-</span>
-<span data-ng-show="$ctrl.tile.value.mode == 'Ready'">
-	<span class="switch">
-		<i class="fa fa-rotate-270 fa-2x" data-ng-class="$ctrl.tile.value.switch ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
+<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="teal ng-slide">
+
+	<i class="fa fa-2x fa-ellipsis-h adminFlag"></i>
+	<span data-ng-show="$ctrl.tileData.value.mode == 'Sleep'">
+		<i class="mainInfo fa fa-moon-o"></i>&nbsp; {{$ctrl.tileData.value.param}}
+		{{$ctrl.tileData}}
 	</span>
-	<div class="mode">{{$ctrl.tile.value.mode}}</div>
-	<div class="since">since {{$ctrl.tile.value.param}}</div>
-</span>
-<md-grid-tile-footer><h3>{{$ctrl.tile.label}}</h3></md-grid-tile-footer>
+	<span data-ng-show="$ctrl.tileData.value.mode == 'Ready'">
+		<span class="switch">
+			<i class="fa fa-rotate-270 fa-2x" data-ng-class="$ctrl.tileData.value.switch ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
+		</span>
+		<div class="mode">{{$ctrl.tileData.value.mode}}</div>
+		<div class="since">since {{$ctrl.tileData.value.param}}</div>
+	</span>
+	<md-grid-tile-footer><h3>{{$ctrl.tile.label}}</h3></md-grid-tile-footer>
+</md-grid-tile>
 
 <style type="text/css">
 mode{

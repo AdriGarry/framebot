@@ -49,8 +49,6 @@
 <body data-ng-controller="UIController">
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools"><!-- TODO component toolbar -->
-			<!--<md-progress-circular md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh" data-ng-click="reloadUI()"></md-progress-circular>-->
-			<!-- onclick="setTimeout(function(){window.location.reload()},300)"-->
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
 				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()"><!--onclick="setTimeout(function(){window.location.reload()},300)"-->
 			<!--<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" data-ng-show="dashboard.loading">-->
@@ -120,9 +118,9 @@
 					<md-grid-tile md-rowspan="dashboard.ttsTile" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="grey ng-slide">
 						<tts data-tile="dashboard.ttsTile"></tts>
 					</md-grid-tile>
-					<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="teal ng-slide">
-						<mode data-tile="dashboard.tileList.mode"></mode>
-					</md-grid-tile>
+					
+					<mode data-tile="dashboard2.tileList.mode"></mode>
+					
 					<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="blueGrey ng-slide">
 						<alarm data-tile="dashboard.tileList.alarms"></alarm>
 					</md-grid-tile>

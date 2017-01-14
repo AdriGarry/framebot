@@ -1,14 +1,34 @@
 /** mode component */
 app.component('mode', {
 	bindings: {
-		tile: '=',
+		tile: '=', // TODO revoir le binding : unidirectionnel?
 	},
 	templateUrl: '/js/components/mode.html',
-	controller: function($scope, DefaultTile){
-		$scope.tile = this.tile;
-		console.log('$scope.tile', $scope.tile);
-		$scope.defaultTile = new DefaultTile(1, 'Mode', 'teal', 1, 1, 'custom', '-',
-			[{label: 'Reset', icon: 'retweet', url: '/resetConfig'},{label: '!Debug', icon: 'terminal', url: '/toggleDebug'},{label: 'Sleep', icon: 'moon-o', url: '/sleep'},{label: 'Restart', icon: 'bolt', url: '/odi'}]);//.init($scope.tile);
-		console.log('$scope.defaultTile', $scope.defaultTile);
+	controller: function(DefaultTile){
+		//function Tile(id, label, color, rowspan, colspan, viewMode, value, actionList){
+		var tileParams = {
+			id: 1,
+			label: 'Mode 13',
+			color: 'teal',
+			rowspan: 1,
+			colspan: 2,
+			viewMode: 'custom',
+			value: '-',
+			actionList:[{label: 'Reset', icon: 'retweet', url: '/resetConfig'},{label: '!Debug', icon: 'terminal', url: '/toggleDebug'},{label: 'Sleep', icon: 'moon-o', url: '/sleep'},{label: 'Restart', icon: 'bolt', url: '/odi'}]
+		};
+
+		this.tileData = this.tile.value;
+		this.tile = new DefaultTile(tileParams);
+		console.log('this.tile', this.tile);
+		console.log('this.tileData', this.tileData);
+
+		// $scope.tile = new DefaultTile(1, 'Mode', 'teal', 1, 1, 'custom', '-',
+		// 	[{label: 'Reset', icon: 'retweet', url: '/resetConfig'},{label: '!Debug', icon: 'terminal', url: '/toggleDebug'},{label: 'Sleep', icon: 'moon-o', url: '/sleep'},{label: 'Restart', icon: 'bolt', url: '/odi'}]);
+
+
+		/** Overwrite tile action */
+		this.action = function(){
+			console.log('Overwrite tile action');
+		};
 	}
 });
