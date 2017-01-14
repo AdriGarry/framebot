@@ -31,6 +31,7 @@
 	<script src="js/services.js"></script>
 	<!--<script src="js/directives.js"></script>-->
 	<script src="js/models.js"></script>
+	<script src="js/Tile.js"></script>
 	<script src="js/components/dialog.js"></script>
 	<script src="js/components/tts.js"></script>
 	<script src="js/components/mode.js"></script>
@@ -48,7 +49,8 @@
 <body data-ng-controller="UIController">
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools"><!-- TODO component toolbar -->
-			<md-progress-circular md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh" data-ng-click="reloadUI()"></md-progress-circular><!-- onclick="setTimeout(function(){window.location.reload()},300)"-->
+			<!--<md-progress-circular md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh" data-ng-click="reloadUI()"></md-progress-circular>-->
+			<!-- onclick="setTimeout(function(){window.location.reload()},300)"-->
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
 				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()"><!--onclick="setTimeout(function(){window.location.reload()},300)"-->
 			<!--<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" data-ng-show="dashboard.loading">-->
