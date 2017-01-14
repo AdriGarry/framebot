@@ -426,7 +426,7 @@ function startUI(mode){
 			params = req.query;
 			// console.log(params);
 			if(params['voice'] && params['lg'] && params['msg']){
-				voiceMail.addVoiceMailMessage(params['lg'], params['msg'] + params['voice']);
+				voiceMail.addVoiceMailMessage({lg: params['lg'],voice: params['voice'], msg: params['msg']});
 				res.writeHead(200);res.end();
 			}else{
 				console.error('Error while saving voiceMail message : ');

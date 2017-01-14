@@ -10,8 +10,11 @@ global.WEB_PATH = '/home/pi/odi/web/';
 global.CONFIG = require(CONFIG_FILE);
 
 /** Debug Mode */
-if(CONFIG.debug) console.debug = console.log;
-else console.debug = function(){};
+if(CONFIG.debug) console.debug = function(o){console.log('\u2022 ' + o);}
+else console.debug = function(o){};
+
+/*if(CONFIG.debug) console.debug = console.log;
+else console.debug = function(){};*/
 console.debug('\n---------------------\n', '-> ->  DEBUG MODE !!');
 
 var spawn = require('child_process').spawn;

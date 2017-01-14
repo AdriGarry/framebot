@@ -5,7 +5,7 @@ app.component('tts', {
 	},
 	templateUrl: '/js/components/tts.html',
 	controller: function(){
-		console.log('TTS_ this.tile', this.tile);
+		//console.log('TTS_ this.tile', this.tile);
 		/** Function to expand Tile */
 		this.expandTile = function(obj){
 			if(obj.hasOwnProperty('rowspan')) obj.rowspan = 2;

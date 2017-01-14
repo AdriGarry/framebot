@@ -136,29 +136,25 @@ function getJsonFileContent(filePath, callback){
 };
 
 /** Function to append object in JSON file */
-var fileData;
 function appendJsonFile(filePath, obj, callback){
 	console.debug('appendJsonFile() ', filePath, obj);
+	var fileData;
 	fs.exists(filePath, function(exists){
 		if(exists){
 			console.debug("Yes file exists");
-			fs.readFile(filePath, function(err, data){
+			fs.readFile(filePath, 'utf8', function(err, data){
 				if(err) console.log(err);
 				else{
 					fileData = JSON.parse(data);
-					console.debug('obj', obj);
-					console.debug('fileData', fileData);
 					fileData.push(obj);
 					fileData = JSON.stringify(fileData, null, 2).replace(/\\/g, "").replace(/\"{/g, "{").replace(/\}"/g, "}");
-					console.debug(fileData);
+					console.debug('fileData', fileData);
 					fs.writeFile(filePath, fileData);
 				}
 			});
 		}else{
 			console.debug("File not exists")
 			fileData = [];
-			console.debug('obj', obj);
-			console.debug('fileData', fileData);
 			fileData.push(obj);
 			fileData = JSON.stringify(fileData, null, 2).replace(/\\/g, "").replace(/\"{/g, "{").replace(/\}"/g, "}");
 			console.debug(fileData);

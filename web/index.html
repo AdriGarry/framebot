@@ -66,7 +66,7 @@
 				<i class="fa fa-2x fa-lg fa-key"></i>
 			</md-button>
 		</div>
-		<md-progress-linear md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''"  data-ng-click="reloadUI()"></md-progress-linear><!--data-ng-show="dashboard.autoRefresh"-->
+		<md-progress-linear md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh"></md-progress-linear><!--data-ng-show="dashboard.autoRefresh"-->
 	</md-toolbar>
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
@@ -112,7 +112,7 @@
 
 			<md-progress-circular md-diameter="150" data-ng-show="loading"></md-progress-circular>
 
-			<!--<div class="dashboard" data-ng-if="irda">
+			<div class="dashboard" data-ng-if="irda">
 				<md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
 					md-row-height="4:3" md-gutter="12px" class="ng-slide" data-ng-class="irda? 'pointer' : ''">
 					<md-grid-tile md-rowspan="dashboard.ttsTile" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="grey ng-slide">
@@ -126,7 +126,7 @@
 					</md-grid-tile>
 				</md-grid-list>
 			</div>
-			<br>-->
+			<br>
 
 			<div data-ng-include src="'templates/dashboard.html'" data-ng-hide="loading" data-ng-class="loading ? '' : 'ng-slide'"></div>
 

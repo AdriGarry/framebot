@@ -12,6 +12,8 @@ then
 	echo "Creating Log file"
 fi
 
+# DELETE CONF FILE
+sudo rm /home/pi/odi/conf.json
 
 # TEST IF CONF FILE EXISTS
 if [ ! -f /home/pi/odi/conf.json ];

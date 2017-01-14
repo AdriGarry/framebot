@@ -10,9 +10,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 			headers: {
 				'Content-Type': 'application/json',
 				'Access-Control-Allow-Origin': 'http://adrigarry.com',
-				/*'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-				'Access-Control-Allow-Headers':'X-Requested-With',*/
-				ui: 'v3'
+				'ui': 'v3'
 			},
 			method: 'GET',
 			url: CONSTANTS.URL_ODI + '/dashboard'
@@ -33,11 +31,6 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 			url: url
 		}).then(function successCallback(res){
 			callback(res.data);
-			/*if(typeof data == 'string'){
-				data = $sce.trustAsHtml(res.data.replace(/\n/g,'<br>'));
-			}else{
-				//data = res.data.replace(/\n/g,'<br>');
-			}*/
 		}, function errorCallback(res){
 			console.error(res);
 		});
