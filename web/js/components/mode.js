@@ -11,13 +11,13 @@ app.component('mode', {
 			label: 'Mode 13',
 			color: 'teal',
 			rowspan: 1,
-			colspan: 2,
+			colspan: 1,
 			viewMode: 'custom',
 			value: '-',
 			actionList:[{label: 'Reset', icon: 'retweet', url: '/resetConfig'},{label: '!Debug', icon: 'terminal', url: '/toggleDebug'},{label: 'Sleep', icon: 'moon-o', url: '/sleep'},{label: 'Restart', icon: 'bolt', url: '/odi'}]
 		};
 
-		this.tileData = this.tile.value;
+		//this.tileData = this.tile.value;
 		this.tile = new DefaultTile(tileParams);
 		console.log('this.tile', this.tile);
 		console.log('this.tileData', this.tileData);

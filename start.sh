@@ -33,4 +33,4 @@ then
 	echo "Creating tmp file"
 fi
 
-#sudo node /home/pi/odi/core/master.js 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &
+sudo node /home/pi/odi/core/master.js 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &

@@ -51,53 +51,8 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 				}
 			}
 		},
-		tileList: UIService.initDashboardTiles
-	};
-
-	$scope.dashboard2 = {
-		autoRefresh: true,
-		loopInterval: 0,
-		loading: false,
-		ttsTile: {
-			label: 'TTS - Voice synthesizing',
-			color: 'grey',/*lightBlue*/
-			rowspan : 1,
-			colspan: 3,
-			voice: 'google',
-			lg: 'fr',
-			msg: '',
-			voicemail: false,
-			error: '',
-			conf: {
-				languageList: [{code: 'fr', label: 'French'}, {code: 'en', label: 'English'}, {code: 'ru', label: 'Russian'},
-					{code: 'es', label: 'Spanish'}, {code: 'it', label: 'Italian'}, {code: 'de', label: 'German'}],
-				voiceList: [{code: ':3', label: 'Nice voice'}, {code: ':1', label: 'Robot voice'}]
-			},
-			cleanText: function(){
-				var message = $scope.dashboard.ttsTile.msg || '';
-				message = message.replace(/[àâ]/g,'a');
-				message = message.replace(/[ç]/g,'c');
-				message = message.replace(/[èéêë]/g,'e');
-				message = message.replace(/[îï]/g,'i');
-				message = message.replace(/[ôóö]/g,'o');
-				message = message.replace(/[ù]/g,'u');
-				$scope.dashboard.ttsTile.msg = message;
-			},
-			submit: function(){
-				if($scope.dashboard.ttsTile.msg != ''){
-					UIService.sendTTS($scope.dashboard.ttsTile, function(callback){
-						if(callback.status != 200){
-							$scope.dashboard.ttsTile.error = 'UNE ERREUR EST SURVENUE';
-						}
-						else{
-							$scope.showToast($scope.dashboard.ttsTile.msg);// LIMITER / TRONQUER la longueur du message !!! WWWWWWWW => 200
-							$scope.dashboard.ttsTile.msg = ''; $scope.dashboard.ttsTile.error = ''; // Reinit TTS
-						}
-					});
-				}
-			}
-		},
-		tileList: UIService.initDashboardTiles
+		tileList: UIService.initDashboardTiles,
+		runningData: null
 	};
 
 	/** Function to refresh Dashboard **/
@@ -110,22 +65,23 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 					switch(key){
 						case 'debug':
 							$scope.dashboard.debug = data.debug.value;
-							$scope.dashboard2.debug = data.debug.value;
+							//$scope.dashboard2.debug = data.debug.value;
 						break;
 						case 'version':
 							$scope.dashboard.version = data.version.value;
-							$scope.dashboard2.version = data.version.value;
+							//$scope.dashboard2.version = data.version.value;
 						break;
 						default:
+							console.log('data', data, 'data[' + key + ']', data[key]);
 							$scope.dashboard.tileList[key].value = data[key].value;
-							$scope.dashboard2.tileList[key].value = data[key].value;
-							//$scope.dashboard.tileList[key].value = data[key].value;
+							// $scope.dashboard2.tileList[key].value = data[key].value;
 							$scope.dashboard.tileList[key].active = data[key].active;
-							$scope.dashboard2.tileList[key].active = data[key].active;
+							// $scope.dashboard2.tileList[key].active = data[key].active;
 							$scope.dashboard.tileList[key].bindHTML(key);
-							// $scope.dashboard2.tileList[key].bindHTML(key);
 					}
 				});
+				$scope.dashboard.runningData = data;
+				console.log('$scope.dashboard.runningData', $scope.dashboard.runningData);
 				$timeout(function(){$scope.dashboard.loading = false;}, 100);
 			});
 		// }
