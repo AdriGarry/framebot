@@ -12,8 +12,11 @@ then
 	echo "Creating Log file"
 fi
 
-# DELETE CONF FILE
-sudo rm /home/pi/odi/conf.json
+# TEST IF CONF FILE IS EMPTY, THEN REINIT
+if [ ! -s /home/pi/odi/conf.json ];
+then
+	sudo rm /home/pi/odi/conf.json
+fi
 
 # TEST IF CONF FILE EXISTS
 if [ ! -f /home/pi/odi/conf.json ];
@@ -30,4 +33,4 @@ then
 	echo "Creating tmp file"
 fi
 
-sudo node /home/pi/odi/core/master.js 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &
+#sudo node /home/pi/odi/core/master.js 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &
