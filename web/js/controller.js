@@ -61,28 +61,24 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			console.log('refreshDashboard()');
 			$scope.dashboard.loading = true;
 			UIService.refreshDashboard(function(data){
+				console.log('data', data);
 				angular.forEach(data, function(tile, key){
 					switch(key){
 						case 'debug':
 							$scope.dashboard.debug = data.debug.value;
-							//$scope.dashboard2.debug = data.debug.value;
 						break;
 						case 'version':
 							$scope.dashboard.version = data.version.value;
-							//$scope.dashboard2.version = data.version.value;
 						break;
 						default:
-							console.log('data', data, 'data[' + key + ']', data[key]);
 							$scope.dashboard.tileList[key].value = data[key].value;
-							// $scope.dashboard2.tileList[key].value = data[key].value;
 							$scope.dashboard.tileList[key].active = data[key].active;
-							// $scope.dashboard2.tileList[key].active = data[key].active;
 							$scope.dashboard.tileList[key].bindHTML(key);
 					}
 				});
 				$scope.dashboard.runningData = data;
 				console.log('$scope.dashboard.runningData', $scope.dashboard.runningData);
-				$timeout(function(){$scope.dashboard.loading = false;}, 100);
+				$timeout(function(){$scope.dashboard.loading = false;}, 100); // supprimer la durée du timeout ?
 			});
 		// }
 	};
@@ -268,3 +264,38 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	};
 
 });
+
+function DialogController($scope, $mdDialog, modal){
+
+	$scope.modal = modal;
+	//console.log('$scope.modal.data', $scope.modal.data);
+	if(typeof $scope.modal.data == 'string'){
+		$scope.modal.data = $scope.modal.data.split('\n');
+	}
+
+	/** Function to test if number */
+	$scope.isNumber = angular.isNumber;
+
+	/** Function to close modal */
+	$scope.close = function(){
+		$mdDialog.cancel();
+	};
+}
+
+function AdminDialogController($scope, $mdDialog){
+
+	/** Function to close modal */
+	$scope.hide = function(){
+		$mdDialog.hide();
+	};
+
+	/** Function to close modal */
+	$scope.cancel = function(){
+		$mdDialog.cancel();
+	};
+
+	/** Function to submit modal */
+	$scope.answer = function(answer){
+		$mdDialog.hide(answer);
+	};
+}

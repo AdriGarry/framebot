@@ -32,10 +32,10 @@
 	<!--<script src="js/directives.js"></script>-->
 	<script src="js/models.js"></script>
 	<script src="js/Tile.js"></script>
-	<script src="js/components/dialog.js"></script>
-	<script src="js/components/tts.js"></script>
+	<!--<script src="js/components/dialog.js"></script>-->
 	<script src="js/components/mode.js"></script>
-	<script src="js/components/alarm.js"></script>
+	<!--<script src="js/components/tts.js"></script>
+	<script src="js/components/alarm.js"></script>-->
 
 	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
 	<link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
@@ -112,7 +112,15 @@
 
 			<md-progress-circular md-diameter="150" data-ng-show="loading"></md-progress-circular>
 
-			<div class="dashboard" data-ng-if="irda">
+			<br>
+			<div class="dashboard">
+				<mode data-tile="dashboard.runningData.mode"></mode>
+				<mode data-tile="dashboard.runningData.mode"></mode>
+				<mode data-tile="dashboard.runningData.mode"></mode>
+				<mode data-tile="dashboard.runningData.mode"></mode>
+			</div>
+			<br>
+			<!-- <div class="dashboard" data-ng-if="irda">
 				<md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
 					md-row-height="4:3" md-gutter="12px" class="ng-slide" data-ng-class="irda? 'pointer' : ''">
 					<md-grid-tile md-rowspan="dashboard.ttsTile" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="grey ng-slide">
@@ -126,7 +134,7 @@
 					</md-grid-tile>
 				</md-grid-list>
 			</div>
-			<br>
+			<br> -->
 
 			<div data-ng-include src="'templates/dashboard.html'" data-ng-hide="loading" data-ng-class="loading ? '' : 'ng-slide'"></div>
 

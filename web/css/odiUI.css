@@ -268,12 +268,28 @@ md-content{
 	padding-bottom:0;
 }
 
-.dashboard, div[data-ng-include]{
+/*.dashboardOLD, */div[data-ng-include]{
 	max-width:1000px;/*1000px*/
 	margin:0 auto;
 	background-color:#fff;
 	box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 	padding:8px;
+}
+
+.dashboard{
+	/*display:flex;*/
+	/*flex-direction:row;
+	flex-wrap:space-between;*/
+	max-width:1000px;
+	margin:0 auto;
+	/*text-align:center;*/
+	background-color:#fff;
+	box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+}
+.dashboard > *> *{
+	width:calc(33.33% - 20px);
+	/*max-width:calc(33.33% - 30px);*/
+	min-width:calc(33.33% - 20px);
 }
 
 md-grid-list{

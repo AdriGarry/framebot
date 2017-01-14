@@ -116,7 +116,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 		volume: new Tile(3, 'Volume', 'cyan', 1, 1, CUSTOM, 'normal',
 			[{label: 'Mute', url: '/mute'}]).bindHTML('volume'),
 		voicemail: new Tile(4, 'Voicemail', 'indigo', 1, 1, CUSTOM, 0,
-			[{label: 'Empty voicemail', icon: 'trash-o', url: '/clearVoiceMail'},{label: 'Play voicemail', icon: 'play', url: '/checkVoiceMail'}]).bindHTML('voicemail'),
+			[{label: 'Clear', icon: 'trash-o', url: '/clearVoiceMail'},{label: 'Play', icon: 'play', url: '/checkVoiceMail'}]).bindHTML('voicemail'),
 		exclamation: new Tile(5, 'Exclamation', 'lime', 1, 1, ICON, 'commenting-o',
 			[{label: 'Conversation', icon: 'comments-o', url: '/conversation'},{label: 'TTS', icon: 'commenting-o', url: '/tts?msg=RANDOM'},{label: 'Exclamation', icon: 'bullhorn', url: '/exclamation'},{label: 'Last TTS', icon: 'undo', url: '/lastTTS'}]),
 		jukebox: new Tile(6, 'Jukebox', 'teal', 1, 1, CUSTOM, 'fip',
@@ -142,7 +142,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 		cigales: new Tile(17, 'Cigales', 'lime', 1, 1, ICON, 'bug',
 			[{url: '/cigales'}]),
 		system: new Tile(18, 'System', 'lightGreen', 1, 1, ICON, 'power-off',
-			[{label: 'Shutdown Odi', icon: 'power-off', url: '/shutdown'},{label: 'Reboot Odi', icon: 'refresh', url: '/reboot'}]),
+			[{label: 'Shutdown', icon: 'power-off', url: '/shutdown'},{label: 'Reboot', icon: 'refresh', url: '/reboot'}]),
 		logs: new Tile(16, 'Logs', 'blueGrey', 1, 1, ICON, 'file-text-o',
 			[{label: 'Voicemail History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/voicemailHistory'},{label: 'Request History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/requestHistory'},{label: 'Config', icon: 'sliders', url: 'http://odi.adrigarry.com/config.json'}]),
 		about: new Tile(19, 'About', 'grey', 1, 2, CUSTOM, '', []).bindHTML('about')

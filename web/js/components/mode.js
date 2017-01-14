@@ -17,10 +17,9 @@ app.component('mode', {
 			actionList:[{label: 'Reset', icon: 'retweet', url: '/resetConfig'},{label: '!Debug', icon: 'terminal', url: '/toggleDebug'},{label: 'Sleep', icon: 'moon-o', url: '/sleep'},{label: 'Restart', icon: 'bolt', url: '/odi'}]
 		};
 
-		//this.tileData = this.tile.value;
-		this.tile = new DefaultTile(tileParams);
-		console.log('this.tile', this.tile);
-		console.log('this.tileData', this.tileData);
+		this.tile = new DefaultTile(tileParams); console.log('this.tile', this.tile);
+		this.tileData = this.tile; console.log('this.tileData', this.tileData);
+
 
 		// $scope.tile = new DefaultTile(1, 'Mode', 'teal', 1, 1, 'custom', '-',
 		// 	[{label: 'Reset', icon: 'retweet', url: '/resetConfig'},{label: '!Debug', icon: 'terminal', url: '/toggleDebug'},{label: 'Sleep', icon: 'moon-o', url: '/sleep'},{label: 'Restart', icon: 'bolt', url: '/odi'}]);
