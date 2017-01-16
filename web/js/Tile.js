@@ -2,16 +2,16 @@
 app.factory('DefaultTile', function($mdSidenav, $mdDialog, $mdBottomSheet, UIService){
 	// Tile constructor function
 	function Tile(tile){
-		//console.log(id, label, color, rowspan, colspan, viewMode, value, actionList);
+		//console.log(tile.id, tile.label, tile.color, tile.rowspan, tile.colspan, tile.viewMode, tile.value, tile.actionList);
 		// Basic attributes
 		this.id = tile.id || '';
 		this.label = tile.label || '';
 		this.color = tile.color || '';
-		this.rowspan = tile.rowspan || '';
-		this.colspan = tile.colspan || '';
+		this.rowspan = tile.rowspan || 1;
+		this.colspan = tile.colspan || 1;
 
 		// Info attributes
-		this.value = tile.value;
+		this.value = tile.value || '-';
 		this.viewMode = tile.viewMode; // 'icon' || 'value' || 'custom'
 		this.html = '';
 
