@@ -23,29 +23,6 @@ app.factory('DefaultTile', function($mdSidenav, $mdDialog, $mdBottomSheet, UISer
 		tileAction: defaultTileAction
 	}
 
-	/*function Tile(id, label, color, rowspan, colspan, viewMode, value, actionList){
-		//console.log(id, label, color, rowspan, colspan, viewMode, value, actionList);
-		// Basic attributes
-		this.id = id || '';
-		//this.label = label || '';
-		this.label = '00';
-		this.color = color || '';
-		this.rowspan = rowspan || '';
-		this.colspan = colspan || '';
-
-		// Info attributes
-		this.value = value;
-		this.viewMode = viewMode; // 'icon' || 'value' || 'custom'
-		this.html = '';
-
-		// Action attributes
-		this.actionList = actionList;
-		// Set Tile.value to first Tile.actionList item
-		if(this.actionList.length>0 && !this.actionList[0].hasOwnProperty('label')) this.actionList[0].label = this.label;
-
-		tileAction: defaultTileAction
-	}*/
-
 	/** Function on click on Tile **/
 	function defaultTileAction(){
 		console.log('defaultTileAction');
@@ -108,11 +85,11 @@ app.factory('DefaultTile', function($mdSidenav, $mdDialog, $mdBottomSheet, UISer
 	}
 
 	// Tile object own properties
-	Tile.prototype = {
-		/*onHold: function(element){
+	/*Tile.prototype = {
+		onHold: function(element){
 			console.log('onHold()', element);
-		}*/
-	}
+		}
+	}*/
 	// Return constructor
 	return(Tile);
 });

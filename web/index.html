@@ -49,6 +49,7 @@
 <body data-ng-controller="UIController">
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools"><!-- TODO component toolbar -->
+		<md-progress-circular md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh" data-ng-click="reloadUI()"></md-progress-circular>
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
 				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()"><!--onclick="setTimeout(function(){window.location.reload()},300)"-->
 			<!--<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" data-ng-show="dashboard.loading">-->
@@ -66,7 +67,7 @@
 				<i class="fa fa-2x fa-lg fa-key"></i>
 			</md-button>
 		</div>
-		<md-progress-linear md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh"></md-progress-linear><!--data-ng-show="dashboard.autoRefresh"-->
+		<md-progress-linear md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''"></md-progress-linear><!--data-ng-show="dashboard.autoRefresh"-->
 	</md-toolbar>
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
@@ -113,11 +114,11 @@
 			<md-progress-circular md-diameter="150" data-ng-show="loading"></md-progress-circular>
 
 			<br>
-			<div class="dashboard">
+			<div class="dashboard" data-ng-if="irda">
 				<mode data-tile="dashboard.runningData.mode"></mode>
+				<!-- <mode data-tile="dashboard.runningData.mode"></mode>
 				<mode data-tile="dashboard.runningData.mode"></mode>
-				<mode data-tile="dashboard.runningData.mode"></mode>
-				<mode data-tile="dashboard.runningData.mode"></mode>
+				<mode data-tile="dashboard.runningData.mode"></mode> -->
 			</div>
 			<br>
 			<!-- <div class="dashboard" data-ng-if="irda">
