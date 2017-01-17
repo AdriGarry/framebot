@@ -11,7 +11,7 @@ app.factory('DefaultTile', function($mdSidenav, $mdDialog, $mdBottomSheet, UISer
 		this.colspan = tile.colspan || 1;
 
 		// Info attributes
-		this.value = tile.value || '-';
+		/*this.value = tile.value || '-';*/
 		this.viewMode = tile.viewMode; // 'icon' || 'value' || 'custom'
 		this.html = '';
 

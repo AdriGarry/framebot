@@ -61,7 +61,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			console.log('refreshDashboard()');
 			$scope.dashboard.loading = true;
 			UIService.refreshDashboard(function(data){
-				console.log('data', data);
 				angular.forEach(data, function(tile, key){
 					switch(key){
 						case 'debug':
