@@ -61,7 +61,7 @@
 
 			<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch>&nbsp;<!--data-ng-if="irda"-->
 			<md-button class="md-icon-button" data-ng-if="irda" title="Admin" aria-label="Admin">
-				<i class="fa fa-2x fa-lg fa-wrench"></i>&nbsp;
+				<i class="fa fa-2x fa-lg fa-bars"></i>&nbsp;
 			</md-button>
 			<md-button class="md-icon-button" data-ng-click="showAdminDialog($event)" data-ng-class="irda ? 'admin' : ''" title="Admin" aria-label="Admin"><!-- grant()-->
 				<i class="fa fa-2x fa-lg fa-key"></i>
@@ -101,7 +101,7 @@
 			</md-button>-->
 
 			<md-button data-ng-click="showLogs()" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
-				<i class="fa fa-2x fa-rocket"></i>
+				<i class="fa fa-2x fa-slack"></i>
 			</md-button>
 			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" class="md-fab md-primary md-hue-2 muteButton"
 			title="Mute Odi" aria-label="Mute Odi">
@@ -113,7 +113,7 @@
 
 			<md-progress-circular md-diameter="150" data-ng-show="loading"></md-progress-circular>
 
-			<br>
+			<!--<br>
 			<div class="dashboard" data-ng-if="irda">
 				<mode data="dashboard.runningData.mode"></mode>
 				<mode data="dashboard.runningData.mode"></mode>
@@ -130,7 +130,21 @@
 				<mode data="dashboard.runningData.mode"></mode>
 				<mode data="dashboard.runningData.mode"></mode>
 			</div>
-			<br>
+			<br>-->
+			<!-- <div class="dashboard" data-ng-if="irda">
+				<div class="flex">
+					toto
+				</div>
+				<div class="flex">
+					toto
+				</div>
+				<div class="flex">
+					toto
+				</div>
+				<div class="flex">
+					toto
+				</div>
+			</div> -->
 			<!--<div class="dashboard" data-ng-if="irda">
 				<md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
 					md-row-height="4:3" md-gutter="12px" class="ng-slide" data-ng-class="irda? 'pointer' : ''">

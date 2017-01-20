@@ -117,7 +117,7 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 			[{label: 'Mute', url: '/mute'}]).bindHTML('volume'),
 		voicemail: new Tile(4, 'Voicemail', 'indigo', 1, 1, CUSTOM, 0,
 			[{label: 'Clear', icon: 'trash-o', url: '/clearVoiceMail'},{label: 'Play', icon: 'play', url: '/checkVoiceMail'}]).bindHTML('voicemail'),
-		exclamation: new Tile(5, 'Exclamation', 'lime', 1, 1, ICON, 'commenting-o',
+		exclamation: new Tile(5, 'Exclamation', 'lime', 1, 1, ICON, 'weixin'/*commenting-o*/,
 			[{label: 'Conversation', icon: 'comments-o', url: '/conversation'},{label: 'TTS', icon: 'commenting-o', url: '/tts?msg=RANDOM'},{label: 'Exclamation', icon: 'bullhorn', url: '/exclamation'},{label: 'Last TTS', icon: 'undo', url: '/lastTTS'}]),
 		jukebox: new Tile(6, 'Jukebox', 'teal', 1, 1, CUSTOM, 'fip',
 			[{label: 'Jukebox', icon: 'random', url: '/jukebox'},{label: 'FIP Radio', icon: 'globe', url: '/fip'}]).bindHTML('jukebox'),

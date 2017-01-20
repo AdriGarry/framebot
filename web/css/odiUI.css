@@ -45,6 +45,7 @@ md-toolbar.toolbar{
 	position:fixed;
 	top:0;
 	background-color:#607D8B;/*#2C3E50*/
+	/*z-index:1000;*/
 }
 md-toolbar.toolbar.md-warn{
 	background-color:#F44235!important;
@@ -607,3 +608,15 @@ footer p a:hover{
 		left:auto;
 	}
 }
+
+
+/*.dashboard{
+	flex-wrap:wrap;
+}
+
+.flex{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1 1 50%;
+	flex: 1 1 50%;
+	box-sizing: border-box;
+}*/
