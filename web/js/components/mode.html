@@ -1,9 +1,10 @@
-<md-button class="md-raised" class="teal" title="Mode" data-ng-disabled="false">
+<md-button class="md-raised" flex="1" class="teal" title="Mode" data-ng-disabled="false">
 <!-- <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="teal ng-slide"> -->
 
 	<i class="fa fa-2x fa-ellipsis-h adminFlag"></i>
-	<p>{{$ctrl.tile}}</p>
-	<p>{{$ctrl.tile.data}}</p>
+	<span class="debugObject">{{$ctrl.tile}}<br>
+	<!--{{$ctrl.tile.data}}<br>-->
+	</span>
 	<span data-ng-show="$ctrl.tile.data.value.mode == 'Sleep'">
 		<i class="mainInfo fa fa-moon-o"></i>&nbsp; {{$ctrl.tile.data.value.param}}
 	</span>
@@ -25,10 +26,6 @@ mode{
 }
 button{
 	/*width:25vw;
-	max-width:33%;
-	height:15vw;*/
-	/*display:flex;
-	width:25vw;
 	max-width:33%;
 	height:15vw;*/
 	/*width:30%;

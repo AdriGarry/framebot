@@ -278,20 +278,45 @@ md-content{
 }
 
 .dashboard{
-	/*display:flex;*/
-	/*flex-direction:row;
-	flex-wrap:space-between;*/
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:space-between;/*space-around*/
 	max-width:1000px;
 	margin:0 auto;
-	/*text-align:center;*/
-	/*background-color:#fff;
+	/*flex-direction:row;
+	flex-wrap:space-between;
+	text-align:center;
+	background-color:#fff;
 	box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);*/
 }
-.dashboard > *> *{
-	width:calc(33.33% - 20px);
-	/*max-width:calc(33.33% - 30px);*/
-	min-width:calc(33.33% - 20px);
+/*.dashboard > *{
+	width:31%;
 }
+.dashboard > * > *{
+	width:100%;
+}*/
+
+[flex="1"]{
+	width:32%;
+}
+[flex="2"]{
+	width:66%;
+}
+[flex="3"]{
+	width:100%;
+}
+.dashboard > * > *{
+	width:100%;
+}
+
+.dashboard .debugObject{
+	word-wrap:break-word;
+}
+/*.dashboard > *> *{
+	width:calc(33.33% - 20px);
+	/*max-width:calc(33.33% - 30px);
+	min-width:calc(33.33% - 20px);
+}*/
 
 md-grid-list{
 	/*position:initial;*/
