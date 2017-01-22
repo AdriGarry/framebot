@@ -305,7 +305,7 @@ md-content{
 .dashboard > * > *{
 	width:100%;
 }
-[flex] button{
+[flex] > button, [flex] > button{
 	height:15em;
 	bottom:0;
 	padding:0;
@@ -320,6 +320,7 @@ md-content{
 	margin:0;
 	padding-left:1em;
 	text-align:left;
+	line-height:1.5em;
 	color:#fff;
 	background:rgba(0,0,0,.18);
 

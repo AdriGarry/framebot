@@ -10,10 +10,10 @@ app.component('mode', {
 			id: 1,
 			label: 'Mode 13',
 			color: 'teal',
-			rowspan: 1,
+			/*rowspan: 1,
 			colspan: 1,
 			viewMode: 'custom',
-			//value: '-',
+			//value: '-',*/
 			actionList:[{label: 'Reset', icon: 'retweet', url: '/resetConfig'},{label: '!Debug', icon: 'terminal', url: '/toggleDebug'},{label: 'Sleep', icon: 'moon-o', url: '/sleep'},{label: 'Restart', icon: 'bolt', url: '/odi'}]
 		};
 
