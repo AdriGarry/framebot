@@ -77,7 +77,7 @@ function cocorico(mode){
 			}, 9000);
 			setTimeout(function(){
 				//order.emit('weather', 'morning weather');
-				tts.speak({lg: 'fr', msg: 'Toujours pas de meteo, il faut faire quelque chose !'});
+				tts.speak({voice: 'espeak', lg: 'fr', msg: 'Allez hop, un peu d\exercice !!'});
 				//service.weather();
 				//voiceMail.checkVoiceMail();
 			}, 20000);
