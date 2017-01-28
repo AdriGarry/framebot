@@ -42,11 +42,12 @@ md-progress-circular path{
 	stroke:#90A4AE;
 }
 
+/*------------------------------ TOOLBAR ------------------------------- */
 md-toolbar.toolbar{
 	position:fixed;
 	top:0;
 	background-color:#607D8B;/*#2C3E50*/
-	/*z-index:1000;*/
+	z-index:100;
 }
 md-toolbar.toolbar.md-warn{
 	background-color:#F44235!important;
@@ -168,7 +169,11 @@ button.muteButton:hover{
 /*button.muteButton i.fa{
 	font-size:1em;
 }*/
+
 /*------------------------------ LOGS ------------------------------- */
+md-sidenav-left{
+	z-index:120;
+}
 .logButton{
 	position:fixed;
 	left:1em;
@@ -250,13 +255,9 @@ md-sidenav md-toolbar .tools{
 	font-size:1.5em;
 }
 
-/*------------------------------ SETTINGS ------------------------------- */
-.confButton.md-button.md-primary.md-fab:not(.muteButton){
-	position:fixed;
-	right:1em;
-	bottom:2em;
-	color:rgba(255,255,255,0.87)!important;
-	background-color:#607D8B!important;
+/*------------------------------ MENU ------------------------------- */
+md-sidenav-right{
+	z-index:90;
 }
 
 /*------------------------------ MAIN ------------------------------- */
@@ -284,11 +285,6 @@ md-content{
 	justify-content:space-between;
 	max-width:1000px;
 	margin:4em auto 0;
-	/*flex-direction:row;
-	flex-wrap:space-between;
-	text-align:center;
-	background-color:#fff;
-	box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);*/
 }
 
 /*[flex]{
@@ -310,7 +306,7 @@ md-content{
 	color:#496069;
 }
 [flex] > button{
-	height:15vw;
+	height:18vw;
 	bottom:0;
 	padding:0;
 	font-size:1.2vw;
@@ -332,7 +328,7 @@ md-content{
 }
 [flex] footer h3{
 	margin:0;
-	padding-left:1em;
+	margin-left:1em;
 	text-align:left;
 	line-height:1.5em;
 	color:#fff;
@@ -346,7 +342,7 @@ md-content{
 }
 
 .dashboard [flex] > button{
-	background:rgba(73, 96, 105, 0.05)!important;
+	/*background:rgba(73, 96, 105, 0.05)!important;*/
 }
 [flex] > button[disabled]{
 	opacity:0.5;
@@ -657,10 +653,10 @@ footer p a:hover{
 	figure .mainInfo{
 		font-size:10vw;
 	}
-	md-grid-list md-grid-tile md-grid-tile-footer{
+	md-grid-list md-grid-tile md-grid-tile-footer, [flex] footer{
 		padding:1px 0;
 	}
-	md-grid-list md-grid-tile md-grid-tile-footer h3{
+	md-grid-list md-grid-tile md-grid-tile-footer h3, [flex] footer h3{
 		margin-left:5px;
 		font-size:3vw;
 	}

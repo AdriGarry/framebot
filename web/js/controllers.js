@@ -6,6 +6,8 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	$scope.irda = false;
 
 	$scope.logData;
+	$scope.showLogs = showLogs();
+	$scope.showMenu = showMenu();
 
 	$scope.dashboard = {
 		autoRefresh: true,
@@ -100,7 +102,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 
 	/** Function to show menu */
-	$scope.showMenu = function(){
+	function showMenu(){
 		console.log('showMenu');
 		return function(){
 			$mdSidenav('menu').toggle().then(function(){
@@ -114,7 +116,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	};
 
 	/** Function to show logs */
-	$scope.showLogs = function(){
+	function showLogs(){
 		$scope.logData = undefined;
 		return function(){
 			$mdSidenav('logs').toggle().then(function(){

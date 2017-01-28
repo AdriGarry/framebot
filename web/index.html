@@ -78,7 +78,7 @@
 		<md-progress-linear md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''"></md-progress-linear><!--data-ng-show="dashboard.autoRefresh"-->
 	</md-toolbar>
 
-	<md-sidenav class="md-sidenav-right" md-component-id="menu" md-whiteframe="2">
+	<md-sidenav class="md-sidenav-right" md-component-id="menu" md-whiteframe="1">
 		<div class="menu">
 			MENU HERE !
 		</div>
@@ -87,8 +87,6 @@
 				title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
 			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="irda"
 				title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
-			<!--<md-button class="md-fab md-warn" data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-show="irda"
-				title="Mute" aria-label="Mute"><i class="fa fa-2x fa-bell-slash-o"></i></md-button>-->
 			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" data-ng-hide="irda" title="Hide Logs"
 				aria-label="Hide Logs">
 			<i class="fa fa-2x fa-arrow-left"></i></md-button>
@@ -132,15 +130,12 @@
 			title="Mute Odi" aria-label="Mute Odi">
 				<i class="fa fa-lg fa-bell-slash-o"></i>
 			</md-button>
-			<!--<md-button class="md-fab md-primary md-hue-2 confButton" title="Settings" aria-label="Settings">
-				<i class="fa fa-2x fa-cog"></i>
-			</md-button>-->
 
 			<md-progress-circular md-diameter="150" data-ng-show="loading"></md-progress-circular>
 
 			<br>
-			<div class="dashboard" data-ng-if="irda">
-				<tts data="dashboard.runningData.mode" flex="3"></tts>
+			<div class="dashboard ng-slide" data-ng-if="irda">
+				<tts data="dashboard.runningData.mode" flex="3" data-ng-disabled="dashboard.runningData.mode.data.value"></tts>
 				<mode data="dashboard.runningData.mode" flex="1"></mode>
 				<volume data="dashboard.runningData.volume" flex="1"></volume>
 				<alarm data="dashboard.runningData.alarm" flex="1"></alarm>
