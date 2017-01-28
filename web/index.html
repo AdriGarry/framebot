@@ -26,16 +26,15 @@
 	<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js'></script> -->
 
-	<script src="js/conf.js"></script>
-	<script src="js/controller.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/controllers.js"></script>
 	<script src="js/services.js"></script>
 	<!--<script src="js/directives.js"></script>-->
 	<script src="js/models.js"></script>
 	<script src="js/Tile.js"></script>
-	<!--<script src="js/components/dialog.js"></script>-->
+	<script src="js/components/tts.js"></script>
 	<script src="js/components/mode.js"></script>
-	<!--<script src="js/components/tts.js"></script>
-	<script src="js/components/alarm.js"></script>-->
+	<script src="js/components/volume.js"></script>
 
 	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
 	<link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
@@ -49,7 +48,7 @@
 <body data-ng-controller="UIController">
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools"><!-- TODO component toolbar -->
-		<md-progress-circular md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh" data-ng-click="reloadUI()"></md-progress-circular>
+		<md-progress-circular md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh && 0" data-ng-click="reloadUI()"></md-progress-circular>
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
 				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()"><!--onclick="setTimeout(function(){window.location.reload()},300)"-->
 			<!--<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" data-ng-show="dashboard.loading">-->
@@ -113,50 +112,16 @@
 
 			<md-progress-circular md-diameter="150" data-ng-show="loading"></md-progress-circular>
 
-			<!--<div id="dashboard">
-				<div class="element">Elément 1</div>
-				<div class="element">Elément 2</div>
-				<div class="element">Elément 3</div>
-			</div>-->
 			<br>
 			<div class="dashboard" data-ng-if="irda">
-				<mode data="dashboard.runningData.mode" flex="3"></mode>
+				<tts data="dashboard.runningData.mode" flex="3"></tts>
 				<mode data="dashboard.runningData.mode" flex="1"></mode>
-				<mode data="dashboard.runningData.mode" flex="1"></mode>
+				<volume data="dashboard.runningData.mode" flex="1"></volume>
 				<mode data="dashboard.runningData.mode" flex="1"></mode>
 				<mode data="dashboard.runningData.mode" flex="2"></mode>
 				<mode data="dashboard.runningData.mode" flex="1"></mode>
 			</div>
 			<br>
-			<!-- <div class="dashboard" data-ng-if="irda">
-				<div class="flex">
-					toto
-				</div>
-				<div class="flex">
-					toto
-				</div>
-				<div class="flex">
-					toto
-				</div>
-				<div class="flex">
-					toto
-				</div>
-			</div> -->
-			<!--<div class="dashboard" data-ng-if="irda">
-				<md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
-					md-row-height="4:3" md-gutter="12px" class="ng-slide" data-ng-class="irda? 'pointer' : ''">
-					<md-grid-tile md-rowspan="dashboard.ttsTile" md-colspan="3" md-colspan-sm="3" md-colspan-xs="3" class="grey ng-slide">
-						<tts data-tile="dashboard.ttsTile"></tts>
-					</md-grid-tile>
-					
-					<mode data-tile="dashboard.runningData.mode"></mode>
-					
-					<md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" class="blueGrey ng-slide">
-						<alarm data-tile="dashboard.tileList.alarms"></alarm>
-					</md-grid-tile>
-				</md-grid-list>
-			</div>
-			<br>-->
 
 			<div data-ng-include src="'templates/dashboard.html'" data-ng-hide="loading" data-ng-class="loading ? '' : 'ng-slide'"></div>
 

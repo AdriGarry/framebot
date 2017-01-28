@@ -1,0 +1,22 @@
+<md-button class="md-raised" flex="1" data-ng-class="{{$ctrl.tile.color}}" title="Text to Speech" data-ng-disabled="0">
+<!-- <tile class="md-raised" flex="1" data-ng-class="{{$ctrl.tile.color}}" title="Mode" data-ng-disabled="false"> -->
+
+	<i class="fa fa-2x fa-ellipsis-h adminFlag"></i>
+
+	<span data-ng-if="0" class="debugObject">{{$ctrl.tile}}<br>
+	<!--{{$ctrl.tile.data}}<br>-->
+	</span>
+
+	<div class="mode">
+		<i class="mainInfo fa fa-moon-o" data-ng-show="$ctrl.tile.data.value.mode == 'Sleep'"></i>
+		<div data-ng-show="$ctrl.tile.data.value.mode == 'Ready'">{{$ctrl.tile.data.value.mode}}</div>
+		<div class="param">{{$ctrl.tile.data.value.param}}</div>
+	</div>
+	<footer><h3>{{$ctrl.tile.label}}</h3></footer>
+</md-button>
+<!-- </tile> -->
+
+<style type="text/css">
+tts{
+}
+</style>

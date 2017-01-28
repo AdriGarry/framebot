@@ -2,10 +2,9 @@
 <!-- <tile class="md-raised" flex="1" data-ng-class="{{$ctrl.tile.color}}" title="Mode" data-ng-disabled="false"> -->
 
 	<i class="fa fa-2x fa-ellipsis-h adminFlag"></i>
-	<i class="fa fa-rotate-270 fa-2x switch" data-ng-class="$ctrl.tile.data.value.switch ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
 
-	<span data-ng-if="0" class="debugObject">{{$ctrl.tile}}<br>
-	<!--{{$ctrl.tile.data}}<br>-->
+	<span data-ng-if="0" class="debugObject">{{$ctrl.tile}}
+	<!--<br>{{$ctrl.tile.data}}<br>-->
 	</span>
 
 	<div class="mode">
@@ -14,31 +13,14 @@
 		<div class="param">{{$ctrl.tile.data.value.param}}</div>
 	</div>
 
-	<!-- <span>
-		<i class="mainInfo fa fa-moon-o"></i>&nbsp; {{$ctrl.tile.data.value.param}}
-	</span>
-	<span data-ng-show="$ctrl.tile.data.value.mode == 'Ready'">
-		<div>{{$ctrl.tile.data.value.mode}}</div>
-		<div class="since">{{$ctrl.tile.data.value.param}}</div>
-	</span> -->
 	<footer><h3>{{$ctrl.tile.label}}</h3></footer>
 </md-button>
 <!-- </tile> -->
 
 <style type="text/css">
-mode .switch{
-	position:absolute;
-	top:10%;
-	left:5%;
-	opacity:0.9;
-}
+
 mode .mode{
 	text-align:center;
 	font-size:5vw;
-}
-mode .param{
-	margin-top:1em;
-	font-size:0.3em;
-	line-height:0;
 }
 </style>
