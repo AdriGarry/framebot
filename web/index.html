@@ -38,6 +38,12 @@
 	<script src="js/components/alarm.js"></script>
 	<script src="js/components/cpu.js"></script>
 	<script src="js/components/voicemail.js"></script>
+	<script src="js/components/exclamation.js"></script>
+	<script src="js/components/jukebox.js"></script>
+	<script src="js/components/timer.js"></script>
+	<script src="js/components/time.js"></script>
+	<script src="js/components/date.js"></script>
+	<script src="js/components/weather.js"></script>
 
 	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
 	<link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
@@ -62,15 +68,32 @@
 			<i class="debug fa fa-circle" data-ng-if="dashboard.debug" title="DEBUG mode"></i>&nbsp;
 
 			<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch>&nbsp;<!--data-ng-if="irda"-->
-			<md-button class="md-icon-button" data-ng-if="irda" title="Admin" aria-label="Admin">
-				<i class="fa fa-2x fa-lg fa-bars"></i>&nbsp;
-			</md-button>
 			<md-button class="md-icon-button" data-ng-click="showAdminDialog($event)" data-ng-class="irda ? 'admin' : ''" title="Admin" aria-label="Admin"><!-- grant()-->
 				<i class="fa fa-2x fa-lg fa-key"></i>
+			</md-button>
+			<md-button class="md-icon-button" data-ng-click="showMenu()" title="Menu" aria-label="Menu">
+				<i data-ng-class="{opacityHalf:!irda}" class="fa fa-2x fa-lg fa-bars"></i>&nbsp;
 			</md-button>
 		</div>
 		<md-progress-linear md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''"></md-progress-linear><!--data-ng-show="dashboard.autoRefresh"-->
 	</md-toolbar>
+
+	<md-sidenav class="md-sidenav-right" md-component-id="menu" md-whiteframe="2">
+		<div class="menu">
+			MENU HERE !
+		</div>
+		<div class="tools">
+			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Sleep', url: '/sleep'})" data-ng-show="irda"
+				title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
+			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="irda"
+				title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
+			<!--<md-button class="md-fab md-warn" data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-show="irda"
+				title="Mute" aria-label="Mute"><i class="fa fa-2x fa-bell-slash-o"></i></md-button>-->
+			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" data-ng-hide="irda" title="Hide Logs"
+				aria-label="Hide Logs">
+			<i class="fa fa-2x fa-arrow-left"></i></md-button>
+		</div>
+	</md-sidenav>
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
 		<div class="logs" data-ng-dblclick="refreshLog()">
@@ -123,6 +146,12 @@
 				<alarm data="dashboard.runningData.alarm" flex="1"></alarm>
 				<cpu data="dashboard.runningData.cpu" flex="2"></cpu>
 				<voicemail data="dashboard.runningData.voicemail" flex="1"></voicemail>
+				<exclamation data="dashboard.runningData.exclamation" flex="1"></exclamation>
+				<jukebox data="dashboard.runningData.jukebox" flex="1"></jukebox>
+				<timer data="dashboard.runningData.timer" flex="1"></timer>
+				<time data="dashboard.runningData.time" flex="1"></time>
+				<date data="dashboard.runningData.date" flex="1"></date>
+				<weather data="dashboard.runningData.weather" flex="1"></weather>
 			</div>
 			<br>
 

@@ -6,7 +6,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	$scope.irda = false;
 
 	$scope.logData;
-	$scope.showLogs = showLogs();
 
 	$scope.dashboard = {
 		autoRefresh: true,
@@ -58,7 +57,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	/** Function to refresh Dashboard **/
 	$scope.refreshDashboard = function(){
 		// if($scope.dashboard.autoRefresh){
-			console.log('refreshDashboard()');
+			//console.log('refreshDashboard()');
 			$scope.dashboard.loading = true;
 			UIService.refreshDashboard(function(data){
 				angular.forEach(data, function(tile, key){
@@ -99,8 +98,23 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		$mdToast.show($mdToast.simple().textContent(label).position('top right').hideDelay(2000).toastClass('error'));
 	};
 
-	/** Function to show Logs */
-	function showLogs(){
+
+	/** Function to show menu */
+	$scope.showMenu = function(){
+		console.log('showMenu');
+		return function(){
+			$mdSidenav('menu').toggle().then(function(){
+				/*$scope.refreshLog();*/
+			});
+		}
+	};
+	/** Function to hide menu */
+	$scope.hideMenu = function(){
+		$mdSidenav('menu').close().then(function(){});
+	};
+
+	/** Function to show logs */
+	$scope.showLogs = function(){
 		$scope.logData = undefined;
 		return function(){
 			$mdSidenav('logs').toggle().then(function(){
@@ -108,7 +122,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			});
 		}
 	};
-	/** Function to hide Logs */
+	/** Function to hide logs */
 	$scope.hideLogs = function(){
 		$mdSidenav('logs').close().then(function(){});
 	};

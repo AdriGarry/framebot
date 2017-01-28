@@ -9,7 +9,7 @@ ul{margin:0;padding:0;}
 	margin-right:auto;
 }
 .centerText{text-align:center;}
-
+.opacityHalf{opacity:0.5;}
 /*.md-primary{
 	background-color:#4051B5!important;
 }
@@ -306,6 +306,9 @@ md-content{
 .dashboard > * > *{
 	width:100%;
 }
+.dashboard *{
+	color:#496069;
+}
 [flex] > button{
 	height:15vw;
 	bottom:0;
@@ -315,7 +318,6 @@ md-content{
 	text-transform:none;
 	display:table-cell;
 	vertical-align:middle;
-	background:rgba(0,0,0,0.05)!important;
 }
 
 [flex] > button > .main{
@@ -334,7 +336,7 @@ md-content{
 	text-align:left;
 	line-height:1.5em;
 	color:#fff;
-	background:rgba(0,0,0,.18);
+	/*background:rgba(0,0,0,0.18);*/
 	font-weight:400;
 	font-family:Roboto,Helvetica Neue,sans-serif;
 }
@@ -343,8 +345,20 @@ md-content{
 	word-wrap:break-word;
 }
 
-.dashboard *{
-	color:#496069;
+.dashboard [flex] > button{
+	background:rgba(73, 96, 105, 0.05)!important;
+}
+[flex] > button[disabled]{
+	opacity:0.5;
+}
+[flex] > button footer{
+	background:rgba(73, 96, 105, 0.33)!important;
+}
+[flex] > button.active footer{
+	background:rgba(73, 96, 105, 0.8)!important;
+}
+[flex] > button.inactive{
+	background:rgba(0,0,0,0.05)!important;
 }
 
 

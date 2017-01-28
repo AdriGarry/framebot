@@ -1,19 +1,18 @@
-/** Alarm component */
-app.component('alarm', {
+/** Timer component */
+app.component('timer', {
 	bindings: {
 		data: '<'
 	},
-	templateUrl: '/js/components/alarm.html',
+	templateUrl: '/js/components/timer.html',
 	controller: function(DefaultTile){
 		//function Tile(id, label, color, rowspan, colspan, viewMode, value, actionList){
 		var tileParams = {
-			label: 'Alarms',
-			actionList:[{url: '/alarm', params: {h:8,m:12,test:'bouts'}}]
+			label: 'Timer',
+			actionList:[{label: 'Stop timer', icon: 'stop', url: '/timer?stop'},{label: 'Timer +1', icon: 'plus', url: '/timer'}]
 		};
 
 		this.tile = new DefaultTile(tileParams); //console.log('this.tile', this.tile);
 		this.tile.data = this.data; //console.log('this.tile', this.tile);
-
 
 		/** Overwrite tile action */
 		this.action = function(){
