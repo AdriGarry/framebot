@@ -263,7 +263,7 @@ md-sidenav md-toolbar .tools{
 .main{
 	margin-left:1em;
 	margin-right:1em;
-	padding-top:60px;/*5em*/
+	/*padding-top:60px;*/
 }
 
 md-content{
@@ -283,7 +283,7 @@ md-content{
 	flex-wrap:wrap;
 	justify-content:space-between;
 	max-width:1000px;
-	margin:0 auto;
+	margin:4em auto 0;
 	/*flex-direction:row;
 	flex-wrap:space-between;
 	text-align:center;
@@ -306,16 +306,21 @@ md-content{
 .dashboard > * > *{
 	width:100%;
 }
-[flex] > button, [flex] > button{
+[flex] > button{
 	height:15vw;
 	bottom:0;
 	padding:0;
 	font-size:1.2vw;
 	font-weight:400;
 	text-transform:none;
-	/*max-height:12em;*/
 	display:table-cell;
 	vertical-align:middle;
+	background:rgba(0,0,0,0.05)!important;
+}
+
+[flex] > button > .main{
+	text-align:center;
+	font-size:5vw;
 }
 
 [flex] footer{
@@ -581,7 +586,7 @@ footer p a:hover{
 		margin-left:3.6em;/*4em*/
 	}
 	.main{
-		padding-top:80px;
+		/*padding-top:80px;*/
 	}
 	md-input-container{
 		margin:0;

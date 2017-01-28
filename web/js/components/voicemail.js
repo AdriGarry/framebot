@@ -1,15 +1,14 @@
-/** Volume component */
-app.component('volume', {
+/** mode component */
+app.component('voicemail', {
 	bindings: {
 		data: '<', // TODO revoir le binding : unidirectionnel?
 	},
-	templateUrl: '/js/components/volume.html',
+	templateUrl: '/js/components/voicemail.html',
 	controller: function(DefaultTile){
 		//function Tile(id, label, color, rowspan, colspan, viewMode, value, actionList){
 		var tileParams = {
-			id: 1,
-			label: 'Volume',
-			actionList:[{label: 'Mute', icon: 'retweet', url: '/mute'}]
+			label: 'Voicemail',
+			actionList:[{label: 'Clear', icon: 'trash-o', url: '/clearVoiceMail'},{label: 'Play', icon: 'play', url: '/checkVoiceMail'}]
 		};
 
 		//this.tileData = this.tile; console.log('this.tileData', this.tileData);

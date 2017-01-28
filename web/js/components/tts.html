@@ -1,13 +1,10 @@
-<md-button class="md-raised" flex="1" data-ng-class="{{$ctrl.tile.color}}" title="Text to Speech" data-ng-disabled="0">
+<md-button class="md-raised" flex="1" data-ng-class="$ctrl.tileState" title="Text to Speech" data-ng-disabled="0">
 <!-- <tile class="md-raised" flex="1" data-ng-class="{{$ctrl.tile.color}}" title="Mode" data-ng-disabled="false"> -->
+	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fa fa-2x fa-ellipsis-h adminFlag"></i>
 
-	<i class="fa fa-2x fa-ellipsis-h adminFlag"></i>
+	<span data-ng-if="0" class="debugObject">{{$ctrl.tile}}</span>
 
-	<span data-ng-if="0" class="debugObject">{{$ctrl.tile}}<br>
-	<!--{{$ctrl.tile.data}}<br>-->
-	</span>
-
-	<div class="mode">
+	<div>
 		<i class="mainInfo fa fa-moon-o" data-ng-show="$ctrl.tile.data.value.mode == 'Sleep'"></i>
 		<div data-ng-show="$ctrl.tile.data.value.mode == 'Ready'">{{$ctrl.tile.data.value.mode}}</div>
 		<div class="param">{{$ctrl.tile.data.value.param}}</div>
@@ -17,6 +14,7 @@
 <!-- </tile> -->
 
 <style type="text/css">
-tts{
+tts > button.active{
+	height:28em;
 }
 </style>

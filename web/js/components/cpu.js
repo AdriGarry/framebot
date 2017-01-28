@@ -1,14 +1,14 @@
-/** mode component */
-app.component('tts', {
+/** CPU component */
+app.component('cpu', {
 	bindings: {
 		data: '<', // TODO revoir le binding : unidirectionnel?
 	},
-	templateUrl: '/js/components/tts.html',
+	templateUrl: '/js/components/cpu.html',
 	controller: function(DefaultTile){
+		//function Tile(id, label, color, rowspan, colspan, viewMode, value, actionList){
 		var tileParams = {
-			label: 'TTS - Voice synthesizing',
-			actionList:[],
-			state: 'active' //collapsed
+			label: 'CPU',
+			actionList:[{label: 'Set alarm', icon: 'retweet', url: '/alarm'}] // <-- TODO ...
 		};
 
 		this.tile = new DefaultTile(tileParams); //console.log('this.tile', this.tile);
@@ -17,11 +17,6 @@ app.component('tts', {
 		/** Overwrite tile action */
 		this.action = function(){
 			console.log('Overwrite tile action');
-			toggleTileState();
 		};
-
-		function toggleTileState(){
-			console.log('toggleTileState', toggleTileState);
-		}
 	}
 });

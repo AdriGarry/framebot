@@ -35,6 +35,9 @@
 	<script src="js/components/tts.js"></script>
 	<script src="js/components/mode.js"></script>
 	<script src="js/components/volume.js"></script>
+	<script src="js/components/alarm.js"></script>
+	<script src="js/components/cpu.js"></script>
+	<script src="js/components/voicemail.js"></script>
 
 	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
 	<link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
@@ -116,10 +119,10 @@
 			<div class="dashboard" data-ng-if="irda">
 				<tts data="dashboard.runningData.mode" flex="3"></tts>
 				<mode data="dashboard.runningData.mode" flex="1"></mode>
-				<volume data="dashboard.runningData.mode" flex="1"></volume>
-				<mode data="dashboard.runningData.mode" flex="1"></mode>
-				<mode data="dashboard.runningData.mode" flex="2"></mode>
-				<mode data="dashboard.runningData.mode" flex="1"></mode>
+				<volume data="dashboard.runningData.volume" flex="1"></volume>
+				<alarm data="dashboard.runningData.alarm" flex="1"></alarm>
+				<cpu data="dashboard.runningData.cpu" flex="2"></cpu>
+				<voicemail data="dashboard.runningData.voicemail" flex="1"></voicemail>
 			</div>
 			<br>
 
