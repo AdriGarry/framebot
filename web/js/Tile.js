@@ -1,8 +1,11 @@
 /** DefaultTile object **/
-app.factory('DefaultTile', function($mdSidenav, $mdDialog, $mdBottomSheet, UIService){
+app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdBottomSheet, UIService){
+	// var self = this;
+	// var tile;
 	// Tile constructor function
 	function Tile(tile){
 		//console.log(tile.id, tile.label, tile.color, tile.rowspan, tile.colspan, tile.viewMode, tile.value, tile.actionList);
+		// tile = this;
 		// Basic attributes
 		this.id = tile.id || '';
 		this.label = tile.label || '';
@@ -24,21 +27,21 @@ app.factory('DefaultTile', function($mdSidenav, $mdDialog, $mdBottomSheet, UISer
 		/*if(this.disableOnSleep){
 			this.test = 'testABCD';
 		}*/
-		tileAction: defaultTileAction
+		this.click = click;
 	}
 
 	/** Function on click on Tile **/
-	function defaultTileAction(){
-		console.log('defaultTileAction');
-		if($scope.irda){
-			if(tile.actionList.length>1){
-				$scope.openBottomSheet(tile.actionList);
-			}else if(tile.actionList.length==1){
-				$scope.action(tile.actionList[0]);
+	function click(){
+		console.log('defaultClick', this.label);
+		// if($scope.irda){
+			if(this.actionList.length>1){
+				openBottomSheet(this.actionList);
+			}else if(this.actionList.length==1){
+				action(this.actionList[0]);
 			}else{
 				console.log('No action affected.');
 			}
-		}
+		// }
 	}
 
 	/** Function to send action **/
@@ -69,17 +72,14 @@ app.factory('DefaultTile', function($mdSidenav, $mdDialog, $mdBottomSheet, UISer
 
 	/** Function to open bottom sheet **/
 	function openBottomSheet(bottomSheetList){
-		if($scope.irda){
-			$rootScope.bottomSheetButtonList = bottomSheetList;
-			$scope.alert = '';
-			$mdBottomSheet.show({
-				templateUrl: 'templates/bottom-sheet.html',
-				controller: 'UIController',
-				clickOutsideToClose: true
-			}).then(function(action){
-				// $scope.showToast(action.label);
-			});
-		}
+		$rootScope.bottomSheetButtonList = bottomSheetList;
+		//$scope.alert = '';
+		$mdBottomSheet.show({
+			templateUrl: 'templates/bottom-sheet.html',
+			controller: 'UIController',
+			clickOutsideToClose: true
+		}).then(function(action){
+		});
 	}
 
 	/** Function on click on bottom sheet **/

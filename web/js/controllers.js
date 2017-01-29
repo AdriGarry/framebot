@@ -7,8 +7,8 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	$scope.menuOpen = false;
 
 	$scope.logData;
-	$scope.showLogs = showLogs();
-//	$scope.toggleMenu = toggleMenu();
+
+	$scope.master = Math.floor(Math.random() * 100);
 
 	$scope.dashboard = {
 		odiState: setOdiState(),
@@ -133,6 +133,8 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	$scope.toggleMenu = function(){
 		if(!$scope.menuOpen){
 			$scope.menuOpen = true;
+			$mdSidenav('logs').close();
+			$mdDialog.cancel();
 			$mdSidenav('menu').toggle().then(function(){
 			});
 			$mdSidenav('menu').onClose(function () {
@@ -145,23 +147,20 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		}
 	};
 
-
-	$scope.master = Math.floor(Math.random() * 100);
-
-
 	/** Function to show logs */
-	function showLogs(){
+	$scope.showLogs = function(){
+		$mdSidenav('menu').close();
 		$scope.logData = undefined;
-		return function(){
-			$mdSidenav('logs').toggle().then(function(){
-				$scope.refreshLog();
-			});
-		}
-	};
+		$mdSidenav('logs').toggle().then(function(){
+			$scope.refreshLog();
+		});
+	}
+
 	/** Function to hide logs */
 	$scope.hideLogs = function(){
 		$mdSidenav('logs').close().then(function(){});
 	};
+
 	/** Function to refresh logs */
 	$scope.refreshLog = function(){
 		UIService.updateLogs(function(logs){
@@ -205,7 +204,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			}else if(tile.actionList.length==1){
 				$scope.action(tile.actionList[0]);
 			}else{
-				console.log('No action affected.');
+				console.log('No action affected. OLD');
 			}
 		}
 	}
@@ -285,6 +284,17 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 	var param = $location.$$absUrl.split('?')[1];
 	if(param) $scope.grant(param);
+
+	$scope.toggleDebugMode = function(){
+		var cmd = {
+			label: '!Debug',
+			url: '/toggleDebug'
+		};
+		console.log('toggleDebugMode()');
+		UIService.sendCommand(cmd, function(data){
+			$scope.showToast(cmd.label);
+		});
+	};
 
 	$scope.showDialog = function(modal){ // TODO COMPONENT !!
 		$mdDialog.show({

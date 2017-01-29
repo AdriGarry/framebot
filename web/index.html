@@ -104,9 +104,6 @@
 				<md-slider-container ng-disabled="!irda">
 					<h3>Volume</h3>
 					<h5>{{master}}</h5>
-					<!--<md-input-container data-ng-disabled="!irda">
-						<input flex type="number" ng-model="master" aria-label="master" aria-controls="master-slider">
-					</md-input-container>-->
 					<md-slider flex data-ng-model="master" data-md-discrete md-vertical step="10" class="md-primary"
 						data-ng-readonly="!irda" title="Volume" aria-label="Volume"></md-slider><!--!irda-->
 				</md-slider-container>
@@ -127,25 +124,21 @@
 							<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch>
 						</div>
 					</md-list-item>
+					<md-divider></md-divider>
+					<md-list-item>
+						<div flex>Debug</div>
+						<div flex>
+							<md-switch class="switch md-primary" aria-label="Debug mode" title="Debug mode" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.debug"  data-ng-click="irda && toggleDebugMode()" data-ng-disabled="!irda"></md-switch>
+						</div>
+					</md-list-item>
+					<md-divider></md-divider>
+					<md-list-item data-ng-click="showLogs()" title="Show console">
+						<div flex>Logs</div>
+						<div flex><i class="fa fa-lg fa-terminal"></i></div>
+					</md-list-item>
 				</md-list>
-
-				<!-- <div class="centerText">
-					<span>Admin</span>
-					<md-button class="md-icon-button" data-ng-click="showAdminDialog($event)" data-ng-class="irda ? 'admin' : ''" title="Admin" aria-label="Admin">
-						<i class="fa fa-2x fa-lg fa-key"></i>
-					</md-button>
-				</div> -->
 			</div>
 		</div>
-		<!-- <div class="tools">
-			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Sleep', url: '/sleep'})" data-ng-show="irda"
-				title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
-			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="irda"
-				title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
-			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" data-ng-hide="irda" title="Hide Logs"
-				aria-label="Hide Logs">
-			<i class="fa fa-2x fa-arrow-left"></i></md-button>
-		</div> -->
 	</md-sidenav>
 
 	<div class="main" layout-align="top center">
@@ -156,7 +149,7 @@
 			</md-button>-->
 
 			<md-button data-ng-click="showLogs()" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
-				<i class="fa fa-2x fa-slack"></i>
+				<i class="fa fa-2x fa-rocket"></i>
 			</md-button>
 			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" class="md-fab md-primary md-hue-2 muteButton"
 			title="Mute Odi" aria-label="Mute Odi">
