@@ -61,7 +61,7 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdBottom
 					fullscreen: false // Only for -xs, -sm breakpoints
 				});
 			});
-		}else{
+		}else if(button.label && button.url){
 			UIService.sendCommand(button, function(data){
 				$scope.showToast(button.label);
 			});

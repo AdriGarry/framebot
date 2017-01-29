@@ -1,7 +1,7 @@
 'use strict'
 
 /* UI Service */
-app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANTS, Tile){
+app.service('UIService', ['$http', '$mdToast', 'CONSTANTS', 'Tile', function($http, $mdToast, CONSTANTS, Tile){
 
 	/** Function to update dashboard from Odi **/
 	this.refreshDashboard = function(callback){
@@ -37,24 +37,26 @@ app.service('UIService', ['$http', 'CONSTANTS', 'Tile', function($http, CONSTANT
 	};
 
 	/** Function to send command to Odi **/
-	this.sendCommand = function(obj, callback){
-		//console.log('UIService.sendCommand()', obj);
-		//console.log('data', obj.params);
-		var uri = obj.url;
+	this.sendCommand = function(cmd, callback){
+		//console.log('UIService.sendCommand()', cmd);
+		//console.log('data', cmd.params);
+		var uri = cmd.url;
 		//var params = '';
 		$http({
-			headers: {ui: 'v3', pwd: obj.data},
+			headers: {ui: 'v3', pwd: cmd.data},
 			method: 'POST',
 			url: CONSTANTS.URL_ODI + uri /*+ params*/,
-			data: obj.params
+			data: cmd.params
 		}).then(function successCallback(res){
 			if(res.data != null){
+				if(cmd.label){
+					$mdToast.show($mdToast.simple().textContent(cmd.label).position('top right').hideDelay(1500));
+				}
 				callback(res.data);
 			}
-			//return res;
 		}, function errorCallback(res){
+			$mdToast.show($mdToast.simple().textContent(cmd.label).position('top right').hideDelay(2500).toastClass('error'));
 			console.error(res);
-			// callback(res);
 		});
 		/*var params = '';
 		if(cmd.paramKey != '' && cmd.paramValue != ''){

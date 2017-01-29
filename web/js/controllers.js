@@ -189,7 +189,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			});
 		}else{
 			UIService.sendCommand(button, function(data){
-				$scope.showToast(button.label);
+				// $scope.showToast(button.label);
 			});
 			// TODO test pour showErrorToast
 		}
@@ -292,7 +292,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		};
 		console.log('toggleDebugMode()');
 		UIService.sendCommand(cmd, function(data){
-			$scope.showToast(cmd.label);
+			//$scope.showToast(cmd.label);
 		});
 	};
 

@@ -280,6 +280,16 @@ md-sidenav md-toolbar .tools{
 	background-color:rgba(244, 66, 53,0.5);
 }
 
+.menu .md-subheader{
+	background:none;
+	color:#fff;
+}
+
+.menu md-slider{
+	width:30vw;
+	margin-top:-1em;
+}
+
 /*------------------------------ MAIN ------------------------------- */
 .main{
 	margin-left:1em;
@@ -659,9 +669,9 @@ footer p a:hover{
 
 
 	.md-sidenav-right{
-		width:50%;
-		min-width:50%;
-		max-width:50%;
+		width:60%;
+		min-width:60%;
+		max-width:60%;
 		padding-top:60px;
 	}
 

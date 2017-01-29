@@ -90,8 +90,8 @@
 				title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
 			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="irda"
 				title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
-			<!--<md-button class="md-fab md-warn" data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-show="irda"
-				title="Mute" aria-label="Mute"><i class="fa fa-2x fa-bell-slash-o"></i></md-button>-->
+			<md-button class="md-fab md-warn" data-ng-click="toggleMenu()" title="Toggle Menu"
+				aria-label="Toggle Menu"><i class="fa fa-2x fa-bars"></i></md-button>
 			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" data-ng-hide="irda" title="Hide Logs"
 				aria-label="Hide Logs">
 			<i class="fa fa-2x fa-arrow-left"></i></md-button>
@@ -100,16 +100,7 @@
 
 	<md-sidenav class="md-sidenav-right" md-component-id="menu" md-whiteframe="1">
 		<div layout="row" class="menu">
-			<div flex="1">
-				<md-slider-container ng-disabled="!irda">
-					<h3>Volume</h3>
-					<h5>{{master}}</h5>
-					<md-slider flex data-ng-model="master" data-md-discrete md-vertical step="10" class="md-primary"
-						data-ng-readonly="!irda" title="Volume" aria-label="Volume"></md-slider><!--!irda-->
-				</md-slider-container>
-			</div>
-			<div flex="2">
-				<md-list>
+				<md-list flex>
 					<md-list-item>
 						<md-button data-ng-click="showAdminDialog($event)" data-ng-class="{admin:irda}" class="adminBtn center"
 							title="Admin" aria-label="Admin">
@@ -118,6 +109,7 @@
 						</md-button>
 					</md-list-item>
 					<md-divider></md-divider>
+
 					<md-list-item>
 						<div flex>Auto refresh</div>
 						<div flex>
@@ -125,6 +117,7 @@
 						</div>
 					</md-list-item>
 					<md-divider></md-divider>
+
 					<md-list-item>
 						<div flex>Debug</div>
 						<div flex>
@@ -132,12 +125,22 @@
 						</div>
 					</md-list-item>
 					<md-divider></md-divider>
+
+					<md-subheader>Volume&nbsp;&nbsp;<i>{{master}}</i></md-subheader>
+					<md-list-item title="Volume">
+						<md-slider-container ng-disabled="!irda">
+							<md-slider flex data-ng-model="master" data-md-discrete md-horizontal step="10" class="md-primary"
+								data-ng-readonly="!irda" title="Volume" aria-label="Volume"></md-slider>
+						</md-slider-container>
+					</md-list-item>
+					<md-divider></md-divider>
+
 					<md-list-item data-ng-click="showLogs()" title="Show console">
 						<div flex>Logs</div>
 						<div flex><i class="fa fa-lg fa-terminal"></i></div>
 					</md-list-item>
 				</md-list>
-			</div>
+			<!-- </div> -->
 		</div>
 	</md-sidenav>
 
