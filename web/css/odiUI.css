@@ -114,12 +114,12 @@ img.odiFace.odiOff{
 	cursor:help;
 }
 
-.toolbar .fa-key{
+/*.toolbar .fa-key{
 	opacity:0.5;
 }
 .toolbar .admin .fa-key{
 	opacity:1;
-}
+}*/
 
 button>i{
 	vertical-align:text-bottom;
@@ -181,7 +181,7 @@ button.muteButton:hover{
 	background-color:#1b2631;
 	z-index:120;
 }
-md-sidenav div{
+md-sidenav > div{
 	height:calc(100vh - 70px);
 	color:#fff;
 	overflow:auto;
@@ -253,8 +253,31 @@ md-sidenav md-toolbar .tools{
 	min-width:40%;
 	max-width:40%;
 	padding-top:80px;
-	background-color:#3f515a;
+	background-color:#495f69;
 	z-index:90;
+}
+
+/*.md-sidenav-right .fa-user-secret{
+	opacity:0.5;
+}
+.md-sidenav-right .admin .fa{
+	opacity:1;
+}*/
+.md-sidenav-right .adminBtn{
+	margin-bottom:2em;
+}
+.md-sidenav-right .adminBtn i.fa{
+	font-size:8vw;
+}
+
+.menu md-slider.md-default-theme.md-primary .md-thumb:after, .menu md-slider.md-primary .md-thumb:after,
+.menu md-slider.md-primary .md-track.md-track-fill,
+.menu md-switch.md-checked.md-primary .md-thumb{
+	border-color:#F44235;
+	background-color:#F44235;
+}
+.menu md-switch.md-checked.md-primary .md-bar{
+	background-color:rgba(244, 66, 53,0.5);
 }
 
 /*------------------------------ MAIN ------------------------------- */
@@ -302,7 +325,7 @@ md-content{
 .dashboard *{
 	color:#496069;
 }
-[flex] > button{
+.dashboard [flex] > button{
 	height:18vw;
 	bottom:0;
 	padding:0;

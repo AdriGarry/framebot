@@ -89,6 +89,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 				$timeout(function(){$scope.dashboard.loading = false;}, 100); // supprimer la durée du timeout ?
 			});
 		// }
+		console.log('BLABLA', $mdSidenav('menu').isOpen());
 	};
 
 	function setOdiState(data){
@@ -128,15 +129,16 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	};
 
 
-	/** Function to show menu */
+	/** Function to show/hide menu */
 	$scope.toggleMenu = function(){
 		if(!$scope.menuOpen){
 			$scope.menuOpen = true;
-			// return function(){
-				$mdSidenav('menu').toggle().then(function(){
-					console.log('TESTA');
-				});
-			// }
+			$mdSidenav('menu').toggle().then(function(){
+				console.log('TESTA');
+			});
+			$mdSidenav('menu').onClose(function () {
+				$scope.menuOpen = false;
+			});
 		}else{
 			$scope.menuOpen = false;
 			$mdSidenav('menu').close().then(function(){
@@ -144,6 +146,10 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			});
 		}
 	};
+
+
+	$scope.master = Math.floor(Math.random() * 100);
+
 
 	/** Function to show logs */
 	function showLogs(){
@@ -296,16 +302,19 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	};
 
 	$scope.showAdminDialog = function(ev){ // TODO COMPONENT !!
-		$mdDialog.show({
-			controller: AdminDialogController,
-			templateUrl: 'templates/dialog-admin.html',
-			parent: angular.element(document.body),
-			targetEvent: ev,
-			clickOutsideToClose:true,
-			fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints
-		}).then(function(answer){
-			$scope.grant(answer);
-		});
+		$scope.toggleMenu();
+		$timeout(function(){
+			$mdDialog.show({
+				controller: AdminDialogController,
+				templateUrl: 'templates/dialog-admin.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose:true,
+				fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints
+			}).then(function(answer){
+				$scope.grant(answer);
+			});
+		}, 200);
 	};
 
 });

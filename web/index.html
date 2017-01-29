@@ -99,12 +99,43 @@
 	</md-sidenav>
 
 	<md-sidenav class="md-sidenav-right" md-component-id="menu" md-whiteframe="1">
-		<div class="menu">
-			MENU HERE !
-			<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch>&nbsp;<!--data-ng-if="irda"-->
-			<md-button class="md-icon-button" data-ng-click="showAdminDialog($event)" data-ng-class="irda ? 'admin' : ''" title="Admin" aria-label="Admin"><!-- grant()-->
-				<i class="fa fa-2x fa-lg fa-key"></i>
-			</md-button>
+		<div layout="row" class="menu">
+			<div flex="1">
+				<md-slider-container ng-disabled="!irda">
+					<h3>Volume</h3>
+					<h5>{{master}}</h5>
+					<!--<md-input-container data-ng-disabled="!irda">
+						<input flex type="number" ng-model="master" aria-label="master" aria-controls="master-slider">
+					</md-input-container>-->
+					<md-slider flex data-ng-model="master" data-md-discrete md-vertical step="10" class="md-primary"
+						data-ng-readonly="!irda" title="Volume" aria-label="Volume"></md-slider><!--!irda-->
+				</md-slider-container>
+			</div>
+			<div flex="2">
+				<md-list>
+					<md-list-item>
+						<md-button data-ng-click="showAdminDialog($event)" data-ng-class="{admin:irda}" class="adminBtn center"
+							title="Admin" aria-label="Admin">
+							<i data-ng-hide="irda" class="fa fa-border fa-user-plus"></i>
+							<i data-ng-show="irda" class="fa fa-border fa-user-secret"></i>
+						</md-button>
+					</md-list-item>
+					<md-divider></md-divider>
+					<md-list-item>
+						<div flex>Auto refresh</div>
+						<div flex>
+							<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch>
+						</div>
+					</md-list-item>
+				</md-list>
+
+				<!-- <div class="centerText">
+					<span>Admin</span>
+					<md-button class="md-icon-button" data-ng-click="showAdminDialog($event)" data-ng-class="irda ? 'admin' : ''" title="Admin" aria-label="Admin">
+						<i class="fa fa-2x fa-lg fa-key"></i>
+					</md-button>
+				</div> -->
+			</div>
 		</div>
 		<!-- <div class="tools">
 			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Sleep', url: '/sleep'})" data-ng-show="irda"
