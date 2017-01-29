@@ -20,8 +20,8 @@ app.component('mode', {
 
 
 		/** Overwrite tile action */
-		this.action = function(){
+		/*this.tile.click = function(){
 			console.log('Overwrite tile action');
-		};
+		};*/
 	}
 });

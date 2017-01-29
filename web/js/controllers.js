@@ -89,7 +89,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 				$timeout(function(){$scope.dashboard.loading = false;}, 100); // supprimer la durée du timeout ?
 			});
 		// }
-		console.log('BLABLA', $mdSidenav('menu').isOpen());
+		// console.log('BLABLA', $mdSidenav('menu').isOpen());
 	};
 
 	function setOdiState(data){
@@ -134,7 +134,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		if(!$scope.menuOpen){
 			$scope.menuOpen = true;
 			$mdSidenav('menu').toggle().then(function(){
-				console.log('TESTA');
 			});
 			$mdSidenav('menu').onClose(function () {
 				$scope.menuOpen = false;
@@ -142,7 +141,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		}else{
 			$scope.menuOpen = false;
 			$mdSidenav('menu').close().then(function(){
-				console.log('TESTB');
 			});
 		}
 	};
