@@ -90,11 +90,11 @@
 				title="Sleep Odi" aria-label="Sleep Odi"><i class="fa fa-2x fa-moon-o"></i></md-button>
 			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="irda"
 				title="Restart Odi" aria-label="Restart Odi"><i class="fa fa-2x fa-flash"></i></md-button>
-			<md-button class="md-fab md-warn" data-ng-click="toggleMenu()" title="Toggle Menu"
-				aria-label="Toggle Menu"><i class="fa fa-2x fa-bars"></i></md-button>
 			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" data-ng-hide="irda" title="Hide Logs"
 				aria-label="Hide Logs">
 			<i class="fa fa-2x fa-arrow-left"></i></md-button>
+			<md-button class="md-fab md-warn" data-ng-click="toggleMenu()" title="Toggle Menu"
+				aria-label="Toggle Menu"><i class="fa fa-2x fa-bars"></i></md-button>
 		</div>
 	</md-sidenav>
 
@@ -137,7 +137,11 @@
 
 					<md-list-item data-ng-click="showLogs()" title="Show console">
 						<div flex>Logs</div>
-						<div flex><i class="fa fa-lg fa-terminal"></i></div>
+						<div flex><i class="fa fa-lg fa-2x fa-terminal"></i></div>
+					</md-list-item>
+					<md-list-item data-ng-click="reloadUI()" title="Reload UI">
+						<div flex>Reload UI</div>
+						<div flex><i class="fa fa-lg fa-2x fa-repeat"></i></div>
 					</md-list-item>
 				</md-list>
 			<!-- </div> -->
