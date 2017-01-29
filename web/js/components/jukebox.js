@@ -1,7 +1,8 @@
 /** Jukebox component */
 app.component('jukebox', {
 	bindings: {
-		data: '<'
+		data: '<',
+		odiState: '<'
 	},
 	templateUrl: '/js/components/jukebox.html',
 	controller: function(DefaultTile){
@@ -11,8 +12,9 @@ app.component('jukebox', {
 			actionList:[{label: 'Jukebox', icon: 'random', url: '/jukebox'},{label: 'FIP Radio', icon: 'globe', url: '/fip'}]
 		};
 
-		this.tile = new DefaultTile(tileParams); //console.log('this.tile', this.tile);
-		this.tile.data = this.data; //console.log('this.tile', this.tile);
+		this.tile = new DefaultTile(tileParams);
+		this.tile.data = this.data;
+		this.odiState = this.odiState;
 
 		/** Overwrite tile action */
 		this.action = function(){

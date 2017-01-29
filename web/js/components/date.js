@@ -1,7 +1,8 @@
 /** Date component */
 app.component('date', {
 	bindings: {
-		data: '<'
+		data: '<',
+		odiState: '<'
 	},
 	templateUrl: '/js/components/date.html',
 	controller: function(DefaultTile){
@@ -11,8 +12,9 @@ app.component('date', {
 			actionList:[{label: 'Odi\'s age', icon: 'birthday-cake', url: '/age'},{label: 'Today', icon: 'calendar', url: '/date'}]
 		};
 
-		this.tile = new DefaultTile(tileParams); //console.log('this.tile', this.tile);
-		this.tile.data = this.data; //console.log('this.tile', this.tile);
+		this.tile = new DefaultTile(tileParams);
+		this.tile.data = this.data;
+		this.odiState = this.odiState;
 
 		/** Overwrite tile action */
 		this.action = function(){

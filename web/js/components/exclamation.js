@@ -1,7 +1,8 @@
 /** Exclamation component */
 app.component('exclamation', {
 	bindings: {
-		data: '<'
+		data: '<',
+		odiState: '<'
 	},
 	templateUrl: '/js/components/exclamation.html',
 	controller: function(DefaultTile){
@@ -14,8 +15,9 @@ app.component('exclamation', {
 				label: 'Last TTS', icon: 'undo', url: '/lastTTS'}]
 		};
 
-		this.tile = new DefaultTile(tileParams); //console.log('this.tile', this.tile);
-		this.tile.data = this.data; //console.log('this.tile', this.tile);
+		this.tile = new DefaultTile(tileParams);
+		this.tile.data = this.data;
+		this.odiState = this.odiState;
 
 		/** Overwrite tile action */
 		this.action = function(){

@@ -1,7 +1,8 @@
 /** Time component */
 app.component('time', {
 	bindings: {
-		data: '<'
+		data: '<',
+		odiState: '<'
 	},
 	templateUrl: '/js/components/time.html',
 	controller: function(DefaultTile){
@@ -11,8 +12,9 @@ app.component('time', {
 			actionList:[{url: '/time'}]
 		};
 
-		this.tile = new DefaultTile(tileParams); //console.log('this.tile', this.tile);
-		this.tile.data = this.data; //console.log('this.tile', this.tile);
+		this.tile = new DefaultTile(tileParams);
+		this.tile.data = this.data;
+		this.odiState = this.odiState;
 
 		/** Overwrite tile action */
 		this.action = function(){

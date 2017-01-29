@@ -153,7 +153,7 @@ md-toast.error .md-toast-content, md-toast.error .md-toast-content{
 	background-color:rgb(244,81,30);
 }
 
-/*------------------------------ Mute Button ------------------------------- */
+/*------------------------------ MUTE BUTTON ------------------------------- */
 button.muteButton{
 	position:fixed;
 	right:2.5em;
@@ -314,13 +314,17 @@ md-content{
 	text-transform:none;
 	display:table-cell;
 	vertical-align:middle;
+	line-height:36px;
 }
 
 [flex] > button > .main{
 	text-align:center;
 	font-size:5vw;
 }
-
+[flex] > button > .main .fa{
+	/*font-weight:800;*/
+	font-size:1.3em;
+}
 [flex] footer{
 	position:absolute;
 	width:100%;
@@ -348,7 +352,7 @@ md-content{
 	opacity:0.5;
 }
 [flex] > button footer{
-	background:rgba(73, 96, 105, 0.33)!important;
+	background:rgba(73, 96, 105, 0.4)!important;
 }
 [flex] > button.active footer{
 	background:rgba(73, 96, 105, 0.8)!important;
@@ -649,10 +653,23 @@ footer p a:hover{
 		right:0.3em;
 		font-size:0.8em;
 	}
-
 	figure .mainInfo{
 		font-size:10vw;
 	}
+
+
+
+	.dashboard [flex] > button{
+		line-height:13px;
+	}
+
+	[flex] > button .main{
+		margin-top:-10px;
+	}
+	[flex] > button .main .fa{
+		font-size:1.8em;
+	}
+
 	md-grid-list md-grid-tile md-grid-tile-footer, [flex] footer{
 		padding:1px 0;
 	}

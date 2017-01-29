@@ -1,7 +1,8 @@
 /** Alarm component */
 app.component('alarm', {
 	bindings: {
-		data: '<'
+		data: '<',
+		odiState: '<'
 	},
 	templateUrl: '/js/components/alarm.html',
 	controller: function(DefaultTile){
@@ -11,9 +12,9 @@ app.component('alarm', {
 			actionList:[{url: '/alarm', params: {h:8,m:12,test:'bouts'}}]
 		};
 
-		this.tile = new DefaultTile(tileParams); //console.log('this.tile', this.tile);
-		this.tile.data = this.data; //console.log('this.tile', this.tile);
-
+		this.tile = new DefaultTile(tileParams);
+		this.tile.data = this.data;
+		this.odiState = this.odiState;
 
 		/** Overwrite tile action */
 		this.action = function(){

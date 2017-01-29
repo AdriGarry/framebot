@@ -10,6 +10,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	$scope.showMenu = showMenu();
 
 	$scope.dashboard = {
+		odiState: setOdiState(),
 		autoRefresh: true,
 		loopInterval: 0,
 		loading: false,
@@ -76,12 +77,37 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 							$scope.dashboard.tileList[key].bindHTML(key);
 					}
 				});
+				/*$scope.dashboard.state = {
+					value: data.mode.value.mode,
+					ready: data.mode.value.mode == 'Ready',
+					sleep: data.mode.value.mode == 'Sleep'
+				};*/
+				$scope.dashboard.odiState = setOdiState(data);
 				$scope.dashboard.runningData = data;
 				console.log('$scope.dashboard.runningData', $scope.dashboard.runningData);
 				$timeout(function(){$scope.dashboard.loading = false;}, 100); // supprimer la durée du timeout ?
 			});
 		// }
 	};
+
+	function setOdiState(data){
+		var odiState = {};
+		if(data){
+			odiState = {
+				value: data.mode.value.mode || 'unavailable',
+				ready: data.mode.value.mode == 'Ready',
+				sleep: data.mode.value.mode == 'Sleep'
+			};
+		}else{
+			odiState = {
+				value: 'unavailable',
+				ready: false,
+				sleep: false
+			};
+		}
+		console.log('odiState updated', odiState);
+		return odiState;
+	}
 
 	/** Function to reloadUI */
 	$scope.reloadUI = function(){
@@ -103,10 +129,9 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 	/** Function to show menu */
 	function showMenu(){
-		console.log('showMenu');
 		return function(){
 			$mdSidenav('menu').toggle().then(function(){
-				/*$scope.refreshLog();*/
+				/*$scope.refreshLog();*/ // TODO retreive settings/CONFIG data
 			});
 		}
 	};

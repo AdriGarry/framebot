@@ -131,22 +131,22 @@
 				<i class="fa fa-lg fa-bell-slash-o"></i>
 			</md-button>
 
-			<md-progress-circular md-diameter="150" data-ng-show="loading"></md-progress-circular>
+			<!-- <md-progress-circular md-diameter="150" data-ng-show="loading"></md-progress-circular> -->
 
 			<br>
 			<div class="dashboard ng-slide" data-ng-if="irda">
-				<tts data="dashboard.runningData.mode" flex="3" data-ng-disabled="dashboard.runningData.mode.data.value"></tts>
+				<tts data="dashboard.runningData.mode" flex="3"></tts>
 				<mode data="dashboard.runningData.mode" flex="1"></mode>
 				<volume data="dashboard.runningData.volume" flex="1"></volume>
 				<alarm data="dashboard.runningData.alarm" flex="1"></alarm>
-				<cpu data="dashboard.runningData.cpu" flex="2"></cpu>
-				<voicemail data="dashboard.runningData.voicemail" flex="1"></voicemail>
-				<exclamation data="dashboard.runningData.exclamation" flex="1"></exclamation>
-				<jukebox data="dashboard.runningData.jukebox" flex="1"></jukebox>
-				<timer data="dashboard.runningData.timer" flex="1"></timer>
-				<time data="dashboard.runningData.time" flex="1"></time>
-				<date data="dashboard.runningData.date" flex="1"></date>
-				<weather data="dashboard.runningData.weather" flex="1"></weather>
+				<cpu data="dashboard.runningData.cpu" flex="2" data-odi-state="dashboard.odiState"></cpu>
+				<voicemail data="dashboard.runningData.voicemail" flex="1" data-odi-state="dashboard.odiState"></voicemail>
+				<exclamation data="dashboard.runningData.exclamation" flex="1" data-odi-state="dashboard.odiState"></exclamation>
+				<jukebox data="dashboard.runningData.jukebox" flex="1" data-odi-state="dashboard.odiState"></jukebox>
+				<timer data="dashboard.runningData.timer" flex="1" data-odi-state="dashboard.odiState"></timer>
+				<time data="dashboard.runningData.time" flex="1" data-odi-state="dashboard.odiState"></time>
+				<date data="dashboard.runningData.date" flex="1" data-odi-state="dashboard.odiState"></date>
+				<weather data="dashboard.runningData.weather" flex="1" data-odi-state="dashboard.odiState"></weather>
 			</div>
 			<br>
 

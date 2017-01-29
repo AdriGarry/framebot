@@ -18,8 +18,12 @@ app.factory('DefaultTile', function($mdSidenav, $mdDialog, $mdBottomSheet, UISer
 		// Action attributes
 		this.actionList = tile.actionList;
 		// Set Tile.value to first Tile.actionList item
-		if(this.actionList.length>0 && !this.actionList[0].hasOwnProperty('label')) this.actionList[0].label = this.label;
-
+		if(this.actionList.length>0 && !this.actionList[0].hasOwnProperty('label')){
+			this.actionList[0].label = this.label;
+		}
+		/*if(this.disableOnSleep){
+			this.test = 'testABCD';
+		}*/
 		tileAction: defaultTileAction
 	}
 

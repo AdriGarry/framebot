@@ -1,7 +1,7 @@
 /** mode component */
 app.component('mode', {
 	bindings: {
-		data: '<', // TODO revoir le binding : unidirectionnel?
+		data: '<'
 	},
 	templateUrl: '/js/components/mode.html',
 	controller: function(DefaultTile){

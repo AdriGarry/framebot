@@ -150,6 +150,7 @@ function startUI(mode){
 			timer: {value: time.timeLeftTimer(), active: time.timeLeftTimer()>0 ? true : false},
 			cpu: {value: {usage: cpuUsage, temp: cpuTemp}, active: (cpuTemp > 55 || cpuUsage >= 20) ? true : false},
 			alarms: {value: CONFIG.alarms, active: true},
+			//config: {value: CONFIG},
 			version: {value: CONFIG.version},
 			debug: {value: CONFIG.debug}
 		};
