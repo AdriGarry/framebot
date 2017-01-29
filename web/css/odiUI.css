@@ -9,13 +9,7 @@ ul{margin:0;padding:0;}
 	margin-right:auto;
 }
 .centerText{text-align:center;}
-.opacityHalf{opacity:0.5;}
-/*.md-primary{
-	background-color:#4051B5!important;
-}
-.md-warn{
-	background-color:#F44235!important;
-}*/
+/*.opacityHalf{opacity:0.5;}*/
 
 .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab:not(.muteButton){
 	background-color:#4051B5!important;/*#F44235*/
@@ -54,7 +48,6 @@ md-toolbar.toolbar.md-warn{
 }
 md-toolbar.toolbar span[flex] + i{
 	margin:0 2%;
-	/*font-size:1.6em;*/
 }
 
 .md-toolbar-tools{
@@ -171,9 +164,6 @@ button.muteButton:hover{
 }*/
 
 /*------------------------------ LOGS ------------------------------- */
-md-sidenav-left{
-	z-index:120;
-}
 .logButton{
 	position:fixed;
 	left:1em;
@@ -184,10 +174,12 @@ md-sidenav-left{
 	bottom:2em;
 	margin-left:70%;
 }
-md-sidenav{
+
+.md-sidenav-left{
 	width:70%;
 	max-width:70%;
 	background-color:#1b2631;
+	z-index:120;
 }
 md-sidenav div{
 	height:calc(100vh - 70px);
@@ -256,7 +248,12 @@ md-sidenav md-toolbar .tools{
 }
 
 /*------------------------------ MENU ------------------------------- */
-md-sidenav-right{
+.md-sidenav-right{
+	width:40%;
+	min-width:40%;
+	max-width:40%;
+	padding-top:80px;
+	background-color:#3f515a;
 	z-index:90;
 }
 
@@ -563,7 +560,7 @@ footer p a:hover{
 	color:#94adb8;
 }
 
-/* ------------------------------ MEDIA QUERIES DESKTOP ------------------------------- */
+/* ------------------------------ DESKTOP MEDIA QUERIES ------------------------------- */
 @media(min-width:768px){
 	.mobileOnly{display:none;}
 	.desktopOnly{display:block;}
@@ -590,7 +587,7 @@ footer p a:hover{
 		font-size:1em;
 	}
 }
-/* ------------------------------ MEDIA QUERIES RESPONSIVE ------------------------------- */
+/* ------------------------------ RESPONSIVE MEDIA QUERIES ------------------------------- */
 @media(max-width:768px){
 	.mobileOnly{display:block;}
 	.desktopOnly{display:none;}
@@ -637,10 +634,17 @@ footer p a:hover{
 		white-space:pre-wrap;
 	}
 
+
+	.md-sidenav-right{
+		width:50%;
+		min-width:50%;
+		max-width:50%;
+		padding-top:60px;
+	}
+
 	figure :not(p).responsive{
 		margin-top:-0.3em;
 	}
-
 	span.responsive span.mode small{
 		font-size:0.6em;
 	}

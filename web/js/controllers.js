@@ -4,10 +4,11 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	$scope.loading = false;/*true*/
 	$scope.pauseUI = false;
 	$scope.irda = false;
+	$scope.menuOpen = false;
 
 	$scope.logData;
 	$scope.showLogs = showLogs();
-	$scope.showMenu = showMenu();
+//	$scope.toggleMenu = toggleMenu();
 
 	$scope.dashboard = {
 		odiState: setOdiState(),
@@ -105,7 +106,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 				sleep: false
 			};
 		}
-		console.log('odiState updated', odiState);
+		//console.log('odiState updated', odiState);
 		return odiState;
 	}
 
@@ -128,16 +129,20 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 
 	/** Function to show menu */
-	function showMenu(){
-		return function(){
-			$mdSidenav('menu').toggle().then(function(){
-				/*$scope.refreshLog();*/ // TODO retreive settings/CONFIG data
+	$scope.toggleMenu = function(){
+		if(!$scope.menuOpen){
+			$scope.menuOpen = true;
+			// return function(){
+				$mdSidenav('menu').toggle().then(function(){
+					console.log('TESTA');
+				});
+			// }
+		}else{
+			$scope.menuOpen = false;
+			$mdSidenav('menu').close().then(function(){
+				console.log('TESTB');
 			});
 		}
-	};
-	/** Function to hide menu */
-	$scope.hideMenu = function(){
-		$mdSidenav('menu').close().then(function(){});
 	};
 
 	/** Function to show logs */
