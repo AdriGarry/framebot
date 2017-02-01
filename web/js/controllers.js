@@ -185,6 +185,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 	/** Function to send action **/
 	$scope.action = function(button){
+		//$scope.dashboard.autoRefresh = true; //TODO reactivate autoRefresh on Tile action
 		if(button.url.indexOf('http://') > -1){
 			//$window.open(button.url);
 			UIService.getRequest(button.url, function(data){
