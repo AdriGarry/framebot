@@ -135,11 +135,13 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			$scope.menuOpen = true;
 			$mdSidenav('logs').close();
 			$mdDialog.cancel();
-			$mdSidenav('menu').toggle().then(function(){
-			});
-			$mdSidenav('menu').onClose(function () {
-				$scope.menuOpen = false;
-			});
+			$timeout(function(){
+				$mdSidenav('menu').toggle().then(function(){
+				});
+				$mdSidenav('menu').onClose(function () {
+					$scope.menuOpen = false;
+				});
+			}, 200)
 		}else{
 			$scope.menuOpen = false;
 			$mdSidenav('menu').close().then(function(){
@@ -151,9 +153,11 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	$scope.showLogs = function(){
 		$mdSidenav('menu').close();
 		$scope.logData = undefined;
-		$mdSidenav('logs').toggle().then(function(){
-			$scope.refreshLog();
-		});
+		$timeout(function(){
+			$mdSidenav('logs').toggle().then(function(){
+				$scope.refreshLog();
+			});
+		}, 200);
 	}
 
 	/** Function to hide logs */

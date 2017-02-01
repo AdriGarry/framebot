@@ -51,8 +51,8 @@ function initButtonAwake(){
 	/** Switch watch for radio volume */
 	etat.watch(function(err, value){
 		value = etat.readSync();
-		console.log('Etat:', value, '[Etat has changed]');
-		if(fip.playing){
+		console.log('Etat:', value, '[Etat has changed]', fip.playing());
+		if(fip.playing()){
 			fip.stopFip('Rebooting FIP RADIO (volume changed)');
 			setTimeout(function(){
 				fip.playFip();
