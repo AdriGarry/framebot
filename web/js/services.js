@@ -86,8 +86,10 @@ app.service('UIService', ['$http', '$mdToast', 'CONSTANTS', 'Tile', function($ht
 			url: CONSTANTS.URL_ODI + '/tts?voice=' + tts.voice + '&lg=' + tts.lg 
 				+ '&msg=' + tts.msg + (tts.voicemail ? '&voicemail' : '')
 		}).then(function successCallback(res){
+			$mdToast.show($mdToast.simple().textContent(tts.msg).position('top right').hideDelay(1500));
 			callback(res);
 		}, function errorCallback(res){
+			$mdToast.show($mdToast.simple().textContent('Error').position('top right').hideDelay(2500).toastClass('error'));
 			console.error(res);
 			callback(res);
 		});

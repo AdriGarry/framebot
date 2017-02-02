@@ -30,7 +30,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 					{code: 'es', label: 'Spanish'}, {code: 'it', label: 'Italian'}, {code: 'de', label: 'German'}],
 				voiceList: [{code: ':3', label: 'Nice voice'}, {code: ':1', label: 'Robot voice'}]
 			},
-			cleanText: function(){
+			cleanText: function(){ // TODO create an UtilsService...
 				var message = $scope.dashboard.ttsTile.msg || '';
 				message = message.replace(/[àâ]/g,'a');
 				message = message.replace(/[ç]/g,'c');
@@ -43,13 +43,16 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			submit: function(){
 				if($scope.dashboard.ttsTile.msg != ''){
 					UIService.sendTTS($scope.dashboard.ttsTile, function(callback){
-						if(callback.status != 200){
+						if(callback.status == 200){
+							$scope.dashboard.ttsTile.msg = ''; $scope.dashboard.ttsTile.error = ''; // Reinit TTS
+						}
+						/*if(callback.status != 200){ // TODO to delete... (toast moved to UIService)
 							$scope.dashboard.ttsTile.error = 'UNE ERREUR EST SURVENUE';
 						}
 						else{
 							$scope.showToast($scope.dashboard.ttsTile.msg);// LIMITER / TRONQUER la longueur du message !!! WWWWWWWW => 200
 							$scope.dashboard.ttsTile.msg = ''; $scope.dashboard.ttsTile.error = ''; // Reinit TTS
-						}
+						}*/
 					});
 				}
 			}
@@ -120,11 +123,11 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	};
 
 	/** Function to pop down toast */
-	$scope.showToast = function(label){
+	$scope.showToast = function(label){ // TODO to delete
 		$mdToast.show($mdToast.simple().textContent(label).position('top right').hideDelay(1500));
 	};
 	/** Function to pop down error toast */
-	$scope.showErrorToast = function(label){
+	$scope.showErrorToast = function(label){ // TODO to delete
 		$mdToast.show($mdToast.simple().textContent(label).position('top right').hideDelay(2000).toastClass('error'));
 	};
 
@@ -258,7 +261,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 	/** Stop auto refresh after 1 min */
 	$timeout(function(){
-		$scope.dashboard.autoRefresh = 'warn';
+		$scope.dashboard.autoRefresh = 'warn';// TODO to delete ? (and delete CSS too)
 	}, 50*1000);
 	$timeout(function(){
 		$scope.dashboard.autoRefresh = false;
