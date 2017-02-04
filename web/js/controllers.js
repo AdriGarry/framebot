@@ -88,7 +88,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 				};*/
 				$scope.dashboard.odiState = setOdiState(data);
 				$scope.dashboard.runningData = data;
-				console.log('$scope.dashboard.runningData', $scope.dashboard.runningData);
+				// console.log('$scope.dashboard.runningData', $scope.dashboard.runningData);
 				$timeout(function(){$scope.dashboard.loading = false;}, 100); // supprimer la durée du timeout ?
 			});
 		// }
@@ -250,22 +250,28 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	};*/
 
 	/** Start auto update Dashboard (10s) **/
-	$scope.refreshDashboard();
-	$interval(function(){
-		if($scope.dashboard.autoRefresh) $scope.dashboard.loopInterval++;
-		if($scope.dashboard.loopInterval > 100){
-			$scope.refreshDashboard();
-			$scope.dashboard.loopInterval = 0;
-		}
-	}, 100);
+	$scope.refreshDashboardCycle = function(){
+		console.log('refreshDashboardCycle()');
+		if(!$scope.dashboard.autoRefresh) return;
+		var loop = 0;
+		$scope.refreshDashboard();
+		var refreshDashboardPromise = $interval(function(){
+			if($scope.dashboard.autoRefresh) $scope.dashboard.loopInterval++;
+			if($scope.dashboard.loopInterval > 100){
+				$scope.refreshDashboard();
+				$scope.dashboard.loopInterval = 0;
+				loop++;
+			}
+			if(loop >= 2){
+				$scope.dashboard.autoRefresh = false;
+				$interval.cancel(refreshDashboardPromise);
+			}
+		}, 100);
+	};
 
-	/** Stop auto refresh after 1 min */
-	$timeout(function(){
-		$scope.dashboard.autoRefresh = 'warn';// TODO to delete ? (and delete CSS too)
-	}, 50*1000);
-	$timeout(function(){
-		$scope.dashboard.autoRefresh = false;
-	}, 1*60*1000);
+	$scope.$watch('dashboard.autoRefresh', function(){
+		$scope.refreshDashboardCycle();
+	});
 
 	$scope.grant = function(param){
 		UIService.sendCommand({url:'/grant', data:param}, function(data){
