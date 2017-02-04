@@ -269,6 +269,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 	$scope.instantRefreshDasboard = function(){
 		if(!$scope.dashboard.autoRefresh){
+			$scope.dashboard.autoRefresh = true;
 			$scope.refreshDashboard();
 		}
 	};

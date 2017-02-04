@@ -32,7 +32,7 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdBottom
 
 	/** Function on click on Tile **/
 	function click(){
-		console.log('defaultClick', this.label);
+		// console.log('defaultClick', this.label);
 		// if($scope.irda){
 			if(this.actionList.length>1){
 				openBottomSheet(this.actionList);
