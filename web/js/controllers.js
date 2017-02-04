@@ -250,6 +250,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		});
 	};*/
 
+	$scope.refreshDashboard();
 	var loopInterval = 0;
 	$interval(function(){
 		if($scope.dashboard.autoRefresh){
@@ -267,7 +268,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	}, 100);
 
 	$scope.instantRefreshDasboard = function(){
-		console.log('instantRefreshDasboard()', $scope.dashboard.autoRefresh);
 		if(!$scope.dashboard.autoRefresh){
 			$scope.refreshDashboard();
 		}

@@ -17,6 +17,8 @@ app.component('mode', {
 		//this.tileData = this.tile; console.log('this.tileData', this.tileData);
 		this.tile = new DefaultTile(tileParams); //console.log('this.tile', this.tile);
 		this.tile.data = this.data; //console.log('this.tile', this.tile);
+		console.log('this.data', this.data);
+		console.log('this.tile.data', this.tile.data);
 
 
 		/** Overwrite tile action */
