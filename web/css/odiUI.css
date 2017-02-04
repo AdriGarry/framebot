@@ -393,6 +393,10 @@ md-content{
 	background:rgba(0,0,0,0.05)!important;
 }
 
+[flex] > button .main i.fa{
+	vertical-align:middle;
+}
+
 .dashboard > * > button > i.adminFlag{
 	position:absolute;
 	top:0.5em;

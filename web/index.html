@@ -8,28 +8,28 @@
 	<meta name="robots" content="noindex,nofollow">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
+
+
+
+
+
 	<link rel="stylesheet" href="css/lib/font-awesome.min.css" media="all" />
 	<link rel="stylesheet" href="css/lib/angular-material.min.css" media="all" />
 	<!-- <link rel="stylesheet" href="css/lib/picker.css" media="all" /> -->
 	<link rel="stylesheet" href="css/odiUI.css" media="all" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 
+<!-- build:js js/odiUI.min.js -->
 	<script src="js/lib/angular.min.js"></script>
 	<script src="js/lib/angular-material.min.js"></script>
 	<script src="js/lib/angular-animate.min.js"></script>
 	<script src="js/lib/angular-aria.min.js"></script>
-	<!--<script src="js/lib/angular-long-press.min.js"></script>-->
-	<!-- <script src="js/lib/picker.js"></script> -->
+<!-- endbuild -->
 
-	<!-- <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js'></script>
-	<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-messages.min.js'></script>
-	<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js'></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js'></script> -->
 
 	<script src="js/app.js"></script>
 	<script src="js/controllers.js"></script>
 	<script src="js/services.js"></script>
-	<!--<script src="js/directives.js"></script>-->
 	<script src="js/models.js"></script>
 	<script src="js/Tile.js"></script>
 	<script src="js/components/tts.js"></script>
@@ -44,6 +44,16 @@
 	<script src="js/components/time.js"></script>
 	<script src="js/components/date.js"></script>
 	<script src="js/components/weather.js"></script>
+	<script src="js/components/russia.js"></script>
+	<script src="js/components/idea.js"></script>
+	<script src="js/components/party.js"></script>
+	<script src="js/components/logs.js"></script>
+	<script src="js/components/system.js"></script>
+	<script src="js/components/about.js"></script>
+
+	<!--<script src="js/lib/angular-long-press.min.js"></script>-->
+	<!-- <script src="js/lib/picker.js"></script> -->
+	<!--<script src="js/directives.js"></script>-->
 
 	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
 	<link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
@@ -165,6 +175,12 @@
 				<date data="dashboard.runningData.date" flex="1" data-odi-state="dashboard.odiState"></date>
 				<time data="dashboard.runningData.time" flex="1" data-odi-state="dashboard.odiState"></time>
 				<weather data="dashboard.runningData.weather" flex="1" data-odi-state="dashboard.odiState"></weather>
+				<party data="dashboard.runningData.party" flex="1" data-odi-state="dashboard.odiState"></party>
+				<russia data="dashboard.runningData.russia" flex="1" data-odi-state="dashboard.odiState"></russia>
+				<idea data="dashboard.runningData.ideas" flex="1" data-odi-state="dashboard.odiState"></idea>
+				<logs data="dashboard.runningData.logs" flex="1"></logs>
+				<system data="dashboard.runningData.system" flex="1"></system>
+				<about data="dashboard.runningData.about" flex="1"></about>
 			</div>
 			<br>
 

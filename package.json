@@ -1,16 +1,24 @@
 {
-	"name": "Odi",
-	"description": "Odi's program to autorun and interact !",
-	"version": "3.7",
-	"author": {
-		"name": "Adri",
-		"email": "adrigarry@gmail.com"
-	},
-	"dependencies": {
-		"onoff": "~1.0.2",
-		"request": "~2.68.1",
-		"cron": "~1.1.0",
-		"express": "4.14.0",
-		"compression": "1.6.2"
-	}
+  "name": "odi",
+  "version": "3.8.0",
+  "description": "Odi's program to autorun and interact !",
+  "main": "start.sh",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AdriGarry/odi"
+  },
+  "author": "Adri",
+  "dependencies": {
+    "onoff": "~1.0.2",
+    "request": "~2.68.1",
+    "cron": "~1.1.0",
+    "express": "4.14.0",
+    "compression": "1.6.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
 }

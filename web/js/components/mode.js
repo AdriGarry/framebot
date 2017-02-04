@@ -14,9 +14,7 @@ app.component('mode', {
 				label: 'Restart', icon: 'bolt', url: '/odi'}]
 		};
 
-		//this.tileData = this.tile; console.log('this.tileData', this.tileData);
 		this.tile = new DefaultTile(tileParams); //console.log('this.tile', this.tile);
-		// this.tile.data = this.data; //console.log('this.tile', this.tile);
 
 		/** Overwrite tile action */
 		/*this.tile.click = function(){
