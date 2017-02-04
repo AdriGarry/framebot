@@ -19,6 +19,16 @@ app.constant("CONSTANTS", {
 	'IP_LOCALIZATOR_URL': 'http://www.traceip.net/?query='
 });
 
+app.directive("scroll", function ($window){
+	return function(scope, element, attrs){
+		angular.element($window).bind("scroll", function(){
+			scope.dashboard.autoRefresh = true;
+			scope.instantRefreshDasboard();
+			// scope.$apply();
+		});
+	};
+});
+
 app.filter('formatLog', function(CONSTANTS){
 	return function(logLine){
 		//logLine = logLine.replace(/\[([0-9]{1,3}\.){3}([0-9]{1,3})\]/g, function(match, capture){

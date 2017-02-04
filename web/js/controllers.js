@@ -188,6 +188,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 	/** Function to send action **/
 	$scope.action = function(button){
+		// $scope.refreshDashboardCycle();
 		//$scope.dashboard.autoRefresh = true; //TODO reactivate autoRefresh on Tile action
 		if(button.url.indexOf('http://') > -1){
 			//$window.open(button.url);
@@ -249,35 +250,34 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		});
 	};*/
 
-	/** Start auto update Dashboard (10s) **/
-	$scope.refreshDashboardCycle = function(){
-		console.log('refreshDashboardCycle()');
-		if(!$scope.dashboard.autoRefresh) return;
-		var loop = 0;
-		$scope.refreshDashboard();
-		var refreshDashboardPromise = $interval(function(){
-			if($scope.dashboard.autoRefresh) $scope.dashboard.loopInterval++;
+	var loopInterval = 0;
+	$interval(function(){
+		if($scope.dashboard.autoRefresh){
+			$scope.dashboard.loopInterval++;
 			if($scope.dashboard.loopInterval > 100){
 				$scope.refreshDashboard();
 				$scope.dashboard.loopInterval = 0;
-				loop++;
+				loopInterval++;
 			}
-			if(loop >= 2){
+			if(loopInterval >= 2){
+				loopInterval = 0;
 				$scope.dashboard.autoRefresh = false;
-				$interval.cancel(refreshDashboardPromise);
 			}
-		}, 100);
-	};
+		}
+	}, 100);
 
-	$scope.$watch('dashboard.autoRefresh', function(){
-		$scope.refreshDashboardCycle();
-	});
+	$scope.instantRefreshDasboard = function(){
+		console.log('instantRefreshDasboard()', $scope.dashboard.autoRefresh);
+		if(!$scope.dashboard.autoRefresh){
+			$scope.refreshDashboard();
+		}
+	};
 
 	$scope.grant = function(param){
 		UIService.sendCommand({url:'/grant', data:param}, function(data){
 			$scope.irda = data;
 		});
-	}
+	};
 
 	/** Function to inject HTML code */
 	$scope.toHtml = function(html){
