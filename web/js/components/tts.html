@@ -5,9 +5,9 @@
 	<span data-ng-if="0" class="debugObject">{{$ctrl.tile}}</span>
 
 	<div>
-		<i class="mainInfo fa fa-moon-o" data-ng-show="$ctrl.tile.data.value.mode == 'Sleep'"></i>
-		<div data-ng-show="$ctrl.tile.data.value.mode == 'Ready'">{{$ctrl.tile.data.value.mode}}</div>
-		<div class="param">{{$ctrl.tile.data.value.param}}</div>
+		<i class="mainInfo fa fa-moon-o" data-ng-show="$ctrl.data.value.mode == 'Sleep'"></i>
+		<div data-ng-show="$ctrl.data.value.mode == 'Ready'">{{$ctrl.data.value.mode}}</div>
+		<div class="param">{{$ctrl.data.value.param}}</div>
 	</div>
 	<footer><h3>{{$ctrl.tile.label}}</h3></footer>
 </md-button>

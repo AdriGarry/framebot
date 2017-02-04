@@ -15,7 +15,7 @@ app.component('cpu', {
 		};
 
 		this.tile = new DefaultTile(tileParams); //console.log('this.tile', this.tile);
-		this.tile.data = this.data; //console.log('this.tile', this.tile);
+		//this.tile.data = this.data; //console.log('this.tile', this.tile);
 		this.odiState = this.odiState;
 
 		/** Overwrite tile action */

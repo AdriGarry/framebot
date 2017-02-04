@@ -12,7 +12,7 @@ app.component('tts', {
 		};
 
 		this.tile = new DefaultTile(tileParams); //console.log('this.tile', this.tile);
-		this.tile.data = this.data; //console.log('this.tile', this.tile);
+		//this.tile.data = this.data; //console.log('this.tile', this.tile);
 
 		/** Overwrite tile action */
 		this.action = function(){

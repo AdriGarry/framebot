@@ -12,7 +12,7 @@ app.component('volume', {
 		};
 
 		this.tile = new DefaultTile(tileParams);
-		this.tile.data = this.data;
+		//this.tile.data = this.data;
 
 		/** Overwrite tile action */
 		this.action = function(){

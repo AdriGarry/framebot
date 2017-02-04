@@ -63,7 +63,7 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdBottom
 			});
 		}else if(button.label && button.url){
 			UIService.sendCommand(button, function(data){
-				$scope.showToast(button.label);
+				//$scope.showToast(button.label);
 			});
 			// TODO test pour showErrorToast
 		}

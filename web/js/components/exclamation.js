@@ -16,7 +16,7 @@ app.component('exclamation', {
 		};
 
 		this.tile = new DefaultTile(tileParams);
-		this.tile.data = this.data;
+		//this.tile.data = this.data;
 		this.odiState = this.odiState;
 
 		/** Overwrite tile action */
