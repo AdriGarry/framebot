@@ -291,12 +291,6 @@ md-sidenav md-toolbar .tools{
 }
 
 /*------------------------------ MAIN ------------------------------- */
-.main{
-	margin-left:1em;
-	margin-right:1em;
-	/*padding-top:60px;*/
-}
-
 md-content{
 	padding-bottom:0;
 }
@@ -313,8 +307,10 @@ md-content{
 	display:flex;
 	flex-wrap:wrap;
 	justify-content:space-between;
+	width:95%;
 	max-width:1000px;
-	margin:4em auto 0;
+	margin-top:4em;
+	padding:0 0.5em;
 }
 
 /*[flex]{
@@ -356,6 +352,15 @@ md-content{
 	/*font-weight:800;*/
 	font-size:1.6em;
 }
+
+tts[flex] > button{
+	height:15em;
+}
+tts[flex] > button.active{
+	height:300em;
+}
+
+
 [flex] footer{
 	position:absolute;
 	width:100%;
@@ -618,6 +623,10 @@ footer p a:hover{
 		color:rgba(0,0,0,0.6);
 		zoom:1.5;
 	}
+
+	.dashboard{
+		margin:4em auto 0;
+	}
 	md-bottom-sheet{
 		margin-bottom:3em;
 	}
@@ -633,9 +642,6 @@ footer p a:hover{
 
 	.toolbar h1{
 		margin-left:3.6em;/*4em*/
-	}
-	.main{
-		/*padding-top:80px;*/
 	}
 	md-input-container{
 		margin:0;
@@ -699,17 +705,15 @@ footer p a:hover{
 		font-size:10vw;
 	}
 
-
-
 	.dashboard [flex] > button{
 		line-height:13px;
 	}
 
-	[flex] > button .main{
+	[flex] > button > .tileContent .main{
 		margin-top:-10px;
 	}
-	[flex] > button .main .fa{
-		font-size:1.8em;
+	[flex] > button > .tileContent .main .fa{
+		font-size:1.85em;
 	}
 
 	md-grid-list md-grid-tile md-grid-tile-footer, [flex] footer{

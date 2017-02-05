@@ -160,9 +160,8 @@
 		</div>
 	</md-sidenav>
 
-	<div class="main" layout-align="top center">
+	<div layout-align="top center">
 
-			<br>
 			<div class="dashboard ng-slide" data-ng-if="irda">
 				<tts data="dashboard.runningData.mode" flex="3"></tts>
 				<mode data="dashboard.runningData.mode" flex="1"></mode>
@@ -170,8 +169,8 @@
 				<alarm data="dashboard.runningData.alarm" flex="1"></alarm>
 				<cpu data="dashboard.runningData.cpu" flex="2" data-odi-state="dashboard.odiState"></cpu>
 				<voicemail data="dashboard.runningData.voicemail" flex="1" data-odi-state="dashboard.odiState"></voicemail>
-				<exclamation data="dashboard.runningData.exclamation" flex="1" data-odi-state="dashboard.odiState"></exclamation>
 				<jukebox data="dashboard.runningData.jukebox" flex="1" data-odi-state="dashboard.odiState"></jukebox>
+				<exclamation data="dashboard.runningData.exclamation" flex="1" data-odi-state="dashboard.odiState"></exclamation>
 				<timer data="dashboard.runningData.timer" flex="1" data-odi-state="dashboard.odiState"></timer>
 				<date data="dashboard.runningData.date" flex="1" data-odi-state="dashboard.odiState"></date>
 				<time data="dashboard.runningData.time" flex="1" data-odi-state="dashboard.odiState"></time>
@@ -183,7 +182,6 @@
 				<system data="dashboard.runningData.system" flex="1"></system>
 				<about data="dashboard.runningData.about" flex="1"></about>
 			</div>
-			<br>
 
 		<md-content flex layout-padding>
 			<!--<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" class="md-fab md-primary md-hue-2 md-mini muteButton"

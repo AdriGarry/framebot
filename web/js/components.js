@@ -8,31 +8,36 @@ app.component('tts', {
 		var tileParams = {
 			label: 'TTS - Voice synthesizing',
 			actionList:[],
-			state: 'active' //collapsed
+			collapsed: true //collapsed
 		};
 
 		this.tile = new DefaultTile(tileParams);
 
 		/** Overwrite tile action */
-		this.action = function(){
+		this.tile.click = function(){
 			console.log('Overwrite tile action');
-			toggleTileState();
+			expandTile();
 		};
 
-		function toggleTileState(){
-			console.log('toggleTileState', toggleTileState);
+		function expandTile(){
+			console.log('expandTile()');
+			// this.tile.height = ;
+		}
+		function expandTile(){
+			console.log('expandTile()');
+			// this.tile.height = ;
 		}
 	}
 });
 
-/** mode component */
+/** Mode component */
 app.component('mode', {
 	bindings: {
 		data: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
-		//function Tile(id, label, color, rowspan, colspan, viewMode, value, actionList){
+		/*function Tile(id, label, color, rowspan, colspan, viewMode, value, actionList){*/
 		var tileParams = {
 			label: 'Mode',
 			actionList:[{label: 'Reset', icon: 'retweet', url: '/resetConfig'},{
@@ -40,7 +45,7 @@ app.component('mode', {
 				label: 'Sleep', icon: 'moon-o', url: '/sleep'},{
 				label: 'Restart', icon: 'bolt', url: '/odi'}]
 		};
-		this.tile = new DefaultTile(tileParams); //console.log('this.tile', this.tile);
+		this.tile = new DefaultTile(tileParams);
 	}
 });
 
@@ -55,9 +60,7 @@ app.component('volume', {
 			label: 'Volume',
 			actionList:[{label: 'Mute', url: '/mute'}]
 		};
-
 		this.tile = new DefaultTile(tileParams);
-		//this.tile.data = this.data;
 	}
 });
 
@@ -77,7 +80,7 @@ app.component('alarm', {
 		this.odiState = this.odiState;
 
 		/** Overwrite tile action */
-		this.action = function(){
+		this.tile.click = function(){
 			console.log('Overwrite tile action');
 		};
 	}
@@ -220,7 +223,6 @@ app.component('weather', {
 			label: 'Weather',
 			actionList:[{url: '/meteo'}]
 		};
-
 		this.tile = new DefaultTile(tileParams);
 		this.odiState = this.odiState;
 	}
