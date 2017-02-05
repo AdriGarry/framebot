@@ -3,7 +3,7 @@ app.component('system', {
 	bindings: {
 		data: '<',
 	},
-	templateUrl: '/js/components/system.html',
+	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
 		//function Tile(id, label, color, rowspan, colspan, viewMode, value, actionList){
 		var tileParams = {

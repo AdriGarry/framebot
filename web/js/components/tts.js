@@ -3,7 +3,7 @@ app.component('tts', {
 	bindings: {
 		data: '<'
 	},
-	templateUrl: '/js/components/tts.html',
+	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
 		var tileParams = {
 			label: 'TTS - Voice synthesizing',
