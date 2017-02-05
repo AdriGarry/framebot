@@ -5,27 +5,24 @@ app.component('tts', {
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var self = this;
 		var tileParams = {
 			label: 'TTS - Voice synthesizing',
 			actionList:[],
-			collapsed: true //collapsed
+			expanded: false //collapsed
 		};
 
 		this.tile = new DefaultTile(tileParams);
 
 		/** Overwrite tile action */
 		this.tile.click = function(){
-			console.log('Overwrite tile action');
-			expandTile();
+			if(!self.tile.expanded){
+				self.toggleTileHeight();
+			}
 		};
 
-		function expandTile(){
-			console.log('expandTile()');
-			// this.tile.height = ;
-		}
-		function expandTile(){
-			console.log('expandTile()');
-			// this.tile.height = ;
+		self.toggleTileHeight = function(){
+			self.tile.expanded = !self.tile.expanded;
 		}
 	}
 });

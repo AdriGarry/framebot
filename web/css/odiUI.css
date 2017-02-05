@@ -331,7 +331,7 @@ md-content{
 .dashboard *{
 	color:#496069;
 }
-.dashboard [flex] > button{
+.dashboard > [flex] > button{
 	height:18vw;
 	bottom:0;
 	margin-top:10px;
@@ -344,6 +344,10 @@ md-content{
 	line-height:36px;
 }
 
+.dashboard > [flex] > button.expanded{
+	height:28em;
+}
+
 [flex] > button > .tileContent .main{
 	text-align:center;
 	font-size:5vw;
@@ -352,14 +356,6 @@ md-content{
 	/*font-weight:800;*/
 	font-size:1.6em;
 }
-
-tts[flex] > button{
-	height:15em;
-}
-tts[flex] > button.active{
-	height:300em;
-}
-
 
 [flex] footer{
 	position:absolute;
@@ -625,7 +621,7 @@ footer p a:hover{
 	}
 
 	.dashboard{
-		margin:4em auto 0;
+		margin:5em auto 0;
 	}
 	md-bottom-sheet{
 		margin-bottom:3em;
@@ -703,6 +699,10 @@ footer p a:hover{
 	}
 	figure .mainInfo{
 		font-size:10vw;
+	}
+
+	.dashboard [flex] > button{
+		line-height:13px;
 	}
 
 	.dashboard [flex] > button{

@@ -9,6 +9,8 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdBottom
 		// Basic attributes
 		this.id = tile.id || '';
 		this.label = tile.label || '';
+		this.expanded = tile.expanded || 0;
+
 		this.color = tile.color || '';
 		this.rowspan = tile.rowspan || 1;
 		this.colspan = tile.colspan || 1;
