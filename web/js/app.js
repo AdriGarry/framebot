@@ -62,7 +62,9 @@ app.filter('formatNumber', function(){
 app.filter('formatTimeLeftTimer', function(formatNumber){
 	return function(sec){
 		var m = Math.trunc(sec/60);
-		var s = formatNumber(sec%60);
+		// var s = formatNumber(sec%60);
+		var s = $filter('formatNumber')(sec%60);
+		//$filter('filtername')(arg1,arg2);
 		return m+':'+s;
 	}
 });
