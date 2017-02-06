@@ -48,3 +48,24 @@ app.filter('formatLog', function(CONSTANTS){
 	};
 });
 
+/** Filter to display number < 10 on 2 characters **/
+// USE-> {{alarm.m | formatNumber:2}}
+app.filter('formatNumber', function(){
+	return function(value, length){
+		return (1e5+''+value).slice(-length);
+		//return value < 10 ? '0'+value : value;
+	}
+});
+
+/** Filter to display time left for timer **/
+// USE-> {{timerValue | formatTimeLeftTimer}}
+app.filter('formatTimeLeftTimer', function(formatNumber){
+	return function(sec){
+		var m = Math.trunc(sec/60);
+		var s = formatNumber(sec%60);
+		return m+':'+s;
+	}
+});
+
+
+

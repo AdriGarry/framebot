@@ -75,7 +75,7 @@
 					<table>
 						<tr data-ng-repeat="alarm in $ctrl.data.value">
 							<td data-ng-if="$ctrl.isTodayAlarm(alarm.d)" class="mediumFont">
-								{{alarm.h}}:{{alarm.m}} <!--{{alarm.mode | limitTo:1}}-->
+								{{alarm.h}}:{{alarm.m | formatNumber:2}} <!--{{alarm.mode | limitTo:1}}-->
 								<i data-ng-if="alarm.mode != 'sea'" class="mediumFont fa fa-music"></i>
 								<i data-ng-if="alarm.mode == 'sea'" class="mediumFont fa fa-signal"></i></td>
 						</tr>
@@ -113,9 +113,21 @@
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Timer">
-		<div class="main">
+			<table class="main">
+			<tr>
+				<td><i class="fa fa-hourglass-half"></i></td>
+				<td>
+					<table>
+						<tr>
+							<td class="mediumFont">{{$ctrl.data.value | formatTimeLeftTimer}}</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<!--<div class="main">
 			<i class="fa fa fa-hourglass-half"></i>
-		</div>
+		</div>-->
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Date">
