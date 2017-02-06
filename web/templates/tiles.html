@@ -1,10 +1,10 @@
 <md-button flex="1" data-ng-click="$ctrl.tile.click()" data-ng-class="{'expanded':$ctrl.tile.expanded}" title="{{$ctrl.tile.label}}" data-ng-disabled="$ctrl.odiState.sleep" data-ng-switch="$ctrl.tile.label" class="md-raised ng-slide"><!--|| $ctrl.tile.expanded-->
 <!--data-md-no-ink="$ctrl.tile.expanded"-->
 	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fa fa-2x fa-ellipsis-h adminFlag"></i>
-	<i data-ng-if="$ctrl.tile.expanded" data-ng-click="$ctrl.toggleTileHeight();$event.stopPropagation()" class="md-icon-button fa fa-2x fa-times adminFlag" title="Reduce"></i>
+	<i data-ng-if="$ctrl.tile.expanded" data-ng-click="$ctrl.toggleTileHeight();$event.stopPropagation()" class="fa fa-2x fa-times adminFlag" title="Reduce"></i>
 
 	<span data-ng-if="0" class="debugObject">{{$ctrl.tile}}</span>
-	<span data-ng-if="0" class="debugObject">{{$ctrl.data.value.mode}}</span>
+	<span data-ng-if="0" class="debugObject">{{$ctrl.data.value}}</span>
 
 	<div class="tileContent" data-ng-switch-when="TTS - Voice synthesizing">
 		<form data-ng-submit="dashboard.ttsTile.submit()" class="mainContent" data-ng-click="">
@@ -68,9 +68,21 @@
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Alarms">
-		<div class="main">
-			<i class="fa fa-bell-o"></i>
-		</div>
+		<table class="main">
+			<tr>
+				<td><i class="fa fa-bell-o"></i></td>
+				<td>
+					<table>
+						<tr data-ng-repeat="alarm in $ctrl.data.value">
+							<td data-ng-if="$ctrl.isTodayAlarm(alarm.d)" class="mediumFont">
+								{{alarm.h}}:{{alarm.m}} <!--{{alarm.mode | limitTo:1}}-->
+								<i data-ng-if="alarm.mode != 'sea'" class="mediumFont fa fa-music"></i>
+								<i data-ng-if="alarm.mode == 'sea'" class="mediumFont fa fa-signal"></i></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="CPU">
@@ -84,7 +96,7 @@
 
 	<div class="tileContent" data-ng-switch-when="Voicemail">
 		<div class="main">
-			<i class="fa fa fa-envelope-o"></i>
+			<i class="fa fa fa-envelope-o"></i><sub data-ng-show="$ctrl.data.value" class="fa-2x">&nbsp;{{$ctrl.data.value}}</sub>
 		</div>
 	</div>
 

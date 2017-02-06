@@ -1,5 +1,5 @@
 /** DefaultTile object **/
-app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdBottomSheet, UIService){
+app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast, $mdBottomSheet, UIService){
 	// var self = this;
 	// var tile;
 	// Tile constructor function
@@ -42,6 +42,7 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdBottom
 				action(this.actionList[0]);
 			}else{
 				console.log('No action affected.');
+				$mdToast.show($mdToast.simple().textContent('No action affected.').position('top right').hideDelay(2500).toastClass('error'));
 			}
 		// }
 	}

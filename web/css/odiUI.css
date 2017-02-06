@@ -349,12 +349,16 @@ md-content{
 }
 
 [flex] > button > .tileContent .main{
+	width:100%;
 	text-align:center;
 	font-size:5vw;
 }
 [flex] > button > .tileContent .main .fa{
-	/*font-weight:800;*/
 	font-size:1.6em;
+}
+
+[flex] > button > .tileContent .main .mediumFont{
+	font-size:0.7em;
 }
 
 [flex] footer{

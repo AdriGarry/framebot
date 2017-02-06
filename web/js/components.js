@@ -61,8 +61,8 @@ app.component('volume', {
 	}
 });
 
-/** Alarm component */
-app.component('alarm', {
+/** Alarms component */
+app.component('alarms', {
 	bindings: {
 		data: '<',
 		odiState: '<'
@@ -71,7 +71,7 @@ app.component('alarm', {
 	controller: function(DefaultTile){
 		var tileParams = {
 			label: 'Alarms',
-			actionList:[{url: '/alarm', params: {h:8,m:12,test:'bouts'}}]
+			actionList:[]/*{url: '/alarm', params: {h:8,m:12,test:'bouts'}}*/
 		};
 		this.tile = new DefaultTile(tileParams);
 		this.odiState = this.odiState;
@@ -80,6 +80,14 @@ app.component('alarm', {
 		this.tile.click = function(){
 			console.log('Overwrite tile action');
 		};
+
+		/** Function to display alarm of the day */
+		this.isTodayAlarm = function(days){
+			if(days.indexOf(new Date().getDay()) >- 1){
+				return true;
+			}
+			return;
+		}
 	}
 });
 
@@ -183,7 +191,10 @@ app.component('time', {
 	controller: function(DefaultTile){
 		var tileParams = {
 			label: 'Time',
-			actionList:[{url: '/time'}]
+			// actionList:[{url: '/time'}]
+			actionList:[{label: 'Odi\'s age', icon: 'birthday-cake', url: '/age'},{
+				label: 'Today', icon: 'calendar', url: '/date'},{
+				label: 'Time', icon: 'clock-o', url: '/time'}]
 		};
 		this.tile = new DefaultTile(tileParams);
 		this.odiState = this.odiState;

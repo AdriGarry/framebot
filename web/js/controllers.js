@@ -88,7 +88,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 				};*/
 				$scope.dashboard.odiState = setOdiState(data);
 				$scope.dashboard.runningData = data;
-				// console.log('$scope.dashboard.runningData', $scope.dashboard.runningData);
+				console.log('$scope.dashboard.runningData', $scope.dashboard.runningData);
 				$timeout(function(){$scope.dashboard.loading = false;}, 100); // supprimer la durée du timeout ?
 			});
 		// }

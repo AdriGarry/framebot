@@ -19,6 +19,7 @@ app.constant("CONSTANTS", {
 	'IP_LOCALIZATOR_URL': 'http://www.traceip.net/?query='
 });
 
+/** Directive to watch scroll event and restart autoRefresh **/
 app.directive("scroll", function ($window){
 	return function(scope, element, attrs){
 		angular.element($window).bind("scroll", function(){
@@ -28,6 +29,7 @@ app.directive("scroll", function ($window){
 	};
 });
 
+/** Filter to format logs (link on ip address) **/
 app.filter('formatLog', function(CONSTANTS){
 	return function(logLine){
 		//logLine = logLine.replace(/\[([0-9]{1,3}\.){3}([0-9]{1,3})\]/g, function(match, capture){
@@ -45,3 +47,4 @@ app.filter('formatLog', function(CONSTANTS){
 		return logLine;
 	};
 });
+
