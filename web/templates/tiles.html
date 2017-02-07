@@ -113,21 +113,10 @@
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Timer">
-			<table class="main">
-			<tr>
-				<td><i class="fa fa-hourglass-half"></i></td>
-				<td>
-					<table>
-						<tr>
-							<td class="mediumFont"><span data-ng-show="$ctrl.data.value">{{$ctrl.data.value}}</span></td><!--{{$ctrl.data.value | formatTimeLeftTimer}}-->
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-		<!--<div class="main">
+		<div class="main">
 			<i class="fa fa fa-hourglass-half"></i>
-		</div>-->
+			<span data-ng-show="$ctrl.data.value">{{$ctrl.data.value | formatTimeLeftTimer}}</span><!--{{$ctrl.data.value | formatTimeLeftTimer}}-->
+		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Date">
