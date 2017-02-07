@@ -59,7 +59,7 @@ app.filter('formatNumber', function(){
 
 /** Filter to display time left for timer **/
 // USE-> {{timerValue | formatTimeLeftTimer}}
-app.filter('formatTimeLeftTimer', function(formatNumber){
+app.filter('formatTimeLeftTimer', function($filter, formatNumber){// formatNumber to delete ?
 	return function(sec){
 		var m = Math.trunc(sec/60);
 		// var s = formatNumber(sec%60);

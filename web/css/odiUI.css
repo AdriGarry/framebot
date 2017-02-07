@@ -719,6 +719,10 @@ footer p a:hover{
 	[flex] > button > .tileContent .main .fa{
 		font-size:1.85em;
 	}
+	[flex] > button > .tileContent .main .mediumFont{
+		font-size:0.4em;
+	}
+
 
 	md-grid-list md-grid-tile md-grid-tile-footer, [flex] footer{
 		padding:1px 0;
