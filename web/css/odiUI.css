@@ -333,6 +333,7 @@ md-content{
 }
 .dashboard > [flex] > button{
 	height:18vw;
+	max-height:220px;
 	bottom:0;
 	margin-top:10px;
 	padding:0;
