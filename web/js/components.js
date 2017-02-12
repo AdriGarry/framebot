@@ -5,7 +5,7 @@ app.component('tts', {
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
-		var self = this;
+		var ctrl = this;
 		var tileParams = {
 			label: 'TTS - Voice synthesizing',
 			actionList:[],
@@ -16,13 +16,13 @@ app.component('tts', {
 
 		/** Overwrite tile action */
 		this.tile.click = function(){
-			if(!self.tile.expanded){
-				self.toggleTileHeight();
+			if(!ctrl.tile.expanded){
+				ctrl.toggleTileHeight();
 			}
 		};
 
-		self.toggleTileHeight = function(){
-			self.tile.expanded = !self.tile.expanded;
+		ctrl.toggleTileHeight = function(){
+			ctrl.tile.expanded = !ctrl.tile.expanded;
 		}
 	}
 });
