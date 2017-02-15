@@ -138,6 +138,7 @@
 
 	<div layout-align="top center">
 
+		<md-content flex layout-padding>
 			<div class="dashboard ng-slide" data-ng-if="irda">
 				<tts data="dashboard.runningData.mode" flex="3"></tts>
 				<mode data="dashboard.runningData.mode" flex="1"></mode>
@@ -159,7 +160,6 @@
 				<about data="dashboard.runningData.about" flex="2"></about>
 			</div>
 
-		<md-content flex layout-padding>
 			<!--<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" class="md-fab md-primary md-hue-2 md-mini muteButton"
 			title="Mute Odi" aria-label="Mute Odi">
 				<i class="fa fa-bell-slash-o"></i>

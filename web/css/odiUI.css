@@ -747,7 +747,7 @@ footer p a:hover{
 
 	/** Ca fout peut etre la merde...? */
 	[flex] > button > .tileContent .main{
-		font-size:3vw;
+		font-size:3.5em;
 	}
 }
 
