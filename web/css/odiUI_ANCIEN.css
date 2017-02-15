@@ -744,11 +744,6 @@ footer p a:hover{
 	figure .mainInfo{
 		font-size:7vw;
 	}
-
-	/** Ca fout peut etre la merde...? */
-	[flex] > button > .tileContent .main{
-		font-size:3vw;
-	}
 }
 
 /* ------------------------------ FIREFOX ONLY ------------------------------- */
