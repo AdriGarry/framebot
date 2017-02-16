@@ -16,7 +16,6 @@ app.component('tts', {
 
 		/** Overwrite tile action */
 		ctrl.tile.click = function(){
-			console.log('$event', $event);
 			if(!ctrl.tile.expanded){
 				ctrl.toggleTileHeight();
 			}

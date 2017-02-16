@@ -472,7 +472,7 @@ figure .mainInfo{
 	vertical-align:middle;
 }
 
-md-grid-list .value{
+/*md-grid-list .value{
 	margin:0 5%;
 }
 md-grid-list .value small{
@@ -490,16 +490,16 @@ md-grid-list md-grid-tile i.adminFlag{
 	top:0.3em;
 	right:0.6em;
 	color:#546d78;
-}
+}*/
 /*md-grid-list md-grid-tile md-grid-tile-footer h3 i.adminFlag{
 	position:absolute;
 	right:3%;
 	margin-top:2px;
 }
 */
-md-grid-list md-grid-tile form{
+/*md-grid-list md-grid-tile form{
 	width:90%;
-}
+}*/
 
 .grey{background:rgba(0, 0, 0, 0.08);}
 .blue{background:rgba(187, 222, 251, 1);}
@@ -514,14 +514,13 @@ md-grid-list md-grid-tile form{
 .orange{background:rgba(255, 204, 188, 0.9);}
 .purple{background:rgba(209, 196, 233, 0.9);}
 
-md-grid-list md-grid-tile md-grid-tile-footer{
+/*md-grid-list md-grid-tile md-grid-tile-footer{
 	height:auto;
 	padding:5px 0;
 }
-
 md-grid-list md-grid-tile.active, md-grid-list md-grid-tile md-grid-tile-footer.active{
 	background:rgba(0,0,0,0.6);
-}
+}*/
 
 /* ------------------------------ TTS ------------------------------- */
 .voiceSwitch{
@@ -706,7 +705,7 @@ body>footer{
 		font-size:0.6em;
 	}
 
-	md-grid-list md-grid-tile[md-rowspan="2"] div.ttsMsg{
+	/*md-grid-list md-grid-tile[md-rowspan="2"] div.ttsMsg{
 		margin-top:-1em;
 	}
 	md-grid-list md-grid-tile i.adminFlag{
@@ -716,7 +715,7 @@ body>footer{
 	}
 	figure .mainInfo{
 		font-size:10vw;
-	}
+	}*/
 
 	.dashboard [flex] > button{
 		line-height:13px;
@@ -725,7 +724,9 @@ body>footer{
 	.dashboard [flex] > button{
 		line-height:13px;
 	}
-
+	.dashboard [flex] > button i.adminFlag{
+		font-size:4em;
+	}
 	[flex] > button > .tileContent .main{
 		margin-top:-10px;
 	}
@@ -736,11 +737,17 @@ body>footer{
 		font-size:0.6em;
 	}
 
-
-	md-grid-list md-grid-tile md-grid-tile-footer, [flex] footer{
+	.dashboard > [flex] > button.expanded{
+		height:40em;
+		max-height:40em;
+	}
+	.dashboard > [flex] > button.expanded form{
+		font-size:4vw;
+	}
+	[flex] footer{
 		padding:1px 0;
 	}
-	md-grid-list md-grid-tile md-grid-tile-footer h3, [flex] footer h3{
+	[flex] footer h3{
 		margin-left:5px;
 		font-size:3vw;
 	}

@@ -34,11 +34,11 @@
 			<div layout="row" class="ttsMsg">
 				<md-input-container flex="70" class="md-block">
 					<label>Message</label>
-					<input type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()"><!--required-->
-					<datalist id="examples">
+					<input type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" autocomplete="off"><!--required-->
+					<!--<datalist id="examples">
 						<option value="Hey, je suis Odi !">
 						<option value="J'arrive !">
-					</datalist>
+					</datalist>-->
 				</md-input-container>
 				<md-input-container flex="30" class="md-block centerText">
 					<md-button type="submit" name="submit" class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded">
