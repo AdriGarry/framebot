@@ -22,8 +22,8 @@ module.exports = {
 };
 
 var muteTimer, delay;
-/** Function to mute Odi */
-function mute(delay, message){ // delay: min
+/** Function to mute Odi (delay:min) */
+function mute(delay, message){
 	clearTimeout(muteTimer);
 	console.debug('mute()', 'delay:', delay, 'message:', message);
 	delay = (delay && !isNaN(delay)) ? delay : 0;

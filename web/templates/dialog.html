@@ -2,13 +2,13 @@
 	<md-dialog-content class="md-dialog-content">
 		<h2 class="md-title">{{modal.label}}</h2>
 
-		<ul>
+		<!--<ul>
 			<li data-ng-repeat="(key, value) in modal.data track by $index">
 				<span class="key" data-ng-show="!isNumber(key)">{{key}}</span> {{value}}
-				<!--<span class="key" data-ng-show="!isNumber(key)" data-ng-bind-html="toHtml(key | formatLog)"></span>
-				<span class="value" data-ng-bind-html="toHtml(value | formatLog)"></span>-->
 			</li>
-		</ul>
+		</ul>-->
+
+		<pre>{{modal.data | json:4}}</pre>
 
 		<md-dialog-actions>
 			<md-button class="md-raised" data-ng-click="close()">Close</md-button>&nbsp;&nbsp;&nbsp;

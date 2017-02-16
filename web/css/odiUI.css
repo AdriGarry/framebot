@@ -569,6 +569,9 @@ span.responsive span.mode small{
 
 
 /* ------------------------------ DIALOG ------------------------------- */
+md-dialog{
+	min-width:30%;
+}
 md-dialog md-dialog-content h2 i.fa{
 	float:right
 }
