@@ -549,6 +549,10 @@ md-switch.voiceSwitch, md-checkbox{
 	margin-left:-10em;
 }
 
+.ttsForm md-input-container button > *{
+	color:#fff!important;
+}
+
 md-input-container + label{
 	margin-top:1em;
 	margin-left:1em;

@@ -4,7 +4,7 @@ app.component('tts', {
 		data: '<'
 	},
 	templateUrl: '/templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile, UIService){
 		var ctrl = this;
 		var tileParams = {
 			label: 'TTS - Voice synthesizing',
@@ -15,9 +15,11 @@ app.component('tts', {
 		this.tile = new DefaultTile(tileParams);
 
 		/** Overwrite tile action */
-		this.tile.click = function(){
+		this.tile.click = function($event){
 			if(!ctrl.tile.expanded){
 				ctrl.toggleTileHeight();
+			}else{
+				$event.stopPropagation();
 			}
 		};
 
@@ -25,9 +27,44 @@ app.component('tts', {
 			ctrl.tile.expanded = !ctrl.tile.expanded;
 		}
 
-		this.tile.sendTTS = function(){
-		}
-
+		ctrl.tts = {
+			voice: 'espeak',
+			lg: 'fr',
+			msg: '',
+			voicemail: false,
+			error: '',
+			conf: {
+				languageList: [{code: 'fr', label: 'French'}, {code: 'en', label: 'English'}, {code: 'ru', label: 'Russian'},
+					{code: 'es', label: 'Spanish'}, {code: 'it', label: 'Italian'}, {code: 'de', label: 'German'}],
+				voiceList: [{code: ':3', label: 'Nice voice'}, {code: ':1', label: 'Robot voice'}]
+			},
+			cleanText: function(){ // TODO create an UtilsService.. ==> OR A FILTER !!!!
+				var message = ctrl.tts.msg || '';
+				message = message.replace(/[àâ]/g,'a');
+				message = message.replace(/[ç]/g,'c');
+				message = message.replace(/[èéêë]/g,'e');
+				message = message.replace(/[îï]/g,'i');
+				message = message.replace(/[ôóö]/g,'o');
+				message = message.replace(/[ù]/g,'u');
+				ctrl.tts.msg = message;
+			},
+			submit: function(){
+				if(ctrl.tts.msg != ''){
+					UIService.sendTTS(ctrl.tts, function(callback){
+						if(callback.status == 200){
+							ctrl.tts.msg = ''; ctrl.tts.error = ''; // Reinit TTS
+						}
+						/*if(callback.status != 200){ // TODO to delete... (toast moved to UIService)
+							ctrl.tts.error = 'UNE ERREUR EST SURVENUE';
+						}
+						else{
+							ctrl.showToast(ctrl.tts.msg);// LIMITER / TRONQUER la longueur du message !!! WWWWWWWW => 200
+							ctrl.tts.msg = ''; ctrl.tts.error = ''; // Reinit TTS
+						}*/
+					});
+				}
+			}
+		};
 	}
 });
 

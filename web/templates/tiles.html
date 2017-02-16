@@ -1,4 +1,4 @@
-<md-button flex="1" data-ng-click="$ctrl.tile.click()" data-ng-class="[{true:$ctrl.tile.label}[true], {true:'expanded'}[$ctrl.tile.expanded]]" title="{{$ctrl.tile.label}}" data-ng-disabled="$ctrl.odiState.sleep" data-ng-switch="$ctrl.tile.label" class="md-raised ng-slide"><!--|| $ctrl.tile.expanded-->
+<md-button flex="1" data-ng-click="$ctrl.tile.click($event)" data-ng-class="[{true:$ctrl.tile.label}[true], {true:'expanded'}[$ctrl.tile.expanded]]" title="{{$ctrl.tile.label}}" data-ng-disabled="$ctrl.odiState.sleep" data-ng-switch="$ctrl.tile.label" class="md-raised ng-slide"><!--|| $ctrl.tile.expanded-->
 <!--<md-button flex="1" data-ng-click="$ctrl.tile.click()" data-ng-class="{'expanded':$ctrl.tile.expanded}" title="{{$ctrl.tile.label}}" data-ng-disabled="$ctrl.odiState.sleep" data-ng-switch="$ctrl.tile.label" class="md-raised ng-slide">-->
 <!--data-md-no-ink="$ctrl.tile.expanded"-->
 	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fa fa-2x fa-ellipsis-h adminFlag"></i>
@@ -8,10 +8,10 @@
 	<span data-ng-if="0" class="debugObject">{{$ctrl.data.value}}</span>
 
 	<div class="tileContent" data-ng-switch-when="TTS - Voice synthesizing">
-		<form data-ng-submit="dashboard.ttsTile.submit()" class="mainContent" data-ng-click="">
+		<form data-ng-submit="$ctrl.tts.submit()" class="mainContent ttsForm" data-ng-click="">
 			<div layout="row" data-ng-show="$ctrl.tile.expanded">
-				<md-switch data-ng-model="dashboard.ttsTile.voice" data-ng-true-value="'espeak'" data-ng-false-value="'google'" class="voiceSwitch desktopZoom"
-					ng-class="dashboard.ttsTile.voice == 'google' ? 'md-warn' : 'md-primary'">
+				<md-switch data-ng-model="$ctrl.tts.voice" data-ng-true-value="'espeak'" data-ng-false-value="'google'" class="voiceSwitch desktopZoom"
+					ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'">
 					<span>Human Voice</span>
 					<span>Robot Voice</span>
 				</md-switch>
@@ -20,8 +20,8 @@
 				<div flex="10"></div>
 				<md-input-container flex="50">
 					<label>Language</label>
-					<md-select name="type" data-ng-model="dashboard.ttsTile.lg">
-						<md-option data-ng-repeat="language in dashboard.ttsTile.conf.languageList track by $index" data-ng-value="language.code"
+					<md-select name="type" data-ng-model="$ctrl.tts.lg">
+						<md-option data-ng-repeat="language in $ctrl.tts.conf.languageList track by $index" data-ng-value="language.code"
 							ng-checked="language.code == fr">
 							{{language.label}}
 						</md-option>
@@ -29,21 +29,22 @@
 				</md-input-container>
 
 				<label class="pointer text-center desktopZoom" flex="30">
-					<md-checkbox data-ng-model="dashboard.ttsTile.voicemail" data-ng-class="dashboard.ttsTile.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send in voicemail" aria-label="Send in voicemail">Voicemail</md-checkbox>
+					<md-checkbox data-ng-model="$ctrl.tts.voicemail" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send in voicemail" aria-label="Send in voicemail">Voicemail</md-checkbox>
 				</label>
 			</div>
 			<div layout="row" class="ttsMsg">
 				<md-input-container flex="70" class="md-block">
 					<label>Message</label>
-					<input type="search" name="ttsMsg" list="examples" data-ng-model="dashboard.ttsTile.msg" data-ng-change="dashboard.ttsTile.cleanText()"><!--required-->
+					<input type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()"><!--required-->
 					<datalist id="examples">
 						<option value="Hey, je suis Odi !">
-						<option value="Je suis la !">
+						<option value="J'arrive !">
 					</datalist>
 				</md-input-container>
 				<md-input-container flex="30" class="md-block centerText">
-					<md-button type="submit" name="submit" class="md-raised" data-ng-class="dashboard.ttsTile.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-click="$ctrl.tile.click()">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-lg" data-ng-class="dashboard.ttsTile.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
+					<md-button type="submit" name="submit" class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded">
+						&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-lg" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 					</md-button>
 				</md-input-container>
 			</div>
