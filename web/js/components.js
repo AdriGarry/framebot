@@ -15,11 +15,10 @@ app.component('tts', {
 		ctrl.tile = new DefaultTile(tileParams, true);
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function($event){
+		ctrl.tile.click = function(){
+			console.log('$event', $event);
 			if(!ctrl.tile.expanded){
 				ctrl.toggleTileHeight();
-			}else{
-				$event.stopPropagation();
 			}
 		};
 
@@ -407,6 +406,7 @@ app.component('about', {
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'About',
 			actionList:[]
