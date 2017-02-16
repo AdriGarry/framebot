@@ -4,21 +4,18 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 	// var tile;
 	// Tile constructor function
 	function Tile(tile){
+		// var Tile = this; // TODO à implémenter sur tout ce fichier... !!
 		//console.log(tile.id, tile.label, tile.color, tile.rowspan, tile.colspan, tile.viewMode, tile.value, tile.actionList);
 		// tile = this;
 		// Basic attributes
 		this.id = tile.id || '';
 		this.label = tile.label || '';
-		this.expanded = tile.expanded || 0;
-
-		this.color = tile.color || '';
-		this.rowspan = tile.rowspan || 1;
-		this.colspan = tile.colspan || 1;
+		this.expanded = tile.expanded || false;
 
 		// Info attributes
 		/*this.value = tile.value || '-';*/
-		this.viewMode = tile.viewMode; // 'icon' || 'value' || 'custom'
-		this.html = '';
+/*		this.viewMode = tile.viewMode; // 'icon' || 'value' || 'custom'
+		this.html = '';*/
 
 		// Action attributes
 		this.actionList = tile.actionList;
@@ -34,17 +31,14 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 
 	/** Function on click on Tile **/
 	function click(){
-		// console.log('defaultClick', this.label);
-		// if($scope.irda){
-			if(this.actionList.length>1){
-				openBottomSheet(this.actionList);
-			}else if(this.actionList.length==1){
-				action(this.actionList[0]);
-			}else{
-				console.log('No action affected.');
-				$mdToast.show($mdToast.simple().textContent('No action affected.').position('top right').hideDelay(2500).toastClass('error'));
-			}
-		// }
+		if(this.actionList.length>1){
+			openBottomSheet(this.actionList);
+		}else if(this.actionList.length==1){
+			action(this.actionList[0]);
+		}else{
+			console.log('No action affected.');
+			$mdToast.show($mdToast.simple().textContent('No action affected.').position('top right').hideDelay(2500).toastClass('error'));
+		}
 	}
 
 	/** Function to send action **/

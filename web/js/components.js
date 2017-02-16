@@ -11,11 +11,11 @@ app.component('tts', {
 			actionList:[],
 			expanded: false //collapsed
 		};
-
-		this.tile = new DefaultTile(tileParams);
+		ctrl.access = true;
+		ctrl.tile = new DefaultTile(tileParams, true);
 
 		/** Overwrite tile action */
-		this.tile.click = function($event){
+		ctrl.tile.click = function($event){
 			if(!ctrl.tile.expanded){
 				ctrl.toggleTileHeight();
 			}else{
@@ -71,11 +71,12 @@ app.component('tts', {
 /** Mode component */
 app.component('mode', {
 	bindings: {
-		data: '<'
+		data: '<',
+		access: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
-		/*function Tile(id, label, color, rowspan, colspan, viewMode, value, actionList){*/
+		var ctrl = this;
 		var tileParams = {
 			label: 'Mode',
 			actionList:[{label: 'Reset', icon: 'retweet', url: '/resetConfig'},{
@@ -83,22 +84,28 @@ app.component('mode', {
 				label: 'Sleep', icon: 'moon-o', url: '/sleep'},{
 				label: 'Restart', icon: 'bolt', url: '/odi'}]
 		};
-		this.tile = new DefaultTile(tileParams);
+		ctrl.tile = new DefaultTile(tileParams);
 	}
 });
 
 /** Volume component */
 app.component('volume', {
 	bindings: {
-		data: '<'
+		data: '<',
+		access: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'Volume',
 			actionList:[{label: 'Mute', url: '/mute'}]
 		};
-		this.tile = new DefaultTile(tileParams);
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.hasAccess = function(){
+			console.log('hasAccess()', ctrl.access);
+			return ctrl.access;
+		}
 	}
 });
 
@@ -106,24 +113,26 @@ app.component('volume', {
 app.component('alarms', {
 	bindings: {
 		data: '<',
+		access: '<',
 		odiState: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'Alarms',
 			actionList:[]/*{url: '/alarm', params: {h:8,m:12,test:'bouts'}}*/
 		};
-		this.tile = new DefaultTile(tileParams);
-		this.odiState = this.odiState;
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
 
 		/** Overwrite tile action */
-		this.tile.click = function(){
+		ctrl.tile.click = function(){
 			console.log('Overwrite tile action');
 		};
 
 		/** Function to display alarm of the day */
-		this.isTodayAlarm = function(days){
+		ctrl.isTodayAlarm = function(days){
 			if(days.indexOf(new Date().getDay()) >- 1){
 				return true;
 			}
@@ -136,17 +145,19 @@ app.component('alarms', {
 app.component('voicemail', {
 	bindings: {
 		data: '<',
+		access: '<',
 		odiState: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'Voicemail',
 			actionList:[{label: 'Clear', icon: 'trash-o', url: '/clearVoiceMail'},{label: 'Play', icon: 'play', url: '/checkVoiceMail'}]
 		};
 
-		this.tile = new DefaultTile(tileParams);
-		this.odiState = this.odiState;
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
 	}
 });
 
@@ -154,17 +165,19 @@ app.component('voicemail', {
 app.component('cpu', {
 	bindings: {
 		data: '<',
+		access: '<',
 		odiState: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'CPU',
 			//disableOnSleep: true,
 			actionList:[{url: '/cpuTemp'}]
 		};
-		this.tile = new DefaultTile(tileParams);
-		this.odiState = this.odiState;
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
 	}
 });
 
@@ -172,10 +185,12 @@ app.component('cpu', {
 app.component('exclamation', {
 	bindings: {
 		data: '<',
+		access: '<',
 		odiState: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'Exclamation',
 			actionList:[{label: 'Conversation', icon: 'comments-o', url: '/conversation'},{
@@ -183,8 +198,8 @@ app.component('exclamation', {
 				label: 'Exclamation', icon: 'bullhorn', url: '/exclamation'},{
 				label: 'Last TTS', icon: 'undo', url: '/lastTTS'}]
 		};
-		this.tile = new DefaultTile(tileParams);
-		this.odiState = this.odiState;
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
 	}
 });
 
@@ -192,16 +207,18 @@ app.component('exclamation', {
 app.component('jukebox', {
 	bindings: {
 		data: '<',
+		access: '<',
 		odiState: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'Jukebox',
 			actionList:[{label: 'Jukebox', icon: 'random', url: '/jukebox'},{label: 'FIP Radio', icon: 'globe', url: '/fip'}]
 		};
-		this.tile = new DefaultTile(tileParams);
-		this.odiState = this.odiState;
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
 	}
 });
 
@@ -209,16 +226,18 @@ app.component('jukebox', {
 app.component('timer', {
 	bindings: {
 		data: '<',
+		access: '<',
 		odiState: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'Timer',
 			actionList:[{label: 'Stop timer', icon: 'stop', url: '/timer?stop'},{label: 'Timer +1', icon: 'plus', url: '/timer'}]
 		};
-		this.tile = new DefaultTile(tileParams);
-		this.odiState = this.odiState;
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
 	}
 });
 
@@ -226,10 +245,12 @@ app.component('timer', {
 app.component('time', {
 	bindings: {
 		data: '<',
-		odiState: '<'
+		access: '<',
+		odiState: '<',
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'Time',
 			// actionList:[{url: '/time'}]
@@ -237,8 +258,8 @@ app.component('time', {
 				label: 'Today', icon: 'calendar', url: '/date'},{
 				label: 'Time', icon: 'clock-o', url: '/time'}]
 		};
-		this.tile = new DefaultTile(tileParams);
-		this.odiState = this.odiState;
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
 	}
 });
 
@@ -246,17 +267,19 @@ app.component('time', {
 app.component('date', {
 	bindings: {
 		data: '<',
+		access: '<',
 		odiState: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'Date',
 			actionList:[{label: 'Odi\'s age', icon: 'birthday-cake', url: '/age'},{label: 'Today', icon: 'calendar', url: '/date'}]
 		};
-		this.tile = new DefaultTile(tileParams);
+		ctrl.tile = new DefaultTile(tileParams);
 		//this.tile.data = this.data;
-		this.odiState = this.odiState;
+		ctrl.odiState = ctrl.odiState;
 	}
 });
 
@@ -264,16 +287,18 @@ app.component('date', {
 app.component('weather', {
 	bindings: {
 		data: '<',
+		access: '<',
 		odiState: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'Weather',
 			actionList:[{url: '/meteo'}]
 		};
-		this.tile = new DefaultTile(tileParams);
-		this.odiState = this.odiState;
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
 	}
 });
 
@@ -281,10 +306,12 @@ app.component('weather', {
 app.component('idea', {
 	bindings: {
 		data: '<',
+		access: '<',
 		odiState: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'Idea',
 			actionList:[{label: 'Survivaure', icon: 'space-shuttle', url: '/survivaure'},{
@@ -293,8 +320,8 @@ app.component('idea', {
 				label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{
 				label: 'Test', icon: 'flag-checkered', url:'/test'}]
 		};
-		this.tile = new DefaultTile(tileParams);
-		this.odiState = this.odiState;
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
 	}
 });
 
@@ -302,16 +329,18 @@ app.component('idea', {
 app.component('party', {
 	bindings: {
 		data: '<',
+		access: '<',
 		odiState: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'Party',
 			actionList:[{url: '/setParty'}]
 		};
-		this.tile = new DefaultTile(tileParams);
-		this.odiState = this.odiState;
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
 	}
 });
 
@@ -319,17 +348,19 @@ app.component('party', {
 app.component('russia', {
 	bindings: {
 		data: '<',
+		access: '<',
 		odiState: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'Russia',
 			actionList:[{label: 'Subway / Street', icon: 'subway', url: '/russia'},{
 				label: 'Hymn', icon: 'star', url: '/russia?hymn'}]
 		};
-		this.tile = new DefaultTile(tileParams);
-		this.odiState = this.odiState;
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
 	}
 });
 
@@ -337,16 +368,18 @@ app.component('russia', {
 app.component('logs', {
 	bindings: {
 		data: '<',
+		access: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'Logs',
 			actionList:[{label: 'Voicemail History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/voicemailHistory'},{
 				label: 'Request History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/requestHistory'},{
 				label: 'Config', icon: 'sliders', url: 'http://odi.adrigarry.com/config.json'}]
 		};
-		this.tile = new DefaultTile(tileParams);
+		ctrl.tile = new DefaultTile(tileParams);
 	}
 });
 
@@ -354,14 +387,16 @@ app.component('logs', {
 app.component('system', {
 	bindings: {
 		data: '<',
+		access: '<'
 	},
 	templateUrl: '/templates/tiles.html',
 	controller: function(DefaultTile){
+		var ctrl = this;
 		var tileParams = {
 			label: 'System',
 			actionList:[{label: 'Shutdown', icon: 'power-off', url: '/shutdown'},{label: 'Reboot', icon: 'refresh', url: '/reboot'}]
 		};
-		this.tile = new DefaultTile(tileParams);
+		ctrl.tile = new DefaultTile(tileParams);
 	}
 });
 
@@ -376,6 +411,7 @@ app.component('about', {
 			label: 'About',
 			actionList:[]
 		};
-		this.tile = new DefaultTile(tileParams);
+		ctrl.access = true;
+		ctrl.tile = new DefaultTile(tileParams, true);
 	}
 });

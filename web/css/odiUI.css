@@ -611,6 +611,10 @@ footer p a{
 footer p a:hover{
 	color:#94adb8;
 }
+body>footer{
+	margin-top:5em;
+	margin-bottom:1em;
+}
 
 /* ------------------------------ DESKTOP MEDIA QUERIES ------------------------------- */
 @media(min-width:768px){
@@ -742,6 +746,9 @@ footer p a:hover{
 	}
 	md-toolbar md-switch.switch{
 		margin-top:1em;
+	}
+	body>footer{
+		margin-top:3em;
 	}
 }
 
