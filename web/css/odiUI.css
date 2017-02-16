@@ -347,6 +347,7 @@ md-content{
 
 .dashboard > [flex] > button.expanded{
 	height:28em;
+	max-height:28em;
 }
 
 [flex] > button > .tileContent .main{

@@ -42,6 +42,7 @@
 	<meta name="theme-color" content="#2c3e50">
 </head>
 <body data-ng-controller="UIController" scroll>
+	<i class="fa fa-spin fa-cog appLoader"></i>
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools"><!-- TODO component toolbar -->
 		<!--<md-progress-circular md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh && 0" data-ng-click="reloadUI()"></md-progress-circular>-->

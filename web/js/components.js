@@ -24,6 +24,10 @@ app.component('tts', {
 		ctrl.toggleTileHeight = function(){
 			ctrl.tile.expanded = !ctrl.tile.expanded;
 		}
+
+		this.tile.sendTTS = function(){
+		}
+
 	}
 });
 
