@@ -31,8 +31,6 @@ const FILE_REQUEST_HISTORY = LOG_PATH + 'requestHistory.log';
 const FILE_GRANT = DATA_PATH + 'pwd.properties';
 const FILE_VOICEMAIL_HISTORY = LOG_PATH + 'voicemailHistory.json';
 
-const ALLOWED_REQUESTS = ['/config.json', '/voicemailHistory', '/requestHistory'];
-
 var deploy;
 
 module.exports = {
@@ -74,13 +72,13 @@ function startUI(mode){
 
 		ip = req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : '[' + req.connection.remoteAddress + ']';
 
-		if(req.headers.ui === 'v3' || ALLOWED_REQUESTS.indexOf(req.url) > -1){ // Allowed requests
+		if(req.headers.ui === 'v3'){ // Allowed requests
 			request = req.headers.ui + ' ' + req.url.replace('%20',' ');
 			console.log(request, ip);
 			next();
 		}else{ // Not allowed requests
 			request = '401 ' + req.url.replace('%20',' ');
-			console.log(request, ip);
+			console.error(request, ip);
 			res.status(401); // Unauthorized
 			res.end();
 		}
