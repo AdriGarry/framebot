@@ -5,7 +5,6 @@ ul{margin:0;padding:0;}
 .noDisplay{display:none;}
 .visible{visibility:visible;}
 .hidden{visibility:hidden;}
-.hiddenBottom{bottom:-10em;}
 .inline{display:inline;}
 .center{
 	margin-left:auto;
@@ -129,10 +128,16 @@ button>i{
 }
 
 .ng-slide{
-	-webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-	-moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-	-o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-	transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+	-webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s!important;
+	-moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s!important;
+	-o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s!important;
+	transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s!important;
+}
+.ng-slide-slow{
+	-webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+	-moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+	-o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+	transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
 }
 
 /*------------------------------ TOAST ------------------------------- */
@@ -153,7 +158,7 @@ md-toast.error .md-toast-content, md-toast.error .md-toast-content{
 button.muteButton{
 	position:fixed;
 	right:2.5em;
-	bottom:3em;
+	bottom:-10em;
 	padding:0;
 	background-color:#607D8B!important;
 	opacity:0.8;
@@ -170,12 +175,10 @@ button.muteButton:hover{
 .logButton{
 	position:fixed;
 	left:1em;
-	bottom:2em;
+	bottom:-10em
 }
-.logButton.active{
-	left:1em;
+.logButton.active, .muteButton.active{
 	bottom:2em;
-	margin-left:70%;
 }
 
 .md-sidenav-left{
@@ -197,7 +200,9 @@ md-sidenav > div{
 	color:rgba(255,255,255,0.87);/*#F44235*/
 	cursor:help;
 }
-
+md-button.md-fab.ng-slide.active{
+	bottom:2em;
+}
 .logs ul{
 	font-family:'Courier New';
 	font-size:0.85em;

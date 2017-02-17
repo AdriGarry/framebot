@@ -61,7 +61,7 @@
 		}
 	</style>
 </head>
-<body data-ng-controller="UIController" scroll>
+<body data-ng-controller="UIController" data-ng-mousemove="showFabButtons()" data-scroll>
 	<!-- <div class="loading">
 		<i class="fa fa-spin fa-cog"></i>
 	</div> -->
@@ -187,12 +187,12 @@
 				<about data="dashboard.runningData.about" flex="2"></about>
 			</div>
 
-			<md-button data-ng-click="showLogs()" data-ng-class="{'hiddenBottom':fabButtonsTimeout}" class="md-fab md-warn md-hue-2 logButton" title="Logs" aria-label="Logs">
+			<md-button data-ng-click="showLogs()" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-warn md-hue-2 logButton ng-slide" title="Logs" aria-label="Logs">
 			<!--data-ng-if="irda"-->
 				<i class="fa fa-2x fa-quote-right"></i>
 			</md-button>
 			<!-- // -> TENTER d'enlever les class md-hue-2 -->
-			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-class="{'hiddenBottom':fabButtonsTimeout}" class="md-fab md-primary md-hue-2 muteButton"
+			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-primary md-hue-2 muteButton ng-slide"
 			title="Mute Odi" aria-label="Mute Odi">
 				<i class="fa fa-lg fa-bell-slash"></i>
 			</md-button>

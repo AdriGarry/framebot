@@ -19,13 +19,13 @@ app.constant("CONSTANTS", {
 	'IP_LOCALIZATOR_URL': 'http://www.traceip.net/?query='
 });
 
-/** Directive to watch scroll event and restart autoRefresh **/
+/** Directive to watch scroll event 
+	- restart autoRefresh
+	- showFabButtons **/
 app.directive("scroll", function ($window){
 	return function(scope, element, attrs){
 		angular.element($window).bind("scroll", function(){
-			// scope.dashboard.autoRefresh = true;
 			scope.instantRefreshDasboard();
-			//TODO: afficher à nouveau les boutons ronds (logs + mute)
 			scope.showFabButtons();
 		});
 	};

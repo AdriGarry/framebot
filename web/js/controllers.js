@@ -63,36 +63,13 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 	/** Function to refresh Dashboard **/
 	$scope.refreshDashboard = function(){
-		// if($scope.dashboard.autoRefresh){
-			//console.log('refreshDashboard()');
 			$scope.dashboard.loading = true;
 			UIService.refreshDashboard(function(data){
-				angular.forEach(data, function(tile, key){
-					switch(key){
-						case 'debug':
-							$scope.dashboard.debug = data.debug.value;
-						break;
-						case 'version':
-							$scope.dashboard.version = data.version.value;
-						break;
-						default:
-							$scope.dashboard.tileList[key].value = data[key].value;
-							$scope.dashboard.tileList[key].active = data[key].active;
-							$scope.dashboard.tileList[key].bindHTML(key);
-					}
-				});
-				/*$scope.dashboard.state = {
-					value: data.mode.value.mode,
-					ready: data.mode.value.mode == 'Ready',
-					sleep: data.mode.value.mode == 'Sleep'
-				};*/
 				$scope.dashboard.odiState = setOdiState(data);
 				$scope.dashboard.runningData = data;
-				console.log('$scope.dashboard.runningData', $scope.dashboard.runningData);
+				console.log('dashboard.runningData refresh', $scope.dashboard.runningData);
 				$timeout(function(){$scope.dashboard.loading = false;}, 100); // supprimer la durée du timeout ?
 			});
-		// }
-		// console.log('BLABLA', $mdSidenav('menu').isOpen());
 	};
 
 	function setOdiState(data){
@@ -276,12 +253,19 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	};
 
 	/** Function to show fab buttons for 3 seconds */
+	var timeout;
 	$scope.showFabButtons = function(){
-		$scope.fabButtonsTimeout = true;
-		$timeout(function(){
-			$scope.fabButtonsTimeout = false;
-		},3000);
+		if(timeout){
+			$timeout.cancel(timeout);
+		}
+		$scope.fabButtonsVisible = true;
+		timeout = $timeout(function(){
+			$scope.fabButtonsVisible = false;
+		},5000);
 	};
+	$timeout(function(){
+		$scope.showFabButtons();
+	},2000);
 
 	$scope.grant = function(param){
 		UIService.sendCommand({url:'/grant', data:param}, function(data){
