@@ -14,6 +14,12 @@ app.component('tts', {
 		ctrl.access = true;
 		ctrl.tile = new DefaultTile(tileParams, true);
 
+		/** Overwrite tile action 
+		ctrl.tile.isExpanded = function(){
+			console.log('isExpanded()', ctrl.tile.expanded);
+			return ctrl.tile.expanded;
+		};*/
+
 		/** Overwrite tile action */
 		ctrl.tile.click = function(){
 			if(!ctrl.tile.expanded){

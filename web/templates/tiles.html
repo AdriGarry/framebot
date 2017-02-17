@@ -1,4 +1,6 @@
-<md-button flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click()" data-ng-class="{'expanded':$ctrl.tile.expanded}" title="{{$ctrl.tile.label}}" data-ng-disabled="$ctrl.odiState.sleep" data-ng-switch="$ctrl.tile.label" class="md-raised ng-slide">
+<md-button flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click()" data-ng-disabled="$ctrl.odiState.sleep"
+	data-ng-class="{'expanded':$ctrl.tile.expanded}" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="md-raised ng-slide" data-md-ink-ripple="{{$ctrl.tile.expanded}}">
+<!--data-md-ink-ripple="$ctrl.tile.expanded"-->
 <!--data-md-no-ink="$ctrl.tile.expanded" OU md-ink-ripple...-->
 	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fa fa-2x fa-ellipsis-h adminFlag"></i>
 	<i data-ng-if="$ctrl.tile.expanded" data-ng-click="$ctrl.toggleTileHeight();$event.stopPropagation()" class="fa fa-2x fa-times adminFlag closeBtn" title="Reduce"></i>

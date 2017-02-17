@@ -265,21 +265,27 @@ md-sidenav md-toolbar .tools{
 	opacity:1;
 }*/
 .md-sidenav-right .adminBtn{
-	/*margin-bottom:2em;*/
-	padding:2em 5em;
+	margin-bottom:1em;
+	padding:1.5em 4em 1em;
+	/*border:3px solid #495F69;
+	border-radius:15px;*/
+}
+.md-sidenav-right .adminBtn:hover{
+	/*border-color:#ccc;*/
+	background-color:#495F69!important;
 }
 .md-sidenav-right .adminBtn i.fa{
 	font-size:8vw;
 }
 .md-sidenav-right .adminBtn i.fa+i.fa{
-	/*display:none;*/
 	margin-left:0.5em;
 	font-size:4vw;
 	vertical-align:top;
+	visibility:hidden;
 }
-/*.md-sidenav-right .adminBtn:hover i.fa+i.fa{
-	display:block;
-}*/
+.md-sidenav-right .adminBtn:hover i.fa+i.fa{
+	visibility:visible;
+}
 
 .menu md-slider.md-default-theme.md-primary .md-thumb:after, .menu md-slider.md-primary .md-thumb:after,
 .menu md-slider.md-primary .md-track.md-track-fill,

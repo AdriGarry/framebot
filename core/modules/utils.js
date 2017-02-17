@@ -94,9 +94,7 @@ function setConfig(newConf, restart){
 		global.CONFIG = config;
 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2), function(){
 			logConfigArray();
-			if(restart){
-				hardware.restartOdi();
-			}
+			if(restart) hardware.restartOdi();
 		});
 	});
 };
@@ -107,21 +105,16 @@ function resetConfig(restart){
 	logConfigArray();
 //	config.update = now('dt');
 
-	fs.createReadStream(DATA_PATH + 'defaultConf.json').pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
-	fs.createReadStream(DATA_PATH + 'defaultConf.json')
-		.pipe(fs.createWriteStream(ODI_PATH + 'conf.json')
-		.on('close', function(){
-			console.log('file done');
-				if(restart){
-					hardware.restartOdi();
-				}
-
-		});
-	);
-
-	/*if(restart){
-		hardware.restartOdi();
-	}*/
+	var stream = fs.createReadStream(DATA_PATH + 'defaultConf.json');/*, {bufferSize: 64 * 1024}*/
+	stream.pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
+	var had_error = false;
+	stream.on('error', function(e){
+		had_error = true;
+		console.error('utils.resetConfig() stream error', e);
+	});
+	stream.on('close', function(){
+		if(!had_error && restart) hardware.restartOdi();
+	});
 };
 
 /** Function to format logs */
