@@ -92,11 +92,12 @@ function setConfig(newConf, restart){
 		//config.update = now('T (D)');
 		//console.log('now("dt")', now('dt'));
 		global.CONFIG = config;
-		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
-		if(restart){
-			hardware.restartOdi();
-		}
-		logConfigArray();
+		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2), function(){
+			logConfigArray();
+			if(restart){
+				hardware.restartOdi();
+			}
+		});
 	});
 };
 
@@ -105,12 +106,22 @@ function resetConfig(restart){
 	console.log('resetConfig()', restart ? 'and restart' : '');
 	logConfigArray();
 //	config.update = now('dt');
+
 	fs.createReadStream(DATA_PATH + 'defaultConf.json').pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
-	if(restart){
-		// setTimeout(function(){
-			hardware.restartOdi();
-		// }, 2000);
-	}
+	fs.createReadStream(DATA_PATH + 'defaultConf.json')
+		.pipe(fs.createWriteStream(ODI_PATH + 'conf.json')
+		.on('close', function(){
+			console.log('file done');
+				if(restart){
+					hardware.restartOdi();
+				}
+
+		});
+	);
+
+	/*if(restart){
+		hardware.restartOdi();
+	}*/
 };
 
 /** Function to format logs */
