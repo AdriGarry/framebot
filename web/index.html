@@ -112,10 +112,14 @@
 				<md-list flex>
 					<md-list-item>
 						<md-button data-ng-click="showAdminDialog($event)" data-ng-class="{admin:irda}" class="adminBtn center" title="{{irda? 'Log out':'Log in'}}">
+							<!-- <i data-ng-if="!irda" class="fa fa-sign-in hover"></i>
 							<i data-ng-if="!irda" class="fa fa-user"></i>
-							<i data-ng-if="!irda" class="fa fa-sign-in"></i>
 							<i data-ng-if="irda" class="fa fa-user-secret"></i>
-							<i data-ng-if="irda" class="fa fa-sign-out"></i>
+							<i data-ng-if="irda" class="fa fa-sign-out hover"></i> -->
+							<i data-ng-class="irda" class="fa fa-sign-in"></i>
+							<i data-ng-if="!irda" class="fa fa-user"></i>
+							<i data-ng-if="irda" class="fa fa-user-secret"></i>
+							<i data-ng-class="irda" class="fa fa-sign-out"></i>
 						</md-button>
 					</md-list-item>
 					<md-divider></md-divider>

@@ -3,6 +3,8 @@
 /*------------------------------ GENERIC ------------------------------- */
 ul{margin:0;padding:0;}
 .noDisplay{display:none;}
+.visible{visibility:visible;}
+.hidden{visibility:hidden;}
 .hiddenBottom{bottom:-10em;}
 .inline{display:inline;}
 .center{
@@ -258,32 +260,23 @@ md-sidenav md-toolbar .tools{
 	z-index:90;
 }
 
-/*.md-sidenav-right .fa-user-secret{
-	opacity:0.5;
-}
-.md-sidenav-right .admin .fa{
-	opacity:1;
-}*/
 .md-sidenav-right .adminBtn{
 	margin-bottom:1em;
-	padding:1.5em 4em 1em;
-	/*border:3px solid #495F69;
-	border-radius:15px;*/
 }
 .md-sidenav-right .adminBtn:hover{
-	/*border-color:#ccc;*/
 	background-color:#495F69!important;
 }
 .md-sidenav-right .adminBtn i.fa{
 	font-size:8vw;
 }
-.md-sidenav-right .adminBtn i.fa+i.fa{
+.md-sidenav-right .adminBtn i[class*="fa-sign"]{
+	margin-right:0.5em;
 	margin-left:0.5em;
 	font-size:4vw;
 	vertical-align:top;
 	visibility:hidden;
 }
-.md-sidenav-right .adminBtn:hover i.fa+i.fa{
+.md-sidenav-right .adminBtn:not(.admin):hover i.fa-sign-in, .md-sidenav-right .adminBtn.admin:hover i.fa-sign-out{
 	visibility:visible;
 }
 
