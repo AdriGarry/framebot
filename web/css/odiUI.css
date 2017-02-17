@@ -264,10 +264,16 @@ md-sidenav md-toolbar .tools{
 	opacity:1;
 }*/
 .md-sidenav-right .adminBtn{
-	margin-bottom:2em;
+	/*margin-bottom:2em;*/
+	padding:2em 5em;
 }
 .md-sidenav-right .adminBtn i.fa{
 	font-size:8vw;
+}
+.md-sidenav-right .adminBtn i.fa+i.fa{
+	margin-left:0.5em;
+	font-size:4vw;
+	vertical-align:top;
 }
 
 .menu md-slider.md-default-theme.md-primary .md-thumb:after, .menu md-slider.md-primary .md-thumb:after,

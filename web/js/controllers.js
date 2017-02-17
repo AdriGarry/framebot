@@ -340,9 +340,9 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		}, 200);
 	};
 
+	/** Loading until app bootstrapped */
 	angular.element(document).ready(function(){
 		angular.element(document.querySelector('.loading')).removeClass('loading');
-		// alert('Loaded!');
 	});
 
 });

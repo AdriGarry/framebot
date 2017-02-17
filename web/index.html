@@ -62,9 +62,9 @@
 	</style>
 </head>
 <body data-ng-controller="UIController" scroll>
-	<div class="loading">
+	<!-- <div class="loading">
 		<i class="fa fa-spin fa-cog"></i>
-	</div>
+	</div> -->
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools"><!-- TODO component toolbar -->
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
@@ -111,10 +111,11 @@
 		<div layout="row" class="menu">
 				<md-list flex>
 					<md-list-item>
-						<md-button data-ng-click="showAdminDialog($event)" data-ng-class="{admin:irda}" class="adminBtn center"
-							title="Admin" aria-label="Admin">
-							<i data-ng-hide="irda" class="fa fa-border fa-user-plus"></i>
-							<i data-ng-show="irda" class="fa fa-border fa-user-secret"></i>
+						<md-button data-ng-click="showAdminDialog($event)" data-ng-class="{admin:irda}" class="adminBtn center" title="{{irda? 'Log out':'Log in'}}">
+							<i data-ng-if="!irda" class="fa fa-user"></i>
+							<i data-ng-if="!irda" class="fa fa-sign-in"></i>
+							<i data-ng-if="irda" class="fa fa-user-secret"></i>
+							<i data-ng-if="irda" class="fa fa-sign-out"></i>
 						</md-button>
 					</md-list-item>
 					<md-divider></md-divider>
