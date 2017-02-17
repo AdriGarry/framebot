@@ -272,10 +272,14 @@ md-sidenav md-toolbar .tools{
 	font-size:8vw;
 }
 .md-sidenav-right .adminBtn i.fa+i.fa{
+	/*display:none;*/
 	margin-left:0.5em;
 	font-size:4vw;
 	vertical-align:top;
 }
+/*.md-sidenav-right .adminBtn:hover i.fa+i.fa{
+	display:block;
+}*/
 
 .menu md-slider.md-default-theme.md-primary .md-thumb:after, .menu md-slider.md-primary .md-thumb:after,
 .menu md-slider.md-primary .md-track.md-track-fill,
