@@ -30,7 +30,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 					{code: 'es', label: 'Spanish'}, {code: 'it', label: 'Italian'}, {code: 'de', label: 'German'}],
 				voiceList: [{code: ':3', label: 'Nice voice'}, {code: ':1', label: 'Robot voice'}]
 			},
-			cleanText: function(){ // TODO create an UtilsService...
+			cleanText: function(){ // TODO create an UtilsService... OR A FILTER ???
 				var message = $scope.dashboard.ttsTile.msg || '';
 				message = message.replace(/[àâ]/g,'a');
 				message = message.replace(/[ç]/g,'c');
@@ -267,11 +267,20 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		}
 	}, 100);
 
+	/** Function to reactivate dashboard autoRefresh cycle */
 	$scope.instantRefreshDasboard = function(){
 		if(!$scope.dashboard.autoRefresh){
 			$scope.dashboard.autoRefresh = true;
 			$scope.refreshDashboard();
 		}
+	};
+
+	/** Function to show fab buttons for 3 seconds */
+	$scope.showFabButtons = function(){
+		$scope.fabButtonsTimeout = true;
+		$timeout(function(){
+			$scope.fabButtonsTimeout = false;
+		},3000);
 	};
 
 	$scope.grant = function(param){

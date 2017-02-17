@@ -25,6 +25,8 @@ app.directive("scroll", function ($window){
 		angular.element($window).bind("scroll", function(){
 			// scope.dashboard.autoRefresh = true;
 			scope.instantRefreshDasboard();
+			//TODO: afficher à nouveau les boutons ronds (logs + mute)
+			scope.showFabButtons();
 		});
 	};
 });

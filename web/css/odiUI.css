@@ -3,6 +3,7 @@
 /*------------------------------ GENERIC ------------------------------- */
 ul{margin:0;padding:0;}
 .noDisplay{display:none;}
+.hiddenBottom{bottom:-10em;}
 .inline{display:inline;}
 .center{
 	margin-left:auto;
@@ -153,7 +154,7 @@ button.muteButton{
 	bottom:3em;
 	padding:0;
 	background-color:#607D8B!important;
-	opacity:0.7;
+	opacity:0.8;
 	z-index:100!important;
 }
 button.muteButton:hover{
