@@ -40,12 +40,33 @@
 	<meta name="apple-mobile-web-app-title" content="Odi UI">
 	<meta name="application-name" content="Odi UI">
 	<meta name="theme-color" content="#2c3e50">
+	<style type="text/css">
+		body>.loading{
+			position:fixed;
+			width:100%;
+			height:100%;
+			background:rgba(0,0,0,0.5);
+			z-index:1000000;
+		}
+		body>.loading i{
+			font-size:10em;
+			margin:30vh;/*60%*/
+			margin-left:39%;
+			color:#ccc;
+		}
+		@media(max-width:768px){
+			body>.loading i{
+				margin-left:30%;
+			}
+		}
+	</style>
 </head>
 <body data-ng-controller="UIController" scroll>
-	<i class="fa fa-spin fa-cog appLoader"></i>
+	<div class="loading">
+		<i class="fa fa-spin fa-cog"></i>
+	</div>
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools"><!-- TODO component toolbar -->
-		<!--<md-progress-circular md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''" data-ng-show="dashboard.autoRefresh && 0" data-ng-click="reloadUI()"></md-progress-circular>-->
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
 				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()"><!--onclick="setTimeout(function(){window.location.reload()},300)"-->
 			<!--<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" data-ng-show="dashboard.loading">-->

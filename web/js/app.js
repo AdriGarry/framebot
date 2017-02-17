@@ -64,5 +64,3 @@ app.filter('formatTimeLeftTimer', function($filter){
 	}
 });
 
-
-

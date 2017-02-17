@@ -340,6 +340,11 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		}, 200);
 	};
 
+	angular.element(document).ready(function(){
+		angular.element(document.querySelector('.loading')).removeClass('loading');
+		// alert('Loaded!');
+	});
+
 });
 
 function DialogController($scope, $mdDialog, modal){
