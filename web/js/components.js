@@ -21,10 +21,13 @@ app.component('tts', {
 		};*/
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function(){
+		ctrl.tile.click = function($event){
 			if(!ctrl.tile.expanded){
 				ctrl.toggleTileHeight();
 			}
+			return false;
+			$event.stopPropagation();
+			$event.preventDefault();
 		};
 
 		ctrl.toggleTileHeight = function(){

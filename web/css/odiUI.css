@@ -484,35 +484,6 @@ figure .mainInfo{
 	vertical-align:middle;
 }
 
-/*md-grid-list .value{
-	margin:0 5%;
-}
-md-grid-list .value small{
-	font-size:0.7em;
-	vertical-align:text-top;
-}
-md-grid-list md-grid-tile md-grid-tile-footer h3{
-	font-size:20px;
-}
-md-grid-list md-grid-tile md-grid-tile-footer h3 i.active{
-	margin-right:0.5em;
-}
-md-grid-list md-grid-tile i.adminFlag{
-	position:absolute;
-	top:0.3em;
-	right:0.6em;
-	color:#546d78;
-}*/
-/*md-grid-list md-grid-tile md-grid-tile-footer h3 i.adminFlag{
-	position:absolute;
-	right:3%;
-	margin-top:2px;
-}
-*/
-/*md-grid-list md-grid-tile form{
-	width:90%;
-}*/
-
 .grey{background:rgba(0, 0, 0, 0.08);}
 .blue{background:rgba(187, 222, 251, 1);}
 .lightBlue{background:rgba(187, 222, 251, 0.3);}
@@ -526,15 +497,11 @@ md-grid-list md-grid-tile i.adminFlag{
 .orange{background:rgba(255, 204, 188, 0.9);}
 .purple{background:rgba(209, 196, 233, 0.9);}
 
-/*md-grid-list md-grid-tile md-grid-tile-footer{
-	height:auto;
-	padding:5px 0;
-}
-md-grid-list md-grid-tile.active, md-grid-list md-grid-tile md-grid-tile-footer.active{
-	background:rgba(0,0,0,0.6);
-}*/
-
 /* ------------------------------ TTS ------------------------------- */
+.tileContent form *{
+	z-index:1000000!important;
+}
+
 .voiceSwitch{
 	margin-left:50%!important;
 }
@@ -572,16 +539,15 @@ md-input-container + label{
 
 
 /* ------------------------------ MODE ------------------------------- */
-span.responsive span.mode small{
+/*span.responsive span.mode small{
 	display:block;
 	font-size:0.3em;
-}
+}*/
 
 /* ------------------------------ SWITCH ------------------------------- */
-.pointer md-switch.switch, .pointer md-switch.switch *{
-	/*transform:rotate(270deg);*/
+/*.pointer md-switch.switch, .pointer md-switch.switch *{
 	cursor:not-allowed;
-}
+}*/
 
 
 /* ------------------------------ DIALOG ------------------------------- */
