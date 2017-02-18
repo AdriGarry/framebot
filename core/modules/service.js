@@ -31,32 +31,35 @@ function randomAction(){
 		case 2:
 		case 3:
 		case 4:
-			tts.speak({msg:'RANDOM'}); // Random TTS
-			break;
 		case 5:
+			// tts.speak({msg:'RANDOM'});
+			tts.speak();
+			break;
 		case 6:
 		case 7:
 		case 8:
 		case 9:
+		case 10:
 			tts.randomConversation();
 			break;
-		case 10:
 		case 11:
+		case 12:
+		case 13:
 			weatherService();
 			break;
-		case 12:
+		case 16:
 			cpuTemp();
 			break;
-		case 13:
+		case 17:
 			time.sayOdiAge();
 			break;
-		case 16:
+		case 18:
 			time.now();
 			break;
-		case 17:
+		case 19:
 			time.today();
 			break;
-		case 18:
+		case 20:
 			adriExclamation();
 			break;
 		default:
