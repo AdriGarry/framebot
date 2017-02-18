@@ -112,10 +112,6 @@
 				<md-list flex>
 					<md-list-item>
 						<md-button data-ng-click="showAdminDialog($event)" data-ng-class="{admin:irda}" class="adminBtn center" title="{{irda? 'Log out':'Log in'}}">
-							<!-- <i data-ng-if="!irda" class="fa fa-sign-in hover"></i>
-							<i data-ng-if="!irda" class="fa fa-user"></i>
-							<i data-ng-if="irda" class="fa fa-user-secret"></i>
-							<i data-ng-if="irda" class="fa fa-sign-out hover"></i> -->
 							<i data-ng-class="irda" class="fa fa-sign-in"></i>
 							<i data-ng-if="!irda" class="fa fa-user"></i>
 							<i data-ng-if="irda" class="fa fa-user-secret"></i>
@@ -187,12 +183,12 @@
 				<about data="dashboard.runningData.about" flex="2"></about>
 			</div>
 
-			<md-button data-ng-click="showLogs()" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-warn md-hue-2 logButton ng-slide" title="Logs" aria-label="Logs">
+			<md-button data-ng-click="showLogs()" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-warn logButton ng-slide" title="Logs" aria-label="Logs">
 			<!--data-ng-if="irda"-->
 				<i class="fa fa-2x fa-quote-right"></i>
 			</md-button>
 			<!-- // -> TENTER d'enlever les class md-hue-2 -->
-			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-primary md-hue-2 muteButton ng-slide"
+			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-primary muteButton ng-slide"
 			title="Mute Odi" aria-label="Mute Odi">
 				<i class="fa fa-lg fa-bell-slash"></i>
 			</md-button>

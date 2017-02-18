@@ -167,9 +167,6 @@ button.muteButton{
 button.muteButton:hover{
 	opacity:0.9;
 }
-/*button.muteButton i.fa{
-	font-size:1em;
-}*/
 
 /*------------------------------ LOGS ------------------------------- */
 .logButton{
@@ -197,7 +194,7 @@ md-sidenav > div{
 	position:absolute;
 	top:1em;
 	right:2em;
-	color:rgba(255,255,255,0.87);/*#F44235*/
+	color:rgba(255,255,255,0.87);
 	cursor:help;
 }
 md-button.md-fab.ng-slide.active{
@@ -709,7 +706,7 @@ body>.loading i{
 
 	button.muteButton{
 		right:1.5em;
-		bottom:2em;
+		/*bottom:2em;*/
 	}
 
 	.logs ul{
