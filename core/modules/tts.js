@@ -70,7 +70,7 @@ function speak(tts){
 };
 
 /** Function to proceed TTS queue */
-var queueInteval, currentTTS;
+var queueInteval, currentTTS, timeout = 0;
 function proceedQueue(){  // NEW  // NEW  // NEW  // NEW
 	// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'tone']);
 	var isFirst = true;
@@ -82,11 +82,13 @@ function proceedQueue(){  // NEW  // NEW  // NEW  // NEW
 				// leds.toggle({led: 'eye', mode: 1});
 				currentTTS = ttsQueue.shift();
 				playTTS(currentTTS, isFirst);
+				if(currentTTS.voice === 'google') timeout = currentTTS.msg.length*90 + 1500;
+				else timeout = currentTTS.msg.length*60 + 1500;
 				setTimeout(function(){
 					onAir = false;
 					// leds.toggle({led: 'eye', mode: 0});
-				}, currentTTS.msg.length*60 + 1500);//*30 + 1500
-				if(ttsQueue.length == 0){
+				}, timeout);
+				if(ttsQueue.length === 0){
 					console.debug('No more TTS, stop processing TTS queue!');
 					clearInterval(queueInteval);
 				}

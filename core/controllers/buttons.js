@@ -40,7 +40,7 @@ function initButtonAwake(){
 				interval = setInterval(function(){
 					console.log('Etat bouton On_');
 					service.randomAction();
-				}, 10*60*1000); //5*60*1000
+				}, 5*60*1000); //10*60*1000
 			}
 		}else{
 			instance = false;

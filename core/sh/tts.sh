@@ -34,9 +34,9 @@ googleTTS(){
 	volume=$(cat /sys/class/gpio/gpio13/value)
 	if [ $volume -eq 0 ]
 	then
-		volume=150
+		volume=200 #150
 	else
-		volume=300
+		volume=400 #300
 	fi
 
 	sudo mplayer -softvol -volume $volume -really-quiet -noconsolecontrols "$url"
@@ -49,9 +49,9 @@ espeakTTS(){
 	volume=$(cat /sys/class/gpio/gpio13/value)
 	if [ $volume -eq 0 ]
 	then
-		volume=125
+		volume=175 #125
 	else
-		volume=200
+		volume=300 #200
 	fi
 	
 	#pitch=40 #0->99

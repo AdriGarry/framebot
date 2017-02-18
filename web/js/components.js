@@ -344,7 +344,8 @@ app.component('party', {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Party',
-			actionList:[{url: '/setParty'}]
+			actionList:[{label: 'Party mode', icon: 'child', url: '/setParty'},{
+				label: 'Cigales', icon: 'bug', url: '/cigales'}]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;

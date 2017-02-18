@@ -98,8 +98,15 @@ var tts = require(CORE_PATH + 'modules/tts.js');
 //tts.speak([{voice: 'google', lg: 'fr', msg:'un'}, {voice: 'espeak', lg: 'fr', msg:'deux'}, {voice: 'google', lg: 'fr', msg:'trois'}]);
 
 //spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'tone']);
-
-setTimeout(function(){
-	utils.logTime('D/M h:m:s');
-}, 5*1000);
+var rdm = true;
+setInterval(function(){
+	var etat = buttons.getEtat();
+	if(etat){
+		// tts.randomConversation();
+		if(rdm) tts.randomConversation();
+		else tts.speak();
+		rdm = !rdm;
+	}
+	console.log('tts.randomConversation()', etat);
+}, 2*60*1000);
 
