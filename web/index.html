@@ -67,10 +67,9 @@
 		<i class="fa fa-spin fa-cog"></i>
 	</div> -->
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn refreshing' : ''">
-		<div class="md-toolbar-tools"><!-- TODO component toolbar -->
+		<div class="md-toolbar-tools">
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
-				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()"><!--onclick="setTimeout(function(){window.location.reload()},300)"-->
-			<!--<img src="img/snow.gif" alt="Odi not available" class="odiFace odiOff" data-ng-show="dashboard.loading">-->
+				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()">
 			<h1 data-ng-dblclick="irda && action({label: 'Restart Odi', url: '/odi'})">Odi UI
 				<sup class="version" title="version">{{::dashboard.version}}&nbsp;</sup>
 			</h1>
@@ -79,18 +78,15 @@
 
 			<md-button class="md-icon-button" data-ng-click="toggleMenu()" title="Menu" aria-label="Menu">
 				<i data-ng-class="{'fa-rotate-90':menuOpen}" class="fa fa-2x fa-lg fa-bars ng-slide"></i>&nbsp;
-				<!--opacityHalf:!irda, fa-rotate-90:menuOpen-->
 			</md-button>
 		</div>
-		<!--<md-progress-linear md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''"></md-progress-linear>--><!--data-ng-show="dashboard.autoRefresh"-->
 		<md-progress-linear md-mode="query" ng-disabled="refreshing"></md-progress-linear><!--ng-disabled="refreshing"-->
 	</md-toolbar>
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
 		<div class="logs" data-ng-dblclick="refreshLog()">
 			<i class="debugLog fa fa-circle" data-ng-if="dashboard.debug" title="DEBUG mode"></i>
-			<ul><!-- class="fakeScroll"-->
-				<!-- <li data-ng-repeat="logLine in logData track by $index" data-ng-bind-html="toHtml(logLine)"></li> -->
+			<ul>
 				<li data-ng-repeat="logLine in logData track by $index" data-ng-bind-html="toHtml(logLine | formatLog)"></li>
 				<a id="bottomLogs"></a>
 			</ul>

@@ -144,6 +144,22 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		});
 	};
 
+	/** Function on click on Tile **/
+	$scope.tileAction = function(tile){
+		//console.log('tile', tile);
+		if($scope.irda){
+			if(tile.actionList.length>1){
+				$scope.openBottomSheet(tile.actionList);
+			}else if(tile.actionList.length==1){
+				$scope.action(tile.actionList[0]);
+			}else{
+				console.log('No action affected. OLD');
+			}
+		/*}else{
+			$mdToast.show($mdToast.simple().textContent('Not allowed !').position('top right').hideDelay(2000).toastClass('error'));*/
+		}
+	}
+
 	/** Function to send action **/
 	$scope.action = function(button){
 		// $scope.refreshDashboardCycle();
@@ -161,20 +177,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			// TODO test pour showErrorToast
 		}
 	};
-
-	/** Function on click on Tile **/
-	$scope.tileAction = function(tile){
-		//console.log('tile', tile);
-		if($scope.irda){
-			if(tile.actionList.length>1){
-				$scope.openBottomSheet(tile.actionList);
-			}else if(tile.actionList.length==1){
-				$scope.action(tile.actionList[0]);
-			}else{
-				console.log('No action affected. OLD');
-			}
-		}
-	}
 
 	/** Function to open bottom sheet **/
 	$scope.openBottomSheet = function(bottomSheetList){
@@ -204,10 +206,10 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			$scope.refreshing = false;
 			$timeout(function(){
 				$scope.refreshing = true;
-				//$scope.refreshDashboard();
 			}, 2000);
 		}
 	};
+	$scope.resfreshDashboard();
 	// $scope.resfreshDashboard();
 
 	/** Function to show fab buttons for 5 seconds */
