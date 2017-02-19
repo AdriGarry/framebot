@@ -110,4 +110,4 @@ setInterval(function(){
 		// else tts.speak();
 		// rdm = !rdm;
 	}
-}, 2*60*1000);
+}, 1*60*1000);

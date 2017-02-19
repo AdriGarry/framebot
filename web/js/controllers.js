@@ -46,13 +46,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 						if(callback.status == 200){
 							$scope.dashboard.ttsTile.msg = ''; $scope.dashboard.ttsTile.error = ''; // Reinit TTS
 						}
-						/*if(callback.status != 200){ // TODO to delete... (toast moved to UIService)
-							$scope.dashboard.ttsTile.error = 'UNE ERREUR EST SURVENUE';
-						}
-						else{
-							$scope.showToast($scope.dashboard.ttsTile.msg);// LIMITER / TRONQUER la longueur du message !!! WWWWWWWW => 200
-							$scope.dashboard.ttsTile.msg = ''; $scope.dashboard.ttsTile.error = ''; // Reinit TTS
-						}*/
 					});
 				}
 			}
@@ -87,7 +80,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 				sleep: false
 			};
 		}
-		//console.log('odiState updated', odiState);
 		return odiState;
 	}
 
@@ -148,17 +140,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	/** Function to refresh logs */
 	$scope.refreshLog = function(){
 		UIService.updateLogs(function(logs){
-			/*logs = logs.replace(/\[([0-9]{1,3}\.){3}([0-9]{1,3})\]/g, function(match, capture){
-				var ip = match.substr(1,match.length-2);
-				if(ip.search(/(^192\.168\.)/g)){
-					return '[<a href="'+ CONSTANTS.URL_IP_LOCALIZATOR + ip + '" title="Localize this IP" target="_blank">' + ip + '</a>]';
-				}else{
-					return '[' + ip + ']';
-				}
-			});
-			logs = logs.replace(new RegExp('[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', 'g'), function(match){
-				return '<span class="timeLog">' + match + '</span>';
-			});*/
 			$scope.logData = logs.split('\n');
 		});
 	};
@@ -216,43 +197,20 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		$mdBottomSheet.hide(button);
 	};
 
-	/** Function to show time picker **/
-	/*function showTimePicker(ev){
-		$mdDialog.show({
-			//templateUrl: 'temp.html',
-			parent: angular.element(document.body),
-			targetEvent: ev,
-			clickOutsideToClose:true,
-			fullscreen: false
-		});
-	};*/
-
-	$scope.refreshDashboard();
-	var loopInterval = 0;
-	$interval(function(){
-		if($scope.dashboard.autoRefresh){
-			$scope.dashboard.loopInterval++;
-			if($scope.dashboard.loopInterval > 100){
-				$scope.refreshDashboard();
-				$scope.dashboard.loopInterval = 0;
-				loopInterval++;
-			}
-			if(loopInterval >= 2){
-				loopInterval = 0;
-				$scope.dashboard.autoRefresh = false;
-			}
-		}
-	}, 100);
-
-	/** Function to reactivate dashboard autoRefresh cycle */
-	$scope.instantRefreshDasboard = function(){
-		if(!$scope.dashboard.autoRefresh){
-			$scope.dashboard.autoRefresh = true;
+	$scope.refreshing = true;
+	$scope.resfreshDashboard = function(){
+		if($scope.dashboard.autoRefresh && $scope.refreshing){
 			$scope.refreshDashboard();
+			$scope.refreshing = false;
+			$timeout(function(){
+				$scope.refreshing = true;
+				//$scope.refreshDashboard();
+			}, 2000);
 		}
 	};
+	// $scope.resfreshDashboard();
 
-	/** Function to show fab buttons for 3 seconds */
+	/** Function to show fab buttons for 5 seconds */
 	var timeout;
 	$scope.showFabButtons = function(){
 		if(timeout){

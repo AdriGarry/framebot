@@ -56,28 +56,23 @@ md-toolbar.toolbar span[flex] + i{
 	z-index:100;
 }
 
-md-toolbar.toolbar md-progress-circular{
+md-toolbar.toolbar md-progress-linear{
 	position:fixed;
-	width:auto!important;
-	height:auto!important;
-	top:-0.4em;
-	left:0.35em;
-	z-index:10;
-	cursor:pointer;
+	-ms-transform:rotate(180deg);
+	-webkit-transform:rotate(180deg);
+	transform:rotate(180deg);
 }
-md-toolbar.toolbar md-progress-circular svg{
-	width:5.9em!important;
-	height:5.9em!important;
+md-toolbar.toolbar md-progress-linear,
+md-toolbar.toolbar md-progress-linear .md-container,
+md-toolbar.toolbar md-progress-linear .md-container .md-bar{
+	height:64px;
 }
-md-toolbar.toolbar md-progress-circular path{
-	stroke-width:3px!important;
-	stroke:rgb(16,108,200);
-	opacity:0.7;
+md-toolbar.toolbar md-progress-linear .md-container{
+	background:none;
 }
-md-toolbar.toolbar md-progress-circular.warn path{
-	stroke:#F44235;
+md-toolbar.toolbar md-progress-linear .md-container .md-bar{
+	background:#7893a1;
 }
-
 
 img.odiFace{
 	position:absolute;
@@ -648,26 +643,24 @@ body>.loading i{
 	.toolbar h1{
 		margin-left:3.6em;/*4em*/
 	}
-	md-input-container{
+	/*md-input-container{
 		margin:0;
 	}
 	md-input-container button{
 		zoom:80%;
-	}
+	}*/
 
-	md-toolbar.toolbar md-progress-circular{
-		top:-0.3em;
-		left:0.5em;
-	}
-	md-toolbar.toolbar md-progress-circular svg{
-		width:4.65em!important;
-		height:4.7em!important;
-	}
 	img.odiFace{
 		width:4em;
 	}
 	img.odiFace.odiOff{
 		margin-left:-3.5em;
+	}
+
+	md-toolbar.toolbar md-progress-linear,
+	md-toolbar.toolbar md-progress-linear .md-container,
+	md-toolbar.toolbar md-progress-linear .md-container .md-bar{
+		height:48px;
 	}
 
 	button.muteButton{
@@ -696,13 +689,6 @@ body>.loading i{
 	.md-sidenav-right .adminBtn:not(.admin) i.fa-sign-in, .md-sidenav-right .adminBtn.admin i.fa-sign-out{
 		visibility:visible;
 	}
-
-	/*figure :not(p).responsive{
-		margin-top:-0.3em;
-	}
-	span.responsive span.mode small{
-		font-size:0.6em;
-	}*/
 
 	.dashboard [flex] > button{
 		line-height:13px;

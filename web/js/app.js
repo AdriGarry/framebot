@@ -25,7 +25,7 @@ app.constant("CONSTANTS", {
 app.directive("scroll", function ($window){
 	return function(scope, element, attrs){
 		angular.element($window).bind("scroll", function(){
-			scope.instantRefreshDasboard();
+			scope.resfreshDashboard();
 			scope.showFabButtons();
 		});
 	};

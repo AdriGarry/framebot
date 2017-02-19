@@ -66,7 +66,7 @@
 	<!-- <div class="loading">
 		<i class="fa fa-spin fa-cog"></i>
 	</div> -->
-	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
+	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn refreshing' : ''">
 		<div class="md-toolbar-tools"><!-- TODO component toolbar -->
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
 				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()"><!--onclick="setTimeout(function(){window.location.reload()},300)"-->
@@ -82,7 +82,8 @@
 				<!--opacityHalf:!irda, fa-rotate-90:menuOpen-->
 			</md-button>
 		</div>
-		<md-progress-linear md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''"></md-progress-linear><!--data-ng-show="dashboard.autoRefresh"-->
+		<!--<md-progress-linear md-mode="determinate" value="{{dashboard.loopInterval}}" data-ng-class="dashboard.autoRefresh == 'warn' ? 'warn' : ''"></md-progress-linear>--><!--data-ng-show="dashboard.autoRefresh"-->
+		<md-progress-linear md-mode="query" ng-disabled="refreshing"></md-progress-linear><!--ng-disabled="refreshing"-->
 	</md-toolbar>
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
