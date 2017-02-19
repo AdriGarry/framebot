@@ -62,6 +62,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			UIService.refreshDashboard(function(data){
 				$scope.dashboard.odiState = setOdiState(data);
 				$scope.dashboard.runningData = data;
+				console.log($scope.dashboard.runningData);
 				$timeout(function(){$scope.dashboard.loading = false;}, 100); // supprimer la durée du timeout ?
 			});
 			$scope.refreshing = false;

@@ -71,7 +71,7 @@
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
 				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()">
 			<h1 data-ng-dblclick="irda && action({label: 'Restart Odi', url: '/odi'})">Odi UI
-				<sup class="version" title="version">{{::dashboard.version}}&nbsp;</sup>
+				<sup class="version" title="version">{{dashboard.runningData.version.value}}&nbsp;</sup>
 			</h1>
 			<span flex></span>
 			<i class="debug fa fa-circle" data-ng-if="dashboard.debug" title="DEBUG mode"></i>&nbsp;
