@@ -104,6 +104,7 @@ var rdm = true;
 setInterval(function(){
 	var etat = buttons.getEtat();
 	if(etat){
+		console.log('service.randomAction() TEST');
 		service.randomAction();
 		// if(rdm) tts.randomConversation();
 		// else tts.speak();
