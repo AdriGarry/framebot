@@ -55,15 +55,32 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	};
 
 	/** Function to refresh Dashboard **/
+	$scope.refreshing = true;
 	$scope.refreshDashboard = function(){
+		if($scope.dashboard.autoRefresh && $scope.refreshing){
 			$scope.dashboard.loading = true;
 			UIService.refreshDashboard(function(data){
 				$scope.dashboard.odiState = setOdiState(data);
 				$scope.dashboard.runningData = data;
-				console.log('dashboard.runningData refresh', $scope.dashboard.runningData);
 				$timeout(function(){$scope.dashboard.loading = false;}, 100); // supprimer la durée du timeout ?
 			});
+			$scope.refreshing = false;
+			$timeout(function(){
+				$scope.refreshing = true;
+			}, 2000);
+		}
 	};
+	$scope.refreshDashboard();
+
+	/** Function to refresh Dashboard **/
+	/*$scope.refreshDashboard = function(){
+			$scope.dashboard.loading = true;
+			UIService.refreshDashboard(function(data){
+				$scope.dashboard.odiState = setOdiState(data);
+				$scope.dashboard.runningData = data;
+				$timeout(function(){$scope.dashboard.loading = false;}, 100); // supprimer la durée du timeout ?
+			});
+	};*/
 
 	function setOdiState(data){
 		var odiState = {};
@@ -155,14 +172,11 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			}else{
 				console.log('No action affected. OLD');
 			}
-		/*}else{
-			$mdToast.show($mdToast.simple().textContent('Not allowed !').position('top right').hideDelay(2000).toastClass('error'));*/
 		}
 	}
 
 	/** Function to send action **/
 	$scope.action = function(button){
-		// $scope.refreshDashboardCycle();
 		//$scope.dashboard.autoRefresh = true; //TODO reactivate autoRefresh on Tile action
 		if(button.url.indexOf('http://') > -1){
 			//$window.open(button.url);
@@ -198,19 +212,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		$scope.action(button);
 		$mdBottomSheet.hide(button);
 	};
-
-	$scope.refreshing = true;
-	$scope.resfreshDashboard = function(){
-		if($scope.dashboard.autoRefresh && $scope.refreshing){
-			$scope.refreshDashboard();
-			$scope.refreshing = false;
-			$timeout(function(){
-				$scope.refreshing = true;
-			}, 2000);
-		}
-	};
-	$scope.resfreshDashboard();
-	// $scope.resfreshDashboard();
 
 	/** Function to show fab buttons for 5 seconds */
 	var timeout;

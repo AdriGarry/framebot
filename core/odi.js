@@ -100,14 +100,10 @@ var tts = require(CORE_PATH + 'modules/tts.js');
 //spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'tone']);
 
 var service = require(CORE_PATH + 'modules/service.js');
-var rdm = true;
 setInterval(function(){
 	var etat = buttons.getEtat();
 	if(etat){
-		console.log('service.randomAction() TEST');
-		service.randomAction();
-		// if(rdm) tts.randomConversation();
-		// else tts.speak();
-		// rdm = !rdm;
+		console.log('tts.js TEST');
+		tts.randomConversation();
 	}
 }, 1*60*1000);
