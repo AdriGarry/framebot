@@ -115,10 +115,8 @@ const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
 var playTTS = function(tts, isFirst){
 	// TEST IF INTERNET CONNEXION
 	if(!tts.hasOwnProperty('voice') || !VOICE_LIST.indexOf(tts.voice) == -1){ // Random voice if undefined
-		var tmp = Math.round(Math.random()*1);
-		if(tmp) tts.voice = 'google';
-		else tts.voice = 'espeak';
-
+		//var tmp = Math.round(Math.random()*1);
+		tts.voice = 'espeak';
 		/*utils.testConnexion(function(connexion){
 			if(connexion == true){
 			}else{

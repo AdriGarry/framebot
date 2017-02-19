@@ -20,7 +20,7 @@ var pastHour = hour;
 
 module.exports = {
 	startClock: startClock,
-	setInteractJobs: setInteractJobs,
+	setInteractiveJobs: setInteractiveJobs,
 	setAutoSleep: setAutoSleep,
 	setBackgroundJobs: setBackgroundJobs
 };
@@ -45,7 +45,7 @@ function startClock(modeInit){
 };
 
 /** Function to set alarms */
-function setInteractJobs(){
+function setInteractiveJobs(){
 	// WEEKDAY
 	new CronJob('0 20,22-25 8 * * 1-5', function(){
 		tts.speak({lg:'fr', voice: 'espeak', msg:'go go go, allez au boulot'});
@@ -102,7 +102,7 @@ function setBackgroundJobs(){
 	new CronJob('13 13 13 * * 0', function(){
 		tts.speak({voice:'espeak', lg:'fr', msg:'Auto reboot'}); // Weekly RPI reboot
 		setTimeout(function(){
-			hardware.reboot();
+			hardware.reboot(true);
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 

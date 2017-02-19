@@ -77,7 +77,7 @@ if(!time.isAlarm()){// ALARMS
 }
 
 
-jobs.setInteractJobs();
+jobs.setInteractiveJobs();
 jobs.setAutoSleep();
 jobs.setBackgroundJobs();
 voiceMail.voiceMailFlag();
@@ -111,4 +111,3 @@ setInterval(function(){
 		// rdm = !rdm;
 	}
 }, 2*60*1000);
-

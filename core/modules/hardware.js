@@ -69,19 +69,25 @@ function restartOdi(mode){
 
 /** Function to reboot RPI */
 function reboot(){
+	if(CONFIG.mode === 'ready'){
+		tts.speak({msg:'Je redaimarre'});
+	}
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
 	setTimeout(function(){
 		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh', 'reboot']);
-	}, 1500);
+	}, 2000);
 };
 
 /** Function to shut down RPI */
-function shutdown(){
-	// voiceMail.clearVoiceMail();
+function shutdown(announcement){
+	tts.speak({msg:'Arret system'});
+	if(CONFIG.mode === 'ready'){
+		tts.speak({msg:'Arret system'});
+	}
 	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
 	setTimeout(function(){
 		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh']);
-	}, 1500);
+	}, 2000);
 };
 
 //Create function to get CPU information
