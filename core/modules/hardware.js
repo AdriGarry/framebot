@@ -70,6 +70,7 @@ function restartOdi(mode){
 /** Function to reboot RPI */
 function reboot(){
 	if(CONFIG.mode === 'ready'){
+		mute();
 		tts.speak({msg:'Je redaimarre'});
 	}
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
@@ -82,6 +83,7 @@ function reboot(){
 function shutdown(announcement){
 	tts.speak({msg:'Arret system'});
 	if(CONFIG.mode === 'ready'){
+		mute();
 		tts.speak({msg:'Arret system'});
 	}
 	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');

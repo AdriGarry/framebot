@@ -55,33 +55,30 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	};
 
 	/** Function to refresh Dashboard **/
-	$scope.refreshing = true;
+	$scope.readyToRefresh = true; var failedRefreshs = 0; $scope.connexionLost = false;
 	$scope.refreshDashboard = function(){
-		if($scope.dashboard.autoRefresh && $scope.refreshing){
-			$scope.dashboard.loading = true;
+		if($scope.dashboard.autoRefresh && $scope.readyToRefresh){
+			$scope.dashboard.refreshing = true;
 			UIService.refreshDashboard(function(data){
-				$scope.dashboard.odiState = setOdiState(data);
-				$scope.dashboard.runningData = data;
-				console.log($scope.dashboard.runningData);
-				$timeout(function(){$scope.dashboard.loading = false;}, 100); // supprimer la durée du timeout ?
-			});
-			$scope.refreshing = false;
+				if(data){
+					$scope.dashboard.odiState = setOdiState(data);
+					$scope.dashboard.runningData = data;
+					$scope.connexionLost = false;
+					failedRefreshs = 0;
+					$timeout(function(){$scope.dashboard.refreshing = false;}, 100);
+				}else{
+					failedRefreshs++
+					if(failedRefreshs > 2) $scope.connexionLost = true;
+				}
+				});
+			$scope.readyToRefresh = false;
 			$timeout(function(){
-				$scope.refreshing = true;
+				$scope.readyToRefresh = true;
+				if($scope.dashboard.refreshing) $scope.refreshDashboard();
 			}, 2000);
 		}
 	};
 	$scope.refreshDashboard();
-
-	/** Function to refresh Dashboard **/
-	/*$scope.refreshDashboard = function(){
-			$scope.dashboard.loading = true;
-			UIService.refreshDashboard(function(data){
-				$scope.dashboard.odiState = setOdiState(data);
-				$scope.dashboard.runningData = data;
-				$timeout(function(){$scope.dashboard.loading = false;}, 100); // supprimer la durée du timeout ?
-			});
-	};*/
 
 	function setOdiState(data){
 		var odiState = {};
@@ -188,6 +185,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		}else{
 			UIService.sendCommand(button, function(data){
 				// $scope.showToast(button.label);
+				$scope.refreshDashboard();
 			});
 			// TODO test pour showErrorToast
 		}

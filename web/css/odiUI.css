@@ -65,7 +65,8 @@ md-toolbar.toolbar md-progress-linear{
 md-toolbar.toolbar md-progress-linear,
 md-toolbar.toolbar md-progress-linear .md-container,
 md-toolbar.toolbar md-progress-linear .md-container .md-bar{
-	height:64px;
+	position:absolute;
+	height:100%;
 }
 md-toolbar.toolbar md-progress-linear .md-container{
 	background:none;
@@ -77,10 +78,8 @@ md-toolbar.toolbar md-progress-linear .md-container .md-bar{
 img.odiFace{
 	position:absolute;
 	width:5em;
-	/*height:160%;/*150%*//*90%*/
+	height:5em;
 	top:1px;
-	/*margin-left:0;*/
-	/*margin-right:20px;*/
 	border-radius:50%;
 	border:2px solid;
 	cursor:pointer;
@@ -652,6 +651,7 @@ body>.loading i{
 
 	img.odiFace{
 		width:4em;
+		height:4em;
 	}
 	img.odiFace.odiOff{
 		margin-left:-3.5em;
@@ -660,7 +660,8 @@ body>.loading i{
 	md-toolbar.toolbar md-progress-linear,
 	md-toolbar.toolbar md-progress-linear .md-container,
 	md-toolbar.toolbar md-progress-linear .md-container .md-bar{
-		height:48px;
+		position:absolute;
+		height:100%;
 	}
 
 	button.muteButton{

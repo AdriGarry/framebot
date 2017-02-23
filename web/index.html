@@ -66,10 +66,12 @@
 	<!-- <div class="loading">
 		<i class="fa fa-spin fa-cog"></i>
 	</div> -->
-	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn refreshing' : ''">
+	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools">
-			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
+			<img src="img/odi.jpg" alt="Odi's face" data-ng-hide="connexionLost" class="odiFace" 
 				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()">
+			<img data-ng-class="connexionLost ? 'visible' : 'hidden'" data-ng-click="reloadUI()" src="img/snow.gif" alt="Connexion lost" class="odiFace connexionLost">
+			<!--data-ng-show="connexionLost"-->
 			<h1 data-ng-dblclick="irda && action({label: 'Restart Odi', url: '/odi'})">
 				<span data-ng-hide="irda">O</span><span data-ng-show="irda">&Oslash;</span>di UI
 				<sup class="version" title="version">{{dashboard.runningData.version.value}}&nbsp;</sup>
@@ -81,7 +83,8 @@
 				<i data-ng-class="{'fa-rotate-90':menuOpen}" class="fa fa-2x fa-lg fa-bars ng-slide"></i>&nbsp;
 			</md-button>
 		</div>
-		<md-progress-linear md-mode="query" ng-disabled="refreshing"></md-progress-linear><!--ng-disabled="refreshing"-->
+		<md-progress-linear md-mode="query" data-ng-show="dashboard.refreshing"></md-progress-linear>
+		<!--data-ng-disabled="dashboard.refreshing"-->
 	</md-toolbar>
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
@@ -120,7 +123,7 @@
 					<md-divider></md-divider>
 
 					<md-list-item>
-						<div flex>Auto refresh</div>
+						<div flex>Auto refresh on scroll</div>
 						<div flex>
 							<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch>
 						</div>

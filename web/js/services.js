@@ -17,8 +17,8 @@ app.service('UIService', ['$http', '$mdToast', 'CONSTANTS', 'Tile', function($ht
 		}).then(function successCallback(res){
 			callback(res.data);
 		}, function errorCallback(res){
-			console.error(res);
-			//callback(activity);
+			// console.error(res);
+			callback(res.data);
 		});
 	};
 
