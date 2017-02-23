@@ -68,7 +68,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 					$timeout(function(){$scope.dashboard.refreshing = false;}, 100);
 				}else{
 					failedRefreshs++
-					if(failedRefreshs > 2) $scope.connexionLost = true;
+					if(failedRefreshs > 5) $scope.connexionLost = true;
 				}
 				});
 			$scope.readyToRefresh = false;
