@@ -42,10 +42,14 @@ function checkVoiceMail(callback){
 					clearVoiceMail();
 				}, 15*60*1000);
 				console.log('VoiceMail will be cleared in 10 minutes.');
-				if(callback) callback(true); // for other action
+				// if(callback) callback(true); // for other action
+				// callback(true);
+				return true;
 			}else{
 				console.log('No VoiceMail Message');
-		 		if(callback) callback(false); // for other action
+		 		// if(callback) callback(false); // for other action
+		 		// callback(false);
+		 		return false;
 			}
 		});
 	// }catch(e){

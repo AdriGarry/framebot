@@ -75,12 +75,18 @@ function initButtonAwake(){
 		}
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		leds.ledOff('belly');
-		console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec [1,2,3;5]');
-		if(pressTime < 1){
+		console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec [2,3]');
+		if(pressTime < 2){
+			// console.log('voiceMail.checkVoiceMail()', voiceMail.checkVoiceMail());
 			if(!voiceMail.checkVoiceMail()){
 				service.randomAction();
 			}
-		}else if(pressTime >= 1 && pressTime < 2){
+		}else if(pressTime >= 2 && pressTime < 3){
+			tts.lastTTS();
+		}else if(pressTime >= 3){
+			time.timeNow();
+		}
+		/*}else if(pressTime >= 1 && pressTime < 2){
 			tts.lastTTS();
 		}else if(pressTime >= 2 && pressTime < 3){
 			tts.randomConversation('');
@@ -88,8 +94,8 @@ function initButtonAwake(){
 			time.timeNow();
 		}else{
 			console.log('Push Ok button canceled !');
-		}
-		hardware.mute(60, 'Random action mute');
+		}*/
+		// hardware.mute(60, 'Random action mute');
 	});
 
 	/** Red (cancel) button watch */
