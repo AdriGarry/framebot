@@ -76,7 +76,6 @@ if(!time.isAlarm()){// ALARMS
 	}, null, true, 'Europe/Paris');
 }
 
-
 jobs.setInteractiveJobs();
 jobs.setAutoSleep();
 jobs.setBackgroundJobs();

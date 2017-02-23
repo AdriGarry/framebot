@@ -279,20 +279,24 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		});
 	};
 
-	$scope.showAdminDialog = function(ev){ // TODO COMPONENT !!
+	$scope.toggleGrant = function(ev){ // TODO COMPONENT !!
 		$scope.toggleMenu();
-		$timeout(function(){
-			$mdDialog.show({
-				controller: AdminDialogController,
-				templateUrl: 'templates/dialog-admin.html',
-				parent: angular.element(document.body),
-				targetEvent: ev,
-				clickOutsideToClose:true,
-				fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints
-			}).then(function(answer){
-				$scope.grant(answer);
-			});
-		}, 200);
+		if(!$scope.irda){
+			$timeout(function(){
+				$mdDialog.show({
+					controller: AdminDialogController,
+					templateUrl: 'templates/dialog-admin.html',
+					parent: angular.element(document.body),
+					targetEvent: ev,
+					clickOutsideToClose:true,
+					fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints
+				}).then(function(answer){
+					$scope.grant(answer);
+				});
+			}, 100);
+		}else{
+			$scope.irda = false;
+		}
 	};
 
 	/** Loading until app bootstrapped */

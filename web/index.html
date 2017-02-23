@@ -70,7 +70,8 @@
 		<div class="md-toolbar-tools">
 			<img src="img/odi.jpg" alt="Odi's face" class="odiFace" 
 				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()">
-			<h1 data-ng-dblclick="irda && action({label: 'Restart Odi', url: '/odi'})">Odi UI
+			<h1 data-ng-dblclick="irda && action({label: 'Restart Odi', url: '/odi'})">
+				<span data-ng-hide="irda">O</span><span data-ng-show="irda">&Oslash;</span>di UI
 				<sup class="version" title="version">{{dashboard.runningData.version.value}}&nbsp;</sup>
 			</h1>
 			<span flex></span>
@@ -109,7 +110,7 @@
 		<div layout="row" class="menu">
 				<md-list flex>
 					<md-list-item>
-						<md-button data-ng-click="showAdminDialog($event)" data-ng-class="{admin:irda}" class="adminBtn center" title="{{irda? 'Log out':'Log in'}}">
+						<md-button data-ng-click="toggleGrant($event)" data-ng-class="{admin:irda}" class="adminBtn center" title="{{irda? 'Log out':'Log in'}}">
 							<i data-ng-class="irda" class="fa fa-sign-in"></i>
 							<i data-ng-if="!irda" class="fa fa-user"></i>
 							<i data-ng-if="irda" class="fa fa-user-secret"></i>
@@ -181,7 +182,7 @@
 				<about data="dashboard.runningData.about" flex="2"></about>
 			</div>
 
-			<md-button data-ng-click="showLogs()" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-warn logButton ng-slide" title="Logs" aria-label="Logs">
+			<md-button data-ng-click="showLogs()" data-ng-show="irda" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-warn logButton ng-slide" title="Logs" aria-label="Logs">
 			<!--data-ng-if="irda"-->
 				<i class="fa fa-2x fa-quote-right"></i>
 			</md-button>
