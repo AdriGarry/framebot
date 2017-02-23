@@ -32,7 +32,6 @@ fs.readFile('/home/pi/odi/data/ttsConversations.json', function(err, data){
 	RDM_CONVERSATION_LIST_LENGTH = RDM_CONVERSATION_LIST.length;
 });
 
-
 var onAir = false, ttsQueue = [], lastTtsMsg = {voice: 'espeak', lg: 'en', msg: '.undefined'};
 
 module.exports = { // Singleton

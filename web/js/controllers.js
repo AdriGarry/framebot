@@ -229,12 +229,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		$scope.showFabButtons();
 	},2000);
 
-	$scope.grant = function(param){
-		UIService.sendCommand({url:'/grant', data:param}, function(data){
-			$scope.irda = data;
-		});
-	};
-
 	/** Function to inject HTML code */
 	$scope.toHtml = function(html){
 		return $sce.trustAsHtml(html);
@@ -251,9 +245,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		obj.rowspan = 1;
 		console.log(obj);
 	};
-
-	var param = $location.$$absUrl.split('?')[1];
-	if(param) $scope.grant(param);
 
 	$scope.toggleDebugMode = function(){
 		var cmd = {
@@ -279,6 +270,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		});
 	};
 
+	/** Function to toggle grant access */
 	$scope.toggleGrant = function(ev){ // TODO COMPONENT !!
 		$scope.toggleMenu();
 		if(!$scope.irda){
@@ -291,13 +283,27 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 					clickOutsideToClose:true,
 					fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints
 				}).then(function(answer){
-					$scope.grant(answer);
+					$scope.requireGrantAccess(answer);
 				});
 			}, 100);
 		}else{
 			$scope.irda = false;
+			$scope.showToast('Not granted anymore');
 		}
 	};
+
+	$scope.requireGrantAccess = function(param){
+		UIService.sendCommand({url:'/grant', data:param}, function(data){
+			$scope.irda = data;
+			if($scope.irda){
+				$scope.showToast('Access granted !');
+			}else{
+				$scope.showErrorToast('Not granted !');
+			}
+		});
+	};
+	var param = $location.$$absUrl.split('?')[1];
+	if(param) $scope.requireGrantAccess(param);
 
 	/** Loading until app bootstrapped */
 	angular.element(document).ready(function(){

@@ -105,4 +105,4 @@ setInterval(function(){
 		console.log('tts.js TEST');
 		tts.randomConversation();
 	}
-}, 1*60*1000);
+}, 3*60*1000);
