@@ -68,7 +68,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 					$timeout(function(){$scope.dashboard.refreshing = false;}, 100);
 				}else{
 					failedRefreshs++
-					if(failedRefreshs > 5) $scope.connexionLost = true;
+					if(failedRefreshs >= 2) $scope.connexionLost = true;
 				}
 				});
 			$scope.readyToRefresh = false;
@@ -187,7 +187,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 				// $scope.showToast(button.label);
 				$scope.refreshDashboard();
 			});
-			// TODO test pour showErrorToast
 		}
 	};
 
@@ -286,7 +285,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			}, 100);
 		}else{
 			$scope.irda = false;
-			$scope.showToast('Not granted anymore');
+			// $scope.showToast('Not granted anymore');
 		}
 	};
 
@@ -294,9 +293,9 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		UIService.sendCommand({url:'/grant', data:param}, function(data){
 			$scope.irda = data;
 			if($scope.irda){
-				$scope.showToast('Access granted !');
+				// $scope.showToast('Access granted !');
 			}else{
-				$scope.showErrorToast('Not granted !');
+				// $scope.showErrorToast('Not granted !');
 			}
 		});
 	};
