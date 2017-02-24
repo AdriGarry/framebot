@@ -12,7 +12,7 @@ app.constant("CONSTANTS", {
 	'UI_VERSION': 3.0,
 	'URL_ODI': 'http://odi.adrigarry.com',
 	'DATE_TIME_REGEX': new RegExp('[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', 'g'),
-	'IP_REGEX': new RegExp('(\\[(?=.*[0-9])(?=.*\\.).*\\])', 'g'),
+	'IP_REGEX': new RegExp('(\\[(?=.*[0-9])(?=.*\\.)(?=.*\\:).*\\])', 'g'),
 	'IP_LOCALIZATOR_URL': 'http://www.traceip.net/?query='
 });
 
