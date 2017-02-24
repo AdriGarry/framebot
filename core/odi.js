@@ -103,6 +103,6 @@ setInterval(function(){
 	var etat = buttons.getEtat();
 	if(etat){
 		console.log('tts.js TEST');
-		tts.randomConversation();
+		//tts.randomConversation();
 	}
 }, 3*60*1000);

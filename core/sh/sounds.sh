@@ -27,7 +27,8 @@ then
 #___Son Demarrage Odi Raspi
 elif [ $1 = "startup" ]
 then
-	sound="/home/pi/odi/media/mp3/system/bonjour.mp3"
+	#sound="/home/pi/odi/media/mp3/system/bonjour.mp3"
+	sound="/home/pi/odi/media/mp3/system/bonjourSurvivaure.mp3"
 #___Son "Bonjour Bonjour !""
 elif [ $1 = "bonjourBonjour" ]
 then
