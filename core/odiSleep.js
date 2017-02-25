@@ -25,7 +25,7 @@ var CronJob = require('cron').CronJob;
 
 var utils = require(CORE_PATH + 'modules/utils.js');
 //utils.setConfig('startTime', new Date().getHours()+':'+new Date().getMinutes(), false);
-utils.setConfig({mode: 'asleep', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
+utils.setConfig({mode: 'sleep', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
 
 var time = require('./modules/time.js');
 
@@ -57,14 +57,18 @@ server.startUI(mode);
 
 jobs.setBackgroundJobs();
 
-ok.watch(function(err, value){ // Green button watch for restart awake
-	console.log('Ok button pressed, canceling sleep mode & restarting Odi !');
-	hardware.restartOdi();
-});
-
 new CronJob('0 * * * * *', function(){
 	if(time.isAlarm()){
 		console.log('Alarm... wake up !!');
 		hardware.restartOdi();
 	}
 }, null, true, 'Europe/Paris');
+
+ok.watch(function(err, value){ // Green button watch for restart awake
+	console.log('Ok button pressed, canceling sleep mode & restarting Odi !');
+	hardware.restartOdi();
+});
+
+var video = require(CORE_PATH + 'modules/video.js');
+// video.sleep();
+video.sleep(mode);

@@ -81,6 +81,10 @@ jobs.setAutoSleep();
 jobs.setBackgroundJobs();
 voiceMail.voiceMailFlag();
 
+
+var video = require(CORE_PATH + 'modules/video.js');
+video.start();
+
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){
 	console.debug('Setting up time out to cancel Debug mode !!');
@@ -93,12 +97,12 @@ if(CONFIG.debug){
 // ------------------------//
 // ----- TEST SECTION -----//
 // ------------------------//
+var service = require(CORE_PATH + 'modules/service.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
 //tts.speak([{voice: 'google', lg: 'fr', msg:'un'}, {voice: 'espeak', lg: 'fr', msg:'deux'}, {voice: 'google', lg: 'fr', msg:'trois'}]);
 
 //spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'tone']);
 
-var service = require(CORE_PATH + 'modules/service.js');
 setInterval(function(){
 	var etat = buttons.getEtat();
 	if(etat){

@@ -55,7 +55,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	};
 
 	/** Function to refresh Dashboard **/
-	$scope.readyToRefresh = true; var failedRefreshs = 0; $scope.connexionLost = false;
+	$scope.readyToRefresh = true; /*var failedRefreshs = 0;*/ $scope.connexionLost = false;
 	$scope.refreshDashboard = function(){
 		if($scope.dashboard.autoRefresh && $scope.readyToRefresh){
 			$scope.dashboard.refreshing = true;
@@ -64,11 +64,12 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 					$scope.dashboard.odiState = setOdiState(data);
 					$scope.dashboard.runningData = data;
 					$scope.connexionLost = false;
-					failedRefreshs = 0;
+					// failedRefreshs = 0;
 					$timeout(function(){$scope.dashboard.refreshing = false;}, 100);
 				}else{
-					failedRefreshs++
-					if(failedRefreshs >= 2) $scope.connexionLost = true;
+					// failedRefreshs++
+					// if(failedRefreshs >= 2) $scope.connexionLost = true;
+					$scope.connexionLost = true;
 				}
 				});
 			$scope.readyToRefresh = false;
@@ -220,7 +221,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		$scope.fabButtonsVisible = true;
 		timeout = $timeout(function(){
 			$scope.fabButtonsVisible = false;
-		},5000);
+		},4000);
 	};
 	$timeout(function(){
 		$scope.showFabButtons();

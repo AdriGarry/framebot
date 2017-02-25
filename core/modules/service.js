@@ -73,14 +73,14 @@ function adriExclamation(){
 	console.log('adriExclamation()');
 	aadri += aadri.repeat(Math.round(Math.random()*6)) + 'dri';
 	console.debug('adriExclamation()', aadri);
-	tts.speak({voice: 'espeak', lg:'fr', msg: aadri});
+	tts.speak({voice: 'espeak', lg:'fr', msg: 'aadri'});
 };
 
 /** Function cpu temperature TTS */
 function cpuTemp(){
 	temperature = hardware.getCPUTemp();
 	console.log('Service CPU Temperature...  ' + temperature + ' degres');
-	tts.speak({lg:'fr', msg:'Mon processeur est a ' + temperature + ' degree'});
+	tts.speak({lg:'fr', msg:'Mon processeur est a ' + temperature + ' degrai'});
 };
 
 var WEATHER_STATUS_LIST;

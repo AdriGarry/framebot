@@ -46,6 +46,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.mp3
+*.mp4
 *.wav
 *.log
 *.properties
