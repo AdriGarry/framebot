@@ -69,7 +69,7 @@
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools">
 			<img src="img/odi.jpg" alt="Odi's face" data-ng-hide="connexionLost" class="odiFace" 
-				ng-class="dashboard.tileList.mode.value.mode == 'Sleep' ? 'sleep' : ''" data-ng-click="reloadUI()">
+				ng-class="dashboard.odiState.sleep ? 'sleep' : ''" data-ng-click="reloadUI()">
 			<img data-ng-class="connexionLost ? 'visible' : 'hidden'" data-ng-click="reloadUI()" src="img/snow.gif" alt="Connexion lost" class="odiFace connexionLost">
 			<h1 data-ng-dblclick="irda && action({label: 'Restart Odi', url: '/odi'})">
 				<span data-ng-hide="irda">O</span><span data-ng-show="irda">&Oslash;</span>di UI
