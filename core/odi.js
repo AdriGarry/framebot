@@ -83,7 +83,7 @@ voiceMail.voiceMailFlag();
 
 
 var video = require(CORE_PATH + 'modules/video.js');
-video.start();
+// video.start();
 
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){
@@ -103,10 +103,10 @@ var tts = require(CORE_PATH + 'modules/tts.js');
 
 //spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'tone']);
 
-setInterval(function(){
+/*setInterval(function(){
 	var etat = buttons.getEtat();
 	if(etat){
 		console.log('tts.js TEST');
-		//tts.randomConversation();
+		tts.randomConversation();
 	}
-}, 3*60*1000);
+}, 3*60*1000);*/

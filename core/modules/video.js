@@ -16,8 +16,8 @@ function start(){
 	console.log('videoCycle() for one hour');
 	setTimeout(function(){
 		sleep();
-	}, 40*1000);
-	// }, 30*60*1000);
+	// }, 40*1000);
+	}, 30*60*1000);
 };
 
 /** Function to sleep monitor */
