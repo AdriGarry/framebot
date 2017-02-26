@@ -16,19 +16,20 @@ exclamation () {
 	else
 		volume=400 #400
 	fi
-	sudo omxplayer -o local --vol $volume $sound > /dev/null
 
 	txt=$(basename "$sound")
 	# echo $txt | sed 's/.\{4\}$//'
 	txt=`echo $txt | sed 's/.\{4\}$//'`
 	echo $txt
-	
-	exclamationTTS $txt
+
+	sudo omxplayer -o local --vol $volume $sound > /dev/null
+
+	#exclamationTTS $txt
 	# sleep 20;
 	# exclamationTTS param1 param2 param3 param4
 }
 
-
+##########################   TODO: supprimer le test sur le service omxplayer et ajouter un sleep comme pour jukebox ou video
 if [ $1 = "LOOP" ]
 then
 	SERVICE="omxplayer" # On definit le service a utiliser (omxplayer)

@@ -44,9 +44,9 @@ else
 			music=$(sudo find /home/pi/odi/media/mp3/jukebox -maxdepth 1 -type f | shuf | head -1)
 			volume=$(cat /sys/class/gpio/gpio13/value)
 			position=$(shuf -i 5-20 -n 1)
-			playTimeDec=$(mplayer -identify -ao null -vo null -frames 0 $music | grep ^ID_LENGTH= | cut -d = -f 2)
-			echo "playTimeDec " $playTimeDec
-			playTime=${playTimeDec%.*}
+			playTimeDecimal=$(mplayer -identify -ao null -vo null -frames 0 $music | grep ^ID_LENGTH= | cut -d = -f 2)
+			echo "playTimeDecimal " $playTimeDecimal
+			playTime=${playTimeDecimal%.*}
 			playTimeReal=$(($playTime-$position))
 			#echo "playTime " $playTime
 			echo "playTime " $playTime " - position " $position " = " $(($playTime-$position)) " sec"
