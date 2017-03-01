@@ -372,6 +372,25 @@ app.component('russia', {
 	}
 });
 
+/** Video component */
+app.component('videos', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: '/templates/tiles.html',
+	controller: function(DefaultTile){
+		var ctrl = this;
+		var tileParams = {
+			label: 'Video',
+			actionList:[{label: 'Stop', icon: 'stop', url: '/stopVideo'},
+				{label: 'Play', icon: 'play', url: '/playVideo'}]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+	}
+});
+
 /** Logs component */
 app.component('logs', {
 	bindings: {
