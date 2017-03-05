@@ -384,7 +384,7 @@ app.component('videos', {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Video',
-			actionList:[{label: 'Stop', icon: 'stop', url: '/stopVideo'},
+			actionList:[{label: 'Sleep', icon: 'stop', url: '/videoOff'},
 				{label: 'Play', icon: 'play', url: '/playVideo'}]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

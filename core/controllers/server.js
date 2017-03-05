@@ -24,6 +24,7 @@ var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 var fip = require(CORE_PATH + 'modules/fip.js');
 var jukebox = require(CORE_PATH + 'modules/jukebox.js');
 var exclamation = require(CORE_PATH + 'modules/exclamation.js');
+var video = require(CORE_PATH + 'modules/video.js');
 var party = require(CORE_PATH + 'modules/party.js');
 var admin = require(CORE_PATH + 'modules/admin.js');
 
@@ -353,6 +354,16 @@ function startUI(mode){
 
 		ui.post('/survivaure', function(req, res){ // Survivaure
 			deploy = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'Survivaure']);
+			res.writeHead(200);res.end();
+		});
+
+		ui.post('/playVideo', function(req, res){ // Play Video
+			video.start();
+			res.writeHead(200);res.end();
+		});
+
+		ui.post('/videoOff', function(req, res){ // Sleep Screen
+			video.off();
 			res.writeHead(200);res.end();
 		});
 

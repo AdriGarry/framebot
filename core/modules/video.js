@@ -7,7 +7,7 @@ var tts = require(CORE_PATH + 'modules/tts.js');
 
 module.exports = {
 	start: start,
-	sleep: sleep
+	off: off
 };
 
 /** Function to launch a video cycle for 30 minutes */
@@ -21,12 +21,11 @@ function start(){
 };
 
 /** Function to sleep monitor */
-function sleep(mode){
-	console.log('video.sleep(mode)', mode);
-	if(isNaN(mode)){
+function off(mode){
+	console.log('video.off(mode)', mode);
+	/*if(isNaN(mode)){
 		tts.speak({voice: 'espeak', lg:'fr', msg: 'Fin du cycle video'});
-		// tts.speak({voice: 'espeak', lg:'en', msg: 'stopping video output'});
-	}
+	}*/
 	spawn('sh', ['/home/pi/odi/core/sh/video.sh', 'sleep']);
 };
 
