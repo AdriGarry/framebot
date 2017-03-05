@@ -26,29 +26,14 @@ else # Switch screen on
 	elif [ $1 = "random" ] # Default: random video
 	then
 		while true; do # On scanne en boucle le dossier
-			echo "PID" $$
-			#if ps ax | grep -v grep | grep $SERVICE
-			# ps ax | grep -v grep | grep $SERVICE > /dev/null
+			video=$(sudo find /home/pi/odi/media/video/rdm -maxdepth 1 -type f | shuf | head -1)
+			playTimeDecimal=$(mplayer -identify -ao null -vo null -frames 0 $video | grep ^ID_LENGTH= | cut -d = -f 2)
+			# echo "playTimeDecimal" $playTimeDecimal
+			playTime=${playTimeDecimal%.*}
+			echo "playTime" $playTime
 
-			# echo `ps ax | grep -v grep | grep $$`
-			# echo `ps ax | grep $$`
-			# echo `ps | grep $$`
-			# if ps ax | grep -v grep | grep $SERVICE > /dev/null
-			# then
-			# 	echo "-> SLEEP!"
-			# 	sleep 5; # Le script plante parfois si la pause n'est pas assez longue
-			# else
-
-				video=$(sudo find /home/pi/odi/media/video/rdm -maxdepth 1 -type f | shuf | head -1)
-				playTimeDecimal=$(mplayer -identify -ao null -vo null -frames 0 $video | grep ^ID_LENGTH= | cut -d = -f 2)
-				# echo "playTimeDecimal" $playTimeDecimal
-				playTime=${playTimeDecimal%.*}
-				echo "playTime" $playTime
-
-				sudo omxplayer -o hdmi --vol 0 --blank --win '0 0 1680 1050' $video &
-				# sudo omxplayer -o hdmi --vol 0 --blank --win '0 0 1680 1050' $video > /dev/null &
-				sleep $playTime
-			# fi
+			sudo omxplayer -o hdmi --vol 0 --blank --win '0 0 1680 1050' $video &
+			sleep $playTime
 		done
 	fi
 fi
