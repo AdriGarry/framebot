@@ -83,7 +83,7 @@ voiceMail.voiceMailFlag();
 
 
 var video = require(CORE_PATH + 'modules/video.js');
-video.start();
+//video.start();
 
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){

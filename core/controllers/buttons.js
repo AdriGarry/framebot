@@ -75,27 +75,21 @@ function initButtonAwake(){
 		}
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		leds.ledOff('belly');
-		console.log('[val:' + value + ']  Ok btn pressed for ' + pressTime + ' sec [2,3]');
+		console.log('Ok btn pressed for ' + pressTime + ' sec [2,3]'); //[val:' + value + ']
 		if(pressTime < 2){
-			// console.log('voiceMail.checkVoiceMail()', voiceMail.checkVoiceMail());
 			if(!voiceMail.checkVoiceMail()){
 				service.randomAction();
 			}
+			/*voiceMail.checkVoiceMail(function(message){
+				if(!message){
+					service.randomAction();
+				}
+			})*/
 		}else if(pressTime >= 2 && pressTime < 3){
 			tts.lastTTS();
 		}else if(pressTime >= 3){
 			time.timeNow();
 		}
-		/*}else if(pressTime >= 1 && pressTime < 2){
-			tts.lastTTS();
-		}else if(pressTime >= 2 && pressTime < 3){
-			tts.randomConversation('');
-		}else if(pressTime >= 3 && pressTime < 5){
-			time.timeNow();
-		}else{
-			console.log('Push Ok button canceled !');
-		}*/
-		// hardware.mute(60, 'Random action mute');
 	});
 
 	/** Red (cancel) button watch */
@@ -114,7 +108,7 @@ function initButtonAwake(){
 		}
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		leds.ledOff('belly');
-		console.log('[val:' + value + ']  Cancel btn pressed for ' + pressTime + ' sec [1,3]');
+		console.log('Cancel btn pressed for ' + pressTime + ' sec [1,3]');//[val:' + value + ']
 		// hardware.mute();
 		if(pressTime >= 1 && pressTime < 3){
 			hardware.restartOdi();
@@ -137,7 +131,7 @@ function initButtonAwake(){
 		}
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		leds.ledOff('belly');
-		console.log('[val:' + value + ']  White btn pressed for   ' + pressTime + ' sec [2;2]');
+		console.log('White btn pressed for   ' + pressTime + ' sec [2;2]');//[val:' + value + ']
 		time.setTimer(Math.round(pressTime));
 	});
 
@@ -155,7 +149,7 @@ function initButtonAwake(){
 		}
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		leds.ledOff('belly');
-		console.log('[val:' + value + ']  Blue btn pressed for ' + pressTime + ' sec [2;5]');
+		console.log('Blue btn pressed for ' + pressTime + ' sec [2;5]');//[val:' + value + ']
 		if(pressTime < 2){
 			if(etat.readSync() == 0){
 				fip.playFip();

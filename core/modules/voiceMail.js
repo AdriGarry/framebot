@@ -11,12 +11,23 @@ const VOICEMAIL_FILE = '/home/pi/odi/tmp/voicemail.json';
 const VOICEMAIL_FILE_HISTORY = '/home/pi/odi/log/voicemailHistory.json';
 
 module.exports = {
+	messages: messages,
 	addVoiceMailMessage: addVoiceMailMessage,
 	checkVoiceMail: checkVoiceMail,
 	voiceMailFlag: voiceMailFlag,
 	areThereAnyMessages: areThereAnyMessages,
 	clearVoiceMail: clearVoiceMail
 };
+
+var messages; // TODO....
+fs.readFile(VOICEMAIL_FILE, 'utf8', function(err, data){
+	if(err) console.log('No VoiceMail message (NEW)');
+	else{
+		messages = JSON.parse(data);
+		// fileData.push(obj);
+	}
+	console.log('messages', messages);
+});
 
 /** Function to persist voicemail message */
 function addVoiceMailMessage(tts){
@@ -43,12 +54,12 @@ function checkVoiceMail(callback){
 				}, 15*60*1000);
 				console.log('VoiceMail will be cleared in 10 minutes.');
 				// if(callback) callback(true); // for other action
-				// callback(true);
+				//callback(true);
 				return true;
 			}else{
 				console.log('No VoiceMail Message');
 		 		// if(callback) callback(false); // for other action
-		 		// callback(false);
+		 		//callback(false);
 		 		return false;
 			}
 		});
