@@ -6,7 +6,7 @@ sudo /opt/vc/bin/tvservice -p
 display1Photo () {
 	path=$(sudo find /home/pi/odi/media/photo -maxdepth 1 -type f | shuf | head -1)
 	echo $rdm diapoPhoto: $path
-	rdm=$(shuf -i 2-7 -n 1)
+	rdm=$(shuf -i 3-7 -n 1)
 	echo $rdm sec
 	sudo fbi -a -T 2 $path
 	# echo AA $rdm

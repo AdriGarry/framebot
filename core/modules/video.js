@@ -17,7 +17,6 @@ function screenOn(){
 	console.log('screen On');
 	setTimeout(function(){
 		screenOff();
-	// }, 10*1000);
 	}, 30*60*1000);
 };
 
@@ -33,7 +32,7 @@ function startCycle(){
 	console.log('videoCycle() for one hour');
 	setTimeout(function(){
 		screenOff();
-	// }, 45*1000);
+	// }, 30*1000);
 	}, 30*60*1000);
 };
 

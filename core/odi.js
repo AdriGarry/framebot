@@ -83,8 +83,8 @@ voiceMail.voiceMailFlag();
 
 
 var video = require(CORE_PATH + 'modules/video.js');
-//video.startCycle();
-video.screenOn();
+// video.screenOn();
+video.startCycle();
 
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){
@@ -102,7 +102,7 @@ var service = require(CORE_PATH + 'modules/service.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
 //tts.speak([{voice: 'google', lg: 'fr', msg:'un'}, {voice: 'espeak', lg: 'fr', msg:'deux'}, {voice: 'google', lg: 'fr', msg:'trois'}]);
 
-// spawn('sh', ['/home/pi/odi/core/sh/diapo.sh']);
+spawn('sh', ['/home/pi/odi/core/sh/diapo.sh']);
 
 /*setInterval(function(){
 	var etat = buttons.getEtat();
