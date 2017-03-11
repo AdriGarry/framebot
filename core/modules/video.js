@@ -11,10 +11,10 @@ module.exports = {
 	startCycle: startCycle
 };
 
-/** Function to turn screen on */
+/** Function to turn screen on (for 30 minutes) */
 function screenOn(){
 	spawn('sh', ['/home/pi/odi/core/sh/screen.sh', 'on']);
-	console.log('screenOn()');
+	console.log('screen On');
 	setTimeout(function(){
 		screenOff();
 	// }, 10*1000);
@@ -24,7 +24,7 @@ function screenOn(){
 /** Function to turn screen off */
 function screenOff(){
 	spawn('sh', ['/home/pi/odi/core/sh/screen.sh', 'off']);
-	console.log('screenOff()');
+	console.log('screen Off');
 };
 
 /** Function to launch a video cycle for 30 minutes */
@@ -32,7 +32,7 @@ function startCycle(){
 	spawn('sh', ['/home/pi/odi/core/sh/diapo.sh']);
 	console.log('videoCycle() for one hour');
 	setTimeout(function(){
-		sleep();
+		screenOff();
 	// }, 45*1000);
 	}, 30*60*1000);
 };
