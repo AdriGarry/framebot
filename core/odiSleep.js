@@ -70,5 +70,5 @@ ok.watch(function(err, value){ // Green button watch for restart awake
 });
 
 var video = require(CORE_PATH + 'modules/video.js');
-video.off();
-// video.off(mode);
+video.screenOff();
+//video.off();
