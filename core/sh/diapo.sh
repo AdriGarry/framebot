@@ -27,6 +27,7 @@ play1Video () {
 	sudo omxplayer -o hdmi --vol 0 --blank --win '0 0 1680 1050' --layer 0 $path &
 	# echo BB $playTime
 	sleep $playTime
+	# sleep `$playTime-1`
 }
 
 while true
