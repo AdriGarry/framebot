@@ -8,6 +8,7 @@ then
 	echo screenOn
 
 else # Switch screen on
+	echo toto
 	sudo /opt/vc/bin/tvservice -o
 	echo screenOff
 fi

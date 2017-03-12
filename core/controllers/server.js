@@ -358,12 +358,12 @@ function startUI(mode){
 		});
 
 		ui.post('/playVideo', function(req, res){ // Play Video
-			video.start();
+			video.startCycle();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/videoOff', function(req, res){ // Sleep Screen
-			video.off();
+			video.screenOff();
 			res.writeHead(200);res.end();
 		});
 

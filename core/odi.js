@@ -83,7 +83,7 @@ voiceMail.voiceMailFlag();
 
 
 var video = require(CORE_PATH + 'modules/video.js');
-// video.screenOn();
+video.screenOn();
 video.startCycle();
 
 /** If debug mode, set a timer to cancel in 20 min */
