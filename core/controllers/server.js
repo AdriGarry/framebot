@@ -49,7 +49,7 @@ function startUI(mode){
 		res.sendFile(path.join(WEB_PATH + 'index.html'));
 		ipClient = req.connection.remoteAddress;
 		console.log('UI initialized [' + ipClient + ']');
-		leds.blink({leds : ['satellite'], speed : 100, loop : 3});
+		leds.blink({leds: ['satellite'], speed: 100, loop: 3});
 		console.log('MODE');
 		console.log(mode);
 		if(mode < 1){
@@ -61,7 +61,7 @@ function startUI(mode){
 	// Middleware LOGGER
 	var logger = function(req, res, next){
 		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
-		leds.blink({leds : ['satellite'], speed : 180, loop : 1});
+		leds.blink({leds: ['satellite'], speed: 100, loop: 2});
 		//method = req.method;
 
 		if(req.connection.remoteAddress.indexOf('192.168') == -1){ // Logging not local requests

@@ -14,8 +14,10 @@ var orders = require(CORE_PATH + 'controllers/orders.js');
 var Gpio = require('onoff').Gpio;
 var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
 var leds = require(CORE_PATH + 'modules/leds.js');
+global.ODI = {};
+global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
 //leds.allLedsOn();
-leds.toggle({led:'eye', mode: 1});
+ODI.leds.toggle({led:'eye', mode: 1});
 
 global.CONFIG = require(CONFIG_FILE);
 /*var fs = require('fs');
@@ -31,7 +33,8 @@ console.log('>> Odi Core start sequence...',(mode ? '[mode:' + mode + ']' : ''))
 console.debug('-> ->  DEBUG MODE !!');//'\n---------------------\n', 
 
 var spawn = require('child_process').spawn;
-var odiStartupSound = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
+spawn('sh', [CORE_PATH + 'sh/init.sh']);
+spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
 
 var utils = require(CORE_PATH + 'modules/utils.js');
 // utils.setConfig({mode: 'ready', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
