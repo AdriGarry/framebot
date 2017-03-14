@@ -3,10 +3,9 @@
 // Module Fip
 
 var spawn = require('child_process').spawn;
-var leds = require(CORE_PATH + 'modules/leds.js');
+/*var leds = require(CORE_PATH + 'modules/leds.js');
 var hardware = require('./hardware.js');
-// var utils = require(CORE_PATH + 'modules/utils.js');
-var self = this;
+//var self = this;*/
 
 var playing = false;
 
@@ -29,12 +28,12 @@ function playFip(){
 		console.log('Play FIP RADIO...');
 		spawn('sh', ['/home/pi/odi/core/sh/fip.sh']);
 		playing = true;
-		leds.altLeds(100, 1.3);
+		ODI.leds.altLeds(100, 1.3);
 
 		fipInterval = setInterval(function(){
 			if(playing){
 				//console.log('Playing FIP RADIO...!');
-				leds.altLeds(100, 1.3);
+				ODI.leds.altLeds(100, 1.3);
 			}
 		}, 13*1000);
 	console.log('playFip()> playing', playing);
@@ -52,8 +51,7 @@ function playFip(){
 	setTimeout(function(){
 		stopFip();
 	}, 60*60*1000);
-
-	hardware.mute(60, 'Auto Mute FIP');
+	ODI.hardware.mute(60, 'Auto Mute FIP');
 };
 
 /** Function to stop FIP radio */

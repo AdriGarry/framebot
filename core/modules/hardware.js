@@ -6,8 +6,8 @@ var fs = require('fs');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var os = require("os");
-var leds = require(CORE_PATH + 'modules/leds.js');
-var tts = require('./tts.js'); // TODO: stop proceedQueue() in mute()
+/*var leds = require(CORE_PATH + 'modules/leds.js');
+var tts = require('./tts.js'); // TODO: stop proceedQueue() in mute()*/
 
 module.exports = {
 	mute: mute,
@@ -41,10 +41,10 @@ function mute(delay, message){
 
 /** Function to stop all sounds & leds */
 function stopAll(message){
-	tts.clearTTSQueue();
+	ODI.tts.clearTTSQueue();
 	spawn('sh', [CORE_PATH + 'sh/mute.sh']);
 	console.log('>> MUTE  -.-', message ? '"' + message + '"' : '');
-	leds.clearLeds();
+	ODI.leds.clearLeds();
 	eye.write(0);
 	belly.write(0);
 };
@@ -71,11 +71,11 @@ function restartOdi(mode){
 function reboot(){
 	if(CONFIG.mode === 'ready'){
 		mute();
-		tts.speak({msg:'Je redaimarre'});
+		ODI.tts.speak({msg:'Je redaimarre'});
 	}
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
 	setTimeout(function(){
-		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh', 'reboot']);
+		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh', 'reboot']); // TODO supprimer deploy
 	}, 2000);
 };
 
@@ -84,11 +84,11 @@ function shutdown(announcement){
 	tts.speak({msg:'Arret system'});
 	if(CONFIG.mode === 'ready'){
 		mute();
-		tts.speak({msg:'Arret system'});
+		ODI.tts.speak({msg:'Arret system'});
 	}
 	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
 	setTimeout(function(){
-		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh']);
+		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh']); // TODO supprimer deploy
 	}, 2000);
 };
 

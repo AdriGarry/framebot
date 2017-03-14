@@ -4,10 +4,10 @@
 
 var spawn = require('child_process').spawn;
 var fs = require('fs');
-var leds = require(CORE_PATH + 'modules/leds.js');
-var request = require('request');
-var utils = require(CORE_PATH + 'modules/utils.js');
-var self = this;
+//var request = require('request');
+/*var leds = require(CORE_PATH + 'modules/leds.js');
+var utils = require(CORE_PATH + 'modules/utils.js');*/
+//var self = this;
 
 // const LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.log';
 const LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.json';
@@ -78,14 +78,14 @@ function proceedQueue(){  // NEW  // NEW  // NEW  // NEW
 		queueInteval = setInterval(function(){
 			if(!onAir && ttsQueue.length > 0){
 				onAir = true;
-				// leds.toggle({led: 'eye', mode: 1});
+				// ODI.leds.toggle({led: 'eye', mode: 1});
 				currentTTS = ttsQueue.shift();
 				playTTS(currentTTS, isFirst);
 				if(currentTTS.voice === 'google') timeout = currentTTS.msg.length*90 + 1500;
 				else timeout = currentTTS.msg.length*60 + 1500;
 				setTimeout(function(){
 					onAir = false;
-					// leds.toggle({led: 'eye', mode: 0});
+					// ODI.leds.toggle({led: 'eye', mode: 0});
 				}, timeout);
 				if(ttsQueue.length === 0){
 					console.debug('No more TTS, stop processing TTS queue!');
@@ -116,7 +116,7 @@ var playTTS = function(tts, isFirst){
 	if(!tts.hasOwnProperty('voice') || !VOICE_LIST.indexOf(tts.voice) == -1){ // Random voice if undefined
 		//var tmp = Math.round(Math.random()*1);
 		tts.voice = 'espeak';
-		/*utils.testConnexion(function(connexion){
+		/*ODI.utils.testConnexion(function(connexion){
 			if(connexion == true){
 			}else{
 			}
@@ -130,7 +130,7 @@ var playTTS = function(tts, isFirst){
 	// console.log('isFirst', isFirst);
 	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice,tts.lg, tts.msg]);//isFirst, 
 	console.debug('tts.msg.length :',tts.msg.length);
-	leds.blink({leds: ['eye'], speed: Math.random() * (150 - 50) + 30, loop: (tts.msg.length/2)+2});
+	ODI.leds.blink({leds: ['eye'], speed: Math.random() * (150 - 50) + 30, loop: (tts.msg.length/2)+2});
 
 	lastTtsMsg = tts;
 	/*fs.writeFile(LAST_TTS_PATH, JSON.stringify(tts), 'UTF-8', function(err){ // TODO to JSON file
@@ -161,7 +161,8 @@ try{
 }
 if(typeof lgParam != 'undefined' && lgParam !='' && typeof txtParam != 'undefined' && txtParam !=''){
 	console.log('TTS_PARAMS: ' + lgParam + ', ' + txtParam);
-	self.speak(lgParam, txtParam);
+	//self.speak(lgParam, txtParam);
+	speak(lgParam, txtParam);
 }*/
 
 /** Function last TTS message */

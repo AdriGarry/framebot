@@ -19,7 +19,8 @@ const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toS
 const logoSleep = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
 
 /* ------------- START CORE -------------*/
-console.log('\r\n---------------------------\r\n>> Odi\'s CORE initiating...');
+// console.log('\r\n---------------------\r\n>> Odi\'s CORE started');
+console.log('\r\n>> Odi\'s CORE started');
 
 startOdi(); // First init
 

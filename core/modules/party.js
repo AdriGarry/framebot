@@ -3,8 +3,8 @@
 // Module Party
 
 var spawn = require('child_process').spawn;
-var tts = require(CORE_PATH + 'modules/tts.js');
-var service = require(CORE_PATH + 'modules/service.js');
+/*var tts = require(CORE_PATH + 'modules/tts.js');
+var service = require(CORE_PATH + 'modules/service.js');*/
 
 var date = new Date();
 var hour = date.getHours();
@@ -21,12 +21,12 @@ function setParty(test){
 	if(test == true){
 			var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'test']);
 			console.log('test = ' + test);
-			//tts.speak('en', 'test mode');
-			tts.speak({lg:'en', msg:'test mode'});
-			//tts.speak('en', 'LET\'S START PARTY IN TEST MODE!!');
-			tts.speak({lg:'en', msg:'LET\'S START PARTY IN TEST MODE!!'});
+			//ODI.tts.speak('en', 'test mode');
+			ODI.tts.speak({lg:'en', msg:'test mode'});
+			//ODI.tts.speak('en', 'LET\'S START PARTY IN TEST MODE!!');
+			ODI.tts.speak({lg:'en', msg:'LET\'S START PARTY IN TEST MODE!!'});
 	}/* else {
-			tts.speak('en', 'LET\'S START PARTY !!');
+			ODI.tts.speak('en', 'LET\'S START PARTY !!');
 	}*/
 	setTimeout(function(){
 		var deploy = spawn('sh', ['/home/pi/odi/core/sh/soundsParty.sh', 'startParty']);
@@ -74,7 +74,8 @@ function setParty(test){
 			var deploy = spawn('sh', ['/home/pi/odi/core/sh/soundsParty.sh', 'pasAssezSaoul']);
 			console.log('Pas assez saoul ?!');
 		} else if((min % 13 == 0) && sec < 16) {
-			service.weather();
+			ODI.service.weather();
 		}
+		// TODO ajouter d'autres trucs (now, today... et tout revoir en fait!)
 	}.bind(this, test), 15*1000);
 };

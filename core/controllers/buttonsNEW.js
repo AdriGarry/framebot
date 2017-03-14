@@ -2,7 +2,7 @@
 
 // Module Button
 
-/*var spawn = require('child_process').spawn;
+var spawn = require('child_process').spawn;
 var leds = require(CORE_PATH + 'modules/leds.js');
 var hardware = require(CORE_PATH + 'modules/hardware.js');
 var jukebox = require(CORE_PATH + 'modules/jukebox.js');
@@ -12,7 +12,8 @@ var fip = require(CORE_PATH + 'modules/fip.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
 var service = require(CORE_PATH + 'modules/service.js');
 var time = require(CORE_PATH + 'modules/time.js');
-var party = require(CORE_PATH + 'modules/party.js');*/
+var party = require(CORE_PATH + 'modules/party.js');
+// var EventEmitter = require('events').EventEmitter;
 
 module.exports = {
 	getEtat: getEtat,
@@ -38,7 +39,7 @@ function initButtonAwake(){
 				instance = true;
 				interval = setInterval(function(){
 					console.log('Etat bouton On_');
-					ODI.service.randomAction();
+					service.randomAction();
 				}, 5*60*1000); //10*60*1000
 			}
 		}else{

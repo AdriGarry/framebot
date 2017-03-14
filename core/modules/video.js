@@ -3,7 +3,6 @@
 // Module Video
 
 var spawn = require('child_process').spawn;
-var tts = require(CORE_PATH + 'modules/tts.js');
 
 module.exports = {
 	screenOn: screenOn,

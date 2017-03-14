@@ -13,7 +13,7 @@ var compression = require('compression');
 var path = require("path");
 var spawn = require('child_process').spawn;
 var fs = require('fs');
-var utils = require(CORE_PATH + 'modules/utils.js');
+/*var utils = require(CORE_PATH + 'modules/utils.js');
 var leds = require(CORE_PATH + 'modules/leds.js');
 var buttons = require(CORE_PATH + 'controllers/buttons.js');
 var hardware = require(CORE_PATH + 'modules/hardware.js');
@@ -26,7 +26,7 @@ var jukebox = require(CORE_PATH + 'modules/jukebox.js');
 var exclamation = require(CORE_PATH + 'modules/exclamation.js');
 var video = require(CORE_PATH + 'modules/video.js');
 var party = require(CORE_PATH + 'modules/party.js');
-var admin = require(CORE_PATH + 'modules/admin.js');
+var admin = require(CORE_PATH + 'modules/admin.js');*/
 
 const FILE_REQUEST_HISTORY = LOG_PATH + 'requestHistory.log';
 const FILE_GRANT = DATA_PATH + 'pwd.properties';
@@ -49,7 +49,7 @@ function startUI(mode){
 		res.sendFile(path.join(WEB_PATH + 'index.html'));
 		ipClient = req.connection.remoteAddress;
 		console.log('UI initialized [' + ipClient + ']');
-		leds.blink({leds: ['satellite'], speed: 100, loop: 3});
+		ODI.leds.blink({leds: ['satellite'], speed: 100, loop: 3});
 		console.log('MODE');
 		console.log(mode);
 		if(mode < 1){
@@ -60,8 +60,9 @@ function startUI(mode){
 
 	// Middleware LOGGER
 	var logger = function(req, res, next){
+		//ODI.leds.toggle({led:'eye', mode: 1});
 		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
-		leds.blink({leds: ['satellite'], speed: 100, loop: 2});
+		ODI.leds.blink({leds: ['satellite'], speed: 100, loop: 2});
 		//method = req.method;
 
 		if(req.connection.remoteAddress.indexOf('192.168') == -1){ // Logging not local requests
@@ -113,14 +114,14 @@ function startUI(mode){
 	ui.post('/toggleDebug', function(req, res){
 		console.debug('UI > Toggle debug');
 		//utils.setConfig('debug', null, true); // NOUVEAU FORMAT OBJET ... /!\
-		utils.setConfig({debug: !CONFIG.debug}, true);
+		ODI.utils.setConfig({debug: !CONFIG.debug}, true);
 		res.writeHead(200);res.end();
 	});
 
 	/** RESET CONFIG */
 	ui.post('/resetConfig', function(req, res){
 		console.debug('UI > Reset config');
-		utils.resetConfig(true);
+		ODI.utils.resetConfig(true);
 		res.writeHead(200);res.end();
 	});
 
@@ -131,11 +132,11 @@ function startUI(mode){
 		var h = now.getHours();
 		var wakeUpTime;
 		if(temp > h){
-			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
+			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + ODI.now.getMinutes();
 		}
-		var etatBtn = buttons.getEtat();
-		var cpuTemp = hardware.getCPUTemp();
-		var cpuUsage = hardware.getCPUUsage();
+		var etatBtn = ODI.buttons.getEtat();
+		var cpuTemp = ODI.hardware.getCPUTemp();
+		var cpuUsage = ODI.hardware.getCPUUsage();
 		var dashboard = {
 			mode: {value: {
 				mode: isNaN(parseFloat(mode)) ? (CONFIG.debug ? 'Debug' : 'Ready') : 'Sleep',
@@ -144,9 +145,9 @@ function startUI(mode){
 				active: CONFIG.debug},
 			switch: {value: etatBtn, active: etatBtn ? true : false}, 
 			volume: {value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute', active: (isNaN(temp) && etatBtn == 1) ? true : false},
-			voicemail: {value: voiceMail.areThereAnyMessages(), active: voiceMail.areThereAnyMessages()>0 ? true : false},
+			voicemail: {value: ODI.voiceMail.areThereAnyMessages(), active: ODI.voiceMail.areThereAnyMessages()>0 ? true : false},
 			jukebox: {value: '<i>Soon available</i>', active: false},
-			timer: {value: time.timeLeftTimer(), active: time.timeLeftTimer()>0 ? true : false},
+			timer: {value: ODI.time.timeLeftTimer(), active: ODI.time.timeLeftTimer()>0 ? true : false},
 			cpu: {value: {usage: cpuUsage, temp: cpuTemp}, active: (cpuTemp > 55 || cpuUsage >= 20) ? true : false},
 			alarms: {value: CONFIG.alarms, active: true},
 			//config: {value: CONFIG},
@@ -164,7 +165,7 @@ function startUI(mode){
 		if(params.hasOwnProperty('logSize') && !isNaN(params.logSize)){
 			logSize = parseInt(params.logSize);
 		}
-		utils.prepareLogs(logSize, function(log){
+		ODI.utils.prepareLogs(logSize, function(log){
 			res.end(log);
 		});
 	});
@@ -189,7 +190,7 @@ function startUI(mode){
 
 	/** POST SECTION */
 	ui.post('/odi', function(req, res){ // Restart Odi
-		hardware.restartOdi();
+		ODI.hardware.restartOdi();
 		res.writeHead(200);res.end();
 	});
 
@@ -201,30 +202,30 @@ function startUI(mode){
 		}else{
 			sleepTime = 255;
 		}
-		hardware.restartOdi(sleepTime);//255
+		ODI.hardware.restartOdi(sleepTime);//255
 		res.writeHead(200);res.end();
 	});
 
 	ui.post('/reboot', function(req, res){ // Reboot Odi
-		hardware.reboot();
+		ODI.hardware.reboot();
 		res.writeHead(200);res.end();
 	});
 
 	ui.post('/shutdown', function(req, res){ // Shutdown Odi
-		hardware.shutdown();
+		ODI.hardware.shutdown();
 		res.writeHead(200);res.end();
 	});
 
 	ui.post('/mute', function(req, res){ // Mute Odi
-		tts.clearTTSQueue();
-		hardware.mute();
+		ODI.tts.clearTTSQueue();
+		ODI.hardware.mute();
 		res.writeHead(200);res.end();
 	});
 
 	var granted = false;
 	ui.post('/grant', function(req, res){ // Get grant status
 		var pattern = req.headers.pwd;
-		if(pattern && admin.checkPassword(pattern)){
+		if(pattern && ODI.admin.checkPassword(pattern)){
 			granted = true;
 			console.log('>> Admin granted !');
 		}else{
@@ -241,58 +242,58 @@ function startUI(mode){
 			var ttsMsg = req.query;
 			// console.log(params);
 			if(ttsMsg.voice && ttsMsg.lg && ttsMsg.msg){
-				if(ttsMsg.hasOwnProperty('voicemail')){
-					voiceMail.addVoiceMailMessage({voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg});
+				if(ODI.ttsMsg.hasOwnProperty('voicemail')){
+					ODI.voiceMail.addVoiceMailMessage({voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg});
 				}else{
 					// console.log(tts, tts.speak);
-					tts.speak({voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg});
+					ODI.tts.speak({voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg});
 				}
 			}else{
-				// tts.speak('','RANDOM'); // Random TTS
-				// tts.speak({msg:'RANDOM'}); // Random TTS
-				tts.speak(); // Random TTS
+				// ODI.tts.speak('','RANDOM'); // Random TTS
+				// ODI.tts.speak({msg:'RANDOM'}); // Random TTS
+				ODI.tts.speak(); // Random TTS
 			}
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/lastTTS', function(req, res){ // Restart Odi
-			tts.lastTTS();
+			ODI.tts.lastTTS();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/checkVoiceMail', function(req, res){ // Check Voice Mail
 			// if(!voiceMail.checkVoiceMail()){
-			// 	tts.speak({voice: 'espeak', lg: 'en',msg: 'No voicemail message'});
+			// 	ODI.tts.speak({voice: 'espeak', lg: 'en',msg: 'No voicemail message'});
 			// }
-			voiceMail.checkVoiceMail(function(anyMessage){
+			ODI.voiceMail.checkVoiceMail(function(anyMessage){
 				console.log(anyMessage);
 				if(!anyMessage){
-					//tts.speak({voice: 'espeak', lg: 'en',msg: 'No voicemail message'});
-					tts.speak({voice: 'espeak', lg: 'en',msg: 'No voicemail message'});
+					//ODI.tts.speak({voice: 'espeak', lg: 'en',msg: 'No voicemail message'});
+					ODI.tts.speak({voice: 'espeak', lg: 'en',msg: 'No voicemail message'});
 				}
 			});
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/clearVoiceMail', function(req, res){ // Clear Voice Mail
-			voiceMail.clearVoiceMail();
+			ODI.voiceMail.clearVoiceMail();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/conversation', function(req, res){ // Conversation
-			tts.randomConversation();
+			ODI.tts.randomConversation();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/idea', function(req, res){ // Idea...
 			// params = req.query;
-			// tts.speak('en', 'I\'ve got an idea !');
-			tts.speak({lg: 'en', msg: 'I\'ve got an idea !'});
+			// ODI.tts.speak('en', 'I\'ve got an idea !');
+			ODI.tts.speak({lg: 'en', msg: 'I\'ve got an idea !'});
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/adriExclamation', function(req, res){ // Idea...
-			service.adriExclamation();
+			ODI.service.adriExclamation();
 			res.writeHead(200);res.end();
 		});
 
@@ -310,23 +311,23 @@ function startUI(mode){
 				//exclamation.russiaLoop();
 				deploy = spawn('sh', [CORE_PATH + 'sh/music.sh', 'urss']);
 			}else{
-				exclamation.russia();
+				ODI.exclamation.russia();
 			}
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/exclamation', function(req, res){ // Exclamation
-			exclamation.exclamation();
+			ODI.exclamation.exclamation();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/exclamationLoop', function(req, res){ // Exclamation Loop
-			exclamation.exclamationLoop();
+			ODI.exclamation.exclamationLoop();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/fip', function(req, res){ // FIP Radio
-			fip.playFip();
+			ODI.fip.playFip();
 			res.writeHead(200);res.end();
 		});
 
@@ -338,12 +339,12 @@ function startUI(mode){
 		});
 
 		ui.post('/jukebox', function(req, res){ // Jukebox
-			jukebox.loop();
+			ODI.jukebox.loop();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/medley', function(req, res){ // Medley
-			jukebox.medley();
+			ODI.jukebox.medley();
 			res.writeHead(200);res.end();
 		});
 
@@ -358,28 +359,28 @@ function startUI(mode){
 		});
 
 		ui.post('/playVideo', function(req, res){ // Play Video
-			video.startCycle();
+			ODI.video.startCycle();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/videoOff', function(req, res){ // Sleep Screen
-			video.screenOff();
+			ODI.video.screenOff();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/date', function(req, res){ // Date
-			time.today();
+			ODI.time.today();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/age', function(req, res){ // Odi's Age
-			time.sayOdiAge();
+			ODI.time.sayOdiAge();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/time', function(req, res){ // Time
 			// console.log('UI > Time');
-			time.now();
+			ODI.time.now();
 			res.writeHead(200);res.end();
 		});
 
@@ -389,37 +390,37 @@ function startUI(mode){
 				console.log('!isNaN(params.m)');
 				var min = parseInt(params.m, 10);
 				console.log(min);
-				time.setTimer(min);
+				ODI.time.setTimer(min);
 			}else if(params.hasOwnProperty('stop')){
-				time.stopTimer();
+				ODI.time.stopTimer();
 			}else{
-				time.setTimer();
+				ODI.time.setTimer();
 			}
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/meteo', function(req, res){ // Weather
-			service.weather();
+			ODI.service.weather();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/info', function(req, res){ // Info
-			service.info();
+			ODI.service.info();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/cpuTemp', function(req, res){ // TTS CPU Temp
-			service.cpuTemp();
+			ODI.service.cpuTemp();
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/cigales', function(req, res){ // Cigales
-			deploy = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'cigales']);
+			ODI.deploy = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'cigales']);
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/setParty', function(req, res){ // Set Party Mode
-			party.setParty();
+			ODI.party.setParty();
 			res.writeHead(200);res.end();
 		});
 
@@ -436,7 +437,7 @@ function startUI(mode){
 			params = req.query;
 			// console.log(params);
 			if(params['voice'] && params['lg'] && params['msg']){
-				voiceMail.addVoiceMailMessage({lg: params['lg'],voice: params['voice'], msg: params['msg']});
+				ODI.voiceMail.addVoiceMailMessage({lg: params['lg'],voice: params['voice'], msg: params['msg']});
 				res.writeHead(200);res.end();
 			}else{
 				console.error('Error while saving voiceMail message : ');
@@ -454,6 +455,6 @@ function startUI(mode){
 
 	ui.listen(8080, function() { // Listen port 8080
 		console.log('UI server started [' + mode + ']');
-		leds.blink({leds: ['satellite'], speed : 120, loop : 3})
+		ODI.leds.blink({leds: ['satellite'], speed : 120, loop : 3})
 	});
 };

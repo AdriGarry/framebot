@@ -3,9 +3,9 @@
 // Module voicemail
 
 var fs = require('fs');
-var leds = require(CORE_PATH + 'modules/leds.js');
+/*var leds = require(CORE_PATH + 'modules/leds.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
-var utils = require(CORE_PATH + 'modules/utils.js');
+var utils = require(CORE_PATH + 'modules/utils.js');*/
 
 const VOICEMAIL_FILE = '/home/pi/odi/tmp/voicemail.json';
 const VOICEMAIL_FILE_HISTORY = '/home/pi/odi/log/voicemailHistory.json';
@@ -33,8 +33,8 @@ fs.readFile(VOICEMAIL_FILE, 'utf8', function(err, data){
 function addVoiceMailMessage(tts){
 	console.log('New voicemail message :', tts);
 	tts = JSON.stringify(tts);
-	utils.appendJsonFile(VOICEMAIL_FILE, tts);
-	utils.appendJsonFile(VOICEMAIL_FILE_HISTORY, tts);
+	ODI.utils.appendJsonFile(VOICEMAIL_FILE, tts);
+	ODI.utils.appendJsonFile(VOICEMAIL_FILE_HISTORY, tts);
 };
 
 var clearVoiceMailDelay;
@@ -42,12 +42,12 @@ var clearVoiceMailDelay;
 function checkVoiceMail(callback){
 	// try{
 		console.log('Checking VoiceMail...');
-		utils.getJsonFileContent(VOICEMAIL_FILE, function(messages){
+		ODI.utils.getJsonFileContent(VOICEMAIL_FILE, function(messages){
 			if(messages){
 				messages = JSON.parse(messages);
 				console.debug(messages);
-				tts.speak({voice:'espeak', lg:'en', msg:'Messages'});
-				tts.speak(messages);
+				ODI.tts.speak({voice:'espeak', lg:'en', msg:'Messages'});
+				ODI.tts.speak(messages);
 				if(clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
 				clearVoiceMailDelay = setTimeout(function(){ // Clearing VoiceMail
 					clearVoiceMail();
@@ -106,7 +106,7 @@ function clearVoiceMail(){
 			if(err.code === 'ENOENT') console.log('clearVoiceMail : No message to delete !');
 		}else{
 			console.log('VoiceMail Cleared !');
-			tts.speak({lg:'en', voice: 'google', msg:'VoiceMail Cleared'});
+			ODI.tts.speak({lg:'en', voice: 'google', msg:'VoiceMail Cleared'});
 		}
 	});
 };

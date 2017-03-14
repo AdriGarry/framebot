@@ -6,12 +6,12 @@ var spawn = require('child_process').spawn;
 var fs = require('fs');
 var Gpio = require('onoff').Gpio;
 var request = require('request');
-var leds = require(CORE_PATH + 'modules/leds.js');
+/*var leds = require(CORE_PATH + 'modules/leds.js');
 var hardware = require(CORE_PATH + 'modules/hardware.js');
 //var utils = require(CORE_PATH + 'modules/utils.js');
 var tts = require(CORE_PATH + 'modules/tts.js');
 var time = require(CORE_PATH + 'modules/time.js');
-var exclamation = require(CORE_PATH + 'modules/exclamation.js');
+var exclamation = require(CORE_PATH + 'modules/exclamation.js');*/
 
 //var order = require(CORE_PATH + 'controllers/orders.js');
 
@@ -32,7 +32,7 @@ function randomAction(){
 		case 3:
 		case 4:
 			// tts.speak({msg:'RANDOM'});
-			tts.speak();
+			ODI.tts.speak();
 			break;
 		case 5:
 		case 6:
@@ -41,7 +41,7 @@ function randomAction(){
 		case 9:
 		case 10:
 		case 11:
-			tts.randomConversation();
+			ODI.tts.randomConversation();
 			break;
 		case 12:
 		case 13:
@@ -51,19 +51,19 @@ function randomAction(){
 			cpuTemp();
 			break;
 		case 17:
-			time.sayOdiAge();
+			ODI.time.sayOdiAge();
 			break;
 		case 18:
-			time.now();
+			ODI.time.now();
 			break;
 		case 19:
-			time.today();
+			ODI.time.today();
 			break;
 		case 20:
 			adriExclamation();
 			break;
 		default:
-			exclamation.exclamation();
+			ODI.exclamation.exclamation();
 	}
 };
 
@@ -73,14 +73,14 @@ function adriExclamation(){
 	console.log('adriExclamation()');
 	aadri += aadri.repeat(Math.round(Math.random()*6)) + 'dri';
 	console.debug('adriExclamation()', aadri);
-	tts.speak({voice: 'espeak', lg:'fr', msg: 'aadri'});
+	ODI.tts.speak({voice: 'espeak', lg:'fr', msg: 'aadri'});
 };
 
 /** Function cpu temperature TTS */
 function cpuTemp(){
-	temperature = hardware.getCPUTemp();
+	temperature = ODI.hardware.getCPUTemp();
 	console.log('Service CPU Temperature...  ' + temperature + ' degres');
-	tts.speak({lg:'fr', msg:'Mon processeur est a ' + temperature + ' degrai'});
+	ODI.tts.speak({lg:'fr', msg:'Mon processeur est a ' + temperature + ' degrai'});
 };
 
 var WEATHER_STATUS_LIST;
@@ -109,10 +109,10 @@ function weatherService(){
 				var weatherSpeech = 'Meteo Marseille : le temps est ' + weatherStatus + ', il fait ' + weatherTemp
 					+ ' degres avec ' + (isNaN(wind)?'0':Math.round(wind)) + ' kilometre heure de vent';
 				console.log('Service Weather...');
-				tts.speak({voice: 'google', lg: 'fr', msg: weatherSpeech});
+				ODI.tts.speak({voice: 'google', lg: 'fr', msg: weatherSpeech});
 			}else{
 				console.log('Can\'t retreive weather informations');
-				tts.speak({voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo'});
+				ODI.tts.speak({voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo'});
 				console.error('Weather request > response.statusCode', response.statusCode);
 				if(error){console.error('Error getting weather info  /!\\ \n' + error);}
 			}
