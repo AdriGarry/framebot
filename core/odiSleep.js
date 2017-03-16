@@ -25,6 +25,7 @@ ODI.time = require('./modules/time.js');
 ODI.leds = require('./modules/leds.js');
 ODI.video = require(CORE_PATH + 'modules/video.js');
 ODI.server = require('./controllers/server.js');
+ODI.buttons = require('./controllers/buttons.js');
 ODI.jobs = require('./controllers/jobs.js');
 
 
