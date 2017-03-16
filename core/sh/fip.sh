@@ -8,11 +8,9 @@ volume=$(cat /sys/class/gpio/gpio13/value)
 
 if [ $volume = 0 ]
 then
-	# sudo omxplayer -o local --vol -500 http://audio.scdn.arkena.com/11016/fip-midfi128.mp3 &
-	sudo omxplayer -o local --vol -500 http://aifae8cah8.lb.vip.cdn.dvmr.fr/fip-midfi.mp3 &
+	sudo omxplayer -o local --vol -500 http://chai5she.cdn.dvmr.fr/fip-midfi.mp3 &
 else
-	# sudo omxplayer -o local --vol 300 http://audio.scdn.arkena.com/11016/fip-midfi128.mp3 &
-	sudo omxplayer -o local --vol 300 http://aifae8cah8.lb.vip.cdn.dvmr.fr/fip-midfi.mp3 &
+	sudo omxplayer -o local --vol 300 http://chai5she.cdn.dvmr.fr/fip-midfi.mp3 &
 fi
 
 

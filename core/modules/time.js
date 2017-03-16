@@ -74,13 +74,15 @@ function cocorico(mode){
 			today();
 			ODI.service.weather();
 			ODI.voiceMail.checkVoiceMail();
-			ODI.utils.testConnexion(function(connexion){
-				if(connexion == true){
-					ODI.fip.playFip();
-				}else{
-					ODI.jukebox.loop();
-				}
-			});
+			setTimeout(function(){
+				ODI.utils.testConnexion(function(connexion){
+					if(connexion == true){
+						ODI.fip.playFip();
+					}else{
+						ODI.jukebox.loop();
+					}
+				});
+			}, 30*1000);
 		}, 5*1000);
 		// }, 55*1000); // ANNIF
 	}, alarmDelay);
