@@ -132,7 +132,7 @@ function startUI(mode){
 		var h = now.getHours();
 		var wakeUpTime;
 		if(temp > h){
-			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + ODI.now.getMinutes();
+			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
 		}
 		var etatBtn = ODI.buttons.getEtat();
 		var cpuTemp = ODI.hardware.getCPUTemp();
