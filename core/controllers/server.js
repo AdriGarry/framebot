@@ -66,7 +66,7 @@ function startUI(mode){
 		//method = req.method;
 
 		if(req.connection.remoteAddress.indexOf('192.168') == -1){ // Logging not local requests
-			var newRequest = utils.logTime('D/M h:m:s ') + request + ' [' + req.connection.remoteAddress + ']\r\n';
+			var newRequest = ODI.utils.logTime('D/M h:m:s ') + request + ' [' + req.connection.remoteAddress + ']\r\n';
 			fs.appendFile(FILE_REQUEST_HISTORY, newRequest, function(err){
 				if(err) return console.error(err);
 			});

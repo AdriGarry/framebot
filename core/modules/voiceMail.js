@@ -81,7 +81,7 @@ function voiceMailFlag(){
 	setInterval(function(){
 		nbMessages = areThereAnyMessages();
 		if(nbMessages > 0){ // if(nbMessages)
-			leds.blink({leds: ['belly'], speed: 200, loop: 2});
+			ODI.leds.blink({leds: ['belly'], speed: 200, loop: 2});
 		}
 	}, 5000);
 };
