@@ -242,7 +242,7 @@ function startUI(mode){
 			var ttsMsg = req.query;
 			// console.log(params);
 			if(ttsMsg.voice && ttsMsg.lg && ttsMsg.msg){
-				if(ODI.ttsMsg.hasOwnProperty('voicemail')){
+				if(ttsMsg.hasOwnProperty('voicemail')){
 					ODI.voiceMail.addVoiceMailMessage({voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg});
 				}else{
 					// console.log(tts, tts.speak);

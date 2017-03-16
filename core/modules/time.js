@@ -63,10 +63,11 @@ function cocorico(mode){
 
 	setTimeout(function(){
 		console.log('COCORICO !!');
-		// spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'cocorico']);
 
+		spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'cocorico']);
 		// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'birthday']);
-		// setTimeout(function(){ // ANNIF
+
+		setTimeout(function(){ // ANNIF
 			var voiceMailMsg = ODI.voiceMail.areThereAnyMessages();
 			console.log('voiceMailMsg', voiceMailMsg);
 			now();
@@ -80,6 +81,7 @@ function cocorico(mode){
 					ODI.jukebox.loop();
 				}
 			});
+		}, 5*1000);
 		// }, 55*1000); // ANNIF
 	}, alarmDelay);
 };

@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 'use strict'
 
-var mode = sleepTime = process.argv[2]; // Retreive args
+var mode = process.argv[2]; // Retreive args
 var introMsg = 'Odi\'s sleeping mode, context initialization...';
 
 var spawn = require('child_process').spawn;
 var Gpio = require('onoff').Gpio;
+var CronJob = require('cron').CronJob;
 
 /** Odi's global context */
 global.ODI_PATH = '/home/pi/odi/';
@@ -17,10 +18,8 @@ global.WEB_PATH = '/home/pi/odi/web/';
 global.CONFIG = require(CONFIG_FILE);
 
 global.ODI = {};
-
 ODI.gpioPins = require('./modules/gpioPins.js');
 ODI.hardware = require('./modules/hardware.js');
-ODI.CronJob = require('cron').CronJob;
 ODI.utils = require(CORE_PATH + 'modules/utils.js');
 ODI.time = require('./modules/time.js');
 ODI.leds = require('./modules/leds.js');
@@ -36,7 +35,7 @@ console.debug('-> ->  DEBUG MODE !!');
 
 ODI.utils.setConfig({mode: 'sleep', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
 
-if(sleepTime < 255){
+/*if(sleepTime < 255){ // TODO mettre le temp de veille dans le fichier de config
 	introMsg += ' for ' + sleepTime + 'h';
 	console.log(introMsg + '   -.-');
 	setTimeout(function(){ // Delay until restart awake
@@ -44,7 +43,7 @@ if(sleepTime < 255){
 	}, sleepTime*60*60*1000);
 }else{
 	console.log(introMsg + '   -.-');
-}
+}*/
 
 ODI.leds.activity(mode); // Activity flag 1/2
 
@@ -57,7 +56,7 @@ ODI.server.startUI(mode);
 ODI.jobs.setBackgroundJobs();
 
 new CronJob('0 * * * * *', function(){
-	if(time.isAlarm()){
+	if(ODI.time.isAlarm()){
 		console.log('Alarm... wake up !!');
 		ODI.hardware.restartOdi();
 	}

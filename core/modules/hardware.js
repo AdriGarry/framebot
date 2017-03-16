@@ -75,7 +75,7 @@ function reboot(){
 	}
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
 	setTimeout(function(){
-		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh', 'reboot']); // TODO supprimer deploy
+		spawn('sh', [CORE_PATH + 'sh/power.sh', 'reboot']);
 	}, 2000);
 };
 
@@ -88,7 +88,7 @@ function shutdown(announcement){
 	}
 	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
 	setTimeout(function(){
-		deploy = spawn('sh', [CORE_PATH + 'sh/power.sh']); // TODO supprimer deploy
+		spawn('sh', [CORE_PATH + 'sh/power.sh']);
 	}, 2000);
 };
 

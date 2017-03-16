@@ -21,7 +21,8 @@ module.exports = {
 
 var messages; // TODO....
 fs.readFile(VOICEMAIL_FILE, 'utf8', function(err, data){
-	if(err) console.log('No VoiceMail message (NEW)');
+	// if(err) console.log('No VoiceMail message (NEW)');
+	if(err) return;
 	else{
 		messages = JSON.parse(data);
 		// fileData.push(obj);

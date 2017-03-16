@@ -22,8 +22,8 @@ global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
 global.TMP_PATH = '/home/pi/odi/tmp/';
 global.CONFIG = require(CONFIG_FILE);
-global.ODI = {};
 
+global.ODI = {};
 global.ODI.gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
 global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
 global.ODI.utils = require(CORE_PATH + 'modules/utils.js');
@@ -45,11 +45,6 @@ global.ODI.buttons = require(CORE_PATH + 'controllers/buttons.js');
 global.ODI.server = require(CORE_PATH + 'controllers/server.js');
 global.ODI.jobs = require(CORE_PATH + 'controllers/jobs.js');
 
-
-//var Gpio = require('onoff').Gpio;
-//var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
-//var leds = require(CORE_PATH + 'modules/leds.js');
-//leds.allLedsOn();
 ODI.leds.toggle({led:'eye', mode: 1});
 
 /** Debug Mode */
@@ -57,29 +52,23 @@ if(CONFIG.debug) console.debug = function(o){console.log('\u2022 ' + o);}
 else console.debug = function(o){};
 console.debug('-> ->  DEBUG MODE !!');
 
-//var spawn = require('child_process').spawn;
 spawn('sh', [CORE_PATH + 'sh/init.sh']);
 spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
 
-//var utils = require(CORE_PATH + 'modules/utils.js');
 // ODI.utils.setConfig({mode: 'ready', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
 ODI.utils.setConfig({mode: 'ready', startTime: ODI.utils.logTime('h:m (D/M)')}, false);
 
 ODI.leds.activity(); // Activity flag 1/2
 
-//var server = require(CORE_PATH + 'controllers/server.js');
 ODI.server.startUI(mode);
 
-//var CronJob = require('cron').CronJob;
 new CronJob('*/3 * * * * *', function(){
 	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Activity flag 2/2
 }, null, 0, 'Europe/Paris');
 
-//var buttons = require(CORE_PATH + 'controllers/buttons.js');
 ODI.buttons.initButtonAwake();
 
 ODI.leds.toggle({led:'eye', mode: 0});
-// var jobs = require(CORE_PATH + 'controllers/jobs.js');
 ODI.jobs.startClock(ODI.buttons.getEtat()); // Starting speaking clock
 
 // var time = require(CORE_PATH + 'modules/time.js');
@@ -108,7 +97,6 @@ ODI.jobs.setBackgroundJobs();
 ODI.voiceMail.voiceMailFlag();
 
 
-// var video = require(CORE_PATH + 'modules/video.js');
 ODI.video.screenOn();
 ODI.video.startCycle();
 
@@ -124,9 +112,6 @@ if(CONFIG.debug){
 // ------------------------//
 // ----- TEST SECTION -----//
 // ------------------------//
-// var service = require(CORE_PATH + 'modules/service.js');
-// var tts = require(CORE_PATH + 'modules/tts.js');
-//ODI.tts.speak([{voice: 'google', lg: 'fr', msg:'un'}, {voice: 'espeak', lg: 'fr', msg:'deux'}, {voice: 'google', lg: 'fr', msg:'trois'}]);
 
 // spawn('sh', ['/home/pi/odi/core/sh/diapo.sh']);
 
