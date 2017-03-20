@@ -94,7 +94,7 @@ function setConfig(newConf, restart){
 		global.CONFIG = config;
 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2), function(){
 			logConfigArray();
-			if(restart) hardware.restartOdi();
+			if(restart) ODI.hardware.restartOdi();
 		});
 	});
 };
@@ -113,7 +113,7 @@ function resetConfig(restart){
 		console.error('utils.resetConfig() stream error', e);
 	});
 	stream.on('close', function(){
-		if(!had_error && restart) hardware.restartOdi();
+		if(!had_error && restart) ODI.hardware.restartOdi();
 	});
 };
 
