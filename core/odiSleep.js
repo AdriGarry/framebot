@@ -17,7 +17,7 @@ global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
 global.CONFIG = require(CONFIG_FILE);
 
-global.ODI = {};
+/*global.ODI = {};
 ODI.gpioPins = require('./modules/gpioPins.js');
 ODI.hardware = require('./modules/hardware.js');
 ODI.utils = require(CORE_PATH + 'modules/utils.js');
@@ -26,7 +26,29 @@ ODI.leds = require('./modules/leds.js');
 ODI.video = require(CORE_PATH + 'modules/video.js');
 ODI.server = require('./controllers/server.js');
 ODI.buttons = require('./controllers/buttons.js');
-ODI.jobs = require('./controllers/jobs.js');
+ODI.jobs = require('./controllers/jobs.js');*/
+global.ODI = {};
+global.ODI.gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
+global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
+global.ODI.utils = require(CORE_PATH + 'modules/utils.js');
+global.ODI.CronJob = require('cron').CronJob;
+global.ODI.time = require(CORE_PATH + 'modules/time.js');
+global.ODI.voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
+global.ODI.video = require(CORE_PATH + 'modules/video.js');
+global.ODI.service = require(CORE_PATH + 'modules/service.js');
+global.ODI.tts = require(CORE_PATH + 'modules/tts.js');
+global.ODI.hardware = require(CORE_PATH + 'modules/hardware.js');
+global.ODI.jukebox = require(CORE_PATH + 'modules/jukebox.js');
+global.ODI.exclamation = require(CORE_PATH + 'modules/exclamation.js');
+global.ODI.fip = require(CORE_PATH + 'modules/fip.js');
+global.ODI.party = require(CORE_PATH + 'modules/party.js');
+global.ODI.video = require(CORE_PATH + 'modules/video.js');
+global.ODI.party = require(CORE_PATH + 'modules/party.js');
+global.ODI.admin = require(CORE_PATH + 'modules/admin.js');
+global.ODI.buttons = require(CORE_PATH + 'controllers/buttons.js');
+global.ODI.server = require(CORE_PATH + 'controllers/server.js');
+global.ODI.jobs = require(CORE_PATH + 'controllers/jobs.js');
+
 
 
 /** Debug Mode */
