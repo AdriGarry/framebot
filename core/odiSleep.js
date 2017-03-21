@@ -18,15 +18,17 @@ global.WEB_PATH = '/home/pi/odi/web/';
 global.CONFIG = require(CONFIG_FILE);
 
 /*global.ODI = {};
-ODI.gpioPins = require('./modules/gpioPins.js');
-ODI.hardware = require('./modules/hardware.js');
-ODI.utils = require(CORE_PATH + 'modules/utils.js');
-ODI.time = require('./modules/time.js');
-ODI.leds = require('./modules/leds.js');
-ODI.video = require(CORE_PATH + 'modules/video.js');
-ODI.server = require('./controllers/server.js');
-ODI.buttons = require('./controllers/buttons.js');
-ODI.jobs = require('./controllers/jobs.js');*/
+global.ODI.gpioPins = require('./modules/gpioPins.js');
+global.ODI.hardware = require('./modules/hardware.js');
+global.ODI.utils = require(CORE_PATH + 'modules/utils.js');
+global.ODI.time = require('./modules/time.js');
+global.ODI.leds = require('./modules/leds.js');
+global.ODI.video = require(CORE_PATH + 'modules/video.js');
+global.ODI.voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
+global.ODI.server = require('./controllers/server.js');
+global.ODI.admin = require(CORE_PATH + 'modules/admin.js');
+global.ODI.buttons = require('./controllers/buttons.js');
+global.ODI.jobs = require('./controllers/jobs.js');*/
 global.ODI = {};
 global.ODI.gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
 global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
@@ -48,7 +50,6 @@ global.ODI.admin = require(CORE_PATH + 'modules/admin.js');
 global.ODI.buttons = require(CORE_PATH + 'controllers/buttons.js');
 global.ODI.server = require(CORE_PATH + 'controllers/server.js');
 global.ODI.jobs = require(CORE_PATH + 'controllers/jobs.js');
-
 
 
 /** Debug Mode */

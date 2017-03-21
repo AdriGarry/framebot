@@ -174,7 +174,7 @@ function startUI(mode){
 		res.writeHead(200);
 		//res.end(fs.readFileSync(CONFIG_FILE, 'utf8').toString());
 		//console.debug(CONFIG.toString);
-		utils.logConfigArray();
+		ODI.utils.logConfigArray();
 		res.end(JSON.stringify(CONFIG));
 	});
 
