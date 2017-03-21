@@ -63,5 +63,5 @@ function stopFip(message){
 	clearInterval(fipInterval);
 	eye.write(0);
 	belly.write(0);
-	leds.clearLeds();
+	ODI.leds.clearLeds();
 };
