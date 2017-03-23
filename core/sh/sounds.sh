@@ -106,5 +106,15 @@ then
 else
 	sudo omxplayer -o local --vol $volume $sound
 	#sudo node /home/pi/odi/core/modules/allLedsOff.js
-	sudo node /home/pi/odi/core/modules/leds.js allLedsOff
+	
+	#___Extinction ou non des leds
+	if [ $2 = "noLeds" ]
+	then
+		echo $2
+	else
+		#sudo node /home/pi/odi/core/modules/allLedsOn.js
+		sudo node /home/pi/odi/core/modules/leds.js allLedsOff
+	fi
+
+	#sudo node /home/pi/odi/core/modules/leds.js allLedsOff
 fi

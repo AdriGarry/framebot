@@ -7,11 +7,12 @@ console.log('>> Odi Core context initialization...',(mode ? '[mode:' + mode + ']
 
 var spawn = require('child_process').spawn;
 var fs = require('fs');
-var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var os = require("os");
 var Gpio = require('onoff').Gpio;
 var CronJob = require('cron').CronJob;
+
+spawn('sh', [CORE_PATH + 'sh/init.sh']);
 
 /** Odi's global context */
 global.ODI_PATH = '/home/pi/odi/';
@@ -45,14 +46,13 @@ global.ODI.buttons = require(CORE_PATH + 'controllers/buttons.js');
 global.ODI.server = require(CORE_PATH + 'controllers/server.js');
 global.ODI.jobs = require(CORE_PATH + 'controllers/jobs.js');
 
-ODI.leds.toggle({led:'eye', mode: 1});
+ODI.leds.toggle({led:'eye', mode: 1}); // TODO à remonter
 
 /** Debug Mode */
 if(CONFIG.debug) console.debug = function(o){console.log('\u2022 ' + o);}
 else console.debug = function(o){};
 console.debug('-> ->  DEBUG MODE !!');
 
-spawn('sh', [CORE_PATH + 'sh/init.sh']);
 spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
 
 // ODI.utils.setConfig({mode: 'ready', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
