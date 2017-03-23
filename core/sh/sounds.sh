@@ -112,9 +112,7 @@ else
 	then
 		echo $2
 	else
-		#sudo node /home/pi/odi/core/modules/allLedsOn.js
 		sudo node /home/pi/odi/core/modules/leds.js allLedsOff
 	fi
-
 	#sudo node /home/pi/odi/core/modules/leds.js allLedsOff
 fi

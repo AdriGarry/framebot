@@ -712,8 +712,8 @@ body>.loading i{
 	}
 
 	.dashboard > [flex] > button.expanded{
-		height:40em;
-		max-height:40em;
+		height:50em;
+		max-height:50em;
 	}
 	.dashboard > [flex] > button.expanded form{
 		font-size:4vw;

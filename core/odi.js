@@ -12,8 +12,6 @@ var os = require("os");
 var Gpio = require('onoff').Gpio;
 var CronJob = require('cron').CronJob;
 
-spawn('sh', [CORE_PATH + 'sh/init.sh']);
-
 /** Odi's global context */
 global.ODI_PATH = '/home/pi/odi/';
 global.CORE_PATH = '/home/pi/odi/core/';
@@ -24,9 +22,13 @@ global.WEB_PATH = '/home/pi/odi/web/';
 global.TMP_PATH = '/home/pi/odi/tmp/';
 global.CONFIG = require(CONFIG_FILE);
 
+spawn('sh', [CORE_PATH + 'sh/init.sh']);
+spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
+
 global.ODI = {};
 global.ODI.gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
 global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
+ODI.leds.toggle({led:'eye', mode: 1});
 global.ODI.utils = require(CORE_PATH + 'modules/utils.js');
 global.ODI.CronJob = require('cron').CronJob;
 global.ODI.time = require(CORE_PATH + 'modules/time.js');
@@ -46,16 +48,13 @@ global.ODI.buttons = require(CORE_PATH + 'controllers/buttons.js');
 global.ODI.server = require(CORE_PATH + 'controllers/server.js');
 global.ODI.jobs = require(CORE_PATH + 'controllers/jobs.js');
 
-ODI.leds.toggle({led:'eye', mode: 1}); // TODO à remonter
+// console.log('Context loaded');
 
 /** Debug Mode */
 if(CONFIG.debug) console.debug = function(o){console.log('\u2022 ' + o);}
 else console.debug = function(o){};
 console.debug('-> ->  DEBUG MODE !!');
 
-spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
-
-// ODI.utils.setConfig({mode: 'ready', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
 ODI.utils.setConfig({mode: 'ready', startTime: ODI.utils.logTime('h:m (D/M)')}, false);
 
 ODI.leds.activity(); // Activity flag 1/2
@@ -95,7 +94,6 @@ ODI.jobs.setInteractiveJobs();
 ODI.jobs.setAutoSleep();
 ODI.jobs.setBackgroundJobs();
 ODI.voiceMail.voiceMailFlag();
-
 
 ODI.video.screenOn();
 ODI.video.startCycle();
