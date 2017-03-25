@@ -88,58 +88,6 @@ function cocorico(mode){
 	}, alarmDelay);
 };
 
-/** Function alarm */
-function cocoricoOLD(mode){
-	console.log('cocorico MODE:', mode);
-	var alarmDelay = 1;
-	if(mode == 'sea'){ // Morning sea...
-		console.log('Morning Sea... Let\'s start the day with some waves !');
-		spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'MorningSea']);
-		alarmDelay = 2*62*1000;
-	}
-	console.debug('alarmDelay', alarmDelay);
-
-	setTimeout(function(){
-		console.log('COCORICO !!');
-		// spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'cocorico']);
-
-		// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'birthday']);
-		// setTimeout(function(){ // ANNIF
-			var voiceMailMsg = ODI.voiceMail.areThereAnyMessages();
-			console.log('voiceMailMsg', voiceMailMsg);
-			setTimeout(function(){
-				now();
-			}, 4000);
-			setTimeout(function(){
-				today();
-			}, 9000);
-			setTimeout(function(){
-				order.emit('weather', 'morning weather');
-				ODI.service.weather();
-			}, 20000);
-			setTimeout(function(){
-				ODI.voiceMail.checkVoiceMail();
-			}, voiceMailMsg*3000+2000);
-			setTimeout(function(){
-				ODI.utils.testConnexion(function(connexion){
-					if(connexion == true){
-						ODI.fip.playFip();
-					}else{
-						ODI.jukebox.loop();
-					}
-				});
-			}, voiceMailMsg*3000+25000);
-		// }, 55*1000); // ANNIF
-	}, alarmDelay);
-};
-
-/*var EventEmitter = require('events').EventEmitter;
-var order = new EventEmitter();
-order.on('weather', function(message){
-	console.log('weather event');
-	// service.weather();
-});*/
-
 /** Function to set Odi's custom alarm */
 function setAlarm(alarm){
 	console.debug('time.setAlarm()', alarm);

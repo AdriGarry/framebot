@@ -70,8 +70,6 @@ ODI.buttons.initButtonAwake();
 ODI.leds.toggle({led:'eye', mode: 0});
 ODI.jobs.startClock(ODI.buttons.getEtat()); // Starting speaking clock
 
-// var time = require(CORE_PATH + 'modules/time.js');
-// var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 // if(time.isAlarm()){// ALARMS
 // 	time.cocorico('sea'); // ============> TODO TODO TODO !!!
 // }else{
