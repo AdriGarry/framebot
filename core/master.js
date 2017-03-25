@@ -60,8 +60,7 @@ function startOdi(mode){
 		odiPgm = spawn('node', [CORE_PATH + 'odi.js', mode]);
 	}
 
-	logo = '\n\n' + logo.join('\n');
-	console.log(logo);
+	console.log('\n\n' + logo.join('\n'));
 
 	etat.watch(function(err, value){
 		logMode = getLogMode();

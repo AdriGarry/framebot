@@ -8,7 +8,7 @@ console.log('>> Odi Core context initialization...',(mode ? '[mode:' + mode + ']
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 var exec = require('child_process').exec;
-var os = require("os");
+var os = require('os');
 var Gpio = require('onoff').Gpio;
 var CronJob = require('cron').CronJob;
 
@@ -109,6 +109,15 @@ if(CONFIG.debug){
 // ----- TEST SECTION -----//
 // ------------------------//
 
+// var constants = os.constants;
+console.log('os.constants', os.constants);
+
+setInterval(function(){
+	var loads = os.loadavg();
+	// console.log('loads', loads);
+	var cpu = os.cpus()
+	// console.log('cpu', cpu);
+}, 2000);
 // spawn('sh', ['/home/pi/odi/core/sh/diapo.sh']);
 
 /*setInterval(function(){
