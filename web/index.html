@@ -75,7 +75,8 @@
 				<sup class="version" title="version">{{dashboard.runningData.version.value}}&nbsp;</sup>
 			</h1>
 			<span flex></span>
-			<i class="debug fa fa-circle" data-ng-if="dashboard.debug" title="DEBUG mode"></i>&nbsp;
+			<i class="debug fa fa-circle" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i>&nbsp;
+			<!-- <i class="debug fa fa-plus" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i>&nbsp; -->
 
 			<md-button class="md-icon-button" data-ng-click="toggleMenu()" title="Menu" aria-label="Menu">
 				<i data-ng-class="{'fa-rotate-90':menuOpen}" class="fa fa-2x fa-lg fa-bars ng-slide"></i>&nbsp;
@@ -87,7 +88,7 @@
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
 		<div class="logs" data-ng-dblclick="refreshLog()">
-			<i class="debugLog fa fa-circle" data-ng-if="dashboard.debug" title="DEBUG mode"></i>
+			<i class="debugLog fa fa-circle" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i>
 			<ul>
 				<li data-ng-repeat="logLine in logData track by $index" data-ng-bind-html="toHtml(logLine | formatLog)"></li>
 				<a id="bottomLogs"></a>
@@ -131,7 +132,7 @@
 					<md-list-item>
 						<div flex>Debug</div>
 						<div flex>
-							<md-switch class="switch md-primary" aria-label="Debug mode" title="Debug mode" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.debug"  data-ng-click="irda && toggleDebugMode()" data-ng-disabled="!irda"></md-switch>
+							<md-switch class="switch md-primary" aria-label="Debug mode" title="Debug mode" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.odiState.debug"  data-ng-click="irda && toggleDebugMode()" data-ng-disabled="!irda"></md-switch>
 						</div>
 					</md-list-item>
 					<md-divider></md-divider>
@@ -147,7 +148,7 @@
 
 					<md-list-item data-ng-click="showLogs()" title="Show console">
 						<div flex>Show logs</div>
-						<div flex><i class="fa fa-lg fa-2x fa-terminal"></i></div>
+						<div flex><i class="fa fa-lg fa-2x fa-quote-right"></i></div>
 					</md-list-item>
 					<md-divider></md-divider>
 					<md-list-item data-ng-click="reloadUI()" title="Reload UI">

@@ -83,11 +83,13 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 	function setOdiState(data){
 		var odiState = {};
+		console.log('setOdiState(data)', data);
 		if(data){
 			odiState = {
 				value: data.mode.value.mode || 'unavailable',
 				ready: data.mode.value.mode == 'Ready',
-				sleep: data.mode.value.mode == 'Sleep'
+				sleep: data.mode.value.mode == 'Sleep',
+				debug: data.debug.value
 			};
 		}else{
 			odiState = {
