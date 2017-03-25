@@ -337,7 +337,7 @@ md-content{
 .dashboard *{
 	color:#496069;
 }
-.dashboard > [flex] > button{
+.dashboard > [flex] > .tile{
 	height:18vw;
 	max-height:220px;
 	bottom:0;
@@ -351,21 +351,21 @@ md-content{
 	line-height:36px;
 }
 
-.dashboard > [flex] > button.expanded{
+.dashboard > [flex] > .tile.expanded{
 	height:28em;
 	max-height:28em;
 }
 
-[flex] > button > .tileContent .main{
+[flex] > .tile > .tileContent .main{
 	width:100%;
 	text-align:center;
 	font-size:5vw;
 }
-[flex] > button > .tileContent .main .fa{
+[flex] > .tile > .tileContent .main .fa{
 	font-size:1.6em;
 }
 
-[flex] > button > .tileContent .main .mediumFont{
+[flex] > .tile > .tileContent .main .mediumFont{
 	font-size:0.7em;
 }
 
@@ -393,89 +393,27 @@ md-content{
 .dashboard [flex] > button{
 	/*background:rgba(73, 96, 105, 0.05)!important;*/
 }
-[flex] > button[disabled]{
+[flex] > .tile[disabled]{
 	opacity:0.5;
 }
-[flex] > button footer{
+[flex] > .tile footer{
 	background:rgba(73, 96, 105, 0.4)!important;
 }
-[flex] > button.active footer{
+[flex] > .tile.active footer{
 	background:rgba(73, 96, 105, 0.8)!important;
 }
-[flex] > button.inactive{
+[flex] > .tile.inactive{
 	background:rgba(0,0,0,0.05)!important;
 }
 
-[flex] > button .main i.fa{
+[flex] > .tile .main i.fa{
 	vertical-align:middle;
 }
 
-.dashboard > * > button > i.adminFlag{
+.dashboard > * > .tile > i.adminFlag{
 	position:absolute;
 	top:0.5em;
 	right:0.5em;
-}
-
-
-/*************  OLD  ***********/
-md-grid-list{
-	margin:0 auto;
-}
-md-grid-list md-grid-tile + md-grid-tile{
-	cursor:no-drop;
-}
-md-grid-list.pointer md-grid-tile{
-	cursor:pointer;
-}
-
-/*md-grid-list span{
-	color:#34444b;
-}*/
-
-/*md-grid-tile:hover,*/ figure .responsive:hover{
-	color:#34444b;
-}
-
-md-grid-tile figure button.reduceTile{
-	float:right;
-	top:0;
-	position:absolute;
-	right:0;
-	color:#607D8B;
-}
-
-/*figure *:not(md-grid-tile-footer, button)*/
-figure .responsive{
-	/*width:100%;*/
-	text-align:center;
-	color:#3f515a;
-	font-size:5vw;
-}
-figure p.responsive{
-	text-align:left;
-}
-
-figure .modeSwitch{
-	position:absolute;
-	top:1em;
-	left:0.5em;
-	font-size:0.7em;
-	color:#496069;
-}
-
-figure table.cpu tr td{
-	width:4em;
-	text-align:left;
-}
-
-figure table.alarms tr td small{
-	margin-left:0.8em;
-	font-size:0.7em;
-}
-
-figure .mainInfo{
-	font-size:8vw;/*10*/
-	vertical-align:middle;
 }
 
 .grey{background:rgba(0, 0, 0, 0.08);}
