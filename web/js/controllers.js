@@ -61,6 +61,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			$scope.dashboard.refreshing = true;
 			UIService.refreshDashboard(function(data){
 				if(data){
+					console.log('TOTO');
 					$scope.dashboard.odiState = setOdiState(data);
 					$scope.dashboard.runningData = data;
 					$scope.connexionLost = false;
@@ -83,7 +84,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 	function setOdiState(data){
 		var odiState = {};
-		console.log('setOdiState(data)', data);
 		if(data){
 			odiState = {
 				value: data.mode.value.mode || 'unavailable',
@@ -98,6 +98,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 				sleep: false
 			};
 		}
+		console.log('setOdiState()', odiState);
 		return odiState;
 	}
 
@@ -162,8 +163,16 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		});
 	};
 
+	/** Function to mute */
+	$scope.mute = function(){
+		UIService.sendCommand({label: 'Mute', url: '/mute'}, function(data){
+			// $scope.showToast(button.label);
+			$scope.refreshDashboard();
+		});
+	};
+
 	/** Function on click on Tile **/
-	$scope.tileAction = function(tile){
+	/*$scope.tileAction = function(tile){
 		//console.log('tile', tile);
 		if($scope.irda){
 			if(tile.actionList.length>1){
@@ -174,10 +183,10 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 				console.log('No action affected. OLD');
 			}
 		}
-	}
+	}*/
 
 	/** Function to send action **/
-	$scope.action = function(button){
+	/*$scope.action = function(button){
 		//$scope.dashboard.autoRefresh = true; //TODO reactivate autoRefresh on Tile action
 		if(button.url.indexOf('http://') > -1){
 			//$window.open(button.url);
@@ -191,28 +200,29 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 				$scope.refreshDashboard();
 			});
 		}
-	};
+	};*/
 
 	/** Function to open bottom sheet **/
-	$scope.openBottomSheet = function(bottomSheetList){
+	/*$scope.openBottomSheet = function(bottomSheetList){
 		if($scope.irda){
 			$rootScope.bottomSheetButtonList = bottomSheetList;
 			$scope.alert = '';
 			$mdBottomSheet.show({
 				templateUrl: 'templates/bottom-sheet.html',
-				controller: 'UIController',
+				// controller: 'UIController',
+				controller: 'BottomSheetController',
 				clickOutsideToClose: true
 			}).then(function(action){
 				// $scope.showToast(action.label);
 			});
 		}
-	};
+	};*/
 
 	/** Function on click on bottom sheet **/
-	$scope.bottomSheetAction = function(button){
+	/*$scope.bottomSheetAction = function(button){
 		$scope.action(button);
 		$mdBottomSheet.hide(button);
-	};
+	};*/
 
 	/** Function to show fab buttons for 5 seconds */
 	var timeout;
@@ -311,6 +321,25 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	});
 
 });
+
+/*// app.controller('BottomSheetController', function($scope, $mdDialog){
+// });
+
+function BottomSheetController($scope, $mdDialog, modal){
+	$scope.modal = modal;
+	//console.log('$scope.modal.data', $scope.modal.data);
+	if(typeof $scope.modal.data == 'string'){
+		$scope.modal.data = $scope.modal.data.split('\n');
+	}
+
+	/** Function to test if number 
+	$scope.isNumber = angular.isNumber;
+
+	/** Function to close modal 
+	$scope.close = function(){
+		$mdDialog.cancel();
+	};
+}*/
 
 function DialogController($scope, $mdDialog, modal){
 

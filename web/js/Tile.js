@@ -14,8 +14,6 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 
 		// Info attributes
 		/*this.value = tile.value || '-';*/
-/*		this.viewMode = tile.viewMode; // 'icon' || 'value' || 'custom'
-		this.html = '';*/
 
 		// Action attributes
 		this.actionList = tile.actionList;
@@ -66,23 +64,21 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 		}
 	}
 
-
 	/** Function to open bottom sheet **/
 	function openBottomSheet(bottomSheetList){
 		$rootScope.bottomSheetButtonList = bottomSheetList;
+		console.log('titi0');
 		//$scope.alert = '';
 		$mdBottomSheet.show({
 			templateUrl: 'templates/bottom-sheet.html',
-			controller: 'UIController',
+			// controller: 'UIController',
+			controller: 'BottomSheetController',
 			clickOutsideToClose: true
-		}).then(function(action){
+		}).then(function(button){
+			console.log('titi1');
+			action(button);
+			console.log('titi2');
 		});
-	}
-
-	/** Function on click on bottom sheet **/
-	function bottomSheetAction(button){
-		$scope.action(button);
-		$mdBottomSheet.hide(button);
 	}
 
 	// Tile object own properties
@@ -93,4 +89,23 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 	}*/
 	// Return constructor
 	return(Tile);
+});
+
+app.controller('BottomSheetController', function($scope, $mdBottomSheet){
+// function BottomSheetController($scope, $mdBottomSheet){
+	/*$scope.modal = modal;
+	//console.log('$scope.modal.data', $scope.modal.data);
+	if(typeof $scope.modal.data == 'string'){
+		$scope.modal.data = $scope.modal.data.split('\n');
+	}
+	$scope.isNumber = angular.isNumber;
+	$scope.close = function(){
+		$mdDialog.cancel();
+	};*/
+	/** Function on click on bottom sheet **/
+	$scope.bottomSheetAction = function(button){
+		//$scope.action(button);
+		$mdBottomSheet.hide(button);
+	}
+// }
 });
