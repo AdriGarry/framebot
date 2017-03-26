@@ -123,7 +123,7 @@ function sayOdiAge(){
 	var age = ODI.hardware.getOdiAge();
 	var years = Math.floor(age/365);
 	var mouths = Math.floor((age%365)/30);
-	var rdm = ['Aujourd\'hui, ', 'A ce jour, ', 'A cet instant, ', ''];
+	var rdm = ['Aujourd\'hui, ', 'A ce jour', ''];
 	var birthDay = rdm[Math.floor(Math.random() * rdm.length)]
 	birthDay += 'j\'ai ' + years + ' ans et ' + mouths + ' mois !';
 	console.log('sayOdiAge() \'' + birthDay + '\'')

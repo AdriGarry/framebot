@@ -163,10 +163,9 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 		});
 	};
 
-	/** Function to mute */
-	$scope.mute = function(){
-		UIService.sendCommand({label: 'Mute', url: '/mute'}, function(data){
-			// $scope.showToast(button.label);
+	/** Function to action for header & fab buttons */
+	$scope.action = function(action){
+		UIService.sendCommand(action, function(data){
 			$scope.refreshDashboard();
 		});
 	};
@@ -217,7 +216,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			});
 		}
 	};*/
-
 	/** Function on click on bottom sheet **/
 	/*$scope.bottomSheetAction = function(button){
 		$scope.action(button);
@@ -324,17 +322,14 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 /*// app.controller('BottomSheetController', function($scope, $mdDialog){
 // });
-
 function BottomSheetController($scope, $mdDialog, modal){
 	$scope.modal = modal;
 	//console.log('$scope.modal.data', $scope.modal.data);
 	if(typeof $scope.modal.data == 'string'){
 		$scope.modal.data = $scope.modal.data.split('\n');
 	}
-
 	/** Function to test if number 
 	$scope.isNumber = angular.isNumber;
-
 	/** Function to close modal 
 	$scope.close = function(){
 		$mdDialog.cancel();
