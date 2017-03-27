@@ -28,7 +28,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			conf: {
 				languageList: [{code: 'fr', label: 'French'}, {code: 'en', label: 'English'}, {code: 'ru', label: 'Russian'},
 					{code: 'es', label: 'Spanish'}, {code: 'it', label: 'Italian'}, {code: 'de', label: 'German'}],
-				voiceList: [{code: ':3', label: 'Nice voice'}, {code: ':1', label: 'Robot voice'}]
+				voiceList: [{code: 'google', label: 'Nice voice'}, {code: 'espeak', label: 'Robot voice'}]
 			},
 			cleanText: function(){ // TODO create an UtilsService... OR A FILTER ???
 				var message = $scope.dashboard.ttsTile.msg || '';
@@ -61,7 +61,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			$scope.dashboard.refreshing = true;
 			UIService.refreshDashboard(function(data){
 				if(data){
-					console.log('TOTO');
 					$scope.dashboard.odiState = setOdiState(data);
 					$scope.dashboard.runningData = data;
 					$scope.connexionLost = false;

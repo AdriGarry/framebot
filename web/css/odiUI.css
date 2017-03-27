@@ -435,7 +435,8 @@ md-content{
 }*/
 
 .voiceSwitch{
-	margin-left:50%!important;
+	/*margin-left:50%!important;*/
+	/*margin-left:10em!important;*/
 }
 md-switch.voiceSwitch, md-checkbox{
 	background-color:transparent!important;
@@ -454,9 +455,13 @@ md-switch.voiceSwitch, md-checkbox{
 	background-color:rgba(64, 81, 181, 1)!important;
 	color:rgba(64, 81, 181, 1)!important;
 }
+
+.voiceSwitch span{
+	margin-left:2em;
+}
 .voiceSwitch span:first-child{
-	float:left;
-	margin-left:-10em;
+	/*float:left;
+	margin-left:-10em;*/
 }
 
 .ttsForm md-input-container button > *{

@@ -22,12 +22,14 @@ app.component('tts', {
 
 		/** Overwrite tile action */
 		ctrl.tile.click = function($event){
+			// console.log('123456');
+			$event.stopPropagation();
+			$event.preventDefault();
 			if(!ctrl.tile.expanded){
 				ctrl.toggleTileHeight();
 			}
 			return false;
-			$event.stopPropagation();
-			$event.preventDefault();
+			//$event.stopPropagation();$event.preventDefault();
 		};
 
 		ctrl.toggleTileHeight = function(){
@@ -56,6 +58,7 @@ app.component('tts', {
 				ctrl.tts.msg = message;
 			},
 			submit: function(){
+				console.log('submit', ctrl.tts);
 				if(ctrl.tts.msg != ''){
 					UIService.sendTTS(ctrl.tts, function(callback){
 						if(callback.status == 200){
