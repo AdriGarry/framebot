@@ -437,6 +437,7 @@ md-content{
 .voiceSwitch{
 	/*margin-left:50%!important;*/
 	/*margin-left:10em!important;*/
+	margin-top:0;
 }
 md-switch.voiceSwitch, md-checkbox{
 	background-color:transparent!important;
