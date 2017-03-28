@@ -27,7 +27,7 @@ md-checkbox.md-default-theme:not([disabled]).md-warn.md-checked .md-icon:hover, 
 	background-color:#f43325!important;
 }
 .md-button.md-primary[disabled], .md-button.md-warn[disabled]{
-	background-color:#1B2631!important;
+	/*background-color:#1B2631!important;*/
 }
 
 .logs md-progress-circular{
@@ -359,7 +359,7 @@ md-content{
 [flex] > .tile > .tileContent .main{
 	width:100%;
 	text-align:center;
-	font-size:5vw;
+	font-size:4em/*5vw*/;
 }
 [flex] > .tile > .tileContent .main .fa{
 	font-size:1.6em;
@@ -692,7 +692,7 @@ body>.loading i{
 
 	/** Ca fout peut etre la merde...? */
 	[flex] > button > .tileContent .main{
-		font-size:3.5em;
+		font-size:3.5em!important;
 	}
 }
 

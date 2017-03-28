@@ -1,4 +1,4 @@
-<md-button flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="{'expanded':$ctrl.tile.expanded}" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-raised ng-slide" data-md-ink-ripple="{{$ctrl.tile.expanded}}">
+<md-button flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="{'expanded':$ctrl.tile.expanded}" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-raised ng-slide" data-md-ink-ripple="{{$ctrl.tile.expanded}}" data-md-no-ink>
 <!--data-md-ink-ripple="$ctrl.tile.expanded"-->
 <!--data-md-no-ink="$ctrl.tile.expanded" OU md-ink-ripple...-->
 	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fa fa-2x fa-ellipsis-h adminFlag"></i>
@@ -29,10 +29,10 @@
 				</md-input-container>
 				<div flex></div>
 				<label flex="20" class="pointer text-center desktopZoom">
-					<md-button class="md-primary" data-ng-click="$ctrl.tts.voicemail = !$ctrl.tts.voicemail">
+					<!-- <md-button class="md-primary" data-ng-click="$ctrl.tts.voicemail = !$ctrl.tts.voicemail"> -->
 						<!--<md-checkbox data-ng-model="$ctrl.tts.voicemail" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send in voicemail" aria-label="Send in voicemail">Voicemail</md-checkbox>-->
-						<i class="fa fa-2x" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'"></i>
-					</md-button>
+						<i class="fa fa-2x" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'" data-ng-click="$ctrl.tts.voicemail = !$ctrl.tts.voicemail"></i>
+					<!-- </md-button> -->
 				</label>
 				<div flex></div>
 				<md-input-container flex="30">
