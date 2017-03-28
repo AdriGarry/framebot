@@ -108,8 +108,8 @@
 				<td><i class="fa fa-bell-o"></i></td>
 				<td>
 					<table>
-						<tr data-ng-repeat="alarm in $ctrl.data.value">
-							<td data-ng-if="$ctrl.isTodayAlarm(alarm.d)" class="mediumFont">
+						<tr data-ng-repeat="alarm in $ctrl.data.value" data-ng-if="$ctrl.isTodayAlarm(alarm.d)">
+							<td class="mediumFont">
 								{{alarm.h}}:{{alarm.m | formatNumber:2}} <!--{{alarm.mode | limitTo:1}}-->
 								<i data-ng-if="alarm.mode != 'sea'" class="mediumFont fa fa-music"></i>
 								<i data-ng-if="alarm.mode == 'sea'" class="mediumFont fa fa-signal"></i></td>

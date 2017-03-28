@@ -348,7 +348,7 @@ md-content{
 	text-transform:none;
 	display:table-cell;
 	vertical-align:middle;
-	line-height:36px;
+	/*line-height:36px;*/
 }
 
 .dashboard > [flex] > .tile.expanded{
@@ -359,7 +359,7 @@ md-content{
 [flex] > .tile > .tileContent .main{
 	width:100%;
 	text-align:center;
-	font-size:4em/*5vw*/;
+	font-size:5vw;
 }
 [flex] > .tile > .tileContent .main .fa{
 	font-size:1.6em;
@@ -463,6 +463,10 @@ md-switch.voiceSwitch, md-checkbox{
 .voiceSwitch span:first-child{
 	/*float:left;
 	margin-left:-10em;*/
+}
+
+md-input-container{
+	margin:0;
 }
 
 .ttsForm md-input-container button > *{
@@ -692,7 +696,7 @@ body>.loading i{
 
 	/** Ca fout peut etre la merde...? */
 	[flex] > button > .tileContent .main{
-		font-size:3.5em!important;
+		font-size:3.5em;
 	}
 }
 
