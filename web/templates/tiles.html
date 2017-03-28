@@ -8,7 +8,7 @@
 	<span data-ng-if="0" class="debugObject">{{$ctrl.data.value}}</span>
 
 	<div class="tileContent" data-ng-switch-when="TTS - Voice synthesizing">
-		<form data-ng-submit="$ctrl.tts.submit()" class="mainContent ttsForm" data-ng-click="">
+		<form data-ng-submit="$ctrl.tts.submit()" class="mainContent ttsForm">
 			<!--<div layout="row" data-ng-show="$ctrl.tile.expanded">
 				<md-switch data-ng-model="$ctrl.tts.voice" data-ng-true-value="'espeak'" data-ng-false-value="'google'" class="voiceSwitch desktopZoom"
 					ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'">
@@ -69,13 +69,14 @@
 						<span data-ng-hide="$ctrl.tts.voicemail">Message</span>
 					</label>
 					<input type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" autocomplete="off"><!--required-->
+					<!-- <textarea type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" autocomplete="off"></textarea> -->
 					<!--<datalist id="examples">
 						<option value="Hey, je suis Odi !">
 						<option value="J'arrive !">
 					</datalist>-->
 				</md-input-container>
 				<md-input-container flex="30" class="md-block centerText">
-					<md-button type="submit" name="submit" class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded">
+					<md-button class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded" data-ng-click="$ctrl.tts.submit()">
 						&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-lg" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 					</md-button>
