@@ -28,7 +28,7 @@
 					</md-select>
 				</md-input-container>
 				<div flex></div>
-				<label flex="20" class="pointer text-center desktopZoom">
+				<label flex="10" class="pointer text-center desktopZoom">
 					<!-- <md-button class="md-primary" data-ng-click="$ctrl.tts.voicemail = !$ctrl.tts.voicemail"> -->
 						<!--<md-checkbox data-ng-model="$ctrl.tts.voicemail" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send in voicemail" aria-label="Send in voicemail">Voicemail</md-checkbox>-->
 						<i class="fa fa-2x" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'" data-ng-click="$ctrl.tts.voicemail = !$ctrl.tts.voicemail"></i>
@@ -50,8 +50,8 @@
 						ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'">
 						<!-- <span>Human Voice</span>
 						<span>Robot Voice</span> -->
-						<span data-ng-show="$ctrl.tts.voice == 'google'">Human Voice</span>
-						<span data-ng-show="$ctrl.tts.voice == 'espeak'">Robot Voice</span>
+						<span data-ng-show="$ctrl.tts.voice == 'google'">Human <span hide-sm hide-xs>Voice</span></span>
+						<span data-ng-show="$ctrl.tts.voice == 'espeak'">Robot <span hide-sm hide-xs>Voice</span></span>
 					</md-switch>
 				</md-input-container>
 				<div flex></div>

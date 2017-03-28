@@ -352,8 +352,8 @@ md-content{
 }
 
 .dashboard > [flex] > .tile.expanded{
-	height:28em;
-	max-height:28em;
+	height:20em;
+	max-height:20em;
 }
 
 [flex] > .tile > .tileContent .main{
@@ -458,7 +458,11 @@ md-switch.voiceSwitch, md-checkbox{
 }
 
 .voiceSwitch span{
-	margin-left:2em;
+	margin-left:3em;
+	word-wrap:break-word;
+}
+.voiceSwitch span > span{
+	margin-left:0;
 }
 .voiceSwitch span:first-child{
 	/*float:left;
@@ -666,6 +670,11 @@ body>.loading i{
 	.dashboard > [flex] > button.expanded form{
 		font-size:4vw;
 	}
+	.dashboard > [flex] > .tile.expanded{
+		height:30em;
+		max-height:30em;
+	}
+
 	[flex] footer{
 		padding:1px 0;
 	}

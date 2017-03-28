@@ -47,13 +47,14 @@ function checkVoiceMail(callback){
 			if(messages){
 				messages = JSON.parse(messages);
 				console.debug(messages);
-				ODI.tts.speak({voice:'espeak', lg:'en', msg:'Messages'});
+				ODI.tts.speak({voice:'espeak', lg:'en', msg:'Beep'});//Messages
 				ODI.tts.speak(messages);
 				if(clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
 				clearVoiceMailDelay = setTimeout(function(){ // Clearing VoiceMail
 					clearVoiceMail();
-				}, 15*60*1000);
-				console.log('VoiceMail will be cleared in 10 minutes.');
+				}, 12*60*1000);//15*60*1000
+				// console.log('VoiceMail will be cleared in 10 minutes.');
+				console.log('VoiceMail will be cleared in 6 hours.');
 				// if(callback) callback(true); // for other action
 				//callback(true);
 				return true;
@@ -83,7 +84,7 @@ function voiceMailFlag(){
 		if(nbMessages > 0){ // if(nbMessages)
 			ODI.leds.blink({leds: ['belly'], speed: 200, loop: 2});
 		}
-	}, 5000);
+	}, 10000);
 };
 
 /** Function to return number of voicemail message(s) */
