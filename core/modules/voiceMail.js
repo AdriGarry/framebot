@@ -52,7 +52,7 @@ function checkVoiceMail(callback){
 				if(clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
 				clearVoiceMailDelay = setTimeout(function(){ // Clearing VoiceMail
 					clearVoiceMail();
-				}, 12*60*1000);//15*60*1000
+				}, 6*60*60*1000);//15*60*1000
 				// console.log('VoiceMail will be cleared in 10 minutes.');
 				console.log('VoiceMail will be cleared in 6 hours.');
 				// if(callback) callback(true); // for other action
