@@ -52,7 +52,7 @@ function stopAll(message){
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode){
 	// if(typeof mode === 'number' && mode > 0){
-	if(mode > 0){
+	/*if(mode > 0){
 		mode = parseInt(mode, 10);
 		setTimeout(function(){
 			console.log('Odi is going to sleep [' + mode + ']');
@@ -64,7 +64,18 @@ function restartOdi(mode){
 			process.exit();
 			// process.exit(-1);
 		}, 300); // Pause pour operations et clean msg
+	}*/
+	//ODI.utils.setConfig();
+	// console.log('restartOdi() function DEPRECATED !');
+	console.log('restartOdi(mode)', mode);
+	if(mode > 0){
+		console.log('SLEEP');
+		ODI.utils.setConfig({mode: 'sleep'}, true);
+	}else{
+		console.log('READY');
+		ODI.utils.setConfig({mode: 'ready'}, true);
 	}
+	
 };
 
 /** Function to reboot RPI */

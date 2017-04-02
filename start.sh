@@ -1,5 +1,7 @@
 #!/bin/sh
 
+clear
+
 echo "start.sh -> Start Odi Pgm..."
 
 # configFile="/home/pi/odi/tmp"

@@ -3,7 +3,7 @@
 
 var mode = process.argv[2]; // Get parameters
 // console.log('>> Odi Core start sequence...',(mode ? '[mode:' + mode + ']' : ''));
-console.log('>> Odi Core context initialization...',(mode ? '[mode:' + mode + ']' : ''));
+console.log('>> Odi Core context initialization...');
 
 var spawn = require('child_process').spawn;
 var fs = require('fs');
@@ -55,7 +55,7 @@ if(CONFIG.debug) console.debug = function(o){console.log('\u2022 ' + o);}
 else console.debug = function(o){};
 console.debug('-> ->  DEBUG MODE !!');
 
-ODI.utils.setConfig({mode: 'ready', startTime: ODI.utils.logTime('h:m (D/M)')}, false);
+// ODI.utils.setConfig({startTime: ODI.utils.logTime('h:m (D/M)')}, false);
 
 ODI.leds.activity(); // Activity flag 1/2
 

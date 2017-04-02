@@ -58,11 +58,11 @@ function logTime(param, date){
 };
 
 /** Function to log CONFIG array */
-function logConfigArray(){
-	var col1 = 10, col2 = 15;
-	var confArray = '\n|------------------------------|\n|            CONFIG            |' + '\n|------------------------------|\n';
+function logConfigArray(updatedEntries){
+	// updatedEntries.indexOf(tts.voice) == -1
+	var col1 = 11, col2 = 15;
+	var confArray = '\n|-------------------------------|\n|             CONFIG            |' + '\n|-------------------------------|\n';
 	Object.keys(CONFIG).forEach(function(key,index){
-		//if(typeof CONFIG[key] == 'Object'){
 		if(key == 'alarms'){
 			Object.keys(CONFIG[key]).forEach(function(key2,index2){
 				if(key2 != 'd'){
@@ -74,27 +74,35 @@ function logConfigArray(){
 				}
 			});
 		}else{
-			confArray += '| ' + key + ' '.repeat(col1-key.length) + ' | ' + CONFIG[key] + ' '.repeat(col2-CONFIG[key].toString().length) + ' |\n';
+			var updated = updatedEntries.indexOf(key) == -1 ? 0 : 1;
+			confArray += '| ' + (updated ? '_' : '') + key + ' '.repeat(col1-key.length-updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/
+				+ ' | ' + CONFIG[key] + ' '.repeat(col2-CONFIG[key].toString().length) + ' |\n';
 		}
 	});
-	console.log(confArray + '|------------------------------|');
+	console.log(confArray + '|-------------------------------|');
 };
 
 /** Function to set/edit Odi's config */
 function setConfig(newConf, restart){
-	console.log('setConfig(newConf)', newConf);
+	console.debug('setConfig(newConf)', newConf);
 	//logConfigArray();
 	getJsonFileContent(CONFIG_FILE, function(data){
 		var config = JSON.parse(data);
+		var updatedEntries = [];
 		Object.keys(newConf).forEach(function(key,index){
+			updatedEntries.push(key);
 			config[key] = newConf[key];
 		});
 		//config.update = now('T (D)');
 		//console.log('now("dt")', now('dt'));
 		global.CONFIG = config;
 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2), function(){
-			logConfigArray();
-			if(restart) ODI.hardware.restartOdi();
+			logConfigArray(updatedEntries);
+			if(restart){
+				// ODI.hardware.restartOdi();
+				console.log('process.exit()');
+				process.exit();
+			}
 		});
 	});
 };
@@ -113,7 +121,10 @@ function resetConfig(restart){
 		console.error('utils.resetConfig() stream error', e);
 	});
 	stream.on('close', function(){
-		if(!had_error && restart) ODI.hardware.restartOdi();
+		if(!had_error && restart) {
+			// ODI.hardware.restartOdi();
+			ODI.utils.setConfig({mode: 'ready'}, true);
+		}
 	});
 };
 

@@ -57,7 +57,7 @@ if(CONFIG.debug) console.debug = function(o){console.log('\u2022 ' + o);}
 else console.debug = function(o){};
 console.debug('-> ->  DEBUG MODE !!');
 
-ODI.utils.setConfig({mode: 'sleep', startTime: new Date().getHours()+':'+new Date().getMinutes()}, false);
+// ODI.utils.setConfig({startTime: ODI.utils.logTime('h:m (D/M)')}, false);
 
 /*if(sleepTime < 255){ // TODO mettre le temp de veille dans le fichier de config
 	introMsg += ' for ' + sleepTime + 'h';
