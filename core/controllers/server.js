@@ -327,7 +327,7 @@ function startUI(mode){
 		});
 
 		ui.post('/fip', function(req, res){ // FIP Radio
-			ODI.fip.play();
+			ODI.fip.playFip();
 			res.writeHead(200);res.end();
 		});
 

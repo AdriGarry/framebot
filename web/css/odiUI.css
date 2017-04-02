@@ -137,7 +137,6 @@ button>i{
 /*------------------------------ TOAST ------------------------------- */
 md-toast{
 	position:fixed;
-	z-index:130;
 }
 md-toast .md-toast-content span{
 	font-size:1.5em;
