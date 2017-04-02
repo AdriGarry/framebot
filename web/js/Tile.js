@@ -1,19 +1,13 @@
 /** DefaultTile object **/
 app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast, $mdBottomSheet, UIService){
-	// var self = this;
-	// var tile;
+
 	// Tile constructor function
 	function Tile(tile){
 		// var Tile = this; // TODO à implémenter sur tout ce fichier... !!
-		//console.log(tile.id, tile.label, tile.color, tile.rowspan, tile.colspan, tile.viewMode, tile.value, tile.actionList);
-		// tile = this;
 		// Basic attributes
-		this.id = tile.id || '';
+		this.id = (tile.label.split(" ")[0].toLowerCase()) || ''; // setting tile id from first label word
 		this.label = tile.label || '';
 		this.expanded = tile.expanded || false;
-
-		// Info attributes
-		/*this.value = tile.value || '-';*/
 
 		// Action attributes
 		this.actionList = tile.actionList;

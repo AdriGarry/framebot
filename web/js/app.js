@@ -28,6 +28,18 @@ app.directive("scroll", function ($window){
 	};
 });
 
+app.directive('setFocus',function(){
+	return {
+		link: function(scope, element, attrs){
+			element.bind('click',function(){
+				//alert(element.attr('id'));
+				console.log('00',element.attr('id'));
+				document.querySelector('#' + attrs.setFocus).focus();
+			})
+		}
+	}
+});
+
 /** Filter to format logs (link on ip address) **/
 app.filter('formatLog', function(CONSTANTS){
 	return function(logLine){

@@ -1,4 +1,4 @@
-<div flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="{'expanded':$ctrl.tile.expanded}" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-button md-raised ng-slide" data-md-ink-ripple="{{$ctrl.tile.expanded}}" data-md-no-ink>
+<div flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="{'expanded':$ctrl.tile.expanded, {{$ctrl.tile.id}}: true}" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-button md-raised ng-slide" data-md-ink-ripple="{{$ctrl.tile.expanded}}" data-md-no-ink>
 <!--data-md-ink-ripple="$ctrl.tile.expanded"-->
 <!--data-md-no-ink="$ctrl.tile.expanded" OU md-ink-ripple...-->
 	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fa fa-2x fa-ellipsis-h adminFlag"></i>
@@ -61,23 +61,24 @@
 					<span>Robot Voice</span>
 				</md-switch>-->
 			</div>
-			<div layout="row" class="ttsMsg">
-				<md-input-container flex="70" class="md-block">
+			<div layout="row" class="ttsMsg ng-slide">
+				<div flex="5"></div>
+				<md-input-container flex="70" class="md-block ng-slide">
 					<!-- <label>Message</label> -->
 					<label>
 						<span data-ng-show="$ctrl.tts.voicemail">Message in voicemail</span>
 						<span data-ng-hide="$ctrl.tts.voicemail">Message</span>
 					</label>
-					<input type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" autocomplete="off"><!--required-->
+					<input type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()"><!--required--><!--autocomplete="off"-->
 					<!-- <textarea type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" autocomplete="off"></textarea> -->
 					<!--<datalist id="examples">
 						<option value="Hey, je suis Odi !">
 						<option value="J'arrive !">
 					</datalist>-->
 				</md-input-container>
-				<md-input-container flex="30" class="md-block centerText">
+				<md-input-container flex="25" class="md-block centerText ng-slide">
 					<md-button class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded" data-ng-click="$ctrl.tts.submit()">
-						&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;
+						<span class="desktopOnlyInline">&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;</span>
 						<i class="fa fa-lg" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 					</md-button>
 				</md-input-container>
@@ -216,17 +217,3 @@
 
 	<footer><h3>{{$ctrl.tile.label}}</h3></footer>
 </div>
-
-<style type="text/css">
-/*mode .switch{
-	position:absolute;
-	top:10%;
-	left:5%;
-	opacity:0.9;
-}
-mode .param{
-	margin-top:-3em;
-	font-size:0.3em;
-	line-height:0;
-}*/
-</style>
