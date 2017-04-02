@@ -1,4 +1,4 @@
-<md-button flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="{'expanded':$ctrl.tile.expanded}" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-raised ng-slide" data-md-ink-ripple="{{$ctrl.tile.expanded}}" data-md-no-ink>
+<div flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="{'expanded':$ctrl.tile.expanded}" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-button md-raised ng-slide" data-md-ink-ripple="{{$ctrl.tile.expanded}}" data-md-no-ink>
 <!--data-md-ink-ripple="$ctrl.tile.expanded"-->
 <!--data-md-no-ink="$ctrl.tile.expanded" OU md-ink-ripple...-->
 	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fa fa-2x fa-ellipsis-h adminFlag"></i>
@@ -215,18 +215,18 @@
 	</div>
 
 	<footer><h3>{{$ctrl.tile.label}}</h3></footer>
-</md-button>
+</div>
 
 <style type="text/css">
-mode .switch{
+/*mode .switch{
 	position:absolute;
 	top:10%;
 	left:5%;
 	opacity:0.9;
 }
 mode .param{
-	margin-top:1em;
+	margin-top:-3em;
 	font-size:0.3em;
 	line-height:0;
-}
+}*/
 </style>

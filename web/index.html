@@ -160,29 +160,29 @@
 		</div>
 	</md-sidenav>
 
-	<div layout-align="top center">
+	<div data-layout-align="top center">
 
-		<md-content flex layout-padding>
-			<div class="dashboard ng-slide">
-				<tts data="dashboard.runningData.mode" data-access="irda" flex="3"></tts>
-				<mode data="dashboard.runningData.mode" data-access="irda" flex="1"></mode>
-				<volume data="dashboard.runningData.volume" data-access="irda" flex="1"></volume>
-				<alarms data="dashboard.runningData.alarms" data-access="irda" flex="1"></alarms>
-				<cpu data="dashboard.runningData.cpu" data-access="irda" flex="2" data-odi-state="dashboard.odiState"></cpu>
-				<voicemail data="dashboard.runningData.voicemail" data-access="irda" flex="1" data-odi-state="dashboard.odiState"></voicemail>
-				<jukebox data="dashboard.runningData.jukebox" data-access="irda" flex="1" data-odi-state="dashboard.odiState"></jukebox>
-				<exclamation data="dashboard.runningData.exclamation" data-access="irda" flex="1" data-odi-state="dashboard.odiState"></exclamation>
-				<timer data="dashboard.runningData.timer" data-access="irda" flex="1" data-odi-state="dashboard.odiState"></timer>
-				<!--<date data="dashboard.runningData.date" flex="1" data-odi-state="dashboard.odiState"></date>-->
-				<videos data="dashboard.runningData.video" data-access="irda" flex="1" data-odi-state="dashboard.odiState"></videos>
-				<weather data="dashboard.runningData.weather" data-access="irda" flex="1" data-odi-state="dashboard.odiState"></weather>
-				<time data="dashboard.runningData.time" data-access="irda" flex="1" data-odi-state="dashboard.odiState"></time>
-				<party data="dashboard.runningData.party" data-access="irda" flex="1" data-odi-state="dashboard.odiState"></party>
-				<idea data="dashboard.runningData.ideas" data-access="irda" flex="1" data-odi-state="dashboard.odiState"></idea>
-				<russia data="dashboard.runningData.russia" data-access="irda" flex="1" data-odi-state="dashboard.odiState"></russia>
-				<logs data="dashboard.runningData.logs" data-access="irda" flex="1"></logs>
-				<system data="dashboard.runningData.system" data-access="irda" flex="1"></system>
-				<about data="dashboard.runningData.about" flex="1"></about>
+		<md-content data-flex data-layout-padding>
+			<div data-layout="row" data-layout-padding data-layout-align="space-around" data-layout-wrap class="dashboard ng-slide">
+			<!-- <div layout="row" layout-wrap> -->
+				<tts data="dashboard.runningData.mode" data-access="irda" flex="100"></tts>
+				<mode data="dashboard.runningData.mode" data-access="irda" flex="33"></mode>
+				<volume data="dashboard.runningData.volume" data-access="irda" flex="33"></volume>
+				<alarms data="dashboard.runningData.alarms" data-access="irda" flex="33"></alarms>
+				<cpu data="dashboard.runningData.cpu" data-access="irda" flex="66" data-odi-state="dashboard.odiState"></cpu>
+				<voicemail data="dashboard.runningData.voicemail" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></voicemail>
+				<jukebox data="dashboard.runningData.jukebox" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></jukebox>
+				<exclamation data="dashboard.runningData.exclamation" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></exclamation>
+				<timer data="dashboard.runningData.timer" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></timer>
+				<videos data="dashboard.runningData.video" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></videos>
+				<weather data="dashboard.runningData.weather" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></weather>
+				<time data="dashboard.runningData.time" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></time>
+				<party data="dashboard.runningData.party" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></party>
+				<idea data="dashboard.runningData.ideas" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></idea>
+				<russia data="dashboard.runningData.russia" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></russia>
+				<logs data="dashboard.runningData.logs" data-access="irda" flex="33"></logs>
+				<system data="dashboard.runningData.system" data-access="irda" flex="33"></system>
+				<about data="dashboard.runningData.about" flex="33"></about>
 			</div>
 
 			<md-button data-ng-click="showLogs()" data-ng-show="irda" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-warn logButton ng-slide" title="Logs" aria-label="Logs">

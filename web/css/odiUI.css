@@ -323,7 +323,7 @@ md-content{
 /*[flex]{
 	height:15em;
 }*/
-[flex="1"]{
+/*[flex="1"]{
 	width:32%;
 }
 [flex="2"]{
@@ -331,7 +331,7 @@ md-content{
 }
 [flex="3"]{
 	width:100%;
-}
+}*/
 .dashboard > * > *{
 	width:100%;
 }
@@ -344,12 +344,14 @@ md-content{
 	bottom:0;
 	margin-top:10px;
 	padding:0;
+	/*line-height:15vw;*/
 	font-size:1.2vw;
 	font-weight:400;
 	text-transform:none;
-	display:table-cell;
 	vertical-align:middle;
-	/*line-height:36px;*/
+}
+.dashboard > [flex] > .tile > .tileContent{
+	line-height:15vw;
 }
 
 .dashboard > [flex] > .tile.expanded{
@@ -415,6 +417,19 @@ md-content{
 	position:absolute;
 	top:0.5em;
 	right:0.5em;
+}
+
+
+[flex] > .tile > .tileContent .switch{
+	position:absolute;
+	top:10%;
+	left:5%;
+	opacity:0.9;
+}
+[flex] > .tile > .tileContent .param{
+	margin-top:-3em;
+	font-size:0.3em;
+	line-height:0;
 }
 
 .grey{background:rgba(0, 0, 0, 0.08);}
@@ -653,6 +668,9 @@ body>.loading i{
 	}
 	.dashboard [flex] > button i.adminFlag.closeBtn{
 		font-size:5em;
+	}
+	[flex] > button > .tileContent .main{
+		line-height:100%;
 	}
 	[flex] > button > .tileContent .main{
 		margin-top:-10px;
