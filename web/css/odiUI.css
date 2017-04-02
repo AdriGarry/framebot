@@ -332,11 +332,12 @@ md-content{
 	bottom:0;
 	margin-top:10px;
 	padding:0;
-	/*line-height:15vw;*/
-	font-size:1.2vw;
 	font-weight:400;
 	text-transform:none;
 	vertical-align:middle;
+}
+.dashboard > [flex] > .tile:not(.tts){/*:not(.tts)*/
+	font-size:1.2vw;
 }
 .dashboard > [flex] > .tile > .tileContent{
 	line-height:15vw;
@@ -434,9 +435,6 @@ md-content{
 .purple{background:rgba(209, 196, 233, 0.9);}
 
 /* ------------------------------ TTS ------------------------------- */
-/*.tileContent form *{
-	z-index:1000000!important;
-}*/
 
 .dashboard [flex].tile.tts > *{
 	line-height:2em;
@@ -445,8 +443,6 @@ md-content{
 	margin-top:4em;
 }
 .voiceSwitch{
-	/*margin-left:50%!important;*/
-	/*margin-left:10em!important;*/
 	margin-top:0;
 }
 md-switch.voiceSwitch, md-checkbox{
@@ -678,6 +674,9 @@ body>.loading i{
 	}
 
 	.dashboard [flex].tile.tts .layout-row{
+		margin-top:1em;
+	}
+	.dashboard [flex].tile.tts.expanded .layout-row{
 		margin-top:2em;
 	}
 	.dashboard > [flex] > button.expanded{
@@ -688,8 +687,8 @@ body>.loading i{
 		font-size:4vw;
 	}
 	.dashboard > [flex] > .tile.expanded{
-		height:30em;
-		max-height:30em;
+		height:13em;
+		max-height:13em;
 	}
 
 	[flex] footer{
