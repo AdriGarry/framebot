@@ -236,7 +236,8 @@ function startUI(mode){
 	});
 
 
-	if(mode < 1){ /////// WHEN ALIVE
+	// if(mode < 1){ /////// WHEN ALIVE
+	if(CONFIG.mode == 'ready'){
 
 		ui.post('/tts', function(req, res){ // TTS ou Add Voice Mail Message
 			var ttsMsg = req.query;

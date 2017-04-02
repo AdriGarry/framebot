@@ -359,6 +359,7 @@ md-content{
 
 [flex] > .tile > .tileContent .main .mediumFont{
 	font-size:0.7em;
+	line-height:1em;
 }
 
 [flex] footer{
