@@ -52,9 +52,9 @@ function initButtonAwake(){
 		value = etat.readSync();
 		console.log('Etat:', value, '[Etat has changed]', ODI.fip.playing());
 		if(ODI.fip.playing()){
-			ODI.fip.stopFip('Rebooting FIP RADIO (volume changed)');
+			ODI.fip.stop('Rebooting FIP RADIO (volume changed)');
 			setTimeout(function(){
-				ODI.fip.playFip();
+				ODI.fip.play();
 			}, 100);
 		}
 	});
@@ -151,7 +151,7 @@ function initButtonAwake(){
 		console.log('Blue btn pressed for ' + pressTime + ' sec [2;5]');//[val:' + value + ']
 		if(pressTime < 2){
 			if(etat.readSync() == 0){
-				ODI.fip.playFip();
+				ODI.fip.play();
 			}else{
 				ODI.jukebox.loop();
 			}

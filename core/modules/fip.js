@@ -13,8 +13,8 @@ var fipInterval;
 
 module.exports = {
 	playing: isPlaying,
-	playFip: playFip,
-	stopFip: stopFip
+	play: play,
+	stop: stop
 };
 
 function isPlaying(){
@@ -22,7 +22,7 @@ function isPlaying(){
 }
 
 /** Function to play FIP radio */
-function playFip(){
+function play(){
 	console.log('playFip()> playing', playing);
 	if(!playing){
 		console.log('Play FIP RADIO...');
@@ -36,7 +36,7 @@ function playFip(){
 				ODI.leds.altLeds(100, 1.3);
 			}
 		}, 13*1000);
-	console.log('playFip()> playing', playing);
+	console.log('playFip > playing:', playing);
 
 		cancel.watch(function(err, value){ // TODO : remove ???
 			clearInterval(fipInterval);
@@ -49,14 +49,14 @@ function playFip(){
 	}
 
 	setTimeout(function(){
-		stopFip();
+		stop();
 	}, 60*60*1000);
 	ODI.hardware.mute(60, 'Auto Mute FIP');
 };
 
 /** Function to stop FIP radio */
-function stopFip(message){
-	console.log('playFip()> playing', playing);
+function stop(message){
+	console.log('playFip> playing:', playing);
 	console.debug(message || 'Stoping FIP RADIO.');
 	spawn('sh', ['/home/pi/odi/core/sh/mute.sh']);
 	playing = false;
