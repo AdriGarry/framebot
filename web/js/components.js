@@ -48,6 +48,7 @@ app.component('tts', {
 				voiceList: [{code: ':3', label: 'Nice voice'}, {code: ':1', label: 'Robot voice'}]
 			},
 			cleanText: function(){ // TODO create an UtilsService.. ==> OR A FILTER !!!!
+				console.log('cleanText');
 				var message = ctrl.tts.msg || '';
 				message = message.replace(/[àâ]/g,'a');
 				message = message.replace(/[ç]/g,'c');

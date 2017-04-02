@@ -69,7 +69,7 @@
 						<span data-ng-show="$ctrl.tts.voicemail">Message in voicemail</span>
 						<span data-ng-hide="$ctrl.tts.voicemail">Message</span>
 					</label>
-					<input type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()"><!--required--><!--autocomplete="off"-->
+					<input type="text" name="ttsMsg" maxlength="200" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" autocomplete="off"><!--required--><!--autocomplete="off"-->
 					<!-- <textarea type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" autocomplete="off"></textarea> -->
 					<!--<datalist id="examples">
 						<option value="Hey, je suis Odi !">
