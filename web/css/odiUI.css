@@ -340,7 +340,7 @@ md-content{
 	font-size:1.2vw;
 }
 .dashboard > [flex] > .tile > .tileContent{
-	line-height:13vw;/*15vw*/
+	line-height:14vw;/*15vw*/
 }
 
 .dashboard > [flex] > .tile.expanded{

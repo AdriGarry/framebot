@@ -70,7 +70,7 @@
 					</datalist>-->
 				</md-input-container>
 				<md-input-container flex="25" class="md-block centerText ng-slide">
-					<md-button class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded" data-ng-click="$ctrl.tts.submit()">
+					<md-button type="submit" class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded" data-ng-click="$ctrl.tts.submit()">
 						<span class="desktopOnlyInline">&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;</span>
 						<i class="fa fa-lg" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 					</md-button>
