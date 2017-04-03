@@ -22,6 +22,11 @@ global.WEB_PATH = '/home/pi/odi/web/';
 global.TMP_PATH = '/home/pi/odi/tmp/';
 global.CONFIG = require(CONFIG_FILE);
 
+/** Debug Mode */
+if(CONFIG.debug) console.debug = function(o){console.log('\u2022 ' + o);}
+else console.debug = function(o){};
+console.debug('-> ->  DEBUG MODE !!');
+
 spawn('sh', [CORE_PATH + 'sh/init.sh']);
 spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
 
@@ -47,13 +52,7 @@ global.ODI.admin = require(CORE_PATH + 'modules/admin.js');
 global.ODI.buttons = require(CORE_PATH + 'controllers/buttons.js');
 global.ODI.server = require(CORE_PATH + 'controllers/server.js');
 global.ODI.jobs = require(CORE_PATH + 'controllers/jobs.js');
-
 // console.log('Context loaded');
-
-/** Debug Mode */
-if(CONFIG.debug) console.debug = function(o){console.log('\u2022 ' + o);}
-else console.debug = function(o){};
-console.debug('-> ->  DEBUG MODE !!');
 
 // ODI.utils.setConfig({startTime: ODI.utils.logTime('h:m (D/M)')}, false);
 

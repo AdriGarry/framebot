@@ -83,8 +83,8 @@ function logConfigArray(updatedEntries){
 };
 
 /** Function to set/edit Odi's config */
-function setConfig(newConf, restart){
-	console.debug('setConfig(newConf)', newConf);
+function setConfig(newConf, restart, callback){
+	console.log('setConfig(newConf)', newConf);
 	//logConfigArray();
 	getJsonFileContent(CONFIG_FILE, function(data){
 		var config = JSON.parse(data);
@@ -100,9 +100,10 @@ function setConfig(newConf, restart){
 			logConfigArray(updatedEntries);
 			if(restart){
 				// ODI.hardware.restartOdi();
-				console.log('process.exit()');
+				console.debug('process.exit()');
 				process.exit();
 			}
+			if(callback) callback();
 		});
 	});
 };

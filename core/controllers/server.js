@@ -139,8 +139,10 @@ function startUI(mode){
 		var cpuUsage = ODI.hardware.getCPUUsage();
 		var dashboard = {
 			mode: {value: {
-				mode: isNaN(parseFloat(mode)) ? (CONFIG.debug ? 'Debug' : 'Ready') : 'Sleep',
-				param: isNaN(parseFloat(mode)) ? CONFIG.startTime : parseInt(mode),
+				// mode: isNaN(parseFloat(mode)) ? (CONFIG.debug ? 'Debug' : 'Ready') : 'Sleep',
+				mode: CONFIG.mode != 'sleep' ? (CONFIG.debug ? 'Debug' : 'Ready') : 'Sleep',
+				// param: isNaN(parseFloat(mode)) ? CONFIG.startTime : parseInt(mode),
+				param: CONFIG.startTime,
 				switch: etatBtn ? true : false},
 				active: CONFIG.debug},
 			switch: {value: etatBtn, active: etatBtn ? true : false}, 

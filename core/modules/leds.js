@@ -68,10 +68,11 @@ function toggle(config){
 
 /** Function activity : program mode flag (ready/sleep) */
 function activity(mode){
-	if(typeof mode === 'undefined') mode = 'awake';
+	//if(typeof mode === 'undefined') mode = 'awake';
+	if(mode == 'ready') mode = 'awake';
 	console.log('Led Activity initialised [' + mode + ']');
 	mode = parseInt(mode, 10);
-	if(mode > 0) mode = 0;
+	if(mode == 'sleep') mode = 0;
 	else mode = 1;
 	setInterval(function(){
 		led.write(mode);
@@ -172,7 +173,7 @@ function allLedsOff(){
 /** Params detection for direct call */
 var params = process.argv[2];
 if(params){
-	console.log(params);
+	console.debug('leds params:', params);
 	var gpioPins = require('./gpioPins.js');
 	if(params === 'allLedsOn'){
 		console.log('All Leds On');

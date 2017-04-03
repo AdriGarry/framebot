@@ -47,7 +47,7 @@ function checkVoiceMail(callback){
 			if(messages){
 				messages = JSON.parse(messages);
 				console.debug(messages);
-				ODI.tts.speak({voice:'espeak', lg:'en', msg:'Beep'});//Messages
+				ODI.tts.speak({voice:'espeak', lg:'en', msg:'Messages'});
 				ODI.tts.speak(messages);
 				if(clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
 				clearVoiceMailDelay = setTimeout(function(){ // Clearing VoiceMail
