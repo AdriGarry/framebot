@@ -18,6 +18,7 @@ module.exports = {
 	prepareLogs: prepareLogs,
 	getJsonFileContent: getJsonFileContent,
 	appendJsonFile: appendJsonFile,
+	searchStringInArray: searchStringInArray,
 	//randomAction: randomAction,
 	testConnexion: testConnexion,
 };
@@ -139,10 +140,11 @@ function prepareLogs(lines, callback){
 };
 
 /** Function getJsonFileContent */
+var fileExceptions = ['voicemail.js'];
 function getJsonFileContent(filePath, callback){
 	console.debug('getJsonFileContent() ', filePath);
 	fs.readFile(filePath, function(err, data){
-		if(err && err.code === 'ENOENT'){
+		if(err && err.code === 'ENOENT' && !searchStringInArray(filePath, fileExceptions)){
 			console.error('No file : ' + filePath);
 			callback(null);
 		}else{
@@ -177,6 +179,17 @@ function appendJsonFile(filePath, obj, callback){
 			fs.writeFile(filePath, fileData);
 		}
 	});
+};
+
+/** Function to return true if one of string of stringArray is found in string param */
+function searchStringInArray(string, stringArray){
+	console.debug('searchStringInArray()', string, stringArray);
+	for(var i = 0;i<stringArray.length;i++){
+		if(string.toLowerCase().search(stringArray[i].toLowerCase()) > -1){
+			return true;
+		}
+	}
+	return false;
 };
 
 /** Function to test internet connexion */

@@ -36,21 +36,21 @@ var logDate, logMode = getLogMode(), timeToWakeUp;
 var date, month, day, hour, min, sec;
 
 /** Function to start up Odi */
-function startOdi(mode){
+function startOdi(exitCode){
 	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
 
 	spawn('sh', [CORE_PATH + 'sh/mute.sh']); // Mute // + LEDS ???
 	
 	var logo;
-	if(CONFIG.mode == 'sleep' || /\d/.test(mode)){
+	if(CONFIG.mode == 'sleep' || typeof exitCode === 'number' && exitCode > 0){
 		logMode = ' O';
 		logo = logoSleep;
-		odiPgm = spawn('node', [CORE_PATH + 'odiSleep.js', mode]);
+		odiPgm = spawn('node', [CORE_PATH + 'odiSleep.js'/*, mode*/]);
 	}else if(CONFIG.mode == 'ready'){
 		timeToWakeUp = 0;
 		logMode = ' Odi';
 		logo = logoNormal;
-		odiPgm = spawn('node', [CORE_PATH + 'odi.js', mode]);
+		odiPgm = spawn('node', [CORE_PATH + 'odi.js'/*, exitCode*/]);
 	}else{
 
 	}
@@ -77,23 +77,20 @@ function startOdi(mode){
 		odiState = false;
 		console.log('\r\n-----------------------------------' + (code>10 ? (code>100 ? '---' : '--') : '-'));
 		console.log('>> Odi\'s CORE restarting... [code:' + code + ']\r\n\r\n');
-		// if(typeof code === 'number' && code > 0) errorLimit--;
-		// console.log('errorLimit', errorLimit);
-		if(typeof code === 'number' && code > 0){
+		// console.log('code', code);
+		startOdi(code);
+		/*if(typeof code === 'number' && code > 0){
 			console.log('just before setConfig')
 			utils.setConfig({mode: 'sleep'}, false, function(){
-				console.log('callback from setConfig ::::::::::::::::::::')
-				setTimeout(function(){
+				//setTimeout(function(){
 					startOdi(code);
-				}, 2000);
+				//}, 2000);
 			});
-			console.error('ERROR  /!\\ errorLimit ['+errorLimit+'] reached. Standby until next green button press...')
+			console.error('ERROR on Odi\'s program... going to sleep mode');
 			// return;
-		// }else{
-		// 	startOdi();
 		}else{
 			startOdi();
-		}
+		}*/
 
 		/*if(!errorLimit){
 			utils.setConfig({mode: 'sleep'});

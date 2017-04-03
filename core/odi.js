@@ -66,7 +66,6 @@ new CronJob('*/3 * * * * *', function(){
 
 ODI.buttons.initButtonAwake();
 
-ODI.leds.toggle({led:'eye', mode: 0});
 ODI.jobs.startClock(ODI.buttons.getEtat()); // Starting speaking clock
 
 // if(time.isAlarm()){// ALARMS
@@ -91,6 +90,7 @@ ODI.jobs.setInteractiveJobs();
 ODI.jobs.setAutoSleep();
 ODI.jobs.setBackgroundJobs();
 ODI.voiceMail.voiceMailFlag();
+ODI.leds.toggle({led:'eye', mode: 0});
 
 ODI.video.screenOn();
 ODI.video.startCycle();
@@ -110,7 +110,7 @@ if(CONFIG.debug){
 
 // var constants = os.constants;
 console.log('os.constants', os.constants);
-
+//!:
 setInterval(function(){
 	var loads = os.loadavg();
 	// console.log('loads', loads);

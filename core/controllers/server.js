@@ -457,7 +457,7 @@ function startUI(mode){
 	}
 
 	ui.listen(8080, function() { // Listen port 8080
-		console.log('UI server started [' + mode + ']');
+		console.log('UI server started [' + CONFIG.mode + ']');
 		ODI.leds.blink({leds: ['satellite'], speed : 120, loop : 3})
 	});
 };
