@@ -1,5 +1,5 @@
 'use strict'
-var app = angular.module('odiUI', [/*'ngRoute', */'ngMaterial', /*'pr.longpress'*//*, 'smDateTimeRangePicker'*/])
+var app = angular.module('odiUI', ['ngMaterial', /*'pr.longpress'*//*, 'smDateTimeRangePicker'*/])
 /*.config(function($mdThemingProvider, pickerProvider){
 	pickerProvider.setOkLabel('Save');
 	pickerProvider.setCancelLabel('Close');

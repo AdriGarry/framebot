@@ -4,7 +4,7 @@ app.component('tts', {
 		data: '<'
 	},
 	templateUrl: '/templates/tiles.html',
-	controller: function(DefaultTile, UIService){
+	controller: function($window, DefaultTile, UIService){
 		var ctrl = this;
 		var tileParams = {
 			label: 'TTS - Voice synthesizing',
@@ -14,12 +14,6 @@ app.component('tts', {
 		ctrl.access = true;
 		ctrl.tile = new DefaultTile(tileParams, true);
 
-		/** Overwrite tile action 
-		ctrl.tile.isExpanded = function(){
-			console.log('isExpanded()', ctrl.tile.expanded);
-			return ctrl.tile.expanded;
-		};*/
-
 		/** Overwrite tile action */
 		ctrl.tile.click = function($event){
 			// console.log('123456');
@@ -27,6 +21,7 @@ app.component('tts', {
 			$event.preventDefault();
 			if(!ctrl.tile.expanded){
 				ctrl.toggleTileHeight();
+				$window.document.getElementById('ttsMsg').focus(); // Setting to focus on tts message input
 			}
 			return false;
 			//$event.stopPropagation();$event.preventDefault();

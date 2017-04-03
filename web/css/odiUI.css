@@ -330,7 +330,7 @@ md-content{
 	height:18vw;
 	max-height:220px;
 	bottom:0;
-	margin-top:10px;
+	/*margin-top:10px;*/
 	padding:0;
 	font-weight:400;
 	text-transform:none;
@@ -340,7 +340,7 @@ md-content{
 	font-size:1.2vw;
 }
 .dashboard > [flex] > .tile > .tileContent{
-	line-height:15vw;
+	line-height:12vw;/*15vw*/
 }
 
 .dashboard > [flex] > .tile.expanded{
@@ -417,7 +417,7 @@ md-content{
 	opacity:0.9;
 }
 [flex] > .tile > .tileContent .param{
-	margin-top:-3em;
+	margin-top:-2em;
 	font-size:0.3em;
 	line-height:0;
 }

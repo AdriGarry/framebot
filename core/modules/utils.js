@@ -75,7 +75,7 @@ function logConfigArray(updatedEntries){
 			});
 		}else{
 			var updated = updatedEntries.indexOf(key) == -1 ? 0 : 1;
-			confArray += '| ' + (updated ? '_' : '') + key + ' '.repeat(col1-key.length-updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/
+			confArray += '| ' + (updated ? '*' : '') + key + ' '.repeat(col1-key.length-updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/
 				+ ' | ' + CONFIG[key] + ' '.repeat(col2-CONFIG[key].toString().length) + ' |\n';
 		}
 	});
@@ -84,7 +84,7 @@ function logConfigArray(updatedEntries){
 
 /** Function to set/edit Odi's config */
 function setConfig(newConf, restart, callback){
-	console.log('setConfig(newConf)', newConf);
+	console.debug('setConfig(newConf)', newConf);
 	//logConfigArray();
 	getJsonFileContent(CONFIG_FILE, function(data){
 		var config = JSON.parse(data);
