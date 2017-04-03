@@ -1,4 +1,4 @@
-<div flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="{'expanded':$ctrl.tile.expanded, {{$ctrl.tile.id}}: true}" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-button md-raised ng-slide" data-md-ink-ripple="true"><!--data-md-ink-ripple="{{$ctrl.tile.expanded}}"-->
+<div flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="{'expanded':$ctrl.tile.expanded, {{$ctrl.tile.id}}: true}" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-button md-raised ng-slide" data-md-ink-ripple="!$ctrl.tile.expanded"><!--data-md-ink-ripple="{{$ctrl.tile.expanded}}"-->
 <!--data-md-ink-ripple="$ctrl.tile.expanded"-->
 <!--data-md-no-ink="$ctrl.tile.expanded" OU md-ink-ripple...-->
 	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fa fa-2x fa-ellipsis-h adminFlag"></i>
@@ -62,7 +62,7 @@
 						<span data-ng-show="$ctrl.tts.voicemail">Message in voicemail</span>
 						<span data-ng-hide="$ctrl.tts.voicemail">Message</span>
 					</label>
-					<input type="text" id="ttsMsg" name="ttsMsg" maxlength="200" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" autocomplete="off"><!--required--><!--autocomplete="off"-->
+					<input type="text" id="ttsMsg" name="ttsMsg" maxlength="200" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" data-ng-trim="false" autocomplete="off"><!--required--><!--autocomplete="off"-->
 					<!-- <textarea type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" autocomplete="off"></textarea> -->
 					<!--<datalist id="examples">
 						<option value="Hey, je suis Odi !">

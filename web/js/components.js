@@ -45,7 +45,7 @@ app.component('tts', {
 			cleanText: function(){ // TODO create an UtilsService.. ==> OR A FILTER !!!!
 				console.log('cleanText');
 				var message = ctrl.tts.msg || '';
-				message = message.replace(/[àáâãäå]/g,'a');
+				message = message.replace(/[àáâãäå]/g,'a'); // TODO chainer les replace
 				message = message.replace(/[ç]/g,'c');
 				message = message.replace(/[èéêë]/g,'e');
 				message = message.replace(/[îï]/g,'i');
