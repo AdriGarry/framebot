@@ -84,7 +84,7 @@ function startOdi(mode){
 			utils.setConfig({mode: 'sleep'}, false, function(){
 				console.log('callback from setConfig ::::::::::::::::::::')
 				setTimeout(function(){
-					startOdi();
+					startOdi(code);
 				}, 2000);
 			});
 			console.error('ERROR  /!\\ errorLimit ['+errorLimit+'] reached. Standby until next green button press...')

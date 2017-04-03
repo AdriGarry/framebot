@@ -45,12 +45,12 @@ app.component('tts', {
 			cleanText: function(){ // TODO create an UtilsService.. ==> OR A FILTER !!!!
 				console.log('cleanText');
 				var message = ctrl.tts.msg || '';
-				message = message.replace(/[àâ]/g,'a');
+				message = message.replace(/[àáâãäå]/g,'a');
 				message = message.replace(/[ç]/g,'c');
 				message = message.replace(/[èéêë]/g,'e');
 				message = message.replace(/[îï]/g,'i');
 				message = message.replace(/[ôóö]/g,'o');
-				message = message.replace(/[ù]/g,'u');
+				message = message.replace(/[ûüù]/g,'u');
 				ctrl.tts.msg = message;
 			},
 			submit: function(){
