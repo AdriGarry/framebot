@@ -33,8 +33,7 @@ function blink(config){
 			setTimeout(function(){
 				for(var led in config.leds){
 					// console.log(config.leds[led] + '  => END');
-					//eval(config.leds[led]).write(0);
-					config.leds[led].write(0);
+					eval(config.leds[led]).write(0);
 				}
 			}, config.speed * config.loop * 2 +50);
 			for(loop = config.loop * 2; loop > 0; loop--){
@@ -42,7 +41,6 @@ function blink(config){
 					for(var i in leds){
 						var led = leds[i]
 						// console.log('led : ' + led);
-						//eval(led).write(etat);
 						eval(led).write(etat);
 					}
 					etat = 1 - etat; // VOIR POUR ALTERNER ??

@@ -1,4 +1,4 @@
-<div flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="{'expanded':$ctrl.tile.expanded, {{$ctrl.tile.id}}: true}" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-button md-raised ng-slide" data-md-ink-ripple="!$ctrl.tile.expanded"><!--data-md-ink-ripple="{{$ctrl.tile.expanded}}"-->
+<div flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="{'expanded':$ctrl.tile.expanded, {{$ctrl.tile.id}}: true}" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-button md-raised ng-slide" data-md-ink-ripple><!--data-md-ink-ripple="{{$ctrl.tile.expanded}}"-->
 <!--data-md-ink-ripple="$ctrl.tile.expanded"-->
 <!--data-md-no-ink="$ctrl.tile.expanded" OU md-ink-ripple...-->
 	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fa fa-2x fa-ellipsis-h adminFlag"></i>
@@ -74,10 +74,10 @@
 						<span class="desktopOnlyInline">&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;</span>
 						<i class="fa fa-lg" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 					</md-button>-->
-					<button type="submit" class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded" data-ng-click="$ctrl.tts.submit()">
+					<md-button type="submit" class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded" data-ng-click="$ctrl.tts.submit()">
 						<span class="desktopOnlyInline">&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;</span>
 						<i class="fa fa-lg" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
-					</button>
+					</md-button>
 				</md-input-container>
 			</div>
 		</form>
