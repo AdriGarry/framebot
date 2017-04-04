@@ -264,12 +264,12 @@ md-sidenav md-toolbar .tools{
 	background-color:#495F69!important;
 }
 .md-sidenav-right .adminBtn i.fa{
-	font-size:8vw;
+	/*font-size:8vw;*/
 }
 .md-sidenav-right .adminBtn i[class*="fa-sign"]{
 	margin-right:0.5em;
 	margin-left:0.5em;
-	font-size:4vw;
+	/*font-size:4vw;*/
 	vertical-align:top;
 	visibility:hidden;
 }
@@ -337,10 +337,10 @@ md-content{
 	vertical-align:middle;
 }
 .dashboard > [flex] > .tile:not(.tts){/*:not(.tts)*/
-	font-size:1.2vw;
+	/*font-size:1.2vw;*/
 }
 .dashboard > [flex] > .tile > .tileContent{
-	line-height:14vw;/*15vw*/
+	/*line-height:14vw;*/
 }
 
 .dashboard > [flex] > .tile.expanded{
@@ -367,9 +367,9 @@ md-content{
 	width:100%;
 	bottom:0;
 }
-[flex] footer h3{
+[flex] footer h3, [flex] footer{
 	margin:0;
-	margin-left:1em;
+	padding-left:1em;
 	text-align:left;
 	line-height:1.5em;
 	color:#fff;
@@ -685,7 +685,7 @@ body>.loading i{
 		max-height:50em;
 	}
 	.dashboard > [flex] > button.expanded form{
-		font-size:4vw;
+		/*font-size:4vw;*/
 	}
 	.dashboard > [flex] > .tile.expanded{
 		height:13em;
@@ -697,7 +697,7 @@ body>.loading i{
 	}
 	[flex] footer h3{
 		margin-left:5px;
-		font-size:3vw;
+		/*font-size:3vw;*/
 	}
 	md-toolbar md-switch.switch{
 		margin-top:1em;
@@ -714,10 +714,10 @@ body>.loading i{
 /* ------------------------------ 1500PX ------------------------------- */
 @media(min-width:1500px){
 	figure .responsive{
-		font-size:4.5vw;
+		/*font-size:4.5vw;*/
 	}
 	figure .mainInfo{
-		font-size:7vw;
+		/*font-size:7vw;*/
 	}
 
 	/** Ca fout peut etre la merde...? */
