@@ -71,9 +71,9 @@ global.ODI.jobs = require(CORE_PATH + 'controllers/jobs.js');
 
 ODI.leds.activity(mode); // Activity flag 1/2
 
-new CronJob('*/3 * * * * *', function(){
-	ODI.leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Activity flag 2/2
-}, null, 0, 'Europe/Paris');
+//new CronJob('*/3 * * * * *', function(){
+//	ODI.leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Activity flag 2/2
+//}, null, 0, 'Europe/Paris');
 
 ODI.server.startUI(mode);
 

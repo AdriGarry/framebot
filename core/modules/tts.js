@@ -45,59 +45,59 @@ module.exports = { // Singleton
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts){
-	console.debug(tts);
-	if(Array.isArray(tts)){
-		console.log('TTS array object... processing');
-		tts.forEach(function(message){
-			if(message.msg){
-				speak(message);
-			}
-		});
-	}else if(!tts || (!Object.keys(tts).length > 0) || (tts.msg.toUpperCase().indexOf('RANDOM') > -1)){ // OR UNDEFINED !!
-		var rdmNb = ((Math.floor(Math.random()*RDM_MESSAGE_LIST_LENGTH)));
-		console.log('tts.js> rdmNb: ', rdmNb);
-		tts = RDM_MESSAGE_LIST[rdmNb];
-		console.log('Random TTS : ' + rdmNb + '/' + RDM_MESSAGE_LIST_LENGTH);
-		console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
-		ttsQueue.push(tts);
-	}else{
-		if(tts.hasOwnProperty('msg')){
-			var ttsQueueLength = ttsQueue.length;
-			ttsQueue.push(tts);
+	if(CONFIG.mode == 'ready'){
+		console.debug(tts);
+		if(Array.isArray(tts)){
+			console.log('TTS array object... processing');
+			tts.forEach(function(message){
+				if(message.msg){
+					speak(message);
+				}
+			});
+		}else if(!tts || (!Object.keys(tts).length > 0) || (tts.msg.toUpperCase().indexOf('RANDOM') > -1)){ // OR UNDEFINED !!
+			var rdmNb = ((Math.floor(Math.random()*RDM_MESSAGE_LIST_LENGTH)));
+			console.log('tts.js> rdmNb: ', rdmNb);
+			tts = RDM_MESSAGE_LIST[rdmNb];
+			console.log('Random TTS : ' + rdmNb + '/' + RDM_MESSAGE_LIST_LENGTH);
 			console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
-		}else console.debug(console.error('newTTS() Wrong TTS object ', tts));
-	}
-	if(ttsQueue.length > 0) proceedQueue(); // NEW
+			ttsQueue.push(tts);
+		}else{
+			if(tts.hasOwnProperty('msg')){
+				var ttsQueueLength = ttsQueue.length;
+				ttsQueue.push(tts);
+				console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
+			}else console.debug(console.error('newTTS() Wrong TTS object ', tts));
+		}
+		if(ttsQueue.length > 0) proceedQueue();
+	}else console.log('Wrong mode for TTS speak');
 };
 
 /** Function to proceed TTS queue */
 var queueInteval, currentTTS, timeout = 0;
-function proceedQueue(){  // NEW  // NEW  // NEW  // NEW
+function proceedQueue(){
 	// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'tone']);
 	var isFirst = true;
 	console.debug('Start processing TTS queue...');
-	// setTimeout(function(){
-		queueInteval = setInterval(function(){
-			if(!onAir && ttsQueue.length > 0){
-				onAir = true;
-				// ODI.leds.toggle({led: 'eye', mode: 1});
-				currentTTS = ttsQueue.shift();
-				playTTS(currentTTS, isFirst);
-				if(currentTTS.voice === 'google') timeout = currentTTS.msg.length*90 + 1500;
-				else timeout = currentTTS.msg.length*60 + 1500;
-				setTimeout(function(){
-					onAir = false;
-					// ODI.leds.toggle({led: 'eye', mode: 0});
-				}, timeout);
-				if(ttsQueue.length === 0){
-					console.debug('No more TTS, stop processing TTS queue!');
-					clearInterval(queueInteval);
-				}
-				isFirst = true;
-				// console.log('isFirst', isFirst);
+	queueInteval = setInterval(function(){
+		if(!onAir && ttsQueue.length > 0){
+			onAir = true;
+			// ODI.leds.toggle({led: 'eye', mode: 1});
+			currentTTS = ttsQueue.shift();
+			playTTS(currentTTS, isFirst);
+			if(currentTTS.voice === 'google') timeout = currentTTS.msg.length*90 + 1500;
+			else timeout = currentTTS.msg.length*60 + 1500;
+			setTimeout(function(){
+				onAir = false;
+				// ODI.leds.toggle({led: 'eye', mode: 0});
+			}, timeout);
+			if(ttsQueue.length === 0){
+				console.debug('No more TTS, stop processing TTS queue!');
+				clearInterval(queueInteval);
 			}
-		}, 500);
-	// }, 1500);
+			isFirst = true;
+			// console.log('isFirst', isFirst);
+		}
+	}, 500);
 };
 
 /** Function to launch random conversation */

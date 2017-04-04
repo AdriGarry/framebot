@@ -13,11 +13,11 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	$scope.dashboard = {
 		odiState: setOdiState(),
 		autoRefresh: true,
-		loopInterval: 0,
+		//loopInterval: 0,
 		loading: false,
-		ttsTile: {
+		/*ttsTile: {
 			label: 'TTS - Voice synthesizing',
-			color: 'grey',/*lightBlue*/
+			color: 'grey',
 			rowspan : 1,
 			colspan: 3,
 			voice: 'google',
@@ -49,8 +49,8 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 					});
 				}
 			}
-		},
-		tileList: UIService.initDashboardTiles,
+		},*/
+		//tileList: UIService.initDashboardTiles,
 		runningData: null
 	};
 

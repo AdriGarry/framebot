@@ -61,7 +61,7 @@ ODI.leds.activity(); // Activity flag 1/2
 ODI.server.startUI(mode);
 
 new CronJob('*/3 * * * * *', function(){
-	leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Activity flag 2/2
+	ODI.leds.blink({leds: ['nose'], speed: 100, loop: 1}); // Activity flag 2/2
 }, null, 0, 'Europe/Paris');
 
 ODI.buttons.initButtonAwake();

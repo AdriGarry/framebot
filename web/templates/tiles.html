@@ -39,7 +39,7 @@
 						{{$ctrl.tts.voice}}
 						{{$ctrl.tts.conf.voiceList}}
 					</small>-->
-					<md-switch flex="50" data-ng-model="$ctrl.tts.voice" data-ng-true-value="'espeak'" data-ng-false-value="	'google'" class="voiceSwitch desktopZoom"
+					<md-switch flex="50" data-ng-model="$ctrl.tts.voice" data-ng-true-value="'espeak'" data-ng-false-value="'google'" class="voiceSwitch desktopZoom"
 						ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'">
 						<!-- <span>Human Voice</span>
 						<span>Robot Voice</span> -->
@@ -70,10 +70,14 @@
 					</datalist>-->
 				</md-input-container>
 				<md-input-container flex="25" class="md-block centerText ng-slide">
-					<md-button type="submit" class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded" data-ng-click="$ctrl.tts.submit()">
+					<!--<md-button type="submit" class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded" data-ng-click="$ctrl.tts.submit()">
 						<span class="desktopOnlyInline">&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;</span>
 						<i class="fa fa-lg" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
-					</md-button>
+					</md-button>-->
+					<button type="submit" class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded" data-ng-click="$ctrl.tts.submit()">
+						<span class="desktopOnlyInline">&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;</span>
+						<i class="fa fa-lg" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
+					</button>
 				</md-input-container>
 			</div>
 		</form>

@@ -39,8 +39,8 @@ app.component('tts', {
 			error: '',
 			conf: {
 				languageList: [{code: 'fr', label: 'French'}, {code: 'en', label: 'English'}, {code: 'ru', label: 'Russian'},
-					{code: 'es', label: 'Spanish'}, {code: 'it', label: 'Italian'}, {code: 'de', label: 'German'}],
-				voiceList: [{code: ':3', label: 'Nice voice'}, {code: ':1', label: 'Robot voice'}]
+					{code: 'es', label: 'Spanish'}, {code: 'it', label: 'Italian'}, {code: 'de', label: 'German'}]/*,
+				voiceList: [{code: ':3', label: 'Nice voice'}, {code: ':1', label: 'Robot voice'}]*/
 			},
 			cleanText: function(){ // TODO create an UtilsService.. ==> OR A FILTER !!!!
 				console.log('cleanText');
@@ -60,13 +60,6 @@ app.component('tts', {
 						if(callback.status == 200){
 							ctrl.tts.msg = ''; ctrl.tts.error = ''; // Reinit TTS
 						}
-						/*if(callback.status != 200){ // TODO to delete... (toast moved to UIService)
-							ctrl.tts.error = 'UNE ERREUR EST SURVENUE';
-						}
-						else{
-							ctrl.showToast(ctrl.tts.msg);// LIMITER / TRONQUER la longueur du message !!! WWWWWWWW => 200
-							ctrl.tts.msg = ''; ctrl.tts.error = ''; // Reinit TTS
-						}*/
 					});
 				}
 			}

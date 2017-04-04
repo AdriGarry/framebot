@@ -62,7 +62,7 @@ function startUI(mode){
 	var logger = function(req, res, next){
 		//ODI.leds.toggle({led:'eye', mode: 1});
 		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
-		ODI.leds.blink({leds: ['satellite'], speed: 100, loop: 2});
+		ODI.leds.blink({leds: ['satellite'], speed: 100, loop: 4});
 		//method = req.method;
 
 		if(req.connection.remoteAddress.indexOf('192.168') == -1){ // Logging not local requests

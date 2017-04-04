@@ -33,7 +33,8 @@ function blink(config){
 			setTimeout(function(){
 				for(var led in config.leds){
 					// console.log(config.leds[led] + '  => END');
-					eval(config.leds[led]).write(0);
+					//eval(config.leds[led]).write(0);
+					config.leds[led].write(0);
 				}
 			}, config.speed * config.loop * 2 +50);
 			for(loop = config.loop * 2; loop > 0; loop--){
@@ -41,6 +42,7 @@ function blink(config){
 					for(var i in leds){
 						var led = leds[i]
 						// console.log('led : ' + led);
+						//eval(led).write(etat);
 						eval(led).write(etat);
 					}
 					etat = 1 - etat; // VOIR POUR ALTERNER ??
@@ -67,19 +69,19 @@ function toggle(config){
 };
 
 /** Function activity : program mode flag (ready/sleep) */
-function activity(mode){
+//function activity(mode){
+function activity(){
 	//if(typeof mode === 'undefined') mode = 'awake';
-	if(mode == 'ready') mode = 'awake';
-	console.log('Led Activity initialised [' + mode + ']');
-	mode = parseInt(mode, 10);
-	if(mode == 'sleep') mode = 0;
+	//if(mode == 'ready') mode = 'awake';
+	console.log('Led Activity initialised [' + CONFIG.mode + ']');
+	//mode = parseInt(mode, 10);
+	if(CONFIG.mode == 'sleep') mode = 0;
 	else mode = 1;
 	setInterval(function(){
 		led.write(mode);
 	}, 900);
 
 	new CronJob('*/3 * * * * *', function(){
-		// leds.blinkLed(300, 1); // Initialisation du temoin d'activite 2/2
 		blink({leds: ['nose'], speed: 200, loop: 1}); // Initialisation du temoin d'activite 2/2
 	}, null, 1, 'Europe/Paris');
 };
