@@ -78,7 +78,7 @@ function checkVoiceMail(callback){
 
 /** Function voicemail flag (blink belly if any message) */
 function voiceMailFlag(){
-	console.log('Starting voiceMail flag...');
+	console.log('VoiceMail flag initialized');
 	var nbMessages;
 	setInterval(function(){
 		nbMessages = areThereAnyMessages();

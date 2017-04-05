@@ -71,7 +71,7 @@ function toggle(config){
 function activity(){
 	//if(typeof mode === 'undefined') mode = 'awake';
 	//if(mode == 'ready') mode = 'awake';
-	console.log('Led Activity initialised [' + CONFIG.mode + ']');
+	console.log('Activity led initialised [' + CONFIG.mode + ']');
 	//mode = parseInt(mode, 10);
 	if(CONFIG.mode == 'sleep') mode = 0;
 	else mode = 1;

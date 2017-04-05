@@ -92,7 +92,7 @@ function reboot(){
 
 /** Function to shut down RPI */
 function shutdown(announcement){
-	tts.speak({msg:'Arret system'});
+	ODI.tts.speak({msg:'Arret system'});
 	if(CONFIG.mode === 'ready'){
 		mute();
 		ODI.tts.speak({msg:'Arret system'});
@@ -130,20 +130,14 @@ var startMeasure = cpuAverage();
 
 /** Function to get CPU usage */
 function getCPUUsage(){
-	//Grab second Measure
-	var endMeasure = cpuAverage();
+	var endMeasure = cpuAverage();//Grab second Measure
 	//Calculate the difference in idle and total time between the measures
 	var idleDifference = endMeasure.idle - startMeasure.idle;
-	/*console.log(idleDifference);
-	console.log(endMeasure.idle);
-	console.log(startMeasure.idle);*/
+	//console.log(idleDifference);console.log(endMeasure.idle);console.log(startMeasure.idle);
 	var totalDifference = endMeasure.total - startMeasure.total;
-	/*console.log(totalDifference);
-	console.log(endMeasure.total);
-	console.log(startMeasure.total);*/
-	//Calculate the average percentage CPU usage
-	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference);
-	// console.log('CPU usage : ' + percentageCPU + ' %');
+	//console.log(totalDifference);console.log(endMeasure.total);console.log(startMeasure.total);
+	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference);//Calculate the average percentage CPU usage
+	console.debug('CPU usage : ' + percentageCPU + ' %');
 	return(percentageCPU);
 };
 
@@ -154,9 +148,7 @@ function getCPUTemp(callback){
 	return(temperature);
 };
 
-/** Function to return Odi's age => To service.js
- * @return age in days
- */
+/** Function to return Odi's age in days */
 var age = 0;
 const DATE_BIRTH = new Date('August 9, 2015 00:00:00');
 function getOdiAge(){

@@ -3,7 +3,8 @@
 
 var mode = process.argv[2]; // Get parameters
 // console.log('>> Odi Core start sequence...',(mode ? '[mode:' + mode + ']' : ''));
-console.log('>> Odi Core context initialization...');
+// console.log('>> Odi Core context initialization...');
+console.log('Odi\'s context initializing...');
 
 var spawn = require('child_process').spawn;
 var fs = require('fs');

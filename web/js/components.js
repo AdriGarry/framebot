@@ -3,7 +3,7 @@ app.component('tts', {
 	bindings: {
 		data: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function($window, DefaultTile, UIService){
 		var ctrl = this;
 		var tileParams = {
@@ -73,7 +73,7 @@ app.component('mode', {
 		data: '<',
 		access: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -93,7 +93,7 @@ app.component('volume', {
 		data: '<',
 		access: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -115,7 +115,7 @@ app.component('alarms', {
 		access: '<',
 		odiState: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -147,7 +147,7 @@ app.component('voicemail', {
 		access: '<',
 		odiState: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -167,7 +167,7 @@ app.component('cpu', {
 		access: '<',
 		odiState: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -187,7 +187,7 @@ app.component('exclamation', {
 		access: '<',
 		odiState: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -209,7 +209,7 @@ app.component('jukebox', {
 		access: '<',
 		odiState: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -228,7 +228,7 @@ app.component('timer', {
 		access: '<',
 		odiState: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -247,7 +247,7 @@ app.component('time', {
 		access: '<',
 		odiState: '<',
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -269,7 +269,7 @@ app.component('date', {
 		access: '<',
 		odiState: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -289,7 +289,7 @@ app.component('weather', {
 		access: '<',
 		odiState: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -308,7 +308,7 @@ app.component('idea', {
 		access: '<',
 		odiState: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -331,7 +331,7 @@ app.component('party', {
 		access: '<',
 		odiState: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -351,7 +351,7 @@ app.component('russia', {
 		access: '<',
 		odiState: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -371,7 +371,7 @@ app.component('videos', {
 		access: '<',
 		odiState: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -389,7 +389,7 @@ app.component('logs', {
 		data: '<',
 		access: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -408,7 +408,7 @@ app.component('system', {
 		data: '<',
 		access: '<'
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
@@ -424,7 +424,7 @@ app.component('about', {
 	bindings: {
 		data: '<',
 	},
-	templateUrl: '/templates/tiles.html',
+	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
