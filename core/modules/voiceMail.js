@@ -7,6 +7,7 @@ var fs = require('fs');
 var tts = require(CORE_PATH + 'modules/tts.js');
 var utils = require(CORE_PATH + 'modules/utils.js');*/
 
+const DELAY_TO_CLEAR_VOICEMAIL = 6*60*60*1000;//15*60*1000;
 const VOICEMAIL_FILE = '/home/pi/odi/tmp/voicemail.json';
 const VOICEMAIL_FILE_HISTORY = '/home/pi/odi/log/voicemailHistory.json';
 
@@ -52,7 +53,7 @@ function checkVoiceMail(callback){
 				if(clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
 				clearVoiceMailDelay = setTimeout(function(){ // Clearing VoiceMail
 					clearVoiceMail();
-				}, 6*60*60*1000);//15*60*1000
+				}, DELAY_TO_CLEAR_VOICEMAIL);
 				// console.log('VoiceMail will be cleared in 10 minutes.');
 				console.log('VoiceMail will be cleared in 6 hours.');
 				// if(callback) callback(true); // for other action
