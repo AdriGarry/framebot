@@ -1,7 +1,5 @@
 /*------------------------------ Odi UI CSS ------------------------------- */
-html{
-	font-size:62.5%;
-}
+
 /*------------------------------ GENERIC ------------------------------- */
 ul{margin:0;padding:0;}
 .noDisplay{display:none;}
@@ -266,12 +264,12 @@ md-sidenav md-toolbar .tools{
 	background-color:#495F69!important;
 }
 .md-sidenav-right .adminBtn i.fa{
-	/*font-size:8vw;*/
+	font-size:8vw;
 }
 .md-sidenav-right .adminBtn i[class*="fa-sign"]{
 	margin-right:0.5em;
 	margin-left:0.5em;
-	/*font-size:4vw;*/
+	font-size:4vw;
 	vertical-align:top;
 	visibility:hidden;
 }
@@ -339,10 +337,10 @@ md-content{
 	vertical-align:middle;
 }
 .dashboard > [flex] > .tile:not(.tts){/*:not(.tts)*/
-	/*font-size:1.2vw;*/
+	font-size:1.2vw;
 }
 .dashboard > [flex] > .tile > .tileContent{
-	/*line-height:14vw;*/
+	line-height:15vw;
 }
 
 .dashboard > [flex] > .tile.expanded{
@@ -353,7 +351,7 @@ md-content{
 [flex] > .tile > .tileContent .main{
 	width:100%;
 	text-align:center;
-	font-size:5rem;/*5vmin*/
+	font-size:5vw;
 }
 [flex] > .tile > .tileContent .main .fa{
 	font-size:1.6em;
@@ -361,7 +359,6 @@ md-content{
 
 [flex] > .tile > .tileContent .main .mediumFont{
 	font-size:0.7em;
-	line-height:1em;
 }
 
 [flex] footer{
@@ -369,7 +366,7 @@ md-content{
 	width:100%;
 	bottom:0;
 }
-[flex] footer h3, [flex] footer{
+[flex] footer h3/*, [flex] footer*/{
 	margin:0;
 	padding-left:1em;
 	text-align:left;
@@ -419,7 +416,7 @@ md-content{
 	opacity:0.9;
 }
 [flex] > .tile > .tileContent .param{
-	margin-top:-2em;
+	margin-top:-3em;
 	font-size:0.3em;
 	line-height:0;
 }
@@ -687,7 +684,7 @@ body>.loading i{
 		max-height:50em;
 	}
 	.dashboard > [flex] > button.expanded form{
-		/*font-size:4vw;*/
+		font-size:4vw;
 	}
 	.dashboard > [flex] > .tile.expanded{
 		height:13em;
@@ -699,7 +696,7 @@ body>.loading i{
 	}
 	[flex] footer h3{
 		margin-left:5px;
-		/*font-size:3vw;*/
+		font-size:3vw;
 	}
 	md-toolbar md-switch.switch{
 		margin-top:1em;
@@ -716,10 +713,10 @@ body>.loading i{
 /* ------------------------------ 1500PX ------------------------------- */
 @media(min-width:1500px){
 	figure .responsive{
-		/*font-size:4.5vw;*/
+		font-size:4.5vw;
 	}
 	figure .mainInfo{
-		/*font-size:7vw;*/
+		font-size:7vw;
 	}
 
 	/** Ca fout peut etre la merde...? */
@@ -727,7 +724,7 @@ body>.loading i{
 		font-size:3.5em;
 	}*/
 	[flex] > .tile > .tileContent .main .fa{
-		/*font-size:1.2em;*/
+		font-size:1.2em;
 	}
 }
 
