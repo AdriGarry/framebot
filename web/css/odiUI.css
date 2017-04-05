@@ -1,5 +1,7 @@
 /*------------------------------ Odi UI CSS ------------------------------- */
-
+html{
+	font-size:62.5%;
+}
 /*------------------------------ GENERIC ------------------------------- */
 ul{margin:0;padding:0;}
 .noDisplay{display:none;}
@@ -351,7 +353,7 @@ md-content{
 [flex] > .tile > .tileContent .main{
 	width:100%;
 	text-align:center;
-	font-size:5vmin;
+	font-size:5rem;/*5vmin*/
 }
 [flex] > .tile > .tileContent .main .fa{
 	font-size:1.6em;
@@ -725,7 +727,7 @@ body>.loading i{
 		font-size:3.5em;
 	}*/
 	[flex] > .tile > .tileContent .main .fa{
-		font-size:1.2em;
+		/*font-size:1.2em;*/
 	}
 }
 
