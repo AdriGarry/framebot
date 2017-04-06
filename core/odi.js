@@ -93,7 +93,7 @@ ODI.jobs.setBackgroundJobs();
 ODI.voiceMail.voiceMailFlag();
 ODI.leds.toggle({led:'eye', mode: 0});
 
-ODI.video.screenOn();
+// ODI.video.screenOn();
 ODI.video.startCycle();
 
 /** If debug mode, set a timer to cancel in 20 min */
