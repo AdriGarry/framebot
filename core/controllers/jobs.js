@@ -103,7 +103,7 @@ function setBackgroundJobs(){
 	new CronJob('13 13 13 * * 0', function(){
 		ODI.tts.speak({voice:'espeak', lg:'fr', msg:'Auto reboot'}); // Weekly RPI reboot
 		setTimeout(function(){
-			ODI.hardware.reboot(true);
+			ODI.hardware.reboot();
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 

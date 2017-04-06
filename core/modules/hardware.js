@@ -75,7 +75,6 @@ function restartOdi(mode){
 		console.log('READY');
 		ODI.utils.setConfig({mode: 'ready'}, true);
 	}
-	
 };
 
 /** Function to reboot RPI */
@@ -87,12 +86,11 @@ function reboot(){
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
 	setTimeout(function(){
 		spawn('sh', [CORE_PATH + 'sh/power.sh', 'reboot']);
-	}, 2000);
+	}, 2000);// TODO delete this timeout ?
 };
 
-/** Function to shut down RPI */
-function shutdown(announcement){
-	ODI.tts.speak({msg:'Arret system'});
+/** Function to shutdown RPI */
+function shutdown(){
 	if(CONFIG.mode === 'ready'){
 		mute();
 		ODI.tts.speak({msg:'Arret system'});
@@ -100,7 +98,7 @@ function shutdown(announcement){
 	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
 	setTimeout(function(){
 		spawn('sh', [CORE_PATH + 'sh/power.sh']);
-	}, 2000);
+	}, 2000);// TODO delete this timeout ?
 };
 
 //Create function to get CPU information

@@ -13,7 +13,7 @@ module.exports = {
 /** Function to turn screen on (for 30 minutes) */
 function screenOn(){
 	spawn('sh', ['/home/pi/odi/core/sh/screen.sh', 'on']);
-	console.log('Screen ON');
+	console.log('Screen on');
 	setTimeout(function(){
 		screenOff();
 	}, 30*60*1000);
@@ -22,7 +22,7 @@ function screenOn(){
 /** Function to turn screen off */
 function screenOff(){
 	spawn('sh', ['/home/pi/odi/core/sh/screen.sh', 'off']);
-	console.log('Screen OFF');
+	console.log('Screen off');
 };
 
 /** Function to launch a video cycle for 30 minutes */
