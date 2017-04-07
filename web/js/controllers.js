@@ -335,12 +335,12 @@ function BottomSheetController($scope, $mdDialog, modal){
 	};
 }*/
 
-function DialogController($scope, $mdDialog, modal){
+function DialogController($scope, $mdDialog, data){
 
-	$scope.modal = modal;
 	//console.log('$scope.modal.data', $scope.modal.data);
-	if(typeof $scope.modal.data == 'string'){
-		$scope.modal.data = $scope.modal.data.split('\n');
+	$scope.modal = data;
+	if(typeof data == 'string'){
+		$scope.modal.data = $scope.modal.split('\n');
 	}
 
 	/** Function to test if number */

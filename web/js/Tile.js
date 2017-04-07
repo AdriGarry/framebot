@@ -43,7 +43,7 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 					controller: DialogController,
 					templateUrl: 'templates/dialog.html',
 					locals: {
-						modal: modal
+						data: data
 					},
 					parent: angular.element(document.body),
 					clickOutsideToClose:true,
