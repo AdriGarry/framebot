@@ -70,6 +70,7 @@ function startOdi(exitCode){
 
 	odiPgm.stderr.on('data', function(data){ // Template log error
 		console.error(utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
+		// console.trace(utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
 	});
 	
 	odiPgm.on('exit', function(code){ // SetUpRestart Actions

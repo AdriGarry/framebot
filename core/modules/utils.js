@@ -75,7 +75,9 @@ function logConfigArray(updatedEntries){
 				}
 			});
 		}else{
-			var updated = updatedEntries.indexOf(key) == -1 ? 0 : 1;
+			var updated = 0;
+			if(updatedEntries && updatedEntries.indexOf(key)) updated = 1;
+			// var updated = updatedEntries.indexOf(key) == -1 ? 0 : 1;
 			confArray += '| ' + (updated ? '*' : '') + key + ' '.repeat(col1-key.length-updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/
 				+ ' | ' + CONFIG[key] + ' '.repeat(col2-CONFIG[key].toString().length) + ' |\n';
 		}
