@@ -16,20 +16,20 @@ app.component('tts', {
 
 		/** Overwrite tile action */
 		ctrl.tile.click = function($event){
-			// console.log('123456');
-			$event.stopPropagation();
-			$event.preventDefault();
 			if(!ctrl.tile.expanded){
 				ctrl.toggleTileHeight();
-				$window.document.getElementById('ttsMsg').focus(); // Setting to focus on tts message input
+				focusOnTtsInput();
 			}
 			return false;
-			//$event.stopPropagation();$event.preventDefault();
 		};
 
 		ctrl.toggleTileHeight = function(){
 			ctrl.tile.expanded = !ctrl.tile.expanded;
-		}
+		};
+
+		function focusOnTtsInput(){
+			$window.document.getElementById('ttsMsg').focus(); // Setting to focus on tts message input
+		};
 
 		ctrl.tts = {
 			voice: 'espeak',
@@ -61,6 +61,8 @@ app.component('tts', {
 							ctrl.tts.msg = ''; ctrl.tts.error = ''; // Reinit TTS
 						}
 					});
+				}else{
+					focusOnTtsInput();
 				}
 			}
 		};
