@@ -338,9 +338,12 @@ function BottomSheetController($scope, $mdDialog, modal){
 function DialogController($scope, $mdDialog, data){
 
 	//console.log('$scope.modal.data', $scope.modal.data);
-	$scope.modal = data;
+	console.log('data', data);
+	$scope.modal = {};
 	if(typeof data == 'string'){
-		$scope.modal.data = $scope.modal.split('\n');
+		$scope.modal.data = data.split('\n');
+	}else{
+		$scope.modal.data = data;
 	}
 
 	/** Function to test if number */
