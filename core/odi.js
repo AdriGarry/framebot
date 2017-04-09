@@ -93,12 +93,16 @@ ODI.jobs.setBackgroundJobs();
 ODI.voiceMail.voiceMailFlag();
 ODI.leds.toggle({led:'eye', mode: 0});
 
+console.log('ODI.buttons.getEtat()', ODI.buttons.getEtat());
 if(ODI.buttons.getEtat() == 1){
-	ODI.video.startCycle(); // TODO A ne lancer que si bouton up
+	ODI.video.startCycle();
+}else{
+	// ODI.video.screenOff(); // TODO tail odi.log
 }
 
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){
+	//TODO screen on & tail odi.log !
 	console.debug('Setting up time out to cancel Debug mode !!');
 	setTimeout(function(){
 		console.debug('>> CANCELING DEBUG MODE... & Restart !!');

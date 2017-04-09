@@ -79,7 +79,7 @@ function restartOdi(mode){
 
 /** Function to reboot RPI */
 function reboot(){
-	if(CONFIG.mode === 'ready'){
+	if(CONFIG.mode == 'ready'){
 		mute();
 		ODI.tts.speak({msg:'Je redaimarre'});
 	}
@@ -91,7 +91,7 @@ function reboot(){
 
 /** Function to shutdown RPI */
 function shutdown(){
-	if(CONFIG.mode === 'ready'){
+	if(CONFIG.mode == 'ready'){
 		mute();
 		ODI.tts.speak({msg:'Arret system'});
 	}

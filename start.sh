@@ -36,3 +36,5 @@ then
 fi
 
 sudo node /home/pi/odi/core/master.js 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &
+
+#tail -f /home/pi/odi/log/odi.log

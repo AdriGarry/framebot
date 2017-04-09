@@ -14,6 +14,8 @@ var service = require(CORE_PATH + 'modules/service.js');
 var time = require(CORE_PATH + 'modules/time.js');
 var party = require(CORE_PATH + 'modules/party.js');*/
 
+//TODO en mode veille, si bouton vers le haut: alumer écran et tail odi.log
+
 module.exports = {
 	getEtat: getEtat,
 	initButtonAwake: initButtonAwake,
