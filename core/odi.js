@@ -98,6 +98,7 @@ if(ODI.buttons.getEtat() == 1){
 	ODI.video.startCycle();
 }else{
 	// ODI.video.screenOff(); // TODO tail odi.log
+	//ODI.video.screenOn();
 }
 
 /** If debug mode, set a timer to cancel in 20 min */

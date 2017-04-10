@@ -5,8 +5,18 @@
 var spawn = require('child_process').spawn;
 
 module.exports = {
+	screenOn: screenOn,
 	screenOff: screenOff,
 	startCycle: startCycle
+};
+
+/** Function to turn screen on (for 30 minutes) */
+function screenOn(){
+	spawn('sh', ['/home/pi/odi/core/sh/screen.sh', 'on']);
+	console.log('Screen on');
+	setTimeout(function(){
+		screenOff();
+	}, 30*60*1000);
 };
 
 /** Function to turn screen off */
