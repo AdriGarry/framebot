@@ -42,6 +42,7 @@ function mute(delay, message){
 /** Function to stop all sounds & leds */
 function stopAll(message){
 	ODI.tts.clearTTSQueue();
+	ODI.fip.stopFip();
 	spawn('sh', [CORE_PATH + 'sh/mute.sh']);
 	console.log('>> MUTE  -.-', message ? '"' + message + '"' : '');
 	ODI.leds.clearLeds();
