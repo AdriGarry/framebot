@@ -39,4 +39,4 @@ sudo node /home/pi/odi/core/master.js 2>&1 | sudo tee -a /home/pi/odi/log/odi.lo
 
 #tail -f /home/pi/odi/log/odi.log
 
-gksudo lxterminal --geometry=75*50 -e "tail -f /home/pi/odi/log/odi.log"
+# gksudo lxterminal --geometry=75*50 -e "tail -f /home/pi/odi/log/odi.log"

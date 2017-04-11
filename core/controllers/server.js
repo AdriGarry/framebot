@@ -52,8 +52,8 @@ function startUI(mode){
 		ODI.leds.blink({leds: ['satellite'], speed: 100, loop: 3});
 		console.log('MODE');
 		console.log(mode);
-		if(mode < 1){
-			deploy = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'UI']);
+		if(CONFIG.mode == 'ready'){
+			spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'UI']);
 		}
 		//res.set('Content-Type', 'text/javascript');
 	});
@@ -309,10 +309,11 @@ function startUI(mode){
 
 		ui.post('/russia', function(req, res){ // Russia
 			params = req.query;
-			console.log(params);
+			console.debug('/russia', params);
 			if(params.hasOwnProperty('hymn')){
 				//exclamation.russiaLoop();
-				deploy = spawn('sh', [CORE_PATH + 'sh/music.sh', 'urss']);
+				spawn('sh', [CORE_PATH + 'sh/music.sh', 'urss']);
+				ODI.leds.altLeds(70, 20);
 			}else{
 				ODI.exclamation.russia();
 			}
@@ -337,7 +338,7 @@ function startUI(mode){
 		ui.post('/music/*', function(req, res){ // 
 			var song; // RECUPERER LE NOM DE LA CHANSON
 			if(!song) song = 'mouthTrick';
-			deploy = spawn('sh', [CORE_PATH + 'sh/music.sh', song]);
+			spawn('sh', [CORE_PATH + 'sh/music.sh', song]);
 			res.writeHead(200);res.end();
 		});
 
@@ -352,12 +353,12 @@ function startUI(mode){
 		});
 
 		ui.post('/naheulbeuk', function(req, res){ // Nahleubeuk
-			deploy = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'Naheulbeuk']);
+			spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'Naheulbeuk']);
 			res.writeHead(200);res.end();
 		});
 
 		ui.post('/survivaure', function(req, res){ // Survivaure
-			deploy = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'Survivaure']);
+			spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'Survivaure']);
 			res.writeHead(200);res.end();
 		});
 
@@ -418,7 +419,7 @@ function startUI(mode){
 		});
 
 		ui.post('/cigales', function(req, res){ // Cigales
-			ODI.deploy = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'cigales']);
+			spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'cigales']);
 			res.writeHead(200);res.end();
 		});
 
@@ -428,7 +429,7 @@ function startUI(mode){
 		});
 
 		ui.post('/test', function(req, res){ // Set Party Mode
-			deploy = spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'test']); //mouthTrick
+			spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'test']); //mouthTrick
 			res.writeHead(200);res.end();
 		});
 		ui.post('/*', function(req, res){ // Redirect Error

@@ -20,15 +20,19 @@ fi
 
 echo $1
 
-#___Son restart Odi Program
-if [ $1 = "odi" ]
-then
-	sudo omxplayer -o local --vol $volume /home/pi/odi/media/mp3/system/startupOdi.mp3
 #___Son Demarrage Odi Raspi
-elif [ $1 = "startup" ]
+if [ $1 = "startup" ]
 then
 	#sound="/home/pi/odi/media/mp3/system/bonjour.mp3"
 	sound="/home/pi/odi/media/mp3/system/bonjourSurvivaure.mp3"
+#___Son restart Odi Program
+elif [ $1 = "odi" ]
+then
+	sudo omxplayer -o local --vol $volume /home/pi/odi/media/mp3/system/startupOdi.mp3
+#___Son restart Odi Program
+elif [ $1 = "error" ]
+then
+	sudo omxplayer -o local --vol $volume /home/pi/odi/media/mp3/system/error.mp3
 #___Son "Bonjour Bonjour !""
 elif [ $1 = "bonjourBonjour" ]
 then
@@ -74,8 +78,8 @@ then
 #___Son Test
 elif [ $1 = "test" ]
 then
-	# sound="/home/pi/odi/media/mp3/system/test.mp3"
-	sound="/home/pi/odi/media/mp3/system/DescenteInfinie.mp3"
+	sound="/home/pi/odi/media/mp3/system/error.mp3"
+	# sound="/home/pi/odi/media/mp3/system/DescenteInfinie.mp3"
 #___Donjon de Naheulbeuk
 elif [ $1 = "Naheulbeuk" ]
 then

@@ -15,6 +15,7 @@ var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
 var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
+var leds = require(CORE_PATH + 'modules/leds.js');
 // console.log('MASTER logTime', utils.logTime('D/M h:m:s'));
 var odiPgm, odiState = false, errorLimit = 1;
 const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
@@ -69,6 +70,10 @@ function startOdi(exitCode){
 	});
 
 	odiPgm.stderr.on('data', function(data){ // Template log error
+		spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'error']);
+		setTimeout(function(){
+			leds.altLeds(30, 1.5);
+		}, 1500);
 		console.error(utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
 		// console.trace(utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
 	});
@@ -80,28 +85,33 @@ function startOdi(exitCode){
 		console.log('>> Odi\'s CORE restarting... [code:' + code + ']\r\n\r\n');
 		// console.log('code', code);
 		startOdi(code);
-		/*if(typeof code === 'number' && code > 0){
-			console.log('just before setConfig')
-			utils.setConfig({mode: 'sleep'}, false, function(){
-				//setTimeout(function(){
-					startOdi(code);
-				//}, 2000);
-			});
-			console.error('ERROR on Odi\'s program... going to sleep mode');
-			// return;
-		}else{
-			startOdi();
-		}*/
-
-		/*if(!errorLimit){
-			utils.setConfig({mode: 'sleep'});
-			console.error('ERROR  /!\\ errorLimit ['+errorLimit+'] reached. Standby until next green button press...')
-			return;
-		}else{
-			startOdi();
-		}*/
 	});
 };
+
+function getLogMode(){
+	value = etat.readSync();
+	if(value != etat.readSync()){
+		getLogMode();
+	}
+	if(1 == value) return ' ODI';
+	else return ' Odi';
+}
+
+var decrementInterval;
+/** Funtion to decrement time (time before wake up log while sleeping */
+var decrementTime = function(){
+	decrementInterval = setInterval(function(){
+		if(timeToWakeUp > 0){
+			timeToWakeUp = timeToWakeUp - 1;
+			logMode = ' O...' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
+			// console.log('decrementTime : ' + timeToWakeUp);
+		}else{
+			// console.log('timeToWakeUp <= 0 [' + timeToWakeUp + ']  clearInterval !'); clearInterval(decrementInterval); // return;
+		}
+	}, 60*1000);
+};
+
+
 // function OLDstartOdi(mode){
 // 	/** Setting up Odi's config */
 // 	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
@@ -148,26 +158,3 @@ function startOdi(exitCode){
 // 		}
 // 	});
 // };
-
-function getLogMode(){
-	value = etat.readSync();
-	if(value != etat.readSync()){
-		getLogMode();
-	}
-	if(1 == value) return ' ODI';
-	else return ' Odi';
-}
-
-var decrementInterval;
-/** Funtion to decrement time (time before wake up log while sleeping */
-var decrementTime = function(){
-	decrementInterval = setInterval(function(){
-		if(timeToWakeUp > 0){
-			timeToWakeUp = timeToWakeUp - 1;
-			logMode = ' O...' + Math.floor(timeToWakeUp/60) + ':' + Math.floor(timeToWakeUp%60);
-			// console.log('decrementTime : ' + timeToWakeUp);
-		}else{
-			// console.log('timeToWakeUp <= 0 [' + timeToWakeUp + ']  clearInterval !'); clearInterval(decrementInterval); // return;
-		}
-	}, 60*1000);
-};

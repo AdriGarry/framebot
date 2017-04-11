@@ -126,6 +126,11 @@ setInterval(function(){
 }, 2000);
 // spawn('sh', ['/home/pi/odi/core/sh/diapo.sh']);
 
+/*setTimeout(function(){
+	console.log('ODI.leds.altLeds()');
+	ODI.leds.altLeds(50, 5);
+}, 2000);*/
+
 /*setInterval(function(){
 	var etat = ODI.buttons.getEtat();
 	if(etat){
