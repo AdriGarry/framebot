@@ -339,10 +339,16 @@ md-content{
 .dashboard > [flex] > .tile:not(.tts){/*:not(.tts)*/
 	font-size:1.2vw;
 }
-.dashboard > [flex] > .tile > .tileContent{
-	line-height:15vw;
-}
 
+.dashboard > [flex] > .tile > .tileContent{
+	/*line-height:15vw;*/
+	/*line-height:calc(10em + 2vw);*/
+	/*line-height:calc(10em - 1vw);*/
+	/*line-height:10em;*/
+}
+.dashboard > [flex] > .tile:not(.tts) > .tileContent{
+	margin:3em 0;
+}
 .dashboard > [flex] > .tile.expanded{
 	height:20em;
 	max-height:20em;
@@ -351,7 +357,9 @@ md-content{
 [flex] > .tile > .tileContent .main{
 	width:100%;
 	text-align:center;
-	font-size:5vw;
+	/*font-size:calc(3em + 1vw);*/
+	font-size:3em;
+	/*font-size:calc(4em - 1vw);*/
 }
 [flex] > .tile > .tileContent .main .fa{
 	font-size:1.6em;
