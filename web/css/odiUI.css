@@ -341,13 +341,17 @@ md-content{
 }
 
 .dashboard > [flex] > .tile > .tileContent{
-	/*line-height:15vw;*/
 	/*line-height:calc(10em + 2vw);*/
 	/*line-height:calc(10em - 1vw);*/
 	/*line-height:10em;*/
+	line-height:15vw;
 }
+.dashboard > [flex] > .tile > .tileContent table table td{
+	line-height:1em; /* TEMP...? */
+}
+
 .dashboard > [flex] > .tile:not(.tts) > .tileContent{
-	margin:3em 0;
+	/*margin:3em 0;*/
 }
 .dashboard > [flex] > .tile.expanded{
 	height:20em;
@@ -358,8 +362,9 @@ md-content{
 	width:100%;
 	text-align:center;
 	/*font-size:calc(3em + 1vw);*/
-	font-size:3em;
 	/*font-size:calc(4em - 1vw);*/
+	font-size:5vw;
+	/*font-size:3em;*/
 }
 [flex] > .tile > .tileContent .main .fa{
 	font-size:1.6em;
@@ -446,6 +451,9 @@ md-content{
 
 .dashboard [flex].tile.tts > *{
 	line-height:2em;
+}
+.dashboard [flex].tile.tts.expanded{
+	cursor:default;
 }
 .dashboard [flex].tile.tts .layout-row{
 	margin-top:4em;
@@ -721,10 +729,18 @@ body>.loading i{
 /* ------------------------------ 1500PX ------------------------------- */
 @media(min-width:1500px){
 	figure .responsive{
-		font-size:4.5vw;
+		/*font-size:4.5vw;*/
 	}
 	figure .mainInfo{
-		font-size:7vw;
+		/*font-size:7vw;*/
+	}
+
+	/*.dashboard > [flex] > .tile:not(.tts) .tileContent{*/
+	[flex] > .tile > .tileContent .main{
+		font-size:4vw;
+	}
+	.dashboard > [flex] > .tile > .tileContent{
+		line-height:11vw;
 	}
 
 	/** Ca fout peut etre la merde...? */
