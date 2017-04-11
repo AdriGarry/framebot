@@ -712,7 +712,8 @@ body>.loading i{
 	}
 	[flex] footer h3{
 		margin-left:5px;
-		font-size:3vw;
+		font-size:2.5vw;
+		line-height:1.2em;
 	}
 	md-toolbar md-switch.switch{
 		margin-top:1em;
