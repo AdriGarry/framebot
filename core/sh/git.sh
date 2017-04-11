@@ -9,6 +9,7 @@ if [ $? -eq 0 ];
 then	
 	if [ $1 = "pull" ]
 	then
+		# TODO ==> sauvegarder l'ancienne version !!
 		sudo git pull --rebase https://adrigarry:pnal6931@github.com/adrigarry/odi
 	elif [ $1 = "update" ]
 	then

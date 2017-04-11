@@ -13,20 +13,6 @@ var compression = require('compression');
 var path = require("path");
 var spawn = require('child_process').spawn;
 var fs = require('fs');
-/*var utils = require(CORE_PATH + 'modules/utils.js');
-var leds = require(CORE_PATH + 'modules/leds.js');
-var buttons = require(CORE_PATH + 'controllers/buttons.js');
-var hardware = require(CORE_PATH + 'modules/hardware.js');
-var tts = require(CORE_PATH + 'modules/tts.js');
-var service = require(CORE_PATH + 'modules/service.js');
-var time = require(CORE_PATH + 'modules/time.js');
-var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
-var fip = require(CORE_PATH + 'modules/fip.js');
-var jukebox = require(CORE_PATH + 'modules/jukebox.js');
-var exclamation = require(CORE_PATH + 'modules/exclamation.js');
-var video = require(CORE_PATH + 'modules/video.js');
-var party = require(CORE_PATH + 'modules/party.js');
-var admin = require(CORE_PATH + 'modules/admin.js');*/
 
 const FILE_REQUEST_HISTORY = LOG_PATH + 'requestHistory.log';
 const FILE_GRANT = DATA_PATH + 'pwd.properties';
@@ -44,19 +30,6 @@ function startUI(mode){
 
 	ui.use(compression()); // Compression web
 	ui.use(express.static(WEB_PATH)); // Pour fichiers statiques
-
-	ui.get('/', function(req, res){ // Init UI
-		res.sendFile(path.join(WEB_PATH + 'index.html'));
-		ipClient = req.connection.remoteAddress;
-		console.log('UI initialized [' + ipClient + ']');
-		ODI.leds.blink({leds: ['satellite'], speed: 100, loop: 3});
-		console.log('MODE');
-		console.log(mode);
-		if(CONFIG.mode == 'ready'){
-			spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'UI']);
-		}
-		//res.set('Content-Type', 'text/javascript');
-	});
 
 	// Middleware LOGGER
 	var logger = function(req, res, next){
@@ -87,7 +60,20 @@ function startUI(mode){
 	};
 	ui.use(logger);
 
-	/** MONITORING ACTIVITY */
+	// TRUC DE FOU NON ???
+	/*ui.get('/', function(req, res){ // Init UI
+		res.sendFile(path.join(WEB_PATH + 'index.html'));
+		ipClient = req.connection.remoteAddress;
+		console.log('UI initialized [' + ipClient + ']');
+		ODI.leds.blink({leds: ['satellite'], speed: 100, loop: 3});
+		console.log('MODE');
+		console.log(mode);
+		if(CONFIG.mode == 'ready'){
+			spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'UI']);
+		}
+		//res.set('Content-Type', 'text/javascript');
+	});*/
+
 	ui.get('/monitoring', function(req, res){
 		//console.log(/\d/.test(mode));
 		var activity = {
