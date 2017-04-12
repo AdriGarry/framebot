@@ -7,20 +7,20 @@ echo "start.sh -> Start Odi Pgm..."
 # configFile="/home/pi/odi/tmp"
 # tmpDir="/home/pi/odi/tmp"
 
-# TEST IF LOG DIRECTORY EXISTS
+# Test if log directory exists
 if [ ! -d /home/pi/odi/log ];
 then
 	mkdir /home/pi/odi/log
 	echo "Creating Log file"
 fi
 
-# TEST IF CONF FILE IS EMPTY, THEN REINIT
+# Test if conf file is empty, then reInit
 if [ ! -s /home/pi/odi/conf.json ];
 then
 	sudo rm /home/pi/odi/conf.json
 fi
 
-# TEST IF CONF FILE EXISTS
+# Test if conf file exists
 if [ ! -f /home/pi/odi/conf.json ];
 then
 	sudo cp /home/pi/odi/data/defaultConf.json /home/pi/odi/conf.json
@@ -28,7 +28,7 @@ then
 	echo "Config file reset"
 fi
 
-# TEST IF TMP DIRECTORY EXISTS
+# Test if tmp directory exists
 if [ ! -d /home/pi/odi/tmp ];
 then
 	mkdir /home/pi/odi/tmp
@@ -38,5 +38,4 @@ fi
 sudo node /home/pi/odi/core/master.js 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &
 
 #tail -f /home/pi/odi/log/odi.log
-
 # gksudo lxterminal --geometry=75*50 -e "tail -f /home/pi/odi/log/odi.log"

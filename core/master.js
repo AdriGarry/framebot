@@ -70,7 +70,7 @@ function startOdi(exitCode){
 	});
 
 	odiPgm.stderr.on('data', function(data){ // Template log error
-		spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'error']);
+		if(CONFIG.mode == 'ready') spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'error']);
 		setTimeout(function(){
 			leds.altLeds(30, 1.5);
 		}, 1500);

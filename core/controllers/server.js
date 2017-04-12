@@ -10,7 +10,7 @@
 
 var express = require('express');
 var compression = require('compression');
-var path = require("path");
+var path = require('path');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 
@@ -34,7 +34,7 @@ function startUI(mode){
 	// Middleware LOGGER
 	var logger = function(req, res, next){
 		//ODI.leds.toggle({led:'eye', mode: 1});
-		res.header("Access-Control-Allow-Origin", "http://adrigarry.com");
+		res.header('Access-Control-Allow-Origin', 'http://adrigarry.com');
 		ODI.leds.blink({leds: ['satellite'], speed: 100, loop: 3});
 		//method = req.method;
 
