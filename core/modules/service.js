@@ -24,42 +24,45 @@ module.exports = {
 
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction(){
-	var rdm = Math.floor(Math.random()*25);
+	var rdm = Math.floor(Math.random()*30);
 	console.log('randomAction [rdm = ' + rdm + ']');
 	switch(rdm){
 		case 1:
 		case 2:
 		case 3:
 		case 4:
-			// tts.speak({msg:'RANDOM'});
-			ODI.tts.speak();
-			break;
 		case 5:
 		case 6:
 		case 7:
 		case 8:
 		case 9:
 		case 10:
-		case 11:
-			ODI.tts.randomConversation();
+			ODI.tts.speak();
 			break;
+		case 11:
 		case 12:
 		case 13:
-			weatherService();
-			break;
 		case 16:
-			cpuTemp();
-			break;
 		case 17:
-			ODI.time.sayOdiAge();
-			break;
 		case 18:
-			ODI.time.now();
+			ODI.tts.randomConversation();
 			break;
 		case 19:
-			ODI.time.today();
+			weatherService();
 			break;
 		case 20:
+			cpuTemp();
+			break;
+		case 21:
+			ODI.time.sayOdiAge();
+			break;
+		case 22:
+			ODI.time.now();
+			break;
+		case 23:
+			ODI.time.today();
+			break;
+		case 24:
 			adriExclamation();
 			break;
 		default:

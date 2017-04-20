@@ -84,6 +84,9 @@ img.odiFace{
 	border:2px solid;
 	cursor:pointer;
 }
+img.odiFace:hover{
+	zoom:1.08;
+}
 img.odiFace.sleep{
 	-webkit-filter:grayscale(100%); /* Chrome, Safari, Opera */
 	filter:grayscale(100%);
@@ -99,6 +102,9 @@ img.odiFace.odiOff{
 	margin-left:4em;
 	font-size:1.2em;
 	cursor:pointer;
+}
+.toolbar h1:hover{
+	color:#b4c3cb;
 }
 .toolbar sup.version{
 	margin-right:1em;
@@ -126,6 +132,12 @@ button>i{
 	-moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s!important;
 	-o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s!important;
 	transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s!important;
+}
+.ng-slide-fast{
+	-webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s!important;
+	-moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s!important;
+	-o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s!important;
+	transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s!important;
 }
 .ng-slide-slow{
 	-webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
@@ -627,6 +639,9 @@ body>.loading i{
 	img.odiFace{
 		width:4em;
 		height:4em;
+	}
+	img.odiFace:hover{
+		zoom:1.4;
 	}
 	img.odiFace.odiOff{
 		margin-left:-3.5em;

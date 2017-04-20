@@ -2,18 +2,6 @@
 
 // Module Button
 
-/*var spawn = require('child_process').spawn;
-var leds = require(CORE_PATH + 'modules/leds.js');
-var hardware = require(CORE_PATH + 'modules/hardware.js');
-var jukebox = require(CORE_PATH + 'modules/jukebox.js');
-var tts = require(CORE_PATH + 'modules/tts.js');
-var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
-var fip = require(CORE_PATH + 'modules/fip.js');
-var utils = require(CORE_PATH + 'modules/utils.js');
-var service = require(CORE_PATH + 'modules/service.js');
-var time = require(CORE_PATH + 'modules/time.js');
-var party = require(CORE_PATH + 'modules/party.js');*/
-
 //TODO en mode veille, si bouton vers le haut: alumer écran et tail odi.log
 
 module.exports = {
@@ -41,7 +29,7 @@ function initButtonAwake(){
 				interval = setInterval(function(){
 					console.log('Etat bouton On_');
 					ODI.service.randomAction();
-				}, 5*60*1000); //10*60*1000
+				}, 2*60*1000); //5*60*1000
 			}
 		}else{
 			instance = false;
