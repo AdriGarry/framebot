@@ -4,14 +4,6 @@
 
 var spawn = require('child_process').spawn;
 var fs = require('fs');
-/*var leds = require(CORE_PATH + 'modules/leds.js');
-var utils = require(CORE_PATH + 'modules/utils.js');
-var hardware = require(CORE_PATH + 'modules/hardware.js');
-var tts = require(CORE_PATH + 'modules/tts.js');
-// var service = require(CORE_PATH + 'modules/service.js');
-var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
-var fip = require(CORE_PATH + 'modules/fip.js');
-var jukebox = require(CORE_PATH + 'modules/jukebox.js');*/
 
 module.exports = {
 	now: now,

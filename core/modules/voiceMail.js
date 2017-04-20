@@ -43,7 +43,7 @@ var clearVoiceMailDelay;
 /** Function to check voicemail, and play */
 function checkVoiceMail(callback){
 	// try{
-		console.log('Checking VoiceMail...');
+		console.debug('Checking VoiceMail...');
 		ODI.utils.getJsonFileContent(VOICEMAIL_FILE, function(messages){
 			if(messages){
 				messages = JSON.parse(messages);

@@ -82,7 +82,7 @@ ODI.jobs.startClock(ODI.buttons.getEtat()); // Starting speaking clock
 
 if(!ODI.time.isAlarm()){// ALARMS
 	ODI.voiceMail.checkVoiceMail();
-	new CronJob('5 * * * * *', function(){
+	new CronJob('2 * * * * *', function(){
 		ODI.time.isAlarm()
 	}, null, true, 'Europe/Paris');
 }
