@@ -20,6 +20,7 @@ function initButtonAwake(){
 	/** Interval pour l'etat du switch + fonctions associees */
 	var instance = false;
 	var interval;
+	var intervalDelay = CONFIG.debug ? 2*60*1000 : 5*60*1000;
 	setInterval(function(){
 		var value = etat.readSync();
 		satellite.writeSync(value);
@@ -29,7 +30,7 @@ function initButtonAwake(){
 				interval = setInterval(function(){
 					console.log('Etat bouton On_');
 					ODI.service.randomAction();
-				}, 2*60*1000); //5*60*1000
+				}, intervalDelay); //5*60*1000
 			}
 		}else{
 			instance = false;
