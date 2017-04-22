@@ -47,18 +47,16 @@ function startOdi(exitCode){
 		logMode = ' O';
 		logo = logoSleep;
 		odiPgm = spawn('node', [CORE_PATH + 'odiSleep.js'/*, mode*/]);
-	}else if(CONFIG.mode == 'ready'){
+	// }else if(CONFIG.mode == 'ready'){
+	}else{
 		timeToWakeUp = 0;
 		logMode = ' Odi';
 		logo = logoNormal;
 		odiPgm = spawn('node', [CORE_PATH + 'odi.js'/*, exitCode*/]);
-	}else{
-
 	}
 
 	console.log('\n\n' + logo.join('\n'));
 	utils.setConfig({startTime: utils.logTime('h:m (D/M)')}, false);
-	//utils.logConfigArray();
 
 	etat.watch(function(err, value){
 		logMode = getLogMode();
@@ -75,7 +73,6 @@ function startOdi(exitCode){
 			leds.altLeds(30, 1.5);
 		}, 1500);
 		console.error(utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
-		// console.trace(utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
 	});
 	
 	odiPgm.on('exit', function(code){ // SetUpRestart Actions
@@ -83,7 +80,6 @@ function startOdi(exitCode){
 		odiState = false;
 		console.log('\r\n-----------------------------------' + (code>10 ? (code>100 ? '---' : '--') : '-'));
 		console.log('>> Odi\'s CORE restarting... [code:' + code + ']\r\n\r\n');
-		// console.log('code', code);
 		startOdi(code);
 	});
 };

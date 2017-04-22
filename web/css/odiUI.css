@@ -85,7 +85,13 @@ img.odiFace{
 	cursor:pointer;
 }
 img.odiFace:hover{
-	zoom:1.08;
+	/*zoom:1.08;*/
+	/*border-color:#ff5335;*/
+	/*top:-1px;
+	margin-left:-1px;
+	width:calc(5em + 2px);
+	height:calc(5em + 2px);*/
+	border-width:4px;
 }
 img.odiFace.sleep{
 	-webkit-filter:grayscale(100%); /* Chrome, Safari, Opera */
@@ -640,9 +646,9 @@ body>.loading i{
 		width:4em;
 		height:4em;
 	}
-	img.odiFace:hover{
+	/*img.odiFace:hover{
 		zoom:1.4;
-	}
+	}*/
 	img.odiFace.odiOff{
 		margin-left:-3.5em;
 	}

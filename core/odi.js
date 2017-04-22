@@ -9,6 +9,7 @@ console.log('Odi\'s context initializing...');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 var exec = require('child_process').exec;
+var util = require('util');
 var os = require('os');
 var Gpio = require('onoff').Gpio;
 var CronJob = require('cron').CronJob;
@@ -24,7 +25,16 @@ global.TMP_PATH = '/home/pi/odi/tmp/';
 global.CONFIG = require(CONFIG_FILE);
 
 /** Debug Mode */
-if(CONFIG.debug) console.debug = function(o){console.log('\u2022 ' + o);}
+// if(CONFIG.debug) console.debug = function(o){console.log(o);}
+if(CONFIG.debug) console.debug = function(o){
+	// process.stdout.write(o+'');//'\u2022 '+
+	// console.log(arguments);
+	// console.log(o);
+	// process.stdout.write(util.format.apply(this, arguments) + '');
+	// process.stdout.write(util.format('\u2022 ', arguments));
+	//process.stdout.write(util.format('\u2022 %s \n', util.inspect(o));
+	process.stdout.write('\u2022 ' + util.format(util.inspect(o), '\n'));
+}
 else console.debug = function(o){};
 console.debug('-> ->  DEBUG MODE !!');
 
@@ -40,16 +50,15 @@ global.ODI.CronJob = require('cron').CronJob;
 global.ODI.time = require(CORE_PATH + 'modules/time.js');
 global.ODI.voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 global.ODI.video = require(CORE_PATH + 'modules/video.js');
-global.ODI.service = require(CORE_PATH + 'modules/service.js');
 global.ODI.tts = require(CORE_PATH + 'modules/tts.js');
 global.ODI.hardware = require(CORE_PATH + 'modules/hardware.js');
 global.ODI.jukebox = require(CORE_PATH + 'modules/jukebox.js');
 global.ODI.exclamation = require(CORE_PATH + 'modules/exclamation.js');
 global.ODI.fip = require(CORE_PATH + 'modules/fip.js');
-global.ODI.party = require(CORE_PATH + 'modules/party.js');
 global.ODI.video = require(CORE_PATH + 'modules/video.js');
 global.ODI.party = require(CORE_PATH + 'modules/party.js');
 global.ODI.admin = require(CORE_PATH + 'modules/admin.js');
+global.ODI.service = require(CORE_PATH + 'modules/service.js');
 global.ODI.buttons = require(CORE_PATH + 'controllers/buttons.js');
 global.ODI.server = require(CORE_PATH + 'controllers/server.js');
 global.ODI.jobs = require(CORE_PATH + 'controllers/jobs.js');
@@ -108,7 +117,7 @@ if(CONFIG.debug){
 	setTimeout(function(){
 		console.debug('>> CANCELING DEBUG MODE... & Restart !!');
 		ODI.utils.setConfig({debug: !CONFIG.debug}, true);
-	}, 10*60*1000);
+	}, 30*60*1000);//10*60*1000
 }
 
 // ------------------------//
@@ -118,12 +127,18 @@ if(CONFIG.debug){
 // var constants = os.constants;
 console.log('os.constants', os.constants);
 //!:
+var boolean = true;
 setInterval(function(){
-	var loads = os.loadavg();
+	// var loads = os.loadavg();
 	// console.log('loads', loads);
-	var cpu = os.cpus()
+	// var cpu = os.cpus()
 	// console.log('cpu', cpu);
-}, 2000);
+	// LogAction(boolean?toto:'toto');
+	// !boolean;
+
+	// ODI.service.randomAction();
+}, 10000);
+
 // spawn('sh', ['/home/pi/odi/core/sh/diapo.sh']);
 
 /*setTimeout(function(){

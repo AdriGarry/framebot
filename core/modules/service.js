@@ -13,8 +13,6 @@ var tts = require(CORE_PATH + 'modules/tts.js');
 var time = require(CORE_PATH + 'modules/time.js');
 var exclamation = require(CORE_PATH + 'modules/exclamation.js');*/
 
-//var order = require(CORE_PATH + 'controllers/orders.js');
-
 module.exports = {
 	randomAction: randomAction,
 	adriExclamation: adriExclamation,
@@ -22,52 +20,34 @@ module.exports = {
 	weather: weatherService
 };
 
+var randomActionBase = [
+	{label:'ODI.tts.speak', call: ODI.tts.speak, weighting: 6},
+	{label:'ODI.tts.randomConversation', call: ODI.tts.randomConversation, weighting: 5},
+	{label:'ODI.exclamation.exclamation', call: ODI.exclamation.exclamation, weighting: 1},
+	{label:'ODI.time.now', call: ODI.time.now, weighting: 1},
+	{label:'ODI.time.today', call: ODI.time.today, weighting: 1},
+	{label:'weatherService', call: weatherService, weighting: 1},
+	{label:'cpuTemp', call: cpuTemp, weighting: 1},
+	{label:'ODI.time.sayOdiAge', call: ODI.time.sayOdiAge, weighting: 1},
+	{label:'adriExclamation', call: adriExclamation, weighting: 3}
+];
+
+var randomActionList = [];
+for(var i=0;i<randomActionBase.length;i++){
+	var loop = randomActionBase[i].weighting;
+	while(loop){
+		randomActionList.push(randomActionBase[i]);
+		loop--;
+	}
+}
+// console.log('randomActionList', randomActionList);
+
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction(){
-	var rdm = Math.floor(Math.random()*30);
-	console.log('randomAction [rdm = ' + rdm + ']');
-	switch(rdm){
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-		case 6:
-		case 7:
-		case 8:
-		case 9:
-		case 10:
-			ODI.tts.speak();
-			break;
-		case 11:
-		case 12:
-		case 13:
-		case 16:
-		case 17:
-		case 18:
-			ODI.tts.randomConversation();
-			break;
-		case 19:
-			weatherService();
-			break;
-		case 20:
-			cpuTemp();
-			break;
-		case 21:
-			ODI.time.sayOdiAge();
-			break;
-		case 22:
-			ODI.time.now();
-			break;
-		case 23:
-			ODI.time.today();
-			break;
-		case 24:
-			adriExclamation();
-			break;
-		default:
-			ODI.exclamation.exclamation();
-	}
+	var action = randomActionList[Math.floor(Math.random()*randomActionList.length)];
+	console.log('randomAction:', action.label, '[' + action.weighting + ']');
+	ODI.leds.altLeds(90, 0.6);
+	if(typeof action.call === 'function') (action.call)();
 };
 
 /** Function 'Aaaadri' speech */

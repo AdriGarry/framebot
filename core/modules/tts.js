@@ -20,7 +20,7 @@ fs.readFile('/home/pi/odi/data/ttsMessages.json', function(err, data){
 	}
 	RDM_MESSAGE_LIST = JSON.parse(data);
 	RDM_MESSAGE_LIST_LENGTH = RDM_MESSAGE_LIST.length;
-	console.debug('ttsMessage length:', RDM_MESSAGE_LIST_LENGTH);
+	// console.debug('ttsMessage length:', RDM_MESSAGE_LIST_LENGTH);
 });
 
 var RDM_CONVERSATION_LIST, RDM_CONVERSATION_LIST_LENGTH;
@@ -31,7 +31,7 @@ fs.readFile('/home/pi/odi/data/ttsConversations.json', function(err, data){
 	}
 	RDM_CONVERSATION_LIST = JSON.parse(data);
 	RDM_CONVERSATION_LIST_LENGTH = RDM_CONVERSATION_LIST.length;
-	console.debug('ttsConversation length:', RDM_MESSAGE_LIST_LENGTH);
+	// console.debug('ttsConversation length:', RDM_MESSAGE_LIST_LENGTH);
 });
 
 var onAir = false, ttsQueue = [], lastTtsMsg = {voice: 'espeak', lg: 'en', msg: '.undefined'};
