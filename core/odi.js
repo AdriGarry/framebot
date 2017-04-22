@@ -107,11 +107,12 @@ if(ODI.buttons.getEtat() == 1){
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){
 	//TODO screen on & tail odi.log !
-	console.debug('Setting up time out to cancel Debug mode !!');
+	var debugTimeout = 30*60*1000;//10*60*1000
+	console.debug('Timeout to cancel Debug mode:',debugTimeout);
 	setTimeout(function(){
 		console.debug('>> CANCELING DEBUG MODE... & Restart !!');
 		ODI.utils.setConfig({debug: !CONFIG.debug}, true);
-	}, 30*60*1000);//10*60*1000
+	}, debugTimeout);
 }
 
 // ------------------------//

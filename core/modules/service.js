@@ -40,7 +40,6 @@ for(var i=0;i<randomActionBase.length;i++){
 		loop--;
 	}
 }
-console.debug(randomActionList);
 
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction(){
