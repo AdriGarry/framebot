@@ -234,13 +234,10 @@ function startUI(mode){
 				if(ttsMsg.hasOwnProperty('voicemail')){
 					ODI.voiceMail.addVoiceMailMessage({voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg});
 				}else{
-					// console.log(tts, tts.speak);
 					ODI.tts.speak({voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg});
 				}
 			}else{
-				// ODI.tts.speak('','RANDOM'); // Random TTS
-				// ODI.tts.speak({msg:'RANDOM'}); // Random TTS
-				ODI.tts.speak(); // Random TTS
+				ODI.tts.speak({msg:'RANDOM'}); // Random TTS
 			}
 			res.writeHead(200);res.end();
 		});

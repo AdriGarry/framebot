@@ -221,11 +221,12 @@ String.prototype.repeat = function(num){
 	return new Array(Math.abs(num) + 1).join(this);
 };
 
-String.prototype.format = function(){
+/*String.prototype.format = function(){
 	var args = Array.prototype.slice.call(arguments);
 	args.unshift(this.valueOf());
 	return util.format.apply(util, args);
-};
+};*/
+
 /** Function to test if an array contains an element */
 /*Array.prototype.contains = function(element){
 	return this.indexOf(element) > -1;

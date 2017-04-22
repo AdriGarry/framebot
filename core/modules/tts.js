@@ -4,10 +4,13 @@
 
 var spawn = require('child_process').spawn;
 var fs = require('fs');
-//var request = require('request');
-/*var leds = require(CORE_PATH + 'modules/leds.js');
-var utils = require(CORE_PATH + 'modules/utils.js');*/
-//var self = this;
+
+module.exports = { // Singleton
+	speak: speak,
+	randomConversation: randomConversation,
+	clearTTSQueue: clearTTSQueue,
+	lastTTS: lastTTS
+};
 
 // const LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.log';
 const LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.json';
@@ -35,13 +38,6 @@ fs.readFile('/home/pi/odi/data/ttsConversations.json', function(err, data){
 });
 
 var onAir = false, ttsQueue = [], lastTtsMsg = {voice: 'espeak', lg: 'en', msg: '.undefined'};
-
-module.exports = { // Singleton
-	speak: speak,
-	randomConversation: randomConversation,
-	clearTTSQueue: clearTTSQueue,
-	lastTTS: lastTTS
-};
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts){
@@ -105,7 +101,7 @@ function randomConversation(){
 	console.debug('randomConversation()');
 	var rdmNb = ((Math.floor(Math.random()*RDM_CONVERSATION_LIST_LENGTH))); // IMPORT JSON FILE
 	var conversation = RDM_CONVERSATION_LIST[rdmNb];
-	console.debug(conversation);
+	// console.debug(conversation);
 	console.log('Random conversation : ' + (rdmNb+1) + '/' + RDM_CONVERSATION_LIST_LENGTH);
 	speak(conversation);
 };

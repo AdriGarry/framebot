@@ -26,17 +26,11 @@ global.CONFIG = require(CONFIG_FILE);
 
 /** Debug Mode */
 // if(CONFIG.debug) console.debug = function(o){console.log(o);}
-if(CONFIG.debug) console.debug = function(o){
-	// process.stdout.write(o+'');//'\u2022 '+
-	// console.log(arguments);
-	// console.log(o);
-	// process.stdout.write(util.format.apply(this, arguments) + '');
-	// process.stdout.write(util.format('\u2022 ', arguments));
-	//process.stdout.write(util.format('\u2022 %s \n', util.inspect(o));
-	process.stdout.write('\u2022 ' + util.format(util.inspect(o), '\n'));
+if(CONFIG.debug){
+	console.log('\u2022\u2022\u2022 DEBUG MODE \u2022\u2022\u2022');
+	console.debug = function(o){process.stdout.write(util.format('\u2022 %s\n', util.inspect(o).replace(/^'+/g, '').replace(/'$/g, '')));}
 }
 else console.debug = function(o){};
-console.debug('-> ->  DEBUG MODE !!');
 
 spawn('sh', [CORE_PATH + 'sh/init.sh']);
 spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);

@@ -6,6 +6,7 @@ var mode = process.argv[2]; // Retreive args
 console.log('Odi\'s sleeping mode context initializing...');
 
 var spawn = require('child_process').spawn;
+var util = require('util');
 var Gpio = require('onoff').Gpio;
 var CronJob = require('cron').CronJob;
 
@@ -20,9 +21,11 @@ global.CONFIG = require(CONFIG_FILE);
 
 
 /** Debug Mode */
-if(CONFIG.debug) console.debug = function(o){console.log('\u2022 ' + o);}
+if(CONFIG.debug){
+	console.log('\u2022\u2022\u2022 DEBUG MODE \u2022\u2022\u2022');
+	console.debug = function(o){process.stdout.write(util.format('\u2022 %s\n', util.inspect(o).replace(/^'+/g, '').replace(/'$/g, '')));}
+}
 else console.debug = function(o){};
-console.debug('-> ->  DEBUG MODE !!');
 
 global.ODI = {};
 global.ODI.gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
