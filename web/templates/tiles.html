@@ -87,7 +87,7 @@
 		<div class="main">
 			<i class="mainInfo fa fa-moon-o" data-ng-show="$ctrl.data.value.mode == 'Sleep'"></i>
 			<div data-ng-hide="$ctrl.data.value.mode == 'Sleep'">{{$ctrl.data.value.mode}}</div>
-			<div class="param">{{$ctrl.data.value.param}}</div>
+			<div class="param" data-ng-class="$ctrl.data.value.mode =='Sleep'? 'paramSleep' : ''">{{$ctrl.data.value.param}}</div>
 		</div>
 	</div>
 

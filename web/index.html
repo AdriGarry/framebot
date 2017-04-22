@@ -68,9 +68,9 @@
 	</div> -->
 	<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools">
-			<img src="img/odi.jpg" alt="Odi's face" data-ng-hide="connexionLost" class="odiFace ng-slide-fast" 
-				ng-class="dashboard.odiState.sleep ? 'sleep' : ''" data-ng-click="reloadUI()" title="Reload UI">
-			<img src="img/snow.gif" alt="Connexion lost" data-ng-class="connexionLost ? 'visible' : 'hidden'" data-ng-click="reloadUI()" class="odiFace ng-slide-fast connexionLost" title="Reload UI">
+			<img src="img/odi.jpg" alt="Odi's face" data-ng-hide="connexionLost" class="odiFace ng-slide-slow infiniteSwingHover" 
+				data-ng-class="dashboard.odiState.sleep ? 'sleep' : ''" data-ng-click="reloadUI()" title="Reload UI">
+			<img src="img/snow.gif" alt="Connexion lost" data-ng-class="connexionLost ? 'visible' : 'hidden'" class="odiFace connexionLost" title="Odi is not responding..."><!--data-ng-click="reloadUI()"-->
 			<h1 class="ng-slide-fast" data-ng-dblclick="irda && action({label: 'Restart Odi', url: '/odi'})" title="{{irda?'Restart Odi\'s Core':'Hey, I\'m Odi !'}}">Odi UI
 			<!--Restart Odi's Core-->
 				<sup class="version" title="version">{{dashboard.runningData.version.value}}&nbsp;</sup>
