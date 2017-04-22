@@ -354,7 +354,7 @@ md-content{
 	text-transform:none;
 	vertical-align:middle;
 }
-.dashboard > [flex] > .tile:hover *{
+.dashboard > [flex] > .tile:not(.tts):hover *{
 	text-shadow:8px -2px 5px rgba(150, 150, 150, 0.5);
 }
 
