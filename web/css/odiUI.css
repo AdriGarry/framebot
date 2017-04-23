@@ -11,6 +11,7 @@ ul{margin:0;padding:0;}
 	margin-right:auto;
 }
 .centerText{text-align:center;}
+.opacity-half{opacity:0.5;}
 /*.opacityHalf{opacity:0.5;}*/
 
 .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab:not(.muteButton){
@@ -338,6 +339,12 @@ md-sidenav md-toolbar .tools{
 .menu md-slider{
 	width:30vw;
 	margin-top:-1em;
+}
+.menu .lastUpdate{
+	position:absolute;
+	width:100%;
+	bottom:1em;
+	font-size:0.8em;
 }
 
 /*------------------------------ MAIN ------------------------------- */

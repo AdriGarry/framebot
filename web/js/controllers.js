@@ -13,44 +13,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 	$scope.dashboard = {
 		odiState: setOdiState(),
 		autoRefresh: true,
-		//loopInterval: 0,
 		loading: false,
-		/*ttsTile: {
-			label: 'TTS - Voice synthesizing',
-			color: 'grey',
-			rowspan : 1,
-			colspan: 3,
-			voice: 'google',
-			lg: 'fr',
-			msg: '',
-			voicemail: false,
-			error: '',
-			conf: {
-				languageList: [{code: 'fr', label: 'French'}, {code: 'en', label: 'English'}, {code: 'ru', label: 'Russian'},
-					{code: 'es', label: 'Spanish'}, {code: 'it', label: 'Italian'}, {code: 'de', label: 'German'}],
-				voiceList: [{code: 'google', label: 'Nice voice'}, {code: 'espeak', label: 'Robot voice'}]
-			},
-			cleanText: function(){ // TODO create an UtilsService... OR A FILTER ???
-				var message = $scope.dashboard.ttsTile.msg || '';
-				message = message.replace(/[àâ]/g,'a');
-				message = message.replace(/[ç]/g,'c');
-				message = message.replace(/[èéêë]/g,'e');
-				message = message.replace(/[îï]/g,'i');
-				message = message.replace(/[ôóö]/g,'o');
-				message = message.replace(/[ù]/g,'u');
-				$scope.dashboard.ttsTile.msg = message;
-			},
-			submit: function(){
-				if($scope.dashboard.ttsTile.msg != ''){
-					UIService.sendTTS($scope.dashboard.ttsTile, function(callback){
-						if(callback.status == 200){
-							$scope.dashboard.ttsTile.msg = ''; $scope.dashboard.ttsTile.error = ''; // Reinit TTS
-						}
-					});
-				}
-			}
-		},*/
-		//tileList: UIService.initDashboardTiles,
 		runningData: null
 	};
 
@@ -168,58 +131,6 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			$scope.refreshDashboard();
 		});
 	};
-
-	/** Function on click on Tile **/
-	/*$scope.tileAction = function(tile){
-		//console.log('tile', tile);
-		if($scope.irda){
-			if(tile.actionList.length>1){
-				$scope.openBottomSheet(tile.actionList);
-			}else if(tile.actionList.length==1){
-				$scope.action(tile.actionList[0]);
-			}else{
-				console.log('No action affected. OLD');
-			}
-		}
-	}*/
-
-	/** Function to send action **/
-	/*$scope.action = function(button){
-		//$scope.dashboard.autoRefresh = true; //TODO reactivate autoRefresh on Tile action
-		if(button.url.indexOf('http://') > -1){
-			//$window.open(button.url);
-			UIService.getRequest(button.url, function(data){
-				//console.log('data', data);
-				$scope.showDialog({label: button.label, data: data});
-			});
-		}else{
-			UIService.sendCommand(button, function(data){
-				// $scope.showToast(button.label);
-				$scope.refreshDashboard();
-			});
-		}
-	};*/
-
-	/** Function to open bottom sheet **/
-	/*$scope.openBottomSheet = function(bottomSheetList){
-		if($scope.irda){
-			$rootScope.bottomSheetButtonList = bottomSheetList;
-			$scope.alert = '';
-			$mdBottomSheet.show({
-				templateUrl: 'templates/bottom-sheet.html',
-				// controller: 'UIController',
-				controller: 'BottomSheetController',
-				clickOutsideToClose: true
-			}).then(function(action){
-				// $scope.showToast(action.label);
-			});
-		}
-	};*/
-	/** Function on click on bottom sheet **/
-	/*$scope.bottomSheetAction = function(button){
-		$scope.action(button);
-		$mdBottomSheet.hide(button);
-	};*/
 
 	/** Function to show fab buttons for 5 seconds */
 	var timeout;

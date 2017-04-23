@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # script:  watch
+# url: https://gist.github.com/mikesmullin/6401258
 # author:  Mike Smullin <mike@smullindesign.com>
 # license: GPLv3
 # description:
@@ -14,32 +15,42 @@ path=$1
 shift
 cmd=$*
 sha=0
+
 update_sha(){
 	sha=`ls -lR --time-style=full-iso $path | sha1sum`
+	# echo sha $sha
 }
+
 update_sha
 previous_sha=$sha
+
 build(){
-	echo -en " building...\n\n"
+	# echo -n "building:\n"
+	echo $cmd
 	$cmd
-	echo -en "\n--> resume watching."
+	# sh "/home/pi/odi/core/sh/watchAction.sh" updateLastModified
+	echo "|--> watcher > resume watching..."
 }
+
 compare(){
 	update_sha
-	if [[ $sha != $previous_sha ]]; then
-		echo -n "change detected,"
+	if [ "$sha" = "$previous_sha" ]
+	then
+		echo -n .
+	else
+		echo "\n|--> watcher > change detected, building:"
 		build
 		previous_sha=$sha
-	else
-		echo -n .
 	fi
 }
+
 trap build SIGINT
 trap exit SIGQUIT
 
-echo -e  "--> Press Ctrl+C to force build, Ctrl+\\ to exit."
-echo -en "--> watching \"$path\"."
+echo "|--> Press Ctrl+C to force build, Ctrl+\\ to exit."
+echo "|--> watching \"$path\"."
+
 while true; do
 	compare
-	sleep 1
+	sleep 2
 done

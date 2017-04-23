@@ -2,9 +2,7 @@
 'use strict'
 
 var mode = process.argv[2]; // Get parameters
-// console.log('>> Odi Core start sequence...',(mode ? '[mode:' + mode + ']' : ''));
-// console.log('>> Odi Core context initialization...');
-console.log('Odi\'s context initializing...');
+// console.log('Odi\'s context initializing...');
 
 var spawn = require('child_process').spawn;
 var fs = require('fs');
@@ -70,7 +68,9 @@ new CronJob('*/3 * * * * *', function(){
 
 ODI.buttons.initButtonAwake();
 
-ODI.jobs.startClock(ODI.buttons.getEtat()); // Starting speaking clock
+var etat = ODI.buttons.getEtat();
+console.debug('ODI.buttons.etat:', etat);
+ODI.jobs.startClock(etat); // Starting speaking clock
 
 // if(time.isAlarm()){// ALARMS
 // 	time.cocorico('sea'); // ============> TODO TODO TODO !!!
@@ -96,18 +96,17 @@ ODI.jobs.setBackgroundJobs();
 ODI.voiceMail.voiceMailFlag();
 ODI.leds.toggle({led:'eye', mode: 0});
 
-console.log('ODI.buttons.getEtat()', ODI.buttons.getEtat());
-if(ODI.buttons.getEtat() == 1){
+if(etat == 1){
 	ODI.video.startCycle();
 }else{
-	// ODI.video.screenOff(); // TODO tail odi.log
-	//ODI.video.screenOn();
+	ODI.video.screenOff();
 }
 
 /** If debug mode, set a timer to cancel in 20 min */
 if(CONFIG.debug){
 	//TODO screen on & tail odi.log !
 	var debugTimeout = 30*60*1000;//10*60*1000
+	// TODO launch timeout watcher
 	console.debug('Timeout to cancel Debug mode:',debugTimeout);
 	setTimeout(function(){
 		console.debug('>> CANCELING DEBUG MODE... & Restart !!');
@@ -140,11 +139,3 @@ setInterval(function(){
 	console.log('ODI.leds.altLeds()');
 	ODI.leds.altLeds(50, 5);
 }, 2000);*/
-
-/*setInterval(function(){
-	var etat = ODI.buttons.getEtat();
-	if(etat){
-		console.log('tts.js TEST');
-		ODI.tts.randomConversation();
-	}
-}, 3*60*1000);*/

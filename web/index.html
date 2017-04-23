@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html data-ng-app="odiUI">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -73,7 +73,7 @@
 			<img src="img/snow.gif" alt="Connexion lost" data-ng-class="connexionLost ? 'visible' : 'hidden'" class="odiFace connexionLost" title="Odi is not responding..."><!--data-ng-click="reloadUI()"-->
 			<h1 class="ng-slide-fast" data-ng-dblclick="irda && action({label: 'Restart Odi', url: '/odi'})" title="{{irda?'Restart Odi\'s Core':'Hey, I\'m Odi !'}}">Odi UI
 			<!--Restart Odi's Core-->
-				<sup class="version" title="version">{{dashboard.runningData.version.value}}&nbsp;</sup>
+				<sup class="version" title="version {{dashboard.runningData.config.version}} [{{dashboard.runningData.config.update}}]">{{dashboard.runningData.config.version}}&nbsp;</sup>
 			</h1>
 			<span flex></span>
 			<i class="debug fa fa-circle" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i>&nbsp;
@@ -156,6 +156,9 @@
 						<div flex>Reload UI</div>
 						<div flex><i class="fa fa-lg fa-2x fa-repeat"></i></div>
 					</md-list-item>
+					<md-divider></md-divider>
+					<div class="lastUpdate centerText opacity-half">
+						Last update: {{dashboard.runningData.config.update}}</div>
 				</md-list>
 			<!-- </div> -->
 		</div>

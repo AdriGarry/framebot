@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+/** Params detection */
+const lastUpdated = process.argv[2];
+
 /** Odi's global variables  */
 global.ODI_PATH = '/home/pi/odi/';
 global.CORE_PATH = '/home/pi/odi/core/';
@@ -16,6 +19,11 @@ var spawn = require('child_process').spawn;
 var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
 var leds = require(CORE_PATH + 'modules/leds.js');
+
+// console.log('lastUpdated:', lastUpdated);
+utils.setDefaultConfig({update: lastUpdated}, false);
+// utils.updateLastModifed();
+
 // console.log('MASTER logTime', utils.logTime('D/M h:m:s'));
 var odiPgm, odiState = false, errorLimit = 1;
 const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');

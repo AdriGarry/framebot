@@ -2,7 +2,6 @@
 'use strict'
 
 var mode = process.argv[2]; // Retreive args
-// var introMsg = 'Odi\'s sleeping mode, context initialization...';
 console.log('Odi\'s sleeping mode context initializing...');
 
 var spawn = require('child_process').spawn;

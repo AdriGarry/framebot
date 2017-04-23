@@ -14,6 +14,8 @@ module.exports = {
 	logTime: logTime,
 	logConfigArray: logConfigArray,
 	setConfig: setConfig,
+	setDefaultConfig: setDefaultConfig,
+	updateLastModifed: updateLastModifed,
 	resetConfig: resetConfig,
 	prepareLogs: prepareLogs,
 	getJsonFileContent: getJsonFileContent,
@@ -61,8 +63,8 @@ function logTime(param, date){
 /** Function to log CONFIG array */
 function logConfigArray(updatedEntries){
 	// updatedEntries.indexOf(tts.voice) == -1
-	var col1 = 11, col2 = 15;
-	var confArray = '\n|-------------------------------|\n|             CONFIG            |' + '\n|-------------------------------|\n';
+	var col1 = 11, col2 = 16;
+	var confArray = '\n|--------------------------------|\n|             CONFIG             |' + '\n|--------------------------------|\n';
 	Object.keys(CONFIG).forEach(function(key,index){
 		if(key == 'alarms'){
 			Object.keys(CONFIG[key]).forEach(function(key2,index2){
@@ -82,7 +84,7 @@ function logConfigArray(updatedEntries){
 				+ ' | ' + CONFIG[key] + ' '.repeat(col2-CONFIG[key].toString().length) + ' |\n';
 		}
 	});
-	console.log(confArray + '|-------------------------------|');
+	console.log(confArray + '|--------------------------------|');
 };
 
 /** Function to set/edit Odi's config */
@@ -109,6 +111,62 @@ function setConfig(newConf, restart, callback){
 			if(callback) callback();
 		});
 	});
+};
+
+/** Function to set/edit Odi's default config file */
+const DEFAULT_CONFIG_FILE = '/home/pi/odi/data/defaultConf.json';
+function setDefaultConfig(newConf, restart, callback){
+	console.debug('setConfig(newConf)', newConf);
+	//logConfigArray();
+	getJsonFileContent(DEFAULT_CONFIG_FILE, function(data){
+		var config = JSON.parse(data);
+		var updatedEntries = [];
+		Object.keys(newConf).forEach(function(key,index){
+			updatedEntries.push(key);
+			config[key] = newConf[key];
+		});
+		//config.update = now('T (D)');
+		//console.log('now("dt")', now('dt'));
+		global.CONFIG = config;
+		fs.writeFile(DEFAULT_CONFIG_FILE, JSON.stringify(CONFIG, null, 2), function(){
+			// logConfigArray(updatedEntries);
+			if(restart){
+				console.debug('process.exit()');
+				process.exit();
+			}
+			if(callback) callback();
+		});
+	});
+};
+
+/** Function to set/edit Odi's default config file */
+function updateLastModifed(){
+	console.log('updateLastModifed');
+
+fs.readdir(process.cwd(), function(err, files){
+	if(err){
+		console.error(err);
+		return;
+	}
+	console.log(files);
+	for(var i = 0;i<files.length;i++){
+		//if(files[i].test) // Regex to test .*\.watcher$
+	}
+});
+
+	// getJsonFileContent(DEFAULT_CONFIG_FILE, function(data){
+	// 	var config = JSON.parse(data);
+
+	// 	global.CONFIG = config;
+	// 	fs.writeFile(DEFAULT_CONFIG_FILE, JSON.stringify(CONFIG, null, 2), function(){
+	// 		logConfigArray(updatedEntries);
+	// 		if(restart){
+	// 			console.debug('process.exit()');
+	// 			process.exit();
+	// 		}
+	// 		if(callback) callback();
+	// 	});
+	// });
 };
 
 /** Function to reset Odi's config */

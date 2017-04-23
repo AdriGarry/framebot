@@ -124,6 +124,7 @@ function startUI(mode){
 		var cpuTemp = ODI.hardware.getCPUTemp();
 		var cpuUsage = ODI.hardware.getCPUUsage();
 		var dashboard = {
+			config: CONFIG,
 			mode: {value: {
 				// mode: isNaN(parseFloat(mode)) ? (CONFIG.debug ? 'Debug' : 'Ready') : 'Sleep',
 				mode: CONFIG.mode != 'sleep' ? (CONFIG.debug ? 'Debug' : 'Ready') : 'Sleep',
@@ -139,8 +140,8 @@ function startUI(mode){
 			cpu: {value: {usage: cpuUsage, temp: cpuTemp}, active: (cpuTemp > 55 || cpuUsage >= 20) ? true : false},
 			alarms: {value: CONFIG.alarms, active: true},
 			//config: {value: CONFIG},
-			version: {value: CONFIG.version},
-			debug: {value: CONFIG.debug}
+			version: {value: CONFIG.version},// DEPRECATED !
+			debug: {value: CONFIG.debug}// TO DEPRECATE...
 		};
 		res.writeHead(200);
 		res.end(JSON.stringify(dashboard));
