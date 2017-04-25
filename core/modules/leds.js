@@ -32,7 +32,7 @@ function blink(config){
 			setTimeout(function(){
 				for(var led in config.leds){
 					// console.log(config.leds[led] + '  => END');
-					eval(config.leds[led]).write(0);
+					eval(config.leds[led]).write(0); // TODO remplacer eval
 				}
 			}, config.speed * config.loop * 2 +50);
 			for(loop = config.loop * 2; loop > 0; loop--){
@@ -40,7 +40,7 @@ function blink(config){
 					for(var i in leds){
 						var led = leds[i]
 						// console.log('led : ' + led);
-						eval(led).write(etat);
+						eval(led).write(etat); // TODO remplacer eval
 					}
 					etat = 1 - etat; // VOIR POUR ALTERNER ??
 				}, config.speed * loop, config.leds);
@@ -61,7 +61,7 @@ function blink(config){
 function toggle(config){
 	// console.log('toogle() ' + config.led + (config.mode ? ' on':' off'));
 	if(['nose', 'eye', 'satellite', 'belly'].indexOf(config.led) > -1){
-		eval(config.led).write(config.mode? 1 : 0);
+		eval(config.led).write(config.mode? 1 : 0); // TODO remplacer eval
 	}
 };
 

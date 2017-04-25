@@ -53,7 +53,7 @@ function startUI(mode){
 			next();
 		}else{ // Not allowed requests
 			request = '401 ' + req.url.replace('%20',' ');
-			ODI.tts.speak({voice:'espeak', lg:'en', msg:'Wrong request'});
+			ODI.tts.speak({voice:'espeak', lg:'en', msg:'Bad request'});
 			console.error(request, ip);
 			res.status(401); // Unauthorized
 			res.end();
