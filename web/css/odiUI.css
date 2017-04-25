@@ -389,6 +389,9 @@ md-content{
 .dashboard > [flex] > .tile:not(.tts):hover *{
 	text-shadow:8px -2px 5px rgba(150, 150, 150, 0.5);
 }
+.dashboard > [flex] > .tile:hover footer{
+	background-color:rgba(73, 96, 105, 0.7)!important;
+}
 
 .dashboard > [flex] > .tile:not(.tts){/*:not(.tts)*/
 	font-size:1.2vw;
