@@ -6,15 +6,6 @@ var spawn = require('child_process').spawn;
 var fs = require('fs');
 var CronJob = require('cron').CronJob;
 
-/*var hardware = require(CORE_PATH + 'modules/hardware.js');
-var utils = require(CORE_PATH + 'modules/utils.js');
-var fip = require(CORE_PATH + 'modules/fip.js');
-var jukebox = require(CORE_PATH + 'modules/jukebox.js');
-var tts = require(CORE_PATH + 'modules/tts.js');
-var service = require(CORE_PATH + 'modules/service.js');
-var time = require(CORE_PATH + 'modules/time.js');
-var voiceMail = require(CORE_PATH + 'modules/voiceMail.js');*/
-
 var date = new Date();
 var hour = date.getHours();
 var pastHour = hour;
@@ -103,13 +94,25 @@ function setBackgroundJobs(){
 	new CronJob('13 13 13 * * 0', function(){
 		ODI.tts.speak({voice:'espeak', lg:'fr', msg:'Auto reboot'}); // Weekly RPI reboot
 		setTimeout(function(){
+			ODI.utils.resetConfig();
+		}, 3000);
+	}, null, true, 'Europe/Paris');
+
+	new CronJob('15 15 13 * * 0', function(){
+		ODI.tts.speak({voice:'espeak', lg:'fr', msg:'Auto reboot'}); // Weekly RPI reboot
+		setTimeout(function(){
 			ODI.hardware.reboot();
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 
-	new CronJob('0 0 5 * * 2', function(){
+	new CronJob('0 0 5 * * 1', function(){
 		console.log('Clean log files  /!\\'); // Weekly cleaning of logs
 		ODI.hardware.cleanLog();
+	}, null, true, 'Europe/Paris');
+
+	new CronJob('0 1 5 * * 1', function(){
+		console.log('Get last update date & time'); // Weekly
+		ODI.hardware.updateLastModifiedTime();
 	}, null, true, 'Europe/Paris');
 	console.log('Background jobs initialised');
 };

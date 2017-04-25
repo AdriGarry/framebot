@@ -24,6 +24,14 @@ var leds = require(CORE_PATH + 'modules/leds.js');
 utils.setDefaultConfig({update: lastUpdated}, false);
 // utils.updateLastModifed();
 
+// Watchers
+spawn('sh', [CORE_PATH + 'sh/watcher.sh', '/home/pi/odi/core/', '"sh /home/pi/odi/core/sh/watchAction.sh updateLastModified"']);
+// sudo sh "/home/pi/odi/core/sh/watcher.sh" /home/pi/odi/core/ "sh /home/pi/odi/core/sh/watchAction.sh updateLastModified" &
+// sudo sh "/home/pi/odi/core/sh/watcher.sh" /home/pi/odi/data/ "sh /home/pi/odi/core/sh/watchAction.sh updateLastModified" &
+// sudo sh "/home/pi/odi/core/sh/watcher.sh" /home/pi/odi/web/ "sh /home/pi/odi/core/sh/watchAction.sh updateLastModified" &
+
+
+
 // console.log('MASTER logTime', utils.logTime('D/M h:m:s'));
 var odiPgm, odiState = false, errorLimit = 1;
 const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');

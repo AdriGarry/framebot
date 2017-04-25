@@ -56,9 +56,11 @@ function playFip(){
 
 /** Function to stop FIP radio */
 function stopFip(message){
-	console.log('playFip()> playing', playing);
-	console.debug(message || 'Stoping FIP RADIO.');
-	spawn('sh', ['/home/pi/odi/core/sh/mute.sh']);
+	if(playing){
+		console.log('playFip()> playing', playing);
+		console.debug(message || 'Stoping FIP RADIO.');
+	}
+	spawn('sh', ['/home/pi/odi/core/sh/mute.sh']); // Inutile ?
 	playing = false;
 	clearInterval(fipInterval);
 	eye.write(0);

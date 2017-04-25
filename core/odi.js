@@ -139,3 +139,8 @@ setInterval(function(){
 	console.log('ODI.leds.altLeds()');
 	ODI.leds.altLeds(50, 5);
 }, 2000);*/
+
+// execCmd('ls /home/pi/odi/');
+// find /home/pi/odi/ -exec stat \{} --printf="%y\n" \; | sort -n -r | head -n 1
+// ODI.utils.execCmd('find /home/pi/odi/ -exec stat \\\{} --printf="%y\\\n" \\\; | sort -n -r | head -n 1');
+// ODI.utils.execCmd('find /home/pi/odi/ -printf "%T+\n" | sort -nr | head -n 1');

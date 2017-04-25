@@ -11,6 +11,8 @@
 #   watch <path> <cmd...>
 #
 
+sudo touch /home/pi/odi/toto
+
 path=$1
 shift
 cmd=$*
@@ -30,6 +32,7 @@ build(){
 	$cmd
 	# sh "/home/pi/odi/core/sh/watchAction.sh" updateLastModified
 	echo "|--> watcher > resume watching..."
+	sudo touch /home/pi/odi/titi
 }
 
 compare(){
@@ -37,6 +40,7 @@ compare(){
 	if [ "$sha" = "$previous_sha" ]
 	then
 		echo -n .
+		sudo touch /home/pi/odi/tata
 	else
 		echo "\n|--> watcher > change detected, building:"
 		build

@@ -17,6 +17,7 @@ module.exports = {
 	getCPUUsage: getCPUUsage,
 	getCPUTemp: getCPUTemp,
 	getOdiAge: getOdiAge,
+	updateLastModifiedTime: updateLastModifiedTime,
 	cleanLog: cleanLog,
 	getMsgLastGitCommit: getMsgLastGitCommit
 };
@@ -52,22 +53,6 @@ function stopAll(message){
 
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode){
-	// if(typeof mode === 'number' && mode > 0){
-	/*if(mode > 0){
-		mode = parseInt(mode, 10);
-		setTimeout(function(){
-			console.log('Odi is going to sleep [' + mode + ']');
-			process.exit(mode);
-		}, 300); // Pause pour operations et clean msg
-	}else{
-		setTimeout(function(){
-			console.log('Restarting Odi !!');
-			process.exit();
-			// process.exit(-1);
-		}, 300); // Pause pour operations et clean msg
-	}*/
-	//ODI.utils.setConfig();
-	// console.log('restartOdi() function DEPRECATED !');
 	console.log('restartOdi(mode)', mode);
 	if(mode > 0){
 		console.log('SLEEP');
@@ -156,9 +141,24 @@ function getOdiAge(){
 	return age;
 };
 
+/** Function to update last modified date & time of Odi's files */
+function updateLastModifiedTime(){
+	ODI.utils.execCmd('find /home/pi/odi/core -printf "%T+\n" | sort -nr | head -n 1', function(data){
+		console.debug('updateLastModifiedTime()', data, typeof data);
+		data = data.substring(0, data.indexOf(".")-3); // +3
+		// console.log('data2', data);
+		ODI.utils.setDefaultConfig({update: data});
+		// if(CONFIG.update != data){
+			// console.log('TOTO123');
+			// ODI.utils.setConfig({update: data}, true);
+		// }
+	});
+};
+updateLastModifiedTime();
+
 /** Function to clean and archive logs */
 function cleanLog(){
-	var deploy = spawn('sh', ['/home/pi/odi/core/sh/log.sh', 'clean']);
+	spawn('sh', ['/home/pi/odi/core/sh/log.sh', 'clean']);
 };
 
 /** Function to get last git commit message */

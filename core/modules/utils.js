@@ -6,9 +6,6 @@ var fs = require('fs');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var os = require("os");
-/*var hardware = require(CORE_PATH + 'modules/hardware.js');
-var leds = require(CORE_PATH + 'modules/leds.js');
-var exclamation = require(CORE_PATH + 'modules/exclamation.js');*/
 
 module.exports = {
 	logTime: logTime,
@@ -21,8 +18,8 @@ module.exports = {
 	getJsonFileContent: getJsonFileContent,
 	appendJsonFile: appendJsonFile,
 	searchStringInArray: searchStringInArray,
-	//randomAction: randomAction,
 	testConnexion: testConnexion,
+	execCmd: execCmd
 };
 
 /** Function to return date time. Pattern: 'DT' */
@@ -116,7 +113,7 @@ function setConfig(newConf, restart, callback){
 /** Function to set/edit Odi's default config file */
 const DEFAULT_CONFIG_FILE = '/home/pi/odi/data/defaultConf.json';
 function setDefaultConfig(newConf, restart, callback){
-	console.debug('setConfig(newConf)', newConf);
+	console.debug('setDefaultConfig(newConf)', newConf);
 	//logConfigArray();
 	getJsonFileContent(DEFAULT_CONFIG_FILE, function(data){
 		var config = JSON.parse(data);
@@ -139,7 +136,7 @@ function setDefaultConfig(newConf, restart, callback){
 	});
 };
 
-/** Function to set/edit Odi's default config file */
+/** Function to set/edit Odi's default config file */ //?????????????
 function updateLastModifed(){
 	console.log('updateLastModifed');
 
@@ -263,6 +260,16 @@ function testConnexion(callback){
 			//console.debug('Odi is online   :');
 			callback(true);
 		}
+	});
+};
+
+/** Function to execute a shell command with callback */
+function execCmd(command, callback){
+	exec(command, function(error, stdout, stderr){
+		// console.log('error', error);
+		console.debug('execCmd()>stdout', stdout);
+		// console.log('stderr', stderr);
+		if(callback) callback(stdout);
 	});
 };
 
