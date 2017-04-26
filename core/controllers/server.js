@@ -52,12 +52,12 @@ function startUI(mode){
 			console.log(request, ip);
 			next();
 		}else if(req.url == '/favicon.ico'){
-			console.log('favicon request', ip);
+			console.log('favicon request', request, ip);
 			res.status(401); // Unauthorized
 			res.end();
 		}else{ // Not allowed requests
 			request = '401 ' + req.url.replace('%20',' ');
-			ODI.tts.speak({voice:'espeak', lg:'en', msg:'Bad request'});
+			if(CONFIG.mode == 'ready') ODI.tts.speak({voice:'espeak', lg:'en', msg:'Bad request'});
 			console.error(request, ip);
 			res.status(401); // Unauthorized
 			res.end();
@@ -135,8 +135,8 @@ function startUI(mode){
 				mode: CONFIG.mode != 'sleep' ? (CONFIG.debug ? 'Debug' : 'Ready') : 'Sleep',
 				// param: isNaN(parseFloat(mode)) ? CONFIG.startTime : parseInt(mode),
 				param: CONFIG.startTime,
-				switch: etatBtn ? true : false},
-				active: CONFIG.debug},
+				switch: etatBtn ? true : false,
+				active: CONFIG.debug}},
 			switch: {value: etatBtn, active: etatBtn ? true : false}, 
 			volume: {value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute', active: (isNaN(temp) && etatBtn == 1) ? true : false},
 			voicemail: {value: ODI.voiceMail.areThereAnyMessages(), active: ODI.voiceMail.areThereAnyMessages()>0 ? true : false},

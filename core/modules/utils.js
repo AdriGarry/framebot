@@ -78,8 +78,14 @@ function logConfigArray(updatedEntries){
 			//var updated = 0;
 			//if(updatedEntries && updatedEntries.indexOf(key)>0) updated = 1;
 			// var updated = updatedEntries.indexOf(key) == -1 ? 0 : 1;
-			var updated = (updatedEntries && updatedEntries.indexOf(key) > -1) ? 1 : 0;
-			confArray += '| ' + (updated ? '*' : '') + key + ' '.repeat(col1-key.length-updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/
+
+			// var updated = false;
+			// if(searchStringInArray(key, updatedEntries)){
+			// 	console.log('updatedEntries YES', updatedEntries);
+			// 	var updated = true;
+			// }
+			var updated = (updatedEntries && searchStringInArray(key, updatedEntries)) ? true : false;
+			confArray += '| ' + (!updated ? '' : '*') + key + ' '.repeat(col1-key.length-updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/
 				+ ' | ' + CONFIG[key] + ' '.repeat(col2-CONFIG[key].toString().length) + ' |\n';
 		}
 	});
@@ -88,7 +94,7 @@ function logConfigArray(updatedEntries){
 
 /** Function to set/edit Odi's config */
 function setConfig(newConf, restart, callback){
-	console.debug('setConfig(newConf)', util.inspect(newConf, false, null));
+	console.debug('setConfig(newConf)', util.inspect(newConf, false, null)); // TODO revoir pk l'objet n'est plus loggué
 	//logConfigArray();
 	getJsonFileContent(CONFIG_FILE, function(data){
 		var config = JSON.parse(data);
@@ -112,7 +118,7 @@ function setConfig(newConf, restart, callback){
 /** Function to set/edit Odi's default config file */
 const DEFAULT_CONFIG_FILE = '/home/pi/odi/data/defaultConf.json';
 function setDefaultConfig(newConf, restart, callback){
-	console.debug('setDefaultConfig(newConf)', util.inspect(newConf, false, null));
+	console.debug('setDefaultConfig(newConf)', util.inspect(newConf, false, null)); // TODO revoir pk l'objet n'est plus loggué
 	//logConfigArray();
 	getJsonFileContent(DEFAULT_CONFIG_FILE, function(data){
 		var config = JSON.parse(data);

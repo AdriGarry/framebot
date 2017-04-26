@@ -150,7 +150,7 @@ function updateLastModifiedTime(){
 		// Possibilité de comparer les dates de cette façon: console.log(new Date('2017-04-26 01:06')) OU voir: http://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
 		// console.log('data2', data);
 		ODI.utils.setDefaultConfig({update: data});
-		if(CONFIG.update != data){// TODO A VERIFIER !!!
+		if(CONFIG.update != data){
 			ODI.utils.setConfig({update: data}, false);
 		}
 	});

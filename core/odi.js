@@ -102,10 +102,10 @@ if(etat == 1){
 	ODI.video.screenOff();
 }
 
-/** If debug mode, set a timer to cancel in 20 min */
+/** If debug mode, set a timer to cancel in 30 min */
 if(CONFIG.debug){
 	//TODO screen on & tail odi.log !
-	var debugTimeout = 30*60*1000;//10*60*1000
+	var debugTimeout = 30*60*1000;
 	// TODO launch timeout watcher
 	console.debug('Timeout to cancel Debug mode:',debugTimeout);
 	setTimeout(function(){
