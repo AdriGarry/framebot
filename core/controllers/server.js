@@ -51,6 +51,10 @@ function startUI(mode){
 			request = req.headers.ui + ' ' + req.url.replace('%20',' ');
 			console.log(request, ip);
 			next();
+		}else if(req.url == '/favicon.ico'){
+			console.log('favicon request', ip);
+			res.status(401); // Unauthorized
+			res.end();
 		}else{ // Not allowed requests
 			request = '401 ' + req.url.replace('%20',' ');
 			ODI.tts.speak({voice:'espeak', lg:'en', msg:'Bad request'});
@@ -75,7 +79,7 @@ function startUI(mode){
 		//res.set('Content-Type', 'text/javascript');
 	});*/
 
-	ui.get('/monitoring', function(req, res){
+	ui.get('/monitoring', function(req, res){ // DEPRECATED ???
 		//console.log(/\d/.test(mode));
 		var activity = {
 			mode: /\d/.test(mode) ? 'sleep' : 'awake',
@@ -87,7 +91,7 @@ function startUI(mode){
 		res.end(JSON.stringify(activity));
 	});
 
-	/** TOGGLE DEBUG MODE */
+	/** POST ALARM SETTING */
 	ui.post('/alarm', function(req, res){ // TODO re-passer en ui.post !!!
 		console.debug('UI > Alarm');
 		// console.log('req', req);

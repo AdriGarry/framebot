@@ -5,7 +5,8 @@
 var fs = require('fs');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
-var os = require("os");
+var os = require('os');
+var util = require('util');
 
 module.exports = {
 	logTime: logTime,
@@ -74,9 +75,10 @@ function logConfigArray(updatedEntries){
 				}
 			});
 		}else{
-			var updated = 0;
-			if(updatedEntries && updatedEntries.indexOf(key)) updated = 1;
+			//var updated = 0;
+			//if(updatedEntries && updatedEntries.indexOf(key)>0) updated = 1;
 			// var updated = updatedEntries.indexOf(key) == -1 ? 0 : 1;
+			var updated = (updatedEntries && updatedEntries.indexOf(key) > -1) ? 1 : 0;
 			confArray += '| ' + (updated ? '*' : '') + key + ' '.repeat(col1-key.length-updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/
 				+ ' | ' + CONFIG[key] + ' '.repeat(col2-CONFIG[key].toString().length) + ' |\n';
 		}
@@ -86,7 +88,7 @@ function logConfigArray(updatedEntries){
 
 /** Function to set/edit Odi's config */
 function setConfig(newConf, restart, callback){
-	console.debug('setConfig(newConf)', newConf);
+	console.debug('setConfig(newConf)', util.inspect(newConf, false, null));
 	//logConfigArray();
 	getJsonFileContent(CONFIG_FILE, function(data){
 		var config = JSON.parse(data);
@@ -95,13 +97,10 @@ function setConfig(newConf, restart, callback){
 			updatedEntries.push(key);
 			config[key] = newConf[key];
 		});
-		//config.update = now('T (D)');
-		//console.log('now("dt")', now('dt'));
 		global.CONFIG = config;
 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2), function(){
 			logConfigArray(updatedEntries);
 			if(restart){
-				// ODI.hardware.restartOdi();
 				console.debug('process.exit()');
 				process.exit();
 			}
@@ -113,7 +112,7 @@ function setConfig(newConf, restart, callback){
 /** Function to set/edit Odi's default config file */
 const DEFAULT_CONFIG_FILE = '/home/pi/odi/data/defaultConf.json';
 function setDefaultConfig(newConf, restart, callback){
-	console.debug('setDefaultConfig(newConf)', newConf);
+	console.debug('setDefaultConfig(newConf)', util.inspect(newConf, false, null));
 	//logConfigArray();
 	getJsonFileContent(DEFAULT_CONFIG_FILE, function(data){
 		var config = JSON.parse(data);
@@ -122,8 +121,6 @@ function setDefaultConfig(newConf, restart, callback){
 			updatedEntries.push(key);
 			config[key] = newConf[key];
 		});
-		//config.update = now('T (D)');
-		//console.log('now("dt")', now('dt'));
 		global.CONFIG = config;
 		fs.writeFile(DEFAULT_CONFIG_FILE, JSON.stringify(CONFIG, null, 2), function(){
 			// logConfigArray(updatedEntries);
@@ -202,7 +199,7 @@ function getJsonFileContent(filePath, callback){
 	console.debug('getJsonFileContent() ', filePath);
 	fs.readFile(filePath, function(err, data){
 		if(err && err.code === 'ENOENT' && !searchStringInArray(filePath, fileExceptions)){
-			console.error('No file : ' + filePath);
+			console.error('No file: ' + filePath);
 			callback(null);
 		}else{
 			callback(data);
