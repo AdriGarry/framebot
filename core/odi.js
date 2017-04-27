@@ -23,12 +23,22 @@ global.TMP_PATH = '/home/pi/odi/tmp/';
 global.CONFIG = require(CONFIG_FILE);
 
 /** Debug Mode */
-// if(CONFIG.debug) console.debug = function(o){console.log(o);}
-if(CONFIG.debug){
-	console.log('\u2022\u2022\u2022 DEBUG MODE \u2022\u2022\u2022');
-	console.debug = function(o){process.stdout.write(util.format('\u2022 %s\n', util.inspect(o).replace(/^'+/g, '').replace(/'$/g, '')));}
-}
+if(CONFIG.debug) console.debug = function(o){console.log(o);}
 else console.debug = function(o){};
+// if(CONFIG.debug){
+// 	console.log('\u2022\u2022\u2022 DEBUG MODE \u2022\u2022\u2022');
+// 	// console.debug = function(a,b,c){console.log(a,b,c);}
+// 	// console.debug = function(o){process.stdout.write(util.format('\u2022 %s\n', util.inspect(o).replace(/^'+/g, '').replace(/'$/g, '')));}
+// 	console.debug = function(o){
+// 		//process.stdout.write(util.format('\u2022 %s\n', util.inspect(o).replace(/^'+/g, '').replace(/'$/g, '')));
+// 		var log = '\u2022 %s\n';
+// 		for(var arg=0;arg<arguments.length;++arg){
+// 			// console.log(util.format(util.inspect(arg).replace(/^'+/g, '').replace(/'$/g, '')));
+// 			log += util.format(util.inspect(arg).replace(/^'+/g, '').replace(/'$/g, ''));
+// 		}
+// 		process.stdout.write(log);
+// 	}
+// }else console.debug = function(o){};
 
 spawn('sh', [CORE_PATH + 'sh/init.sh']);
 spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);

@@ -53,12 +53,12 @@ function stopAll(message){
 
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode){
-	console.log('restartOdi(mode)', mode);
+	console.log('restartOdi(mode)', mode || '');
 	if(mode > 0){
-		console.log('SLEEP');
+		// console.log('SLEEP');
 		ODI.utils.setConfig({mode: 'sleep'}, true);
 	}else{
-		console.log('READY');
+		// console.log('READY');
 		ODI.utils.setConfig({mode: 'ready'}, true);
 	}
 };
@@ -155,7 +155,7 @@ function updateLastModifiedTime(){
 		}
 	});
 };
-updateLastModifiedTime(); // TODO à mettre dans master.js (ou odi.js + odiSlep.js)
+// updateLastModifiedTime(); // TODO à mettre dans master.js (ou odi.js + odiSlep.js)
 
 /** Function to clean and archive logs */
 function cleanLog(){

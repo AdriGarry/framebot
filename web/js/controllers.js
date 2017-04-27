@@ -12,6 +12,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 	$scope.dashboard = {
 		odiState: setOdiState(),
+		// odiState: {},
 		autoRefresh: true,
 		loading: false,
 		runningData: null

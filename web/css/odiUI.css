@@ -386,16 +386,27 @@ md-content{
 	text-transform:none;
 	vertical-align:middle;
 }
-.dashboard > [flex] > .tile:not(.tts):hover *{
+.dashboard > [flex] > .tile:not(.tts):not(.disabled):hover *{
 	text-shadow:8px -2px 5px rgba(150, 150, 150, 0.5);
 }
-.dashboard > [flex] > .tile:hover footer{
+.dashboard > [flex] > .tile:not([disabled]):hover footer{
 	background-color:rgba(73, 96, 105, 0.7)!important;
+}
+.dashboard > [flex] > .tile[disabled]{
+	pointer-events:none;
 }
 
 .dashboard > [flex] > .tile:not(.tts){/*:not(.tts)*/
 	font-size:1.2vw;
 }
+
+/*.dashboard > [flex] > .tile.disabled{
+	
+}
+.dashboard > [flex] > .tile.disabled:hover{
+	cursor:disabled;
+}*/
+
 
 .dashboard > [flex] > .tile > .tileContent{
 	/*line-height:calc(10em + 2vw);*/

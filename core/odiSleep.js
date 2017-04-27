@@ -20,11 +20,14 @@ global.CONFIG = require(CONFIG_FILE);
 
 
 /** Debug Mode */
-if(CONFIG.debug){
-	console.log('\u2022\u2022\u2022 DEBUG MODE \u2022\u2022\u2022');
-	console.debug = function(o){process.stdout.write(util.format('\u2022 %s\n', util.inspect(o).replace(/^'+/g, '').replace(/'$/g, '')));}
-}
+if(CONFIG.debug) console.debug = function(o){console.log(o);}
 else console.debug = function(o){};
+// if(CONFIG.debug){
+// 	console.log('\u2022\u2022\u2022 DEBUG MODE \u2022\u2022\u2022');
+// 	console.debug = function(a,b,c){console.log(a,b,c);}
+// 	// console.debug = function(o){process.stdout.write(util.format('\u2022 %s\n', util.inspect(o).replace(/^'+/g, '').replace(/'$/g, '')));}
+// }
+// else console.debug = function(o){};
 
 global.ODI = {};
 global.ODI.gpioPins = require(CORE_PATH + 'modules/gpioPins.js');

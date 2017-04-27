@@ -24,10 +24,10 @@ var leds = require(CORE_PATH + 'modules/leds.js');
 utils.setDefaultConfig({update: lastUpdated}, false);
 // utils.updateLastModifed();
 
-console.log('MASTER start logTime:', utils.logTime('Y-M-D h:m:s'));
 var odiPgm, odiState = false, errorLimit = 1;
 const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
 const logoSleep = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
+
 
 /* ------------- START CORE -------------*/
 console.log('\r\n>> Odi\'s CORE started');
@@ -47,24 +47,37 @@ var date, month, day, hour, min, sec;
 /** Function to start up Odi */
 function startOdi(exitCode){
 	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-
 	spawn('sh', [CORE_PATH + 'sh/mute.sh']); // Mute // + LEDS ???
-	
+
 	var logo;
+	// console.log('==> CONFIG.mode', CONFIG.mode);
+	// console.log('==> exitCode', exitCode);
 	if(CONFIG.mode == 'sleep' || typeof exitCode === 'number' && exitCode > 0){
-		logMode = ' O';
+		logMode = ' O';// inutile (cf getLogMode())
 		logo = logoSleep;
 		odiPgm = spawn('node', [CORE_PATH + 'odiSleep.js'/*, mode*/]);
 	// }else if(CONFIG.mode == 'ready'){
 	}else{
 		timeToWakeUp = 0;
-		logMode = ' Odi';
+		logMode = ' Odi';// inutile (cf getLogMode())
 		logo = logoNormal;
 		odiPgm = spawn('node', [CORE_PATH + 'odi.js'/*, exitCode*/]);
 	}
 
 	console.log('\n\n' + logo.join('\n'));
-	utils.setConfig({startTime: utils.logTime('h:m (D/M)')}, false);
+	utils.execCmd('find /home/pi/odi/core -printf "%T+\n" | sort -nr | head -n 1', function(data){
+		// console.log('updateLastModifiedTime()', data);
+		data = data.substring(0, data.indexOf(".")-3).replace('+',' ');
+		// Possibilité de comparer les dates de cette façon: console.log(new Date('2017-04-26 01:06')) OU voir: http://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
+		// console.log('data2', data);
+		utils.setDefaultConfig({update: data});
+		if(CONFIG.update != data){
+			utils.setConfig({startTime: utils.logTime('h:m (D/M)'), update: data}, false);
+		}else{
+			utils.setConfig({startTime: utils.logTime('h:m (D/M)')}, false);
+		}
+	});
+	// utils.setConfig({startTime: utils.logTime('h:m (D/M)')}, false);
 
 	etat.watch(function(err, value){
 		logMode = getLogMode();

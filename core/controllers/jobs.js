@@ -40,7 +40,8 @@ function startClock(modeInit){
 function setInteractiveJobs(){
 	// WEEKDAY
 	new CronJob('0 20,22-25 8 * * 1-5', function(){
-		ODI.tts.speak({lg:'fr', voice: 'espeak', msg:'go go go, allez au boulot'});
+		if(Math.floor(Math.random()*2)) ODI.tts.speak({lg:'fr', voice: 'espeak', msg:'Go go go, allez au boulot'});
+		else ODI.tts.speak({lg:'fr', voice: 'espeak', msg:'Allez allez, Maitro boulot dodo'});
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 30 18 * * 1-5', function(){
