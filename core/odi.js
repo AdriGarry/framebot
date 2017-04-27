@@ -154,3 +154,20 @@ setInterval(function(){
 // find /home/pi/odi/ -exec stat \{} --printf="%y\n" \; | sort -n -r | head -n 1
 // ODI.utils.execCmd('find /home/pi/odi/ -exec stat \\\{} --printf="%y\\\n" \\\; | sort -n -r | head -n 1');
 // ODI.utils.execCmd('find /home/pi/odi/ -printf "%T+\n" | sort -nr | head -n 1');
+
+// Utiliser des promises !!!
+fs.stat(CORE_PATH, function(err, stats){
+	// console.log('fs.stat(CORE_PATH)');
+	// console.log(stats);
+	console.log('CORE', stats.mtime);
+});
+fs.stat(WEB_PATH, function(err, stats){
+	// console.log('fs.stat(CORE_PATH)');
+	// console.log(stats);
+	console.log('WEB', stats.mtime);
+});
+fs.stat(DATA_PATH, function(err, stats){
+	// console.log('fs.stat(CORE_PATH)');
+	// console.log(stats);
+	console.log('DATA', stats.mtime);
+});

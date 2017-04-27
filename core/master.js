@@ -65,19 +65,20 @@ function startOdi(exitCode){
 	}
 
 	console.log('\n\n' + logo.join('\n'));
-	utils.execCmd('find /home/pi/odi/core -printf "%T+\n" | sort -nr | head -n 1', function(data){
-		// console.log('updateLastModifiedTime()', data);
-		data = data.substring(0, data.indexOf(".")-3).replace('+',' ');
-		// Possibilité de comparer les dates de cette façon: console.log(new Date('2017-04-26 01:06')) OU voir: http://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
-		// console.log('data2', data);
-		utils.setDefaultConfig({update: data});
-		if(CONFIG.update != data){
-			utils.setConfig({startTime: utils.logTime('h:m (D/M)'), update: data}, false);
-		}else{
-			utils.setConfig({startTime: utils.logTime('h:m (D/M)')}, false);
-		}
-	});
-	// utils.setConfig({startTime: utils.logTime('h:m (D/M)')}, false);
+
+	// utils.execCmd('find /home/pi/odi/core -printf "%T+\n" | sort -nr | head -n 1', function(data){
+	// 	// console.log('updateLastModifiedTime()', data);
+	// 	data = data.substring(0, data.indexOf(".")-3).replace('+',' ');
+	// 	// Possibilité de comparer les dates de cette façon: console.log(new Date('2017-04-26 01:06')) OU voir: http://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
+	// 	// console.log('data2', data);
+	// 	utils.setDefaultConfig({update: data});
+	// 	if(CONFIG.update != data){
+	// 		utils.setConfig({startTime: utils.logTime('h:m (D/M)'), update: data}, false);
+	// 	}else{
+	// 		utils.setConfig({startTime: utils.logTime('h:m (D/M)')}, false);
+	// 	}
+	// });
+	utils.setConfig({startTime: utils.logTime('h:m (D/M)')}, false);
 
 	etat.watch(function(err, value){
 		logMode = getLogMode();
