@@ -23,22 +23,38 @@ global.TMP_PATH = '/home/pi/odi/tmp/';
 global.CONFIG = require(CONFIG_FILE);
 
 /** Debug Mode */
-if(CONFIG.debug) console.debug = function(o){console.log(o);}
-else console.debug = function(o){};
+if(CONFIG.debug){
+	require(CORE_PATH + 'modules/debug.js');
+}else{
+	console.debug = function(o){};
+}
+// if(CONFIG.debug) console.debug = function(o){console.log(o);} else console.debug = function(o){};
 // if(CONFIG.debug){
-// 	console.log('\u2022\u2022\u2022 DEBUG MODE \u2022\u2022\u2022');
-// 	// console.debug = function(a,b,c){console.log(a,b,c);}
-// 	// console.debug = function(o){process.stdout.write(util.format('\u2022 %s\n', util.inspect(o).replace(/^'+/g, '').replace(/'$/g, '')));}
-// 	console.debug = function(o){
-// 		//process.stdout.write(util.format('\u2022 %s\n', util.inspect(o).replace(/^'+/g, '').replace(/'$/g, '')));
-// 		var log = '\u2022 %s\n';
+// 	console.debug = function(){
+// 		var log = '\u2022';
 // 		for(var arg=0;arg<arguments.length;++arg){
-// 			// console.log(util.format(util.inspect(arg).replace(/^'+/g, '').replace(/'$/g, '')));
-// 			log += util.format(util.inspect(arg).replace(/^'+/g, '').replace(/'$/g, ''));
+// 			if(typeof arguments[arg] == 'object'){
+// 				log = log + ' ' + util.format(util.inspect(arguments[arg]));
+// 			}else{
+// 				log = log + ' ' + arguments[arg];
+// 			}
 // 		}
-// 		process.stdout.write(log);
+// 		console.log(log);
 // 	}
 // }else console.debug = function(o){};
+
+/** If debug mode, set a timer to cancel in 30 min */
+// if(CONFIG.debug){
+// 	//TODO screen on & tail odi.log !
+// 	var debugTimeout = 30*60*1000;
+// 	// TODO launch timeout watcher
+// 	console.debug('Timeout to cancel Debug mode:',debugTimeout);
+// 	setTimeout(function(){
+// 		console.debug('>> CANCELING DEBUG MODE... & Restart !!');
+// 		ODI.utils.setConfig({debug: !CONFIG.debug}, true);
+// 	}, debugTimeout);
+// }
+
 
 spawn('sh', [CORE_PATH + 'sh/init.sh']);
 spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
@@ -110,18 +126,6 @@ if(etat == 1){
 	ODI.video.startCycle();
 }else{
 	ODI.video.screenOff();
-}
-
-/** If debug mode, set a timer to cancel in 30 min */
-if(CONFIG.debug){
-	//TODO screen on & tail odi.log !
-	var debugTimeout = 30*60*1000;
-	// TODO launch timeout watcher
-	console.debug('Timeout to cancel Debug mode:',debugTimeout);
-	setTimeout(function(){
-		console.debug('>> CANCELING DEBUG MODE... & Restart !!');
-		ODI.utils.setConfig({debug: !CONFIG.debug}, true);
-	}, debugTimeout);
 }
 
 // ------------------------//
