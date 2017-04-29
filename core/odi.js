@@ -122,7 +122,7 @@ ODI.leds.toggle({led:'eye', mode: 0});
 if(etat == 1){
 	ODI.video.startCycle();
 }else{
-	ODI.video.screenOff();
+	// ODI.video.screenOff();
 }
 
 // ------------------------//
@@ -155,3 +155,8 @@ setInterval(function(){
 // find /home/pi/odi/ -exec stat \{} --printf="%y\n" \; | sort -n -r | head -n 1
 // ODI.utils.execCmd('find /home/pi/odi/ -exec stat \\\{} --printf="%y\\\n" \\\; | sort -n -r | head -n 1');
 // ODI.utils.execCmd('find /home/pi/odi/ -printf "%T+\n" | sort -nr | head -n 1');
+
+
+ODI.utils.execCmd('df -h', function(data){
+	console.log('df -h:', data);
+});
