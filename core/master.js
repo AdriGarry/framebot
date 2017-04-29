@@ -16,7 +16,6 @@ console.debug = function(o){}; // debug init to false
 var fs = require('fs');
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
-var gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
 var utils = require(CORE_PATH + 'modules/utils.js');
 var leds = require(CORE_PATH + 'modules/leds.js');
 

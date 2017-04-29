@@ -10,12 +10,11 @@ var util = require('util');
 
 module.exports = {
 	logTime: logTime,
-	logConfigArray: logConfigArray,
-	setConfig: setConfig,
-	setDefaultConfig: setDefaultConfig,
-	getLastModifiedDate: getLastModifiedDate,
-	resetConfig: resetConfig,
-	prepareLogs: prepareLogs,
+	logConfigArray: logConfigArray, // TODO create a new module config.js
+	setConfig: setConfig, // TODO create a new module config.js
+	setDefaultConfig: setDefaultConfig, // TODO create a new module config.js
+	getLastModifiedDate: getLastModifiedDate, // TODO create a new module config.js
+	resetConfig: resetConfig, // TODO create a new module config.js
 	getJsonFileContent: getJsonFileContent,
 	appendJsonFile: appendJsonFile,
 	searchStringInArray: searchStringInArray,
@@ -212,15 +211,6 @@ function resetConfig(restart){
 	});
 };
 
-/** Function to format logs */
-function prepareLogs(lines, callback){
-	var content = fs.readFileSync(LOG_PATH + 'odi.log', 'UTF-8').toString().split('\n');
-	content = content.slice(-lines); //-120
-	content = content.join('\n');
-	callback(content);
-	return content;
-};
-
 /** Function getJsonFileContent */
 var fileExceptions = ['voicemail.js'];
 function getJsonFileContent(filePath, callback){
@@ -265,7 +255,6 @@ function appendJsonFile(filePath, obj, callback){
 
 /** Function to return true if one of string of stringArray is found in string param */
 function searchStringInArray(string, stringArray){
-	console.debug('searchStringInArray()', string, stringArray);
 	for(var i = 0;i<stringArray.length;i++){
 		if(string.toLowerCase().search(stringArray[i].toLowerCase()) > -1){
 			return true;

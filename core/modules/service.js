@@ -6,12 +6,6 @@ var spawn = require('child_process').spawn;
 var fs = require('fs');
 var Gpio = require('onoff').Gpio;
 var request = require('request');
-/*var leds = require(CORE_PATH + 'modules/leds.js');
-var hardware = require(CORE_PATH + 'modules/hardware.js');
-//var utils = require(CORE_PATH + 'modules/utils.js');
-var tts = require(CORE_PATH + 'modules/tts.js');
-var time = require(CORE_PATH + 'modules/time.js');
-var exclamation = require(CORE_PATH + 'modules/exclamation.js');*/
 
 module.exports = {
 	randomAction: randomAction,
@@ -26,10 +20,10 @@ var randomActionBase = [
 	{label:'ODI.exclamation.exclamation', call: ODI.exclamation.exclamation, weighting: 1},
 	{label:'ODI.time.now', call: ODI.time.now, weighting: 1},
 	{label:'ODI.time.today', call: ODI.time.today, weighting: 1},
-	{label:'weatherService', call: weatherService, weighting: 1},
+	{label:'weatherService', call: weatherService, weighting: 3},
 	{label:'cpuTemp', call: cpuTemp, weighting: 1},
 	{label:'ODI.time.sayOdiAge', call: ODI.time.sayOdiAge, weighting: 1},
-	{label:'adriExclamation', call: adriExclamation, weighting: 3}
+	{label:'adriExclamation', call: adriExclamation, weighting: 1}
 ];
 
 var randomActionList = [];
@@ -73,6 +67,7 @@ fs.readFile('/home/pi/odi/data/weatherStatus.json', function(err, data){
 	}
 	WEATHER_STATUS_LIST = JSON.parse(data);
 });
+
 /** Function to retreive weather info */
 var weatherData, weatherStatus, weatherTemp, wind, weatherSpeech;
 function weatherService(){
@@ -88,14 +83,30 @@ function weatherService(){
 				weatherStatus = WEATHER_STATUS_LIST[weatherStatus];
 				weatherTemp = weatherData.query.results.channel.item.condition.temp;
 				wind = weatherData.query.results.channel.wind.speed;
-				var weatherSpeech = 'Meteo Marseille : le temps est ' + weatherStatus + ', il fait ' + weatherTemp
-					+ ' degres avec ' + (isNaN(wind)?'0':Math.round(wind)) + ' kilometre heure de vent';
+
+				var rdm = Math.round(Math.random()*2);var weatherSpeech;
+				switch(rdm){
+					case 0:
+						weatherSpeech = {voice: 'google', lg: 'fr', msg: 'Meteo Marseille : le temps est ' + weatherStatus + ', il fait '
+							+ weatherTemp + ' degres avec ' + (isNaN(wind)?'0':Math.round(wind)) + ' kilometre heure de vent'};
+						break;
+					case 1:
+						weatherSpeech = {voice: 'google', lg: 'fr', msg: 'Aujourd\'hui a Marseille, il fait ' + weatherTemp
+							+ ' degres avec ' + (isNaN(wind)?'0':Math.round(wind)) + ' kilometre heure de vent'};
+						break;
+					case 2:
+						weatherSpeech = [{voice: 'espeak', lg: 'fr', msg: 'Hey, il fait un temp de ' + weatherStatus},
+							{voice: 'google', lg: 'fr', msg: 'Tu parles, il fais ' + weatherTemp + ' degrer'},
+							{voice: 'espeak', lg: 'fr', msg: 'Oui, et '+ (isNaN(wind)?'0':Math.round(wind))
+								+ ' kilometre heure de vent'}];
+						break;
+				}
 				console.log('Service Weather...');
-				ODI.tts.speak({voice: 'google', lg: 'fr', msg: weatherSpeech});
+				// ODI.tts.speak({voice: 'google', lg: 'fr', msg: weatherSpeech});
+				ODI.tts.speak(weatherSpeech);
 			}else{
-				console.log('Can\'t retreive weather informations');
 				ODI.tts.speak({voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo'});
-				console.error('Weather request > response.statusCode', response.statusCode);
+				console.error('Weather request > Can\'t retreive weather informations. response.statusCode', response.statusCode);
 				if(error){console.error('Error getting weather info  /!\\ \n' + error);}
 			}
 		}catch(e){

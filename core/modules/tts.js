@@ -65,7 +65,7 @@ function speak(tts){
 			}else console.debug(console.error('newTTS() Wrong TTS object ', tts));
 		}
 		if(ttsQueue.length > 0) proceedQueue();
-	}else console.log('Wrong mode for TTS speak');
+	}else console.log('Wrong mode for TTS speak !!');
 };
 
 /** Function to proceed TTS queue */
@@ -101,7 +101,7 @@ function randomConversation(){
 	console.debug('randomConversation()');
 	var rdmNb = ((Math.floor(Math.random()*RDM_CONVERSATION_LIST_LENGTH))); // IMPORT JSON FILE
 	var conversation = RDM_CONVERSATION_LIST[rdmNb];
-	// console.debug(conversation);
+	console.debug(conversation);
 	console.log('Random conversation : ' + (rdmNb+1) + '/' + RDM_CONVERSATION_LIST_LENGTH);
 	speak(conversation);
 };

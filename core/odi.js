@@ -58,7 +58,6 @@ spawn('sh', [CORE_PATH + 'sh/init.sh']);
 spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
 
 global.ODI = {};
-global.ODI.gpioPins = require(CORE_PATH + 'modules/gpioPins.js');
 global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
 ODI.leds.toggle({led:'eye', mode: 1});
 global.ODI.utils = require(CORE_PATH + 'modules/utils.js');

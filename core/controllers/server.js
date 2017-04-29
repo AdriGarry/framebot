@@ -24,6 +24,16 @@ module.exports = {
 	startUI: startUI
 };
 
+
+/** Function to format logs */
+function prepareLogs(lines, callback){
+	var content = fs.readFileSync(LOG_PATH + 'odi.log', 'UTF-8').toString().split('\n');
+	content = content.slice(-lines); //-120
+	content = content.join('\n');
+	callback(content);
+	return content;
+};
+
 function startUI(mode){
 	var ui = express();
 	var request, ip, params, ipClient;
@@ -159,7 +169,7 @@ function startUI(mode){
 		if(params.hasOwnProperty('logSize') && !isNaN(params.logSize)){
 			logSize = parseInt(params.logSize);
 		}
-		ODI.utils.prepareLogs(logSize, function(log){
+		prepareLogs(logSize, function(log){
 			res.end(log);
 		});
 	});
