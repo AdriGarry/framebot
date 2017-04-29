@@ -23,11 +23,9 @@ global.TMP_PATH = '/home/pi/odi/tmp/';
 global.CONFIG = require(CONFIG_FILE);
 
 /** Debug Mode */
-if(CONFIG.debug){
-	require(CORE_PATH + 'modules/debug.js');
-}else{
-	console.debug = function(o){};
-}
+// global.log = function(o){console.log('LLOOGG', o)}
+if(CONFIG.debug) require(CORE_PATH + 'modules/debug.js');
+else console.debug = function(){};
 // if(CONFIG.debug) console.debug = function(o){console.log(o);} else console.debug = function(o){};
 // if(CONFIG.debug){
 // 	console.debug = function(){
@@ -158,20 +156,3 @@ setInterval(function(){
 // find /home/pi/odi/ -exec stat \{} --printf="%y\n" \; | sort -n -r | head -n 1
 // ODI.utils.execCmd('find /home/pi/odi/ -exec stat \\\{} --printf="%y\\\n" \\\; | sort -n -r | head -n 1');
 // ODI.utils.execCmd('find /home/pi/odi/ -printf "%T+\n" | sort -nr | head -n 1');
-
-// Utiliser des promises !!!
-fs.stat(CORE_PATH, function(err, stats){
-	// console.log('fs.stat(CORE_PATH)');
-	// console.log(stats);
-	console.log('CORE', stats.mtime);
-});
-fs.stat(WEB_PATH, function(err, stats){
-	// console.log('fs.stat(CORE_PATH)');
-	// console.log(stats);
-	console.log('WEB', stats.mtime);
-});
-fs.stat(DATA_PATH, function(err, stats){
-	// console.log('fs.stat(CORE_PATH)');
-	// console.log(stats);
-	console.log('DATA', stats.mtime);
-});

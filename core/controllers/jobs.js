@@ -111,9 +111,15 @@ function setBackgroundJobs(){
 		ODI.hardware.cleanLog();
 	}, null, true, 'Europe/Paris');
 
-	new CronJob('0 1 5 * * 1', function(){
+	// new CronJob('5 5 5 * * *', function(){
+	new CronJob('40 0 * * * *', function(){
 		console.log('Get last update date & time'); // Weekly
-		ODI.hardware.updateLastModifiedTime();
+		ODI.utils.getLastModifiedDate([CORE_PATH, WEB_PATH, DATA_PATH], function(lastUpdate){
+			if(CONFIG.update != lastUpdate){
+				ODI.utils.setDefaultConfig({update: lastUpdate}, false);
+				ODI.utils.setConfig({update: lastUpdate}, false);
+			}
+		});
 	}, null, true, 'Europe/Paris');
 	console.log('Background jobs initialised');
 };

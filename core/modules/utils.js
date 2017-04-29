@@ -13,7 +13,7 @@ module.exports = {
 	logConfigArray: logConfigArray,
 	setConfig: setConfig,
 	setDefaultConfig: setDefaultConfig,
-	updateLastModifed: updateLastModifed,
+	getLastModifiedDate: getLastModifiedDate,
 	resetConfig: resetConfig,
 	prepareLogs: prepareLogs,
 	getJsonFileContent: getJsonFileContent,
@@ -23,11 +23,30 @@ module.exports = {
 	execCmd: execCmd
 };
 
-/** Function to return date time. Pattern: 'DT' */
+/** Function to update last modified date & time of Odi's files */
+function getLastModifiedDate(paths, callback){ // typeof paths => Array
+	var dates = [];
+	for(var i=0;i<paths.length;i++){
+		fs.stat(paths[i], function(err, stats){
+			dates.push(stats.mtime);
+			// console.debug('getLastModifiedDate()', dates);
+			if(dates.length == paths.length){
+				var d = new Date(Math.max.apply(null, dates.map(function(e){
+					return new Date(e);
+				})));
+				var lastDate = logTime('Y-M-D h:m');
+				callback(lastDate);
+			}
+		});
+	}(i);
+};
+
+/** Function to return date time. Pattern: 'YDT' */
 function logTime(param, date){
 	if(typeof date === 'undefined') date = new Date();
 	var D = date.getDate();
 	var M = date.getMonth()+1;
+	var Y = date.getFullYear();
 	var h = date.getHours();
 	var m = date.getMinutes();
 	var s = date.getSeconds();
@@ -35,11 +54,14 @@ function logTime(param, date){
 
 	for(var i = 0; i < param.length; i++){
 		switch(param[i]){
-			case 'D':
-				now += (D<10 ? '0' : '') + D;
+			case 'Y':
+				now += Y;
 				break;
 			case 'M':
 				now += (M<10 ? '0' : '') + M;
+				break;
+			case 'D':
+				now += (D<10 ? '0' : '') + D;
 				break;
 			case 'h':
 				now += (h<10 ? '0' : '') + h;

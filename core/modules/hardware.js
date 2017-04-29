@@ -17,7 +17,6 @@ module.exports = {
 	getCPUUsage: getCPUUsage,
 	getCPUTemp: getCPUTemp,
 	getOdiAge: getOdiAge,
-	updateLastModifiedTime: updateLastModifiedTime,
 	cleanLog: cleanLog,
 	getMsgLastGitCommit: getMsgLastGitCommit
 };
@@ -140,22 +139,6 @@ function getOdiAge(){
 	age = Math.ceil(age / (1000 * 3600 * 24));
 	return age;
 };
-
-/** Function to update last modified date & time of Odi's files */
-var coreUpdate, webUpdate, dataUpdate;
-function updateLastModifiedTime(){
-	ODI.utils.execCmd('find /home/pi/odi/core -printf "%T+\n" | sort -nr | head -n 1', function(data){
-		console.debug('updateLastModifiedTime()', data, typeof data);
-		data = data.substring(0, data.indexOf(".")-3);
-		// Possibilité de comparer les dates de cette façon: console.log(new Date('2017-04-26 01:06')) OU voir: http://stackoverflow.com/questions/7559555/last-modified-file-date-in-node-js
-		// console.log('data2', data);
-		ODI.utils.setDefaultConfig({update: data});
-		if(CONFIG.update != data){
-			ODI.utils.setConfig({update: data}, false);
-		}
-	});
-};
-// updateLastModifiedTime(); // TODO à mettre dans master.js (ou odi.js + odiSlep.js)
 
 /** Function to clean and archive logs */
 function cleanLog(){
