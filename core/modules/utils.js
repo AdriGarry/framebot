@@ -160,36 +160,6 @@ function setDefaultConfig(newConf, restart, callback){
 	});
 };
 
-/** Function to set/edit Odi's default config file */ //?????????????
-function updateLastModifed(){
-	console.log('updateLastModifed');
-
-fs.readdir(process.cwd(), function(err, files){
-	if(err){
-		console.error(err);
-		return;
-	}
-	console.log(files);
-	for(var i = 0;i<files.length;i++){
-		//if(files[i].test) // Regex to test .*\.watcher$
-	}
-});
-
-	// getJsonFileContent(DEFAULT_CONFIG_FILE, function(data){
-	// 	var config = JSON.parse(data);
-
-	// 	global.CONFIG = config;
-	// 	fs.writeFile(DEFAULT_CONFIG_FILE, JSON.stringify(CONFIG, null, 2), function(){
-	// 		logConfigArray(updatedEntries);
-	// 		if(restart){
-	// 			console.debug('process.exit()');
-	// 			process.exit();
-	// 		}
-	// 		if(callback) callback();
-	// 	});
-	// });
-};
-
 /** Function to reset Odi's config */
 function resetConfig(restart){
 	console.log('resetConfig()', restart ? 'and restart' : '');
@@ -206,7 +176,8 @@ function resetConfig(restart){
 	stream.on('close', function(){
 		if(!had_error && restart) {
 			// ODI.hardware.restartOdi();
-			ODI.utils.setConfig({mode: 'ready'}, true);
+			// ODI.utils.setConfig({mode: 'ready'}, true);
+			process.exit();
 		}
 	});
 };
