@@ -405,7 +405,10 @@ function startUI(mode){
 		});
 
 		ui.post('/weather', function(req, res){ // Weather
-			// ODI.service.weather();
+			ODI.service.weather();
+			res.writeHead(200);res.end();
+		});
+		ui.post('/weatherInteractive', function(req, res){ // Weather
 			ODI.service.weatherInteractive();
 			res.writeHead(200);res.end();
 		});

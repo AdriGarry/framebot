@@ -17,8 +17,8 @@ module.exports = {
 
 var randomActionBase = [
 	{label:'ODI.tts.speak', call: ODI.tts.speak, weighting: 7},
-	{label:'ODI.tts.randomConversation', call: ODI.tts.randomConversation, weighting: 6},
-	{label:'ODI.exclamation.exclamation', call: ODI.exclamation.exclamation, weighting: 3},
+	{label:'ODI.tts.randomConversation', call: ODI.tts.randomConversation, weighting: 7},
+	{label:'ODI.exclamation.exclamation', call: ODI.exclamation.exclamation, weighting: 4},
 	{label:'ODI.time.now', call: ODI.time.now, weighting: 1},
 	{label:'ODI.time.today', call: ODI.time.today, weighting: 1},
 	{label:'weatherService', call: weatherService, weighting: 1},

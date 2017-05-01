@@ -37,7 +37,7 @@ function today(voice){  // TODO  prendre en compte le parametre voix (créer un 
 	var month = date.getMonth();
 	var month = CALENDAR.months[month];
 	var year = date.getFullYear();
-	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
+	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + (Math.random() >= 0.5 ? '' : (' ' + year));
 	console.debug('time.today()' + annonceDate);
 	ODI.tts.speak({lg:'fr', msg:annonceDate});
 };
