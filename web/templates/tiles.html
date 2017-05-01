@@ -88,7 +88,7 @@
 			<i class="mainInfo fa fa-moon-o" data-ng-show="$ctrl.data.value.mode == 'Sleep'"></i>
 			<div data-ng-hide="$ctrl.data.value.mode == 'Sleep'">{{$ctrl.data.value.mode}}</div>
 			<div class="param" data-ng-show="!$ctrl.data.value.debug" data-ng-class="$ctrl.data.value.mode =='Sleep'? 'paramSleep' : ''">{{$ctrl.data.value.param}}</div>
-			<div class="param" data-ng-show="$ctrl.data.value.debug">{{$ctrl.data.value.debug}}</div>
+			<div class="param" data-ng-show="$ctrl.data.value.debug" title="Timeout to abort debug">{{$ctrl.data.value.debug}}min</div>
 		</div>
 	</div>
 

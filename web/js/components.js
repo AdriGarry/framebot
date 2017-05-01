@@ -296,7 +296,7 @@ app.component('weather', {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Weather',
-			actionList:[{url: '/meteo'}]
+			actionList:[{url: '/weather'}]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;

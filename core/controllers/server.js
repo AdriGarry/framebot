@@ -404,8 +404,9 @@ function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
-		ui.post('/meteo', function(req, res){ // Weather
-			ODI.service.weather();
+		ui.post('/weather', function(req, res){ // Weather
+			// ODI.service.weather();
+			ODI.service.weatherInteractive();
 			res.writeHead(200);res.end();
 		});
 
