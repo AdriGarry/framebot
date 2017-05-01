@@ -89,7 +89,7 @@
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
 		<div class="logs" data-ng-dblclick="refreshLog()">
-			<!-- <i class="debugLog fa fa-circle" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i> -->
+			<i class="debugLog fa fa-circle" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i>
 			<ul>
 				<li data-ng-repeat="logLine in logData track by $index" data-ng-bind-html="toHtml(logLine | formatLog)"></li>
 				<a id="bottomLogs"></a>
@@ -111,55 +111,55 @@
 
 	<md-sidenav class="md-sidenav-right" md-component-id="menu" md-whiteframe="1">
 		<div layout="row" class="menu">
-				<md-list flex>
-					<md-list-item>
-						<md-button data-ng-click="toggleGrant($event)" data-ng-class="{admin:irda}" class="adminBtn center" title="{{irda? 'Log out':'Log in'}}">
-							<i data-ng-class="irda" class="fa fa-sign-in"></i>
-							<i data-ng-if="!irda" class="fa fa-user"></i>
-							<i data-ng-if="irda" class="fa fa-user-secret"></i>
-							<i data-ng-class="irda" class="fa fa-sign-out"></i>
-						</md-button>
-					</md-list-item>
-					<md-divider></md-divider>
+			<md-list flex>
+				<md-list-item>
+					<md-button data-ng-click="toggleGrant($event)" data-ng-class="{admin:irda}" class="adminBtn center" title="{{irda? 'Log out':'Log in'}}">
+						<i data-ng-class="irda" class="fa fa-sign-in"></i>
+						<i data-ng-if="!irda" class="fa fa-user"></i>
+						<i data-ng-if="irda" class="fa fa-user-secret"></i>
+						<i data-ng-class="irda" class="fa fa-sign-out"></i>
+					</md-button>
+				</md-list-item>
+				<md-divider></md-divider>
 
-					<md-list-item>
-						<div flex>Auto refresh on scroll</div>
-						<div flex>
-							<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch>
-						</div>
-					</md-list-item>
-					<md-divider></md-divider>
+				<md-list-item>
+					<div flex>Auto refresh on scroll</div>
+					<div flex>
+						<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch>
+					</div>
+				</md-list-item>
+				<md-divider></md-divider>
 
-					<md-list-item>
-						<div flex>Debug</div>
-						<div flex>
-							<md-switch class="switch md-primary" aria-label="Debug mode" title="Debug mode" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.odiState.debug"  data-ng-click="irda && toggleDebugMode()" data-ng-disabled="!irda"></md-switch>
-						</div>
-					</md-list-item>
-					<md-divider></md-divider>
+				<md-list-item>
+					<div flex>Debug</div>
+					<div flex>
+						<md-switch class="switch md-primary" aria-label="Debug mode" title="Debug mode" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.odiState.debug"  data-ng-click="irda && toggleDebugMode()" data-ng-disabled="!irda"></md-switch>
+					</div>
+				</md-list-item>
+				<md-divider></md-divider>
 
-					<md-subheader>Volume&nbsp;&nbsp;<i>{{master}}</i></md-subheader>
-					<md-list-item title="Volume">
-						<md-slider-container ng-disabled="!irda">
-							<md-slider flex data-ng-model="master" data-md-discrete md-horizontal step="10" class="md-primary"
-								data-ng-readonly="!irda" title="Volume" aria-label="Volume"></md-slider>
-						</md-slider-container>
-					</md-list-item>
-					<md-divider></md-divider>
+				<md-subheader>Volume&nbsp;&nbsp;<i>{{master}}</i></md-subheader>
+				<md-list-item title="Volume">
+					<md-slider-container ng-disabled="!irda">
+						<md-slider flex data-ng-model="master" data-md-discrete md-horizontal step="10" class="md-primary"
+							data-ng-readonly="!irda" title="Volume" aria-label="Volume"></md-slider>
+					</md-slider-container>
+				</md-list-item>
+				<md-divider></md-divider>
 
-					<md-list-item data-ng-click="showLogs()" title="Show console">
-						<div flex>Show logs</div>
-						<div flex><i class="fa fa-lg fa-2x fa-quote-right"></i></div>
-					</md-list-item>
-					<md-divider></md-divider>
-					<md-list-item data-ng-click="reloadUI()" title="Reload UI">
-						<div flex>Reload UI</div>
-						<div flex><i class="fa fa-lg fa-2x fa-repeat"></i></div>
-					</md-list-item>
-					<md-divider></md-divider>
-					<div class="lastUpdate centerText opacity-half">
-						Last update: {{dashboard.runningData.config.update}}</div>
-				</md-list>
+				<md-list-item data-ng-click="showLogs()" title="Show console">
+					<div flex>Show logs</div>
+					<div flex><i class="fa fa-lg fa-2x fa-quote-right"></i></div>
+				</md-list-item>
+				<md-divider></md-divider>
+				<md-list-item data-ng-click="reloadUI()" title="Reload UI">
+					<div flex>Reload UI</div>
+					<div flex><i class="fa fa-lg fa-2x fa-repeat"></i></div>
+				</md-list-item>
+				<md-divider></md-divider>
+				<div class="lastUpdate centerText opacity-half">
+					Last update: {{dashboard.runningData.config.update}}</div>
+			</md-list>
 			<!-- </div> -->
 		</div>
 	</md-sidenav>

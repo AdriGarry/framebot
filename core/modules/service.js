@@ -95,7 +95,7 @@ function weatherService(){
 							+ ' degres avec ' + (isNaN(wind)?'0':Math.round(wind)) + ' kilometre heure de vent'};
 						break;
 					case 2:
-						weatherSpeech = [{voice: 'espeak', lg: 'fr', msg: 'Hey, il fait un temp de ' + weatherStatus},
+						weatherSpeech = [{voice: 'espeak', lg: 'fr', msg: 'Hey, il fait un temp ' + weatherStatus},
 							{voice: 'google', lg: 'fr', msg: 'Tu parles, il fais ' + weatherTemp + ' degrer'},
 							{voice: 'espeak', lg: 'fr', msg: 'Oui, et '+ (isNaN(wind)?'0':Math.round(wind))
 								+ ' kilometre heure de vent'}];
