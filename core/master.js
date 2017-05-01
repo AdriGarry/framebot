@@ -78,7 +78,7 @@ function startOdi(exitCode){
 	// 	}
 	// });
 	var startTime = utils.logTime('h:m (D/M)');
-	console.log('startTime', startTime, CONFIG.debug);
+	console.log('startTime', startTime);
 	utils.setConfig({startTime: startTime}, false);
 
 	etat.watch(function(err, value){

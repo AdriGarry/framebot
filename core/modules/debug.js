@@ -20,9 +20,8 @@ console.debug = function(){
 }
 
 //TODO screen on & tail odi.log !
-var debugTimeout = 30;
-// TODO launch timeout watcher
-console.debug('Timeout to cancel Debug mode:',debugTimeout+'min');
+// var debugTimeout = 30;
+console.debug('Timeout to cancel Debug mode:',CONFIG.debug+'min');
 setInterval(function(){
 	ODI.utils.setConfig({debug: --CONFIG.debug}, false);
 	if(!CONFIG.debug){
