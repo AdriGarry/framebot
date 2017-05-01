@@ -11,7 +11,8 @@ module.exports = {
 	randomAction: randomAction,
 	adriExclamation: adriExclamation,
 	cpuTemp: cpuTemp,
-	weather: weatherService
+	weather: weatherService,
+	weatherInteractive: weatherInteractiveService
 };
 
 var randomActionBase = [
@@ -114,3 +115,51 @@ function weatherService(){
 		}
 	});
 };
+
+/** Function to retreive weather info */
+var weatherData, weatherStatus, weatherTemp, wind, weatherSpeech;
+function weatherService(){
+	console.debug('weatherService()');
+	request.get({
+		url: 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20%28select%20woeid%20from%20geo.places%281%29%20where%20text%3D%22Marseille%2C%20france%22%29and%20u=%27c%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
+		headers: {'Content-Type': 'json'}
+	}, function (error, response, body){
+		try{
+			if(!error && response.statusCode == 200){
+				weatherData = JSON.parse(body);
+				weatherStatus = weatherData.query.results.channel.item.condition.code;
+				weatherStatus = WEATHER_STATUS_LIST[weatherStatus];
+				weatherTemp = weatherData.query.results.channel.item.condition.temp;
+				wind = weatherData.query.results.channel.wind.speed;
+
+				var rdm = Math.round(Math.random()*2);var weatherSpeech;
+				switch(rdm){
+					case 0:
+						weatherSpeech = {voice: 'google', lg: 'fr', msg: 'Meteo Marseille : le temps est ' + weatherStatus + ', il fait '
+							+ weatherTemp + ' degres avec ' + (isNaN(wind)?'0':Math.round(wind)) + ' kilometre heure de vent'};
+						break;
+					case 1:
+						weatherSpeech = {voice: 'google', lg: 'fr', msg: 'Aujourd\'hui a Marseille, il fait ' + weatherTemp
+							+ ' degres avec ' + (isNaN(wind)?'0':Math.round(wind)) + ' kilometre heure de vent'};
+						break;
+					case 2:
+						weatherSpeech = [{voice: 'espeak', lg: 'fr', msg: 'Hey, il fait un temp ' + weatherStatus},
+							{voice: 'google', lg: 'fr', msg: 'Tu parles, il fais ' + weatherTemp + ' degrer'},
+							{voice: 'espeak', lg: 'fr', msg: 'Oui, et '+ (isNaN(wind)?'0':Math.round(wind))
+								+ ' kilometre heure de vent'}];
+						break;
+				}
+				console.log('Service Weather...');
+				// ODI.tts.speak({voice: 'google', lg: 'fr', msg: weatherSpeech});
+				ODI.tts.speak(weatherSpeech);
+			}else{
+				ODI.tts.speak({voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo'});
+				console.error('Weather request > Can\'t retreive weather informations. response.statusCode', response.statusCode);
+				if(error){console.error('Error getting weather info  /!\\ \n' + error);}
+			}
+		}catch(e){
+			console.error(e);
+		}
+	});
+};
+weatherInteractiveService

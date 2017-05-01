@@ -116,7 +116,6 @@ function logConfigArray(updatedEntries){
 /** Function to set/edit Odi's config */
 function setConfig(newConf, restart, callback){
 	console.debug('setConfig(newConf)', util.inspect(newConf, false, null)); // TODO revoir pk l'objet n'est plus loggué
-	//logConfigArray();
 	getJsonFileContent(CONFIG_FILE, function(data){
 		var config = JSON.parse(data);
 		var updatedEntries = [];

@@ -115,7 +115,8 @@ function startUI(mode){
 	ui.post('/toggleDebug', function(req, res){
 		console.debug('UI > Toggle debug');
 		//utils.setConfig('debug', null, true); // NOUVEAU FORMAT OBJET ... /!\
-		ODI.utils.setConfig({debug: !CONFIG.debug}, true);
+		// ODI.utils.setConfig({debug: !CONFIG.debug}, true);
+		ODI.utils.setConfig({debug: CONFIG.debug ? 0 : 30}, true);
 		res.writeHead(200);res.end();
 	});
 
@@ -146,7 +147,8 @@ function startUI(mode){
 				// param: isNaN(parseFloat(mode)) ? CONFIG.startTime : parseInt(mode),
 				param: CONFIG.startTime,
 				switch: etatBtn ? true : false,
-				active: CONFIG.debug}},
+				active: CONFIG.debug, // TRY TO DELETE THIS (deprecated)
+				debug: CONFIG.debug}},
 			switch: {value: etatBtn, active: etatBtn ? true : false}, 
 			volume: {value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute', active: (isNaN(temp) && etatBtn == 1) ? true : false},
 			voicemail: {value: ODI.voiceMail.areThereAnyMessages(), active: ODI.voiceMail.areThereAnyMessages()>0 ? true : false},

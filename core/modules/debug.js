@@ -23,7 +23,15 @@ console.debug = function(){
 var debugTimeout = 30;
 // TODO launch timeout watcher
 console.debug('Timeout to cancel Debug mode:',debugTimeout+'min');
-setTimeout(function(){
-	console.debug('>> CANCELING DEBUG MODE... & Restart !!');
-	ODI.utils.setConfig({debug: !CONFIG.debug}, true);
-}, debugTimeout*60*1000);
+setInterval(function(){
+	ODI.utils.setConfig({debug: --CONFIG.debug}, false);
+	if(!CONFIG.debug){
+		console.debug('>> CANCELING DEBUG MODE... & Restart !!');
+		ODI.utils.setConfig({debug: false}, true);
+	}
+}, 60*1000);
+
+// setTimeout(function(){
+// 	console.debug('>> CANCELING DEBUG MODE... & Restart !!');
+// 	ODI.utils.setConfig({debug: !CONFIG.debug}, true);
+// }, debugTimeout*60*1000);

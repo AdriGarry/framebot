@@ -35,7 +35,7 @@ startOdi(); // First init
 
 ok.watch(function(err, value){
 	if(!odiState){ // Watch green button to force start... DEPRECATED ???
-		utils.setConfig({mode: 'ready'});
+		utils.setConfig({mode: 'ready'}, true);
 		startOdi();
 	}
 });
@@ -77,7 +77,9 @@ function startOdi(exitCode){
 	// 		utils.setConfig({startTime: utils.logTime('h:m (D/M)')}, false);
 	// 	}
 	// });
-	utils.setConfig({startTime: utils.logTime('h:m (D/M)')}, false);
+	var startTime = utils.logTime('h:m (D/M)');
+	console.log('startTime', startTime, CONFIG.debug);
+	utils.setConfig({startTime: startTime}, false);
 
 	etat.watch(function(err, value){
 		logMode = getLogMode();
