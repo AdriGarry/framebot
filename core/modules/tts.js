@@ -69,12 +69,12 @@ function speak(tts){
 };
 
 /** Function to proceed TTS queue */
-var queueInteval, currentTTS, timeout = 0;
+var queueInterval, currentTTS, timeout = 0;
 function proceedQueue(){
 	// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'tone']);
 	var isFirst = true;
 	console.debug('Start processing TTS queue...');
-	queueInteval = setInterval(function(){
+	queueInterval = setInterval(function(){
 		if(!onAir && ttsQueue.length > 0){
 			onAir = true;
 			// ODI.leds.toggle({led: 'eye', mode: 1});
@@ -88,7 +88,7 @@ function proceedQueue(){
 			}, timeout);
 			if(ttsQueue.length === 0){
 				console.debug('No more TTS, stop processing TTS queue!');
-				clearInterval(queueInteval);
+				clearInterval(queueInterval);
 			}
 			isFirst = true;
 			// console.log('isFirst', isFirst);

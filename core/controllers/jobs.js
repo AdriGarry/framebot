@@ -59,13 +59,12 @@ function setInteractiveJobs(){
 	// ALL DAYS
 	new CronJob('0 1 13 * * *', function(){
 		console.log('Il est 13 heures et tout va bien !');
-		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', '13Heures']);//var deploy = 
+		spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', '13Heures']);
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('13 13,25,40,51 17-22 * * *', function(){
-		// tts.randomConversation(); // Conversations aleatoires dans la journee
 		ODI.service.randomAction();
-	}, null, true, 'Europe/Paris'); // Signal des 1/4 d'heure, entre 17h et 23h
+	}, null, true, 'Europe/Paris');
 	console.log('Interactive jobs initialised');
 };
 
@@ -93,14 +92,14 @@ function setBackgroundJobs(){
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('13 13 13 * * 0', function(){
-		ODI.tts.speak({voice:'espeak', lg:'fr', msg:'Auto reboot'}); // Weekly RPI reboot
+		ODI.tts.speak({voice:'espeak', lg:'en', msg:'Reset config'}); // Weekly RPI reboot
 		setTimeout(function(){
 			ODI.utils.resetConfig();
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('15 15 13 * * 0', function(){
-		ODI.tts.speak({voice:'espeak', lg:'fr', msg:'Auto reboot'}); // Weekly RPI reboot
+		ODI.tts.speak({voice:'espeak', lg:'en', msg:'Auto reboot'}); // Weekly RPI reboot
 		setTimeout(function(){
 			ODI.hardware.reboot();
 		}, 3000);
@@ -111,10 +110,10 @@ function setBackgroundJobs(){
 		ODI.hardware.cleanLog();
 	}, null, true, 'Europe/Paris');
 
-	// new CronJob('5 5 5 * * *', function(){
-	new CronJob('40 0 * * * *', function(){
-		console.log('Get last update date & time'); // Weekly
-		ODI.utils.getLastModifiedDate([CORE_PATH, WEB_PATH, DATA_PATH], function(lastUpdate){
+	new CronJob('5 5 5 * * *', function(){
+	// new CronJob('40 0 * * * *', function(){
+		console.log('Get last update date & time'); // Daily
+		ODI.utils.getLastModifiedDate([CORE_PATH, WEB_PATH], function(lastUpdate){ // DATA_PATH
 			if(CONFIG.update != lastUpdate){
 				ODI.utils.setDefaultConfig({update: lastUpdate}, false);
 				ODI.utils.setConfig({update: lastUpdate}, false);

@@ -4,11 +4,18 @@
 var Gpio = require('onoff').Gpio;
 var CronJob = require('cron').CronJob;
 
-led = new Gpio(15, 'out');
+/*led = new Gpio(15, 'out');
 nose = new Gpio(15, 'out');
 eye = new Gpio(14, 'out');
 belly = new Gpio(17, 'out');
-satellite = new Gpio(23, 'out');
+satellite = new Gpio(23, 'out');*/
+
+//ODI.leds.led = new Gpio(15, 'out');
+ODI.leds.nose = new Gpio(15, 'out'); // global. ?
+ODI.leds.eye = new Gpio(14, 'out'); // global. ?
+ODI.leds.belly = new Gpio(17, 'out'); // global. ?
+ODI.leds.satellite = new Gpio(23, 'out'); // global. ?
+
 
 etat = new Gpio(13, 'in', 'both', {persistentWatch:true,debounceTimeout:500});
 ok = new Gpio(20, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
@@ -44,7 +51,8 @@ function blink(config){
 			setTimeout(function(){
 				for(var led in config.leds){
 					// console.log(config.leds[led] + '  => END');
-					eval(config.leds[led]).write(0); // TODO remplacer eval
+					//eval(config.leds[led]).write(0); // TODO remplacer eval
+					ODI.leds[led].write(0);
 				}
 			}, config.speed * config.loop * 2 +50);
 			for(loop = config.loop * 2; loop > 0; loop--){
@@ -52,7 +60,9 @@ function blink(config){
 					for(var i in leds){
 						var led = leds[i]
 						// console.log('led : ' + led);
-						eval(led).write(etat); // TODO remplacer eval
+						//eval(led).write(etat); // TODO remplacer eval
+						ODI.leds[led].write(etat);
+						ODI.leds[led].write(etat);
 					}
 					etat = 1 - etat; // VOIR POUR ALTERNER ??
 				}, config.speed * loop, config.leds);
@@ -73,7 +83,8 @@ function blink(config){
 function toggle(config){
 	// console.log('toogle() ' + config.led + (config.mode ? ' on':' off'));
 	if(['nose', 'eye', 'satellite', 'belly'].indexOf(config.led) > -1){
-		eval(config.led).write(config.mode? 1 : 0); // TODO remplacer eval
+		// eval(config.led).write(config.mode? 1 : 0); // TODO remplacer eval
+		ODI.leds[led].write(config.mode? 1 : 0);
 	}
 };
 
@@ -94,13 +105,6 @@ function activity(){
 		blink({leds: ['nose'], speed: 200, loop: 1}); // Initialisation du temoin d'activite 2/2
 	}, null, 1, 'Europe/Paris');
 };
-
-/** Fonction verification de la config blink LEDS  */
-/*function findOne(haystack, arr){ // NOT EXPORTED !!
-	return arr.some(function (v){
-		return haystack.indexOf(v) >= 0;
-	});
-};*/
 
 var timer;
 /** Function to start inverted blink (Eye/Belly) */

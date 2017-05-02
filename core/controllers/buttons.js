@@ -58,9 +58,11 @@ function initButtonAwake(){
 			var t = Math.round((new Date() - pressTime)/100)/10;
 			if(t%1 == 0){
 				// console.log(t);
-				belly.write(0);
+				//belly.write(0);
+				ODI.leds.belly.write(0);
 			}else{
-				belly.write(1);
+				//belly.write(1);
+				ODI.leds.write(1);
 			}
 		}
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
@@ -91,9 +93,11 @@ function initButtonAwake(){
 			; // Pause
 			t = Math.round((new Date() - pressTime)/100)/10;
 			if(t%1 == 0){
-				belly.write(0);
+				//belly.write(0);
+				ODI.leds.belly.write(0);
 			}else{
-				belly.write(1);
+				//belly.write(1);
+				ODI.leds.write(1);
 			}
 		}
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
@@ -114,9 +118,11 @@ function initButtonAwake(){
 			; // Pause
 			t = Math.round((new Date() - pressTime)/100)/10;
 			if(t%1 == 0){
-				belly.write(0);
+				//belly.write(0);
+				ODI.leds.belly.write(0);
 			}else{
-				belly.write(1);
+				//belly.write(1);
+				ODI.leds.write(1);
 			}
 		}
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
@@ -132,9 +138,11 @@ function initButtonAwake(){
 			; // Pause
 			t = Math.round((new Date() - pressTime)/100)/10;
 			if(t%1 == 0){
-				belly.write(0);
+				//belly.write(0);
+				ODI.leds.belly.write(0);
 			}else{
-				belly.write(1);
+				//belly.write(1);
+				ODI.leds.write(1);
 			}
 		}
 		pressTime = Math.round((new Date() - pressTime)/100)/10;

@@ -22,24 +22,6 @@ module.exports = {
 	execCmd: execCmd
 };
 
-/** Function to update last modified date & time of Odi's files */
-function getLastModifiedDate(paths, callback){ // typeof paths => Array
-	var dates = [];
-	for(var i=0;i<paths.length;i++){
-		fs.stat(paths[i], function(err, stats){
-			dates.push(stats.mtime);
-			// console.debug('getLastModifiedDate()', dates);
-			if(dates.length == paths.length){
-				var d = new Date(Math.max.apply(null, dates.map(function(e){
-					return new Date(e);
-				})));
-				var lastDate = logTime('Y-M-D h:m');
-				callback(lastDate);
-			}
-		});
-	}(i);
-};
-
 /** Function to return date time. Pattern: 'YDT' */
 function logTime(param, date){
 	if(typeof date === 'undefined') date = new Date();
@@ -157,6 +139,24 @@ function setDefaultConfig(newConf, restart, callback){
 			if(callback) callback();
 		});
 	});
+};
+
+/** Function to update last modified date & time of Odi's files */
+function getLastModifiedDate(paths, callback){ // typeof paths => Array
+	var dates = [];
+	for(var i=0;i<paths.length;i++){
+		fs.stat(paths[i], function(err, stats){
+			dates.push(stats.mtime);
+			// console.debug('getLastModifiedDate()', dates);
+			if(dates.length == paths.length){
+				var d = new Date(Math.max.apply(null, dates.map(function(e){
+					return new Date(e);
+				})));
+				var lastDate = logTime('Y-M-D h:m');
+				callback(lastDate);
+			}
+		});
+	}(i);
 };
 
 /** Function to reset Odi's config */
