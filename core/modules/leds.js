@@ -10,11 +10,16 @@ eye = new Gpio(14, 'out');
 belly = new Gpio(17, 'out');
 satellite = new Gpio(23, 'out');*/
 
-//ODI.leds.led = new Gpio(15, 'out');
-ODI.leds.nose = new Gpio(15, 'out'); // global. ?
-ODI.leds.eye = new Gpio(14, 'out'); // global. ?
-ODI.leds.belly = new Gpio(17, 'out'); // global. ?
-ODI.leds.satellite = new Gpio(23, 'out'); // global. ?
+const odiLeds = {
+	eye: new Gpio(14, 'out'),
+	nose: new Gpio(15, 'out'),
+	belly: new Gpio(17, 'out'),
+	satellite: new Gpio(23, 'out')
+};
+// odiLeds.nose = new Gpio(15, 'out'); // global. ?
+// odiLeds.eye = new Gpio(14, 'out'); // global. ?
+// odiLeds.belly = new Gpio(17, 'out'); // global. ?
+// odiLeds.satellite = new Gpio(23, 'out'); // global. ?
 
 
 etat = new Gpio(13, 'in', 'both', {persistentWatch:true,debounceTimeout:500});
@@ -24,6 +29,10 @@ white = new Gpio(19, 'in', 'rising', {persistentWatch:true,debounceTimeout:500})
 blue = new Gpio(26, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
 
 module.exports = {
+	eye: odiLeds.eye,
+	nose: odiLeds.nose,
+	belly: odiLeds.belly,
+	satellite: odiLeds.satellite,
 	blink: blink,
 	toggle: toggle,
 	activity: activity,
@@ -52,7 +61,8 @@ function blink(config){
 				for(var led in config.leds){
 					// console.log(config.leds[led] + '  => END');
 					//eval(config.leds[led]).write(0); // TODO remplacer eval
-					ODI.leds[led].write(0);
+					// console.log(config.leds[led]);
+					odiLeds[config.leds[led]].write(0);
 				}
 			}, config.speed * config.loop * 2 +50);
 			for(loop = config.loop * 2; loop > 0; loop--){
@@ -61,8 +71,7 @@ function blink(config){
 						var led = leds[i]
 						// console.log('led : ' + led);
 						//eval(led).write(etat); // TODO remplacer eval
-						ODI.leds[led].write(etat);
-						ODI.leds[led].write(etat);
+						odiLeds[led].write(etat);
 					}
 					etat = 1 - etat; // VOIR POUR ALTERNER ??
 				}, config.speed * loop, config.leds);
@@ -84,7 +93,7 @@ function toggle(config){
 	// console.log('toogle() ' + config.led + (config.mode ? ' on':' off'));
 	if(['nose', 'eye', 'satellite', 'belly'].indexOf(config.led) > -1){
 		// eval(config.led).write(config.mode? 1 : 0); // TODO remplacer eval
-		ODI.leds[led].write(config.mode? 1 : 0);
+		odiLeds[config.led].write(config.mode? 1 : 0);
 	}
 };
 
@@ -98,7 +107,7 @@ function activity(){
 	if(CONFIG.mode == 'sleep') mode = 0;
 	else mode = 1;
 	setInterval(function(){
-		led.write(mode);
+		odiLeds.nose.write(mode);
 	}, 900);
 
 	new CronJob('*/3 * * * * *', function(){
@@ -112,14 +121,14 @@ function altLeds(speed, duration){
 	clearInterval(timer);
 	var etat = 1;
 	timer = setInterval(function(){
-			eye.write(etat);
+			odiLeds.eye.write(etat);
 			etat = 1 - etat;
-			belly.write(etat);
+			odiLeds.belly.write(etat);
 	}, speed);
 	var stopTimer = setTimeout(function(){
 		clearInterval(timer);
-		eye.write(0);
-		belly.write(0);
+		odiLeds.eye.write(0);
+		odiLeds.belly.write(0);
 	}, duration*1000);
 };
 
@@ -146,43 +155,43 @@ function clearLeds(){
 /** Function to swith on a led */
 function ledOn(led){
 	if(led == 'led'){
-		led.write(1);
+		odiLeds.nose.write(1);
 	}else if(led == 'eye'){
-		eye.write(1);
+		odiLeds.eye.write(1);
 	}else if(led == 'belly'){
-		belly.write(1);
+		odiLeds.belly.write(1);
 	}else if(led == 'satellite'){
-		satellite.write(1);
+		odiLeds.satellite.write(1);
 	}
 };
 
 /** Function to swith off a led */
 function ledOff(led){
 	if(led == 'led'){
-		led.write(0);
+		odiLeds.nose.write(0);
 	}else if(led == 'eye'){
-		eye.write(0);
+		odiLeds.eye.write(0);
 	}else if(led == 'belly'){
-		belly.write(0);
+		odiLeds.belly.write(0);
 	}else if(led == 'satellite'){
-		satellite.write(0);
+		odiLeds.satellite.write(0);
 	}
 };
 
 /** Function to switch on all leds */
 function allLedsOn(){
-	eye.write(1);
-	belly.write(1);
-	satellite.write(1);
-	led.write(1); // EXCEPT ACTIVITY LED ??
+	odiLeds.eye.write(1);
+	odiLeds.belly.write(1);
+	odiLeds.satellite.write(1);
+	odiLeds.nose.write(1); // EXCEPT ACTIVITY LED ??
 };
 
 /** Function to swith off all leds */
 function allLedsOff(){
-	eye.write(0);
-	belly.write(0);
-	satellite.write(0);
-	led.write(0); // EXCEPT ACTIVITY LED ??
+	odiLeds.eye.write(0);
+	odiLeds.belly.write(0);
+	odiLeds.satellite.write(0);
+	odiLeds.nose.write(0); // EXCEPT ACTIVITY LED ??
 };
 
 /** Params detection for direct call */

@@ -2,7 +2,7 @@
 'use strict'
 
 var mode = process.argv[2]; // Get parameters
-// console.log('Odi\'s context initializing...');
+console.log('Odi\'s context initializing...');
 
 var spawn = require('child_process').spawn;
 var fs = require('fs');

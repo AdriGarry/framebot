@@ -142,7 +142,7 @@ function setTimer(minutes){
 	if(!timer){
 		timer = true;
 		var sec = setInterval(function(){
-			belly.write(etat);
+			ODI.leds.belly.write(etat);
 			etat = 1 - etat;
 			if(time < 10){
 				var deploy = spawn('sh', [CORE_PATH + 'sh/timerSound.sh', 'almost']);
@@ -164,11 +164,11 @@ function setTimer(minutes){
 				});
 				ODI.tts.speak({lg:'fr', msg:'Les raviolis sont cuits !'});
 				timer = false;
-				belly.write(0);
+				ODI.leds.belly.write(0);
 			}else if(time < -2){
 				clearInterval(sec);
 				console.log('Timer canceled!');
-				belly.write(0);
+				ODI.leds.belly.write(0);
 			}
 		}, 1000);
 	}
@@ -184,5 +184,5 @@ function stopTimer(){
 	time = -5;
 	timer = false;
 	ODI.tts.speak({lg:'en', msg:'Timer canceled'});
-	belly.write(0);
+	ODI.leds.belly.write(0);
 };

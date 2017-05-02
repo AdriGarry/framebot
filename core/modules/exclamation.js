@@ -38,7 +38,7 @@ function exclamation2Rappels(){
 	spawn('sh', ['/home/pi/odi/core/sh/exclamation.sh']);
 	var rdm = Math.floor(Math.random()*60) + 10;
 	console.log('Next sounds: ' + rdm + ' sec & ' + Math.floor(rdm*10/60) + ' min');
-	setTimeout(function(){ eye.write(0); }, 2000);
+	setTimeout(function(){ ODI.leds.eye.write(0); }, 2000);
 	setTimeout(function(){
 		console.log('Exclamation recall 1');
 		// leds.blinkEye((Math.floor(Math.random()*5) + 1)*100, 2);
@@ -48,7 +48,7 @@ function exclamation2Rappels(){
 			loop: 6
 		});
 		spawn('sh', ['/home/pi/odi/core/sh/exclamation.sh']);
-		setTimeout(function(){ eye.write(0); }, 2000);
+		setTimeout(function(){ ODI.leds.eye.write(0); }, 2000);
 	}, rdm * 3 * 1000);
 	setTimeout(function(){
 		console.log('Exclamation recall 2');
@@ -59,7 +59,7 @@ function exclamation2Rappels(){
 			loop: 6
 		});
 		spawn('sh', ['/home/pi/odi/core/sh/exclamation.sh']);
-		setTimeout(function(){ eye.write(0); }, 2000);
+		setTimeout(function(){ ODI.leds.eye.write(0); }, 2000);
 	}, rdm * 10 * 1000);
 }
 

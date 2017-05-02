@@ -46,8 +46,8 @@ function stopAll(message){
 	spawn('sh', [CORE_PATH + 'sh/mute.sh']);
 	console.log('>> MUTE  -.-', message ? '"' + message + '"' : '');
 	ODI.leds.clearLeds();
-	eye.write(0);
-	belly.write(0);
+	ODI.leds.eye.write(0);
+	ODI.leds.belly.write(0);
 };
 
 /** Function to restart/sleep Odi's core */

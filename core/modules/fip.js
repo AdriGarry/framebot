@@ -63,7 +63,7 @@ function stopFip(message){
 	spawn('sh', ['/home/pi/odi/core/sh/mute.sh']); // Inutile ?
 	playing = false;
 	clearInterval(fipInterval);
-	eye.write(0);
-	belly.write(0);
+	ODI.leds.eye.write(0);
+	ODI.leds.belly.write(0);
 	ODI.leds.clearLeds();
 };

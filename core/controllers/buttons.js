@@ -23,7 +23,7 @@ function initButtonAwake(){
 	var intervalDelay = CONFIG.debug ? 2*60*1000 : 5*60*1000;
 	setInterval(function(){
 		var value = etat.readSync();
-		satellite.writeSync(value);
+		ODI.leds.satellite.writeSync(value);
 		if(1 === value){
 			if(!instance){
 				instance = true;
@@ -62,7 +62,7 @@ function initButtonAwake(){
 				ODI.leds.belly.write(0);
 			}else{
 				//belly.write(1);
-				ODI.leds.write(1);
+				ODI.leds.belly.write(1);
 			}
 		}
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
@@ -97,7 +97,7 @@ function initButtonAwake(){
 				ODI.leds.belly.write(0);
 			}else{
 				//belly.write(1);
-				ODI.leds.write(1);
+				ODI.leds.belly.write(1);
 			}
 		}
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
@@ -122,7 +122,7 @@ function initButtonAwake(){
 				ODI.leds.belly.write(0);
 			}else{
 				//belly.write(1);
-				ODI.leds.write(1);
+				ODI.leds.belly.write(1);
 			}
 		}
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
@@ -142,7 +142,7 @@ function initButtonAwake(){
 				ODI.leds.belly.write(0);
 			}else{
 				//belly.write(1);
-				ODI.leds.write(1);
+				ODI.leds.belly.write(1);
 			}
 		}
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
