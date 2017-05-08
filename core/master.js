@@ -79,11 +79,18 @@ function startOdi(exitCode){
 	});
 
 	odiPgm.stderr.on('data', function(data){ // Template log error
+		// console.log(typeof data);
+		// console.log(data);
+		var util = require('util');
+		console.log(util.inspect(data));
 		if(CONFIG.mode == 'ready') spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'error']);
 		setTimeout(function(){
 			leds.altLeds(30, 1.5);
 		}, 1500);
 		console.error(utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
+		// var tempErr = (new Error()).stack;
+		// console.log('stack');
+		// console.log(tempErr);
 	});
 	
 	odiPgm.on('exit', function(code){ // SetUpRestart Actions

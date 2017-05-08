@@ -158,5 +158,40 @@ setInterval(function(){
 
 
 ODI.utils.execCmd('df -h', function(data){
-	console.log('df -h:', data);
+	//console.log('df -h:', data);
 });
+
+
+function OdiError(message){
+	this.name = 'OdiError';
+	this.message = message || 'OdiError default message';
+	this.stack = (new Error()).stack;
+}
+OdiError.prototype = Object.create(Error.prototype);
+OdiError.prototype.constructor = OdiError;
+
+try{
+	// throw new OdiError();
+}catch(e){
+	console.log(e);
+	// console.log(e.name);
+	// console.log(e.message);
+	// console.log(e.stack);
+}
+// console.error({a:'AAA', b: 'BBB'});
+// console.error(new OdiError('toto'));
+
+/*function MonErreur(message) {
+  this.name = 'MonErreur';
+  this.message = message || 'Message par défaut';
+  this.stack = (new Error()).stack;
+}
+MonErreur.prototype = Object.create(Error.prototype);
+MonErreur.prototype.constructor = MonErreur;
+
+try {
+  throw new MonErreur();
+} catch (e) {
+  console.log(e.name);     // 'MonErreur'
+  console.log(e.message);  // 'Message par défaut'
+}*/
