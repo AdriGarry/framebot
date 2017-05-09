@@ -2,7 +2,6 @@
 'use strict'
 
 var mode = process.argv[2]; // Retreive args
-console.log('Odi\'s sleeping mode context initializing...');
 
 var spawn = require('child_process').spawn;
 var util = require('util');
@@ -18,22 +17,22 @@ global.LOG_PATH = '/home/pi/odi/log/';
 global.WEB_PATH = '/home/pi/odi/web/';
 global.CONFIG = require(CONFIG_FILE);
 
+var fs = require('fs');
+var logo = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
+// var logo2 = require(DATA_PATH + 'odiLogoSleep.properties');
+console.log('\n\n' + logo.join('\n'));
+// console.log('\n\n' + logo2.join('\n'));
 
 /** Debug Mode */
-// if(CONFIG.debug) console.debug = function(o){console.log(o);}
-// else console.debug = function(o){};
-// if(CONFIG.debug){
-// 	console.log('\u2022\u2022\u2022 DEBUG MODE \u2022\u2022\u2022');
-// 	console.debug = function(a,b,c){console.log(a,b,c);}
-// 	// console.debug = function(o){process.stdout.write(util.format('\u2022 %s\n', util.inspect(o).replace(/^'+/g, '').replace(/'$/g, '')));}
-// }
-// else console.debug = function(o){};
 if(CONFIG.debug) require(CORE_PATH + 'modules/debug.js');
 else console.debug = function(){};
 
 global.ODI = {};
-global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
 global.ODI.utils = require(CORE_PATH + 'modules/utils.js');
+ODI.utils.setConfigSync({startTime: ODI.utils.logTime('h:m (D/M)')}, false);
+
+console.log('Odi\'s sleeping mode context initializing...');
+global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
 global.ODI.CronJob = require('cron').CronJob;
 global.ODI.time = require(CORE_PATH + 'modules/time.js');
 global.ODI.voiceMail = require(CORE_PATH + 'modules/voiceMail.js');

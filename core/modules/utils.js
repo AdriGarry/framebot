@@ -12,6 +12,7 @@ module.exports = {
 	logTime: logTime,
 	logConfigArray: logConfigArray, // TODO create a new module config.js
 	setConfig: setConfig, // TODO create a new module config.js
+	setConfigSync: setConfigSync, // TODO create a new module config.js
 	setDefaultConfig: setDefaultConfig, // TODO create a new module config.js
 	getLastModifiedDate: getLastModifiedDate, // TODO create a new module config.js
 	resetConfig: resetConfig, // TODO create a new module config.js
@@ -115,6 +116,24 @@ function setConfig(newConf, restart, callback){
 			if(callback) callback();
 		});
 	});
+};
+
+/** Function to set/edit Odi's config ASYNCHRONOUSLY */
+function setConfigSync(newConf, restart){
+	console.debug('setConfigSync(newConf)', util.inspect(newConf, false, null)); // TODO revoir pk l'objet n'est plus loggué
+	var fileConfig = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+	var updatedEntries = [];
+	Object.keys(newConf).forEach(function(key,index){
+		updatedEntries.push(key);
+		fileConfig[key] = newConf[key];
+	});
+	global.CONFIG = fileConfig;
+	fs.writeFileSync(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
+	logConfigArray(updatedEntries);
+	if(restart){
+		console.debug('process.exit()');
+		process.exit();
+	}
 };
 
 /** Function to set/edit Odi's default config file */
