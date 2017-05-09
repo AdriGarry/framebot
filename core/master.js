@@ -23,7 +23,7 @@ utils.getLastModifiedDate([CORE_PATH, WEB_PATH, DATA_PATH], function(lastUpdate)
 	utils.setDefaultConfig({update: lastUpdate}, false);
 });
 
-var odiPgm, odiState = false, errorLimit = 1;
+var odiPgm, logMode = getLogMode(), errorLimit = 1; // errorLimit not used anymore...
 // const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
 // const logoSleep = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
 
@@ -40,13 +40,10 @@ startOdi(); // First init
 	}
 });*/
 
-var logDate, logMode = getLogMode(), timeToWakeUp;
-var date, month, day, hour, min, sec;
-
 /** Function to start up Odi */
 function startOdi(exitCode){
 	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-	spawn('sh', [CORE_PATH + 'sh/mute.sh']); // Mute // + LEDS ???
+	spawn('sh', [CORE_PATH + 'sh/mute.sh']); // Mute
 
 	var logo;
 	// console.log('==> CONFIG.mode', CONFIG.mode);
@@ -57,7 +54,6 @@ function startOdi(exitCode){
 		odiPgm = spawn('node', [CORE_PATH + 'odiSleep.js'/*, mode*/]);
 	// }else if(CONFIG.mode == 'ready'){
 	}else{
-		timeToWakeUp = 0; // TODO Test si toujours utilisé ... ?
 		logMode = ' Odi';// TODO inutile (cf getLogMode())
 		// logo = logoNormal; //-->
 		odiPgm = spawn('node', [CORE_PATH + 'odi.js'/*, exitCode*/]);
@@ -72,7 +68,6 @@ function startOdi(exitCode){
 		logMode = getLogMode();
 	});
 
-	odiState = true;
 	odiPgm.stdout.on('data', function(data){ // Template log output
 		console.log(utils.logTime('D/M h:m:s') + logMode + '/ ' + data);
 	});
@@ -90,7 +85,6 @@ function startOdi(exitCode){
 	
 	odiPgm.on('exit', function(code){ // SetUpRestart Actions
 		spawn('sh', [CORE_PATH + 'sh/mute.sh']);  // Mute // + LEDS ???
-		odiState = false;
 		console.log('\r\n-----------------------------------' + (code>10 ? (code>100 ? '---' : '--') : '-'));
 		console.log('>> Odi\'s CORE restarting... [code:' + code + ']\r\n\r\n');
 		startOdi(code);

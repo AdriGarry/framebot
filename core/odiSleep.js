@@ -19,9 +19,7 @@ global.CONFIG = require(CONFIG_FILE);
 
 var fs = require('fs');
 var logo = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
-// var logo2 = require(DATA_PATH + 'odiLogoSleep.properties');
 console.log('\n\n' + logo.join('\n'));
-// console.log('\n\n' + logo2.join('\n'));
 
 /** Debug Mode */
 if(CONFIG.debug) require(CORE_PATH + 'modules/debug.js');
