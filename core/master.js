@@ -16,12 +16,18 @@ console.debug = function(o){}; // debug init to false
 var fs = require('fs');
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
-var utils = require(CORE_PATH + 'modules/utils.js');
-var config = require(CORE_PATH + 'modules/config.js');
-var leds = require(CORE_PATH + 'modules/leds.js');
 
-config.getLastModifiedDate([CORE_PATH, WEB_PATH, DATA_PATH], function(lastUpdate){
-	config.updateDefault({update: lastUpdate}, false);
+// var utils = require(CORE_PATH + 'modules/utils.js');
+// var config = require(CORE_PATH + 'modules/config.js');
+// var leds = require(CORE_PATH + 'modules/leds.js');
+global.ODI = {};
+global.ODI.utils = require(CORE_PATH + 'modules/utils.js');
+global.ODI.core = require(CORE_PATH + 'modules/core.js');
+global.ODI.config = require(CORE_PATH + 'modules/config.js');
+global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
+
+ODI.config.getLastModifiedDate([CORE_PATH, WEB_PATH, DATA_PATH], function(lastUpdate){ // A REFAIRE MARCHER !!!
+	ODI.config.updateDefault({update: lastUpdate}, false);
 });
 
 var odiPgm, logMode = getLogMode(), errorLimit = 1; // errorLimit not used anymore...
@@ -62,23 +68,23 @@ function startOdi(exitCode){
 
 	//console.log('\n\n' + logo.join('\n')); //-->
 
-	// var startTime = utils.logTime('h:m (D/M)'); //-->
-	//utils.setConfig({startTime: startTime}, false); // TODO à déplacer dans odi.js & odiSleep.js ?!? //-->
+	// var startTime = ODI.utils.logTime('h:m (D/M)'); //-->
+	//ODI.utils.setConfig({startTime: startTime}, false); // TODO à déplacer dans odi.js & odiSleep.js ?!? //-->
 
 	etat.watch(function(err, value){
 		logMode = getLogMode();
 	});
 
 	odiPgm.stdout.on('data', function(data){ // Template log output
-		console.log(utils.logTime('D/M h:m:s') + logMode + '/ ' + data);
+		console.log(ODI.utils.logTime('D/M h:m:s') + logMode + '/ ' + data);
 	});
 
 	odiPgm.stderr.on('data', function(data){ // Template log error
 		if(CONFIG.mode == 'ready') spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'error']);
 		setTimeout(function(){
-			leds.altLeds(30, 1.5);
+			ODI.leds.altLeds(30, 1.5);
 		}, 1500);
-		console.error(utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
+		console.error(ODI.utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
 		// console.log(typeof data);console.log(data);
 		// var util = require('util');console.log(util.inspect(data));
 		// var tempErr = (new Error()).stack;console.log('stack');console.log(tempErr);

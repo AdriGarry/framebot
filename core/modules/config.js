@@ -17,6 +17,15 @@ module.exports = {
 	resetCfg: resetCfg
 };
 
+if(typeof ODI === 'undefined'){
+	// hasOwnProperty()...
+	console.log('--> ODI global context object is not defined !', typeof ODI);
+	// var ODI = {};
+	// ODI.utils = require(CORE_PATH + 'modules/utils.js');
+}else{
+	console.log('--> ODI global context OK', typeof ODI);
+}
+
 /** Function to log CONFIG array */
 function logArray(updatedEntries){
 	// updatedEntries.indexOf(tts.voice) == -1
@@ -43,7 +52,7 @@ function logArray(updatedEntries){
 			// 	console.log('updatedEntries YES', updatedEntries);
 			// 	var updated = true;
 			// }
-			var updated = (updatedEntries && searchStringInArray(key, updatedEntries)) ? true : false;
+			var updated = (updatedEntries && ODI.utils.searchStringInArray(key, updatedEntries)) ? true : false;
 			confArray += '| ' + (!updated ? '' : '*') + key + ' '.repeat(col1-key.length-updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/
 				+ ' | ' + CONFIG[key] + ' '.repeat(col2-CONFIG[key].toString().length) + ' |\n';
 		}
@@ -54,7 +63,7 @@ function logArray(updatedEntries){
 /** Function to set/edit Odi's config */
 function update(newConf, restart, callback){
 	console.debug('config.update(newConf)', util.inspect(newConf, false, null)); // TODO revoir pk l'objet n'est plus loggué
-	getJsonFileContent(CONFIG_FILE, function(data){
+	ODI.utils.getJsonFileContent(CONFIG_FILE, function(data){
 		var config = JSON.parse(data);
 		var updatedEntries = [];
 		Object.keys(newConf).forEach(function(key,index){
@@ -96,7 +105,7 @@ const DEFAULT_CONFIG_FILE = '/home/pi/odi/data/defaultConf.json';
 function updateDefault(newConf, restart, callback){
 	console.debug('setDefaultConfig(newConf)', util.inspect(newConf, false, null)); // TODO revoir pk l'objet n'est plus loggué
 	//logArray();
-	getJsonFileContent(DEFAULT_CONFIG_FILE, function(data){
+	ODI.utils.getJsonFileContent(DEFAULT_CONFIG_FILE, function(data){
 		var config = JSON.parse(data);
 		var updatedEntries = [];
 		Object.keys(newConf).forEach(function(key,index){
@@ -126,7 +135,7 @@ function getLastModifiedDate(paths, callback){ // typeof paths => Array
 				var d = new Date(Math.max.apply(null, dates.map(function(e){
 					return new Date(e);
 				})));
-				var lastDate = logTime('Y-M-D h:m');
+				var lastDate = ODI.utils.logTime('Y-M-D h:m');
 				callback(lastDate);
 			}
 		});

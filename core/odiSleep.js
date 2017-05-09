@@ -30,7 +30,6 @@ global.ODI.config = require(CORE_PATH + 'modules/config.js');
 if(CONFIG.debug) ODI.core.enableDebug();
 else console.debug = function(){};
 
-global.ODI = {};
 //global.ODI.utils = require(CORE_PATH + 'modules/utils.js');
 ODI.config.updateSync({startTime: ODI.utils.logTime('h:m (D/M)')}, false);
 
