@@ -42,7 +42,7 @@ function mute(delay, message){
 /** Function to stop all sounds & leds */
 function stopAll(message){
 	ODI.tts.clearTTSQueue();
-	ODI.fip.stopFip();
+	ODI.jukebox.stopFip();
 	spawn('sh', [CORE_PATH + 'sh/mute.sh']);
 	console.log('>> MUTE  -.-', message ? '"' + message + '"' : '');
 	ODI.leds.clearLeds();
@@ -55,10 +55,10 @@ function restartOdi(mode){
 	console.log('restartOdi(mode)', mode || '');
 	if(mode > 0){
 		// console.log('SLEEP');
-		ODI.utils.setConfig({mode: 'sleep'}, true);
+		ODI.config.update({mode: 'sleep'}, true);
 	}else{
 		// console.log('READY');
-		ODI.utils.setConfig({mode: 'ready'}, true);
+		ODI.config.update({mode: 'ready'}, true);
 	}
 };
 

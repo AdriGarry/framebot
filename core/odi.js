@@ -4,8 +4,8 @@
 var mode = process.argv[2]; // Get parameters
 
 var spawn = require('child_process').spawn;
-var fs = require('fs');
 var exec = require('child_process').exec;
+var fs = require('fs');
 var util = require('util');
 var os = require('os');
 var Gpio = require('onoff').Gpio;
@@ -24,16 +24,19 @@ global.CONFIG = require(CONFIG_FILE);
 var logo = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
 console.log('\n\n' + logo.join('\n'));
 
+global.ODI = {};
+global.ODI.utils = require(CORE_PATH + 'modules/utils.js');
+global.ODI.core = require(CORE_PATH + 'modules/core.js');
+global.ODI.config = require(CORE_PATH + 'modules/config.js');
 /** Debug Mode */
-if(CONFIG.debug) require(CORE_PATH + 'modules/debug.js');
+// if(CONFIG.debug) require(CORE_PATH + 'modules/debug.js');
+if(CONFIG.debug) ODI.core.enableDebug();
 else console.debug = function(){};
 
 spawn('sh', [CORE_PATH + 'sh/init.sh']);
 spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
 
-global.ODI = {};
-global.ODI.utils = require(CORE_PATH + 'modules/utils.js');
-ODI.utils.setConfigSync({startTime: ODI.utils.logTime('h:m (D/M)')}, false);
+ODI.config.updateSync({startTime: ODI.utils.logTime('h:m (D/M)')}, false);
 
 console.log('Odi\'s context initializing...');
 global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
@@ -46,17 +49,14 @@ global.ODI.tts = require(CORE_PATH + 'modules/tts.js');
 global.ODI.hardware = require(CORE_PATH + 'modules/hardware.js');
 global.ODI.jukebox = require(CORE_PATH + 'modules/jukebox.js');
 global.ODI.exclamation = require(CORE_PATH + 'modules/exclamation.js');
-global.ODI.fip = require(CORE_PATH + 'modules/fip.js');
+//global.ODI.fip = require(CORE_PATH + 'modules/fip.js');
 global.ODI.video = require(CORE_PATH + 'modules/video.js');
-global.ODI.party = require(CORE_PATH + 'modules/party.js');
+global.ODI.party = require(CORE_PATH + 'modules/party.js'); // TODO n'importer que si mode party activé (dans server.js) ??
 global.ODI.admin = require(CORE_PATH + 'modules/admin.js');
 global.ODI.service = require(CORE_PATH + 'modules/service.js');
 global.ODI.buttons = require(CORE_PATH + 'controllers/buttons.js');
 global.ODI.server = require(CORE_PATH + 'controllers/server.js');
 global.ODI.jobs = require(CORE_PATH + 'controllers/jobs.js');
-// console.log('Context loaded');
-
-// ODI.utils.setConfig({startTime: ODI.utils.logTime('h:m (D/M)')}, false);
 
 ODI.leds.activity(); // Activity flag 1/2
 
@@ -157,18 +157,3 @@ try{
 }
 // console.error({a:'AAA', b: 'BBB'});
 // console.error(new OdiError('toto'));
-
-/*function MonErreur(message) {
-  this.name = 'MonErreur';
-  this.message = message || 'Message par défaut';
-  this.stack = (new Error()).stack;
-}
-MonErreur.prototype = Object.create(Error.prototype);
-MonErreur.prototype.constructor = MonErreur;
-
-try {
-  throw new MonErreur();
-} catch (e) {
-  console.log(e.name);     // 'MonErreur'
-  console.log(e.message);  // 'Message par défaut'
-}*/

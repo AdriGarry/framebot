@@ -3,7 +3,7 @@
 /** Params detection */
 // const lastUpdated = process.argv[2];
 
-/** Odi's global variables  */
+/** Odi's global variables */
 global.ODI_PATH = '/home/pi/odi/';
 global.CORE_PATH = '/home/pi/odi/core/';
 global.CONFIG_FILE = '/home/pi/odi/conf.json';
@@ -17,10 +17,11 @@ var fs = require('fs');
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
 var utils = require(CORE_PATH + 'modules/utils.js');
+var config = require(CORE_PATH + 'modules/config.js');
 var leds = require(CORE_PATH + 'modules/leds.js');
 
-utils.getLastModifiedDate([CORE_PATH, WEB_PATH, DATA_PATH], function(lastUpdate){
-	utils.setDefaultConfig({update: lastUpdate}, false);
+config.getLastModifiedDate([CORE_PATH, WEB_PATH, DATA_PATH], function(lastUpdate){
+	config.updateDefault({update: lastUpdate}, false);
 });
 
 var odiPgm, logMode = getLogMode(), errorLimit = 1; // errorLimit not used anymore...

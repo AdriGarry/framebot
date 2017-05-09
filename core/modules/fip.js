@@ -3,9 +3,6 @@
 // Module Fip
 
 var spawn = require('child_process').spawn;
-/*var leds = require(CORE_PATH + 'modules/leds.js');
-var hardware = require('./hardware.js');
-//var self = this;*/
 
 var playing = false;
 
@@ -32,18 +29,16 @@ function playFip(){
 
 		fipInterval = setInterval(function(){
 			if(playing){
-				//console.log('Playing FIP RADIO...!');
 				ODI.leds.altLeds(100, 1.3);
 			}
 		}, 13*1000);
-	console.log('playFip()> playing', playing);
+		console.log('playFip()> playing', playing);
 
 		cancel.watch(function(err, value){ // TODO : remove ???
 			clearInterval(fipInterval);
 			playing = false;
 		});
-	}
-	else{
+	}else{
 		console.log('Already playing FIP');
 		// PLAY FIP WITH !VOLUME (invert volume)
 	}

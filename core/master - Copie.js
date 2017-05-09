@@ -20,7 +20,7 @@ var utils = require(CORE_PATH + 'modules/utils.js');
 var leds = require(CORE_PATH + 'modules/leds.js');
 
 utils.getLastModifiedDate([CORE_PATH, WEB_PATH, DATA_PATH], function(lastUpdate){
-	utils.setDefaultConfig({update: lastUpdate}, false);
+	conf.updateDefault({update: lastUpdate}, false);
 });
 
 var odiPgm, odiState = false, errorLimit = 1;

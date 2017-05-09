@@ -48,7 +48,7 @@ function setInteractiveJobs(){
 		ODI.utils.testConnexion(function(connexion){
 			setTimeout(function(){
 				if(connexion == true){
-					ODI.fip.playFip();
+					ODI.jukebox.playFip();
 				}else{
 					ODI.jukebox.loop();
 				}
@@ -94,7 +94,7 @@ function setBackgroundJobs(){
 	new CronJob('13 13 13 * * 0', function(){
 		ODI.tts.speak({voice:'espeak', lg:'en', msg:'Reset config'}); // Weekly RPI reboot
 		setTimeout(function(){
-			ODI.utils.resetConfig();
+			ODI.config.resetCfg();
 		}, 3000);
 	}, null, true, 'Europe/Paris');
 
@@ -113,10 +113,10 @@ function setBackgroundJobs(){
 	new CronJob('5 5 5 * * *', function(){
 	// new CronJob('40 0 * * * *', function(){
 		console.log('Get last update date & time'); // Daily
-		ODI.utils.getLastModifiedDate([CORE_PATH, WEB_PATH], function(lastUpdate){ // DATA_PATH
+		ODI.config.getLastModifiedDate([CORE_PATH, WEB_PATH], function(lastUpdate){ // DATA_PATH
 			if(CONFIG.update != lastUpdate){
-				ODI.utils.setDefaultConfig({update: lastUpdate}, false);
-				ODI.utils.setConfig({update: lastUpdate}, false);
+				ODI.config.updateDefault({update: lastUpdate}, false);
+				ODI.config.update({update: lastUpdate}, false);
 			}
 		});
 	}, null, true, 'Europe/Paris');

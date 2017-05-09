@@ -107,23 +107,22 @@ function startUI(mode){
 		// console.log('req', req);
 		params = req.query;
 		console.log('/alarm     > params', params);
-		//utils.setConfig('alarm', null, true); // NOUVEAU FORMAT OBJET ... /!\
+		//ODI.config.update('alarm', null, true); // NOUVEAU FORMAT OBJET ... /!\
 		res.writeHead(200);res.end();
 	});
 
 	/** TOGGLE DEBUG MODE */
 	ui.post('/toggleDebug', function(req, res){
 		console.debug('UI > Toggle debug');
-		//utils.setConfig('debug', null, true); // NOUVEAU FORMAT OBJET ... /!\
-		// ODI.utils.setConfig({debug: !CONFIG.debug}, true);
-		ODI.utils.setConfig({debug: CONFIG.debug ? 0 : 30}, true);
+		// ODI.config.update({debug: !CONFIG.debug}, true);
+		ODI.config.update({debug: CONFIG.debug ? 0 : 30}, true);
 		res.writeHead(200);res.end();
 	});
 
 	/** RESET CONFIG */
 	ui.post('/resetConfig', function(req, res){
 		console.debug('UI > Reset config');
-		ODI.utils.resetConfig(true);
+		ODI.config.resetCfg(true);
 		res.writeHead(200);res.end();
 	});
 
@@ -180,7 +179,7 @@ function startUI(mode){
 		res.writeHead(200);
 		//res.end(fs.readFileSync(CONFIG_FILE, 'utf8').toString());
 		//console.debug(CONFIG.toString);
-		ODI.utils.logConfigArray();
+		ODI.config.logArray();
 		res.end(JSON.stringify(CONFIG));
 	});
 
@@ -332,7 +331,7 @@ function startUI(mode){
 		});
 
 		ui.post('/fip', function(req, res){ // FIP Radio
-			ODI.fip.playFip();
+			ODI.jukebox.playFip();
 			res.writeHead(200);res.end();
 		});
 

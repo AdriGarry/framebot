@@ -41,11 +41,11 @@ function initButtonAwake(){
 	/** Switch watch for radio volume */
 	etat.watch(function(err, value){
 		value = etat.readSync();
-		console.log('Etat:', value, '[Etat has changed]', ODI.fip.playing());
-		if(ODI.fip.playing()){
-			ODI.fip.stopFip('Rebooting FIP RADIO (volume changed)');
+		console.log('Etat:', value, '[Etat has changed]', ODI.jukebox.isPlayingFip());
+		if(ODI.jukebox.isPlayingFip()){
+			ODI.jukebox.stopFip('Rebooting FIP RADIO (volume changed)');
 			setTimeout(function(){
-				ODI.fip.playFip();
+				ODI.jukebox.playFip();
 			}, 100);
 		}
 	});
@@ -150,7 +150,7 @@ function initButtonAwake(){
 		console.log('Blue btn pressed for ' + pressTime + ' sec [2;5]');//[val:' + value + ']
 		if(pressTime < 2){
 			if(etat.readSync() == 0){
-				ODI.fip.playFip();
+				ODI.jukebox.playFip();
 			}else{
 				ODI.jukebox.loop();
 			}

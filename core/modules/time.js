@@ -69,7 +69,7 @@ function cocorico(mode){
 			setTimeout(function(){
 				ODI.utils.testConnexion(function(connexion){
 					if(connexion == true){
-						ODI.fip.playFip();
+						ODI.jukebox.playFip();
 					}else{
 						ODI.jukebox.loop();
 					}
@@ -89,7 +89,7 @@ function setAlarm(alarm){
 		config.alarms.custom.m = alarm.m;
 		global.CONFIG = config;
 		//console.debug(CONFIG);
-		ODI.utils.logConfigArray();
+		ODI.config.logArray();
 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
 		if(restart) ODI.hardware.restartOdi();
 	});
