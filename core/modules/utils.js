@@ -126,7 +126,7 @@ function testConnexion(callback){
 function execCmd(command, callback){
 	exec(command, function(error, stdout, stderr){
 		// console.log('error', error);
-		console.debug('execCmd()>stdout', stdout);
+		console.debug('execCmd()>stdout\n', stdout);
 		// console.log('stderr', stderr);
 		if(callback) callback(stdout);
 	});

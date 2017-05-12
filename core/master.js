@@ -27,23 +27,19 @@ ODI.config.getLastModifiedDate([CORE_PATH, WEB_PATH, DATA_PATH], function(lastUp
 	ODI.config.updateDefault({update: lastUpdate}, false);
 });
 
-// var odiPgm, logMode = getLogMode(), errorLimit = 1; // errorLimit not used anymore...
-var odiPgm, logMode = '.', errorLimit = 1; // errorLimit not used anymore...
-
 console.log('\r\n>> Odi\'s CORE started');
 
 /** Function to start up Odi */
 (function startOdi(exitCode){
-	// ODI.leds.blink({leds: ['belly'], speed: 2000, loop: 1});
 	ODI.leds.blink({leds: ['nose'], speed: 2000, loop: 1});
 	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+	var odiCore, logMode = getLogMode();
 	spawn('sh', [CORE_PATH + 'sh/mute.sh']); // Mute
 
-	logMode = getLogMode();
 	if(CONFIG.mode == 'sleep' || typeof exitCode === 'number' && exitCode > 0){
-		odiPgm = spawn('node', [CORE_PATH + 'odiSleep.js'/*, mode*/]);
+		odiCore = spawn('node', [CORE_PATH + 'odiSleep.js'/*, mode*/]);
 	}else{
-		odiPgm = spawn('node', [CORE_PATH + 'odi.js'/*, exitCode*/]);
+		odiCore = spawn('node', [CORE_PATH + 'odi.js'/*, exitCode*/]);
 	}
 
 	etat.watch(function(err, value){
@@ -51,11 +47,11 @@ console.log('\r\n>> Odi\'s CORE started');
 		logMode = getLogMode();
 	});
 
-	odiPgm.stdout.on('data', function(data){
+	odiCore.stdout.on('data', function(data){
 		console.log(ODI.utils.logTime('D/M h:m:s') + logMode + '/ ' + data);
 	});
 
-	odiPgm.stderr.on('data', function(data){
+	odiCore.stderr.on('data', function(data){
 		if(CONFIG.mode == 'ready') spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'error']);
 		setTimeout(function(){
 			ODI.leds.altLeds(30, 1.5);
@@ -63,7 +59,7 @@ console.log('\r\n>> Odi\'s CORE started');
 		console.error(ODI.utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
 	});
 	
-	odiPgm.on('exit', function(code){ // SetUpRestart Actions
+	odiCore.on('exit', function(code){ // SetUpRestart Actions
 		spawn('sh', [CORE_PATH + 'sh/mute.sh']);  // Mute // + LEDS ???
 		console.log('\r\n-----------------------------------' + (code>10 ? (code>100 ? '---' : '--') : '-'));
 		console.log('>> Odi\'s CORE restarting... [code:' + code + ']\r\n\r\n');
