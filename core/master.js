@@ -17,77 +17,48 @@ var fs = require('fs');
 var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
 
-// var utils = require(CORE_PATH + 'modules/utils.js');
-// var config = require(CORE_PATH + 'modules/config.js');
-// var leds = require(CORE_PATH + 'modules/leds.js');
 global.ODI = {};
 global.ODI.utils = require(CORE_PATH + 'modules/utils.js');
 global.ODI.core = require(CORE_PATH + 'modules/core.js');
 global.ODI.config = require(CORE_PATH + 'modules/config.js');
 global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
 
-ODI.config.getLastModifiedDate([CORE_PATH, WEB_PATH, DATA_PATH], function(lastUpdate){ // A REFAIRE MARCHER !!!
+ODI.config.getLastModifiedDate([CORE_PATH, WEB_PATH, DATA_PATH], function(lastUpdate){
 	ODI.config.updateDefault({update: lastUpdate}, false);
 });
 
-var odiPgm, logMode = getLogMode(), errorLimit = 1; // errorLimit not used anymore...
-// const logoNormal = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
-// const logoSleep = fs.readFileSync(DATA_PATH + 'odiLogoSleep.properties', 'utf8').toString().split('\n');
+// var odiPgm, logMode = getLogMode(), errorLimit = 1; // errorLimit not used anymore...
+var odiPgm, logMode = '.', errorLimit = 1; // errorLimit not used anymore...
 
-
-/* ------------- START CORE -------------*/
 console.log('\r\n>> Odi\'s CORE started');
 
-startOdi(); // First init
-
-/*ok.watch(function(err, value){
-	if(!odiState){ // Watch green button to force start... DEPRECATED ???
-		utils.setConfig({mode: 'ready'}, true);
-		startOdi();
-	}
-});*/
-
 /** Function to start up Odi */
-function startOdi(exitCode){
+(function startOdi(exitCode){
 	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
 	spawn('sh', [CORE_PATH + 'sh/mute.sh']); // Mute
 
-	var logo;
-	// console.log('==> CONFIG.mode', CONFIG.mode);
-	// console.log('==> exitCode', exitCode);
+	logMode = getLogMode();
 	if(CONFIG.mode == 'sleep' || typeof exitCode === 'number' && exitCode > 0){
-		logMode = ' O';// inutile (cf getLogMode())
-		// logo = logoSleep; //-->
 		odiPgm = spawn('node', [CORE_PATH + 'odiSleep.js'/*, mode*/]);
-	// }else if(CONFIG.mode == 'ready'){
 	}else{
-		logMode = ' Odi';// TODO inutile (cf getLogMode())
-		// logo = logoNormal; //-->
 		odiPgm = spawn('node', [CORE_PATH + 'odi.js'/*, exitCode*/]);
 	}
 
-	//console.log('\n\n' + logo.join('\n')); //-->
-
-	// var startTime = ODI.utils.logTime('h:m (D/M)'); //-->
-	//ODI.utils.setConfig({startTime: startTime}, false); // TODO à déplacer dans odi.js & odiSleep.js ?!? //-->
-
 	etat.watch(function(err, value){
+		CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
 		logMode = getLogMode();
 	});
 
-	odiPgm.stdout.on('data', function(data){ // Template log output
+	odiPgm.stdout.on('data', function(data){
 		console.log(ODI.utils.logTime('D/M h:m:s') + logMode + '/ ' + data);
 	});
 
-	odiPgm.stderr.on('data', function(data){ // Template log error
+	odiPgm.stderr.on('data', function(data){
 		if(CONFIG.mode == 'ready') spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'error']);
 		setTimeout(function(){
 			ODI.leds.altLeds(30, 1.5);
 		}, 1500);
 		console.error(ODI.utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
-		// console.log(typeof data);console.log(data);
-		// var util = require('util');console.log(util.inspect(data));
-		// var tempErr = (new Error()).stack;console.log('stack');console.log(tempErr);
 	});
 	
 	odiPgm.on('exit', function(code){ // SetUpRestart Actions
@@ -96,13 +67,13 @@ function startOdi(exitCode){
 		console.log('>> Odi\'s CORE restarting... [code:' + code + ']\r\n\r\n');
 		startOdi(code);
 	});
-};
+}());
 
 function getLogMode(){
 	value = etat.readSync();
 	if(value != etat.readSync()){
 		getLogMode();
 	}
-	if(1 == value) return ' ODI';
-	else return ' Odi';
-}
+	if(value) return CONFIG.mode == 'sleep' ? ' O.' : ' ODI';
+	else return CONFIG.mode == 'sleep' ? ' O' : ' Odi';
+};

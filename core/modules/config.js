@@ -28,7 +28,6 @@ if(typeof ODI === 'undefined'){
 
 /** Function to log CONFIG array */
 function logArray(updatedEntries){
-	// updatedEntries.indexOf(tts.voice) == -1
 	var col1 = 11, col2 = 16;
 	var confArray = '\n|--------------------------------|\n|             CONFIG             |' + '\n|--------------------------------|\n';
 	Object.keys(CONFIG).forEach(function(key,index){
@@ -43,15 +42,6 @@ function logArray(updatedEntries){
 				}
 			});
 		}else{
-			//var updated = 0;
-			//if(updatedEntries && updatedEntries.indexOf(key)>0) updated = 1;
-			// var updated = updatedEntries.indexOf(key) == -1 ? 0 : 1;
-
-			// var updated = false;
-			// if(searchStringInArray(key, updatedEntries)){
-			// 	console.log('updatedEntries YES', updatedEntries);
-			// 	var updated = true;
-			// }
 			var updated = (updatedEntries && ODI.utils.searchStringInArray(key, updatedEntries)) ? true : false;
 			confArray += '| ' + (!updated ? '' : '*') + key + ' '.repeat(col1-key.length-updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/
 				+ ' | ' + CONFIG[key] + ' '.repeat(col2-CONFIG[key].toString().length) + ' |\n';
