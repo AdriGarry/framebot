@@ -34,6 +34,8 @@ console.log('\r\n>> Odi\'s CORE started');
 
 /** Function to start up Odi */
 (function startOdi(exitCode){
+	// ODI.leds.blink({leds: ['belly'], speed: 2000, loop: 1});
+	ODI.leds.blink({leds: ['nose'], speed: 2000, loop: 1});
 	global.CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
 	spawn('sh', [CORE_PATH + 'sh/mute.sh']); // Mute
 
