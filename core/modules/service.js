@@ -115,8 +115,7 @@ function weatherInteractiveService(){
 	var weatherSpeech;
 	getWeatherData(function(weatherReport){
 		console.debug('weatherReport', weatherReport);
-		var rdm = Math.round(Math.random()*2);
-		switch(rdm){
+		switch(Math.round(Math.random()*2)){
 			case 0:
 				weatherSpeech = {voice: 'google', lg: 'fr', msg: 'Aujourd\'hui a Marseille, il fait ' + weatherReport.temperature
 					+ ' degrer avec ' + (isNaN(weatherReport.wind)?'0':Math.round(weatherReport.wind)) + ' kilometre heure de vent'};

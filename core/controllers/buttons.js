@@ -50,6 +50,29 @@ function initButtonAwake(){
 		}
 	});
 
+	var pushed = 0; pushedLimit = 3;
+	function oneMorePush(){
+		pushed++;
+		console.debug('oneMorePush', pushed + '/' + pushedLimit);
+		if(pushed >= pushedLimit){
+			switch(Math.round(Math.random()*3)){
+				case 0:
+					ODI.tts.speak({msg:'Et ho ! Arraite un peu avec mes boutons tu veux'});
+					break;
+				case 1:
+					ODI.tts.speak({msg:'Et ho! Touche avec tes yeux !'});
+					break;
+				case 2:
+					ODI.tts.speak({msg:'Arraite de toucher mes boutons, sa menairve !'});
+					break;
+				case 3:
+					ODI.tts.speak({msg:'Pas touche a mes boutons !'});
+					break;
+			}
+			pushed = 0;
+		}
+	};
+
 	/** Green (ok) button watch */
 	ok.watch(function(err, value){
 		var pressTime = new Date();
@@ -68,6 +91,7 @@ function initButtonAwake(){
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		ODI.leds.ledOff('belly');
 		console.log('Ok btn pressed for ' + pressTime + ' sec [2,3]'); //[val:' + value + ']
+		oneMorePush();
 		if(pressTime < 2){
 			if(!ODI.voiceMail.checkVoiceMail()){
 				ODI.service.randomAction();
@@ -103,7 +127,7 @@ function initButtonAwake(){
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		ODI.leds.ledOff('belly');
 		console.log('Cancel btn pressed for ' + pressTime + ' sec [1,3]');//[val:' + value + ']
-		// hardware.mute();
+		oneMorePush();
 		if(pressTime >= 1 && pressTime < 3){
 			ODI.hardware.restartOdi();
 		}else if(pressTime >= 3){
@@ -128,6 +152,7 @@ function initButtonAwake(){
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		ODI.leds.ledOff('belly');
 		console.log('White btn pressed for   ' + pressTime + ' sec [2;2]');//[val:' + value + ']
+		oneMorePush();
 		ODI.time.setTimer(Math.round(pressTime));
 	});
 
@@ -148,6 +173,7 @@ function initButtonAwake(){
 		pressTime = Math.round((new Date() - pressTime)/100)/10;
 		ODI.leds.ledOff('belly');
 		console.log('Blue btn pressed for ' + pressTime + ' sec [2;5]');//[val:' + value + ']
+		oneMorePush();
 		if(pressTime < 2){
 			if(etat.readSync() == 0){
 				ODI.jukebox.playFip();
