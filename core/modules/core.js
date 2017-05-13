@@ -13,7 +13,7 @@ console.debug = function(o){}; // debug defaultly initialized to false
 
 /** Function to enable debug mode functions */
 function enableDebug(){
-	console.log('\u2022\u2022\u2022 DEBUG MODE \u2022\u2022\u2022 ' + CONFIG.debug + 'min');
+	console.log('\u2022\u2022\u2022 DEBUG MODE ' + CONFIG.debug + 'min ' + '\u2022\u2022\u2022');
 	console.debug = function(){
 		var log = '\u2022';
 		for(var arg=0;arg<arguments.length;++arg){

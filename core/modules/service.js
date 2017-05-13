@@ -28,6 +28,7 @@ var randomActionBase = [
 	{label:'adriExclamation', call: adriExclamation, weighting: 1}
 ];
 
+/** Building randomActionList from randomActionBase */
 var randomActionList = [];
 for(var i=0;i<randomActionBase.length;i++){
 	var loop = randomActionBase[i].weighting;
