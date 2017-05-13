@@ -23,8 +23,10 @@ const odiLeds = {
 
 
 etat = new Gpio(13, 'in', 'both', {persistentWatch:true,debounceTimeout:500});
+etat.id = 'etat';
 ok = new Gpio(20, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
 cancel = new Gpio(16, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
+cancel.id = 'cancel';
 white = new Gpio(19, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
 blue = new Gpio(26, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
 

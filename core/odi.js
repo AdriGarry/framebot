@@ -135,8 +135,10 @@ setInterval(function(){
 
 
 ODI.utils.execCmd('df -h', function(data){
-	//console.log('df -h:', data);
+// 	//console.log('df -h:', data);
 });
+
+// ODI.config.countSoftwareLines();
 
 
 function OdiError(message){

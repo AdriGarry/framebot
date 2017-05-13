@@ -110,8 +110,8 @@ function setBackgroundJobs(){
 		ODI.hardware.cleanLog();
 	}, null, true, 'Europe/Paris');
 
-	new CronJob('5 5 5 * * *', function(){
-	// new CronJob('40 0 * * * *', function(){
+	// new CronJob('5 5 5 * * *', function(){
+	new CronJob('*/10 * * * * *', function(){
 		console.log('Get last update date & time'); // Daily
 		ODI.config.getLastModifiedDate([CORE_PATH, WEB_PATH], function(lastUpdate){ // DATA_PATH
 			if(CONFIG.update != lastUpdate){
@@ -120,5 +120,20 @@ function setBackgroundJobs(){
 			}
 		});
 	}, null, true, 'Europe/Paris');
-	console.log('Background jobs initialised');
+
+	// new CronJob('5 5 5 * * *', function(){
+	// new CronJob('*/5 * * * * *', function(){
+	// 	console.log('update Odi\'s software params (last date & time, totalLines)'); // Daily
+	// 	ODI.config.getLastModifiedDate([CORE_PATH, WEB_PATH], function(lastUpdate){ // DATA_PATH
+	// 		console.debug('lastUpdate', lastUpdate);
+	// 		ODI.config.countSoftwareLines(function(totalLines){
+	// 			console.debug('totalLines', totalLines);
+	// 			if(CONFIG.totalLines != totalLines || CONFIG.update != lastUpdate){
+	// 				ODI.config.updateDefault({update: lastUpdate, totalLines: totalLines}, false);
+	// 				ODI.config.update({update: lastUpdate, totalLines: totalLines}, false);
+	// 			}
+	// 		});
+	// 	});
+	// }, null, true, 'Europe/Paris');
+	// console.log('Background jobs initialised');
 };

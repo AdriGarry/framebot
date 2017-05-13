@@ -14,6 +14,7 @@ module.exports = {
 	updateSync: updateSync,
 	updateDefault: updateDefault,
 	getLastModifiedDate: getLastModifiedDate,
+	countSoftwareLines: countSoftwareLines,
 	resetCfg: resetCfg
 };
 
@@ -120,7 +121,7 @@ function getLastModifiedDate(paths, callback){ // typeof paths => Array
 	for(var i=0;i<paths.length;i++){
 		fs.stat(paths[i], function(err, stats){
 			dates.push(stats.mtime);
-			// console.debug('getLastModifiedDate()', dates);
+			console.debug('getLastModifiedDate()', dates);
 			if(dates.length == paths.length){
 				var d = new Date(Math.max.apply(null, dates.map(function(e){
 					return new Date(e);
@@ -130,6 +131,32 @@ function getLastModifiedDate(paths, callback){ // typeof paths => Array
 			}
 		});
 	}(i);
+};
+
+/** Function to count lines of Odi's software */
+function countSoftwareLines(callback){
+	console.debug('countSoftwareLines()');
+	var extensions = ['js', 'json', 'sh', 'py', 'html', 'css'];//, 'properties'
+	var typesNb = extensions.length;
+	var totalLines = 0;
+	extensions.forEach(function(item, index){
+		var temp = item;
+		// console.log(temp);
+		ODI.utils.execCmd('find /home/pi/odi/ -name "*.' + temp + '" -print | xargs wc -l', function(data){
+			var regex = /(\d*) total/g;
+			var result = regex.exec(data);
+			// console.log(result);
+			var t = result && result[1] ? result[1] : -1;
+			// console.log(temp, t);
+			// lines[key] = result[1];
+			totalLines = parseInt(totalLines)+parseInt(t);
+			typesNb--;
+			if(!typesNb){
+				// console.log(totalLines);
+				callback(totalLines);
+			}
+		});
+	});
 };
 
 /** Function to reset Odi's config */
