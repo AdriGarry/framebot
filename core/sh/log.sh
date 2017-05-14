@@ -26,9 +26,19 @@ cleanLog () {
 	#deleteLogFiles
 }
 
+#___Fonction archivage des logs
+screenTail () {
+	echo "screenTail"
+	# lxterminal -e "/home/pi/odi/core/log/odi.log"
+	tail -f /home/pi/odi/log/odi.log
+}
+
 if [ $1 = "clean" ]
 then
 	cleanLog
+elif [ $1 = "tail" ]
+then
+	screenTail
 else
 	echo "No action. Please add param..."
 	# deleteLogFiles

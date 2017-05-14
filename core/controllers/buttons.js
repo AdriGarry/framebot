@@ -55,17 +55,14 @@ function initButtonAwake(){
 		pushed++;
 		console.debug('oneMorePush', pushed + '/' + pushedLimit);
 		if(pushed >= pushedLimit){
-			switch(Math.round(Math.random()*3)){
+			switch(Math.round(Math.random()*2)){
 				case 0:
 					ODI.tts.speak({msg:'Et ho ! Arraite un peu avec mes boutons tu veux'});
 					break;
 				case 1:
-					ODI.tts.speak({msg:'Et ho! Touche avec tes yeux !'});
-					break;
-				case 2:
 					ODI.tts.speak({msg:'Arraite de toucher mes boutons, sa menairve !'});
 					break;
-				case 3:
+				case 2:
 					ODI.tts.speak({msg:'Pas touche a mes boutons !'});
 					break;
 			}

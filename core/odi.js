@@ -110,7 +110,7 @@ ODI.config.updateOdiSoftwareInfo();
 
 // var constants = os.constants;
 console.log('os.constants', os.constants);
-//!:
+
 var boolean = true;
 setInterval(function(){
 	// var loads = os.loadavg();
@@ -119,11 +119,7 @@ setInterval(function(){
 	// console.log('cpu', cpu);
 	// LogAction(boolean?toto:'toto');
 	// !boolean;
-
-	// ODI.service.randomAction();
 }, 10000);
-
-// spawn('sh', ['/home/pi/odi/core/sh/diapo.sh']);
 
 /*setTimeout(function(){
 	console.log('ODI.leds.altLeds()');
@@ -141,7 +137,6 @@ ODI.utils.execCmd('df -h', function(data){
 });
 
 // ODI.config.countSoftwareLines();
-
 
 function OdiError(message){
 	this.name = 'OdiError';
@@ -161,3 +156,10 @@ try{
 }
 // console.error({a:'AAA', b: 'BBB'});
 // console.error(new OdiError('toto'));
+
+// global.ODI.logTail = require(CORE_PATH + 'modules/logTail.js');
+// ODI.logTail.();
+
+
+
+
