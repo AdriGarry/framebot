@@ -23,9 +23,9 @@ global.ODI.core = require(CORE_PATH + 'modules/core.js');
 global.ODI.config = require(CORE_PATH + 'modules/config.js');
 global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
 
-ODI.config.getLastModifiedDate([CORE_PATH, WEB_PATH, DATA_PATH], function(lastUpdate){
-	ODI.config.updateDefault({update: lastUpdate}, false);
-});
+// ODI.config.getLastModifiedDate([CORE_PATH, WEB_PATH, DATA_PATH], function(lastUpdate){
+// 	ODI.config.updateDefault({update: lastUpdate}, false);
+// });
 
 console.log('\r\n>> Odi\'s CORE started');
 

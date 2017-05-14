@@ -93,6 +93,7 @@ function getWeatherData(callback){
 				if(error){console.error('Error getting weather info  /!\\ \n' + error);}
 			}
 		}catch(e){
+			if(CONFIG.mode == 'ready') ODI.tts.speak({lg:'en', msg:'Weather error'});
 			console.error(e);
 		}
 	});

@@ -13,19 +13,20 @@ module.exports = {
 	update: update,
 	updateSync: updateSync,
 	updateDefault: updateDefault,
+	updateOdiFileInfo: updateOdiFileInfo,
 	getLastModifiedDate: getLastModifiedDate,
 	countSoftwareLines: countSoftwareLines,
 	resetCfg: resetCfg
 };
 
-if(typeof ODI === 'undefined'){
+/*if(typeof ODI === 'undefined'){
 	// hasOwnProperty()...
 	console.log('--> ODI global context object is not defined !', typeof ODI);
 	// var ODI = {};
 	// ODI.utils = require(CORE_PATH + 'modules/utils.js');
 }else{
 	console.log('--> ODI global context OK', typeof ODI);
-}
+}*/
 
 /** Function to log CONFIG array */
 function logArray(updatedEntries){
@@ -55,13 +56,15 @@ function logArray(updatedEntries){
 function update(newConf, restart, callback){
 	console.debug('config.update(newConf)', util.inspect(newConf, false, null)); // TODO revoir pk l'objet n'est plus loggué
 	ODI.utils.getJsonFileContent(CONFIG_FILE, function(data){
-		var config = JSON.parse(data);
+		var configFile = JSON.parse(data);
 		var updatedEntries = [];
 		Object.keys(newConf).forEach(function(key,index){
-			updatedEntries.push(key);
-			config[key] = newConf[key];
+			if(configFile[key] != newConf[key]){
+				configFile[key] = newConf[key];
+				updatedEntries.push(key);
+			}
 		});
-		global.CONFIG = config;
+		global.CONFIG = configFile;
 		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2), function(){
 			logArray(updatedEntries);
 			if(restart){
@@ -76,13 +79,17 @@ function update(newConf, restart, callback){
 /** Function to set/edit Odi's config ASYNCHRONOUSLY */
 function updateSync(newConf, restart){
 	console.debug('config.updateSync(newConf)', util.inspect(newConf, false, null)); // TODO revoir pk l'objet n'est plus loggué
-	var fileConfig = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+	var configFile = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
 	var updatedEntries = [];
 	Object.keys(newConf).forEach(function(key,index){
-		updatedEntries.push(key);
-		fileConfig[key] = newConf[key];
+		// updatedEntries.push(key);
+		// fileConfig[key] = newConf[key];
+		if(configFile[key] != newConf[key]){
+			configFile[key] = newConf[key];
+			updatedEntries.push(key);
+		}
 	});
-	global.CONFIG = fileConfig;
+	global.CONFIG = configFile;
 	fs.writeFileSync(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
 	logArray(updatedEntries);
 	if(restart){
@@ -97,13 +104,17 @@ function updateDefault(newConf, restart, callback){
 	console.debug('setDefaultConfig(newConf)', util.inspect(newConf, false, null)); // TODO revoir pk l'objet n'est plus loggué
 	//logArray();
 	ODI.utils.getJsonFileContent(DEFAULT_CONFIG_FILE, function(data){
-		var config = JSON.parse(data);
+		var configFile = JSON.parse(data);
 		var updatedEntries = [];
 		Object.keys(newConf).forEach(function(key,index){
-			updatedEntries.push(key);
-			config[key] = newConf[key];
+			// updatedEntries.push(key);
+			// config[key] = newConf[key];
+			if(configFile[key] != newConf[key]){
+				configFile[key] = newConf[key];
+				updatedEntries.push(key);
+			}
 		});
-		global.CONFIG = config;
+		global.CONFIG = configFile;
 		fs.writeFile(DEFAULT_CONFIG_FILE, JSON.stringify(CONFIG, null, 2), function(){
 			// logArray(updatedEntries);
 			if(restart){
@@ -115,44 +126,45 @@ function updateDefault(newConf, restart, callback){
 	});
 };
 
-/** Function to update last modified date & time of Odi's files */
-function getLastModifiedDate(paths, callback){ // typeof paths => Array
-	var dates = [];
-	for(var i=0;i<paths.length;i++){
-		fs.stat(paths[i], function(err, stats){
-			dates.push(stats.mtime);
-			console.debug('getLastModifiedDate()', paths, dates);
-			if(dates.length == paths.length){
-				var d = new Date(Math.max.apply(null, dates.map(function(e){
-					return new Date(e);
-				})));
-				var lastDate = ODI.utils.logTime('Y-M-D h:m');
-				callback(lastDate);
+/** Function to update Odi\'s software params (last date & time, totalLines) */
+function updateOdiFileInfo(){
+	console.log('update Odi\'s software params (last date & time, totalLines)');
+	ODI.config.getLastModifiedDate([CORE_PATH, WEB_PATH], function(lastUpdate){
+		console.debug('lastUpdate', lastUpdate);
+		ODI.config.countSoftwareLines(function(totalLines){
+			if(CONFIG.totalLines != totalLines || CONFIG.update != lastUpdate){
+				ODI.config.updateDefault({update: lastUpdate, totalLines: totalLines}, false);
+				ODI.config.update({update: lastUpdate, totalLines: totalLines}, false);
 			}
 		});
-	}(i);
+	});
+};
+
+/** Function to update last modified date & time of Odi's files */
+function getLastModifiedDate(paths, callback){ // typeof paths => Array
+	paths = paths.join(' ');
+	ODI.utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1', function(data){
+		var lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
+		console.debug('getLastModifiedDate()', lastDate[0]);
+		callback(lastDate[0]);
+	});
 };
 
 /** Function to count lines of Odi's software */
 function countSoftwareLines(callback){
-	console.debug('countSoftwareLines()');
 	var extensions = ['js', 'json', 'sh', 'py', 'html', 'css'];//, 'properties'
 	var typesNb = extensions.length;
 	var totalLines = 0;
 	extensions.forEach(function(item, index){
 		var temp = item;
-		// console.log(temp);
 		ODI.utils.execCmd('find /home/pi/odi/ -name "*.' + temp + '" -print | xargs wc -l', function(data){
 			var regex = /(\d*) total/g;
 			var result = regex.exec(data);
-			// console.log(result);
 			var t = result && result[1] ? result[1] : -1;
-			// console.log(temp, t);
-			// lines[key] = result[1];
 			totalLines = parseInt(totalLines)+parseInt(t);
 			typesNb--;
 			if(!typesNb){
-				// console.log(totalLines);
+				console.debug('countSoftwareLines()', totalLines);
 				callback(totalLines);
 			}
 		});
