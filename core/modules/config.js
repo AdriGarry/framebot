@@ -13,7 +13,7 @@ module.exports = {
 	update: update,
 	updateSync: updateSync,
 	updateDefault: updateDefault,
-	updateOdiFileInfo: updateOdiFileInfo,
+	updateOdiSoftwareInfo: updateOdiSoftwareInfo,
 	getLastModifiedDate: getLastModifiedDate,
 	countSoftwareLines: countSoftwareLines,
 	resetCfg: resetCfg
@@ -127,8 +127,8 @@ function updateDefault(newConf, restart, callback){
 };
 
 /** Function to update Odi\'s software params (last date & time, totalLines) */
-function updateOdiFileInfo(){
-	console.log('update Odi\'s software params (last date & time, totalLines)');
+function updateOdiSoftwareInfo(){
+	console.log('updating Odi\'s software infos (last date & time, totalLines)');
 	ODI.config.getLastModifiedDate([CORE_PATH, WEB_PATH], function(lastUpdate){
 		console.debug('lastUpdate', lastUpdate);
 		ODI.config.countSoftwareLines(function(totalLines){

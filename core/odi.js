@@ -38,13 +38,6 @@ spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'odi', 'noLeds']);
 
 ODI.config.updateSync({startTime: ODI.utils.logTime('h:m (D/M)')}, false);
 
-/*ODI.config.getLastModifiedDate([CORE_PATH, WEB_PATH], function(lastUpdate){ // DATA_PATH
-	console.debug('lastUpdate', lastUpdate);
-	ODI.config.countSoftwareLines(function(totalLines){
-		ODI.config.updateSync({startTime: ODI.utils.logTime('h:m (D/M)'), update:lastUpdate, totalLines: totalLines}, false);
-	});
-});*/
-
 console.log('Odi\'s context initializing...');
 global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
 ODI.leds.toggle({led:'eye', mode: 1});
@@ -109,7 +102,7 @@ if(etat == 1){
 	// ODI.video.screenOff();
 }
 
-ODI.config.updateOdiFileInfo();
+ODI.config.updateOdiSoftwareInfo();
 
 // ------------------------//
 // ----- TEST SECTION -----//
