@@ -54,6 +54,7 @@ fi
 # sudo node /home/pi/odi/core/master.js "$lastUpdate" 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &
 sudo node /home/pi/odi/core/master.js 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &
 
+# lxterminal -e tail -f /home/pi/odi/log/odi.log
 
 # sudo sh "/home/pi/odi/core/sh/watcher.sh" /home/pi/odi/core/ "sh /home/pi/odi/core/sh/watchAction.sh updateLastModified" &
 # sudo sh "/home/pi/odi/core/sh/watcher.sh" /home/pi/odi/data/ "sh /home/pi/odi/core/sh/watchAction.sh updateLastModified" &
@@ -66,3 +67,4 @@ sudo node /home/pi/odi/core/master.js 2>&1 | sudo tee -a /home/pi/odi/log/odi.lo
 # echo "--------------> TOTO"
 #tail -f /home/pi/odi/log/odi.log
 # gksudo lxterminal --geometry=75*50 -e "tail -f /home/pi/odi/log/odi.log"
+
