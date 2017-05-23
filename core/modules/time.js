@@ -90,7 +90,9 @@ function setAlarm(alarm){
 		global.CONFIG = config;
 		//console.debug(CONFIG);
 		ODI.config.logArray();
-		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
+		fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2), function(cb){
+			console.log('setAlarm() LOG FOR CB');
+		});
 		if(restart) ODI.hardware.restartOdi();
 	});
 };

@@ -84,7 +84,9 @@ function appendJsonFile(filePath, obj, callback){
 					fileData.push(obj);
 					fileData = JSON.stringify(fileData, null, 2).replace(/\\/g, "").replace(/\"{/g, "{").replace(/\}"/g, "}");
 					console.debug('fileData', fileData);
-					fs.writeFile(filePath, fileData);
+					fs.writeFile(filePath, fileData, function(cb){
+						console.log('appendJsonFile() LOG FOR CB');
+					});
 				}
 			});
 		}else{

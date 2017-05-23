@@ -96,14 +96,14 @@ function initButtonAwake(){
 		console.log('Ok btn pressed for ' + pushTime + ' sec [2,3]'); //[val:' + value + ']
 		oneMorePush();
 		if(pushTime < 2){
-			if(!ODI.voiceMail.checkVoiceMail()){
-				ODI.service.randomAction();
-			}
-			/*voiceMail.checkVoiceMail(function(message){
+			// if(!ODI.voiceMail.checkVoiceMail()){
+			// 	ODI.service.randomAction();
+			// }
+			ODI.voiceMail.checkVoiceMail(function(message){
 				if(!message){
 					service.randomAction();
 				}
-			})*/
+			})
 		}else if(pushTime >= 2 && pushTime < 3){
 			ODI.tts.lastTTS();
 		}else if(pushTime >= 3){

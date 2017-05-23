@@ -56,12 +56,12 @@ function checkVoiceMail(callback){
 				}, DELAY_TO_CLEAR_VOICEMAIL);
 				// console.log('VoiceMail will be cleared in 10 minutes.');
 				console.log('VoiceMail will be cleared in 6 hours.');
-				// if(callback) callback(true); // for other action
+				if(callback) callback(true); // for other action
 				//callback(true);
 				return true;
 			}else{
 				console.log('No VoiceMail Message');
-		 		// if(callback) callback(false); // for other action
+		 		if(callback) callback(false); // for other action
 		 		//callback(false);
 		 		return false;
 			}

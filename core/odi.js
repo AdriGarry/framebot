@@ -41,7 +41,6 @@ ODI.config.updateSync({startTime: ODI.utils.logTime('h:m (D/M)')}, false);
 console.log('Odi\'s context initializing...');
 global.ODI.leds = require(CORE_PATH + 'modules/leds.js');
 ODI.leds.toggle({led:'eye', mode: 1});
-global.ODI.CronJob = require('cron').CronJob;
 global.ODI.time = require(CORE_PATH + 'modules/time.js');
 global.ODI.voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 global.ODI.video = require(CORE_PATH + 'modules/video.js');
@@ -109,7 +108,7 @@ ODI.config.updateOdiSoftwareInfo();
 // ------------------------//
 
 // var constants = os.constants;
-console.log('os.constants', os.constants);
+// console.log('os.constants', os.constants);
 
 var boolean = true;
 setInterval(function(){
@@ -132,9 +131,9 @@ setInterval(function(){
 // ODI.utils.execCmd('find /home/pi/odi/ -printf "%T+\n" | sort -nr | head -n 1');
 
 
-ODI.utils.execCmd('df -h', function(data){
-// 	//console.log('df -h:', data);
-});
+// ODI.utils.execCmd('df -h', function(data){
+// // 	//console.log('df -h:', data);
+// });
 
 // ODI.config.countSoftwareLines();
 
