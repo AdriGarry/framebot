@@ -16,6 +16,7 @@ module.exports = {
 	updateOdiSoftwareInfo: updateOdiSoftwareInfo,
 	getLastModifiedDate: getLastModifiedDate,
 	countSoftwareLines: countSoftwareLines,
+	getDiskSpace: getDiskSpace,
 	resetCfg: resetCfg
 };
 
@@ -90,6 +91,7 @@ function updateSync(newConf, restart){
 		}
 	});
 	global.CONFIG = configFile;
+	if(updatedEntries.length == 0) return;
 	fs.writeFileSync(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));
 	logArray(updatedEntries);
 	if(restart){
@@ -115,6 +117,7 @@ function updateDefault(newConf, restart, callback){
 			}
 		});
 		global.CONFIG = configFile;
+		if(updatedEntries.length == 0) return;
 		fs.writeFile(DEFAULT_CONFIG_FILE, JSON.stringify(CONFIG, null, 2), function(){
 			// logArray(updatedEntries);
 			if(restart){
@@ -130,12 +133,13 @@ function updateDefault(newConf, restart, callback){
 function updateOdiSoftwareInfo(){
 	console.log('updating Odi\'s software infos (last date & time, totalLines)');
 	ODI.config.getLastModifiedDate([CORE_PATH, WEB_PATH], function(lastUpdate){
-		console.debug('lastUpdate', lastUpdate);
 		ODI.config.countSoftwareLines(function(totalLines){
-			if(CONFIG.totalLines != totalLines || CONFIG.update != lastUpdate){
-				ODI.config.updateDefault({update: lastUpdate, totalLines: totalLines}, false);
-				ODI.config.update({update: lastUpdate, totalLines: totalLines}, false);
-			}
+			ODI.config.getDiskSpace(function(diskSpace){
+				// if(CONFIG.totalLines != totalLines || CONFIG.update != lastUpdate || CONFIG.diskSpace != diskSpace){ // TODO delete this test and write on conf files only if updatedEntries.lentgh > 0
+					ODI.config.updateDefault({update: lastUpdate, totalLines: totalLines, diskSpace: diskSpace}, false);
+					ODI.config.update({update: lastUpdate, totalLines: totalLines, diskSpace: diskSpace}, false);
+				// }
+			});
 		});
 	});
 };
@@ -171,6 +175,16 @@ function countSoftwareLines(callback){
 	});
 };
 
+/** Function to retreive disk space on /dev/root */
+function getDiskSpace(callback){
+	ODI.utils.execCmd('df -h', function(data){
+		var diskSpace = data.match(/\/dev\/root.*[%]/gm);
+		diskSpace = diskSpace[0].match(/[\d]*%/g);
+		console.debug('getDiskSpace()', diskSpace[0]);
+		callback(diskSpace);
+	});
+};
+
 /** Function to reset Odi's config */
 function resetCfg(restart){
 	console.log('resetCfg()', restart ? 'and restart' : '');
@@ -190,4 +204,3 @@ function resetCfg(restart){
 		}
 	});
 };
-

@@ -60,7 +60,7 @@ function initButtonAwake(){
 					ODI.tts.speak({msg:'Et ho ! Arraite un peu avec mes boutons tu veux'});
 					break;
 				case 1:
-					ODI.tts.speak({msg:'Arraite de toucher mes boutons, sa menairve !'});
+					ODI.tts.speak({msg:'Arraite de me toucher, sa menairve !'});
 					break;
 				case 2:
 					ODI.tts.speak({msg:'Pas touche a mes boutons !'});
@@ -101,13 +101,13 @@ function initButtonAwake(){
 			// }
 			ODI.voiceMail.checkVoiceMail(function(message){
 				if(!message){
-					service.randomAction();
+					ODI.service.randomAction();
 				}
 			})
 		}else if(pushTime >= 2 && pushTime < 3){
 			ODI.tts.lastTTS();
 		}else if(pushTime >= 3){
-			ODI.time.timeNow();
+			ODI.time.now();
 		}
 	});
 

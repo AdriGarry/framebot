@@ -147,10 +147,10 @@ function setTimer(minutes){
 			ODI.leds.belly.write(etat);
 			etat = 1 - etat;
 			if(time < 10){
-				var deploy = spawn('sh', [CORE_PATH + 'sh/timerSound.sh', 'almost']);
+				spawn('sh', [CORE_PATH + 'sh/timerSound.sh', 'almost']);
 			}
 			else{
-				var deploy = spawn('sh', [CORE_PATH + 'sh/timerSound.sh']);
+				spawn('sh', [CORE_PATH + 'sh/timerSound.sh']);
 			}
 			time--;
 			if(time%120 == 0 && (time/60)>0){
@@ -158,7 +158,7 @@ function setTimer(minutes){
 			}else if(time <= 0 && time > -5){
 				clearInterval(sec);
 				console.log('End Timer !');
-				var deploy = spawn('sh', [CORE_PATH + 'sh/timerSound.sh', 'end']);
+				spawn('sh', [CORE_PATH + 'sh/timerSound.sh', 'end']);
 				ODI.leds.blink({
 					leds: ['belly','eye', 'satellite', 'nose'],
 					speed: 90,
