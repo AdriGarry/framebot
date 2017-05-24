@@ -19,7 +19,21 @@ echo "VOLUME = " $VOLUME
 #___Fonction ##
 initiatialization () {
 	echo "Initiatialization..."
+	dateTime=$(date +"%m-%d-%y_%H.%M.%S")
+	logFile=$dateTime"_reset[init].log" #/home/pi/odi/
+	sudo touch $logFile
+	echo "logFile $logFile created"
+
+	echo "Installing mplayer..."
+	sudo apt-get install mplayer 2>&1 | tee -a $logFile
+
+	echo "Installing espeak..."
+	#script "ls /" reset.log
+	sudo apt-get install espeak 2>&1 | tee -a $logFile
+
+
 	# TODO mplayer, espeak, node_modules
+	# 2>&1 | sudo tee -a
 }
 
 
