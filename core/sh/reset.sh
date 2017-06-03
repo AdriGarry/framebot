@@ -19,7 +19,7 @@ echo "VOLUME = " $VOLUME
 #___Fonction ##
 initiatialization () {
 	echo "Initiatialization..."
-	# TODO mplayer, espeak, node_modules
+	# TODO mplayer, espeak, node_modules, fbi
 }
 
 

@@ -138,6 +138,7 @@ function initButtonAwake(){
 		var pushTime = getPushTime(blue);
 		console.log('Blue btn pressed for ' + pushTime + ' sec [2;5]');//[val:' + value + ']
 		oneMorePush();
+		return; // TODO pour éviter court circuit bouton bleu
 		if(pushTime < 2){
 			if(etat.readSync() == 0){
 				ODI.jukebox.playFip();
