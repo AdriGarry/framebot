@@ -153,7 +153,7 @@ function startUI(mode){
 			voicemail: {value: ODI.voiceMail.areThereAnyMessages(), active: ODI.voiceMail.areThereAnyMessages()>0 ? true : false},
 			jukebox: {value: '<i>Soon available</i>', active: false},
 			timer: {value: ODI.time.timeLeftTimer(), active: ODI.time.timeLeftTimer()>0 ? true : false},
-			cpu: {value: {usage: cpuUsage, temp: cpuTemp}, active: (cpuTemp > 55 || cpuUsage >= 20) ? true : false},
+			hardware: {value: {usage: cpuUsage, temp: cpuTemp}, active: (cpuTemp > 55 || cpuUsage >= 20) ? true : false},
 			alarms: {value: CONFIG.alarms, active: true},
 			//config: {value: CONFIG},
 			version: {value: CONFIG.version},// DEPRECATED !

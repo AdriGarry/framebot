@@ -52,6 +52,10 @@ function initButtonAwake(){
 
 	var pushed = 0; pushedLimit = 3;
 	function oneMorePush(){
+		clearTimeout(pushTimeout);
+		var pushTimeout = setTimeout(function(){
+			pushed = 0;
+		}, 5000);
 		pushed++;
 		console.debug('oneMorePush', pushed + '/' + pushedLimit);
 		if(pushed >= pushedLimit){
