@@ -12,30 +12,7 @@ module.exports = { // Singleton
 	lastTTS: lastTTS
 };
 
-// const LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.log';
 const LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.json';
-
-var RDM_MESSAGE_LIST, RDM_MESSAGE_LIST_LENGTH;
-fs.readFile('/home/pi/odi/data/ttsMessages.json', function(err, data){
-	if(err && err.code === 'ENOENT'){
-		console.debug(console.error('No file : ' + filePath));
-		callback(null);
-	}
-	RDM_MESSAGE_LIST = JSON.parse(data);
-	RDM_MESSAGE_LIST_LENGTH = RDM_MESSAGE_LIST.length;
-	// console.debug('ttsMessage length:', RDM_MESSAGE_LIST_LENGTH);
-});
-
-var RDM_CONVERSATION_LIST, RDM_CONVERSATION_LIST_LENGTH;
-fs.readFile('/home/pi/odi/data/ttsConversations.json', function(err, data){
-	if(err && err.code === 'ENOENT'){
-		console.debug(console.error('No file : ' + filePath));
-		callback(null);
-	}
-	RDM_CONVERSATION_LIST = JSON.parse(data);
-	RDM_CONVERSATION_LIST_LENGTH = RDM_CONVERSATION_LIST.length;
-	// console.debug('ttsConversation length:', RDM_MESSAGE_LIST_LENGTH);
-});
 
 var onAir = false, ttsQueue = [], lastTtsMsg = {voice: 'espeak', lg: 'en', msg: '.undefined'};
 
@@ -51,12 +28,7 @@ function speak(tts){
 				}
 			});
 		}else if(!tts || (!Object.keys(tts).length > 0) || (tts.msg.toUpperCase().indexOf('RANDOM') > -1)){ // OR UNDEFINED !!
-			var rdmNb = ((Math.floor(Math.random()*RDM_MESSAGE_LIST_LENGTH)));
-			console.log('tts.js> rdmNb: ', rdmNb);
-			tts = RDM_MESSAGE_LIST[rdmNb];
-			console.log('Random TTS : ' + rdmNb + '/' + RDM_MESSAGE_LIST_LENGTH);
-			console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
-			ttsQueue.push(tts);
+			randomTTS();
 		}else{
 			if(tts.hasOwnProperty('msg')){
 				var ttsQueueLength = ttsQueue.length;
@@ -96,13 +68,27 @@ function proceedQueue(){
 	}, 500);
 };
 
-/** Function to launch random conversation */
+
+/** Function to launch random TTS */
+const RANDOM_TTS_LENGTH = ODI.ttsMessages.randomTTS.length;
+function randomTTS(){
+	var rdmNb = ((Math.floor(Math.random()* RANDOM_TTS_LENGTH)));
+	console.log('tts.js> rdmNb: ', rdmNb);
+	var rdmTTS = ODI.ttsMessages.randomTTS[rdmNb];
+	console.log('Random TTS : ' + rdmNb + '/' + RANDOM_TTS_LENGTH);
+	speak(rdmTTS);
+	// console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
+};
+
+
+/** Function to launch random TTS conversation */
+const RANDOM_CONVERSATIONS_LENGTH = ODI.ttsMessages.randomConversations.length;
 function randomConversation(){
 	console.debug('randomConversation()');
-	var rdmNb = ((Math.floor(Math.random()*RDM_CONVERSATION_LIST_LENGTH))); // IMPORT JSON FILE
-	var conversation = RDM_CONVERSATION_LIST[rdmNb];
+	var rdmNb = ((Math.floor(Math.random()*RANDOM_CONVERSATIONS_LENGTH))); // IMPORT JSON FILE
+	var conversation = ODI.ttsMessages.randomConversations[rdmNb];
 	console.debug(conversation);
-	console.log('Random conversation : ' + (rdmNb+1) + '/' + RDM_CONVERSATION_LIST_LENGTH);
+	console.log('Random conversation : ' + (rdmNb+1) + '/' + RANDOM_CONVERSATIONS_LENGTH);
 	speak(conversation);
 };
 

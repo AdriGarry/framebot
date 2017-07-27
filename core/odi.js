@@ -44,6 +44,7 @@ ODI.leds.toggle({led:'eye', mode: 1});
 global.ODI.time = require(CORE_PATH + 'modules/time.js');
 global.ODI.voiceMail = require(CORE_PATH + 'modules/voiceMail.js');
 global.ODI.video = require(CORE_PATH + 'modules/video.js');
+global.ODI.ttsMessages = require(DATA_PATH + 'ttsMessages.json');
 global.ODI.tts = require(CORE_PATH + 'modules/tts.js');
 global.ODI.hardware = require(CORE_PATH + 'modules/hardware.js');
 global.ODI.jukebox = require(CORE_PATH + 'modules/jukebox.js');
@@ -158,7 +159,3 @@ try{
 
 // global.ODI.logTail = require(CORE_PATH + 'modules/logTail.js');
 // ODI.logTail.();
-
-
-
-

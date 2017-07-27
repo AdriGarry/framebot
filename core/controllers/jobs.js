@@ -71,16 +71,28 @@ function setInteractiveJobs(){
 /** Function to set auto sleep life cycles */
 function setAutoSleep(){
 	new CronJob('3 0 0 * * 1-5', function(){
-		console.log('AutoLifeCycle go to sleep !');
-		ODI.hardware.restartOdi(255);
+		goToSleep();
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('3 0 2 * * 0,6', function(){
-		console.log('AutoLifeCycle go to sleep !');
-		ODI.hardware.restartOdi(255);
+		goToSleep();
 	}, null, true, 'Europe/Paris');
 	console.log('Auto Sleep Life Cycle jobs initialised');
 };
+
+/** Function to random TTS ggood night. NOT EXPORTED! */
+function goToSleep(){
+	var rdmSleepTTS = (Math.floor(Math.random()* ODI.ttsMessages.goToSleep.length));
+	var sleepTTS = ODI.ttsMessages.goToSleep[rdmSleepTTS];
+	ODI.tts.speak(sleepTTS);
+	console.log('AutoLifeCycle go to sleep !');
+	setTimeout(function(){
+		ODI.hardware.restartOdi(255);
+	}, sleepTTS.msg.length*150);
+};
+setTimeout(function(){
+	goToSleep();
+}, 5000);
 
 /** Function to set background tasks */
 function setBackgroundJobs(){
