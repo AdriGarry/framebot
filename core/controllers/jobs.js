@@ -90,9 +90,6 @@ function goToSleep(){
 		ODI.hardware.restartOdi(255);
 	}, sleepTTS.msg.length*150);
 };
-setTimeout(function(){
-	goToSleep();
-}, 5000);
 
 /** Function to set background tasks */
 function setBackgroundJobs(){
