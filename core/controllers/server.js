@@ -320,6 +320,16 @@ function startUI(mode){
 			res.writeHead(200);res.end();
 		});
 
+		ui.post('/badBoy', function(req, res){ // Bad Boy...
+			ODI.service.badBoyOnce();
+			res.writeHead(200);res.end();
+		});
+
+		ui.post('/badBoyMode', function(req, res){ // Bad Boy...
+			ODI.service.badBoyMode();
+			res.writeHead(200);res.end();
+		});
+
 		ui.post('/adriExclamation', function(req, res){ // Idea...
 			ODI.service.adriExclamation();
 			res.writeHead(200);res.end();

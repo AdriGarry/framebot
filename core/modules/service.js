@@ -12,7 +12,9 @@ module.exports = {
 	adriExclamation: adriExclamation,
 	cpuTemp: cpuTemp,
 	weather: weatherService,
-	weatherInteractive: weatherInteractiveService
+	weatherInteractive: weatherInteractiveService,
+	badBoyOnce: badBoyOnce,
+	badBoyMode: badBoyMode
 };
 
 var randomActionBase = [
@@ -139,3 +141,39 @@ function weatherInteractiveService(){
 		ODI.tts.speak(weatherSpeech);
 	});
 };
+
+
+/** Function to start bad boy mode */
+function badBoyMode(){
+	console.log('Bad Boy mode !!');
+	// ODI.tts.speak({lg: 'fr', msg: 'A partir de maintenant, je suis un enfoirer !'});
+	ODI.tts.speak({lg: 'en', msg: 'badBoy mode !'});
+
+	var loop = 0, badBoyInterval = 10;
+	setInterval(function(){
+		loop++;
+		if(loop%badBoyInterval == 0 || loop%badBoyInterval == 1){
+			ODI.tts.speak(getBadBoyTTS());
+		}
+	}, 1000);
+};
+
+/** Function to select a different TTS each time */
+var rdmNb, lastRdmNb = [], rdmTTS = '';
+function badBoyOnce(){
+	ODI.tts.speak(getBadBoyTTS());
+};
+
+/** Function to select a different TTS each time */
+const BAD_BOY_TTS_LENGTH = ODI.ttsMessages.badBoy.length;
+var rdmNb, lastRdmNb = [], rdmTTS = '';
+function getBadBoyTTS(){
+	do{
+		rdmNb = ((Math.floor(Math.random()* BAD_BOY_TTS_LENGTH)));
+		rdmTTS = ODI.ttsMessages.badBoy[rdmNb];
+		if(lastRdmNb.length >= BAD_BOY_TTS_LENGTH) lastRdmNb.shift();
+	}while(lastRdmNb.indexOf(rdmNb) != -1);
+	lastRdmNb.push(rdmNb);
+	return rdmTTS;
+};
+

@@ -339,11 +339,49 @@ app.component('idea', {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Idea',
-			actionList:[{label: 'Survivaure', icon: 'space-shuttle', url: '/survivaure'},{
-				label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk'},{
-				label: 'AAAdri', icon: 'font', url: '/adriExclamation'},{
+			actionList:[{label: 'AAAdri', icon: 'font', url: '/adriExclamation'},{
 				label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{
 				label: 'Test', icon: 'flag-checkered', url:'/test'}]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
+	}
+});
+
+/** Stories component */
+app.component('stories', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile){
+		var ctrl = this;
+		var tileParams = {
+			label: 'Stories',
+			actionList:[{label: 'Survivaure', icon: 'space-shuttle', url: '/survivaure'},{
+				label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk'}]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
+	}
+});
+
+/** Idea component */
+app.component('badBoy', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile){
+		var ctrl = this;
+		var tileParams = {
+			label: 'Bad boy',
+			actionList:[{label: 'BadBoy Mode', icon: 'comments', url:'/badBoyMode'},{
+				label: 'BadBoy TTS', icon: 'comment', url:'/badBoy'}]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
