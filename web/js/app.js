@@ -1,12 +1,5 @@
 'use strict'
-var app = angular.module('odiUI', ['ngMaterial', /*'pr.longpress'*//*, 'smDateTimeRangePicker'*/])
-/*.config(function($mdThemingProvider, pickerProvider){
-	pickerProvider.setOkLabel('Save');
-	pickerProvider.setCancelLabel('Close');
-	$mdThemingProvider.theme('default')
-	.primaryPalette('deep-orange')
-	.backgroundPalette('grey');
-});*/
+var app = angular.module('odiUI', ['ngMaterial', 'mdPickers' /*'pr.longpress'*/])
 
 app.constant("CONSTANTS", {
 	'UI_VERSION': 3.0,
@@ -63,17 +56,17 @@ app.filter('formatTimeLeftTimer', function($filter){
 	}
 });
 
-/** Filter to display x worlds of a string **/ // NOT USED
-app.filter('words', function () {
-	return function (input, words) {
-		if(isNaN(words)) return input;
-		if(words <= 0) return '';
-		if(input){
-			var inputWords = input.split(/\s+/);
-			if(inputWords.length > words){
-				input = inputWords.slice(0, words).join(' ') + '…';
-			}
-		}
-		return input;
-	};
-});
+// /** Filter to display x worlds of a string **/ // NOT USED
+// app.filter('words', function () {
+// 	return function (input, words) {
+// 		if(isNaN(words)) return input;
+// 		if(words <= 0) return '';
+// 		if(input){
+// 			var inputWords = input.split(/\s+/);
+// 			if(inputWords.length > words){
+// 				input = inputWords.slice(0, words).join(' ') + '…';
+// 			}
+// 		}
+// 		return input;
+// 	};
+// });

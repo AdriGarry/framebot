@@ -118,18 +118,41 @@ app.component('alarms', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile, UIService, $mdpTimePicker){
 		var ctrl = this;
 		var tileParams = {
 			label: 'Alarms',
-			actionList:[]/*{url: '/alarm', params: {h:8,m:12,test:'bouts'}}*/
+			actionList:[{label: 'weekDay', icon: 'frown-o', url: '/alarm'},{
+				label: 'weekEnd', icon: 'smile-o', url: '/alarm'}]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
 
 		/** Overwrite tile action */
 		ctrl.tile.click = function(){
-			console.log('Overwrite tile action');
+			ctrl.tile.openBottomSheet(this.actionList, specificActions);
+		}
+
+		var showTimePicker = function(ev){ // A déplacer dans Tile.js ?
+			$mdpTimePicker(new Date(), {
+				targetEvent: ev,
+				autoSwitch: true
+			}).then(function(selectedDate){
+				ctrl.newAlarm.params = {
+					when: ctrl.newAlarm.label,
+					hours:selectedDate.getHours(),
+					minutes:selectedDate.getMinutes()
+				};
+				ctrl.newAlarm.toast = ctrl.newAlarm.label + ' alarm set to ' + ctrl.newAlarm.params.hours
+					+ ':' + ctrl.newAlarm.params.minutes;
+				UIService.sendCommand(ctrl.newAlarm, function(data){
+				});
+			});;
+		};
+
+		var specificActions = function(button){
+			ctrl.newAlarm = button;
+			showTimePicker();
 		};
 
 		/** Function to display alarm of the day */

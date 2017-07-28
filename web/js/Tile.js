@@ -19,6 +19,7 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 			this.test = 'testABCD';
 		}*/
 		this.click = click;
+		this.openBottomSheet = openBottomSheet;
 	}
 
 	/** Function on click on Tile **/
@@ -54,12 +55,11 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 			UIService.sendCommand(button, function(data){
 				//$scope.showToast(button.label);
 			});
-			// TODO test pour showErrorToast
 		}
 	}
 
 	/** Function to open bottom sheet **/
-	function openBottomSheet(bottomSheetList){
+	function openBottomSheet(bottomSheetList, specificAction){
 		$rootScope.bottomSheetButtonList = bottomSheetList;
 		//$scope.alert = '';
 		$mdBottomSheet.show({
@@ -67,7 +67,12 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 			controller: 'BottomSheetController',
 			clickOutsideToClose: true
 		}).then(function(button){
-			action(button);
+			if(specificAction){
+				console.log('specificAction !!');
+				specificAction(button);
+			}else{
+				action(button);
+			}
 		});
 	}
 

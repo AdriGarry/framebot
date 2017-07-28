@@ -10,6 +10,7 @@
 
 var express = require('express');
 var compression = require('compression');
+var bodyParser = require('body-parser');
 var path = require('path');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
@@ -40,6 +41,10 @@ function startUI(mode){
 
 	ui.use(compression()); // Compression web
 	ui.use(express.static(WEB_PATH)); // Pour fichiers statiques
+	ui.use(bodyParser.json()); // to support JSON-encoded bodies
+	ui.use(bodyParser.urlencoded({ // to support URL-encoded bodies
+		extended: true
+	}));
 
 	// Middleware LOGGER
 	var logger = function(req, res, next){
@@ -103,11 +108,31 @@ function startUI(mode){
 
 	/** POST ALARM SETTING */
 	ui.post('/alarm', function(req, res){ // TODO re-passer en ui.post !!!
-		console.debug('UI > Alarm');
-		// console.log('req', req);
-		params = req.query;
-		console.log('/alarm     > params', params);
-		//ODI.config.update('alarm', null, true); // NOUVEAU FORMAT OBJET ... /!\
+		params = req.body;
+		console.debug('UI > Alarm', params);
+		// TODO déplacer dans ODI.time.setAlarm()
+		var newAlarms = {};
+		Object.keys(CONFIG.alarms).forEach(function(key,index){
+			if(key == params.when){
+				newAlarms[key] = {
+					h: params.hours,
+					m: params.minutes,
+					d: CONFIG.alarms[key].d,
+					mode: CONFIG.alarms[key].mode
+				}
+				console.log('>> ' + params.when + ' alarm set to ' + params.h + '.' + params.m);
+			}else{
+				newAlarms[key] = CONFIG.alarms[key];
+			}
+		});
+		ODI.config.update({alarms: newAlarms}, true);
+
+	// "alarms": {
+	// 	"weekDay": {"h":7,"m":10, "d": [1,2,3,4,5], "mode": "sea"},
+	// 	"weekEnd": {"h":11,"m":59, "d": [0,6], "mode": "sea"}
+	// },
+
+		// ODI.config.update('alarm', null, true); // NOUVEAU FORMAT OBJET ... /!\
 		res.writeHead(200);res.end();
 	});
 

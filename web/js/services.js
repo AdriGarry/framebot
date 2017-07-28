@@ -49,7 +49,9 @@ app.service('UIService', ['$http', '$mdToast', 'CONSTANTS', 'Tile', function($ht
 			data: cmd.params
 		}).then(function successCallback(res){
 			if(res.data != null){
-				if(cmd.label){
+				if(cmd.toast){
+					$mdToast.show($mdToast.simple().textContent(cmd.toast).position('top right').hideDelay(1500));
+				}else if(cmd.label){
 					$mdToast.show($mdToast.simple().textContent(cmd.label).position('top right').hideDelay(1500));
 				}
 				callback(res.data);
