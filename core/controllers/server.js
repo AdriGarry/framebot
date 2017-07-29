@@ -321,12 +321,9 @@ function startUI(mode){
 		});
 
 		ui.post('/badBoy', function(req, res){ // Bad Boy...
-			ODI.service.badBoyOnce();
-			res.writeHead(200);res.end();
-		});
-
-		ui.post('/badBoyMode', function(req, res){ // Bad Boy...
-			ODI.service.badBoyMode();
+			params = req.body;
+			console.debug('/badBoy', params);
+			ODI.service.badBoy(params.value);
 			res.writeHead(200);res.end();
 		});
 

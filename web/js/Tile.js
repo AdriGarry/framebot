@@ -19,7 +19,9 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 			this.test = 'testABCD';
 		}*/
 		this.click = click;
+		this.action = action;
 		this.openBottomSheet = openBottomSheet;
+		this.openSliderBottomSheet = openSliderBottomSheet;
 	}
 
 	/** Function on click on Tile **/
@@ -36,6 +38,7 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 
 	/** Function to send action **/
 	function action(button){
+		// console.log('action(button)', button);
 		if(button.url.indexOf('http://') > -1){
 			//$window.open(button.url);
 			UIService.getRequest(button.url, function(data){
@@ -68,11 +71,26 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 			clickOutsideToClose: true
 		}).then(function(button){
 			if(specificAction){
-				console.log('specificAction !!');
 				specificAction(button);
 			}else{
 				action(button);
 			}
+		});
+	}
+
+	/** Function to open slider on bottom sheet */
+	function openSliderBottomSheet(slider) {
+		// console.log('openSliderBottomSheet()', slider);
+		$rootScope.bottomSheetSlider = slider;
+		$mdBottomSheet.show({
+			templateUrl: 'templates/bottom-sheet-slider.html',
+			controller: 'BottomSheetController',
+			clickOutsideToClose: true
+		}).then(function(button){
+			if(!button.params && button.value){
+				button.params = {value:button.value};
+			}
+			action(button); // à redéfinir ??
 		});
 	}
 

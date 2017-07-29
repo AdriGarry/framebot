@@ -380,11 +380,34 @@ app.component('badBoy', {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Bad boy',
-			actionList:[{label: 'BadBoy Mode', icon: 'comments', url:'/badBoyMode'},{
+			actionList:[{label: 'BadBoy Mode', icon: 'comments', url:'/badBoy', continu: true},{
 				label: 'BadBoy TTS', icon: 'comment', url:'/badBoy'}]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
+
+		/** Overwrite tile action */
+		ctrl.tile.click = function(){
+			ctrl.tile.openBottomSheet(this.actionList, specificActions);
+		}
+
+		var specificActions = function(button){
+			if(button.label.indexOf('TTS') != -1){
+				ctrl.tile.action(button);
+			}else{
+				var slider = {
+					label: 'Bad boy interval',
+					url: '/badBoy',
+					legend: 'min',
+					min: 10,
+					max: 300,
+					step: 1,
+					value: 120,
+					action: null
+				};
+				ctrl.tile.openSliderBottomSheet(slider)
+			}
+		};
 	}
 });
 

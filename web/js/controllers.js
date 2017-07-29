@@ -1,6 +1,6 @@
 'use strict'
 app.controller('UIController', function($rootScope, $scope, $location, $http, $filter, $timeout, $interval, $sce, $window, $mdSidenav,
-		$mdDialog, $mdBottomSheet, $mdToast, CONSTANTS, UIService/*, smDateTimePicker*/){
+		$mdDialog, $mdBottomSheet, $mdToast, CONSTANTS, UIService){
 	$scope.loading = false;/*true*/
 	$scope.pauseUI = false;
 	$scope.irda = false;

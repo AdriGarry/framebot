@@ -38,10 +38,8 @@ app.service('UIService', ['$http', '$mdToast', 'CONSTANTS', 'Tile', function($ht
 
 	/** Function to send command to Odi **/
 	this.sendCommand = function(cmd, callback){
-		//console.log('UIService.sendCommand()', cmd);
-		//console.log('data', cmd.params);
+		// console.log('UIService.sendCommand()', cmd);
 		var uri = cmd.url;
-		//var params = '';
 		$http({
 			headers: {ui: 'v4', pwd: cmd.data},
 			method: 'POST',

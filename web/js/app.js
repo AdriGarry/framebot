@@ -9,6 +9,13 @@ app.constant("CONSTANTS", {
 	'IP_LOCALIZATOR_URL': 'http://www.traceip.net/?query='
 });
 
+app.config(function($mdThemingProvider){
+	$mdThemingProvider.theme('default')
+	.primaryPalette('teal')
+	.warnPalette('red')
+	.accentPalette('blue-grey');
+});
+
 /** Directive to watch scroll event 
 	- restart autoRefresh
 	- showFabButtons **/
@@ -48,7 +55,7 @@ app.filter('formatNumber', function(){
 });
 
 /** Filter to display time left for timer **/
-app.filter('formatTimeLeftTimer', function($filter){
+app.filter('formatTime', function($filter){
 	return function(sec){
 		var m = Math.trunc(sec/60);
 		var s = $filter('formatNumber')(sec%60, 2);

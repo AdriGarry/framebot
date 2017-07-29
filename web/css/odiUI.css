@@ -483,9 +483,10 @@ md-content{
 	vertical-align:middle;
 }
 
-.dashboard > * > .tile > i.adminFlag{
+/*.dashboard > * > .tile > i.adminFlag{*/
+i.adminFlag{
 	position:absolute;
-	top:0.5em;
+	top:0.3em;
 	right:0.5em;
 }
 
@@ -609,7 +610,7 @@ md-bottom-sheet .md-subheader{
 }
 md-bottom-sheet button.md-button{
 	margin:0 5%;
-	padding-top:1em;
+	/*padding-top:1em;*/
 }
 
 /* ------------------------------ FOOTER ------------------------------- */
