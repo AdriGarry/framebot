@@ -152,10 +152,12 @@ function badBoy(interval){
 		var loop = 0;
 		setInterval(function(){
 			loop++;
-			if(loop%interval == 0){
+			// console.log('loop:', loop);
+			if(loop >= interval){
 				badBoyTTS();
+				loop = 0;
 			}
-			if(loop>30) loop = 0; // 1000
+			// if(loop>30) loop = 0; // 1000
 		}, 1000);
 	}else{
 		badBoyTTS();
@@ -163,10 +165,11 @@ function badBoy(interval){
 };
 
 function badBoyTTS(){
+	// console.log('badBoyTTS()');
 	ODI.tts.speak(getNewRdmBadBoyTTS());
 	setTimeout(function(){
 		ODI.tts.speak(getNewRdmBadBoyTTS());
-	}, 500);
+	}, 1000);
 };
 
 /** Function to select a different TTS each time */

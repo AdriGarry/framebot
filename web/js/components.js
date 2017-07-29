@@ -360,8 +360,8 @@ app.component('stories', {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Stories',
-			actionList:[{label: 'Survivaure', icon: 'space-shuttle', url: '/survivaure'},{
-				label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk'}]
+			actionList:[{label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk'},{
+				label: 'Survivaure', icon: 'space-shuttle', url: '/survivaure'}]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
@@ -400,9 +400,9 @@ app.component('badBoy', {
 					url: '/badBoy',
 					legend: 'min',
 					min: 10,
-					max: 300,
+					max: 180,
 					step: 1,
-					value: 120,
+					value: 90,
 					action: null
 				};
 				ctrl.tile.openSliderBottomSheet(slider)
