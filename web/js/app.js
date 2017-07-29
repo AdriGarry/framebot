@@ -12,8 +12,7 @@ app.constant("CONSTANTS", {
 app.config(function($mdThemingProvider){
 	$mdThemingProvider.theme('default')
 	.primaryPalette('teal')
-	.warnPalette('red')
-	.accentPalette('blue-grey');
+	.warnPalette('red');
 });
 
 /** Directive to watch scroll event 
