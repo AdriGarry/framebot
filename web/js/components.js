@@ -368,7 +368,7 @@ app.component('stories', {
 	}
 });
 
-/** Idea component */
+/** Bad boy component */
 app.component('badBoy', {
 	bindings: {
 		data: '<',
@@ -402,7 +402,7 @@ app.component('badBoy', {
 					min: 10,
 					max: 180,
 					step: 1,
-					value: 90,
+					value: 60,
 					action: null
 				};
 				ctrl.tile.openSliderBottomSheet(slider)
