@@ -147,7 +147,7 @@ function badBoy(interval){
 	if(typeof interval === 'number'){
 		console.log('Bad Boy mode !! [' + interval + ']');
 		// ODI.tts.speak({lg: 'fr', msg: 'A partir de maintenant, je suis un enfoirer !'});
-		ODI.tts.speak({lg: 'en', msg: 'badBoy mode !'});
+		ODI.tts.speak({lg: 'en', msg: 'Baad boy !'});
 
 		var loop = 0;
 		setInterval(function(){
