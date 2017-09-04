@@ -51,6 +51,7 @@ app.component('tts', {
 				message = message.replace(/[îï]/g,'i');
 				message = message.replace(/[ôóö]/g,'o');
 				message = message.replace(/[ûüù]/g,'u');
+				//message = message.replace(/[<>]/g,''); // Others characters
 				ctrl.tts.msg = message;
 			},
 			submit: function(){

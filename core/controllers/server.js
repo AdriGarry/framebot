@@ -62,8 +62,8 @@ function startUI(mode){
 
 		ip = req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : '[' + req.connection.remoteAddress + ']';
 
-		if(req.headers.ui === 'v4'){ // Allowed requests
-			request = req.headers.ui + ' ' + req.url.replace('%20',' ');
+		if(req.headers['user-interface'] === 'v4'){ // Allowed requests
+			request = req.headers['user-interface'] + ' ' + req.url.replace('%20',' ');
 			console.log(request, ip);
 			next();
 		}else if(req.url == '/favicon.ico'){
