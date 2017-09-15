@@ -1,6 +1,16 @@
  <!DOCTYPE html>
 <html data-ng-app="odiUI">
 <head>
+	<!-- Global Site Tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-7475813-7"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments)};
+		gtag('js', new Date());
+
+		gtag('config', 'UA-7475813-7');
+	</script>
+
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>OdiUI</title>
 	<meta name="description" content="Odi's UI to interact !" />
@@ -134,7 +144,7 @@
 				<md-list-item>
 					<div flex>Debug</div>
 					<div flex>
-						<md-switch class="switch md-primary" aria-label="Debug mode" title="Debug mode" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.odiState.debug"  data-ng-click="irda && toggleDebugMode()" data-ng-disabled="!irda"></md-switch>
+						<md-switch class="switch md-primary" aria-label="Debug mode" title="Debug mode" tabindex="0" type="checkbox" role="checkbox" data-ng-model="dashboard.odiState.debug > 0 ? true : false"  data-ng-click="irda && toggleDebugMode()" data-ng-disabled="!irda"></md-switch>
 					</div>
 				</md-list-item>
 				<md-divider></md-divider>
