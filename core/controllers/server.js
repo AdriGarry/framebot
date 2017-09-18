@@ -50,8 +50,15 @@ function startUI(mode){
 	var logger = function(req, res, next){
 		//ODI.leds.toggle({led:'eye', mode: 1});
 		res.header('Access-Control-Allow-Origin', 'http://adrigarry.com');
-		ODI.leds.blink({leds: ['satellite'], speed: 100, loop: 3});
 		//method = req.method;
+
+		ODI.leds.blink({leds: ['satellite'], speed: 100, loop: 3});
+		/*spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'UI']);
+		console.log('req.url', req.url);
+		if(req.url == '/'){ // UI request
+			spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'UI']);
+			console.log('======================>');
+		}*/
 
 		if(req.connection.remoteAddress.indexOf('192.168') == -1){ // Logging not local requests
 			var newRequest = ODI.utils.logTime('D/M h:m:s ') + request + ' [' + req.connection.remoteAddress + ']\r\n';

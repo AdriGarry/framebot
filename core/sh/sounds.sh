@@ -54,7 +54,8 @@ then
 #___Son UI
 elif [ $1 = "UI" ]
 then
-	sound="/home/pi/odi/media/mp3/system/sonarUI.mp3"
+	# sound="/home/pi/odi/media/mp3/system/sonarUI.mp3"
+	sound="/home/pi/odi/media/mp3/system/UIsound1.mp3"
 #___Son Cigales
 elif [ $1 = "cigales" ]
 then
