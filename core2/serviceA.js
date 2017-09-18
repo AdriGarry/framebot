@@ -1,15 +1,8 @@
 #!/usr/bin/env node
 'use strict'
 
-module.exports = {
-	doSomething: doSomething,
-	doSomethingElse: doSomethingElse
-};
-
-function doSomething(arg){
-	console.log('serviceA.doSomething()', arg);
-}
-
-function doSomethingElse(arg){
-	console.log('serviceA.doSomethingElse()', arg);
-}
+FLUX.out.subscribe({
+	next: data => console.log('serviceA', data),
+	error: err => console.error('error in serviceA' + err)
+	// if(data.id)
+});
