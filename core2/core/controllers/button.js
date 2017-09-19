@@ -4,6 +4,7 @@
 const Gpio = require('onoff').Gpio;
 const Observable = require('rxjs').Observable;
 
+// TODO => créer une boucle pour les construire dynamiquement !
 const ok = new Gpio(20, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
 const cancel = new Gpio(16, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
 const white = new Gpio(19, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
@@ -30,15 +31,12 @@ module.exports.init = Observable.create((observer) => {
 		var pushTime = getPushTime(cancel);
 		observer.next({id:'blue', value:pushTime});
 	});
+
 	observer.next('Button initialized');
-
-	setTimeout(()=> observer.next('Step 1'), 1000);
-	setTimeout(()=> observer.next('Step 2'), 2000);
-
 });
 
 function getPushTime(button){
-	var pushTime, pushedTime = new Date();
+	var pushTime/* = 0*/, pushedTime = new Date();
 	while(button.readSync() == 1){
 		;; // Pause
 		// console.log(t);

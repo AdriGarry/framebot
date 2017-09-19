@@ -13,12 +13,12 @@ var CronJob = require('cron').CronJob;
 
 /** Odi's global context */
 global.ODI_PATH = '/home/pi/odi/';
-global.CORE_PATH = '/home/pi/odi/core/';
-global.CONFIG_FILE = '/home/pi/odi/conf.json';
-global.DATA_PATH = '/home/pi/odi/data/';
-global.LOG_PATH = '/home/pi/odi/log/';
-global.WEB_PATH = '/home/pi/odi/web/';
-global.TMP_PATH = '/home/pi/odi/tmp/';
+global.CORE_PATH = ODI_PATH + 'core/';
+global.CONFIG_FILE = ODI_PATH + 'conf.json';
+global.DATA_PATH = ODI_PATH + 'data/';
+global.LOG_PATH = ODI_PATH + 'log/';
+global.WEB_PATH = ODI_PATH + 'web/';
+global.TMP_PATH = ODI_PATH + 'tmp/';
 global.CONFIG = require(CONFIG_FILE);
 
 var logo = fs.readFileSync(DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
