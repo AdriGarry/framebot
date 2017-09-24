@@ -4,9 +4,7 @@
 const Gpio = require('onoff').Gpio;
 const Observable = require('rxjs').Observable;
 
-// var config = require('/home/pi/odi/core3/core/config.js');
-// var flux = require(config.CORE_PATH + 'flux.js');
-var ODI = require(ODI_PATH + 'core/context.js');
+var ODI = require(ODI_PATH + 'core/shared.js');
 
 // TODO => créer une boucle pour les construire dynamiquement !
 const ok = new Gpio(20, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});

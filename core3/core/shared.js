@@ -1,16 +1,6 @@
 #!/usr/bin/env node
 'use strict'
 
-// const Observable = require('rxjs').Observable;
-
-/*var action = Observable.create((observer) => {
-	observer.next('action flux ready');
-});*/
-
-// var button = Observable.create((observer) => {
-//     observer.next('button flux ready');
-// });
-
 module.exports = {
     config: {},
     path: {
@@ -28,7 +18,6 @@ module.exports = {
         button: {}
     }
 };
-
 
 /*
 /// GpioDefinitions.js
