@@ -4,7 +4,7 @@
 var ODI = require(ODI_PATH + 'core/shared.js');
 
 console.log('--timeService');
-console.log(ODI.flux);
+// console.log(ODI.flux);
 
 /*ODI.flux.action2.subscribe({
 	next: data => console.log('timeService: ' + data),

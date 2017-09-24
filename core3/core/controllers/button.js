@@ -42,7 +42,7 @@ function getPushTime(button){
 	while(button.readSync() == 1){
 		;; // Pause
 		// console.log(t);
-		var t = Math.round((new Date() - pushedTime)/100)/10;
+		//var t = Math.round((new Date() - pushedTime)/100)/10;
 	}
 	pushTime = Math.round((new Date() - pushedTime)/100)/10;
 	return pushTime;

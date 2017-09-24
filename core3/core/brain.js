@@ -8,7 +8,7 @@ const Observable = require('rxjs').Observable;
 var ODI = require(ODI_PATH + 'core/shared.js');
 
 console.log('--brain');
-console.log(ODI.flux);
+// console.log(ODI.flux);
 
 ODI.flux.action = Observable.create((observer) => {
 
@@ -22,14 +22,13 @@ ODI.flux.action = Observable.create((observer) => {
 				console.log('Brain: Cancel button...', data.value);
 				observer.next({id:'bip', value:'cancel'});
 			}else if(data.id == 'blue'){
-				throw new Error('Brain: >> Odi Error to define');
+				throw new Error('Brain: >> Odi Error from BLUE button', data);
 			}else{
 				console.log('Brain: else statement', data);
 			}
 		},
 		// error: err => console.error('error in brain: ' + err)
-		error: err => {throw new Error('Brain: error from button flux', err)}
+		error: err => {throw new Error('Brain: Odi Error to define from button flux', err)}
 	});
 	setTimeout(()=> observer.next('Brain loaded'), 1000);
 });
-
