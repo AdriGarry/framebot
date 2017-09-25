@@ -2,7 +2,7 @@
 'use strict'
 
 const Gpio = require('onoff').Gpio;
-const Observable = require('rxjs').Observable;
+const Rx = require('rxjs');
 
 var ODI = require(ODI_PATH + 'core/shared.js');
 
@@ -12,7 +12,7 @@ const cancel = new Gpio(16, 'in', 'rising', {persistentWatch:true,debounceTimeou
 const white = new Gpio(19, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
 const blue = new Gpio(26, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
 
-ODI.flux.button = Observable.create((observer) => {
+ODI.flux.button = Rx.Observable.create((observer) => {
 
 	ok.watch(function(err, value){
 		var pushTime = getPushTime(ok);
