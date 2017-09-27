@@ -2,9 +2,13 @@
 'use strict'
 
 console.log('Starting...');
+//console.log('Odi\'s context initializing...');
+
 global.ODI_PATH = '/home/pi/odi/core3/';
 
 var ODI = require(ODI_PATH + 'core/shared.js');
+
+console.log(ODI.config);
 
 // Controllers
 var button = require(ODI.path.CORE_PATH + 'controllers/button.js');

@@ -2,8 +2,20 @@
 'use strict'
 
 module.exports = {
-    config: {},
-    path: {
+    // config: {},
+    config: require('/home/pi/odi/conf.json'),
+    service: {}, // time.js music.js modes.js (badBoy, party, ...)
+    module: {}, // sound.js led.js
+    input: {}, // web.js button.js jobs.js
+    
+    flux: {
+        ui: {},
+        button: {},
+        jobs: {},
+        action: {},
+        sound: {}, // ?
+    },
+    path: { // FINAL
         ODI_PATH: ODI_PATH,
         CORE_PATH: ODI_PATH + 'core/',
         CONFIG_FILE: ODI_PATH + 'conf.json',
@@ -11,11 +23,6 @@ module.exports = {
         LOG_PATH: ODI_PATH + 'log/',
         WEB_PATH: ODI_PATH + 'web/',
         TMP_PATH: ODI_PATH + 'tmp/'
-    },
-    flux: {
-        action: {},
-        action2: {},
-        button: {}
     }
 };
 
