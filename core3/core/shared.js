@@ -6,7 +6,7 @@ module.exports = {
     config: require('/home/pi/odi/conf.json'),
     service: {}, // time.js music.js modes.js (badBoy, party, ...)
     module: {}, // sound.js led.js
-    input: {}, // web.js button.js jobs.js
+    controller: {}, // web.js button.js jobs.js
     
     flux: {
         ui: {},
@@ -14,6 +14,11 @@ module.exports = {
         jobs: {},
         action: {},
         sound: {}, // ?
+    },
+    log: { // logger to define or to isolate ? see this: https://github.com/quirkey/node-logger/blob/master/logger.js
+        info: {},
+        debug: {},
+        error: {}
     },
     path: { // FINAL
         ODI_PATH: ODI_PATH,
