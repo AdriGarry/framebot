@@ -13,7 +13,7 @@ module.exports = {
         button: {},
         jobs: {},
         action: {},
-        sound: {}, // ?
+        sound: {} // ?
     },
     log: { // logger to define or to isolate ? see this: https://github.com/quirkey/node-logger/blob/master/logger.js
         info: {},

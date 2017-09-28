@@ -7,6 +7,7 @@ console.log('Starting...');
 global.ODI_PATH = '/home/pi/odi/core3/';
 
 var ODI = require(ODI_PATH + 'core/shared.js');
+// var ODI = require(ODI_PATH + 'core/shared.js').initialize('/home/pi/odi/core3/'); ???
 
 console.log(ODI.config);
 
@@ -20,6 +21,8 @@ var brain = require(ODI.path.CORE_PATH + 'brain.js');
 var soundService = require(ODI.path.CORE_PATH + 'services/soundService.js');
 var timeService = require(ODI.path.CORE_PATH + 'services/timeService.js');
 
+// Modules
+// led.js, sound.js
 
 /////////////  TEST  /////////////
 
