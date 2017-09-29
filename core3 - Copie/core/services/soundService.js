@@ -2,9 +2,8 @@
 'use strict'
 
 var ODI = require(ODI_PATH + 'core/shared.js');
-var log = new (require(ODI.path.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
 
-log.info('--soundService');
+console.log('--soundService');
 
 ODI.flux.action.subscribe({
 	next: data => {

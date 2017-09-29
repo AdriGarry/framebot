@@ -8,12 +8,17 @@ module.exports = {
     module: {}, // sound.js led.js
     controller: {}, // web.js button.js jobs.js
     
-    flux: { // DEPRECATED
+    flux: {
         ui: {},
         button: {},
         jobs: {},
         action: {},
         sound: {} // ?
+    },
+    log: { // logger to define or to isolate ? see this: https://github.com/quirkey/node-logger/blob/master/logger.js
+        info: {},
+        debug: {},
+        error: {}
     },
     path: { // FINAL
         ODI_PATH: ODI_PATH,

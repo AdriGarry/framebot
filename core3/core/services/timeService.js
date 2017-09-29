@@ -2,14 +2,15 @@
 'use strict'
 
 var ODI = require(ODI_PATH + 'core/shared.js');
+var log = new (require(ODI.path.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
 
-console.log('--timeService');
+log.info('--timeService');
 
 ODI.flux.action.subscribe({
 	next: data => {
-		console.log('timeService: ', data);
+		log.info('timeService: ', data);
 	},
 	error: err => {
-		console.log('error in timeService: ', err);
+		log.info('error in timeService: ', err);
 	}
 });

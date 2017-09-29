@@ -1,29 +1,17 @@
 #!/usr/bin/env node
 'use strict'
 
+const ODI_PATH = '/home/pi/odi/core3/';
+
+/** Odi's paths */
 module.exports = {
-    // config: {},
-    config: require('/home/pi/odi/conf.json'),
-    service: {}, // time.js music.js modes.js (badBoy, party, ...)
-    module: {}, // sound.js led.js
-    controller: {}, // web.js button.js jobs.js
-    
-    flux: { // DEPRECATED
-        ui: {},
-        button: {},
-        jobs: {},
-        action: {},
-        sound: {} // ?
-    },
-    path: { // FINAL
-        ODI_PATH: ODI_PATH,
-        CORE_PATH: ODI_PATH + 'core/',
-        CONFIG_FILE: ODI_PATH + 'conf.json',
-        DATA_PATH: ODI_PATH + 'data/',
-        LOG_PATH: ODI_PATH + 'log/',
-        WEB_PATH: ODI_PATH + 'web/',
-        TMP_PATH: ODI_PATH + 'tmp/'
-    }
+    ODI_PATH: ODI_PATH,
+    CORE_PATH: ODI_PATH + 'core/',
+    CONFIG_FILE: ODI_PATH + 'conf.json',
+    DATA_PATH: ODI_PATH + 'data/',
+    LOG_PATH: ODI_PATH + 'log/',
+    WEB_PATH: ODI_PATH + 'web/',
+    TMP_PATH: ODI_PATH + 'tmp/'
 };
 
 /*

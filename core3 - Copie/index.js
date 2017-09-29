@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 'use strict'
 
-global.ODI_PATH = '/home/pi/odi/core3/'; // ==> check this: https://stackoverflow.com/questions/3133243/how-do-i-get-the-path-to-the-current-script-with-node-js
+console.log('Starting...');
+//console.log('Odi\'s context initializing...');
+
+global.ODI_PATH = '/home/pi/odi/core3/';
 
 var ODI = require(ODI_PATH + 'core/shared.js');
+// var ODI = require(ODI_PATH + 'core/shared.js').initialize('/home/pi/odi/core3/'); ???
 
-var log = new (require(ODI.path.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
-log.info('New Odi starting...');
-
-// log.info(ODI.config);
+console.log(ODI.config);
 
 // Controllers
 var button = require(ODI.path.CORE_PATH + 'controllers/button.js');
@@ -25,24 +26,13 @@ var timeService = require(ODI.path.CORE_PATH + 'services/timeService.js');
 
 /////////////  TEST  /////////////
 
-// var log = require(ODI.path.CORE_PATH + 'logger.js').init(__filename.match(/(\w*).js/g)[0]);
-
-// var Log = require(ODI.path.CORE_PATH + 'logger.js').init(__filename.match(/(\w*).js/g)[0]),
-// log = new Log('toto');
-
-setTimeout(function(){
-  log.error('PROCESS.EXIT');
-  process.exit();
-}, 30000);
-
-
 var Rx = require('rxjs');
 // var observable = Rx.Observable.from([10, 20, 30]);
 // var subscription = observable.subscribe(x => console.log(x));
 // // Later:
 // subscription.unsubscribe();
 
-/*var source = Rx.Observable.from([1, 2, 3]);
+var source = Rx.Observable.from([1, 2, 3]);
 var subject = new Rx.Subject();
 var multicasted = source.multicast(subject);
 
@@ -53,5 +43,6 @@ multicasted.subscribe({
 multicasted.subscribe({
   next: (v) => console.log('observerB: ' + v)
 });
+
 // This is, under the hood, `source.subscribe(subject)`:
-multicasted.connect();*/
+multicasted.connect();

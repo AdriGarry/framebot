@@ -1,64 +1,40 @@
 #!/usr/bin/env node
 'use strict'
 
+var ODI = require(ODI_PATH + 'core/shared.js');
+var log = new (require(ODI.path.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
+
 const Rx = require('rxjs');
 
-var ODI = require(ODI_PATH + 'core/shared.js');
-
-console.log('--brain');
+log.debug('from brain', {id:1, label:'label'});
 
 ODI.flux.action = new Rx.Subject();
 
 var handler = data => {
-	console.log('handler', data);
+	log.info('handler', data);
 	// actions to define here...
 }
 
 var errorHandler = err => {throw new Error('Brain: Odi Error to define from button flux', err)}
-// var errorHandler = function(err){
-// 	throw new Error('Brain: Odi Error to define from button flux', err)
-// }
 
 // test if object isObservable
 // https://stackoverflow.com/questions/41452179/check-if-object-is-an-rxjs5-observable
 
 ODI.flux.button.subscribe({
 	next: data => {
-		// console.log('Brain:', data);
+		// log.info('Brain:', data);
 		if(data.id == 'ok'){
-			console.log('Brain: Ok button', data);
+			log.info('Brain: Ok button', data);
 			ODI.flux.action.next({id:'bip', value: 'ok'});
 		}else if(data.id == 'cancel'){
-			console.log('Brain: Cancel button...', data);
+			log.info('Brain: Cancel button...', data);
 			ODI.flux.action.next({id:'bip', value:'cancel'});
 		}else if(data.id == 'blue'){
 			throw new Error('Brain: >> Odi Error from BLUE button', data);
 		}else{
-			console.log('Brain: (else statement)', data);
+			log.info('Brain: (else statement)', data);
 		}
 	},
 	// error: err => {throw new Error('Brain: Odi Error to define from button flux', err)}
 	error: err => {errorHandler(err)}
 });
-
-/*ODI.flux.action = Rx.Observable.create((observer) => {
-	ODI.flux.button.subscribe({
-		next: data => {
-			// console.log('Brain:', data);
-			if(data.id == 'ok'){
-				console.log('Brain: Ok button', data.value);
-				observer.next({id:'bip', value: 'ok'});
-			}else if(data.id == 'cancel'){
-				console.log('Brain: Cancel button...', data.value);
-				observer.next({id:'bip', value:'cancel'});
-			}else if(data.id == 'blue'){
-				throw new Error('Brain: >> Odi Error from BLUE button', data);
-			}else{
-				console.log('Brain: (else statement)', data);
-			}
-		},
-		// error: err => console.error('error in brain: ' + err)
-		error: err => {throw new Error('Brain: Odi Error to define from button flux', err)}
-	});
-	setTimeout(()=> observer.next('Brain loaded'), 1000);
-});*/

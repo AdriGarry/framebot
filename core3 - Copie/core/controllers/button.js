@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 'use strict'
 
-var ODI = require(ODI_PATH + 'core/shared.js');
-var log = new (require(ODI.path.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
-
 const Gpio = require('onoff').Gpio;
 const Rx = require('rxjs');
+
+var ODI = require(ODI_PATH + 'core/shared.js');
 
 // TODO => créer une boucle pour les construire dynamiquement !
 const ok = new Gpio(20, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
@@ -17,11 +16,7 @@ ODI.flux.button = Rx.Observable.create((observer) => {
 
 	ok.watch(function(err, value){
 		var pushTime = getPushTime(ok);
-		if(pushTime == 0){
-			observer.error({id:'ok error', value:pushTime});
-		}else{
-			observer.next({id:'ok', value:pushTime});
-		}
+		observer.next({id:'ok', value:pushTime});
 	});
 
 	cancel.watch(function(err, value){
@@ -48,14 +43,6 @@ function getPushTime(button){
 		;; // Pause
 		// console.log(t);
 		//var t = Math.round((new Date() - pushedTime)/100)/10;
-
-		/*if(t%1 == 0){ // TODO emettre des events directement pour allumer la led
-			// console.log(t);
-			// process.stdout.write('.');
-			ODI.leds.belly.write(0);
-		}else{
-			ODI.leds.belly.write(1);
-		}*/
 	}
 	pushTime = Math.round((new Date() - pushedTime)/100)/10;
 	return pushTime;
