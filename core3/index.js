@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 'use strict'
 
-global.ODI_PATH = '/home/pi/odi/core3/'; // ==> check this: https://stackoverflow.com/questions/3133243/how-do-i-get-the-path-to-the-current-script-with-node-js
+global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 
 var ODI = require(ODI_PATH + 'core/shared.js');
 
 var log = new (require(ODI.path.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
+var log2 = new (require(ODI.path.CORE_PATH + 'logger.js'))();
+log.info('\r\n', 'New Odi starting...');
 log.info('New Odi starting...');
 
 // log.info(ODI.config);
@@ -31,7 +33,7 @@ var timeService = require(ODI.path.CORE_PATH + 'services/timeService.js');
 // log = new Log('toto');
 
 setTimeout(function(){
-  log.error('PROCESS.EXIT');
+  log.debug('PROCESS.EXIT');
   process.exit();
 }, 30000);
 

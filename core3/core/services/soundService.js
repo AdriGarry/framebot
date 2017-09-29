@@ -4,13 +4,13 @@
 var ODI = require(ODI_PATH + 'core/shared.js');
 var log = new (require(ODI.path.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
 
-log.info('--soundService');
+var brain = require (ODI.path.CORE_PATH + 'brain.js');
 
-ODI.flux.action.subscribe({
+brain.sound.subscribe({
 	next: data => {
-		console.log('soundService: ', data);
+		log.info('soundService: ', data);
 	},
 	error: err => {
-		console.log('error in soundService: ', err);
+		log.info('error in soundService: ', err);
 	}
 });

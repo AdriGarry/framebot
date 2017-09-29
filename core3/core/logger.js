@@ -3,19 +3,46 @@
 
 module.exports = Logger;
 
-var self = this;
-var filename;
-var dateTimeDefaultPattern = 'D/M h:m:s';
+// var self = this;
+// self.filename;
+const dateTimeDefaultPattern = 'D/M h:m:s';
+
+var dateTimePattern = '*dateTimePattern*';
+var filename = '*filename*';
+
+var i = 0;
 
 function Logger(filename, dateTimePattern){
-    self.dateTimePattern = dateTimePattern || dateTimeDefaultPattern;
-    self.filename = filename;
-    info('Logger init:', self.filename);
-    return {
-        info: info,
-        debug: debug,
-        error: error
-    }
+    // this.dateTimePattern = dateTimePattern || dateTimeDefaultPattern;
+	// this.filename = filename;
+    dateTimePattern = dateTimePattern || dateTimeDefaultPattern;
+	filename = filename;
+	i++;
+	info('Logger init:', i, filename);
+
+	this.info = info;
+	this.debug = debug;
+	this.error = error;
+	this.logTime = logTime;
+	return this;
+    // return {
+    //     info: info,
+    //     debug: debug,
+    //     error: error
+	// }
+	
+	function info(){
+		console.log(logTime(), '['+filename+']', arguments);
+	};
+	
+	function debug(){
+		console.log(logTime(), '\u2022', '['+filename+']', arguments);
+	};
+	
+	function error(){
+		console.error(logTime(), '['+filename+']', '>> ERR_', arguments);
+	};
+	
 };
 
 /** Function to return date time. Pattern: 'YDT' */
@@ -29,7 +56,7 @@ function logTime(param, date){
 	var s = date.getSeconds();
 	var now = '';
 
-    if(typeof param === 'undefined') param = self.dateTimePattern;
+    if(typeof param === 'undefined') param = dateTimePattern;
 	for(var i = 0; i < param.length; i++){
 		switch(param[i]){
 			case 'Y':
@@ -56,16 +83,4 @@ function logTime(param, date){
 	}
 	// console.log('utils.now(param)', param, now);
 	return now;
-};
-
-function info(args){
-    console.log(logTime(), self.filename, args);
-};
-
-function debug(args){
-    console.log(logTime(), self.filename, '\u2022', args);
-};
-
-function error(args){
-    console.error(logTime(), self.filename, '>> ERR_', args);
 };

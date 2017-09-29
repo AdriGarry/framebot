@@ -4,9 +4,9 @@
 var ODI = require(ODI_PATH + 'core/shared.js');
 var log = new (require(ODI.path.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
 
-log.info('--timeService');
+var brain = require (ODI.path.CORE_PATH + 'brain.js');
 
-ODI.flux.action.subscribe({
+brain.time.subscribe({
 	next: data => {
 		log.info('timeService: ', data);
 	},

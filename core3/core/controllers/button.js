@@ -5,20 +5,29 @@ var ODI = require(ODI_PATH + 'core/shared.js');
 var log = new (require(ODI.path.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
 
 const Gpio = require('onoff').Gpio;
-const Rx = require('rxjs');
 
 // TODO => créer une boucle pour les construire dynamiquement !
-const ok = new Gpio(20, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
-const cancel = new Gpio(16, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
-const white = new Gpio(19, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
-const blue = new Gpio(26, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
+var ok = new Gpio(20, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
+var cancel = new Gpio(16, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
+var white = new Gpio(19, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
+var blue = new Gpio(26, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
+
+const Rx = require('rxjs');
+var button = new Rx.Subject();
+
+module.exports = {
+	button: button
+};
+
+
 
 ODI.flux.button = Rx.Observable.create((observer) => {
 
 	ok.watch(function(err, value){
 		var pushTime = getPushTime(ok);
 		if(pushTime == 0){
-			observer.error({id:'ok error', value:pushTime});
+			// observer.error({id:'ok error', value:pushTime});
+			observer.next({id:'ok', value:pushTime});
 		}else{
 			observer.next({id:'ok', value:pushTime});
 		}
