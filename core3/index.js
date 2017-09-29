@@ -4,7 +4,7 @@
 console.log('Starting...');
 //console.log('Odi\'s context initializing...');
 
-global.ODI_PATH = '/home/pi/odi/core3/';
+global.ODI_PATH = '/home/pi/odi/core3/'; // ==> check this: https://stackoverflow.com/questions/3133243/how-do-i-get-the-path-to-the-current-script-with-node-js
 
 var ODI = require(ODI_PATH + 'core/shared.js');
 // var ODI = require(ODI_PATH + 'core/shared.js').initialize('/home/pi/odi/core3/'); ???

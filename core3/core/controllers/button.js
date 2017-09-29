@@ -16,7 +16,11 @@ ODI.flux.button = Rx.Observable.create((observer) => {
 
 	ok.watch(function(err, value){
 		var pushTime = getPushTime(ok);
-		observer.next({id:'ok', value:pushTime});
+		if(pushTime == 0){
+			observer.error({id:'ok', value:pushTime});
+		}else{
+			observer.next({id:'ok', value:pushTime});
+		}
 	});
 
 	cancel.watch(function(err, value){
@@ -43,6 +47,14 @@ function getPushTime(button){
 		;; // Pause
 		// console.log(t);
 		//var t = Math.round((new Date() - pushedTime)/100)/10;
+
+		/*if(t%1 == 0){ // TODO emettre des events directement pour allumer la led
+			// console.log(t);
+			// process.stdout.write('.');
+			ODI.leds.belly.write(0);
+		}else{
+			ODI.leds.belly.write(1);
+		}*/
 	}
 	pushTime = Math.round((new Date() - pushedTime)/100)/10;
 	return pushTime;

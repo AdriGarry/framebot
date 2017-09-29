@@ -8,7 +8,7 @@ module.exports = {
     module: {}, // sound.js led.js
     controller: {}, // web.js button.js jobs.js
     
-    flux: {
+    flux: { // DEPRECATED
         ui: {},
         button: {},
         jobs: {},

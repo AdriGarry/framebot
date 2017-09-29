@@ -19,6 +19,9 @@ var errorHandler = err => {throw new Error('Brain: Odi Error to define from butt
 // 	throw new Error('Brain: Odi Error to define from button flux', err)
 // }
 
+// test if object isObservable
+// https://stackoverflow.com/questions/41452179/check-if-object-is-an-rxjs5-observable
+
 ODI.flux.button.subscribe({
 	next: data => {
 		// console.log('Brain:', data);
