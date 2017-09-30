@@ -2,14 +2,13 @@
 'use strict'
 
 var Odi = require(ODI_PATH + 'core/Odi.js').Odi;
-console.log('TimeService>Odi.CORE_PATH:' + Odi.CORE_PATH);
 var log = new (require(Odi.CORE_PATH + 'logger.js'))(__filename);
 
 var brain = require (Odi.CORE_PATH + 'brain.js');
 
-brain.led.subscribe({
+brain.service.time.subscribe({
 	next: data => {
-		log.info('timeService: ', data);
+		log.info('Time[' + data.id + ']', data.value, data.param);
 	},
 	error: err => {
 		log.info('error in timeService: ', err);

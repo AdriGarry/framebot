@@ -4,14 +4,14 @@
 var log = new (require(ODI_PATH + 'core/logger.js'))(__filename);
 // var conf = require('/home/pi/odi/conf.json');
 
-var root;
 var Odi = {
-    // config: require('/home/pi/odi/conf.json'),
-    //conf: require('/home/pi/odi/conf.json'),
-    debug: 1,
+    conf: require('/home/pi/odi/conf.json'),
+    setup: {}, // forcedMode, clockMode, alarms...
+    stats: {},// update, totalLines, diskSpace...
+    debug: 0,
     // watch:watch,
     error: error,
-    ODI_PATH: root,
+    ODI_PATH: '',
     CORE_PATH: ODI_PATH + 'core/',
     CONFIG_FILE: ODI_PATH + 'conf.json',
     DATA_PATH: ODI_PATH + 'data/',
@@ -19,33 +19,15 @@ var Odi = {
     WEB_PATH: ODI_PATH + 'web/',
     TMP_PATH: ODI_PATH + 'tmp/'
 };
-console.log('-->Odi');
-console.log(Odi);
 
 module.exports = {
     init: init,
     Odi: Odi
 };
 
-// function Odi(){
-//     console.log(this);
-//     this.conf = ;
-//     this.debug = 1;
-//     this.watch = watch;
-//     this.error = error;
-//     this.ODI_PATH = root;
-//     this.CORE_PATH = ODI_PATH + 'core/';
-//     this.CONFIG_FILE = ODI_PATH + 'conf.json';
-//     this.DATA_PATH = ODI_PATH + 'data/';
-//     this.LOG_PATH = ODI_PATH + 'log/';
-//     this.WEB_PATH = ODI_PATH + 'web/';
-//     this.TMP_PATH = ODI_PATH + 'tmp/';
-//     return this;
-// }
 function init(path){
-    // log.info('init ODI MAIN OBJECT', path);
-    root = path;
-    console.log(root);
+    Odi.PATH = path;
+    log.info('Odi context initializing', Odi.conf.debug, Odi.conf.debug ? 'debug mode':'');
     return Odi;
 };
 
@@ -59,7 +41,7 @@ function watch(arg){
     log.debug('watch()', arg);
 }
 
-console.log('TEMOIN Odi.js');
+// console.log('TEMOIN Odi.js');
 log.debug('TEMOIN Odi.js');
 
 /*

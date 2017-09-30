@@ -1,25 +1,26 @@
 #!/usr/bin/env node
 'use strict'
 
-// log.debug(process.argv);
+// console.log(process.argv);
 console.log('\r\nNew Odi starting...');
-global.ODI_PATH = __filename.match(/\/.*\//g)[0]; // DEPRECATED ??
+global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 
 var Odi = require(ODI_PATH + 'core/Odi.js').init(__filename.match(/\/.*\//g)[0]);
-var log = new (require(Odi.CORE_PATH + 'logger.js'))(__filename);
+// console.log('Odi.conf.debug', Odi.conf.debug); // Voir pk ça ne marche pas...
+var log = new (require(Odi.CORE_PATH + 'logger.js'))(__filename, true);//Odi.conf.debug
 
-// log.info('Odi.config', Odi.config);
+// log.debug('Odi.conf', Odi.conf);
 
 // Brain
 var brain = require(Odi.CORE_PATH + 'brain.js');
 
 // Services
-var soundService = require(Odi.CORE_PATH + 'services/soundService.js');
-var timeService = require(Odi.CORE_PATH + 'services/timeService.js');
+var soundService = require(Odi.CORE_PATH + 'modules/sound.js');
+var timeService = require(Odi.CORE_PATH + 'services/time.js');
 
 // Modules
-// led.js, sound.js
-// log.debug(process.argv);
+// var soundModule = require(Odi.CORE_PATH + 'modules/sound.js');
+var ledModule = require(Odi.CORE_PATH + 'modules/led.js');
 
 /////////////  TEST  /////////////
 

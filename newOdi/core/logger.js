@@ -1,25 +1,22 @@
 #!/usr/bin/env node
 'use strict'
 
-// var Odi = require(ODI_PATH + 'core/Odi.js').Odi;
-// console.log('++>', Odi);
-
 var util = require('util');
 
 module.exports = Logger;
 
 const dateTimeDefaultPattern = 'D/M h:m:s';
-var filename = '*filename*';
+var modeDebug = false; 
 
-function Logger(filename, dateTimePattern){
-	console.log(arguments);
-    // this.dateTimePattern = dateTimePattern || dateTimeDefaultPattern;
-	// this.filename = filename;
+function Logger(filename, debugMode, dateTimePattern){
+	modeDebug = debugMode || modeDebug;
+	// console.log('Logger.modeDebug:', modeDebug);
     dateTimePattern = dateTimePattern || dateTimeDefaultPattern;
 	filename = filename.match(/(\w*).js/g)[0];
-	debug('Logger init [' + filename + ']');
+	debug('Logger init [' + filename + ', debug=' + modeDebug + ']');
 
 	this.info = info;
+	// console.log('--debugMode', modeDebug);
 	this.debug = debug;
 	this.error = error;
 	this.logTime = logTime;
@@ -38,7 +35,7 @@ function Logger(filename, dateTimePattern){
 	};
 
 	function debug(){
-		// if(Odi && !Odi.debug) return;
+		if(!modeDebug) return;
 		var log = '\u2022';
 		for(var i in arguments){
 			if(typeof arguments[i] == 'object'){
@@ -98,8 +95,6 @@ function Logger(filename, dateTimePattern){
 					now += param[i];
 			}
 		}
-		// console.log('utils.now(param)', param, now);
 		return now;
 	};
-	console.log('TEMOIN logger.js');
 };
