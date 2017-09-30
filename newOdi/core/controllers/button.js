@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 'use strict'
 
-var ODI = require(ODI_PATH + 'core/shared.js');
-var log = new (require(ODI.path.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
+var Odi = require(ODI_PATH + 'core/Odi.js').Odi;
+var log = new (require(Odi.CORE_PATH + 'logger.js'))(__filename);
 
 const Gpio = require('onoff').Gpio;
-
 // TODO => créer une boucle pour les construire dynamiquement !
 var ok = new Gpio(20, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
 var cancel = new Gpio(16, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
@@ -54,9 +53,9 @@ function getPushTime(button){
 		/*if(t%1 == 0){ // TODO emettre des events directement pour allumer la led
 			// console.log(t);
 			// process.stdout.write('.');
-			ODI.leds.belly.write(0);
+			Odi.leds.belly.write(0);
 		}else{
-			ODI.leds.belly.write(1);
+			Odi.leds.belly.write(1);
 		}*/
 	}
 	pushTime = Math.round((new Date() - pushedTime)/100)/10;

@@ -1,19 +1,23 @@
 #!/usr/bin/env node
 'use strict'
 
-module.exports = Logger;
+// var Odi = require(ODI_PATH + 'core/Odi.js').Odi;
+// console.log('++>', Odi);
 
 var util = require('util');
+
+module.exports = Logger;
 
 const dateTimeDefaultPattern = 'D/M h:m:s';
 var filename = '*filename*';
 
 function Logger(filename, dateTimePattern){
+	console.log(arguments);
     // this.dateTimePattern = dateTimePattern || dateTimeDefaultPattern;
 	// this.filename = filename;
     dateTimePattern = dateTimePattern || dateTimeDefaultPattern;
-	filename = filename;
-	info('Logger init [' + filename + ']');
+	filename = filename.match(/(\w*).js/g)[0];
+	debug('Logger init [' + filename + ']');
 
 	this.info = info;
 	this.debug = debug;
@@ -34,6 +38,7 @@ function Logger(filename, dateTimePattern){
 	};
 
 	function debug(){
+		// if(Odi && !Odi.debug) return;
 		var log = '\u2022';
 		for(var i in arguments){
 			if(typeof arguments[i] == 'object'){
@@ -54,7 +59,7 @@ function Logger(filename, dateTimePattern){
 				log = log + ' ' + arguments[i];
 			}
 		}
-		console.error(logTime(), '['+filename+']', '>> ERR_', log);
+		console.error('\r\n'+logTime(), '['+filename+']', '>> ERR_', log);
 	};
 
 	/** Function to return date time. Pattern: 'YDT' */
@@ -96,4 +101,5 @@ function Logger(filename, dateTimePattern){
 		// console.log('utils.now(param)', param, now);
 		return now;
 	};
+	console.log('TEMOIN logger.js');
 };

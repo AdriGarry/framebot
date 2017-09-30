@@ -1,8 +1,14 @@
 #!/usr/bin/env node
 'use strict'
 
-var ODI = require(ODI_PATH + 'core/shared.js');
-var log = new (require(ODI.path.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
+var Odi = require(ODI_PATH + 'core/Odi.js');
+var Odi = require(ODI_PATH + 'core/Odi.js').Odi;
+console.log('==>Odi');
+console.log(Odi);
+var log = new (require(Odi.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
+
+console.log('Odi.error:');
+console.log(Odi.error);
 
 const Rx = require('rxjs');
 var action = new Rx.Subject();
@@ -19,24 +25,15 @@ module.exports = {
 	util: util
 };
 
-var handler = data => {
-	log.info('handler', data);
+var buttonHandler = data => {
+	log.info('buttonHandler', data);
 	// actions to define here...
 }
 
-var errorHandler = err => {
-	log.error(err);
-	throw new Error('Brain: Odi Error to define from button flux', err)
-};
-
 // test if object isObservable https://stackoverflow.com/questions/41452179/check-if-object-is-an-rxjs5-observable
-
-var button = require(ODI.path.CORE_PATH + 'controllers/button.js');
-// log.info(button instanceof Rx.Observable);
-log.info('button', 'BUTTON', button);
+var button = require(Odi.CORE_PATH + 'controllers/button.js'); // log.info(button instanceof Rx.Observable);
 button.subscribe({
 	next: data => {
-		// log.info('Brain:', data);
 		if(data.id == 'ok'){
 			log.info('Brain: Ok button', data);
 			time.next({id:'bip', value: 'ok'});
@@ -44,14 +41,11 @@ button.subscribe({
 			log.info('Brain: Cancel button...', data);
 			sound.next({id:'bip', value:'cancel'});
 		}else if(data.id == 'blue'){
-			throw new Error('Brain: >> Odi Error from BLUE button', data);
+			Odi.error(data);
 		}else{
 			log.info('Brain: (else statement)', data);
 		}
 	},
-	error: err => { errorHandler(err) }
+	error: err => { Odi.error(data) }
 });
 
-// Services
-// var soundService = require(ODI.path.CORE_PATH + 'services/soundService.js');
-// var timeService = require(ODI.path.CORE_PATH + 'services/timeService.js');
