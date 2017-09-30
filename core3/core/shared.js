@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict'
 
+// Object.prototype.toString
+
 module.exports = {
     // config: {},
     config: require('/home/pi/odi/conf.json'),
@@ -8,13 +10,13 @@ module.exports = {
     module: {}, // sound.js led.js
     controller: {}, // web.js button.js jobs.js
     
-    flux: { // DEPRECATED
+    /*flux: { // DEPRECATED
         ui: {},
         button: {},
         jobs: {},
         action: {},
         sound: {} // ?
-    },
+    },*/
     path: { // FINAL
         ODI_PATH: ODI_PATH,
         CORE_PATH: ODI_PATH + 'core/',

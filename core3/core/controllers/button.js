@@ -15,41 +15,34 @@ var blue = new Gpio(26, 'in', 'rising', {persistentWatch:true,debounceTimeout:50
 const Rx = require('rxjs');
 var button = new Rx.Subject();
 
-module.exports = {
-	button: button
-};
+module.exports = button;
 
-
-
-ODI.flux.button = Rx.Observable.create((observer) => {
-
-	ok.watch(function(err, value){
-		var pushTime = getPushTime(ok);
-		if(pushTime == 0){
-			// observer.error({id:'ok error', value:pushTime});
-			observer.next({id:'ok', value:pushTime});
-		}else{
-			observer.next({id:'ok', value:pushTime});
-		}
-	});
-
-	cancel.watch(function(err, value){
-		var pushTime = getPushTime(cancel);
-		observer.next({id:'cancel', value:pushTime});
-	});
-
-	white.watch(function(err, value){
-		var pushTime = getPushTime(cancel);
-		observer.next({id:'white', value:pushTime});
-	});
-
-	blue.watch(function(err, value){
-		var pushTime = getPushTime(cancel);
-		observer.next({id:'blue', value:pushTime});
-	});
-
-	observer.next('Button initialized');
+ok.watch(function(err, value){
+	var pushTime = getPushTime(ok);
+	if(pushTime == 0){
+		// observer.error({id:'ok error', value:pushTime});
+		button.next({id:'ok', value:pushTime});
+	}else{
+		button.next({id:'ok', value:pushTime});
+	}
 });
+
+cancel.watch(function(err, value){
+	var pushTime = getPushTime(cancel);
+	button.next({id:'cancel', value:pushTime});
+});
+
+white.watch(function(err, value){
+	var pushTime = getPushTime(cancel);
+	button.next({id:'white', value:pushTime});
+});
+
+blue.watch(function(err, value){
+	var pushTime = getPushTime(cancel);
+	button.next({id:'blue', value:pushTime});
+});
+
+button.next('Button controller initialized');
 
 function getPushTime(button){
 	var pushTime/* = 0*/, pushedTime = new Date();

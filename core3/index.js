@@ -7,13 +7,12 @@ var ODI = require(ODI_PATH + 'core/shared.js');
 
 var log = new (require(ODI.path.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
 var log2 = new (require(ODI.path.CORE_PATH + 'logger.js'))();
-log.info('\r\n', 'New Odi starting...');
-log.info('New Odi starting...');
+log.info('\r\n\r\n', 'New Odi starting...');
 
 // log.info(ODI.config);
 
 // Controllers
-var button = require(ODI.path.CORE_PATH + 'controllers/button.js');
+// var button = require(ODI.path.CORE_PATH + 'controllers/button.js');
 
 // Brain
 var brain = require(ODI.path.CORE_PATH + 'brain.js');

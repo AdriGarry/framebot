@@ -24,12 +24,17 @@ var handler = data => {
 	// actions to define here...
 }
 
-var errorHandler = err => {throw new Error('Brain: Odi Error to define from button flux', err)}
+var errorHandler = err => {
+	log.error(err);
+	throw new Error('Brain: Odi Error to define from button flux', err)
+};
 
-// test if object isObservable
-// https://stackoverflow.com/questions/41452179/check-if-object-is-an-rxjs5-observable
+// test if object isObservable https://stackoverflow.com/questions/41452179/check-if-object-is-an-rxjs5-observable
 
-ODI.flux.button.subscribe({
+var button = require(ODI.path.CORE_PATH + 'controllers/button.js');
+// log.info(button instanceof Rx.Observable);
+log.info('button', 'BUTTON', button);
+button.subscribe({
 	next: data => {
 		// log.info('Brain:', data);
 		if(data.id == 'ok'){
