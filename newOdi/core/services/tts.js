@@ -6,10 +6,10 @@ var log = new (require(Odi.CORE_PATH + 'logger.js'))(__filename);
 
 var brain = require (Odi.CORE_PATH + 'brain.js');
 
-brain.service.time.subscribe({
+brain.service.tts.subscribe({
 	next: flux => {
-		if(!brain.inspect(flux, 'Time')) return;
-		log.info('Time service', flux);
+		if(!brain.inspect(flux, 'TTS')) return;
+		log.info('TTS service', flux);
 	},
 	error: err => { Odi.error(flux) }
 });

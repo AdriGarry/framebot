@@ -6,10 +6,10 @@ var log = new (require(Odi.CORE_PATH + 'logger.js'))(__filename);
 
 var brain = require (Odi.CORE_PATH + 'brain.js');
 
-brain.service.time.subscribe({
+brain.service.system.subscribe({
 	next: flux => {
-		if(!brain.inspect(flux, 'Time')) return;
-		log.info('Time service', flux);
+		if(!brain.inspect(flux, 'System')) return;
+		log.info('Service System', flux);
 	},
 	error: err => { Odi.error(flux) }
 });

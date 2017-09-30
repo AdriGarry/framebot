@@ -12,10 +12,11 @@ var services = {
 	time: new Rx.Subject(),
 	tools: new Rx.Subject(), // ??
 	tts: new Rx.Subject(), // +voicemail ?
+	system: new Rx.Subject(),
 	util: new Rx.Subject(),
 	video: new Rx.Subject(),
 };
-
+///////////////// =====> Regrouper modules, services et les fonctions dans un objet
 var modules = {
 	hardware: new Rx.Subject(),
 	led: new Rx.Subject(),
@@ -30,8 +31,6 @@ module.exports = {
 };
 
 function inspect(flux, fluxName){
-	// log.info('inspect()', flux);
-	// log.debug('Inspect=', flux);
 	log.debug('Incoming flux[' + fluxName + ']', flux);
 	if(flux.hasOwnProperty('delay') && Number(flux.delay)){
 		delay(flux);
@@ -70,6 +69,10 @@ Button.subscribe({
 	},
 	error: err => { Odi.error(flux) }
 });
+
+// Faire un script qui lance un flux de test sur chaque Sujet
+// {id:'test', value:'all'}
+// {to:'test', value:'all'}
 
 var Jobs = require(Odi.CORE_PATH + 'controllers/jobs.js');
 Jobs.subscribe({

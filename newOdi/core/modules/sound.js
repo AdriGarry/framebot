@@ -11,5 +11,5 @@ brain.module.sound.subscribe({
 		if(!brain.inspect(flux, 'Sound')) return;
 		log.info('soundService: ', flux);
 	},
-	error: err => { log.info('error in soundService: ', err) }
+	error: err => { Odi.error(flux) }
 });
