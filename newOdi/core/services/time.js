@@ -8,8 +8,9 @@ var brain = require (Odi.CORE_PATH + 'brain.js');
 
 brain.service.time.subscribe({
 	next: flux => {
-		if(!brain.inspect(flux)) return;
-		log.info('Time[' + flux.id + ']', flux.value, flux.delay);
+		if(!brain.inspect(flux, 'Time')) return;
+		// log.info('Time[' + flux.id + ']', flux.value, flux.delay);
+		log.info('Do nothing.', flux);
 	},
 	error: err => { log.info('error in timeService: ', err)	}
 });

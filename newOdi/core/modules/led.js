@@ -8,8 +8,8 @@ var brain = require (Odi.CORE_PATH + 'brain.js');
 
 brain.module.led.subscribe({
 	next: flux => {
-        if(!brain.inspect(flux)) return;
-        log.info(flux);
+        if(!brain.inspect(flux), 'Led') return;
+        log.info(flux, '(you are in the led module !)');
 	},
 	error: err => {	log.info('error in timeService: ', err)	}
 });

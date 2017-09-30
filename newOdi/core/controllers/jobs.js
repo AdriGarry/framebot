@@ -17,9 +17,18 @@ var Jobs = new Rx.Subject();
 module.exports = Jobs;
 
 ////////// TESTS //////////
+
+Jobs.next({id:'clock', value:null, delay: '1.8'});
+setTimeout(function(){
+	Jobs.next({id:'clock', value:null, delay: '1.5'});
+}, 3000);
+setTimeout(function(){
+	Jobs.next({id:'sound', value:'mute', delay: '2.9'});
+}, 13000);
+
 new CronJob('*/6 * * * * *', function(){
 	Jobs.next({id:'clock', value:'*/6', delay: '1.8'});
-}, null, true, 'Europe/Paris');
+}, null, false, 'Europe/Paris');
 new CronJob('*/7 * * * * *', function(){
 	Jobs.next({id:'toto', value:'hey'});
 	Jobs.next({id:'toto', value:'_SALUT !!', delay: 2.5});

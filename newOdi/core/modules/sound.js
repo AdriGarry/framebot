@@ -8,7 +8,7 @@ var brain = require (Odi.CORE_PATH + 'brain.js');
 
 brain.module.sound.subscribe({
 	next: flux => {
-		if(!brain.inspect(flux)) return;
+		if(!brain.inspect(flux, 'Sound')) return;
 		log.info('soundService: ', flux);
 	},
 	error: err => { log.info('error in soundService: ', err) }

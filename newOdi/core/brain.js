@@ -29,11 +29,11 @@ module.exports = {
 	service: services
 };
 
-function inspect(flux){
+function inspect(flux, fluxName){
 	// log.info('inspect()', flux);
-	log.debug('Inspect=', flux);
+	// log.debug('Inspect=', flux);
+	log.debug('Incoming flux[' + fluxName + ']', flux);
 	if(flux.hasOwnProperty('delay') && Number(flux.delay)){
-		// log.info('--> flux.delay', Number(flux.delay));
 		delay(flux);
 		return false;
 	}
@@ -43,9 +43,7 @@ function inspect(flux){
 function delay(flux){
 	log.info('Delay=', flux.delay, flux);
 	setTimeout(function(){
-		log.debug('delayed flux:', flux);
-		// ...
-		//Jobs.next({id:'titi', value: '__end!'});
+		Jobs.next(flux);
 	}, Number(flux.delay)*1000);
 	delete flux.delay;
 	return;
@@ -56,11 +54,10 @@ var buttonHandler = flux => {
 	// actions to define here...
 }
 
-// test if object isObservable https://stackoverflow.com/questions/41452179/check-if-object-is-an-rxjs5-observable
-var Button = require(Odi.CORE_PATH + 'controllers/button.js'); // log.info(button instanceof Rx.Observable);
+var Button = require(Odi.CORE_PATH + 'controllers/button.js');
 Button.subscribe({
 	next: flux => {
-		if(!inspect(flux)) return;
+		if(!inspect(flux, 'Button')) return;
 		if(flux.id == 'ok'){
 			services.time.next({id:'bip', value: 'ok'});
 		}else if(flux.id == 'cancel'){
@@ -74,12 +71,14 @@ Button.subscribe({
 	error: err => { Odi.error(flux) }
 });
 
-var Jobs = require(Odi.CORE_PATH + 'controllers/jobs.js'); // log.info(Jobs instanceof Rx.Observable);
+var Jobs = require(Odi.CORE_PATH + 'controllers/jobs.js');
 Jobs.subscribe({
 	next: flux => {
-		if(!inspect(flux)) return;
+		if(!inspect(flux, 'Jobs')) return;
 		if(flux.id == 'clock'){
 			services.time.next({id:'now', value: null});
+		}else if(flux.id == 'sound'){
+			modules.led.next({id:'blink', value:{leds: ['nose'], speed: 100, loop: 1}});
 		}else{
 			log.info('Jobs[else]', flux);
 		}
