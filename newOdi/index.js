@@ -32,6 +32,6 @@ var ledModule = require(Odi.CORE_PATH + 'modules/led.js');
 setTimeout(function(){
   log.debug('PROCESS.EXIT');
   process.exit();
-}, 30000);
+}, 25000);
 
 // console.trace(); // to get line number

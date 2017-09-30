@@ -16,17 +16,16 @@ var Jobs = new Rx.Subject();
 
 module.exports = Jobs;
 
-new CronJob('*/15 * * * * *', function(){
-	Jobs.next({id:'clock', value:'*/15'});
-}, null, false, 'Europe/Paris');
+////////// TESTS //////////
 new CronJob('*/6 * * * * *', function(){
-	Jobs.next({id:'toto', value:'salut!'});
-	Jobs.next({id:'toto', value:'salut!', delay: 1.5});
+	Jobs.next({id:'clock', value:'*/6', delay: '1.8'});
 }, null, true, 'Europe/Paris');
+new CronJob('*/7 * * * * *', function(){
+	Jobs.next({id:'toto', value:'hey'});
+	Jobs.next({id:'toto', value:'_SALUT !!', delay: 2.5});
+}, null, false, 'Europe/Paris');
+////////// TESTS //////////
 	
-
-
-
 
 /** Function to init clock  */
 function initClock(){

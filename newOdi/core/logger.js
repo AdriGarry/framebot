@@ -13,8 +13,9 @@ function Logger(filename, debugMode, dateTimePattern){
 	// console.log('Logger.modeDebug:', modeDebug);
     dateTimePattern = dateTimePattern || dateTimeDefaultPattern;
 	filename = filename.match(/(\w*).js/g)[0];
-	debug('Logger init [' + filename + ', debug=' + modeDebug + ']');
-
+	// debug('Logger init [' + filename + ', debug=' + modeDebug + ']');
+	debug('Logger init [' + filename + (modeDebug ? ', debug]':']'));
+	
 	this.info = info;
 	// console.log('--debugMode', modeDebug);
 	this.debug = debug;

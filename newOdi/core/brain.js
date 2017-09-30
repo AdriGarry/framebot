@@ -29,23 +29,26 @@ module.exports = {
 	service: services
 };
 
-
 function inspect(flux){
-	log.info('inspect()', flux);
-	log.debug('Button[' + flux.id + ']', flux.value, flux.param?flux.param:'');
+	// log.info('inspect()', flux);
+	log.debug('Inspect=', flux);
 	if(flux.hasOwnProperty('delay') && Number(flux.delay)){
-		log.info('--> flux.delay', Number(flux.delay));
-		delete flux.delay;
+		// log.info('--> flux.delay', Number(flux.delay));
 		delay(flux);
+		return false;
 	}
-	return;
+	return true;
 };
 
 function delay(flux){
-	log.info('delay()', flux);
+	log.info('Delay=', flux.delay, flux);
 	setTimeout(function(){
-		log.debug('delayed flux:', flux)
+		log.debug('delayed flux:', flux);
+		// ...
+		//Jobs.next({id:'titi', value: '__end!'});
 	}, Number(flux.delay)*1000);
+	delete flux.delay;
+	return;
 };
 
 var buttonHandler = flux => {
@@ -57,7 +60,7 @@ var buttonHandler = flux => {
 var Button = require(Odi.CORE_PATH + 'controllers/button.js'); // log.info(button instanceof Rx.Observable);
 Button.subscribe({
 	next: flux => {
-		inspect(flux);
+		if(!inspect(flux)) return;
 		if(flux.id == 'ok'){
 			services.time.next({id:'bip', value: 'ok'});
 		}else if(flux.id == 'cancel'){
@@ -74,12 +77,11 @@ Button.subscribe({
 var Jobs = require(Odi.CORE_PATH + 'controllers/jobs.js'); // log.info(Jobs instanceof Rx.Observable);
 Jobs.subscribe({
 	next: flux => {
-		inspect(flux);
-		// log.debug('Jobs[' + data.id + ']', data.value, data.param?data.param:'');
+		if(!inspect(flux)) return;
 		if(flux.id == 'clock'){
 			services.time.next({id:'now', value: null});
 		}else{
-			log.info('Jobs[else]', flux.value, flux.param);
+			log.info('Jobs[else]', flux);
 		}
 	},
 	error: err => { Odi.error(err) }

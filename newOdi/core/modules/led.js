@@ -7,10 +7,9 @@ var log = new (require(Odi.CORE_PATH + 'logger.js'))(__filename);
 var brain = require (Odi.CORE_PATH + 'brain.js');
 
 brain.module.led.subscribe({
-	next: data => {
-		log.info(data);
+	next: flux => {
+        if(!brain.inspect(flux)) return;
+        log.info(flux);
 	},
-	error: err => {
-		log.info('error in timeService: ', err);
-	}
+	error: err => {	log.info('error in timeService: ', err)	}
 });
