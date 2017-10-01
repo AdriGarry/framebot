@@ -112,3 +112,4 @@ Flux.controller.jobs.subscribe({
 	error: err => { Odi.error(err) }
 });
 
+log.info('Flux manager ready');

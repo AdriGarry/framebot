@@ -2,7 +2,8 @@
 'use strict'
 
 var log = new (require(ODI_PATH + 'core/Logger.js'))(__filename);
-// var conf = require('/home/pi/odi/conf.json');
+
+var fs = require('fs');
 
 var Odi = {
     conf: require(ODI_PATH + 'conf.json'),
@@ -19,16 +20,22 @@ var Odi = {
     WEB_PATH: ODI_PATH + 'web/',
     TMP_PATH: ODI_PATH + 'tmp/'
 };
-
+// console.log('Odi.LOG_PATH', Odi.LOG_PATH);
+// console.log('Odi.WEB_PATH', Odi.WEB_PATH);
 module.exports = {
     init: init,
     Odi: Odi
 };
 
 function init(path) { // Deprecated ?
+    // console.log(Odi);
+    // console.log('ODI_PATH>>', ODI_PATH);
     Odi.PATH = path;
+    // console.log('Odi.DATA_PATH>>', Odi.DATA_PATH);
+    const logo = fs.readFileSync(Odi.DATA_PATH + 'odiLogo.properties', 'utf8').toString().split('\n');
+    log.info('\n\n' + logo.join('\n') + '\r\nOdi initializing...');
     // log.info('Odi context initializing', Odi.conf.debug, Odi.conf.debug ? 'debug mode' : '');
-    log.info('Odi initializing...');
+    // log.debug('something to log ?');
     return Odi;
 };
 

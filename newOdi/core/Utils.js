@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 
-// Utils factory (shoud not require Odi.js || Flux.js)
+// Utils static factory (shoud not require Odi.js || Flux.js)
 var log = new (require(ODI_PATH + 'core/Logger.js'))(__filename);
 
 // var fs = require('fs');
