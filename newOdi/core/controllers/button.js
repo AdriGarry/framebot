@@ -12,36 +12,36 @@ var white = new Gpio(19, 'in', 'rising', {persistentWatch:true,debounceTimeout:5
 var blue = new Gpio(26, 'in', 'rising', {persistentWatch:true,debounceTimeout:500});
 
 const Rx = require('rxjs');
-var button = new Rx.Subject();
+var Button = new Rx.Subject();
 
-module.exports = button;
+module.exports = Button;
 
 ok.watch(function(err, value){
 	var pushTime = getPushTime(ok);
 	if(pushTime == 0){
 		// observer.error({id:'ok error', value:pushTime});
-		button.next({id:'ok', value:pushTime});
+		Button.next({id:'ok', value:pushTime});
 	}else{
-		button.next({id:'ok', value:pushTime});
+		Button.next({id:'ok', value:pushTime});
 	}
 });
 
 cancel.watch(function(err, value){
 	var pushTime = getPushTime(cancel);
-	button.next({id:'cancel', value:pushTime});
+	Button.next({id:'cancel', value:pushTime});
 });
 
 white.watch(function(err, value){
 	var pushTime = getPushTime(cancel);
-	button.next({id:'white', value:pushTime});
+	Button.next({id:'white', value:pushTime});
 });
 
 blue.watch(function(err, value){
 	var pushTime = getPushTime(cancel);
-	button.next({id:'blue', value:pushTime});
+	Button.next({id:'blue', value:pushTime});
 });
 
-button.next('Button controller initialized');
+Button.next('Button controller initialized');
 
 function getPushTime(button){
 	var pushTime/* = 0*/, pushedTime = new Date();

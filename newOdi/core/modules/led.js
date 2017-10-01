@@ -4,11 +4,13 @@
 var Odi = require(ODI_PATH + 'core/Odi.js').Odi;
 var log = new (require(Odi.CORE_PATH + 'logger.js'))(__filename);
 
-var brain = require (Odi.CORE_PATH + 'brain.js');
+const subject = {type:'module', id: 'led'};
 
-brain.module.led.subscribe({
+var Flux = require (Odi.CORE_PATH + 'Flux.js');
+
+Flux.module.led.subscribe({
 	next: flux => {
-	if(!brain.inspect(flux), 'Led') return;
+	if(!Flux.inspect(flux, subject)) return;
 	log.info(flux, '(you are in the led module !)');
 	},
 	error: err => { Odi.error(flux) }

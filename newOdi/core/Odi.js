@@ -25,11 +25,14 @@ module.exports = {
     Odi: Odi
 };
 
-function init(path){
+function init(path){ // Deprecated ?
     Odi.PATH = path;
     log.info('Odi context initializing', Odi.conf.debug, Odi.conf.debug ? 'debug mode':'');
     return Odi;
 };
+
+// var Flux = require(Odi.CORE_PATH + 'Flux.js');
+
 
 function error(){
     log.error(arguments);

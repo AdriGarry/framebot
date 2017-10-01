@@ -11,8 +11,8 @@ var log = new (require(Odi.CORE_PATH + 'logger.js'))(__filename, true);//Odi.con
 
 // log.debug('Odi.conf', Odi.conf);
 
-// Brain
-var brain = require(Odi.CORE_PATH + 'brain.js');
+// Flux
+var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 // Services
 var mood = require(Odi.CORE_PATH + 'services/mood.js');
@@ -30,8 +30,8 @@ var led = require(Odi.CORE_PATH + 'modules/led.js');
 var sound = require(Odi.CORE_PATH + 'modules/sound.js');
 
 /////////////  TEST  /////////////
-
-// var log = require(Odi.CORE_PATH + 'logger.js').init(__filename.match(/(\w*).js/g)[0]);
+// Flux.next(id, value, subject [,delay, ?])
+//Flux.next('id', {value1: 'AA', value2: 'BB'}, 'subject');
 
 // var Log = require(Odi.CORE_PATH + 'logger.js').init(__filename.match(/(\w*).js/g)[0]),
 // log = new Log('toto');
