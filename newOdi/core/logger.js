@@ -42,38 +42,30 @@ function Logger(filename, debugMode, dateTimePattern) {
   }
 
   function info() {
-    var log = setLog(arguments);
-    console.log(logTime(), "[" + filename + "]", log);
+    // var log = setLog(arguments);
+    console.log(logTime(), "[" + filename + "]", setLog(arguments));
   }
 
   function INFO() {
-    var log = setLog(arguments);
-    console.log(
-      logTime(),
-      "[" + filename.toUpperCase() + "]",
-      log.toUpperCase()
-    );
+    // var log = setLog(arguments);
+    console.log(logTime(), "[" + filename.toUpperCase() + "]", setLog(arguments).toUpperCase());
   }
 
   function debug() {
     if (!modeDebug) return;
-    var log = setLog(arguments);
-    console.log(logTime(), "[" + filename + "]\u2022", log);
+    // var log = setLog(arguments);
+    console.log(logTime(), "[" + filename + "]\u2022", setLog(arguments));
   }
 
   function DEBUG() {
     if (!modeDebug) return;
-    var log = setLog(arguments);
-    console.log(
-      logTime(),
-      "[" + filename.toUpperCase() + "]\u2022",
-      log.toUpperCase()
-    );
+    // var log = setLog(arguments);
+    console.log(logTime(), "[" + filename.toUpperCase() + "]\u2022", setLog(arguments).toUpperCase());
   }
 
   function error() {
-    var log = setLog(arguments);
-    console.error("\r\n" + logTime(), "[" + filename + "]", ">> ERR_", log);
+    // var log = setLog(arguments);
+    console.error("\r\n" + logTime(), "[" + filename + "]", ">> ERR_", setLog(arguments));
   }
 
   /** Function to return date time. Pattern: 'YDT' */

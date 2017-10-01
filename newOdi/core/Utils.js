@@ -62,7 +62,7 @@ function logTime(param, date) {
 var fileExceptions = ["voicemail.js"];
 function getJsonFileContent(filePath, callback) {
   console.debug("getJsonFileContent() ", filePath);
-  fs.readFile(filePath, function(err, data) {
+  fs.readFile(filePath, function (err, data) {
     if (
       err &&
       err.code === "ENOENT" &&
@@ -80,20 +80,17 @@ function getJsonFileContent(filePath, callback) {
 function appendJsonFile(filePath, obj, callback) {
   console.debug("appendJsonFile() ", filePath, obj);
   var fileData;
-  fs.exists(filePath, function(exists) {
+  fs.exists(filePath, function (exists) {
     if (exists) {
       console.debug("Yes file exists");
-      fs.readFile(filePath, "utf8", function(err, data) {
+      fs.readFile(filePath, "utf8", function (err, data) {
         if (err) console.log(err);
         else {
           fileData = JSON.parse(data);
           fileData.push(obj);
-          fileData = JSON.stringify(fileData, null, 2)
-            .replace(/\\/g, "")
-            .replace(/\"{/g, "{")
-            .replace(/\}"/g, "}");
+          fileData = JSON.stringify(fileData, null, 2).replace(/\\/g, "").replace(/\"{/g, "{").replace(/\}"/g, "}");
           console.debug("fileData", fileData);
-          fs.writeFile(filePath, fileData, function(cb) {
+          fs.writeFile(filePath, fileData, function (cb) {
             console.log("appendJsonFile() LOG FOR CB");
           });
         }
@@ -102,10 +99,7 @@ function appendJsonFile(filePath, obj, callback) {
       console.debug("File not exists");
       fileData = [];
       fileData.push(obj);
-      fileData = JSON.stringify(fileData, null, 2)
-        .replace(/\\/g, "")
-        .replace(/\"{/g, "{")
-        .replace(/\}"/g, "}");
+      fileData = JSON.stringify(fileData, null, 2).replace(/\\/g, "").replace(/\"{/g, "{").replace(/\}"/g, "}");
       console.debug(fileData);
       fs.writeFile(filePath, fileData);
     }
@@ -125,7 +119,7 @@ function searchStringInArray(string, stringArray) {
 /** Function to test internet connexion */
 function testConnexion(callback) {
   //console.debug('testConnexion()...');
-  require("dns").resolve("www.google.com", function(err) {
+  require("dns").resolve("www.google.com", function (err) {
     if (err) {
       // console.debug('Odi is not connected to internet (utils.testConnexion)   /!\\');
       callback(false);
@@ -138,7 +132,7 @@ function testConnexion(callback) {
 
 /** Function to execute a shell command with callback */
 function execCmd(command, callback) {
-  exec(command, function(error, stdout, stderr) {
+  exec(command, function (error, stdout, stderr) {
     // console.debug('execCmd(' + command + ')\n', stdout);
     if (callback) callback(stdout);
   });
@@ -159,6 +153,6 @@ function getStartTime() {
 }
 
 /** Function to repeat/concat a string */
-String.prototype.repeat = function(num) {
+String.prototype.repeat = function (num) {
   return new Array(Math.abs(num) + 1).join(this);
 };

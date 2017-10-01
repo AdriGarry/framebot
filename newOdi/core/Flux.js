@@ -10,9 +10,9 @@ log.debug(Odi.conf);
 const Rx = require("rxjs");
 var Flux = {
   controller: {
-    button: {},
+    button: require(Odi.CORE_PATH + "controllers/button.js"),
     hardware: {},
-    jobs: {}
+    jobs: require(Odi.CORE_PATH + "controllers/jobs.js")
   },
   module: {
     hardware: new Rx.Subject(),
@@ -54,7 +54,7 @@ function inspect(flux, subject) {
 
 function delay(flux, subject) {
   log.info("Delaying flux [" + subject.id + ", " + flux.delay + "]", flux);
-  setTimeout(function() {
+  setTimeout(function () {
     // flux.Jobs.next(flux);
     // log.info("----------------");
     // log.info(subject);
@@ -80,7 +80,7 @@ var buttonHandler = flux => {
   // utiliser des switch/case (voir si possible avec plusieurs params)
 };
 
-Flux.controller.button = require(Odi.CORE_PATH + "controllers/button.js");
+// Flux.controller.button = require(Odi.CORE_PATH + "controllers/button.js");
 //log.info(Flux.controller);
 Flux.controller.button.subscribe({
   next: flux => {
@@ -104,7 +104,7 @@ Flux.controller.button.subscribe({
 // {id:'test', value:'all'}
 // {to:'test', value:'all'}
 
-Flux.controller.jobs = require(Odi.CORE_PATH + "controllers/jobs.js");
+// Flux.controller.jobs = require(Odi.CORE_PATH + "controllers/jobs.js");
 Flux.controller.jobs.subscribe({
   next: flux => {
     if (!inspect(flux, { type: "controller", id: "jobs" })) return;

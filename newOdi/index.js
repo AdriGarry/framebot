@@ -7,20 +7,12 @@ const forcedDebug = argv[2] == "debug" ? true : false;
 global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 
 var fs = require("fs");
-const logo = fs
-  .readFileSync(ODI_PATH + "data/odiLogo.properties", "utf8")
-  .toString()
-  .split("\n");
+const logo = fs.readFileSync(ODI_PATH + "data/odiLogo.properties", "utf8").toString().split("\n");
 console.log("\n" + logo.join("\n"));
 
-var Odi = require(ODI_PATH + "core/Odi.js").init(
-  __filename.match(/\/.*\//g)[0]
-); // console.log('Odi.conf.debug', Odi.conf.debug);
+var Odi = require(ODI_PATH + "core/Odi.js").init(__filename.match(/\/.*\//g)[0]); // console.log('Odi.conf.debug', Odi.conf.debug);
 if (Odi.conf.debug || forcedDebug) console.log("DEBUG mode");
-var log = new (require(Odi.CORE_PATH + "Logger.js"))(
-  __filename,
-  forcedDebug || Odi.conf.debug
-); // Odi.conf.debug || forcedDebug
+var log = new (require(Odi.CORE_PATH + "Logger.js"))(__filename, forcedDebug || Odi.conf.debug); // Odi.conf.debug || forcedDebug
 log.debug("argv", argv);
 // log.INFO("hey salut toi !");
 
@@ -50,12 +42,9 @@ var sound = require(Odi.CORE_PATH + "modules/sound.js");
 // Flux.next(id, value, subject [,delay, ?])
 //Flux.next('id', {value1: 'AA', value2: 'BB'}, 'subject');
 
-// var Log = require(Odi.CORE_PATH + 'Logger.js').init(__filename.match(/(\w*).js/g)[0]),
-// log = new Log('toto');
+// log.info("I'm Ready !!");
 
-log.info("I'm Ready !!");
-
-setTimeout(function() {
+setTimeout(function () {
   log.debug("PROCESS.EXIT");
   process.exit();
 }, 25000);
