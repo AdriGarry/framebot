@@ -36,7 +36,7 @@ function init(path){ // Deprecated ?
 
 function error(){
     log.error(arguments);
-    console.trace()
+    log.error(console.trace());
     // TODO ring & blink
 };
 
@@ -45,7 +45,9 @@ function watch(arg){
 }
 
 // console.log('TEMOIN Odi.js');
-log.debug('TEMOIN Odi.js');
+// console.log(log);
+log.info('TEMOIN Odi [info].js');
+log.debug('TEMOIN Odi [debug].js');
 
 /*
 /// GpioDefinitions.js

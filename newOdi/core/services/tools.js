@@ -4,13 +4,13 @@
 var Odi = require(ODI_PATH + 'core/Odi.js').Odi;
 var log = new (require(Odi.CORE_PATH + 'logger.js'))(__filename);
 
-const subject = {type:'service', id: 'tools'};
+const subject = { type: 'service', id: 'tools' };
 
-var Flux = require (Odi.CORE_PATH + 'Flux.js');
+var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 Flux.service.tools.subscribe({
 	next: flux => {
-		if(!Flux.inspect(flux, subject)) return;
+		if (!Flux.inspect(flux, subject)) return;
 		log.info('Tools service', flux);
 	},
 	error: err => { Odi.error(flux) }

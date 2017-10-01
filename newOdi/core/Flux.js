@@ -76,7 +76,7 @@ var buttonHandler = flux => {
 }
 
 Flux.controller.button = require(Odi.CORE_PATH + 'controllers/button.js');
-console.log(Flux.controller);
+//log.info(Flux.controller);
 Flux.controller.button.subscribe({
 	next: flux => {
 		if(!inspect(flux, {type: 'controller', id: 'jobs'})) return;
