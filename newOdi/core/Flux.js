@@ -2,7 +2,7 @@
 'use strict'
 
 var Odi = require(ODI_PATH + 'core/Odi.js').Odi;
-var log = new (require(Odi.CORE_PATH + 'logger.js'))(__filename.match(/(\w*).js/g)[0]);
+var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 log.debug(Odi.conf);
 
 const Rx = require('rxjs');
@@ -37,34 +37,34 @@ module.exports = {
 	service: Flux.service
 };
 
-function next(){
+function next() {
 	log.info('=> ', arguments);
 }
 
-function inspect(flux, subject){
+function inspect(flux, subject) {
 	log.debug('Incoming flux [' + subject + ']', flux);
-	if(flux.hasOwnProperty('delay') && Number(flux.delay)){
+	if (flux.hasOwnProperty('delay') && Number(flux.delay)) {
 		delay(flux, subject);
 		return false;
 	}
 	return true;
 };
 
-function delay(flux, subject){
+function delay(flux, subject) {
 	log.info('Delaying flux [' + subject + ', ' + flux.delay + ']', flux);
-	setTimeout(function(){
+	setTimeout(function () {
 		//flux.Jobs.next(flux);
 		log.info('----------------');
 		log.info(subject);
 		log.info(flux);
 		log.info('----------------');
-		if(Flux.hasOwnProperty(subject.type) && Flux[subject.type].hasOwnProperty(subject.id)){
+		if (Flux.hasOwnProperty(subject.type) && Flux[subject.type].hasOwnProperty(subject.id)) {
 			// log.debug('OKAY TO RELANCH FLUX !!');
 			Flux[subject.type][subject.id].next(flux);
-		}else{
+		} else {
 			Odi.error('Can\'t relaunch flux', subject, flux);
 		}
-	}, Number(flux.delay)*1000);
+	}, Number(flux.delay) * 1000);
 	delete flux.delay;
 	return;
 };
@@ -79,14 +79,14 @@ Flux.controller.button = require(Odi.CORE_PATH + 'controllers/button.js');
 //log.info(Flux.controller);
 Flux.controller.button.subscribe({
 	next: flux => {
-		if(!inspect(flux, {type: 'controller', id: 'jobs'})) return;
-		if(flux.id == 'ok'){
-			Flux.service.time.next({id:'bip', value: 'ok'});
-		}else if(flux.id == 'cancel'){
-			Flux.module.sound.next({id:'bip', value:'cancel'});
-		}else if(flux.id == 'blue'){
+		if (!inspect(flux, { type: 'controller', id: 'jobs' })) return;
+		if (flux.id == 'ok') {
+			Flux.service.time.next({ id: 'bip', value: 'ok' });
+		} else if (flux.id == 'cancel') {
+			Flux.module.sound.next({ id: 'bip', value: 'cancel' });
+		} else if (flux.id == 'blue') {
 			Odi.error(flux);
-		}else{
+		} else {
 			log.info('Button[else]', flux);
 		}
 	},
@@ -100,12 +100,12 @@ Flux.controller.button.subscribe({
 Flux.controller.jobs = require(Odi.CORE_PATH + 'controllers/jobs.js');
 Flux.controller.jobs.subscribe({
 	next: flux => {
-		if(!inspect(flux, {type: 'controller', id: 'jobs'})) return;
-		if(flux.id == 'clock'){
-			Flux.service.time.next({id:'now', value: null});
-		}else if(flux.id == 'sound'){
-			Flux.module.led.next({id:'blink', value:{leds: ['nose'], speed: 100, loop: 1}});
-		}else{
+		if (!inspect(flux, { type: 'controller', id: 'jobs' })) return;
+		if (flux.id == 'clock') {
+			Flux.service.time.next({ id: 'now', value: null });
+		} else if (flux.id == 'sound') {
+			Flux.module.led.next({ id: 'blink', value: { leds: ['nose'], speed: 100, loop: 1 } });
+		} else {
 			log.info('Jobs[else]', flux);
 		}
 	},
