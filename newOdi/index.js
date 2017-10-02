@@ -17,7 +17,7 @@ log.debug("argv", argv);
 // log.INFO("hey salut toi !");
 
 // Init OK
-// Utils.js à part pour tout ce qui peut servir de partout...
+// Utils.js à part, pour tout ce qui peut servir de partout...
 var Utils = require(Odi.CORE_PATH + "Utils.js");
 // console.log(Utils);
 
