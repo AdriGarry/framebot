@@ -39,8 +39,9 @@ module.exports = {
   service: Flux.service
 };
 
-function next() {
-  log.info("=> ", arguments);
+function next(type, name, id, value, delay, loop) {
+  log.info('=> ', arguments);
+  log.info(type, name, id, value, delay, loop);
 }
 
 function inspect(flux, subject) {
@@ -60,10 +61,7 @@ function delay(flux, subject) {
     // log.info(subject);
     // log.info(flux);
     // log.info("----------------");
-    if (
-      Flux.hasOwnProperty(subject.type) &&
-      Flux[subject.type].hasOwnProperty(subject.id)
-    ) {
+    if (Flux.hasOwnProperty(subject.type) && Flux[subject.type].hasOwnProperty(subject.id)) {
       // log.debug('OKAY TO RELANCH FLUX !!');
       Flux[subject.type][subject.id].next(flux);
     } else {
