@@ -11,7 +11,7 @@ const Rx = require("rxjs");
 var Flux = {
   controller: {
     button: require(Odi.CORE_PATH + "controllers/button.js"),
-    hardware: {},
+    // server: require(Odi.CORE_PATH + "controllers/server.js"),
     jobs: require(Odi.CORE_PATH + "controllers/jobs.js")
   },
   module: {

@@ -1,0 +1,34 @@
+{
+  "mode": "ready",
+  "debug": false,
+  "startTime": "02:21 (30/09)",
+  "alarms": {
+    "weekDay": {
+      "h": 7,
+      "m": 13,
+      "d": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "mode": "sea"
+    },
+    "weekEnd": {
+      "h": 11,
+      "m": 59,
+      "d": [
+        0,
+        6
+      ],
+      "mode": "sea"
+    }
+  },
+  "version": "4.2",
+  "update": "2017-09-19 02:29",
+  "totalLines": 8673,
+  "diskSpace": [
+    "51%"
+  ]
+}

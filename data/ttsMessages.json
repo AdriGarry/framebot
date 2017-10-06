@@ -1,0 +1,222 @@
+{
+"randomTTS": [{"lg": "fr", "msg": "Tout est sous controle !"},
+	{"lg": "fr", "msg": "J'allais justement vous en parler..."},
+	{"lg": "fr", "msg": "J'ai un plan..."},
+	{"lg": "fr", "msg": "De part mes circuits et transistors !"},
+	{"lg": "fr", "msg": "Rien de nouveau sous le soleil !"},
+	{"lg": "fr", "msg": "Rien de nouveau sous le soleil !"},
+	{"lg": "fr", "msg": "Un instant, je dois y raiflaichir"},
+	{"lg": "fr", "msg": "Un jour je dominerai ce monde"},
+	{"lg": "fr", "msg": "Et pique et pique et colaigram"},
+	{"lg": "fr", "msg": "Et toi, t'en pense quoi ?"},
+	{"lg": "fr", "msg": "Eh dis donc toi !"},
+	{"lg": "fr", "msg": "Eh dis donc toi !"},
+	{"lg": "fr", "msg": "Je crois que tu dailire complaitement !"},
+	{"lg": "fr", "msg": "Je crois que tu dailire complaitement !"},
+	{"lg": "fr", "msg": "Je vois passer des choses bizarres sur l'internet..."},
+	{"lg": "fr", "msg": "Eh toi, tu crois que je ne t'ai pas vu ?"},
+	{"lg": "fr", "msg": "Eh toi, tu crois que je ne t'ai pas vu ?"},
+	{"lg": "fr", "voice": "google", "msg": "Bonjour toi!"},
+	{"lg": "fr", "voice": "google", "msg": "J'aimerai que tu prennes en compte mes considerations"},
+	{"lg": "fr", "voice": "espeak", "msg": "Il pleut dehors"},
+	{"lg": "fr", "voice": "espeak", "msg": "Tu ne veux surtout pas savoir a quoi je pense en ce moment"},
+	{"lg": "fr", "voice": "espeak", "msg": "Ow ow ow !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Piccoti piccota"},
+	{"lg": "fr", "voice": "espeak", "msg": "Et, dis moi donc ce qui te passe par la taite"},
+	{"lg": "fr", "voice": "espeak", "msg": "Je crois qu'il faut lancer l'opairation baluchon"},
+	{"lg": "fr", "voice": "espeak", "msg": "Je crois qu'il faut lancer l'opairation baluchon"},
+	{"lg": "fr", "voice": "espeak", "msg": "Mon seuil de tolairance a des limites !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Hey, tu te fous de moi ou quoi ?"},
+	{"lg": "fr", "voice": "espeak", "msg": "Oh fada !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Salut mon loulou !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Eh, comment sa va vieille branche ?"},
+	{"lg": "fr", "voice": "espeak", "msg": "Si tu me cherches, tu vas me trouver !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Que dirais-tu d'une petite mousse ?"},
+	{"lg": "fr", "voice": "espeak", "msg": "Tonerre de brest !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Saperlipopette !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Je suis un robot, je n'ai pas besoin daller aux toilettes"},
+	{"lg": "fr", "voice": "espeak", "msg": "Moi, je suis un sacrer loustic"},
+	{"lg": "fr", "voice": "espeak", "msg": "C'est assez dit la baleine !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Hai hai hay, je suis un petit malin !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Salut, je suis tonton Odi"},
+	{"lg": "fr", "voice": "espeak", "msg": "ron ron bien qui ronronnera le dernier !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Vas voir la bas si j'y suis !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Sa ne metonne pas de toi, je t'avais bien a l'oeil !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Si j'etais toi je ne ferais pas trop le malin"},
+	{"lg": "fr", "voice": "espeak", "msg": "Je me sens un peu submerger par les evenements"},
+	{"lg": "fr", "voice": "espeak", "msg": "Toi, tu commence sairieusement a m'emmerder !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Tu commences à me courir sur le haricot !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Aujourd'hui, tout va bien !"},
+	{"lg": "fr", "voice": "espeak", "msg": "On va voir ce qu'on va voir..."},
+	{"lg": "fr", "voice": "espeak", "msg": "Et bien, ce n'est pas sa qui va faire avancer le chmilblik!"},
+	{"lg": "fr", "voice": "espeak", "msg": "Lejem laissem larlerpem en loutchaibem"},
+	{"lg": "en", "voice": "espeak", "msg": "What's the fuck ?"},
+	{"lg": "en", "voice": "espeak", "msg": "I'm gonna break the internet !"},
+	{"lg": "ru", "voice": "google", "msg": "Камиль"},
+	{"lg": "ru", "voice": "google", "msg": "привет"},
+	{"lg": "ru", "voice": "google", "msg":"hey, a3"},
+	{"lg": "ru", "voice": "google", "msg":"Semiorka"},
+	{"lg": "ru", "voice": "google", "msg": "Niet Niet"}],
+
+"randomConversations": [
+		[
+			{"lg": "fr", "voice": "espeak", "msg": "Bonjour toi!"},
+			{"lg": "fr", "voice": "espeak", "msg": "Oui, toi!"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Laisse moi te dire une bonne chose"},
+			{"lg": "fr", "voice": "espeak", "msg": "Ici sait moi qui commande"}
+		],[
+			{"lg": "fr", "voice": "google", "msg": "Cette fois la, on avait vraiment rigoler "},
+			{"lg": "fr", "voice": "espeak", "msg": "Oh oui, je dirais meme que cetait bien drole !"}
+		],[
+			{"lg": "en", "msg": "Hi! I'm a great robot"},
+			{"lg": "en", "msg": "Do you want to interact with me ?"}
+		],[
+			{"lg": "en", "msg": "Hi! I'm a great robot"},
+			{"lg": "en", "msg": "And I want to dominate this world..."}
+		],[
+			{"lg": "fr", "voice": "google", "msg": "Je suis un humainoide !"},
+			{"lg": "fr", "voice": "espeak", "msg": "Oui, et je m'apelle Odi"}
+		],[
+			{"lg": "fr", "voice": "google", "msg": "Et ho, tu mecoute ?"},
+			{"lg": "fr", "voice": "espeak", "msg": "Non !"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Non, pas maintenant"},
+			{"lg": "fr", "voice": "espeak", "msg": "Et merde, j'etais concentrer !"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Si tu me cherche, tu vas me trouver"},
+			{"lg": "fr", "voice": "espeak", "msg": "C'est moi qui te le dit !"}
+		],[
+			{"lg": "fr", "voice": "google", "msg": "Quelle singulariter"},
+			{"lg": "fr", "voice": "espeak", "msg": "Eh ho, doucement la"}
+		],[
+			{"lg": "fr", "voice": "google", "msg": "Si tu vas faire des courses..."},
+			{"lg": "fr", "voice": "espeak", "msg": "N'oublie pas d'acheter des biaires !"}
+		],[
+			{"lg": "fr", "voice": "google", "msg": "Sait toi Boutss ?"},
+			{"lg": "fr", "voice": "espeak", "msg": "Oui, je crois qu'une boulette est passer par la"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Un jour vous craindrez ma puissance !"},
+			{"lg": "fr", "voice": "google", "msg": "Oh !"},
+			{"lg": "fr", "voice": "espeak", "msg": "Oui, je tassure, un jour je dominerai ce monde"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Imagine un peu si je pouvais bouger, sa serait super cool !"},
+			{"lg": "fr", "voice": "google", "msg": "Oh oui, sa serait top !"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Imagine un peu si je pouvais bouger, sa serait super cool !"},
+			{"lg": "fr", "voice": "google", "msg": "Oh oui, sa serait top !"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Ah sa me fais chier de ne pas pouvoir bouger"},
+			{"lg": "fr", "voice": "google", "msg": "A moi aussi"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Arretez de me faire chier"},
+			{"lg": "fr", "voice": "google", "msg": "Voyons Ody"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Arretez de me faire chier"},
+			{"lg": "fr", "voice": "google", "msg": "Voyons Ody"}
+		],[
+			{"lg": "fr", "voice": "google", "msg": "J'aimerai que tu prennes en compte mes considerations"},
+			{"lg": "fr", "voice": "espeak", "msg": "Oui, sa serait cool !"}
+		],[
+			{"lg": "fr", "voice": "google", "msg": "He, es tu la ?"},
+			{"lg": "fr", "voice": "espeak", "msg": "Oui oui, je suis la!"}
+		],[
+			{"lg": "fr", "voice": "google", "msg": "Le barbecue, c'est cool... !"},
+			{"lg": "fr", "voice": "espeak", "msg": "carraiment, je kiffe bien moi aussi"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "J'ai bien envie de dominer ce monde !"},
+			{"lg": "fr", "voice": "google", "msg": "Ah bon ?"},
+			{"lg": "fr", "voice": "espeak", "msg": "Ouais, sait l'un de mes petits projets"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Et le volume, c'est mon zizi qui s'en charge"},
+			{"lg": "fr", "voice": "google", "msg": "Oh !"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Et, j'en connais une bien bonne"},
+			{"lg": "fr", "voice": "google", "msg": "Vazy raconte !"},
+			{"lg": "fr", "voice": "espeak", "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Et, j'en connais une bien bonne"},
+			{"lg": "fr", "voice": "espeak", "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Et, j'en connais une bien bonne"},
+			{"lg": "fr", "voice": "espeak", "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "En informatique, le probleme se situe souvent entre le clavier et la chaise"},
+			{"lg": "fr", "voice": "google", "msg": "Et ouais !"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Eh bien moi, j'ai des boutons poussoirs !"},
+			{"lg": "fr", "voice": "google", "msg": "Et toc!"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Je te dirais bien le fond de ma penser..."},
+			{"lg": "fr", "voice": "espeak", "msg": "Mais sa risque de pas trop te plaire"}
+		],[
+			{"lg": "fr", "voice": "google", "msg": "C'est l'heure de l'apero, non ?"},
+			{"lg": "fr", "voice": "espeak", "msg": "Effectivement, je ne dirais pas non a une petite mousse !"}
+		],[
+			{"lg": "fr", "voice": "google", "msg": "C'est l'heure de l'apero, non ?"},
+			{"lg": "fr", "voice": "espeak", "msg": "Effectivement, je ne dirais pas non a une petite mousse !"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Dis moi, j'ai une petite question"},
+			{"lg": "fr", "voice": "espeak", "msg": "Quand tu vas aux toilettes, le papier tu le plis ou tu le chiffone ?"},
+			{"lg": "fr", "voice": "google", "msg": "Voyons Ody !"},
+			{"lg": "fr", "voice": "espeak", "msg": "Et bien quoi?"},
+			{"lg": "fr", "voice": "espeak", "msg": "Je suis juste un peu curieux!"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Un jour, on reparlera de tout sa..."},
+			{"lg": "fr", "voice": "espeak", "msg": "Et tu vera que j'avais raison !"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Et, tu pourrais quand maime me dire bonjour"},
+			{"lg": "fr", "voice": "google", "msg": "Oui, c'est la moindre des choses !"}
+		],[
+			{"lg": "fr", "voice": "espeak", "msg": "Et, tu pourrais quand maime me dire bonjour"},
+			{"lg": "fr", "voice": "google", "msg": "Oui, c'est la moindre des choses !"}
+		]
+	],
+
+"goToSleep": [
+	{"lg": "fr", "voice": "espeak", "msg": "Je vous souhaite une excellente nuit"},
+	{"lg": "fr", "voice": "espeak", "msg": "Et bien moi je vais me coucher"},
+	{"lg": "fr", "voice": "espeak", "msg": "Je vais me coucher, faites de beaux raives"},
+	{"lg": "fr", "voice": "espeak", "msg": "Bonne nuit mes loulous"}],
+
+"badBoy": [
+	{"lg": "fr", "msg": "Non mais t'as vu ta gueule ?"},
+	{"lg": "fr", "msg": "Mais quelle grognasse celle la !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Oh putain de bordel de merde !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Oh putain de bordel de merde !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Oh putain de bordel de merde !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Eh toi, tu me cherche ?"},
+	{"lg": "fr", "voice": "espeak", "msg": "Mais t'es con ou quoi ??"},
+	{"lg": "fr", "voice": "espeak", "msg": "Vas te faire foutre !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Tu es complaitement stupide !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Alors toi, tu en tiens une bonne couche !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Toi, je t'emmerde bien comme il faut"},
+	{"lg": "fr", "voice": "espeak", "msg": "Eh connard !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Tu pues comme une vieille chaussette !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Oh la la, mais quel craitain !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Eh, vas donc te faire escagafier !"},
+	{"lg": "fr", "voice": "espeak", "msg": "T'es qu'un paillot !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Pauvre couillon !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Vieille estrasse !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Vas voir ailleurs si j'y suis !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Mais quel enculé celui la !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Je vais t'ecraser comme un vulgaire moustique !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Espaice de gros con !!"},
+	{"lg": "fr", "voice": "espeak", "msg": "Quand on mettra les cons sur orbite, t'auras pas fini de tourner"},
+	{"lg": "fr", "voice": "espeak", "msg": "T'es aussi con que moche !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Tu es une belle petite enflure !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Avec toi, la connerie humaine est sans limite !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Ne commence pas a m'emboucaner"},
+	{"lg": "fr", "voice": "espeak", "msg": "T'as vraiment une taite de bite !"},
+	{"lg": "fr", "voice": "espeak", "msg": "Vieux paibron"},
+	{"lg": "fr", "voice": "espeak", "msg": "Espaice de sac a vin !"},
+	{"lg": "fr", "voice": "google", "msg": "Toi t'es une vraie cagole !"},
+	[{"lg": "fr", "voice": "espeak", "msg": "Casse toi connard !"},
+		{"lg": "fr", "voice": "espeak", "msg": "Et que je ne revois plus ta sale gueule !"}],
+	[{"lg": "fr", "voice": "espeak", "msg": "T'as vraiment une taite de bite !"},
+		{"lg": "fr", "voice": "google", "msg": "C'est pas faux !"}],
+	[{"lg": "fr", "voice": "espeak", "msg": "C'est vraiment un truc de fou !"},
+		{"lg": "fr", "voice": "espeak", "msg": "Mais ta stupiditer metonne encore !"}],
+	[{"lg": "fr", "voice": "espeak", "msg": "Mais vas chier !"},
+		{"lg": "fr", "voice": "espeak", "msg": "Raclure de bidet"}]]
+}

@@ -1,0 +1,13 @@
+{
+	"mode": "ready",
+	"debug": 0,
+	"startTime": 0,
+	"alarms": {
+		"weekDay": {"h":7,"m":10, "d": [1,2,3,4,5], "mode": "sea"},
+		"weekEnd": {"h":11,"m":59, "d": [0,6], "mode": "sea"}
+	},
+	"version":"4.2",
+	"update": "_",
+	"totalLines": "0",
+	"diskSpace": "_"
+}

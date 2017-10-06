@@ -50,7 +50,7 @@ Temporary Items
 *.wav
 *.log
 *.properties
-*.json
+.json
 *_.*
 *old*
 admin.js
