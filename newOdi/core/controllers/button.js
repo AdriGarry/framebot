@@ -40,7 +40,8 @@ white.watch(function (err, value) {
 
 blue.watch(function (err, value) {
 	var pushTime = getPushTime(cancel);
-	Button.next({ id: 'blue', value: pushTime });
+	Odi.error('Blue button pressed ==> temporary in error.');
+	// Button.next({ id: 'blue', value: pushTime });
 });
 
 Button.next('Button controller initialized');

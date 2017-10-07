@@ -10,16 +10,12 @@ var modeDebug = false;
 
 function Logger(filename, debugMode, dateTimePattern) {
   modeDebug = debugMode || modeDebug;
-  //if (modeDebug) info('DEBUG mode');
-  // console.log('Logger.debugMode:', debugMode, 'Logger.modeDebug:', modeDebug);
   dateTimePattern = dateTimePattern || dateTimeDefaultPattern;
   filename = filename.match(/(\w*).js/g)[0];
-  // debug('Logger init [' + filename + (modeDebug ? ', debug]' : ']'));
-  debug("Logger init [" + filename + "]");
+  // debug("Logger init [" + filename + "]");
 
   this.info = info;
-  this.INFO = INFO; // TO TEST...
-  // console.log('--debugMode', modeDebug);
+  this.INFO = INFO;
   this.enableDebug = enableDebug;
   this.debug = debug;
   this.DEBUG = DEBUG;
@@ -65,12 +61,13 @@ function Logger(filename, debugMode, dateTimePattern) {
   }
 
   function error() {
-    console.error("\r\n" + logTime(), "[" + filename + "]", ">> ERR_", formatLog(arguments));
+    console.log('___________________');
+    console.error(/*'\n' +*/ logTime(), '[' + filename + ']', '>> ERR_', formatLog(arguments));
   }
 
   /** Function to return date time. Pattern: 'YDT' */
   function logTime(param, date) {
-    if (typeof date === "undefined") date = new Date();
+    if (typeof date === 'undefined') date = new Date();
     var D = date.getDate();
     var M = date.getMonth() + 1;
     var Y = date.getFullYear();
