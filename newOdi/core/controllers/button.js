@@ -11,9 +11,9 @@ var cancel = new Gpio(16, 'in', 'rising', { persistentWatch: true, debounceTimeo
 var white = new Gpio(19, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
 var blue = new Gpio(26, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
 
-const Rx = require('rxjs');
-var Button = new Rx.Subject();
-module.exports = Button;
+// const Rx = require('rxjs');
+// var Button = new Rx.Subject();
+// module.exports = Button;
 
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
@@ -42,7 +42,7 @@ blue.watch(function (err, value) {
 	Odi.error('Blue button pressed ==> temporary in error.');
 });
 
-Button.next('Button controller initialized');
+// Button.next('Button controller initialized');
 
 function getPushTime(button) {
 	var pushTime/* = 0*/, pushedTime = new Date();
