@@ -39,7 +39,7 @@ module.exports = {
   service: Flux.service
 };
 
-function OdiFlux(type, name, id, value, delay, loop) {
+function FluxObject(type, name, id, value, delay, loop) {
   this.type = type;
   this.name = name;
   this.id = id;
@@ -48,13 +48,16 @@ function OdiFlux(type, name, id, value, delay, loop) {
   this.loop = loop;
 
   this.toString = () => {
-    return this.type + ' ' + this.name + ' ' + this.id;
+    var string = '[' + this.type + '.' + this.name + '] ' + this.id + ': ' + this.value;
+    string += ' ' + this.delay || '';
+    string += ' ' + this.loop || '';
+    return string;
   }
 };
 
 function next(type, name, id, value, delay, loop) {
   // var flux = { type: type, name: name, id: id, value: value, delay: delay, loop: loop };
-  var flux = new OdiFlux(type, name, id, value, delay, loop);
+  var flux = new FluxObject(type, name, id, value, delay, loop);
 
   if (!inspect(flux)) return;
   // log.INFO(flux);
@@ -91,7 +94,7 @@ var scheduleFlux = (flux) => {
 }
 
 var fireFlux = (flux) => {
-  log.info('Flux [' + flux.type + ', ' + flux.name + ', ' + flux.id + ', ' + flux.value + ']');
+  log.info('Flux', flux.toString());
   Flux[flux.type][flux.name].next(flux.id, flux.value);
 }
 
