@@ -20,12 +20,12 @@ var Odi = {
 	WEB_PATH: ODI_PATH + "web/",
 	TMP_PATH: ODI_PATH + "tmp/"
 };
-// console.log('Odi.LOG_PATH', Odi.LOG_PATH);
-// console.log('Odi.WEB_PATH', Odi.WEB_PATH);
 module.exports = {
 	init: init,
 	Odi: Odi
 };
+
+var Flux = { next: null };
 
 function init(path, forcedDebug) {  // Deprecated ?
 	Odi.PATH = path;
@@ -33,10 +33,9 @@ function init(path, forcedDebug) {  // Deprecated ?
 	log.info('Odi initializing...', Odi.conf.debug ? 'DEBUG' + (Odi.conf.debug == 'forced' ? ' [FORCED!]' : '') : '');
 	if (Odi.conf.debug) log.enableDebug();
 	log.debug(Odi);
+	Flux = require(Odi.CORE_PATH + 'Flux.js');
 	return Odi;
 }
-
-var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 setTimeout(() => {
 	// Flux.service.time.next({ id: 'toto', value: 'value' });

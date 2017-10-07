@@ -27,24 +27,32 @@ var Utils = require(Odi.CORE_PATH + 'Utils.js');
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 // Controllers
-var button = require(Odi.CORE_PATH + "controllers/button.js");
-var jobs = require(Odi.CORE_PATH + "controllers/jobs.js");
-
-// Services
-var mood = require(Odi.CORE_PATH + 'services/mood.js');
-var music = require(Odi.CORE_PATH + 'services/music.js');
-var system = require(Odi.CORE_PATH + 'services/system.js');
-var time = require(Odi.CORE_PATH + 'services/time.js');
-var tools = require(Odi.CORE_PATH + 'services/tools.js');
-var tts = require(Odi.CORE_PATH + 'services/tts.js');
-var video = require(Odi.CORE_PATH + 'services/video.js');
+var controllers = {
+	button: require(Odi.CORE_PATH + "controllers/button.js"),
+	jobs: require(Odi.CORE_PATH + "controllers/jobs.js")
+};
+log.info('Controllers loaded', Object.keys(controllers));
 
 // Modules
-var hardware = require(Odi.CORE_PATH + 'modules/hardware.js');
-var led = require(Odi.CORE_PATH + 'modules/led.js');
-var sound = require(Odi.CORE_PATH + 'modules/sound.js');
+var modules = {
+	hardware: require(Odi.CORE_PATH + 'modules/hardware.js'),
+	led: require(Odi.CORE_PATH + 'modules/led.js'),
+	sound: require(Odi.CORE_PATH + 'modules/sound.js')
+};
+log.info('Modules loaded', Object.keys(modules));
 
-log.info('x controllers/services/modules loaded.')
+// Services
+var services = {
+	mood: require(Odi.CORE_PATH + 'services/mood.js'),
+	music: require(Odi.CORE_PATH + 'services/music.js'),
+	system: require(Odi.CORE_PATH + 'services/system.js'),
+	time: require(Odi.CORE_PATH + 'services/time.js'),
+	tools: require(Odi.CORE_PATH + 'services/tools.js'),
+	tts: require(Odi.CORE_PATH + 'services/tts.js'),
+	video: require(Odi.CORE_PATH + 'services/video.js')
+};
+log.info('Services loaded', Object.keys(services));
+
 
 /////////////  TEST section  /////////////
 // Flux.next(id, value, subject [,delay, ?])

@@ -16,7 +16,6 @@ var Button = new Rx.Subject();
 module.exports = Button;
 
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
-Flux.next('controller', 'button', 'push', 'red');
 
 ok.watch(function (err, value) {
 	var pushTime = getPushTime(ok);
@@ -31,7 +30,7 @@ ok.watch(function (err, value) {
 cancel.watch(function (err, value) {
 	var pushTime = getPushTime(cancel);
 	// Button.next({ id: 'cancel', value: pushTime });
-	Flux.next('controller', 'button', 'push', 'red');
+	Flux.next('controller', 'button', 'red', pushTime);
 });
 
 white.watch(function (err, value) {
