@@ -20,7 +20,6 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 ok.watch(function (err, value) {
 	var pushTime = getPushTime(ok);
 	if (pushTime == 0) {
-		// observer.error({id:'ok error', value:pushTime});
 		Flux.next('controller', 'button', 'ok', pushTime);
 	} else {
 		Flux.next('controller', 'button', 'ok', pushTime);
@@ -29,19 +28,18 @@ ok.watch(function (err, value) {
 
 cancel.watch(function (err, value) {
 	var pushTime = getPushTime(cancel);
-	// Button.next({ id: 'cancel', value: pushTime });
 	Flux.next('controller', 'button', 'red', pushTime);
 });
 
 white.watch(function (err, value) {
 	var pushTime = getPushTime(cancel);
-	Button.next({ id: 'white', value: pushTime });
+	Flux.next('controller', 'button', 'white', pushTime);
 });
 
 blue.watch(function (err, value) {
 	var pushTime = getPushTime(cancel);
+	// observer.error({ id: 'Blue button pressed ==> temporary in error.', value: pushTime });
 	Odi.error('Blue button pressed ==> temporary in error.');
-	// Button.next({ id: 'blue', value: pushTime });
 });
 
 Button.next('Button controller initialized');

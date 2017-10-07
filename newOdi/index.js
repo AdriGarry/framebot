@@ -16,10 +16,7 @@ var Odi = require(ODI_PATH + 'core/Odi.js').init(__filename.match(/\/.*\//g)[0],
 // if (forcedDebug) Odi.conf.debug = 'forced'; // Créer méthode pour persister en json
 var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, /*forcedDebug ||*/ Odi.conf.debug); // Odi.conf.debug || forcedDebug
 log.debug('argv', argv);
-// log.INFO('hey salut toi !');
 
-// Init OK
-// Utils.js à part, pour tout ce qui peut servir de partout...
 var Utils = require(Odi.CORE_PATH + 'Utils.js');
 // console.log(Utils);
 
@@ -61,8 +58,6 @@ log.info('Services loaded', Object.keys(services));
 // log.info('I\'m Ready !!');
 
 setTimeout(function () {
-	log.debug('PROCESS.EXIT');
+	log.DEBUG('process.exit');
 	process.exit();
 }, 25000);
-
-// console.trace(); // to get line number

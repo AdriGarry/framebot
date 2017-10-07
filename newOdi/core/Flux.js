@@ -40,15 +40,18 @@ function FluxObject(type, name, id, value, delay, loop) {
 	this.type = type;
 	this.name = name;
 	this.id = id;
-	this.value = value;
+	this.value = value;// || null
 	this.delay = delay;
 	this.loop = loop;
 
 	this.toString = () => {
-		var string = '[' + this.type + '.' + this.name + '] ' + this.id + ': ' + this.value;
-		string += ' ' + this.delay || '';
-		string += ' ' + this.loop || '';
-		return string;
+		var typeName = '[' + this.type + '.' + this.name + '] ';
+		var value = this.id + ': ' + this.value + ' ';
+		var delay = this.delay || ' .';
+		var loop = this.loop || ' .';
+		// var delay = this.delay ? (' ' + this.delay) : '.';
+		// var loop = this.loop ? (' ' + this.loop) : '.';
+		return typeName + value + delay + loop;
 	}
 };
 
