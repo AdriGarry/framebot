@@ -39,9 +39,11 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 setTimeout(() => {
 	// Flux.service.time.next({ id: 'toto', value: 'value' });
-	Flux.next('module', 'tts', 'speak', 'say something...', 1.5, 3);
 	// new Flux('module', 'sound', 'mute', 'now!');
-}, 1000);
+	Flux.next('module', 'sound', 'mute', 'MUTE');
+	Flux.next('module', 'led', 'blink', 'eye...', 2);
+	Flux.next('service', 'tts', 'speak', 'say something...', 1.5, 3);
+}, 500);
 
 function error() {
 	log.error(arguments);

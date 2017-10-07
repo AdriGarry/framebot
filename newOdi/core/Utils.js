@@ -159,9 +159,15 @@ String.prototype.repeat = function (num) {
 
 Object.prototype.toString = () => {
   var obj = this;
+  // console.log(obj);
   var string = '';
   for (var prop in obj) {
     string = prop + '=' + obj[prop] + ' ';
   }
   return string;
+  // var output = '';
+  // for (var property in object) {
+  //   output += property + ': ' + object[property]+'; ';
+  // }
 };
+

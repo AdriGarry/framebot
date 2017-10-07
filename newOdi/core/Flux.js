@@ -35,34 +35,43 @@ module.exports = {
   // Flux: Flux,
   inspect: inspect, // TODO enlever de l'export !
   module: Flux.module,
-  next: next, // object à définir (pour toString() etc...)
+  next: next,
   service: Flux.service
 };
 
-function next(type, name, id, value, delay, loop) {
-  var flux = { type: type, name: name, id: id, value: value, delay: delay, loop: loop };
-  // log.info('=> ', arguments);
-  // log.info(flux);
+function OdiFlux(type, name, id, value, delay, loop) {
+  this.type = type;
+  this.name = name;
+  this.id = id;
+  this.value = value;
+  this.delay = delay;
+  this.loop = loop;
 
-  log.debug('------>');
+  this.toString = () => {
+    return this.type + ' ' + this.name + ' ' + this.id;
+  }
+};
+
+function next(type, name, id, value, delay, loop) {
+  // var flux = { type: type, name: name, id: id, value: value, delay: delay, loop: loop };
+  var flux = new OdiFlux(type, name, id, value, delay, loop);
 
   if (!inspect(flux)) return;
-
+  // log.INFO(flux);
   if (flux.delay && Number(flux.delay)) {
-    log.info('flux.delay', flux.delay);
     scheduleFlux(flux);
-    //delete flux.delay;
     return;
   }
-
+  fireFlux(flux);
 }
 
-function inspect(flux) {
-  log.debug('inspecting flux: type=' + flux.type + ', name=' + flux.name + ', id=' + flux.id + ', value=' + flux.value + ', delay=' + flux.delay + ', loop=' + flux.loop);
+var inspect = (flux) => {
+  // log.debug('inspecting Flux: type=' + flux.type + ', name=' + flux.name + ', id=' + flux.id + ', value=' + flux.value + ', delay=' + flux.delay + ', loop=' + flux.loop);
+  log.debug('inspecting Flux:', flux.toString());
   if (Object.keys(Flux).includes(flux.type) && Object.keys(Flux[flux.type]).includes(flux.name)) {
-    log.info('Le flux est typé & nommé');
     return true; // flux OK
   }
+  Odi.error('Invalid Flux', flux);
   return false; // invalid flux
 }
 
@@ -72,18 +81,17 @@ var scheduleFlux = (flux) => {
   var totalLoop = flux.loop && Number(flux.loop) ? flux.loop : 1;
 
   var interval = setInterval(() => {
-    log.info('-->interval');
     fireFlux(flux);
     i++;
     if (totalLoop == i) {
-      log.INFO('.cancelling flux loop');
+      // log.debug('cancelling flux loop', flux);
       clearInterval(interval);
     }
   }, Number(flux.delay) * 1000);
 }
 
 var fireFlux = (flux) => {
-  log.info('..fireFlux', flux);
+  log.info('Flux [' + flux.type + ', ' + flux.name + ', ' + flux.id + ', ' + flux.value + ']');
   Flux[flux.type][flux.name].next(flux.id, flux.value);
 }
 
@@ -96,7 +104,7 @@ var fireFlux = (flux) => {
 //   return true;
 // }
 
-function delay(flux, subject) {
+/*function delay(flux, subject) {
   log.info("Delaying flux [" + subject.id + ", " + flux.delay + "]", flux);
   setTimeout(function () {
     // log.info(subject); // log.info(flux);
@@ -109,7 +117,7 @@ function delay(flux, subject) {
   }, Number(flux.delay) * 1000);
   delete flux.delay;
   return;
-}
+}*/
 
 var buttonHandler = flux => {
   log.info("buttonHandler", flux);
@@ -121,7 +129,7 @@ var buttonHandler = flux => {
 //log.info(Flux.controller);
 Flux.controller.button.subscribe({
   next: flux => {
-    if (!inspect(flux, { type: "controller", id: "jobs" })) return;
+    // if (!inspect(flux, { type: "controller", id: "jobs" })) return;
     if (flux.id == "ok") {
       Flux.service.time.next({ id: "bip", value: "ok" });
     } else if (flux.id == "cancel") {
@@ -144,7 +152,7 @@ Flux.controller.button.subscribe({
 // Flux.controller.jobs = require(Odi.CORE_PATH + "controllers/jobs.js");
 Flux.controller.jobs.subscribe({
   next: (flux, flux2) => {
-    if (!inspect(flux, { type: "controller", id: "jobs" })) return;
+    // if (!inspect(flux, { type: "controller", id: "jobs" })) return;
     if (flux.id == "clock") {
       Flux.service.time.next({ id: "now", value: null });
     } else if (flux.id == "sound") {
