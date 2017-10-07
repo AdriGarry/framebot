@@ -32,35 +32,74 @@ var Flux = {
 };
 
 module.exports = {
-  //delay: delay,
-  inspect: inspect,
+  // Flux: Flux,
+  inspect: inspect, // TODO enlever de l'export !
   module: Flux.module,
   next: next, // object à définir (pour toString() etc...)
   service: Flux.service
 };
 
 function next(type, name, id, value, delay, loop) {
-  log.info('=> ', arguments);
-  log.info(type, name, id, value, delay, loop);
+  var flux = { type: type, name: name, id: id, value: value, delay: delay, loop: loop };
+  // log.info('=> ', arguments);
+  // log.info(flux);
+
+  log.debug('------>');
+
+  if (!inspect(flux)) return;
+
+  if (flux.delay && Number(flux.delay)) {
+    log.info('flux.delay', flux.delay);
+    scheduleFlux(flux);
+    //delete flux.delay;
+    return;
+  }
+
 }
 
-function inspect(flux, subject) {
-  log.debug("Incoming flux [" + subject.id + "]", flux);
-  if (flux.hasOwnProperty("delay") && Number(flux.delay)) {
-    delay(flux, subject);
-    return false;
+function inspect(flux) {
+  log.debug('inspecting flux: type=' + flux.type + ', name=' + flux.name + ', id=' + flux.id + ', value=' + flux.value + ', delay=' + flux.delay + ', loop=' + flux.loop);
+  if (Object.keys(Flux).includes(flux.type) && Object.keys(Flux[flux.type]).includes(flux.name)) {
+    log.info('Le flux est typé & nommé');
+    return true; // flux OK
   }
-  return true;
+  return false; // invalid flux
 }
+
+var scheduleFlux = (flux) => {
+  // log.info('..scheduleFlux', flux);
+  var i = 0;
+  var totalLoop = flux.loop && Number(flux.loop) ? flux.loop : 1;
+
+  var interval = setInterval(() => {
+    log.info('-->interval');
+    fireFlux(flux);
+    i++;
+    if (totalLoop == i) {
+      log.INFO('.cancelling flux loop');
+      clearInterval(interval);
+    }
+  }, Number(flux.delay) * 1000);
+}
+
+var fireFlux = (flux) => {
+  log.info('..fireFlux', flux);
+  Flux[flux.type][flux.name].next(flux.id, flux.value);
+}
+
+// function inspect(flux, subject) {
+//   log.debug("Incoming flux [" + subject.id + "]", flux);
+//   if (flux.hasOwnProperty("delay") && Number(flux.delay)) {
+//     delay(flux, subject);
+//     return false;
+//   }
+//   return true;
+// }
 
 function delay(flux, subject) {
   log.info("Delaying flux [" + subject.id + ", " + flux.delay + "]", flux);
   setTimeout(function () {
-    // flux.Jobs.next(flux);
-    // log.info("----------------");
-    // log.info(subject);
-    // log.info(flux);
-    // log.info("----------------");
+    // log.info(subject); // log.info(flux);
     if (Flux.hasOwnProperty(subject.type) && Flux[subject.type].hasOwnProperty(subject.id)) {
       // log.debug('OKAY TO RELANCH FLUX !!');
       Flux[subject.type][subject.id].next(flux);
@@ -104,7 +143,7 @@ Flux.controller.button.subscribe({
 
 // Flux.controller.jobs = require(Odi.CORE_PATH + "controllers/jobs.js");
 Flux.controller.jobs.subscribe({
-  next: flux => {
+  next: (flux, flux2) => {
     if (!inspect(flux, { type: "controller", id: "jobs" })) return;
     if (flux.id == "clock") {
       Flux.service.time.next({ id: "now", value: null });
@@ -123,3 +162,16 @@ Flux.controller.jobs.subscribe({
 });
 
 log.info("Flux manager ready");
+
+/*function Flux(type, name, id, value, delay, loop) {
+  // log.info('=> ', arguments);
+  log.info('Flux');
+  log.info(type, name, id, value, delay, loop);
+  this.type = type;
+  this.name = name;
+  this.id = id;
+  this.value = value;
+  this.delay = loop;
+  this.loop = loop;
+  log.INFO(this.type, this.name, this.id, this.value, this.delay, this.loop);
+}*/

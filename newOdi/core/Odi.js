@@ -38,8 +38,9 @@ function init(path) {  // Deprecated ?
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 setTimeout(() => {
-	Flux.service.time.next({ id: 'toto', value: 'value' });
-	//Flux.next('module', 'sound', 'mute', 'now!');
+	// Flux.service.time.next({ id: 'toto', value: 'value' });
+	Flux.next('module', 'tts', 'speak', 'say something...', 1.5, 3);
+	// new Flux('module', 'sound', 'mute', 'now!');
 }, 1000);
 
 function error() {

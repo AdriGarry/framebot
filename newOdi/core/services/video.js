@@ -10,7 +10,7 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 Flux.service.video.subscribe({
 	next: flux => {
-		if (!Flux.inspect(flux, subject)) return;
+		// if (!Flux.inspect(flux, subject)) return;
 		log.info('Video service', flux);
 	},
 	error: err => { Odi.error(flux) }

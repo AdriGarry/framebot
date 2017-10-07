@@ -156,3 +156,12 @@ function getStartTime() {
 String.prototype.repeat = function (num) {
   return new Array(Math.abs(num) + 1).join(this);
 };
+
+Object.prototype.toString = () => {
+  var obj = this;
+  var string = '';
+  for (var prop in obj) {
+    string = prop + '=' + obj[prop] + ' ';
+  }
+  return string;
+};

@@ -10,7 +10,7 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 Flux.service.tts.subscribe({
 	next: flux => {
-		if (!Flux.inspect(flux, subject)) return;
+		// if (!Flux.inspect(flux, subject)) return;
 		log.info('TTS service', flux);
 	},
 	error: err => { Odi.error(flux) }

@@ -10,7 +10,7 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 Flux.module.led.subscribe({
 	next: flux => {
-		if (!Flux.inspect(flux, subject)) return;
+		// if (!Flux.inspect(flux, subject)) return;
 		log.info(flux, '(you are in the led module !)');
 	},
 	error: err => { Odi.error(flux) }

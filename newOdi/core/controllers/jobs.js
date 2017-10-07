@@ -18,34 +18,25 @@ module.exports = Jobs;
 ////////// TESTS //////////
 
 Jobs.next({ id: "clock", value: null, delay: "1.8" });
-setTimeout(function() {
+setTimeout(function () {
   // Jobs.next({ id: "clock", value: null, delay: "1.5" });
-  Jobs.next({ id: "AAA", value: null, delay: "1.5" });
-  Jobs.next({ id: "BBB", value: null, delay: "2" });
+  // Jobs.next({ id: "AAA", value: null, delay: "1.5" });
+  // Jobs.next({ id: "BBB", value: null, delay: "2" });
+  // Jobs.next('ZZZ', 'value tututu');
 }, 3000);
-setTimeout(function() {
-  Jobs.next({ id: "sound", value: "mute", delay: "2.9" });
+setTimeout(function () {
+  // Jobs.next({ id: "sound", value: "mute", delay: "2.9" });
 }, 13000);
 
-new CronJob(
-  "*/6 * * * * *",
-  function() {
-    Jobs.next({ id: "clock", value: "*/6", delay: "1.8" });
-  },
-  null,
-  false,
-  "Europe/Paris"
-);
-new CronJob(
-  "*/7 * * * * *",
-  function() {
-    Jobs.next({ id: "toto", value: "hey" });
-    Jobs.next({ id: "toto", value: "_SALUT !!", delay: 2.5 });
-  },
-  null,
-  false,
-  "Europe/Paris"
-);
+new CronJob('*/6 * * * * *', function () {
+  Jobs.next({ id: "clock", value: "*/6", delay: "1.8" });
+}, null, false, "Europe/Paris");
+new CronJob('*/7 * * * * *', function () {
+  // Jobs.next({ id: "toto", value: "hey" });
+  // Jobs.next({ id: "toto", value: "_SALUT !!", delay: 2.5 });
+}, null, false, "Europe/Paris");
+
+
 ////////// TESTS //////////
 
 /** Function to init clock  */
@@ -53,40 +44,24 @@ function initClock() {
   if (true) {
     // Mode work // --> get test value from
     // new CronJob('0 0,30 8-23 * * 1-5', function(){
-    new CronJob(
-      "*/15 * * * * *",
-      function() {
-        // ODI.time.now();
-        Jobs.next({ id: "clock", value: "*/10" });
-      },
-      null,
-      true,
-      "Europe/Paris"
+    new CronJob('*/15 * * * * *', function () {
+      // ODI.time.now();
+      Jobs.next({ id: "clock", value: "*/10" });
+    }, null, true, "Europe/Paris"
     );
     // new CronJob('0 0,30 12-23 * * 0,7', function(){
-    new CronJob(
-      "*/6 * * * * *",
-      function() {
-        // ODI.time.now();
-        Jobs.next({ id: "toto", value: "salut!" });
-        Jobs.next({ id: "toto", value: "salut!", delay: 1.5 });
-      },
-      null,
-      true,
-      "Europe/Paris"
-    );
+    new CronJob('*/6 * * * * *', function () {
+      // ODI.time.now();
+      Jobs.next({ id: "toto", value: "salut!" });
+      Jobs.next({ id: "toto", value: "salut!", delay: 1.5 });
+    }, null, true, "Europe/Paris");
     console.log("Clock jobs initialised in regular mode");
   } else {
     // Mode any time
-    new CronJob(
-      "0 0,30 * * * *",
-      function() {
-        // ODI.time.now();
-        Jobs.next({ id: "time", value: "now" });
-      },
-      null,
-      true,
-      "Europe/Paris"
+    new CronJob('0 0,30 * * * *', function () {
+      // ODI.time.now();
+      Jobs.next({ id: "time", value: "now" });
+    }, null, true, "Europe/Paris"
     );
     console.log("Clock jobs initialised in any time mode !");
   }
@@ -95,32 +70,18 @@ function initClock() {
 /** Function to set alarms */
 function setInteractiveJobs() {
   // WEEKDAY
-  new CronJob(
-    "0 20,22-25 8 * * 1-5",
-    function() {
-      if (Math.floor(Math.random() * 2))
-        ODI.tts.speak({
-          lg: "fr",
-          voice: "espeak",
-          msg: "Go go go, allez au boulot"
-        });
-      else
-        ODI.tts.speak({
-          lg: "fr",
-          voice: "espeak",
-          msg: "Allez allez, Maitro boulot dodo"
-        });
-    },
-    null,
-    true,
-    "Europe/Paris"
+  new CronJob('0 20,22-25 8 * * 1-5', function () {
+    if (Math.floor(Math.random() * 2))
+      ODI.tts.speak({ lg: "fr", voice: "espeak", msg: "Go go go, allez au boulot" });
+    else
+      ODI.tts.speak({ lg: "fr", voice: "espeak", msg: "Allez allez, Maitro boulot dodo" });
+  }, null, true, "Europe/Paris"
   );
 
-  new CronJob(
-    "0 30 18 * * 1-5",
-    function() {
-      ODI.utils.testConnexion(function(connexion) {
-        setTimeout(function() {
+  new CronJob('0 30 18 * * 1-5',
+    function () {
+      ODI.utils.testConnexion(function (connexion) {
+        setTimeout(function () {
           if (connexion == true) {
             ODI.jukebox.playFip();
           } else {
@@ -137,24 +98,18 @@ function setInteractiveJobs() {
   // ALL DAYS
   new CronJob(
     "0 1 13 * * *",
-    function() {
-      console.log("Il est 13 heures et tout va bien !");
-      spawn("sh", ["/home/pi/odi/core/sh/sounds.sh", "13Heures"]);
+    function () {
+      console.log('Il est 13 heures et tout va bien !');
+      spawn("sh", ['/home/pi/odi/core/sh/sounds.sh', '13Heures']);
     },
     null,
     true,
     "Europe/Paris"
   );
 
-  new CronJob(
-    "13 13,25,40,51 17-22 * * *",
-    function() {
-      ODI.service.randomAction();
-    },
-    null,
-    true,
-    "Europe/Paris"
-  );
+  new CronJob('13 13,25,40,51 17-22 * * *', function () {
+    ODI.service.randomAction();
+  }, null, true, "Europe/Paris");
   console.log("Interactive jobs initialised");
 }
 
@@ -162,7 +117,7 @@ function setInteractiveJobs() {
 function setAutoSleep() {
   new CronJob(
     "3 0 0 * * 1-5",
-    function() {
+    function () {
       goToSleep();
     },
     null,
@@ -172,7 +127,7 @@ function setAutoSleep() {
 
   new CronJob(
     "3 0 2 * * 0,6",
-    function() {
+    function () {
       goToSleep();
     },
     null,
@@ -190,7 +145,7 @@ function goToSleep() {
   var sleepTTS = ODI.ttsMessages.goToSleep[rdmSleepTTS];
   ODI.tts.speak(sleepTTS);
   console.log("AutoLifeCycle go to sleep !");
-  setTimeout(function() {
+  setTimeout(function () {
     ODI.hardware.restartOdi(255);
   }, sleepTTS.msg.length * 150);
 }
@@ -199,9 +154,9 @@ function goToSleep() {
 function setBackgroundJobs() {
   new CronJob(
     "13 13 13 * * 1-6",
-    function() {
+    function () {
       ODI.tts.speak({ voice: "espeak", lg: "en", msg: "Auto restart" }); // Daily restart Odi's core
-      setTimeout(function() {
+      setTimeout(function () {
         // ODI.hardware.restartOdi();
       }, 3000);
     },
@@ -212,9 +167,9 @@ function setBackgroundJobs() {
 
   new CronJob(
     "13 13 13 * * 0",
-    function() {
+    function () {
       ODI.tts.speak({ voice: "espeak", lg: "en", msg: "Reset config" }); // Weekly RPI reboot
-      setTimeout(function() {
+      setTimeout(function () {
         // ODI.config.resetCfg();
       }, 3000);
     },
@@ -225,9 +180,9 @@ function setBackgroundJobs() {
 
   new CronJob(
     "15 15 13 * * 0",
-    function() {
+    function () {
       ODI.tts.speak({ voice: "espeak", lg: "en", msg: "Auto reboot" }); // Weekly RPI reboot
-      setTimeout(function() {
+      setTimeout(function () {
         // ODI.hardware.reboot();
       }, 3000);
     },
@@ -238,7 +193,7 @@ function setBackgroundJobs() {
 
   new CronJob(
     "0 0 5 * * 1",
-    function() {
+    function () {
       console.log("Clean log files  /!\\"); // Weekly cleaning of logs
       // ODI.hardware.cleanLog();
     },
