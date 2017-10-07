@@ -11,9 +11,10 @@ var fs = require('fs');
 const logo = fs.readFileSync(ODI_PATH + 'data/odiLogo.properties', 'utf8').toString().split('\n');
 console.log('\n' + logo.join('\n'));
 
-var Odi = require(ODI_PATH + 'core/Odi.js').init(__filename.match(/\/.*\//g)[0]); // console.log('Odi.conf.debug', Odi.conf.debug);
-if (Odi.conf.debug || forcedDebug) console.log('DEBUG mode');
-var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, forcedDebug || Odi.conf.debug); // Odi.conf.debug || forcedDebug
+var Odi = require(ODI_PATH + 'core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug); // console.log('Odi.conf.debug', Odi.conf.debug);
+// if (Odi.conf.debug || forcedDebug) console.log('DEBUG mode');
+// if (forcedDebug) Odi.conf.debug = 'forced'; // Créer méthode pour persister en json
+var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, /*forcedDebug ||*/ Odi.conf.debug); // Odi.conf.debug || forcedDebug
 log.debug('argv', argv);
 // log.INFO('hey salut toi !');
 
@@ -43,6 +44,8 @@ var hardware = require(Odi.CORE_PATH + 'modules/hardware.js');
 var led = require(Odi.CORE_PATH + 'modules/led.js');
 var sound = require(Odi.CORE_PATH + 'modules/sound.js');
 
+log.info('x controllers/services/modules loaded.')
+
 /////////////  TEST section  /////////////
 // Flux.next(id, value, subject [,delay, ?])
 //Flux.next('id', {value1: 'AA', value2: 'BB'}, 'subject');
@@ -50,8 +53,8 @@ var sound = require(Odi.CORE_PATH + 'modules/sound.js');
 // log.info('I\'m Ready !!');
 
 setTimeout(function () {
-  log.debug('PROCESS.EXIT');
-  process.exit();
+	log.debug('PROCESS.EXIT');
+	process.exit();
 }, 25000);
 
 // console.trace(); // to get line number

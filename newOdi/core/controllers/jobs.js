@@ -18,22 +18,13 @@ var Jobs = new Rx.Subject();
 ////////// TESTS //////////
 
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
-// console.log(Flux);
 
-Jobs.next({ id: "clock", value: null, delay: "1.8" });
 setTimeout(function () {
-  // Jobs.next({ id: "clock", value: null, delay: "1.5" });
-  // Jobs.next({ id: "AAA", value: null, delay: "1.5" });
-  // Jobs.next({ id: "BBB", value: null, delay: "2" });
-  // Jobs.next('ZZZ', 'value tututu');
-  Flux.next('service', 'tts', 'speak', 'say something...', 1.5, 3);
+  // Flux.next('service', 'tts', 'speak', 'say something...', 1.5, 3);
 }, 3000);
-setTimeout(function () {
-  // Jobs.next({ id: "sound", value: "mute", delay: "2.9" });
-}, 13000);
 
 new CronJob('*/6 * * * * *', function () {
-  Jobs.next({ id: "clock", value: "*/6", delay: "1.8" });
+  // Jobs.next({ id: "clock", value: "*/6", delay: "1.8" });
 }, null, false, "Europe/Paris");
 new CronJob('*/7 * * * * *', function () {
   // Jobs.next({ id: "toto", value: "hey" });

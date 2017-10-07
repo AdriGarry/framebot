@@ -2,20 +2,14 @@
 "use strict";
 
 var Odi = require(ODI_PATH + "core/Odi.js").Odi;
-var log = new (require(Odi.CORE_PATH + "Logger.js"))(
-	__filename.match(/(\w*).js/g)[0]
-);
-log.debug(Odi.conf);
+var log = new (require(Odi.CORE_PATH + "Logger.js"))(__filename.match(/(\w*).js/g)[0]);
 
 const Rx = require("rxjs");
 var Flux = {
 	controller: {
-		// button: require(Odi.CORE_PATH + "controllers/button.js"),
-		// // server: require(Odi.CORE_PATH + "controllers/server.js"),
-		// jobs: require(Odi.CORE_PATH + "controllers/jobs.js")
-		button: new Rx.Subject(),
-		jobs: new Rx.Subject(),
-		server: new Rx.Subject()
+		button: new Rx.Subject(), //require(Odi.CORE_PATH + "controllers/button.js"),
+		jobs: new Rx.Subject(), // require(Odi.CORE_PATH + "controllers/jobs.js"),
+		server: new Rx.Subject() // require(Odi.CORE_PATH + "controllers/server.js")
 	},
 	module: {
 		hardware: new Rx.Subject(),
@@ -88,6 +82,8 @@ var scheduleFlux = (flux) => {
 	var interval = setInterval(() => {
 		fireFlux(flux);
 		i++;
+		// log.INFO('i', i);
+		// log.INFO('totalLoop', totalLoop);
 		if (totalLoop == i) {
 			// log.debug('cancelling flux loop', flux);
 			clearInterval(interval);
@@ -96,7 +92,7 @@ var scheduleFlux = (flux) => {
 }
 
 var fireFlux = (flux) => {
-	log.info('Flux', flux.toString());
+	log.info('=> Flux', flux.toString());
 	Flux[flux.type][flux.name].next(flux.id, flux.value);
 }
 
@@ -130,8 +126,7 @@ var buttonHandler = flux => {
 	// utiliser des switch/case (voir si possible avec plusieurs params)
 };
 
-// Flux.controller.button = require(Odi.CORE_PATH + "controllers/button.js");
-//log.info(Flux.controller);
+// A déplacer dans un nouveau fichier brain.js ?
 Flux.controller.button.subscribe({
 	next: flux => {
 		// if (!inspect(flux, { type: "controller", id: "jobs" })) return;

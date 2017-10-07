@@ -20,13 +20,18 @@ function Logger(filename, debugMode, dateTimePattern) {
   this.info = info;
   this.INFO = INFO; // TO TEST...
   // console.log('--debugMode', modeDebug);
+  this.enableDebug = enableDebug;
   this.debug = debug;
   this.DEBUG = DEBUG;
   this.error = error;
   this.logTime = logTime;
   return this;
 
-  function setLog(args) {
+  function enableDebug() {
+    modeDebug = true;
+  };
+
+  function formatLog(args) {
     if (typeof args === "string") {
       return args;
     }
@@ -42,25 +47,25 @@ function Logger(filename, debugMode, dateTimePattern) {
   }
 
   function info() {
-    console.log(logTime(), "[" + filename + "]", setLog(arguments));
+    console.log(logTime(), "[" + filename + "]", formatLog(arguments));
   }
 
   function INFO() {
-    console.log(logTime(), "[" + filename.toUpperCase() + "]", setLog(arguments).toUpperCase());
+    console.log(logTime(), "[" + filename.toUpperCase() + "]", formatLog(arguments).toUpperCase());
   }
 
   function debug() {
     if (!modeDebug) return;
-    console.log(logTime(), "[" + filename + "]\u2022", setLog(arguments));
+    console.log(logTime(), "[" + filename + "]\u2022", formatLog(arguments));
   }
 
   function DEBUG() {
     if (!modeDebug) return;
-    console.log(logTime(), "[" + filename.toUpperCase() + "]\u2022", setLog(arguments).toUpperCase());
+    console.log(logTime(), "[" + filename.toUpperCase() + "]\u2022", formatLog(arguments).toUpperCase());
   }
 
   function error() {
-    console.error("\r\n" + logTime(), "[" + filename + "]", ">> ERR_", setLog(arguments));
+    console.error("\r\n" + logTime(), "[" + filename + "]", ">> ERR_", formatLog(arguments));
   }
 
   /** Function to return date time. Pattern: 'YDT' */

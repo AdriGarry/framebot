@@ -13,22 +13,25 @@ var blue = new Gpio(26, 'in', 'rising', { persistentWatch: true, debounceTimeout
 
 const Rx = require('rxjs');
 var Button = new Rx.Subject();
-
 module.exports = Button;
+
+var Flux = require(Odi.CORE_PATH + 'Flux.js');
+Flux.next('controller', 'button', 'push', 'red');
 
 ok.watch(function (err, value) {
 	var pushTime = getPushTime(ok);
 	if (pushTime == 0) {
 		// observer.error({id:'ok error', value:pushTime});
-		Button.next({ id: 'ok', value: pushTime });
+		Flux.next('controller', 'button', 'ok', pushTime);
 	} else {
-		Button.next({ id: 'ok', value: pushTime });
+		Flux.next('controller', 'button', 'ok', pushTime);
 	}
 });
 
 cancel.watch(function (err, value) {
 	var pushTime = getPushTime(cancel);
-	Button.next({ id: 'cancel', value: pushTime });
+	// Button.next({ id: 'cancel', value: pushTime });
+	Flux.next('controller', 'button', 'push', 'red');
 });
 
 white.watch(function (err, value) {
