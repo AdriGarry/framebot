@@ -13,9 +13,12 @@ var pastHour = hour;
 const Rx = require("rxjs");
 var Jobs = new Rx.Subject();
 
-module.exports = Jobs;
+// module.exports = Jobs;
 
 ////////// TESTS //////////
+
+var Flux = require(Odi.CORE_PATH + 'Flux.js');
+// console.log(Flux);
 
 Jobs.next({ id: "clock", value: null, delay: "1.8" });
 setTimeout(function () {
@@ -23,9 +26,7 @@ setTimeout(function () {
   // Jobs.next({ id: "AAA", value: null, delay: "1.5" });
   // Jobs.next({ id: "BBB", value: null, delay: "2" });
   // Jobs.next('ZZZ', 'value tututu');
-  // var Flux = require(Odi.CORE_PATH + 'Flux.js');
-  // console.log(Flux);
-  // Flux.next('service', 'tts', 'speak', 'say something...', 1.5, 3);
+  Flux.next('service', 'tts', 'speak', 'say something...', 1.5, 3);
 }, 3000);
 setTimeout(function () {
   // Jobs.next({ id: "sound", value: "mute", delay: "2.9" });

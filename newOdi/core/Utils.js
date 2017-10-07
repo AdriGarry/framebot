@@ -157,7 +157,7 @@ String.prototype.repeat = function (num) {
   return new Array(Math.abs(num) + 1).join(this);
 };
 
-Object.prototype.toString = () => {
+/*Object.prototype.toString = () => {
   var obj = this;
   // console.log(obj);
   var string = '';
@@ -169,5 +169,5 @@ Object.prototype.toString = () => {
   // for (var property in object) {
   //   output += property + ': ' + object[property]+'; ';
   // }
-};
+};*/
 
