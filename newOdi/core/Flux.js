@@ -29,8 +29,7 @@ var Flux = {
 };
 
 module.exports = {
-	// Flux: Flux,
-	//inspect: inspect, // TODO enlever de l'export !
+	controller: Flux.controller,
 	module: Flux.module,
 	next: next,
 	service: Flux.service
@@ -66,7 +65,7 @@ function next(type, name, id, value, delay, loop) {
 		return;
 	}
 	fireFlux(flux);
-}
+};
 
 var inspect = (flux) => {
 	// log.debug('inspecting Flux: type=' + flux.type + ', name=' + flux.name + ', id=' + flux.id + ', value=' + flux.value + ', delay=' + flux.delay + ', loop=' + flux.loop);
@@ -76,7 +75,7 @@ var inspect = (flux) => {
 	}
 	Odi.error('Invalid Flux', flux);
 	return false;
-}
+};
 
 var scheduleFlux = (flux) => {
 	var i = 0;
@@ -92,36 +91,12 @@ var scheduleFlux = (flux) => {
 			clearInterval(interval);
 		}
 	}, Number(flux.delay) * 1000);
-}
+};
 
 var fireFlux = (flux) => {
 	log.info('=> Flux', flux.toString());
 	Flux[flux.type][flux.name].next(flux.id, flux.value);
-}
-
-// function inspect(flux, subject) {
-//   log.debug("Incoming flux [" + subject.id + "]", flux);
-//   if (flux.hasOwnProperty("delay") && Number(flux.delay)) {
-//     delay(flux, subject);
-//     return false;
-//   }
-//   return true;
-// }
-
-/*function delay(flux, subject) {
-  log.info("Delaying flux [" + subject.id + ", " + flux.delay + "]", flux);
-  setTimeout(function () {
-    // log.info(subject); // log.info(flux);
-    if (Flux.hasOwnProperty(subject.type) && Flux[subject.type].hasOwnProperty(subject.id)) {
-      // log.debug('OKAY TO RELANCH FLUX !!');
-      Flux[subject.type][subject.id].next(flux);
-    } else {
-      Odi.error("Can't relaunch flux", subject, flux);
-    }
-  }, Number(flux.delay) * 1000);
-  delete flux.delay;
-  return;
-}*/
+};
 
 var buttonHandler = flux => {
 	log.info("buttonHandler", flux);
@@ -130,7 +105,7 @@ var buttonHandler = flux => {
 };
 
 // A déplacer dans un nouveau fichier brain.js ?
-Flux.controller.button.subscribe({
+/*Flux.controller.button.subscribe({
 	next: flux => {
 		// if (!inspect(flux, { type: "controller", id: "jobs" })) return;
 		if (flux.id == "ok") {
@@ -165,6 +140,6 @@ Flux.controller.jobs.subscribe({
 	error: err => {
 		Odi.error(err);
 	}
-});
+});*/
 
 log.info("Flux manager ready");

@@ -43,12 +43,13 @@ function oneMorePush() {
 
 ok.watch(function (err, value) {
 	var pushTime = getPushTime(ok);
-	oneMorePush();
-	if (pushTime < 1) {
-		Flux.next('controller', 'button', 'ok', pushTime);
-	} else {
-		Flux.next('controller', 'button', 'ok>1', pushTime);
-	}
+	//oneMorePush();
+	Flux.next('controller', 'button', 'ok', pushTime);
+	// if (pushTime < 1) {
+	// 	Flux.next('controller', 'button', 'ok', pushTime);
+	// } else {
+	// 	Flux.next('controller', 'button', 'ok>1', pushTime);
+	// }
 });
 
 cancel.watch(function (err, value) {
@@ -57,12 +58,12 @@ cancel.watch(function (err, value) {
 });
 
 white.watch(function (err, value) {
-	var pushTime = getPushTime(cancel);
+	var pushTime = getPushTime(white);
 	Flux.next('controller', 'button', 'white', pushTime);
 });
 
 blue.watch(function (err, value) {
-	var pushTime = getPushTime(cancel);
+	var pushTime = getPushTime(blue);
 	// observer.error({ id: 'Blue button pressed ==> temporary in error.', value: pushTime });
 	Odi.error('Blue button pressed ==> temporary in error.');
 });
@@ -70,11 +71,11 @@ blue.watch(function (err, value) {
 // Button.next('Button controller initialized');
 
 function getPushTime(button) {
-	var pushTime/* = 0*/, pushedTime = new Date();
+	var pushTime, pushedTime = new Date();
 	while (button.readSync() == 1) {
 		;; // Pause
 		// console.log(t);
-		//var t = Math.round((new Date() - pushedTime)/100)/10;
+		// var t = Math.round((new Date() - pushedTime) / 100) / 10;
 
 		/*if(t%1 == 0){ // TODO emettre des events directement pour allumer la led
 			// console.log(t);

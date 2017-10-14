@@ -38,8 +38,6 @@ function init(path, forcedDebug) {  // Deprecated ?
 }
 
 setTimeout(() => {
-	// Flux.service.time.next({ id: 'toto', value: 'value' });
-	// new Flux('module', 'sound', 'mute', 'now!');
 	Flux.next('module', 'sound', 'mute', 'MUTE');
 	Flux.next('module', 'led', 'blink', 'eye...', 2);
 	// Flux.next('service', 'tts', 'speak', 'say something...', 1.5, 3);
@@ -54,7 +52,3 @@ function error() {
 function watch(arg) { // DEPRECATED ??
 	log.debug("watch()", arg);
 }
-
-// console.log(log);
-// log.info('TEMOIN Odi [info].js');
-log.debug("TEMOIN Odi [debug].js");

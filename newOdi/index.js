@@ -23,6 +23,9 @@ var Utils = require(Odi.CORE_PATH + 'Utils.js');
 // Flux
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
+// Brain
+var Brain = require(Odi.CORE_PATH + 'Brain.js');
+
 // Controllers
 var controllers = {
 	button: require(Odi.CORE_PATH + "controllers/button.js"),
