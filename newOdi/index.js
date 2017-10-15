@@ -1,66 +1,72 @@
 #!/usr/bin/env node
-'use strict';
 
-console.log('.');
-const argv = process.argv;
-const forcedDebug = argv[2] == 'debug' ? true : false;
-const test = argv[3] == 'test' ? true : false;
-global.ODI_PATH = __filename.match(/\/.*\//g)[0];
+/** Params detection */
+// const param = process.argv[2];
 
 var fs = require('fs');
-const logo = fs.readFileSync(ODI_PATH + 'data/odiLogo.properties', 'utf8').toString().split('\n');
-console.log('\n' + logo.join('\n'));
+// var Gpio = require('onoff').Gpio;
+var spawn = require('child_process').spawn;
 
-var Odi = require(ODI_PATH + 'core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug); // console.log('Odi.conf.debug', Odi.conf.debug);
-// if (Odi.conf.debug || forcedDebug) console.log('DEBUG mode');
-// if (forcedDebug) Odi.conf.debug = 'forced'; // Créer méthode pour persister en json
-var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, /*forcedDebug ||*/ Odi.conf.debug); // Odi.conf.debug || forcedDebug
-log.debug('argv', argv);
-
-var Utils = require(Odi.CORE_PATH + 'Utils.js');
-// console.log(Utils);
-
-// Flux
-var Flux = require(Odi.CORE_PATH + 'Flux.js');
-
-// Brain
-var Brain = require(Odi.CORE_PATH + 'Brain.js');
-
-// Controllers
-var controllers = {
-	button: require(Odi.CORE_PATH + "controllers/button.js"),
-	jobs: require(Odi.CORE_PATH + "controllers/jobs.js")
-};
-log.info('Controllers loaded', Object.keys(controllers));
-
-// Modules
-var modules = {
-	hardware: require(Odi.CORE_PATH + 'modules/hardware.js'),
-	led: require(Odi.CORE_PATH + 'modules/led.js'),
-	sound: require(Odi.CORE_PATH + 'modules/sound.js')
-};
-log.info('Modules loaded', Object.keys(modules));
-
-// Services
-var services = {
-	mood: require(Odi.CORE_PATH + 'services/mood.js'),
-	music: require(Odi.CORE_PATH + 'services/music.js'),
-	system: require(Odi.CORE_PATH + 'services/system.js'),
-	time: require(Odi.CORE_PATH + 'services/time.js'),
-	tools: require(Odi.CORE_PATH + 'services/tools.js'),
-	tts: require(Odi.CORE_PATH + 'services/tts.js'),
-	video: require(Odi.CORE_PATH + 'services/video.js')
-};
-log.info('Services loaded', Object.keys(services));
+/** Odi's global variables */
+global.ODI_PATH = __filename.match(/\/.*\//g)[0];
+console.log(ODI_PATH);
+// global.ODI_PATH = '/home/pi/odi/';
+// global.CORE_PATH = '/home/pi/odi/core/';
+// global.CONFIG_FILE = '/home/pi/odi/conf.json';
+// global.DATA_PATH = '/home/pi/odi/data/';
+// global.LOG_PATH = '/home/pi/odi/log/';
+// global.WEB_PATH = '/home/pi/odi/web/';
 
 
-/////////////  TEST section  /////////////
-// Flux.next(id, value, subject [,delay, ?])
-//Flux.next('id', {value1: 'AA', value2: 'BB'}, 'subject');
 
-// log.info('I\'m Ready !!');
+/** Function to start up Odi */
+(function startOdi(exitCode) {
+	// ODI.leds.blink({ leds: ['nose'], speed: 2000, loop: 1 });
+	global.CONFIG = JSON.parse(fs.readFileSync(ODI_PATH + 'conf.json', 'utf8'));
+	// var odiCore, logMode = getLogMode();
+	// spawn('sh', [CORE_PATH + 'sh/mute.sh']); // Mute
 
-setTimeout(function () {
-	log.DEBUG('process.exit');
-	process.exit();
-}, 25000);
+	// if (CONFIG.mode == 'sleep' || typeof exitCode === 'number' && exitCode > 0) {
+	// 	odiCore = spawn('node', [CORE_PATH + 'odiSleep.js'/*, mode*/]);
+	// } else {
+	// 	odiCore = spawn('node', [CORE_PATH + 'odi.js'/*, exitCode*/]);
+	// }
+	odiCore = spawn('node', [ODI_PATH + 'initializer.js'/*, mode*/]);
+
+	// etat.watch(function (err, value) {
+	// 	CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+	// 	logMode = getLogMode();
+	// });
+
+	odiCore.stdout.on('data', function (data) {
+		// console.log(ODI.utils.logTime('D/M h:m:s') + logMode + '/ ' + data);
+		//console.log(data);
+		process.stdout.write(data);
+	});
+
+	odiCore.stderr.on('data', function (data) {
+		// if (CONFIG.mode == 'ready') spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'error']);
+		// setTimeout(function () {
+		// 	ODI.leds.altLeds(30, 1.5);
+		// }, 1500);
+		// console.error(ODI.utils.logTime('D/M h:m:s') + logMode + '_ERROR/ ' + data);
+		// console.error(data);
+		process.stdout.write(data);
+	});
+
+	odiCore.on('exit', function (code) { // SetUpRestart Actions
+		// spawn('sh', [ODI_PATH + 'sh/mute.sh']);  // Mute // + LEDS ???
+		console.log('\r\n-----------------------------------' + (code > 10 ? (code > 100 ? '---' : '--') : '-'));
+		console.log('>> Odi\'s CORE restarting... [code:' + code + ']\r\n\r\n');
+		startOdi(code);
+	});
+}());
+
+/*function getLogMode() {
+	value = etat.readSync();
+	if (value != etat.readSync()) {
+		getLogMode();
+	}
+	if (value) return CONFIG.mode == 'sleep' ? ' O.' : ' ODI';
+	else return CONFIG.mode == 'sleep' ? ' O' : ' Odi';
+};*/

@@ -2,11 +2,13 @@
 "use strict";
 
 var log = new (require(ODI_PATH + "core/Logger.js"))(__filename);
+var Utils = require(ODI_PATH + "core/Utils.js");
 
 var fs = require("fs");
 
 var Odi = {
 	conf: require(ODI_PATH + "conf.json"),
+	setConf: setConf,
 	modes: [], // forcedMode, clockMode, alarms...
 	setup: {}, // functions ...
 	stats: {}, // lastUpdate, totalLines, diskSpace...
@@ -30,7 +32,7 @@ var Flux = { next: null };
 function init(path, forcedDebug) {  // Deprecated ?
 	Odi.PATH = path;
 	if (forcedDebug) Odi.conf.debug = 'forced';
-	log.info('Odi initializing...', Odi.conf.debug ? 'DEBUG' + (Odi.conf.debug == 'forced' ? ' [FORCED!]' : '') : '');
+	log.info('initialization...', Odi.conf.debug ? 'DEBUG' + (Odi.conf.debug == 'forced' ? ' [FORCED!]' : '') : '');
 	if (Odi.conf.debug) log.enableDebug();
 	log.debug(Odi);
 	Flux = require(Odi.CORE_PATH + 'Flux.js');
@@ -42,6 +44,33 @@ setTimeout(() => {
 	Flux.next('module', 'led', 'blink', 'eye...', 2);
 	// Flux.next('service', 'tts', 'speak', 'say something...', 1.5, 3);
 }, 500);
+
+/** Function to set/edit Odi's config */
+function setConf(newConf, restart, callback) {
+	log.info('==>setConf');
+	// log.debug('config.update(newConf)', util.inspect(newConf, false, null)); // TODO revoir pk l'objet n'est plus loggué
+	log.debug('config.update(newConf)', newConf);
+	Utils.getJsonFileContent(Odi.CONFIG_FILE, function (data) {
+		var configFile = JSON.parse(data);
+		var updatedEntries = [];
+		Object.keys(newConf).forEach(function (key, index) {
+			if (configFile[key] != newConf[key]) {
+				configFile[key] = newConf[key];
+				updatedEntries.push(key);
+			}
+		});
+		global.CONFIG = configFile;
+		fs.writeFile(Odi.CONFIG_FILE, JSON.stringify(Odi.conf, null, 2), function () {
+			// logArray(updatedEntries);
+			if (restart) {
+				log.debug('process.exit()');
+				process.exit();
+			}
+			if (callback) callback();
+		});
+	});
+};
+
 
 function error() {
 	log.error(arguments);

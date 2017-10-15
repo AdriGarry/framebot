@@ -4,7 +4,7 @@
 // Utils static factory (shoud not require Odi.js || Flux.js) 
 var log = new (require(ODI_PATH + "core/Logger.js"))(__filename);
 
-// var fs = require('fs');
+var fs = require('fs');
 // var spawn = require('child_process').spawn;
 // var exec = require('child_process').exec;
 // var os = require('os');
@@ -12,12 +12,26 @@ var log = new (require(ODI_PATH + "core/Logger.js"))(__filename);
 
 module.exports = {
   // logTime: logTime,
-  // getJsonFileContent: getJsonFileContent,
+  getJsonFileContent: getJsonFileContent,
   // appendJsonFile: appendJsonFile,
   searchStringInArray: searchStringInArray,
   // testConnexion: testConnexion,
   execCmd: execCmd,
   format: {} // some great functions to format output...
+};
+
+/** Function getJsonFileContent */
+var fileExceptions = ['voicemail.js'];
+function getJsonFileContent(filePath, callback) {
+  log.debug('getJsonFileContent() ', filePath);
+  fs.readFile(filePath, function (err, data) {
+    if (err && err.code === 'ENOENT' && !searchStringInArray(filePath, fileExceptions)) {
+      log.error('No file: ' + filePath);
+      callback(null);
+    } else {
+      callback(data);
+    }
+  });
 };
 
 /** Function to return date time. Pattern: 'YDT' */
@@ -62,14 +76,14 @@ function logTime(param, date) {
 /** Function getJsonFileContent */
 var fileExceptions = ["voicemail.js"];
 function getJsonFileContent(filePath, callback) {
-  console.debug("getJsonFileContent() ", filePath);
+  log.debug("getJsonFileContent() ", filePath);
   fs.readFile(filePath, function (err, data) {
     if (
       err &&
       err.code === "ENOENT" &&
       !searchStringInArray(filePath, fileExceptions)
     ) {
-      console.error("No file: " + filePath);
+      log.error("No file: " + filePath);
       callback(null);
     } else {
       callback(data);
@@ -79,29 +93,29 @@ function getJsonFileContent(filePath, callback) {
 
 /** Function to append object in JSON file */
 function appendJsonFile(filePath, obj, callback) {
-  console.debug("appendJsonFile() ", filePath, obj);
+  log.debug("appendJsonFile() ", filePath, obj);
   var fileData;
   fs.exists(filePath, function (exists) {
     if (exists) {
-      console.debug("Yes file exists");
+      log.debug("Yes file exists");
       fs.readFile(filePath, "utf8", function (err, data) {
-        if (err) console.log(err);
+        if (err) log.error(err);
         else {
           fileData = JSON.parse(data);
           fileData.push(obj);
           fileData = JSON.stringify(fileData, null, 2).replace(/\\/g, "").replace(/\"{/g, "{").replace(/\}"/g, "}");
-          console.debug("fileData", fileData);
+          log.debug("fileData", fileData);
           fs.writeFile(filePath, fileData, function (cb) {
-            console.log("appendJsonFile() LOG FOR CB");
+            log.info("appendJsonFile() LOG FOR CB");
           });
         }
       });
     } else {
-      console.debug("File not exists");
+      log.debug("File not exists");
       fileData = [];
       fileData.push(obj);
       fileData = JSON.stringify(fileData, null, 2).replace(/\\/g, "").replace(/\"{/g, "{").replace(/\}"/g, "}");
-      console.debug(fileData);
+      log.debug(fileData);
       fs.writeFile(filePath, fileData);
     }
   });
