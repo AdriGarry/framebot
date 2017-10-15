@@ -2,7 +2,7 @@
 "use strict";
 
 // Utils static factory (shoud not require Odi.js || Flux.js) 
-var log = new (require(ODI_PATH + "core/Logger.js"))(__filename);
+var log = new (require(ODI_PATH + "src/core/Logger.js"))(__filename);
 
 var fs = require('fs');
 // var spawn = require('child_process').spawn;

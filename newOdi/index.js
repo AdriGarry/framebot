@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
 /** Params detection */
-// const param = process.argv[2];
+const argv = process.argv;
+const forcedDebug = argv[2];//  == 'debug' ? true : false
+const test = argv[3] == 'test' ? true : false;
 
 var fs = require('fs');
 // var Gpio = require('onoff').Gpio;
@@ -9,6 +11,7 @@ var spawn = require('child_process').spawn;
 
 /** Odi's global variables */
 global.ODI_PATH = __filename.match(/\/.*\//g)[0];
+console.log('index.js');
 console.log(ODI_PATH);
 // global.ODI_PATH = '/home/pi/odi/';
 // global.CORE_PATH = '/home/pi/odi/core/';
@@ -22,7 +25,7 @@ console.log(ODI_PATH);
 /** Function to start up Odi */
 (function startOdi(exitCode) {
 	// ODI.leds.blink({ leds: ['nose'], speed: 2000, loop: 1 });
-	global.CONFIG = JSON.parse(fs.readFileSync(ODI_PATH + 'conf.json', 'utf8'));
+	// global.CONFIG = JSON.parse(fs.readFileSync(ODI_PATH + 'conf.json', 'utf8'));
 	// var odiCore, logMode = getLogMode();
 	// spawn('sh', [CORE_PATH + 'sh/mute.sh']); // Mute
 
@@ -31,7 +34,8 @@ console.log(ODI_PATH);
 	// } else {
 	// 	odiCore = spawn('node', [CORE_PATH + 'odi.js'/*, exitCode*/]);
 	// }
-	odiCore = spawn('node', [ODI_PATH + 'initializer.js'/*, mode*/]);
+	console.log(forcedDebug);
+	odiCore = spawn('node', [ODI_PATH + 'src/initializer.js', forcedDebug]);
 
 	// etat.watch(function (err, value) {
 	// 	CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
