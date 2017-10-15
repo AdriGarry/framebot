@@ -11,8 +11,6 @@ var spawn = require('child_process').spawn;
 
 /** Odi's global variables */
 global.ODI_PATH = __filename.match(/\/.*\//g)[0];
-console.log('index.js');
-console.log(ODI_PATH);
 // global.ODI_PATH = '/home/pi/odi/';
 // global.CORE_PATH = '/home/pi/odi/core/';
 // global.CONFIG_FILE = '/home/pi/odi/conf.json';
@@ -34,8 +32,8 @@ console.log(ODI_PATH);
 	// } else {
 	// 	odiCore = spawn('node', [CORE_PATH + 'odi.js'/*, exitCode*/]);
 	// }
-	console.log(forcedDebug);
-	odiCore = spawn('node', [ODI_PATH + 'src/initializer.js', forcedDebug]);
+	console.log('.', forcedDebug || '');
+	odiCore = spawn('node', [ODI_PATH + 'initializer.js', forcedDebug]);
 
 	// etat.watch(function (err, value) {
 	// 	CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));

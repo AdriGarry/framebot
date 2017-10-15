@@ -1,15 +1,12 @@
 #!/usr/bin/env node
 'use strict';
 
-console.log('.');
 const argv = process.argv;
 // console.log('---');
 // console.log(argv[2]);
 const forcedDebug = argv[2] == 'debug' ? true : false;
 const test = argv[3] == 'test' ? true : false;
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
-console.log('initializer.js-->', __filename);
-console.log(ODI_PATH);
 
 var fs = require('fs');
 const logo = fs.readFileSync(ODI_PATH + 'data/odiLogo.properties', 'utf8').toString().split('\n');
@@ -18,12 +15,9 @@ console.log('\n' + logo.join('\n'));
 var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug); // console.log('Odi.conf.debug', Odi.conf.debug);
 var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, /*forcedDebug ||*/ Odi.conf.debug); // Odi.conf.debug || forcedDebug
 log.debug('argv', argv);
-// log.info(Odi.logArray());
-// Odi.logArray()
 
 var Utils = require(Odi.CORE_PATH + 'Utils.js');
-Odi.setConf({ startTime: Utils.logTime('h:m (D/M)') }, false);
-// console.log(Utils);
+// Odi.setConf({ startTime: Utils.logTime('h:m (D/M)') }, false);
 
 // Flux
 var Flux = require(Odi.CORE_PATH + 'Flux.js');

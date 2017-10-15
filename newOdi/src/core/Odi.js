@@ -29,11 +29,12 @@ module.exports = {
 
 var Flux = { next: null };
 
-function init(path, forcedDebug) {  // Deprecated ?
+function init(path, forcedDebug) {
 	Odi.PATH = path;
 	if (forcedDebug) Odi.conf.debug = 'forced';
 	logArray();
 	log.info('initialization...', Odi.conf.debug ? 'DEBUG' + (Odi.conf.debug == 'forced' ? ' [FORCED!]' : '') : '');
+	setConf({ debug: Odi.conf.debug, startTime: Utils.logTime('h:m (D/M)') }, false);
 	if (Odi.conf.debug) log.enableDebug();
 	//log.debug(Odi);
 	Flux = require(Odi.CORE_PATH + 'Flux.js');
@@ -55,7 +56,6 @@ function setConf(newConf, restart, callback) {
 		});
 		Odi.conf = configFile;
 		fs.writeFile(Odi.CONFIG_FILE, JSON.stringify(Odi.conf, null, 2), function () {
-			// log.info('Odi.conf updated', logArray(updatedEntries));
 			logArray(updatedEntries);
 			if (restart) {
 				log.debug('process.exit()');
