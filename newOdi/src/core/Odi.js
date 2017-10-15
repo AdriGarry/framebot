@@ -34,10 +34,13 @@ function init(path, forcedDebug) {
 	if (forcedDebug) Odi.conf.debug = 'forced';
 	logArray();
 	log.info('initialization...', Odi.conf.debug ? 'DEBUG' + (Odi.conf.debug == 'forced' ? ' [FORCED!]' : '') : '');
-	setConf({ debug: Odi.conf.debug, startTime: Utils.logTime('h:m (D/M)') }, false);
 	if (Odi.conf.debug) log.enableDebug();
-	//log.debug(Odi);
 	Flux = require(Odi.CORE_PATH + 'Flux.js');
+	var confUpdate = { startTime: Utils.logTime('h:m (D/M)') };
+	if (Odi.conf.debug) {
+		confUpdate.debug = Odi.conf.debug;
+	}
+	setConf(confUpdate, false);
 	return Odi;
 }
 
@@ -70,8 +73,9 @@ function setConf(newConf, restart, callback) {
 /** Function to log CONFIG array */
 function logArray(updatedEntries) {
 	var col1 = 11, col2 = 16;
+	if (updatedEntries) log.info();
 	var logArrayMode = updatedEntries ? '|         CONFIG UPDATE          |' : '|             CONFIG             |';
-	var confArray = '\n|--------------------------------|\n' + logArrayMode + '\n|--------------------------------|\n';
+	var confArray = '|--------------------------------|\n' + logArrayMode + '\n|--------------------------------|\n';
 	Object.keys(Odi.conf).forEach(function (key, index) {
 		if (key == 'alarms') {
 			Object.keys(Odi.conf[key]).forEach(function (key2, index2) {

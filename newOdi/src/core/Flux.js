@@ -7,9 +7,9 @@ var log = new (require(Odi.CORE_PATH + "Logger.js"))(__filename.match(/(\w*).js/
 const Rx = require("rxjs");
 var Flux = {
 	controller: {
-		button: new Rx.Subject(), //require(Odi.CORE_PATH + "controllers/button.js"),
-		jobs: new Rx.Subject(), // require(Odi.CORE_PATH + "controllers/jobs.js"),
-		server: new Rx.Subject() // require(Odi.CORE_PATH + "controllers/server.js")
+		button: new Rx.Subject(),
+		jobs: new Rx.Subject(),
+		server: new Rx.Subject()
 	},
 	module: {
 		hardware: new Rx.Subject(),
@@ -46,8 +46,8 @@ function FluxObject(type, name, id, value, delay, loop) {
 	this.toString = () => {
 		var typeName = '[' + this.type + '.' + this.name + '] ';
 		var value = this.id + ': ' + this.value + ' ';
-		var delay = this.delay || ' .';
-		var loop = this.loop || ' .';
+		var delay = ' ' + this.delay || '.';
+		var loop = ' ' + this.loop || '.';
 		// var delay = this.delay ? (' ' + this.delay) : '.';
 		// var loop = this.loop ? (' ' + this.loop) : '.';
 		return typeName + value + delay + loop;

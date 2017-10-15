@@ -2,11 +2,17 @@
 'use strict';
 
 const argv = process.argv;
-// console.log('---');
-// console.log(argv[2]);
-const forcedDebug = argv[2] == 'debug' ? true : false;
-const test = argv[3] == 'test' ? true : false;
+const forcedDebug = argv.indexOf('debug') > 0 ? true : false;
+const test = argv.indexOf('test') > 0 ? true : false;
+// console.log('-------------');
+// console.log(argv);
+// console.log(argv.indexOf('debug'));
+// console.log(argv.indexOf('test'));
+// console.log('-------------');
+
+if (test) console.log('>> TEST MODE !!');
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
+global.SRC_PATH = __dirname + '/';
 
 var fs = require('fs');
 const logo = fs.readFileSync(ODI_PATH + 'data/odiLogo.properties', 'utf8').toString().split('\n');
@@ -17,7 +23,6 @@ var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, /*forcedDebug |
 log.debug('argv', argv);
 
 var Utils = require(Odi.CORE_PATH + 'Utils.js');
-// Odi.setConf({ startTime: Utils.logTime('h:m (D/M)') }, false);
 
 // Flux
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
@@ -33,14 +38,6 @@ var controllers = {
 };
 log.info('Controllers loaded', Object.keys(controllers));
 
-// Modules
-var modules = {
-	hardware: require(Odi.CORE_PATH + 'modules/hardware.js'),
-	led: require(Odi.CORE_PATH + 'modules/led.js'),
-	sound: require(Odi.CORE_PATH + 'modules/sound.js')
-};
-log.info('Modules loaded', Object.keys(modules));
-
 // Services
 var services = {
 	mood: require(Odi.CORE_PATH + 'services/mood.js'),
@@ -53,7 +50,13 @@ var services = {
 };
 log.info('Services loaded', Object.keys(services));
 
-// Odi.setConf({ startTime: Utils.logTime('h:m (D/M)') }, false);
+// Modules
+var modules = {
+	hardware: require(Odi.CORE_PATH + 'modules/hardware.js'),
+	led: require(Odi.CORE_PATH + 'modules/led.js'),
+	sound: require(Odi.CORE_PATH + 'modules/sound.js')
+};
+log.info('Modules loaded', Object.keys(modules));
 
 
 /////////////  TEST section  /////////////
@@ -62,7 +65,13 @@ log.info('Services loaded', Object.keys(services));
 
 log.DEBUG('I\'m Ready !!');
 
+if (test) {
+	var fluxTest = require(SRC_PATH + 'test/fluxTest.js');
+}
+
 setTimeout(function () {
 	log.DEBUG('process.exit');
 	process.exit();
 }, 25000);
+
+// semaphore pour valider tous les tests et retour console + tts !

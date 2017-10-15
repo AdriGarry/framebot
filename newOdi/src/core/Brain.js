@@ -8,12 +8,6 @@ const Rx = require("rxjs");
 
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
-setTimeout(() => {
-	Flux.next('module', 'sound', 'mute', 'MUTE');
-	Flux.next('module', 'led', 'blink', 'eye...', 2);
-	// Flux.next('service', 'tts', 'speak', 'say something...', 1.5, 3);
-}, 500);
-
 Flux.controller.button.subscribe({
 	next: flux => {
 		log.INFO(flux);

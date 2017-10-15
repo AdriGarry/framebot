@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
 /** Params detection */
-const argv = process.argv;
-const forcedDebug = argv[2];//  == 'debug' ? true : false
-const test = argv[3] == 'test' ? true : false;
+const argv = process.argv.splice(2);
+// const forcedDebug = argv[2];//  == 'debug' ? true : false
+// const test = argv[3];
+// const forcedDebug = argv.indexOf('debug') ? true : false;
+// const test = argv.indexOf('test') ? true : false;
+
 
 var fs = require('fs');
 // var Gpio = require('onoff').Gpio;
@@ -32,8 +35,14 @@ global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 	// } else {
 	// 	odiCore = spawn('node', [CORE_PATH + 'odi.js'/*, exitCode*/]);
 	// }
-	console.log('.', forcedDebug || '');
-	odiCore = spawn('node', [ODI_PATH + 'initializer.js', forcedDebug]);
+	// console.log('.', forcedDebug || '', test || '');
+	console.log(argv);
+	// odiCore = spawn('node', [ODI_PATH + 'initializer.js', forcedDebug, test]);
+	var odiProgramWithParams = [ODI_PATH + 'initializer.js'];
+	for (var i = 0; i < argv.length; i++) {
+		odiProgramWithParams.push(argv[i]);
+	}
+	odiCore = spawn('node', odiProgramWithParams);
 
 	// etat.watch(function (err, value) {
 	// 	CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
