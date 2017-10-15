@@ -11,13 +11,13 @@ var fs = require('fs');
 // var util = require('util');
 
 module.exports = {
-  // logTime: logTime,
-  getJsonFileContent: getJsonFileContent,
   // appendJsonFile: appendJsonFile,
-  searchStringInArray: searchStringInArray,
-  // testConnexion: testConnexion,
   execCmd: execCmd,
-  format: {} // some great functions to format output...
+  format: {}, // some great functions to format output...
+  getJsonFileContent: getJsonFileContent,
+  logTime: logTime,
+  searchStringInArray: searchStringInArray
+  // testConnexion: testConnexion,
 };
 
 /** Function getJsonFileContent */
@@ -153,16 +153,49 @@ function execCmd(command, callback) {
   });
 }
 
+/** Function to return date time. Pattern: 'YDT' */
+function logTime(param, date) {
+  if (typeof date === 'undefined') date = new Date();
+  var D = date.getDate();
+  var M = date.getMonth() + 1;
+  var Y = date.getFullYear();
+  var h = date.getHours();
+  var m = date.getMinutes();
+  var s = date.getSeconds();
+  var now = "";
+
+  if (typeof param === "undefined") param = dateTimeDefaultPattern;
+  for (var i = 0; i < param.length; i++) {
+    switch (param[i]) {
+      case "Y":
+        now += Y;
+        break;
+      case "M":
+        now += (M < 10 ? "0" : "") + M;
+        break;
+      case "D":
+        now += (D < 10 ? "0" : "") + D;
+        break;
+      case "h":
+        now += (h < 10 ? "0" : "") + h;
+        break;
+      case "m":
+        now += (m < 10 ? "0" : "") + m;
+        break;
+      case "s":
+        now += (s < 10 ? "0" : "") + s;
+        break;
+      default:
+        now += param[i];
+    }
+  }
+  return now;
+}
+
 /** Function to return last Odi's start/restart time */
 const startHour = new Date().getHours();
 const startMin = new Date().getMinutes();
-const startTime =
-  (startHour > 12 ? startHour - 12 : startHour) +
-  "." +
-  (startMin < 10 ? "0" : "") +
-  startMin +
-  " " +
-  (startHour > 12 ? "PM" : "AM");
+const startTime = (startHour > 12 ? startHour - 12 : startHour) + "." + (startMin < 10 ? "0" : "") + startMin + " " + (startHour > 12 ? "PM" : "AM");
 function getStartTime() {
   return startTime;
 }

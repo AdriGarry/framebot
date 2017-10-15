@@ -54,7 +54,8 @@ ok.watch(function (err, value) {
 
 cancel.watch(function (err, value) {
 	var pushTime = getPushTime(cancel);
-	Flux.next('controller', 'button', 'red', pushTime);
+	// log.debug(pushTime);
+	Flux.next('controller', 'button', 'cancel', pushTime);
 });
 
 white.watch(function (err, value) {

@@ -95,7 +95,7 @@ var scheduleFlux = (flux) => {
 
 var fireFlux = (flux) => {
 	log.info('=> Flux', flux.toString());
-	Flux[flux.type][flux.name].next(flux.id, flux.value);
+	Flux[flux.type][flux.name].next({ id: flux.id, value: flux.value });
 };
 
 var buttonHandler = flux => {

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-"use strict";
+'use strict';
 
-var util = require("util");
+var util = require('util');
 
 module.exports = Logger;
 
-const dateTimeDefaultPattern = "D/M h:m:s";
+const dateTimeDefaultPattern = 'D/M h:m:s';
 var modeDebug = false;
 
 function Logger(filename, debugMode, dateTimePattern) {

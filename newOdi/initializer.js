@@ -12,10 +12,9 @@ const logo = fs.readFileSync(ODI_PATH + 'data/odiLogo.properties', 'utf8').toStr
 console.log('\n' + logo.join('\n'));
 
 var Odi = require(ODI_PATH + 'core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug); // console.log('Odi.conf.debug', Odi.conf.debug);
-// if (Odi.conf.debug || forcedDebug) console.log('DEBUG mode');
-// if (forcedDebug) Odi.conf.debug = 'forced'; // Créer méthode pour persister en json
 var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, /*forcedDebug ||*/ Odi.conf.debug); // Odi.conf.debug || forcedDebug
 log.debug('argv', argv);
+log.info(Odi.logArray());
 
 var Utils = require(Odi.CORE_PATH + 'Utils.js');
 // console.log(Utils);
@@ -29,7 +28,8 @@ var Brain = require(Odi.CORE_PATH + 'Brain.js');
 // Controllers
 var controllers = {
 	button: require(Odi.CORE_PATH + "controllers/button.js"),
-	jobs: require(Odi.CORE_PATH + "controllers/jobs.js")
+	jobs: require(Odi.CORE_PATH + "controllers/jobs.js"),
+	// server: require(Odi.CORE_PATH + "controllers/server.js")
 };
 log.info('Controllers loaded', Object.keys(controllers));
 
@@ -53,14 +53,16 @@ var services = {
 };
 log.info('Services loaded', Object.keys(services));
 
+Odi.setConf({ startTime: Utils.logTime('h:m (D/M)') }, false);
+
 
 /////////////  TEST section  /////////////
 // Flux.next(id, value, subject [,delay, ?])
 //Flux.next('id', {value1: 'AA', value2: 'BB'}, 'subject');
 
-// log.info('I\'m Ready !!');
+log.DEBUG('I\'m Ready !!');
 
-Odi.setConf('toto');
+Odi.setConf({ mode: 'sleep' }, false);
 
 setTimeout(function () {
 	log.DEBUG('process.exit');
