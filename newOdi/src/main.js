@@ -15,7 +15,10 @@ global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
 global.SRC_PATH = __dirname + '/';
 
 var fs = require('fs');
-const logo = fs.readFileSync(ODI_PATH + 'data/odiLogo.properties', 'utf8').toString().split('\n');
+var logo = fs
+	.readFileSync(ODI_PATH + 'data/odiLogo.properties', 'utf8')
+	.toString()
+	.split('\n');
 console.log('\n' + logo.join('\n'));
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug); // console.log('Odi.conf.debug', Odi.conf.debug);
@@ -32,8 +35,8 @@ var Brain = require(Odi.CORE_PATH + 'Brain.js');
 
 // Controllers
 var controllers = {
-	button: require(Odi.CORE_PATH + "controllers/button.js"),
-	jobs: require(Odi.CORE_PATH + "controllers/jobs.js"),
+	button: require(Odi.CORE_PATH + 'controllers/button.js'),
+	jobs: require(Odi.CORE_PATH + 'controllers/jobs.js')
 	// server: require(Odi.CORE_PATH + "controllers/server.js")
 };
 log.info('Controllers loaded', Object.keys(controllers));
@@ -58,18 +61,20 @@ var modules = {
 };
 log.info('Modules loaded', Object.keys(modules));
 
-
 /////////////  TEST section  /////////////
 // Flux.next(id, value, subject [,delay, ?])
 //Flux.next('id', {value1: 'AA', value2: 'BB'}, 'subject');
 
-log.DEBUG('I\'m Ready !!');
+log.DEBUG("I'm Ready !!");
 
 if (test) {
-	var testSequence = require(SRC_PATH + 'test/testSequence.js');
+	var testSequence = require(SRC_PATH + 'test/tests.js').launch(function(testStatus) {
+		log.info(testStatus);
+		// and restart if test success
+	});
 }
 
-setTimeout(function () {
+setTimeout(function() {
 	log.DEBUG('process.exit');
 	process.exit();
 }, 30000);

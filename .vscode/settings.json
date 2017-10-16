@@ -2,15 +2,15 @@
 	"git.enableSmartCommit": true,
 	"git.confirmSync": false,
 	"window.zoomLevel": 0,
-	//"editor.tabSize": 3,
+	"editor.tabSize": 3,
 	"editor.formatOnSave": true,
-	"editor.wordWrap": "wordWrapColumn", // bounded || wordWrapColumn
-	"editor.wordWrapColumn": 150,
-	//"editor.insertSpaces": false,
+	"editor.wordWrap": "off", // bounded || wordWrapColumn
+	//"editor.wordWrapColumn": 150,
 	"files.encoding": "utf8",
+	"prettier.eslintIntegration": true,
 	"prettier.singleQuote": true,
 	"prettier.useTabs": true,
 	"prettier.tabWidth": 2,
-	"prettier.semi": true
-	//"prettier.printWidth": 150
+	"prettier.semi": true,
+	"prettier.printWidth": 120
 }
