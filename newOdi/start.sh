@@ -2,7 +2,8 @@
 
 clear
 
-ODI_PATH="/home/pi/odi/newOdi"
+#ODI_PATH="/home/pi/odi/newOdi"
+ODI_PATH=$PWD
 
 echo "start.sh -> Start Odi Pgm... "$*
 

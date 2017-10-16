@@ -4,11 +4,13 @@
 	"window.zoomLevel": 0,
 	//"editor.tabSize": 3,
 	"editor.formatOnSave": true,
-	"editor.wordWrap": "off", // bounded || wordWrapColumn
+	"editor.wordWrap": "wordWrapColumn", // bounded || wordWrapColumn
 	"editor.wordWrapColumn": 150,
 	//"editor.insertSpaces": false,
 	"files.encoding": "utf8",
 	"prettier.singleQuote": true,
 	"prettier.useTabs": true,
-	"prettier.tabWidth": 2
+	"prettier.tabWidth": 2,
+	"prettier.semi": true
+	//"prettier.printWidth": 150
 }
