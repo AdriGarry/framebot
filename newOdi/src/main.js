@@ -66,12 +66,12 @@ log.info('Modules loaded', Object.keys(modules));
 log.DEBUG('I\'m Ready !!');
 
 if (test) {
-	var fluxTest = require(SRC_PATH + 'test/fluxTest.js');
+	var testSequence = require(SRC_PATH + 'test/testSequence.js');
 }
 
 setTimeout(function () {
 	log.DEBUG('process.exit');
 	process.exit();
-}, 25000);
+}, 30000);
 
 // semaphore pour valider tous les tests et retour console + tts !

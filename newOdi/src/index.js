@@ -38,7 +38,7 @@ global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 	// console.log('.', forcedDebug || '', test || '');
 	console.log(argv);
 	// odiCore = spawn('node', [ODI_PATH + 'initializer.js', forcedDebug, test]);
-	var odiProgramWithParams = [ODI_PATH + 'initializer.js'];
+	var odiProgramWithParams = [ODI_PATH + 'main.js'];
 	for (var i = 0; i < argv.length; i++) {
 		odiProgramWithParams.push(argv[i]);
 	}

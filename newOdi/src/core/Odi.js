@@ -14,6 +14,7 @@ var Odi = {
 	setup: {}, // functions ...
 	stats: {}, // lastUpdate, totalLines, diskSpace...
 	error: error,
+	errorHistory: [],
 	ODI_PATH: "",
 	CORE_PATH: ODI_PATH + "src/core/",
 	CONFIG_FILE: ODI_PATH + "conf.json",
@@ -96,12 +97,9 @@ function logArray(updatedEntries) {
 	console.log(confArray + '|--------------------------------|');
 };
 
-function watch(arg) { // DEPRECATED ??
-	log.debug("watch()", arg);
-}
-
 function error() {
+	Odi.errorHistory.unshift(arguments);
 	log.error(arguments);
-	log.error(console.trace());
+	console.trace();
 	// TODO ring & blink
 }
