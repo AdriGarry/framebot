@@ -15,10 +15,9 @@ const sequences = ['fluxTest', 'helloTest'];
 var testResult = {};
 
 module.exports.launch = function(callback) {
-	log.info('Semaphore to implement...');
 	launchTests(function() {
 		if (allTestCompleted()) {
-			callback('=====================>\n=======>test successed !!\n=====================>');
+			callback('=====================>\n=======>All tests succeeded !!\n=====================>');
 		}
 	});
 };

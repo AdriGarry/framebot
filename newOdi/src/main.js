@@ -61,14 +61,13 @@ var modules = {
 };
 log.info('Modules loaded', Object.keys(modules));
 
-/////////////  TEST section  /////////////
-// Flux.next(id, value, subject [,delay, ?])
-//Flux.next('id', {value1: 'AA', value2: 'BB'}, 'subject');
+log.debug("I'm Ready !!");
 
-log.DEBUG("I'm Ready !!");
+/////////////  TEST section  /////////////
 
 if (test) {
 	var testSequence = require(SRC_PATH + 'test/tests.js').launch(function(testStatus) {
+		log.info('All tests succeeded !!');
 		log.info(testStatus);
 		// and restart if test success
 	});
