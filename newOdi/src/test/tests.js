@@ -11,7 +11,7 @@ const Rx = require('rxjs');
 
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
-const sequences = ['fluxTest', 'helloTest'];
+const sequences = ['fluxTest', 'helloTest']; // flux.test.js, hello.test.js ?
 var testResult = {};
 
 module.exports.launch = function(callback) {
