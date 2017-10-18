@@ -25,7 +25,7 @@ module.exports.launch = function(callback) {
 var launchTests = () => {
 	log.info('launching all tests', sequences);
 	for (var i = 0; i < sequences.length; i++) {
-		testResult[sequences[i]] = require(SRC_PATH + 'test/' + sequences[i] + '.js').waitFor(completeTest);
+		testResult[sequences[i]] = require(SRC_PATH + 'test/' + sequences[i] + '.js').run(completeTest);
 	}
 	log.info('Launched tests:', Object.keys(testResult));
 };

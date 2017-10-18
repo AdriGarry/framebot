@@ -9,7 +9,7 @@ const Rx = require('rxjs');
 
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
-module.exports.waitFor = function(callback) {
+module.exports.run = function(callback) {
 	log.info('Semaphore to implement...');
 
 	setTimeout(() => {
