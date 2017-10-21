@@ -67,9 +67,7 @@ log.debug("I'm Ready !!");
 
 if (test) {
 	var testSequence = require(SRC_PATH + 'test/tests.js').launch(function(testStatus) {
-		log.info('All tests succeeded !!');
-		log.info(testStatus);
-		// and restart if test success
+		// retour console + tts, and restart if test success
 	});
 }
 
@@ -77,5 +75,3 @@ setTimeout(function() {
 	log.DEBUG('process.exit');
 	process.exit();
 }, 30000);
-
-// semaphore pour valider tous les tests et retour console + tts !
