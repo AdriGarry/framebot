@@ -8,7 +8,7 @@ const Rx = require('rxjs');
 
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
-const sequences = ['fluxTest', 'moduleTest', 'serviceTest'];
+const sequences = ['moduleTest', 'serviceTest'];
 var testResult = {};
 
 module.exports.launch = launchTests;
@@ -25,6 +25,7 @@ function launchTests(callback) {
 }
 
 var completeTest = (testId, result) => {
+	Flux.next('module', 'led', 'blink', { leds: ['eye', 'belly', 'satellite'], speed: 100, loop: 5 });
 	log.info(testId, 'completed.' /*, result*/);
 	testResult[testId] = result;
 	log.debug(testResult);

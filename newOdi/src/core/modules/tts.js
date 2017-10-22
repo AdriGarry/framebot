@@ -18,7 +18,7 @@ Flux.module.tts.subscribe({
 		} else if (flux.id == 'clearTTSQueue') {
 		} else if (flux.id == 'lastTTS') {
 		} else {
-			Odi.error('TTS flux not mapped', flux);
+			log.info('TTS flux not mapped', flux);
 		}
 	},
 	error: err => {

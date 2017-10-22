@@ -8,7 +8,11 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 Flux.service.max.subscribe({
 	next: flux => {
-		log.info('Max & Co service', flux);
+		if (flux.id == '') {
+			//
+		} else {
+			log.info('Max & Co flux not mapped', flux);
+		}
 	},
 	error: err => {
 		Odi.error(flux);

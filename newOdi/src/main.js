@@ -35,6 +35,14 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 var Brain = require(Odi.CORE_PATH + 'Brain.js');
 
+var modules = {
+	led: require(Odi.CORE_PATH + 'modules/led.js'),
+	hardware: require(Odi.CORE_PATH + 'modules/hardware.js'),
+	sound: require(Odi.CORE_PATH + 'modules/sound.js'),
+	tts: require(Odi.CORE_PATH + 'modules/tts.js')
+};
+log.info('Modules loaded:', Object.keys(modules).join(', '));
+
 var controllers = {
 	button: require(Odi.CORE_PATH + 'controllers/button.js'),
 	jobs: require(Odi.CORE_PATH + 'controllers/jobs.js')
@@ -53,14 +61,6 @@ var services = {
 	voiceMail: require(Odi.CORE_PATH + 'services/voiceMail.js')
 };
 log.info('Services loaded:', Object.keys(services).join(', '));
-
-var modules = {
-	hardware: require(Odi.CORE_PATH + 'modules/hardware.js'),
-	sound: require(Odi.CORE_PATH + 'modules/sound.js'),
-	tts: require(Odi.CORE_PATH + 'modules/tts.js'),
-	led: require(Odi.CORE_PATH + 'modules/led.js')
-};
-log.info('Modules loaded:', Object.keys(modules).join(', '));
 
 log.debug("I'm Ready !!");
 

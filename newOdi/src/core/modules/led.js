@@ -27,6 +27,8 @@ Flux.module.led.subscribe({
 			blink(flux.value);
 		} else if (flux.id == 'clearLeds') {
 			clearLeds();
+		} else if (flux.id == 'activity') {
+			activity(flux.value);
 		} else {
 			log.info('Led flux not mapped', flux);
 		}
@@ -90,6 +92,35 @@ function toggle(config) {
 		odiLeds[config.led].write(config.mode ? 1 : 0);
 	}
 }
+
+/** Function activity : program mode flag (ready/sleep/test) */
+(function activity(mode) {
+	//if(typeof mode === 'undefined') mode = 'awake';
+	//if(mode == 'ready') mode = 'awake';
+	log.info('Activity led initialised [' + mode + ']');
+	//mode = parseInt(mode, 10);
+	if (mode == 'sleep') mode = 0;
+	else mode = 1;
+	setInterval(function() {
+		odiLeds.nose.write(mode);
+	}, 900);
+	setInterval(function() {
+		// blink({ leds: ['nose'], speed: 200, loop: 1 }); // Initialisation du temoin d'activite 2/2
+	}, 2000);
+
+	new CronJob(
+		'*/3 * * * * *',
+		function() {
+			blink({ leds: ['nose'], speed: 200, loop: 1 });
+		},
+		null,
+		1,
+		'Europe/Paris'
+	);
+	// new CronJob('*/3 * * * * *', function() {
+	// 	blink({ leds: ['nose'], speed: 200, loop: 1 }); // Initialisation du temoin d'activite 2/2
+	// },	null,	1,	'Europe/Paris');
+})(Odi.conf.mode);
 
 /** Function activity : program mode flag (ready/sleep) */
 // function activity() { //function activity(mode){
