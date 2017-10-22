@@ -31,18 +31,18 @@ module.exports = {
 
 var Flux = { next: null };
 
-function init(path, forcedDebug) {
+function init(path, forcedDebug, test) {
 	Odi.PATH = path;
 	if (forcedDebug) Odi.conf.debug = 'forced';
 	logArray();
 	log.info('initialization...', Odi.conf.debug ? 'DEBUG' + (Odi.conf.debug == 'forced' ? ' [FORCED!]' : '') : '');
 	if (Odi.conf.debug) log.enableDebug();
-	Flux = require(Odi.CORE_PATH + 'Flux.js');
 	var confUpdate = { startTime: Utils.logTime('h:m (D/M)') };
-	if (Odi.conf.debug) {
-		confUpdate.debug = Odi.conf.debug;
-	}
+	if (Odi.conf.debug) confUpdate.debug = Odi.conf.debug;
+	if (test) confUpdate.mode = 'test';
+
 	// setConf(confUpdate, false);
+	Flux = require(Odi.CORE_PATH + 'Flux.js');
 	Flux.next('service', 'system', 'updateOdiSoftwareInfo', confUpdate, 2);
 	return Odi;
 }

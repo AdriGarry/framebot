@@ -7,6 +7,7 @@ var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename);
 var spawn = require('child_process').spawn;
 
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
+var Utils = require(Odi.CORE_PATH + 'Utils.js');
 
 Flux.module.tts.subscribe({
 	next: flux => {
@@ -29,11 +30,12 @@ const LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.json';
 
 var onAir = false,
 	ttsQueue = [],
+	allowedModes = ['ready', 'test'],
 	lastTtsMsg = { voice: 'espeak', lg: 'en', msg: '.undefined' };
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts) {
-	if (Odi.conf.mode == 'ready') {
+	if (Utils.searchStringInArray(Odi.conf.mode, allowedModes)) {
 		log.debug(tts);
 		if (Array.isArray(tts)) {
 			log.info('TTS array object... processing');

@@ -21,7 +21,7 @@ var logo = fs
 	.split('\n');
 console.log('\n' + logo.join('\n'));
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug); // console.log('Odi.conf.debug', Odi.conf.debug);
+var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug, test); // console.log('Odi.conf.debug', Odi.conf.debug);
 var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, /*forcedDebug ||*/ Odi.conf.debug); // Odi.conf.debug || forcedDebug
 log.debug('argv', argv);
 
@@ -69,10 +69,12 @@ log.debug("I'm Ready !!");
 /////////////  TEST section  /////////////
 
 if (test) {
-	var testSequence = require(SRC_PATH + 'test/tests.js').launch(function(testStatus) {
-		// retour console + tts, and restart if test success
-		if (testStatus) process.exit();
-	});
+	setTimeout(function() {
+		var testSequence = require(SRC_PATH + 'test/tests.js').launch(function(testStatus) {
+			// retour console + tts, and restart if test success
+			if (testStatus) Odi.setConf({ mode: 'ready' }, true);
+		});
+	}, 3000);
 }
 
 setTimeout(function() {
