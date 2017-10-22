@@ -10,14 +10,13 @@ const Rx = require('rxjs');
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 module.exports.run = function(callback) {
-	Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Test' });
+	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'nose', 'belly', 'satellite'], value: 1 });
+	Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Test sequence' });
+	Flux.next('module', 'led', 'blink', { leds: ['eye', 'nose', 'belly', 'satellite'], speed: 800, loop: 10 }, 2);
+
+	setTimeout(() => {}, 1000);
 
 	setTimeout(() => {
-		Flux.next('module', 'led', 'blink', 'eye...', 2, 3);
-	}, 1000);
-
-	setTimeout(() => {
-		// log.info('fluxTest CALLBACK(TRUE)');
 		callback('moduleTest', true);
 	}, 10000);
 };

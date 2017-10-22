@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
+var Gpio = require('onoff').Gpio;
+var eye = new Gpio(14, 'out').write(1);
+// eye.write(1);
+
 const argv = process.argv;
 const forcedDebug = argv.indexOf('debug') > 0 ? true : false;
 const test = argv.indexOf('test') > 0 ? true : false;
@@ -73,7 +77,7 @@ if (test) {
 	setTimeout(function() {
 		var testSequence = require(SRC_PATH + 'test/tests.js').launch(function(testStatus) {
 			// retour console + tts, and restart if test success
-			if (testStatus) Odi.setConf({ mode: 'ready' }, true);
+			if (testStatus) Odi.update({ mode: 'ready' }, true);
 		});
 	}, 3000);
 }

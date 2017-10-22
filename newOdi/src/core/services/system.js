@@ -9,7 +9,8 @@ var Utils = require(ODI_PATH + 'src/core/Utils.js');
 
 Flux.service.system.subscribe({
 	next: flux => {
-		if (flux.id == 'updateOdiSoftwareInfo') {
+		if (flux.id == 'restart') {
+		} else if (flux.id == 'updateOdiSoftwareInfo') {
 			updateOdiSoftwareInfo(flux.value);
 		}
 		// log.info('System module', flux);
@@ -18,6 +19,28 @@ Flux.service.system.subscribe({
 		Odi.error(flux);
 	}
 });
+
+/** Function to restart/sleep Odi's core */
+function restartOdi(mode) {
+	log.info('restartOdi(mode)', mode || '');
+	if (mode > 0) {
+		Odi.update({ mode: 'sleep' }, true);
+	} else {
+		Odi.update({ mode: 'ready' }, true);
+	}
+}
+
+/** Function to restart/sleep Odi's core */
+function restartOdi(mode) {
+	console.log('restartOdi(mode)', mode || '');
+	if (mode > 0) {
+		// console.log('SLEEP');
+		ODI.config.update({ mode: 'sleep' }, true);
+	} else {
+		// console.log('READY');
+		ODI.config.update({ mode: 'ready' }, true);
+	}
+}
 
 /** Function to update Odi\'s software params (last date & time, totalLines) */
 function updateOdiSoftwareInfo(newConf) {
@@ -32,7 +55,7 @@ function updateOdiSoftwareInfo(newConf) {
 				newConf.diskSpace = diskSpace;
 				// if(CONFIG.totalLines != totalLines || CONFIG.update != lastUpdate || CONFIG.diskSpace != diskSpace){ // TODO delete this test and write on conf files only if updatedEntries.lentgh > 0
 				// Odi.setDefaultConf({ update: lastUpdate, totalLines: totalLines, diskSpace: diskSpace }, false);
-				Odi.setConf(newConf, false);
+				Odi.update(newConf, false);
 				// }
 			});
 		});

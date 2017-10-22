@@ -8,7 +8,7 @@ var fs = require('fs');
 
 var Odi = {
 	conf: require(ODI_PATH + 'conf.json'),
-	setConf: setConf,
+	update: update,
 	logArray: logArray,
 	modes: [], // forcedMode, clockMode, alarms...
 	setup: {}, // functions ...
@@ -48,7 +48,7 @@ function init(path, forcedDebug, test) {
 }
 
 /** Function to set/edit Odi's config */
-function setConf(newConf, restart, callback) {
+function update(newConf, restart, callback) {
 	log.debug('Updating conf:', newConf, restart);
 	Utils.getJsonFileContent(Odi.CONFIG_FILE, function(data) {
 		var configFile = JSON.parse(data);
@@ -70,7 +70,7 @@ function setConf(newConf, restart, callback) {
 	});
 }
 /** Function to set/edit Odi's DEFAULT config */
-// function setDefaultConf(newConf, restart, callback) {
+// function updateDefault(newConf, restart, callback) {
 // 	log.info('Updating conf:', newConf, restart);
 // 	setConf;
 // }

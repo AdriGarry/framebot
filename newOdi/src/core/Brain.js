@@ -14,13 +14,13 @@ Flux.controller.button.subscribe({
 		if (flux.id == 'ok') {
 			Flux.service.time.next({ id: 'bip', value: 'ok' });
 		} else if (flux.id == 'cancel') {
-			if (flux.value > 1) {
+			if (flux.value >= 1 && flux.value < 3) {
 				process.exit();
 			} else {
-				Flux.module.sound.next({ id: 'bip', value: 'cancel' });
+				// Flux.module.sound.next({ id: 'bip', value: 'cancel' });
 			}
-		} else if (flux.id == 'blue') {
-			Odi.error(flux);
+			// } else if (flux.id == 'blue') {
+			// Odi.error(flux);
 		} else {
 			log.info('Button[else]', flux);
 		}
