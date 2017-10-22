@@ -11,7 +11,7 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 module.exports.run = function(callback) {
 	setTimeout(() => {
-		Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: 'test' });
+		Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Test sequence' });
 		// TODO test à implémenter : laisser un voiceMail, le jouer, et le supprimer
 	}, 200);
 

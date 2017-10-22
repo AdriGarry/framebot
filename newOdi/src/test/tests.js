@@ -32,7 +32,7 @@ var completeTest = (testId, result) => {
 		log.INFO('-------------------------');
 		log.info('>> All tests succeeded !!');
 		log.INFO('-------------------------');
-		testCallback(testResult);
+		testCallback(true); //testResult
 	}
 };
 

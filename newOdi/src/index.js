@@ -67,9 +67,24 @@ global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 		// spawn('sh', [ODI_PATH + 'sh/mute.sh']);  // Mute // + LEDS ???
 		console.log('\r\n-----------------------------------' + (code > 10 ? (code > 100 ? '---' : '--') : '-'));
 		console.log(">> Odi's CORE restarting... [code:" + code + ']\r\n\r\n');
+		argv.remove('test'); // Removing test param before relaunching
 		startOdi(code);
 	});
 })();
+
+Array.prototype.remove = function() {
+	var what,
+		a = arguments,
+		L = a.length,
+		ax;
+	while (L && this.length) {
+		what = a[--L];
+		while ((ax = this.indexOf(what)) !== -1) {
+			this.splice(ax, 1);
+		}
+	}
+	return this;
+};
 
 /*function getLogMode() {
 	value = etat.readSync();

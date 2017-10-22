@@ -70,6 +70,7 @@ log.debug("I'm Ready !!");
 if (test) {
 	var testSequence = require(SRC_PATH + 'test/tests.js').launch(function(testStatus) {
 		// retour console + tts, and restart if test success
+		if (testStatus) process.exit();
 	});
 }
 
