@@ -4,7 +4,6 @@
 const argv = process.argv.splice(2);
 
 var fs = require('fs');
-// var Gpio = require('onoff').Gpio;
 var spawn = require('child_process').spawn;
 
 /** Odi's global variables */
@@ -40,7 +39,7 @@ global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 	});
 
 	odiCore.on('exit', function(code) {
-		// spawn('sh', [ODI_PATH + 'sh/mute.sh']);  // Mute // + LEDS ???
+		// spawn('sh', [ODI_PATH + 'shell/mute.sh']);  // Mute // + LEDS ???
 		// console.log('\r\n-----------------------------------' + (code > 10 ? (code > 100 ? '---' : '--') : '-'));
 		console.log(">> Odi's CORE restarting... [code:" + code + ']');
 		argv.remove('test'); // Removing test param before relaunching

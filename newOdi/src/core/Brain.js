@@ -22,7 +22,7 @@ Flux.controller.button.subscribe({
 			// } else if (flux.id == 'blue') {
 			// Odi.error(flux);
 		} else {
-			log.info('Button[else]', flux);
+			log.info('Button:else', flux);
 		}
 	},
 	error: err => {
@@ -41,7 +41,7 @@ Flux.controller.jobs.subscribe({
 				value: { leds: ['nose'], speed: 100, loop: 1 }
 			});
 		} else {
-			log.info('Jobs[else]', flux);
+			log.info('Jobs:else', flux);
 		}
 	},
 	error: err => {

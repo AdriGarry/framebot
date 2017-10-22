@@ -11,8 +11,8 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 module.exports.run = function(callback) {
 	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'nose', 'belly', 'satellite'], value: 1 });
-	Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Test sequence' });
-	Flux.next('module', 'led', 'blink', { leds: ['eye', 'nose', 'belly', 'satellite'], speed: 800, loop: 10 }, 2);
+	Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Test' });
+	Flux.next('module', 'led', 'blink', { leds: ['eye', 'nose', 'belly', 'satellite'], speed: 800, loop: 10 }, 1);
 
 	setTimeout(() => {}, 1000);
 

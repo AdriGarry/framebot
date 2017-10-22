@@ -29,15 +29,12 @@ var completeTest = (testId, result) => {
 	testResult[testId] = result;
 	log.debug(testResult);
 	if (allTestCompleted()) {
-		log.info();
-		// log.info(Odi.errorHistory); // Logger ici le nombre d'erreurs survenues pendant les tests
+		// log.info();
+		// log.info(Odi.errors); // Logger ici le nombre d'erreurs survenues pendant les tests
+		log.info(Odi.errors.length > 0 ? 'Odi.errors:' + Odi.errors.length : '');
 		log.info('-------------------------');
 		log.INFO('>> All tests succeeded !!');
 		log.info('-------------------------');
-		/*Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'All tests succeeded !' });
-		setTimeout(() => {
-			testCallback(true); //testResult
-		}, 2000);*/
 		testCallback(true); //testResult
 	}
 };
@@ -48,11 +45,6 @@ var allTestCompleted = () => {
 			return false;
 		}
 	}
-	/*if (Odi.errorHistory.length > 0) {
-		// boucle ici pour ne pas logger toutes les infos des erreurs
-		log.info('-----------------');
-		log.info('Odi.errorHistory:\n', Odi.errorHistory, '\n\n');
-	}*/
 	return true;
 };
 

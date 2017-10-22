@@ -16,6 +16,8 @@ const odiLeds = {
 	satellite: new Gpio(23, 'out')
 };
 
+//module.exports.attachToFlux = {};
+
 Flux.module.led.subscribe({
 	next: flux => {
 		//log.info(flux, '(you are in the led module !)');
@@ -23,8 +25,10 @@ Flux.module.led.subscribe({
 			toggle(flux.value);
 		} else if (flux.id == 'blink') {
 			blink(flux.value);
+		} else if (flux.id == 'clearLeds') {
+			clearLeds();
 		} else {
-			Odi.error('TTS flux not mapped', flux);
+			log.info('Led flux not mapped', flux);
 		}
 	},
 	error: err => {
@@ -110,8 +114,8 @@ function toggle(config) {
 // 	);
 // }
 
-var timer;
 /** Function to start inverted blink (Eye/Belly) */
+var timer;
 function altLeds(speed, duration) {
 	clearInterval(timer);
 	var etat = 1;
@@ -146,32 +150,6 @@ function clearLeds() {
 		}, 1000);		
 	}
 };*/
-
-/** Function to swith on a led */
-function ledOn(led) {
-	if (led == 'led') {
-		odiLeds.nose.write(1);
-	} else if (led == 'eye') {
-		odiLeds.eye.write(1);
-	} else if (led == 'belly') {
-		odiLeds.belly.write(1);
-	} else if (led == 'satellite') {
-		odiLeds.satellite.write(1);
-	}
-}
-
-/** Function to swith off a led */
-function ledOff(led) {
-	if (led == 'led') {
-		odiLeds.nose.write(0);
-	} else if (led == 'eye') {
-		odiLeds.eye.write(0);
-	} else if (led == 'belly') {
-		odiLeds.belly.write(0);
-	} else if (led == 'satellite') {
-		odiLeds.satellite.write(0);
-	}
-}
 
 /** Function to switch on all leds */
 function allLedsOn() {

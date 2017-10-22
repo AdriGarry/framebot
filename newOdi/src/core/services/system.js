@@ -30,18 +30,6 @@ function restartOdi(mode) {
 	}
 }
 
-/** Function to restart/sleep Odi's core */
-function restartOdi(mode) {
-	console.log('restartOdi(mode)', mode || '');
-	if (mode > 0) {
-		// console.log('SLEEP');
-		ODI.config.update({ mode: 'sleep' }, true);
-	} else {
-		// console.log('READY');
-		ODI.config.update({ mode: 'ready' }, true);
-	}
-}
-
 /** Function to update Odi\'s software params (last date & time, totalLines) */
 function updateOdiSoftwareInfo(newConf) {
 	// log.info('newConf=', newConf);

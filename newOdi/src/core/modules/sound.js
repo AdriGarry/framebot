@@ -1,17 +1,51 @@
 #!/usr/bin/env node
-'use strict'
+'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename);
 
-const subject = { type: 'module', id: 'sound' };
-
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
+var spawn = require('child_process').spawn;
 
 Flux.module.sound.subscribe({
 	next: flux => {
-		// if (!Flux.inspect(flux, subject)) return;
-		log.info('soundService: ', flux);
+		if (flux.id == 'mute') {
+			mute();
+		} else if (flux.id == 'volume') {
+			// todo setVolume(flux.value);
+		} else {
+			log.info('Sound flux not mapped', flux);
+		}
 	},
-	error: err => { Odi.error(flux) }
+	error: err => {
+		Odi.error(flux);
+	}
 });
+
+var muteTimer, delay;
+/** Function to mute Odi (delay:min) */
+function mute(delay, message) {
+	clearTimeout(muteTimer);
+	log.debug('mute()', 'delay:', delay, 'message:', message);
+	delay = delay && !isNaN(delay) ? delay : 0;
+	if (delay < 10) {
+		stopAll();
+	} else {
+		muteTimer = setTimeout(function() {
+			spawn('sh', [SRC_PATH + 'shell/mute.sh', 'auto']);
+			setTimeout(function() {
+				stopAll();
+			}, 1600);
+		}, delay * 60 * 1000);
+	}
+}
+
+/** Function to stop all sounds & leds */
+function stopAll(message) {
+	// ODI.tts.clearTTSQueue(); // --> to transform
+	// ODI.jukebox.stopFip(); // --> to transform
+	spawn('sh', [SRC_PATH + 'shell/mute.sh']);
+	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
+	Flux.next('module', 'led', 'clearLeds');
+	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly'], value: 0 });
+}

@@ -31,13 +31,10 @@ log.debug('argv', argv);
 
 var Utils = require(Odi.CORE_PATH + 'Utils.js');
 
-// Flux
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
-// Brain
 var Brain = require(Odi.CORE_PATH + 'Brain.js');
 
-// Controllers
 var controllers = {
 	button: require(Odi.CORE_PATH + 'controllers/button.js'),
 	jobs: require(Odi.CORE_PATH + 'controllers/jobs.js')
@@ -45,7 +42,6 @@ var controllers = {
 };
 log.info('Controllers loaded:', Object.keys(controllers).join(', '));
 
-// Services
 var services = {
 	max: require(Odi.CORE_PATH + 'services/max.js'),
 	mood: require(Odi.CORE_PATH + 'services/mood.js'),
@@ -58,21 +54,17 @@ var services = {
 };
 log.info('Services loaded:', Object.keys(services).join(', '));
 
-// Modules
 var modules = {
 	hardware: require(Odi.CORE_PATH + 'modules/hardware.js'),
-	led: require(Odi.CORE_PATH + 'modules/led.js'),
 	sound: require(Odi.CORE_PATH + 'modules/sound.js'),
-	tts: require(Odi.CORE_PATH + 'modules/tts.js')
+	tts: require(Odi.CORE_PATH + 'modules/tts.js'),
+	led: require(Odi.CORE_PATH + 'modules/led.js')
 };
 log.info('Modules loaded:', Object.keys(modules).join(', '));
 
 log.debug("I'm Ready !!");
 
-// Flux.next('module', 'hardware', 'updateOdiSoftwareInfo', null, 5);
-
 /////////////  TEST section  /////////////
-
 if (test) {
 	setTimeout(function() {
 		var testSequence = require(SRC_PATH + 'test/tests.js').launch(function(testStatus) {
@@ -88,7 +80,6 @@ if (test) {
 }, 30000);*/
 
 // var start = new Date();
-
 // setTimeout(function(argument) {
 // 	// execution time simulated with setTimeout function
 // 	var end = new Date() - start;

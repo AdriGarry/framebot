@@ -14,7 +14,7 @@ var Odi = {
 	setup: {}, // functions ...
 	stats: {}, // lastUpdate, totalLines, diskSpace...
 	error: error,
-	errorHistory: [], // TODO à renommer en errors !!!
+	errors: [],
 	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
 	ODI_PATH: '',
 	CORE_PATH: ODI_PATH + 'src/core/',
@@ -111,7 +111,7 @@ function logArray(updatedEntries) {
 
 function error() {
 	// TODO here: ring & blink
-	Odi.errorHistory.unshift(arguments);
+	Odi.errors.unshift(arguments);
 	log.error(arguments);
 	var trace = console.trace();
 	// console.log(trace);
