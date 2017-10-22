@@ -38,13 +38,14 @@ module.exports = {
 	service: Flux.service
 };
 
-function FluxObject(type, name, id, value, delay, loop) {
+function FluxObject(type, name, id, value, delay, loop, hidden) {
 	this.type = type;
 	this.name = name;
 	this.id = id;
 	this.value = value; // || null
 	this.delay = delay;
 	this.loop = loop;
+	this.hidden = hidden || false;
 
 	this.toString = () => {
 		// var typeName = '[' + this.type + '.' + this.name + '] ';
@@ -56,8 +57,8 @@ function FluxObject(type, name, id, value, delay, loop) {
 	};
 }
 
-function next(type, name, id, value, delay, loop) {
-	var flux = new FluxObject(type, name, id, value, delay, loop);
+function next(type, name, id, value, delay, loop, hidden) {
+	var flux = new FluxObject(type, name, id, value, delay, loop, hidden);
 
 	if (!inspect(flux)) return;
 	if (flux.delay && Number(flux.delay)) {
@@ -68,7 +69,6 @@ function next(type, name, id, value, delay, loop) {
 }
 
 var inspect = flux => {
-	// log.debug('inspecting Flux: type=' + flux.type + ', name=' + flux.name + ', id=' + flux.id + ', value=' + flux.value + ', delay=' + flux.delay + ', loop=' + flux.loop);
 	log.debug('inspecting Flux:', flux.toString());
 	if (Object.keys(Flux).includes(flux.type) && Object.keys(Flux[flux.type]).includes(flux.name)) {
 		return true;
@@ -90,7 +90,7 @@ var scheduleFlux = flux => {
 };
 
 var fireFlux = flux => {
-	log.info('> Flux', flux.toString());
+	if (!flux.hidden || Odi.conf.debug) log.info('> Flux', flux.toString());
 	Flux[flux.type][flux.name].next({ id: flux.id, value: flux.value });
 };
 

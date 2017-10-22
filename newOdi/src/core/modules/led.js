@@ -104,9 +104,6 @@ function toggle(config) {
 	setInterval(function() {
 		odiLeds.nose.write(mode);
 	}, 900);
-	setInterval(function() {
-		// blink({ leds: ['nose'], speed: 200, loop: 1 }); // Initialisation du temoin d'activite 2/2
-	}, 2000);
 
 	new CronJob(
 		'*/3 * * * * *',

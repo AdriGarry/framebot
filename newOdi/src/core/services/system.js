@@ -10,10 +10,12 @@ var Utils = require(ODI_PATH + 'src/core/Utils.js');
 Flux.service.system.subscribe({
 	next: flux => {
 		if (flux.id == 'restart') {
+			restartOdi(flux.value);
 		} else if (flux.id == 'updateOdiSoftwareInfo') {
 			updateOdiSoftwareInfo(flux.value);
+		} else {
+			log.info('System flux not mapped', flux);
 		}
-		// log.info('System module', flux);
 	},
 	error: err => {
 		Odi.error(flux);
@@ -23,11 +25,12 @@ Flux.service.system.subscribe({
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode) {
 	log.info('restartOdi(mode)', mode || '');
-	if (mode > 0) {
-		Odi.update({ mode: 'sleep' }, true);
-	} else {
-		Odi.update({ mode: 'ready' }, true);
-	}
+	Odi.update({ mode: mode }, true);
+	// if (mode > 0) {
+	// 	Odi.update({ mode: 'sleep' }, true);
+	// } else {
+	// 	Odi.update({ mode: 'ready' }, true);
+	// }
 }
 
 /** Function to update Odi\'s software params (last date & time, totalLines) */
