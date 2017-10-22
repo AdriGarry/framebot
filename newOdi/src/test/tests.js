@@ -30,7 +30,6 @@ function launchTests(callback) {
 	for (var i = 0; i < sequences.length; i++) {
 		testResult[sequences[i]] = require(SRC_PATH + 'test/' + sequences[i] + '.js').run(completeTest);
 	}
-	log.info('Launched tests:', Object.keys(testResult));
 }
 
 var completeTest = (testId, result) => {
@@ -54,18 +53,16 @@ var allTestCompleted = () => {
 			return false;
 		}
 	}
+	clearInterval(errorCheckerInterval);
 	return true;
 };
 
-setInterval(() => {
-	console.log('Odi.errorHistory', Odi.errorHistory);
-	log.info('---------------------------------------');
-	if (Odi.errorHistory.length == 0) {
-		log.INFO('STILL NO ERROR (test mode)');
-	} else {
-		log.INFO('Odi.errorHistory:\n', Odi.errorHistory);
+var errorCheckerInterval = setInterval(() => {
+	if (Odi.errorHistory.length > 0) {
+		log.info('---------------------------------------');
+		log.info('Odi.errorHistory:\n', Odi.errorHistory);
+		log.info('---------------------------------------');
 	}
-	log.info('---------------------------------------');
 }, 10000);
 
 // Odi.error('this is an error');

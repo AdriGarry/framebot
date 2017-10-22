@@ -48,7 +48,6 @@ var services = {
 	system: require(Odi.CORE_PATH + 'services/system.js'),
 	time: require(Odi.CORE_PATH + 'services/time.js'),
 	tools: require(Odi.CORE_PATH + 'services/tools.js'),
-	tts: require(Odi.CORE_PATH + 'services/tts.js'),
 	video: require(Odi.CORE_PATH + 'services/video.js')
 };
 log.info('Services loaded', Object.keys(services));
@@ -57,7 +56,8 @@ log.info('Services loaded', Object.keys(services));
 var modules = {
 	hardware: require(Odi.CORE_PATH + 'modules/hardware.js'),
 	led: require(Odi.CORE_PATH + 'modules/led.js'),
-	sound: require(Odi.CORE_PATH + 'modules/sound.js')
+	sound: require(Odi.CORE_PATH + 'modules/sound.js'),
+	tts: require(Odi.CORE_PATH + 'modules/tts.js')
 };
 log.info('Modules loaded', Object.keys(modules));
 

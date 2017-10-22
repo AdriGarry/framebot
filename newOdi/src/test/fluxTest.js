@@ -14,8 +14,8 @@ module.exports.run = function(callback) {
 
 	setTimeout(() => {
 		Flux.next('module', 'sound', 'mute', 'MUTE');
-		Flux.next('module', 'led', 'blink', 'eye...', 2);
-		Flux.next('service', 'tts', 'speak', 'say something...', 1.5, 3);
+		// Flux.next('service', 'tts', 'speak', { lg: 'fr', msg: 'hey' });
+		Flux.next('module', 'led', 'blink', 'eye...', 2, 3);
 		Flux.next('module', 'sound', 'mute', 'MUTE', 15);
 	}, 200);
 

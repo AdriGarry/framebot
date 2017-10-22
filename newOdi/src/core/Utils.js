@@ -10,8 +10,6 @@ var fs = require('fs');
 // var os = require('os');
 // var util = require('util');
 
-console.log('---123');
-
 module.exports = {
 	appendJsonFile: appendJsonFile,
 	execCmd: execCmd,

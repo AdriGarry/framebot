@@ -15,6 +15,7 @@ var Odi = {
 	stats: {}, // lastUpdate, totalLines, diskSpace...
 	error: error,
 	errorHistory: [],
+	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
 	ODI_PATH: '',
 	CORE_PATH: ODI_PATH + 'src/core/',
 	CONFIG_FILE: ODI_PATH + 'conf.json',

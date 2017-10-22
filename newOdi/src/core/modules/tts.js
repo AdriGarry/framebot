@@ -1,17 +1,29 @@
 #!/usr/bin/env node
+'use strict';
 
-// Module TTS
+var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
+var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename);
 
 var spawn = require('child_process').spawn;
-var fs = require('fs');
 
-module.exports = {
-	// Singleton
-	speak: speak,
-	randomConversation: randomConversation,
-	clearTTSQueue: clearTTSQueue,
-	lastTTS: lastTTS
-};
+var Flux = require(Odi.CORE_PATH + 'Flux.js');
+
+Flux.service.tts.subscribe({
+	next: flux => {
+		log.info('TTS service', flux);
+		if (flux.id == 'speak') {
+			speak(flux.value);
+		} else if (flux.id == 'randomConversation') {
+		} else if (flux.id == 'clearTTSQueue') {
+		} else if (flux.id == 'lastTTS') {
+		} else {
+			Odi.error('TTS flux not mapped', flux);
+		}
+	},
+	error: err => {
+		Odi.error(flux);
+	}
+});
 
 const LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.json';
 
@@ -21,10 +33,10 @@ var onAir = false,
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts) {
-	if (CONFIG.mode == 'ready') {
-		console.debug(tts);
+	if (Odi.conf.mode == 'ready') {
+		log.debug(tts);
 		if (Array.isArray(tts)) {
-			console.log('TTS array object... processing');
+			log.info('TTS array object... processing');
 			tts.forEach(function(message) {
 				if (message.msg) {
 					speak(message);
@@ -37,11 +49,11 @@ function speak(tts) {
 			if (tts.hasOwnProperty('msg')) {
 				var ttsQueueLength = ttsQueue.length;
 				ttsQueue.push(tts);
-				console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
-			} else console.debug(console.error('newTTS() Wrong TTS object ', tts));
+				log.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
+			} else log.debug(console.error('newTTS() Wrong TTS object ', tts));
 		}
 		if (ttsQueue.length > 0) proceedQueue();
-	} else console.log('Wrong mode for TTS speak !!');
+	} else log.info('Wrong mode for TTS speak !!');
 }
 
 /** Function to proceed TTS queue */
@@ -51,7 +63,7 @@ var queueInterval,
 function proceedQueue() {
 	// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'tone']);
 	var isFirst = true;
-	console.debug('Start processing TTS queue...');
+	log.debug('Start processing TTS queue...');
 	queueInterval = setInterval(function() {
 		if (!onAir && ttsQueue.length > 0) {
 			onAir = true;
@@ -65,34 +77,34 @@ function proceedQueue() {
 				// ODI.leds.toggle({led: 'eye', mode: 0});
 			}, timeout);
 			if (ttsQueue.length === 0) {
-				console.debug('No more TTS, stop processing TTS queue!');
+				log.debug('No more TTS, stop processing TTS queue!');
 				clearInterval(queueInterval);
 			}
 			isFirst = true;
-			// console.log('isFirst', isFirst);
+			// log.info('isFirst', isFirst);
 		}
 	}, 500);
 }
 
 /** Function to launch random TTS */
-const RANDOM_TTS_LENGTH = ODI.ttsMessages.randomTTS.length;
+const RANDOM_TTS_LENGTH = Odi.ttsMessages.randomTTS.length;
 function randomTTS() {
 	var rdmNb = Math.floor(Math.random() * RANDOM_TTS_LENGTH);
-	console.log('tts.js> rdmNb: ', rdmNb);
-	var rdmTTS = ODI.ttsMessages.randomTTS[rdmNb];
-	console.log('Random TTS : ' + rdmNb + '/' + RANDOM_TTS_LENGTH);
+	log.info('tts.js> rdmNb: ', rdmNb);
+	var rdmTTS = Odi.ttsMessages.randomTTS[rdmNb];
+	log.info('Random TTS : ' + rdmNb + '/' + RANDOM_TTS_LENGTH);
 	speak(rdmTTS);
 	// console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
 }
 
 /** Function to launch random TTS conversation */
-const RANDOM_CONVERSATIONS_LENGTH = ODI.ttsMessages.randomConversations.length;
+const RANDOM_CONVERSATIONS_LENGTH = Odi.ttsMessages.randomConversations.length;
 function randomConversation() {
-	console.debug('randomConversation()');
+	log.debug('randomConversation()');
 	var rdmNb = Math.floor(Math.random() * RANDOM_CONVERSATIONS_LENGTH); // IMPORT JSON FILE
-	var conversation = ODI.ttsMessages.randomConversations[rdmNb];
-	console.debug(conversation);
-	console.log('Random conversation : ' + (rdmNb + 1) + '/' + RANDOM_CONVERSATIONS_LENGTH);
+	var conversation = Odi.ttsMessages.randomConversations[rdmNb];
+	log.debug(conversation);
+	log.info('Random conversation : ' + (rdmNb + 1) + '/' + RANDOM_CONVERSATIONS_LENGTH);
 	speak(conversation);
 }
 
@@ -115,11 +127,11 @@ var playTTS = function(tts, isFirst) {
 		// Fr language if undefined
 		tts.lg = 'fr';
 	}
-	console.log('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
+	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	// console.log('isFirst', isFirst);
 	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]); //isFirst,
-	console.debug('tts.msg.length :', tts.msg.length);
-	ODI.leds.blink({ leds: ['eye'], speed: Math.random() * (150 - 50) + 30, loop: tts.msg.length / 2 + 2 });
+	log.debug('tts.msg.length :', tts.msg.length);
+	//ODI.leds.blink({ leds: ['eye'], speed: Math.random() * (150 - 50) + 30, loop: tts.msg.length / 2 + 2 });
 
 	lastTtsMsg = tts;
 	/*fs.writeFile(LAST_TTS_PATH, JSON.stringify(tts), 'UTF-8', function(err){ // TODO to JSON file
@@ -156,6 +168,6 @@ if(typeof lgParam != 'undefined' && lgParam !='' && typeof txtParam != 'undefine
 
 /** Function last TTS message */
 function lastTTS() {
-	console.log('LastTTS ->', lastTtsMsg);
+	log.info('LastTTS ->', lastTtsMsg);
 	speak(lastTtsMsg);
 }
