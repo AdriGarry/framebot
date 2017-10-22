@@ -43,7 +43,7 @@ function init(path, forcedDebug) {
 		confUpdate.debug = Odi.conf.debug;
 	}
 	// setConf(confUpdate, false);
-	Flux.next('module', 'hardware', 'updateOdiSoftwareInfo', confUpdate, 2);
+	Flux.next('service', 'system', 'updateOdiSoftwareInfo', confUpdate, 2);
 	return Odi;
 }
 

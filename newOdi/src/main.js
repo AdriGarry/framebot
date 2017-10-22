@@ -43,6 +43,7 @@ log.info('Controllers loaded', Object.keys(controllers));
 
 // Services
 var services = {
+	max: require(Odi.CORE_PATH + 'services/max.js'),
 	mood: require(Odi.CORE_PATH + 'services/mood.js'),
 	music: require(Odi.CORE_PATH + 'services/music.js'),
 	system: require(Odi.CORE_PATH + 'services/system.js'),

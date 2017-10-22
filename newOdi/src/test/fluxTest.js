@@ -16,6 +16,9 @@ module.exports.run = function(callback) {
 		Flux.next('module', 'sound', 'mute', 'MUTE');
 		Flux.next('module', 'led', 'blink', 'eye...', 2, 3);
 		Flux.next('module', 'sound', 'mute', 'MUTE', 15);
+
+		log.info('Testing invalid flux:');
+		Flux.next('module', 'toto', null);
 	}, 200);
 
 	setTimeout(() => {

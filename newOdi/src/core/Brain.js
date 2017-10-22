@@ -49,4 +49,4 @@ Flux.controller.jobs.subscribe({
 	}
 });
 
-log.info('Brain loaded');
+log.info('Brain ready'); //loaded/compiled

@@ -18,6 +18,7 @@ var Flux = {
 		tts: new Rx.Subject() // +voicemail ?
 	},
 	service: {
+		max: new Rx.Subject(), // Max & Co...
 		mood: new Rx.Subject(), // random, exclamation, badBoy, party, [cigales ?]
 		music: new Rx.Subject(), // fip, jukebox
 		time: new Rx.Subject(),
