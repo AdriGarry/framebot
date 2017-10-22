@@ -14,7 +14,7 @@ Flux.module.hardware.subscribe({
 		if (flux.id == 'updateOdiSoftwareInfo') {
 			updateOdiSoftwareInfo(flux.value);
 		}
-		log.info('Hardware module', flux);
+		// log.info('Hardware module', flux);
 	},
 	error: err => {
 		Odi.error(flux);
