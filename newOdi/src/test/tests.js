@@ -43,6 +43,7 @@ var allTestCompleted = () => {
 		}
 	}
 	if (Odi.errorHistory.length > 0) {
+		// boucle ici pour ne pas logger toutes les infos des erreurs
 		log.info('-----------------');
 		log.info('Odi.errorHistory:\n', Odi.errorHistory, '\n\n');
 		// log.info('---------------------------------------');
