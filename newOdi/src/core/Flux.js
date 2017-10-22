@@ -105,42 +105,4 @@ var buttonHandler = flux => {
 	// utiliser des switch/case (voir si possible avec plusieurs params)
 };
 
-// A déplacer dans un nouveau fichier brain.js ?
-/*Flux.controller.button.subscribe({
-	next: flux => {
-		// if (!inspect(flux, { type: "controller", id: "jobs" })) return;
-		if (flux.id == "ok") {
-			Flux.service.time.next({ id: "bip", value: "ok" });
-		} else if (flux.id == "cancel") {
-			Flux.module.sound.next({ id: "bip", value: "cancel" });
-		} else if (flux.id == "blue") {
-			Odi.error(flux);
-		} else {
-			log.info("Button[else]", flux);
-		}
-	},
-	error: err => {
-		Odi.error(flux);
-	}
-});
-
-// Flux.controller.jobs = require(Odi.CORE_PATH + "controllers/jobs.js");
-Flux.controller.jobs.subscribe({
-	next: (flux, flux2) => {
-		// if (!inspect(flux, { type: "controller", id: "jobs" })) return;
-		if (flux.id == "clock") {
-			Flux.service.time.next({ id: "now", value: null });
-		} else if (flux.id == "sound") {
-			Flux.module.led.next({
-				id: "blink", value: { leds: ["nose"], speed: 100, loop: 1 }
-			});
-		} else {
-			log.info("Jobs[else]", flux);
-		}
-	},
-	error: err => {
-		Odi.error(err);
-	}
-});*/
-
 log.info('Flux manager ready');
