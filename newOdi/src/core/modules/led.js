@@ -18,6 +18,9 @@ const odiLeds = {
 
 //module.exports.attachToFlux = {};
 
+// todo faire des séquences de clignottements pour pouvoir les arrêter...
+var ledSequences = [];
+
 Flux.module.led.subscribe({
 	next: flux => {
 		//log.info(flux, '(you are in the led module !)');
