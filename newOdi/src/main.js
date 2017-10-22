@@ -39,7 +39,7 @@ var controllers = {
 	jobs: require(Odi.CORE_PATH + 'controllers/jobs.js')
 	// server: require(Odi.CORE_PATH + "controllers/server.js")
 };
-log.info('Controllers', Object.keys(controllers));
+log.info('Controllers loaded:', Object.keys(controllers).join(', '));
 
 // Services
 var services = {
@@ -52,7 +52,7 @@ var services = {
 	video: require(Odi.CORE_PATH + 'services/video.js'),
 	voiceMail: require(Odi.CORE_PATH + 'services/voiceMail.js')
 };
-log.info('Services', Object.keys(services));
+log.info('Services loaded:', Object.keys(services).join(', '));
 
 // Modules
 var modules = {
@@ -61,7 +61,7 @@ var modules = {
 	sound: require(Odi.CORE_PATH + 'modules/sound.js'),
 	tts: require(Odi.CORE_PATH + 'modules/tts.js')
 };
-log.info('Modules', Object.keys(modules));
+log.info('Modules loaded:', Object.keys(modules).join(', '));
 
 log.debug("I'm Ready !!");
 
