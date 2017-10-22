@@ -1,18 +1,13 @@
 #!/usr/bin/env node
 'use strict';
 
+const startTime = new Date();
 var Gpio = require('onoff').Gpio;
 var eye = new Gpio(14, 'out').write(1);
-// eye.write(1);
 
 const argv = process.argv;
 const forcedDebug = argv.indexOf('debug') > 0 ? true : false;
 const test = argv.indexOf('test') > 0 ? true : false;
-// console.log('-------------');
-// console.log(argv);
-// console.log(argv.indexOf('debug'));
-// console.log(argv.indexOf('test'));
-// console.log('-------------');
 
 if (test) console.log('>> TEST MODE !!');
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
@@ -25,8 +20,8 @@ var logo = fs
 	.split('\n');
 console.log('\n' + logo.join('\n'));
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug, test); // console.log('Odi.conf.debug', Odi.conf.debug);
-var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, /*forcedDebug ||*/ Odi.conf.debug); // Odi.conf.debug || forcedDebug
+var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug, test);
+var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, Odi.conf.debug); // Odi.conf.debug || forcedDebug
 log.debug('argv', argv);
 
 var Utils = require(Odi.CORE_PATH + 'Utils.js');
@@ -62,7 +57,8 @@ var services = {
 };
 log.info('Services loaded:', Object.keys(services).join(', '));
 
-log.debug("I'm Ready !!");
+var time = new Date() - startTime;
+log.info('Odi ready in', Math.round(time / 10) / 100, 'sec');
 
 /////////////  TEST section  /////////////
 if (test) {

@@ -43,12 +43,13 @@ function init(path, forcedDebug, test) {
 
 	// setConf(confUpdate, false);
 	Flux = require(Odi.CORE_PATH + 'Flux.js');
-	Flux.next('service', 'system', 'updateOdiSoftwareInfo', confUpdate, 2);
+	Flux.next('service', 'system', 'updateOdiSoftwareInfo', confUpdate, 0.1);
 	return Odi;
 }
 
 /** Function to set/edit Odi's config */
 function update(newConf, restart, callback) {
+	var updateBegin = new Date();
 	log.debug('Updating conf:', newConf, restart);
 	Utils.getJsonFileContent(Odi.CONFIG_FILE, function(data) {
 		var configFile = JSON.parse(data);
@@ -61,7 +62,7 @@ function update(newConf, restart, callback) {
 		});
 		Odi.conf = configFile;
 		fs.writeFile(Odi.CONFIG_FILE, JSON.stringify(Odi.conf, null, 1), function() {
-			logArray(updatedEntries);
+			logArray(updatedEntries, Math.round((new Date() - updateBegin) / 10) / 100);
 			if (restart) {
 				process.exit();
 			}
@@ -76,11 +77,14 @@ function update(newConf, restart, callback) {
 // }
 
 /** Function to log CONFIG array */
-function logArray(updatedEntries) {
+function logArray(updatedEntries, executionTime) {
 	var col1 = 11,
 		col2 = 16;
-	if (updatedEntries) log.info();
-	var logArrayMode = updatedEntries ? '|         CONFIG UPDATE          |' : '|             CONFIG             |';
+	log.info(); //Trouver un truc à logger ici ?
+	// log.info(executionTime + 's');
+	var logArrayMode = updatedEntries
+		? '|         CONFIG UPDATE    ' + executionTime + 's' + ' |'
+		: '|             CONFIG             |';
 	var confArray = '|--------------------------------|\n' + logArrayMode + '\n|--------------------------------|\n';
 	Object.keys(Odi.conf).forEach(function(key, index) {
 		if (key == 'alarms') {

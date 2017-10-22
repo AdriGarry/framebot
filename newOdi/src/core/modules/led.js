@@ -16,6 +16,11 @@ const odiLeds = {
 	satellite: new Gpio(23, 'out')
 };
 
+allLedsOn();
+setTimeout(function() {
+	allLedsOff();
+}, 300);
+
 //module.exports.attachToFlux = {};
 
 // todo faire des séquences de clignottements pour pouvoir les arrêter...

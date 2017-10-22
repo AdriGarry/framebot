@@ -16,6 +16,7 @@ module.exports = {
 	format: {}, // some great functions to format output...
 	getJsonFileContent: getJsonFileContent,
 	logTime: logTime,
+	numberWithDot: numberWithDot,
 	searchStringInArray: searchStringInArray
 	// testConnexion: testConnexion,
 };
@@ -251,6 +252,9 @@ String.prototype.repeat = function(num) {
 	return new Array(Math.abs(num) + 1).join(this);
 };
 
+function numberWithDot(number) {
+	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
 /*Object.prototype.toString = () => {
   var obj = this;
   // console.log(obj);

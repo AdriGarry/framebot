@@ -51,8 +51,8 @@ function FluxObject(type, name, id, value, delay, loop, hidden) {
 		// var typeName = '[' + this.type + '.' + this.name + '] ';
 		var typeName = '[' + this.type + '.' + this.name + '] ';
 		var value = this.id + ': ' + util.format(util.inspect(this.value)) + ' ';
-		var delay = ' ' + (this.delay || '*');
-		var loop = ' ' + (this.loop || '*');
+		var delay = ' ' + (this.delay || '');
+		var loop = ' ' + (this.loop || '');
 		return typeName + value + delay + loop;
 	};
 }
