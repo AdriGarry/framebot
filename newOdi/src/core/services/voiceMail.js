@@ -6,10 +6,9 @@ var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename);
 
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
-Flux.service.video.subscribe({
+Flux.service.mood.subscribe({
 	next: flux => {
-		// if (!Flux.inspect(flux, subject)) return;
-		log.info('Video service', flux);
+		log.info('VoiceMail service', flux);
 	},
 	error: err => {
 		Odi.error(flux);

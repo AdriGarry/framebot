@@ -22,7 +22,6 @@ function launchTests(callback) {
 	for (var i = 0; i < sequences.length; i++) {
 		testResult[sequences[i]] = require(SRC_PATH + 'test/' + sequences[i] + '.js').run(completeTest);
 	}
-	log.INFO(testResult);
 }
 
 var completeTest = (testId, result) => {
@@ -45,7 +44,7 @@ var allTestCompleted = () => {
 	}
 	if (Odi.errorHistory.length > 0) {
 		log.info('-----------------');
-		log.info('Odi.errorHistory:\n', Odi.errorHistory, '\n\n\n');
+		log.info('Odi.errorHistory:\n', Odi.errorHistory, '\n\n');
 		// log.info('---------------------------------------');
 	}
 	return true;
