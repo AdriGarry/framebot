@@ -78,10 +78,10 @@ if (test) {
 	}, 3000);
 }
 
-setTimeout(function() {
+/*setTimeout(function() {
 	log.DEBUG('process.exit');
 	process.exit();
-}, 30000);
+}, 30000);*/
 
 // var start = new Date();
 

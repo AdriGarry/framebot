@@ -49,7 +49,7 @@ function init(path, forcedDebug, test) {
 
 /** Function to set/edit Odi's config */
 function setConf(newConf, restart, callback) {
-	log.info('Updating conf:', newConf, restart);
+	log.debug('Updating conf:', newConf, restart);
 	Utils.getJsonFileContent(Odi.CONFIG_FILE, function(data) {
 		var configFile = JSON.parse(data);
 		var updatedEntries = [];
@@ -63,7 +63,6 @@ function setConf(newConf, restart, callback) {
 		fs.writeFile(Odi.CONFIG_FILE, JSON.stringify(Odi.conf, null, 1), function() {
 			logArray(updatedEntries);
 			if (restart) {
-				log.debug('process.exit()');
 				process.exit();
 			}
 			if (callback) callback();

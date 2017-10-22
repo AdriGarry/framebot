@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict'
+'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename);
@@ -17,10 +17,11 @@ var blue = new Gpio(26, 'in', 'rising', { persistentWatch: true, debounceTimeout
 
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
-var pushed = 0, pushedLimit = 3;
+var pushed = 0,
+	pushedLimit = 3;
 function oneMorePush() {
 	clearTimeout(pushTimeout);
-	var pushTimeout = setTimeout(function () {
+	var pushTimeout = setTimeout(function() {
 		pushed = 0;
 	}, 5000);
 	pushed++;
@@ -39,9 +40,9 @@ function oneMorePush() {
 		}
 		pushed = 0;
 	}
-};
+}
 
-ok.watch(function (err, value) {
+ok.watch(function(err, value) {
 	var pushTime = getPushTime(ok);
 	//oneMorePush();
 	Flux.next('controller', 'button', 'ok', pushTime);
@@ -52,32 +53,32 @@ ok.watch(function (err, value) {
 	// }
 });
 
-cancel.watch(function (err, value) {
+cancel.watch(function(err, value) {
 	var pushTime = getPushTime(cancel);
 	// log.debug(pushTime);
 	Flux.next('controller', 'button', 'cancel', pushTime);
 });
 
-white.watch(function (err, value) {
+white.watch(function(err, value) {
 	var pushTime = getPushTime(white);
 	Flux.next('controller', 'button', 'white', pushTime);
 });
 
-blue.watch(function (err, value) {
+blue.watch(function(err, value) {
 	var pushTime = getPushTime(blue);
-	// observer.error({ id: 'Blue button pressed ==> temporary in error.', value: pushTime });
-	Odi.error('Blue button pressed ==> temporary in error.');
+	//Odi.error('Blue button pressed ==> temporary in error.');
+	Flux.next('controller', 'button', 'blue', pushTime);
 });
 
 // Button.next('Button controller initialized');
 
 function getPushTime(button) {
-	var pushTime, pushedTime = new Date();
+	var pushTime,
+		pushedTime = new Date();
 	while (button.readSync() == 1) {
-		;; // Pause
+		// Pause
 		// console.log(t);
 		// var t = Math.round((new Date() - pushedTime) / 100) / 10;
-
 		/*if(t%1 == 0){ // TODO emettre des events directement pour allumer la led
 			// console.log(t);
 			// process.stdout.write('.');

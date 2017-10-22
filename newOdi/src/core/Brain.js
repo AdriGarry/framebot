@@ -10,7 +10,7 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 Flux.controller.button.subscribe({
 	next: flux => {
-		log.INFO(flux);
+		//log.info(flux);
 		if (flux.id == 'ok') {
 			Flux.service.time.next({ id: 'bip', value: 'ok' });
 		} else if (flux.id == 'cancel') {
