@@ -8,7 +8,7 @@ var spawn = require('child_process').spawn;
 
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
-Flux.service.tts.subscribe({
+Flux.module.tts.subscribe({
 	next: flux => {
 		log.info('TTS service', flux);
 		if (flux.id == 'speak') {

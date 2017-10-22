@@ -3,23 +3,19 @@
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
-log.info('Flux test sequence...');
+log.info('TTS test sequence...');
 
 const Rx = require('rxjs');
 
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 module.exports.run = function(callback) {
-	log.info('Semaphore to implement...');
-
 	setTimeout(() => {
-		Flux.next('module', 'sound', 'mute', 'MUTE');
-		Flux.next('module', 'led', 'blink', 'eye...', 2, 3);
-		Flux.next('module', 'sound', 'mute', 'MUTE', 15);
+		Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: 'test' });
+		// TODO test à implémenter : laisser un voiceMail, le jouer, et le supprimer
 	}, 200);
 
 	setTimeout(() => {
-		// log.info('fluxTest CALLBACK(TRUE)');
-		callback('fluxTest', true);
-	}, 5000);
+		callback('ttsTest', true);
+	}, 15000);
 };

@@ -42,14 +42,14 @@ function init(path, forcedDebug) {
 	if (Odi.conf.debug) {
 		confUpdate.debug = Odi.conf.debug;
 	}
-	setConf(confUpdate, false);
+	// setConf(confUpdate, false);
+	Flux.next('module', 'hardware', 'updateOdiSoftwareInfo', confUpdate, 2);
 	return Odi;
 }
 
 /** Function to set/edit Odi's config */
 function setConf(newConf, restart, callback) {
 	log.info('Updating conf:', newConf, restart);
-	log.debug('config.update(newConf)', newConf);
 	Utils.getJsonFileContent(Odi.CONFIG_FILE, function(data) {
 		var configFile = JSON.parse(data);
 		var updatedEntries = [];
@@ -60,7 +60,7 @@ function setConf(newConf, restart, callback) {
 			}
 		});
 		Odi.conf = configFile;
-		fs.writeFile(Odi.CONFIG_FILE, JSON.stringify(Odi.conf, null, 2), function() {
+		fs.writeFile(Odi.CONFIG_FILE, JSON.stringify(Odi.conf, null, 1), function() {
 			logArray(updatedEntries);
 			if (restart) {
 				log.debug('process.exit()');
@@ -70,6 +70,11 @@ function setConf(newConf, restart, callback) {
 		});
 	});
 }
+/** Function to set/edit Odi's DEFAULT config */
+// function setDefaultConf(newConf, restart, callback) {
+// 	log.info('Updating conf:', newConf, restart);
+// 	setConf;
+// }
 
 /** Function to log CONFIG array */
 function logArray(updatedEntries) {

@@ -63,6 +63,8 @@ log.info('Modules loaded', Object.keys(modules));
 
 log.debug("I'm Ready !!");
 
+// Flux.next('module', 'hardware', 'updateOdiSoftwareInfo', null, 5);
+
 /////////////  TEST section  /////////////
 
 if (test) {
@@ -75,3 +77,11 @@ setTimeout(function() {
 	log.DEBUG('process.exit');
 	process.exit();
 }, 30000);
+
+// var start = new Date();
+
+// setTimeout(function(argument) {
+// 	// execution time simulated with setTimeout function
+// 	var end = new Date() - start;
+// 	console.info('Execution time: %dms', end);
+// }, 1000);

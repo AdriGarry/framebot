@@ -5,8 +5,8 @@
 var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
 
 var fs = require('fs');
+var exec = require('child_process').exec;
 // var spawn = require('child_process').spawn;
-// var exec = require('child_process').exec;
 // var os = require('os');
 // var util = require('util');
 
