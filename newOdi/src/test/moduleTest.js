@@ -10,7 +10,7 @@ const Rx = require('rxjs');
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 module.exports.run = function(callback) {
-	Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Test mode' });
+	Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Test' });
 
 	setTimeout(() => {
 		Flux.next('module', 'led', 'blink', 'eye...', 2, 3);
