@@ -8,7 +8,7 @@ const Rx = require('rxjs');
 
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
-const sequences = ['fluxTest', 'ttsTest'];
+const sequences = ['fluxTest', 'moduleTest', 'serviceTest'];
 var testResult = {};
 
 module.exports.launch = launchTests;
@@ -16,12 +16,13 @@ var testCallback = null;
 
 function launchTests(callback) {
 	testCallback = callback;
-	log.INFO('-----------------------------');
-	log.INFO('>> LAUNCHING TEST SEQUENCE...');
-	log.INFO('-----------------------------');
+	log.info('-----------------------------');
+	log.INFO('>> Launching Test Sequence...');
+	log.info('-----------------------------');
 	for (var i = 0; i < sequences.length; i++) {
 		testResult[sequences[i]] = require(SRC_PATH + 'test/' + sequences[i] + '.js').run(completeTest);
 	}
+	log.INFO(testResult);
 }
 
 var completeTest = (testId, result) => {
@@ -29,32 +30,25 @@ var completeTest = (testId, result) => {
 	testResult[testId] = result;
 	log.debug(testResult);
 	if (allTestCompleted()) {
-		log.INFO('-------------------------');
-		log.info('>> All tests succeeded !!');
-		log.INFO('-------------------------');
+		log.info('-------------------------');
+		log.INFO('>> All tests succeeded !!');
+		log.info('-------------------------');
 		testCallback(true); //testResult
 	}
 };
 
 var allTestCompleted = () => {
-	// log.info('..testResult==>', testResult, sequences);
 	for (var i = 0; i < sequences.length; i++) {
-		// log.info('+++ ', sequences[i], testResult[sequences[i]]);
-		// log.info(testResult.hasOwnProperty('sequences[i]'), testResult[sequences[i]]);
 		if (!(testResult.hasOwnProperty('sequences[i]') || testResult[sequences[i]])) {
 			return false;
 		}
 	}
-	clearInterval(errorCheckerInterval);
+	if (Odi.errorHistory.length > 0) {
+		log.info('-----------------');
+		log.info('Odi.errorHistory:\n', Odi.errorHistory, '\n\n\n');
+		// log.info('---------------------------------------');
+	}
 	return true;
 };
-
-var errorCheckerInterval = setInterval(() => {
-	if (Odi.errorHistory.length > 0) {
-		log.info('---------------------------------------');
-		log.info('Odi.errorHistory:\n', Odi.errorHistory);
-		log.info('---------------------------------------');
-	}
-}, 10000);
 
 // Odi.error('this is an error');
