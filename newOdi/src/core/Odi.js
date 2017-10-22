@@ -105,9 +105,15 @@ function logArray(updatedEntries) {
 }
 
 function error() {
+	// TODO here: ring & blink
 	Odi.errorHistory.unshift(arguments);
 	log.error(arguments);
-	console.trace();
-
-	// TODO ring & blink
+	var trace = console.trace();
+	// console.log(trace);
+	var logError = {
+		error: arguments[0],
+		// trace: new Error().stack,
+		time: Utils.logTime()
+	};
+	Utils.appendJsonFile(ODI_PATH + 'log/errors.log', logError);
 }
