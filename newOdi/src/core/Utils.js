@@ -254,8 +254,15 @@ String.prototype.repeat = function(num) {
 };
 
 function getExecutionTime(startTime, noRound) {
-	if (noRound) new Date() - startTime;
-	return Math.round((new Date() - startTime) / 10) / 100;
+	var length = 4;
+	var result = new Date() - startTime;
+	// if (noRound) return (1e5 + '' + (new Date() - startTime)).slice(-length);
+	if (noRound) {
+		result = ' '.repeat(length - result.toString().length) + result;
+		return result;
+	}
+	if (noRound) return (1e5 + '' + (new Date() - startTime)).slice(-length);
+	return Math.round(result / 10) / 100;
 }
 
 function numberWithDot(number) {

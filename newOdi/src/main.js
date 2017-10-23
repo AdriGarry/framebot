@@ -22,6 +22,7 @@ var logo = fs
 console.log('\n' + logo.join('\n'));
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug, test);
+
 var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, Odi.conf.debug); // Odi.conf.debug || forcedDebug
 log.debug('argv', argv);
 
@@ -30,7 +31,6 @@ var Utils = require(Odi.CORE_PATH + 'Utils.js');
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 var Brain = require(Odi.CORE_PATH + 'Brain.js');
-
 var modules = {
 	led: require(Odi.CORE_PATH + 'modules/led.js'),
 	hardware: require(Odi.CORE_PATH + 'modules/hardware.js'),
@@ -42,7 +42,6 @@ for (var mod in modules) {
 	log.info(mod);
 	require(Odi.CORE_PATH + 'modules/' + mod + '.js');
 }*/
-
 log.info('Modules loaded:', Object.keys(modules).join(', '));
 
 var controllers = {
