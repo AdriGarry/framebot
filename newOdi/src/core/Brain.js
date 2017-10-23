@@ -32,14 +32,13 @@ function buttonHandler(flux) {
 	} else if (flux.id == 'cancel') {
 		if (flux.value < 1) {
 			Flux.next('module', 'sound', 'mute');
-		} else if (flux.value >= 1 && flux.value < 3) {
-			// process.exit();
-			Flux.next('service', 'system', 'restart', 'ready');
+		} else if (flux.value >= 1 && flux.value < 2) {
+			Flux.next('service', 'system', 'restart', 'ready'); // process.exit();
+		} else if (flux.value >= 2 && flux.value < 5) {
+			Flux.next('service', 'system', 'restart', 'test'); // process.exit();
 		} else {
-			Flux.next('service', 'system', 'restart', 'test');
+			Flux.next('service', 'system', 'restart', 'sleep');
 		}
-		// } else if (flux.id == 'blue') {
-		// Odi.error(flux);
 	} else {
 		log.info('Button->else', flux);
 	}

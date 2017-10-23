@@ -37,6 +37,12 @@ var modules = {
 	sound: require(Odi.CORE_PATH + 'modules/sound.js'),
 	tts: require(Odi.CORE_PATH + 'modules/tts.js')
 };
+/*var modules = ['led', 'hardware', 'sound', 'tts'];
+for (var mod in modules) {
+	log.info(mod);
+	require(Odi.CORE_PATH + 'modules/' + mod + '.js');
+}*/
+
 log.info('Modules loaded:', Object.keys(modules).join(', '));
 
 var controllers = {
@@ -58,8 +64,9 @@ var services = {
 };
 log.info('Services loaded:', Object.keys(services).join(', '));
 
-// log.info('Odi ready in', Math.round(time / 10) / 100, 'sec');
 log.info('Odi ready in', Utils.getExecutionTime(startTime) + 's');
+
+// log.INFO(Odi.conf.mode);
 
 /////////////  TEST section  /////////////
 if (test || Odi.conf.mode == 'test') {
