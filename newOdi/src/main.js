@@ -2,6 +2,7 @@
 'use strict';
 
 const startTime = new Date();
+console.log('.');
 var Gpio = require('onoff').Gpio;
 var eye = new Gpio(14, 'out').write(1);
 
