@@ -31,7 +31,6 @@ var completeTest = (testId, result) => {
 	log.debug(testResult);
 	if (allTestCompleted()) {
 		// log.info();
-		// log.info(Odi.errors); // Logger ici le nombre d'erreurs survenues pendant les tests
 		log.info(Odi.errors.length > 0 ? 'Odi.errors:' + Odi.errors.length : '');
 		log.info('-------------------------');
 		log.INFO('>> All tests succeeded !!');

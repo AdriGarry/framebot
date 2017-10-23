@@ -17,7 +17,6 @@ module.exports.run = function(callback) {
 	}, 2000);
 
 	setTimeout(() => {
-		// log.info('fluxTest CALLBACK(TRUE)');
 		callback('serviceTest', true);
 	}, 5000);
 };
