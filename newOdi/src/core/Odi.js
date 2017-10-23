@@ -9,6 +9,7 @@ var fs = require('fs');
 var Odi = {
 	conf: require(ODI_PATH + 'conf.json'),
 	update: update,
+	updateDefault: updateDefault,
 	logArray: logArray,
 	modes: [], // forcedMode, clockMode, alarms...
 	setup: {}, // functions ...
@@ -49,9 +50,20 @@ function init(path, forcedDebug, test) {
 
 /** Function to set/edit Odi's config */
 function update(newConf, restart, callback) {
-	var updateBegin = new Date();
+	doUpdate(Odi.CONFIG_FILE, newConf, restart, callback);
+}
+
+/** Function to set/edit Odi's DEFAULT config */
+function updateDefault(newConf, restart, callback) {
+	doUpdate(ODI_PATH + 'src/data/defaultConf.json', newConf, restart, callback);
+}
+
+var updateBegin;
+function doUpdate(file, newConf, restart, callback) {
+	updateBegin = new Date();
 	log.debug('Updating conf:', newConf, restart);
 	Utils.getJsonFileContent(Odi.CONFIG_FILE, function(data) {
+		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
 		var configFile = JSON.parse(data);
 		var updatedEntries = [];
 		Object.keys(newConf).forEach(function(key, index) {
@@ -60,28 +72,21 @@ function update(newConf, restart, callback) {
 				updatedEntries.push(key);
 			}
 		});
+		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
 		Odi.conf = configFile;
 		fs.writeFile(Odi.CONFIG_FILE, JSON.stringify(Odi.conf, null, 1), function() {
-			logArray(updatedEntries, Math.round((new Date() - updateBegin) / 10) / 100);
-			if (restart) {
-				process.exit();
-			}
+			logArray(updatedEntries, Utils.getExecutionTime(updateBegin));
+			if (restart) process.exit();
 			if (callback) callback();
 		});
 	});
 }
-/** Function to set/edit Odi's DEFAULT config */
-// function updateDefault(newConf, restart, callback) {
-// 	log.info('Updating conf:', newConf, restart);
-// 	setConf;
-// }
 
 /** Function to log CONFIG array */
 function logArray(updatedEntries, executionTime) {
 	var col1 = 11,
 		col2 = 16;
-	log.info(); //Trouver un truc à logger ici ?
-	// log.info(executionTime + 's');
+	log.info();
 	var logArrayMode = updatedEntries
 		? '|         CONFIG UPDATE    ' + executionTime + 's' + ' |'
 		: '|             CONFIG             |';

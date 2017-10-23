@@ -20,5 +20,5 @@ module.exports.run = function(callback) {
 
 	setTimeout(() => {
 		callback('moduleTest', true);
-	}, 8000);
+	}, 7000);
 };

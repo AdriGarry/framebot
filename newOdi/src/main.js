@@ -46,19 +46,19 @@ var controllers = {
 log.info('Controllers loaded:', Object.keys(controllers).join(', '));
 
 var services = {
-	max: require(Odi.CORE_PATH + 'services/max.js'),
-	mood: require(Odi.CORE_PATH + 'services/mood.js'),
-	music: require(Odi.CORE_PATH + 'services/music.js'),
+	max: require(Odi.CORE_PATH + 'services/max.js'), // Max & Co...
+	mood: require(Odi.CORE_PATH + 'services/mood.js'), // random, exclamation, badBoy, party, [cigales ?]
+	music: require(Odi.CORE_PATH + 'services/music.js'), // fip, jukebox
 	system: require(Odi.CORE_PATH + 'services/system.js'),
 	time: require(Odi.CORE_PATH + 'services/time.js'),
-	tools: require(Odi.CORE_PATH + 'services/tools.js'),
+	tools: require(Odi.CORE_PATH + 'services/tools.js'), // ??
 	video: require(Odi.CORE_PATH + 'services/video.js'),
 	voiceMail: require(Odi.CORE_PATH + 'services/voiceMail.js')
 };
 log.info('Services loaded:', Object.keys(services).join(', '));
 
-var time = new Date() - startTime;
-log.info('Odi ready in', Math.round(time / 10) / 100, 'sec');
+// log.info('Odi ready in', Math.round(time / 10) / 100, 'sec');
+log.info('Odi ready in', Utils.getExecutionTime(startTime) + 's');
 
 /////////////  TEST section  /////////////
 if (test) {

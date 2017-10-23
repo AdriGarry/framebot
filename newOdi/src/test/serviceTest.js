@@ -13,11 +13,11 @@ module.exports.run = function(callback) {
 	Flux.next('service', 'system', 'cpu', null, 4);
 
 	setTimeout(() => {
-		Flux.next('service', 'max', 'doSomething', null, 2);
+		// Flux.next('service', 'max', 'doSomething', null, 2);
 	}, 2000);
 
 	setTimeout(() => {
 		// log.info('fluxTest CALLBACK(TRUE)');
 		callback('serviceTest', true);
-	}, 13000);
+	}, 10000);
 };

@@ -14,6 +14,7 @@ module.exports = {
 	appendJsonFile: appendJsonFile,
 	execCmd: execCmd,
 	format: {}, // some great functions to format output...
+	getExecutionTime: getExecutionTime,
 	getJsonFileContent: getJsonFileContent,
 	logTime: logTime,
 	numberWithDot: numberWithDot,
@@ -251,6 +252,11 @@ function getStartTime() {
 String.prototype.repeat = function(num) {
 	return new Array(Math.abs(num) + 1).join(this);
 };
+
+function getExecutionTime(startTime, noRound) {
+	if (noRound) new Date() - startTime;
+	return Math.round((new Date() - startTime) / 10) / 100;
+}
 
 function numberWithDot(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
