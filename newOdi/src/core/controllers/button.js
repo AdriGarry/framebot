@@ -46,16 +46,10 @@ ok.watch(function(err, value) {
 	var pushTime = getPushTime(ok);
 	//oneMorePush();
 	Flux.next('controller', 'button', 'ok', pushTime);
-	// if (pushTime < 1) {
-	// 	Flux.next('controller', 'button', 'ok', pushTime);
-	// } else {
-	// 	Flux.next('controller', 'button', 'ok>1', pushTime);
-	// }
 });
 
 cancel.watch(function(err, value) {
 	var pushTime = getPushTime(cancel);
-	// log.debug(pushTime);
 	Flux.next('controller', 'button', 'cancel', pushTime);
 });
 
@@ -66,27 +60,20 @@ white.watch(function(err, value) {
 
 blue.watch(function(err, value) {
 	var pushTime = getPushTime(blue);
-	//Odi.error('Blue button pressed ==> temporary in error.');
 	Flux.next('controller', 'button', 'blue', pushTime);
 });
 
-// Button.next('Button controller initialized');
-
+var pushTime,
+	pushedTime,
+	belly = new Gpio(17, 'out');
 function getPushTime(button) {
-	var pushTime,
-		pushedTime = new Date();
+	pushedTime = new Date();
 	while (button.readSync() == 1) {
-		// Pause
-		// console.log(t);
-		// var t = Math.round((new Date() - pushedTime) / 100) / 10;
-		/*if(t%1 == 0){ // TODO emettre des events directement pour allumer la led
-			// console.log(t);
-			// process.stdout.write('.');
-			Odi.leds.belly.write(0);
-		}else{
-			Odi.leds.belly.write(1);
-		}*/
+		var t = Math.round((new Date() - pushedTime) / 100) / 10;
+		if (t % 1 == 0) belly.write(0);
+		else belly.write(1);
 	}
+	belly.write(0);
 	pushTime = Math.round((new Date() - pushedTime) / 100) / 10;
 	return pushTime;
 }

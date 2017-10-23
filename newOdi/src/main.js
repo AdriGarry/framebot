@@ -62,7 +62,7 @@ log.info('Services loaded:', Object.keys(services).join(', '));
 log.info('Odi ready in', Utils.getExecutionTime(startTime) + 's');
 
 /////////////  TEST section  /////////////
-if (test) {
+if (test || Odi.conf.mode == 'test') {
 	setTimeout(function() {
 		var testSequence = require(SRC_PATH + 'test/tests.js').launch(function(testStatus) {
 			// retour console + tts, and restart if test success
