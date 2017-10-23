@@ -36,7 +36,9 @@ var completeTest = (testId, result) => {
 		log.info('-------------------------');
 		log.INFO('>> All tests succeeded !!');
 		log.info('-------------------------');
-		testCallback(true); //testResult
+		setTimeout(function() {
+			testCallback(true); //testResult
+		}, 1000);
 	}
 };
 

@@ -12,7 +12,7 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 module.exports.run = function(callback) {
 	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 1 });
 	Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Test' });
-	Flux.next('module', 'led', 'blink', { leds: ['eye', 'belly', 'satellite'], speed: 1000, loop: 15 });
+	Flux.next('module', 'led', 'blink', { leds: ['eye', 'belly', 'satellite'], speed: 700, loop: 3 });
 
 	Flux.next('module', 'sound', 'mute', null, 5);
 
@@ -20,5 +20,5 @@ module.exports.run = function(callback) {
 
 	setTimeout(() => {
 		callback('moduleTest', true);
-	}, 7000);
+	}, 10000);
 };

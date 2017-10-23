@@ -5,6 +5,8 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename);
 
 var Gpio = require('onoff').Gpio;
+var belly = new Gpio(17, 'out');
+// belly.write(1);
 // TODO => créer une boucle pour les construire dynamiquement !
 var ok = new Gpio(20, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
 var cancel = new Gpio(16, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
@@ -63,9 +65,7 @@ blue.watch(function(err, value) {
 	Flux.next('controller', 'button', 'blue', pushTime);
 });
 
-var pushTime,
-	pushedTime,
-	belly = new Gpio(17, 'out');
+var pushTime, pushedTime;
 function getPushTime(button) {
 	pushedTime = new Date();
 	while (button.readSync() == 1) {
@@ -77,3 +77,4 @@ function getPushTime(button) {
 	pushTime = Math.round((new Date() - pushedTime) / 100) / 10;
 	return pushTime;
 }
+// belly.write(0);

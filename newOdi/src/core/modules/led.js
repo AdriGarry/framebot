@@ -117,6 +117,7 @@ function toggle(config) {
 		'*/3 * * * * *',
 		function() {
 			blink({ leds: ['nose'], speed: 200, loop: 1 });
+			//blink({ leds: ['nose'], speed: Odi.conf.mode == 'test' ? 100 : 200, loop: (Odi.conf.mode = 'test' ? 2 : 1) });
 		},
 		null,
 		1,

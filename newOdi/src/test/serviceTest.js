@@ -10,7 +10,7 @@ const Rx = require('rxjs');
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 module.exports.run = function(callback) {
-	Flux.next('service', 'system', 'cpu', null, 4);
+	// Flux.next('service', 'system', 'cpu', null, 4);
 
 	setTimeout(() => {
 		// Flux.next('service', 'max', 'doSomething', null, 2);
@@ -19,5 +19,5 @@ module.exports.run = function(callback) {
 	setTimeout(() => {
 		// log.info('fluxTest CALLBACK(TRUE)');
 		callback('serviceTest', true);
-	}, 10000);
+	}, 5000);
 };
