@@ -38,9 +38,9 @@ module.exports = {
 	service: Flux.service
 };
 
-function FluxObject(type, name, id, value, delay, loop, hidden) {
+function FluxObject(type, subject, id, value, delay, loop, hidden) {
 	this.type = type;
-	this.name = name;
+	this.subject = subject;
 	this.id = id;
 	this.value = value; // || null
 	this.delay = delay;
@@ -48,17 +48,16 @@ function FluxObject(type, name, id, value, delay, loop, hidden) {
 	this.hidden = hidden || false;
 
 	this.toString = () => {
-		// var typeName = '[' + this.type + '.' + this.name + '] ';
-		var typeName = '[' + this.type + '.' + this.name + '] ';
+		var typeSubject = '[' + this.type + '.' + this.subject + '] ';
 		var value = this.id + ': ' + util.format(util.inspect(this.value)) + ' ';
 		var delay = ' ' + (this.delay || '');
 		var loop = ' ' + (this.loop || '');
-		return typeName + value + delay + loop;
+		return typeSubject + value + delay + loop;
 	};
 }
 
-function next(type, name, id, value, delay, loop, hidden) {
-	var flux = new FluxObject(type, name, id, value, delay, loop, hidden);
+function next(type, subject, id, value, delay, loop, hidden) {
+	var flux = new FluxObject(type, subject, id, value, delay, loop, hidden);
 
 	if (!inspect(flux)) return;
 	if (flux.delay && Number(flux.delay)) {
@@ -70,7 +69,7 @@ function next(type, name, id, value, delay, loop, hidden) {
 
 var inspect = flux => {
 	log.debug('inspecting Flux:', flux.toString());
-	if (Object.keys(Flux).includes(flux.type) && Object.keys(Flux[flux.type]).includes(flux.name)) {
+	if (Object.keys(Flux).includes(flux.type) && Object.keys(Flux[flux.type]).includes(flux.subject)) {
 		return true;
 	}
 	Odi.error('Invalid Flux', flux);
@@ -91,7 +90,7 @@ var scheduleFlux = flux => {
 
 var fireFlux = flux => {
 	if (!flux.hidden || Odi.conf.debug) log.info('> Flux', flux.toString());
-	Flux[flux.type][flux.name].next({ id: flux.id, value: flux.value });
+	Flux[flux.type][flux.subject].next({ id: flux.id, value: flux.value });
 };
 
 log.info('Flux manager ready');
