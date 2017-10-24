@@ -144,8 +144,8 @@ function logArray(updatedEntries, executionTime) {
 
 function error() {
 	// TODO here: ring & blink
-	Flux.next('module', 'led', 'altLeds;', { speed: 30, duration: 1.5 }, null, null, 'hidden');
-	//if(CONFIG.mode == 'ready') spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'error']);
+	Flux.next('module', 'led', 'altLeds', { speed: 30, duration: 1.5 }, null, null, 'hidden');
+	Flux.next('module', 'sound', 'error', null, null, null, 'hidden');
 	log.error(arguments);
 	console.trace(); // Optional ?
 	Odi.errors.unshift(arguments);
