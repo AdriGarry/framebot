@@ -1,5 +1,5 @@
 {
-	"days":{
+	"days": {
 		"0": "dimanche",
 		"1": "lundi",
 		"2": "mardi",
@@ -8,7 +8,7 @@
 		"5": "vendredi",
 		"6": "samedi"
 	},
-	"months":{
+	"months": {
 		"0": "janvier",
 		"1": "fevrier",
 		"2": "mars",
