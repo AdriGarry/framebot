@@ -110,7 +110,7 @@ function doUpdate(file, newConf, restart, callback) {
 function logArray(updatedEntries, executionTime) {
 	var col1 = 11,
 		col2 = 16;
-	log.info();
+	// log.info();
 	var logArrayMode = updatedEntries
 		? '|         CONFIG UPDATE   ' + executionTime + 'ms' + ' |'
 		: '|             CONFIG             |';

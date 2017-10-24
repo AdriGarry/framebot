@@ -1,0 +1,30 @@
+
+#!/bin/bash
+
+case "$1" in
+
+        start)
+
+                sudo node /home/pi/odi/core/modules/leds.js allLedsOn
+
+                sudo sh /home/pi/odi/core/sh/sounds.sh startup
+
+                sudo node /home/pi/odi/core/modules/leds.js allLedsOff
+
+                sudo python /home/pi/odi/core/py/buttons.py 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &
+
+                sudo sh /home/pi/odi/start.sh &
+
+        ;;
+
+        stop)
+
+                sudo killall omxplayer.bin
+                sudo killall node
+                sudo sh /home/pi/odi/core/sh/sounds.sh reboot
+                sudo node /home/pi/odi/core/modules/leds.js allLedOff
+        ;;
+esac
+
+exit 0
+
