@@ -33,6 +33,8 @@ Flux.module.led.subscribe({
 			toggle(flux.value);
 		} else if (flux.id == 'blink') {
 			blink(flux.value);
+		} else if (flux.id == 'altLeds') {
+			blink(flux.value.speed, flux.value.duration);
 		} else if (flux.id == 'clearLeds') {
 			clearLeds();
 		} else if (flux.id == 'activity') {

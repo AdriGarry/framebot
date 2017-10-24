@@ -61,9 +61,6 @@ function updateDefault(newConf, restart, callback) {
 function updateDefault(newConf, restart, callback) {
 	doUpdate(ODI_PATH + 'src/data/defaultConf.json', newConf, restart, callback);
 }
-function resetConf() {
-	log.info('resetConf() to implement...');
-}
 
 /** Function to reset Odi's config */
 function resetCfg(restart) {
@@ -147,9 +144,11 @@ function logArray(updatedEntries, executionTime) {
 
 function error() {
 	// TODO here: ring & blink
-	Odi.errors.unshift(arguments);
+	Flux.next('module', 'led', 'altLeds;', { speed: 30, duration: 1.5 }, null, null, 'hidden');
+	//if(CONFIG.mode == 'ready') spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'error']);
 	log.error(arguments);
-	var trace = console.trace();
+	console.trace(); // Optional ?
+	Odi.errors.unshift(arguments);
 	// console.log(trace);
 	var logError = {
 		error: arguments[0],

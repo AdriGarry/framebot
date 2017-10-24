@@ -10,7 +10,7 @@ const argv = process.argv;
 const forcedDebug = argv.indexOf('debug') > 0 ? true : false;
 const test = argv.indexOf('test') > 0 ? true : false;
 
-if (test) console.log('>> TEST MODE !!');
+// if (test) console.log('>> TEST MODE !!');
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
 global.SRC_PATH = __dirname + '/';
 
@@ -31,17 +31,13 @@ var Utils = require(Odi.CORE_PATH + 'Utils.js');
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 var Brain = require(Odi.CORE_PATH + 'Brain.js');
+
 var modules = {
 	led: require(Odi.CORE_PATH + 'modules/led.js'),
 	hardware: require(Odi.CORE_PATH + 'modules/hardware.js'),
-	sound: require(Odi.CORE_PATH + 'modules/sound.js'),
-	tts: require(Odi.CORE_PATH + 'modules/tts.js')
+	sound: Odi.conf.mode == 'sleep' ? null : require(Odi.CORE_PATH + 'modules/sound.js'),
+	tts: Odi.conf.mode == 'sleep' ? null : require(Odi.CORE_PATH + 'modules/tts.js')
 };
-/*var modules = ['led', 'hardware', 'sound', 'tts'];
-for (var mod in modules) {
-	log.info(mod);
-	require(Odi.CORE_PATH + 'modules/' + mod + '.js');
-}*/
 log.info('Modules loaded:', Object.keys(modules).join(', '));
 
 var controllers = {
@@ -64,8 +60,6 @@ var services = {
 log.info('Services loaded:', Object.keys(services).join(', '));
 
 log.info('Odi ready in', Utils.getExecutionTime(startTime) + 's');
-
-// log.INFO(Odi.conf.mode);
 
 /////////////  TEST section  /////////////
 if (test || Odi.conf.mode == 'test') {
