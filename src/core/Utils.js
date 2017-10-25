@@ -2,7 +2,7 @@
 'use strict';
 
 // Utils static factory (shoud not require Odi.js || Flux.js)
-var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
+var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename); // prévoir un fallback si log n'est pas dispo log.info()=>console.log()
 
 var fs = require('fs');
 var exec = require('child_process').exec;
@@ -15,6 +15,7 @@ module.exports = {
 	execCmd: execCmd,
 	format: {}, // some great functions to format output...
 	getExecutionTime: getExecutionTime,
+	addPatternBefore: addPatternBefore,
 	getJsonFileContent: getJsonFileContent,
 	logTime: logTime,
 	numberWithDot: numberWithDot,
@@ -59,66 +60,11 @@ function appendJsonFile(filePath, obj, callback) {
 }
 
 /** Function getJsonFileContent */
-var fileExceptions = ['voicemail.js'];
+var fileNotFoundExceptions = ['voicemail.js'];
 function getJsonFileContent(filePath, callback) {
 	log.debug('getJsonFileContent() ', filePath);
 	fs.readFile(filePath, function(err, data) {
-		if (err && err.code === 'ENOENT' && !searchStringInArray(filePath, fileExceptions)) {
-			log.error('No file: ' + filePath);
-			callback(null);
-		} else {
-			callback(data);
-		}
-	});
-}
-
-/** Function to return date time. Pattern: 'YDT' */
-const dateTimeDefaultPattern = 'D/M h:m:s';
-function logTime(param, date) {
-	if (typeof date === 'undefined') date = new Date();
-	var D = date.getDate();
-	var M = date.getMonth() + 1;
-	var Y = date.getFullYear();
-	var h = date.getHours();
-	var m = date.getMinutes();
-	var s = date.getSeconds();
-	var now = '';
-
-	if (typeof param === 'undefined') param = dateTimeDefaultPattern;
-	for (var i = 0; i < param.length; i++) {
-		switch (param[i]) {
-			case 'Y':
-				now += Y;
-				break;
-			case 'M':
-				now += (M < 10 ? '0' : '') + M;
-				break;
-			case 'D':
-				now += (D < 10 ? '0' : '') + D;
-				break;
-			case 'h':
-				now += (h < 10 ? '0' : '') + h;
-				break;
-			case 'm':
-				now += (m < 10 ? '0' : '') + m;
-				break;
-			case 's':
-				now += (s < 10 ? '0' : '') + s;
-				break;
-			default:
-				now += param[i];
-		}
-	}
-	// console.log('utils.now(param)', param, now);
-	return now;
-}
-
-/** Function getJsonFileContent */
-var fileExceptions = ['voicemail.js'];
-function getJsonFileContent(filePath, callback) {
-	log.debug('getJsonFileContent() ', filePath);
-	fs.readFile(filePath, function(err, data) {
-		if (err && err.code === 'ENOENT' && !searchStringInArray(filePath, fileExceptions)) {
+		if (err && err.code === 'ENOENT' && !searchStringInArray(filePath, fileNotFoundExceptions)) {
 			log.error('No file: ' + filePath);
 			callback(null);
 		} else {
@@ -133,7 +79,6 @@ function appendJsonFile(filePath, obj, callback) {
 	var fileData;
 	fs.exists(filePath, function(exists) {
 		if (exists) {
-			// log.debug('Yes file exists');
 			fs.readFile(filePath, 'utf8', function(err, data) {
 				if (err) log.error(err);
 				else {
@@ -253,21 +198,68 @@ String.prototype.repeat = function(num) {
 	return new Array(Math.abs(num) + 1).join(this);
 };
 
-function getExecutionTime(startTime, noRound) {
+function getExecutionTime(startTime, formatResultPattern) {
+	// log.info('getExecutionTime(formatResultPattern)', formatResultPattern);
 	var length = 4;
-	var result = new Date() - startTime;
-	// if (noRound) return (1e5 + '' + (new Date() - startTime)).slice(-length);
-	if (noRound) {
-		result = ' '.repeat(length - result.toString().length) + result;
-		return result;
+	var elapsedTime = new Date() - startTime;
+	if (formatResultPattern) {
+		return addPatternBefore(elapsedTime, formatResultPattern);
 	}
-	if (noRound) return (1e5 + '' + (new Date() - startTime)).slice(-length);
-	return Math.round(result / 10) / 100;
+	return elapsedTime;
+}
+
+function addPatternBefore(time, pattern) {
+	if (typeof pattern == 'string') {
+		return pattern.charAt(0).repeat(pattern.length - time.toString().length) + time;
+	}
+	return time;
 }
 
 function numberWithDot(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
+
+/** Function to return date time. Pattern: 'YDT' */
+const dateTimeDefaultPattern = 'D/M h:m:s';
+function logTime(param, date) {
+	if (typeof date === 'undefined') date = new Date();
+	var D = date.getDate();
+	var M = date.getMonth() + 1;
+	var Y = date.getFullYear();
+	var h = date.getHours();
+	var m = date.getMinutes();
+	var s = date.getSeconds();
+	var now = '';
+
+	if (typeof param === 'undefined') param = dateTimeDefaultPattern;
+	for (var i = 0; i < param.length; i++) {
+		switch (param[i]) {
+			case 'Y':
+				now += Y;
+				break;
+			case 'M':
+				now += (M < 10 ? '0' : '') + M;
+				break;
+			case 'D':
+				now += (D < 10 ? '0' : '') + D;
+				break;
+			case 'h':
+				now += (h < 10 ? '0' : '') + h;
+				break;
+			case 'm':
+				now += (m < 10 ? '0' : '') + m;
+				break;
+			case 's':
+				now += (s < 10 ? '0' : '') + s;
+				break;
+			default:
+				now += param[i];
+		}
+	}
+	// log.info('utils.now(param)', param, now);
+	return now;
+}
+
 /*Object.prototype.toString = () => {
   var obj = this;
   // console.log(obj);

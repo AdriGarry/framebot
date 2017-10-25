@@ -100,7 +100,7 @@ function doUpdate(file, newConf, restart, callback) {
 		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
 		Odi.conf = configFile;
 		fs.writeFile(Odi.CONFIG_FILE, JSON.stringify(Odi.conf, null, 1), function() {
-			logArray(updatedEntries, Utils.getExecutionTime(updateBegin, true));
+			logArray(updatedEntries, Utils.getExecutionTime(updateBegin, '    '));
 			if (restart) process.exit();
 			if (callback) callback();
 		});

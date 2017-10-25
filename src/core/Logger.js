@@ -11,7 +11,6 @@ var modeDebug = false,
 
 function Logger(filename, debugMode, dateTimePattern) {
 	Utils = require(ODI_PATH + 'src/core/Utils.js');
-	// console.log(Utils);
 	modeDebug = debugMode || modeDebug;
 	// dateTimePattern = dateTimePattern || dateTimeDefaultPattern;
 	filename = filename.match(/(\w*).js/g)[0];
@@ -23,7 +22,6 @@ function Logger(filename, debugMode, dateTimePattern) {
 	this.debug = debug;
 	this.DEBUG = DEBUG;
 	this.error = error;
-	//this.logTime = logTime;
 	return this;
 
 	function enableDebug() {
@@ -35,6 +33,10 @@ function Logger(filename, debugMode, dateTimePattern) {
 			return args;
 		}
 		var log = '';
+		if (args[0] == '\n') {
+			console.log('');
+			delete args[0];
+		}
 		for (var i in args) {
 			if (typeof args[i] == 'object') {
 				log = log + util.format(util.inspect(args[i]) + ' ');
@@ -46,7 +48,6 @@ function Logger(filename, debugMode, dateTimePattern) {
 	}
 
 	function info() {
-		// console.log(Utils);
 		console.log(Utils.logTime(), '[' + filename + ']', formatLog(arguments));
 	}
 
@@ -68,43 +69,4 @@ function Logger(filename, debugMode, dateTimePattern) {
 		console.log('___________________');
 		console.error(/*'\n' +*/ Utils.logTime(), '[' + filename + ']', '>> ERR_', formatLog(arguments));
 	}
-
-	/** Function to return date time. Pattern: 'YDT' */
-	/*function logTime(param, date) {
-		if (typeof date === 'undefined') date = new Date();
-		var D = date.getDate();
-		var M = date.getMonth() + 1;
-		var Y = date.getFullYear();
-		var h = date.getHours();
-		var m = date.getMinutes();
-		var s = date.getSeconds();
-		var now = '';
-
-		if (typeof param === 'undefined') param = dateTimeDefaultPattern;
-		for (var i = 0; i < param.length; i++) {
-			switch (param[i]) {
-				case 'Y':
-					now += Y;
-					break;
-				case 'M':
-					now += (M < 10 ? '0' : '') + M;
-					break;
-				case 'D':
-					now += (D < 10 ? '0' : '') + D;
-					break;
-				case 'h':
-					now += (h < 10 ? '0' : '') + h;
-					break;
-				case 'm':
-					now += (m < 10 ? '0' : '') + m;
-					break;
-				case 's':
-					now += (s < 10 ? '0' : '') + s;
-					break;
-				default:
-					now += param[i];
-			}
-		}
-		return now;
-  }*/
 }

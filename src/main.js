@@ -59,16 +59,18 @@ var services = {
 };
 log.info('Services loaded:', Object.keys(services).join(', '));
 
-log.info('Odi ready in', Utils.getExecutionTime(startTime) + 's');
+log.info('Odi ready in' + Utils.getExecutionTime(startTime, '     ') + 'ms');
 
 /////////////  TEST section  /////////////
 if (test || Odi.conf.mode == 'test') {
 	setTimeout(function() {
 		var testSequence = require(SRC_PATH + 'test/tests.js').launch(function(testStatus) {
 			// retour console + tts, and restart if test success
-			if (testStatus) Odi.update({ mode: 'ready' }, true);
+			setTimeout(function() {
+				if (testStatus) Odi.update({ mode: 'ready' }, true);
+			}, 500);
 		});
-	}, 1000);
+	}, 500);
 }
 
 /*setTimeout(function() {

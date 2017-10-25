@@ -10,7 +10,7 @@ var spawn = require('child_process').spawn;
 Flux.module.sound.subscribe({
 	next: flux => {
 		if (flux.id == 'mute') {
-			mute();
+			mute(flux.value.delay, flux.value.message);
 		} else if (flux.id == 'volume') {
 			// todo setVolume(flux.value);
 		} else {
@@ -26,17 +26,17 @@ var muteTimer, delay;
 /** Function to mute Odi (delay:min) */
 function mute(delay, message) {
 	clearTimeout(muteTimer);
-	log.debug('mute()', 'delay:', delay, 'message:', message);
+	// log.debug('mute()', 'delay:', delay, 'message:', message);
 	delay = delay && !isNaN(delay) ? delay : 0;
-	if (delay < 10) {
-		stopAll();
-	} else {
+	if (delay) {
 		muteTimer = setTimeout(function() {
 			spawn('sh', [SRC_PATH + 'shell/mute.sh', 'auto']);
 			setTimeout(function() {
-				stopAll();
+				stopAll(message);
 			}, 1600);
-		}, delay * 60 * 1000);
+		}, delay * 1000);
+	} else {
+		stopAll(message);
 	}
 }
 
@@ -44,6 +44,7 @@ function mute(delay, message) {
 function stopAll(message) {
 	// ODI.tts.clearTTSQueue(); // --> to transform
 	// ODI.jukebox.stopFip(); // --> to transform
+	log.INFO('stopAll()', message);
 	spawn('sh', [SRC_PATH + 'shell/mute.sh']);
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
 	Flux.next('module', 'led', 'clearLeds', null, null, null, 'hidden');

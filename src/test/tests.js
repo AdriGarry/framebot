@@ -25,13 +25,18 @@ function launchTests(callback) {
 }
 
 var completeTest = (testId, result) => {
-	Flux.next('module', 'led', 'blink', { leds: ['eye', 'belly', 'satellite'], speed: 100, loop: 5 });
-	log.info(testId, 'completed.' /*, result*/);
+	Flux.next('module', 'led', 'blink', { leds: ['belly'], speed: 50, loop: 6 });
+	log.info(testId, 'completed.');
 	testResult[testId] = result;
 	log.debug(testResult);
 	if (allTestCompleted()) {
 		// log.info();
-		log.info(Odi.errors.length > 0 ? 'Odi.errors:' + Odi.errors.length : '');
+		log.info('\n', 'testResult');
+		for (let test in testResult) {
+			log.info(test, 'completed');
+		}
+		if (Odi.errors.length > 0) log.info('Odi.errors:' + Odi.errors.length);
+
 		log.info('-------------------------');
 		log.INFO('>> All tests succeeded !!');
 		log.info('-------------------------');
