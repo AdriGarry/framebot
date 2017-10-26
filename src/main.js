@@ -68,7 +68,7 @@ if (test || Odi.conf.mode == 'test') {
 			// retour console + tts, and restart if test success
 			setTimeout(function() {
 				if (testStatus) Odi.update({ mode: 'ready' }, true);
-			}, 500);
+			}, 2000);
 		});
 	}, 500);
 }

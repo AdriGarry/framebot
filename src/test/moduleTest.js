@@ -11,9 +11,9 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 const testTTSList = [
 	{ lg: 'en', msg: 'Test' },
+	{ lg: 'en', msg: 'T E S T' },
 	{ lg: 'fr', msg: 'Test' },
-	{ lg: 'en', msg: 'T' },
-	{ lg: 'fr', msg: 'T' }
+	{ lg: 'fr', msg: 'T E S T' }
 ];
 
 module.exports.run = function(callback) {
@@ -23,12 +23,14 @@ module.exports.run = function(callback) {
 
 	Flux.next('module', 'tts', 'speak', testTTSList[Math.floor(Math.random() * testTTSList.length)]);
 
-	Flux.next('module', 'sound', 'mute', { delay: 7, message: 'DELAY 7' }, 3); //5
-	Flux.next('module', 'sound', 'mute', { delay: 13, message: 'DELAY 13' }, 3);
+	Flux.next('module', 'sound', 'mute', { delay: 3, message: 'DELAY 3' }, 5);
+	// Flux.next('module', 'sound', 'mute', { delay: 13, message: 'DELAY 13' }, 3);
+	// Flux.next('module', 'sound', 'mute', { message: 'no delay at all !' });
+	// Flux.next('module', 'sound', 'mute');
 
 	setTimeout(() => {}, 1000);
 
 	setTimeout(() => {
 		callback('moduleTest', true);
-	}, 40000);
+	}, 30000);
 };
