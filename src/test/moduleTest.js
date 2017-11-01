@@ -11,7 +11,6 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 const testTTSList = [
 	{ lg: 'en', msg: 'Test' },
-	{ lg: 'en', msg: 'T E S T' },
 	{ lg: 'fr', msg: 'Test' },
 	{ lg: 'fr', msg: 'T E S T' }
 ];

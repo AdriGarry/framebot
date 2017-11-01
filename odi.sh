@@ -6,7 +6,7 @@ clear
 ODI_PATH="/home/pi/odi_5.0"
 echo $ODI_PATH
 
-echo "start.sh -> Start Odi Pgm... "$*
+echo "start.sh -> Start Odi Pgm... [$*]"
 
 # configFile="/home/pi/odi/tmp"
 # tmpDir="/home/pi/odi/tmp"
@@ -68,7 +68,6 @@ sudo node "$ODI_PATH"/src/index.js $* 2>&1 | sudo tee -a "$ODI_PATH/log/odi.log"
 # sh "/home/pi/odi/core/sh/watcher.sh" /home/pi/odi/core/ "sh /home/pi/odi/core/sh/watchAction.sh updateLastModified" &
 # sh "/home/pi/odi/core/sh/watcher.sh" /home/pi/odi/data/ "sh /home/pi/odi/core/sh/watchAction.sh updateLastModified" &
 # sh "/home/pi/odi/core/sh/watcher.sh" /home/pi/odi/web/ "sh /home/pi/odi/core/sh/watchAction.sh updateLastModified" &
-# echo "--------------> TOTO"
 #tail -f /home/pi/odi/log/odi.log
 # gksudo lxterminal --geometry=75*50 -e "tail -f /home/pi/odi/log/odi.log"
 
