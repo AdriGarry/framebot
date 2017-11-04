@@ -148,13 +148,18 @@ function startUIServer(mode) {
 	/** TOGGLE DEBUG MODE */
 	ui.post('/toggleDebug', function(req, res) {
 		log.debug('UI > Toggle debug');
-		// ODI.config.update({debug: !Odi.conf.debug}, true);
 		Odi.update({ debug: Odi.conf.debug ? 0 : 30 }, true);
 		res.writeHead(200);
 		res.end();
 	});
 
-	/** RESET Odi.conf */
+	ui.post('/test', function(req, res) {
+		// Odi.reset(true);
+		log.info('/test to define...');
+		res.writeHead(200);
+		res.end();
+	});
+
 	ui.post('/resetConfig', function(req, res) {
 		log.debug('UI > Reset config');
 		Odi.reset(true);
