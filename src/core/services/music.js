@@ -8,8 +8,7 @@ var Flux = require(Odi._CORE + 'Flux.js');
 
 Flux.service.music.subscribe({
 	next: flux => {
-		// if (!Flux.inspect(flux, subject)) return;
-		log.info('Music flux!', flux);
+		// log.info('Music flux!', flux);
 	},
 	error: err => {
 		Odi.error(flux);

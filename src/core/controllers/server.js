@@ -253,13 +253,13 @@ function startUI(mode) {
 	});
 
 	ui.post('/sleep', function(req, res) {
-		params = req.query;
-		var sleepTime;
-		if (params.hasOwnProperty('h')) {
-			sleepTime = params.h;
-		} else {
-			sleepTime = 255;
-		}
+		// params = req.query;
+		// var sleepTime;
+		// if (params.hasOwnProperty('h')) {
+		// 	sleepTime = params.h;
+		// } else {
+		// 	sleepTime = 255;
+		// }
 		// ODI.hardware.restartOdi(sleepTime); //255
 		Flux.next('service', 'system', 'restart', 'sleep');
 		res.writeHead(200);
@@ -267,24 +267,19 @@ function startUI(mode) {
 	});
 
 	ui.post('/reboot', function(req, res) {
-		// Reboot Odi
-		// ODI.hardware.reboot();
 		Flux.next('service', 'system', 'reboot');
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/shutdown', function(req, res) {
-		// Shutdown Odi
-		// ODI.hardware.shutdown();
+		Flux.next('service', 'system', 'shutdown');
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/mute', function(req, res) {
-		// Mute Odi
-		// ODI.tts.clearTTSQueue();
-		// ODI.hardware.mute();
+		Flux.next('module', 'sound', 'mute');
 		res.writeHead(200);
 		res.end();
 	});

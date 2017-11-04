@@ -11,11 +11,15 @@ var Utils = require(Odi._CORE + 'Utils.js');
 
 Flux.module.tts.subscribe({
 	next: flux => {
-		log.info('TTS service', flux);
+		// log.info('TTS service', flux);
 		if (flux.id == 'speak') {
 			speak(flux.value);
+		} else if (flux.id == 'lastTTS') {
+			lastTTS();
 		} else if (flux.id == 'randomConversation') {
+			randomConversation();
 		} else if (flux.id == 'clearTTSQueue') {
+			clearTTSQueue();
 		} else if (flux.id == 'lastTTS') {
 		} else {
 			log.info('TTS flux not mapped', flux);
