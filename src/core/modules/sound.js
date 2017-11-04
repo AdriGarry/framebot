@@ -14,6 +14,7 @@ Flux.module.sound.subscribe({
 		} else if (flux.id == 'volume') {
 			// todo setVolume(flux.value);
 		} else if (flux.id == 'error') {
+			Flux.next('module', 'tts', 'delay', 5, null, null, true);
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
 		} else if (flux.id == 'UI') {
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'UIRequest']);

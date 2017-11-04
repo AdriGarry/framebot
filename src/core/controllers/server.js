@@ -85,7 +85,7 @@ function startUI(mode) {
 			// Not allowed requests
 			request = '401 ' + req.url.replace('%20', ' ');
 			if (Odi.conf.mode == 'ready'){
-				Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' });
+				Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, .5);
 			}
 			console.log(ip);
 			Odi.error(request + ' ' + ip, false);
@@ -277,7 +277,7 @@ function startUI(mode) {
 			log.info('>> Admin granted !');
 		} else {
 			Odi.error('>> User NOT granted /!\\', false);
-			Flux.next('module', 'tts', 'speak', {lg:'en', msg:'User NOT granted'});
+			Flux.next('module', 'tts', 'speak', {lg:'en', msg:'User NOT granted'}, .5);
 		}
 		res.send(granted);
 		if (granted) granted = false;

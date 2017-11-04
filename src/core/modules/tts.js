@@ -20,7 +20,6 @@ Flux.module.tts.subscribe({
 			randomConversation();
 		} else if (flux.id == 'clearTTSQueue') {
 			clearTTSQueue();
-		} else if (flux.id == 'lastTTS') {
 		} else {
 			log.info('TTS flux not mapped', flux);
 		}
@@ -68,27 +67,22 @@ var queueInterval,
 	timeout = 0;
 function proceedQueue() {
 	// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'tone']);
-	var isFirst = true;
 	log.debug('Start processing TTS queue...');
 	queueInterval = setInterval(function() {
 		if (!onAir && ttsQueue.length > 0) {
 			onAir = true;
-			// ODI.leds.toggle({led: 'eye', mode: 1});
 			currentTTS = ttsQueue.shift();
-			playTTS(currentTTS, isFirst);
+			playTTS(currentTTS);
 			if (currentTTS.voice === 'google') timeout = currentTTS.msg.length * 90 + 1500;
 			else timeout = currentTTS.msg.length * 60 + 1500;
 			setTimeout(function() {
 				onAir = false;
-				// ODI.leds.toggle({led: 'eye', mode: 0});
 			}, timeout);
 			if (ttsQueue.length === 0) {
 				log.debug('No more TTS, stop processing TTS queue!');
 				clearInterval(queueInterval);
 			}
-			isFirst = true;
-			// log.info('isFirst', isFirst);
-		}
+	}
 	}, 500);
 }
 
@@ -117,7 +111,7 @@ function randomConversation() {
 /** Function to play TTS message (espeak / google translate) */
 const VOICE_LIST = ['google', 'espeak'];
 const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
-var playTTS = function(tts, isFirst) {
+var playTTS = function(tts) {
 	// TEST IF INTERNET CONNEXION
 	if (!tts.hasOwnProperty('voice') || !VOICE_LIST.indexOf(tts.voice) == -1) {
 		// Random voice if undefined
@@ -134,8 +128,7 @@ var playTTS = function(tts, isFirst) {
 		tts.lg = 'fr';
 	}
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
-	// console.log('isFirst', isFirst);
-	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]); //isFirst,
+	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]);
 	log.debug('tts.msg.length :', tts.msg.length);
 	//ODI.leds.blink({ leds: ['eye'], speed: Math.random() * (150 - 50) + 30, loop: tts.msg.length / 2 + 2 });
 

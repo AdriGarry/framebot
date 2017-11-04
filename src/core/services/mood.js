@@ -15,3 +15,5 @@ Flux.service.mood.subscribe({
 		Odi.error(flux);
 	}
 });
+
+// Test pour lancer les anniversaires d'ici ? (ou alors dans un calendar.js ?)
