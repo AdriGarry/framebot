@@ -34,7 +34,7 @@ Flux.module.led.subscribe({
 		} else if (flux.id == 'blink') {
 			blink(flux.value);
 		} else if (flux.id == 'altLeds') {
-			blink(flux.value.speed, flux.value.duration);
+			altLeds(flux.value.speed, flux.value.duration);
 		} else if (flux.id == 'clearLeds') {
 			clearLeds();
 		} else if (flux.id == 'activity') {
@@ -48,6 +48,8 @@ Flux.module.led.subscribe({
 	}
 });
 
+// blink({leds:['belly', 'satellite'],loop:5, speed:70});
+
 /** Fonction clignotement
  * @param config : {
  * 	leds : ['eye', 'satellite'...]
@@ -57,8 +59,7 @@ Flux.module.led.subscribe({
 function blink(config) {
 	// console.log(config);
 	try {
-		var etat = 1,
-			loop;
+		var etat = 1, loop;
 		if (config.hasOwnProperty('leds')) {
 			setTimeout(function() {
 				for (var led in config.leds) {

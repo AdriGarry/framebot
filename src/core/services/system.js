@@ -13,6 +13,10 @@ Flux.service.system.subscribe({
 		if (flux.id == 'restart') {/* || flux.id == 'restartOdi'*/
 			// console.log('TOTO');
 			restartOdi(flux.value);
+		} else if (flux.id == 'reboot') {
+			reboot();
+		} else if (flux.id == 'shutdown') {
+			shutdown();
 		} else if (flux.id == 'updateOdiSoftwareInfo') {
 			updateOdiSoftwareInfo(flux.value);
 		} else {
@@ -27,13 +31,7 @@ Flux.service.system.subscribe({
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode) {
 	log.info('restartOdi()', mode || '');
-	// console.log('mode', mode);
 	Odi.update({ mode: mode || 'ready' }, true);
-	// if (mode > 0) {
-	// 	Odi.update({ mode: 'sleep' }, true);
-	// } else {
-	// 	Odi.update({ mode: 'ready' }, true);
-	// }
 }
 
 /** Function to update Odi\'s software params (last date & time, totalLines) */
@@ -55,6 +53,32 @@ function updateOdiSoftwareInfo(newConf) {
 		});
 	});
 }
+
+/** Function to reboot RPI */
+function reboot(){
+	if(Odi.conf.mode == 'ready'){
+		mute();
+		Flux.next('module', 'sound', 'mute');
+		Flux.next('module', 'tts', 'speak', {msg:'Je redaimarre'});
+	}
+	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
+	setTimeout(function(){
+		spawn('sh', [CORE_PATH + 'sh/power.sh', 'reboot']);
+	}, 2000);
+};
+
+/** Function to shutdown RPI */
+function shutdown(){
+	if(Odi.conf.mode == 'ready'){
+		Flux.next('module', 'sound', 'mute');
+		Flux.next('module', 'tts', 'speak', {msg:'Arret system'});
+	}
+	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
+	setTimeout(function(){
+		spawn('sh', [CORE_PATH + 'sh/power.sh']);
+	}, 2000);
+};
+
 
 /** Function to update last modified date & time of Odi's files */
 function getLastModifiedDate(paths, callback) {

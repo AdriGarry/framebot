@@ -31,7 +31,8 @@ then
 #___Son restart Odi Program
 elif [ $1 = "error" ]
 then
-	sudo omxplayer -o local --vol $volume /home/pi/odi/media/mp3/system/error.mp3
+	# sudo omxplayer -o local --vol $volume /home/pi/odi/media/mp3/system/error.mp3
+	sound="/home/pi/odi/media/mp3/system/ressort.mp3"
 #___Son "Bonjour Bonjour !""
 elif [ $1 = "bonjourBonjour" ]
 then
@@ -53,8 +54,11 @@ then
 #___Son UI
 elif [ $1 = "UI" ]
 then
-	# sound="/home/pi/odi/media/mp3/system/sonarUI.mp3"
 	sound="/home/pi/odi/media/mp3/system/UIsound.mp3"
+#___Son UI
+elif [ $1 = "UIRequest" ]
+then
+	sound="/home/pi/odi/media/mp3/system/UIrequestSound.mp3"
 #___Son Cigales
 elif [ $1 = "cigales" ]
 then
@@ -78,8 +82,8 @@ then
 #___Son Test
 elif [ $1 = "test" ]
 then
-	sound="/home/pi/odi/media/mp3/system/error.mp3"
-	# sound="/home/pi/odi/media/mp3/system/DescenteInfinie.mp3"
+	# sound="/home/pi/odi/media/mp3/system/ressort.mp3"
+	sound="/home/pi/odi/media/mp3/system/sonar.mp3"
 #___Donjon de Naheulbeuk
 elif [ $1 = "Naheulbeuk" ]
 then
@@ -92,9 +96,9 @@ elif [ $1 = "new" ]
 #___Son Test derniere maj
 then
 	sound="/home/pi/odi/media/mp3/exclamation/jusquIciToutVaBienLaHaine.mp3"
-#___Son par defaut : ressort
+#___Son par defaut : sonar
 else
-	sound="/home/pi/odi/media/mp3/exclamation/ressort.mp3"
+	sound="/home/pi/odi/media/mp3/system/sonar.mp3"
 fi
 
 #___Naheulbeuk || Survivaure

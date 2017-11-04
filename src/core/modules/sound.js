@@ -13,6 +13,10 @@ Flux.module.sound.subscribe({
 			mute(flux.value);
 		} else if (flux.id == 'volume') {
 			// todo setVolume(flux.value);
+		} else if (flux.id == 'error') {
+			spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'error']);
+		} else if (flux.id == 'UI') {
+			spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'UIRequest']);
 		} else {
 			log.info('Sound flux not mapped', flux);
 		}

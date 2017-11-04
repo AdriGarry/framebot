@@ -58,14 +58,13 @@ function startUI(mode) {
 		//ODI.leds.toggle({led:'eye', mode: 1});
 		res.header('Access-Control-Allow-Origin', 'http://adrigarry.com');
 
-		Flux.next('module', 'led', 'blink', { led: ['satellite'], speed: 100, loop: 3 });
+		Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);
 		/*spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'UI']);
-		  log.info('req.url', req.url);
-		  if(req.url == '/'){ // UI request
-			  spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'UI']);
-			  log.info('======================>');
-		  }*/
-
+		  log.info('req.url', req.url);*/
+		// if(req.url != '/dashboard') spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'UIRequest']);
+		
+		if(req.url != '/dashboard') Flux.next('module', 'sound', 'UI');//, null, null, true
+		
 		if (req.connection.remoteAddress.indexOf('192.168') == -1) {
 			// Logging not local requests
 			var newRequest = Utils.logTime('D/M h:m:s ') + request + ' [' + req.connection.remoteAddress + ']\r\n';
@@ -96,7 +95,7 @@ function startUI(mode) {
 		}
 	};
 	ui.use(logger);
-
+	
 	// TRUC DE FOU NON ???
 	/*ui.get('/', function(req, res){ // Init UI
 		  res.sendFile(path.join(WEB_PATH + 'index.html'));
@@ -143,7 +142,7 @@ function startUI(mode) {
 				newAlarms[key] = Odi.conf.alarms[key];
 			}
 		});
-		ODI.config.update({ alarms: newAlarms }, true);
+		Odi.setConf({ alarms: newAlarms }, true);
 
 		// "alarms": {
 		// 	"weekDay": {"h":7,"m":10, "d": [1,2,3,4,5], "mode": "sea"},
@@ -254,14 +253,12 @@ function startUI(mode) {
 
 	/** POST SECTION */
 	ui.post('/odi', function(req, res) {
-		// Restart Odi
-		ODI.hardware.restartOdi();
+		Flux.next('service', 'system', 'restart', null);
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/sleep', function(req, res) {
-		// Restart Odi
 		params = req.query;
 		var sleepTime;
 		if (params.hasOwnProperty('h')) {
@@ -270,6 +267,7 @@ function startUI(mode) {
 			sleepTime = 255;
 		}
 		// ODI.hardware.restartOdi(sleepTime); //255
+		Flux.next('service', 'system', 'restart', 'sleep');
 		res.writeHead(200);
 		res.end();
 	});
@@ -277,6 +275,7 @@ function startUI(mode) {
 	ui.post('/reboot', function(req, res) {
 		// Reboot Odi
 		// ODI.hardware.reboot();
+		Flux.next('service', 'system', 'reboot', null);
 		res.writeHead(200);
 		res.end();
 	});
@@ -395,7 +394,7 @@ function startUI(mode) {
 			log.debug('/russia', params);
 			if (params.hasOwnProperty('hymn')) {
 				//exclamation.russiaLoop();
-				spawn('sh', [ODI_PATH + 'src/shell/music.sh', 'urss']);
+				spawn('sh', [Odi.SHELL_PATH + 'music.sh', 'urss']);
 				// ODI.leds.altLeds(70, 20);
 			} else {
 				// ODI.exclamation.russia();
@@ -429,7 +428,7 @@ function startUI(mode) {
 			//
 			var song; // RECUPERER LE NOM DE LA CHANSON
 			if (!song) song = 'mouthTrick';
-			spawn('sh', [ODI_PATH + 'src/shell/music.sh', song]);
+			spawn('sh', [Odi.SHELL_PATH + 'music.sh', song]);
 			res.writeHead(200);
 			res.end();
 		});
@@ -450,14 +449,14 @@ function startUI(mode) {
 
 		ui.post('/naheulbeuk', function(req, res) {
 			// Nahleubeuk
-			spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'Naheulbeuk']);
+			spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'Naheulbeuk']);
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/survivaure', function(req, res) {
 			// Survivaure
-			// spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'Survivaure']);
+			spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'Survivaure']);
 			res.writeHead(200);
 			res.end();
 		});
@@ -543,7 +542,7 @@ function startUI(mode) {
 
 		ui.post('/cigales', function(req, res) {
 			// Cigales
-			spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'cigales']);
+			spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'cigales']);
 			res.writeHead(200);
 			res.end();
 		});
@@ -557,7 +556,7 @@ function startUI(mode) {
 
 		ui.post('/test', function(req, res) {
 			// Set Party Mode
-			spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'test']); //mouthTrick
+			spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'test']); //mouthTrick
 			res.writeHead(200);
 			res.end();
 		});
