@@ -7,6 +7,8 @@ var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
 
+var spawn = require('child_process').spawn;
+
 Flux.service.system.subscribe({
 	next: flux => {
 		// console.log(' ==> flux=', flux);
@@ -72,9 +74,9 @@ function shutdown(){
 		Flux.next('module', 'sound', 'mute');
 		Flux.next('module', 'tts', 'speak', {msg:'Arret system'});
 	}
-	console.log('_/!\\__SHUTING DOWN RASPBERRY PI  -- DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
 	setTimeout(function(){
-		spawn('sh', [CORE_PATH + 'sh/power.sh']);
+		console.log('\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
+		spawn('sh', [Odi._SHELL + 'power.sh']);
 	}, 2000);
 };
 

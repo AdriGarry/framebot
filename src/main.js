@@ -21,7 +21,6 @@ if(Odi.conf.mode != 'sleep'){
 	spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
 }
 
-console.log(Odi._CORE);
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf.debug);
 log.debug('argv', argv);
 
@@ -83,7 +82,3 @@ if (test || Odi.conf.mode == 'test') {
 // 	var end = new Date() - start;
 // 	console.info('Execution time: %dms', end);
 // }, 5000);
-
-setTimeout(function() {
-	Odi.error('TOTO erreur !!', false);
-},5000);

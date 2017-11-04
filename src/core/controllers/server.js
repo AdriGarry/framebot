@@ -60,7 +60,7 @@ function startUI(mode) {
 
 		Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);
 		
-		if(req.url != '/dashboard') Flux.next('module', 'sound', 'UI', null, null, true);
+		if(req.url != '/dashboard' && req.url != '/log') Flux.next('module', 'sound', 'UI', null, null, null, true);
 		
 		if (req.connection.remoteAddress.indexOf('192.168') == -1) {
 			// Logging not local requests
@@ -70,7 +70,7 @@ function startUI(mode) {
 			});
 		}
 
-		ip = req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : '[' + req.connection.remoteAddress + ']';
+		ip = req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : 'from [' + req.connection.remoteAddress + ']';
 
 		if (req.headers['user-interface'] === 'v4') {
 			// Allowed requests
@@ -84,32 +84,17 @@ function startUI(mode) {
 		} else {
 			// Not allowed requests
 			request = '401 ' + req.url.replace('%20', ' ');
-			if (Odi.conf.mode == 'ready')
+			if (Odi.conf.mode == 'ready'){
 				Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' });
-			Odi.error(request + ' from ' + ip, false);
+			}
+			console.log(ip);
+			Odi.error(request + ' ' + ip, false);
 			res.status(401); // Unauthorized
 			res.end();
 		}
 	};
 	ui.use(logger);
 	
-	// TRUC DE FOU NON ???
-	/*ui.get('/', function(req, res){ // Init UI
-		  res.sendFile(path.join(WEB_PATH + 'index.html'));
-		  ipClient = req.connection.remoteAddress;
-		  log.info('UI initialized [' + ipClient + ']');
-		  ODI.leds.blink({leds: ['satellite'], speed: 100, loop: 3});
-		  log.info('MODE');
-		  log.info(mode);
-		  if(Odi.conf.mode == 'ready'){
-			  spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'UI']);
-		  }
-		  //res.set('Content-Type', 'text/javascript');
-	  });*/
-	ui.get('/', function(req, res){ // Init UI
-		console.log('TITI2');
-	});
-
 	ui.get('/monitoring', function(req, res) {
 		// DEPRECATED ???
 		//console.log(/\d/.test(mode));
@@ -286,14 +271,13 @@ function startUI(mode) {
 
 	var granted = false;
 	ui.post('/grant', function(req, res) {
-		// Get grant status
 		var pattern = req.headers.pwd;
 		if (pattern && admin.checkPassword(pattern)) {
 			granted = true;
 			log.info('>> Admin granted !');
 		} else {
-			// log.info();
 			Odi.error('>> User NOT granted /!\\', false);
+			Flux.next('module', 'tts', 'speak', {lg:'en', msg:'User NOT granted'});
 		}
 		res.send(granted);
 		if (granted) granted = false;

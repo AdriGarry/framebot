@@ -30,7 +30,6 @@ app.directive("scroll", function ($window){
 /** Filter to format logs (link on ip address) **/
 app.filter('formatLog', function(CONSTANTS){
 	return function(logLine){
-		//logLine = logLine.replace(/\[([0-9]{1,3}\.){3}([0-9]{1,3})\]/g, function(match, capture){
 		logLine = logLine.replace(CONSTANTS.IP_REGEX, function(match, capture){
 			var ip = match.substr(1,match.length-2);
 			if(ip.search(/(^192\.168\.)/g)){
