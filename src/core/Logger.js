@@ -6,11 +6,11 @@ var util = require('util');
 module.exports = Logger;
 
 const dateTimeDefaultPattern = 'D/M h:m:s';
-var modeDebug = false,
-	Utils;
+var Odi, Utils, modeDebug = false;
 
 function Logger(filename, debugMode, dateTimePattern) {
 	Utils = require(ODI_PATH + 'src/core/Utils.js');
+	Odi = require(ODI_PATH + 'src/core/Odi.js');
 	modeDebug = debugMode || modeDebug;
 	// dateTimePattern = dateTimePattern || dateTimeDefaultPattern;
 	filename = filename.match(/(\w*).js/g)[0];
