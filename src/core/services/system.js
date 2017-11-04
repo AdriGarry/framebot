@@ -9,7 +9,9 @@ var Utils = require(ODI_PATH + 'src/core/Utils.js');
 
 Flux.service.system.subscribe({
 	next: flux => {
-		if (flux.id == 'restart') {
+		// console.log(' ==> flux=', flux);
+		if (flux.id == 'restart') {/* || flux.id == 'restartOdi'*/
+			// console.log('TOTO');
 			restartOdi(flux.value);
 		} else if (flux.id == 'updateOdiSoftwareInfo') {
 			updateOdiSoftwareInfo(flux.value);
@@ -24,8 +26,9 @@ Flux.service.system.subscribe({
 
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode) {
-	log.info('restartOdi(mode)', mode || '');
-	Odi.update({ mode: mode }, true);
+	log.info('restartOdi()', mode || '');
+	// console.log('mode', mode);
+	Odi.update({ mode: mode || 'ready' }, true);
 	// if (mode > 0) {
 	// 	Odi.update({ mode: 'sleep' }, true);
 	// } else {

@@ -35,6 +35,10 @@ module.exports = {
 var Flux = { next: null };
 
 function init(path, forcedDebug, test) {
+	const logo = fs.readFileSync(ODI_PATH + 'data/' + (Odi.conf.mode == 'sleep'? 'odiLogoSleep': 'odiLogo') +'.properties', 'utf8')
+	.toString().split('\n');
+	console.log('\n' + logo.join('\n'));
+
 	Odi.PATH = path;
 	if (forcedDebug) Odi.conf.debug = 'forced';
 	logArray();

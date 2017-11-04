@@ -2,8 +2,8 @@
 
 clear
 
-# ODI_PATH="/home/pi/odi/newOdi"
-ODI_PATH="/home/pi/odi_5.0"
+ODI_PATH="/home/pi/odi/newOdi"
+# ODI_PATH="/home/pi/odi_5.0"
 echo $ODI_PATH
 
 echo "start.sh -> Start Odi Pgm... [$*]"
@@ -50,7 +50,8 @@ fi
 # Test if tmp directory exists
 if [ ! -d "$ODI_PATH"/tmp ];
 then
-	"$ODI_PATH"/tmp
+	# "$ODI_PATH"/tmp
+	mkdir "$ODI_PATH"/tmp
 	echo "Creating tmp file"
 fi
 

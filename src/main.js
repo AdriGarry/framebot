@@ -14,13 +14,6 @@ const test = argv.indexOf('test') > 0 ? true : false;
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
 global.SRC_PATH = __dirname + '/';
 
-var fs = require('fs');
-var logo = fs
-	.readFileSync(ODI_PATH + 'data/odiLogo.properties', 'utf8')
-	.toString()
-	.split('\n');
-console.log('\n' + logo.join('\n'));
-
 var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug, test);
 
 var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, Odi.conf.debug); // Odi.conf.debug || forcedDebug
@@ -40,7 +33,7 @@ var modules = {
 };
 log.info('Modules loaded:', Object.keys(modules).join(', '));
 
-var controllers = {
+/*var controllers = {
 	button: require(Odi.CORE_PATH + 'controllers/button.js'),
 	jobs: require(Odi.CORE_PATH + 'controllers/jobs.js')
 	// server: require(Odi.CORE_PATH + "controllers/server.js")
@@ -57,7 +50,27 @@ var services = {
 	video: require(Odi.CORE_PATH + 'services/video.js'),
 	voiceMail: require(Odi.CORE_PATH + 'services/voiceMail.js')
 };
-log.info('Services loaded:', Object.keys(services).join(', '));
+log.info('Services loaded:', Object.keys(services).join(', '));*/
+
+var controllers = ['controllers','button', 'jobs'];
+var services = ['services', 'system'];
+
+// var system = require(Odi.CORE_PATH + 'services/system.js');
+
+// launchObservers(controllers);
+launchObservers(services);
+
+function launchObservers(oberservers){
+	log.INFO(oberservers);
+	let type = oberservers.shift();
+	for(var i = 0;i<oberservers.lenght;i++){
+		//require(Odi.CORE_PATH + 'controllers/' + oberservers[i] + '.js')
+		log.INFO('oberservers');
+		log.INFO(i, oberservers[i]);
+	}
+	log.info(type, 'loaded:', Object.keys(oberservers).join(', '));
+}
+
 
 log.info('Odi ready in' + Utils.getExecutionTime(startTime, '     ') + 'ms');
 
@@ -73,6 +86,15 @@ if (test || Odi.conf.mode == 'test') {
 	}, 500);
 }
 
+if(Odi.conf.mode == 'sleep') {
+	// console.log('1111');
+	Flux.next('service', 'system', 'restart', null, 10);
+}else{
+	// console.log('2222');
+	Flux.next('service', 'system', 'restart', 'sleep', 10);
+}
+
+
 /*setTimeout(function() {
 	log.DEBUG('process.exit');
 	process.exit();
@@ -83,4 +105,4 @@ if (test || Odi.conf.mode == 'test') {
 // 	// execution time simulated with setTimeout function
 // 	var end = new Date() - start;
 // 	console.info('Execution time: %dms', end);
-// }, 1000);
+// }, 5000);
