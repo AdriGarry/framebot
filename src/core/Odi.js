@@ -45,10 +45,12 @@ function init(path, forcedDebug, test) {
 	log.info('initialization...', Odi.conf.debug ? 'DEBUG' + (Odi.conf.debug == 'forced' ? ' [FORCED!]' : '') : '');
 	if (Odi.conf.debug) log.enableDebug();
 	var confUpdate = { startTime: Utils.logTime('h:m (D/M)') };
-	if (Odi.conf.debug) confUpdate.debug = Odi.conf.debug;
+	if (Odi.conf.debug){
+		confUpdate.debug = Odi.conf.debug;
+		enableDebugCountdown();
+	}
 	if (test) confUpdate.mode = 'test';
 
-	// setConf(confUpdate, false);
 	Flux = require(Odi.CORE_PATH + 'Flux.js');
 	Flux.next('service', 'system', 'updateOdiSoftwareInfo', confUpdate, 0.1);
 	return Odi;
@@ -159,3 +161,18 @@ function error() {
 	};
 	Utils.appendJsonFile(ODI_PATH + 'log/errors.log', logError);
 }
+
+function enableDebugCountdown(){
+	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf.debug + 'min ' + '\u2022\u2022\u2022');
+	//TODO screen on & tail odi.log !
+	setInterval(function(){
+		Odi.update({debug: --Odi.conf.debug}, false);
+		if(!Odi.conf.debug){
+			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
+			//Odi.update({debug: 0}, true);
+			setTimeout(function(){
+				process.exit();
+			}, 500);
+		}
+	}, 60*1000);
+};

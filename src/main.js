@@ -21,7 +21,7 @@ if(Odi.conf.mode != 'sleep'){
 	spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
 }
 
-var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, Odi.conf.debug); // Odi.conf.debug || forcedDebug
+var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, Odi.conf.debug);
 log.debug('argv', argv);
 
 var Utils = require(Odi.CORE_PATH + 'Utils.js');
