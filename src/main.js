@@ -68,8 +68,8 @@ if (test || Odi.conf.mode == 'test') {
 	}, 500);
 }
 
-if(Odi.conf.mode == 'sleep') Flux.next('service', 'system', 'restart', null, 10);
-else Flux.next('service', 'system', 'restart', 'sleep', 10);
+if(Odi.conf.mode == 'sleep') Flux.next('service', 'system', 'restart', null, 20);
+else Flux.next('service', 'system', 'restart', 'sleep', 20);
 
 // var start = new Date();
 // setTimeout(function(argument) {

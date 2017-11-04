@@ -13,57 +13,67 @@ var cancel = new Gpio(16, 'in', 'rising', { persistentWatch: true, debounceTimeo
 var white = new Gpio(19, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
 var blue = new Gpio(26, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
 
-// const Rx = require('rxjs');
-// var Button = new Rx.Subject();
-// module.exports = Button;
-
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
-var pushed = 0,
-	pushedLimit = 3;
-function oneMorePush() {
-	clearTimeout(pushTimeout);
-	var pushTimeout = setTimeout(function() {
-		pushed = 0;
-	}, 5000);
-	pushed++;
-	console.log('oneMorePush', pushed + '/' + pushedLimit);
-	if (pushed >= pushedLimit) {
-		switch (Math.round(Math.random() * 2)) {
-			case 0:
-				// ODI.tts.speak({ msg: 'Et ho ! Arraite un peu avec mes boutons tu veux' });
-				break;
-			case 1:
-				// ODI.tts.speak({ msg: 'Arraite de me toucher, sa menairve !' });
-				break;
-			case 2:
-				// ODI.tts.speak({ msg: 'Pas touche a mes boutons !' });
-				break;
-		}
-		pushed = 0;
-	}
+// if(Odi.conf.mode == 'sleep') initButtonSleep();
+// else initButtonReady();
+initButtonReady();
+
+function initButtonReady(){
+	ok.watch(function(err, value) {
+		var pushTime = getPushTime(ok);
+		//oneMorePush();
+		Flux.next('controller', 'button', 'ok', pushTime);
+	});
+
+	cancel.watch(function(err, value) {
+		var pushTime = getPushTime(cancel);
+		Flux.next('controller', 'button', 'cancel', pushTime);
+	});
+
+	white.watch(function(err, value) {
+		var pushTime = getPushTime(white);
+		Flux.next('controller', 'button', 'white', pushTime);
+	});
+
+	blue.watch(function(err, value) {
+		var pushTime = getPushTime(blue);
+		Flux.next('controller', 'button', 'blue', pushTime);
+	});
+
+	// var pushed = 0,
+	// 	pushedLimit = 3;
+	// function oneMorePush() {
+	// 	clearTimeout(pushTimeout);
+	// 	var pushTimeout = setTimeout(function() {
+	// 		pushed = 0;
+	// 	}, 5000);
+	// 	pushed++;
+	// 	console.log('oneMorePush', pushed + '/' + pushedLimit);
+	// 	if (pushed >= pushedLimit) {
+	// 		switch (Math.round(Math.random() * 2)) {
+	// 			case 0:
+	// 				// ODI.tts.speak({ msg: 'Et ho ! Arraite un peu avec mes boutons tu veux' });
+	// 				break;
+	// 			case 1:
+	// 				// ODI.tts.speak({ msg: 'Arraite de me toucher, sa menairve !' });
+	// 				break;
+	// 			case 2:
+	// 				// ODI.tts.speak({ msg: 'Pas touche a mes boutons !' });
+	// 				break;
+	// 		}
+	// 		pushed = 0;
+	// 	}
+	// }
 }
 
-ok.watch(function(err, value) {
-	var pushTime = getPushTime(ok);
-	//oneMorePush();
-	Flux.next('controller', 'button', 'ok', pushTime);
-});
-
-cancel.watch(function(err, value) {
-	var pushTime = getPushTime(cancel);
-	Flux.next('controller', 'button', 'cancel', pushTime);
-});
-
-white.watch(function(err, value) {
-	var pushTime = getPushTime(white);
-	Flux.next('controller', 'button', 'white', pushTime);
-});
-
-blue.watch(function(err, value) {
-	var pushTime = getPushTime(blue);
-	Flux.next('controller', 'button', 'blue', pushTime);
-});
+function initButtonSleep(){
+	ok.watch(function(err, value) {
+		var pushTime = getPushTime(ok);
+		// Flux.next('controller', 'button', 'ok', pushTime);
+		Flux.next('service', 'system', 'restart', null);
+	});
+}
 
 var pushTime, pushedTime;
 function getPushTime(button) {

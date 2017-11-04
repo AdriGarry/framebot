@@ -18,7 +18,7 @@ Flux.controller.button.subscribe({
 });
 
 Flux.controller.jobs.subscribe({
-	next: (flux, flux2) => {
+	next: flux => {
 		jobsHandler(flux);
 	},
 	error: err => {
@@ -27,20 +27,26 @@ Flux.controller.jobs.subscribe({
 });
 
 function buttonHandler(flux) {
-	if (flux.id == 'ok') {
-		Flux.service.time.next({ id: 'bip', value: 'ok' });
-	} else if (flux.id == 'cancel') {
-		if (flux.value < 1) {
-			Flux.next('module', 'sound', 'mute');
-		} else if (flux.value >= 1 && flux.value < 2) {
-			Flux.next('service', 'system', 'restart', 'ready'); // process.exit();
-		} else if (flux.value >= 2 && flux.value < 5) {
-			Flux.next('service', 'system', 'restart', 'test'); // process.exit();
+	if(Odi.conf.mode != 'sleep'){
+		if (flux.id == 'ok') {
+			Flux.service.time.next({ id: 'bip', value: 'ok' });
+		} else if (flux.id == 'cancel') {
+			if (flux.value < 1) {
+				Flux.next('module', 'sound', 'mute');
+			} else if (flux.value >= 1 && flux.value < 2) {
+				Flux.next('service', 'system', 'restart', 'ready'); // process.exit();
+			} else if (flux.value >= 2 && flux.value < 5) {
+				Flux.next('service', 'system', 'restart', 'test'); // process.exit();
+			} else {
+				Flux.next('service', 'system', 'restart', 'sleep');
+			}
 		} else {
-			Flux.next('service', 'system', 'restart', 'sleep');
+			log.info('Button->else', flux);
 		}
-	} else {
-		log.info('Button->else', flux);
+	}else{
+		if (flux.id == 'ok') {
+			Flux.next('service', 'system', 'restart', null);
+		}
 	}
 }
 
