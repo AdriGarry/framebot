@@ -1,0 +1,74 @@
+<md-grid-list md-cols="3" md-cols-xs="3" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="4:3"
+	md-row-height="4:3" md-gutter="12px" data-ng-class="irda? 'pointer' : ''">
+
+	<md-grid-tile data-ng-click="expandTile(dashboard.ttsTile)" md-rowspan="{{dashboard.ttsTile.rowspan}}" md-colspan="{{dashboard.ttsTile.colspan}}" md-colspan-sm="{{dashboard.ttsTile.colspan}}" md-colspan-xs="{{dashboard.ttsTile.colspan}}" data-ng-class="dashboard.ttsTile.color" class="ng-slide ttsTile">
+		<!--<md-button data-ng-show="dashboard.ttsTile.rowspan == 2" data-ng-click="reduceTile(dashboard.ttsTile)" class="md-icon-button reduceTile"
+			title="Reduce Tile" aria-label="Reduce Tile"><i class="fa fa-2x fa-close"></i></md-button>-->
+
+		<form data-ng-submit="dashboard.ttsTile.submit()" class="mainContent">
+			<div layout="row" data-ng-show="dashboard.ttsTile.rowspan == 2">
+				<md-switch data-ng-model="dashboard.ttsTile.voice" data-ng-true-value="'espeak'" data-ng-false-value="'google'" class="voiceSwitch desktopZoom"
+					ng-class="dashboard.ttsTile.voice == 'google' ? 'md-warn' : 'md-primary'">
+					<span>Human Voice</span>
+					<span>Robot Voice</span>
+				</md-switch>
+			</div>
+
+			<div layout="row" data-ng-show="dashboard.ttsTile.rowspan == 2">
+				<div flex="10"></div>
+				<md-input-container flex="50">
+					<label>Language</label>
+					<md-select name="type" data-ng-model="dashboard.ttsTile.lg">
+						<md-option data-ng-repeat="language in dashboard.ttsTile.conf.languageList track by $index" data-ng-value="language.code"
+							ng-checked="language.code == fr">
+							{{language.label}}
+						</md-option>
+					</md-select>
+				</md-input-container>
+
+				<label class="pointer text-center desktopZoom" flex="30">
+					<md-checkbox data-ng-model="dashboard.ttsTile.voicemail" data-ng-class="dashboard.ttsTile.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send in voicemail" aria-label="Send in voicemail">Voicemail</md-checkbox>
+				</label>
+			</div>
+			<!--<div layout="row">
+			</div>-->
+			<div layout="row" class="ttsMsg">
+				<md-input-container flex="70" class="md-block">
+					<label>Message</label>
+					<input type="search" name="ttsMsg" list="examples" data-ng-model="dashboard.ttsTile.msg" data-ng-change="dashboard.ttsTile.cleanText()"><!--required-->
+					<datalist id="examples">
+						<option value="Hey, je suis Odi !">
+						<option value="Je monte les escaliers !">
+						<option value="Vive la biere !">
+					</datalist>
+					<!--<input name="ttsMsg" data-ng-model="tts.msg" required data-ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+					<div data-ng-messages="ttsMsg.$error" role="alert" multiple>
+						<div data-ng-message="required" class="my-message">Required&nbsp;!</div>
+					</div>-->
+				</md-input-container>
+				<md-input-container flex="30" class="md-block centerText">
+					<md-button type="submit" name="submit" class="md-raised" data-ng-class="dashboard.ttsTile.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !">&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-lg" data-ng-class="dashboard.ttsTile.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
+					</md-button>
+				</md-input-container>
+			</div>
+		</form>
+		<md-grid-tile-footer><h3>{{dashboard.ttsTile.label}}</h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+	<md-grid-tile data-ng-repeat="tile in dashboard.tileList track by $index" md-rowspan="{{tile.rowspan}}"
+		md-colspan="{{tile.colspan}}" md-colspan-sm="{{tile.colspan}}" md-colspan-xs="{{tile.colspan}}"
+		class="ng-slide" data-ng-class="tile.color" data-ng-click="tileAction(tile)" title="{{tile.label}}">
+		<i class="fa fa-2x fa-ellipsis-h adminFlag" data-ng-show="tile.actionList.length>1 && irda"></i>
+
+		<span class="responsive" data-ng-show="tile.viewMode=='value'">{{tile.value}}</span>
+
+		<i class="responsive mainInfo fa fa-{{tile.value}}" data-ng-show="tile.viewMode=='icon'"></i>
+
+		<span class="responsive" data-ng-bind-html="toHtml(tile.html)" data-ng-show="tile.viewMode=='custom'"></span>
+
+		<md-grid-tile-footer data-ng-class="tile.active ? 'active' : ''"><h3>
+			<i class="fa fa-arrow-right active" data-ng-if="tile.active"></i>{{tile.label}}&nbsp;<i data-ng-show="tile.label == 'Mode' && dashboard.debug">debug</i></h3></md-grid-tile-footer>
+	</md-grid-tile>
+
+</md-grid-list>
