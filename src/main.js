@@ -25,21 +25,19 @@ var Flux = require(Odi.CORE_PATH + 'Flux.js');
 
 var Brain = require(Odi.CORE_PATH + 'Brain.js');
 
-var modules = {
+/*var modules = {
 	led: require(Odi.CORE_PATH + 'modules/led.js'),
 	hardware: require(Odi.CORE_PATH + 'modules/hardware.js'),
 	sound: Odi.conf.mode == 'sleep' ? null : require(Odi.CORE_PATH + 'modules/sound.js'),
 	tts: Odi.conf.mode == 'sleep' ? null : require(Odi.CORE_PATH + 'modules/tts.js')
 };
 log.info('Modules loaded:', Object.keys(modules).join(', '));
-
-/*var controllers = {
+var controllers = {
 	button: require(Odi.CORE_PATH + 'controllers/button.js'),
 	jobs: require(Odi.CORE_PATH + 'controllers/jobs.js')
 	// server: require(Odi.CORE_PATH + "controllers/server.js")
 };
 log.info('Controllers loaded:', Object.keys(controllers).join(', '));
-
 var services = {
 	max: require(Odi.CORE_PATH + 'services/max.js'), // Max & Co...
 	mood: require(Odi.CORE_PATH + 'services/mood.js'), // random, exclamation, badBoy, party, [cigales ?]
@@ -48,27 +46,24 @@ var services = {
 	time: require(Odi.CORE_PATH + 'services/time.js'),
 	tools: require(Odi.CORE_PATH + 'services/tools.js'), // ??
 	video: require(Odi.CORE_PATH + 'services/video.js'),
-	voiceMail: require(Odi.CORE_PATH + 'services/voiceMail.js')
+	voiceMail: require(Odi.CORE_PATH + 'services/voicemail.js')
 };
 log.info('Services loaded:', Object.keys(services).join(', '));*/
 
-var controllers = ['controllers','button', 'jobs'];
-var services = ['services', 'system'];
+const modules = ['modules', 'led','hardware', 'sound', 'tts'];
+const controllers = ['controllers','button', 'jobs'/*, 'server' */];
+const services = ['services', 'system', 'time', 'tools', 'music', 'mood', 'voicemail', 'max', 'video'];
 
-// var system = require(Odi.CORE_PATH + 'services/system.js');
-
-// launchObservers(controllers);
+launchObservers(modules);
+launchObservers(controllers);
 launchObservers(services);
-
 function launchObservers(oberservers){
-	log.INFO(oberservers);
 	let type = oberservers.shift();
-	for(var i = 0;i<oberservers.lenght;i++){
-		//require(Odi.CORE_PATH + 'controllers/' + oberservers[i] + '.js')
-		log.INFO('oberservers');
-		log.INFO(i, oberservers[i]);
+	for(let i = 0;i<oberservers.length;i++){
+		require(Odi.CORE_PATH + type + '/' + oberservers[i] + '.js')
+		// log.info(oberservers[i], 'observer loaded');
 	}
-	log.info(type, 'loaded:', Object.keys(oberservers).join(', '));
+	log.info(type, 'loaded:', oberservers.join(', '));
 }
 
 
