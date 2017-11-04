@@ -35,7 +35,7 @@ function buttonHandler(flux) {
 				Flux.next('module', 'sound', 'mute');
 			} else if (flux.value >= 1 && flux.value < 3) {
 				Flux.next('service', 'system', 'restart', null);
-			} else if (flux.value >= 3 && flux.value < 5) {
+			} else if (flux.value >= 3 && flux.value < 6) {
 				Flux.next('service', 'system', 'restart', 'sleep');
 			} else {
 				Flux.next('service', 'system', 'restart', 'test');

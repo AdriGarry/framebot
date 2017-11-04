@@ -10,13 +10,12 @@ else
 fi
 
 #___Allumage ou non des leds
-if [ $2 = "noLeds" ]
-then
-	echo $2
-else
-	#sudo node /home/pi/odi/core/modules/allLedsOn.js
-	sudo node /home/pi/odi/core/modules/leds.js allLedsOn
-fi
+# if [ $2 = "noLeds" ]
+# then
+# 	echo $2
+# else
+# 	sudo node /home/pi/odi/core/modules/leds.js allLedsOn
+# fi
 
 echo $1
 
@@ -55,7 +54,7 @@ then
 elif [ $1 = "UI" ]
 then
 	# sound="/home/pi/odi/media/mp3/system/sonarUI.mp3"
-	sound="/home/pi/odi/media/mp3/system/UIsound1.mp3"
+	sound="/home/pi/odi/media/mp3/system/UIsound.mp3"
 #___Son Cigales
 elif [ $1 = "cigales" ]
 then
@@ -104,8 +103,7 @@ then
 	echo "STORIES: Donjon-De-Naheulbeuk-Integrale || Aventuriers-Du-Survivaure-Integrale"
 	position=$(shuf -i 0-20000 -n 1)
 	sudo killall omxplayer.bin
-	#sudo node /home/pi/odi/core/modules/allLedsOff.js
-	sudo node /home/pi/odi/core/modules/leds.js allLedsOff
+	# sudo node /home/pi/odi/core/modules/leds.js allLedsOff
 	sudo omxplayer -o local --pos $position --vol $volume $sound > /dev/null &
 
 else
@@ -113,11 +111,10 @@ else
 	#sudo node /home/pi/odi/core/modules/allLedsOff.js
 	
 	#___Extinction ou non des leds
-	if [ $2 = "noLeds" ]
-	then
-		echo $2
-	else
-		sudo node /home/pi/odi/core/modules/leds.js allLedsOff
-	fi
-	#sudo node /home/pi/odi/core/modules/leds.js allLedsOff
+	# if [ $2 = "noLeds" ]
+	# then
+	# 	echo $2
+	# else
+	# 	sudo node /home/pi/odi/core/modules/leds.js allLedsOff
+	# fi
 fi
