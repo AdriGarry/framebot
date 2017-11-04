@@ -69,7 +69,7 @@ if (test || Odi.conf.mode == 'test') {
 			Flux.next('module', 'tts', 'speak', {lg: 'en', msg: 'all tests succeeded!'})
 			setTimeout(function() {
 				if (testStatus) Odi.update({ mode: 'ready' }, true);
-			}, 2000);
+			}, 3000);
 		});
 	}, 500);
 }
@@ -83,4 +83,4 @@ if (test || Odi.conf.mode == 'test') {
 
 setTimeout(function() {
 	Flux.next('service', 'time', 'now');
-}, 3000);
+}, 5000);

@@ -487,17 +487,17 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/timer', function(req, res) {
-			// Timer
 			params = req.query;
+			log.INFO('turlututu chapeau pointu !', params);
 			if (!isNaN(params.m)) {
 				log.info('!isNaN(params.m)');
 				var min = parseInt(params.m, 10);
 				log.info(min);
 				Flux.next('service', 'time', 'setTimer', min);
 			} else if (params.hasOwnProperty('stop')) {
-				// ODI.time.stopTimer();
-			} else {
-				// ODI.time.setTimer();
+				Flux.next('service', 'time', 'stopTimer');
+			// } else {
+			// 	ODI.time.setTimer();
 			}
 			res.writeHead(200);
 			res.end();
@@ -542,12 +542,13 @@ function startUIServer(mode) {
 			res.end();
 		});
 
-		ui.post('/test', function(req, res) {
-			// Set Party Mode
-			spawn('sh', [Odi._SHELL + 'sounds.sh', 'test']); //mouthTrick
-			res.writeHead(200);
-			res.end();
-		});
+		// ui.post('/test', function(req, res) {
+		// 	// Set Party Mode
+		// 	spawn('sh', [Odi._SHELL + 'sounds.sh', 'test']); //mouthTrick
+		// 	res.writeHead(200);
+		// 	res.end();
+		// });
+
 		ui.post('/*', function(req, res) {
 			// Redirect Error
 			Odi.error('UI > I’m a teapot !', false);
