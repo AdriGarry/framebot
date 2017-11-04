@@ -18,14 +18,14 @@ var Odi = {
 	error: error,
 	errors: [],
 	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
-	ODI_PATH: '',
-	SHELL_PATH: ODI_PATH + 'src/shell/',
-	CORE_PATH: ODI_PATH + 'src/core/',
-	CONFIG_FILE: ODI_PATH + 'conf.json',
-	DATA_PATH: ODI_PATH + 'data/',
-	LOG_PATH: ODI_PATH + 'log/',
-	TMP_PATH: ODI_PATH + 'tmp/',
-	WEB_PATH: ODI_PATH + 'src/web/'
+	_SRC: ODI_PATH + 'src/',
+	_CORE: ODI_PATH + 'src/core/',
+	_CONF: ODI_PATH + 'conf.json',
+	_DATA: ODI_PATH + 'data/',
+	_LOG: ODI_PATH + 'log/',
+	_TMP: ODI_PATH + 'tmp/',
+	_SHELL: ODI_PATH + 'src/shell/',
+	_WEB: ODI_PATH + 'src/web/'
 };
 module.exports = {
 	init: init,
@@ -51,14 +51,14 @@ function init(path, forcedDebug, test) {
 	}
 	if (test) confUpdate.mode = 'test';
 
-	Flux = require(Odi.CORE_PATH + 'Flux.js');
+	Flux = require(Odi._CORE + 'Flux.js');
 	Flux.next('service', 'system', 'updateOdiSoftwareInfo', confUpdate, 0.1);
 	return Odi;
 }
 
 /** Function to set/edit Odi's config */
 function update(newConf, restart, callback) {
-	doUpdate(Odi.CONFIG_FILE, newConf, restart, callback);
+	doUpdate(Odi._CONF, newConf, restart, callback);
 }
 
 /** Function to set/edit Odi's DEFAULT config */
@@ -72,7 +72,7 @@ function resetCfg(restart) {
 	logArray();
 	//	config.update = now('dt');
 
-	var stream = fs.createReadStream(Odi.DATA_PATH + 'defaultConf.json'); /*, {bufferSize: 64 * 1024}*/
+	var stream = fs.createReadStream(Odi._DATA + 'defaultConf.json'); /*, {bufferSize: 64 * 1024}*/
 	stream.pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
 	var had_error = false;
 	stream.on('error', function(e) {
@@ -90,7 +90,7 @@ var updateBegin;
 function doUpdate(file, newConf, restart, callback) {
 	updateBegin = new Date();
 	log.debug('Updating conf:', newConf, restart);
-	Utils.getJsonFileContent(Odi.CONFIG_FILE, function(data) {
+	Utils.getJsonFileContent(file, function(data) {
 		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
 		var configFile = JSON.parse(data);
 		var updatedEntries = [];
@@ -102,7 +102,7 @@ function doUpdate(file, newConf, restart, callback) {
 		});
 		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
 		Odi.conf = configFile;
-		fs.writeFile(Odi.CONFIG_FILE, JSON.stringify(Odi.conf, null, 1), function() {
+		fs.writeFile(file, JSON.stringify(Odi.conf, null, 1), function() {
 			logArray(updatedEntries, Utils.getExecutionTime(updateBegin, '    '));
 			if (restart) process.exit();
 			if (callback) callback();

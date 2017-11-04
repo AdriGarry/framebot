@@ -2,7 +2,7 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename);
+var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 
 var CronJob = require('cron').CronJob;
 
@@ -17,7 +17,7 @@ var Jobs = new Rx.Subject();
 
 ////////// TESTS //////////
 
-var Flux = require(Odi.CORE_PATH + 'Flux.js');
+var Flux = require(Odi._CORE + 'Flux.js');
 
 new CronJob(
 	'*/6 * * * * *',

@@ -2,9 +2,9 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename);
+var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 
-var Flux = require(Odi.CORE_PATH + 'Flux.js');
+var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
 
 Flux.service.system.subscribe({
@@ -57,13 +57,12 @@ function updateOdiSoftwareInfo(newConf) {
 /** Function to reboot RPI */
 function reboot(){
 	if(Odi.conf.mode == 'ready'){
-		mute();
 		Flux.next('module', 'sound', 'mute');
 		Flux.next('module', 'tts', 'speak', {msg:'Je redaimarre'});
 	}
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
 	setTimeout(function(){
-		spawn('sh', [CORE_PATH + 'sh/power.sh', 'reboot']);
+		spawn('sh', [Odi._SHELL + 'power.sh', 'reboot']);
 	}, 2000);
 };
 

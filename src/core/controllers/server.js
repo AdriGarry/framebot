@@ -9,8 +9,8 @@
   */
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
-var Flux = require(Odi.CORE_PATH + 'Flux.js');
+var log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
 const admin = require(ODI_PATH + 'src/core/modules/admin.js');
 
@@ -30,7 +30,7 @@ var deploy;
 /** Function to format logs */
 function prepareLogs(lines, callback) {
 	var content = fs
-		.readFileSync(Odi.LOG_PATH + 'odi.log', 'UTF-8')
+		.readFileSync(Odi._LOG + 'odi.log', 'UTF-8')
 		.toString()
 		.split('\n');
 	content = content.slice(-lines); //-120
@@ -45,7 +45,7 @@ function startUI(mode) {
 	var request, ip, params, ipClient;
 
 	ui.use(compression()); // Compression web
-	ui.use(express.static(Odi.WEB_PATH)); // Pour fichiers statiques
+	ui.use(express.static(Odi._WEB)); // Pour fichiers statiques
 	ui.use(bodyParser.json()); // to support JSON-encoded bodies
 	ui.use(
 		bodyParser.urlencoded({
@@ -59,11 +59,8 @@ function startUI(mode) {
 		res.header('Access-Control-Allow-Origin', 'http://adrigarry.com');
 
 		Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);
-		/*spawn('sh', [CORE_PATH + 'sh/sounds.sh', 'UI']);
-		  log.info('req.url', req.url);*/
-		// if(req.url != '/dashboard') spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'UIRequest']);
 		
-		if(req.url != '/dashboard') Flux.next('module', 'sound', 'UI');//, null, null, true
+		if(req.url != '/dashboard') Flux.next('module', 'sound', 'UI', null, null, true);
 		
 		if (req.connection.remoteAddress.indexOf('192.168') == -1) {
 			// Logging not local requests
@@ -214,7 +211,7 @@ function startUI(mode) {
 		res.end(JSON.stringify(dashboard));
 	});
 
-	/** GET SECTION */
+	/** ==> GET SECTION */
 	ui.get('/log', function(req, res) {
 		// Send Logs to UI
 		var logSize = 100;
@@ -248,9 +245,9 @@ function startUI(mode) {
 		res.end(fs.readFileSync(FILE_VOICEMAIL_HISTORY, 'utf8').toString());
 	});
 
-	/** POST SECTION */
+	/** ==> POST SECTION */
 	ui.post('/odi', function(req, res) {
-		Flux.next('service', 'system', 'restart', null);
+		Flux.next('service', 'system', 'restart');
 		res.writeHead(200);
 		res.end();
 	});
@@ -272,7 +269,7 @@ function startUI(mode) {
 	ui.post('/reboot', function(req, res) {
 		// Reboot Odi
 		// ODI.hardware.reboot();
-		Flux.next('service', 'system', 'reboot', null);
+		Flux.next('service', 'system', 'reboot');
 		res.writeHead(200);
 		res.end();
 	});
@@ -391,7 +388,7 @@ function startUI(mode) {
 			log.debug('/russia', params);
 			if (params.hasOwnProperty('hymn')) {
 				//exclamation.russiaLoop();
-				spawn('sh', [Odi.SHELL_PATH + 'music.sh', 'urss']);
+				spawn('sh', [Odi._SHELL + 'music.sh', 'urss']);
 				// ODI.leds.altLeds(70, 20);
 			} else {
 				// ODI.exclamation.russia();
@@ -425,7 +422,7 @@ function startUI(mode) {
 			//
 			var song; // RECUPERER LE NOM DE LA CHANSON
 			if (!song) song = 'mouthTrick';
-			spawn('sh', [Odi.SHELL_PATH + 'music.sh', song]);
+			spawn('sh', [Odi._SHELL + 'music.sh', song]);
 			res.writeHead(200);
 			res.end();
 		});
@@ -446,14 +443,14 @@ function startUI(mode) {
 
 		ui.post('/naheulbeuk', function(req, res) {
 			// Nahleubeuk
-			spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'Naheulbeuk']);
+			spawn('sh', [Odi._SHELL + 'sounds.sh', 'Naheulbeuk']);
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/survivaure', function(req, res) {
 			// Survivaure
-			spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'Survivaure']);
+			spawn('sh', [Odi._SHELL + 'sounds.sh', 'Survivaure']);
 			res.writeHead(200);
 			res.end();
 		});
@@ -539,7 +536,7 @@ function startUI(mode) {
 
 		ui.post('/cigales', function(req, res) {
 			// Cigales
-			spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'cigales']);
+			spawn('sh', [Odi._SHELL + 'sounds.sh', 'cigales']);
 			res.writeHead(200);
 			res.end();
 		});
@@ -553,7 +550,7 @@ function startUI(mode) {
 
 		ui.post('/test', function(req, res) {
 			// Set Party Mode
-			spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'test']); //mouthTrick
+			spawn('sh', [Odi._SHELL + 'sounds.sh', 'test']); //mouthTrick
 			res.writeHead(200);
 			res.end();
 		});

@@ -12,7 +12,7 @@ const test = argv.indexOf('test') > 0 ? true : false;
 
 // if (test) console.log('>> TEST MODE !!');
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
-global.SRC_PATH = __dirname + '/';
+global.SRC_PATH = 'TOTO';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug, test);
 var spawn = require('child_process').spawn;
@@ -21,12 +21,13 @@ if(Odi.conf.mode != 'sleep'){
 	spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
 }
 
-var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, Odi.conf.debug);
+console.log(Odi._CORE);
+var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf.debug);
 log.debug('argv', argv);
 
-var Utils = require(Odi.CORE_PATH + 'Utils.js');
-var Flux = require(Odi.CORE_PATH + 'Flux.js');
-var Brain = require(Odi.CORE_PATH + 'Brain.js');
+var Utils = require(Odi._CORE + 'Utils.js');
+var Flux = require(Odi._CORE + 'Flux.js');
+var Brain = require(Odi._CORE + 'Brain.js');
 
 const observers = {
 	modules: {
@@ -45,12 +46,12 @@ const observers = {
 Object.keys(observers).forEach(function(observer) {
 	let observersLoaded = '';
 	for(let i = 0;i<observers[observer].sleep.length;i++){
-		require(Odi.CORE_PATH + observer + '/' + observers[observer].sleep[i] + '.js');
+		require(Odi._CORE + observer + '/' + observers[observer].sleep[i] + '.js');
 	}
 	observersLoaded += observers[observer].sleep.join(', ');
 	if(Odi.conf.mode != 'sleep' && observers[observer].hasOwnProperty('all')){
 		for(let i = 0;i<observers[observer].all.length;i++){
-			require(Odi.CORE_PATH + observer + '/' + observers[observer].all[i] + '.js');
+			require(Odi._CORE + observer + '/' + observers[observer].all[i] + '.js');
 		}
 		observersLoaded += ', '+observers[observer].all.join(', ');
 	}
@@ -64,7 +65,7 @@ log.info('Odi ready in' + Utils.getExecutionTime(startTime, '     ') + 'ms');
 /////////////  TEST section  /////////////
 if (test || Odi.conf.mode == 'test') {
 	setTimeout(function() {
-		var testSequence = require(SRC_PATH + 'test/tests.js').launch(function(testStatus) {
+		var testSequence = require(Odi._SRC + 'test/tests.js').launch(function(testStatus) {
 			// retour console + tts, and restart if test success
 			setTimeout(function() {
 				if (testStatus) Odi.update({ mode: 'ready' }, true);

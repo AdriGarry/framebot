@@ -2,9 +2,9 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename);
+var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 
-var Flux = require(Odi.CORE_PATH + 'Flux.js');
+var Flux = require(Odi._CORE + 'Flux.js');
 var spawn = require('child_process').spawn;
 
 Flux.module.sound.subscribe({
@@ -14,9 +14,9 @@ Flux.module.sound.subscribe({
 		} else if (flux.id == 'volume') {
 			// todo setVolume(flux.value);
 		} else if (flux.id == 'error') {
-			spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'error']);
+			spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
 		} else if (flux.id == 'UI') {
-			spawn('sh', [Odi.SHELL_PATH + 'sounds.sh', 'UIRequest']);
+			spawn('sh', [Odi._SHELL + 'sounds.sh', 'UIRequest']);
 		} else {
 			log.info('Sound flux not mapped', flux);
 		}
@@ -34,7 +34,7 @@ function mute(args) {
 	// console.log(args);
 	if (args.hasOwnProperty('delay') && Number(args.delay)) {
 		muteTimer = setTimeout(function() {
-			spawn('sh', [SRC_PATH + 'shell/mute.sh', 'auto']);
+			spawn('sh', [Odi._SHELL + 'mute.sh', 'auto']);
 			setTimeout(function() {
 				stopAll(args.message || nul);
 			}, 1600);
@@ -48,7 +48,7 @@ function mute(args) {
 function stopAll(message) {
 	// ODI.tts.clearTTSQueue(); // --> to transform
 	// ODI.jukebox.stopFip(); // --> to transform
-	spawn('sh', [SRC_PATH + 'shell/mute.sh']);
+	spawn('sh', [Odi._SHELL + 'mute.sh']);
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
 	Flux.next('module', 'led', 'clearLeds', null, null, null, 'hidden');
 	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly'], value: 0 }, null, null, 'hidden');

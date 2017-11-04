@@ -2,7 +2,7 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename);
+var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 
 var Gpio = require('onoff').Gpio;
 var belly = new Gpio(17, 'out');
@@ -13,7 +13,7 @@ var cancel = new Gpio(16, 'in', 'rising', { persistentWatch: true, debounceTimeo
 var white = new Gpio(19, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
 var blue = new Gpio(26, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
 
-var Flux = require(Odi.CORE_PATH + 'Flux.js');
+var Flux = require(Odi._CORE + 'Flux.js');
 
 // if(Odi.conf.mode == 'sleep') initButtonSleep();
 // else initButtonReady();

@@ -2,11 +2,11 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+var log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 
 const Rx = require('rxjs');
 
-var Flux = require(Odi.CORE_PATH + 'Flux.js');
+var Flux = require(Odi._CORE + 'Flux.js');
 
 const sequences = ['moduleTest', 'serviceTest'];
 var testResult = {};
@@ -20,7 +20,7 @@ function launchTests(callback) {
 	log.INFO('>> Launching Test Sequence...');
 	log.info('-----------------------------');
 	for (var i = 0; i < sequences.length; i++) {
-		testResult[sequences[i]] = require(SRC_PATH + 'test/' + sequences[i] + '.js').run(completeTest);
+		testResult[sequences[i]] = require(Odi._SRC + 'test/' + sequences[i] + '.js').run(completeTest);
 	}
 }
 
