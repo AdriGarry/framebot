@@ -11,7 +11,7 @@ var Utils = require(Odi._CORE + 'Utils.js');
 
 Flux.module.tts.subscribe({
 	next: flux => {
-		log.info('TTS service', flux);
+		log.info('TTS service', flux.id);
 		if (flux.id == 'speak') {
 			speak(flux.value);
 		} else if (flux.id == 'lastTTS') {

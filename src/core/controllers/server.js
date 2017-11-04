@@ -292,24 +292,26 @@ function startUI(mode) {
 			if (ttsMsg.voice && ttsMsg.lg && ttsMsg.msg) {
 				if (ttsMsg.hasOwnProperty('voicemail')) {
 					// ODI.voiceMail.addVoiceMailMessage({ voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg });
+					Flux.next('module', 'voicemail', 'newMessage', { voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg });
 				} else {
 					// ODI.tts.speak({ voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg });
+					Flux.next('module', 'tts', 'speak', { voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg });
 				}
 			} else {
 				// ODI.tts.speak({ msg: 'RANDOM' }); // Random TTS
+				Flux.next('module', 'tts', 'random');
 			}
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/lastTTS', function(req, res) {
-			// ODI.tts.lastTTS();
+			Flux.next('module', 'tts', 'lastTTS');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/checkVoiceMail', function(req, res) {
-			// Check Voice Mail
 			// if(!voiceMail.checkVoiceMail()){
 			// 	ODI.tts.speak({voice: 'espeak', lg: 'en',msg: 'No voicemail message'});
 			// }
@@ -320,20 +322,19 @@ function startUI(mode) {
 					ODI.tts.speak({ voice: 'espeak', lg: 'en', msg: 'No voicemail message' });
 				}
 			});*/
+			Flux.next('module', 'voicemail', 'check');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/clearVoiceMail', function(req, res) {
-			// Clear Voice Mail
-			// ODI.voiceMail.clearVoiceMail();
+			Flux.next('module', 'voicemail', 'clear');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/conversation', function(req, res) {
-			// Conversation
-			// ODI.tts.randomConversation();
+			Flux.next('module', 'tts', 'conversation');
 			res.writeHead(200);
 			res.end();
 		});
@@ -536,17 +537,15 @@ function startUI(mode) {
 		});
 		ui.post('/*', function(req, res) {
 			// Redirect Error
-			log.info('UI > I’m a teapot !');
+			Odi.error('UI > I’m a teapot !', false);
 			res.writeHead(418);
 			res.end();
 		});
 	} else {
-		ui.post('/tts', function(req, res) {
-			// Add Voice Mail Message
+		ui.post('/tts', function(req, res) { // Add Voice Mail Message
 			params = req.query;
-			// console.log(params);
 			if (params['voice'] && params['lg'] && params['msg']) {
-				// ODI.voiceMail.addVoiceMailMessage({ lg: params['lg'], voice: params['voice'], msg: params['msg'] });
+				Flux.next('module', 'voicemail', 'newMessage', { voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg });
 				res.writeHead(200);
 				res.end();
 			} else {
