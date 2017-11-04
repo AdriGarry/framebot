@@ -25,7 +25,7 @@ const FILE_REQUEST_HISTORY = ODI_PATH + 'log/requestHistory.log';
 const FILE_GRANT = ODI_PATH + 'data/pwd.properties';
 const FILE_VOICEMAIL_HISTORY = ODI_PATH + 'log/voicemailHistory.json';
 
-var deploy;
+var ui, deploy;
 
 /** Function to format logs */
 function prepareLogs(lines, callback) {
@@ -39,10 +39,10 @@ function prepareLogs(lines, callback) {
 	return content;
 }
 
-startUI();
-function startUI(mode) {
-	var ui = express();
-	var request, ip, params, ipClient;
+startUIServer();
+function startUIServer(mode) {
+	ui = express();
+	var request, ip, params, ipClient, badRequestNb = 0;
 
 	ui.use(compression()); // Compression web
 	ui.use(express.static(Odi._WEB)); // Pour fichiers statiques
@@ -89,6 +89,15 @@ function startUI(mode) {
 			}
 			console.log(ip);
 			Odi.error(request + ' ' + ip, false);
+			badRequestNb++;
+			if(badRequestNb >3){
+				// closingServerTemporary();
+				log.info('closingServerTemporary');
+				ui.close;
+				setTimeout(function(){
+					startUIServer();
+				}, 3000);
+			}
 			res.status(401); // Unauthorized
 			res.end();
 		}
@@ -567,4 +576,12 @@ function startUI(mode) {
 		log.info('UI server started [' + Odi.conf.mode + ']');
 		Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 120, loop: 3 }, null, null, 'hidden');
 	});
+};
+
+function closingServerTemporary(){
+	log.info('closingServerTemporary');
+	ui.close;
+	setTimeout(function(){
+		startUIServer();
+	}, 3000);
 }
