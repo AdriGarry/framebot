@@ -26,10 +26,6 @@ const FILE_VOICEMAIL_HISTORY = ODI_PATH + 'log/voicemailHistory.json';
 
 var deploy;
 
-module.exports = {
-	startUI: startUI
-};
-
 /** Function to format logs */
 function prepareLogs(lines, callback) {
 	var content = fs
@@ -42,12 +38,13 @@ function prepareLogs(lines, callback) {
 	return content;
 }
 
+startUI();
 function startUI(mode) {
 	var ui = express();
 	var request, ip, params, ipClient;
 
 	ui.use(compression()); // Compression web
-	ui.use(express.static(WEB_PATH)); // Pour fichiers statiques
+	ui.use(express.static(Odi.WEB_PATH)); // Pour fichiers statiques
 	ui.use(bodyParser.json()); // to support JSON-encoded bodies
 	ui.use(
 		bodyParser.urlencoded({
@@ -90,7 +87,7 @@ function startUI(mode) {
 		} else {
 			// Not allowed requests
 			request = '401 ' + req.url.replace('%20', ' ');
-			if (CONFIG.mode == 'ready')
+			if (Odi.conf.mode == 'ready')
 				Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' });
 			Odi.error(request, ip);
 			res.status(401); // Unauthorized
@@ -129,7 +126,7 @@ function startUI(mode) {
 	/** POST ALARM SETTING */
 	ui.post('/alarm', function(req, res) {
 		params = req.body;
-		console.debug('UI > Alarm', params);
+		log.debug('UI > Alarm', params);
 		// TODO déplacer dans ODI.time.setAlarm()
 		var newAlarms = {};
 		Object.keys(Odi.conf.alarms).forEach(function(key, index) {
@@ -140,7 +137,7 @@ function startUI(mode) {
 					d: Odi.conf.alarms[key].d,
 					mode: Odi.conf.alarms[key].mode
 				};
-				console.log('>> ' + params.when + ' alarm set to ' + params.h + '.' + params.m);
+				log.info('>> ' + params.when + ' alarm set to ' + params.h + '.' + params.m);
 			} else {
 				newAlarms[key] = Odi.conf.alarms[key];
 			}
@@ -159,16 +156,16 @@ function startUI(mode) {
 
 	/** TOGGLE DEBUG MODE */
 	ui.post('/toggleDebug', function(req, res) {
-		console.debug('UI > Toggle debug');
-		// ODI.config.update({debug: !CONFIG.debug}, true);
+		log.debug('UI > Toggle debug');
+		// ODI.config.update({debug: !Odi.conf.debug}, true);
 		Odi.update({ debug: Odi.conf.debug ? 0 : 30 }, true);
 		res.writeHead(200);
 		res.end();
 	});
 
-	/** RESET CONFIG */
+	/** RESET Odi.conf */
 	ui.post('/resetConfig', function(req, res) {
-		console.debug('UI > Reset config');
+		log.debug('UI > Reset config');
 		Odi.resetConf(true);
 		res.writeHead(200);
 		res.end();
@@ -190,9 +187,9 @@ function startUI(mode) {
 			config: Odi.conf,
 			mode: {
 				value: {
-					// mode: isNaN(parseFloat(mode)) ? (CONFIG.debug ? 'Debug' : 'Ready') : 'Sleep',
+					// mode: isNaN(parseFloat(mode)) ? (Odi.conf.debug ? 'Debug' : 'Ready') : 'Sleep',
 					mode: Odi.conf.mode != 'sleep' ? (Odi.conf.debug ? 'Debug' : 'Ready') : 'Sleep',
-					// param: isNaN(parseFloat(mode)) ? CONFIG.startTime : parseInt(mode),
+					// param: isNaN(parseFloat(mode)) ? Odi.conf.startTime : parseInt(mode),
 					param: Odi.conf.startTime,
 					switch: etatBtn ? true : false,
 					active: Odi.conf.debug, // TRY TO DELETE THIS (deprecated)
@@ -236,8 +233,8 @@ function startUI(mode) {
 	ui.get('/config.json', function(req, res) {
 		// Send Config file
 		res.writeHead(200);
-		//res.end(fs.readFileSync(CONFIG_FILE, 'utf8').toString());
-		//console.debug(CONFIG.toString);
+		//res.end(fs.readFileSync(Odi.CONFIG_FILE, 'utf8').toString());
+		//console.debug(Odi.conf.toString());
 		Odi.logArray();
 		res.end(JSON.stringify(Odi.conf));
 	});
@@ -304,9 +301,9 @@ function startUI(mode) {
 		var pattern = req.headers.pwd;
 		if (pattern && admin.checkPassword(pattern)) {
 			granted = true;
-			console.log('>> Admin granted !');
+			log.info('>> Admin granted !');
 		} else {
-			console.log('>> User NOT granted /!\\');
+			log.info('>> User NOT granted /!\\');
 		}
 		res.send(granted);
 		if (granted) granted = false;

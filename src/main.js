@@ -34,8 +34,7 @@ const observers = {
 		all: ['sound', 'tts']
 	},
 	controllers: {
-		sleep: ['button', 'jobs'/*, 'server' */],
-		all: []
+		sleep: ['button', 'jobs', 'server'],
 	},
 	services: {
 		sleep: ['system', 'tools', 'voicemail'],
@@ -49,7 +48,7 @@ Object.keys(observers).forEach(function(observer) {
 		require(Odi.CORE_PATH + observer + '/' + observers[observer].sleep[i] + '.js');
 	}
 	observersLoaded += observers[observer].sleep.join(', ');
-	if(Odi.conf.mode != 'sleep'){
+	if(Odi.conf.mode != 'sleep' && observers[observer].hasOwnProperty('all')){
 		for(let i = 0;i<observers[observer].all.length;i++){
 			require(Odi.CORE_PATH + observer + '/' + observers[observer].all[i] + '.js');
 		}
