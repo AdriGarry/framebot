@@ -42,7 +42,7 @@ function prepareLogs(lines, callback) {
 startUIServer();
 function startUIServer(mode) {
 	ui = express();
-	var request, ip, params, ipClient, badRequestNb = 0;
+	var request, ip, params, ipClient, unauthorizedRequestNb = 0, tooMuchBadRequests = false;
 
 	ui.use(compression()); // Compression web
 	ui.use(express.static(Odi._WEB)); // Pour fichiers statiques
@@ -82,22 +82,25 @@ function startUIServer(mode) {
 			res.status(401); // Unauthorized
 			res.end();
 		} else {
+			if (unauthorizedRequestNb >= 3) {
+				tooMuchBadRequests = true;
+				var badRequestTimeout = setTimeout(function() {
+					clearTimeout(badRequestTimeout);
+					tooMuchBadRequests = false;
+					unauthorizedRequestNb = 0;
+				}, 10000);
+			}
+			unauthorizedRequestNb++;
+
+			if (!tooMuchBadRequests) {
+				if (Odi.conf.mode == 'ready'){
+					Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, .5);
+				}
+			}
+
 			// Not allowed requests
 			request = '401 ' + req.url.replace('%20', ' ');
-			if (Odi.conf.mode == 'ready'){
-				Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, .5);
-			}
-			console.log(ip);
 			Odi.error(request + ' ' + ip, false);
-			badRequestNb++;
-			if(badRequestNb >3){
-				// closingServerTemporary();
-				log.info('closingServerTemporary');
-				ui.close;
-				setTimeout(function(){
-					startUIServer();
-				}, 3000);
-			}
 			res.status(401); // Unauthorized
 			res.end();
 		}

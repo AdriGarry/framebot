@@ -82,3 +82,9 @@ if (test || Odi.conf.mode == 'test') {
 // 	var end = new Date() - start;
 // 	console.info('Execution time: %dms', end);
 // }, 5000);
+
+setTimeout(function() {
+	Flux.next('module', 'sound', 'mute');
+	Flux.next('service', 'time', 'now2');
+	Flux.next('service', 'time', 'now');
+}, 3000);
