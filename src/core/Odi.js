@@ -10,7 +10,7 @@ var Odi = {
 	conf: require(ODI_PATH + 'conf.json'),
 	update: update,
 	updateDefault: updateDefault,
-	resetConf: resetCfg,
+	reset: resetCfg,
 	logArray: logArray,
 	modes: [], // forcedMode, clockMode, alarms...
 	setup: {}, // functions ...
@@ -63,9 +63,6 @@ function update(newConf, restart, callback) {
 function updateDefault(newConf, restart, callback) {
 	doUpdate(ODI_PATH + 'src/data/defaultConf.json', newConf, restart, callback);
 }
-function updateDefault(newConf, restart, callback) {
-	doUpdate(ODI_PATH + 'src/data/defaultConf.json', newConf, restart, callback);
-}
 
 /** Function to reset Odi's config */
 function resetCfg(restart) {
@@ -73,7 +70,7 @@ function resetCfg(restart) {
 	logArray();
 	//	config.update = now('dt');
 
-	var stream = fs.createReadStream(DATA_PATH + 'defaultConf.json'); /*, {bufferSize: 64 * 1024}*/
+	var stream = fs.createReadStream(Odi.DATA_PATH + 'defaultConf.json'); /*, {bufferSize: 64 * 1024}*/
 	stream.pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
 	var had_error = false;
 	stream.on('error', function(e) {

@@ -30,7 +30,7 @@ var deploy;
 /** Function to format logs */
 function prepareLogs(lines, callback) {
 	var content = fs
-		.readFileSync(LOG_PATH + 'odi.log', 'UTF-8')
+		.readFileSync(Odi.LOG_PATH + 'odi.log', 'UTF-8')
 		.toString()
 		.split('\n');
 	content = content.slice(-lines); //-120
@@ -109,6 +109,9 @@ function startUI(mode) {
 		  }
 		  //res.set('Content-Type', 'text/javascript');
 	  });*/
+	ui.get('/', function(req, res){ // Init UI
+		console.log('TITI2');
+	});
 
 	ui.get('/monitoring', function(req, res) {
 		// DEPRECATED ???
@@ -142,14 +145,8 @@ function startUI(mode) {
 				newAlarms[key] = Odi.conf.alarms[key];
 			}
 		});
-		Odi.setConf({ alarms: newAlarms }, true);
+		Odi.update({ alarms: newAlarms }, true);
 
-		// "alarms": {
-		// 	"weekDay": {"h":7,"m":10, "d": [1,2,3,4,5], "mode": "sea"},
-		// 	"weekEnd": {"h":11,"m":59, "d": [0,6], "mode": "sea"}
-		// },
-
-		// ODI.config.update('alarm', null, true); // NOUVEAU FORMAT OBJET ... /!\
 		res.writeHead(200);
 		res.end();
 	});
@@ -166,7 +163,7 @@ function startUI(mode) {
 	/** RESET Odi.conf */
 	ui.post('/resetConfig', function(req, res) {
 		log.debug('UI > Reset config');
-		Odi.resetConf(true);
+		Odi.reset(true);
 		res.writeHead(200);
 		res.end();
 	});
