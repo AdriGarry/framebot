@@ -3,8 +3,8 @@
 
 const startTime = new Date();
 console.log('.');
-var Gpio = require('onoff').Gpio;
-var eye = new Gpio(14, 'out').write(1);
+// var Gpio = require('onoff').Gpio;
+// var eye = new Gpio(14, 'out').write(1);
 
 const argv = process.argv;
 const forcedDebug = argv.indexOf('debug') > 0 ? true : false;
@@ -15,6 +15,11 @@ global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
 global.SRC_PATH = __dirname + '/';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug, test);
+var spawn = require('child_process').spawn;
+if(Odi.conf.mode != 'sleep'){
+	spawn('sh', [ODI_PATH + 'src/shell/init.sh']);
+	spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
+}
 
 var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename, Odi.conf.debug); // Odi.conf.debug || forcedDebug
 log.debug('argv', argv);
@@ -56,6 +61,7 @@ Object.keys(observers).forEach(function(observer) {
 
 log.info('Odi ready in' + Utils.getExecutionTime(startTime, '     ') + 'ms');
 
+
 /////////////  TEST section  /////////////
 if (test || Odi.conf.mode == 'test') {
 	setTimeout(function() {
@@ -68,8 +74,8 @@ if (test || Odi.conf.mode == 'test') {
 	}, 500);
 }
 
-if(Odi.conf.mode == 'sleep') Flux.next('service', 'system', 'restart', null, 20);
-else Flux.next('service', 'system', 'restart', 'sleep', 20);
+// if(Odi.conf.mode == 'sleep') Flux.next('service', 'system', 'restart', null, 20);
+// else Flux.next('service', 'system', 'restart', 'sleep', 20);
 
 // var start = new Date();
 // setTimeout(function(argument) {

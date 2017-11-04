@@ -11,16 +11,11 @@ global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 
 /** Function to start up Odi */
 (function startOdi(exitCode) {
-	// ODI.leds.blink({ leds: ['nose'], speed: 2000, loop: 1 });
-	// global.CONFIG = JSON.parse(fs.readFileSync(ODI_PATH + 'conf.json', 'utf8'));
-	// var odiCore, logMode = getLogMode();
-	// spawn('sh', [CORE_PATH + 'sh/mute.sh']); // Mute
+	spawn('sh', [ODI_PATH + 'src/shell/mute.sh']); // Mute
 
-	// if (CONFIG.mode == 'sleep' || typeof exitCode === 'number' && exitCode > 0) {
-	// 	odiCore = spawn('node', [CORE_PATH + 'odiSleep.js'/*, mode*/]);
-	// } else {
-	// 	odiCore = spawn('node', [CORE_PATH + 'odi.js'/*, exitCode*/]);
-	// }
+	var Gpio = require('onoff').Gpio;
+	var eye = new Gpio(14, 'out').write(1);
+	
 	// console.log('.', forcedDebug || '', test || '');
 	console.log(argv);
 	// odiCore = spawn('node', [ODI_PATH + 'initializer.js', forcedDebug, test]);
@@ -39,8 +34,7 @@ global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 	});
 
 	odiCore.on('exit', function(code) {
-		// spawn('sh', [ODI_PATH + 'shell/mute.sh']);  // Mute // + LEDS ???
-		// console.log('\r\n-----------------------------------' + (code > 10 ? (code > 100 ? '---' : '--') : '-'));
+		spawn('sh', [ODI_PATH + 'shell/mute.sh']);  // Mute // + LEDS ???
 		console.log(">> Odi's CORE restarting... [code:" + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
 		startOdi(code);
@@ -60,12 +54,3 @@ Array.prototype.remove = function() {
 	}
 	return this;
 };
-
-/*function getLogMode() {
-	value = etat.readSync();
-	if (value != etat.readSync()) {
-		getLogMode();
-	}
-	if (value) return CONFIG.mode == 'sleep' ? ' O.' : ' ODI';
-	else return CONFIG.mode == 'sleep' ? ' O' : ' Odi';
-};*/
