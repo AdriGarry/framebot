@@ -67,6 +67,6 @@ function Logger(filename, debugMode, dateTimePattern) {
 
 	function error() {
 		console.log('___________________');
-		console.error(/*'\n' +*/ Utils.logTime(), '[' + filename + ']', '>> ERR_', formatLog(arguments));
+		console.error(Utils.logTime(), '[' + filename + ']', 'ERR >>', formatLog(arguments));
 	}
 }

@@ -86,7 +86,7 @@ function startUI(mode) {
 			request = '401 ' + req.url.replace('%20', ' ');
 			if (Odi.conf.mode == 'ready')
 				Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' });
-			Odi.error(request, ip);
+			Odi.error(request + ' from ' + ip, false);
 			res.status(401); // Unauthorized
 			res.end();
 		}
@@ -292,7 +292,8 @@ function startUI(mode) {
 			granted = true;
 			log.info('>> Admin granted !');
 		} else {
-			log.info('>> User NOT granted /!\\');
+			// log.info();
+			Odi.error('>> User NOT granted /!\\', false);
 		}
 		res.send(granted);
 		if (granted) granted = false;
@@ -572,7 +573,7 @@ function startUI(mode) {
 		});
 
 		ui.post('/*', function(req, res) {
-			Odi.error('Odi not allowed to interact  -.-');
+			Odi.error('Odi not allowed to interact  -.-', false);
 			res.writeHead(401);
 			res.end();
 		});

@@ -83,3 +83,7 @@ if (test || Odi.conf.mode == 'test') {
 // 	var end = new Date() - start;
 // 	console.info('Execution time: %dms', end);
 // }, 5000);
+
+setTimeout(function() {
+	Odi.error('TOTO erreur !!', false);
+},5000);
