@@ -12,8 +12,7 @@ var Odi = {
 	updateDefault: updateDefault,
 	reset: resetCfg,
 	logArray: logArray,
-	modes: [], // forcedMode, clockMode, alarms...
-	setup: {}, // functions ...
+	runtime: {}, // clockMode, alarms...
 	stats: {}, // lastUpdate, totalLines, diskSpace...
 	error: error,
 	errors: [],
@@ -158,6 +157,7 @@ function error(label, stackTrace) {
 		time: Utils.logTime()
 	};
 	Utils.appendJsonFile(ODI_PATH + 'log/errors.log', logError);
+	Odi.errors.push(logError);
 }
 
 function enableDebugCountdown(){

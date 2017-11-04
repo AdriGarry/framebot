@@ -462,23 +462,21 @@ function startUIServer(mode) {
 			res.end();
 		});
 
+		ui.post('/time', function(req, res) {
+			// Time
+			Flux.next('service', 'time', 'now');
+			res.writeHead(200);
+			res.end();
+		});
+
 		ui.post('/date', function(req, res) {
-			// Date
-			// ODI.time.today();
+			Flux.next('service', 'time', 'today');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/age', function(req, res) {
-			// Odi's Age
-			// ODI.time.sayOdiAge();
-			res.writeHead(200);
-			res.end();
-		});
-
-		ui.post('/time', function(req, res) {
-			// Time
-			// ODI.time.now();
+			Flux.next('service', 'time', 'sayOdiAge');
 			res.writeHead(200);
 			res.end();
 		});
@@ -490,7 +488,7 @@ function startUIServer(mode) {
 				log.info('!isNaN(params.m)');
 				var min = parseInt(params.m, 10);
 				log.info(min);
-				// ODI.time.setTimer(min);
+				Flux.next('service', 'time', 'setTimer', min);
 			} else if (params.hasOwnProperty('stop')) {
 				// ODI.time.stopTimer();
 			} else {
@@ -501,8 +499,6 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/weather', function(req, res) {
-			// Weather
-			// ODI.service.weather();
 			res.writeHead(200);
 			res.end();
 		});

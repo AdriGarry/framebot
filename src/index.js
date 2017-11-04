@@ -6,7 +6,6 @@ const argv = process.argv.splice(2);
 var fs = require('fs');
 var spawn = require('child_process').spawn;
 
-/** Odi's global variables */
 global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 
 /** Function to start up Odi */
@@ -16,9 +15,7 @@ global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 	var Gpio = require('onoff').Gpio;
 	var eye = new Gpio(14, 'out').write(1);
 	
-	// console.log('.', forcedDebug || '', test || '');
 	console.log(argv);
-	// odiCore = spawn('node', [ODI_PATH + 'initializer.js', forcedDebug, test]);
 
 	if(exitCode){
 		// démarrer en sleep ! TODO :!

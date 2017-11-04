@@ -66,15 +66,13 @@ if (test || Odi.conf.mode == 'test') {
 	setTimeout(function() {
 		var testSequence = require(Odi._SRC + 'test/tests.js').launch(function(testStatus) {
 			// retour console + tts, and restart if test success
+			Flux.next('module', 'tts', 'speak', {lg: 'en', msg: 'all tests succeeded!'})
 			setTimeout(function() {
 				if (testStatus) Odi.update({ mode: 'ready' }, true);
 			}, 2000);
 		});
 	}, 500);
 }
-
-// if(Odi.conf.mode == 'sleep') Flux.next('service', 'system', 'restart', null, 20);
-// else Flux.next('service', 'system', 'restart', 'sleep', 20);
 
 // var start = new Date();
 // setTimeout(function(argument) {
@@ -84,7 +82,5 @@ if (test || Odi.conf.mode == 'test') {
 // }, 5000);
 
 setTimeout(function() {
-	Flux.next('module', 'sound', 'mute');
-	Flux.next('service', 'time', 'now2');
 	Flux.next('service', 'time', 'now');
 }, 3000);
