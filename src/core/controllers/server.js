@@ -12,6 +12,7 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi.CORE_PATH + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 var Flux = require(Odi.CORE_PATH + 'Flux.js');
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
+const admin = require(ODI_PATH + 'src/core/modules/admin.js');
 
 var express = require('express');
 var compression = require('compression');
