@@ -25,7 +25,6 @@ module.exports = {
 
 /** Function to append object in JSON file */
 function appendJsonFile(filePath, obj, callback) {
-	log.debug('appendJsonFile() ', filePath, obj);
 	var fileData, startTime = new Date();
 	fs.exists(filePath, function(exists) {
 		if (exists) {
@@ -42,12 +41,11 @@ function appendJsonFile(filePath, obj, callback) {
 					fs.writeFile(filePath, fileData, function(cb) {
 						// console.log('================>');
 						// log.log('appendJsonFile() LOG FOR CB');
-						log.debug('file ' + filePath + ' in', getExecutionTime(startTime) + 'ms');
+						log.debug('file ' + filePath + ' modified in', getExecutionTime(startTime) + 'ms');
 					});
 				}
 			});
 		} else {
-			log.debug('File not exists');
 			fileData = [];
 			fileData.push(obj);
 			fileData = JSON.stringify(fileData, null, 2)
