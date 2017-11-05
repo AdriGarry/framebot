@@ -12,14 +12,11 @@ var Flux = require(Odi._CORE + 'Flux.js');
 module.exports.run = function(callback) {
 	// Flux.next('service', 'system', 'cpu', null, 4);
 
-	//     VOICEMAIL !!!
-
-
-	setTimeout(() => {
-		// Flux.next('service', 'max', 'doSomething', null, 2);
-	}, 2000);
+	Flux.next('service', 'voicemail', 'new', {msg: 'are you there ?'}, 3);
+	Flux.next('service', 'voicemail', 'check', null, 5);
+	Flux.next('service', 'voicemail', 'clear', null, 10);
 
 	setTimeout(() => {
 		callback('serviceTest', true);
-	}, 5000);
+	}, 20000);
 };

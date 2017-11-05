@@ -15,10 +15,9 @@ module.exports.run = function(callback) {
 	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 1 });
 	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 0 }, 2);
 	Flux.next('module', 'led', 'blink', { leds: ['belly'], speed: 900, loop: 100 }, 2);
-
+	
 	Flux.next('module', 'tts', 'speak', testTTSList[Math.floor(Math.random() * testTTSList.length)]);
 
-	Flux.next('module', 'sound', 'mute', { delay: 3, message: 'DELAY 3' }, 5);
 	// Flux.next('module', 'sound', 'mute', { delay: 13, message: 'DELAY 13' }, 3);
 	// Flux.next('module', 'sound', 'mute', { message: 'no delay at all !' });
 	// Flux.next('module', 'sound', 'mute');
@@ -26,6 +25,9 @@ module.exports.run = function(callback) {
 	setTimeout(() => {}, 1000);
 
 	setTimeout(() => {
-		callback('moduleTest', true);
+		Flux.next('module', 'sound', 'mute', { delay: 3, message: 'DELAY 3' });
+		setTimeout(() => {
+			callback('moduleTest', true);
+		}, 4000);
 	}, 30000);
 };
