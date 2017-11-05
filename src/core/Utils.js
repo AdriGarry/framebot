@@ -29,7 +29,7 @@ function appendJsonFile(filePath, obj, callback) {
 	fs.exists(filePath, function(exists) {
 		if (exists) {
 			fs.readFile(filePath, 'utf8', function(err, data) {
-				if (err) Odi.error(err);
+				if (!data) console.error(data);
 				else {
 					fileData = JSON.parse(data);
 					fileData.push(obj);
