@@ -21,6 +21,7 @@ var path = require('path');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 
+const FILE_ERROR_HISTORY = ODI_PATH + 'log/errorHistory.log';
 const FILE_REQUEST_HISTORY = ODI_PATH + 'log/requestHistory.log';
 const FILE_GRANT = ODI_PATH + 'data/pwd.properties';
 const FILE_VOICEMAIL_HISTORY = ODI_PATH + 'log/voicemailHistory.json';
@@ -227,16 +228,19 @@ function startUIServer(mode) {
 	});
 
 	ui.get('/config.json', function(req, res) {
-		// Send Config file
 		res.writeHead(200);
-		//res.end(fs.readFileSync(Odi.CONFIG_FILE, 'utf8').toString());
+		res.end(fs.readFileSync(Odi._CONF, 'utf8').toString());
 		//console.debug(Odi.conf.toString());
 		Odi.logArray();
 		res.end(JSON.stringify(Odi.conf));
 	});
 
+	ui.get('/errorHistory', function(req, res) {
+		res.writeHead(200);
+		res.end(fs.readFileSync(FILE_ERROR_HISTORY, 'utf8').toString());
+	});
+
 	ui.get('/requestHistory', function(req, res) {
-		// Send Request History
 		res.writeHead(200);
 		res.end(fs.readFileSync(FILE_REQUEST_HISTORY, 'utf8').toString());
 	});
@@ -293,7 +297,7 @@ function startUIServer(mode) {
 			granted = true;
 			log.info('>> Admin granted !');
 		} else {
-			Odi.error('>> User NOT granted /!\\', false);
+			Odi.error('>> User NOT granted /!\\ [' + pattern + ']', false);
 			Flux.next('module', 'tts', 'speak', {lg:'en', msg:'User NOT granted'}, .5);
 		}
 		res.send(granted);

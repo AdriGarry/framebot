@@ -156,7 +156,7 @@ function error(label, stackTrace) {
 		label: label,
 		time: Utils.logTime()
 	};
-	Utils.appendJsonFile(ODI_PATH + 'log/errors.log', logError);
+	Utils.appendJsonFile(ODI_PATH + 'log/errorHistory.log', logError);
 	Odi.errors.push(logError);
 }
 

@@ -485,6 +485,7 @@ app.component('logs', {
 			label: 'Logs',
 			actionList:[{label: 'Voicemail History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/voicemailHistory'},{
 				label: 'Request History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/requestHistory'},{
+				label: 'Error History', icon: 'exclamation-circle', url: 'http://odi.adrigarry.com/errorHistory'},{
 				label: 'Config', icon: 'sliders', url: 'http://odi.adrigarry.com/config.json'}]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
