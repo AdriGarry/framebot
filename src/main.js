@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const startTime = new Date();
+const startOdiTime = new Date();
 console.log('.');
 // var Gpio = require('onoff').Gpio;
 // var eye = new Gpio(14, 'out').write(1);
@@ -58,7 +58,7 @@ Object.keys(observers).forEach(function(observer) {
 	log.info(observer, 'loaded:', observersLoaded);
 });
 
-log.info('Odi ready in' + Utils.getExecutionTime(startTime, '     ') + 'ms');
+log.info('Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
 
 
 /////////////  TEST section  /////////////

@@ -26,10 +26,9 @@ module.exports = {
 /** Function to append object in JSON file */
 function appendJsonFile(filePath, obj, callback) {
 	log.debug('appendJsonFile() ', filePath, obj);
-	var fileData;
+	var fileData, startTime = new Date();
 	fs.exists(filePath, function(exists) {
 		if (exists) {
-			// log.debug('Yes file exists');
 			fs.readFile(filePath, 'utf8', function(err, data) {
 				if (err) Odi.error(err);
 				else {
@@ -41,7 +40,9 @@ function appendJsonFile(filePath, obj, callback) {
 						.replace(/\}"/g, '}');
 					// log.debug('fileData', fileData);
 					fs.writeFile(filePath, fileData, function(cb) {
+						// console.log('================>');
 						// log.log('appendJsonFile() LOG FOR CB');
+						log.debug('file ' + filePath + ' in', getExecutionTime(startTime) + 'ms');
 					});
 				}
 			});
@@ -54,7 +55,9 @@ function appendJsonFile(filePath, obj, callback) {
 				.replace(/\"{/g, '{')
 				.replace(/\}"/g, '}');
 			// log.debug(fileData);
-			fs.writeFile(filePath, fileData);
+			fs.writeFile(filePath, fileData, function(){
+				log.debug('file ' + filePath + ' created in', getExecutionTime(startTime) + 'ms');
+			});
 		}
 	});
 }
@@ -69,41 +72,6 @@ function getJsonFileContent(filePath, callback) {
 			callback(null);
 		} else {
 			callback(data);
-		}
-	});
-}
-
-/** Function to append object in JSON file */
-function appendJsonFile(filePath, obj, callback) {
-	log.debug('appendJsonFile() ', filePath, obj);
-	var fileData;
-	fs.exists(filePath, function(exists) {
-		if (exists) {
-			fs.readFile(filePath, 'utf8', function(err, data) {
-				if (err) log.error(err);
-				else {
-					fileData = JSON.parse(data);
-					fileData.push(obj);
-					fileData = JSON.stringify(fileData, null, 2)
-						.replace(/\\/g, '')
-						.replace(/\"{/g, '{')
-						.replace(/\}"/g, '}');
-					// log.debug('fileData', fileData);
-					fs.writeFile(filePath, fileData, function(cb) {
-						// log.info('appendJsonFile() LOG FOR CB');
-					});
-				}
-			});
-		} else {
-			log.debug('File not exists');
-			fileData = [];
-			fileData.push(obj);
-			fileData = JSON.stringify(fileData, null, 2)
-				.replace(/\\/g, '')
-				.replace(/\"{/g, '{')
-				.replace(/\}"/g, '}');
-			log.debug(fileData);
-			fs.writeFile(filePath, fileData);
 		}
 	});
 }
@@ -140,66 +108,21 @@ function execCmd(command, callback) {
 	});
 }
 
-/** Function to return date time. Pattern: 'YDT' */
-function logTime(param, date) {
-	if (typeof date === 'undefined') date = new Date();
-	var D = date.getDate();
-	var M = date.getMonth() + 1;
-	var Y = date.getFullYear();
-	var h = date.getHours();
-	var m = date.getMinutes();
-	var s = date.getSeconds();
-	var now = '';
-
-	if (typeof param === 'undefined') param = dateTimeDefaultPattern;
-	for (var i = 0; i < param.length; i++) {
-		switch (param[i]) {
-			case 'Y':
-				now += Y;
-				break;
-			case 'M':
-				now += (M < 10 ? '0' : '') + M;
-				break;
-			case 'D':
-				now += (D < 10 ? '0' : '') + D;
-				break;
-			case 'h':
-				now += (h < 10 ? '0' : '') + h;
-				break;
-			case 'm':
-				now += (m < 10 ? '0' : '') + m;
-				break;
-			case 's':
-				now += (s < 10 ? '0' : '') + s;
-				break;
-			default:
-				now += param[i];
-		}
-	}
-	return now;
-}
-
-/** Function to return last Odi's start/restart time */
-const startHour = new Date().getHours();
-const startMin = new Date().getMinutes();
-const startTime =
-	(startHour > 12 ? startHour - 12 : startHour) +
-	'.' +
-	(startMin < 10 ? '0' : '') +
-	startMin +
-	' ' +
-	(startHour > 12 ? 'PM' : 'AM');
-function getStartTime() {
-	return startTime;
-}
+// const startHour = new Date().getHours();
+// const startMin = new Date().getMinutes();
+// const startTime =	(startHour > 12 ? startHour - 12 : startHour) +
+// 	'.' +	(startMin < 10 ? '0' : '') + startMin + ' ' + (startHour > 12 ? 'PM' : 'AM');
+// function getStartTime() {
+// 	return startTime;
+// }
 
 /** Function to repeat/concat a string */
 String.prototype.repeat = function(num) {
 	return new Array(Math.abs(num) + 1).join(this);
 };
 
+/** Function to calculate execution time of something */
 function getExecutionTime(startTime, formatResultPattern) {
-	// log.info('getExecutionTime(formatResultPattern)', formatResultPattern);
 	var length = 4;
 	var elapsedTime = new Date() - startTime;
 	if (formatResultPattern) {
@@ -256,7 +179,6 @@ function logTime(param, date) {
 				now += param[i];
 		}
 	}
-	// log.info('utils.now(param)', param, now);
 	return now;
 }
 
