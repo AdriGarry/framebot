@@ -82,7 +82,7 @@ app.component('mode', {
 		var tileParams = {
 			label: 'Mode',
 			actionList:[{label: 'Reset', icon: 'retweet', url: '/resetConfig'},{
-				label: 'Test', icon: 'cubes', url: '/test'},{
+				label: 'Test', icon: 'cubes', url: '/testSequence'},{
 				label: '!Debug', icon: 'terminal', url: '/toggleDebug'},{
 				label: 'Sleep', icon: 'moon-o', url: '/sleep'},{
 				label: 'Restart', icon: 'bolt', url: '/odi'}]

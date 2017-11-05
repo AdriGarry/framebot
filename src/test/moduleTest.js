@@ -9,11 +9,7 @@ const Rx = require('rxjs');
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
-const testTTSList = [
-	{ lg: 'en', msg: 'Test' },
-	{ lg: 'fr', msg: 'Test' },
-	{ lg: 'fr', msg: 'T E S T' }
-];
+const testTTSList = [{lg: 'en', msg: 'Test' },	{lg: 'fr', msg: 'Test' }];
 
 module.exports.run = function(callback) {
 	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 1 });

@@ -154,9 +154,8 @@ function startUIServer(mode) {
 		res.end();
 	});
 
-	ui.post('/test', function(req, res) {
-		// Odi.reset(true);
-		log.info('/test to define...');
+	ui.post('/testSequence', function(req, res) {
+		Odi.update({ mode: 'test' }, true);
 		res.writeHead(200);
 		res.end();
 	});
@@ -304,18 +303,13 @@ function startUIServer(mode) {
 		if (granted) granted = false;
 	});
 
-	// if(mode < 1){ /////// WHEN ALIVE
-	if (Odi.conf.mode == 'ready') {
+	if (Odi.conf.mode != 'sleep') {
 		ui.post('/tts', function(req, res) {
-			// TTS ou Add Voice Mail Message
 			var ttsMsg = req.query;
-			// console.log(params);
 			if (ttsMsg.voice && ttsMsg.lg && ttsMsg.msg) {
 				if (ttsMsg.hasOwnProperty('voicemail')) {
-					// ODI.voiceMail.addVoiceMailMessage({ voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg });
-					Flux.next('module', 'voicemail', 'newMessage', { voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg });
+					Flux.next('service', 'voicemail', 'new', { voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg });
 				} else {
-					// ODI.tts.speak({ voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg });
 					Flux.next('module', 'tts', 'speak', { voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg });
 				}
 			} else {
@@ -343,13 +337,13 @@ function startUIServer(mode) {
 					ODI.tts.speak({ voice: 'espeak', lg: 'en', msg: 'No voicemail message' });
 				}
 			});*/
-			Flux.next('module', 'voicemail', 'check');
+			Flux.next('service', 'voicemail', 'check');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/clearVoiceMail', function(req, res) {
-			Flux.next('module', 'voicemail', 'clear');
+			Flux.next('service', 'voicemail', 'clear');
 			res.writeHead(200);
 			res.end();
 		});
@@ -546,12 +540,12 @@ function startUIServer(mode) {
 			res.end();
 		});
 
-		// ui.post('/test', function(req, res) {
-		// 	// Set Party Mode
-		// 	spawn('sh', [Odi._SHELL + 'sounds.sh', 'test']); //mouthTrick
-		// 	res.writeHead(200);
-		// 	res.end();
-		// });
+		ui.post('/test', function(req, res) {
+			// Set Party Mode
+			spawn('sh', [Odi._SHELL + 'sounds.sh', 'test']); //mouthTrick
+			res.writeHead(200);
+			res.end();
+		});
 
 		ui.post('/*', function(req, res) {
 			// Redirect Error

@@ -27,7 +27,8 @@ var Flux = {
 		tools: new Rx.Subject(), // ??
 		system: new Rx.Subject(),
 		util: new Rx.Subject(),
-		video: new Rx.Subject()
+		video: new Rx.Subject(),
+		voicemail: new Rx.Subject()
 	}
 };
 
