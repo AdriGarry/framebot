@@ -149,7 +149,7 @@ function startUIServer(mode) {
 	/** TOGGLE DEBUG MODE */
 	ui.post('/toggleDebug', function(req, res) {
 		log.debug('UI > Toggle debug');
-		Odi.update({ debug: Odi.conf.debug ? 0 : 30 }, true);
+		Odi.update({ debug: Odi.conf.debug ? 0 : 20 }, true);
 		res.writeHead(200);
 		res.end();
 	});
