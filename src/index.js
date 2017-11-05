@@ -19,7 +19,6 @@ global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 
 	var odiProgramWithParams = [ODI_PATH + 'main.js'];
 	if(exitCode){
-		// console.log('--> exitCode=', exitCode);
 		odiProgramWithParams.push('sleep');
 	}
 	for (var i = 0; i < argv.length; i++) {

@@ -82,7 +82,3 @@ if (Odi.conf.mode == 'test') {
 // 	console.info('Execution time: %dms', end);
 // }, 5000);
 
-setTimeout(function() {
-	// Flux.next('service', 'time', 'now');
-	if(Odi.conf.mode == 'ready') toto(deRien);
-}, 5000);
