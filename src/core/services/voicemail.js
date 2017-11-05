@@ -18,7 +18,7 @@ Flux.service.voicemail.subscribe({
 			checkVoiceMail();
 		}else if(flux.id == 'clear'){
 			clearVoiceMail();
-		}else Odi.error('unmapped flux in Voicemail service:' + flux, false);
+		}else Odi.error('unmapped flux in Voicemail service', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
@@ -98,8 +98,7 @@ function clearVoiceMail(){
 			else Odi.error(err);
 		}else{
 			updateVoicemailMessage();
-			log.info('VoiceMail Cleared !');
-			Flux.next('module', 'tts', 'speak', {lg:'en', voice: 'google', msg:'VoiceMail Cleared'});
+			Flux.next('module', 'tts', 'speak', {lg:'en', msg:'VoiceMail Cleared'});
 		}
 	});
 };

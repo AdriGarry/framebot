@@ -12,7 +12,7 @@ Flux.module.sound.subscribe({
 		if (flux.id == 'update') {
 		} else if (flux.id == 'updateDefault') {
 		} else if (flux.id == 'reset') {
-		}else Odi.error('unmapped flux in Time service:' + flux, false);
+		}else Odi.error('unmapped flux in Time service', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);

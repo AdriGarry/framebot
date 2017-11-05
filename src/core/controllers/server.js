@@ -44,6 +44,7 @@ startUIServer();
 function startUIServer(mode) {
 	ui = express();
 	var request, ip, params, ipClient, unauthorizedRequestNb = 0, tooMuchBadRequests = false;
+	const noSoundUrl = ['/dashboard', '/log'];
 
 	ui.use(compression()); // Compression web
 	ui.use(express.static(Odi._WEB)); // Pour fichiers statiques
@@ -61,7 +62,8 @@ function startUIServer(mode) {
 
 		Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);
 		
-		if(req.url != '/dashboard' && req.url != '/log') Flux.next('module', 'sound', 'UI', null, null, null, true);
+		//if(req.url != '/dashboard' && req.url != '/log') Flux.next('module', 'sound', 'UI', null, null, null, true);
+		if(!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('module', 'sound', 'UI', null, null, null, true);
 		
 		if (req.connection.remoteAddress.indexOf('192.168') == -1) {
 			// Logging not local requests
@@ -101,7 +103,7 @@ function startUIServer(mode) {
 
 			// Not allowed requests
 			request = '401 ' + req.url.replace('%20', ' ');
-			Odi.error(request + ' ' + ip, false);
+			Odi.error(request + ' ' + ip, null, false);
 			res.status(401); // Unauthorized
 			res.end();
 		}
@@ -296,7 +298,7 @@ function startUIServer(mode) {
 			granted = true;
 			log.info('>> Admin granted !');
 		} else {
-			Odi.error('>> User NOT granted /!\\ [' + pattern + ']', false);
+			Odi.error('>> User NOT granted /!\\', pattern, false);
 			Flux.next('module', 'tts', 'speak', {lg:'en', msg:'User NOT granted'}, .5);
 		}
 		res.send(granted);
@@ -305,15 +307,14 @@ function startUIServer(mode) {
 
 	if (Odi.conf.mode != 'sleep') {
 		ui.post('/tts', function(req, res) {
-			var ttsMsg = req.query;
-			if (ttsMsg.voice && ttsMsg.lg && ttsMsg.msg) {
-				if (ttsMsg.hasOwnProperty('voicemail')) {
-					Flux.next('service', 'voicemail', 'new', { voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg });
+			var params = req.query;
+			if (params.voice && params.lg && params.msg) {
+				if (params.hasOwnProperty('voicemail')) {
+					Flux.next('service', 'voicemail', 'new', { voice: params.voice, lg: params.lg, msg: params.msg });
 				} else {
-					Flux.next('module', 'tts', 'speak', { voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg });
+					Flux.next('module', 'tts', 'speak', { voice: params.voice, lg: params.lg, msg: params.msg });
 				}
 			} else {
-				// ODI.tts.speak({ msg: 'RANDOM' }); // Random TTS
 				Flux.next('module', 'tts', 'random');
 			}
 			res.writeHead(200);
@@ -327,16 +328,6 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/checkVoiceMail', function(req, res) {
-			// if(!voiceMail.checkVoiceMail()){
-			// 	ODI.tts.speak({voice: 'espeak', lg: 'en',msg: 'No voicemail message'});
-			// }
-			/*ODI.voiceMail.checkVoiceMail(function(anyMessage) {
-				console.log(anyMessage);
-				if (!anyMessage) {
-					//ODI.tts.speak({voice: 'espeak', lg: 'en',msg: 'No voicemail message'});
-					ODI.tts.speak({ voice: 'espeak', lg: 'en', msg: 'No voicemail message' });
-				}
-			});*/
 			Flux.next('service', 'voicemail', 'check');
 			res.writeHead(200);
 			res.end();
@@ -549,7 +540,7 @@ function startUIServer(mode) {
 
 		ui.post('/*', function(req, res) {
 			// Redirect Error
-			Odi.error('UI > I’m a teapot !', false);
+			Odi.error('UI > I’m a teapot !', null, false);
 			res.writeHead(418);
 			res.end();
 		});
@@ -557,7 +548,7 @@ function startUIServer(mode) {
 		ui.post('/tts', function(req, res) { // Add Voice Mail Message
 			params = req.query;
 			if (params['voice'] && params['lg'] && params['msg']) {
-				Flux.next('module', 'voicemail', 'newMessage', { voice: ttsMsg.voice, lg: ttsMsg.lg, msg: ttsMsg.msg });
+				Flux.next('service', 'voicemail', 'newMessage', { voice: params.voice, lg: params.lg, msg: params.msg });
 				res.writeHead(200);
 				res.end();
 			} else {
@@ -568,7 +559,7 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/*', function(req, res) {
-			Odi.error('Odi not allowed to interact  -.-', false);
+			Odi.error('Odi not allowed to interact  -.-', null, false);
 			res.writeHead(401);
 			res.end();
 		});

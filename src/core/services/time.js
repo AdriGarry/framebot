@@ -33,7 +33,7 @@ Flux.service.time.subscribe({
 			setTimer(flux.value);
 		}else if(flux.id == 'stopTimer'){
 			stopTimer();
-		}else Odi.error('unmapped flux in Time service:' + flux, false);
+		}else Odi.error('unmapped flux in Time service', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);

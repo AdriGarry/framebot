@@ -145,16 +145,17 @@ function logArray(updatedEntries, executionTime) {
 	console.log(confArray + '|--------------------------------|');
 }
 
-function error(label, stackTrace) {
+function error(label, data, stackTrace) {
 	Flux.next('module', 'led', 'altLeds', { speed: 30, duration: 1.5 }, null, null, 'hidden');
 	Flux.next('module', 'sound', 'error', null, null, null, 'hidden');
-	log.error(label);
+	log.error(label, data || '');
 	if(stackTrace != false){ // Optional ?
 		console.trace();
 	}
 	var logError = {
+		time: Utils.logTime(),
 		label: label,
-		time: Utils.logTime()
+		data: data
 	};
 	Utils.appendJsonFile(ODI_PATH + 'log/errorHistory.log', logError);
 	Odi.errors.push(logError);
