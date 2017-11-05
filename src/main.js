@@ -81,6 +81,6 @@ if (test || Odi.conf.mode == 'test') {
 // 	console.info('Execution time: %dms', end);
 // }, 5000);
 
-setTimeout(function() {
-	Flux.next('service', 'time', 'now');
-}, 5000);
+// setTimeout(function() {
+// 	Flux.next('service', 'time', 'now');
+// }, 5000);

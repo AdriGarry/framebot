@@ -198,8 +198,8 @@ function startUIServer(mode) {
 				active: isNaN(temp) && etatBtn == 1 ? true : false
 			},
 			voicemail: {
-				// value: ODI.voiceMail.areThereAnyMessages(),
-				// active: ODI.voiceMail.areThereAnyMessages() > 0 ? true : false
+				value: Odi.run.voicemail,
+				active: Odi.run.voicemail > 0 ? true : false
 			},
 			jukebox: { value: '<i>Soon available</i>', active: false },
 			//timer: { value: ODI.time.timeLeftTimer(), active: ODI.time.timeLeftTimer() > 0 ? true : false },
