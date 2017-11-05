@@ -3,7 +3,7 @@
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-
+var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
 
 // module.exports = {
@@ -20,13 +20,16 @@ var Flux = require(Odi._CORE + 'Flux.js');
 
 Flux.service.time.subscribe({
 	next: flux => {
-		log.info('Time service', flux);
 		if(flux.id == 'now'){
 			now();
 		}else if(flux.id == 'today'){
 			today();
 		}else if(flux.id == 'cocorico'){
-			// cocorico();
+			// cocorico(flux.value);
+		}else if(flux.id == 'setAlarm'){
+			setAlarm(flux.value);
+		}else if(flux.id == 'isAlarm'){
+			isAlarm();
 		}else if(flux.id == 'sayOdiAge'){
 			sayOdiAge();
 		}else if(flux.id == 'setTimer'){
@@ -104,48 +107,52 @@ function cocorico(mode){
 };
 
 /** Function to set Odi's custom alarm */
-/*function setAlarm(alarm){
-	console.debug('time.setAlarm()', alarm);
-	getJsonFileContent(Odi._CONF, function(data){
-		var config = JSON.parse(data);
-		config.alarms.custom.h = alarm.h;
-		config.alarms.custom.m = alarm.m;
-		Odi.conf = config;
-		//console.debug(CONFIG);
-		ODI.config.logArray();
-		fs.writeFile(Odi._CONF, JSON.stringify(Odi.conf, null, 2), function(cb){
-			console.log('setAlarm() LOG FOR CB');
-		});
-		if(restart) ODI.hardware.restartOdi();
+function setAlarm(alarm){
+	var newAlarms = {};
+	Object.keys(Odi.conf.alarms).forEach(function(key, index) {
+		if (key == alarm.when) {
+			newAlarms[key] = {
+				h: alarm.h,
+				m: alarm.m,
+				d: Odi.conf.alarms[key].d,
+				mode: Odi.conf.alarms[key].mode
+			};
+			log.info('>> ' + alarm.when + ' alarm set to ' + alarm.h + '.' + alarm.m);
+		} else {
+			newAlarms[key] = Odi.conf.alarms[key];
+		}
 	});
-};*/
+	Odi.update({ alarms: newAlarms }, true);
+};
 
 /** Function to test if alarm now */
-/*function isAlarm(){
+function isAlarm(){
 	var isAlarm = false, now = new Date();
 	var d = now.getDay(), h = now.getHours(), m = now.getMinutes();
-	Object.keys(CONFIG.alarms).forEach(function(key,index){
-		if(CONFIG.alarms[key].d.indexOf(d) > -1 && h == CONFIG.alarms[key].h && m == CONFIG.alarms[key].m){
-			console.log('ALARM TIME...', CONFIG.alarms[key].h + ':' + CONFIG.alarms[key].m);
+	Object.keys(Odi.conf.alarms).forEach(function(key,index){
+		if(Odi.conf.alarms[key].d.indexOf(d) > -1 && h == Odi.conf.alarms[key].h && m == Odi.conf.alarms[key].m){
+			console.log('ALARM TIME...', Odi.conf.alarms[key].h + ':' + Odi.conf.alarms[key].m);
 			isAlarm = true;
-			cocorico(CONFIG.alarms[key].mode);
+			cocorico(Odi.conf.alarms[key].mode);
 		}
 	});
 	console.debug('time.isAlarm()', isAlarm);
 	return isAlarm;
-};*/
+};
 
 /** Function to TTS Odi's age */
+const DATE_BIRTH = new Date('August 9, 2015 00:00:00');
 function sayOdiAge(){
-	// var age = ODI.hardware.getOdiAge();
-	var age = 10000000;
+	var age = Math.abs(DATE_BIRTH.getTime() - new Date());
+	age = Math.ceil(age / (1000 * 3600 * 24));
+
 	var years = Math.floor(age/365);
 	var mouths = Math.floor((age%365)/30);
 	var rdm = ['Aujourd\'hui, ', 'A ce jour', ''];
 	var birthDay = rdm[Math.floor(Math.random() * rdm.length)]
 	birthDay += 'j\'ai ' + years + ' ans et ' + mouths + ' mois !';
 	console.log('sayOdiAge() \'' + birthDay + '\'')
-	ODI.tts.speak({lg: 'fr', msg: birthDay});
+	Flux.next('module', 'tts', 'speak', {lg: 'fr', msg: birthDay});
 };
 
 /** Function to set timer */

@@ -126,10 +126,11 @@ function startUIServer(mode) {
 	/** POST ALARM SETTING */
 	ui.post('/alarm', function(req, res) {
 		params = req.body;
-		log.debug('UI > Alarm', params);
 		// TODO déplacer dans ODI.time.setAlarm()
-		var newAlarms = {};
-		Object.keys(Odi.conf.alarms).forEach(function(key, index) {
+		// var newAlarms = {};
+		log.INFO(params);
+		Flux.next('service', 'time', 'setAlarm', params);
+		/*Object.keys(Odi.conf.alarms).forEach(function(key, index) {
 			if (key == params.when) {
 				newAlarms[key] = {
 					h: params.hours,
@@ -141,8 +142,8 @@ function startUIServer(mode) {
 			} else {
 				newAlarms[key] = Odi.conf.alarms[key];
 			}
-		});
-		Odi.update({ alarms: newAlarms }, true);
+		});*/
+		// Odi.update({ alarms: newAlarms }, true);
 
 		res.writeHead(200);
 		res.end();

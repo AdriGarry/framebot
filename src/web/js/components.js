@@ -142,11 +142,11 @@ app.component('alarms', {
 			}).then(function(selectedDate){
 				ctrl.newAlarm.params = {
 					when: ctrl.newAlarm.label,
-					hours:selectedDate.getHours(),
-					minutes:selectedDate.getMinutes()
+					h:selectedDate.getHours(),
+					m:selectedDate.getMinutes()
 				};
-				ctrl.newAlarm.toast = ctrl.newAlarm.label + ' alarm set to ' + ctrl.newAlarm.params.hours
-					+ ':' + ctrl.newAlarm.params.minutes;
+				ctrl.newAlarm.toast = ctrl.newAlarm.label + ' alarm set to ' + ctrl.newAlarm.params.h
+					+ ':' + ctrl.newAlarm.params.m;
 				UIService.sendCommand(ctrl.newAlarm, function(data){
 				});
 			});;
