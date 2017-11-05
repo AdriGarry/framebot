@@ -17,10 +17,11 @@ global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 	
 	console.log(argv);
 
-	if(exitCode){
-		// démarrer en sleep ! TODO :!
-	}
 	var odiProgramWithParams = [ODI_PATH + 'main.js'];
+	if(exitCode){
+		// console.log('--> exitCode=', exitCode);
+		odiProgramWithParams.push('sleep');
+	}
 	for (var i = 0; i < argv.length; i++) {
 		odiProgramWithParams.push(argv[i]);
 	}
@@ -36,7 +37,8 @@ global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 
 	odiCore.on('exit', function(code) {
 		spawn('sh', [ODI_PATH + 'shell/mute.sh']);  // Mute // + LEDS ???
-		console.log(">> Odi's CORE restarting... [code:" + code + ']');
+		if(code) spawn('sh', [ODI_PATH + 'shell/sounds.sh', 'error']);
+		console.log('\n>> Odi\'s CORE restarting... [code:' + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
 		startOdi(code);
 	});

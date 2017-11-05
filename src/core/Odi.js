@@ -33,22 +33,34 @@ module.exports = {
 
 var Flux = { next: null };
 
-function init(path, forcedDebug, test) {
+function init(path, forcedParams) {
+	Odi.PATH = path;
+	var confUpdate = { startTime: Utils.logTime('h:m (D/M)') }, forcedParamsLog = '';
+	if(forcedParams.sleep){
+		Odi.conf.mode = 'sleep';
+		confUpdate.mode = 'sleep';
+		forcedParamsLog += 'sleep ';
+	}
+	if (forcedParams.debug){
+		Odi.conf.debug = 'forced';
+		forcedParamsLog += 'debug ';		
+	}
 	const logo = fs.readFileSync(ODI_PATH + 'data/' + (Odi.conf.mode == 'sleep'? 'odiLogoSleep': 'odiLogo') +'.properties', 'utf8')
 	.toString().split('\n');
 	console.log('\n' + logo.join('\n'));
+	if (forcedParams.test){
+		confUpdate.mode = 'test';
+		forcedParamsLog += 'test ';
+	}
+	if(forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
-	Odi.PATH = path;
-	if (forcedDebug) Odi.conf.debug = 'forced';
 	logArray();
 	log.info('initialization...', Odi.conf.debug ? 'DEBUG' + (Odi.conf.debug == 'forced' ? ' [FORCED!]' : '') : '');
-	if (Odi.conf.debug) log.enableDebug();
-	var confUpdate = { startTime: Utils.logTime('h:m (D/M)') };
 	if (Odi.conf.debug){
 		confUpdate.debug = Odi.conf.debug;
+		log.enableDebug();
 		enableDebugCountdown();
 	}
-	if (test) confUpdate.mode = 'test';
 
 	Flux = require(Odi._CORE + 'Flux.js');
 	Flux.next('service', 'system', 'updateOdiSoftwareInfo', confUpdate, 0.1);

@@ -31,7 +31,8 @@ var completeTest = (testId, result) => {
 	log.debug(testResult);
 	if (allTestCompleted()) {
 		// log.info();
-		log.info('\n', 'testResult');
+		// log.info('\n', 'testResult');
+		console.log();
 		for (let test in testResult) {
 			log.info(test, 'completed');
 		}

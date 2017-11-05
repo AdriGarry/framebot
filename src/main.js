@@ -7,14 +7,15 @@ console.log('.');
 // var eye = new Gpio(14, 'out').write(1);
 
 const argv = process.argv;
-const forcedDebug = argv.indexOf('debug') > 0 ? true : false;
-const test = argv.indexOf('test') > 0 ? true : false;
+const forcedParams = {
+	debug: argv.indexOf('debug') > 0 ? true : false,
+	sleep: argv.indexOf('sleep') > 0 ? true : false,
+	test: argv.indexOf('test') > 0 ? true : false};
 
-// if (test) console.log('>> TEST MODE !!');
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
 global.SRC_PATH = 'TOTO';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedDebug, test);
+var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedParams);
 var spawn = require('child_process').spawn;
 if(Odi.conf.mode != 'sleep'){
 	spawn('sh', [ODI_PATH + 'src/shell/init.sh']);
@@ -62,7 +63,7 @@ log.info('Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
 
 
 /////////////  TEST section  /////////////
-if (test || Odi.conf.mode == 'test') {
+if (Odi.conf.mode == 'test') {
 	setTimeout(function() {
 		var testSequence = require(Odi._SRC + 'test/tests.js').launch(function(testStatus) {
 			// retour console + tts, and restart if test success
@@ -81,6 +82,7 @@ if (test || Odi.conf.mode == 'test') {
 // 	console.info('Execution time: %dms', end);
 // }, 5000);
 
-// setTimeout(function() {
-// 	Flux.next('service', 'time', 'now');
-// }, 5000);
+setTimeout(function() {
+	// Flux.next('service', 'time', 'now');
+	if(Odi.conf.mode == 'ready') toto(deRien);
+}, 5000);
