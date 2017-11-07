@@ -21,10 +21,10 @@ Flux.service.time.subscribe({
 			isAlarm();
 		}else if(flux.id == 'sayOdiAge'){
 			sayOdiAge();
-		}else if(flux.id == 'setTimer'){
-			setTimer(flux.value);
-		}else if(flux.id == 'stopTimer'){
-			stopTimer();
+		}else if(flux.id == 'timer'){
+			if(flux.value == 'stop'){
+				stopTimer();
+			}else setTimer(flux.value);
 		}else Odi.error('unmapped flux in Time service', flux, false);
 	},
 	error: err => {
@@ -198,6 +198,6 @@ function stopTimer(){
 		clearInterval(secInterval);
 		Odi.run.timer = 0; //-5
 		Flux.next('module', 'tts', 'speak', {lg:'en', msg:'Timer canceled'});
-		Flux.next('module', 'led', 'toggle', {leds:['belly'], value: 0});
+		Flux.next('module', 'led', 'toggle', {leds:['belly'], value: 0}, null, null, true);
 	}
 };

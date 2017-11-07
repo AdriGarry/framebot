@@ -469,14 +469,14 @@ function startUIServer(mode) {
 
 		ui.post('/timer', function(req, res) {
 			params = req.query; // affiner pour récupérer les params
-			console.log(params);
+			// console.log(params);
 			params.m = 1;
 			if (params.hasOwnProperty('stop')) {
-				Flux.next('service', 'time', 'stopTimer');
+				Flux.next('service', 'time', 'timer', 'stop');
 			} else if (!isNaN(params.m)) {
 				var min = parseInt(params.m, 10);
 				// log.info(min);
-				Flux.next('service', 'time', 'setTimer', min);
+				Flux.next('service', 'time', 'timer', min);
 			}
 			res.writeHead(200);
 			res.end();

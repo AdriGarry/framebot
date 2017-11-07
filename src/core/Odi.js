@@ -9,14 +9,15 @@ var fs = require('fs');
 var Odi = {
 	conf: require(ODI_PATH + 'conf.json'),
 	run: {
-		timer:null,
-		music: null // fip/jukebox
+		clockMode: null,
+		etat: null,
+		fip: false, // fip/jukebox
+		timer:null
 	},
 	update: update,
 	updateDefault: updateDefault,
 	reset: resetCfg,
 	logArray: logArray,
-	run: {}, // clockMode, alarms...
 	stats: {}, // lastUpdate, totalLines, diskSpace...
 	error: error, //require(ODI_PATH + 'src/core/OdiError.json'), ??
 	errors: [],

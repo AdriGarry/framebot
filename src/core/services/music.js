@@ -50,21 +50,21 @@ function medley(message){
 	}, 300);
 };
 
-var playingFip = false, fipInterval;
+var fipInterval;
 /** Function to play FIP radio */
 function playFip(){
-	if(!playingFip){
+	if(!Odi.run.fip){
 		log.info('Play FIP RADIO...');
 		// spawn('sh', ['/home/pi/odi/core/sh/fip.sh']);
 		spawn('sh', [Odi._SHELL + 'fip.sh']);
-		playingFip = true;
+		Odi.run.fip = true;
 		Flux.next('module', 'led', 'altLeds', {speed: 100, duration: 1.3});
 
-		// log.info('playFip()> playingFip', playingFip);
+		// log.info('playFip()> Odi.run.fip', Odi.run.fip);
 
 		//cancel.watch(function(err, value){ // TODO : remove ???
 			//clearInterval(fipInterval);
-		// 	playingFip = false;
+		// 	Odi.run.fip = false;
 		// });
 	}else{
 		log.info('Already playing FIP');
@@ -78,12 +78,12 @@ function playFip(){
 
 /** Function to stop FIP radio */
 function stop(message){
-	if(playingFip){
-		// log.info('playFip()> playingFip', playingFip);
-		log.info('Stop FIP RADIO.');
-		log.debug(message || 'Stoping FIP RADIO.');
+	log.info('Stop music');
+	if(Odi.run.fip){
+		// log.debug(message || 'Stoping FIP RADIO.');
+		spawn('sh', [Odi._SHELL + 'mute.sh']);
+		Odi.run.fip = false;
 	}
-	playingFip = false;
 	clearInterval(fipInterval);
 	Flux.next('module', 'led', 'toggle', {leds: ['eye', 'belly'], value: 0}, null, null, true);
 	Flux.next('module', 'led', 'clearLeds', {speed: 100, duration: 1.3}, null, null, true);

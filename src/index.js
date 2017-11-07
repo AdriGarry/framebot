@@ -10,7 +10,7 @@ global.ODI_PATH = __filename.match(/\/.*\//g)[0];
 
 /** Function to start up Odi */
 (function startOdi(exitCode) {
-	spawn('sh', [ODI_PATH + 'src/shell/mute.sh']); // Mute
+	spawn('sh', [ODI_PATH + 'shell/mute.sh']); // Mute
 
 	var Gpio = require('onoff').Gpio;
 	var eye = new Gpio(14, 'out').write(1);

@@ -40,9 +40,12 @@ function buttonHandler(flux) {
 			} else {
 				Flux.next('service', 'system', 'restart', 'test');
 			}
-		} else {
-			log.info('Button->else', flux);
-		}
+		} else if (flux.id == 'white') {
+			Flux.next('service', 'time', 'timer', flux.value);
+		} else if (flux.id == 'blue') {
+			Flux.next('service', 'music', 'fip');
+			Flux.next('service', 'music', 'jukebox');
+		} else log.info('Button->else', flux);
 	}else{
 		if (flux.id == 'ok') {
 			Flux.next('service', 'system', 'restart', null);
