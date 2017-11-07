@@ -26,6 +26,8 @@ Flux.module.sound.subscribe({
 	}
 });
 
+function setVolume(volume) {}
+
 var muteTimer, delay;
 /** Function to mute Odi (delay:min) */
 function mute(args) {
@@ -52,5 +54,3 @@ function stopAll(message) {
 	Flux.next('module', 'led', 'clearLeds', null, null, null, 'hidden');
 	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly'], value: 0 }, null, null, 'hidden');
 }
-
-function setVolume(volume) {}

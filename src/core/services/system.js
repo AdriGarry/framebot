@@ -8,6 +8,8 @@ var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
 
 var spawn = require('child_process').spawn;
+var fs = require('fs');
+var os = require('os');
 
 Flux.service.system.subscribe({
 	next: flux => {
@@ -19,6 +21,12 @@ Flux.service.system.subscribe({
 			reboot();
 		} else if (flux.id == 'shutdown') {
 			shutdown();
+		} else if (flux.id == 'cpu') {
+			if(flux.value == 'temperature'){
+				cpuTemp();
+			}else{
+				// cpuUsage(); ?
+			}
 		} else if (flux.id == 'updateOdiSoftwareInfo') {
 			updateOdiSoftwareInfo(flux.value);
 		} else {
@@ -78,6 +86,47 @@ function shutdown(){
 		console.log('\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON\'T FORGET TO SWITCH OFF POWER SUPPLY !!');
 		spawn('sh', [Odi._SHELL + 'power.sh']);
 	}, 2000);
+};
+
+/** Function cpu temperature TTS */
+function cpuTemp(){
+	var temperature = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp");
+	temperature = ((temperature/1000).toPrecision(2));
+	log.info('Service CPU Temperature...  ' + temperature + ' degres');
+	Flux.next('module', 'tts', 'speak', {lg:'fr', msg:'Mon processeur est a ' + temperature + ' degrai'});
+};
+
+//Create function to get CPU information
+function cpuAverage() {
+	//Initialise sum of idle and time of cores and fetch CPU info
+	var totalIdle = 0, totalTick = 0;
+	var cpus = os.cpus();
+	//Loop through CPU cores
+	for(var i = 0, len = cpus.length; i < len; i++) {
+		var cpu = cpus[i]; // Select CPU core
+		//Total up the time in the cores tick
+		for(var type in cpu.times) {
+			totalTick += cpu.times[type];
+		}
+		//Total up the idle time of the core
+		totalIdle += cpu.times.idle;
+	}
+	//Return the average Idle and Tick times
+	return {idle: totalIdle / cpus.length,  total: totalTick / cpus.length};
+};
+//Grab first CPU Measure
+var startMeasure = cpuAverage();
+/** Function to get CPU usage */
+function getCPUUsage(){
+	var endMeasure = cpuAverage();//Grab second Measure
+	//Calculate the difference in idle and total time between the measures
+	var idleDifference = endMeasure.idle - startMeasure.idle;
+	//console.log(idleDifference);console.log(endMeasure.idle);console.log(startMeasure.idle);
+	var totalDifference = endMeasure.total - startMeasure.total;
+	//console.log(totalDifference);console.log(endMeasure.total);console.log(startMeasure.total);
+	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference);//Calculate the average percentage CPU usage
+	log.debug('CPU usage : ' + percentageCPU + ' %');
+	return(percentageCPU);
 };
 
 

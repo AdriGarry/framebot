@@ -9,15 +9,15 @@ var os = require('os');
 var util = require('util');
 
 module.exports = {
-	logArray: logArray,
-	update: update,
-	updateSync: updateSync,
-	updateDefault: updateDefault,
-	updateOdiSoftwareInfo: updateOdiSoftwareInfo,
-	getLastModifiedDate: getLastModifiedDate,
-	countSoftwareLines: countSoftwareLines,
-	getDiskSpace: getDiskSpace,
-	resetCfg: resetCfg
+	// logArray: logArray,
+	// update: update,
+	// updateSync: updateSync,
+	// updateDefault: updateDefault,
+	// updateOdiSoftwareInfo: updateOdiSoftwareInfo,
+	// getLastModifiedDate: getLastModifiedDate,
+	// countSoftwareLines: countSoftwareLines,
+	// getDiskSpace: getDiskSpace,
+	// resetCfg: resetCfg
 };
 
 /*if(typeof ODI === 'undefined'){

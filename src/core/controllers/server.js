@@ -503,8 +503,7 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/cpuTemp', function(req, res) {
-			// TTS CPU Temp
-			// ODI.service.cpuTemp();
+			Flux.next('service', 'system', 'cpu', 'temperature');
 			res.writeHead(200);
 			res.end();
 		});
