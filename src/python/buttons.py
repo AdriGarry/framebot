@@ -12,13 +12,13 @@ GPIO.setup(17, GPIO.OUT)
 # reboot
 white_previous = 1
 white_current = 1
-white_cp = -50
+white_cp = -70
 white_flag = 0
 
 # shutdown
 blue_previous = 1
 blue_current = 1
-blue_cp = -50
+blue_cp = -70
 blue_flag = 0
 
 # print 'Loading of fallback buttons\'s python script'

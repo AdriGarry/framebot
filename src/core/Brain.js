@@ -41,7 +41,7 @@ function buttonHandler(flux) {
 				Flux.next('service', 'system', 'restart', 'test');
 			}
 		} else if (flux.id == 'white') {
-			Flux.next('service', 'time', 'timer', flux.value);
+			Flux.next('service', 'time', 'timer', Math.round(flux.value));
 		} else if (flux.id == 'blue') {
 			Flux.next('service', 'music', 'fip');
 			Flux.next('service', 'music', 'jukebox');
