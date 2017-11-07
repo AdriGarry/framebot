@@ -31,7 +31,6 @@ var muteTimer, delay;
 function mute(args) {
 	clearTimeout(muteTimer);
 	if (!args) args = {};
-	// console.log(args);
 	if (args.hasOwnProperty('delay') && Number(args.delay)) {
 		muteTimer = setTimeout(function() {
 			spawn('sh', [Odi._SHELL + 'mute.sh', 'auto']);
@@ -47,7 +46,7 @@ function mute(args) {
 /** Function to stop all sounds & leds */
 function stopAll(message) {
 	Flux.next('module', 'tts', 'clearTTSQueue', null, null, null, 'hidden');
-	//Flux.next('service', 'music', 'stop', null, null, null, 'hidden'); // ODI.jukebox.stopFip();
+	Flux.next('service', 'music', 'stop', null, null, null, 'hidden');
 	spawn('sh', [Odi._SHELL + 'mute.sh']);
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
 	Flux.next('module', 'led', 'clearLeds', null, null, null, 'hidden');
