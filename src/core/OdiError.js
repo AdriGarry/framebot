@@ -14,7 +14,7 @@ var Odi = {
 	logArray: logArray,
 	run: {}, // clockMode, alarms...
 	stats: {}, // lastUpdate, totalLines, diskSpace...
-	error: error, //require(ODI_PATH + 'src/core/OdiError.json'), ??
+	error: error,
 	errors: [],
 	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
 	_SRC: ODI_PATH + 'src/',

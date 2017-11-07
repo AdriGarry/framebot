@@ -12,10 +12,10 @@ then
 	echo $position " -> " $(($position+$playTime)) " [" $playTime "s]"
 	sudo omxplayer -o local --pos $position --vol 200 /home/pi/odi/media/mp3/jukebox/originsOfTheVillain1.mp3 > /dev/null &
 	#sudo node /home/pi/odi/core/modules/allLedsOff.js
-	sudo node /home/pi/odi/core/modules/leds.js allLedsOff
+	#sudo node /home/pi/odi/core/modules/leds.js allLedsOff
 	sleep $playTime
 	#sudo node /home/pi/odi/core/modules/allLedsOn.js
-	sudo node /home/pi/odi/core/modules/leds.js allLedsOn
+	#sudo node /home/pi/odi/core/modules/leds.js allLedsOn
 	sudo killall omxplayer.bin
 
 	while true; do # On scanne en boucle le dossier
@@ -31,11 +31,11 @@ then
 				sudo omxplayer -o local --pos $position --vol 300 $music > /dev/null &
 			fi
 			#sudo node /home/pi/odi/core/modules/allLedsOff.js
-			sudo node /home/pi/odi/core/modules/leds.js allLedsOff
+			# sudo node /home/pi/odi/core/modules/leds.js allLedsOff
 			#echo "PlayTime : " $playTime "sec"
 			sleep $playTime
 			#sudo node /home/pi/odi/core/modules/allLedsOn.js
-			sudo node /home/pi/odi/core/modules/leds.js allLedsOn
+			# sudo node /home/pi/odi/core/modules/leds.js allLedsOn
 			sudo killall omxplayer.bin
 	done
 #___Fonction Jukebox Normal
@@ -58,10 +58,10 @@ else
 				sudo omxplayer -o local --pos $position --vol 300 $music > /dev/null &
 			fi
 			#sudo node /home/pi/odi/core/modules/allLedsOff.js
-			sudo node /home/pi/odi/core/modules/leds.js allLedsOff
+			# sudo node /home/pi/odi/core/modules/leds.js allLedsOff
 			sleep $playTimeReal
 			#sudo node /home/pi/odi/core/modules/allLedsOn.js
-			sudo node /home/pi/odi/core/modules/leds.js allLedsOn
+			# sudo node /home/pi/odi/core/modules/leds.js allLedsOn
 			sudo killall omxplayer.bin
 	done
 fi

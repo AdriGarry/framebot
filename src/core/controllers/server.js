@@ -400,8 +400,7 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/fip', function(req, res) {
-			// FIP Radio
-			// ODI.jukebox.playFip();
+			Flux.next('service', 'music', 'fip');
 			res.writeHead(200);
 			res.end();
 		});
@@ -416,15 +415,7 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/jukebox', function(req, res) {
-			// Jukebox
-			// ODI.jukebox.loop();
-			res.writeHead(200);
-			res.end();
-		});
-
-		ui.post('/medley', function(req, res) {
-			// Medley
-			// ODI.jukebox.medley();
+			Flux.next('service', 'music', 'jukebox');
 			res.writeHead(200);
 			res.end();
 		});

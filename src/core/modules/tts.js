@@ -11,7 +11,6 @@ var Utils = require(Odi._CORE + 'Utils.js');
 
 Flux.module.tts.subscribe({
 	next: flux => {
-		log.info('TTS service', flux.id);
 		if (flux.id == 'speak') {
 			speak(flux.value);
 		} else if (flux.id == 'lastTTS') {
@@ -20,9 +19,7 @@ Flux.module.tts.subscribe({
 			randomConversation();
 		} else if (flux.id == 'clearTTSQueue') {
 			clearTTSQueue();
-		} else {
-			log.info('TTS flux not mapped', flux);
-		}
+		}else Odi.error('unmapped flux in TTS service', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
