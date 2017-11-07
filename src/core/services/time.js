@@ -5,18 +5,7 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
-
-// module.exports = {
-// 	now: now,
-// 	today: today,
-// 	cocorico: cocorico,
-// 	setAlarm: setAlarm,
-// 	isAlarm: isAlarm,
-// 	sayOdiAge: sayOdiAge,
-// 	setTimer: setTimer,
-// 	timeLeftTimer: timeLeftTimer,
-// 	stopTimer: stopTimer
-// };
+var spawn = require('child_process').spawn;
 
 Flux.service.time.subscribe({
 	next: flux => {
@@ -87,7 +76,7 @@ function cocorico(mode){
 
 		setTimeout(function(){ // ANNIF
 			var voiceMailMsg = ODI.voiceMail.areThereAnyMessages();
-			console.log('voiceMailMsg', voiceMailMsg);
+			log.info('voiceMailMsg', voiceMailMsg);
 			now();
 			today();
 			ODI.service.weather();
@@ -155,8 +144,7 @@ function sayOdiAge(){
 	Flux.next('module', 'tts', 'speak', {lg: 'fr', msg: birthDay});
 };
 
-/** Function to set timer */
-Odi.run.timer = 0;//, timer = false;
+Odi.run.timer = 0;var secInterval;
 function setTimer(minutes){
 	if(typeof minutes !== undefined && minutes > 1){
 		minutes = 60 * minutes;
@@ -164,51 +152,52 @@ function setTimer(minutes){
 		minutes = 60;
 	}
 	// log.info(minutes);
-	Odi.run.timer = Odi.run.timer + minutes;
-	var etat = 1;
-	
+	Odi.run.timer += minutes;
 	var min = Math.floor(Odi.run.timer/60);
 	var sec = Odi.run.timer%60;
 	var ttsMsg = 'Minuterie ' + ((min>0)? ((min>1)? min : ' une ') + ' minutes ' : '') + ((sec>0)? sec + ' secondes' : '');
 	// log.info(ttsMsg);
 	Flux.next('module', 'tts', 'speak', {lg: 'fr', msg: ttsMsg});
-	if(Odi.run.timer){ // TODO ==> TO toggle ???
-		// timer = true;
-		var sec = setInterval(function(){
-			// ODI.leds.belly.write(etat);
-			Flux.next('module', 'belly', 'toggle', etat);
-			etat = 1 - etat;
-			if(time < 10){
-				spawn('sh', [Odi._SHELL + 'timerSound.sh', 'almost']);
-			}
-			else{
-				spawn('sh', [Odi._SHELL + 'timerSound.sh']);
-			}
-			time--;
-			if(Odi.run.timer%120 == 0 && (Odi.run.timer/60)>0){
-				Flux.next('module', 'tts', 'speak', {lg:'fr', msg:Odi.run.timer/60 + ' minutes et compte a rebours'});
-			}else if(Odi.run.timer <= 0 && Odi.run.timer > -5){
-				clearInterval(sec);
-				log.info('End Timer !');
-				spawn('sh', [Odi._SHELL + 'timerSound.sh', 'end']);
-				Flux.next('module', 'led', 'blink', {leds: ['belly','eye'], speed: 90, loop: 12});
-				Flux.next('module', 'tts', 'speak', {lg:'fr', msg:'Les raviolis sont cuits !'});
-				// timer = false;
-				ODI.leds.belly.write(0);
-			}else if(time < -2){
-				clearInterval(sec);
-				log.info('Timer canceled!');
-				// ODI.leds.belly.write(0);
-				Flux.next('module', 'belly', 'toggle', 0);
-			}
-		}, 1000);
+	if(Odi.run.timer == 60){
+		startTimer();
 	}
 };
 
-/** Function to stop timer **/
+function startTimer(){
+	var etat = 1;
+	secInterval = setInterval(function(){
+		Flux.next('module', 'led', 'toggle', {leds: ['belly'], value: etat}, null, null, true);
+		etat = 1 - etat;
+		if(Odi.run.timer < 10){
+			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'almost']);
+		}
+		else{
+			spawn('sh', [Odi._SHELL + 'timerSound.sh']);
+		}
+		Odi.run.timer--;
+		if(Odi.run.timer%120 == 0 && (Odi.run.timer/60)>0){
+			Flux.next('module', 'tts', 'speak', {lg:'fr', msg:Odi.run.timer/60 + ' minutes et compte a rebours'});
+		}else if(Odi.run.timer <= 0 && Odi.run.timer > -5){
+			clearInterval(secInterval);
+			log.info('End Timer !');
+			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'end']);
+			Flux.next('module', 'led', 'blink', {leds: ['belly','eye'], speed: 90, loop: 12});
+			Flux.next('module', 'tts', 'speak', {lg:'fr', msg:'Les raviolis sont cuits !'});
+			Flux.next('module', 'led', 'toggle', {leds:['belly'], value: 0}, 1);
+			console.log(Odi.run.timer);
+		// }else if(Odi.run.timer < -2){
+		// 	clearInterval(secInterval);
+		// 	log.info('Timer canceled!');
+		// 	Flux.next('module', ['belly'], 'toggle', 0);
+		}
+	}, 1000);
+}
+
 function stopTimer(){
-	time = 0; //-5
-	// timer = false;
-	ODI.tts.speak({lg:'en', msg:'Timer canceled'});
-	ODI.leds.belly.write(0);
+	if(Odi.run.timer>0){
+		clearInterval(secInterval);
+		Odi.run.timer = 0; //-5
+		Flux.next('module', 'tts', 'speak', {lg:'en', msg:'Timer canceled'});
+		Flux.next('module', 'led', 'toggle', {leds:['belly'], value: 0});
+	}
 };

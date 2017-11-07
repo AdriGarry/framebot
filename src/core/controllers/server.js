@@ -468,17 +468,15 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/timer', function(req, res) {
-			params = req.query;
-			log.INFO('turlututu chapeau pointu !', params);
-			if (!isNaN(params.m)) {
-				log.info('!isNaN(params.m)');
-				var min = parseInt(params.m, 10);
-				log.info(min);
-				Flux.next('service', 'time', 'setTimer', min);
-			} else if (params.hasOwnProperty('stop')) {
+			params = req.query; // affiner pour récupérer les params
+			console.log(params);
+			params.m = 1;
+			if (params.hasOwnProperty('stop')) {
 				Flux.next('service', 'time', 'stopTimer');
-			// } else {
-			// 	ODI.time.setTimer();
+			} else if (!isNaN(params.m)) {
+				var min = parseInt(params.m, 10);
+				// log.info(min);
+				Flux.next('service', 'time', 'setTimer', min);
 			}
 			res.writeHead(200);
 			res.end();

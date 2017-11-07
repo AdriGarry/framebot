@@ -99,7 +99,6 @@ function toggle(config) {
 		odiLeds[config.leds[led]].write(config.value ? 1 : 0);
 	}
 	if (Object.keys(odiLeds).indexOf(config.led) > -1) {
-		// eval(config.led).write(config.mode? 1 : 0); // TODO remplacer eval
 		odiLeds[config.led].write(config.mode ? 1 : 0);
 	}
 }
@@ -130,29 +129,6 @@ function toggle(config) {
 	// 	blink({ leds: ['nose'], speed: 200, loop: 1 }); // Initialisation du temoin d'activite 2/2
 	// },	null,	1,	'Europe/Paris');
 })(Odi.conf.mode);
-
-/** Function activity : program mode flag (ready/sleep) */
-// function activity() { //function activity(mode){
-// 	//if(typeof mode === 'undefined') mode = 'awake';
-// 	//if(mode == 'ready') mode = 'awake';
-// 	log.info('Activity led initialised [' + CONFIG.mode + ']');
-// 	//mode = parseInt(mode, 10);
-// 	if (CONFIG.mode == 'sleep') mode = 0;
-// 	else mode = 1;
-// 	setInterval(function() {
-// 		odiLeds.nose.write(mode);
-// 	}, 900);
-
-// 	new CronJob(
-// 		'*/3 * * * * *',
-// 		function() {
-// 			blink({ leds: ['nose'], speed: 200, loop: 1 }); // Initialisation du temoin d'activite 2/2
-// 		},
-// 		null,
-// 		1,
-// 		'Europe/Paris'
-// 	);
-// }
 
 /** Function to start inverted blink (Eye/Belly) */
 var timer;
