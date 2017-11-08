@@ -8,8 +8,10 @@ var Flux = require(Odi._CORE + 'Flux.js');
 
 Flux.service.video.subscribe({
 	next: flux => {
-		// if (!Flux.inspect(flux, subject)) return;
-		log.info('Video service', flux);
+		if (flux.id == '') {
+			//
+		}else Odi.error('unmapped flux in Video service', flux, false);
+		
 	},
 	error: err => {
 		Odi.error(flux);

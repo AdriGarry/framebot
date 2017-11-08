@@ -10,9 +10,8 @@ Flux.service.max.subscribe({
 	next: flux => {
 		if (flux.id == '') {
 			//
-		} else {
-			log.info('Max & Co flux not mapped', flux);
-		}
+		}else Odi.error('unmapped flux in Max service', flux, false);
+		
 	},
 	error: err => {
 		Odi.error(flux);

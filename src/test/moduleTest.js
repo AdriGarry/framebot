@@ -15,8 +15,8 @@ const testTTSList = [{lg: 'en', msg: 'Test' },	{lg: 'fr', msg: 'Test' }];
 
 module.exports.run = function(callback) {
 	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 1 });
-	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 0 }, 2);
-	Flux.next('module', 'led', 'blink', { leds: ['belly'], speed: 900, loop: 100 }, 2);
+	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 0 }, 3);
+	Flux.next('module', 'led', 'blink', { leds: ['belly'], speed: 900, loop: 100 }, 3);
 	
 	Flux.next('module', 'tts', 'speak', testTTSList[Utils.random(testTTSList.length)]);
 
@@ -30,6 +30,6 @@ module.exports.run = function(callback) {
 		Flux.next('module', 'sound', 'mute', { delay: 3, message: 'DELAY 3' });
 		setTimeout(() => {
 			callback('moduleTest', true);
-		}, 4000);
+		}, 5000);
 	}, 30000);
 };

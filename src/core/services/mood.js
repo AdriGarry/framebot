@@ -8,8 +8,10 @@ var Flux = require(Odi._CORE + 'Flux.js');
 
 Flux.service.mood.subscribe({
 	next: flux => {
-		// if (!Flux.inspect(flux, subject)) return;
-		log.info('Mood service', flux);
+		if (flux.id == '') {
+			//
+		}else Odi.error('unmapped flux in Mood service', flux, false);
+		
 	},
 	error: err => {
 		Odi.error(flux);
