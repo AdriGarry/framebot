@@ -32,7 +32,7 @@ var completeTest = (testId, result) => {
 	if (allTestCompleted()) {
 		// log.info();
 		// log.info('\n', 'testResult');
-		console.log();
+		log.info('-------------------------');
 		for (let test in testResult) {
 			log.info(test, 'completed');
 		}

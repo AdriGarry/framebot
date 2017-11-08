@@ -24,6 +24,7 @@ var fs = require('fs');
 const FILE_ERROR_HISTORY = ODI_PATH + 'log/errorHistory.log';
 const FILE_REQUEST_HISTORY = ODI_PATH + 'log/requestHistory.log';
 const FILE_GRANT = ODI_PATH + 'data/pwd.properties';
+const FILE_TTS_UI_HISTORY = Odi._LOG + 'ttsUIHistory.json';
 const FILE_VOICEMAIL_HISTORY = ODI_PATH + 'log/voicemailHistory.json';
 
 var ui, deploy;
@@ -247,8 +248,12 @@ function startUIServer(mode) {
 		res.end(fs.readFileSync(FILE_REQUEST_HISTORY, 'utf8').toString());
 	});
 
+	ui.get('/ttsUIHistory', function(req, res) {
+		res.writeHead(200);
+		res.end(fs.readFileSync(FILE_TTS_UI_HISTORY, 'utf8').toString());
+	});
+
 	ui.get('/voicemailHistory', function(req, res) {
-		// Send Voicemail History
 		res.writeHead(200);
 		res.end(fs.readFileSync(FILE_VOICEMAIL_HISTORY, 'utf8').toString());
 	});
@@ -316,7 +321,7 @@ function startUIServer(mode) {
 					Flux.next('module', 'tts', 'speak', { voice: params.voice, lg: params.lg, msg: params.msg });
 				}
 				params.timestamp = Utils.logTime('D/M h:m:s', new Date());
-				Utils.appendJsonFile(Odi._LOG + 'ttsUIHistory.log', params);
+				Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
 			} else {
 				Flux.next('module', 'tts', 'random');
 			}
@@ -541,7 +546,7 @@ function startUIServer(mode) {
 			if (params['voice'] && params['lg'] && params['msg']) {
 				Flux.next('service', 'voicemail', 'newMessage', { voice: params.voice, lg: params.lg, msg: params.msg });
 				params.timestamp = Utils.logTime('D/M h:m:s', new Date());
-				Utils.appendJsonFile(Odi._LOG + 'ttsUIHistory.log', params);
+				Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
 				res.writeHead(200);
 				res.end();
 			} else {
