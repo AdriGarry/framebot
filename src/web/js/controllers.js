@@ -8,7 +8,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 	$scope.logData;
 
-	$scope.master = Math.floor(Math.random() * 100);
+	$scope.master = Math.floor(Math.random() * 100); /// WHAT FOR ??
 
 	$scope.dashboard = {
 		odiState: setOdiState(),

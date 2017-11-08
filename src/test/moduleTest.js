@@ -3,6 +3,8 @@
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+var Utils = require(Odi._CORE + 'Utils.js');
+
 log.info('Module test sequence...');
 
 const Rx = require('rxjs');
@@ -16,7 +18,7 @@ module.exports.run = function(callback) {
 	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 0 }, 2);
 	Flux.next('module', 'led', 'blink', { leds: ['belly'], speed: 900, loop: 100 }, 2);
 	
-	Flux.next('module', 'tts', 'speak', testTTSList[Math.floor(Math.random() * testTTSList.length)]);
+	Flux.next('module', 'tts', 'speak', testTTSList[Utils.random(testTTSList.length)]);
 
 	// Flux.next('module', 'sound', 'mute', { delay: 13, message: 'DELAY 13' }, 3);
 	// Flux.next('module', 'sound', 'mute', { message: 'no delay at all !' });

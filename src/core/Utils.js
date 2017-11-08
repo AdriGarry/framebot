@@ -19,6 +19,7 @@ module.exports = {
 	getJsonFileContent: getJsonFileContent,
 	logTime: logTime,
 	numberWithDot: numberWithDot,
+	random: random,
 	searchStringInArray: searchStringInArray
 	// testConnexion: testConnexion,
 };
@@ -39,8 +40,6 @@ function appendJsonFile(filePath, obj, callback) {
 						.replace(/\}"/g, '}');
 					// log.debug('fileData', fileData);
 					fs.writeFile(filePath, fileData, function(cb) {
-						// console.log('================>');
-						// log.log('appendJsonFile() LOG FOR CB');
 						log.debug('file ' + filePath + ' modified in', getExecutionTime(startTime) + 'ms');
 					});
 				}
@@ -106,14 +105,6 @@ function execCmd(command, callback) {
 	});
 }
 
-// const startHour = new Date().getHours();
-// const startMin = new Date().getMinutes();
-// const startTime =	(startHour > 12 ? startHour - 12 : startHour) +
-// 	'.' +	(startMin < 10 ? '0' : '') + startMin + ' ' + (startHour > 12 ? 'PM' : 'AM');
-// function getStartTime() {
-// 	return startTime;
-// }
-
 /** Function to repeat/concat a string */
 String.prototype.repeat = function(num) {
 	return new Array(Math.abs(num) + 1).join(this);
@@ -138,6 +129,10 @@ function addPatternBefore(time, pattern) {
 
 function numberWithDot(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+function random(maxValueNotIncluded){
+	return Math.floor(Math.random()*(maxValueNotIncluded));
 }
 
 /** Function to return date time. Pattern: 'YDT' */

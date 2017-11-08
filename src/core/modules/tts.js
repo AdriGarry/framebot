@@ -15,6 +15,8 @@ Flux.module.tts.subscribe({
 			speak(flux.value);
 		} else if (flux.id == 'lastTTS') {
 			lastTTS();
+		} else if (flux.id == 'random') {
+			speak();
 		} else if (flux.id == 'randomConversation') {
 			randomConversation();
 		} else if (flux.id == 'clearTTSQueue') {
@@ -86,7 +88,7 @@ function proceedQueue() {
 /** Function to launch random TTS */
 const RANDOM_TTS_LENGTH = Odi.ttsMessages.randomTTS.length;
 function randomTTS() {
-	var rdmNb = Math.floor(Math.random() * RANDOM_TTS_LENGTH);
+	var rdmNb = Utils.random(RANDOM_TTS_LENGTH);
 	log.info('tts.js> rdmNb: ', rdmNb);
 	var rdmTTS = Odi.ttsMessages.randomTTS[rdmNb];
 	log.info('Random TTS : ' + rdmNb + '/' + RANDOM_TTS_LENGTH);
@@ -98,7 +100,7 @@ function randomTTS() {
 const RANDOM_CONVERSATIONS_LENGTH = Odi.ttsMessages.randomConversations.length;
 function randomConversation() {
 	log.debug('randomConversation()');
-	var rdmNb = Math.floor(Math.random() * RANDOM_CONVERSATIONS_LENGTH); // IMPORT JSON FILE
+	var rdmNb = Utils.random(RANDOM_CONVERSATIONS_LENGTH); // IMPORT JSON FILE
 	var conversation = Odi.ttsMessages.randomConversations[rdmNb];
 	log.debug(conversation);
 	log.info('Random conversation : ' + (rdmNb + 1) + '/' + RANDOM_CONVERSATIONS_LENGTH);

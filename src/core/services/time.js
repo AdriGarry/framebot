@@ -52,7 +52,7 @@ function today(voice){  // TODO  prendre en compte le parametre voix (créer un 
 	var month = date.getMonth();
 	var month = CALENDAR.months[month];
 	var year = date.getFullYear();
-	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + (Math.random() >= 0.5 ? '' : (' ' + year));
+	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + (Utils.random(2) ? '' : (' ' + year));
 	log.debug('time.today()' + annonceDate);
 	Flux.next('module', 'tts', 'speak', {lg:'fr', msg:annonceDate});
 };
@@ -138,7 +138,7 @@ function sayOdiAge(){
 	var years = Math.floor(age/365);
 	var mouths = Math.floor((age%365)/30);
 	var rdm = ['Aujourd\'hui, ', 'A ce jour', ''];
-	var birthDay = rdm[Math.floor(Math.random() * rdm.length)]
+	var birthDay = rdm[Utils.random(rdm.length)]
 	birthDay += 'j\'ai ' + years + ' ans et ' + mouths + ' mois !';
 	log.info('sayOdiAge() \'' + birthDay + '\'')
 	Flux.next('module', 'tts', 'speak', {lg: 'fr', msg: birthDay});

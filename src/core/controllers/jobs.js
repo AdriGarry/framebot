@@ -91,7 +91,7 @@ function setInteractiveJobs() {
 	new CronJob(
 		'0 20,22-25 8 * * 1-5',
 		function() {
-			if (Math.floor(Math.random() * 2)) ODI.tts.speak({ lg: 'fr', voice: 'espeak', msg: 'Go go go, allez au boulot' });
+			if (Utils.random(2)) ODI.tts.speak({ lg: 'fr', voice: 'espeak', msg: 'Go go go, allez au boulot' });
 			else ODI.tts.speak({ lg: 'fr', voice: 'espeak', msg: 'Allez allez, Maitro boulot dodo' });
 		},
 		null,
@@ -167,7 +167,7 @@ function setAutoSleep() {
 
 /** Function to random TTS ggood night. NOT EXPORTED! */
 function goToSleep() {
-	var rdmSleepTTS = Math.floor(Math.random() * ODI.ttsMessages.goToSleep.length);
+	var rdmSleepTTS = Utils.random(ODI.ttsMessages.goToSleep.length);
 	var sleepTTS = ODI.ttsMessages.goToSleep[rdmSleepTTS];
 	ODI.tts.speak(sleepTTS);
 	console.log('AutoLifeCycle go to sleep !');
