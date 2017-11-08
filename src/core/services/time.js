@@ -19,7 +19,7 @@ Flux.service.time.subscribe({
 			setAlarm(flux.value);
 		}else if(flux.id == 'isAlarm'){
 			isAlarm();
-		}else if(flux.id == 'sayOdiAge'){
+		}else if(flux.id == 'OdiAge'){
 			sayOdiAge();
 		}else if(flux.id == 'timer'){
 			if(flux.value == 'stop'){
@@ -140,7 +140,7 @@ function sayOdiAge(){
 	var rdm = ['Aujourd\'hui, ', 'A ce jour', ''];
 	var birthDay = rdm[Math.floor(Math.random() * rdm.length)]
 	birthDay += 'j\'ai ' + years + ' ans et ' + mouths + ' mois !';
-	console.log('sayOdiAge() \'' + birthDay + '\'')
+	log.info('sayOdiAge() \'' + birthDay + '\'')
 	Flux.next('module', 'tts', 'speak', {lg: 'fr', msg: birthDay});
 };
 
@@ -151,12 +151,10 @@ function setTimer(minutes){
 	}else{
 		minutes = 60;
 	}
-	// log.info(minutes);
 	Odi.run.timer += minutes;
 	var min = Math.floor(Odi.run.timer/60);
 	var sec = Odi.run.timer%60;
 	var ttsMsg = 'Minuterie ' + ((min>0)? ((min>1)? min : ' une ') + ' minutes ' : '') + ((sec>0)? sec + ' secondes' : '');
-	// log.info(ttsMsg);
 	Flux.next('module', 'tts', 'speak', {lg: 'fr', msg: ttsMsg});
 	if(Odi.run.timer == 60){
 		startTimer();
@@ -185,10 +183,6 @@ function startTimer(){
 			Flux.next('module', 'tts', 'speak', {lg:'fr', msg:'Les raviolis sont cuits !'});
 			Flux.next('module', 'led', 'toggle', {leds:['belly'], value: 0}, 1);
 			console.log(Odi.run.timer);
-		// }else if(Odi.run.timer < -2){
-		// 	clearInterval(secInterval);
-		// 	log.info('Timer canceled!');
-		// 	Flux.next('module', ['belly'], 'toggle', 0);
 		}
 	}, 1000);
 }
@@ -196,7 +190,7 @@ function startTimer(){
 function stopTimer(){
 	if(Odi.run.timer>0){
 		clearInterval(secInterval);
-		Odi.run.timer = 0; //-5
+		Odi.run.timer = 0;
 		Flux.next('module', 'tts', 'speak', {lg:'en', msg:'Timer canceled'});
 		Flux.next('module', 'led', 'toggle', {leds:['belly'], value: 0}, null, null, true);
 	}

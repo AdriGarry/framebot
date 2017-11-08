@@ -315,6 +315,8 @@ function startUIServer(mode) {
 				} else {
 					Flux.next('module', 'tts', 'speak', { voice: params.voice, lg: params.lg, msg: params.msg });
 				}
+				params.timestamp = Utils.logTime('D/M h:m:s', new Date());
+				Utils.appendJsonFile(Odi._LOG + 'ttsUIHistory.log', params);
 			} else {
 				Flux.next('module', 'tts', 'random');
 			}
@@ -462,7 +464,7 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/age', function(req, res) {
-			Flux.next('service', 'time', 'sayOdiAge');
+			Flux.next('service', 'time', 'OdiAge');
 			res.writeHead(200);
 			res.end();
 		});
@@ -538,6 +540,8 @@ function startUIServer(mode) {
 			params = req.query;
 			if (params['voice'] && params['lg'] && params['msg']) {
 				Flux.next('service', 'voicemail', 'newMessage', { voice: params.voice, lg: params.lg, msg: params.msg });
+				params.timestamp = Utils.logTime('D/M h:m:s', new Date());
+				Utils.appendJsonFile(Odi._LOG + 'ttsUIHistory.log', params);
 				res.writeHead(200);
 				res.end();
 			} else {
