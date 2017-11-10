@@ -1,7 +1,7 @@
 {
 	"mode": "ready",
 	"debug": 0,
-	"startTime": 0,
+	"startTime": ".",
 	"alarms": {
 		"weekDay": {
 			"h": 7,

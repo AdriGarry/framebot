@@ -115,9 +115,9 @@ function setBackgroundJobs() {
 	new CronJob('13 13 13 * * 0', function() {
 		Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Reset config' }); // Weekly RPI reboot
 			setTimeout(function() {
-				// ODI.config.resetCfg();
 				log.info('resetCfg'); // Weekly cleaning of logs
-				log.INFO('to implement')
+				// log.INFO('to implement')
+				Odi.reset(true);
 			}, 3000);
 		}, null, true, 'Europe/Paris');
 

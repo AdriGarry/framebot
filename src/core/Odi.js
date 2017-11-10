@@ -83,7 +83,7 @@ function updateDefault(newConf, restart, callback) {
 
 /** Function to reset Odi's config */
 function resetCfg(restart) {
-	console.log('resetCfg()', restart ? 'and restart' : '');
+	log.info('resetCfg()', restart ? 'and restart' : '');
 	logArray();
 	//	config.update = now('dt');
 
@@ -92,7 +92,7 @@ function resetCfg(restart) {
 	var had_error = false;
 	stream.on('error', function(e) {
 		had_error = true;
-		console.error('config.resetCfg() stream error', e);
+		log.error('config.resetCfg() stream error', e); // Odi.error();
 	});
 	stream.on('close', function() {
 		if (!had_error && restart) {
