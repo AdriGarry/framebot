@@ -3,7 +3,6 @@
 
 var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
-
 var fs = require('fs');
 
 var Odi = {
@@ -24,20 +23,20 @@ var Odi = {
 	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
 	_SRC: ODI_PATH + 'src/',
 	_CORE: ODI_PATH + 'src/core/',
+	_SHELL: ODI_PATH + 'src/shell/',
+	_WEB: ODI_PATH + 'src/web/',
 	_CONF: ODI_PATH + 'conf.json',
 	_DATA: ODI_PATH + 'data/',
 	_LOG: ODI_PATH + 'log/',
-	_TMP: ODI_PATH + 'tmp/',
-	_SHELL: ODI_PATH + 'src/shell/',
-	_WEB: ODI_PATH + 'src/web/'
+	_TMP: ODI_PATH + 'tmp/'
 };
+
 module.exports = {
 	init: init,
 	Odi: Odi
 };
 
 var Flux = { next: null };
-
 function init(path, forcedParams) {
 	Odi.PATH = path;
 	var confUpdate = { startTime: Utils.logTime('h:m (D/M)') }, forcedParamsLog = '';

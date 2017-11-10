@@ -11,9 +11,7 @@ var os = require('os');
 
 Flux.service.system.subscribe({
 	next: flux => {
-		// console.log(' ==> flux=', flux);
 		if (flux.id == 'restart') {/* || flux.id == 'restartOdi'*/
-			// console.log('TOTO');
 			restartOdi(flux.value);
 		} else if (flux.id == 'reboot') {
 			reboot();
