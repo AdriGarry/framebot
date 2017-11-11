@@ -30,7 +30,7 @@ Flux.module.hardware.subscribe({
 function retreiveCpuTemp(){
 	var temperature = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp");
 	temperature = ((temperature/1000).toPrecision(2));
-	Odi.run.data.cpuTemp = temperature;
+	Odi.run.cpuTemp = temperature;
 	log.debug('CPU Temperature updated  ' + temperature + ' degres');
 	return temperature;
 }
@@ -70,7 +70,7 @@ function retreiveCpuUsage(){
 	var totalDifference = endMeasure.total - startMeasure.total;
 	//console.log(totalDifference);console.log(endMeasure.total);console.log(startMeasure.total);
 	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference);//Calculate the average percentage CPU usage
-	Odi.run.data.cpuUsage = percentageCPU;
+	Odi.run.cpuUsage = percentageCPU;
 	log.debug('CPU usage : ' + percentageCPU + ' %');
 	return(percentageCPU);
 };
@@ -83,7 +83,7 @@ function retreiveLastModifiedDate(paths, callback) {
 	Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1', function(data) {
 		var lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
 		log.debug('getLastModifiedDate()', lastDate[0]);
-		Odi.run.data.lastModifiedDate = lastDate[0];
+		Odi.run.update = lastDate[0];
 		if(callback) callback(lastDate[0]);
 	});
 }
@@ -103,6 +103,7 @@ function countSoftwareLines(callback) {
 			typesNb--;
 			if (!typesNb) {
 				log.debug('countSoftwareLines()', totalLines);
+				Odi.run.totalLines = totalLines;
 				if(callback) callback(totalLines);
 			}
 		});
@@ -115,7 +116,7 @@ function getDiskSpace(callback) {
 		var diskSpace = data.match(/\/dev\/root.*[%]/gm);
 		diskSpace = diskSpace[0].match(/[\d]*%/g);
 		log.debug('getDiskSpace()', diskSpace[0]);
-		Odi.run.data.diskSpace = diskSpace[0];
+		Odi.run.diskSpace = diskSpace[0];
 		if(callback) callback(diskSpace);
 	});
 }

@@ -76,10 +76,10 @@ function Logger(filename, debugMode, dateTimePattern) {
 		var col1 = 11,
 			col2 = 16;
 		// log.info();
-		var logArrayMode = updatedEntries
+		var logArrayTitle = updatedEntries
 			? '|         CONFIG UPDATE   ' + executionTime + 'ms' + ' |'
 			: '|             CONFIG             |';
-		var confArray = '|--------------------------------|\n' + logArrayMode + '\n|--------------------------------|\n';
+		var confArray = '|--------------------------------|\n' + logArrayTitle + '\n|--------------------------------|\n';
 		Object.keys(src).forEach(function(key, index) {
 			if (key == 'alarms') {
 				Object.keys(src[key]).forEach(function(key2, index2) {

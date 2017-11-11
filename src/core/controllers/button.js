@@ -16,6 +16,18 @@ var etat = new Gpio(13, 'in', 'both', {persistentWatch:true,debounceTimeout:500}
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
+Flux.module.hardware.subscribe({
+	next: flux => {
+		if (flux.id == 'runtime') {
+			Odi.run.etat = etat.readSync();
+			log.info('Odi\'s etat updated !');
+		}else Odi.error('unmapped flux in Button controller', flux, false);
+	},
+	error: err => {
+		Odi.error(flux);
+	}
+});
+
 // if(Odi.conf.mode == 'sleep') initButtonSleep();
 // else initButtonReady();
 initButtonReady();
@@ -64,6 +76,7 @@ function initButtonReady(){
 	/** Switch watch for radio volume */
 	etat.watch(function(err, value){
 		value = etat.readSync();
+		Odi.run.etat = value;
 		log.info('Etat:', value, '[Etat has changed]');
 		if(Odi.run.music){
 			Flux.next('module', 'sound', 'mute');

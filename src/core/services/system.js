@@ -71,10 +71,12 @@ function updateOdiSoftwareInfo(newConf) {
 	if (!newConf) newConf = {};
 	log.info('Updating Odi\'s software infos (last date & time, totalLines).............');
 	Flux.next('module', 'hardware', 'runtime');
+	Flux.next('controller', 'button', 'runtime');
 	// Flux.next('module', 'hardware', '');
 	// Flux.next('module', 'hardware', '');
 	setTimeout(function(){
 		Odi.update(newConf, false);
+		log.array(Odi.run);
 	}, 1000);
 }
 

@@ -8,16 +8,14 @@ var fs = require('fs');
 var Odi = {
 	conf: require(ODI_PATH + 'conf.json'),
 	run: {
-		clockMode: null,
-		etat: null,
+		clockMode: '.',
+		etat: '.',
 		music: false, // fip/jukebox
-		data: {
-			cpuUsage: null,
-			cpuTemp: null,
-			diskSpace: null,
-			lastModifiedDate: null
-		},
-		timer:null
+		timer: '.',
+		cpuUsage: '.',
+		cpuTemp: '.',
+		diskSpace: '.',
+		update: '.'
 	},
 	update: update,
 	updateDefault: updateDefault,

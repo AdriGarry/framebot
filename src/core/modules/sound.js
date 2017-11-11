@@ -7,7 +7,7 @@ var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Flux = require(Odi._CORE + 'Flux.js');
 var spawn = require('child_process').spawn;
 
-Flux.module.sound.subscribe({
+Flux.module.sound.subscribe({ // TODO: ABSOLUMENT BLOQUER LES SONS EN MODE SLEEP !!
 	next: flux => {
 		if (flux.id == 'mute') {
 			mute(flux.value);

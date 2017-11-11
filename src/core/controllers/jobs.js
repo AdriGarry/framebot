@@ -3,7 +3,7 @@
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-
+var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var CronJob = require('cron').CronJob;
 
 var date = new Date();
@@ -82,11 +82,11 @@ function setInteractiveJobs() {
 
 /** Function to set auto sleep life cycles */
 function setAutoSleep() {
-	new CronJob('3 0 0 * * 1-5', function() {
+	new CronJob('2 0 0 * * 1-5', function() {
 		goToSleep();
 	}, null, true, 'Europe/Paris');
 
-	new CronJob('3 0 2 * * 0,6', function() {
+	new CronJob('2 0 2 * * 0,6', function() {
 			goToSleep();
 		}, null, true, 'Europe/Paris'
 	);
@@ -95,7 +95,7 @@ function setAutoSleep() {
 
 /** Function to random TTS ggood night. NOT EXPORTED! */
 function goToSleep() {
-	var rdmSleepTTS = Utils.random(ODI.ttsMessages.goToSleep.length);
+	var rdmSleepTTS = Utils.random(Odi.ttsMessages.goToSleep.length);
 	var sleepTTS = Odi.ttsMessages.goToSleep[rdmSleepTTS];
 	Flux.next('module', 'tts', 'speak', sleepTTS);
 	log.info('AutoLifeCycle go to sleep !');
