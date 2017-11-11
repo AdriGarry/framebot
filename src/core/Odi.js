@@ -17,9 +17,9 @@ var Odi = {
 		diskSpace: '.',
 		update: '.'
 	},
-	update: update,
-	updateDefault: updateDefault,
-	reset: resetCfg,
+	// update: update,
+	// updateDefault: updateDefault,
+	// reset: resetCfg,
 	// logArray: logArray,
 	error: error, //require(ODI_PATH + 'src/core/OdiError.json'), ??
 	errors: [],
@@ -61,7 +61,7 @@ function init(path, forcedParams) {
 	}
 	if(forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
-	log.array(Odi.conf);
+	log.conf(Odi.conf);
 	log.info('initialization...', Odi.conf.debug ? 'DEBUG' + (Odi.conf.debug == 'forced' ? ' [FORCED!]' : '') : '');
 	if (Odi.conf.debug){
 		confUpdate.debug = Odi.conf.debug;
@@ -70,63 +70,63 @@ function init(path, forcedParams) {
 	}
 
 	Flux = require(Odi._CORE + 'Flux.js');
-	Flux.next('service', 'system', 'updateOdiSoftwareInfo', confUpdate, 0.1);
+	Flux.next('module', 'conf', 'updateOdiSoftwareInfo', confUpdate, 0.1);
 	return Odi;
 }
 
-/** Function to set/edit Odi's config */
-function update(newConf, restart, callback) {
-	doUpdate(Odi._CONF, newConf, restart, callback);
-}
+// /** Function to set/edit Odi's config */
+// function update(newConf, restart, callback) {
+// 	doUpdate(Odi._CONF, newConf, restart, callback);
+// }
 
-/** Function to set/edit Odi's DEFAULT config */
-function updateDefault(newConf, restart, callback) {
-	doUpdate(ODI_PATH + 'src/data/defaultConf.json', newConf, restart, callback);
-}
+// /** Function to set/edit Odi's DEFAULT config */
+// function updateDefault(newConf, restart, callback) {
+// 	doUpdate(ODI_PATH + 'src/data/defaultConf.json', newConf, restart, callback);
+// }
 
-var updateBegin;
-function doUpdate(file, newConf, restart, callback) {
-	updateBegin = new Date();
-	log.debug('Updating conf:', newConf, restart);
-	Utils.getJsonFileContent(file, function(data) {
-		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
-		var configFile = JSON.parse(data);
-		var updatedEntries = [];
-		Object.keys(newConf).forEach(function(key, index) {
-			if (configFile[key] != newConf[key]) {
-				configFile[key] = newConf[key];
-				updatedEntries.push(key);
-			}
-		});
-		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
-		Odi.conf = configFile;
-		fs.writeFile(file, JSON.stringify(Odi.conf, null, 1), function() {
-			log.array(Odi.conf, updatedEntries, Utils.getExecutionTime(updateBegin, '    '));
-			if (restart) process.exit();
-			if (callback) callback();
-		});
-	});
-}
+// var updateBegin;
+// function doUpdate(file, newConf, restart, callback) {
+// 	updateBegin = new Date();
+// 	log.debug('Updating conf:', newConf, restart);
+// 	Utils.getJsonFileContent(file, function(data) {
+// 		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
+// 		var configFile = JSON.parse(data);
+// 		var updatedEntries = [];
+// 		Object.keys(newConf).forEach(function(key, index) {
+// 			if (configFile[key] != newConf[key]) {
+// 				configFile[key] = newConf[key];
+// 				updatedEntries.push(key);
+// 			}
+// 		});
+// 		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
+// 		Odi.conf = configFile;
+// 		fs.writeFile(file, JSON.stringify(Odi.conf, null, 1), function() {
+// 			log.array(Odi.conf, updatedEntries, Utils.getExecutionTime(updateBegin, '    '));
+// 			if (restart) process.exit();
+// 			if (callback) callback();
+// 		});
+// 	});
+// }
 
-/** Function to reset Odi's config */
-function resetCfg(restart) {
-	log.info('resetCfg()', restart ? 'and restart' : '');
-	logArray();
-	//	config.update = now('dt');
+// /** Function to reset Odi's config */
+// function resetCfg(restart) {
+// 	log.info('resetCfg()', restart ? 'and restart' : '');
+// 	logArray();
+// 	//	config.update = now('dt');
 
-	var stream = fs.createReadStream(Odi._DATA + 'defaultConf.json'); /*, {bufferSize: 64 * 1024}*/
-	stream.pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
-	var had_error = false;
-	stream.on('error', function(e) {
-		had_error = true;
-		log.error('config.resetCfg() stream error', e); // Odi.error();
-	});
-	stream.on('close', function() {
-		if (!had_error && restart) {
-			process.exit();
-		}
-	});
-}
+// 	var stream = fs.createReadStream(Odi._DATA + 'defaultConf.json'); /*, {bufferSize: 64 * 1024}*/
+// 	stream.pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
+// 	var had_error = false;
+// 	stream.on('error', function(e) {
+// 		had_error = true;
+// 		log.error('config.resetCfg() stream error', e); // Odi.error();
+// 	});
+// 	stream.on('close', function() {
+// 		if (!had_error && restart) {
+// 			process.exit();
+// 		}
+// 	});
+// }
 
 // /** Function to log CONFIG array */
 // function logArray(updatedEntries, executionTime) {
@@ -184,7 +184,8 @@ function enableDebugCountdown(){
 	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf.debug + 'min ' + '\u2022\u2022\u2022');
 	//TODO screen on & tail odi.log !
 	setInterval(function(){
-		Odi.update({debug: --Odi.conf.debug}, false);
+		Flux.next('module', 'conf', 'update', {debug: --Odi.conf.debug});
+		// Odi.update({debug: --Odi.conf.debug}, false);
 		if(!Odi.conf.debug){
 			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
 			//Odi.update({debug: 0}, true);

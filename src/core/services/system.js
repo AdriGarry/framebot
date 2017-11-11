@@ -25,8 +25,6 @@ Flux.service.system.subscribe({
 		// 	}else{
 		// 		// cpuUsage(); ?
 		// 	}
-		} else if (flux.id == 'updateOdiSoftwareInfo') {
-			updateOdiSoftwareInfo(flux.value);
 		}else Odi.error('unmapped flux in System service', flux, false);
 	},
 	error: err => {
@@ -43,41 +41,8 @@ Flux.service.system.subscribe({
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode) {
 	log.info('restartOdi()', mode || '');
-	Odi.update({ mode: mode || 'ready' }, true);
-}
-
-/** Function to update Odi\'s software params (last date & time, totalLines) */
-function OLD_updateOdiSoftwareInfo(newConf) {
-	// log.info('newConf=', newConf);
-	if (!newConf) newConf = {};
-	log.info("Updating Odi's software infos (last date & time, totalLines)");
-	getLastModifiedDate([ODI_PATH + 'src/'], function(lastUpdate) {
-		newConf.update = lastUpdate;
-		countSoftwareLines(function(totalLines) {
-			newConf.totalLines = totalLines;
-			getDiskSpace(function(diskSpace) {
-				newConf.diskSpace = diskSpace;
-				// if(CONFIG.totalLines != totalLines || CONFIG.update != lastUpdate || CONFIG.diskSpace != diskSpace){ // TODO delete this test and write on conf files only if updatedEntries.lentgh > 0
-				// Odi.setDefaultConf({ update: lastUpdate, totalLines: totalLines, diskSpace: diskSpace }, false);
-				Odi.update(newConf, false);
-				// }
-			});
-		});
-	});
-}
-
-/** Function to update Odi\'s software params (last date & time, totalLines) */
-function updateOdiSoftwareInfo(newConf) {
-	if (!newConf) newConf = {};
-	log.info('Updating Odi\'s software infos (last date & time, totalLines).............');
-	Flux.next('module', 'hardware', 'runtime');
-	Flux.next('controller', 'button', 'runtime');
-	// Flux.next('module', 'hardware', '');
-	// Flux.next('module', 'hardware', '');
-	setTimeout(function(){
-		Odi.update(newConf, false);
-		log.array(Odi.run);
-	}, 1000);
+	Flux.next('module', 'conf', 'updateRestart', { mode: mode || 'ready' });
+	// Odi.update({ mode: mode || 'ready' }, true);
 }
 
 /** Function to reboot RPI */

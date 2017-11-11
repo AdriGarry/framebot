@@ -24,6 +24,8 @@ module.exports.run = function(callback) {
 	// Flux.next('module', 'sound', 'mute', { message: 'no delay at all !' });
 	// Flux.next('module', 'sound', 'mute');
 
+	// TODO tests sur cpuTemp !!
+
 	setTimeout(() => {}, 1000);
 
 	setTimeout(() => {

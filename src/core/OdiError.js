@@ -173,17 +173,3 @@ function error(label, data, stackTrace) {
 	Odi.errors.push(logError);
 }
 
-function enableDebugCountdown(){
-	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf.debug + 'min ' + '\u2022\u2022\u2022');
-	//TODO screen on & tail odi.log !
-	setInterval(function(){
-		Odi.update({debug: --Odi.conf.debug}, false);
-		if(!Odi.conf.debug){
-			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
-			//Odi.update({debug: 0}, true);
-			setTimeout(function(){
-				process.exit();
-			}, 500);
-		}
-	}, 60*1000);
-};

@@ -153,20 +153,23 @@ function startUIServer(mode) {
 	/** TOGGLE DEBUG MODE */
 	ui.post('/toggleDebug', function(req, res) {
 		log.debug('UI > Toggle debug');
-		Odi.update({ debug: Odi.conf.debug ? 0 : 20 }, true);
+		Flux.next('module', 'conf', 'updateRestart', { debug: Odi.conf.debug ? 0 : 20 });
+		// Odi.update({ debug: Odi.conf.debug ? 0 : 20 }, true);
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/testSequence', function(req, res) {
-		Odi.update({ mode: 'test' }, true);
+		Flux.next('module', 'conf', 'updateRestart', { mode: 'test' });
+		// Odi.update({ mode: 'test' }, true);
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/resetConfig', function(req, res) {
 		log.debug('UI > Reset config');
-		Odi.reset(true);
+		Flux.next('module', 'conf', 'reset');
+		// Odi.reset(true);
 		res.writeHead(200);
 		res.end();
 	});
@@ -234,7 +237,7 @@ function startUIServer(mode) {
 		res.writeHead(200);
 		res.end(fs.readFileSync(Odi._CONF, 'utf8').toString());
 		//console.debug(Odi.conf.toString());
-		log.array(Odi.conf);
+		log.conf(Odi.conf);
 		res.end(JSON.stringify(Odi.conf));
 	});
 

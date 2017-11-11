@@ -111,7 +111,8 @@ function setAlarm(alarm){
 			newAlarms[key] = Odi.conf.alarms[key];
 		}
 	});
-	Odi.update({ alarms: newAlarms }, true);
+	Flux.next('module', 'conf', 'updateRestart', { alarms: newAlarms });
+	// Odi.update({ alarms: newAlarms }, true);
 };
 
 /** Function to test if alarm now */

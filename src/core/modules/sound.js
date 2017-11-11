@@ -7,15 +7,18 @@ var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Flux = require(Odi._CORE + 'Flux.js');
 var spawn = require('child_process').spawn;
 
+// const asleep = Odi.conf.mode != 'sleep';
+// console.log(Odi.conf.mode != 'sleep');
+
 Flux.module.sound.subscribe({ // TODO: ABSOLUMENT BLOQUER LES SONS EN MODE SLEEP !!
 	next: flux => {
 		if (flux.id == 'mute') {
 			mute(flux.value);
-		} else if (flux.id == 'volume') {
+		} else if (flux.id == 'volume'/* && !asleep*/) {
 			// todo setVolume(flux.value);
-		} else if (flux.id == 'error') {
+		} else if (flux.id == 'error'/* && !asleep*/) {
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
-		} else if (flux.id == 'UI') {
+		} else if (flux.id == 'UI'/* && !asleep*/) {
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'UIRequest']);
 		} else {
 			log.info('Sound flux not mapped', flux);

@@ -14,6 +14,7 @@ var Flux = {
 		server: new Rx.Subject()
 	},
 	module: {
+		conf: new Rx.Subject(),
 		hardware: new Rx.Subject(),
 		led: new Rx.Subject(),
 		sound: new Rx.Subject(),

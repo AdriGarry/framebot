@@ -31,15 +31,15 @@ var Brain = require(Odi._CORE + 'Brain.js');
 
 const observers = {
 	modules: {
-		sleep: ['led','hardware'],
+		sleep: ['conf', 'led','hardware'],
 		all: ['sound', 'tts']
+	},
+	services: {
+		sleep: ['system', 'voicemail'],
+		all: ['time', 'music', 'mood', 'max', 'video']
 	},
 	controllers: {
 		sleep: ['button', 'jobs', 'server'],
-	},
-	services: {
-		sleep: ['system', 'tools', 'voicemail'],
-		all: ['time', 'music', 'mood', 'max', 'video']
 	}
 };
 
@@ -69,7 +69,8 @@ if (Odi.conf.mode == 'test') {
 			// retour console + tts, and restart if test success
 			Flux.next('module', 'tts', 'speak', {lg: 'en', msg: 'all tests succeeded!'})
 			setTimeout(function() {
-				if (testStatus) Odi.update({ mode: 'ready' }, true);
+				// if (testStatus) Odi.update({ mode: 'ready' }, true);
+				if (testStatus) Flux.next('module', 'conf', 'updateRestart', { mode: 'ready' });
 			}, 3000);
 		});
 	}, 500);
