@@ -73,6 +73,38 @@ function init(path, forcedParams) {
 	return Odi;
 }
 
+function error(label, data, stackTrace) {
+	Flux.next('module', 'led', 'altLeds', { speed: 30, duration: 1.5 }, null, null, 'hidden');
+	Flux.next('module', 'sound', 'error', null, null, null, 'hidden');
+	log.error(label, data || '');
+	if(stackTrace != false){ // Optional ?
+		console.trace();
+	}
+	var logError = {
+		time: Utils.logTime(),
+		label: label,
+		data: data
+	};
+	Utils.appendJsonFile(ODI_PATH + 'log/errorHistory.log', logError);
+	Odi.errors.push(logError);
+}
+
+function enableDebugCountdown(){
+	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf.debug + 'min ' + '\u2022\u2022\u2022');
+	//TODO screen on & tail odi.log !
+	setInterval(function(){
+		Flux.next('module', 'conf', 'update', {debug: --Odi.conf.debug});
+		// Odi.update({debug: --Odi.conf.debug}, false);
+		if(!Odi.conf.debug){
+			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
+			//Odi.update({debug: 0}, true);
+			setTimeout(function(){
+				process.exit();
+			}, 500);
+		}
+	}, 60*1000);
+};
+
 // /** Function to set/edit Odi's config */
 // function update(newConf, restart, callback) {
 // 	doUpdate(Odi._CONF, newConf, restart, callback);
@@ -162,35 +194,3 @@ function init(path, forcedParams) {
 // 	});
 // 	console.log(confArray + '|--------------------------------|');
 // }
-
-function error(label, data, stackTrace) {
-	Flux.next('module', 'led', 'altLeds', { speed: 30, duration: 1.5 }, null, null, 'hidden');
-	Flux.next('module', 'sound', 'error', null, null, null, 'hidden');
-	log.error(label, data || '');
-	if(stackTrace != false){ // Optional ?
-		console.trace();
-	}
-	var logError = {
-		time: Utils.logTime(),
-		label: label,
-		data: data
-	};
-	Utils.appendJsonFile(ODI_PATH + 'log/errorHistory.log', logError);
-	Odi.errors.push(logError);
-}
-
-function enableDebugCountdown(){
-	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf.debug + 'min ' + '\u2022\u2022\u2022');
-	//TODO screen on & tail odi.log !
-	setInterval(function(){
-		Flux.next('module', 'conf', 'update', {debug: --Odi.conf.debug});
-		// Odi.update({debug: --Odi.conf.debug}, false);
-		if(!Odi.conf.debug){
-			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
-			//Odi.update({debug: 0}, true);
-			setTimeout(function(){
-				process.exit();
-			}, 500);
-		}
-	}, 60*1000);
-};

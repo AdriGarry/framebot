@@ -34,7 +34,7 @@ function updateConf(newConf, restart, callback) {
 
 /** Function to set/edit Odi's DEFAULT config */
 function updateDefaultConf(newConf, restart, callback) {
-	doUpdate(ODI_PATH + 'src/data/defaultConf.json', newConf, restart, callback);
+	doUpdate(Odi._DATA + 'defaultConf.json', newConf, restart, callback);
 }
 
 var updateBegin;
