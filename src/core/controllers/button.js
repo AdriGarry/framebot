@@ -20,7 +20,7 @@ Flux.module.hardware.subscribe({
 	next: flux => {
 		if (flux.id == 'runtime') {
 			Odi.run.etat = etat.readSync();
-			log.info('Odi\'s etat updated !');
+			log.debug('Odi\'s etat updated:' + Odi.run.etat);
 		}else Odi.error('unmapped flux in Button controller', flux, false);
 	},
 	error: err => {
@@ -82,6 +82,7 @@ function initButtonReady(){
 			Flux.next('module', 'sound', 'mute');
 			Flux.next('service', 'music', 'fip', null, 0.1);
 		}
+		log.lines(Odi.run);
 	});
 
 	// var pushed = 0,

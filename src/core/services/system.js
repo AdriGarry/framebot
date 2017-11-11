@@ -17,14 +17,6 @@ Flux.service.system.subscribe({
 			reboot();
 		} else if (flux.id == 'shutdown') {
 			shutdown();
-		// } else if (flux.id == 'updateRuntime') {
-		// 	updateRuntime();
-		// } else if (flux.id == 'cpu') {
-		// 	if(flux.value == 'temperature'){
-		// 		cpuTemp();
-		// 	}else{
-		// 		// cpuUsage(); ?
-		// 	}
 		}else Odi.error('unmapped flux in System service', flux, false);
 	},
 	error: err => {

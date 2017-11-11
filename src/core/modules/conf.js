@@ -13,7 +13,7 @@ Flux.module.conf.subscribe({
 		if (flux.id == 'update') {
 			updateConf(flux.value, false);
 		}else if (flux.id == 'updateRestart') {
-				updateConf(flux.value, true);
+			updateConf(flux.value, true);
 		} else if (flux.id == 'updateDefault') {
 			updateDefaultConf(flux.value);
 		} else if (flux.id == 'reset') {
@@ -64,7 +64,7 @@ function doUpdate(file, newConf, restart, callback) {
 /** Function to reset Odi's config */
 function resetCfg(restart) {
 	log.info('resetCfg()', restart ? 'and restart' : '');
-	logArray();
+	log.conf(Odi.conf);
 	//	config.update = now('dt');
 
 	var stream = fs.createReadStream(Odi._DATA + 'defaultConf.json'); /*, {bufferSize: 64 * 1024}*/
@@ -84,8 +84,8 @@ function resetCfg(restart) {
 /** Function to update Odi\'s software params (last date & time, totalLines) */
 function updateOdiSoftwareInfo(newConf) {
 	if (!newConf) newConf = {};
-	log.info('Updating Odi\'s software infos (last date & time, totalLines).............');
-	Flux.next('module', 'hardware', 'runtime');
+	log.info('Updating Odi\'s runtime data...');
+	Flux.next('module', 'hardware', 'runtime', null, null, false);
 	Flux.next('controller', 'button', 'runtime');
 	// Flux.next('module', 'hardware', '');
 	setTimeout(function(){

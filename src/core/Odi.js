@@ -8,7 +8,6 @@ var fs = require('fs');
 var Odi = {
 	conf: require(ODI_PATH + 'conf.json'),
 	run: {
-		clockMode: '.',
 		etat: '.',
 		music: false, // fip/jukebox
 		timer: '.',

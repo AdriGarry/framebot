@@ -34,14 +34,12 @@ function initClock() {
 		new CronJob('0 0,30 12-23 * * 0,7', function(){
 			Flux.next('service', 'time', 'now');
 		}, null, true, 'Europe/Paris');
-		Odi.run.clockMode = 'regular';
 		log.info('Clock jobs initialised in regular mode');
 	} else {
 		// Mode any time
 		new CronJob('0 0,30 * * * *', function() {
 			Flux.next('service', 'time', 'now');
 		},	null,	true,	'Europe/Paris');
-		Odi.run.clockMode = 'all';
 		log.info('Clock jobs initialised in any time mode');
 	}
 }
