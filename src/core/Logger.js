@@ -21,6 +21,7 @@ function Logger(filename, debugMode, dateTimePattern) {
 	this.enableDebug = enableDebug;
 	this.debug = debug;
 	this.DEBUG = DEBUG;
+	this.array = logArray;
 	this.error = error;
 	return this;
 
@@ -69,4 +70,41 @@ function Logger(filename, debugMode, dateTimePattern) {
 		console.log('___________________');
 		console.error(Utils.logTime(), '[' + filename + ']', 'ERR >>', formatLog(arguments));
 	}
+
+	/** Function to log conf to array */
+	function logArray(src, updatedEntries, executionTime) {
+		var col1 = 11,
+			col2 = 16;
+		// log.info();
+		var logArrayMode = updatedEntries
+			? '|         CONFIG UPDATE   ' + executionTime + 'ms' + ' |'
+			: '|             CONFIG             |';
+		var confArray = '|--------------------------------|\n' + logArrayMode + '\n|--------------------------------|\n';
+		Object.keys(src).forEach(function(key, index) {
+			if (key == 'alarms') {
+				Object.keys(src[key]).forEach(function(key2, index2) {
+					if (key2 != 'd') {
+						var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
+						var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
+						c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
+						if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
+						confArray += '| ' + c1 + ' | ' + c2 + ' '.repeat(col2 - c2.length) + ' |\n';
+					}
+				});
+			} else {
+				var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
+				confArray +=
+					'| ' +
+					(!updated ? '' : '*') +
+					key +
+					' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
+					' | ' +
+					src[key] +
+					' '.repeat(col2 - src[key].toString().length) +
+					' |\n';
+			}
+		});
+		console.log(confArray + '|--------------------------------|');
+	}
 }
+

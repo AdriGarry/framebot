@@ -65,7 +65,7 @@ function initButtonReady(){
 	etat.watch(function(err, value){
 		value = etat.readSync();
 		log.info('Etat:', value, '[Etat has changed]');
-		if(Odi.run.fip){
+		if(Odi.run.music){
 			Flux.next('module', 'sound', 'mute');
 			Flux.next('service', 'music', 'fip', null, 0.1);
 		}

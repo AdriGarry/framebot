@@ -17,22 +17,28 @@ Flux.service.system.subscribe({
 			reboot();
 		} else if (flux.id == 'shutdown') {
 			shutdown();
-		} else if (flux.id == 'cpu') {
-			if(flux.value == 'temperature'){
-				cpuTemp();
-			}else{
-				// cpuUsage(); ?
-			}
+		// } else if (flux.id == 'updateRuntime') {
+		// 	updateRuntime();
+		// } else if (flux.id == 'cpu') {
+		// 	if(flux.value == 'temperature'){
+		// 		cpuTemp();
+		// 	}else{
+		// 		// cpuUsage(); ?
+		// 	}
 		} else if (flux.id == 'updateOdiSoftwareInfo') {
 			updateOdiSoftwareInfo(flux.value);
-		} else {
-			log.info('System flux not mapped', flux);
-		}
+		}else Odi.error('unmapped flux in System service', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
 	}
 });
+
+/** Function to refresh Odi's runtime info */
+// function updateRuntime() {
+// 	log.info('updateRuntime()');
+// 	Flux.next('module', 'hardware', 'cpu');
+// }
 
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode) {
@@ -41,7 +47,7 @@ function restartOdi(mode) {
 }
 
 /** Function to update Odi\'s software params (last date & time, totalLines) */
-function updateOdiSoftwareInfo(newConf) {
+function OLD_updateOdiSoftwareInfo(newConf) {
 	// log.info('newConf=', newConf);
 	if (!newConf) newConf = {};
 	log.info("Updating Odi's software infos (last date & time, totalLines)");
@@ -58,6 +64,18 @@ function updateOdiSoftwareInfo(newConf) {
 			});
 		});
 	});
+}
+
+/** Function to update Odi\'s software params (last date & time, totalLines) */
+function updateOdiSoftwareInfo(newConf) {
+	if (!newConf) newConf = {};
+	log.info('Updating Odi\'s software infos (last date & time, totalLines).............');
+	Flux.next('module', 'hardware', 'runtime');
+	// Flux.next('module', 'hardware', '');
+	// Flux.next('module', 'hardware', '');
+	setTimeout(function(){
+		Odi.update(newConf, false);
+	}, 1000);
 }
 
 /** Function to reboot RPI */

@@ -14,7 +14,7 @@ Flux.service.music.subscribe({
 			playFip();
 		}else if(flux.id == 'stop'){
 			stop();
-		}else Odi.error('unmapped flux in Time service', flux, false);
+		}else Odi.error('unmapped flux in Music service', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
@@ -53,18 +53,18 @@ function medley(message){
 var fipInterval;
 /** Function to play FIP radio */
 function playFip(){
-	if(!Odi.run.fip){
+	if(!Odi.run.music){
 		log.info('Play FIP RADIO...');
 		// spawn('sh', ['/home/pi/odi/core/sh/fip.sh']);
 		spawn('sh', [Odi._SHELL + 'fip.sh']);
-		Odi.run.fip = true;
+		Odi.run.music = true;
 		Flux.next('module', 'led', 'altLeds', {speed: 100, duration: 1.3});
 
-		// log.info('playFip()> Odi.run.fip', Odi.run.fip);
+		// log.info('playFip()> Odi.run.music', Odi.run.music);
 
 		//cancel.watch(function(err, value){ // TODO : remove ???
 			//clearInterval(fipInterval);
-		// 	Odi.run.fip = false;
+		// 	Odi.run.music = false;
 		// });
 	}else{
 		log.info('Already playing FIP');
@@ -79,10 +79,10 @@ function playFip(){
 /** Function to stop FIP radio */
 function stop(message){
 	log.info('Stop music');
-	if(Odi.run.fip){
+	if(Odi.run.music){
 		// log.debug(message || 'Stoping FIP RADIO.');
 		spawn('sh', [Odi._SHELL + 'mute.sh']);
-		Odi.run.fip = false;
+		Odi.run.music = false;
 	}
 	clearInterval(fipInterval);
 	Flux.next('module', 'led', 'toggle', {leds: ['eye', 'belly'], value: 0}, null, null, true);

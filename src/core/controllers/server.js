@@ -234,7 +234,7 @@ function startUIServer(mode) {
 		res.writeHead(200);
 		res.end(fs.readFileSync(Odi._CONF, 'utf8').toString());
 		//console.debug(Odi.conf.toString());
-		Odi.logArray();
+		log.array(Odi.conf);
 		res.end(JSON.stringify(Odi.conf));
 	});
 
