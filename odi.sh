@@ -15,7 +15,7 @@ echo "start.sh -> Start Odi Pgm... [$*]"
 if [ ! -d "$ODI_PATH"/log ];
 then
 	mkdir "$ODI_PATH"/log
-	echo "Creating Log file"
+	echo "Creating Log folder"
 fi
 
 # if [ -n "$lastUpdate" ]; then
@@ -52,7 +52,7 @@ if [ ! -d "$ODI_PATH"/tmp ];
 then
 	# "$ODI_PATH"/tmp
 	mkdir "$ODI_PATH"/tmp
-	echo "Creating tmp file"
+	echo "Creating tmp folder"
 fi
 
 # sudo python /home/pi/odi/core/py/buttons.py 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &
