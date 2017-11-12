@@ -511,7 +511,7 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/cpuTemp', function(req, res) {
-			Flux.next('service', 'system', 'cpu', 'temperature');
+			Flux.next('module', 'hardware', 'cpu');
 			res.writeHead(200);
 			res.end();
 		});

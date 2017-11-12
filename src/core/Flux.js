@@ -71,7 +71,7 @@ function next(type, subject, id, value, delay, loop, hidden) {
 }
 
 var inspect = flux => {
-	log.debug('inspecting Flux:', flux.toString());
+	// log.debug('inspecting Flux:', flux.toString());
 	if (Object.keys(Flux).includes(flux.type) && Object.keys(Flux[flux.type]).includes(flux.subject)) {
 		return true;
 	}

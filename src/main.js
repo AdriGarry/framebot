@@ -13,7 +13,7 @@ const forcedParams = {
 	test: argv.indexOf('test') > 0 ? true : false};
 
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
-global.SRC_PATH = 'TOTO';
+// global.SRC_PATH = 'TOTO';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedParams);
 var spawn = require('child_process').spawn;
@@ -60,11 +60,13 @@ Object.keys(observers).forEach(function(observer) {
 });
 
 log.info('Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
+Flux.next('module', 'conf', 'runtime');
 
 
 /////////////  TEST section  /////////////
 if (Odi.conf.mode == 'test') {
 	setTimeout(function() {
+		Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 1 }, null, null, true);
 		var testSequence = require(Odi._SRC + 'test/tests.js').launch(function(testStatus) {
 			// retour console + tts, and restart if test success
 			Flux.next('module', 'tts', 'speak', {lg: 'en', msg: 'all tests succeeded!'})

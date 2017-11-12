@@ -5,6 +5,7 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
+var Gpio = require('onoff').Gpio;
 var fs = require('fs');
 var os = require('os');
 
@@ -18,14 +19,20 @@ Flux.module.hardware.subscribe({
 			getDiskSpace();
 			retreiveCpuTemp();
 			retreiveCpuUsage();
+			getEtatValue();
 		} else if (flux.id == 'cpu') {
-				cpuTempTTS();
-		}else Odi.error('unmapped flux in Hardware service', flux, false);
+			cpuTempTTS();
+		}else Odi.error('unmapped flux in Hardware module', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
 	}
 });
+
+var etat = new Gpio(13, 'in', 'both', {persistentWatch:true,debounceTimeout:500});
+function getEtatValue(){
+	Odi.run.etat = etat.readSync();
+}
 
 function retreiveCpuTemp(){
 	var temperature = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp");
@@ -37,7 +44,7 @@ function retreiveCpuTemp(){
 
 /** Function cpu temperature TTS */
 function cpuTempTTS(){
-	var temperature = updateCpuData();
+	var temperature = retreiveCpuTemp();
 	Flux.next('module', 'tts', 'speak', {lg:'fr', msg:'Mon processeur est a ' + temperature + ' degrai'});
 };
 
@@ -70,7 +77,7 @@ function retreiveCpuUsage(){
 	var totalDifference = endMeasure.total - startMeasure.total;
 	//console.log(totalDifference);console.log(endMeasure.total);console.log(startMeasure.total);
 	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference);//Calculate the average percentage CPU usage
-	Odi.run.cpuUsage = percentageCPU;
+	Odi.run.cpuUsage = percentageCPU + '%';
 	log.debug('CPU usage : ' + percentageCPU + ' %');
 	return(percentageCPU);
 };

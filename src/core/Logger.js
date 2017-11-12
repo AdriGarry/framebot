@@ -110,47 +110,12 @@ function Logger(filename, debugMode, dateTimePattern) {
 
 	/** Function to log runtime to array */
 	function logRuntime(src, updatedEntries, executionTime) {
-			var col1 = 11,
-				col2 = 16;
-			var logArrayTitle = updatedEntries
-				? '|       RUNTIME UPDATE   ' + executionTime + 'ms' + ' |'
-				: '|             RUNTIME            |';
-			var runtimeArray = '|' + ('\u2022').repeat(32) + '|\n' + logArrayTitle + '\n|' + ('\u2022').repeat(32) + '|\n';
-			Object.keys(src).forEach(function(key, index) {
-				if (key == 'alarms') {
-					Object.keys(src[key]).forEach(function(key2, index2) {
-						if (key2 != 'd') {
-							var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
-							var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
-							c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
-							if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
-							runtimeArray += '| ' + c1 + ' | ' + c2 + ' '.repeat(col2 - c2.length) + ' |\n';
-						}
-					});
-				} else {
-					var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
-					runtimeArray +=
-						'| ' +
-						(!updated ? '' : '*') +
-						key +
-						' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
-						' | ' +
-						src[key] +
-						' '.repeat(col2 - src[key].toString().length) +
-						' |\n';
-				}
+			var col1 = 11;
+			var runtimeArray = '\n' + ' '.repeat(9) + 'RUNTIME';
+			Object.keys(src).forEach(function(key) {
+				runtimeArray += '\n' + ' '.repeat(col1 - key.length) + key + ' | ' + src[key];
 			});
-			console.log(runtimeArray + '|' + ('\u2022').repeat(32) + '|');
-		}
-	
-	/** Function to log runtime to array */
-	function lines(src) {
-		var oneLine = '\n|---------------------------------------------------|';
-		var arrayTitle = '|--------------------- RUNTIME ----------------------|\n';
-		var runtimeArray = '| etat: ' + src.etat + ' | music: ' + src.music + ' | timer: ' + src.timer +' | voicemail: '
-			+ src.voicemail + oneLine + '\n| cpuUsage: ' + src.cpuUsage + ' | cpuTemp: ' + src.cpuTemp + ' | diskSpace: '
-			+ src.diskSpace + oneLine + '\n| totalLines: ' + src.totalLines + ' | update: ' + src.update +' |';
-	 console.log(arrayTitle + runtimeArray + oneLine);
+			console.log(runtimeArray);
 	}
 }
 

@@ -9,17 +9,16 @@ var Odi = {
 	conf: require(ODI_PATH + 'conf.json'),
 	run: {
 		etat: '.',
+		mood: '.',
 		music: false, // fip/jukebox
 		timer: '.',
+		voicemail: '.',
 		cpuUsage: '.',
 		cpuTemp: '.',
 		diskSpace: '.',
-		update: '.'
+		update: '.',
+		totalLines: '.'
 	},
-	// update: update,
-	// updateDefault: updateDefault,
-	// reset: resetCfg,
-	// logArray: logArray,
 	error: error, //require(ODI_PATH + 'src/core/OdiError.json'), ??
 	errors: [],
 	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
@@ -70,7 +69,6 @@ function init(path, forcedParams) {
 
 	Flux = require(Odi._CORE + 'Flux.js');
 	Flux.next('module', 'conf', 'update', confUpdate, 0.1);
-	// Flux.next('module', 'conf', 'updateOdiSoftwareInfo', confUpdate, 0.1);
 	return Odi;
 }
 
@@ -105,93 +103,3 @@ function enableDebugCountdown(){
 		}
 	}, 60*1000);
 };
-
-// /** Function to set/edit Odi's config */
-// function update(newConf, restart, callback) {
-// 	doUpdate(Odi._CONF, newConf, restart, callback);
-// }
-
-// /** Function to set/edit Odi's DEFAULT config */
-// function updateDefault(newConf, restart, callback) {
-// 	doUpdate(ODI_PATH + 'src/data/defaultConf.json', newConf, restart, callback);
-// }
-
-// var updateBegin;
-// function doUpdate(file, newConf, restart, callback) {
-// 	updateBegin = new Date();
-// 	log.debug('Updating conf:', newConf, restart);
-// 	Utils.getJsonFileContent(file, function(data) {
-// 		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
-// 		var configFile = JSON.parse(data);
-// 		var updatedEntries = [];
-// 		Object.keys(newConf).forEach(function(key, index) {
-// 			if (configFile[key] != newConf[key]) {
-// 				configFile[key] = newConf[key];
-// 				updatedEntries.push(key);
-// 			}
-// 		});
-// 		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
-// 		Odi.conf = configFile;
-// 		fs.writeFile(file, JSON.stringify(Odi.conf, null, 1), function() {
-// 			log.array(Odi.conf, updatedEntries, Utils.getExecutionTime(updateBegin, '    '));
-// 			if (restart) process.exit();
-// 			if (callback) callback();
-// 		});
-// 	});
-// }
-
-// /** Function to reset Odi's config */
-// function resetCfg(restart) {
-// 	log.info('resetCfg()', restart ? 'and restart' : '');
-// 	logArray();
-// 	//	config.update = now('dt');
-
-// 	var stream = fs.createReadStream(Odi._DATA + 'defaultConf.json'); /*, {bufferSize: 64 * 1024}*/
-// 	stream.pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
-// 	var had_error = false;
-// 	stream.on('error', function(e) {
-// 		had_error = true;
-// 		log.error('config.resetCfg() stream error', e); // Odi.error();
-// 	});
-// 	stream.on('close', function() {
-// 		if (!had_error && restart) {
-// 			process.exit();
-// 		}
-// 	});
-// }
-
-// /** Function to log CONFIG array */
-// function logArray(updatedEntries, executionTime) {
-// 	var col1 = 11,
-// 		col2 = 16;
-// 	// log.info();
-// 	var logArrayMode = updatedEntries
-// 		? '|         CONFIG UPDATE   ' + executionTime + 'ms' + ' |'
-// 		: '|             CONFIG             |';
-// 	var confArray = '|--------------------------------|\n' + logArrayMode + '\n|--------------------------------|\n';
-// 	Object.keys(Odi.conf).forEach(function(key, index) {
-// 		if (key == 'alarms') {
-// 			Object.keys(Odi.conf[key]).forEach(function(key2, index2) {
-// 				if (key2 != 'd') {
-// 					var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
-// 					var c2 = key2 + ' ' + (Odi.conf[key][key2].h < 10 ? ' ' : '') + Odi.conf[key][key2].h + ':';
-// 					c2 += (Odi.conf[key][key2].m < 10 ? '0' : '') + Odi.conf[key][key2].m;
-// 					if (typeof Odi.conf[key][key2].mode === 'string') c2 += ' ' + Odi.conf[key][key2].mode.charAt(0); //String(Odi.conf[key][key2].mode).charAt(0)
-// 					confArray += '| ' + c1 + ' | ' + c2 + ' '.repeat(col2 - c2.length) + ' |\n';
-// 				}
-// 			});
-// 		} else {
-// 			var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
-// 			confArray +=
-// 				'| ' +
-// 				(!updated ? '' : '*') +
-// 				key +
-// 				' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
-// 				' | ' +
-// 				Odi.conf[key] +
-// 				' '.repeat(col2 - Odi.conf[key].toString().length) +
-// 				' |\n';
-// 		}
-// 	});
-// 	console.log(confArray + '|--------------------------------|');
-// }

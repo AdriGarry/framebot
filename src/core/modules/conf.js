@@ -18,7 +18,7 @@ Flux.module.conf.subscribe({
 			updateDefaultConf(flux.value);
 		} else if (flux.id == 'reset') {
 			resetCfg(flux.value);
-		} else if (flux.id == 'refreshRuntime') {
+		} else if (flux.id == 'runtime') {
 			refreshRuntime(flux.value);
 		// } else if (flux.id == 'updateOdiSoftwareInfo') {
 		// 	updateOdiSoftwareInfo(flux.value);

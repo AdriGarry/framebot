@@ -21,7 +21,7 @@ Flux.module.tts.subscribe({
 			randomConversation();
 		} else if (flux.id == 'clearTTSQueue') {
 			clearTTSQueue();
-		}else Odi.error('unmapped flux in TTS service', flux, false);
+		}else Odi.error('unmapped flux in TTS module', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
@@ -38,7 +38,7 @@ var onAir = false,
 /** Function to add TTS message in queue and proceed */
 function speak(tts) {
 	if (Utils.searchStringInArray(Odi.conf.mode, allowedModes)) {
-		log.debug(tts);
+		// log.debug(tts);
 		if (Array.isArray(tts)) {
 			log.info('TTS array object... processing');
 			tts.forEach(function(message) {
@@ -114,7 +114,6 @@ var playTTS = function(tts) {
 	// TEST IF INTERNET CONNEXION
 	if (!tts.hasOwnProperty('voice') || !VOICE_LIST.indexOf(tts.voice) == -1) {
 		// Random voice if undefined
-		//var tmp = Math.round(Math.random()*1);
 		tts.voice = 'espeak';
 		/*ODI.utils.testConnexion(function(connexion){
 			if(connexion == true){
@@ -129,7 +128,6 @@ var playTTS = function(tts) {
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]);
 	log.debug('tts.msg.length :', tts.msg.length);
-	//ODI.leds.blink({ leds: ['eye'], speed: Math.random() * (150 - 50) + 30, loop: tts.msg.length / 2 + 2 });
 
 	lastTtsMsg = tts;
 	/*fs.writeFile(LAST_TTS_PATH, JSON.stringify(tts), 'UTF-8', function(err){ // TODO to JSON file

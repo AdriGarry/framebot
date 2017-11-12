@@ -20,9 +20,7 @@ Flux.module.sound.subscribe({ // TODO: ABSOLUMENT BLOQUER LES SONS EN MODE SLEEP
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
 		} else if (flux.id == 'UI'/* && !asleep*/) {
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'UIRequest']);
-		} else {
-			log.info('Sound flux not mapped', flux);
-		}
+		}else Odi.error('unmapped flux in Sound module', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);

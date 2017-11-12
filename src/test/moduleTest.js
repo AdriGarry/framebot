@@ -14,17 +14,13 @@ var Flux = require(Odi._CORE + 'Flux.js');
 const testTTSList = [{lg: 'en', msg: 'Test' },	{lg: 'fr', msg: 'Test' }];
 
 module.exports.run = function(callback) {
-	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 1 });
-	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 0 }, 3);
-	Flux.next('module', 'led', 'blink', { leds: ['belly'], speed: 900, loop: 100 }, 3);
+	Flux.next('module', 'tts', 'speak', testTTSList[Utils.random(testTTSList.length)], null, null, true);
+	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 0 }, 3, null, null, true);
+	Flux.next('module', 'led', 'blink', { leds: ['belly'], speed: 700, loop: 100 }, 3, null, null, true);
+
+	Flux.next('module', 'led', 'blink', { leds: ['belly'], speed: 700, loop: 100 }, 3, null, null, true);
 	
-	Flux.next('module', 'tts', 'speak', testTTSList[Utils.random(testTTSList.length)]);
-
-	// Flux.next('module', 'sound', 'mute', { delay: 13, message: 'DELAY 13' }, 3);
-	// Flux.next('module', 'sound', 'mute', { message: 'no delay at all !' });
-	// Flux.next('module', 'sound', 'mute');
-
-	// TODO tests sur cpuTemp !!
+	Flux.next('module', 'hardware', 'cpu', 3);
 
 	setTimeout(() => {}, 1000);
 
