@@ -21,8 +21,9 @@ var Flux = {
 		tts: new Rx.Subject() // +voicemail ?
 	},
 	service: {
+		interaction: new Rx.Subject(), // exclamation, weather...
 		max: new Rx.Subject(), // Max & Co...
-		mood: new Rx.Subject(), // random, exclamation, badBoy, party, [cigales ?]
+		mood: new Rx.Subject(), // random, badBoy, party, [cigales ?]
 		music: new Rx.Subject(), // fip, jukebox
 		time: new Rx.Subject(),
 		tools: new Rx.Subject(), // ??
