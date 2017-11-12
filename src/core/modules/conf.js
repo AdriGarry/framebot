@@ -18,8 +18,10 @@ Flux.module.conf.subscribe({
 			updateDefaultConf(flux.value);
 		} else if (flux.id == 'reset') {
 			resetCfg(flux.value);
-		} else if (flux.id == 'updateOdiSoftwareInfo') {
-			updateOdiSoftwareInfo(flux.value);
+		} else if (flux.id == 'refreshRuntime') {
+			refreshRuntime(flux.value);
+		// } else if (flux.id == 'updateOdiSoftwareInfo') {
+		// 	updateOdiSoftwareInfo(flux.value);
 		}else Odi.error('unmapped flux in Conf service', flux, false);
 	},
 	error: err => {
@@ -81,16 +83,28 @@ function resetCfg(restart) {
 	});
 }
 
+/** Function to refresh Odi\'s runtime data (etat, timer, moods...) */
+function refreshRuntime() {
+	log.info('refreshing Odi\'s runtime...');
+	Flux.next('module', 'hardware', 'runtime', null, null, true);
+	Flux.next('controller', 'button', 'runtime', null, null, true);
+	// Flux.next('module', 'hardware', '');
+	setTimeout(function(){
+		log.runtime(Odi.run);
+	}, 1000);
+}
+
 /** Function to update Odi\'s software params (last date & time, totalLines) */
 function updateOdiSoftwareInfo(newConf) {
+	console.log(newConf);
 	if (!newConf) newConf = {};
-	log.info('Updating Odi\'s runtime data...');
+	// log.info('Updating Odi\'s runtime data...');
 	Flux.next('module', 'hardware', 'runtime', null, null, false);
 	Flux.next('controller', 'button', 'runtime');
 	// Flux.next('module', 'hardware', '');
 	setTimeout(function(){
 		Flux.next('module', 'conf', 'update', newConf);
-		log.lines(Odi.run);
+		// log.runtime(Odi.run);
 	}, 1000);
 }
 

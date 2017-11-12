@@ -22,7 +22,7 @@ function Logger(filename, debugMode, dateTimePattern) {
 	this.debug = debug;
 	this.DEBUG = DEBUG;
 	this.conf = logConf;
-	this.lines = logConf;
+	this.runtime = logRuntime;
 	// this.lines = lines;
 	this.error = error;
 	return this;
@@ -77,7 +77,6 @@ function Logger(filename, debugMode, dateTimePattern) {
 	function logConf(src, updatedEntries, executionTime) {
 		var col1 = 11,
 			col2 = 16;
-		// log.info();
 		var logArrayTitle = updatedEntries
 			? '|         CONFIG UPDATE   ' + executionTime + 'ms' + ' |'
 			: '|             CONFIG             |';
@@ -109,6 +108,41 @@ function Logger(filename, debugMode, dateTimePattern) {
 		console.log(confArray + '|--------------------------------|');
 	}
 
+	/** Function to log runtime to array */
+	function logRuntime(src, updatedEntries, executionTime) {
+			var col1 = 11,
+				col2 = 16;
+			var logArrayTitle = updatedEntries
+				? '|       RUNTIME UPDATE   ' + executionTime + 'ms' + ' |'
+				: '|             RUNTIME            |';
+			var runtimeArray = '|' + ('\u2022').repeat(32) + '|\n' + logArrayTitle + '\n|' + ('\u2022').repeat(32) + '|\n';
+			Object.keys(src).forEach(function(key, index) {
+				if (key == 'alarms') {
+					Object.keys(src[key]).forEach(function(key2, index2) {
+						if (key2 != 'd') {
+							var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
+							var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
+							c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
+							if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
+							runtimeArray += '| ' + c1 + ' | ' + c2 + ' '.repeat(col2 - c2.length) + ' |\n';
+						}
+					});
+				} else {
+					var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
+					runtimeArray +=
+						'| ' +
+						(!updated ? '' : '*') +
+						key +
+						' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
+						' | ' +
+						src[key] +
+						' '.repeat(col2 - src[key].toString().length) +
+						' |\n';
+				}
+			});
+			console.log(runtimeArray + '|' + ('\u2022').repeat(32) + '|');
+		}
+	
 	/** Function to log runtime to array */
 	function lines(src) {
 		var oneLine = '\n|---------------------------------------------------|';

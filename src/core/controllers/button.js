@@ -82,7 +82,7 @@ function initButtonReady(){
 			Flux.next('module', 'sound', 'mute');
 			Flux.next('service', 'music', 'fip', null, 0.1);
 		}
-		log.lines(Odi.run);
+		log.runtime(Odi.run);
 	});
 
 	// var pushed = 0,

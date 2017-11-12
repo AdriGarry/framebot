@@ -69,7 +69,8 @@ function init(path, forcedParams) {
 	}
 
 	Flux = require(Odi._CORE + 'Flux.js');
-	Flux.next('module', 'conf', 'updateOdiSoftwareInfo', confUpdate, 0.1);
+	Flux.next('module', 'conf', 'update', confUpdate, 0.1);
+	// Flux.next('module', 'conf', 'updateOdiSoftwareInfo', confUpdate, 0.1);
 	return Odi;
 }
 
