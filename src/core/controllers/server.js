@@ -134,8 +134,8 @@ function startUIServer(mode) {
 			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
 		}
 		var etatBtn = null; //ODI.buttons.getEtat();
-		//var cpuTemp = ODI.hardware.getCPUTemp();
-		//var cpuUsage = ODI.hardware.getCPUUsage();
+		var cpuTemp = Odi.run.cpuTemp;
+		var cpuUsage = Odi.run.cpuUsage;
 		var dashboard = {
 			config: Odi.conf,
 			mode: {
@@ -159,8 +159,8 @@ function startUIServer(mode) {
 				active: Odi.run.voicemail > 0 ? true : false
 			},
 			music: { value: Odi.run.music, active: false },
-			//timer: { value: ODI.time.timeLeftTimer(), active: ODI.time.timeLeftTimer() > 0 ? true : false },
-			//hardware: { value: { usage: cpuUsage, temp: cpuTemp }, active: cpuTemp > 55 || cpuUsage >= 20 ? true : false },
+			timer: { value: Odi.run.timer, active: Odi.run.timer > 0 ? true : false },
+			hardware: { value: { usage: cpuUsage, temp: cpuTemp }, active: cpuTemp > 55 || cpuUsage >= 20 ? true : false },
 			alarms: { value: Odi.conf.alarms, active: true },
 			//config: {value: Odi.conf},
 			version: { value: 'toto'/*Odi.conf.version*/ }, // DEPRECATED !
