@@ -26,11 +26,10 @@ if(Odi.conf.mode != 'sleep'){
 /** Function to init clock  */
 function initClock() {
 	if (true) {
-		// Mode work // --> get test value from ?
+		// Mode work
 		new CronJob('0 0,30 8-23 * * 1-5', function(){
 			Flux.next('service', 'time', 'now');
 		},	null,	true, 'Europe/Paris');
-
 		new CronJob('0 0,30 12-23 * * 0,7', function(){
 			Flux.next('service', 'time', 'now');
 		}, null, true, 'Europe/Paris');
@@ -130,7 +129,6 @@ function setBackgroundJobs() {
 
 	new CronJob('0 0 5 * * 1', function() {
 		log.info('Clean log files  /!\\'); // Weekly cleaning of logs
-			log.INFO('to implement')
-			// ODI.hardware.cleanLog();
+			Flux.next('module', 'hardware', 'cleanLog');
 	}, null, true, 'Europe/Paris');
 }

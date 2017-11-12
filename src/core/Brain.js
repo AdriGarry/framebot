@@ -45,7 +45,7 @@ function buttonHandler(flux) {
 		} else if (flux.id == 'blue') {
 			Flux.next('service', 'music', 'fip');
 			Flux.next('service', 'music', 'jukebox');
-		} else log.info('Button->else', flux);
+		} else Odi.error('Button->else', flux);
 	}else{
 		if (flux.id == 'ok') {
 			Flux.next('service', 'system', 'restart', null);
@@ -61,9 +61,7 @@ function jobsHandler(flux) {
 			id: 'blink',
 			value: { leds: ['nose'], speed: 100, loop: 1 }
 		});
-	} else {
-		log.info('Jobs->else', flux);
-	}
+	} else Odi.error('Jobs->else', flux);
 }
 
 log.info('Brain ready'); //loaded/compiled

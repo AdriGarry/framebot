@@ -111,7 +111,7 @@ function startUIServer(mode) {
 	};
 	ui.use(logger);
 	
-	ui.get('/monitoring', function(req, res) {
+	ui.get('/monitoring2', function(req, res) {
 		// DEPRECATED ???
 		//console.log(/\d/.test(mode));
 		var activity = {
@@ -124,28 +124,57 @@ function startUIServer(mode) {
 		res.end(JSON.stringify(activity));
 	});
 
+	/** DASHBOARD SECTION */
+	ui.get('/dashboard', function(req, res) {
+		var temp = parseInt(mode);
+		var now = new Date();
+		var h = now.getHours();
+		var wakeUpTime;
+		if (temp > h) {
+			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
+		}
+		var etatBtn = null; //ODI.buttons.getEtat();
+		//var cpuTemp = ODI.hardware.getCPUTemp();
+		//var cpuUsage = ODI.hardware.getCPUUsage();
+		var dashboard = {
+			config: Odi.conf,
+			mode: {
+				value: {
+					// mode: Odi.conf.mode != 'sleep' ? (Odi.conf.debug ? 'Debug' : 'Ready') : 'Sleep',
+					mode: Odi.conf.debug ? 'Debug' : Utils.firstLetterUpper(Odi.conf.mode),
+					// param: isNaN(parseFloat(mode)) ? Odi.conf.startTime : parseInt(mode),
+					param: Odi.conf.startTime,
+					switch: etatBtn ? true : false,
+					active: Odi.conf.debug, // TRY TO DELETE THIS (deprecated)
+					debug: Odi.conf.debug
+				}
+			},
+			switch: { value: etatBtn, active: etatBtn ? true : false },
+			volume: {
+				value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute',
+				active: isNaN(temp) && etatBtn == 1 ? true : false
+			},
+			voicemail: {
+				value: Odi.run.voicemail,
+				active: Odi.run.voicemail > 0 ? true : false
+			},
+			music: { value: Odi.run.music, active: false },
+			//timer: { value: ODI.time.timeLeftTimer(), active: ODI.time.timeLeftTimer() > 0 ? true : false },
+			//hardware: { value: { usage: cpuUsage, temp: cpuTemp }, active: cpuTemp > 55 || cpuUsage >= 20 ? true : false },
+			alarms: { value: Odi.conf.alarms, active: true },
+			//config: {value: Odi.conf},
+			version: { value: 'toto'/*Odi.conf.version*/ }, // DEPRECATED !
+			debug: { value: Odi.conf.debug } // TO DEPRECATE...
+		};
+		res.writeHead(200);
+		res.end(JSON.stringify(dashboard));
+	});
+	
 	/** POST ALARM SETTING */
 	ui.post('/alarm', function(req, res) {
 		params = req.body;
-		// TODO déplacer dans ODI.time.setAlarm()
-		// var newAlarms = {};
-		log.INFO(params);
+		// log.INFO(params);
 		Flux.next('service', 'time', 'setAlarm', params);
-		/*Object.keys(Odi.conf.alarms).forEach(function(key, index) {
-			if (key == params.when) {
-				newAlarms[key] = {
-					h: params.hours,
-					m: params.minutes,
-					d: Odi.conf.alarms[key].d,
-					mode: Odi.conf.alarms[key].mode
-				};
-				log.info('>> ' + params.when + ' alarm set to ' + params.h + '.' + params.m);
-			} else {
-				newAlarms[key] = Odi.conf.alarms[key];
-			}
-		});*/
-		// Odi.update({ alarms: newAlarms }, true);
-
 		res.writeHead(200);
 		res.end();
 	});
@@ -172,52 +201,6 @@ function startUIServer(mode) {
 		// Odi.reset(true);
 		res.writeHead(200);
 		res.end();
-	});
-
-	/** DASHBOARD SECTION */
-	ui.get('/dashboard', function(req, res) {
-		var temp = parseInt(mode);
-		var now = new Date();
-		var h = now.getHours();
-		var wakeUpTime;
-		if (temp > h) {
-			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
-		}
-		var etatBtn = null; //ODI.buttons.getEtat();
-		//var cpuTemp = ODI.hardware.getCPUTemp();
-		//var cpuUsage = ODI.hardware.getCPUUsage();
-		var dashboard = {
-			config: Odi.conf,
-			mode: {
-				value: {
-					// mode: isNaN(parseFloat(mode)) ? (Odi.conf.debug ? 'Debug' : 'Ready') : 'Sleep',
-					mode: Odi.conf.mode != 'sleep' ? (Odi.conf.debug ? 'Debug' : 'Ready') : 'Sleep',
-					// param: isNaN(parseFloat(mode)) ? Odi.conf.startTime : parseInt(mode),
-					param: Odi.conf.startTime,
-					switch: etatBtn ? true : false,
-					active: Odi.conf.debug, // TRY TO DELETE THIS (deprecated)
-					debug: Odi.conf.debug
-				}
-			},
-			switch: { value: etatBtn, active: etatBtn ? true : false },
-			volume: {
-				value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute',
-				active: isNaN(temp) && etatBtn == 1 ? true : false
-			},
-			voicemail: {
-				value: Odi.run.voicemail,
-				active: Odi.run.voicemail > 0 ? true : false
-			},
-			jukebox: { value: '<i>Soon available</i>', active: false },
-			//timer: { value: ODI.time.timeLeftTimer(), active: ODI.time.timeLeftTimer() > 0 ? true : false },
-			//hardware: { value: { usage: cpuUsage, temp: cpuTemp }, active: cpuTemp > 55 || cpuUsage >= 20 ? true : false },
-			alarms: { value: Odi.conf.alarms, active: true },
-			//config: {value: Odi.conf},
-			version: { value: Odi.conf.version }, // DEPRECATED !
-			debug: { value: Odi.conf.debug } // TO DEPRECATE...
-		};
-		res.writeHead(200);
-		res.end(JSON.stringify(dashboard));
 	});
 
 	/** ==> GET SECTION */

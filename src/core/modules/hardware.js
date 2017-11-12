@@ -22,6 +22,8 @@ Flux.module.hardware.subscribe({
 			getEtatValue();
 		} else if (flux.id == 'cpu') {
 			cpuTempTTS();
+		} else if (flux.id == 'cleanLog') {
+			cleanLog();
 		}else Odi.error('unmapped flux in Hardware module', flux, false);
 	},
 	error: err => {
@@ -127,3 +129,9 @@ function getDiskSpace(callback) {
 		if(callback) callback(diskSpace);
 	});
 }
+
+/** Function to clean and archive logs */
+function cleanLog(){
+	log.info('cleaning logs');
+	spawn('sh', ['/home/pi/odi/core/sh/log.sh', 'clean']);
+};

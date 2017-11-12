@@ -13,7 +13,7 @@ var exec = require('child_process').exec;
 module.exports = {
 	appendJsonFile: appendJsonFile,
 	execCmd: execCmd,
-	format: {}, // some great functions to format output...
+	firstLetterUpper: firstLetterUpper,
 	getExecutionTime: getExecutionTime,
 	addPatternBefore: addPatternBefore,
 	getJsonFileContent: getJsonFileContent,
@@ -104,6 +104,12 @@ function execCmd(command, callback) {
 		if (callback) callback(stdout);
 	});
 }
+
+
+function firstLetterUpper(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 
 /** Function to repeat/concat a string */
 String.prototype.repeat = function(num) {
