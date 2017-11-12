@@ -93,10 +93,8 @@ function enableDebugCountdown(){
 	//TODO screen on & tail odi.log !
 	setInterval(function(){
 		Flux.next('module', 'conf', 'update', {debug: --Odi.conf.debug});
-		// Odi.update({debug: --Odi.conf.debug}, false);
 		if(!Odi.conf.debug){
 			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
-			//Odi.update({debug: 0}, true);
 			setTimeout(function(){
 				process.exit();
 			}, 500);

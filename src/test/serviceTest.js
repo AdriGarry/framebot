@@ -18,9 +18,8 @@ module.exports.run = function(callback) {
 	Flux.next('service', 'time', 'OdiAge');
 
 	// Flux.next('service', 'voicemail', 'new', {msg: 'are you there ?'}, 8);
-	var conversation = Odi.ttsMessages.randomTTS[Utils.random(Odi.ttsMessages.randomTTS.length)];
-	console.log(conversation);
-	Flux.next('service', 'voicemail', 'new', conversation, 8);
+	var rdmTTS = Odi.ttsMessages.randomTTS[Utils.random(Odi.ttsMessages.randomTTS.length)];
+	Flux.next('service', 'voicemail', 'new', rdmTTS, 8);
 	Flux.next('service', 'voicemail', 'check', null, 11);
 	Flux.next('service', 'voicemail', 'clear', null, 15);
 

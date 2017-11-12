@@ -110,12 +110,22 @@ function Logger(filename, debugMode, dateTimePattern) {
 
 	/** Function to log runtime to array */
 	function logRuntime(src, updatedEntries, executionTime) {
-			var col1 = 11;
-			var runtimeArray = '\n' + ' '.repeat(9) + 'RUNTIME';
-			Object.keys(src).forEach(function(key) {
-				runtimeArray += '\n' + ' '.repeat(col1 - key.length) + key + ' | ' + src[key];
-			});
-			console.log(runtimeArray);
+		var col1 = 11;
+		var runtimeArray = '\n' + ' '.repeat(9) + 'RUNTIME';
+		Object.keys(src).forEach(function(key) {
+			runtimeArray += '\n' + ' '.repeat(col1 - key.length) + key + ' | ' + src[key];
+		});
+		console.log(runtimeArray);
+	}
+
+	/** Function to log runtime to array */
+	function logRuntime2(src, updatedEntries, executionTime) {
+		var col1 = 11;
+		var runtimeArray = '\n' + ' '.repeat(9) + 'RUNTIME';
+		Object.keys(src).forEach(function(key) {
+			runtimeArray += '\n' + ' '.repeat(col1 - key.length) + key + ' | ' + src[key];
+		});
+		console.log(runtimeArray);
 	}
 }
 
