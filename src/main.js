@@ -36,7 +36,7 @@ const observers = {
 	},
 	services: {
 		sleep: ['system', 'voicemail'],
-		all: ['time', 'music', 'mood', 'max', 'video']
+		all: ['time', 'mood', 'interaction', 'music', 'max', 'video']
 	},
 	controllers: {
 		sleep: ['button', 'jobs', 'server'],
@@ -61,6 +61,8 @@ Object.keys(observers).forEach(function(observer) {
 
 log.info('Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
 Flux.next('module', 'conf', 'runtime');
+
+// Flux.next('service', 'interaction', '');
 
 
 /////////////  TEST section  /////////////

@@ -10,9 +10,6 @@ var date = new Date();
 var hour = date.getHours();
 var pastHour = hour;
 
-const Rx = require('rxjs');
-var Jobs = new Rx.Subject();
-
 var Flux = require(Odi._CORE + 'Flux.js');
 
 if(Odi.conf.mode != 'sleep'){
@@ -46,12 +43,12 @@ function initClock() {
 /** Function to set alarms */
 function setInteractiveJobs() {
 	// WEEKDAY
-	new CronJob('0 20,22-25 8 * * 1-5', function() {
+	new CronJob('0 18,20,22-25 8 * * 1-5', function() {
 		if (Utils.random(2)) Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: 'Go go go, allez au boulot' });
 		else Flux.next('module', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Allez allez, Maitro boulot dodo' });
 	}, null, true, 'Europe/Paris');
 
-	new CronJob('0 30 18 * * 1-5', function() {
+	new CronJob('0 15 18 * * 1-5', function() {
 		Flux.next('service', 'music', 'fip');
 		/*ODI.utils.testConnexion(function(connexion) {
 			setTimeout(function() {
@@ -114,7 +111,6 @@ function setBackgroundJobs() {
 		Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Reset config' }); // Weekly RPI reboot
 			setTimeout(function() {
 				log.info('resetCfg'); // Weekly cleaning of logs
-				// log.INFO('to implement')
 				Odi.reset(true);
 			}, 3000);
 		}, null, true, 'Europe/Paris');

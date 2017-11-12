@@ -79,7 +79,7 @@ function retreiveCpuUsage(){
 	var totalDifference = endMeasure.total - startMeasure.total;
 	//console.log(totalDifference);console.log(endMeasure.total);console.log(startMeasure.total);
 	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference);//Calculate the average percentage CPU usage
-	Odi.run.cpuUsage = percentageCPU + '%';
+	Odi.run.cpuUsage = percentageCPU;
 	log.debug('CPU usage : ' + percentageCPU + ' %');
 	return(percentageCPU);
 };

@@ -19,6 +19,7 @@ var Odi = {
 		update: '.',
 		totalLines: '.'
 	},
+	asleep: asleep,
 	error: error, //require(ODI_PATH + 'src/core/OdiError.json'), ??
 	errors: [],
 	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
@@ -72,6 +73,11 @@ function init(path, forcedParams) {
 	return Odi;
 }
 
+function asleep() {
+	log.INFO('>>> asleep');
+	return Odi.conf.mode == 'sleep';
+}
+	
 function error(label, data, stackTrace) {
 	Flux.next('module', 'led', 'altLeds', { speed: 30, duration: 1.5 }, null, null, 'hidden');
 	Flux.next('module', 'sound', 'error', null, null, null, 'hidden');
