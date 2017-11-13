@@ -3,28 +3,30 @@
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-
 var Flux = require(Odi._CORE + 'Flux.js');
+var Utils = require(ODI_PATH + 'src/core/Utils.js');
 
 Flux.service.mood.subscribe({
 	next: flux => {
-		if (flux.id == '') {
-			//
+		if (flux.id == 'expressive') {
+			expressive(flux.value);
+		}else if (flux.id == 'badBoy') {
+			badBoy(flux.value);
 		}else Odi.error('unmapped flux in Mood service', flux, false);
-		
 	},
 	error: err => {
 		Odi.error(flux);
 	}
 });
 
-// Test pour lancer les anniversaires d'ici ? (ou alors dans un calendar.js ?)
+function expressive(args){
+}	
 
 /** Function to start bad boy mode */
 function badBoy(interval){
 	if(typeof interval === 'number'){
+		Odi.run.mood.push('badBoy');
 		log.info('Bad Boy mode !! [' + interval + ']');
-		// ODI.tts.speak({lg: 'fr', msg: 'A partir de maintenant, je suis un enfoirer !'});
 		Flux.next('module', 'tts', 'speak', {lg: 'en', msg: 'Baad boy !'});
 
 		var loop = 0;
@@ -43,9 +45,20 @@ function badBoy(interval){
 };
 
 function badBoyTTS(){
-	// console.log('badBoyTTS()');
+	// log.info('badBoyTTS()');
 	Flux.next('module', 'tts', 'speak', getNewRdmBadBoyTTS());
-	setTimeout(function(){
-		Flux.next('module', 'tts', 'speak', getNewRdmBadBoyTTS());
-	}, 1000);
+	Flux.next('module', 'tts', 'speak', getNewRdmBadBoyTTS(), 1);
+};
+
+/** Function to select a different TTS each time */
+const BAD_BOY_TTS_LENGTH = Odi.ttsMessages.badBoy.length;
+var rdmNb, lastRdmNb = [], rdmTTS = '';
+function getNewRdmBadBoyTTS(){
+	do{
+		rdmNb = Utils.random(BAD_BOY_TTS_LENGTH);
+		rdmTTS = Odi.ttsMessages.badBoy[rdmNb];
+		if(lastRdmNb.length >= BAD_BOY_TTS_LENGTH) lastRdmNb.shift();
+	}while(lastRdmNb.indexOf(rdmNb) != -1);
+	lastRdmNb.push(rdmNb);
+	return rdmTTS;
 };

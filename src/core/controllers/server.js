@@ -414,35 +414,30 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/naheulbeuk', function(req, res) {
-			// Nahleubeuk
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'Naheulbeuk']);
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/survivaure', function(req, res) {
-			// Survivaure
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'Survivaure']);
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/playVideo', function(req, res) {
-			// Play Video
-			// ODI.video.startCycle();
+			Flux.next('service', 'video', 'cycle');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/videoOff', function(req, res) {
-			// Sleep Screen
-			// ODI.video.screenOff();
+			Flux.next('service', 'video', 'screenOff');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/time', function(req, res) {
-			// Time
 			Flux.next('service', 'time', 'now');
 			res.writeHead(200);
 			res.end();

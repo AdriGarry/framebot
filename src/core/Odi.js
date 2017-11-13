@@ -9,7 +9,7 @@ var Odi = {
 	conf: require(ODI_PATH + 'conf.json'),
 	run: {
 		etat: '.',
-		mood: '.',
+		mood: [],
 		music: false, // fip/jukebox
 		timer: '.',
 		voicemail: '.',

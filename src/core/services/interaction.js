@@ -28,6 +28,8 @@ Flux.service.interaction.subscribe({
 	}
 });
 
+// Test pour lancer les anniversaires d'ici ? (ou alors dans un calendar.js ?)
+
 function exclamation() {
 	log.INFO('exclamation');
 }
