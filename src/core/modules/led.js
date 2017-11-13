@@ -132,19 +132,20 @@ function toggle(config) {
 
 /** Function to start inverted blink (Eye/Belly) */
 var timer;
-function altLeds(args) { // args : {speed, duration}
+// function altLeds(args) { // args : {speed, duration}
+function altLeds(speed, duration) {
 	clearInterval(timer);
 	var etat = 1;
 	timer = setInterval(function() {
 		odiLeds.eye.write(etat);
 		etat = 1 - etat;
 		odiLeds.belly.write(etat);
-	}, arg.speed);
+	}, speed);
 	var stopTimer = setTimeout(function() {
 		clearInterval(timer);
 		odiLeds.eye.write(0);
 		odiLeds.belly.write(0);
-	}, arg.duration * 1000);
+	}, duration * 1000);
 }
 
 /** Function to cancel blinkState */

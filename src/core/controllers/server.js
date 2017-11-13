@@ -86,7 +86,7 @@ function startUIServer(mode) {
 			res.status(401); // Unauthorized
 			res.end();
 		} else {
-			if (unauthorizedRequestNb >= 3) {
+			if (unauthorizedRequestNb >= 2) {
 				tooMuchBadRequests = true;
 				var badRequestTimeout = setTimeout(function() {
 					clearTimeout(badRequestTimeout);

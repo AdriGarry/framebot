@@ -70,7 +70,7 @@ for(var i=0;i<randomActionBase.length;i++){
 function randomAction(){
 	var action = randomActionList[Utils.random(randomActionList.length)];
 	log.info('randomAction:', action.label, '[' + action.weighting + ']');
-	// Flux.next('module', 'led', 'altLeds', {speed: 90, duration: 0.6});
+	// Flux.next('module', 'led', 'altLeds', {speed: 90, duration: 0.6}); //{speed: 100, duration: 1.3}
 	Flux.next(action.type, action.subject, action.id, action.value);
 };
 
