@@ -41,7 +41,7 @@ function initButtonReady(){
 	blue.watch(function(err, value) {
 		var pushTime = getPushTime(blue);
 		if(pushTime > DEBOUNCE_LIMIT) Flux.next('controller', 'button', 'blue', pushTime);
-		else log.INFO('Blue button pushed not enough:', pushTime);
+		else log.info('Blue button pushed not enough:', pushTime);
 	});
 
 	/** Interval pour l'etat du switch + fonctions associees */
