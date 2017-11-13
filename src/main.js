@@ -62,7 +62,8 @@ Object.keys(observers).forEach(function(observer) {
 log.info('Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
 Flux.next('module', 'conf', 'runtime');
 
-Flux.next('service', 'interaction', 'exclamation');
+// Flux.next('service', 'interaction', 'exclamation');
+// Flux.next('service', 'interaction', 'random');
 
 
 /////////////  TEST section  /////////////

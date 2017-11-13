@@ -11,7 +11,9 @@ var request = require('request');
 
 Flux.service.interaction.subscribe({
 	next: flux => {
-		if (flux.id == 'exclamation') {
+		if (flux.id == 'random') {
+			randomAction();
+		}else if (flux.id == 'exclamation') {
 			exclamation();
 		} else if (flux.id == 'adriExclamation') {
 			adriExclamation();
@@ -30,14 +32,6 @@ function exclamation() {
 	log.INFO('exclamation');
 }
 
-var toDelete = {
-	// randomAction: randomAction,
-	// adriExclamation: adriExclamation,
-	// weather: weatherService,
-	// weatherInteractive: weatherInteractiveService,
-	// badBoy: badBoy
-};
-
 /*var randomActionBase = [
 	{label:'ODI.tts.speak', call: ODI.tts.speak, weighting: 7},
 	{label:'ODI.tts.randomConversation', call: ODI.tts.randomConversation, weighting: 7},
@@ -50,22 +44,34 @@ var toDelete = {
 	{label:'ODI.time.sayOdiAge', call: ODI.time.sayOdiAge, weighting: 1},
 	{label:'adriExclamation', call: adriExclamation, weighting: 1}
 ];*/
+var randomActionBase = [
+	{label:'ODI.tts.speak', call: {type: 'module', subject: 'tts', id: 'speak'}, weighting: 7},
+	{label:'ODI.tts.randomConversation', call: {type: 'module', subject: 'tts', id: 'randomConversation'}, weighting: 7},
+	{label:'ODI.exclamation.exclamation', call: {type: 'service', subject: 'exclamation', id: 'exclamation'}, weighting: 4},
+	{label:'ODI.time.now', call: {type: 'service', subject: 'time', id: 'now'}, weighting: 1},
+	{label:'ODI.time.today', call: {type: 'service', subject: 'time', id: 'today'}, weighting: 1},
+	{label:'weatherService', call: {type: 'service', subject: 'interaction', id: 'weather'}, weighting: 1},
+	{label:'weatherInteractiveService', call: {type: 'service', subject: 'interaction', id: 'weatherInteractive'}, weighting: 3},
+	{label:'cpuTemp', call: {type: 'module', subject: 'hardware', id: 'cpu'}, weighting: 1},
+	{label:'ODI.time.sayOdiAge', call: {type: 'service', subject: 'time', id: 'odiAge'}, weighting: 1},
+	{label:'adriExclamation', call: {type:'service', subject:'interaction', id: 'adriExclamation'}, weighting: 1}
+];
 /** Building randomActionList from randomActionBase */
-/*var randomActionList = [];
+var randomActionList = [];
 for(var i=0;i<randomActionBase.length;i++){
 	var loop = randomActionBase[i].weighting;
 	while(loop){
 		randomActionList.push(randomActionBase[i]);
 		loop--;
 	}
-}*/
+}
 
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction(){
-	var action = randomActionList[Math.floor(Math.random()*randomActionList.length)];
+	var action = randomActionList[Utils.random(randomActionList.length)];
 	log.info('randomAction:', action.label, '[' + action.weighting + ']');
-	Flux.next('module', 'led', 'altLeds', {speed: 90, duration: 0.6});
-	if(typeof action.call === 'function') (action.call)();
+	// Flux.next('module', 'led', 'altLeds', {speed: 90, duration: 0.6});
+	Flux.next(action.type, action.subject, action.id, action.value);
 };
 
 /** Function 'Aaaadri' speech */
@@ -152,37 +158,6 @@ function weatherInteractiveService(){
 		log.debug('weatherSpeech', weatherSpeech);
 		Flux.next('module', 'tts', 'speak', weatherSpeech);
 	});
-};
-
-
-/** Function to start bad boy mode */
-function badBoy(interval){
-	if(typeof interval === 'number'){
-		log.info('Bad Boy mode !! [' + interval + ']');
-		// ODI.tts.speak({lg: 'fr', msg: 'A partir de maintenant, je suis un enfoirer !'});
-		Flux.next('module', 'tts', 'speak', {lg: 'en', msg: 'Baad boy !'});
-
-		var loop = 0;
-		setInterval(function(){
-			loop++;
-			// console.log('loop:', loop);
-			if(loop >= interval){
-				badBoyTTS();
-				loop = 0;
-			}
-			// if(loop>30) loop = 0; // 1000
-		}, 1000);
-	}else{
-		badBoyTTS();
-	}
-};
-
-function badBoyTTS(){
-	// console.log('badBoyTTS()');
-	Flux.next('module', 'tts', 'speak', getNewRdmBadBoyTTS());
-	setTimeout(function(){
-		Flux.next('module', 'tts', 'speak', getNewRdmBadBoyTTS());
-	}, 1000);
 };
 
 /** Function to select a different TTS each time */
