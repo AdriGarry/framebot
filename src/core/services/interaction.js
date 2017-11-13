@@ -11,11 +11,13 @@ var request = require('request');
 
 Flux.service.interaction.subscribe({
 	next: flux => {
-		if (flux.id == 'exclamation' && !Odi.asleep()) {
+		if (flux.id == 'exclamation') {
 			exclamation();
-		} else if (flux.id == 'weather' && !Odi.asleep()) {
+		} else if (flux.id == 'adriExclamation') {
+			adriExclamation();
+		} else if (flux.id == 'weather') {
 			weatherService();
-		} else if (flux.id == 'weatherInteractive' && !Odi.asleep()) {
+		} else if (flux.id == 'weatherInteractive') {
 			weatherInteractiveService();
 		}else Odi.error('unmapped flux in Exclamation module', flux, false);
 	},
@@ -31,7 +33,6 @@ function exclamation() {
 var toDelete = {
 	// randomAction: randomAction,
 	// adriExclamation: adriExclamation,
-	// cpuTemp: cpuTemp,
 	// weather: weatherService,
 	// weatherInteractive: weatherInteractiveService,
 	// badBoy: badBoy
@@ -71,8 +72,7 @@ function randomAction(){
 function adriExclamation(){
 	var aadri = 'aa';
 	log.info('adriExclamation()');
-	aadri += aadri.repeat(Utils.random()*6) + 'dri';
-	log.debug('adriExclamation()', aadri);
+	aadri += aadri.repeat(Utils.random(6)) + 'dri';
 	Flux.next('module', 'tts', 'speak' , {voice: 'espeak', lg:'fr', msg: 'aadri'});
 };
 

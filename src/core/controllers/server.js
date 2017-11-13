@@ -358,7 +358,7 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/adriExclamation', function(req, res) {
-			// ODI.service.adriExclamation();
+			Flux.next('service', 'interaction', 'adriExclamation');
 			res.writeHead(200);
 			res.end();
 		});
