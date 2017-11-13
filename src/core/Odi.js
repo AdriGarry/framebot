@@ -74,7 +74,7 @@ function init(path, forcedParams) {
 }
 
 function asleep() {
-	log.INFO('>>> asleep');
+	// log.INFO('>>> asleep');
 	return Odi.conf.mode == 'sleep';
 }
 	

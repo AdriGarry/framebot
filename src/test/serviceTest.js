@@ -23,7 +23,9 @@ module.exports.run = function(callback) {
 	Flux.next('service', 'voicemail', 'check', null, 11);
 	Flux.next('service', 'voicemail', 'clear', null, 15);
 
+	Flux.next('service', 'interaction', 'weatherInteractive', null, 16);
+
 	setTimeout(() => {
 		callback('serviceTest', true);
-	}, 20000);
+	}, 25000);
 };

@@ -476,12 +476,12 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/weather', function(req, res) {
+			Flux.next('service', 'interaction', 'weather');
 			res.writeHead(200);
 			res.end();
 		});
 		ui.post('/weatherInteractive', function(req, res) {
-			// Weather
-			// ODI.service.weatherInteractive();
+			Flux.next('service', 'interaction', 'weatherInteractive');
 			res.writeHead(200);
 			res.end();
 		});
