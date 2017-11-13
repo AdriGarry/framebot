@@ -16,6 +16,7 @@ var etat = new Gpio(13, 'in', 'both', {persistentWatch:true,debounceTimeout:500}
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
+const DEBOUNCE_LIMIT = 0.1;
 // if(Odi.conf.mode == 'sleep') initButtonSleep();
 // else initButtonReady();
 initButtonReady();
@@ -39,7 +40,8 @@ function initButtonReady(){
 
 	blue.watch(function(err, value) {
 		var pushTime = getPushTime(blue);
-		Flux.next('controller', 'button', 'blue', pushTime);
+		if(pushTime > DEBOUNCE_LIMIT) Flux.next('controller', 'button', 'blue', pushTime);
+		else log.INFO('Blue button pushed not enough:', pushTime);
 	});
 
 	/** Interval pour l'etat du switch + fonctions associees */

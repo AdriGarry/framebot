@@ -252,14 +252,6 @@ function startUIServer(mode) {
 	});
 
 	ui.post('/sleep', function(req, res) {
-		// params = req.query;
-		// var sleepTime;
-		// if (params.hasOwnProperty('h')) {
-		// 	sleepTime = params.h;
-		// } else {
-		// 	sleepTime = 255;
-		// }
-		// ODI.hardware.restartOdi(sleepTime); //255
 		Flux.next('service', 'system', 'restart', 'sleep');
 		res.writeHead(200);
 		res.end();
@@ -349,10 +341,9 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/badBoy', function(req, res) {
-			// Bad Boy...
 			params = req.body;
 			log.debug('/badBoy', params);
-			// ODI.service.badBoy(params.value);
+			Flux.next('service', 'mood', 'badBoy', params.value);
 			res.writeHead(200);
 			res.end();
 		});
@@ -399,7 +390,6 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/music/*', function(req, res) {
-			//
 			var song; // RECUPERER LE NOM DE LA CHANSON
 			if (!song) song = 'mouthTrick';
 			spawn('sh', [Odi._SHELL + 'music.sh', song]);
@@ -481,12 +471,12 @@ function startUIServer(mode) {
 			res.end();
 		});
 
-		ui.post('/info', function(req, res) {
-			// Info
-			// ODI.service.info();
-			res.writeHead(200);
-			res.end();
-		});
+		// ui.post('/info', function(req, res) { // NOT USED...
+		// 	// Info
+		// 	// ODI.service.info();
+		// 	res.writeHead(200);
+		// 	res.end();
+		// });
 
 		ui.post('/cpuTemp', function(req, res) {
 			Flux.next('module', 'hardware', 'cpu');
@@ -495,7 +485,6 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/cigales', function(req, res) {
-			// Cigales
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'cigales']);
 			res.writeHead(200);
 			res.end();
@@ -509,7 +498,6 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/test', function(req, res) {
-			// Set Party Mode
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'test']); //mouthTrick
 			res.writeHead(200);
 			res.end();
