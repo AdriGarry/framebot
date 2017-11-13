@@ -43,6 +43,10 @@ function initClock() {
 /** Function to set alarms */
 function setInteractiveJobs() {
 	// WEEKDAY
+	new CronJob('0 16 7,8 * * 1-5', function() {
+		Flux.next('module', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Je crois qu\'il faut lancer l\'opairation baluchon' });
+	}, null, true, 'Europe/Paris');
+
 	new CronJob('0 18,20,22-25 8 * * 1-5', function() {
 		if (Utils.random(2)) Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: 'Go go go, allez au boulot' });
 		else Flux.next('module', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Allez allez, Maitro boulot dodo' });
@@ -65,6 +69,10 @@ function setInteractiveJobs() {
 	new CronJob('0 1 13 * * *', function() {
 		log.info('Il est 13 heures et tout va bien !');
 		spawn('sh', [Odi._SHELL + 'sounds.sh', '13Heures']);
+	}, null, true, 'Europe/Paris');
+
+	new CronJob('0 40 18,19 * * *', function() {
+		Flux.next('module', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Je crois qu\'il faut lancer l\'opairation baluchon' });
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('13 13,25,40,51 17-22 * * *', function() {
