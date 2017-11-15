@@ -18,19 +18,11 @@
 		},
 		{
 			"lg": "fr",
-			"msg": "Un instant, je dois y raiflaichir"
-		},
-		{
-			"lg": "fr",
 			"msg": "Et toi, t'en pense quoi ?"
 		},
 		{
 			"lg": "fr",
 			"msg": "Eh dis donc toi !"
-		},
-		{
-			"lg": "fr",
-			"msg": "Je crois que tu dailire complaitement !"
 		},
 		{
 			"lg": "fr",
@@ -54,22 +46,12 @@
 		{
 			"lg": "fr",
 			"voice": "espeak",
-			"msg": "Ow ow ow !"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Piccoti piccota"
 		},
 		{
 			"lg": "fr",
 			"voice": "espeak",
 			"msg": "Et, dis moi donc ce qui te passe par la taite"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
-			"msg": "Je crois qu'il faut lancer l'opairation baluchon"
 		},
 		{
 			"lg": "fr",
@@ -119,22 +101,12 @@
 		{
 			"lg": "fr",
 			"voice": "espeak",
-			"msg": "Je suis un robot, je n'ai pas besoin daller aux toilettes"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Moi, je suis un sacrer loustic"
 		},
 		{
 			"lg": "fr",
 			"voice": "espeak",
 			"msg": "C'est assez dit la baleine !"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
-			"msg": "Hai hai hay, je suis un petit malin !"
 		},
 		{
 			"lg": "fr",
@@ -233,18 +205,6 @@
 		}
 	],
 	"randomConversations": [
-		[
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Bonjour toi!"
-			},
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Oui, toi!"
-			}
-		],
 		[
 			{
 				"lg": "fr",
