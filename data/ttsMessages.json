@@ -6,10 +6,6 @@
 		},
 		{
 			"lg": "fr",
-			"msg": "J'allais justement vous en parler..."
-		},
-		{
-			"lg": "fr",
 			"msg": "De part mes circuits et transistors !"
 		},
 		{
@@ -30,23 +26,8 @@
 		},
 		{
 			"lg": "fr",
-			"voice": "google",
-			"msg": "J'aimerai que tu prennes en compte mes considerations"
-		},
-		{
-			"lg": "fr",
 			"voice": "espeak",
 			"msg": "Il pleut dehors"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
-			"msg": "Tu ne veux surtout pas savoir a quoi je pense en ce moment"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
-			"msg": "Piccoti piccota"
 		},
 		{
 			"lg": "fr",
@@ -61,12 +42,12 @@
 		{
 			"lg": "fr",
 			"voice": "espeak",
-			"msg": "Mon seuil de tolairance a des limites !"
+			"msg": "Hey, tu te fous de moi ou quoi ?"
 		},
 		{
 			"lg": "fr",
 			"voice": "espeak",
-			"msg": "Hey, tu te fous de moi ou quoi ?"
+			"msg": "Oulala, j'ai vu passer une bestiol!"
 		},
 		{
 			"lg": "fr",

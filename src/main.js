@@ -31,11 +31,11 @@ var Brain = require(Odi._CORE + 'Brain.js');
 
 const observers = {
 	modules: {
-		sleep: ['conf', 'led','hardware'],
+		sleep: ['led','hardware'],
 		all: ['sound', 'tts']
 	},
 	services: {
-		sleep: ['system', 'voicemail'],
+		sleep: ['conf', 'system', 'voicemail'],
 		all: ['time', 'mood', 'interaction', 'music', 'max', 'video']
 	},
 	controllers: {
