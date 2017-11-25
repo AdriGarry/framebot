@@ -28,6 +28,7 @@ log.debug('argv', argv);
 var Utils = require(Odi._CORE + 'Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
 var Brain = require(Odi._CORE + 'Brain.js');
+var CronJob = require('cron').CronJob;
 
 const observers = {
 	modules: {
@@ -35,8 +36,8 @@ const observers = {
 		all: ['sound', 'tts']
 	},
 	services: {
-		sleep: ['conf', 'system', 'voicemail'],
-		all: ['time', 'mood', 'interaction', 'music', 'max', 'video']
+		sleep: ['conf', 'system', 'time', 'voicemail', 'video'],
+		all: ['mood', 'interaction', 'music', 'max']
 	},
 	controllers: {
 		sleep: ['button', 'jobs', 'server'],
@@ -59,34 +60,43 @@ Object.keys(observers).forEach(function(observer) {
 	log.info(observer, 'loaded:', observersLoaded);
 });
 
-log.info('_Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
+log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
 Flux.next('module', 'conf', 'runtime');
 
 // Flux.next('service', 'interaction', 'exclamation');
 // Flux.next('service', 'interaction', 'random');
 
 
-/////////////  TEST section  /////////////
-if (Odi.conf.mode == 'test') {
+if (Odi.conf.mode == 'sleep') {
+	new CronJob('0 * * * * *', function(){
+		Flux.next('service', 'time', 'isAlarm');
+	}, null, true, 'Europe/Paris');
+	Flux.next('service', 'video', 'screenOff');
+
+}else if (Odi.conf.mode == 'test') {
+	/////////////  TEST section  /////////////
 	setTimeout(function() {
 		Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 1 }, null, null, true);
 		var testSequence = require(Odi._SRC + 'test/tests.js').launch(function(testStatus) {
-			// retour console + tts, and restart if test success
 			Flux.next('module', 'tts', 'speak', {lg: 'en', msg: 'all tests succeeded!'})
 			setTimeout(function() {
-				// if (testStatus) Odi.update({ mode: 'ready' }, true);
 				if (testStatus) Flux.next('module', 'conf', 'updateRestart', { mode: 'ready' });
 			}, 3000);
 		});
 	}, 500);
 }else{
-
-	Flux.next('service', 'voicemail', 'check');
-	// Alarm / Cocorico...	
+	// Alarm / Cocorico...
+	Flux.next('service', 'time', 'isAlarm');
+	new CronJob('2 * * * * *', function(){
+		Flux.next('service', 'time', 'isAlarm');
+	}, null, true, 'Europe/Paris');
+	if(!Odi.run.alarm){
+		Flux.next('service', 'voicemail', 'check');
+	}
 }
 
+// Flux.next('service', 'interaction', 'random', null, 7, 4);
 
-Flux.next('service', 'interaction', 'random', null, 7, 4);
 // var start = new Date();
 // setTimeout(function(argument) {
 // 	// execution time simulated with setTimeout function

@@ -11,6 +11,7 @@ var Odi = {
 		etat: '.',
 		mood: [],
 		music: false, // fip/jukebox
+		alarm: false,
 		timer: 0,
 		voicemail: '.',
 		cpuUsage: '.',

@@ -20,8 +20,8 @@ module.exports = {
 	logTime: logTime,
 	numberWithDot: numberWithDot,
 	random: random,
-	searchStringInArray: searchStringInArray
-	// testConnexion: testConnexion,
+	searchStringInArray: searchStringInArray,
+	testConnexion: testConnexion,
 };
 
 /** Function to append object in JSON file */

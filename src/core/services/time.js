@@ -59,7 +59,7 @@ function today(voice){  // TODO  prendre en compte le parametre voix (créer un 
 
 /** Function alarm */
 function cocorico(mode){
-	log.info('cocorico MODE:', mode);
+	// log.info('cocorico MODE:', mode);
 	var alarmDelay = 1;
 	if(mode == 'sea'){ // Morning sea...
 		log.info('Morning Sea... Let\'s start the day with some waves !');
@@ -69,24 +69,25 @@ function cocorico(mode){
 	log.debug('alarmDelay', alarmDelay);
 
 	setTimeout(function(){
-		log.info('COCORICO !!');
+		log.info('COCORICO !!', mode || '');
 
 		spawn('sh', [Odi._SHELL + 'sounds.sh', 'cocorico']);
 		// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'birthday']);
 
 		setTimeout(function(){ // ANNIF
-			var voiceMailMsg = ODI.voiceMail.areThereAnyMessages();
-			log.info('voiceMailMsg', voiceMailMsg);
+			// var voiceMailMsg = ODI.voiceMail.areThereAnyMessages();
+			// log.info('voiceMailMsg', voiceMailMsg);
 			now();
 			today();
-			ODI.service.weather();
-			ODI.voiceMail.checkVoiceMail();
+			Flux.next('service', 'interaction', 'weather');
+			Flux.next('service', 'voicemail', 'check');
 			setTimeout(function(){
-				ODI.utils.testConnexion(function(connexion){
+				Odi.run.alarm = false;
+				Utils.testConnexion(function(connexion){
 					if(connexion == true){
-						ODI.jukebox.playFip();
+						Flux.next('service', 'music', 'fip');
 					}else{
-						ODI.jukebox.loop();
+						Flux.next('service', 'music', 'jukebox');
 					}
 				});
 			}, 30*1000);
@@ -117,17 +118,20 @@ function setAlarm(alarm){
 
 /** Function to test if alarm now */
 function isAlarm(){
-	var isAlarm = false, now = new Date();
-	var d = now.getDay(), h = now.getHours(), m = now.getMinutes();
+	var now = new Date(), d = now.getDay(), h = now.getHours(), m = now.getMinutes();
 	Object.keys(Odi.conf.alarms).forEach(function(key,index){
 		if(Odi.conf.alarms[key].d.indexOf(d) > -1 && h == Odi.conf.alarms[key].h && m == Odi.conf.alarms[key].m){
 			log.info('ALARM TIME...', Odi.conf.alarms[key].h + ':' + Odi.conf.alarms[key].m);
-			isAlarm = true;
-			cocorico(Odi.conf.alarms[key].mode);
+			Odi.run.alarm = true;
+			if(Odi.conf.mode == 'sleep'){
+				log.info('Alarm... wake up !!');
+				Flux.next('service', 'system', 'restart');
+			}else{
+				cocorico(Odi.conf.alarms[key].mode);
+			}
 		}
 	});
-	log.debug('time.isAlarm()', isAlarm);
-	// return isAlarm;
+	log.debug('Odi.run.alarm=' + Odi.run.alarm);
 };
 
 /** Function to TTS Odi's age */
