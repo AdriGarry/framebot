@@ -79,6 +79,10 @@ if (Odi.conf.mode == 'test') {
 			}, 3000);
 		});
 	}, 500);
+}else{
+
+	Flux.next('service', 'voicemail', 'check');
+	// Alarm / Cocorico...	
 }
 
 

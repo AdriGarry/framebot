@@ -52,7 +52,7 @@ function today(voice){  // TODO  prendre en compte le parametre voix (créer un 
 	var month = date.getMonth();
 	var month = CALENDAR.months[month];
 	var year = date.getFullYear();
-	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + (Utils.random(2) ? '' : (' ' + year));
+	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + (Utils.random() ? '' : (' ' + year));
 	log.debug('time.today()' + annonceDate);
 	Flux.next('module', 'tts', 'speak', {lg:'fr', msg:annonceDate});
 };
@@ -121,13 +121,13 @@ function isAlarm(){
 	var d = now.getDay(), h = now.getHours(), m = now.getMinutes();
 	Object.keys(Odi.conf.alarms).forEach(function(key,index){
 		if(Odi.conf.alarms[key].d.indexOf(d) > -1 && h == Odi.conf.alarms[key].h && m == Odi.conf.alarms[key].m){
-			console.log('ALARM TIME...', Odi.conf.alarms[key].h + ':' + Odi.conf.alarms[key].m);
+			log.info('ALARM TIME...', Odi.conf.alarms[key].h + ':' + Odi.conf.alarms[key].m);
 			isAlarm = true;
 			cocorico(Odi.conf.alarms[key].mode);
 		}
 	});
-	console.debug('time.isAlarm()', isAlarm);
-	return isAlarm;
+	log.debug('time.isAlarm()', isAlarm);
+	// return isAlarm;
 };
 
 /** Function to TTS Odi's age */

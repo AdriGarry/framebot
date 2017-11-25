@@ -402,7 +402,7 @@ app.component('badBoy', {
 					url: '/badBoy',
 					legend: 'min',
 					min: 10,
-					max: 180,
+					max: 300,
 					step: 1,
 					value: 60,
 					action: null

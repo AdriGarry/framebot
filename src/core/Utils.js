@@ -137,8 +137,20 @@ function numberWithDot(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
-function random(maxValueNotIncluded){
-	return Math.floor(Math.random()*(maxValueNotIncluded));
+// function random(maxValueNotIncluded){
+// 	return Math.floor(Math.random()*(maxValueNotIncluded));
+// }
+
+var min, max;
+function random(arg1, arg2){
+	if(arg2){
+		min = arg1;
+		max = arg2;
+	}else{
+		min = 0;
+		max = (arg1 | 1) +1;
+	}
+	return Math.floor(Math.random() * (max - min) + min);
 }
 
 /** Function to return date time. Pattern: 'YDT' */

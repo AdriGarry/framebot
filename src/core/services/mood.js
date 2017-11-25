@@ -25,19 +25,15 @@ function expressive(args){
 /** Function to start bad boy mode */
 function badBoy(interval){
 	if(typeof interval === 'number'){
-		Odi.run.mood.push('badBoy');
 		log.info('Bad Boy mode !! [' + interval + ']');
-		Flux.next('module', 'tts', 'speak', {lg: 'en', msg: 'Baad boy !'});
-
+		Flux.next('modeule', 'tts', 'speak', {lg: 'en', msg: 'Baad boy !'});
 		var loop = 0;
 		setInterval(function(){
 			loop++;
-			// console.log('loop:', loop);
 			if(loop >= interval){
 				badBoyTTS();
 				loop = 0;
 			}
-			// if(loop>30) loop = 0; // 1000
 		}, 1000);
 	}else{
 		badBoyTTS();
@@ -45,9 +41,10 @@ function badBoy(interval){
 };
 
 function badBoyTTS(){
-	// log.info('badBoyTTS()');
 	Flux.next('module', 'tts', 'speak', getNewRdmBadBoyTTS());
-	Flux.next('module', 'tts', 'speak', getNewRdmBadBoyTTS(), 1);
+	setTimeout(function(){
+		Flux.next('module', 'tts', 'speak', getNewRdmBadBoyTTS());
+	}, 1000);
 };
 
 /** Function to select a different TTS each time */

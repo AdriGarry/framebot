@@ -12,7 +12,6 @@ var spawn = require('child_process').spawn;
 Flux.service.interaction.subscribe({
 	next: flux => {
 		if (flux.id == 'random') {
-			console.log(flux);
 			randomAction();
 		}else if (flux.id == 'exclamation') {
 			exclamation();
@@ -35,6 +34,7 @@ var randomActionBase = [
 	{type: 'module', subject: 'tts', id: 'speak', weighting: 6},//7
 	{type: 'module', subject: 'tts', id: 'randomConversation', weighting: 6},//7
 	{type: 'service', subject: 'interaction', id: 'exclamation', weighting: 4},//4
+	{type: 'service', subject: 'interaction', id: 'exclamation', weighting: 2},//4
 	{type: 'service', subject: 'time', id: 'now', weighting: 1},
 	{type: 'service', subject: 'time', id: 'today', weighting: 1},
 	{type: 'service', subject: 'interaction', id: 'weather', weighting: 1},
@@ -64,15 +64,14 @@ function randomAction(){
 
 function exclamation(){
 	log.info('Exclamation !');
-	// log.INFO('time==> ', Math.round(Math.random() * (100 - 40) + 40));
-	Flux.next('module', 'led', 'blink', {leds: ['eye'], speed: (Math.round(Math.random() * (100 - 40) + 40)), loop: 6});
+	Flux.next('module', 'led', 'blink', {leds: ['eye'], speed: Utils.random(40, 100), loop: 6});
 	spawn('sh', ['/home/pi/odi/core/sh/exclamation.sh']);
 }
 
 /** Fonction Russian */
 function russia(){
 	log.info('Russia !');
-	Flux.next('module', 'led', 'blink', {leds: ['eye'], speed: Math.random() * (100 - 40) + 40, loop: 6});
+	Flux.next('module', 'led', 'blink', {leds: ['eye'], speed: Utils.random(40, 100), loop: 6});
 	spawn('sh', ['/home/pi/odi/core/sh/exclamation_russia.sh']);
 }
 
@@ -139,7 +138,7 @@ function weatherInteractiveService(){
 	var weatherSpeech;
 	getWeatherData(function(weatherReport){
 		log.debug('weatherReport', weatherReport);
-		switch(Utils.random(3)){
+		switch(Utils.random(2)){
 			case 0:
 				weatherSpeech = {voice: 'google', lg: 'fr', msg: 'Aujourd\'hui a Marseille, il fait ' + weatherReport.temperature
 					+ ' degrer avec ' + (isNaN(weatherReport.wind)?'0':Math.round(weatherReport.wind)) + ' kilometre heure de vent'};
@@ -161,17 +160,3 @@ function weatherInteractiveService(){
 		Flux.next('module', 'tts', 'speak', weatherSpeech);
 	});
 };
-
-/** Function to select a different TTS each time */
-const BAD_BOY_TTS_LENGTH = Odi.ttsMessages.badBoy.length;
-var rdmNb, lastRdmNb = [], rdmTTS = '';
-function getNewRdmBadBoyTTS(){
-	do{
-		rdmNb = ((Utils.random()* BAD_BOY_TTS_LENGTH));
-		rdmTTS = Odi.ttsMessages.badBoy[rdmNb];
-		if(lastRdmNb.length >= BAD_BOY_TTS_LENGTH) lastRdmNb.shift();
-	}while(lastRdmNb.indexOf(rdmNb) != -1);
-	lastRdmNb.push(rdmNb);
-	return rdmTTS;
-};
-
