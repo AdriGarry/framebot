@@ -57,45 +57,6 @@ function today(voice){  // TODO  prendre en compte le parametre voix (créer un 
 	Flux.next('module', 'tts', 'speak', {lg:'fr', msg:annonceDate});
 };
 
-/** Function alarm */
-function cocorico(mode){
-	// log.info('cocorico MODE:', mode);
-	var alarmDelay = 1;
-	if(mode == 'sea'){ // Morning sea...
-		log.info('Morning Sea... Let\'s start the day with some waves !');
-		spawn('sh', [Odi._SHELL + 'sounds.sh', 'MorningSea']);
-		alarmDelay = 2*62*1000;
-	}
-	log.debug('alarmDelay', alarmDelay);
-
-	setTimeout(function(){
-		log.info('COCORICO !!', mode || '');
-
-		spawn('sh', [Odi._SHELL + 'sounds.sh', 'cocorico']);
-		// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'birthday']);
-
-		setTimeout(function(){ // ANNIF
-			// var voiceMailMsg = ODI.voiceMail.areThereAnyMessages();
-			// log.info('voiceMailMsg', voiceMailMsg);
-			now();
-			today();
-			Flux.next('service', 'interaction', 'weather');
-			Flux.next('service', 'voicemail', 'check');
-			setTimeout(function(){
-				Odi.run.alarm = false;
-				Utils.testConnexion(function(connexion){
-					if(connexion == true){
-						Flux.next('service', 'music', 'fip');
-					}else{
-						Flux.next('service', 'music', 'jukebox');
-					}
-				});
-			}, 30*1000);
-		}, 5*1000);
-		// }, 55*1000); // ANNIF
-	}, alarmDelay);
-};
-
 /** Function to set Odi's custom alarm */
 function setAlarm(alarm){
 	var newAlarms = {};
@@ -121,10 +82,10 @@ function isAlarm(){
 	var now = new Date(), d = now.getDay(), h = now.getHours(), m = now.getMinutes();
 	Object.keys(Odi.conf.alarms).forEach(function(key,index){
 		if(Odi.conf.alarms[key].d.indexOf(d) > -1 && h == Odi.conf.alarms[key].h && m == Odi.conf.alarms[key].m){
-			log.info('ALARM TIME...', Odi.conf.alarms[key].h + ':' + Odi.conf.alarms[key].m);
+			log.info('alarm time...', Odi.conf.alarms[key].h + ':' + Odi.conf.alarms[key].m);
 			Odi.run.alarm = true;
 			if(Odi.conf.mode == 'sleep'){
-				log.info('Alarm... wake up !!');
+				log.INFO('Alarm... wake up !!');
 				Flux.next('service', 'system', 'restart');
 			}else{
 				cocorico(Odi.conf.alarms[key].mode);
@@ -132,6 +93,45 @@ function isAlarm(){
 		}
 	});
 	log.debug('Odi.run.alarm=' + Odi.run.alarm);
+};
+
+/** Function alarm */
+function cocorico(mode){
+	// log.info('cocorico MODE:', mode);
+	var alarmDelay = 1;
+	if(mode == 'sea'){ // Morning sea...
+		log.info('Morning Sea... Let\'s start the day with some waves !');
+		spawn('sh', [Odi._SHELL + 'sounds.sh', 'MorningSea']);
+		alarmDelay = 2*62*1000;
+	}
+	log.debug('alarmDelay', alarmDelay);
+
+	setTimeout(function(){
+		log.INFO('cocorico !!', mode || '');
+
+		spawn('sh', [Odi._SHELL + 'sounds.sh', 'cocorico']);
+		// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'birthday']);
+
+		setTimeout(function(){ // ANNIF
+			// var voiceMailMsg = ODI.voiceMail.areThereAnyMessages();
+			// log.info('voiceMailMsg', voiceMailMsg);
+			now();
+			today();
+			Flux.next('service', 'interaction', 'weather');
+			Flux.next('service', 'voicemail', 'check');
+			setTimeout(function(){
+				Odi.run.alarm = false;
+				Utils.testConnexion(function(connexion){
+					if(connexion == true){
+						Flux.next('service', 'music', 'fip');
+					}else{
+						Flux.next('service', 'music', 'jukebox');
+					}
+				});
+			}, 30*1000);
+		}, 5*1000);
+		// }, 55*1000); // ANNIF
+	}, alarmDelay);
 };
 
 /** Function to TTS Odi's age */

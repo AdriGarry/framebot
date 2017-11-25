@@ -513,7 +513,7 @@ function startUIServer(mode) {
 		ui.post('/tts', function(req, res) { // Add Voice Mail Message
 			params = req.query;
 			if (params['voice'] && params['lg'] && params['msg']) {
-				Flux.next('service', 'voicemail', 'newMessage', { voice: params.voice, lg: params.lg, msg: params.msg });
+				Flux.next('service', 'voicemail', 'new', { voice: params.voice, lg: params.lg, msg: params.msg });
 				params.timestamp = Utils.logTime('D/M h:m:s', new Date());
 				Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
 				res.writeHead(200);
