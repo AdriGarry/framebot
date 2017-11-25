@@ -81,6 +81,8 @@ if (Odi.conf.mode == 'test') {
 	}, 500);
 }
 
+
+Flux.next('service', 'interaction', 'random', null, 5, 15);
 // var start = new Date();
 // setTimeout(function(argument) {
 // 	// execution time simulated with setTimeout function

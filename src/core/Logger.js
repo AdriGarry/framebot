@@ -111,7 +111,7 @@ function Logger(filename, debugMode, dateTimePattern) {
 	/** Function to log runtime to array */
 	function logRuntime(src, updatedEntries, executionTime) {
 		var col1 = 11;
-		var runtimeArray = '\n' + ' '.repeat(4) + 'RUNTIME';
+		var runtimeArray = '\n' + ' '.repeat(5) + 'RUNTIME';
 		Object.keys(src).forEach(function(key) {
 			runtimeArray += '\n' + ' '.repeat(col1 - key.length) + key + ' | ' + src[key];
 		});

@@ -12,6 +12,7 @@ var request = require('request');
 Flux.service.interaction.subscribe({
 	next: flux => {
 		if (flux.id == 'random') {
+			console.log(flux);
 			randomAction();
 		}else if (flux.id == 'exclamation') {
 			exclamation();
@@ -21,6 +22,8 @@ Flux.service.interaction.subscribe({
 			weatherService();
 		} else if (flux.id == 'weatherInteractive') {
 			weatherInteractiveService();
+		}else if (flux.id == 'russia') {
+			russia();
 		}else Odi.error('unmapped flux in Exclamation module', flux, false);
 	},
 	error: err => {
@@ -28,35 +31,17 @@ Flux.service.interaction.subscribe({
 	}
 });
 
-// Test pour lancer les anniversaires d'ici ? (ou alors dans un calendar.js ?)
-
-function exclamation() {
-	log.INFO('exclamation');
-}
-
-/*var randomActionBase = [
-	{label:'ODI.tts.speak', call: ODI.tts.speak, weighting: 7},
-	{label:'ODI.tts.randomConversation', call: ODI.tts.randomConversation, weighting: 7},
-	{label:'ODI.exclamation.exclamation', call: ODI.exclamation.exclamation, weighting: 4},
-	{label:'ODI.time.now', call: ODI.time.now, weighting: 1},
-	{label:'ODI.time.today', call: ODI.time.today, weighting: 1},
-	{label:'weatherService', call: weatherService, weighting: 1},
-	{label:'weatherInteractiveService', call: weatherService, weighting: 3},
-	{label:'cpuTemp', call: cpuTemp, weighting: 1},
-	{label:'ODI.time.sayOdiAge', call: ODI.time.sayOdiAge, weighting: 1},
-	{label:'adriExclamation', call: adriExclamation, weighting: 1}
-];*/
 var randomActionBase = [
-	{label:'ODI.tts.speak', call: {type: 'module', subject: 'tts', id: 'speak'}, weighting: 7},
-	{label:'ODI.tts.randomConversation', call: {type: 'module', subject: 'tts', id: 'randomConversation'}, weighting: 7},
-	{label:'ODI.exclamation.exclamation', call: {type: 'service', subject: 'exclamation', id: 'exclamation'}, weighting: 4},
-	{label:'ODI.time.now', call: {type: 'service', subject: 'time', id: 'now'}, weighting: 1},
-	{label:'ODI.time.today', call: {type: 'service', subject: 'time', id: 'today'}, weighting: 1},
-	{label:'weatherService', call: {type: 'service', subject: 'interaction', id: 'weather'}, weighting: 1},
-	{label:'weatherInteractiveService', call: {type: 'service', subject: 'interaction', id: 'weatherInteractive'}, weighting: 3},
-	{label:'cpuTemp', call: {type: 'module', subject: 'hardware', id: 'cpu'}, weighting: 1},
-	{label:'ODI.time.sayOdiAge', call: {type: 'service', subject: 'time', id: 'odiAge'}, weighting: 1},
-	{label:'adriExclamation', call: {type:'service', subject:'interaction', id: 'adriExclamation'}, weighting: 1}
+	{label:'1.speak', type: 'module', subject: 'tts', id: 'speak', weighting: 1},//7
+	{label:'2.randomConversation', type: 'module', subject: 'tts', id: 'randomConversation', weighting: 1},//7
+	{label:'3.exclamation', type: 'service', subject: 'interaction', id: 'exclamation', weighting: 1},//4
+	{label:'4.now', type: 'service', subject: 'time', id: 'now', weighting: 1},
+	{label:'5.today', type: 'service', subject: 'time', id: 'today', weighting: 1},
+	{label:'6.weatherService', type: 'service', subject: 'interaction', id: 'weather', weighting: 1},
+	{label:'7.weatherInteractiveService', type: 'service', subject: 'interaction', id: 'weatherInteractive', weighting: 1},//3
+	{label:'8.cpuTemp', type: 'module', subject: 'hardware', id: 'cpu', weighting: 1},
+	{label:'9.sayOdiAge', type: 'service', subject: 'time', id: 'OdiAge', weighting: 1},
+	{label:'10.adriExclamation', type:'service', subject:'interaction', id: 'adriExclamation', weighting: 1}
 ];
 /** Building randomActionList from randomActionBase */
 var randomActionList = [];
@@ -68,13 +53,30 @@ for(var i=0;i<randomActionBase.length;i++){
 	}
 }
 
+// Lancer les anniversaires d'ici ? (ou alors dans un calendar.js ?)
+
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction(){
+	log.INFO('salut toi randomAction');
 	var action = randomActionList[Utils.random(randomActionList.length)];
 	log.info('randomAction:', action.label, '[' + action.weighting + ']');
 	// Flux.next('module', 'led', 'altLeds', {speed: 90, duration: 0.6}); //{speed: 100, duration: 1.3}
 	Flux.next(action.type, action.subject, action.id, action.value);
 };
+
+function exclamation(){
+	log.info('Exclamation !');
+	log.INFO('time==> ', (Math.random() * (100 - 40) + 40));
+	Flux.next('module', 'led', 'blink', {leds: ['eye'], speed: (Math.random() * (100 - 40) + 40), loop: 6});
+	spawn('sh', ['/home/pi/odi/core/sh/exclamation.sh']);
+}
+
+/** Fonction Russian */
+function russia(){
+	log.info('Russia !');
+	Flux.next('module', 'led', 'blink', {leds: ['eye'], speed: Math.random() * (100 - 40) + 40, loop: 6});
+	spawn('sh', ['/home/pi/odi/core/sh/exclamation_russia.sh']);
+}
 
 /** Function 'Aaaadri' speech */
 function adriExclamation(){
