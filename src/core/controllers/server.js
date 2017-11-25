@@ -76,7 +76,7 @@ function startUIServer(mode) {
 
 		ip = req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : 'from [' + req.connection.remoteAddress + ']';
 
-		if (req.headers['user-interface'] === 'v4') {
+		if (req.headers['user-interface'] === 'UIv5') {
 			// Allowed requests
 			request = req.headers['user-interface'] + ' ' + req.url.replace('%20', ' ');
 			log.info(request, ip);

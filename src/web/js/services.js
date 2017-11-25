@@ -10,7 +10,7 @@ app.service('UIService', ['$http', '$mdToast', 'CONSTANTS', 'Tile', function($ht
 			headers: {
 				'Content-Type': 'application/json',
 				'Access-Control-Allow-Origin': 'http://adrigarry.com',
-				'User-Interface': 'v4'
+				'User-Interface': 'UIv5'
 			},
 			method: 'GET',
 			url: CONSTANTS.URL_ODI + '/dashboard'
@@ -26,7 +26,7 @@ app.service('UIService', ['$http', '$mdToast', 'CONSTANTS', 'Tile', function($ht
 	this.getRequest = function(url, callback){
 		console.log('refreshDashboard()');
 		$http({
-			headers: {'User-Interface': 'v4'},
+			headers: {'User-Interface': 'UIv5'},
 			method: 'GET',
 			url: url
 		}).then(function successCallback(res){
@@ -41,7 +41,7 @@ app.service('UIService', ['$http', '$mdToast', 'CONSTANTS', 'Tile', function($ht
 		// console.log('UIService.sendCommand()', cmd);
 		var uri = cmd.url;
 		$http({
-			headers: {'User-Interface': 'v4', pwd: cmd.data},
+			headers: {'User-Interface': 'UIv5', pwd: cmd.data},
 			method: 'POST',
 			url: CONSTANTS.URL_ODI + uri /*+ params*/,
 			data: cmd.params
@@ -81,7 +81,7 @@ app.service('UIService', ['$http', '$mdToast', 'CONSTANTS', 'Tile', function($ht
 	/** Function to send TTS **/
 	this.sendTTS = function(tts, callback){
 		$http({
-			headers: {'User-Interface': 'v4'},
+			headers: {'User-Interface': 'UIv5'},
 			method: 'POST',
 			url: CONSTANTS.URL_ODI + '/tts?voice=' + tts.voice + '&lg=' + tts.lg 
 				+ '&msg=' + tts.msg + (tts.voicemail ? '&voicemail' : '')
@@ -99,7 +99,7 @@ app.service('UIService', ['$http', '$mdToast', 'CONSTANTS', 'Tile', function($ht
 	var logSize = 100; var logIncrement = 10;
 	this.updateLogs = function(callback){
 		$http({
-			headers: {'User-Interface': 'v4'},
+			headers: {'User-Interface': 'UIv5'},
 			method: 'GET',
 			url: CONSTANTS.URL_ODI + '/log?logSize=' + logSize
 		}).then(function successCallback(res){

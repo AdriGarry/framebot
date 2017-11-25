@@ -29,6 +29,7 @@ function initButtonReady(){
 	});
 
 	cancel.watch(function(err, value) {
+		Flux.next('module', 'sound', 'mute');
 		var pushTime = getPushTime(cancel);
 		Flux.next('controller', 'button', 'cancel', pushTime);
 	});

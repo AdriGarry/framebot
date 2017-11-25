@@ -7,7 +7,7 @@ var Utils = require(Odi._CORE + 'Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
 var fs = require('fs');
 var request = require('request');
-// var spawn = require('child_process').spawn;
+var spawn = require('child_process').spawn;
 
 Flux.service.interaction.subscribe({
 	next: flux => {
@@ -32,16 +32,16 @@ Flux.service.interaction.subscribe({
 });
 
 var randomActionBase = [
-	{label:'1.speak', type: 'module', subject: 'tts', id: 'speak', weighting: 1},//7
-	{label:'2.randomConversation', type: 'module', subject: 'tts', id: 'randomConversation', weighting: 1},//7
-	{label:'3.exclamation', type: 'service', subject: 'interaction', id: 'exclamation', weighting: 1},//4
-	{label:'4.now', type: 'service', subject: 'time', id: 'now', weighting: 1},
-	{label:'5.today', type: 'service', subject: 'time', id: 'today', weighting: 1},
-	{label:'6.weatherService', type: 'service', subject: 'interaction', id: 'weather', weighting: 1},
-	{label:'7.weatherInteractiveService', type: 'service', subject: 'interaction', id: 'weatherInteractive', weighting: 1},//3
-	{label:'8.cpuTemp', type: 'module', subject: 'hardware', id: 'cpu', weighting: 1},
-	{label:'9.sayOdiAge', type: 'service', subject: 'time', id: 'OdiAge', weighting: 1},
-	{label:'10.adriExclamation', type:'service', subject:'interaction', id: 'adriExclamation', weighting: 1}
+	{type: 'module', subject: 'tts', id: 'speak', weighting: 6},//7
+	{type: 'module', subject: 'tts', id: 'randomConversation', weighting: 6},//7
+	{type: 'service', subject: 'interaction', id: 'exclamation', weighting: 4},//4
+	{type: 'service', subject: 'time', id: 'now', weighting: 1},
+	{type: 'service', subject: 'time', id: 'today', weighting: 1},
+	{type: 'service', subject: 'interaction', id: 'weather', weighting: 1},
+	{type: 'service', subject: 'interaction', id: 'weatherInteractive', weighting: 3},//3
+	{type: 'module', subject: 'hardware', id: 'cpu', weighting: 1},
+	{type: 'service', subject: 'time', id: 'OdiAge', weighting: 1},
+	{type:'service', subject:'interaction', id: 'adriExclamation', weighting: 1}
 ];
 /** Building randomActionList from randomActionBase */
 var randomActionList = [];
@@ -57,17 +57,15 @@ for(var i=0;i<randomActionBase.length;i++){
 
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction(){
-	log.INFO('salut toi randomAction');
 	var action = randomActionList[Utils.random(randomActionList.length)];
-	log.info('randomAction:', action.label, '[' + action.weighting + ']');
-	// Flux.next('module', 'led', 'altLeds', {speed: 90, duration: 0.6}); //{speed: 100, duration: 1.3}
+	log.info('randomAction:', action.id, '[' + action.weighting + ']');
 	Flux.next(action.type, action.subject, action.id, action.value);
 };
 
 function exclamation(){
 	log.info('Exclamation !');
-	log.INFO('time==> ', (Math.random() * (100 - 40) + 40));
-	Flux.next('module', 'led', 'blink', {leds: ['eye'], speed: (Math.random() * (100 - 40) + 40), loop: 6});
+	// log.INFO('time==> ', Math.round(Math.random() * (100 - 40) + 40));
+	Flux.next('module', 'led', 'blink', {leds: ['eye'], speed: (Math.round(Math.random() * (100 - 40) + 40)), loop: 6});
 	spawn('sh', ['/home/pi/odi/core/sh/exclamation.sh']);
 }
 

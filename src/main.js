@@ -59,7 +59,7 @@ Object.keys(observers).forEach(function(observer) {
 	log.info(observer, 'loaded:', observersLoaded);
 });
 
-log.info('Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
+log.info('_Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
 Flux.next('module', 'conf', 'runtime');
 
 // Flux.next('service', 'interaction', 'exclamation');
@@ -82,7 +82,7 @@ if (Odi.conf.mode == 'test') {
 }
 
 
-Flux.next('service', 'interaction', 'random', null, 5, 15);
+Flux.next('service', 'interaction', 'random', null, 5, 6);
 // var start = new Date();
 // setTimeout(function(argument) {
 // 	// execution time simulated with setTimeout function
