@@ -26,7 +26,7 @@ function expressive(args){
 function badBoy(interval){
 	if(typeof interval === 'number'){
 		log.info('Bad Boy mode !! [' + interval + ']');
-		Flux.next('modeule', 'tts', 'speak', {lg: 'en', msg: 'Baad boy !'});
+		Flux.next('module', 'tts', 'speak', {lg: 'en', msg: 'Baad boy !'});
 		var loop = 0;
 		setInterval(function(){
 			loop++;

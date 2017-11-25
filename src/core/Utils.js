@@ -148,7 +148,7 @@ function random(arg1, arg2){
 		max = arg2;
 	}else{
 		min = 0;
-		max = (arg1 | 1) +1;
+		max = arg1 | 1;
 	}
 	return Math.floor(Math.random() * (max - min) + min);
 }

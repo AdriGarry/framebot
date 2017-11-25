@@ -127,6 +127,7 @@ var playTTS = function(tts) {
 	}
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	spawn('sh', ['/home/pi/odi/core/sh/tts.sh', tts.voice, tts.lg, tts.msg]);
+	Flux.next('module', 'led', 'blink', { leds: ['eye'], speed: Utils.random(50, 150), loop: tts.msg.length / 2 + 2 });
 	log.debug('tts.msg.length :', tts.msg.length);
 
 	lastTtsMsg = tts;
