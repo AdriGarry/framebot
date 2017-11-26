@@ -1,7 +1,10 @@
-<div flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="{'expanded':$ctrl.tile.expanded, {{$ctrl.tile.id}}: true}" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-button md-raised ng-slide-fast"><!--data-md-ink-ripple="{{$ctrl.tile.expanded}}"-->
-<!--data-md-no-ink="$ctrl.tile.expanded" OU md-ink-ripple...-->
+<div flex="1" data-ng-click="$ctrl.access && $ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="{'expanded':$ctrl.tile.expanded, {{$ctrl.tile.id}}: true}"
+ title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-button md-raised ng-slide-fast">
+	<!--data-md-ink-ripple="{{$ctrl.tile.expanded}}"-->
+	<!--data-md-no-ink="$ctrl.tile.expanded" OU md-ink-ripple...-->
 	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fa fa-2x fa-ellipsis-h adminFlag"></i>
-	<i data-ng-if="$ctrl.tile.expanded" data-ng-click="$ctrl.toggleTileHeight();$event.stopPropagation()" class="fa fa-2x fa-times adminFlag closeBtn" title="Reduce"></i>
+	<i data-ng-if="$ctrl.tile.expanded" data-ng-click="$ctrl.toggleTileHeight();$event.stopPropagation()" class="fa fa-2x fa-times adminFlag closeBtn"
+	 title="Reduce"></i>
 
 	<span data-ng-if="0" class="debugObject">{{$ctrl.tile}}</span>
 	<span data-ng-if="0" class="debugObject">{{$ctrl.data.value}}</span>
@@ -13,8 +16,7 @@
 				<md-input-container flex="30">
 					<label>Language</label>
 					<md-select name="type" data-ng-model="$ctrl.tts.lg">
-						<md-option data-ng-repeat="language in $ctrl.tts.conf.languageList track by $index" data-ng-value="language.code"
-							data-ng-checked="language.code == fr">
+						<md-option data-ng-repeat="language in $ctrl.tts.conf.languageList track by $index" data-ng-value="language.code" data-ng-checked="language.code == fr">
 							{{language.label}}
 						</md-option>
 					</md-select>
@@ -22,8 +24,8 @@
 				<div flex></div>
 				<label flex="10" class="pointer text-center desktopZoom">
 					<!-- <md-button class="md-primary" data-ng-click="$ctrl.tts.voicemail = !$ctrl.tts.voicemail"> -->
-						<!--<md-checkbox data-ng-model="$ctrl.tts.voicemail" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send in voicemail" aria-label="Send in voicemail">Voicemail</md-checkbox>-->
-						<i class="fa fa-2x" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'" data-ng-click="$ctrl.tts.voicemail = !$ctrl.tts.voicemail"></i>
+					<!--<md-checkbox data-ng-model="$ctrl.tts.voicemail" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send in voicemail" aria-label="Send in voicemail">Voicemail</md-checkbox>-->
+					<i class="fa fa-2x" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope' : 'fa-envelope-o'" data-ng-click="$ctrl.tts.voicemail = !$ctrl.tts.voicemail"></i>
 					<!-- </md-button> -->
 				</label>
 				<div flex></div>
@@ -39,11 +41,15 @@
 						{{$ctrl.tts.conf.voiceList}}
 					</small>-->
 					<md-switch flex="50" data-ng-model="$ctrl.tts.voice" data-ng-true-value="'espeak'" data-ng-false-value="'google'" class="voiceSwitch desktopZoom"
-						ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'">
+					 ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'">
 						<!-- <span>Human Voice</span>
 						<span>Robot Voice</span> -->
-						<span data-ng-show="$ctrl.tts.voice == 'google'">Human <span hide-sm hide-xs>Voice</span></span>
-						<span data-ng-show="$ctrl.tts.voice == 'espeak'">Robot <span hide-sm hide-xs>Voice</span></span>
+						<span data-ng-show="$ctrl.tts.voice == 'google'">Human
+							<span hide-sm hide-xs>Voice</span>
+						</span>
+						<span data-ng-show="$ctrl.tts.voice == 'espeak'">Robot
+							<span hide-sm hide-xs>Voice</span>
+						</span>
 					</md-switch>
 				</md-input-container>
 				<div flex></div>
@@ -61,7 +67,10 @@
 						<span data-ng-show="$ctrl.tts.voicemail">Message in voicemail</span>
 						<span data-ng-hide="$ctrl.tts.voicemail">Message</span>
 					</label>
-					<input type="text" id="ttsMsg" name="ttsMsg" maxlength="200" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" data-ng-trim="false" autocomplete="off"><!--required--><!--autocomplete="off"-->
+					<input type="text" id="ttsMsg" name="ttsMsg" maxlength="200" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()"
+					 data-ng-trim="false" autocomplete="off">
+					<!--required-->
+					<!--autocomplete="off"-->
 					<!-- <textarea type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" autocomplete="off"></textarea> -->
 					<!--<datalist id="examples">
 						<option value="Hey, je suis Odi !">
@@ -73,7 +82,8 @@
 						<span class="desktopOnlyInline">&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;</span>
 						<i class="fa fa-lg" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 					</md-button>-->
-					<md-button type="submit" class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded">
+					<md-button type="submit" class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !"
+					 data-ng-disabled="!$ctrl.tile.expanded">
 						<span class="desktopOnlyInline">&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;</span>
 						<i class="fa fa-lg" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 					</md-button>
@@ -103,14 +113,18 @@
 	<div class="tileContent" data-ng-switch-when="Alarms">
 		<table class="main">
 			<tr>
-				<td><i class="fa fa-bell-o"></i></td>
+				<td>
+					<i class="fa fa-bell-o"></i>
+				</td>
 				<td>
 					<table>
 						<tr data-ng-repeat="alarm in $ctrl.data.value" data-ng-if="$ctrl.isTodayAlarm(alarm.d)">
 							<td class="mediumFont">
-								{{alarm.h}}:{{alarm.m | formatNumber:2}} <!--{{alarm.mode | limitTo:1}}-->
+								{{alarm.h}}:{{alarm.m | formatNumber:2}}
+								<!--{{alarm.mode | limitTo:1}}-->
 								<i data-ng-if="alarm.mode != 'sea'" class="mediumFont fa fa-music"></i>
-								<i data-ng-if="alarm.mode == 'sea'" class="mediumFont fa fa-signal"></i></td>
+								<i data-ng-if="alarm.mode == 'sea'" class="mediumFont fa fa-signal"></i>
+							</td>
 						</tr>
 					</table>
 				</td>
@@ -121,15 +135,24 @@
 	<div class="tileContent" data-ng-switch-when="Hardware">
 		<div class="main">
 			<i class="fa fa-microchip"></i>
-			<span>{{$ctrl.data.value.usage}}<sup><small>%</small></sup></span>&nbsp;&nbsp;
+			<span>{{$ctrl.data.value.usage}}
+				<sup>
+					<small>%</small>
+				</sup>
+			</span>&nbsp;&nbsp;
 			<i class="fa fa-thermometer-half"></i>
-			<span>{{$ctrl.data.value.temp}}<sup><small>°C</small></sup></span>
+			<span>{{$ctrl.data.value.temp}}
+				<sup>
+					<small>°C</small>
+				</sup>
+			</span>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Voicemail">
 		<div class="main">
-			<i class="fa fa fa-envelope-o"></i><sub data-ng-show="$ctrl.data.value" class="fa-2x">&nbsp;{{$ctrl.data.value}}</sub>
+			<i class="fa fa fa-envelope-o"></i>
+			<sub data-ng-show="$ctrl.data.value" class="fa-2x">&nbsp;{{$ctrl.data.value}}</sub>
 		</div>
 	</div>
 
@@ -206,9 +229,15 @@
 		</div>
 	</div>
 
-	<div class="tileContent" data-ng-switch-when="Logs">
+	<div class="tileContent" data-ng-switch-when="History">
 		<div class="main">
 			<i class="fa fa-file-text-o"></i>
+		</div>
+	</div>
+
+	<div class="tileContent" data-ng-switch-when="Runtime">
+		<div class="main">
+			<i class="fa fa-codepen"></i>
 		</div>
 	</div>
 
@@ -224,5 +253,7 @@
 		</div>
 	</div>
 
-	<footer><h3>{{$ctrl.tile.label}}</h3></footer>
+	<footer>
+		<h3>{{$ctrl.tile.label}}</h3>
+	</footer>
 </div>

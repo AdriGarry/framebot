@@ -473,7 +473,7 @@ app.component('videos', {
 });
 
 /** Logs component */
-app.component('logs', {
+app.component('history', {
 	bindings: {
 		data: '<',
 		access: '<'
@@ -482,12 +482,29 @@ app.component('logs', {
 	controller: function(DefaultTile){
 		var ctrl = this;
 		var tileParams = {
-			label: 'Logs',
-			actionList:[{label: 'TTS UI History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/ttsUIHistory'},{
-				label: 'Voicemail History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/voicemailHistory'},{
-				label: 'Request History', icon: 'file-text-o', url: 'http://odi.adrigarry.com/requestHistory'},{
-				label: 'Error History', icon: 'exclamation-circle', url: 'http://odi.adrigarry.com/errorHistory'},{
-				label: 'Config', icon: 'sliders', url: 'http://odi.adrigarry.com/config.json'}]
+			label: 'History',
+			actionList:[{label: 'TTS', icon: 'file-text-o', url: 'http://odi.adrigarry.com/ttsUIHistory'},{
+				label: 'Voicemail', icon: 'file-text-o', url: 'http://odi.adrigarry.com/voicemailHistory'},{
+				label: 'Request', icon: 'file-text-o', url: 'http://odi.adrigarry.com/requestHistory'},{
+				label: 'Errors', icon: 'exclamation-circle', url: 'http://odi.adrigarry.com/errorHistory'}]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+	}
+});
+
+/** Logs component */
+app.component('runtime', {
+	bindings: {
+		data: '<',
+		access: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile){
+		var ctrl = this;
+		var tileParams = {
+			label: 'Runtime',
+			actionList:[{label: 'Config', icon: 'cogs', url: 'http://odi.adrigarry.com/config.json'},{
+				label: 'Runtime', icon: 'codepen', url: 'http://odi.adrigarry.com/runtime'}]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 	}

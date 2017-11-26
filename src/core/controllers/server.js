@@ -224,6 +224,12 @@ function startUIServer(mode) {
 		res.end(JSON.stringify(Odi.conf));
 	});
 
+	ui.get('/runtime', function(req, res) {
+		res.writeHead(200);
+		log.runtime(Odi.run);
+		res.end(JSON.stringify(Odi.run));
+	});
+
 	ui.get('/errorHistory', function(req, res) {
 		res.writeHead(200);
 		res.end(fs.readFileSync(FILE_ERROR_HISTORY, 'utf8').toString());

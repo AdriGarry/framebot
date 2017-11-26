@@ -69,7 +69,7 @@ Flux.next('module', 'conf', 'runtime');
 
 if (Odi.conf.mode == 'sleep') {
 	new CronJob('0 * * * * *', function(){
-		Flux.next('service', 'time', 'isAlarm');
+		Flux.next('service', 'time', 'isAlarm', null, null, null, true);
 	}, null, true, 'Europe/Paris');
 	Flux.next('service', 'video', 'screenOff');
 
