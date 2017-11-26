@@ -58,7 +58,6 @@ function startUIServer(mode) {
 
 	// Middleware LOGGER
 	var logger = function(req, res, next) {
-		//ODI.leds.toggle({led:'eye', mode: 1});
 		res.header('Access-Control-Allow-Origin', 'http://adrigarry.com');
 
 		Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);
@@ -333,10 +332,8 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/idea', function(req, res) {
-			// Idea...
 			// params = req.query;
-			// ODI.tts.speak('en', 'I\'ve got an idea !');
-			// ODI.tts.speak({ lg: 'en', msg: "I've got an idea !" });
+			Flux.next('module', 'tts', 'speak', { lg: 'en', msg: "I've got an idea !" });
 			res.writeHead(200);
 			res.end();
 		});

@@ -76,7 +76,8 @@ function setInteractiveJobs() {
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('13 13,25,40,51 17-22 * * *', function() {
-			log.INFO('Action to define...');//ODI.service.randomAction();
+			// log.INFO('Action to define...');//ODI.service.randomAction();
+			Flux.next('service', 'interaction', 'random');
 		}, null, true, 'Europe/Paris'
 	);
 	log.info('Interactive jobs initialised');

@@ -108,29 +108,46 @@ function cocorico(mode){
 
 	setTimeout(function(){
 		log.INFO('cocorico !!', mode || '');
-
 		spawn('sh', [Odi._SHELL + 'sounds.sh', 'cocorico']);
 		// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'birthday']);
 
-		setTimeout(function(){ // ANNIF
-			// var voiceMailMsg = ODI.voiceMail.areThereAnyMessages();
-			// log.info('voiceMailMsg', voiceMailMsg);
-			now();
-			today();
-			Flux.next('service', 'interaction', 'weather');
-			Flux.next('service', 'voicemail', 'check');
-			setTimeout(function(){
-				Odi.run.alarm = false;
-				Utils.testConnexion(function(connexion){
-					if(connexion == true){
-						Flux.next('service', 'music', 'fip');
-					}else{
-						Flux.next('service', 'music', 'jukebox');
-					}
-				});
-			}, 30*1000);
-		}, 5*1000);
-		// }, 55*1000); // ANNIF
+		Flux.next('service', 'time', 'now', null, 3);
+		Flux.next('service', 'time', 'today', null, 5);
+		Flux.next('service', 'interaction', 'weather', null, 8);
+		Flux.next('service', 'voicemail', 'check', null, 13);
+
+		Flux.next('module', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Je crois qu\'il faut lancer l\'opairation baluchon' }, 10*60, 6);
+
+		setTimeout(function(){
+			Odi.run.alarm = false;
+			Utils.testConnexion(function(connexion){
+				if(connexion == true){
+					Flux.next('service', 'music', 'fip');
+				}else{
+					Flux.next('service', 'music', 'jukebox');
+				}
+			});
+		}, 30*1000);
+
+		// setTimeout(function(){ // ANNIF
+		// 	// var voiceMailMsg = ODI.voiceMail.areThereAnyMessages();
+		// 	// log.info('voiceMailMsg', voiceMailMsg);
+		// 	now();
+		// 	today();
+		// 	Flux.next('service', 'interaction', 'weather');
+		// 	Flux.next('service', 'voicemail', 'check');
+		// 	setTimeout(function(){
+		// 		Odi.run.alarm = false;
+		// 		Utils.testConnexion(function(connexion){
+		// 			if(connexion == true){
+		// 				Flux.next('service', 'music', 'fip');
+		// 			}else{
+		// 				Flux.next('service', 'music', 'jukebox');
+		// 			}
+		// 		});
+		// 	}, 30*1000);
+		// }, 5*1000);
+		// // }, 55*1000); // ANNIF
 	}, alarmDelay);
 };
 

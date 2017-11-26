@@ -17,7 +17,7 @@ Flux.module.tts.subscribe({
 			lastTTS();
 		} else if (flux.id == 'random') {
 			speak();
-		} else if (flux.id == 'randomConversation') {
+		} else if (flux.id == 'conversation') {
 			randomConversation();
 		} else if (flux.id == 'clearTTSQueue') {
 			clearTTSQueue();
@@ -40,7 +40,7 @@ function speak(tts) {
 	if (Utils.searchStringInArray(Odi.conf.mode, allowedModes)) {
 		// log.debug(tts);
 		if (Array.isArray(tts)) {
-			log.info('TTS array object... processing', tts);
+			log.info('TTS array object... processing'); // , tts
 			tts.forEach(function(message) {
 				if (message.msg) {
 					speak(message);

@@ -32,7 +32,7 @@ Flux.service.interaction.subscribe({
 
 var randomActionBase = [
 	{type: 'module', subject: 'tts', id: 'speak', weighting: 6},//7
-	{type: 'module', subject: 'tts', id: 'randomConversation', weighting: 6},//7
+	{type: 'module', subject: 'tts', id: 'conversation', weighting: 6},//7
 	{type: 'service', subject: 'interaction', id: 'exclamation', weighting: 4},//4
 	{type: 'service', subject: 'interaction', id: 'exclamation', weighting: 2},//4
 	{type: 'service', subject: 'time', id: 'now', weighting: 1},
