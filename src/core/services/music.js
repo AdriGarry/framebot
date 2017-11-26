@@ -78,9 +78,8 @@ function playFip(){
 
 /** Function to stop FIP radio */
 function stop(message){
-	log.info('Stop music');
+	log.debug('Stop music');
 	if(Odi.run.music){
-		// log.debug(message || 'Stoping FIP RADIO.');
 		spawn('sh', [Odi._SHELL + 'mute.sh']);
 		Odi.run.music = false;
 	}

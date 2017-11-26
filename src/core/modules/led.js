@@ -34,7 +34,7 @@ Flux.module.led.subscribe({
 		} else if (flux.id == 'blink') {
 			blink(flux.value);
 		} else if (flux.id == 'altLeds') {
-			altLeds(flux.value.speed, flux.value.duration);
+			altLeds(flux.value);
 		} else if (flux.id == 'clearLeds') {
 			clearLeds();
 		} else if (flux.id == 'activity') {
@@ -132,20 +132,19 @@ function toggle(config) {
 
 /** Function to start inverted blink (Eye/Belly) */
 var timer;
-// function altLeds(args) { // args : {speed, duration}
-function altLeds(speed, duration) {
+function altLeds(args) { // args : {speed, duration}
 	clearInterval(timer);
 	var etat = 1;
 	timer = setInterval(function() {
 		odiLeds.eye.write(etat);
 		etat = 1 - etat;
 		odiLeds.belly.write(etat);
-	}, speed);
+	}, args.speed);
 	var stopTimer = setTimeout(function() {
 		clearInterval(timer);
 		odiLeds.eye.write(0);
 		odiLeds.belly.write(0);
-	}, duration * 1000);
+	}, args.duration * 1000);
 }
 
 /** Function to cancel blinkState */

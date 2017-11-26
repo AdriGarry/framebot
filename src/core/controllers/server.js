@@ -355,30 +355,20 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/russia', function(req, res) {
-			// Russia
 			params = req.query;
 			log.debug('/russia', params);
 			if (params.hasOwnProperty('hymn')) {
-				//exclamation.russiaLoop();
 				spawn('sh', [Odi._SHELL + 'music.sh', 'urss']);
-				// ODI.leds.altLeds(70, 20);
+				Flux.next('module', 'led', 'altLeds', {speed: 70, loop: 20}, null, null, true);
 			} else {
-				// ODI.exclamation.russia();
+				Flux.next('service', 'interaction', 'russia');
 			}
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/exclamation', function(req, res) {
-			// Exclamation
-			// ODI.exclamation.exclamation();
-			res.writeHead(200);
-			res.end();
-		});
-
-		ui.post('/exclamationLoop', function(req, res) {
-			// Exclamation Loop
-			// ODI.exclamation.exclamationLoop();
+			Flux.next('service', 'interaction', 'exclamation');
 			res.writeHead(200);
 			res.end();
 		});

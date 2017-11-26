@@ -95,7 +95,7 @@ if (Odi.conf.mode == 'sleep') {
 	}
 }
 
-Flux.next('service', 'interaction', 'random', null, 7, 4);
+// Flux.next('service', 'interaction', 'random', null, 7, 4);
 
 // var start = new Date();
 // setTimeout(function(argument) {

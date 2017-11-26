@@ -65,14 +65,14 @@ function randomAction(){
 
 function exclamation(){
 	log.info('Exclamation !');
-	Flux.next('module', 'led', 'blink', {leds: ['eye'], speed: Utils.random(40, 100), loop: 6});
+	Flux.next('module', 'led', 'blink', {leds: ['eye'], speed: Utils.random(40, 100), loop: 6}, null, null, true);
 	spawn('sh', ['/home/pi/odi/core/sh/exclamation.sh']);
 }
 
 /** Fonction Russian */
 function russia(){
 	log.info('Russia !');
-	Flux.next('module', 'led', 'blink', {leds: ['eye'], speed: Utils.random(40, 100), loop: 6});
+	Flux.next('module', 'led', 'blink', {leds: ['eye'], speed: Utils.random(40, 100), loop: 6}, null, null, true);
 	spawn('sh', ['/home/pi/odi/core/sh/exclamation_russia.sh']);
 }
 
