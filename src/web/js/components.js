@@ -7,7 +7,7 @@ app.component('tts', {
 	controller: function($window, DefaultTile, UIService){
 		var ctrl = this;
 		var tileParams = {
-			label: 'TTS - Voice synthesizing',
+			label: 'Text To Speech',
 			actionList:[],
 			expanded: false //collapsed
 		};
