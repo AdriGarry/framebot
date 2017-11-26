@@ -88,14 +88,14 @@ if (Odi.conf.mode == 'sleep') {
 	// Alarm / Cocorico...
 	Flux.next('service', 'time', 'isAlarm');
 	new CronJob('2 * * * * *', function(){
-		Flux.next('service', 'time', 'isAlarm');
+		Flux.next('service', 'time', 'isAlarm', null, null, null, true);
 	}, null, true, 'Europe/Paris');
 	if(!Odi.run.alarm){
 		Flux.next('service', 'voicemail', 'check');
 	}
 }
 
-// Flux.next('service', 'interaction', 'random', null, 7, 4);
+Flux.next('service', 'interaction', 'random', null, 7, 4);
 
 // var start = new Date();
 // setTimeout(function(argument) {

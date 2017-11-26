@@ -31,15 +31,15 @@ function buttonHandler(flux) {
 		if (flux.id == 'ok') {
 			Flux.service.time.next({ id: 'bip', value: 'ok' });
 		} else if (flux.id == 'cancel') {
-			/*if (flux.value < 1) {
-				Flux.next('module', 'sound', 'mute');
-			} else*/ if (flux.value >= 1 && flux.value < 3) {
+			if (flux.value < 1) {
+				// Mute, do nothing
+			} else if (flux.value >= 1 && flux.value < 3) {
 				Flux.next('service', 'system', 'restart', null);
 			} else if (flux.value >= 3 && flux.value < 6) {
 				Flux.next('service', 'system', 'restart', 'sleep');
-			} else {
+			} else if (flux.value > 6) {
 				Flux.next('service', 'system', 'restart', 'test');
-			}
+			} else Odi.error('Button->else', flux);
 		} else if (flux.id == 'white') {
 			Flux.next('service', 'time', 'timer', Math.round(flux.value));
 		} else if (flux.id == 'blue') {

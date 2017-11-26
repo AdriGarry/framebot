@@ -71,7 +71,7 @@ function playFip(){
 	}
 
 	setTimeout(function(){
-		stopFip();
+		stop();
 	}, 60*60*1000);
 	Flux.next('module', 'sound', 'mute', {message: 'Auto Mute FIP'}, 60*60)
 };

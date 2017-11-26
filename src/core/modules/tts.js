@@ -40,7 +40,7 @@ function speak(tts) {
 	if (Utils.searchStringInArray(Odi.conf.mode, allowedModes)) {
 		// log.debug(tts);
 		if (Array.isArray(tts)) {
-			log.info('TTS array object... processing');
+			log.info('TTS array object... processing', tts);
 			tts.forEach(function(message) {
 				if (message.msg) {
 					speak(message);
