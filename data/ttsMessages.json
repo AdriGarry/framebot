@@ -6,15 +6,7 @@
 		},
 		{
 			"lg": "fr",
-			"msg": "De part mes circuits et transistors !"
-		},
-		{
-			"lg": "fr",
 			"msg": "Rien de nouveau sous le soleil !"
-		},
-		{
-			"lg": "fr",
-			"msg": "Et toi, t'en pense quoi ?"
 		},
 		{
 			"lg": "fr",
@@ -62,11 +54,6 @@
 		{
 			"lg": "fr",
 			"voice": "espeak",
-			"msg": "Eh, comment sa va vieille branche ?"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Si tu me cherches, tu vas me trouver !"
 		},
 		{
@@ -78,11 +65,6 @@
 			"lg": "fr",
 			"voice": "espeak",
 			"msg": "Saperlipopette !"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
-			"msg": "Moi, je suis un sacrer loustic"
 		},
 		{
 			"lg": "fr",
@@ -117,11 +99,6 @@
 		{
 			"lg": "fr",
 			"voice": "espeak",
-			"msg": "Je me sens un peu submerger par les evenements"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Toi, tu commence sairieusement a m'emmerder !"
 		},
 		{
@@ -145,24 +122,9 @@
 			"msg": "Et bien, ce n'est pas sa qui va faire avancer le chmilblik!"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
-			"msg": "Lejem laissem larlerpem en loutchaibem"
-		},
-		{
-			"lg": "en",
-			"voice": "espeak",
-			"msg": "What's the fuck ?"
-		},
-		{
 			"lg": "en",
 			"voice": "espeak",
 			"msg": "I'm gonna break the internet !"
-		},
-		{
-			"lg": "ru",
-			"voice": "google",
-			"msg": "Камиль"
 		},
 		{
 			"lg": "ru",
@@ -224,36 +186,12 @@
 			{
 				"lg": "fr",
 				"voice": "google",
-				"msg": "Je suis un humainoide !"
-			},
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Oui, et je m'apelle Odi"
-			}
-		],
-		[
-			{
-				"lg": "fr",
-				"voice": "google",
 				"msg": "Et ho, tu mecoute ?"
 			},
 			{
 				"lg": "fr",
 				"voice": "espeak",
 				"msg": "Non !"
-			}
-		],
-		[
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Non, pas maintenant"
-			},
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Et merde, j'etais concentrer !"
 			}
 		],
 		[
