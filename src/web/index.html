@@ -106,16 +106,24 @@
 		<div class="logs" data-ng-dblclick="refreshLog()">
 			<i class="debugLog fa fa-circle" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i>
 			<ul>
-				<li data-ng-repeat="logLine in logData track by $index" data-ng-bind-html="toHtml(logLine | formatLog)"></li>
+				<li data-ng-repeat="logLine in logData track by $index" data-ng-bind-html="toHtml(logLine | formatLog:log.mode)"></li>
 				<a id="bottomLogs"></a>
 			</ul>
 			<md-progress-circular md-diameter="150" data-ng-hide="logData"></md-progress-circular>
 		</div>
 		<div class="tools">
-			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Sleep', url: '/sleep'})" data-ng-show="irda" title="Sleep Odi"
+			<!-- <md-button class="md-fab md-warn" data-ng-click="action({label: 'Sleep', url: '/sleep'})" data-ng-show="irda" title="Sleep Odi"
 			 aria-label="Sleep Odi">
 				<i class="fa fa-2x fa-moon-o"></i>
-			</md-button>
+			</md-button> -->
+			<!-- <md-checkbox md-no-ink aria-label="LogMode" ng-model="log.mode" class="md-primary">
+				Full Log: {{log.mode}}
+			</md-checkbox> -->
+			<md-switch data-md-invert class="switch md-warn inline" aria-label="LogMode" title="Switch log mode" tabindex="0" type="checkbox"
+			 role="checkbox" data-ng-model="log.mode">
+				<span data-ng-show="log.mode">Full log</span>
+				<span data-ng-hide="log.mode">Light log</span>
+			</md-switch>
 			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="irda" title="Restart Odi"
 			 aria-label="Restart Odi">
 				<i class="fa fa-2x fa-flash"></i>

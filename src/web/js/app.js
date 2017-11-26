@@ -4,7 +4,9 @@ var app = angular.module('odiUI', ['ngMaterial', 'mdPickers' /*'pr.longpress'*/]
 app.constant("CONSTANTS", {
 	'UI_VERSION': 3.0,
 	'URL_ODI': 'http://odi.adrigarry.com',
-	'DATE_TIME_REGEX': new RegExp('[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', 'g'),
+	// 'DATE_TIME_REGEX': new RegExp('[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', 'g'),
+	'DATE_REGEX': new RegExp('[0-9]{2}/[0-9]{2} ', 'g'),
+	'FILE_REGEX': new RegExp('\\[[a-zA-Z]+.js\\] ', 'g'),
 	'IP_REGEX': new RegExp('(\\[(?=.*[0-9])(?=.*\\.)(?=.*\\:).*\\])', 'g'),
 	'IP_LOCALIZATOR_URL': 'http://www.traceip.net/?query='
 });
@@ -29,7 +31,11 @@ app.directive("scroll", function ($window){
 
 /** Filter to format logs (link on ip address) **/
 app.filter('formatLog', function(CONSTANTS){
-	return function(logLine){
+	return function(logLine, fullLog){
+		if(!fullLog){
+			logLine = logLine.replace(CONSTANTS.DATE_REGEX, '');
+			logLine = logLine.replace(CONSTANTS.FILE_REGEX, '');
+		}
 		logLine = logLine.replace(CONSTANTS.IP_REGEX, function(match, capture){
 			var ip = match.substr(1,match.length-2);
 			if(ip.search(/(^192\.168\.)/g)){

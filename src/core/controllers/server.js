@@ -98,7 +98,7 @@ function startUIServer(mode) {
 
 			if (!tooMuchBadRequests) {
 				if (Odi.conf.mode == 'ready'){
-					Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, .5);
+					Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, .5, null, true);
 				}
 			}
 
