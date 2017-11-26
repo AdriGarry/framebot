@@ -119,11 +119,16 @@
 			<!-- <md-checkbox md-no-ink aria-label="LogMode" ng-model="log.mode" class="md-primary">
 				Full Log: {{log.mode}}
 			</md-checkbox> -->
-			<md-switch data-md-invert class="switch md-warn inline" aria-label="LogMode" title="Switch log mode" tabindex="0" type="checkbox"
+			<!-- <md-switch data-md-invert class="md-warn inline" aria-label="LogMode" title="Switch log mode" tabindex="0" type="checkbox"
 			 role="checkbox" data-ng-model="log.mode">
-				<span data-ng-show="log.mode">Full log</span>
-				<span data-ng-hide="log.mode">Light log</span>
-			</md-switch>
+				Full log
+				<!-- <span data-ng-show="log.mode">Full log</span>
+				<span data-ng-hide="log.mode">Light log</span> - ->
+			</md-switch> -->
+			<md-button class="md-fab" data-ng-class="log.mode ? 'md-primary' : 'md-warn'" data-ng-click="log.mode = !log.mode" title="Toggle log mode"
+			 aria-label="Toggle log mode">
+				<i class="fa fa-2x" data-ng-class="log.mode ? 'fa-th' : 'fa-th-large'"></i>
+			</md-button>
 			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="irda" title="Restart Odi"
 			 aria-label="Restart Odi">
 				<i class="fa fa-2x fa-flash"></i>
