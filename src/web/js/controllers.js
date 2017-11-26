@@ -12,6 +12,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 
 	$scope.dashboard = {
 		odiState: setOdiState(),
+		run: null,
 		// odiState: {},
 		autoRefresh: true,
 		loading: false,
@@ -26,6 +27,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 			UIService.refreshDashboard(function(data){
 				if(data){
 					$scope.dashboard.odiState = setOdiState(data);
+					$scope.dashboard.run = data.run;
 					$scope.dashboard.runningData = data;
 					$scope.connexionLost = false;
 					failedRefreshs = 0;
@@ -35,7 +37,7 @@ app.controller('UIController', function($rootScope, $scope, $location, $http, $f
 					if(failedRefreshs >= 2) $scope.connexionLost = true;
 					$scope.connexionLost = true;
 				}
-				});
+			});
 			$scope.readyToRefresh = false;
 			$timeout(function(){
 				$scope.readyToRefresh = true;

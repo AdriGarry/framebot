@@ -138,6 +138,7 @@ function startUIServer(mode) {
 		var cpuUsage = Odi.run.cpuUsage;
 		var dashboard = {
 			config: Odi.conf,
+			run: Odi.run,
 			mode: {
 				value: {
 					// mode: Odi.conf.mode != 'sleep' ? (Odi.conf.debug ? 'Debug' : 'Ready') : 'Sleep',
