@@ -43,8 +43,9 @@ function buttonHandler(flux) {
 		} else if (flux.id == 'white') {
 			Flux.next('service', 'time', 'timer', Math.round(flux.value));
 		} else if (flux.id == 'blue') {
-			Flux.next('service', 'music', 'fip');
-			Flux.next('service', 'music', 'jukebox');
+			log.INFO('to fix!');
+			// Flux.next('service', 'music', 'fip'); // TODO
+			// Flux.next('service', 'music', 'jukebox'); // TODO
 		} else Odi.error('Button->else', flux);
 	}else{
 		if (flux.id == 'ok') {
