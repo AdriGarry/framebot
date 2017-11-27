@@ -17,7 +17,7 @@ module.exports = {
 
 /** Function jukebox (repeat) */
 function setParty(test){
-	console.log('LET\'S START PARTY !!  <|:-)  <|:-)  <|:-) \ntest: : ' + test);
+	log.info('LET\'S START PARTY !!  <|:-)  <|:-)  <|:-) \ntest: : ' + test);
 	if(test == true){
 			var deploy = spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'test']);
 			console.log('test = ' + test);

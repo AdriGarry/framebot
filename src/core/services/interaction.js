@@ -18,9 +18,17 @@ Flux.service.interaction.subscribe({
 		} else if (flux.id == 'adriExclamation') {
 			adriExclamation();
 		} else if (flux.id == 'weather') {
-			weatherService();
-		} else if (flux.id == 'weatherInteractive') {
-			weatherInteractiveService();
+			if(flux.value == 'random'){
+				if(Utils.random()){
+					weatherService();
+				}else{
+					weatherInteractiveService();
+				}
+			}else if(flux.value == 'interactive'){
+				weatherInteractiveService();
+			}else{
+				weatherService();
+			}
 		}else if (flux.id == 'russia') {
 			russia();
 		}else Odi.error('unmapped flux in Exclamation module', flux, false);
@@ -37,8 +45,7 @@ var randomActionBase = [
 	{type: 'service', subject: 'interaction', id: 'exclamation', weighting: 2},//4
 	{type: 'service', subject: 'time', id: 'now', weighting: 1},
 	{type: 'service', subject: 'time', id: 'today', weighting: 1},
-	{type: 'service', subject: 'interaction', id: 'weather', weighting: 1},
-	{type: 'service', subject: 'interaction', id: 'weatherInteractive', weighting: 3},//3
+	{type: 'service', subject: 'interaction', id: 'weather', value: 'random', weighting: 4},//4
 	{type: 'module', subject: 'hardware', id: 'cpu', weighting: 1},
 	{type: 'service', subject: 'time', id: 'OdiAge', weighting: 1},
 	{type:'service', subject:'interaction', id: 'adriExclamation', weighting: 1}

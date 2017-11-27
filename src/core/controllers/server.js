@@ -460,7 +460,7 @@ function startUIServer(mode) {
 			res.end();
 		});
 		ui.post('/weatherInteractive', function(req, res) {
-			Flux.next('service', 'interaction', 'weatherInteractive');
+			Flux.next('service', 'interaction', 'weather', 'interactive');
 			res.writeHead(200);
 			res.end();
 		});
