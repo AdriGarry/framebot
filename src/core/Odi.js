@@ -7,6 +7,7 @@ var fs = require('fs');
 
 var Odi = {
 	conf: require(ODI_PATH + 'conf.json'),
+	asleep: asleep,
 	run: {
 		etat: '.',
 		mood: [],
@@ -20,7 +21,6 @@ var Odi = {
 		update: '.',
 		totalLines: '.'
 	},
-	asleep: asleep,
 	error: error, //require(ODI_PATH + 'src/core/OdiError.json'), ??
 	errors: [],
 	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
@@ -75,7 +75,6 @@ function init(path, forcedParams) {
 }
 
 function asleep() {
-	// log.INFO('>>> asleep');
 	return Odi.conf.mode == 'sleep';
 }
 	
