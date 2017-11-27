@@ -55,7 +55,8 @@ function initButtonReady(){
 			if(!instance){
 				instance = true;
 				intervalEtat = setInterval(function(){
-					log.info('Etat btn On_', 'ODI.service.randomAction(); => to transform');
+					log.info('Etat btn Up_ => random action');
+					Flux.next('service', 'interaction', 'random');
 				}, intervalDelay); //5*60*1000
 			}
 		}else{

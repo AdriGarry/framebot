@@ -483,10 +483,10 @@ app.component('history', {
 		var ctrl = this;
 		var tileParams = {
 			label: 'History',
-			actionList:[{label: 'TTS', icon: 'file-text-o', url: 'http://odi.adrigarry.com/ttsUIHistory'},{
-				label: 'Voicemail', icon: 'file-text-o', url: 'http://odi.adrigarry.com/voicemailHistory'},{
-				label: 'Request', icon: 'file-text-o', url: 'http://odi.adrigarry.com/requestHistory'},{
-				label: 'Errors', icon: 'exclamation-circle', url: 'http://odi.adrigarry.com/errorHistory'}]
+			actionList:[{label: 'TTS', icon: 'commenting-o', url: 'http://odi.adrigarry.com/ttsUIHistory'},{
+				label: 'Voicemail', icon: 'envelope-o', url: 'http://odi.adrigarry.com/voicemailHistory'},{
+				label: 'Request', icon: 'exchange', url: 'http://odi.adrigarry.com/requestHistory'},{
+				label: 'Errors', icon: 'exclamation-triangle', url: 'http://odi.adrigarry.com/errorHistory'}]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 	}
