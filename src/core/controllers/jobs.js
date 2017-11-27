@@ -5,6 +5,7 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var CronJob = require('cron').CronJob;
+var spawn = require('child_process').spawn;
 
 var date = new Date();
 var hour = date.getHours();
@@ -53,8 +54,8 @@ function setInteractiveJobs() {
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('0 15 18 * * 1-5', function() {
-		Flux.next('service', 'music', 'fip');
-		/*ODI.utils.testConnexion(function(connexion) {
+		//Flux.next('service', 'music', 'fip');
+		ODI.utils.testConnexion(function(connexion) {
 			setTimeout(function() {
 				if (connexion == true) {
 					Flux.next('service', 'music', 'fip');
@@ -62,7 +63,7 @@ function setInteractiveJobs() {
 					Flux.next('service', 'music', 'jukebox');
 				}
 			}, 3000);
-		});*/
+		});
 	}, null, true, 'Europe/Paris');
 
 	// ALL DAYS
