@@ -75,15 +75,16 @@ if (Odi.conf.mode == 'sleep') {
 
 }else if (Odi.conf.mode == 'test') {
 	/////////////  TEST section  /////////////
+	Flux.next('module', 'tts', 'speak', {lg: 'en', msg: 'test sequence'});
 	setTimeout(function() {
-		Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 1 }, null, null, true);
+		// Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 1 }, null, null, true);
 		var testSequence = require(Odi._SRC + 'test/tests.js').launch(function(testStatus) {
-			Flux.next('module', 'tts', 'speak', {lg: 'en', msg: 'all tests succeeded!'})
+			Flux.next('module', 'tts', 'speak', {lg: 'en', msg: 'all tests succeeded!'});
 			setTimeout(function() {
 				if (testStatus) Flux.next('module', 'conf', 'updateRestart', { mode: 'ready' });
 			}, 3000);
 		});
-	}, 500);
+	}, 1000);
 }else{
 	// Alarm / Cocorico...
 	Flux.next('service', 'time', 'isAlarm');
