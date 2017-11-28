@@ -44,9 +44,9 @@ function initClock() {
 /** Function to set alarms */
 function setInteractiveJobs() {
 	// WEEKDAY
-	new CronJob('0 16 7,8 * * 1-5', function() {
-		Flux.next('module', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Je crois qu\'il faut lancer l\'opairation baluchon' });
-	}, null, true, 'Europe/Paris');
+	// new CronJob('0 16 7,8 * * 1-5', function() {
+	// 	Flux.next('module', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Je crois qu\'il faut lancer l\'opairation baluchon' });
+	// }, null, true, 'Europe/Paris');
 
 	new CronJob('0 18,20,22-25 8 * * 1-5', function() {
 		if (Utils.random()) Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: 'Go go go, allez au boulot' });

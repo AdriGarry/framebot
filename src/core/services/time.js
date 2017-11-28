@@ -116,7 +116,7 @@ function cocorico(mode){
 		Flux.next('service', 'interaction', 'weather', null, 8);
 		Flux.next('service', 'voicemail', 'check', null, 13);
 
-		Flux.next('module', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Je crois qu\'il faut lancer l\'opairation baluchon' }, 10*60, 6);
+		Flux.next('module', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Je crois qu\'il faut lancer l\'opairation baluchon' }, Utils.random(10, 20)*60, 6);
 
 		setTimeout(function(){
 			Odi.run.alarm = false;
