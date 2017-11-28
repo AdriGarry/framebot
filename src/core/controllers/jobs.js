@@ -55,7 +55,7 @@ function setInteractiveJobs() {
 
 	new CronJob('0 15 18 * * 1-5', function() {
 		//Flux.next('service', 'music', 'fip');
-		ODI.utils.testConnexion(function(connexion) {
+		Utils.testConnexion(function(connexion) {
 			setTimeout(function() {
 				if (connexion == true) {
 					Flux.next('service', 'music', 'fip');
@@ -77,7 +77,6 @@ function setInteractiveJobs() {
 	}, null, true, 'Europe/Paris');
 
 	new CronJob('13 13,25,40,51 17-22 * * *', function() {
-			// log.INFO('Action to define...');//ODI.service.randomAction();
 			Flux.next('service', 'interaction', 'random');
 		}, null, true, 'Europe/Paris'
 	);
