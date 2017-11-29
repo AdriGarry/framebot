@@ -62,7 +62,6 @@ function startUIServer(mode) {
 
 		Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);
 		
-		//if(req.url != '/dashboard' && req.url != '/log') Flux.next('module', 'sound', 'UI', null, null, null, true);
 		if(!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('module', 'sound', 'UI', null, null, null, true);
 		
 		if (req.connection.remoteAddress.indexOf('192.168') == -1) {

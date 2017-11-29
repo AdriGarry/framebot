@@ -6,7 +6,7 @@ app.constant("CONSTANTS", {
 	'URL_ODI': 'http://odi.adrigarry.com',
 	// 'DATE_TIME_REGEX': new RegExp('[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', 'g'),
 	'DATE_REGEX': new RegExp('[0-9]{2}/[0-9]{2} ', 'g'),
-	'FILE_REGEX': new RegExp('\\[[a-zA-Z]+.js\\] ', 'g'),
+	'FILE_REGEX': new RegExp('\\[[a-zA-Z]+.(js|JS)\\] ', 'g'),
 	'IP_REGEX': new RegExp('(\\[(?=.*[0-9])(?=.*\\.)(?=.*\\:).*\\])', 'g'),
 	'IP_LOCALIZATOR_URL': 'http://www.traceip.net/?query='
 });
