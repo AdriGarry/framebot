@@ -3,9 +3,9 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 
 	// Tile constructor function
 	function Tile(tile){
-		// var Tile = this; // TODO à implémenter sur tout ce fichier... !!
 		// Basic attributes
-		this.id = (tile.label.split(" ")[0].toLowerCase()) || ''; // setting tile id from first label word
+		// this.id = (tile.label.split(' ')[0].toLowerCase()) || ''; // setting tile id from first label word
+		this.id = (tile.label.split(' ')[0].toLowerCase() == 'text') ? 'tts' : ''; // setting tile id from first label word
 		this.label = tile.label || '';
 		this.expanded = tile.expanded || false;
 
