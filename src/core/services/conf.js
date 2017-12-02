@@ -12,7 +12,7 @@ Flux.module.conf.subscribe({
 	next: flux => {
 		if (flux.id == 'update') {
 			updateConf(flux.value, false);
-		}else if (flux.id == 'updateRestart') {
+		} else if (flux.id == 'updateRestart') {
 			updateConf(flux.value, true);
 		} else if (flux.id == 'updateDefault') {
 			updateDefaultConf(flux.value);
@@ -20,7 +20,7 @@ Flux.module.conf.subscribe({
 			resetCfg(flux.value);
 		} else if (flux.id == 'runtime') {
 			refreshRuntime(flux.value);
-		}else Odi.error('unmapped flux in Conf service', flux, false);
+		} else Odi.error('unmapped flux in Conf service', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
@@ -83,11 +83,11 @@ function resetCfg(restart) {
 
 /** Function to refresh Odi\'s runtime data (etat, timer, moods...) */
 function refreshRuntime() {
-	log.info('refreshing Odi\'s runtime...');
+	log.info("refreshing Odi's runtime...");
 	Flux.next('module', 'hardware', 'runtime', null, null, true);
 	// Flux.next('controller', 'button', 'runtime', null, null, true);
 	// Flux.next('module', 'hardware', '');
-	setTimeout(function(){
+	setTimeout(function() {
 		log.runtime(Odi.run);
 	}, 1000);
 }

@@ -2,7 +2,6 @@
 'use strict';
 
 var util = require('util');
-// var Table = require(ODI_PATH + 'src/core/Table.js');
 
 module.exports = Logger;
 
@@ -26,8 +25,6 @@ function Logger(filename, debugMode, dateTimePattern) {
 	this.DEBUG = DEBUG;
 	this.conf = logConf;
 	this.runtime = logRuntime;
-	this.table = tableLog;
-	// this.table = require(ODI_PATH + 'src/core/Table.js');
 	// this.lines = lines;
 	this.error = error;
 	return this;
@@ -83,6 +80,76 @@ function Logger(filename, debugMode, dateTimePattern) {
 		var col1 = 11,
 			col2 = 16;
 		var logArrayTitle = updatedEntries
+			? '│  CONFIG UPDATE          ' + executionTime + 'ms' + ' │'
+			: '│  CONFIG                        │';
+		var confArray = '┌' + '─'.repeat(32) + '┐\n' + logArrayTitle;
+		confArray += '\n' + '├' + '─'.repeat(13) + '┬' + '─'.repeat(18) + '┤\n'; //32
+		Object.keys(src).forEach(function(key, index) {
+			if (key == 'alarms') {
+				Object.keys(src[key]).forEach(function(key2, index2) {
+					if (key2 != 'd') {
+						var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
+						var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
+						c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
+						if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
+						confArray += '│ ' + c1 + ' │ ' + c2 + ' '.repeat(col2 - c2.length) + ' │\n';
+					}
+				});
+			} else {
+				var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
+				confArray +=
+					'│ ' +
+					(!updated ? '' : '*') +
+					key +
+					' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
+					' │ ' +
+					src[key] +
+					' '.repeat(col2 - src[key].toString().length) +
+					' │\n';
+			}
+		});
+		console.log(confArray + '└' + '─'.repeat(13) + '┴' + '─'.repeat(18) + '┘');
+	}
+
+	/** Function to log conf to array */
+	function logRuntime(src, updatedEntries, executionTime) {
+		var col1 = 11,
+			col2 = 16;
+		var logArrayTitle = '│  RUNTIME...                    │';
+		var confArray = '┌' + '─'.repeat(32) + '┐\n' + logArrayTitle;
+		confArray += '\n' + '├' + '─'.repeat(13) + '┬' + '─'.repeat(18) + '┤\n'; //32
+		Object.keys(src).forEach(function(key, index) {
+			if (key == 'alarms') {
+				Object.keys(src[key]).forEach(function(key2, index2) {
+					if (key2 != 'd') {
+						var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
+						var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
+						c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
+						if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
+						confArray += '│ ' + c1 + ' │ ' + c2 + ' '.repeat(col2 - c2.length) + ' │\n';
+					}
+				});
+			} else {
+				var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
+				confArray +=
+					'│ ' +
+					(!updated ? '' : '*') +
+					key +
+					' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
+					' │ ' +
+					src[key] +
+					' '.repeat(col2 - src[key].toString().length) +
+					' │\n';
+			}
+		});
+		console.log(confArray + '└' + '─'.repeat(13) + '┴' + '─'.repeat(18) + '┘');
+	}
+
+	/** Function to log conf to array */
+	function logConf_OLD(src, updatedEntries, executionTime) {
+		var col1 = 11,
+			col2 = 16;
+		var logArrayTitle = updatedEntries
 			? '|         CONFIG UPDATE   ' + executionTime + 'ms' + ' |'
 			: '|             CONFIG             |';
 		var confArray = '|--------------------------------|\n' + logArrayTitle + '\n|--------------------------------|\n';
@@ -114,7 +181,7 @@ function Logger(filename, debugMode, dateTimePattern) {
 	}
 
 	/** Function to log runtime to array */
-	function logRuntime(src, updatedEntries, executionTime) {
+	function logRuntime2(src, updatedEntries, executionTime) {
 		var col1 = 11;
 		var runtimeArray = '\n' + ' '.repeat(5) + 'RUNTIME';
 		Object.keys(src).forEach(function(key) {
@@ -123,22 +190,12 @@ function Logger(filename, debugMode, dateTimePattern) {
 		console.log(runtimeArray);
 	}
 	/** Function to log runtime to array */
-	function logRuntime2(src, updatedEntries, executionTime) {
+	function logRuntime3(src, updatedEntries, executionTime) {
 		var col1 = 11;
 		var runtimeArray = '\n' + ' '.repeat(9) + 'RUNTIME';
 		Object.keys(src).forEach(function(key) {
 			runtimeArray += '\n' + ' '.repeat(col1 - key.length) + key + ' | ' + src[key];
 		});
 		console.log(runtimeArray);
-	}
-
-	function tableLog(obj) {
-		var table = new Table({ chars: { mid: '', 'left-mid': '', 'mid-mid': '', 'right-mid': '' } });
-		// table.push(
-		// 	 ['foo', 'bar', 'baz']
-		//   , ['frobnicate', 'bar', 'quuz']
-		// );
-		table.push(obj);
-		console.log(table.toString());
 	}
 }

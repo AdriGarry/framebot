@@ -11,6 +11,7 @@ var exec = require('child_process').exec;
 // var util = require('util');
 
 module.exports = {
+	repeatString: repeatString,
 	appendJsonFile: appendJsonFile,
 	execCmd: execCmd,
 	firstLetterUpper: firstLetterUpper,
@@ -21,13 +22,23 @@ module.exports = {
 	numberWithDot: numberWithDot,
 	random: random,
 	searchStringInArray: searchStringInArray,
-	testConnexion: testConnexion,
-	// toTable: toTable
+	testConnexion: testConnexion
 };
+
+/**
+ * Repeats a string.
+ * @param {String} char(s)
+ * @param {Number} number of times
+ * @return {String} repeated string
+ */
+function repeatString(string, times) {
+	return Array(times + 1).join(string);
+}
 
 /** Function to append object in JSON file */
 function appendJsonFile(filePath, obj, callback) {
-	var fileData, startTime = new Date();
+	var fileData,
+		startTime = new Date();
 	fs.exists(filePath, function(exists) {
 		if (exists) {
 			fs.readFile(filePath, 'utf8', function(err, data) {
@@ -53,7 +64,7 @@ function appendJsonFile(filePath, obj, callback) {
 				.replace(/\"{/g, '{')
 				.replace(/\}"/g, '}');
 			// log.debug(fileData);
-			fs.writeFile(filePath, fileData, function(){
+			fs.writeFile(filePath, fileData, function() {
 				log.debug('file ' + filePath + ' created in', getExecutionTime(startTime) + 'ms');
 			});
 		}
@@ -106,11 +117,9 @@ function execCmd(command, callback) {
 	});
 }
 
-
 function firstLetterUpper(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
-
 
 /** Function to repeat/concat a string */
 String.prototype.repeat = function(num) {
@@ -143,11 +152,11 @@ function numberWithDot(number) {
 // }
 
 var min, max;
-function random(arg1, arg2){
-	if(arg2){
+function random(arg1, arg2) {
+	if (arg2) {
 		min = arg1;
 		max = arg2;
-	}else{
+	} else {
 		min = 0;
 		max = arg1 | 1;
 	}
@@ -207,8 +216,3 @@ function logTime(param, date) {
   //   output += property + ': ' + object[property]+'; ';
   // }
 };*/
-
-
-function toTable(){
-	console.log('toTable()');
-}
