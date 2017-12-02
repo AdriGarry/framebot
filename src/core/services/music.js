@@ -55,7 +55,6 @@ var fipInterval;
 function playFip(){
 	if(!Odi.run.music){
 		log.info('Play FIP RADIO...');
-		// spawn('sh', ['/home/pi/odi/core/sh/fip.sh']);
 		spawn('sh', [Odi._SHELL + 'fip.sh']);
 		Odi.run.music = true;
 		Flux.next('module', 'led', 'altLeds', {speed: 100, duration: 1.3});

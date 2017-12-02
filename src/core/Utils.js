@@ -22,6 +22,7 @@ module.exports = {
 	random: random,
 	searchStringInArray: searchStringInArray,
 	testConnexion: testConnexion,
+	// toTable: toTable
 };
 
 /** Function to append object in JSON file */
@@ -206,3 +207,8 @@ function logTime(param, date) {
   //   output += property + ': ' + object[property]+'; ';
   // }
 };*/
+
+
+function toTable(){
+	console.log('toTable()');
+}

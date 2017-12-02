@@ -7,7 +7,6 @@
 # TODO
 
 # --> Restart Odi Core
-sh /home/pi/odi/core/sh/watch.sh /home/pi/odi/core "sudo killall node;sh /home/pi/odi/start.sh &"
-sh /home/pi/odi/core/sh/watch.sh /home/pi/odi/web "sudo killall node;sh /home/pi/odi/start.sh &"
+sh /home/pi/odi/src/shell/watch.sh /home/pi/odi/src "sudo killall node;sh /home/pi/odi/odi.sh &"
 
 

@@ -133,5 +133,5 @@ function getDiskSpace(callback) {
 /** Function to clean and archive logs */
 function cleanLog(){
 	log.info('cleaning logs');
-	spawn('sh', ['/home/pi/odi/core/sh/log.sh', 'clean']);
+	spawn('sh', [Odi._SHELL + 'log.sh', 'clean']);
 };

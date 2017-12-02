@@ -30,7 +30,7 @@ build(){
 	# echo -n "building:\n"
 	echo $cmd
 	$cmd
-	# sh "/home/pi/odi/core/sh/watchAction.sh" updateLastModified
+	# sh "/home/pi/odi/src/shell/watchAction.sh" updateLastModified
 	echo "|--> watcher > resume watching..."
 	sudo touch /home/pi/odi/titi
 }

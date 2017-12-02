@@ -29,7 +29,11 @@ Flux.controller.jobs.subscribe({
 function buttonHandler(flux) {
 	if(Odi.conf.mode != 'sleep'){
 		if (flux.id == 'ok') {
-			Flux.service.time.next({ id: 'bip', value: 'ok' });
+			if(Odi.run.voicemail){
+				Flux.next('service', 'voicemail', 'check');
+			}else{
+				Flux.next('service', 'interaction', 'random');
+			}
 		} else if (flux.id == 'cancel') {
 			if (flux.value < 1) {
 				// Mute, do nothing

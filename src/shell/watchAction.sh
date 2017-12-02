@@ -20,8 +20,8 @@ echo $1
 if [ $1 = "updateLastModified" ]; then
 	updateLastModified
 elif [ $1 = "watch" ]; then
-	sh "/home/pi/odi/core/sh/watcher.sh" /home/pi/odi/core/ "sh /home/pi/odi/core/sh/watchAction.sh updateLastModified" &
-	sh "/home/pi/odi/core/sh/watcher.sh" /home/pi/odi/data/ "sh /home/pi/odi/core/sh/watchAction.sh updateLastModified" &
-	sh "/home/pi/odi/core/sh/watcher.sh" /home/pi/odi/web/ "sh /home/pi/odi/core/sh/watchAction.sh updateLastModified" &
+	sh "/home/pi/odi/src/shell/watcher.sh" /home/pi/odi/core/ "sh /home/pi/odi/src/shell/watchAction.sh updateLastModified" &
+	sh "/home/pi/odi/src/shell/watcher.sh" /home/pi/odi/data/ "sh /home/pi/odi/src/shell/watchAction.sh updateLastModified" &
+	sh "/home/pi/odi/src/shell/watcher.sh" /home/pi/odi/web/ "sh /home/pi/odi/src/shell/watchAction.sh updateLastModified" &
 	echo "--------------> TOTO2"
 fi

@@ -2,11 +2,14 @@
 'use strict';
 
 var util = require('util');
+// var Table = require(ODI_PATH + 'src/core/Table.js');
 
 module.exports = Logger;
 
 const dateTimeDefaultPattern = 'D/M h:m:s';
-var Odi, Utils, modeDebug = false;
+var Odi,
+	Utils,
+	modeDebug = false;
 
 function Logger(filename, debugMode, dateTimePattern) {
 	Utils = require(ODI_PATH + 'src/core/Utils.js');
@@ -23,6 +26,8 @@ function Logger(filename, debugMode, dateTimePattern) {
 	this.DEBUG = DEBUG;
 	this.conf = logConf;
 	this.runtime = logRuntime;
+	this.table = tableLog;
+	// this.table = require(ODI_PATH + 'src/core/Table.js');
 	// this.lines = lines;
 	this.error = error;
 	return this;
@@ -69,7 +74,7 @@ function Logger(filename, debugMode, dateTimePattern) {
 	}
 
 	function error() {
-		console.log('___________________');
+		console.log('______________');
 		console.error(Utils.logTime(), '[' + filename + ']', 'ERR >>', formatLog(arguments));
 	}
 
@@ -117,7 +122,6 @@ function Logger(filename, debugMode, dateTimePattern) {
 		});
 		console.log(runtimeArray);
 	}
-
 	/** Function to log runtime to array */
 	function logRuntime2(src, updatedEntries, executionTime) {
 		var col1 = 11;
@@ -127,5 +131,14 @@ function Logger(filename, debugMode, dateTimePattern) {
 		});
 		console.log(runtimeArray);
 	}
-}
 
+	function tableLog(obj) {
+		var table = new Table({ chars: { mid: '', 'left-mid': '', 'mid-mid': '', 'right-mid': '' } });
+		// table.push(
+		// 	 ['foo', 'bar', 'baz']
+		//   , ['frobnicate', 'bar', 'quuz']
+		// );
+		table.push(obj);
+		console.log(table.toString());
+	}
+}

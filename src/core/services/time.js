@@ -109,7 +109,7 @@ function cocorico(mode){
 	setTimeout(function(){
 		log.INFO('cocorico !!', mode || '');
 		spawn('sh', [Odi._SHELL + 'sounds.sh', 'cocorico']);
-		// spawn('sh', ['/home/pi/odi/core/sh/sounds.sh', 'birthday']);
+		// spawn('sh', [Odi._SHELL + 'sounds.sh', 'birthday']);
 
 		Flux.next('service', 'time', 'now', null, 3);
 		Flux.next('service', 'time', 'today', null, 5);

@@ -2,7 +2,7 @@
 
 clear
 
-ODI_PATH="/home/pi/odi/newOdi"
+ODI_PATH="/home/pi/odi"
 # ODI_PATH="/home/pi/odi_5.0"
 echo $ODI_PATH
 
