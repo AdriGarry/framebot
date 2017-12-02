@@ -231,7 +231,7 @@ function startUIServer(mode) {
 
 	ui.get('/runtime', function(req, res) {
 		res.writeHead(200);
-		log.runtime(Odi.run);
+		log.table(Odi.run);
 		res.end(JSON.stringify(Odi.run));
 	});
 

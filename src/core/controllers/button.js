@@ -12,7 +12,7 @@ var ok = new Gpio(20, 'in', 'rising', { persistentWatch: true, debounceTimeout: 
 var cancel = new Gpio(16, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
 var white = new Gpio(19, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
 var blue = new Gpio(26, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
-var etat = new Gpio(13, 'in', 'both', {persistentWatch:true,debounceTimeout:500});
+var etat = new Gpio(13, 'in', 'both', { persistentWatch: true, debounceTimeout: 500 });
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
@@ -21,7 +21,7 @@ const DEBOUNCE_LIMIT = 0.1;
 // else initButtonReady();
 initButtonReady();
 
-function initButtonReady(){
+function initButtonReady() {
 	ok.watch(function(err, value) {
 		var pushTime = getPushTime(ok);
 		//oneMorePush();
@@ -41,40 +41,41 @@ function initButtonReady(){
 
 	blue.watch(function(err, value) {
 		var pushTime = getPushTime(blue);
-		if(pushTime > DEBOUNCE_LIMIT) Flux.next('controller', 'button', 'blue', pushTime);
+		if (pushTime > DEBOUNCE_LIMIT) Flux.next('controller', 'button', 'blue', pushTime);
 		else log.info('Blue button pushed not enough:', pushTime);
 	});
 
 	/** Interval pour l'etat du switch + fonctions associees */
-	var instance = false, intervalEtat;
-	var intervalDelay = Odi.conf.debug ? 2*60*1000 : 5*60*1000;
-	setInterval(function(){
+	var instance = false,
+		intervalEtat;
+	var intervalDelay = Odi.conf.debug ? 2 * 60 * 1000 : 5 * 60 * 1000;
+	setInterval(function() {
 		var value = etat.readSync();
-		Flux.next('module', 'led', 'toggle', {leds: ['satellite'], value: value}, null, null, true);
-		if(1 === value){
-			if(!instance){
+		Flux.next('module', 'led', 'toggle', { leds: ['satellite'], value: value }, null, null, true);
+		if (1 === value) {
+			if (!instance) {
 				instance = true;
-				intervalEtat = setInterval(function(){
+				intervalEtat = setInterval(function() {
 					log.info('Etat btn Up_ => random action');
 					Flux.next('service', 'interaction', 'random');
 				}, intervalDelay); //5*60*1000
 			}
-		}else{
+		} else {
 			instance = false;
 			clearInterval(intervalEtat);
 		}
 	}, 2000);
 
 	/** Switch watch for radio volume */
-	etat.watch(function(err, value){
+	etat.watch(function(err, value) {
 		value = etat.readSync();
 		Odi.run.etat = value;
 		log.info('Etat:', value, '[Etat has changed]');
-		if(Odi.run.music){
+		if (Odi.run.music) {
 			Flux.next('module', 'sound', 'mute');
 			Flux.next('service', 'music', 'fip', null, 0.1);
 		}
-		log.runtime(Odi.run);
+		log.table(Odi.run, 'RUNTIME...');
 	});
 
 	// var pushed = 0,
@@ -103,7 +104,7 @@ function initButtonReady(){
 	// }
 }
 
-function initButtonSleep(){
+function initButtonSleep() {
 	ok.watch(function(err, value) {
 		var pushTime = getPushTime(ok);
 		// Flux.next('controller', 'button', 'ok', pushTime);
