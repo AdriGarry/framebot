@@ -23,9 +23,9 @@ function Logger(filename, debugMode, dateTimePattern) {
 	this.enableDebug = enableDebug;
 	this.debug = debug;
 	this.DEBUG = DEBUG;
-	this.conf = logConf;
-	this.runtime = logRuntime;
-	// this.lines = lines;
+	this.table = table;
+	// this.conf = logConf;
+	// this.runtime = logRuntime;
 	this.error = error;
 	return this;
 
@@ -75,15 +75,18 @@ function Logger(filename, debugMode, dateTimePattern) {
 		console.error(Utils.logTime(), '[' + filename + ']', 'ERR >>', formatLog(arguments));
 	}
 
-	/** Function to log conf to array */
-	function logConf(src, updatedEntries, executionTime) {
+	// executionTime + 'ms';
+
+	/** Function to array an object */
+	function table(src, title, updatedEntries) {
 		var col1 = 11,
 			col2 = 16;
-		var logArrayTitle = updatedEntries
-			? '│  CONFIG UPDATE          ' + executionTime + 'ms' + ' │'
-			: '│  CONFIG                        │';
+		var logArrayTitle = '';
+		if (title) {
+			logArrayTitle = '│  ' + title + ' '.repeat(col1 + col2 + 2 - title.length) + ' │';
+			logArrayTitle += '\n' + '├' + '─'.repeat(13) + '┬' + '─'.repeat(18) + '┤\n';
+		}
 		var confArray = '┌' + '─'.repeat(32) + '┐\n' + logArrayTitle;
-		confArray += '\n' + '├' + '─'.repeat(13) + '┬' + '─'.repeat(18) + '┤\n'; //32
 		Object.keys(src).forEach(function(key, index) {
 			if (key == 'alarms') {
 				Object.keys(src[key]).forEach(function(key2, index2) {
@@ -111,91 +114,127 @@ function Logger(filename, debugMode, dateTimePattern) {
 		console.log(confArray + '└' + '─'.repeat(13) + '┴' + '─'.repeat(18) + '┘');
 	}
 
-	/** Function to log conf to array */
-	function logRuntime(src, updatedEntries, executionTime) {
-		var col1 = 11,
-			col2 = 16;
-		var logArrayTitle = '│  RUNTIME...                    │';
-		var confArray = '┌' + '─'.repeat(32) + '┐\n' + logArrayTitle;
-		confArray += '\n' + '├' + '─'.repeat(13) + '┬' + '─'.repeat(18) + '┤\n'; //32
-		Object.keys(src).forEach(function(key, index) {
-			if (key == 'alarms') {
-				Object.keys(src[key]).forEach(function(key2, index2) {
-					if (key2 != 'd') {
-						var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
-						var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
-						c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
-						if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
-						confArray += '│ ' + c1 + ' │ ' + c2 + ' '.repeat(col2 - c2.length) + ' │\n';
-					}
-				});
-			} else {
-				var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
-				confArray +=
-					'│ ' +
-					(!updated ? '' : '*') +
-					key +
-					' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
-					' │ ' +
-					src[key] +
-					' '.repeat(col2 - src[key].toString().length) +
-					' │\n';
-			}
-		});
-		console.log(confArray + '└' + '─'.repeat(13) + '┴' + '─'.repeat(18) + '┘');
-	}
+	// /** Function to log conf to array */
+	// function logConf(src, updatedEntries, executionTime) {
+	// 	var col1 = 11,
+	// 		col2 = 16;
+	// 	var logArrayTitle = updatedEntries
+	// 		? '│  CONFIG UPDATE          ' + executionTime + 'ms' + ' │'
+	// 		: '│  CONFIG                        │';
+	// 	var confArray = '┌' + '─'.repeat(32) + '┐\n' + logArrayTitle;
+	// 	confArray += '\n' + '├' + '─'.repeat(13) + '┬' + '─'.repeat(18) + '┤\n'; //32
+	// 	Object.keys(src).forEach(function(key, index) {
+	// 		if (key == 'alarms') {
+	// 			Object.keys(src[key]).forEach(function(key2, index2) {
+	// 				if (key2 != 'd') {
+	// 					var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
+	// 					var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
+	// 					c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
+	// 					if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
+	// 					confArray += '│ ' + c1 + ' │ ' + c2 + ' '.repeat(col2 - c2.length) + ' │\n';
+	// 				}
+	// 			});
+	// 		} else {
+	// 			var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
+	// 			confArray +=
+	// 				'│ ' +
+	// 				(!updated ? '' : '*') +
+	// 				key +
+	// 				' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
+	// 				' │ ' +
+	// 				src[key] +
+	// 				' '.repeat(col2 - src[key].toString().length) +
+	// 				' │\n';
+	// 		}
+	// 	});
+	// 	console.log(confArray + '└' + '─'.repeat(13) + '┴' + '─'.repeat(18) + '┘');
+	// }
 
-	/** Function to log conf to array */
-	function logConf_OLD(src, updatedEntries, executionTime) {
-		var col1 = 11,
-			col2 = 16;
-		var logArrayTitle = updatedEntries
-			? '|         CONFIG UPDATE   ' + executionTime + 'ms' + ' |'
-			: '|             CONFIG             |';
-		var confArray = '|--------------------------------|\n' + logArrayTitle + '\n|--------------------------------|\n';
-		Object.keys(src).forEach(function(key, index) {
-			if (key == 'alarms') {
-				Object.keys(src[key]).forEach(function(key2, index2) {
-					if (key2 != 'd') {
-						var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
-						var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
-						c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
-						if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
-						confArray += '| ' + c1 + ' | ' + c2 + ' '.repeat(col2 - c2.length) + ' |\n';
-					}
-				});
-			} else {
-				var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
-				confArray +=
-					'| ' +
-					(!updated ? '' : '*') +
-					key +
-					' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
-					' | ' +
-					src[key] +
-					' '.repeat(col2 - src[key].toString().length) +
-					' |\n';
-			}
-		});
-		console.log(confArray + '|--------------------------------|');
-	}
+	// /** Function to log conf to array */
+	// function logRuntime(src, updatedEntries, executionTime) {
+	// 	var col1 = 11,
+	// 		col2 = 16;
+	// 	var logArrayTitle = '│  RUNTIME...                    │';
+	// 	var confArray = '┌' + '─'.repeat(32) + '┐\n' + logArrayTitle;
+	// 	confArray += '\n' + '├' + '─'.repeat(13) + '┬' + '─'.repeat(18) + '┤\n'; //32
+	// 	Object.keys(src).forEach(function(key, index) {
+	// 		if (key == 'alarms') {
+	// 			Object.keys(src[key]).forEach(function(key2, index2) {
+	// 				if (key2 != 'd') {
+	// 					var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
+	// 					var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
+	// 					c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
+	// 					if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
+	// 					confArray += '│ ' + c1 + ' │ ' + c2 + ' '.repeat(col2 - c2.length) + ' │\n';
+	// 				}
+	// 			});
+	// 		} else {
+	// 			var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
+	// 			confArray +=
+	// 				'│ ' +
+	// 				(!updated ? '' : '*') +
+	// 				key +
+	// 				' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
+	// 				' │ ' +
+	// 				src[key] +
+	// 				' '.repeat(col2 - src[key].toString().length) +
+	// 				' │\n';
+	// 		}
+	// 	});
+	// 	console.log(confArray + '└' + '─'.repeat(13) + '┴' + '─'.repeat(18) + '┘');
+	// }
 
-	/** Function to log runtime to array */
-	function logRuntime2(src, updatedEntries, executionTime) {
-		var col1 = 11;
-		var runtimeArray = '\n' + ' '.repeat(5) + 'RUNTIME';
-		Object.keys(src).forEach(function(key) {
-			runtimeArray += '\n' + ' '.repeat(col1 - key.length) + key + ' | ' + src[key];
-		});
-		console.log(runtimeArray);
-	}
-	/** Function to log runtime to array */
-	function logRuntime3(src, updatedEntries, executionTime) {
-		var col1 = 11;
-		var runtimeArray = '\n' + ' '.repeat(9) + 'RUNTIME';
-		Object.keys(src).forEach(function(key) {
-			runtimeArray += '\n' + ' '.repeat(col1 - key.length) + key + ' | ' + src[key];
-		});
-		console.log(runtimeArray);
-	}
+	// /** Function to log conf to array */
+	// function logConf_OLD(src, updatedEntries, executionTime) {
+	// 	var col1 = 11,
+	// 		col2 = 16;
+	// 	var logArrayTitle = updatedEntries
+	// 		? '|         CONFIG UPDATE   ' + executionTime + 'ms' + ' |'
+	// 		: '|             CONFIG             |';
+	// 	var confArray = '|--------------------------------|\n' + logArrayTitle + '\n|--------------------------------|\n';
+	// 	Object.keys(src).forEach(function(key, index) {
+	// 		if (key == 'alarms') {
+	// 			Object.keys(src[key]).forEach(function(key2, index2) {
+	// 				if (key2 != 'd') {
+	// 					var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
+	// 					var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
+	// 					c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
+	// 					if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
+	// 					confArray += '| ' + c1 + ' | ' + c2 + ' '.repeat(col2 - c2.length) + ' |\n';
+	// 				}
+	// 			});
+	// 		} else {
+	// 			var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
+	// 			confArray +=
+	// 				'| ' +
+	// 				(!updated ? '' : '*') +
+	// 				key +
+	// 				' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
+	// 				' | ' +
+	// 				src[key] +
+	// 				' '.repeat(col2 - src[key].toString().length) +
+	// 				' |\n';
+	// 		}
+	// 	});
+	// 	console.log(confArray + '|--------------------------------|');
+	// }
+
+	// /** Function to log runtime to array */
+	// function logRuntime2(src, updatedEntries, executionTime) {
+	// 	var col1 = 11;
+	// 	var runtimeArray = '\n' + ' '.repeat(5) + 'RUNTIME';
+	// 	Object.keys(src).forEach(function(key) {
+	// 		runtimeArray += '\n' + ' '.repeat(col1 - key.length) + key + ' | ' + src[key];
+	// 	});
+	// 	console.log(runtimeArray);
+	// }
+	// /** Function to log runtime to array */
+	// function logRuntime3(src, updatedEntries, executionTime) {
+	// 	var col1 = 11;
+	// 	var runtimeArray = '\n' + ' '.repeat(9) + 'RUNTIME';
+	// 	Object.keys(src).forEach(function(key) {
+	// 		runtimeArray += '\n' + ' '.repeat(col1 - key.length) + key + ' | ' + src[key];
+	// 	});
+	// 	console.log(runtimeArray);
+	// }
 }

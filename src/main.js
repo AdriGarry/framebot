@@ -61,8 +61,8 @@ Object.keys(observers).forEach(function(observer) {
 	log.info(observer, 'loaded:', observersLoaded);
 });
 
-log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
 Flux.next('module', 'conf', 'runtime');
+log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
 
 // Flux.next('service', 'interaction', 'exclamation');
 // Flux.next('service', 'interaction', 'random');
@@ -106,8 +106,6 @@ if (Odi.conf.mode == 'sleep') {
 		Flux.next('service', 'voicemail', 'check');
 	}
 }
-
-// Flux.next('service', 'interaction', 'random', null, 7, 4);
 
 // var start = new Date();
 // setTimeout(function(argument) {

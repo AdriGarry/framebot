@@ -6,7 +6,7 @@
  *		401 : Unauthorized (sleep)
  *		418 : I'm a teapot ! (autres requetes POST)
  *		424 : Method failure (erreur)
-  */
+ */
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
@@ -44,7 +44,12 @@ function prepareLogs(lines, callback) {
 startUIServer();
 function startUIServer(mode) {
 	ui = express();
-	var request, ip, params, ipClient, unauthorizedRequestNb = 0, tooMuchBadRequests = false;
+	var request,
+		ip,
+		params,
+		ipClient,
+		unauthorizedRequestNb = 0,
+		tooMuchBadRequests = false;
 	const noSoundUrl = ['/dashboard', '/log'];
 
 	ui.use(compression()); // Compression web
@@ -61,9 +66,9 @@ function startUIServer(mode) {
 		res.header('Access-Control-Allow-Origin', 'http://adrigarry.com');
 
 		Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);
-		
-		if(!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('module', 'sound', 'UI', null, null, null, true);
-		
+
+		if (!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('module', 'sound', 'UI', null, null, null, true);
+
 		if (req.connection.remoteAddress.indexOf('192.168') == -1) {
 			// Logging not local requests
 			var newRequest = Utils.logTime('D/M h:m:s ') + request + ' [' + req.connection.remoteAddress + ']\r\n';
@@ -95,8 +100,8 @@ function startUIServer(mode) {
 			unauthorizedRequestNb++;
 
 			if (!tooMuchBadRequests) {
-				if (Odi.conf.mode == 'ready'){
-					Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, .5, null, true);
+				if (Odi.conf.mode == 'ready') {
+					Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, 0.5, null, true);
 				}
 			}
 
@@ -108,7 +113,7 @@ function startUIServer(mode) {
 		}
 	};
 	ui.use(logger);
-	
+
 	ui.get('/monitoring2', function(req, res) {
 		// DEPRECATED ???
 		//console.log(/\d/.test(mode));
@@ -162,13 +167,13 @@ function startUIServer(mode) {
 			hardware: { value: { usage: cpuUsage, temp: cpuTemp }, active: cpuTemp > 55 || cpuUsage >= 20 ? true : false },
 			alarms: { value: Odi.conf.alarms, active: true },
 			//config: {value: Odi.conf},
-			version: { value: 'toto'/*Odi.conf.version*/ }, // DEPRECATED !
+			version: { value: 'toto' /*Odi.conf.version*/ }, // DEPRECATED !
 			debug: { value: Odi.conf.debug } // TO DEPRECATE...
 		};
 		res.writeHead(200);
 		res.end(JSON.stringify(dashboard));
 	});
-	
+
 	/** POST ALARM SETTING */
 	ui.post('/alarm', function(req, res) {
 		params = req.body;
@@ -219,7 +224,8 @@ function startUIServer(mode) {
 		res.writeHead(200);
 		res.end(fs.readFileSync(Odi._CONF, 'utf8').toString());
 		//console.debug(Odi.conf.toString());
-		log.conf(Odi.conf);
+		// log.conf(Odi.conf);
+		log.table(Odi.conf, 'CONFIG');
 		res.end(JSON.stringify(Odi.conf));
 	});
 
@@ -288,7 +294,7 @@ function startUIServer(mode) {
 			log.info('>> Admin granted !');
 		} else {
 			Odi.error('>> User NOT granted /!\\', pattern, false);
-			Flux.next('module', 'tts', 'speak', {lg:'en', msg:'User NOT granted'}, .5);
+			Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'User NOT granted' }, 0.5);
 		}
 		res.send(granted);
 		if (granted) granted = false;
@@ -362,7 +368,7 @@ function startUIServer(mode) {
 			log.debug('/russia', params);
 			if (params.hasOwnProperty('hymn')) {
 				spawn('sh', [Odi._SHELL + 'music.sh', 'urss']);
-				Flux.next('module', 'led', 'altLeds', {speed: 70, loop: 20}, null, null, true);
+				Flux.next('module', 'led', 'altLeds', { speed: 70, loop: 20 }, null, null, true);
 			} else {
 				Flux.next('service', 'interaction', 'russia');
 			}
@@ -503,7 +509,8 @@ function startUIServer(mode) {
 			res.end();
 		});
 	} else {
-		ui.post('/tts', function(req, res) { // Add Voice Mail Message
+		ui.post('/tts', function(req, res) {
+			// Add Voice Mail Message
 			params = req.query;
 			if (params['voice'] && params['lg'] && params['msg']) {
 				Flux.next('service', 'voicemail', 'new', { voice: params.voice, lg: params.lg, msg: params.msg });
@@ -530,12 +537,12 @@ function startUIServer(mode) {
 		log.info('UI server started [' + Odi.conf.mode + ']');
 		Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 120, loop: 3 }, null, null, 'hidden');
 	});
-};
+}
 
-function closingServerTemporary(){
+function closingServerTemporary() {
 	log.info('closingServerTemporary');
 	ui.close;
-	setTimeout(function(){
+	setTimeout(function() {
 		startUIServer();
 	}, 3000);
 }

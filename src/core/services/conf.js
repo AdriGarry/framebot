@@ -54,7 +54,12 @@ function doUpdate(file, newConf, restart, callback) {
 		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
 		Odi.conf = configFile;
 		fs.writeFile(file, JSON.stringify(Odi.conf, null, 1), function() {
-			log.conf(Odi.conf, updatedEntries, Utils.getExecutionTime(updateBegin, '    '));
+			// log.conf(Odi.conf, updatedEntries, Utils.getExecutionTime(updateBegin, '    '));
+			log.table(
+				Odi.conf,
+				'CONFIG UPDATE' + ' '.repeat(8) + Utils.getExecutionTime(updateBegin, '    ') + 'ms',
+				updatedEntries
+			);
 			if (restart) process.exit();
 			if (callback) callback();
 		});
@@ -64,9 +69,6 @@ function doUpdate(file, newConf, restart, callback) {
 /** Function to reset Odi's config */
 function resetCfg(restart) {
 	log.info('resetCfg()', restart ? 'and restart' : '');
-	log.conf(Odi.conf);
-	//	config.update = now('dt');
-
 	var stream = fs.createReadStream(Odi._DATA + 'defaultConf.json'); /*, {bufferSize: 64 * 1024}*/
 	stream.pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
 	var had_error = false;
@@ -88,7 +90,7 @@ function refreshRuntime() {
 	// Flux.next('controller', 'button', 'runtime', null, null, true);
 	// Flux.next('module', 'hardware', '');
 	setTimeout(function() {
-		log.runtime(Odi.run);
+		log.table(Odi.run, 'RUNTIME...');
 	}, 1000);
 }
 
