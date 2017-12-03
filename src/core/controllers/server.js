@@ -202,7 +202,6 @@ function startUIServer(mode) {
 	ui.post('/resetConfig', function(req, res) {
 		log.debug('UI > Reset config');
 		Flux.next('module', 'conf', 'reset', true);
-		// Odi.reset(true);
 		res.writeHead(200);
 		res.end();
 	});
