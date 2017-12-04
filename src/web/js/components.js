@@ -4,32 +4,32 @@ app.component('tts', {
 		data: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function($window, DefaultTile, UIService){
+	controller: function($window, DefaultTile, UIService) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Text To Speech',
-			actionList:[],
+			actionList: [],
 			expanded: false //collapsed
 		};
 		ctrl.access = true;
 		ctrl.tile = new DefaultTile(tileParams, true);
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function($event){
-			if(!ctrl.tile.expanded){
+		ctrl.tile.click = function($event) {
+			if (!ctrl.tile.expanded) {
 				ctrl.toggleTileHeight();
 				focusOnTtsInput();
 			}
 			return false;
 		};
 
-		ctrl.toggleTileHeight = function(){
+		ctrl.toggleTileHeight = function() {
 			ctrl.tile.expanded = !ctrl.tile.expanded;
 		};
 
-		function focusOnTtsInput(){
+		function focusOnTtsInput() {
 			$window.document.getElementById('ttsMsg').focus(); // Setting to focus on tts message input
-		};
+		}
 
 		ctrl.tts = {
 			voice: 'espeak',
@@ -38,31 +38,39 @@ app.component('tts', {
 			voicemail: false,
 			error: '',
 			conf: {
-				languageList: [{code: 'fr', label: 'French'}, {code: 'en', label: 'English'}, {code: 'ru', label: 'Russian'},
-					{code: 'es', label: 'Spanish'}, {code: 'it', label: 'Italian'}, {code: 'de', label: 'German'}]/*,
+				languageList: [
+					{ code: 'fr', label: 'French' },
+					{ code: 'en', label: 'English' },
+					{ code: 'ru', label: 'Russian' },
+					{ code: 'es', label: 'Spanish' },
+					{ code: 'it', label: 'Italian' },
+					{ code: 'de', label: 'German' }
+				] /*,
 				voiceList: [{code: ':3', label: 'Nice voice'}, {code: ':1', label: 'Robot voice'}]*/
 			},
-			cleanText: function(){ // TODO create an UtilsService.. ==> OR A FILTER !!!!
+			cleanText: function() {
+				// TODO create an UtilsService.. ==> OR A FILTER !!!!
 				console.log('cleanText');
 				var message = ctrl.tts.msg || '';
-				message = message.replace(/[àáâãäå]/g,'a'); // TODO chainer les replace
-				message = message.replace(/[ç]/g,'c');
-				message = message.replace(/[èéêë]/g,'e');
-				message = message.replace(/[îï]/g,'i');
-				message = message.replace(/[ôóö]/g,'o');
-				message = message.replace(/[ûüù]/g,'u');
+				message = message.replace(/[àáâãäå]/g, 'a'); // TODO chainer les replace
+				message = message.replace(/[ç]/g, 'c');
+				message = message.replace(/[èéêë]/g, 'e');
+				message = message.replace(/[îï]/g, 'i');
+				message = message.replace(/[ôóö]/g, 'o');
+				message = message.replace(/[ûüù]/g, 'u');
 				//message = message.replace(/[<>]/g,''); // Others characters
 				ctrl.tts.msg = message;
 			},
-			submit: function(){
+			submit: function() {
 				console.log('submit', ctrl.tts);
-				if(ctrl.tts.msg != ''){
-					UIService.sendTTS(ctrl.tts, function(callback){
-						if(callback.status == 200){
-							ctrl.tts.msg = ''; ctrl.tts.error = ''; // Reinit TTS
+				if (ctrl.tts.msg != '') {
+					UIService.sendTTS(ctrl.tts, function(callback) {
+						if (callback.status == 200) {
+							ctrl.tts.msg = '';
+							ctrl.tts.error = ''; // Reinit TTS
 						}
 					});
-				}else{
+				} else {
 					focusOnTtsInput();
 				}
 			}
@@ -77,15 +85,33 @@ app.component('mode', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Mode',
-			actionList:[{label: 'Reset', icon: 'retweet', url: '/resetConfig'},{
-				label: 'Test', icon: 'cubes', url: '/testSequence'},{
-				label: '!Debug', icon: 'terminal', url: '/toggleDebug'},{
-				label: 'Sleep', icon: 'moon-o', url: '/sleep'},{
-				label: 'Restart', icon: 'bolt', url: '/odi'}]
+			actionList: [
+				{ label: 'Reset', icon: 'retweet', url: '/resetConfig' },
+				{
+					label: 'Test',
+					icon: 'cubes',
+					url: '/testSequence'
+				},
+				{
+					label: '!Debug',
+					icon: 'terminal',
+					url: '/toggleDebug'
+				},
+				{
+					label: 'Sleep',
+					icon: 'moon-o',
+					url: '/sleep'
+				},
+				{
+					label: 'Restart',
+					icon: 'bolt',
+					url: '/odi'
+				}
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 	}
@@ -98,17 +124,17 @@ app.component('volume', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Volume',
-			actionList:[{label: 'Mute', url: '/mute'}]
+			actionList: [{ label: 'Mute', url: '/mute' }]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
-		ctrl.hasAccess = function(){
+		ctrl.hasAccess = function() {
 			console.log('hasAccess()', ctrl.access);
 			return ctrl.access;
-		}
+		};
 	}
 });
 
@@ -120,50 +146,56 @@ app.component('alarms', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile, UIService, $mdpTimePicker){
+	controller: function(DefaultTile, UIService, $mdpTimePicker) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Alarms',
-			actionList:[{label: 'weekDay', icon: 'frown-o', url: '/alarm'},{
-				label: 'weekEnd', icon: 'smile-o', url: '/alarm'}]
+			actionList: [
+				{ label: 'weekDay', icon: 'frown-o', url: '/alarm' },
+				{
+					label: 'weekEnd',
+					icon: 'smile-o',
+					url: '/alarm'
+				}
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function(){
+		ctrl.tile.click = function() {
 			ctrl.tile.openBottomSheet(this.actionList, specificActions);
-		}
+		};
 
-		var showTimePicker = function(ev){ // A déplacer dans Tile.js ?
+		var showTimePicker = function(ev) {
+			// A déplacer dans Tile.js ?
 			$mdpTimePicker(new Date(), {
 				targetEvent: ev,
 				autoSwitch: true
-			}).then(function(selectedDate){
+			}).then(function(selectedDate) {
 				ctrl.newAlarm.params = {
 					when: ctrl.newAlarm.label,
-					h:selectedDate.getHours(),
-					m:selectedDate.getMinutes()
+					h: selectedDate.getHours(),
+					m: selectedDate.getMinutes()
 				};
-				ctrl.newAlarm.toast = ctrl.newAlarm.label + ' alarm set to ' + ctrl.newAlarm.params.h
-					+ ':' + ctrl.newAlarm.params.m;
-				UIService.sendCommand(ctrl.newAlarm, function(data){
-				});
-			});;
+				ctrl.newAlarm.toast =
+					ctrl.newAlarm.label + ' alarm set to ' + ctrl.newAlarm.params.h + ':' + ctrl.newAlarm.params.m;
+				UIService.sendCommand(ctrl.newAlarm, function(data) {});
+			});
 		};
 
-		var specificActions = function(button){
+		var specificActions = function(button) {
 			ctrl.newAlarm = button;
 			showTimePicker();
 		};
 
 		/** Function to display alarm of the day */
-		ctrl.isTodayAlarm = function(days){
-			if(days.indexOf(new Date().getDay()) >- 1){
+		ctrl.isTodayAlarm = function(days) {
+			if (days.indexOf(new Date().getDay()) > -1) {
 				return true;
 			}
 			return;
-		}
+		};
 	}
 });
 
@@ -175,11 +207,14 @@ app.component('voicemail', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Voicemail',
-			actionList:[{label: 'Clear', icon: 'trash-o', url: '/clearVoiceMail'},{label: 'Play', icon: 'play', url: '/checkVoiceMail'}]
+			actionList: [
+				{ label: 'Clear', icon: 'trash-o', url: '/clearVoiceMail' },
+				{ label: 'Play', icon: 'play', url: '/checkVoiceMail' }
+			]
 		};
 
 		ctrl.tile = new DefaultTile(tileParams);
@@ -195,12 +230,12 @@ app.component('hardware', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Hardware',
 			//disableOnSleep: true,
-			actionList:[{url: '/cpuTemp'}]
+			actionList: [{ url: '/cpuTemp' }]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
@@ -215,14 +250,28 @@ app.component('exclamation', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Exclamation',
-			actionList:[{label: 'Conversation', icon: 'comments-o', url: '/conversation'},{
-				label: 'TTS', icon: 'commenting-o', url: '/tts?msg=RANDOM'},{
-				label: 'Exclamation', icon: 'bullhorn', url: '/exclamation'},{
-				label: 'Last TTS', icon: 'undo', url: '/lastTTS'}]
+			actionList: [
+				{ label: 'Conversation', icon: 'comments-o', url: '/conversation' },
+				{
+					label: 'TTS',
+					icon: 'commenting-o',
+					url: '/tts?msg=RANDOM'
+				},
+				{
+					label: 'Exclamation',
+					icon: 'bullhorn',
+					url: '/exclamation'
+				},
+				{
+					label: 'Last TTS',
+					icon: 'undo',
+					url: '/lastTTS'
+				}
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
@@ -237,11 +286,14 @@ app.component('jukebox', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Jukebox',
-			actionList:[{label: 'Jukebox', icon: 'random', url: '/jukebox'},{label: 'FIP Radio', icon: 'globe', url: '/fip'}]
+			actionList: [
+				{ label: 'Jukebox', icon: 'random', url: '/jukebox' },
+				{ label: 'FIP Radio', icon: 'globe', url: '/fip' }
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
@@ -256,11 +308,14 @@ app.component('timer', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Timer',
-			actionList:[{label: 'Stop timer', icon: 'stop', url: '/timer?stop'},{label: 'Timer +1', icon: 'plus', url: '/timer'}]
+			actionList: [
+				{ label: 'Stop timer', icon: 'stop', url: '/timer?stop' },
+				{ label: 'Timer +1', icon: 'plus', url: '/timer' }
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
@@ -272,17 +327,27 @@ app.component('time', {
 	bindings: {
 		data: '<',
 		access: '<',
-		odiState: '<',
+		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Time',
 			// actionList:[{url: '/time'}]
-			actionList:[{label: 'Odi\'s age', icon: 'birthday-cake', url: '/age'},{
-				label: 'Today', icon: 'calendar', url: '/date'},{
-				label: 'Time', icon: 'clock-o', url: '/time'}]
+			actionList: [
+				{ label: "Odi's age", icon: 'birthday-cake', url: '/age' },
+				{
+					label: 'Today',
+					icon: 'calendar',
+					url: '/date'
+				},
+				{
+					label: 'Time',
+					icon: 'clock-o',
+					url: '/time'
+				}
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
@@ -297,11 +362,14 @@ app.component('date', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Date',
-			actionList:[{label: 'Odi\'s age', icon: 'birthday-cake', url: '/age'},{label: 'Today', icon: 'calendar', url: '/date'}]
+			actionList: [
+				{ label: "Odi's age", icon: 'birthday-cake', url: '/age' },
+				{ label: 'Today', icon: 'calendar', url: '/date' }
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		//this.tile.data = this.data;
@@ -317,12 +385,18 @@ app.component('weather', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Weather',
-			actionList:[{label: 'Official weather', icon: 'cloud', url: '/weather'},{
-				label: 'Random weather', icon: 'cloud-upload', url: '/weatherInteractive'}]
+			actionList: [
+				{ label: 'Official weather', icon: 'cloud', url: '/weather' },
+				{
+					label: 'Random weather',
+					icon: 'cloud-upload',
+					url: '/weatherInteractive'
+				}
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
@@ -337,13 +411,23 @@ app.component('idea', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Idea',
-			actionList:[{label: 'AAAdri', icon: 'font', url: '/adriExclamation'},{
-				label: 'Idea', icon: 'lightbulb-o', url: '/idea'},{
-				label: 'Test', icon: 'flag-checkered', url:'/test'}]
+			actionList: [
+				{ label: 'AAAdri', icon: 'font', url: '/adriExclamation' },
+				{
+					label: 'Idea',
+					icon: 'lightbulb-o',
+					url: '/idea'
+				},
+				{
+					label: 'Test',
+					icon: 'flag-checkered',
+					url: '/test'
+				}
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
@@ -358,12 +442,18 @@ app.component('stories', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Stories',
-			actionList:[{label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk'},{
-				label: 'Survivaure', icon: 'space-shuttle', url: '/survivaure'}]
+			actionList: [
+				{ label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk' },
+				{
+					label: 'Survivaure',
+					icon: 'space-shuttle',
+					url: '/survivaure'
+				}
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
@@ -378,25 +468,31 @@ app.component('badBoy', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Bad boy',
-			actionList:[{label: 'BadBoy Mode', icon: 'comments', url:'/badBoy', continu: true},{
-				label: 'BadBoy TTS', icon: 'comment', url:'/badBoy'}]
+			actionList: [
+				{ label: 'BadBoy Mode', icon: 'comments', url: '/badBoy', continu: true },
+				{
+					label: 'BadBoy TTS',
+					icon: 'comment',
+					url: '/badBoy'
+				}
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function(){
+		ctrl.tile.click = function() {
 			ctrl.tile.openBottomSheet(this.actionList, specificActions);
-		}
+		};
 
-		var specificActions = function(button){
-			if(button.label.indexOf('TTS') != -1){
+		var specificActions = function(button) {
+			if (button.label.indexOf('TTS') != -1) {
 				ctrl.tile.action(button);
-			}else{
+			} else {
 				var slider = {
 					label: 'Bad boy interval',
 					url: '/badBoy',
@@ -407,7 +503,7 @@ app.component('badBoy', {
 					value: 60,
 					action: null
 				};
-				ctrl.tile.openSliderBottomSheet(slider)
+				ctrl.tile.openSliderBottomSheet(slider);
 			}
 		};
 	}
@@ -421,12 +517,23 @@ app.component('party', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Party',
-			actionList:[{label: 'Party mode', icon: 'child', url: '/setParty'},{
-				label: 'Cigales', icon: 'bug', url: '/cigales'}]
+			actionList: [
+				{ label: 'Party mode', icon: 'child', url: '/setParty' },
+				{
+					label: 'Cigales',
+					icon: 'bug',
+					url: '/cigales'
+				},
+				{
+					label: 'Pirate',
+					icon: 'beer',
+					url: '/pirate'
+				}
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
@@ -441,12 +548,18 @@ app.component('russia', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Russia',
-			actionList:[{label: 'Subway / Street', icon: 'subway', url: '/russia'},{
-				label: 'Hymn', icon: 'star', url: '/russia?hymn'}]
+			actionList: [
+				{ label: 'Subway / Street', icon: 'subway', url: '/russia' },
+				{
+					label: 'Hymn',
+					icon: 'star',
+					url: '/russia?hymn'
+				}
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
@@ -461,12 +574,14 @@ app.component('videos', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Video',
-			actionList:[{label: 'Sleep', icon: 'stop', url: '/videoOff'},
-				{label: 'Play', icon: 'play', url: '/playVideo'}]
+			actionList: [
+				{ label: 'Sleep', icon: 'stop', url: '/videoOff' },
+				{ label: 'Play', icon: 'play', url: '/playVideo' }
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 	}
@@ -479,14 +594,28 @@ app.component('history', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'History',
-			actionList:[{label: 'TTS', icon: 'commenting-o', url: 'http://odi.adrigarry.com/ttsUIHistory'},{
-				label: 'Voicemail', icon: 'envelope-o', url: 'http://odi.adrigarry.com/voicemailHistory'},{
-				label: 'Request', icon: 'exchange', url: 'http://odi.adrigarry.com/requestHistory'},{
-				label: 'Errors', icon: 'exclamation-triangle', url: 'http://odi.adrigarry.com/errorHistory'}]
+			actionList: [
+				{ label: 'TTS', icon: 'commenting-o', url: 'http://odi.adrigarry.com/ttsUIHistory' },
+				{
+					label: 'Voicemail',
+					icon: 'envelope-o',
+					url: 'http://odi.adrigarry.com/voicemailHistory'
+				},
+				{
+					label: 'Request',
+					icon: 'exchange',
+					url: 'http://odi.adrigarry.com/requestHistory'
+				},
+				{
+					label: 'Errors',
+					icon: 'exclamation-triangle',
+					url: 'http://odi.adrigarry.com/errorHistory'
+				}
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 	}
@@ -499,12 +628,18 @@ app.component('runtime', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Runtime',
-			actionList:[{label: 'Config', icon: 'cogs', url: 'http://odi.adrigarry.com/config.json'},{
-				label: 'Runtime', icon: 'codepen', url: 'http://odi.adrigarry.com/runtime'}]
+			actionList: [
+				{ label: 'Config', icon: 'cogs', url: 'http://odi.adrigarry.com/config.json' },
+				{
+					label: 'Runtime',
+					icon: 'codepen',
+					url: 'http://odi.adrigarry.com/runtime'
+				}
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 	}
@@ -517,11 +652,14 @@ app.component('system', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'System',
-			actionList:[{label: 'Shutdown', icon: 'power-off', url: '/shutdown'},{label: 'Reboot', icon: 'refresh', url: '/reboot'}]
+			actionList: [
+				{ label: 'Shutdown', icon: 'power-off', url: '/shutdown' },
+				{ label: 'Reboot', icon: 'refresh', url: '/reboot' }
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 	}
@@ -530,14 +668,14 @@ app.component('system', {
 /** About component */
 app.component('about', {
 	bindings: {
-		data: '<',
+		data: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile){
+	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'About',
-			actionList:[]
+			actionList: []
 		};
 		ctrl.access = true;
 		ctrl.tile = new DefaultTile(tileParams, true);

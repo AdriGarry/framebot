@@ -29,11 +29,6 @@
 		{
 			"lg": "fr",
 			"voice": "espeak",
-			"msg": "Je crois qu'il faut lancer l'opairation baluchon"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Hey, tu te fous de moi ou quoi ?"
 		},
 		{
@@ -575,6 +570,10 @@
 		{
 			"lg": "fr",
 			"msg": "Non mais t'as vu ta gueule ?"
+		},
+		{
+			"lg": "fr",
+			"msg": "Mais tu vas fermer ta gueule, oui ?"
 		},
 		{
 			"lg": "fr",

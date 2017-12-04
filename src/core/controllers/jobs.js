@@ -109,7 +109,7 @@ function setInteractiveJobs() {
 	);
 
 	new CronJob(
-		'0 40 18,19 * * *',
+		'0 19 19 * * *',
 		function() {
 			Flux.next('module', 'tts', 'speak', {
 				lg: 'fr',

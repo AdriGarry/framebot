@@ -38,7 +38,7 @@ const observers = {
 	},
 	services: {
 		sleep: ['conf', 'system', 'time', 'voicemail', 'video'],
-		all: ['mood', 'interaction', 'music', 'max']
+		all: ['mood', 'interaction', 'music', 'party', 'max']
 	},
 	controllers: {
 		sleep: ['button', 'jobs', 'server']
@@ -113,3 +113,6 @@ if (Odi.conf.mode == 'sleep') {
 // 	var end = new Date() - start;
 // 	console.info('Execution time: %dms', end);
 // }, 5000);
+
+// Flux.next('service', 'party', 'pirate', null, 2, 2);
+Flux.next('service', 'party', 'pirate', 'full', 3);

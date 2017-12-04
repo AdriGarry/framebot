@@ -489,8 +489,13 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/setParty', function(req, res) {
-			// Set Party Mode
-			// ODI.party.setParty();
+			Flux.next('service', 'party', 'start');
+			res.writeHead(200);
+			res.end();
+		});
+
+		ui.post('/pirate', function(req, res) {
+			Flux.next('service', 'party', 'pirate');
 			res.writeHead(200);
 			res.end();
 		});

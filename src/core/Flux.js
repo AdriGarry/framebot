@@ -24,6 +24,7 @@ var Flux = {
 		interaction: new Rx.Subject(), // exclamation, weather...
 		max: new Rx.Subject(), // Max & Co...
 		mood: new Rx.Subject(), // badBoy, party, [cigales ?]
+		party: new Rx.Subject(), // badBoy, party, [cigales ?]
 		music: new Rx.Subject(), // fip, jukebox
 		time: new Rx.Subject(),
 		tools: new Rx.Subject(), // ??
