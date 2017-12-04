@@ -16,10 +16,10 @@ const odiLeds = {
 	satellite: new Gpio(23, 'out')
 };
 
-allLedsOn();
-setTimeout(function() {
-	allLedsOff();
-}, 300);
+// allLedsOn();
+// setTimeout(function() {
+// 	allLedsOff();
+// }, 300);
 
 //module.exports.attachToFlux = {};
 
@@ -55,11 +55,12 @@ Flux.module.led.subscribe({
  * 	leds : ['eye', 'satellite'...]
  *		speed : number (50 - 200)
  *		loop : number (<1)
- } */
+ *	}
+ */
 function blink(config) {
-	// console.log(config);
 	try {
-		var etat = 1, loop;
+		var etat = 1,
+			loop;
 		if (config.hasOwnProperty('leds')) {
 			setTimeout(function() {
 				for (var led in config.leds) {
@@ -71,11 +72,9 @@ function blink(config) {
 					function(leds) {
 						for (var i in leds) {
 							var led = leds[i];
-							// console.log('led : ' + led);
-							//eval(led).write(etat); // TODO remplacer eval
 							odiLeds[led].write(etat);
 						}
-						etat = 1 - etat; // VOIR POUR ALTERNER ??
+						etat = 1 - etat;
 					},
 					config.speed * loop,
 					config.leds
@@ -132,7 +131,8 @@ function toggle(config) {
 
 /** Function to start inverted blink (Eye/Belly) */
 var timer;
-function altLeds(args) { // args : {speed, duration}
+function altLeds(args) {
+	// args : {speed, duration}
 	clearInterval(timer);
 	var etat = 1;
 	timer = setInterval(function() {
