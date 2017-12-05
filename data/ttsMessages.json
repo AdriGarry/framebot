@@ -566,6 +566,46 @@
 			"msg": "Bonne nuit mes loulous"
 		}
 	],
+	"party": [
+		{
+			"lg": "fr",
+			"msg": "Je crois que je vais encore mal finir ce soir !"
+		},
+		{
+			"lg": "fr",
+			"msg": "Je suis percher"
+		},
+		[
+			{
+				"lg": "fr",
+				"msg": "Allez hop"
+			},
+			{
+				"lg": "fr",
+				"msg": "Tout le monde cul sec !!"
+			}
+		],
+		[
+			{
+				"lg": "fr",
+				"msg": "Allez hop"
+			},
+			{
+				"lg": "fr",
+				"msg": "Tout le monde cul sec !!"
+			}
+		],
+		[
+			{
+				"lg": "fr",
+				"msg": "Vive la biaire!"
+			},
+			{
+				"lg": "fr",
+				"msg": "Allez encore une petite mousse !"
+			}
+		]
+	],
 	"badBoy": [
 		{
 			"lg": "fr",

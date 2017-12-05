@@ -522,12 +522,12 @@ app.component('party', {
 		var tileParams = {
 			label: 'Party',
 			actionList: [
-				{ label: 'Party mode', icon: 'child', url: '/setParty' },
 				{
 					label: 'Cigales',
 					icon: 'bug',
 					url: '/cigales'
 				},
+				{ label: 'Party mode', icon: 'child', url: '/setParty' },
 				{
 					label: 'Pirate',
 					icon: 'beer',

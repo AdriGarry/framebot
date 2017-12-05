@@ -115,4 +115,8 @@ if (Odi.conf.mode == 'sleep') {
 // }, 5000);
 
 // Flux.next('service', 'party', 'pirate', null, 2, 2);
-Flux.next('service', 'party', 'pirate', 'full', 3);
+// Flux.next('service', 'party', 'pirate', 'full', 3);
+
+// for (var i = 0; i < 50; i++) {
+// 	console.log(Utils.random(2, 5));
+// }

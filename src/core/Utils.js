@@ -151,8 +151,8 @@ function numberWithDot(number) {
 // 	return Math.floor(Math.random()*(maxValueNotIncluded));
 // }
 
-var min, max;
 function random(arg1, arg2) {
+	var min, max;
 	if (arg2) {
 		min = arg1;
 		max = arg2;
