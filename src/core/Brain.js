@@ -27,12 +27,17 @@ Flux.controller.jobs.subscribe({
 });
 
 function buttonHandler(flux) {
-	if(Odi.conf.mode != 'sleep'){
+	if (Odi.conf.mode != 'sleep') {
 		if (flux.id == 'ok') {
-			if(Odi.run.voicemail){
-				Flux.next('service', 'voicemail', 'check');
-			}else{
-				Flux.next('service', 'interaction', 'random');
+			console.log('Odi.run.mood.indexOf(party) > 1', Odi.run.mood.indexOf('party') > 0);
+			if (Odi.run.mood.indexOf('party') > 0) {
+				Flux.next('service', 'party', 'tts');
+			} else {
+				if (Odi.run.voicemail) {
+					Flux.next('service', 'voicemail', 'check');
+				} else {
+					Flux.next('service', 'interaction', 'random');
+				}
 			}
 		} else if (flux.id == 'cancel') {
 			if (flux.value < 1) {
@@ -51,22 +56,11 @@ function buttonHandler(flux) {
 			// Flux.next('service', 'music', 'fip'); // TODO
 			// Flux.next('service', 'music', 'jukebox'); // TODO
 		} else Odi.error('Button->else', flux);
-	}else{
+	} else {
 		if (flux.id == 'ok') {
 			Flux.next('service', 'system', 'restart', null);
 		}
 	}
-}
-
-function jobsHandler(flux) {
-	if (flux.id == 'clock') {
-		Flux.service.time.next({ id: 'now', value: null });
-	} else if (flux.id == 'sound') {
-		Flux.module.led.next({
-			id: 'blink',
-			value: { leds: ['nose'], speed: 100, loop: 1 }
-		});
-	} else Odi.error('Jobs->else', flux);
 }
 
 log.info('Brain ready'); //loaded/compiled

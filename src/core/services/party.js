@@ -12,6 +12,8 @@ Flux.service.party.subscribe({
 	next: flux => {
 		if (flux.id == 'start') {
 			start(flux.value);
+		} else if (flux.id == 'tts') {
+			partyTTS(flux.value);
 		} else if (flux.id == 'pirate') {
 			pirate(flux.value);
 		} else {
@@ -33,22 +35,21 @@ function start() {
 
 var lastRdmNb;
 function firePartyActionAndRandom() {
-	var nextActionTimeout = Utils.random(1, 5) * 45; //2, 10
+	var nextActionTimeout = Utils.random(1, 5) * 30; //2, 10
 
 	log.debug('firePartyActionAndRandom(). next action=', nextActionTimeout);
 	console.log('firePartyActionAndRandom(). next action=', nextActionTimeout);
 	setTimeout(function() {
 		log.info('firing next party action...');
-		var rdmAction = Utils.random(3);
-		while (Utils.random(6) == lastRdmNb) {}
+		var rdmAction = Utils.random(8);
 		switch (rdmAction) {
 			case 0:
-				Flux.next('service', 'party', 'pirate');
+				pirate();
 				break;
 			case 1:
-				Flux.next('service', 'party', 'pirate');
+				pirate('full');
 				break;
-			case 2:
+			case (2, 3):
 				Flux.next('service', 'mood', 'badBoy');
 				break;
 			default:
@@ -86,6 +87,7 @@ var rdmNb,
 	lastRdmNb = [],
 	rdmTTS = '';
 function getNewRdmPartyTTS() {
+	console.log('---->getNewRdmPartyTTS()');
 	do {
 		rdmNb = Utils.random(PARTY_TTS_LENGTH);
 		rdmTTS = Odi.ttsMessages.party[rdmNb];

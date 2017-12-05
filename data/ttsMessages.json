@@ -6,6 +6,10 @@
 		},
 		{
 			"lg": "fr",
+			"msg": "Et ho, je suis la !"
+		},
+		{
+			"lg": "fr",
 			"msg": "Rien de nouveau sous le soleil !"
 		},
 		{
@@ -573,7 +577,31 @@
 		},
 		{
 			"lg": "fr",
-			"msg": "Je suis percher"
+			"msg": "Ce soir, on va se mettre plutot mal!"
+		},
+		{
+			"lg": "fr",
+			"msg": "A votre bonne santai mes amis!"
+		},
+		{
+			"lg": "fr",
+			"msg": "Et, maccorderiez vous cette danse ?"
+		},
+		{
+			"lg": "fr",
+			"msg": "Je vois bien que tu me fais de l'oeil"
+		},
+		{
+			"lg": "fr",
+			"msg": "Ce soir, sait la faite !"
+		},
+		{
+			"lg": "fr",
+			"msg": "Moi, j'ai un petit creux"
+		},
+		{
+			"lg": "fr",
+			"msg": "Moi, je suis content"
 		},
 		[
 			{
