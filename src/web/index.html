@@ -155,7 +155,8 @@
 					<div flex>Debug</div>
 					<div flex>
 						<md-switch class="switch md-primary" aria-label="Debug mode" title="Debug mode" tabindex="0" type="checkbox" role="checkbox"
-						 data-ng-model="dashboard.odiState.debug > 0 ? true : false" data-ng-click="irda && toggleDebugMode()" data-ng-disabled="!irda"></md-switch>
+						 data-ng-model="dashboard.odiState.debug > 0 ? true : false" data-ng-model-options="{getterSetter:true}" data-ng-click="irda && toggleDebugMode()"
+						 data-ng-disabled="!irda"></md-switch>
 					</div>
 				</md-list-item>
 				<md-divider></md-divider>

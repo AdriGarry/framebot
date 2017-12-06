@@ -33,8 +33,8 @@ var CronJob = require('cron').CronJob;
 
 const observers = {
 	modules: {
-		sleep: ['led', 'hardware'],
-		all: ['sound', 'tts']
+		sleep: ['led', 'hardware', 'sound'],
+		all: ['tts']
 	},
 	services: {
 		sleep: ['conf', 'system', 'time', 'voicemail', 'video'],
@@ -106,6 +106,8 @@ if (Odi.conf.mode == 'sleep') {
 		Flux.next('service', 'voicemail', 'check');
 	}
 }
+
+// Flux.next('module', 'sound', 'mute', { message: 'Auto Mute FIP', delay: 2 }, 10);
 
 // var start = new Date();
 // setTimeout(function(argument) {

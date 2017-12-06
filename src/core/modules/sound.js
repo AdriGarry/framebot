@@ -12,13 +12,17 @@ Flux.module.sound.subscribe({
 	next: flux => {
 		if (flux.id == 'mute') {
 			mute(flux.value);
-		} else if (flux.id == 'volume' && Odi.isAwake()) {
-			// todo setVolume(flux.value);
-		} else if (flux.id == 'error' && Odi.isAwake()) {
-			spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
-		} else if (flux.id == 'UI' && Odi.isAwake()) {
-			spawn('sh', [Odi._SHELL + 'sounds.sh', 'UIRequest']);
-		} else Odi.error('unmapped flux in Sound module', flux, false);
+		} else if (Odi.isAwake()) {
+			if (flux.id == 'volume') {
+				// todo setVolume(flux.value);
+			} else if (flux.id == 'error') {
+				spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
+			} else if (flux.id == 'UI') {
+				spawn('sh', [Odi._SHELL + 'sounds.sh', 'UIRequest']);
+			} else {
+				Odi.error('unmapped flux in Sound module', flux, false);
+			}
+		}
 	},
 	error: err => {
 		Odi.error(flux);
@@ -36,7 +40,7 @@ function mute(args) {
 		muteTimer = setTimeout(function() {
 			spawn('sh', [Odi._SHELL + 'mute.sh', 'auto']);
 			setTimeout(function() {
-				stopAll(args.message || nul);
+				stopAll(args.message || null);
 			}, 1600);
 		}, Number(args.delay) * 1000);
 	} else {

@@ -8,81 +8,84 @@ var spawn = require('child_process').spawn;
 
 Flux.service.music.subscribe({
 	next: flux => {
-		if(flux.id == 'jukebox'){
+		if (flux.id == 'jukebox') {
 			jukebox();
-		}else if(flux.id == 'fip'){
+		} else if (flux.id == 'fip') {
 			playFip();
-		}else if(flux.id == 'stop'){
+		} else if (flux.id == 'stop') {
 			stop();
-		}else Odi.error('unmapped flux in Music service', flux, false);
+		} else Odi.error('unmapped flux in Music service', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
 	}
 });
 
-var playing, ledMusicFlag;
-function ledFlag(){
-	ledMusicFlag = setInterval(function(){
-		if(playing){
-			Flux.next('module', 'led', 'altLeds', {speed: 100, duration: 1.3});
+var ledMusicFlag;
+function ledFlag() {
+	ledMusicFlag = setInterval(function() {
+		if (Odi.run.music) {
+			Flux.next('module', 'led', 'altLeds', { speed: 100, duration: 1.3 });
+		} else {
+			clearInterval(ledMusicFlag);
 		}
-	}, 13*1000);
+	}, 13 * 1000);
 }
 
 /** Function jukebox (repeat) */
-function jukebox(message){
-	Flux.next('module', 'sound', 'mute');
-	setTimeout(function(){
+function jukebox(message) {
+	// if (Odi.run.music) {
+	// 	Flux.next('module', 'sound', 'mute');
+	// }
+	stop();
+	setTimeout(function() {
 		log.info('Jukebox in loop mode !');
 		spawn('sh', [Odi._SHELL + 'jukebox.sh']);
-		Flux.next('module', 'sound', 'mute', {message: 'Auto mute jukebox !'}, 60*60)
+		Odi.run.music = true;
+		ledFlag();
+		Flux.next('module', 'sound', 'mute', { message: 'Auto mute jukebox !', delay: 2 }, 60 * 60);
 	}, 500);
-};
+}
 
 /** Function medley jukebox (repeat) */
-function medley(message){
-	Flux.next('module', 'sound', 'mute');
-	setTimeout(function(){
+function medley(message) {
+	// if (Odi.run.music) {
+	// 	Flux.next('module', 'sound', 'mute');
+	// }
+	stop();
+	setTimeout(function() {
 		log.info('Jukebox in medley mode !');
 		spawn('sh', [Odi._SHELL + 'jukebox.sh', 'medley']);
-		Flux.next('module', 'sound', 'mute', {message: 'Auto mute jukebox !'}, 60*60)
-	}, 300);
-};
-
-var fipInterval;
-/** Function to play FIP radio */
-function playFip(){
-	if(!Odi.run.music){
-		log.info('Play FIP RADIO...');
-		spawn('sh', [Odi._SHELL + 'fip.sh']);
 		Odi.run.music = true;
-		Flux.next('module', 'led', 'altLeds', {speed: 100, duration: 1.3});
+		ledFlag();
+		Flux.next('module', 'sound', 'mute', { message: 'Auto mute jukebox !', delay: 2 }, 60 * 60);
+	}, 500);
+}
 
-		// log.info('playFip()> Odi.run.music', Odi.run.music);
+// var fipInterval;
+/** Function to play FIP radio */
+function playFip() {
+	stop();
+	log.info('Play FIP RADIO...');
+	spawn('sh', [Odi._SHELL + 'fip.sh']);
+	Odi.run.music = true;
+	ledFlag();
+	Flux.next('module', 'led', 'altLeds', { speed: 100, duration: 1.3 });
 
-		//cancel.watch(function(err, value){ // TODO : remove ???
-			//clearInterval(fipInterval);
-		// 	Odi.run.music = false;
-		// });
-	}else{
-		log.info('Already playing FIP');
-	}
+	Flux.next('module', 'sound', 'mute', { message: 'Auto Mute FIP', delay: 2 }, 60 * 60);
+}
 
-	setTimeout(function(){
-		stop();
-	}, 60*60*1000);
-	Flux.next('module', 'sound', 'mute', {message: 'Auto Mute FIP'}, 60*60)
-};
-
-/** Function to stop FIP radio */
-function stop(message){
-	log.debug('Stop music');
-	if(Odi.run.music){
+/** Function to stop music */
+function stop(message) {
+	if (Odi.run.music) {
+		log.debug('Stop music');
 		spawn('sh', [Odi._SHELL + 'mute.sh']);
 		Odi.run.music = false;
+		clearInterval(ledMusicFlag);
+		// clearInterval(fipInterval);
+		Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly'], value: 0 }, null, null, true);
+		Flux.next('module', 'led', 'clearLeds', { speed: 100, duration: 1.3 }, null, null, true);
+	} else {
+		log.debug('No music playing');
 	}
-	clearInterval(fipInterval);
-	Flux.next('module', 'led', 'toggle', {leds: ['eye', 'belly'], value: 0}, null, null, true);
-	Flux.next('module', 'led', 'clearLeds', {speed: 100, duration: 1.3}, null, null, true);
-};
+}

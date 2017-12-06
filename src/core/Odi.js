@@ -78,7 +78,7 @@ function init(path, forcedParams) {
 }
 
 function isAwake() {
-	return Odi.conf.mode == 'sleep';
+	return Odi.conf.mode != 'sleep';
 }
 
 function error(label, data, stackTrace) {
