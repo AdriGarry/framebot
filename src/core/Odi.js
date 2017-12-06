@@ -7,7 +7,7 @@ var fs = require('fs');
 
 var Odi = {
 	conf: require(ODI_PATH + 'conf.json'),
-	asleep: asleep,
+	isAwake: isAwake,
 	run: {
 		etat: '.',
 		mood: [],
@@ -77,7 +77,7 @@ function init(path, forcedParams) {
 	return Odi;
 }
 
-function asleep() {
+function isAwake() {
 	return Odi.conf.mode == 'sleep';
 }
 

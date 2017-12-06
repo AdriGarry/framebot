@@ -7,17 +7,18 @@ var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Flux = require(Odi._CORE + 'Flux.js');
 var spawn = require('child_process').spawn;
 
-Flux.module.sound.subscribe({ // TODO: ABSOLUMENT BLOQUER LES SONS EN MODE SLEEP !!
+Flux.module.sound.subscribe({
+	// TODO: ABSOLUMENT BLOQUER LES SONS EN MODE SLEEP !!
 	next: flux => {
 		if (flux.id == 'mute') {
 			mute(flux.value);
-		} else if (flux.id == 'volume' && !Odi.asleep()) {
+		} else if (flux.id == 'volume' && Odi.isAwake()) {
 			// todo setVolume(flux.value);
-		} else if (flux.id == 'error' && !Odi.asleep()) {
+		} else if (flux.id == 'error' && Odi.isAwake()) {
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
-		} else if (flux.id == 'UI' && !Odi.asleep()) {
+		} else if (flux.id == 'UI' && Odi.isAwake()) {
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'UIRequest']);
-		}else Odi.error('unmapped flux in Sound module', flux, false);
+		} else Odi.error('unmapped flux in Sound module', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
