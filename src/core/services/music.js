@@ -25,7 +25,7 @@ var ledMusicFlag;
 function ledFlag() {
 	ledMusicFlag = setInterval(function() {
 		if (Odi.run.music) {
-			Flux.next('module', 'led', 'altLeds', { speed: 100, duration: 1.3 });
+			Flux.next('module', 'led', 'altLeds', { speed: 100, duration: 1.3 }, null, null, true);
 		} else {
 			clearInterval(ledMusicFlag);
 		}
