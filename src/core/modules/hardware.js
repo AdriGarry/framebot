@@ -9,7 +9,7 @@ var Gpio = require('onoff').Gpio;
 var fs = require('fs');
 var os = require('os');
 
-const PATHS = [Odi._SRC]
+const PATHS = [Odi._SRC];
 
 Flux.module.hardware.subscribe({
 	next: flux => {
@@ -24,66 +24,66 @@ Flux.module.hardware.subscribe({
 			cpuTempTTS();
 		} else if (flux.id == 'cleanLog') {
 			cleanLog();
-		}else Odi.error('unmapped flux in Hardware module', flux, false);
+		} else Odi.error('unmapped flux in Hardware module', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
 	}
 });
 
-var etat = new Gpio(13, 'in', 'both', {persistentWatch:true,debounceTimeout:500});
-function getEtatValue(){
+var etat = new Gpio(13, 'in', 'both', { persistentWatch: true, debounceTimeout: 500 });
+function getEtatValue() {
 	Odi.run.etat = etat.readSync();
 }
 
-function retreiveCpuTemp(){
-	var temperature = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp");
-	temperature = ((temperature/1000).toPrecision(2));
+function retreiveCpuTemp() {
+	var temperature = fs.readFileSync('/sys/class/thermal/thermal_zone0/temp');
+	temperature = (temperature / 1000).toPrecision(2);
 	Odi.run.cpuTemp = temperature;
 	log.debug('CPU Temperature updated  ' + temperature + ' degres');
 	return temperature;
 }
 
 /** Function cpu temperature TTS */
-function cpuTempTTS(){
+function cpuTempTTS() {
 	var temperature = retreiveCpuTemp();
-	Flux.next('module', 'tts', 'speak', {lg:'fr', msg:'Mon processeur est a ' + temperature + ' degrai'});
-};
+	Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: 'Mon processeur est a ' + temperature + ' degrai' });
+}
 
 //Create function to get CPU information
 function cpuAverage() {
 	//Initialise sum of idle and time of cores and fetch CPU info
-	var totalIdle = 0, totalTick = 0;
+	var totalIdle = 0,
+		totalTick = 0;
 	var cpus = os.cpus();
 	//Loop through CPU cores
-	for(var i = 0, len = cpus.length; i < len; i++) {
+	for (var i = 0, len = cpus.length; i < len; i++) {
 		var cpu = cpus[i]; // Select CPU core
 		//Total up the time in the cores tick
-		for(var type in cpu.times) {
+		for (var type in cpu.times) {
 			totalTick += cpu.times[type];
 		}
 		//Total up the idle time of the core
 		totalIdle += cpu.times.idle;
 	}
 	//Return the average Idle and Tick times
-	return {idle: totalIdle / cpus.length,  total: totalTick / cpus.length};
-};
+	return { idle: totalIdle / cpus.length, total: totalTick / cpus.length };
+}
 //Grab first CPU Measure
 var startMeasure = cpuAverage();
 /** Function to get CPU usage */
-function retreiveCpuUsage(){
-	var endMeasure = cpuAverage();//Grab second Measure
+function retreiveCpuUsage() {
+	var endMeasure = cpuAverage(); //Grab second Measure
 	//Calculate the difference in idle and total time between the measures
 	var idleDifference = endMeasure.idle - startMeasure.idle;
 	//console.log(idleDifference);console.log(endMeasure.idle);console.log(startMeasure.idle);
 	var totalDifference = endMeasure.total - startMeasure.total;
 	//console.log(totalDifference);console.log(endMeasure.total);console.log(startMeasure.total);
-	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference);//Calculate the average percentage CPU usage
+	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference); //Calculate the average percentage CPU usage
 	Odi.run.cpuUsage = percentageCPU;
 	log.debug('CPU usage : ' + percentageCPU + ' %');
-	return(percentageCPU);
-};
-
+	return percentageCPU;
+}
 
 /** Function to update last modified date & time of Odi's files */
 function retreiveLastModifiedDate(paths, callback) {
@@ -93,7 +93,7 @@ function retreiveLastModifiedDate(paths, callback) {
 		var lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
 		log.debug('getLastModifiedDate()', lastDate[0]);
 		Odi.run.update = lastDate[0];
-		if(callback) callback(lastDate[0]);
+		if (callback) callback(lastDate[0]);
 	});
 }
 
@@ -113,7 +113,7 @@ function countSoftwareLines(callback) {
 			if (!typesNb) {
 				log.debug('countSoftwareLines()', totalLines);
 				Odi.run.totalLines = totalLines;
-				if(callback) callback(totalLines);
+				if (callback) callback(totalLines);
 			}
 		});
 	});
@@ -126,12 +126,12 @@ function getDiskSpace(callback) {
 		diskSpace = diskSpace[0].match(/[\d]*%/g);
 		log.debug('getDiskSpace()', diskSpace[0]);
 		Odi.run.diskSpace = diskSpace[0];
-		if(callback) callback(diskSpace);
+		if (callback) callback(diskSpace);
 	});
 }
 
 /** Function to clean and archive logs */
-function cleanLog(){
+function cleanLog() {
 	log.info('cleaning logs');
 	spawn('sh', [Odi._SHELL + 'log.sh', 'clean']);
-};
+}
