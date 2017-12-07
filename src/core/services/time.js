@@ -104,7 +104,7 @@ function isAlarm() {
 function cocorico(mode) {
 	var alarmDelay = 1;
 	if (mode == 'sea') {
-		log.info("Morning Sea... Let's start the day with some waves !");
+		log.info('Morning Sea...');
 		spawn('sh', [Odi._SHELL + 'sounds.sh', 'MorningSea']);
 		alarmDelay = 2 * 60 * 1000;
 	}
@@ -114,11 +114,11 @@ function cocorico(mode) {
 		log.INFO('cocorico !!', mode || '');
 		spawn('sh', [Odi._SHELL + 'sounds.sh', 'cocorico']);
 
-		if (isBirthday) {
+		if (isBirthday()) {
 			birthdaySong();
 			setTimeout(function() {
 				cocoricoPart2();
-			}, 55 * 1000);
+			}, 53 * 1000);
 		} else {
 			cocoricoPart2();
 		}
@@ -143,11 +143,12 @@ const BIRTHDAYS = {
 	adri: '13/12'
 };
 function isBirthday() {
-	log.info('isBirthday()');
+	log.debug('isBirthday');
+	return false;
 }
 
 function birthdaySong() {
-	log.info('birthdaySong()');
+	log.info('birthday song...');
 	spawn('sh', [Odi._SHELL + 'sounds.sh', 'birthday']);
 }
 
