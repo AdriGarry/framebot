@@ -15,6 +15,8 @@ Flux.module.sound.subscribe({
 		} else if (Odi.isAwake()) {
 			if (flux.id == 'volume') {
 				// todo setVolume(flux.value);
+			} else if (flux.id == 'test') {
+				playSound();
 			} else if (flux.id == 'error') {
 				spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
 			} else if (flux.id == 'UI') {
@@ -30,6 +32,10 @@ Flux.module.sound.subscribe({
 });
 
 function setVolume(volume) {}
+
+function playSound() {
+	log.info('playSound()');
+}
 
 var muteTimer, delay;
 /** Function to mute Odi (delay:min) */

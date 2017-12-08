@@ -30,6 +30,7 @@ var Odi = {
 	_WEB: ODI_PATH + 'src/web/',
 	_CONF: ODI_PATH + 'conf.json',
 	_DATA: ODI_PATH + 'data/',
+	_MP3: ODI_PATH + 'media/mp3/',
 	_LOG: ODI_PATH + 'log/',
 	_TMP: ODI_PATH + 'tmp/'
 };

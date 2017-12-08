@@ -108,27 +108,34 @@ function cocorico(mode) {
 	if (mode == 'sea') {
 		log.info('Morning Sea...');
 		spawn('sh', [Odi._SHELL + 'sounds.sh', 'MorningSea']);
-		alarmDelay = 2 * 60 * 1000;
-	}
-	log.debug('alarmDelay', alarmDelay);
-
-	setTimeout(function() {
-		log.INFO('cocorico !!', mode || '');
-		spawn('sh', [Odi._SHELL + 'sounds.sh', 'cocorico']);
-
-		if (isBirthday()) {
-			birthdaySong();
+		Utils.getMp3Duration(Odi._MP3 + 'system/morningSea.mp3', function(seaDuration) {
+			log.debug('seaDuration', seaDuration);
+			alarmDelay = seaDuration * 1000;
 			setTimeout(function() {
-				cocoricoPart2();
-			}, 53 * 1000);
-		} else {
-			cocoricoPart2();
-		}
-	}, alarmDelay);
+				cocoricoPart2(mode);
+			}, alarmDelay);
+		});
+	} else {
+		cocoricoPart2(mode);
+	}
 }
 
 /** Function alarm part 2 */
-function cocoricoPart2() {
+function cocoricoPart2(mode) {
+	log.INFO('cocorico !!', mode || '');
+	spawn('sh', [Odi._SHELL + 'sounds.sh', 'cocorico']);
+	if (isBirthday()) {
+		birthdaySong();
+		setTimeout(function() {
+			cocoricoPart3();
+		}, 53 * 1000);
+	} else {
+		cocoricoPart3();
+	}
+}
+
+/** Function alarm part 3 */
+function cocoricoPart3() {
 	Flux.next('service', 'time', 'now', null, 3);
 	Flux.next('service', 'time', 'today', null, 5);
 	Flux.next('service', 'interaction', 'weather', null, 8);

@@ -107,6 +107,16 @@ if (Odi.conf.mode == 'sleep') {
 	}
 }
 
+// Utils.getMp3Duration(Odi._MP3 + 'system/birthday.mp3', function(data) {
+// 	log.info(data);
+// });
+
+// setTimeout(function() {
+// 	Utils.getMp3Duration(Odi._MP3 + 'system/birthday.mp3', function(data) {
+// 		log.info(data);
+// 	});
+// }, 1000);
+
 // Flux.next('module', 'sound', 'mute', { message: 'Auto Mute FIP', delay: 2 }, 10);
 
 // var start = new Date();

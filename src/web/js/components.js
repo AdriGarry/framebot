@@ -336,7 +336,6 @@ app.component('time', {
 			label: 'Time',
 			// actionList:[{url: '/time'}]
 			actionList: [
-				{ label: 'Birthday song', icon: 'birthday-cake', url: '/birthday' },
 				{ label: "Odi's age", icon: 'birthday-cake', url: '/age' },
 				{
 					label: 'Today',
@@ -500,17 +499,10 @@ app.component('party', {
 		var tileParams = {
 			label: 'Party',
 			actionList: [
-				{
-					label: 'Cigales',
-					icon: 'bug',
-					url: '/cigales'
-				},
+				{ label: 'Birthday song', icon: 'birthday-cake', url: '/birthday' },
+				{ label: 'Cigales', icon: 'bug', url: '/cigales' },
 				{ label: 'Party mode', icon: 'child', url: '/setParty' },
-				{
-					label: 'Pirate',
-					icon: 'beer',
-					url: '/pirate'
-				}
+				{ label: 'Pirate', icon: 'beer', url: '/pirate' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

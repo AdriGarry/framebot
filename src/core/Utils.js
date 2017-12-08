@@ -18,6 +18,7 @@ module.exports = {
 	getExecutionTime: getExecutionTime,
 	addPatternBefore: addPatternBefore,
 	getJsonFileContent: getJsonFileContent,
+	getMp3Duration: getMp3Duration,
 	logTime: logTime,
 	numberWithDot: numberWithDot,
 	random: random,
@@ -114,6 +115,16 @@ function execCmd(command, callback) {
 	exec(command, function(error, stdout, stderr) {
 		// console.debug('execCmd(' + command + ')\n', stdout);
 		if (callback) callback(stdout);
+	});
+}
+
+/** Function to retreive mp3 file duration */
+function getMp3Duration(mp3File, callback) {
+	log.info('getMp3Duration()');
+	execCmd('mplayer -ao null -identify -frames 0 ' + mp3File + ' 2>&1 | grep ID_LENGTH', function(data) {
+		// log.INFO(data);
+		var duration = data.split('=')[1].trim();
+		callback(duration);
 	});
 }
 
