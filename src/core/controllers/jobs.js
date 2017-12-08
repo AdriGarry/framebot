@@ -123,7 +123,7 @@ function setInteractiveJobs() {
 	);
 
 	new CronJob(
-		'13 13,25,40,51 17-22 * * *',
+		'13 13,25,40,51 17-21 * * *',
 		function() {
 			Flux.next('service', 'interaction', 'random');
 		},
