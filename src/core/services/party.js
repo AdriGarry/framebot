@@ -38,7 +38,7 @@ function firePartyActionAndRandom() {
 	var nextActionTimeout = Utils.random(1, 5) * 30; //2, 10
 
 	log.debug('firePartyActionAndRandom(). next action=', nextActionTimeout);
-	console.log('firePartyActionAndRandom(). next action=', nextActionTimeout);
+	//console.log('firePartyActionAndRandom(). next action=', nextActionTimeout);
 	setTimeout(function() {
 		log.info('firing next party action...');
 		var rdmAction = Utils.random(8);
