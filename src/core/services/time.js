@@ -138,12 +138,18 @@ function cocoricoPart2() {
 	Flux.next('service', 'music', 'fip', null, 30);
 }
 
-const BIRTHDAYS = {
-	camille: '17/04',
-	adri: '13/12'
-};
+const BIRTHDAYS = ['17/04', '13/12'];
 function isBirthday() {
-	log.debug('isBirthday');
+	log.info('isBirthday');
+	var today = { date: new Date() };
+	today.day = today.date.getDate();
+	today.month = today.date.getMonth() + 1;
+	for (var i = 0; i < BIRTHDAYS.length; i++) {
+		var splited = BIRTHDAYS[i].split('/');
+		if (today.day == splited[0] && today.month == splited[1]) {
+			return true;
+		}
+	}
 	return false;
 }
 
