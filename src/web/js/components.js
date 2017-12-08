@@ -336,6 +336,7 @@ app.component('time', {
 			label: 'Time',
 			// actionList:[{url: '/time'}]
 			actionList: [
+				{ label: 'Birthday song', icon: 'birthday-cake', url: '/birthday' },
 				{ label: "Odi's age", icon: 'birthday-cake', url: '/age' },
 				{
 					label: 'Today',
@@ -350,29 +351,6 @@ app.component('time', {
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
-		ctrl.odiState = ctrl.odiState;
-	}
-});
-
-/** Date component */
-app.component('date', {
-	bindings: {
-		data: '<',
-		access: '<',
-		odiState: '<'
-	},
-	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
-			label: 'Date',
-			actionList: [
-				{ label: "Odi's age", icon: 'birthday-cake', url: '/age' },
-				{ label: 'Today', icon: 'calendar', url: '/date' }
-			]
-		};
-		ctrl.tile = new DefaultTile(tileParams);
-		//this.tile.data = this.data;
 		ctrl.odiState = ctrl.odiState;
 	}
 });

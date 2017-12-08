@@ -19,6 +19,8 @@ Flux.service.time.subscribe({
 			setAlarm(flux.value);
 		} else if (flux.id == 'isAlarm') {
 			isAlarm();
+		} else if (flux.id == 'birthday') {
+			birthdaySong();
 		} else if (flux.id == 'OdiAge') {
 			sayOdiAge();
 		} else if (flux.id == 'timer') {

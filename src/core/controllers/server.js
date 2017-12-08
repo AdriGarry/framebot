@@ -437,6 +437,12 @@ function startUIServer(mode) {
 			res.end();
 		});
 
+		ui.post('/birthday', function(req, res) {
+			Flux.next('service', 'time', 'birthday');
+			res.writeHead(200);
+			res.end();
+		});
+
 		ui.post('/age', function(req, res) {
 			Flux.next('service', 'time', 'OdiAge');
 			res.writeHead(200);
