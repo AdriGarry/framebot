@@ -5,7 +5,9 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 
 var Flux = require(Odi._CORE + 'Flux.js');
+var Utils = require(Odi._CORE + 'Utils.js');
 var spawn = require('child_process').spawn;
+var exec = require('child_process').exec;
 
 Flux.module.sound.subscribe({
 	// TODO: ABSOLUMENT BLOQUER LES SONS EN MODE SLEEP !!
@@ -15,8 +17,8 @@ Flux.module.sound.subscribe({
 		} else if (Odi.isAwake()) {
 			if (flux.id == 'volume') {
 				// todo setVolume(flux.value);
-			} else if (flux.id == 'test') {
-				playSound();
+			} else if (flux.id == 'play') {
+				playSound(flux.value);
 			} else if (flux.id == 'error') {
 				spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
 			} else if (flux.id == 'UI') {
@@ -33,8 +35,13 @@ Flux.module.sound.subscribe({
 
 function setVolume(volume) {}
 
-function playSound() {
-	log.info('playSound()');
+function playSound(arg) {
+	log.info('play', arg.mp3, arg.volume ? 'volume=' + arg.volume : '', arg.position ? 'position=' + arg.position : '');
+	// position=$(shuf -i 0-20000 -n 1)
+	var position = arg.position || 0;
+	var volume = arg.volume || Odi.run.volume;
+	var sound = Odi._MP3 + arg.mp3;
+	exec('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound);
 }
 
 var muteTimer, delay;

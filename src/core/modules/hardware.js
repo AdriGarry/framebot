@@ -34,6 +34,7 @@ Flux.module.hardware.subscribe({
 var etat = new Gpio(13, 'in', 'both', { persistentWatch: true, debounceTimeout: 500 });
 function getEtatValue() {
 	Odi.run.etat = etat.readSync();
+	Odi.run.volume = etat.readSync() ? 400 : -400;
 }
 
 function retreiveCpuTemp() {

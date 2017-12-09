@@ -10,6 +10,7 @@ var Odi = {
 	isAwake: isAwake,
 	run: {
 		etat: '.',
+		volume: 0,
 		mood: [],
 		music: false, // fip/jukebox
 		alarm: false,

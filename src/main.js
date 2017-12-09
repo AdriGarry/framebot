@@ -107,6 +107,9 @@ if (Odi.conf.mode == 'sleep') {
 	}
 }
 
+Flux.next('module', 'sound', 'play', { mp3: 'system/beBack.mp3' });
+Flux.next('module', 'sound', 'play', { mp3: 'jukebox/CDuncan-Say.mp3', position: 7 }, 2);
+
 // Utils.getMp3Duration(Odi._MP3 + 'system/birthday.mp3', function(data) {
 // 	log.info(data);
 // });

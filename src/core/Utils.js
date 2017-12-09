@@ -22,6 +22,7 @@ module.exports = {
 	logTime: logTime,
 	numberWithDot: numberWithDot,
 	random: random,
+	randomItem: randomItem,
 	searchStringInArray: searchStringInArray,
 	testConnexion: testConnexion
 };
@@ -172,6 +173,12 @@ function random(arg1, arg2) {
 		max = arg1 | 1;
 	}
 	return Math.floor(Math.random() * (max - min) + min);
+}
+
+function randomItem(array) {
+	var length = array.length;
+	var randomIndex = random(length);
+	return array[randomIndex];
 }
 
 /** Function to return date time. Pattern: 'YDT' */

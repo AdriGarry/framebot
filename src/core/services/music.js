@@ -4,7 +4,9 @@
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Flux = require(Odi._CORE + 'Flux.js');
+var Utils = require(Odi._CORE + 'Utils.js');
 var spawn = require('child_process').spawn;
+var fs = require('fs');
 
 Flux.service.music.subscribe({
 	next: flux => {
@@ -32,8 +34,31 @@ function ledFlag() {
 	}, 13 * 1000);
 }
 
-/** Function jukebox (repeat) */
+var JUKEBOX_SONGS;
+fs.readdir(Odi._MP3 + 'jukebox', (err, files) => {
+	JUKEBOX_SONGS = files;
+});
+// var jukeboxSongsCycle = JUKEBOX_SONGS;
+
+/** Function jukebox (repeat for one hour) */
 function jukebox(message) {
+	stop();
+	log.info('Jukebox in loop mode !');
+	Odi.run.music = true;
+	ledFlag();
+	playOneSong();
+	console.log('');
+	// wait to launch next song...
+	Flux.next('module', 'sound', 'mute', { message: 'Auto mute jukebox !', delay: 2 }, 60 * 60);
+}
+
+function playOneSong() {
+	var song = Utils.randomItem(JUKEBOX_SONGS);
+	Flux.next('module', 'sound', 'play', { mp3: 'jukebox/' + song });
+}
+
+/** Function jukebox (repeat) */
+function jukeboxOLD(message) {
 	// if (Odi.run.music) {
 	// 	Flux.next('module', 'sound', 'mute');
 	// }
@@ -82,7 +107,6 @@ function stop(message) {
 		spawn('sh', [Odi._SHELL + 'mute.sh']);
 		Odi.run.music = false;
 		clearInterval(ledMusicFlag);
-		// clearInterval(fipInterval);
 		Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly'], value: 0 }, null, null, true);
 		Flux.next('module', 'led', 'clearLeds', { speed: 100, duration: 1.3 }, null, null, true);
 	} else {
