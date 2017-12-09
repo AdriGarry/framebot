@@ -72,7 +72,7 @@ function initButtonReady() {
 		Odi.run.etat = value;
 		Odi.run.volume = value ? 400 : -400;
 		log.info('Etat:', value, '[Etat has changed]');
-		if (Odi.run.music) {
+		if (Odi.run.music == 'fip') {
 			Flux.next('module', 'sound', 'mute');
 			Flux.next('service', 'music', 'fip', null, 0.1);
 		}
