@@ -121,11 +121,15 @@ function execCmd(command, callback) {
 
 /** Function to retreive mp3 file duration */
 function getMp3Duration(mp3File, callback) {
-	log.info('getMp3Duration()');
+	// log.info('getMp3Duration()', mp3File);
 	execCmd('mplayer -ao null -identify -frames 0 ' + mp3File + ' 2>&1 | grep ID_LENGTH', function(data) {
 		// log.INFO(data);
-		var duration = data.split('=')[1].trim();
-		callback(duration);
+		try {
+			var duration = data.split('=')[1].trim();
+			callback(duration);
+		} catch (err) {
+			Odi.error('getMp3Duration error', err);
+		}
 	});
 }
 
