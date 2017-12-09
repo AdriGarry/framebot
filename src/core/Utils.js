@@ -115,6 +115,7 @@ function testConnexion(callback) {
 function execCmd(command, callback) {
 	exec(command, function(error, stdout, stderr) {
 		// console.debug('execCmd(' + command + ')\n', stdout);
+		// if (stderr) callback(stderr);
 		if (callback) callback(stdout);
 	});
 }
@@ -122,15 +123,19 @@ function execCmd(command, callback) {
 /** Function to retreive mp3 file duration */
 function getMp3Duration(mp3File, callback) {
 	// log.info('getMp3Duration()', mp3File);
-	console.log('**mp3File', mp3File);
+	// console.log('**mp3File', mp3File);
 	execCmd('mplayer -ao null -identify -frames 0 ' + mp3File + ' 2>&1 | grep ID_LENGTH', function(data) {
 		try {
-			log.INFO(data);
+			// log.INFO(data);
+			if (data == '') {
+				getMp3Duration(mp3File, callback);
+			}
 			var duration = data.split('=')[1].trim();
-			log.INFO(duration);
+			// log.INFO(duration);
 			callback(duration);
 		} catch (err) {
-			console.error('getMp3Duration error', err);
+			// Don't log error because the method will call itself until OK !
+			// console.error('getMp3Duration error:', err);
 		}
 	});
 }

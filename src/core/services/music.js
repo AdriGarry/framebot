@@ -37,7 +37,7 @@ function ledFlag() {
 var JUKEBOX_SONGS;
 fs.readdir(Odi._MP3 + 'jukebox', (err, files) => {
 	JUKEBOX_SONGS = files;
-	console.log('JUKEBOX_SONGS', JUKEBOX_SONGS);
+	// console.log('JUKEBOX_SONGS', JUKEBOX_SONGS);
 });
 // var jukeboxSongsCycle = JUKEBOX_SONGS;
 
@@ -55,10 +55,10 @@ var jukeboxTimeout;
 function repeatSong() {
 	log.info('next song...');
 	var song = Utils.randomItem(JUKEBOX_SONGS);
-	console.log('++song', song);
-	Flux.next('module', 'sound', 'play', { mp3: 'jukebox/' + song });
+	// console.log('++song', song);
 	Utils.getMp3Duration(Odi._MP3 + 'jukebox/' + song, function(duration) {
 		log.INFO('duration=' + duration);
+		Flux.next('module', 'sound', 'play', { mp3: 'jukebox/' + song, duration: duration });
 		jukeboxTimeout = setTimeout(function() {
 			// log.INFO('Next song !!!', 'duration=' + duration);
 			repeatSong();
