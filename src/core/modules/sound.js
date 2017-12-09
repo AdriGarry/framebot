@@ -36,8 +36,9 @@ Flux.module.sound.subscribe({
 function setVolume(volume) {}
 
 function playSound(arg) {
-	log.info('play', arg.mp3, arg.volume ? 'volume=' + arg.volume : '', arg.position ? 'position=' + arg.position : '');
-	// position=$(shuf -i 0-20000 -n 1)
+	var mp3Title = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
+	log.info('play', mp3Title, arg.volume ? 'vol=' + arg.volume : '', arg.position ? 'pos=' + arg.position : '');
+	// position=$(shuf -i 0-20000 -n 1) // TODO !!
 	var position = arg.position || 0;
 	var volume = arg.volume || Odi.run.volume;
 	var sound = Odi._MP3 + arg.mp3;

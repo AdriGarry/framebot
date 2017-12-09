@@ -47,7 +47,7 @@ function jukebox(message) {
 	Odi.run.music = true;
 	ledFlag();
 	playOneSong();
-	console.log('');
+	console.log('--');
 	// wait to launch next song...
 	Flux.next('module', 'sound', 'mute', { message: 'Auto mute jukebox !', delay: 2 }, 60 * 60);
 }

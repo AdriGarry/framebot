@@ -212,6 +212,16 @@ function setBackgroundJobs() {
 	);
 
 	new CronJob(
+		'*/20 * * * * *',
+		function() {
+			Flux.next('module', 'hardware', 'runtime', null, null, null, true);
+		},
+		null,
+		true,
+		'Europe/Paris'
+	);
+
+	new CronJob(
 		'0 0 5 * * 1',
 		function() {
 			log.info('Clean log files  /!\\'); // Weekly cleaning of logs
