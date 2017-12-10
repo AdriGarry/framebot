@@ -73,11 +73,6 @@
 		{
 			"lg": "fr",
 			"voice": "espeak",
-			"msg": "Que dirais-tu d'une petite mousse ?"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Saperlipopette !"
 		},
 		{
@@ -123,27 +118,7 @@
 		{
 			"lg": "fr",
 			"voice": "espeak",
-			"msg": "Aujourd'hui, tout va bien !"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
-			"msg": "On va voir ce qu'on va voir..."
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Et bien, ce n'est pas sa qui va faire avancer le chmilblik!"
-		},
-		{
-			"lg": "en",
-			"voice": "espeak",
-			"msg": "I'm gonna break the internet !"
-		},
-		{
-			"lg": "ru",
-			"voice": "google",
-			"msg": "привет"
 		},
 		{
 			"lg": "ru",
@@ -154,11 +129,6 @@
 			"lg": "ru",
 			"voice": "google",
 			"msg": "Semiorka"
-		},
-		{
-			"lg": "ru",
-			"voice": "google",
-			"msg": "Niet Niet"
 		}
 	],
 	"randomConversations": [
@@ -603,6 +573,11 @@
 		}
 	],
 	"party": [
+		{
+			"lg": "fr",
+			"voice": "espeak",
+			"msg": "Que dirais-tu d'une petite mousse ?"
+		},
 		{
 			"lg": "fr",
 			"msg": "Je crois que je vais encore mal finir ce soir !"
