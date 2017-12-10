@@ -393,6 +393,7 @@ app.component('idea', {
 		var tileParams = {
 			label: 'Idea',
 			actionList: [
+				{ label: 'Baby', icon: 'child', url: '/baby' },
 				{ label: 'AAAdri', icon: 'font', url: '/adriExclamation' },
 				{
 					label: 'Idea',

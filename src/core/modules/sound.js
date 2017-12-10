@@ -36,7 +36,13 @@ Flux.module.sound.subscribe({
 function setVolume(volume) {}
 
 function playSound(arg) {
-	var mp3Title = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
+	log.debug(arg);
+	var mp3Title;
+	try {
+		mp3Title = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
+	} catch (err) {
+		mp3Title = arg.mp3;
+	}
 	var durationLog = arg.duration
 		? 'duration=' + (Math.floor(arg.duration / 60) + 'm' + Math.round(arg.duration % 60))
 		: '';
@@ -49,6 +55,7 @@ function playSound(arg) {
 	var position = arg.position || 0;
 	var volume = arg.volume || Odi.run.volume;
 	var sound = Odi._MP3 + arg.mp3;
+	console.log(sound);
 	exec('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound);
 }
 

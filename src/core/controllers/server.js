@@ -356,6 +356,12 @@ function startUIServer(mode) {
 			res.end();
 		});
 
+		ui.post('/baby', function(req, res) {
+			Flux.next('service', 'mood', 'baby');
+			res.writeHead(200);
+			res.end();
+		});
+
 		ui.post('/adriExclamation', function(req, res) {
 			Flux.next('service', 'interaction', 'adriExclamation');
 			res.writeHead(200);
