@@ -52,6 +52,9 @@ function firePartyActionAndRandom() {
 			case (2, 3):
 				Flux.next('service', 'mood', 'badBoy');
 				break;
+			case (4, 5):
+				Flux.next('module', 'tts', 'random');
+				break;
 			default:
 				partyTTS();
 				break;

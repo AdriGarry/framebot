@@ -2,6 +2,26 @@
 	"randomTTS": [
 		{
 			"lg": "fr",
+			"msg": "Je suis dubitatif !"
+		},
+		{
+			"lg": "fr",
+			"msg": "Sa sent un peu le sapin, non ?"
+		},
+		{
+			"lg": "fr",
+			"msg": "Trop de logs tuent les logs !"
+		},
+		{
+			"lg": "fr",
+			"msg": "Mon intaigriter est compromise"
+		},
+		{
+			"lg": "fr",
+			"msg": "Sait pas faux!"
+		},
+		{
+			"lg": "fr",
 			"msg": "Tout est sous controle !"
 		},
 		{
@@ -24,11 +44,6 @@
 			"lg": "fr",
 			"voice": "espeak",
 			"msg": "Il pleut dehors"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
-			"msg": "Et, dis moi donc ce qui te passe par la taite"
 		},
 		{
 			"lg": "fr",
@@ -147,6 +162,23 @@
 		}
 	],
 	"randomConversations": [
+		[
+			{
+				"lg": "fr",
+				"voice": "espeak",
+				"msg": "mais, cette histoire de fin du monde, sait pour de vrai ?"
+			},
+			{
+				"lg": "fr",
+				"voice": "google",
+				"msg": "moi sa minquiete !"
+			},
+			{
+				"lg": "fr",
+				"voice": "espeak",
+				"msg": "ouais, je sui plutot daccord!"
+			}
+		],
 		[
 			{
 				"lg": "fr",
@@ -634,6 +666,10 @@
 		{
 			"lg": "fr",
 			"msg": "Non mais t'as vu ta gueule ?"
+		},
+		{
+			"lg": "fr",
+			"msg": "Je, tan, cule, tu m'entends je t'encule"
 		},
 		{
 			"lg": "fr",

@@ -21,7 +21,7 @@ Flux.module.tts.subscribe({
 			randomConversation();
 		} else if (flux.id == 'clearTTSQueue') {
 			clearTTSQueue();
-		}else Odi.error('unmapped flux in TTS module', flux, false);
+		} else Odi.error('unmapped flux in TTS module', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
@@ -80,7 +80,7 @@ function proceedQueue() {
 				log.debug('No more TTS, stop processing TTS queue!');
 				clearInterval(queueInterval);
 			}
-	}
+		}
 	}, 500);
 }
 
@@ -126,7 +126,15 @@ var playTTS = function(tts) {
 	}
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	spawn('sh', [Odi._SHELL + 'tts.sh', tts.voice, tts.lg, tts.msg]);
-	Flux.next('module', 'led', 'blink', { leds: ['eye'], speed: Utils.random(50, 150), loop: tts.msg.length / 2 + 2 }, null, null, true);
+	Flux.next(
+		'module',
+		'led',
+		'blink',
+		{ leds: ['eye'], speed: Utils.random(50, 150), loop: tts.msg.length / 2 + 2 },
+		null,
+		null,
+		true
+	);
 	log.debug('tts.msg.length :', tts.msg.length);
 
 	lastTtsMsg = tts;
