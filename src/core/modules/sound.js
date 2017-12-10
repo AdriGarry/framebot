@@ -37,13 +37,14 @@ function setVolume(volume) {}
 
 function playSound(arg) {
 	var mp3Title = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
+	var durationLog = arg.duration
+		? 'duration=' + (Math.floor(arg.duration / 60) + 'm' + Math.round(arg.duration % 60))
+		: '';
+	var volLog = arg.volume ? 'vol=' + arg.volume : '';
+	var positionLog = arg.position ? 'pos=' + arg.position : '';
+	log.info('play', mp3Title, volLog, positionLog, durationLog);
+	// log.info('play', mp3Title, arg.volume ? 'vol=' + arg.volume : '', arg.position ? 'pos=' + arg.position : '');
 
-	// var durationLog = arg.duration ? 'duration=' + duration : '';
-	// var volLog = arg.volume ? 'vol=' + arg.volume : '';
-	// var positionLog = arg.position ? 'pos=' + arg.position : '';
-	// log.info('play', mp3Title, volLog, positionLog, durationLog);
-
-	log.info('play', mp3Title, arg.volume ? 'vol=' + arg.volume : '', arg.position ? 'pos=' + arg.position : '');
 	// position=$(shuf -i 0-20000 -n 1) // TODO !!
 	var position = arg.position || 0;
 	var volume = arg.volume || Odi.run.volume;
