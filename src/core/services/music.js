@@ -45,7 +45,7 @@ fs.readdir(Odi._MP3 + 'jukebox', (err, files) => {
 function jukebox(message) {
 	stop();
 	log.info('Jukebox in loop mode !');
-	Odi.run.music = true;
+	Odi.run.music = 'jukebox';
 	ledFlag();
 	repeatSong();
 	Flux.next('module', 'sound', 'mute', { message: 'Auto mute jukebox !', delay: 2 }, 60 * 60);
