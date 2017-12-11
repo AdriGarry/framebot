@@ -35,13 +35,13 @@ function start() {
 
 var lastRdmNb;
 function firePartyActionAndRandom() {
-	var nextActionTimeout = Utils.random(1, 5) * 30; //2, 10
-
+	var nextActionTimeout = Utils.random(2, 10) * 30; //2, 10
 	log.debug('firePartyActionAndRandom(). next action=', nextActionTimeout);
 	//console.log('firePartyActionAndRandom(). next action=', nextActionTimeout);
 	setTimeout(function() {
 		log.info('firing next party action...');
 		var rdmAction = Utils.random(10);
+		// var rdmAction = 10;
 		switch (rdmAction) {
 			case 0:
 				pirate();
@@ -84,7 +84,7 @@ function pirate(mode) {
 
 function partyTTS() {
 	log.debug('partyTTS()');
-	Flux.next('module', 'tts', 'speak', getNewRdmPartyTTS(), 13 * 60, 20);
+	Flux.next('module', 'tts', 'speak', getNewRdmPartyTTS());
 }
 
 /** Function to select a different TTS each time */
@@ -93,12 +93,13 @@ var rdmNb,
 	lastRdmNb = [],
 	rdmTTS = '';
 function getNewRdmPartyTTS() {
-	console.log('---->getNewRdmPartyTTS()');
-	do {
-		rdmNb = Utils.random(PARTY_TTS_LENGTH);
-		rdmTTS = Odi.ttsMessages.party[rdmNb];
-		if (lastRdmNb.length >= PARTY_TTS_LENGTH) lastRdmNb.shift();
-	} while (lastRdmNb.indexOf(rdmNb) != -1);
+	if (lastRdmNb.length == PARTY_TTS_LENGTH) {
+		lastRdmNb = [];
+	}
+	rdmNb = Utils.random(PARTY_TTS_LENGTH);
+	if (lastRdmNb.indexOf(rdmNb) > -1) {
+		return getNewRdmPartyTTS();
+	}
 	lastRdmNb.push(rdmNb);
-	return rdmTTS;
+	return Odi.ttsMessages.party[rdmNb];
 }

@@ -3,6 +3,7 @@
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+var Utils = require(Odi._CORE + 'Utils.js');
 
 // const Rx = require('rxjs');
 
@@ -29,9 +30,12 @@ Flux.controller.jobs.subscribe({
 function buttonHandler(flux) {
 	if (Odi.conf.mode != 'sleep') {
 		if (flux.id == 'ok') {
-			console.log('Odi.run.mood.indexOf(party) > 1', Odi.run.mood.indexOf('party') > 0);
-			if (Odi.run.mood.indexOf('party') > 0) {
-				Flux.next('service', 'party', 'tts');
+			if (Odi.run.mood.indexOf('party') > -1) {
+				if (Utils.random()) {
+					Flux.next('service', 'party', 'tts');
+				} else {
+					Flux.next('service', 'mood', 'badBoy');
+				}
 			} else {
 				if (Odi.run.voicemail) {
 					Flux.next('service', 'voicemail', 'check');
@@ -60,8 +64,6 @@ function buttonHandler(flux) {
 					Flux.next('service', 'music', 'jukebox'); // TODO
 				}
 			}
-			// Flux.next('service', 'music', 'fip'); // TODO
-			// Flux.next('service', 'music', 'jukebox'); // TODO
 		} else Odi.error('Button->else', flux);
 	} else {
 		if (flux.id == 'ok') {
