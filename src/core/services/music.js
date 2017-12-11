@@ -98,7 +98,7 @@ function playFip() {
 function stop(message) {
 	if (Odi.run.music) {
 		log.debug('Stop music');
-		clearInterval(jukeboxTimeout);
+		clearTimeout(jukeboxTimeout);
 		clearInterval(ledMusicFlag);
 		spawn('sh', [Odi._SHELL + 'mute.sh']);
 		Odi.run.music = false;
