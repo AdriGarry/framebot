@@ -54,7 +54,7 @@ function FluxObject(type, subject, id, value, delay, loop, hidden) {
 	this.toString = () => {
 		// var typeSubject = '[' + this.type + '.' + this.subject + '] ';
 		var typeSubject = this.type + '|' + this.subject + ' ';
-		var value = this.id + (this.value ? ': ' + util.format(util.inspect(this.value)) : '') + ' ';
+		var value = this.id + (this.value ? ' ' + util.format(util.inspect(this.value)) : '') + ' ';
 		var delay = ' ' + (this.delay || '');
 		var loop = ' ' + (this.loop || '');
 		return typeSubject + value + delay + loop;

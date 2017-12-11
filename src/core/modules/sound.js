@@ -49,13 +49,11 @@ function playSound(arg) {
 	var volLog = arg.volume ? 'vol=' + arg.volume : '';
 	var positionLog = arg.position ? 'pos=' + arg.position : '';
 	log.info('play', mp3Title, volLog, positionLog, durationLog);
-	// log.info('play', mp3Title, arg.volume ? 'vol=' + arg.volume : '', arg.position ? 'pos=' + arg.position : '');
 
 	// position=$(shuf -i 0-20000 -n 1) // TODO !!
 	var position = arg.position || 0;
 	var volume = arg.volume || Odi.run.volume;
 	var sound = Odi._MP3 + arg.mp3;
-	console.log(sound);
 	exec('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound);
 }
 

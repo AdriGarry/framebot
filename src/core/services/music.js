@@ -55,8 +55,9 @@ var jukeboxTimeout;
 function repeatSong() {
 	log.info('next song...');
 	var song = Utils.randomItem(JUKEBOX_SONGS);
-	// console.log('++song', song);
+	var ttime = new Date();
 	Utils.getMp3Duration(Odi._MP3 + 'jukebox/' + song, function(duration) {
+		console.log(Utils.getExecutionTime(ttime));
 		// log.INFO('duration=' + duration);
 		Flux.next('module', 'sound', 'play', { mp3: 'jukebox/' + song, duration: duration });
 		jukeboxTimeout = setTimeout(function() {
@@ -69,18 +70,6 @@ function repeatSong() {
 function playOneSong() {
 	var song = Utils.randomItem(JUKEBOX_SONGS);
 	Flux.next('module', 'sound', 'play', { mp3: 'jukebox/' + song });
-}
-
-/** Function jukebox (repeat) */
-function jukeboxOLD(message) {
-	stop();
-	setTimeout(function() {
-		log.info('Jukebox in loop mode !');
-		spawn('sh', [Odi._SHELL + 'jukebox.sh']);
-		Odi.run.music = true;
-		ledFlag();
-		Flux.next('module', 'sound', 'mute', { message: 'Auto mute jukebox !', delay: 2 }, 60 * 60);
-	}, 500);
 }
 
 /** Function to play FIP radio */

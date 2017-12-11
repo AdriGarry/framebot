@@ -408,13 +408,13 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/naheulbeuk', function(req, res) {
-			spawn('sh', [Odi._SHELL + 'sounds.sh', 'Naheulbeuk']);
+			spawn('sh', [Odi._SHELL + 'sounds.sh', 'Naheulbeuk']); // TODO mettre ds 1 service
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/survivaure', function(req, res) {
-			spawn('sh', [Odi._SHELL + 'sounds.sh', 'Survivaure']);
+			spawn('sh', [Odi._SHELL + 'sounds.sh', 'Survivaure']); // TODO mettre ds 1 service
 			res.writeHead(200);
 			res.end();
 		});
