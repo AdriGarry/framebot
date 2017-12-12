@@ -6,8 +6,9 @@ const argv = process.argv.splice(2);
 var fs = require('fs');
 var spawn = require('child_process').spawn;
 
-const SRC_PATH = __filename.match(/\/.*\//g)[0];
-const ODI_PATH = SRC_PATH.replace('src/', '');
+//const SRC_PATH = __filename.match(/\/.*\//g)[0];
+const SRC_PATH = __dirname + '\\';
+const ODI_PATH = SRC_PATH.replace('src\\', '');
 
 /** Function to start up Odi */
 (function startOdi(exitCode) {
@@ -17,11 +18,11 @@ const ODI_PATH = SRC_PATH.replace('src/', '');
 
 	var Gpio = require('onoff').Gpio;
 	var eye = new Gpio(14, 'out').write(1);
-	
+
 	console.log(argv);
 
 	var odiProgramWithParams = [SRC_PATH + 'main.js'];
-	if(exitCode){
+	if (exitCode) {
 		odiProgramWithParams.push('sleep');
 	}
 	for (var i = 0; i < argv.length; i++) {
@@ -38,9 +39,9 @@ const ODI_PATH = SRC_PATH.replace('src/', '');
 	});
 
 	odiCore.on('exit', function(code) {
-		spawn('sh', [SRC_PATH + 'shell/mute.sh']);  // Mute // + LEDS ???
-		if(code && odiConf.mode != 'sleep') spawn('sh', [SRC_PATH + 'shell/sounds.sh', 'error']);
-		console.log('\n>> Odi\'s CORE restarting... [code:' + code + ']');
+		spawn('sh', [SRC_PATH + 'shell/mute.sh']); // Mute // + LEDS ???
+		if (code && odiConf.mode != 'sleep') spawn('sh', [SRC_PATH + 'shell/sounds.sh', 'error']);
+		console.log("\n>> Odi's CORE restarting... [code:" + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
 		startOdi(code);
 	});
