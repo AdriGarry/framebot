@@ -160,8 +160,7 @@ function setAutoSleep() {
 
 /** Function to random TTS ggood night. NOT EXPORTED! */
 function goToSleep() {
-	var rdmSleepTTS = Utils.random(Odi.ttsMessages.goToSleep.length);
-	var sleepTTS = Odi.ttsMessages.goToSleep[rdmSleepTTS];
+	var sleepTTS = Utils.randomItem(Odi.ttsMessages.goToSleep);
 	Flux.next('module', 'tts', 'speak', sleepTTS);
 	log.info('AutoLifeCycle go to sleep !');
 	setTimeout(function() {
