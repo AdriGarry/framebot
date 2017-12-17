@@ -394,7 +394,6 @@ app.component('idea', {
 			label: 'Idea',
 			actionList: [
 				{ label: 'Baby', icon: 'child', url: '/baby' },
-				{ label: 'AAAdri', icon: 'font', url: '/adriExclamation' },
 				{
 					label: 'Idea',
 					icon: 'lightbulb-o',
