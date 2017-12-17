@@ -135,3 +135,40 @@ if (Odi.conf.mode == 'sleep') {
 // for (var i = 0; i < 20; i++) {
 // 	console.log(Utils.random());
 // }
+
+var omx = require('omxctrl');
+
+omx.play(Odi._MP3 + 'system/tone.mp3', ['-o local']);
+// omx.stop(); // kill the omxplayer instance
+// omx.decreaseSpeed();
+// omx.increaseSpeed();
+// omx.previousAudioStream();
+// omx.nextAudioStream();
+// omx.previousChapter();
+// omx.nextChapter();
+// omx.previousSubtitleStream();
+// omx.nextSubtitleStream();
+// omx.toggleSubtitles();
+// omx.decreaseSubtitleDelay();
+// omx.increaseSubtitleDelay();
+// omx.pause(); // toggle between pause and play
+// omx.decreaseVolume();
+omx.increaseVolume();
+omx.increaseVolume();
+omx.increaseVolume();
+omx.increaseVolume();
+// omx.seekForward();
+// omx.seekBackward();
+// omx.seekFastForward();
+// omx.seekFastBackward();
+
+omx.on('playing', function(filename) {
+	// Notice that this will only get triggered
+	// after a new file starts playing. Not
+	// after pause/play.
+	console.log('playing: ', filename);
+});
+
+omx.on('ended', function() {
+	console.log('playback has ended');
+});

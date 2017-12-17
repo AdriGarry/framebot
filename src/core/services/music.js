@@ -14,6 +14,8 @@ Flux.service.music.subscribe({
 			jukebox();
 		} else if (flux.id == 'fip') {
 			playFip();
+		} else if (flux.id == 'story') {
+			playStory(flux.value);
 		} else if (flux.id == 'stop') {
 			stop();
 		} else Odi.error('unmapped flux in Music service', flux, false);
@@ -25,6 +27,7 @@ Flux.service.music.subscribe({
 
 var ledMusicFlag;
 function ledFlag() {
+	Flux.next('module', 'led', 'altLeds', { speed: 100, duration: 1.3 });
 	ledMusicFlag = setInterval(function() {
 		if (Odi.run.music) {
 			Flux.next('module', 'led', 'altLeds', { speed: 100, duration: 1.3 }, null, null, true);
@@ -79,7 +82,6 @@ function playFip() {
 	spawn('sh', [Odi._SHELL + 'fip.sh']);
 	Odi.run.music = 'fip';
 	ledFlag();
-	Flux.next('module', 'led', 'altLeds', { speed: 100, duration: 1.3 });
 	Flux.next('module', 'sound', 'mute', { message: 'Auto Mute FIP', delay: 2 }, 60 * 60);
 }
 
@@ -96,4 +98,13 @@ function stop(message) {
 	} else {
 		log.debug('No music playing');
 	}
+}
+
+/** Function to play a story */
+function playStory(story) {
+	stop();
+	log.info('Play story...', story);
+	// spawn('sh', [Odi._SHELL + 'fip.sh']);
+	Odi.run.music = 'story';
+	ledFlag();
 }

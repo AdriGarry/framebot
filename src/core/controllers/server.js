@@ -500,6 +500,12 @@ function startUIServer(mode) {
 			res.end();
 		});
 
+		ui.post('/partyTTS', function(req, res) {
+			Flux.next('service', 'party', 'tts');
+			res.writeHead(200);
+			res.end();
+		});
+
 		ui.post('/pirate', function(req, res) {
 			Flux.next('service', 'party', 'pirate');
 			res.writeHead(200);

@@ -394,6 +394,7 @@ app.component('idea', {
 			label: 'Idea',
 			actionList: [
 				{ label: 'Baby', icon: 'child', url: '/baby' },
+				{ label: 'Cigales', icon: 'bug', url: '/cigales' },
 				{
 					label: 'Idea',
 					icon: 'lightbulb-o',
@@ -500,9 +501,9 @@ app.component('party', {
 			label: 'Party',
 			actionList: [
 				{ label: 'Birthday song', icon: 'birthday-cake', url: '/birthday' },
-				{ label: 'Cigales', icon: 'bug', url: '/cigales' },
 				{ label: 'Party mode', icon: 'child', url: '/setParty' },
-				{ label: 'Pirate', icon: 'beer', url: '/pirate' }
+				{ label: 'Pirate', icon: 'beer', url: '/pirate' },
+				{ label: 'TTS', icon: 'commenting-o', url: '/partyTTS' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
