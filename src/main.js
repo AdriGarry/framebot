@@ -18,7 +18,7 @@ global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedParams);
 var spawn = require('child_process').spawn;
-if (Odi.conf.mode != 'sleep') {
+if (Odi.isAwake()) {
 	spawn('sh', [ODI_PATH + 'src/shell/init.sh']);
 	spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
 }
@@ -51,7 +51,7 @@ Object.keys(observers).forEach(function(observer) {
 		require(Odi._CORE + observer + '/' + observers[observer].sleep[i] + '.js');
 	}
 	observersLoaded += observers[observer].sleep.join(', ');
-	if (Odi.conf.mode != 'sleep' && observers[observer].hasOwnProperty('all')) {
+	if (Odi.isAwake() && observers[observer].hasOwnProperty('all')) {
 		for (let i = 0; i < observers[observer].all.length; i++) {
 			require(Odi._CORE + observer + '/' + observers[observer].all[i] + '.js');
 		}
@@ -135,40 +135,3 @@ if (Odi.conf.mode == 'sleep') {
 // for (var i = 0; i < 20; i++) {
 // 	console.log(Utils.random());
 // }
-
-var omx = require('omxctrl');
-
-omx.play(Odi._MP3 + 'system/tone.mp3', ['-o local']);
-// omx.stop(); // kill the omxplayer instance
-// omx.decreaseSpeed();
-// omx.increaseSpeed();
-// omx.previousAudioStream();
-// omx.nextAudioStream();
-// omx.previousChapter();
-// omx.nextChapter();
-// omx.previousSubtitleStream();
-// omx.nextSubtitleStream();
-// omx.toggleSubtitles();
-// omx.decreaseSubtitleDelay();
-// omx.increaseSubtitleDelay();
-// omx.pause(); // toggle between pause and play
-// omx.decreaseVolume();
-omx.increaseVolume();
-omx.increaseVolume();
-omx.increaseVolume();
-omx.increaseVolume();
-// omx.seekForward();
-// omx.seekBackward();
-// omx.seekFastForward();
-// omx.seekFastBackward();
-
-omx.on('playing', function(filename) {
-	// Notice that this will only get triggered
-	// after a new file starts playing. Not
-	// after pause/play.
-	console.log('playing: ', filename);
-});
-
-omx.on('ended', function() {
-	console.log('playback has ended');
-});
