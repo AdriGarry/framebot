@@ -20,7 +20,8 @@ Flux.module.sound.subscribe({
 			} else if (flux.id == 'play') {
 				playSound(flux.value);
 			} else if (flux.id == 'error') {
-				spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
+				// spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
+				playSound({ mp3: 'system/error.mp3' });
 			} else if (flux.id == 'UI') {
 				spawn('sh', [Odi._SHELL + 'sounds.sh', 'UIRequest']);
 			} else {
@@ -56,7 +57,15 @@ function playSound(arg) {
 	var position = arg.position || 0;
 	var volume = arg.volume || Odi.run.volume;
 	var sound = Odi._MP3 + arg.mp3;
-	exec('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound);
+	//exec('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound);
+	var startPlayTime = new Date();
+	Utils.execCmd('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound, function(callback) {
+		// always log callback
+		if (callback.toString().indexOf('have a nice day') == -1) {
+			log.info(callback);
+		}
+		log.INFO('play end. time:', Utils.getExecutionTime(startPlayTime));
+	});
 }
 
 var muteTimer, delay;
