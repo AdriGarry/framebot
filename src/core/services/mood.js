@@ -21,7 +21,9 @@ Flux.service.mood.subscribe({
 	}
 });
 
-function expressive(args) {}
+function expressive(args) {
+	console.log('expressive(args)');
+}
 
 /** Function to start bad boy mode */
 function badBoy(interval) {
