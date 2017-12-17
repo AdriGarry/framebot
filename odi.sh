@@ -3,7 +3,6 @@
 clear
 
 ODI_PATH="/home/pi/odi"
-# ODI_PATH="/home/pi/odi_5.0"
 echo $ODI_PATH
 
 echo "start.sh -> Start Odi Pgm... [$*]"
@@ -23,15 +22,6 @@ fi
 # else
 # 	sh /home/pi/odi/core/sh/watchAction.sh updateLastModified ;;
 # fi
-
-
-# Retreive last modified time        DEPRECATED ... ???
-# lastUpdate=`ls | egrep ".*\.watcher$" | sed 's/.\{8\}$//'`
-# if [ ! -n "$lastUpdate" ]; then
-# 	echo "File doesn't exists. Creating it"
-# 	sh "/home/pi/odi/core/sh/watchAction.sh" updateLastModified
-# fi
-# lastUpdate=`ls | egrep ".*\.watcher$" | sed 's/.\{8\}$//'`
 
 # Test if conf file is empty, then reInit
 if [ ! -s "$ODI_PATH"/conf.json ];
