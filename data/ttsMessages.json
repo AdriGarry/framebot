@@ -125,9 +125,7 @@
 			"lg": "ru",
 			"voice": "google",
 			"msg": "Semiorka"
-		}
-	],
-	"randomConversations": [
+		},
 		[
 			{
 				"lg": "fr",
@@ -295,30 +293,6 @@
 		[
 			{
 				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Arretez de me faire chier"
-			},
-			{
-				"lg": "fr",
-				"voice": "google",
-				"msg": "Voyons Ody"
-			}
-		],
-		[
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Arretez de me faire chier"
-			},
-			{
-				"lg": "fr",
-				"voice": "google",
-				"msg": "Voyons Ody"
-			}
-		],
-		[
-			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "J'aimerai que tu prennes en compte mes considerations"
 			},
@@ -350,23 +324,6 @@
 				"lg": "fr",
 				"voice": "espeak",
 				"msg": "carraiment, je kiffe bien moi aussi"
-			}
-		],
-		[
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "J'ai bien envie de dominer ce monde !"
-			},
-			{
-				"lg": "fr",
-				"voice": "google",
-				"msg": "Ah bon ?"
-			},
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Ouais, sait l'un de mes petits projets"
 			}
 		],
 		[
@@ -486,51 +443,12 @@
 			{
 				"lg": "fr",
 				"voice": "espeak",
-				"msg": "Dis moi, j'ai une petite question"
-			},
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Quand tu vas aux toilettes, le papier tu le plis ou tu le chiffone ?"
-			},
-			{
-				"lg": "fr",
-				"voice": "google",
-				"msg": "Voyons Ody !"
-			},
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Et bien quoi?"
-			},
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Je suis juste un peu curieux!"
-			}
-		],
-		[
-			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Un jour, on reparlera de tout sa..."
 			},
 			{
 				"lg": "fr",
 				"voice": "espeak",
 				"msg": "Et tu vera que j'avais raison !"
-			}
-		],
-		[
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Et, tu pourrais quand maime me dire bonjour"
-			},
-			{
-				"lg": "fr",
-				"voice": "google",
-				"msg": "Oui, c'est la moindre des choses !"
 			}
 		],
 		[

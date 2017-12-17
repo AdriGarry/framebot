@@ -17,8 +17,6 @@ Flux.module.tts.subscribe({
 			lastTTS();
 		} else if (flux.id == 'random') {
 			speak();
-		} else if (flux.id == 'conversation') {
-			randomConversation();
 		} else if (flux.id == 'clearTTSQueue') {
 			clearTTSQueue();
 		} else Odi.error('unmapped flux in TTS module', flux, false);
@@ -93,17 +91,6 @@ function randomTTS() {
 	log.info('Random TTS : ' + rdmNb + '/' + RANDOM_TTS_LENGTH);
 	speak(rdmTTS);
 	// console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
-}
-
-/** Function to launch random TTS conversation */
-const RANDOM_CONVERSATIONS_LENGTH = Odi.ttsMessages.randomConversations.length;
-function randomConversation() {
-	log.debug('randomConversation()');
-	var rdmNb = Utils.random(RANDOM_CONVERSATIONS_LENGTH); // IMPORT JSON FILE
-	var conversation = Odi.ttsMessages.randomConversations[rdmNb];
-	log.debug(conversation);
-	log.info('Random conversation : ' + (rdmNb + 1) + '/' + RANDOM_CONVERSATIONS_LENGTH);
-	speak(conversation);
 }
 
 /** Function to play TTS message (espeak / google translate) */

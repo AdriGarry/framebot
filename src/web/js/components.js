@@ -255,7 +255,6 @@ app.component('exclamation', {
 		var tileParams = {
 			label: 'Exclamation',
 			actionList: [
-				{ label: 'Conversation', icon: 'comments-o', url: '/conversation' },
 				{
 					label: 'TTS',
 					icon: 'commenting-o',
