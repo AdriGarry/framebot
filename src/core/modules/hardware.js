@@ -131,8 +131,23 @@ function getDiskSpace(callback) {
 	});
 }
 
-/** Function to clean and archive logs */
+/** Function to clean and archive logs each week */
 function cleanLog() {
-	log.info('cleaning logs');
-	spawn('sh', [Odi._SHELL + 'log.sh', 'clean']);
+	log.info('cleaning logs...');
+	var date = new Date();
+	var weekNb = date.getWeek();
+	if (!fs.existsSync(Odi._LOG + 'old')) {
+		fs.mkdirSync(Odi._LOG + 'old');
+	}
+	var stream = fs.createReadStream(Odi._LOG + 'odi.log'); /*, {bufferSize: 64 * 1024}*/
+	stream.pipe(fs.createWriteStream(Odi._LOG + 'old/odi' + weekNb + '.log'));
+	stream.on('error', function(e) {
+		// log.error('config.resetCfg() stream error', e);
+		Odi.error('config.resetCfg() stream error', e);
+	});
+	stream.on('close', function() {
+		fs.truncate(Odi._LOG + 'odi.log', 0, function() {
+			log.INFO('logs successfully cleaned.');
+		});
+	});
 }

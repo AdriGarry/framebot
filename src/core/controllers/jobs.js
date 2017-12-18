@@ -219,15 +219,15 @@ function setBackgroundJobs() {
 		true,
 		'Europe/Paris'
 	);
-
-	new CronJob(
-		'0 0 5 * * 1',
-		function() {
-			log.info('Clean log files  /!\\'); // Weekly cleaning of logs
-			Flux.next('module', 'hardware', 'cleanLog');
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
 }
+
+new CronJob(
+	'0 2 0 * * 1',
+	function() {
+		log.info('Clean log files  /!\\'); // Weekly cleaning of logs
+		Flux.next('module', 'hardware', 'cleanLog');
+	},
+	null,
+	true,
+	'Europe/Paris'
+);
