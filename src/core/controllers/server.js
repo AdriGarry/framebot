@@ -335,11 +335,11 @@ function startUIServer(mode) {
 			res.end();
 		});
 
-		ui.post('/conversation', function(req, res) {
-			Flux.next('module', 'tts', 'conversation');
-			res.writeHead(200);
-			res.end();
-		});
+		// ui.post('/conversation', function(req, res) {
+		// 	Flux.next('module', 'tts', 'conversation');
+		// 	res.writeHead(200);
+		// 	res.end();
+		// });
 
 		ui.post('/idea', function(req, res) {
 			// params = req.query;

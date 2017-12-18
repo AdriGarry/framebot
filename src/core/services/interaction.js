@@ -38,12 +38,12 @@ Flux.service.interaction.subscribe({
 
 var randomActionBase = [
 	{ type: 'module', subject: 'tts', id: 'speak', weighting: 6 }, //7
-	{ type: 'module', subject: 'tts', id: 'conversation', weighting: 6 }, //7
+	// { type: 'module', subject: 'tts', id: 'conversation', weighting: 6 }, //7
 	{ type: 'service', subject: 'interaction', id: 'exclamation', weighting: 4 }, //4
-	{ type: 'service', subject: 'interaction', id: 'exclamation', weighting: 2 }, //4
+	// { type: 'service', subject: 'interaction', id: 'exclamation', weighting: 2 }, //4
 	{ type: 'service', subject: 'time', id: 'now', weighting: 1 },
 	{ type: 'service', subject: 'time', id: 'today', weighting: 1 },
-	{ type: 'service', subject: 'interaction', id: 'weather', value: 'random', weighting: 4 }, //4
+	{ type: 'service', subject: 'interaction', id: 'weather', value: 'random', weighting: 2 }, //4
 	{ type: 'module', subject: 'hardware', id: 'cpu', weighting: 1 },
 	{ type: 'service', subject: 'time', id: 'OdiAge', weighting: 1 }
 ];

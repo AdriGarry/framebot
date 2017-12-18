@@ -11,10 +11,10 @@ const Rx = require('rxjs');
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
-const testTTSList = [{lg: 'en', msg: 'Test' },	{lg: 'fr', msg: 'Test' }];
+// const testTTSList = [{lg: 'en', msg: 'Test' },	{lg: 'fr', msg: 'Test' }];
 
 module.exports.run = function(callback) {
-	Flux.next('module', 'tts', 'speak', testTTSList[Utils.random(testTTSList.length)], null, null, true);
+	//Flux.next('module', 'tts', 'speak', testTTSList[Utils.random(testTTSList.length)], null, null, true);
 	// Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 0 }, 3, null, null, true);
 	Flux.next('module', 'led', 'blink', { leds: ['belly'], speed: 600, loop: 100 });
 

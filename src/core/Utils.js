@@ -187,8 +187,10 @@ function random(arg1, arg2) {
 }
 
 function randomItem(array) {
+	log.DEBUG(array);
 	var length = array.length;
 	var randomIndex = random(length - 1);
+	log.DEBUG(randomIndex);
 	return array[randomIndex];
 }
 

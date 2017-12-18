@@ -12,13 +12,14 @@ const Rx = require('rxjs');
 var Flux = require(Odi._CORE + 'Flux.js');
 
 module.exports.run = function(callback) {
-
 	Flux.next('service', 'time', 'today');
 	Flux.next('service', 'time', 'now');
 	// Flux.next('service', 'time', 'OdiAge');
 
 	// Flux.next('service', 'voicemail', 'new', {msg: 'are you there ?'}, 8);
-	var rdmTTS = Odi.ttsMessages.randomTTS[Utils.random(Odi.ttsMessages.randomTTS.length)];
+	// var rdmTTS = Odi.ttsMessages.randomTTS[Utils.random(Odi.ttsMessages.randomTTS.length)];
+	var rdmTTS = Utils.randomItem(Odi.ttsMessages.randomTTS);
+	log.DEBUG(rdmTTS);
 	Flux.next('service', 'voicemail', 'new', rdmTTS, 8);
 	Flux.next('service', 'voicemail', 'check', null, 11);
 	Flux.next('service', 'voicemail', 'clear', null, 15);

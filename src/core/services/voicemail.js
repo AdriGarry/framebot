@@ -32,12 +32,21 @@ const VOICEMAIL_FILE_HISTORY = Odi._LOG + 'voicemailHistory.json';
 /** Function to persist voicemail message */
 function addVoiceMailMessage(tts) {
 	log.info('New voicemail message :', tts);
-	tts = JSON.stringify(tts);
-	Utils.appendJsonFile(VOICEMAIL_FILE, tts);
-	Utils.appendJsonFile(VOICEMAIL_FILE_HISTORY, tts);
-	setTimeout(function() {
-		updateVoicemailMessage();
-	}, 1000);
+	if (typeof tts === 'object' && tts.hasOwnProperty('msg') && typeof tts.msg === 'string') {
+		tts = JSON.stringify(tts);
+		Utils.appendJsonFile(VOICEMAIL_FILE, tts);
+		Utils.appendJsonFile(VOICEMAIL_FILE_HISTORY, tts);
+		setTimeout(function() {
+			updateVoicemailMessage();
+		}, 1000);
+	} else if (Array.isArray(tts)) {
+		for (var i = 0; i < tts.length; i++) {
+			addVoiceMailMessage(tts[i]);
+		}
+	} else {
+		Odi.error("Wrong tts, can't save voicemail", tts);
+		return;
+	}
 }
 
 var clearVoiceMailDelay;

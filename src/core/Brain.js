@@ -28,7 +28,7 @@ Flux.controller.jobs.subscribe({
 });
 
 function buttonHandler(flux) {
-	if (Odi.conf.mode != 'sleep') {
+	if (Odi.isAwake()) {
 		if (flux.id == 'ok') {
 			if (Odi.run.mood.indexOf('party') > -1) {
 				if (Utils.random()) {
