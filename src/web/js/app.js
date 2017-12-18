@@ -1,28 +1,29 @@
-'use strict'
-var app = angular.module('odiUI', ['ngMaterial', 'mdPickers' /*'pr.longpress'*/])
+'use strict';
+var app = angular.module('odiUI', ['ngMaterial', 'mdPickers' /*'pr.longpress'*/]);
 
-app.constant("CONSTANTS", {
-	'UI_VERSION': 3.0,
-	'URL_ODI': 'http://odi.adrigarry.com',
+app.constant('CONSTANTS', {
+	UI_VERSION: 3.0,
+	URL_ODI: 'http://odi.adrigarry.com',
 	// 'DATE_TIME_REGEX': new RegExp('[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', 'g'),
-	'DATE_REGEX': new RegExp('[0-9]{2}/[0-9]{2} ', 'g'),
-	'FILE_REGEX': new RegExp('\\[[a-zA-Z]+.(js|JS)\\] ', 'g'),
-	'IP_REGEX': new RegExp('(\\[(?=.*[0-9])(?=.*\\.)(?=.*\\:).*\\])', 'g'),
-	'IP_LOCALIZATOR_URL': 'http://www.traceip.net/?query='
+	DATE_REGEX: new RegExp('[0-9]{2}/[0-9]{2} ', 'g'),
+	FILE_REGEX: new RegExp('\\[[a-zA-Z]+.(js|JS)\\] ', 'g'),
+	IP_REGEX: new RegExp('(\\[(?=.*[0-9])(?=.*\\.)(?=.*\\:).*\\])', 'g'),
+	IP_LOCALIZATOR_URL: 'http://www.traceip.net/?query='
 });
 
-app.config(function($mdThemingProvider){
-	$mdThemingProvider.theme('default')
-	.primaryPalette('teal')
-	.warnPalette('red');
+app.config(function($mdThemingProvider) {
+	$mdThemingProvider
+		.theme('default')
+		.primaryPalette('teal')
+		.warnPalette('red');
 });
 
 /** Directive to watch scroll event 
 	- restart autoRefresh
 	- showFabButtons **/
-app.directive("scroll", function ($window){
-	return function(scope, element, attrs){
-		angular.element($window).bind("scroll", function(){
+app.directive('scroll', function($window) {
+	return function(scope, element, attrs) {
+		angular.element($window).bind('scroll', function() {
 			scope.refreshDashboard();
 			scope.showFabButtons();
 		});
@@ -30,21 +31,28 @@ app.directive("scroll", function ($window){
 });
 
 /** Filter to format logs (link on ip address) **/
-app.filter('formatLog', function(CONSTANTS){
-	return function(logLine, fullLog){
-		if(!fullLog){
+app.filter('formatLog', function(CONSTANTS) {
+	return function(logLine, fullLog) {
+		if (!fullLog) {
 			logLine = logLine.replace(CONSTANTS.DATE_REGEX, '');
 			logLine = logLine.replace(CONSTANTS.FILE_REGEX, '');
 		}
-		logLine = logLine.replace(CONSTANTS.IP_REGEX, function(match, capture){
-			var ip = match.substr(1,match.length-2);
-			if(ip.search(/(^192\.168\.)/g)){
-				return '[<a href="'+ CONSTANTS.IP_LOCALIZATOR_URL + ip + '" title="Localize this IP" target="_blank">' + ip + '</a>]';
-			}else{
+		logLine = logLine.replace(CONSTANTS.IP_REGEX, function(match, capture) {
+			var ip = match.substr(1, match.length - 2);
+			if (ip.search(/(^192\.168\.)/g)) {
+				return (
+					'[<a href="' +
+					CONSTANTS.IP_LOCALIZATOR_URL +
+					ip +
+					'" title="Localize this IP" target="_blank">' +
+					ip +
+					'</a>]'
+				);
+			} else {
 				return '[' + ip + ']';
 			}
 		});
-		logLine = logLine.replace(CONSTANTS.DATE_TIME_REGEX, function(match){
+		logLine = logLine.replace(CONSTANTS.DATE_TIME_REGEX, function(match) {
 			return '<span class="timeLog">' + match + '</span>';
 		});
 		return logLine;
@@ -52,19 +60,19 @@ app.filter('formatLog', function(CONSTANTS){
 });
 
 /** Filter to display number < 10 on 2 characters **/
-app.filter('formatNumber', function(){
-	return function(value, length){
-		return (1e5+''+value).slice(-length);
-	}
+app.filter('formatNumber', function() {
+	return function(value, length) {
+		return (1e5 + '' + value).slice(-length);
+	};
 });
 
 /** Filter to display time left for timer **/
-app.filter('formatTime', function($filter){
-	return function(sec){
-		var m = Math.trunc(sec/60);
-		var s = $filter('formatNumber')(sec%60, 2);
-		return m+':'+s;
-	}
+app.filter('formatTime', function($filter) {
+	return function(sec) {
+		var m = Math.trunc(sec / 60);
+		var s = $filter('formatNumber')(sec % 60, 2);
+		return m + ':' + s;
+	};
 });
 
 // /** Filter to display x worlds of a string **/ // NOT USED
