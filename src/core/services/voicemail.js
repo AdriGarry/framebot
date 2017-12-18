@@ -11,7 +11,6 @@ var Utils = require(Odi._CORE + 'Utils.js');
 
 Flux.service.voicemail.subscribe({
 	next: flux => {
-		log.info('VoiceMail service', flux);
 		if (flux.id == 'new') {
 			addVoiceMailMessage(flux.value);
 		} else if (flux.id == 'check') {
