@@ -490,6 +490,11 @@
 		{
 			"lg": "fr",
 			"voice": "espeak",
+			"msg": "Et, sa vous dit un concours de zizicoptaire ?"
+		},
+		{
+			"lg": "fr",
+			"voice": "espeak",
 			"msg": "Que dirais-tu d'une petite mousse ?"
 		},
 		{
