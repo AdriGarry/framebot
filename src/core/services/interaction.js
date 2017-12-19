@@ -61,7 +61,8 @@ for (var i = 0; i < randomActionBase.length; i++) {
 
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction() {
-	var action = randomActionList[Utils.random(randomActionList.length)];
+	// var action = randomActionList[Utils.random(randomActionList.length)];
+	var action = Utils.random(randomActionList);
 	// log.INFO('heyheyhey==>', action);
 	log.info('randomAction:', action.id, '[' + action.weighting + ']');
 	Flux.next(action.type, action.subject, action.id, action.value);
