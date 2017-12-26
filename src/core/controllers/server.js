@@ -324,7 +324,7 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/checkVoiceMail', function(req, res) {
-			Flux.next('service', 'voicemail', 'check');
+			Flux.next('service', 'voicemail', 'check', true);
 			res.writeHead(200);
 			res.end();
 		});

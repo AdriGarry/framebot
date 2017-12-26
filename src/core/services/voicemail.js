@@ -14,7 +14,7 @@ Flux.service.voicemail.subscribe({
 		if (flux.id == 'new') {
 			addVoiceMailMessage(flux.value);
 		} else if (flux.id == 'check') {
-			checkVoiceMail();
+			checkVoiceMail(flux.value);
 		} else if (flux.id == 'clear') {
 			clearVoiceMail();
 		} else Odi.error('unmapped flux in Voicemail service', flux, false);
@@ -50,8 +50,9 @@ function addVoiceMailMessage(tts) {
 }
 
 var clearVoiceMailDelay;
+const NO_VOICEMAIL = 'No VoiceMail Message';
 /** Function to check voicemail, and play */
-function checkVoiceMail(callback) {
+function checkVoiceMail(withTTSResult, callback) {
 	log.debug('Checking VoiceMail...');
 	Utils.getJsonFileContent(VOICEMAIL_FILE, function(messages) {
 		if (messages) {
@@ -70,7 +71,8 @@ function checkVoiceMail(callback) {
 			//callback(true);
 			return true;
 		} else {
-			log.info('No VoiceMail Message');
+			log.info(NO_VOICEMAIL);
+			if (withTTSResult) Flux.next('module', 'tts', 'speak', { lg: 'en', msg: NO_VOICEMAIL });
 			if (callback) callback(false); // for other action
 			return false;
 		}
