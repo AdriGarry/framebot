@@ -56,7 +56,6 @@ for (var i = 0; i < randomActionBase.length; i++) {
 		loop--;
 	}
 }
-// console.log(randomActionList);
 
 // Lancer les anniversaires d'ici ? (ou alors dans un calendar.js ?)
 
