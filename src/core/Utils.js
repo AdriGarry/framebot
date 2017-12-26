@@ -52,7 +52,6 @@ function appendJsonFile(filePath, obj, callback) {
 						.replace(/\\/g, '')
 						.replace(/\"{/g, '{')
 						.replace(/\}"/g, '}');
-					// log.debug('fileData', fileData);
 					fs.writeFile(filePath, fileData, function(cb) {
 						log.debug('file ' + filePath + ' modified in', getExecutionTime(startTime) + 'ms');
 					});
@@ -147,6 +146,11 @@ function firstLetterUpper(string) {
 /** Function to repeat/concat a string */
 String.prototype.repeat = function(num) {
 	return new Array(Math.abs(num) + 1).join(this);
+};
+
+/** Function to remove quotes in a string */
+String.prototype.unQuote = function() {
+	return this.replace(/'|"/gm, '');
 };
 
 /** Function to calculate execution time of something */

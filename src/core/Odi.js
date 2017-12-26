@@ -86,7 +86,7 @@ function isAwake() {
 function error(label, data, stackTrace) {
 	Flux.next('module', 'led', 'altLeds', { speed: 30, duration: 1.5 }, null, null, 'hidden');
 	Flux.next('module', 'sound', 'error', null, null, null, 'hidden');
-	log.error(label, data || '');
+	log.error(label + '\n', data || '');
 	if (stackTrace != false) {
 		// Optional ?
 		console.trace();
@@ -96,6 +96,7 @@ function error(label, data, stackTrace) {
 		label: label,
 		data: data
 	};
+	// console.log('logError', logError);
 	Utils.appendJsonFile(ODI_PATH + 'log/errorHistory.log', logError);
 	Odi.errors.push(logError);
 }
