@@ -56,13 +56,15 @@ function buttonHandler(flux) {
 		} else if (flux.id == 'white') {
 			Flux.next('service', 'time', 'timer', Math.round(flux.value));
 		} else if (flux.id == 'blue') {
-			log.INFO('to fix!!!!!');
+			//log.INFO('to fix!!!!!');
 			if (flux.value > 0.8) {
 				if (Odi.run.etat) {
 					Flux.next('service', 'music', 'fip'); // TODO
 				} else {
 					Flux.next('service', 'music', 'jukebox'); // TODO
 				}
+			} else {
+				log.info('Blue button must be pushed for .8s at least, try again !');
 			}
 		} else Odi.error('Button->else', flux);
 	} else {
