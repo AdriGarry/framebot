@@ -42,13 +42,13 @@ function getEtatValue() {
 function cpuStatsTTS() {
 	Flux.next('module', 'tts', 'speak', {
 		lg: 'fr',
-		msg: 'Mon ' + (Utils.random() ? 'processeur' : 'CPU') + ' est a ' + retreiveCpuTemp() + ' degrai'
+		msg: 'Mon  ' + (Utils.random() ? 'processeur' : 'CPU') + ' est a ' + retreiveCpuTemp() + '  degrai...'
 	});
 	Flux.next('module', 'tts', 'speak', {
 		lg: 'fr',
 		msg: Utils.random()
 			? 'Et il tourne a ' + retreiveCpuUsage() + ' pour cent'
-			: 'pour ' + retreiveCpuUsage() + " pour cent d'utilisation"
+			: 'Pour ' + retreiveCpuUsage() + " pour cent d'utilisation"
 		// 'pour 34 pour cent d\'utilisation'
 	});
 }
