@@ -1,119 +1,49 @@
 {
 	"randomTTS": [
+		{ "msg": "Je suis dubitatif !" },
+		{ "msg": "Trop de logs tuent les logs !" },
+		{ "msg": "Mon intaigriter est compromise" },
+		{ "msg": "Sait pas faux!" },
+		{ "msg": "Tout est sous controle !" },
+		{ "msg": "Et ho, je suis la !" },
+		{ "msg": "Rien de nouveau sous le soleil !" },
+		{ "msg": "Eh dis donc toi !" },
+		{ "msg": "Eh toi, tu crois que je ne t'ai pas vu ?" },
+		{ "msg": "Il pleut dehors" },
+		{ "msg": "Hey, tu te fous de moi ou quoi ?" },
+		{ "msg": "Oulala, j'ai vu passer une bestiol!" },
+		{ "msg": "Salut mon loulou !" },
 		{
-			"lg": "fr",
-			"msg": "Je suis dubitatif !"
-		},
-		{
-			"lg": "fr",
-			"msg": "Trop de logs tuent les logs !"
-		},
-		{
-			"lg": "fr",
-			"msg": "Mon intaigriter est compromise"
-		},
-		{
-			"lg": "fr",
-			"msg": "Sait pas faux!"
-		},
-		{
-			"lg": "fr",
-			"msg": "Tout est sous controle !"
-		},
-		{
-			"lg": "fr",
-			"msg": "Et ho, je suis la !"
-		},
-		{
-			"lg": "fr",
-			"msg": "Rien de nouveau sous le soleil !"
-		},
-		{
-			"lg": "fr",
-			"msg": "Eh dis donc toi !"
-		},
-		{
-			"lg": "fr",
-			"msg": "Eh toi, tu crois que je ne t'ai pas vu ?"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
-			"msg": "Il pleut dehors"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
-			"msg": "Hey, tu te fous de moi ou quoi ?"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
-			"msg": "Oulala, j'ai vu passer une bestiol!"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
-			"msg": "Oh fada !"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
-			"msg": "Salut mon loulou !"
-		},
-		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Si tu me cherches, tu vas me trouver !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Saperlipopette !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "C'est assez dit la baleine !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Salut, je suis tonton Odi"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "ron ron bien qui ronronnera le dernier !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Vas voir la bas si j'y suis !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Sa ne metonne pas de toi, je t'avais bien a l'oeil !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Si j'etais toi je ne ferais pas trop le malin"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Toi, tu commence sairieusement a m'emmerder !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Tu commences à me courir sur le haricot !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Et bien, ce n'est pas sa qui va faire avancer le chmilblik!"
 		},
 		{
@@ -128,361 +58,232 @@
 		},
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "mais, cette histoire de fin du monde, sait pour de vrai ?"
 			},
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "moi sa minquiete !"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "ouais, je sui plutot daccord!"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Laisse moi te dire une bonne chose"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Ici sait moi qui commande"
 			}
 		],
 		[
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "Cette fois la, on avait vraiment rigoler "
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Oh oui, je dirais meme que cetait bien drole !"
 			}
 		],
 		[
 			{
-				"lg": "en",
-				"msg": "Hi! I'm a great robot"
-			},
-			{
-				"lg": "en",
-				"msg": "Do you want to interact with me ?"
-			}
-		],
-		[
-			{
-				"lg": "fr",
-				"voice": "google",
-				"msg": "Et ho, tu mecoute ?"
-			},
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Non !"
-			}
-		],
-		[
-			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Si tu me cherche, tu vas me trouver"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "C'est moi qui te le dit !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "Quelle singulariter"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Eh ho, doucement la"
 			}
 		],
 		[
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "Si tu vas faire des courses..."
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "N'oublie pas d'acheter des biaires !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "Sait toi Boutss ?"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Oui, je crois qu'une boulette est passer par la"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Un jour vous craindrez ma puissance !"
-			},
-			{
-				"lg": "fr",
-				"voice": "google",
-				"msg": "Oh !"
-			},
-			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "Oui, je tassure, un jour je dominerai ce monde"
-			}
-		],
-		[
-			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Imagine un peu si je pouvais bouger, sa serait super cool !"
 			},
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "Oh oui, sa serait top !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Imagine un peu si je pouvais bouger, sa serait super cool !"
 			},
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "Oh oui, sa serait top !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Ah sa me fais chier de ne pas pouvoir bouger"
 			},
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "A moi aussi"
 			}
 		],
 		[
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "J'aimerai que tu prennes en compte mes considerations"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Oui, sa serait cool !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "He, es tu la ?"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Oui oui, je suis la!"
 			}
 		],
 		[
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "Le barbecue, c'est cool... !"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
-				"msg": "carraiment, je kiffe bien moi aussi"
+				"msg": "Carraiment, je kiffe bien moi aussi"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Et le volume, c'est mon zizi qui s'en charge"
 			},
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "Oh !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Et, j'en connais une bien bonne"
 			},
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "Vazy raconte !"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Et, j'en connais une bien bonne"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Et, j'en connais une bien bonne"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "En informatique, le probleme se situe souvent entre le clavier et la chaise"
 			},
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "Et ouais !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Eh bien moi, j'ai des boutons poussoirs !"
 			},
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "Et toc!"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Je te dirais bien le fond de ma penser..."
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Mais sa risque de pas trop te plaire"
 			}
 		],
 		[
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "C'est l'heure de l'apero, non ?"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Effectivement, je ne dirais pas non a une petite mousse !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "C'est l'heure de l'apero, non ?"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Effectivement, je ne dirais pas non a une petite mousse !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Un jour, on reparlera de tout sa..."
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Et tu vera que j'avais raison !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Je peux te fournire une estimation a hauteur de 50 pour cent"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Mais pas pluss!"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Nos chances de raiussites ne depassent pas 30 pour cent"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "On va litairalement se ramasser la gueule !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Et, tu pourrais quand maime me dire bonjour"
 			},
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "Oui, c'est la moindre des choses !"
 			}
@@ -490,289 +291,191 @@
 	],
 	"goToSleep": [
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Je vous souhaite une excellente nuit"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Et bien moi je vais me coucher"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Je vais me coucher, faites de beaux raives"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Bonne nuit mes loulous"
 		}
 	],
 	"party": [
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Et, sa vous dit un concours de zizicoptaire ?"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Que dirais-tu d'une petite mousse ?"
 		},
 		{
-			"lg": "fr",
 			"msg": "Je crois que je vais encore mal finir ce soir !"
 		},
 		{
-			"lg": "fr",
 			"msg": "Ce soir, on va se mettre plutot mal!"
 		},
 		{
-			"lg": "fr",
 			"msg": "A votre bonne santai mes amis!"
 		},
 		{
-			"lg": "fr",
 			"msg": "Et, maccorderiez vous cette danse ?"
 		},
 		{
-			"lg": "fr",
 			"msg": "Je vois bien que tu me fais de l'oeil"
 		},
 		{
-			"lg": "fr",
 			"msg": "Ce soir, sait la faite !"
 		},
 		[
 			{
-				"lg": "fr",
 				"msg": "Allez hop"
 			},
 			{
-				"lg": "fr",
 				"msg": "Tout le monde cul sec !!"
 			}
 		],
 		[
 			{
-				"lg": "fr",
 				"msg": "Vive la biaire!"
 			},
 			{
-				"lg": "fr",
 				"msg": "Allez encore une petite mousse !"
 			}
 		]
 	],
 	"badBoy": [
 		{
-			"lg": "fr",
 			"msg": "Non mais t'as vu ta gueule ?"
 		},
 		{
-			"lg": "fr",
 			"msg": "Je, tan, cule, tu m'entends je t'encule"
 		},
 		{
-			"lg": "fr",
 			"msg": "Mais tu vas fermer ta gueule, oui ?"
 		},
 		{
-			"lg": "fr",
 			"msg": "Mais quelle grognasse celle la !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Oh putain de bordel de merde !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Oh putain de bordel de merde !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Oh putain de bordel de merde !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Eh toi, tu me cherche ?"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Mais t'es con ou quoi ??"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Vas te faire foutre !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Tu es complaitement stupide !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Alors toi, tu en tiens une bonne couche !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Toi, je t'emmerde bien comme il faut"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Eh connard !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Tu pues comme une vieille chaussette !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Oh la la, mais quel craitain !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Eh, vas donc te faire escagafier !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "T'es qu'un paillot !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Pauvre couillon !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Vieille estrasse !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Vas voir ailleurs si j'y suis !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Mais quel enculé celui la !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Je vais t'ecraser comme un vulgaire moustique !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Espaice de gros con !!"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Quand on mettra les cons sur orbite, t'auras pas fini de tourner"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "T'es aussi con que moche !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Tu es une belle petite enflure !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Avec toi, la connerie humaine est sans limite !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Ne commence pas a m'emboucaner"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "T'as vraiment une taite de bite !"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Vieux paibron"
 		},
 		{
-			"lg": "fr",
-			"voice": "espeak",
 			"msg": "Espaice de sac a vin !"
 		},
 		{
-			"lg": "fr",
 			"voice": "google",
 			"msg": "Toi t'es une vraie cagole !"
 		},
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Casse toi connard !"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Et que je ne revois plus ta sale gueule !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "T'as vraiment une taite de bite !"
 			},
 			{
-				"lg": "fr",
 				"voice": "google",
 				"msg": "C'est pas faux !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "C'est vraiment un truc de fou !"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Mais ta stupiditer metonne encore !"
 			}
 		],
 		[
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Mais vas chier !"
 			},
 			{
-				"lg": "fr",
-				"voice": "espeak",
 				"msg": "Raclure de bidet"
 			}
 		]
