@@ -21,7 +21,8 @@ Flux.module.hardware.subscribe({
 			retreiveCpuUsage();
 			getEtatValue();
 		} else if (flux.id == 'cpu') {
-			cpuTempTTS();
+			// cpuTempTTS();
+			cpuStatsTTS();
 		} else if (flux.id == 'cleanLog') {
 			cleanLog();
 		} else Odi.error('unmapped flux in Hardware module', flux, false);
@@ -37,6 +38,21 @@ function getEtatValue() {
 	Odi.run.volume = etat.readSync() ? 400 : -400;
 }
 
+/** Function to tts cpu stats */
+function cpuStatsTTS() {
+	Flux.next('module', 'tts', 'speak', {
+		lg: 'fr',
+		msg: 'Mon ' + (Utils.random() ? 'processeur' : 'CPU') + ' est a ' + retreiveCpuTemp() + ' degrai'
+	});
+	Flux.next('module', 'tts', 'speak', {
+		lg: 'fr',
+		msg: Utils.random()
+			? 'Et il tourne a ' + retreiveCpuUsage() + ' pour cent'
+			: 'pour ' + retreiveCpuUsage() + " pour cent d'utilisation"
+		// 'pour 34 pour cent d\'utilisation'
+	});
+}
+
 function retreiveCpuTemp() {
 	var temperature = fs.readFileSync('/sys/class/thermal/thermal_zone0/temp');
 	temperature = (temperature / 1000).toPrecision(2);
@@ -45,10 +61,18 @@ function retreiveCpuTemp() {
 	return temperature;
 }
 
-/** Function cpu temperature TTS */
-function cpuTempTTS() {
-	var temperature = retreiveCpuTemp();
-	Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: 'Mon processeur est a ' + temperature + ' degrai' });
+/** Function to get CPU usage */
+function retreiveCpuUsage() {
+	var endMeasure = cpuAverage(); //Grab second Measure
+	//Calculate the difference in idle and total time between the measures
+	var idleDifference = endMeasure.idle - startMeasure.idle;
+	//console.log(idleDifference);console.log(endMeasure.idle);console.log(startMeasure.idle);
+	var totalDifference = endMeasure.total - startMeasure.total;
+	//console.log(totalDifference);console.log(endMeasure.total);console.log(startMeasure.total);
+	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference); //Calculate the average percentage CPU usage
+	Odi.run.cpuUsage = percentageCPU;
+	log.debug('CPU usage : ' + percentageCPU + ' %');
+	return percentageCPU;
 }
 
 //Create function to get CPU information
@@ -72,19 +96,6 @@ function cpuAverage() {
 }
 //Grab first CPU Measure
 var startMeasure = cpuAverage();
-/** Function to get CPU usage */
-function retreiveCpuUsage() {
-	var endMeasure = cpuAverage(); //Grab second Measure
-	//Calculate the difference in idle and total time between the measures
-	var idleDifference = endMeasure.idle - startMeasure.idle;
-	//console.log(idleDifference);console.log(endMeasure.idle);console.log(startMeasure.idle);
-	var totalDifference = endMeasure.total - startMeasure.total;
-	//console.log(totalDifference);console.log(endMeasure.total);console.log(startMeasure.total);
-	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference); //Calculate the average percentage CPU usage
-	Odi.run.cpuUsage = percentageCPU;
-	log.debug('CPU usage : ' + percentageCPU + ' %');
-	return percentageCPU;
-}
 
 /** Function to update last modified date & time of Odi's files */
 function retreiveLastModifiedDate(paths, callback) {

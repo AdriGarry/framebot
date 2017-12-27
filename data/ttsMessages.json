@@ -455,6 +455,18 @@
 			{
 				"lg": "fr",
 				"voice": "espeak",
+				"msg": "Je peux te fournire une estimation a hauteur de 50 pour cent"
+			},
+			{
+				"lg": "fr",
+				"voice": "espeak",
+				"msg": "Mais pas pluss!"
+			}
+		],
+		[
+			{
+				"lg": "fr",
+				"voice": "espeak",
 				"msg": "Et, tu pourrais quand maime me dire bonjour"
 			},
 			{

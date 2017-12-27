@@ -112,7 +112,7 @@ var playTTS = function(tts) {
 		tts.lg = 'fr';
 	}
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
-	spawn('sh', [Odi._SHELL + 'tts.sh', tts.voice, tts.lg, tts.msg]);
+	spawn('sh', [Odi._SHELL + 'tts.sh', tts.voice, tts.lg, tts.msg.replace('%20', '')]);
 	Flux.next(
 		'module',
 		'led',
