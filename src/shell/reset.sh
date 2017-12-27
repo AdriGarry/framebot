@@ -12,6 +12,11 @@ sudo rm /home/pi/odi/log/ttsUIHistory.json
 sudo rm /home/pi/odi/log/voicemailHistory.json
 echo "Log files deleted"
 
+# Cleaning tmp folder
+sudo rm -r -f /home/pi/odi/tmp
+mkdir /home/pi/odi/tmp
+echo "Temp folder cleaned"
+
 # Reset conf file
 sudo cp /home/pi/odi/data/defaultConf.json /home/pi/odi/conf.json
 sudo chmod 777 /home/pi/odi/conf.json
