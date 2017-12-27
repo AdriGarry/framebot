@@ -35,7 +35,7 @@ Flux.service.time.subscribe({
 });
 
 /** Function TTS time now */
-function now(voice) {
+function now() {
 	// TODO  prendre en compte le parametre voix (créer un objet tts avant de le passer en parametre)
 	log.debug('time.now()');
 	var date = new Date();
@@ -46,8 +46,7 @@ function now(voice) {
 
 const CALENDAR = require(Odi._DATA + 'calendar.json');
 /** Function to say current date */
-function today(voice) {
-	// TODO  prendre en compte le parametre voix (créer un objet tts avant de le passer en parametre)
+function today() {
 	var date = new Date();
 	var dayNb = date.getDate();
 	if (dayNb == 1) dayNb = 'premier';
@@ -56,9 +55,32 @@ function today(voice) {
 	var month = date.getMonth();
 	var month = CALENDAR.months[month];
 	var year = date.getFullYear();
-	var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + (Utils.random() ? '' : ' ' + year);
+
+	if (Utils.random()) {
+		var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
+	} else {
+		var annonceDate = ['Nous sommes le ' + day + ' ' + dayNb + ' ' + month, "Et donc, c'est " + getSeason() + '!'];
+	}
+
 	log.debug('time.today()' + annonceDate);
-	Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: annonceDate });
+	// Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: annonceDate });
+	Flux.next('module', 'tts', 'speak', annonceDate);
+}
+
+function getSeason() {
+	var date = new Date();
+	var month_day = date.getMonth() * 100 + date.getDate();
+	if (month_day < 221) {
+		return "l'hiver";
+	} else if (month_day < 521) {
+		return 'le printemps';
+	} else if (month_day < 821) {
+		return "l'aitai";
+	} else if (month_day < 1121) {
+		return "l'automne";
+	} else {
+		return "l'hiver";
+	}
 }
 
 /** Function to set Odi's custom alarm */

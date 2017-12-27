@@ -35,27 +35,27 @@ var onAir = false,
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts) {
-	if (Utils.searchStringInArray(Odi.conf.mode, allowedModes)) {
-		// log.debug(tts);
-		if (Array.isArray(tts)) {
-			log.info('TTS array object... processing'); // , tts
-			tts.forEach(function(message) {
-				if (message.msg) {
-					speak(message);
-				}
-			});
-		} else if (!tts || !Object.keys(tts).length > 0 || tts.msg.toUpperCase().indexOf('RANDOM') > -1) {
-			// OR UNDEFINED !!
-			randomTTS();
-		} else {
-			if (tts.hasOwnProperty('msg')) {
-				var ttsQueueLength = ttsQueue.length;
-				ttsQueue.push(tts);
-				log.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
-			} else log.debug(console.error('newTTS() Wrong TTS object ', tts));
-		}
-		if (ttsQueue.length > 0) proceedQueue();
-	} else log.info('Wrong mode for TTS speak !!');
+	// log.debug(tts);
+	if (Array.isArray(tts)) {
+		log.info('TTS array object... processing'); // , tts
+		tts.forEach(function(message) {
+			if (typeof message === 'string' || message.hasOwnProperty('msg')) {
+				speak(message);
+			}
+		});
+	} else if (typeof tts === 'string') {
+		ttsQueue.push({ msg: tts });
+	} else if (!tts || !Object.keys(tts).length > 0 || tts.msg.toUpperCase().indexOf('RANDOM') > -1) {
+		// OR UNDEFINED !!
+		randomTTS();
+	} else {
+		if (tts.hasOwnProperty('msg')) {
+			var ttsQueueLength = ttsQueue.length;
+			ttsQueue.push(tts);
+			log.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
+		} else log.debug(console.error('newTTS() Wrong TTS object ', tts));
+	}
+	if (ttsQueue.length > 0) proceedQueue();
 }
 
 /** Function to proceed TTS queue */
