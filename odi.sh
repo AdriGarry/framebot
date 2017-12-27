@@ -7,6 +7,13 @@ echo $ODI_PATH
 
 echo "start.sh -> Start Odi Pgm... [$*]"
 
+if [ $1 =  "reset" ]
+   then
+	echo "Reseting Odi..."
+	/bin/bash $ODI_PATH/src/shell/reset.sh
+	echo "Odi reseted !"
+fi
+
 # configFile="/home/pi/odi/tmp"
 # tmpDir="/home/pi/odi/tmp"
 

@@ -2,9 +2,20 @@
 
 # Reset script
 # Any problem ? check line ending...
+echo 'RESET.SH'
 
-# Screen
-#sudo /opt/vc/bin/tvservice -p
+# Deleting log files
+sudo rm /home/pi/odi/log/odi.log
+sudo rm /home/pi/odi/log/errorHistory.log
+sudo rm /home/pi/odi/log/requestHistory.log
+sudo rm /home/pi/odi/log/ttsUIHistory.json
+sudo rm /home/pi/odi/log/voicemailHistory.json
+echo "Log files deleted"
+
+# Reset conf file
+sudo cp /home/pi/odi/data/defaultConf.json /home/pi/odi/conf.json
+sudo chmod 777 /home/pi/odi/conf.json
+echo "Conf file reseted"
 
 # Sound
 sudo amixer set PCM 100%
@@ -15,22 +26,5 @@ VOLUME=100
 export VOLUME
 echo "VOLUME = " $VOLUME
 
-
-#___Fonction ##
-initiatialization () {
-	echo "Initiatialization..."
-	# TODO mplayer, espeak, node_modules, fbi
-}
-
-
-if [ $# -eq 0 ]
-	then
-	exit
-fi
-
-echo "params " $1
-
-if [ $1 = "init" ]
-then
-	initiatialization
-fi
+# Screen
+sudo /opt/vc/bin/tvservice -p
