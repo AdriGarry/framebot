@@ -150,15 +150,6 @@
 		[
 			{
 				"voice": "google",
-				"msg": "J'aimerai que tu prennes en compte mes considerations"
-			},
-			{
-				"msg": "Oui, sa serait cool !"
-			}
-		],
-		[
-			{
-				"voice": "google",
 				"msg": "He, es tu la ?"
 			},
 			{
