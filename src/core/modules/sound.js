@@ -21,7 +21,7 @@ Flux.module.sound.subscribe({
 				playSound(flux.value);
 			} else if (flux.id == 'error') {
 				// spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
-				playSound({ mp3: 'system/ressort.mp3' });
+				playSound({ mp3: 'system/ressort.mp3' }, 'noLog');
 			} else if (flux.id == 'UI') {
 				spawn('sh', [Odi._SHELL + 'sounds.sh', 'UIRequest']);
 			} else {
@@ -38,7 +38,7 @@ function setVolume(volume) {
 	log.info('setVolume()', volume);
 }
 
-function playSound(arg) {
+function playSound(arg, noLog) {
 	log.debug(arg);
 	var mp3Title;
 	try {
@@ -51,7 +51,7 @@ function playSound(arg) {
 		: '';
 	var volLog = arg.volume ? 'vol=' + arg.volume : '';
 	var positionLog = arg.position ? 'pos=' + arg.position : '';
-	log.info('play', mp3Title, volLog, positionLog, durationLog);
+	if (!noLog) log.info('play', mp3Title, volLog, positionLog, durationLog);
 
 	// position=$(shuf -i 0-20000 -n 1) // TODO !!
 	var position = arg.position || 0;
