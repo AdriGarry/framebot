@@ -68,6 +68,7 @@ log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'm
 // Flux.next('service', 'interaction', 'random');
 
 if (Odi.conf.mode == 'sleep') {
+	Flux.next('module', 'arduino', 'write', 'break..', 2);
 	new CronJob(
 		'0 * * * * *',
 		function() {
@@ -106,6 +107,12 @@ if (Odi.conf.mode == 'sleep') {
 		Flux.next('service', 'voicemail', 'check');
 	}
 }
+
+// if (Odi.isAwake()) {
+// 	Flux.next('module', 'arduino', 'write', 'Salut mon loulou !..'.toUpperCase(), 1, 2);
+// 	Flux.next('module', 'arduino', 'write', 'break..', 7);
+// 	Flux.next('module', 'arduino', 'write', 'hi..', 120);
+// }
 
 // Flux.next('module', 'sound', 'play', { mp3: 'system/beBack.mp3' });
 // Flux.next('module', 'sound', 'play', { mp3: 'jukebox/CDuncan-Say.mp3', position: 7 }, 2);

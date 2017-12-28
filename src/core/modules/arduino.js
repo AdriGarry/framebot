@@ -12,8 +12,8 @@ var exec = require('child_process').exec;
 Flux.module.arduino.subscribe({
 	// TODO: ABSOLUMENT BLOQUER LES SONS EN MODE SLEEP !!
 	next: flux => {
-		if (flux.id == 'aa1') {
-			//
+		if (flux.id == 'write') {
+			write(flux.value);
 		} else if (Odi.isAwake()) {
 			if (flux.id == 'aa2') {
 				//
@@ -29,9 +29,16 @@ Flux.module.arduino.subscribe({
 	}
 });
 
+// BLINK SATELLITE WHEN RECEIVING DATA
+
 /** Function to ... */
-function toto() {
-	log.info('toto()');
+function write(msg) {
+	log.debug('write()', msg);
+	arduino.write(msg, function(err) {
+		if (err) {
+			console.log('Error: ', err.message);
+		}
+	});
 }
 
 // -- SerialPort --
@@ -59,16 +66,11 @@ const feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
 	}
 });*/
 feedback.on('data', function(data) {
-	log.info('from Max:', data.trim());
+	log.info('Max>', data.trim());
 });
 
+// arduino.write('hi..');
 log.info('Communication serie Arduino opened [115200 bauds]');
-
-arduino.write('hi dude!', function(err) {
-	if (err) {
-		return console.log('Error: ', err.message);
-	}
-});
 
 // var serialport = require('serialport');
 // var SerialPort = serialport.SerialPort;
