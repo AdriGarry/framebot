@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+        <head>
+            <meta charset="utf-8" />
+            <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+            <script src="./socket.io/socket.io.js"></script>
+            <script>
+                //$(document).ready(function() {
+                $(function() {	
+                            var socket = io.connect('http://localhost:8080');
+                            socket.on('message', function(message) {
+                                $('#logs').html(message);
+                            });
+                
+                            $('#btn_on').click(function () {
+                                socket.emit('message', '1');
+                            });
+                
+                            $('#btn_off').click(function () {
+                                socket.emit('message', '0');
+                            });
+                });
+            </script>
+        </head>
+
+        <body>
+            <h1>Communication avec Arduino !</h1>
+            <table width="100%" border="1">
+              <tr>
+                <td><input type="button" value="On" id="btn_on" /></td>
+                <td><input type="button" value="Off" id="btn_off" /></td>
+              </tr>
+            </table>
+            <p>Logs : <span id="logs"></span></p>
+        </body>
+</html>

@@ -50,15 +50,24 @@ const SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
 const arduino = new SerialPort(ARDUINO);
 const feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
-arduino.open(function(err) {
+/*arduino.open(function(err) {
 	if (err) {
-		return Odi.error('Error opening arduino port: ', err);
+		Odi.error('Error opening arduino port: ', err);
+		Flux.next('module', 'tts', 'speak', { lg: 'en', msg: "Can't connect to arduino" });
 	} else {
 		log.info('Communication serie Arduino opened [115200 bauds]');
 	}
-});
+});*/
 feedback.on('data', function(data) {
 	log.info('from Max:', data.trim());
+});
+
+log.info('Communication serie Arduino opened [115200 bauds]');
+
+arduino.write('hi dude!', function(err) {
+	if (err) {
+		return console.log('Error: ', err.message);
+	}
 });
 
 // var serialport = require('serialport');

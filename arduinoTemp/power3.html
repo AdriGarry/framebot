@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+		<head>
+			<meta charset="utf-8" />
+			<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+			<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+			<script src="./socket.io/socket.io.js"></script>
+			<script>
+                //$(document).ready(function() {
+                $(function() {
+					
+
+					// Ouverture d'un socket avec le serveur
+	                var socket = io.connect('http://localhost:8080');
+
+	                // En cas de réception d'un message du serveur
+	                socket.on('message', function(message) {
+						status = message;
+						if(status == "1") {
+							$("#btn").removeClass("btn_red");
+							$("#btn").addClass("btn_green");
+						}
+						else {
+							$("#btn").removeClass("btn_green");
+							$("#btn").addClass("btn_red");
+						}
+	                });
+	    			
+					
+					// Sur click
+	                $('#btn').click(function () {
+						if(status == "0") {
+							status = "1";
+						}
+						else {
+							status = "0";
+						}
+	     				socketEmit(status);
+	                }); 
+
+	                var socketEmit = function(status) {
+	                	var statusAscii = String.fromCharCode(status);
+	                    socket.emit('message', statusAscii);
+	                }
+
+	                // Initialisation
+					var status = "0";
+					socketEmit(status);
+
+                });
+            </script>
+
+			<style>
+				html {
+					margin-left:20px;
+				}
+				.btn_red {
+					color: red;
+					font-size:48px;
+					cursor:pointer;
+				}
+				.btn_green {
+					color: green;
+					font-size:48px;
+					cursor:pointer;
+				}
+			</style>
+		</head>
+
+		<body>
+			<h1>Communication avec Arduino !</h1>
+			<table width="100%" border="0">
+			    <tr>
+			    	<td><span id="btn" class="glyphicon glyphicon-off btn_red"></span></td>
+			  	</tr>
+			</table>
+		</body>
+</html>
