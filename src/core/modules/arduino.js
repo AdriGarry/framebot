@@ -29,30 +29,7 @@ Flux.module.arduino.subscribe({
 	}
 });
 
-// BLINK SATELLITE WHEN RECEIVING DATA
-
-/** Function to ... */
-function write(msg) {
-	log.debug('write()', msg);
-	arduino.write(msg, function(err) {
-		if (err) {
-			console.log('Error: ', err.message);
-		}
-	});
-}
-
-// -- SerialPort --
-// Chargement
 const ARDUINO = '/dev/ttyACM0';
-
-// var SerialPort = require('serialport');
-// var arduino = new SerialPort(ARDUINO, { autoOpen: false });
-
-// var serialport = require('serialport');
-// var SerialPort = serialport.SerialPort;
-// console.log(serialport.parsers);
-// var arduino = new serialport(ARDUINO, { autoOpen: false /*, parser: serialport.parsers.readline('n')*/ });
-
 const SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
 const arduino = new SerialPort(ARDUINO);
@@ -65,11 +42,22 @@ const feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
 		log.info('Communication serie Arduino opened [115200 bauds]');
 	}
 });*/
+
+/** Function to send message to arduino */
+function write(msg) {
+	log.debug('write()', msg);
+	arduino.write(msg + '..', function(err) {
+		if (err) {
+			console.log('Error: ', err.message);
+		}
+	});
+}
+
 feedback.on('data', function(data) {
+	Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);
 	log.info('Max>', data.trim());
 });
 
-// arduino.write('hi..');
 log.info('Communication serie Arduino opened [115200 bauds]');
 
 // var serialport = require('serialport');

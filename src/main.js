@@ -68,7 +68,7 @@ log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'm
 // Flux.next('service', 'interaction', 'random');
 
 if (Odi.conf.mode == 'sleep') {
-	Flux.next('module', 'arduino', 'write', 'break..', 2);
+	Flux.next('module', 'arduino', 'write', 'break', 2);
 	new CronJob(
 		'0 * * * * *',
 		function() {
@@ -106,12 +106,15 @@ if (Odi.conf.mode == 'sleep') {
 	if (!Odi.run.alarm) {
 		Flux.next('service', 'voicemail', 'check');
 	}
+	Flux.next('module', 'arduino', 'write', 'break', 2 * 60);
 }
 
+Flux.next('module', 'arduino', 'write', 'salut toi!'.toUpperCase(), 7);
+
 // if (Odi.isAwake()) {
-// 	Flux.next('module', 'arduino', 'write', 'Salut mon loulou !..'.toUpperCase(), 1, 2);
-// 	Flux.next('module', 'arduino', 'write', 'break..', 7);
-// 	Flux.next('module', 'arduino', 'write', 'hi..', 120);
+// 	Flux.next('module', 'arduino', 'write', 'Salut mon loulou !'.toUpperCase(), 1, 2);
+// 	Flux.next('module', 'arduino', 'write', 'break', 7);
+// 	Flux.next('module', 'arduino', 'write', 'hi', 120);
 // }
 
 // Flux.next('module', 'sound', 'play', { mp3: 'system/beBack.mp3' });
