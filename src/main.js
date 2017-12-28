@@ -106,7 +106,7 @@ if (Odi.conf.mode == 'sleep') {
 	if (!Odi.run.alarm) {
 		Flux.next('service', 'voicemail', 'check');
 	}
-	Flux.next('module', 'arduino', 'write', 'break', 2 * 60);
+	Flux.next('module', 'arduino', 'write', 'break', 10 * 60);
 }
 
 Flux.next('module', 'arduino', 'write', 'salut toi!'.toUpperCase(), 7);
