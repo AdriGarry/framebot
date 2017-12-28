@@ -19,10 +19,6 @@ Flux.module.arduino.subscribe({
 				//
 			} else if (flux.id == 'aa3') {
 				//
-			} else if (flux.id == 'aa4') {
-				//
-			} else if (flux.id == 'aa5') {
-				//
 			} else {
 				Odi.error('unmapped flux in Arduino module', flux, false);
 			}
