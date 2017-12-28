@@ -34,10 +34,49 @@ function toto() {
 	log.info('toto()');
 }
 
-var usbserial = '/dev/cu.usbmodem1451';
-//var usbserial = '/dev/cu.usbserial-AL02VFGY';
+// -- SerialPort --
+// Chargement
+const USB_SERIAL = '/dev/ttyACM0';
 
-var http = require('http');
+// var SerialPort = require('serialport');
+// var arduino = new SerialPort(USB_SERIAL, { autoOpen: false });
+var serialport = require('serialport');
+var SerialPort = serialport.SerialPort;
+console.log(serialport.parsers);
+var arduino = new serialport(USB_SERIAL, { autoOpen: false /*, parser: serialport.parsers.readline('n')*/ });
+
+/************ IMPORTANT ********
+Pour fonctionner correctement, le fichier 'serialport' @ Users/node_modules/serialport/lib/serialport.js
+à été modifié à la ligne 32
+baudRate: 115200,
+La communication série dans les sketches arduino doit être paramètrés à 115200 bauds : Serial.begin(115200); */
+
+// Overture du port serie
+arduino.open(function(err) {
+	if (err) {
+		return console.log('Error opening port: ', err.message);
+	} else {
+		console.log('Communication serie Arduino 115200 bauds : Ok');
+	}
+});
+
+arduino.on('data', function(data) {
+	console.log(data);
+	let buf = new Buffer(data);
+	// io.sockets.emit('message', buf.toString('ascii'));
+	console.log(buf.toString('ascii'));
+	// console.log(buf.toString('utf8'));
+	// console.log(buf);
+});
+
+/*arduino.write(msg, function(err) {
+	if (err) {
+		io.sockets.emit('message', err.message);
+		return console.log('Error: ', err.message);
+	}
+});*/
+
+/*var http = require('http');
 var fs = require('fs');
 var path = require('path');
 var url = require('url');
@@ -71,37 +110,14 @@ function getFilename(request, response) {
 		getFile(result, response, localpath);
 	});
 }
-
-var server = http.createServer(getFilename);
+var server = http.createServer(getFilename);*/
 
 // -- socket.io --
 // Chargement
-var io = require('socket.io').listen(server);
-
-// -- SerialPort --
-// Chargement
-var SerialPort = require('serialport');
-var arduino = new SerialPort(usbserial, { autoOpen: false });
-
-/************ IMPORTANT ********
-Pour fonctionner correctement, le fichier 'serialport' @ Users/node_modules/serialport/lib/serialport.js
-à été modifié à la ligne 32
-baudRate: 115200,
-
-La communication série dans les sketches arduino doit être paramètrés à 115200 bauds : Serial.begin(115200);  
-*/
-
-// Overture du port serie
-arduino.open(function(err) {
-	if (err) {
-		return console.log('Error opening port: ', err.message);
-	} else {
-		console.log('Communication serie Arduino 115200 bauds : Ok');
-	}
-});
+// var io = require('socket.io').listen(server);
 
 // Requetes
-io.sockets.on('connection', function(socket) {
+/*io.sockets.on('connection', function(socket) {
 	// Message à la connection
 	console.log('Connexion socket : Ok');
 	socket.emit('message', 'Connexion : Ok');
@@ -125,5 +141,5 @@ arduino.on('data', function(data) {
 	//console.log(buf);
 });
 
-server.listen(8080);
+server.listen(8080);*/
 console.log('Serveur : Ok');
