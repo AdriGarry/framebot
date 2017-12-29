@@ -89,8 +89,10 @@ function getJsonFileContent(filePath, callback) {
 /** Function to return true if one of string of stringArray is found in string param */
 function searchStringInArray(string, stringArray) {
 	for (var i = 0; i < stringArray.length; i++) {
-		if (string.toLowerCase().search(stringArray[i].toLowerCase()) > -1) {
-			return true;
+		if (stringArray[i].toLowerCase().indexOf(string.toLowerCase()) > -1) {
+			// if (string.toLowerCase().search(stringArray[i].toLowerCase()) > -1) {
+			//return true;
+			return stringArray[i];
 		}
 	}
 	return false;

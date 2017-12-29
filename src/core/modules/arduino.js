@@ -53,7 +53,7 @@ function write(msg) {
 
 feedback.on('data', function(data) {
 	Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);
-	log.info('Max>', data.trim());
+	log.info('Max:', data.trim());
 });
 
 log.info('Opening communication serie with Arduino');
