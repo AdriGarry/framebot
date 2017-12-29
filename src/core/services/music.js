@@ -108,8 +108,11 @@ function playStory(story) {
 	Flux.next('module', 'tts', 'speak', story);
 	log.debug('Play story...', story);
 	var storyToPlay = Utils.searchStringInArray(story, STORIES);
+	// console.log(storyToPlay);
 	if (storyToPlay) {
 		Utils.getMp3Duration(Odi._MP3 + storyToPlay, function(length) {
+			// console.log('length here==');
+			// console.log(length);
 			var position = Utils.random(1, Math.floor(length / 100 * 70)); // Position up to 70% of story duration
 			stop();
 			Odi.run.music = 'story';

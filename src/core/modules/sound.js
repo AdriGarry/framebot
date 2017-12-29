@@ -53,18 +53,18 @@ function playSound(arg, noLog) {
 	var positionLog = arg.position ? 'pos=' + arg.position : '';
 	if (!noLog) log.info('play', mp3Title, volLog, positionLog, durationLog);
 
-	// position=$(shuf -i 0-20000 -n 1) // TODO !!
 	var position = arg.position || 0;
 	var volume = arg.volume || Odi.run.volume;
 	var sound = Odi._MP3 + arg.mp3;
-	//exec('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound);
 	var startPlayTime = new Date();
+	console.log('--TOTO', sound);
 	Utils.execCmd('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound, function(callback) {
 		// always log callback
-		if (callback.toString().indexOf('have a nice day') == -1) {
-			Odi.error('File not found', callback.unQuote(), false);
-		} else {
+		if (callback.toString().indexOf('have a nice day') >= 0) {
 			log.info('play end. time:', Utils.getExecutionTime(startPlayTime));
+		} else {
+			console.log(callback);
+			Odi.error('File not found', callback.unQuote(), false);
 		}
 	});
 }
