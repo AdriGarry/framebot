@@ -56,4 +56,14 @@ feedback.on('data', function(data) {
 	log.info('Max:', data.trim());
 });
 
+arduino.on('close', function(data) {
+	// Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);
+	// log.info(typeof data, data);
+	data = data.toString();
+	// log.info(typeof data, data);
+	if (data.indexOf('bad file descriptor') >= 0) {
+		Odi.error('Max is disconnected', data, false);
+	}
+});
+
 log.info('Opening communication serie with Arduino');
