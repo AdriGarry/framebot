@@ -222,7 +222,7 @@ function startUIServer(mode) {
 	ui.get('/config.json', function(req, res) {
 		res.writeHead(200);
 		res.end(fs.readFileSync(Odi._CONF, 'utf8').toString());
-		//console.debug(Odi.conf.toString());
+		//console.log(Odi.conf.toString());
 		// log.conf(Odi.conf);
 		log.table(Odi.conf, 'CONFIG');
 		res.end(JSON.stringify(Odi.conf));

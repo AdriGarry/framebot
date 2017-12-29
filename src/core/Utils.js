@@ -100,13 +100,13 @@ function searchStringInArray(string, stringArray) {
 
 /** Function to test internet connexion */
 function testConnexion(callback) {
-	//console.debug('testConnexion()...');
+	//console.log('testConnexion()...');
 	require('dns').resolve('www.google.com', function(err) {
 		if (err) {
-			// console.debug('Odi is not connected to internet (utils.testConnexion)   /!\\');
+			// console.log('Odi is not connected to internet (utils.testConnexion)   /!\\');
 			callback(false);
 		} else {
-			//console.debug('Odi is online   :');
+			//console.log('Odi is online   :');
 			callback(true);
 		}
 	});
@@ -115,7 +115,7 @@ function testConnexion(callback) {
 /** Function to execute a shell command with callback */
 function execCmd(command, callback) {
 	exec(command, function(error, stdout, stderr) {
-		// console.debug('execCmd(' + command + ')\n', stdout);
+		// console.log('execCmd(' + command + ')\n', stdout);
 		// if (stderr) callback(stderr);
 		if (callback) callback(stdout);
 	});
@@ -175,10 +175,6 @@ function addPatternBefore(time, pattern) {
 function numberWithDot(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
-
-// function random(maxValueNotIncluded){
-// 	return Math.floor(Math.random()*(maxValueNotIncluded));
-// }
 
 function random(arg1, arg2) {
 	var min, max;

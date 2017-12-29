@@ -90,7 +90,7 @@ function randomTTS() {
 	var rdmTTS = Odi.ttsMessages.randomTTS[rdmNb];
 	log.info('Random TTS : ' + rdmNb + '/' + RANDOM_TTS_LENGTH);
 	speak(rdmTTS);
-	// console.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
+	// console.log('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
 }
 
 /** Function to play TTS message (espeak / google translate) */

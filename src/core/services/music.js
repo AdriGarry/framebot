@@ -100,17 +100,17 @@ function stop(message) {
 	}
 }
 
-const STORIES = ['stories/Donjon-De-Naheulbeuk-Integrale.mp3', 'stories/Aventuriers-Du-Survivaure-Integrale.mp3'];
+const STORIES = ['stories/Donjon-De-Naheulbeuk.mp3', 'stories/Aventuriers-Du-Survivaure.mp3'];
 
 /** Function to play a story */
 function playStory(story) {
 	var story;
+	Flux.next('module', 'tts', 'speak', story);
 	log.debug('Play story...', story);
 	var storyToPlay = Utils.searchStringInArray(story, STORIES);
 	if (storyToPlay) {
-		Utils.getMp3Duration('URL', function(length) {
-			console.log(length);
-			position = Utils.random(length / 100 * 70); // Position up to 70% of story duration
+		Utils.getMp3Duration(Odi._MP3 + storyToPlay, function(length) {
+			var position = Utils.random(1, Math.floor(length / 100 * 70)); // Position up to 70% of story duration
 			stop();
 			Odi.run.music = 'story';
 			ledFlag();
