@@ -68,7 +68,7 @@ log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'm
 // Flux.next('service', 'interaction', 'random');
 
 if (Odi.conf.mode == 'sleep') {
-	Flux.next('module', 'arduino', 'write', 'break', 3);
+	Flux.next('module', 'arduino', 'write', 'break', 3, 2); // sending twice, just in case...
 	new CronJob(
 		'0 * * * * *',
 		function() {
@@ -107,9 +107,10 @@ if (Odi.conf.mode == 'sleep') {
 		Flux.next('service', 'voicemail', 'check');
 	}
 	if (!Odi.run.etat) Flux.next('module', 'arduino', 'write', 'break', 10 * 60);
-}
 
-// Flux.next('module', 'arduino', 'write', 'salut toi!'.toUpperCase(), 3);
+	Flux.next('module', 'arduino', 'write', 'Blink-1-2-3', 3);
+	Flux.next('module', 'arduino', 'write', 'Blink-123', 5);
+}
 
 // if (Odi.isAwake()) {
 // 	Flux.next('module', 'arduino', 'write', 'Salut mon loulou !'.toUpperCase(), 1, 2);
