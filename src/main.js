@@ -106,6 +106,7 @@ if (Odi.conf.mode == 'sleep') {
 	if (!Odi.run.alarm) {
 		Flux.next('service', 'voicemail', 'check');
 	}
+	if (!Odi.run.etat) Flux.next('module', 'arduino', 'write', 'break', 10 * 60); // todo : a metter dans une fonction sleep()
 	if (!Odi.run.etat) Flux.next('module', 'arduino', 'write', 'break', 10 * 60);
 
 	Flux.next('module', 'arduino', 'write', 'Blink-1-2-3', 3);
