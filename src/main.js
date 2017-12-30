@@ -68,7 +68,7 @@ log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'm
 // Flux.next('service', 'interaction', 'random');
 
 if (Odi.conf.mode == 'sleep') {
-	Flux.next('module', 'arduino', 'write', 'break', 2);
+	Flux.next('module', 'arduino', 'write', 'break', 3);
 	new CronJob(
 		'0 * * * * *',
 		function() {
@@ -109,7 +109,7 @@ if (Odi.conf.mode == 'sleep') {
 	if (!Odi.run.etat) Flux.next('module', 'arduino', 'write', 'break', 10 * 60);
 }
 
-Flux.next('module', 'arduino', 'write', 'salut toi!'.toUpperCase(), 3);
+// Flux.next('module', 'arduino', 'write', 'salut toi!'.toUpperCase(), 3);
 
 // if (Odi.isAwake()) {
 // 	Flux.next('module', 'arduino', 'write', 'Salut mon loulou !'.toUpperCase(), 1, 2);
