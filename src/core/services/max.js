@@ -8,10 +8,10 @@ var Flux = require(Odi._CORE + 'Flux.js');
 
 Flux.service.max.subscribe({
 	next: flux => {
-		if (flux.id == '') {
+		if (flux.id == 'led') {
 			//
-		}else Odi.error('unmapped flux in Max service', flux, false);
-		
+		} else if (flux.id == 'buzz') {
+		} else Odi.error('unmapped flux in Max service', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
