@@ -421,6 +421,18 @@ function startUIServer(mode) {
 			res.end();
 		});
 
+		ui.post('/arduinoSleep', function(req, res) {
+			Flux.next('module', 'arduino', 'sleep');
+			res.writeHead(200);
+			res.end();
+		});
+
+		ui.post('/arduino', function(req, res) {
+			Flux.next('module', 'arduino', 'hi');
+			res.writeHead(200);
+			res.end();
+		});
+
 		ui.post('/videoOff', function(req, res) {
 			Flux.next('service', 'video', 'screenOff');
 			res.writeHead(200);

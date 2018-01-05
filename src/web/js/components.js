@@ -557,6 +557,27 @@ app.component('videos', {
 	}
 });
 
+/** Arduino component */
+app.component('arduino', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Arduino',
+			actionList: [
+				{ label: 'Sleep', icon: 'stop', url: '/arduinoSleep' },
+				{ label: 'Go', icon: 'play', url: '/arduino' }
+			]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+	}
+});
+
 /** Logs component */
 app.component('history', {
 	bindings: {
