@@ -91,26 +91,10 @@ app.component('mode', {
 			label: 'Mode',
 			actionList: [
 				{ label: 'Reset', icon: 'retweet', url: '/resetConfig' },
-				{
-					label: 'Test',
-					icon: 'cubes',
-					url: '/testSequence'
-				},
-				{
-					label: '!Debug',
-					icon: 'terminal',
-					url: '/toggleDebug'
-				},
-				{
-					label: 'Sleep',
-					icon: 'moon-o',
-					url: '/sleep'
-				},
-				{
-					label: 'Restart',
-					icon: 'bolt',
-					url: '/odi'
-				}
+				{ label: 'Test', icon: 'cubes', url: '/testSequence' },
+				{ label: '!Debug', icon: 'terminal', url: '/toggleDebug' },
+				{ label: 'Sleep', icon: 'moon-o', url: '/sleep' },
+				{ label: 'Restart', icon: 'bolt', url: '/odi' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -152,11 +136,7 @@ app.component('alarms', {
 			label: 'Alarms',
 			actionList: [
 				{ label: 'weekDay', icon: 'frown-o', url: '/alarm' },
-				{
-					label: 'weekEnd',
-					icon: 'smile-o',
-					url: '/alarm'
-				}
+				{ label: 'weekEnd', icon: 'smile-o', url: '/alarm' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -255,21 +235,9 @@ app.component('exclamation', {
 		var tileParams = {
 			label: 'Exclamation',
 			actionList: [
-				{
-					label: 'TTS',
-					icon: 'commenting-o',
-					url: '/tts?msg=RANDOM'
-				},
-				{
-					label: 'Exclamation',
-					icon: 'bullhorn',
-					url: '/exclamation'
-				},
-				{
-					label: 'Last TTS',
-					icon: 'undo',
-					url: '/lastTTS'
-				}
+				{ label: 'TTS', icon: 'commenting-o', url: '/tts?msg=RANDOM' },
+				{ label: 'Exclamation', icon: 'bullhorn', url: '/exclamation' },
+				{ label: 'Last TTS', icon: 'undo', url: '/lastTTS' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -336,16 +304,8 @@ app.component('time', {
 			// actionList:[{url: '/time'}]
 			actionList: [
 				{ label: "Odi's age", icon: 'birthday-cake', url: '/age' },
-				{
-					label: 'Today',
-					icon: 'calendar',
-					url: '/date'
-				},
-				{
-					label: 'Time',
-					icon: 'clock-o',
-					url: '/time'
-				}
+				{ label: 'Today', icon: 'calendar', url: '/date' },
+				{ label: 'Time', icon: 'clock-o', url: '/time' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -367,11 +327,7 @@ app.component('weather', {
 			label: 'Weather',
 			actionList: [
 				{ label: 'Official weather', icon: 'cloud', url: '/weather' },
-				{
-					label: 'Random weather',
-					icon: 'cloud-upload',
-					url: '/weatherInteractive'
-				}
+				{ label: 'Random weather', icon: 'cloud-upload', url: '/weatherInteractive' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -394,16 +350,8 @@ app.component('idea', {
 			actionList: [
 				{ label: 'Baby', icon: 'child', url: '/baby' },
 				{ label: 'Cigales', icon: 'bug', url: '/cigales' },
-				{
-					label: 'Idea',
-					icon: 'lightbulb-o',
-					url: '/idea'
-				},
-				{
-					label: 'Test',
-					icon: 'flag-checkered',
-					url: '/test'
-				}
+				{ label: 'Idea', icon: 'lightbulb-o', url: '/idea' },
+				{ label: 'Test', icon: 'flag-checkered', url: '/test' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -425,11 +373,7 @@ app.component('stories', {
 			label: 'Stories',
 			actionList: [
 				{ label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk' },
-				{
-					label: 'Survivaure',
-					icon: 'space-shuttle',
-					url: '/survivaure'
-				}
+				{ label: 'Survivaure', icon: 'space-shuttle', url: '/survivaure' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -451,11 +395,7 @@ app.component('badBoy', {
 			label: 'Bad boy',
 			actionList: [
 				{ label: 'BadBoy Mode', icon: 'comments', url: '/badBoy', continu: true },
-				{
-					label: 'BadBoy TTS',
-					icon: 'comment',
-					url: '/badBoy'
-				}
+				{ label: 'BadBoy TTS', icon: 'comment', url: '/badBoy' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -524,11 +464,7 @@ app.component('russia', {
 			label: 'Russia',
 			actionList: [
 				{ label: 'Subway / Street', icon: 'subway', url: '/russia' },
-				{
-					label: 'Hymn',
-					icon: 'star',
-					url: '/russia?hymn'
-				}
+				{ label: 'Hymn', icon: 'star', url: '/russia?hymn' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -591,21 +527,9 @@ app.component('history', {
 			label: 'History',
 			actionList: [
 				{ label: 'TTS', icon: 'commenting-o', url: 'http://odi.adrigarry.com/ttsUIHistory' },
-				{
-					label: 'Voicemail',
-					icon: 'envelope-o',
-					url: 'http://odi.adrigarry.com/voicemailHistory'
-				},
-				{
-					label: 'Request',
-					icon: 'exchange',
-					url: 'http://odi.adrigarry.com/requestHistory'
-				},
-				{
-					label: 'Errors',
-					icon: 'exclamation-triangle',
-					url: 'http://odi.adrigarry.com/errorHistory'
-				}
+				{ label: 'Voicemail', icon: 'envelope-o', url: 'http://odi.adrigarry.com/voicemailHistory' },
+				{ label: 'Request', icon: 'exchange', url: 'http://odi.adrigarry.com/requestHistory' },
+				{ label: 'Errors', icon: 'exclamation-triangle', url: 'http://odi.adrigarry.com/errorHistory' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -624,12 +548,9 @@ app.component('runtime', {
 		var tileParams = {
 			label: 'Runtime',
 			actionList: [
+				{ label: 'Errors', icon: 'exclamation-triangle', url: 'http://odi.adrigarry.com/errors' },
 				{ label: 'Config', icon: 'cogs', url: 'http://odi.adrigarry.com/config.json' },
-				{
-					label: 'Runtime',
-					icon: 'codepen',
-					url: 'http://odi.adrigarry.com/runtime'
-				}
+				{ label: 'Runtime', icon: 'codepen', url: 'http://odi.adrigarry.com/runtime' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

@@ -142,6 +142,7 @@ function startUIServer(mode) {
 		var dashboard = {
 			config: Odi.conf,
 			run: Odi.run,
+			errors: Odi.errors,
 			mode: {
 				value: {
 					// mode: Odi.conf.mode != 'sleep' ? (Odi.conf.debug ? 'Debug' : 'Ready') : 'Sleep',
@@ -232,6 +233,11 @@ function startUIServer(mode) {
 		res.writeHead(200);
 		log.table(Odi.run);
 		res.end(JSON.stringify(Odi.run));
+	});
+
+	ui.get('/errors', function(req, res) {
+		res.writeHead(200);
+		res.end(JSON.stringify(Odi.errors));
 	});
 
 	ui.get('/errorHistory', function(req, res) {
