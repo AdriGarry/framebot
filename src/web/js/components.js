@@ -561,8 +561,8 @@ app.component('videos', {
 app.component('arduino', {
 	bindings: {
 		data: '<',
-		access: '<',
-		odiState: '<'
+		access: '<'
+		//odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
