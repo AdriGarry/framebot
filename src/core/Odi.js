@@ -92,9 +92,9 @@ function error(label, data, stackTrace) {
 		console.trace();
 	}
 	var logError = {
-		time: Utils.logTime(),
 		label: label,
-		data: data
+		data: data,
+		time: Utils.logTime()
 	};
 	// console.log('logError', logError);
 	Utils.appendJsonFile(ODI_PATH + 'log/errorHistory.log', logError);

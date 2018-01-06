@@ -107,7 +107,7 @@ function startUIServer(mode) {
 
 			// Not allowed requests
 			request = '401 ' + req.url.replace('%20', ' ');
-			Odi.error(request + ' ' + ip, null, false);
+			Odi.error('Bad request', request + ' ' + ip, false);
 			res.status(401); // Unauthorized
 			res.end();
 		}
