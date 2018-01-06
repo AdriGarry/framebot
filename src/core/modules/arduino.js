@@ -46,9 +46,10 @@ const feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
 });*/
 
 /** Function to send message to arduino */
-function write(msg) {
+function write(msg, callback) {
 	log.debug('write()', msg);
 	arduino.write(msg + '..', function(err) {
+		// log.INFO('----->', err);
 		if (err) {
 			console.log('Error: ', err.message);
 		}
