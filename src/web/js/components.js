@@ -130,7 +130,7 @@ app.component('alarms', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile, UIService, $mdpTimePicker) {
+	controller: function(DefaultTile, $rootScope, UIService, $mdpTimePicker) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Alarms',
@@ -144,7 +144,11 @@ app.component('alarms', {
 
 		/** Overwrite tile action */
 		ctrl.tile.click = function() {
-			ctrl.tile.openBottomSheet(this.actionList, specificActions);
+			if (!$rootScope.irda) {
+				UIService.showErrorToast('Unauthorized action.');
+			} else {
+				ctrl.tile.openBottomSheet(this.actionList, specificActions);
+			}
 		};
 
 		var showTimePicker = function(ev) {
@@ -389,7 +393,7 @@ app.component('badBoy', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function(DefaultTile, $rootScope, UIService) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Bad boy',
@@ -403,7 +407,11 @@ app.component('badBoy', {
 
 		/** Overwrite tile action */
 		ctrl.tile.click = function() {
-			ctrl.tile.openBottomSheet(this.actionList, specificActions);
+			if (!$rootScope.irda) {
+				UIService.showErrorToast('Unauthorized action.');
+			} else {
+				ctrl.tile.openBottomSheet(this.actionList, specificActions);
+			}
 		};
 
 		var specificActions = function(button) {

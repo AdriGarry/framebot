@@ -1,5 +1,5 @@
 /** DefaultTile object **/
-app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast, $mdBottomSheet, UIService) {
+app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdBottomSheet, UIService) {
 	// Tile constructor function
 	function Tile(tile) {
 		// Basic attributes
@@ -25,20 +25,17 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdToast,
 
 	/** Function on click on Tile **/
 	function click() {
-		if (this.actionList.length > 1) {
-			openBottomSheet(this.actionList);
-		} else if (this.actionList.length == 1) {
-			action(this.actionList[0]);
+		if (!$rootScope.irda) {
+			UIService.showErrorToast('Unauthorized action.');
 		} else {
-			console.log('No action affected.');
-			$mdToast.show(
-				$mdToast
-					.simple()
-					.textContent('No action affected.')
-					.position('top right')
-					.hideDelay(2500)
-					.toastClass('error')
-			);
+			if (this.actionList.length > 1) {
+				openBottomSheet(this.actionList);
+			} else if (this.actionList.length == 1) {
+				action(this.actionList[0]);
+			} else {
+				console.log('No action affected.');
+				UIService.showToast('No action affected.');
+			}
 		}
 	}
 

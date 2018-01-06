@@ -86,7 +86,7 @@
 			<img src="img/snow.gif" alt="Connexion lost" data-ng-class="connexionLost ? 'visible' : 'hidden'" class="odiFace connexionLost"
 			 title="Odi is not responding...">
 			<!--data-ng-click="reloadUI()"-->
-			<h1 class="ng-slide-fast" data-ng-dblclick="irda && action({label: 'Restart Odi', url: '/odi'})" title="{{irda?'Restart Odi\'s Core':'Hey, I\'m Odi !'}}">Odi UI
+			<h1 class="ng-slide-fast" data-ng-dblclick="$root.irda && action({label: 'Restart Odi', url: '/odi'})" title="{{$root.irda?'Restart Odi\'s Core':'Hey, I\'m Odi !'}}">Odi UI
 				<!--Restart Odi's Core-->
 				<sup class="version" title="version {{dashboard.runningData.config.version}} [{{dashboard.runningData.config.update}}]">{{dashboard.runningData.config.version}}&nbsp;</sup>
 			</h1>
@@ -116,11 +116,11 @@
 			 aria-label="Toggle log mode">
 				<i class="fa fa-2x" data-ng-class="log.mode ? 'fa-th' : 'fa-th-large'"></i>
 			</md-button>
-			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="irda" title="Restart Odi"
+			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="$root.irda" title="Restart Odi"
 			 aria-label="Restart Odi">
 				<i class="fa fa-2x fa-flash"></i>
 			</md-button>
-			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" data-ng-hide="irda" title="Hide Logs" aria-label="Hide Logs">
+			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" data-ng-hide="$root.irda" title="Hide Logs" aria-label="Hide Logs">
 				<i class="fa fa-2x fa-arrow-left"></i>
 			</md-button>
 			<md-button class="md-fab md-warn" data-ng-click="toggleMenu()" title="Toggle Menu" aria-label="Toggle Menu">
@@ -133,11 +133,11 @@
 		<div layout="row" class="menu">
 			<md-list flex>
 				<md-list-item>
-					<md-button data-ng-click="toggleGrant($event)" data-ng-class="{admin:irda}" class="adminBtn center" title="{{irda? 'Log out':'Log in'}}">
-						<i data-ng-class="irda" class="fa fa-sign-in"></i>
-						<i data-ng-if="!irda" class="fa fa-user"></i>
-						<i data-ng-if="irda" class="fa fa-user-secret"></i>
-						<i data-ng-class="irda" class="fa fa-sign-out"></i>
+					<md-button data-ng-click="toggleGrant($event)" data-ng-class="{admin:$root.irda}" class="adminBtn center" title="{{$root.irda? 'Log out':'Log in'}}">
+						<i data-ng-class="$root.irda" class="fa fa-sign-in"></i>
+						<i data-ng-if="!$root.irda" class="fa fa-user"></i>
+						<i data-ng-if="$root.irda" class="fa fa-user-secret"></i>
+						<i data-ng-class="$root.irda" class="fa fa-sign-out"></i>
 					</md-button>
 				</md-list-item>
 				<md-divider></md-divider>
@@ -155,8 +155,8 @@
 					<div flex>Debug</div>
 					<div flex>
 						<md-switch class="switch md-primary" aria-label="Debug mode" title="Debug mode" tabindex="0" type="checkbox" role="checkbox"
-						 data-ng-model="dashboard.odiState.debug > 0 ? true : false" data-ng-model-options="{getterSetter:true}" data-ng-click="irda && toggleDebugMode()"
-						 data-ng-disabled="!irda"></md-switch>
+						 data-ng-model="dashboard.odiState.debug > 0 ? true : false" data-ng-model-options="{getterSetter:true}" data-ng-click="$root.irda && toggleDebugMode()"
+						 data-ng-disabled="!$root.irda"></md-switch>
 					</div>
 				</md-list-item>
 				<md-divider></md-divider>
@@ -165,14 +165,14 @@
 					<i>{{master}}</i>
 				</md-subheader>
 				<md-list-item title="Volume">
-					<md-slider-container ng-disabled="!irda">
-						<md-slider flex data-ng-model="master" data-md-discrete md-horizontal step="10" class="md-primary" data-ng-readonly="!irda"
+					<md-slider-container ng-disabled="!$root.irda">
+						<md-slider flex data-ng-model="master" data-md-discrete md-horizontal step="10" class="md-primary" data-ng-readonly="!$root.irda"
 						 title="Volume" aria-label="Volume"></md-slider>
 					</md-slider-container>
 				</md-list-item>
 				<md-divider></md-divider>
 
-				<md-list-item data-ng-click="irda && showLogs()" title="Show console">
+				<md-list-item data-ng-click="$root.irda && showLogs()" title="Show console">
 					<div flex>Show logs</div>
 					<div flex>
 						<i class="fa fa-lg fa-2x fa-quote-right"></i>
@@ -198,34 +198,34 @@
 		<md-content data-flex data-layout-padding>
 			<div data-layout="row" data-layout-padding data-layout-align="space-around" data-layout-wrap class="dashboard ng-slide">
 				<!-- <div layout="row" layout-wrap> -->
-				<tts data="dashboard.runningData.mode" data-access="irda" flex="100"></tts>
-				<mode data="dashboard.runningData.mode" data-access="irda" flex="33"></mode>
-				<volume data="dashboard.runningData.volume" data-access="irda" flex="33"></volume>
-				<runtime data="dashboard.runningData.system" data-access="irda" flex="33"></runtime>
-				<time data="dashboard.runningData.time" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></time>
-				<voicemail data="dashboard.runningData.voicemail" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></voicemail>
-				<alarms data="dashboard.runningData.alarms" data-access="irda" flex="33"></alarms>
-				<hardware data="dashboard.runningData.hardware" data-access="irda" flex="66" data-odi-state="dashboard.odiState"></hardware>
-				<timer data="dashboard.runningData.timer" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></timer>
-				<bad-boy data="dashboard.runningData.ideas" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></bad-boy>
-				<jukebox data="dashboard.runningData.jukebox" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></jukebox>
-				<exclamation data="dashboard.runningData.exclamation" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></exclamation>
-				<stories data="dashboard.runningData.stories" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></stories>
-				<weather data="dashboard.runningData.weather" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></weather>
-				<party data="dashboard.runningData.party" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></party>
-				<russia data="dashboard.runningData.russia" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></russia>
-				<arduino data="dashboard.runningData.arduino" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></arduino>
-				<videos data="dashboard.runningData.video" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></videos>
-				<idea data="dashboard.runningData.ideas" data-access="irda" flex="33" data-odi-state="dashboard.odiState"></idea>
-				<history data="dashboard.runningData.logs" data-access="irda" flex="33"></history>
-				<system data="dashboard.runningData.system" data-access="irda" flex="33"></system>
+				<tts data="dashboard.runningData.mode" data-access="$root.irda" flex="100"></tts>
+				<mode data="dashboard.runningData.mode" data-access="$root.irda" flex="33"></mode>
+				<volume data="dashboard.runningData.volume" data-access="$root.irda" flex="33"></volume>
+				<runtime data="dashboard.runningData.system" data-access="$root.irda" flex="33"></runtime>
+				<time data="dashboard.runningData.time" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></time>
+				<voicemail data="dashboard.runningData.voicemail" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></voicemail>
+				<alarms data="dashboard.runningData.alarms" data-access="$root.irda" flex="33"></alarms>
+				<hardware data="dashboard.runningData.hardware" data-access="$root.irda" flex="66" data-odi-state="dashboard.odiState"></hardware>
+				<timer data="dashboard.runningData.timer" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></timer>
+				<bad-boy data="dashboard.runningData.ideas" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></bad-boy>
+				<jukebox data="dashboard.runningData.jukebox" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></jukebox>
+				<exclamation data="dashboard.runningData.exclamation" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></exclamation>
+				<stories data="dashboard.runningData.stories" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></stories>
+				<weather data="dashboard.runningData.weather" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></weather>
+				<party data="dashboard.runningData.party" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></party>
+				<russia data="dashboard.runningData.russia" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></russia>
+				<arduino data="dashboard.runningData.arduino" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></arduino>
+				<videos data="dashboard.runningData.video" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></videos>
+				<idea data="dashboard.runningData.ideas" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></idea>
+				<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
+				<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
 				<about data="dashboard.runningData.about" flex="100"></about>
 				<!--flex="66"-->
 			</div>
 
-			<md-button data-ng-click="showLogs()" data-ng-show="irda" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-warn logButton ng-slide"
+			<md-button data-ng-click="showLogs()" data-ng-show="$root.irda" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-warn logButton ng-slide"
 			 title="Logs" aria-label="Logs">
-				<!--data-ng-if="irda"-->
+				<!--data-ng-if="$root.irda"-->
 				<i class="fa fa-2x fa-quote-right"></i>
 			</md-button>
 			<!-- // -> TENTER d'enlever les class md-hue-2 -->

@@ -12,13 +12,12 @@ app.controller('UIController', function(
 	$mdSidenav,
 	$mdDialog,
 	$mdBottomSheet,
-	$mdToast,
 	CONSTANTS,
 	UIService
 ) {
 	$scope.loading = false; /*true*/
 	$scope.pauseUI = false;
-	$scope.irda = false;
+	$rootScope.irda = false;
 	$scope.menuOpen = false;
 
 	$scope.logData;
@@ -92,30 +91,6 @@ app.controller('UIController', function(
 		$timeout(function() {
 			$window.location.reload();
 		}, 300);
-	};
-
-	/** Function to pop down toast */
-	$scope.showToast = function(label) {
-		// TODO to delete
-		$mdToast.show(
-			$mdToast
-				.simple()
-				.textContent(label)
-				.position('top right')
-				.hideDelay(1500)
-		);
-	};
-	/** Function to pop down error toast */
-	$scope.showErrorToast = function(label) {
-		// TODO to delete
-		$mdToast.show(
-			$mdToast
-				.simple()
-				.textContent(label)
-				.position('top right')
-				.hideDelay(2000)
-				.toastClass('error')
-		);
 	};
 
 	/** Function to show/hide menu */
@@ -235,7 +210,7 @@ app.controller('UIController', function(
 	$scope.toggleGrant = function(ev) {
 		// TODO COMPONENT !!
 		$scope.toggleMenu();
-		if (!$scope.irda) {
+		if (!$rootScope.irda) {
 			$timeout(function() {
 				$mdDialog
 					.show({
@@ -251,15 +226,15 @@ app.controller('UIController', function(
 					});
 			}, 100);
 		} else {
-			$scope.irda = false;
+			$rootScope.irda = false;
 			// $scope.showToast('Not granted anymore');
 		}
 	};
 
 	$scope.requireGrantAccess = function(param) {
 		UIService.sendCommand({ url: '/grant', data: param }, function(data) {
-			$scope.irda = data;
-			if ($scope.irda) {
+			$rootScope.irda = data;
+			if ($rootScope.irda) {
 				// $scope.showToast('Access granted !');
 			} else {
 				// $scope.showErrorToast('Not granted !');
