@@ -33,7 +33,7 @@ var CronJob = require('cron').CronJob;
 
 const observers = {
 	modules: {
-		sleep: ['led', 'hardware', 'sound', 'arduino'],
+		sleep: ['led', 'sound', 'hardware', 'arduino'],
 		all: ['tts']
 	},
 	services: {

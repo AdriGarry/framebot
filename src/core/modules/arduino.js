@@ -15,7 +15,7 @@ Flux.module.arduino.subscribe({
 		} else if (flux.id == 'hi') {
 			Flux.next('module', 'arduino', 'write', 'hi', 2, 2);
 		} else if (flux.id == 'sleep') {
-			Flux.next('module', 'arduino', 'write', 'break', 2, 2);
+			Flux.next('module', 'arduino', 'write', 'break', 3, 2);
 		} else if (Odi.isAwake()) {
 			if (flux.id == 'aa2') {
 				//
