@@ -15,7 +15,7 @@ Flux.module.arduino.subscribe({
 		} else if (flux.id == 'hi') {
 			Flux.next('module', 'arduino', 'write', 'hi', 2, 2);
 		} else if (flux.id == 'sleep') {
-			Flux.next('module', 'arduino', 'write', 'break', 3, 2);
+			sleep();
 		} else if (Odi.isAwake()) {
 			if (flux.id == 'aa2') {
 				//
@@ -44,6 +44,12 @@ const feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
 		log.info('Communication serie Arduino opened [115200 bauds]');
 	}
 });*/
+
+function sleep() {
+	log.debug('sleep()');
+	Flux.next('module', 'arduino', 'write', 'break', 3, 2);
+	// if/when Max is asleep => Odi.run.max = false
+}
 
 /** Function to send message to arduino */
 function write(msg, callback) {
