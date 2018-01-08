@@ -110,7 +110,7 @@ if (Odi.conf.mode == 'sleep') {
 	if (!Odi.run.etat) Flux.next('module', 'arduino', 'write', 'break', 10 * 60);
 
 	Flux.next('module', 'arduino', 'write', 'Blink-1-2-3', 3);
-	Flux.next('module', 'arduino', 'write', 'Blink-123', 5);
+	// Flux.next('module', 'arduino', 'write', 'Blink-123', 5);
 }
 
 // if (Odi.isAwake()) {

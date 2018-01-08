@@ -47,26 +47,44 @@ const feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
 
 function sleep() {
 	log.debug('sleep()');
-	Flux.next('module', 'arduino', 'write', 'break', 3, 2);
-	// if/when Max is asleep => Odi.run.max = false
+	Flux.next('module', 'arduino', 'write', 'break'); //, 3, 2);
+	setTimeout(() => {
+		if (Odi.run.max) sleep();
+	}, 2000);
 }
 
 /** Function to send message to arduino */
 function write(msg, callback) {
 	log.debug('write()', msg);
 	arduino.write(msg + '..', function(err) {
-		// log.INFO('----->', err);
 		if (err) {
-			console.log('Error: ', err.message);
+			Odi.error('Error while writing to arduino', err);
 		}
 	});
 }
 
 feedback.on('data', function(data) {
 	Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);
-	// Faire un data parser ici... !
-	log.info('Max:', data.trim());
+	// log.info('Max:', data.trim());
+	arduinoParser(data.trim());
 });
+
+function arduinoParser(data) {
+	log.info('arduinoParser:', data); // debug ??
+	switch (data) {
+		case "I'm Taking a break...":
+			log.info('max is asleep');
+			Odi.run.max = false;
+			break;
+		case 'hi..':
+			log.info('max is awake!');
+			Odi.run.max = true;
+			break;
+		default:
+			log.info('max data cannot be parsed:', data);
+			break;
+	}
+}
 
 arduino.on('close', function(data) {
 	// Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);
