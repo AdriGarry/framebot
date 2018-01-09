@@ -68,7 +68,7 @@ log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'm
 // Flux.next('service', 'interaction', 'random');
 
 if (Odi.conf.mode == 'sleep') {
-	Flux.next('module', 'arduino', 'sleep', null, 10 * 60);
+	Flux.next('module', 'arduino', 'sleep');
 	new CronJob(
 		'0 * * * * *',
 		function() {
