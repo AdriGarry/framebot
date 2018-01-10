@@ -206,8 +206,8 @@ app.component('voicemail', {
 	}
 });
 
-/** Hardware component */
-app.component('hardware', {
+/** CPU component */
+app.component('cpu', {
 	bindings: {
 		data: '<',
 		access: '<',
@@ -217,7 +217,7 @@ app.component('hardware', {
 	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
-			label: 'Hardware',
+			label: 'CPU',
 			//disableOnSleep: true,
 			actionList: [{ url: '/cpuTemp' }]
 		};
