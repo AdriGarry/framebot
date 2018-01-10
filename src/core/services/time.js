@@ -111,7 +111,7 @@ function isAlarm() {
 		m = now.getMinutes();
 	Object.keys(Odi.conf.alarms).forEach(function(key, index) {
 		if (Odi.conf.alarms[key].d.indexOf(d) > -1 && h == Odi.conf.alarms[key].h && m == Odi.conf.alarms[key].m) {
-			log.info('alarm time...', Odi.conf.alarms[key].h + ':' + Odi.conf.alarms[key].m);
+			log.INFO('alarm time...', Odi.conf.alarms[key].h + ':' + Odi.conf.alarms[key].m);
 			Odi.run.alarm = true;
 			if (Odi.conf.mode == 'sleep') {
 				log.INFO('Alarm... wake up !!');

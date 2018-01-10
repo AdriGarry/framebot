@@ -42,7 +42,7 @@ var arduino = new SerialPort(ARDUINO, function(err) {
 		Odi.run.max = true;
 		log.info('communication serie with arduino opened');
 		// Flux.next('module', 'tts', 'speak', { lg: 'en', msg: "I'm connected with Max!" });
-		Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Hey Max!' });
+		if (!Odi.run.alarm) Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Hey Max!' });
 	}
 });
 
@@ -58,7 +58,7 @@ var arduino = new SerialPort(ARDUINO, function(err) {
 var count = 0;
 function sleep() {
 	count++;
-	if (count > 10) {
+	if (count > 5) {
 		count = 0;
 		log.INFO('Truc à corriger pour éviter que ça boucle indéfiniment...');
 		return;
@@ -71,7 +71,7 @@ function sleep() {
 }
 
 /** Function to send message to arduino */
-function write(msg, callback) {
+function write(msg) {
 	log.debug('write()', msg);
 	arduino.write(msg + '..', function(err) {
 		if (err) {
