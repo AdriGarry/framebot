@@ -10,16 +10,21 @@ var fs = require('fs');
 var os = require('os');
 
 const PATHS = [Odi._SRC];
+retreiveLastModifiedDate(PATHS);
+countSoftwareLines();
 
 Flux.module.hardware.subscribe({
 	next: flux => {
 		if (flux.id == 'runtime') {
-			retreiveLastModifiedDate(PATHS);
-			countSoftwareLines();
+			// retreiveLastModifiedDate(PATHS);
+			// countSoftwareLines();
 			getDiskSpace();
 			retreiveCpuTemp();
 			retreiveCpuUsage();
 			getEtatValue();
+			// } else if (flux.id == 'stats') {
+			// 	retreiveLastModifiedDate(PATHS);
+			// 	countSoftwareLines();
 		} else if (flux.id == 'cpu') {
 			// cpuTempTTS();
 			cpuStatsTTS();
@@ -57,7 +62,7 @@ function retreiveCpuTemp() {
 	var temperature = fs.readFileSync('/sys/class/thermal/thermal_zone0/temp');
 	temperature = (temperature / 1000).toPrecision(2);
 	Odi.run.cpuTemp = temperature;
-	log.debug('CPU Temperature updated  ' + temperature + ' degres');
+	log.debug('CPU temperature:' + temperature + '°');
 	return temperature;
 }
 
@@ -71,7 +76,7 @@ function retreiveCpuUsage() {
 	//console.log(totalDifference);console.log(endMeasure.total);console.log(startMeasure.total);
 	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference); //Calculate the average percentage CPU usage
 	Odi.run.cpuUsage = percentageCPU;
-	log.debug('CPU usage : ' + percentageCPU + ' %');
+	log.debug('CPU usage: ' + percentageCPU + '%');
 	return percentageCPU;
 }
 
@@ -136,7 +141,7 @@ function getDiskSpace(callback) {
 	Utils.execCmd('df -h', function(data) {
 		var diskSpace = data.match(/\/dev\/root.*[%]/gm);
 		diskSpace = diskSpace[0].match(/[\d]*%/g);
-		log.debug('getDiskSpace()', diskSpace[0]);
+		log.debug('Disk space:', diskSpace[0]);
 		Odi.run.diskSpace = diskSpace[0];
 		if (callback) callback(diskSpace);
 	});
