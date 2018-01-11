@@ -116,11 +116,11 @@ function arduinoParser(data) {
 	log.debug('arduinoParser:', data); // debug ??
 	switch (data) {
 		case "I'm Taking a break...":
-			log.info('max is asleep');
+			log.INFO('max is asleep');
 			Odi.run.max = false;
 			break;
 		case 'hi..':
-			log.info('max is awake!');
+			log.INFO('max is awake!');
 			Odi.run.max = true;
 			break;
 		default:
