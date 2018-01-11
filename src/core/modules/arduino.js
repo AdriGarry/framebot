@@ -13,7 +13,8 @@ Flux.module.arduino.subscribe({
 		if (flux.id == 'write') {
 			write(flux.value);
 		} else if (flux.id == 'hi') {
-			Flux.next('module', 'arduino', 'write', 'hi', 2, 2);
+			//Flux.next('module', 'arduino', 'write', 'hi', 2, 2);
+			wakeUp();
 		} else if (flux.id == 'sleep') {
 			sleep();
 		} else if (Odi.isAwake()) {
@@ -55,16 +56,40 @@ var arduino = new SerialPort(ARDUINO, function(err) {
 	}
 });*/
 
-var count = 0;
-function sleep() {
-	count++;
-	if (count > 5) {
-		count = 0;
-		log.INFO('Truc à corriger pour éviter que ça boucle indéfiniment...');
+const RETRY_TIMEOUT = 30 * 1000;
+
+var wakeUpCount = 0;
+function wakeUp() {
+	wakeUpCount++;
+	if (wakeUpCount > 5) {
+		wakeUpCount = 0;
+		log.INFO('On retente dans ' + RETRY_TIMEOUT / 60000 + ' minutes...');
+		setTimeout(() => {
+			wakeUp();
+		}, RETRY_TIMEOUT);
 		return;
 	}
 	log.debug('sleep()');
-	Flux.next('module', 'arduino', 'write', 'break'); //, 3, 2);
+	Flux.next('module', 'arduino', 'write', 'hi');
+	setTimeout(() => {
+		if (Odi.run.max) sleep();
+	}, 2000);
+}
+
+var sleepCount = 0;
+function sleep() {
+	sleepCount++;
+	if (sleepCount > 5) {
+		sleepCount = 0;
+		// log.INFO('Truc à corriger pour éviter que ça boucle indéfiniment...');
+		log.INFO('On retente dans ' + RETRY_TIMEOUT + ' minutes...');
+		setTimeout(() => {
+			sleep();
+		}, 30 * 1000);
+		return;
+	}
+	log.debug('sleep()');
+	Flux.next('module', 'arduino', 'write', 'break');
 	setTimeout(() => {
 		if (Odi.run.max) sleep();
 	}, 2000);

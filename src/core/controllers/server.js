@@ -534,6 +534,7 @@ function startUIServer(mode) {
 
 		ui.post('/test', function(req, res) {
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'test']); //mouthTrick
+			Flux.next('module', 'tts', 'speak', { lg: 'en', msg: '.undefined' });
 			res.writeHead(200);
 			res.end();
 		});
