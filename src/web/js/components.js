@@ -122,6 +122,28 @@ app.component('volume', {
 	}
 });
 
+/** Logs component */
+app.component('runtime', {
+	bindings: {
+		data: '<',
+		access: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Runtime',
+			actionList: [
+				{ label: 'Stats', icon: 'bar-chart', url: 'http://odi.adrigarry.com/stats' },
+				{ label: 'Errors', icon: 'exclamation-triangle', url: 'http://odi.adrigarry.com/errors' },
+				{ label: 'Config', icon: 'cogs', url: 'http://odi.adrigarry.com/config.json' },
+				{ label: 'Runtime', icon: 'codepen', url: 'http://odi.adrigarry.com/runtime' }
+			]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+	}
+});
+
 /** Alarms component */
 app.component('alarms', {
 	bindings: {
@@ -538,27 +560,6 @@ app.component('history', {
 				{ label: 'Voicemail', icon: 'envelope-o', url: 'http://odi.adrigarry.com/voicemailHistory' },
 				{ label: 'Request', icon: 'exchange', url: 'http://odi.adrigarry.com/requestHistory' },
 				{ label: 'Errors', icon: 'exclamation-triangle', url: 'http://odi.adrigarry.com/errorHistory' }
-			]
-		};
-		ctrl.tile = new DefaultTile(tileParams);
-	}
-});
-
-/** Logs component */
-app.component('runtime', {
-	bindings: {
-		data: '<',
-		access: '<'
-	},
-	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
-			label: 'Runtime',
-			actionList: [
-				{ label: 'Errors', icon: 'exclamation-triangle', url: 'http://odi.adrigarry.com/errors' },
-				{ label: 'Config', icon: 'cogs', url: 'http://odi.adrigarry.com/config.json' },
-				{ label: 'Runtime', icon: 'codepen', url: 'http://odi.adrigarry.com/runtime' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
