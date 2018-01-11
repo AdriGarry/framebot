@@ -113,7 +113,7 @@ feedback.on('data', function(data) {
 });
 
 function arduinoParser(data) {
-	log.info('arduinoParser:', data); // debug ??
+	log.debug('arduinoParser:', data); // debug ??
 	switch (data) {
 		case "I'm Taking a break...":
 			log.info('max is asleep');
