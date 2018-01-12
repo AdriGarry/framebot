@@ -56,7 +56,7 @@ var arduino = new SerialPort(ARDUINO, function(err) {
 	}
 });*/
 
-const RETRY_TIMEOUT = 30 * 1000;
+const RETRY_TIMEOUT = 3*60 * 1000;
 
 var wakeUpCount = 0;
 function wakeUp() {
