@@ -111,6 +111,8 @@ if (Odi.conf.mode == 'sleep') {
 	Flux.next('module', 'arduino', 'write', 'Blink-1-2-3', 3);
 }
 
+// console.log('process.memoryUsage()', process.memoryUsage());
+
 // if (Odi.isAwake()) {
 // 	Flux.next('module', 'arduino', 'write', 'Salut mon loulou !'.toUpperCase(), 1, 2);
 // 	Flux.next('module', 'arduino', 'write', 'break', 7);
