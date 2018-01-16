@@ -56,7 +56,7 @@ var arduino = new SerialPort(ARDUINO, function(err) {
 	}
 });*/
 
-const RETRY_TIMEOUT = 3*60 * 1000;
+const RETRY_TIMEOUT = 3 * 60 * 1000;
 
 var wakeUpCount = 0;
 function wakeUp() {
@@ -73,7 +73,7 @@ function wakeUp() {
 	Flux.next('module', 'arduino', 'write', 'hi');
 	setTimeout(() => {
 		if (Odi.run.max) sleep();
-	}, 2000);
+	}, 2500);
 }
 
 var sleepCount = 0;
@@ -82,7 +82,7 @@ function sleep() {
 	if (sleepCount > 5) {
 		sleepCount = 0;
 		// log.INFO('Truc à corriger pour éviter que ça boucle indéfiniment...');
-		log.INFO('On retente dans ' + RETRY_TIMEOUT + ' minutes...');
+		log.INFO('On retente dans ' + RETRY_TIMEOUT / 60000 + ' minutes...');
 		setTimeout(() => {
 			sleep();
 		}, 30 * 1000);
@@ -92,7 +92,7 @@ function sleep() {
 	Flux.next('module', 'arduino', 'write', 'break');
 	setTimeout(() => {
 		if (Odi.run.max) sleep();
-	}, 2000);
+	}, 2500);
 }
 
 /** Function to send message to arduino */
