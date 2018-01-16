@@ -5,24 +5,17 @@ var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var fs = require('fs');
 
+module.exports = {
+	init: initOdi,
+	Odi: Odi
+};
+
 var Odi = {
+	status: null,
 	conf: require(ODI_PATH + 'conf.json'),
 	isAwake: isAwake,
-	run: {
-		etat: '.',
-		volume: 0,
-		max: '.',
-		mood: [],
-		music: false, // fip/jukebox
-		alarm: false,
-		timer: 0,
-		voicemail: '.',
-		cpuUsage: '.',
-		cpuTemp: '.',
-		diskSpace: '.',
-		update: '.',
-		totalLines: '.'
-	},
+	run: runtimeFunctions,
+	stats: null,
 	error: error, //require(ODI_PATH + 'src/core/OdiError.json'), ??
 	errors: [],
 	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
@@ -37,13 +30,60 @@ var Odi = {
 	_TMP: ODI_PATH + 'tmp/'
 };
 
-module.exports = {
-	init: init,
-	Odi: Odi
+var _runtime = {
+		etat: null,
+		volume: null,
+		max: null,
+		mood: [],
+		music: false,
+		alarm: false,
+		timer: 0,
+		voicemail: null,
+		cpu: {
+			usage: null,
+			temp: null
+		},
+		memory: {
+			odi: null,
+			raspi: null
+		}
+	},
+	_stats = {
+		diskSpace: null,
+		update: null,
+		totalLines: null
+	};
+
+/**
+ * run(), run(id), run(id, value)
+ * @param {*} runtimeId
+ * @param {*} newRuntimeValue
+ */
+var runtimeFunctions = function(runtimeId, newRuntimeValue) {
+	if (!runtimeId) return _runtime;
+	if (newRuntimeValue) _setRuntimeValue(runtimeId, newRuntimeValue);
+	else _getRuntimeValue(runtimeId);
+};
+var _getRuntimeValue = function(runtimeId) {
+	if (_runtime.hasOwnProperty(runtimeId)) {
+		return _runtime[runtimeId];
+	} else {
+		return log.info('_getRuntimeValue ERROR:', runtimeId);
+	}
+};
+var _setRuntimeValue = function(runtimeId, newRuntimeValue) {
+	if (_runtime.hasOwnProperty(runtimeId)) {
+		//if()
+		_runtime[runtimeId] = newRuntimeValue;
+		return true;
+	} else {
+		log.info('_setRuntimeValue ERROR:', runtimeId);
+		return false;
+	}
 };
 
 var Flux = { next: null };
-function init(path, forcedParams) {
+function initOdi(path, forcedParams) {
 	Odi.PATH = path;
 	var confUpdate = { startTime: Utils.logTime('h:m (D/M)') },
 		forcedParamsLog = '';
@@ -104,7 +144,6 @@ function error(label, data, stackTrace) {
 
 function enableDebugCountdown() {
 	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf.debug + 'min ' + '\u2022\u2022\u2022');
-	//TODO screen on & tail odi.log !
 	setInterval(function() {
 		Flux.next('module', 'conf', 'update', { debug: --Odi.conf.debug });
 		if (!Odi.conf.debug) {

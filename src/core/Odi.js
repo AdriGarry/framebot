@@ -89,8 +89,7 @@ function error(label, data, stackTrace) {
 	Flux.next('module', 'sound', 'error', null, null, null, 'hidden');
 	log.error(label + '\n', data || '');
 	if (stackTrace != false) {
-		// Optional ?
-		console.trace();
+		console.trace(); // Optional ?
 	}
 	var logError = {
 		label: label,

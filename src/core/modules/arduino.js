@@ -75,7 +75,7 @@ function sleep() {
 		log.INFO('On retente dans ' + RETRY_TIMEOUT / 60000 + ' minutes...');
 		setTimeout(() => {
 			sleep();
-		}, 30 * 1000);
+		}, RETRY_TIMEOUT);
 		return;
 	}
 	log.debug('sleep()');
