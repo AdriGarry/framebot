@@ -13,7 +13,6 @@ Flux.module.arduino.subscribe({
 		if (flux.id == 'write') {
 			write(flux.value);
 		} else if (flux.id == 'hi') {
-			//Flux.next('module', 'arduino', 'write', 'hi', 2, 2);
 			wakeUp();
 		} else if (flux.id == 'sleep') {
 			sleep();
@@ -46,15 +45,6 @@ var arduino = new SerialPort(ARDUINO, function(err) {
 		if (!Odi.run.alarm) Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Hey Max!' });
 	}
 });
-
-/*arduino.open(function(err) {
-	if (err) {
-		Odi.error('Error opening arduino port: ', err.message, false);
-		Flux.next('module', 'tts', 'speak', { lg: 'en', msg: "Can't connect to arduino" });
-	} else {
-		log.info('Communication serie Arduino opened [115200 bauds]');
-	}
-});*/
 
 const RETRY_TIMEOUT = 3 * 60 * 1000;
 

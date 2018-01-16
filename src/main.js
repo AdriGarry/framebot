@@ -92,8 +92,7 @@ if (Odi.conf.mode == 'sleep') {
 		});
 	}, 1000);
 } else {
-	// Alarm / Cocorico...
-	Flux.next('service', 'time', 'isAlarm');
+	Flux.next('service', 'time', 'isAlarm'); // Alarm / Cocorico...
 	new CronJob(
 		'2 * * * * *',
 		function() {
