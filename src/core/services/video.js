@@ -15,12 +15,18 @@ Flux.service.video.subscribe({
 			screenOff();
 		} else if (flux.id == 'cycle') {
 			startCycle();
+		} else if (flux.id == 'logTail') {
+			logTail();
 		} else Odi.error('unmapped flux in Video service', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
 	}
 });
+
+function logTail() {
+	log.info('screen on + log tail to implement!');
+}
 
 /** Function to turn screen on (for 30 minutes) */
 function screenOn() {
