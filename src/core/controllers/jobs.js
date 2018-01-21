@@ -174,9 +174,7 @@ function setBackgroundJobs() {
 		'13 13 13 * * 1-6',
 		function() {
 			Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Auto restart' }); // Daily restart Odi's core
-			setTimeout(function() {
-				Flux.next('service', 'system', 'restart');
-			}, 3000);
+			Flux.next('service', 'system', 'restart', null, 3);
 		},
 		null,
 		true,
@@ -187,10 +185,8 @@ function setBackgroundJobs() {
 		'13 13 13 * * 0',
 		function() {
 			Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Reset config' }); // Weekly RPI reboot
-			setTimeout(function() {
-				log.info('resetCfg'); // Weekly cleaning of logs
-				Flux.next('module', 'conf', 'reset', true);
-			}, 3000);
+			log.info('resetCfg'); // Weekly cleaning of logs
+			Flux.next('module', 'conf', 'reset', true, 3);
 		},
 		null,
 		true,
@@ -201,9 +197,7 @@ function setBackgroundJobs() {
 		'15 15 13 * * 0',
 		function() {
 			Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Auto reboot' }); // Weekly RPI reboot
-			setTimeout(function() {
-				Flux.next('service', 'system', 'restart');
-			}, 3000);
+			Flux.next('service', 'system', 'reboot', null, 3);
 		},
 		null,
 		true,
