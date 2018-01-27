@@ -40,8 +40,6 @@ Flux.module.hardware.subscribe({
 var etat = new Gpio(13, 'in', 'both', { persistentWatch: true, debounceTimeout: 500 });
 function getEtatValue() {
 	var etatValue = etat.readSync();
-	log.INFO('------------->', etatValue);
-	log.info('------------->', Odi.run());
 	Odi.run('etat', etatValue);
 	Odi.run('volume', etatValue ? 400 : -400);
 }

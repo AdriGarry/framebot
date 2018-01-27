@@ -86,7 +86,7 @@ function resetCfg(restart) {
 /** Function to refresh Odi\'s runtime data (etat, timer, moods...) */
 function refreshRuntime() {
 	log.info("refreshing Odi's runtime...");
-	Flux.next('module', 'hardware', 'runtime', null, null, true);
+	Flux.next('module', 'hardware', 'runtime', null, null, null, true);
 	// Flux.next('controller', 'button', 'runtime', null, null, true);
 	// Flux.next('module', 'hardware', '');
 	setTimeout(function() {
@@ -94,36 +94,3 @@ function refreshRuntime() {
 		log.table(Odi.run(), 'RUNTIME...');
 	}, 1000);
 }
-
-/** Function to update Odi\'s software params (last date & time, totalLines) */
-/*function updateOdiSoftwareInfo(newConf) {
-	console.log(newConf);
-	if (!newConf) newConf = {};
-	// log.info('Updating Odi\'s runtime data...');
-	Flux.next('module', 'hardware', 'runtime', null, null, false);
-	setTimeout(function(){
-		Flux.next('module', 'conf', 'update', newConf);
-		// log.runtime(Odi.run);
-	}, 1000);
-}*/
-
-/** Function to update Odi\'s software params (last date & time, totalLines) */
-// function OLD_updateOdiSoftwareInfo(newConf) {
-// 	// log.info('newConf=', newConf);
-// 	if (!newConf) newConf = {};
-// 	log.info("Updating Odi's software infos (last date & time, totalLines)");
-// 	getLastModifiedDate([ODI_PATH + 'src/'], function(lastUpdate) {
-// 		newConf.update = lastUpdate;
-// 		countSoftwareLines(function(totalLines) {
-// 			newConf.totalLines = totalLines;
-// 			getDiskSpace(function(diskSpace) {
-// 				newConf.diskSpace = diskSpace;
-// 				// if(CONFIG.totalLines != totalLines || CONFIG.update != lastUpdate || CONFIG.diskSpace != diskSpace){ // TODO delete this test and write on conf files only if updatedEntries.lentgh > 0
-// 				// Odi.setDefaultConf({ update: lastUpdate, totalLines: totalLines, diskSpace: diskSpace }, false);
-// 				Flux.next('module', 'conf', 'update', newConf);
-// 				// Odi.update(newConf, false);
-// 				// }
-// 			});
-// 		});
-// 	});
-// }

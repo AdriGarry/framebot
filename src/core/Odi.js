@@ -11,9 +11,10 @@ var fs = require('fs');
  * @param {*} newRuntimeValue
  */
 var runtimeFunctions = function(runtimeId, newRuntimeValue) {
-	if (!runtimeId) return _runtime;
-	if (newRuntimeValue) _setRuntimeValue(runtimeId, newRuntimeValue);
-	else _getRuntimeValue(runtimeId);
+	if (!runtimeId) return _runtime; //return all
+	if (typeof newRuntimeValue !== 'undefined')
+		_setRuntimeValue(runtimeId, newRuntimeValue); //set value
+	else _getRuntimeValue(runtimeId); //get value
 };
 var _getRuntimeValue = function(runtimeId) {
 	if (_runtime.hasOwnProperty(runtimeId)) {
@@ -64,7 +65,7 @@ module.exports = {
 	Odi: Odi
 };
 var _runtime = {
-		etat: null,
+		etat: 2,
 		volume: null,
 		max: null,
 		mood: [],
