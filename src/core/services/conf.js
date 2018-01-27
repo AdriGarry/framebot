@@ -90,7 +90,6 @@ function refreshRuntime() {
 	// Flux.next('controller', 'button', 'runtime', null, null, true);
 	// Flux.next('module', 'hardware', '');
 	setTimeout(function() {
-		console.log(Odi.run());
 		log.table(Odi.run(), 'RUNTIME...');
 	}, 1000);
 }
