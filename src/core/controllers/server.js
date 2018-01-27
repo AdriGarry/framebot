@@ -137,8 +137,8 @@ function startUIServer(mode) {
 			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
 		}
 		var etatBtn = null; //ODI.buttons.getEtat();
-		var cpuTemp = Odi.run.cpuTemp;
-		var cpuUsage = Odi.run.cpuUsage;
+		var cpuTemp = Odi.run('cpuTemp');
+		var cpuUsage = Odi.run('cpuUsage');
 		var dashboard = {
 			config: Odi.conf,
 			run: Odi.run,
@@ -160,11 +160,11 @@ function startUIServer(mode) {
 				active: isNaN(temp) && etatBtn == 1 ? true : false
 			},
 			voicemail: {
-				value: Odi.run.voicemail,
-				active: Odi.run.voicemail > 0 ? true : false
+				value: Odi.run('voicemail'),
+				active: Odi.run('voicemail') > 0 ? true : false
 			},
-			music: { value: Odi.run.music, active: false },
-			timer: { value: Odi.run.timer, active: Odi.run.timer > 0 ? true : false },
+			music: { value: Odi.run('music'), active: false },
+			timer: { value: Odi.run('timer'), active: Odi.run('timer') > 0 ? true : false },
 			hardware: { value: { usage: cpuUsage, temp: cpuTemp }, active: cpuTemp > 55 || cpuUsage >= 20 ? true : false },
 			alarms: { value: Odi.conf.alarms, active: true },
 			//config: {value: Odi.conf},
@@ -231,8 +231,8 @@ function startUIServer(mode) {
 
 	ui.get('/runtime', function(req, res) {
 		res.writeHead(200);
-		log.table(Odi.run);
-		res.end(JSON.stringify(Odi.run));
+		log.table(Odi.run(), 'RUNTIME...');
+		res.end(JSON.stringify(Odi.run()));
 	});
 
 	ui.get('/errors', function(req, res) {

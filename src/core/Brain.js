@@ -30,14 +30,14 @@ Flux.controller.jobs.subscribe({
 function buttonHandler(flux) {
 	if (Odi.isAwake()) {
 		if (flux.id == 'ok') {
-			if (Odi.run.mood.indexOf('party') > -1) {
+			if (Odi.run('mood').indexOf('party') > -1) {
 				if (Utils.random()) {
 					Flux.next('service', 'party', 'tts');
 				} else {
 					Flux.next('service', 'mood', 'badBoy');
 				}
 			} else {
-				if (Odi.run.voicemail) {
+				if (Odi.run('voicemail')) {
 					Flux.next('service', 'voicemail', 'check');
 				} else {
 					Flux.next('service', 'interaction', 'random');
@@ -58,7 +58,7 @@ function buttonHandler(flux) {
 		} else if (flux.id == 'blue') {
 			//log.INFO('to fix!!!!!');
 			if (flux.value > 0.8) {
-				if (Odi.run.etat) {
+				if (Odi.run('etat')) {
 					Flux.next('service', 'music', 'fip'); // TODO
 				} else {
 					Flux.next('service', 'music', 'jukebox'); // TODO

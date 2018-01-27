@@ -61,7 +61,7 @@ Object.keys(observers).forEach(function(observer) {
 	log.info(observer, 'loaded:', observersLoaded);
 });
 
-Flux.next('module', 'conf', 'runtime');
+// Flux.next('module', 'conf', 'runtime');
 log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
 
 // Flux.next('service', 'interaction', 'exclamation');
@@ -102,13 +102,14 @@ if (Odi.conf.mode == 'sleep') {
 		true,
 		'Europe/Paris'
 	);
-	if (!Odi.run.alarm) {
+	if (!Odi.run('alarm')) {
 		Flux.next('service', 'voicemail', 'check');
 	}
 	Flux.next('module', 'arduino', 'sleep', null, 10 * 60);
 
 	Flux.next('module', 'arduino', 'write', 'Blink-1-2-3', 3);
 }
+Flux.next('module', 'conf', 'runtime');
 
 // console.log('process.memoryUsage()', process.memoryUsage());
 

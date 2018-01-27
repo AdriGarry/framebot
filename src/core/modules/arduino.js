@@ -39,10 +39,10 @@ var arduino = new SerialPort(ARDUINO, function(err) {
 		Odi.error('Error opening arduino port: ', err.message, false);
 		// Scheduler to retry connect...?
 	} else {
-		Odi.run.max = true;
 		log.info('communication serie with arduino opened');
+		Odi.run('max', true);
 		// Flux.next('module', 'tts', 'speak', { lg: 'en', msg: "I'm connected with Max!" });
-		if (!Odi.run.alarm) Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Hey Max!' });
+		if (!Odi.run('alarm') && Odi.isAwake()) Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Hey Max!' });
 	}
 });
 
@@ -59,10 +59,10 @@ function wakeUp() {
 		}, RETRY_TIMEOUT);
 		return;
 	}
-	log.debug('sleep()');
+	log.debug('wakeUp()');
 	Flux.next('module', 'arduino', 'write', 'hi');
 	setTimeout(() => {
-		if (Odi.run.max) sleep();
+		if (Odi.run('max') == false) wakeUp();
 	}, 2500);
 }
 
@@ -81,7 +81,7 @@ function sleep() {
 	log.debug('sleep()');
 	Flux.next('module', 'arduino', 'write', 'break');
 	setTimeout(() => {
-		if (Odi.run.max) sleep();
+		if (Odi.run('max')) sleep();
 	}, 2500);
 }
 
@@ -107,11 +107,11 @@ function arduinoParser(data) {
 	switch (data) {
 		case "I'm Taking a break...":
 			log.INFO('max is asleep');
-			Odi.run.max = false;
+			Odi.run('max', false);
 			break;
 		case 'hi..':
 			log.INFO('max is awake!');
-			Odi.run.max = true;
+			Odi.run('max', true);
 			break;
 		default:
 			log.info('max data:', data);

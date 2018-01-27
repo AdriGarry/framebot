@@ -78,6 +78,48 @@ function Logger(filename, debugMode, dateTimePattern) {
 	// executionTime + 'ms';
 
 	/** Function to array an object */
+	function tableOld(src, title, updatedEntries) {
+		var col1 = 11,
+			col2 = 16;
+		var logArrayTitle = '';
+		if (title) {
+			logArrayTitle = '│  ' + title + ' '.repeat(col1 + col2 + 2 - title.length) + ' │';
+			logArrayTitle += '\n' + '├' + '─'.repeat(13) + '┬' + '─'.repeat(18) + '┤\n';
+		}
+		var confArray = '┌' + '─'.repeat(32) + '┐\n' + logArrayTitle;
+		Object.keys(src).forEach(function(key, index) {
+			if (key == 'alarms') {
+				Object.keys(src[key]).forEach(function(key2, index2) {
+					if (key2 != 'd') {
+						var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
+						var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
+						c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
+						if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
+						confArray += '│ ' + c1 + ' │ ' + c2 + ' '.repeat(col2 - c2.length) + ' │\n';
+					}
+				});
+			} else {
+				var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
+				var value;
+				if (src[key] == null) value = 'null';
+				else if (typeof src[key] == 'object' && !Array.isArray(src[key]))
+					value = Object.keys(src[key]).map(k => src[key][k]);
+				else value = src[key];
+				confArray +=
+					'│ ' +
+					(!updated ? '' : '*') +
+					key +
+					' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
+					' │ ' +
+					value +
+					' '.repeat(col2 - value.toString().length) +
+					' │\n';
+			}
+		});
+		console.log(confArray + '└' + '─'.repeat(13) + '┴' + '─'.repeat(18) + '┘');
+	}
+
+	/** Function to array an object */
 	function table(src, title, updatedEntries) {
 		var col1 = 11,
 			col2 = 16;
@@ -100,14 +142,19 @@ function Logger(filename, debugMode, dateTimePattern) {
 				});
 			} else {
 				var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
+				var value;
+				if (src[key] == null) value = 'null';
+				else if (typeof src[key] == 'object' && !Array.isArray(src[key]))
+					value = Object.keys(src[key]).map(k => src[key][k]);
+				else value = src[key];
 				confArray +=
 					'│ ' +
 					(!updated ? '' : '*') +
 					key +
 					' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
 					' │ ' +
-					src[key] +
-					' '.repeat(col2 - src[key].toString().length) +
+					value +
+					' '.repeat(col2 - value.toString().length) +
 					' │\n';
 			}
 		});

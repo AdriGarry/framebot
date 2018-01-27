@@ -46,37 +46,38 @@ function initButtonReady() {
 	});
 
 	/** Interval pour l'etat du switch + fonctions associees */
-	var instance = false,
-		intervalEtat;
-	var intervalDelay = Odi.conf.debug ? 2 * 60 * 1000 : 5 * 60 * 1000;
-	setInterval(function() {
-		var value = etat.readSync();
-		Flux.next('module', 'led', 'toggle', { leds: ['satellite'], value: value }, null, null, true);
-		if (1 === value) {
-			if (!instance) {
-				instance = true;
-				intervalEtat = setInterval(function() {
-					log.info('Etat btn Up_ => random action');
-					Flux.next('service', 'interaction', 'random');
-				}, intervalDelay); //5*60*1000
-			}
-		} else {
-			instance = false;
-			clearInterval(intervalEtat);
-		}
-	}, 2000);
+	// var instance = false,
+	// 	intervalEtat;
+	// var intervalDelay = Odi.conf.debug ? 2 * 60 * 1000 : 5 * 60 * 1000;
+	// setInterval(function() {
+	// 	var value = etat.readSync();
+	// 	Flux.next('module', 'led', 'toggle', { leds: ['satellite'], value: value }, null, null, true);
+	// 	if (1 === value) {
+	// 		if (!instance) {
+	// 			instance = true;
+	// 			intervalEtat = setInterval(function() {
+	// 				log.info('Etat btn Up_ => random action');
+	// 				Flux.next('service', 'interaction', 'random');
+	// 			}, intervalDelay); //5*60*1000
+	// 		}
+	// 	} else {
+	// 		instance = false;
+	// 		clearInterval(intervalEtat);
+	// 	}
+	// }, 2000);
 
 	/** Switch watch for radio volume */
 	etat.watch(function(err, value) {
 		value = etat.readSync();
-		Odi.run.etat = value;
-		Odi.run.volume = value ? 400 : -400;
+		log.INFO('..btn', value);
+		Odi.run('etat', value);
+		Odi.run('volume', value ? 400 : -400);
 		log.info('Etat:', value, '[Etat has changed]');
-		if (Odi.run.music == 'fip') {
+		if (Odi.run('music') == 'fip') {
 			Flux.next('module', 'sound', 'mute');
 			Flux.next('service', 'music', 'fip', null, 0.1);
 		}
-		log.table(Odi.run, 'RUNTIME...');
+		log.table(Odi.run(), 'RUNTIME...');
 	});
 
 	// var pushed = 0,

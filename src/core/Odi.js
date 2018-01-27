@@ -5,24 +5,52 @@ var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var fs = require('fs');
 
+/**
+ * run(), run(id), run(id, value)
+ * @param {*} runtimeId
+ * @param {*} newRuntimeValue
+ */
+var runtimeFunctions = function(runtimeId, newRuntimeValue) {
+	if (!runtimeId) return _runtime; //return all
+	if (typeof newRuntimeValue !== 'undefined')
+		return _setRuntimeValue(runtimeId, newRuntimeValue); //set value
+	else return _getRuntimeValue(runtimeId); //get value
+};
+var _getRuntimeValue = function(runtimeId) {
+	if (_runtime.hasOwnProperty(runtimeId)) {
+		return _runtime[runtimeId];
+	} else {
+		return log.info('_getRuntimeValue ERROR:', runtimeId);
+	}
+};
+var _setRuntimeValue = function(runtimeId, newRuntimeValue) {
+	var runtimeId2;
+	if (runtimeId.indexOf('.') > -1) {
+		var keys = runtimeId.split('.');
+		runtimeId = keys[0];
+		runtimeId2 = keys[1];
+	}
+	if (_runtime.hasOwnProperty(runtimeId)) {
+		if (Array.isArray(_runtime[runtimeId])) {
+			_runtime[runtimeId].push(newRuntimeValue);
+		} else {
+			if (runtimeId2) _runtime[keys[0]][keys[1]] = newRuntimeValue;
+			else _runtime[runtimeId] = newRuntimeValue;
+			// _runtime[runtimeId] = newRuntimeValue;
+		}
+		return true;
+	} else {
+		log.info('_setRuntimeValue ERROR:', runtimeId);
+		return false;
+	}
+};
+
 var Odi = {
+	status: null,
 	conf: require(ODI_PATH + 'conf.json'),
 	isAwake: isAwake,
-	run: {
-		etat: '.',
-		volume: 0,
-		max: '.',
-		mood: [],
-		music: false, // fip/jukebox
-		alarm: false,
-		timer: 0,
-		voicemail: '.',
-		cpuUsage: '.',
-		cpuTemp: '.',
-		diskSpace: '.',
-		update: '.',
-		totalLines: '.'
-	},
+	run: runtimeFunctions,
+	stats: null,
 	error: error, //require(ODI_PATH + 'src/core/OdiError.json'), ??
 	errors: [],
 	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
@@ -36,14 +64,38 @@ var Odi = {
 	_LOG: ODI_PATH + 'log/',
 	_TMP: ODI_PATH + 'tmp/'
 };
-
 module.exports = {
-	init: init,
+	init: initOdi,
 	Odi: Odi
+};
+var _runtime = {
+	etat: 2,
+	volume: null,
+	max: null,
+	mood: [],
+	music: false,
+	alarm: false,
+	timer: 0,
+	voicemail: null,
+	cpuUsage: null,
+	cpuTemp: null,
+	cpu: {
+		usage: null,
+		temp: null
+	},
+	memory: {
+		odi: null,
+		raspi: null
+	},
+	stat: {
+		diskSpace: null,
+		update: null,
+		totalLines: null
+	}
 };
 
 var Flux = { next: null };
-function init(path, forcedParams) {
+function initOdi(path, forcedParams) {
 	Odi.PATH = path;
 	var confUpdate = { startTime: Utils.logTime('h:m (D/M)') },
 		forcedParamsLog = '';
@@ -74,7 +126,7 @@ function init(path, forcedParams) {
 		log.enableDebug();
 		enableDebugCountdown();
 	}
-
+	log.info('Odi main object initialized');
 	Flux = require(Odi._CORE + 'Flux.js');
 	Flux.next('module', 'conf', 'update', confUpdate, 0.1);
 	return Odi;
@@ -89,7 +141,8 @@ function error(label, data, stackTrace) {
 	Flux.next('module', 'sound', 'error', null, null, null, 'hidden');
 	log.error(label + '\n', data || '');
 	if (stackTrace != false) {
-		console.trace(); // Optional ?
+		// Optional ?
+		console.trace();
 	}
 	var logError = {
 		label: label,
@@ -103,7 +156,6 @@ function error(label, data, stackTrace) {
 
 function enableDebugCountdown() {
 	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf.debug + 'min ' + '\u2022\u2022\u2022');
-	//TODO screen on & tail odi.log !
 	setInterval(function() {
 		Flux.next('module', 'conf', 'update', { debug: --Odi.conf.debug });
 		if (!Odi.conf.debug) {

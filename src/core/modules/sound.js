@@ -54,7 +54,7 @@ function playSound(arg, noLog) {
 	if (!noLog) log.info('play', mp3Title, volLog, positionLog, durationLog);
 
 	var position = arg.position || 0;
-	var volume = arg.volume || Odi.run.volume;
+	var volume = arg.volume || Odi.run('volume');
 	var sound = Odi._MP3 + arg.mp3;
 	var startPlayTime = new Date();
 	// console.log('--TOTO', sound);
@@ -94,4 +94,5 @@ function stopAll(message) {
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
 	Flux.next('module', 'led', 'clearLeds', null, null, null, 'hidden');
 	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly'], value: 0 }, null, null, 'hidden');
+	Odi.run('music', false);
 }

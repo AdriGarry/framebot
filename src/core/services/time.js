@@ -112,7 +112,7 @@ function isAlarm() {
 	Object.keys(Odi.conf.alarms).forEach(function(key, index) {
 		if (Odi.conf.alarms[key].d.indexOf(d) > -1 && h == Odi.conf.alarms[key].h && m == Odi.conf.alarms[key].m) {
 			log.INFO('alarm time...', Odi.conf.alarms[key].h + ':' + Odi.conf.alarms[key].m);
-			Odi.run.alarm = true;
+			Odi.run('alarm', true);
 			if (Odi.conf.mode == 'sleep') {
 				log.INFO('Alarm... wake up !!');
 				Flux.next('service', 'system', 'restart');
@@ -121,7 +121,7 @@ function isAlarm() {
 			}
 		}
 	});
-	log.debug('Odi.run.alarm=' + Odi.run.alarm);
+	log.debug('Odi.run(alarm)=' + Odi.run('alarm'));
 }
 
 /** Function alarm part 1 */
@@ -204,7 +204,7 @@ function sayOdiAge() {
 	Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: birthDay });
 }
 
-Odi.run.timer = 0;
+Odi.run('timer', 0);
 var secInterval;
 function setTimer(minutes) {
 	if (typeof minutes !== undefined && minutes > 1) {
@@ -212,13 +212,13 @@ function setTimer(minutes) {
 	} else {
 		minutes = 60;
 	}
-	Odi.run.timer += minutes;
-	var min = Math.floor(Odi.run.timer / 60);
-	var sec = Odi.run.timer % 60;
+	Odi.run('timer', Odi.run('timer') + minutes);
+	var min = Math.floor(Odi.run('timer') / 60);
+	var sec = Odi.run('timer') % 60;
 	var ttsMsg =
 		'Minuterie ' + (min > 0 ? (min > 1 ? min : ' une ') + ' minutes ' : '') + (sec > 0 ? sec + ' secondes' : '');
 	Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: ttsMsg });
-	if (Odi.run.timer == 60) {
+	if (Odi.run('timer') == 60) {
 		startTimer();
 	}
 }
@@ -228,30 +228,30 @@ function startTimer() {
 	secInterval = setInterval(function() {
 		Flux.next('module', 'led', 'toggle', { leds: ['belly'], value: etat }, null, null, true);
 		etat = 1 - etat;
-		if (Odi.run.timer < 10) {
+		if (Odi.run('timer') < 10) {
 			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'almost']);
 		} else {
 			spawn('sh', [Odi._SHELL + 'timerSound.sh']);
 		}
-		Odi.run.timer--;
-		if (Odi.run.timer % 120 == 0 && Odi.run.timer / 60 > 0) {
-			Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: Odi.run.timer / 60 + ' minutes et compte a rebours' });
-		} else if (Odi.run.timer <= 0 && Odi.run.timer > -5) {
+		Odi.run('timer', Odi.run('timer')--);
+		if (Odi.run('timer') % 120 == 0 && Odi.run('timer') / 60 > 0) {
+			Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: Odi.run('timer') / 60 + ' minutes et compte a rebours' });
+		} else if (Odi.run('timer') <= 0 && Odi.run('timer') > -5) {
 			clearInterval(secInterval);
 			log.info('End Timer !');
 			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'end']);
 			Flux.next('module', 'led', 'blink', { leds: ['belly', 'eye'], speed: 90, loop: 12 });
 			Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: 'Les raviolis sont cuits !' });
 			Flux.next('module', 'led', 'toggle', { leds: ['belly'], value: 0 }, 1);
-			console.log(Odi.run.timer);
+			console.log(Odi.run('timer'));
 		}
 	}, 1000);
 }
 
 function stopTimer() {
-	if (Odi.run.timer > 0) {
+	if (Odi.run('timer') > 0) {
 		clearInterval(secInterval);
-		Odi.run.timer = 0;
+		Odi.run('timer',  0);
 		Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Timer canceled' });
 		Flux.next('module', 'led', 'toggle', { leds: ['belly'], value: 0 }, null, null, true);
 	}

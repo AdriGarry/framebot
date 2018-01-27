@@ -171,6 +171,25 @@ function goToSleep() {
 /** Function to set background tasks */
 function setBackgroundJobs() {
 	new CronJob(
+		'*/29 * * * * *',
+		function() {
+			Flux.next('module', 'hardware', 'runtime', null, null, null, true);
+		},
+		null,
+		true,
+		'Europe/Paris'
+	);
+	// new CronJob(
+	// 	'*/20 * * * * *',
+	// 	function() {
+	// 		// Flux.next('module', 'hardware', 'runtime', null, null, null, true);
+	// 		// VOICEMAIL CHECK HERE ???
+	// 	},
+	// 	null,
+	// 	true,
+	// 	'Europe/Paris'
+	// );
+	new CronJob(
 		'13 13 13 * * 1-6',
 		function() {
 			Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Auto restart' }); // Daily restart Odi's core
@@ -198,16 +217,6 @@ function setBackgroundJobs() {
 		function() {
 			Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Auto reboot' }); // Weekly RPI reboot
 			Flux.next('service', 'system', 'reboot', null, 3);
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
-
-	new CronJob(
-		'*/20 * * * * *',
-		function() {
-			Flux.next('module', 'hardware', 'runtime', null, null, null, true);
 		},
 		null,
 		true,
