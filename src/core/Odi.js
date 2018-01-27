@@ -13,8 +13,8 @@ var fs = require('fs');
 var runtimeFunctions = function(runtimeId, newRuntimeValue) {
 	if (!runtimeId) return _runtime; //return all
 	if (typeof newRuntimeValue !== 'undefined')
-		_setRuntimeValue(runtimeId, newRuntimeValue); //set value
-	else _getRuntimeValue(runtimeId); //get value
+		return _setRuntimeValue(runtimeId, newRuntimeValue); //set value
+	else return _getRuntimeValue(runtimeId); //get value
 };
 var _getRuntimeValue = function(runtimeId) {
 	if (_runtime.hasOwnProperty(runtimeId)) {

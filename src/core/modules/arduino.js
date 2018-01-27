@@ -39,10 +39,10 @@ var arduino = new SerialPort(ARDUINO, function(err) {
 		Odi.error('Error opening arduino port: ', err.message, false);
 		// Scheduler to retry connect...?
 	} else {
-		Odi.run('max', true);
 		log.info('communication serie with arduino opened');
+		Odi.run('max', true);
 		// Flux.next('module', 'tts', 'speak', { lg: 'en', msg: "I'm connected with Max!" });
-		if (!Odi.run('alarm')) Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Hey Max!' });
+		if (!Odi.run('alarm') && Odi.isAwake()) Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Hey Max!' });
 	}
 });
 
@@ -59,10 +59,10 @@ function wakeUp() {
 		}, RETRY_TIMEOUT);
 		return;
 	}
-	log.debug('sleep()');
+	log.debug('wakeUp()');
 	Flux.next('module', 'arduino', 'write', 'hi');
 	setTimeout(() => {
-		if (Odi.run('max')) sleep();
+		if (Odi.run('max') == false) wakeUp();
 	}, 2500);
 }
 
