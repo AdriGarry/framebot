@@ -54,7 +54,7 @@ function playSound(arg, noLog) {
 	if (!noLog) log.info('play', mp3Title, volLog, positionLog, durationLog);
 
 	var position = arg.position || 0;
-	var volume = arg.volume || Odi.run.volume;
+	var volume = arg.volume || Odi.run('volume');
 	var sound = Odi._MP3 + arg.mp3;
 	var startPlayTime = new Date();
 	// console.log('--TOTO', sound);

@@ -39,8 +39,11 @@ Flux.module.hardware.subscribe({
 
 var etat = new Gpio(13, 'in', 'both', { persistentWatch: true, debounceTimeout: 500 });
 function getEtatValue() {
-	Odi.run.etat = etat.readSync();
-	Odi.run.volume = etat.readSync() ? 400 : -400;
+	var etatValue = etat.readSync();
+	log.INFO('------------->', etatValue);
+	log.info('------------->', Odi.run());
+	Odi.run('etat', etatValue);
+	Odi.run('volume', etatValue ? 400 : -400);
 }
 
 /** Function to tts cpu stats */
@@ -61,7 +64,8 @@ function cpuStatsTTS() {
 function retreiveCpuTemp() {
 	var temperature = fs.readFileSync('/sys/class/thermal/thermal_zone0/temp');
 	temperature = (temperature / 1000).toPrecision(2);
-	Odi.run.cpuTemp = temperature;
+	Odi.run('cpuTemp', temperature);
+	// Odi.run('cpu.temp', temperature);
 	log.debug('CPU temperature:' + temperature + '°');
 	return temperature;
 }
@@ -75,7 +79,8 @@ function retreiveCpuUsage() {
 	var totalDifference = endMeasure.total - startMeasure.total;
 	//console.log(totalDifference);console.log(endMeasure.total);console.log(startMeasure.total);
 	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference); //Calculate the average percentage CPU usage
-	Odi.run.cpuUsage = percentageCPU;
+	Odi.run('cpuUsage', percentageCPU);
+	// Odi.run('cpu.usage', percentageCPU);
 	log.debug('CPU usage: ' + percentageCPU + '%');
 	return percentageCPU;
 }
@@ -109,7 +114,7 @@ function retreiveLastModifiedDate(paths, callback) {
 	Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1', function(data) {
 		var lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
 		log.debug('getLastModifiedDate()', lastDate[0]);
-		Odi.run.update = lastDate[0];
+		Odi.run('update', lastDate[0]);
 		if (callback) callback(lastDate[0]);
 	});
 }
@@ -129,7 +134,7 @@ function countSoftwareLines(callback) {
 			typesNb--;
 			if (!typesNb) {
 				log.debug('countSoftwareLines()', totalLines);
-				Odi.run.totalLines = totalLines;
+				Odi.run('totalLines', totalLines);
 				if (callback) callback(totalLines);
 			}
 		});
@@ -142,7 +147,7 @@ function getDiskSpace(callback) {
 		var diskSpace = data.match(/\/dev\/root.*[%]/gm);
 		diskSpace = diskSpace[0].match(/[\d]*%/g);
 		log.debug('Disk space:', diskSpace[0]);
-		Odi.run.diskSpace = diskSpace[0];
+		Odi.run('diskSpace', diskSpace[0]);
 		if (callback) callback(diskSpace);
 	});
 }

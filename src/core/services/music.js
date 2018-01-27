@@ -29,7 +29,7 @@ var ledMusicFlag;
 function ledFlag() {
 	Flux.next('module', 'led', 'altLeds', { speed: 100, duration: 1.3 });
 	ledMusicFlag = setInterval(function() {
-		if (Odi.run.music) {
+		if (Odi.run('music')) {
 			Flux.next('module', 'led', 'altLeds', { speed: 100, duration: 1.3 }, null, null, true);
 		} else {
 			clearInterval(ledMusicFlag);
@@ -48,7 +48,7 @@ fs.readdir(Odi._MP3 + 'jukebox', (err, files) => {
 function jukebox(message) {
 	stop();
 	log.info('Jukebox in loop mode !');
-	Odi.run.music = 'jukebox';
+	Odi.run('music', 'jukebox');
 	ledFlag();
 	repeatSong();
 	Flux.next('module', 'sound', 'mute', { message: 'Auto mute jukebox !', delay: 2 }, 60 * 60);
@@ -80,19 +80,19 @@ function playFip() {
 	stop();
 	log.info('Play FIP RADIO...');
 	spawn('sh', [Odi._SHELL + 'fip.sh']);
-	Odi.run.music = 'fip';
+	Odi.run('music', 'fip');
 	ledFlag();
 	Flux.next('module', 'sound', 'mute', { message: 'Auto Mute FIP', delay: 2 }, 60 * 60);
 }
 
 /** Function to stop music */
 function stop(message) {
-	if (Odi.run.music) {
+	if (Odi.run('music')) {
 		log.debug('Stop music');
 		clearTimeout(jukeboxTimeout);
 		clearInterval(ledMusicFlag);
 		spawn('sh', [Odi._SHELL + 'mute.sh']);
-		Odi.run.music = false;
+		Odi.run('music', false);
 		Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly'], value: 0 }, null, null, true);
 		Flux.next('module', 'led', 'clearLeds', { speed: 100, duration: 1.3 }, null, null, true);
 	} else {
@@ -115,7 +115,7 @@ function playStory(story) {
 			// console.log(length);
 			var position = Utils.random(1, Math.floor(length / 100 * 70)); // Position up to 70% of story duration
 			stop();
-			Odi.run.music = 'story';
+			Odi.run('music', 'story');
 			ledFlag();
 			Flux.next('module', 'sound', 'play', { mp3: storyToPlay, position: position });
 		});

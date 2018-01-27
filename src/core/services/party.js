@@ -28,8 +28,8 @@ Flux.service.party.subscribe({
 function start() {
 	log.INFO("Let's start the party !!  <|:-)");
 	Flux.next('module', 'tts', 'speak', { voice: 'google', lg: 'en', msg: "Let's start the party" });
-	Odi.run.mood.push('party');
-	log.table(Odi.run, 'RUNTIME...');
+	Odi.run('mood', 'party');
+	log.table(Odi.run(), 'RUNTIME...');
 	firePartyActionAndRandom();
 }
 

@@ -69,14 +69,14 @@ function initButtonReady() {
 	/** Switch watch for radio volume */
 	etat.watch(function(err, value) {
 		value = etat.readSync();
-		Odi.run.etat = value;
-		Odi.run.volume = value ? 400 : -400;
+		Odi.run('etat', value);
+		Odi.run('volume', value ? 400 : -400);
 		log.info('Etat:', value, '[Etat has changed]');
-		if (Odi.run.music == 'fip') {
+		if (Odi.run('music') == 'fip') {
 			Flux.next('module', 'sound', 'mute');
 			Flux.next('service', 'music', 'fip', null, 0.1);
 		}
-		log.table(Odi.run, 'RUNTIME...');
+		log.table(Odi.run(), 'RUNTIME...');
 	});
 
 	// var pushed = 0,

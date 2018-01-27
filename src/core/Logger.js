@@ -100,6 +100,7 @@ function Logger(filename, debugMode, dateTimePattern) {
 				});
 			} else {
 				var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
+				if (src[key] == null) src[key] = 'null';
 				confArray +=
 					'│ ' +
 					(!updated ? '' : '*') +
