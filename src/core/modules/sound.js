@@ -94,4 +94,5 @@ function stopAll(message) {
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
 	Flux.next('module', 'led', 'clearLeds', null, null, null, 'hidden');
 	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly'], value: 0 }, null, null, 'hidden');
+	Odi.run('music', false);
 }

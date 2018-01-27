@@ -26,7 +26,6 @@ var _getRuntimeValue = function(runtimeId) {
 var _setRuntimeValue = function(runtimeId, newRuntimeValue) {
 	var runtimeId2;
 	if (runtimeId.indexOf('.') > -1) {
-		log.INFO('_A spliting...');
 		var keys = runtimeId.split('.');
 		runtimeId = keys[0];
 		runtimeId2 = keys[1];
