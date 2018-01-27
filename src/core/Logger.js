@@ -98,6 +98,22 @@ function Logger(filename, debugMode, dateTimePattern) {
 						confArray += '│ ' + c1 + ' │ ' + c2 + ' '.repeat(col2 - c2.length) + ' │\n';
 					}
 				});
+			} else if (typeof src[key] == 'object') {
+				var tmp = Object.keys(src[key])
+					.map(k => src[key][k])
+					.join()
+					.toString();
+				console.log('tmp=', tmp);
+				console.log('tmp.length=', tmp.length);
+				confArray +=
+					'│ ' +
+					(!updated ? '' : '*') +
+					key +
+					' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
+					' │ ' +
+					tmp +
+					' '.repeat(col2 - tmp.length) +
+					' │\n';
 			} else {
 				var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
 				if (src[key] == null) src[key] = 'null';

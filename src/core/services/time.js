@@ -204,7 +204,6 @@ function sayOdiAge() {
 	Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: birthDay });
 }
 
-console.log(Odi.run);
 Odi.run('timer', 0);
 var secInterval;
 function setTimer(minutes) {

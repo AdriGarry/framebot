@@ -24,15 +24,20 @@ var _getRuntimeValue = function(runtimeId) {
 	}
 };
 var _setRuntimeValue = function(runtimeId, newRuntimeValue) {
+	var runtimeId2;
+	if (runtimeId.indexOf('.') > -1) {
+		log.INFO('_A spliting...');
+		var keys = runtimeId.split('.');
+		runtimeId = keys[0];
+		runtimeId2 = keys[1];
+	}
 	if (_runtime.hasOwnProperty(runtimeId)) {
-		if (runtimeId.indexOf('.') > -1) {
-			var keys = runtimeId.split('.');
-			_runtime[keys[0]][keys[1]] = newRuntimeValue;
-			_runtime[runtimeId] = newRuntimeValue;
-		} else if (Array.isArray(_runtime[runtimeId])) {
+		if (Array.isArray(_runtime[runtimeId])) {
 			_runtime[runtimeId].push(newRuntimeValue);
 		} else {
-			_runtime[runtimeId] = newRuntimeValue;
+			if (runtimeId2) _runtime[keys[0]][keys[1]] = newRuntimeValue;
+			else _runtime[runtimeId] = newRuntimeValue;
+			// _runtime[runtimeId] = newRuntimeValue;
 		}
 		return true;
 	} else {
@@ -65,30 +70,30 @@ module.exports = {
 	Odi: Odi
 };
 var _runtime = {
-		etat: 2,
-		volume: null,
-		max: null,
-		mood: [],
-		music: false,
-		alarm: false,
-		timer: 0,
-		voicemail: null,
-		cpuUsage: null,
-		cpuTemp: null
-		// cpu: {
-		// 	usage: null,
-		// 	temp: null
-		// },
-		// memory: {
-		// 	odi: null,
-		// 	raspi: null
-		// }
+	etat: 2,
+	volume: null,
+	max: null,
+	mood: [],
+	music: false,
+	alarm: false,
+	timer: 0,
+	voicemail: null,
+	cpuUsage: null,
+	cpuTemp: null,
+	cpu: {
+		usage: null,
+		temp: null
 	},
-	_stats = {
+	memory: {
+		odi: null,
+		raspi: null
+	},
+	stat: {
 		diskSpace: null,
 		update: null,
 		totalLines: null
-	};
+	}
+};
 
 var Flux = { next: null };
 function initOdi(path, forcedParams) {

@@ -132,7 +132,7 @@ function countSoftwareLines(callback) {
 			typesNb--;
 			if (!typesNb) {
 				log.debug('countSoftwareLines()', totalLines);
-				Odi.run('totalLines', totalLines);
+				Odi.run('stat.totalLines', totalLines);
 				if (callback) callback(totalLines);
 			}
 		});
@@ -145,7 +145,7 @@ function getDiskSpace(callback) {
 		var diskSpace = data.match(/\/dev\/root.*[%]/gm);
 		diskSpace = diskSpace[0].match(/[\d]*%/g);
 		log.debug('Disk space:', diskSpace[0]);
-		Odi.run('diskSpace', diskSpace[0]);
+		Odi.run('stat.diskSpace', diskSpace[0]);
 		if (callback) callback(diskSpace);
 	});
 }
