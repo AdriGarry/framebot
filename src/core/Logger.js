@@ -98,33 +98,42 @@ function Logger(filename, debugMode, dateTimePattern) {
 						confArray += '│ ' + c1 + ' │ ' + c2 + ' '.repeat(col2 - c2.length) + ' │\n';
 					}
 				});
-			} else if (typeof src[key] == 'object') {
-				var tmp = Object.keys(src[key])
-					.map(k => src[key][k])
-					.join()
-					.toString();
-				console.log('tmp=', tmp);
-				console.log('tmp.length=', tmp.length);
-				confArray +=
-					'│ ' +
-					(!updated ? '' : '*') +
-					key +
-					' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
-					' │ ' +
-					tmp +
-					' '.repeat(col2 - tmp.length) +
-					' │\n';
+				// } else if (typeof src[key] == 'object' || !Array.isArray(src[key])) {
+				// 	console.log(key, src[key], typeof src[key], Array.isArray(src[key]));
+				// 	var temp = src[key];
+				// 	// var tmp = Object.keys(src[key])
+				// 	// 	.map(k => temp[k])
+				// 	// 	.join()
+				// 	// 	.toString();
+				// 	var tmp = Object.keys(src[key]);
+				// 	console.log('src[key]=', src[key]);
+				// 	console.log('tmp=', tmp);
+				// 	console.log('tmp.length=', tmp.length);
+				// 	confArray +=
+				// 		'│ ' +
+				// 		(!updated ? '' : '*') +
+				// 		key +
+				// 		' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
+				// 		' │ ' +
+				// 		tmp +
+				// 		' '.repeat(col2 - tmp.length) +
+				// 		' │\n';
 			} else {
 				var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
-				if (src[key] == null) src[key] = 'null';
+				var value;
+				if (src[key] == null) value = 'null';
+				else if (typeof src[key] == 'object' && !Array.isArray(src[key])) {
+					console.log('-----..>');
+					value = Object.keys(src[key]);
+				} else value = src[key];
 				confArray +=
 					'│ ' +
 					(!updated ? '' : '*') +
 					key +
 					' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
 					' │ ' +
-					src[key] +
-					' '.repeat(col2 - src[key].toString().length) +
+					value +
+					' '.repeat(col2 - value.toString().length) +
 					' │\n';
 			}
 		});
