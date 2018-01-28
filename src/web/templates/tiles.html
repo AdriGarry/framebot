@@ -135,13 +135,13 @@
 	<div class="tileContent" data-ng-switch-when="CPU">
 		<div class="main">
 			<i class="fa fa-microchip"></i>
-			<span>{{$ctrl.data.value.usage}}
+			<span>{{$ctrl.data.value.usage | limitTo:$ctrl.data.value.usage.length-1}}
 				<sup>
 					<small>%</small>
 				</sup>
 			</span>&nbsp;&nbsp;
 			<i class="fa fa-thermometer-half"></i>
-			<span>{{$ctrl.data.value.temp}}
+			<span>{{$ctrl.data.value.temp | limitTo:$ctrl.data.value.temp.length-1}}
 				<sup>
 					<small>°C</small>
 				</sup>

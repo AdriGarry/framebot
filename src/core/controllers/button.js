@@ -74,7 +74,7 @@ function initButtonReady() {
 	etat.watch(function(err, value) {
 		value = etat.readSync();
 		log.INFO('..btn', value);
-		Odi.run('etat', value);
+		Odi.run('etat', value ? 'high' : 'low');
 		Odi.run('volume', value ? 400 : -400);
 		log.info('Etat:', value, '[Etat has changed]');
 		if (Odi.run('music') == 'fip') {

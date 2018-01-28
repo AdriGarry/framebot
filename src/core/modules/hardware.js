@@ -40,7 +40,7 @@ Flux.module.hardware.subscribe({
 var etat = new Gpio(13, 'in', 'both', { persistentWatch: true, debounceTimeout: 500 });
 function getEtatValue() {
 	var etatValue = etat.readSync();
-	Odi.run('etat', etatValue);
+	Odi.run('etat', etatValue ? 'high' : 'low');
 	Odi.run('volume', etatValue ? 400 : -400);
 }
 
@@ -62,8 +62,8 @@ function cpuStatsTTS() {
 function retreiveCpuTemp() {
 	var temperature = fs.readFileSync('/sys/class/thermal/thermal_zone0/temp');
 	temperature = (temperature / 1000).toPrecision(2);
-	Odi.run('cpuTemp', temperature);
-	// Odi.run('cpu.temp', temperature);
+	// Odi.run('cpuTemp', temperature);
+	Odi.run('cpu.temp', temperature + '°');
 	log.debug('CPU temperature:' + temperature + '°');
 	return temperature;
 }
@@ -77,8 +77,8 @@ function retreiveCpuUsage() {
 	var totalDifference = endMeasure.total - startMeasure.total;
 	//console.log(totalDifference);console.log(endMeasure.total);console.log(startMeasure.total);
 	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference); //Calculate the average percentage CPU usage
-	Odi.run('cpuUsage', percentageCPU);
-	// Odi.run('cpu.usage', percentageCPU);
+	// Odi.run('cpuUsage', percentageCPU);
+	Odi.run('cpu.usage', percentageCPU + '%');
 	log.debug('CPU usage: ' + percentageCPU + '%');
 	return percentageCPU;
 }

@@ -137,8 +137,8 @@ function startUIServer(mode) {
 			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
 		}
 		var etatBtn = null; //ODI.buttons.getEtat();
-		var cpuTemp = Odi.run('cpuTemp');
-		var cpuUsage = Odi.run('cpuUsage');
+		var cpuTemp = Odi.run('cpu.temp');
+		var cpuUsage = Odi.run('cpu.usage');
 		var dashboard = {
 			config: Odi.conf,
 			run: Odi.run,
@@ -231,6 +231,7 @@ function startUIServer(mode) {
 
 	ui.get('/runtime', function(req, res) {
 		res.writeHead(200);
+		Flux.next('module', 'hardware', 'runtime', null, null, null, true);
 		log.table(Odi.run(), 'RUNTIME...');
 		res.end(JSON.stringify(Odi.run()));
 	});

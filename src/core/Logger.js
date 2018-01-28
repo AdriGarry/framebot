@@ -119,45 +119,134 @@ function Logger(filename, debugMode, dateTimePattern) {
 		console.log(confArray + '└' + '─'.repeat(13) + '┴' + '─'.repeat(18) + '┘');
 	}
 
-	/** Function to array an object */
+	/**
+	 * Function to array an object
+	 */
 	function table(src, title, updatedEntries) {
-		var col1 = 11,
-			col2 = 16;
-		var logArrayTitle = '';
+		let datas = formatObjectToTable(src);
+		// console.log(datas);
+		let tableSize = calculateTableSize(datas);
+		let logArrayTitle = '';
 		if (title) {
-			logArrayTitle = '│  ' + title + ' '.repeat(col1 + col2 + 2 - title.length) + ' │';
-			logArrayTitle += '\n' + '├' + '─'.repeat(13) + '┬' + '─'.repeat(18) + '┤\n';
+			logArrayTitle = '│  ' + title + ' '.repeat(tableSize.col1 + tableSize.col2 + 2 - title.length) + ' │';
+			logArrayTitle += '\n' + '├' + '─'.repeat(tableSize.col1 + 2) + '┬' + '─'.repeat(tableSize.col2 + 2) + '┤\n';
 		}
-		var confArray = '┌' + '─'.repeat(32) + '┐\n' + logArrayTitle;
-		Object.keys(src).forEach(function(key, index) {
-			if (key == 'alarms') {
-				Object.keys(src[key]).forEach(function(key2, index2) {
-					if (key2 != 'd') {
-						var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
-						var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
-						c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
-						if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
-						confArray += '│ ' + c1 + ' │ ' + c2 + ' '.repeat(col2 - c2.length) + ' │\n';
+		let confTable = '┌' + '─'.repeat(tableSize.col1 + tableSize.col2 + 5) + '┐\n' + logArrayTitle;
+
+		Object.keys(datas).forEach(function(key, index) {
+			let data = datas[key];
+			Object.keys(data).forEach(function(key2, index2) {
+				let data2 = data[key2];
+				if (index2 == 0) {
+					confTable +=
+						'│ ' +
+						key +
+						' '.repeat(tableSize.col1 - key.length) +
+						' │ ' +
+						data2 +
+						' '.repeat(tableSize.col2 - data2.length) +
+						' │\n';
+				} else {
+					confTable +=
+						'│ ' + ' '.repeat(tableSize.col1) + ' │ ' + data2 + ' '.repeat(tableSize.col2 - data2.length) + ' │\n';
+				}
+			});
+		});
+		console.log(confTable + '└' + '─'.repeat(tableSize.col1 + 2) + '┴' + '─'.repeat(tableSize.col2 + 2) + '┘');
+	}
+
+	/** Return formated object */
+	function formatObjectToTable(obj) {
+		let datas = {};
+		Object.keys(obj).forEach((key, index) => {
+			let data = obj[key];
+			if (/*hideFalseValues && */ data == false || data == null || data == 0) return;
+			if (typeof data == 'object' && !Array.isArray(data)) {
+				Object.keys(data).forEach((key2, index2) => {
+					let data2 = data[key2];
+					if (data2) {
+						// not logging null entries
+						if (index2 == 0) {
+							datas[key] = [String(key2 + ': ' + data2)];
+						} else {
+							datas[key].push(String(key2 + ': ' + data2));
+						}
 					}
 				});
 			} else {
-				var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
-				var value;
-				if (src[key] == null) value = 'null';
-				else if (typeof src[key] == 'object' && !Array.isArray(src[key]))
-					value = Object.keys(src[key]).map(k => src[key][k]);
-				else value = src[key];
-				confArray +=
-					'│ ' +
-					(!updated ? '' : '*') +
-					key +
-					' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
-					' │ ' +
-					value +
-					' '.repeat(col2 - value.toString().length) +
-					' │\n';
+				datas[key] = [String(data)];
 			}
 		});
-		console.log(confArray + '└' + '─'.repeat(13) + '┴' + '─'.repeat(18) + '┘');
+		return datas;
 	}
+
+	/** Function to calculate array width */
+	function calculateTableSize(datas) {
+		let tableSize = { col1: [], col2: [] };
+		Object.keys(datas).forEach(key => {
+			tableSize.col1.push(key.length);
+			tableSize.col2.push(
+				Math.max.apply(
+					Math,
+					datas[key].map(el => {
+						return el.length;
+					})
+				)
+			);
+		});
+		tableSize.col1 = Math.max.apply(
+			Math,
+			tableSize.col1.map(el => {
+				return el;
+			})
+		);
+		tableSize.col2 = Math.max.apply(
+			Math,
+			tableSize.col2.map(el => {
+				return el;
+			})
+		);
+		return tableSize;
+	}
+
+	// 	function tableOLD(src, title, updatedEntries) {
+	// 		var col1 = 11,
+	// 			col2 = 16;
+	// 		var logArrayTitle = '';
+	// 		if (title) {
+	// 			logArrayTitle = '│  ' + title + ' '.repeat(col1 + col2 + 2 - title.length) + ' │';
+	// 			logArrayTitle += '\n' + '├' + '─'.repeat(13) + '┬' + '─'.repeat(18) + '┤\n';
+	// 		}
+	// 		var confArray = '┌' + '─'.repeat(32) + '┐\n' + logArrayTitle;
+	// 		Object.keys(src).forEach(function(key, index) {
+	// 			if (key == 'alarms') {
+	// 				Object.keys(src[key]).forEach(function(key2, index2) {
+	// 					if (key2 != 'd') {
+	// 						var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
+	// 						var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
+	// 						c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
+	// 						if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
+	// 						confArray += '│ ' + c1 + ' │ ' + c2 + ' '.repeat(col2 - c2.length) + ' │\n';
+	// 					}
+	// 				});
+	// 			} else {
+	// 				var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
+	// 				var value;
+	// 				if (src[key] == null) value = 'null';
+	// 				else if (typeof src[key] == 'object' && !Array.isArray(src[key]))
+	// 					value = Object.keys(src[key]).map(k => src[key][k]);
+	// 				else value = src[key];
+	// 				confArray +=
+	// 					'│ ' +
+	// 					(!updated ? '' : '*') +
+	// 					key +
+	// 					' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
+	// 					' │ ' +
+	// 					value +
+	// 					' '.repeat(col2 - value.toString().length) +
+	// 					' │\n';
+	// 			}
+	// 		});
+	// 		console.log(confArray + '└' + '─'.repeat(13) + '┴' + '─'.repeat(18) + '┘');
+	// 	}
 }

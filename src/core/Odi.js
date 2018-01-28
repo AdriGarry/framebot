@@ -19,6 +19,9 @@ var runtimeFunctions = function(runtimeId, newRuntimeValue) {
 var _getRuntimeValue = function(runtimeId) {
 	if (_runtime.hasOwnProperty(runtimeId)) {
 		return _runtime[runtimeId];
+	} else if (runtimeId.indexOf('.' > -1)) {
+		var keys = runtimeId.split('.');
+		return _runtime[keys[0]][keys[1]];
 	} else {
 		return log.info('_getRuntimeValue ERROR:', runtimeId);
 	}
@@ -69,7 +72,7 @@ module.exports = {
 	Odi: Odi
 };
 var _runtime = {
-	etat: 2,
+	etat: null,
 	volume: null,
 	max: null,
 	mood: [],
@@ -77,8 +80,6 @@ var _runtime = {
 	alarm: false,
 	timer: 0,
 	voicemail: null,
-	cpuUsage: null,
-	cpuTemp: null,
 	cpu: {
 		usage: null,
 		temp: null
