@@ -13,6 +13,10 @@ var cancel = new Gpio(16, 'in', 'rising', { persistentWatch: true, debounceTimeo
 var white = new Gpio(19, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
 var blue = new Gpio(26, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
 var etat = new Gpio(13, 'in', 'both', { persistentWatch: true, debounceTimeout: 500 });
+ok.name = 'Ok';
+cancel.name = 'Cancel';
+white.name = 'White';
+blue.name = 'Blue';
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
@@ -124,6 +128,7 @@ function getPushTime(button) {
 	}
 	belly.write(0);
 	pushTime = Math.round((new Date() - pushedTime) / 100) / 10;
+	log.info(button.name + ' button pressed for ' + pushTime + ' sec...');
 	return pushTime;
 }
 // belly.write(0);
