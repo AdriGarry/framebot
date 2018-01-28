@@ -75,7 +75,7 @@ function initButtonReady() {
 		value = etat.readSync();
 		log.INFO('..btn', value);
 		Odi.run('etat', value ? 'high' : 'low');
-		Odi.run('volume', value ? 400 : -400);
+		Odi.run('volume', Odi.isAwake() ? (value ? 400 : -400) : 'mute');
 		log.info('Etat:', value, '[Etat has changed]');
 		if (Odi.run('music') == 'fip') {
 			Flux.next('module', 'sound', 'mute');

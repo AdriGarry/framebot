@@ -88,7 +88,7 @@ var _runtime = {
 		odi: null,
 		raspi: null
 	},
-	stat: {
+	stats: {
 		diskSpace: null,
 		update: null,
 		totalLines: null

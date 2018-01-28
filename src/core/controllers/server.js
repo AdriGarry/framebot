@@ -158,6 +158,7 @@ function startUIServer(mode) {
 			switch: { value: etatBtn, active: etatBtn ? true : false },
 			volume: {
 				// value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute',
+				//value: Odi.isAwake() ? Odi.run('volume') : 'mute',
 				value: Odi.run('volume'),
 				active: isNaN(temp) && etatBtn == 1 ? true : false
 			},

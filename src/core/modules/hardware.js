@@ -41,7 +41,7 @@ var etat = new Gpio(13, 'in', 'both', { persistentWatch: true, debounceTimeout: 
 function getEtatValue() {
 	var etatValue = etat.readSync();
 	Odi.run('etat', etatValue ? 'high' : 'low');
-	Odi.run('volume', etatValue ? 400 : -400);
+	Odi.run('volume', Odi.isAwake() ? (etatValue ? 400 : -400) : 'mute');
 }
 
 /** Function to tts cpu stats */
@@ -128,7 +128,7 @@ function countSoftwareLines(callback) {
 			typesNb--;
 			if (!typesNb) {
 				log.debug('countSoftwareLines()', totalLines);
-				Odi.run('stat.totalLines', totalLines);
+				Odi.run('stats.totalLines', totalLines);
 				if (callback) callback(totalLines);
 			}
 		});
@@ -141,7 +141,7 @@ function getDiskSpace(callback) {
 		var diskSpace = data.match(/\/dev\/root.*[%]/gm);
 		diskSpace = diskSpace[0].match(/[\d]*%/g);
 		log.debug('Disk space:', diskSpace[0]);
-		Odi.run('stat.diskSpace', diskSpace[0]);
+		Odi.run('stats.diskSpace', diskSpace[0]);
 		if (callback) callback(diskSpace);
 	});
 }
