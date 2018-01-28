@@ -127,7 +127,7 @@ function isAlarm() {
 /** Function alarm part 1 */
 function cocorico(mode) {
 	var alarmDelay = 1;
-	if (mode == 'sea') {
+	if (mode == 'sea') { // TODO remove sea mode information
 		log.info('Morning Sea...');
 		spawn('sh', [Odi._SHELL + 'sounds.sh', 'MorningSea']);
 		Utils.getMp3Duration(Odi._MP3 + 'system/morningSea.mp3', function(seaDuration) {

@@ -129,6 +129,7 @@ function startUIServer(mode) {
 
 	/** DASHBOARD SECTION */
 	ui.get('/dashboard', function(req, res) {
+		Flux.next('module', 'hardware', 'runtime');
 		var temp = parseInt(mode);
 		var now = new Date();
 		var h = now.getHours();
@@ -231,7 +232,7 @@ function startUIServer(mode) {
 
 	ui.get('/runtime', function(req, res) {
 		res.writeHead(200);
-		Flux.next('module', 'hardware', 'runtime', null, null, null, true);
+		Flux.next('module', 'hardware', 'runtime');
 		log.table(Odi.run(), 'RUNTIME...');
 		res.end(JSON.stringify(Odi.run()));
 	});

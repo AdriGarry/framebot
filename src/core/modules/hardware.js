@@ -62,7 +62,6 @@ function cpuStatsTTS() {
 function retreiveCpuTemp() {
 	var temperature = fs.readFileSync('/sys/class/thermal/thermal_zone0/temp');
 	temperature = (temperature / 1000).toPrecision(2);
-	// Odi.run('cpuTemp', temperature);
 	Odi.run('cpu.temp', temperature + '°');
 	log.debug('CPU temperature:' + temperature + '°');
 	return temperature;
@@ -73,11 +72,8 @@ function retreiveCpuUsage() {
 	var endMeasure = cpuAverage(); //Grab second Measure
 	//Calculate the difference in idle and total time between the measures
 	var idleDifference = endMeasure.idle - startMeasure.idle;
-	//console.log(idleDifference);console.log(endMeasure.idle);console.log(startMeasure.idle);
 	var totalDifference = endMeasure.total - startMeasure.total;
-	//console.log(totalDifference);console.log(endMeasure.total);console.log(startMeasure.total);
 	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference); //Calculate the average percentage CPU usage
-	// Odi.run('cpuUsage', percentageCPU);
 	Odi.run('cpu.usage', percentageCPU + '%');
 	log.debug('CPU usage: ' + percentageCPU + '%');
 	return percentageCPU;
