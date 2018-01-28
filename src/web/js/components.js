@@ -134,7 +134,6 @@ app.component('runtime', {
 		var tileParams = {
 			label: 'Runtime',
 			actionList: [
-				{ label: 'Stats', icon: 'bar-chart', url: 'http://odi.adrigarry.com/stats' },
 				{ label: 'Errors', icon: 'exclamation-triangle', url: 'http://odi.adrigarry.com/errors' },
 				{ label: 'Config', icon: 'cogs', url: 'http://odi.adrigarry.com/config.json' },
 				{ label: 'Runtime', icon: 'codepen', url: 'http://odi.adrigarry.com/runtime' }
