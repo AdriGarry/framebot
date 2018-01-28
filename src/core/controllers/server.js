@@ -137,7 +137,7 @@ function startUIServer(mode) {
 		if (temp > h) {
 			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
 		}
-		var etatBtn = null; //ODI.buttons.getEtat();
+		var etatBtn = Odi.run('etat'); //ODI.buttons.getEtat();
 		var cpuTemp = Odi.run('cpu.temp');
 		var cpuUsage = Odi.run('cpu.usage');
 		var dashboard = {
@@ -157,7 +157,8 @@ function startUIServer(mode) {
 			},
 			switch: { value: etatBtn, active: etatBtn ? true : false },
 			volume: {
-				value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute',
+				// value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute',
+				value: Odi.run('volume'),
 				active: isNaN(temp) && etatBtn == 1 ? true : false
 			},
 			voicemail: {
