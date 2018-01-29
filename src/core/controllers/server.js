@@ -169,6 +169,7 @@ function startUIServer(mode) {
 			music: { value: Odi.run('music'), active: false },
 			timer: { value: Odi.run('timer'), active: Odi.run('timer') > 0 ? true : false },
 			hardware: { value: { usage: cpuUsage, temp: cpuTemp }, active: cpuTemp > 55 || cpuUsage >= 20 ? true : false },
+			memory: { value: Odi.run('memory') },
 			alarms: { value: Odi.conf.alarms, active: true },
 			//config: {value: Odi.conf},
 			version: { value: 'toto' /*Odi.conf.version*/ }, // DEPRECATED !
