@@ -21,6 +21,7 @@ Flux.module.hardware.subscribe({
 			getDiskSpace();
 			retreiveCpuTemp();
 			retreiveCpuUsage();
+			retreiveMemoryUsage();
 			getEtatValue();
 			// } else if (flux.id == 'stats') {
 			// 	retreiveLastModifiedDate(PATHS);
@@ -63,7 +64,6 @@ function retreiveCpuTemp() {
 	var temperature = fs.readFileSync('/sys/class/thermal/thermal_zone0/temp');
 	temperature = (temperature / 1000).toPrecision(2);
 	Odi.run('cpu.temp', temperature + '°');
-	log.debug('CPU temperature:' + temperature + '°');
 	return temperature;
 }
 
@@ -75,7 +75,6 @@ function retreiveCpuUsage() {
 	var totalDifference = endMeasure.total - startMeasure.total;
 	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference); //Calculate the average percentage CPU usage
 	Odi.run('cpu.usage', percentageCPU + '%');
-	log.debug('CPU usage: ' + percentageCPU + '%');
 	return percentageCPU;
 }
 
@@ -100,6 +99,23 @@ function cpuAverage() {
 }
 //Grab first CPU Measure
 var startMeasure = cpuAverage();
+
+/** Function to get memory usage stats */
+function updateMemoryUsage() {
+	let totalMem = (os.totalmem() / 1048576).toFixed(0);
+	let freeMem = (os.freemem() / 1048576).toFixed(0);
+	let usedMem = (totalMem - freeMem).toFixed(0);
+	let usage = Utils.perCent(usedMem, totalMem) + '%';
+	console.log('totalMem=', totalMem);
+	console.log('freeMem=', freeMem);
+	console.log('usedMem=', usedMem);
+	console.log(usage);
+	console.log(usedMem + '/' + totalMem + 'Mo\n');
+	Odi.run('memory.used', usedMem);
+	Odi.run('memory.total', totalMem);
+	Odi.run('memory.usage', usage);
+	//	return percentageCPU; // useless ?
+}
 
 /** Function to update last modified date & time of Odi's files */
 function retreiveLastModifiedDate(paths, callback) {

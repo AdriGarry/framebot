@@ -85,8 +85,11 @@ var _runtime = {
 		temp: null
 	},
 	memory: {
-		odi: null,
-		raspi: null
+		used: null,
+		total: null,
+		percent: null
+		// odi: null,
+		// raspi: null
 	},
 	stats: {
 		diskSpace: null,

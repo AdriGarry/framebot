@@ -176,6 +176,10 @@ function numberWithDot(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
+function perCent(value, total, precision) {
+	return (value / total * 100).toFixed(precision | 2);
+}
+
 function random(arg1, arg2) {
 	var min, max;
 	if (arg2) {
