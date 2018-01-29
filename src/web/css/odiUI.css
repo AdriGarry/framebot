@@ -476,10 +476,6 @@ div[data-ng-include] {
 	font-size: 1.6em;
 }
 
-[flex] > .tile > .tileContent .main .mediumFont {
-	font-size: 0.7em;
-}
-
 [flex] footer {
 	position: absolute;
 	width: 100%;
@@ -828,9 +824,6 @@ body>.loading i{
 	}
 	[flex] > button > .tileContent .main .fa {
 		font-size: 1.85em;
-	}
-	[flex] > button > .tileContent .main i.mediumFont {
-		font-size: 0.6em;
 	}
 
 	.dashboard [flex].tile.tts .layout-row {

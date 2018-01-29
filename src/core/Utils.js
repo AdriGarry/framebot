@@ -21,6 +21,7 @@ module.exports = {
 	getMp3Duration: getMp3Duration,
 	logTime: logTime,
 	numberWithDot: numberWithDot,
+	perCent: perCent,
 	random: random,
 	randomItem: randomItem,
 	searchStringInArray: searchStringInArray,

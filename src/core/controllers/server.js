@@ -142,7 +142,7 @@ function startUIServer(mode) {
 		var cpuUsage = Odi.run('cpu.usage');
 		var dashboard = {
 			config: Odi.conf,
-			run: Odi.run,
+			//run: Odi.run(),
 			errors: Odi.errors,
 			mode: {
 				value: {

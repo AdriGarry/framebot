@@ -101,19 +101,13 @@ function cpuAverage() {
 var startMeasure = cpuAverage();
 
 /** Function to get memory usage stats */
-function updateMemoryUsage() {
+function retreiveMemoryUsage() {
 	let totalMem = (os.totalmem() / 1048576).toFixed(0);
 	let freeMem = (os.freemem() / 1048576).toFixed(0);
 	let usedMem = (totalMem - freeMem).toFixed(0);
-	let usage = Utils.perCent(usedMem, totalMem) + '%';
-	console.log('totalMem=', totalMem);
-	console.log('freeMem=', freeMem);
-	console.log('usedMem=', usedMem);
-	console.log(usage);
-	console.log(usedMem + '/' + totalMem + 'Mo\n');
-	Odi.run('memory.used', usedMem);
-	Odi.run('memory.total', totalMem);
-	Odi.run('memory.usage', usage);
+	//	let usage = Utils.perCent(usedMem, totalMem) + '%';
+	Odi.run('memory', usedMem + '/' + totalMem + 'Mo');
+	//	Odi.run('memory.usage', usage);
 	//	return percentageCPU; // useless ?
 }
 
