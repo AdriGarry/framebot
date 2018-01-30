@@ -90,6 +90,10 @@ var _runtime = {
 	// 	total: null,
 	// 	percent: null
 	// },
+	// memory: {
+	// 	odi: null,
+	// 	system: null,
+	// },
 	stats: {
 		diskSpace: null,
 		update: null,
