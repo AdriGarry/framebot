@@ -127,7 +127,8 @@ function isAlarm() {
 /** Function alarm part 1 */
 function cocorico(mode) {
 	var alarmDelay = 1;
-	if (mode == 'sea') { // TODO remove sea mode information
+	if (mode == 'sea') {
+		// TODO remove sea mode information
 		log.info('Morning Sea...');
 		spawn('sh', [Odi._SHELL + 'sounds.sh', 'MorningSea']);
 		Utils.getMp3Duration(Odi._MP3 + 'system/morningSea.mp3', function(seaDuration) {
@@ -233,7 +234,7 @@ function startTimer() {
 		} else {
 			spawn('sh', [Odi._SHELL + 'timerSound.sh']);
 		}
-		Odi.run('timer', Odi.run('timer')--);
+		Odi.run('timer', Odi.run('timer') - 1);
 		if (Odi.run('timer') % 120 == 0 && Odi.run('timer') / 60 > 0) {
 			Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: Odi.run('timer') / 60 + ' minutes et compte a rebours' });
 		} else if (Odi.run('timer') <= 0 && Odi.run('timer') > -5) {
@@ -251,7 +252,7 @@ function startTimer() {
 function stopTimer() {
 	if (Odi.run('timer') > 0) {
 		clearInterval(secInterval);
-		Odi.run('timer',  0);
+		Odi.run('timer', 0);
 		Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Timer canceled' });
 		Flux.next('module', 'led', 'toggle', { leds: ['belly'], value: 0 }, null, null, true);
 	}

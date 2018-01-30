@@ -119,11 +119,8 @@
 				<td>
 					<table>
 						<tr data-ng-repeat="alarm in $ctrl.data.value" data-ng-if="$ctrl.isTodayAlarm(alarm.d)">
-							<td class="mediumFont">
+							<td>
 								{{alarm.h}}:{{alarm.m | formatNumber:2}}
-								<!--{{alarm.mode | limitTo:1}}-->
-								<i data-ng-if="alarm.mode != 'sea'" class="mediumFont fa fa-music"></i>
-								<i data-ng-if="alarm.mode == 'sea'" class="mediumFont fa fa-signal"></i>
 							</td>
 						</tr>
 					</table>
@@ -134,7 +131,7 @@
 
 	<div class="tileContent" data-ng-switch-when="CPU">
 		<div class="main">
-			<i class="fa fa-microchip"></i>
+			<i class="fa fa-empire"></i>
 			<span>{{$ctrl.data.value.usage | limitTo:$ctrl.data.value.usage.length-1}}
 				<sup>
 					<small>%</small>
@@ -149,47 +146,60 @@
 		</div>
 	</div>
 
+	<div class="tileContent" data-ng-switch-when="Memory">
+		<div class="main">
+			<i class="fa fa-microchip"></i>
+			<span>{{$ctrl.data.value | limitTo:$ctrl.data.value.length-6}}
+				<sub>
+					<small>
+						<small>{{$ctrl.data.value | limitTo:-($ctrl.data.value.length-3)}}</small>
+					</small>
+				</sub>
+			</span>
+		</div>
+	</div>
+
 	<div class="tileContent" data-ng-switch-when="Voicemail">
 		<div class="main">
-			<i class="fa fa fa-envelope-o"></i>
+			<i class="fa fa-envelope-o"></i>
 			<sub data-ng-show="$ctrl.data.value" class="fa-2x">&nbsp;{{$ctrl.data.value}}</sub>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Exclamation">
 		<div class="main">
-			<i class="fa fa fa-commenting-o"></i>
+			<i class="fa fa-commenting-o"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Jukebox">
 		<div class="main">
-			<i class="fa fa fa-music"></i>
+			<i class="fa fa-music"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Timer">
 		<div class="main">
-			<i class="fa fa fa-hourglass-half"></i>
+			<i class="fa fa-hourglass-half"></i>
 			<span data-ng-show="$ctrl.data.value">{{$ctrl.data.value | formatTime}}</span>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Date">
 		<div class="main">
-			<i class="fa fa fa-calendar"></i>
+			<i class="fa fa-calendar"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Time">
 		<div class="main">
-			<i class="fa fa fa-clock-o"></i>
+			<i class="fa fa-clock-o"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Weather">
 		<div class="main">
-			<i class="fa fa fa-cloud"></i>
+			<i class="fa fa-cloud"></i>
 		</div>
 	</div>
 

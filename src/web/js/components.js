@@ -156,6 +156,7 @@ app.component('alarms', {
 		var tileParams = {
 			label: 'Alarms',
 			actionList: [
+				{ label: 'Disable all', icon: 'ban', url: '/alarmOff' },
 				{ label: 'weekDay', icon: 'frown-o', url: '/alarm' },
 				{ label: 'weekEnd', icon: 'smile-o', url: '/alarm' }
 			]
@@ -241,6 +242,26 @@ app.component('cpu', {
 			label: 'CPU',
 			//disableOnSleep: true,
 			actionList: [{ url: '/cpuTemp' }]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
+	}
+});
+
+/** Memory component */
+app.component('memory', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Memory',
+			//disableOnSleep: true,
+			actionList: [{ url: '/memory' }]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;

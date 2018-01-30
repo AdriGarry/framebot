@@ -21,6 +21,7 @@ module.exports = {
 	getMp3Duration: getMp3Duration,
 	logTime: logTime,
 	numberWithDot: numberWithDot,
+	perCent: perCent,
 	random: random,
 	randomItem: randomItem,
 	searchStringInArray: searchStringInArray,
@@ -174,6 +175,10 @@ function addPatternBefore(time, pattern) {
 
 function numberWithDot(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+function perCent(value, total, precision) {
+	return (value / total * 100).toFixed(precision | 2);
 }
 
 function random(arg1, arg2) {
