@@ -129,20 +129,30 @@
 		</table>
 	</div>
 
-	<div class="tileContent" data-ng-switch-when="CPU">
+	<div class="tileContent" data-ng-switch-when="Hardware">
 		<div class="main">
 			<i class="fa fa-empire"></i>
-			<span>{{$ctrl.data.value.usage | limitTo:$ctrl.data.value.usage.length-1}}
-				<sup>
-					<small>%</small>
-				</sup>
-			</span>&nbsp;&nbsp;
-			<i class="fa fa-thermometer-half"></i>
-			<span>{{$ctrl.data.value.temp | limitTo:$ctrl.data.value.temp.length-1}}
-				<sup>
-					<small>°C</small>
-				</sup>
-			</span>
+			<span>
+				<span>{{$ctrl.data.value.usage | limitTo:$ctrl.data.value.usage.length-1}}
+					<sup>
+						<small>%</small>
+					</sup>
+				</span>&nbsp;&nbsp;&nbsp;
+				<i class="fa fa-thermometer-half"></i>
+				<span>{{$ctrl.data.value.temp | limitTo:$ctrl.data.value.temp.length-1}}
+					<sup>
+						<small>°C</small>
+					</sup>
+				</span>&nbsp;&nbsp;&nbsp;
+				<i class="fa fa-microchip"></i>
+				<!-- <span>{{$ctrl.data.value | limitTo:$ctrl.data.value.length-6}} -->
+				<span>{{$ctrl.data.value.memory | limitTo: $ctrl.data.value.memory.length-6}}
+					<small>
+						<small>
+							<small>{{$ctrl.data.value.memory | limitTo:-($ctrl.data.value.memory.length-3)}}</small>
+						</small>
+					</small>
+				</span>
 		</div>
 	</div>
 
