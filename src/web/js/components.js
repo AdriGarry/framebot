@@ -245,6 +245,15 @@ app.component('hardware', {
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
+
+		ctrl.getMemoryPerCent = function() {
+			var memory = ctrl.data.value.memory.system;
+			var memoryRegex = /([\d]+)\/([\d]+)/g;
+			var match = memoryRegex.exec(memory);
+			var value = match[1],
+				total = match[2];
+			return (value / total * 100).toFixed(0);
+		};
 	}
 });
 

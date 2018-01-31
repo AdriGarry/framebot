@@ -145,26 +145,24 @@
 					</sup>
 				</span>&nbsp;&nbsp;&nbsp;
 				<i class="fa fa-microchip"></i>
-				<span>{{$ctrl.data.value.memory | limitTo: $ctrl.data.value.memory.length-6}}
+				<!-- <span>{{$ctrl.getMemoryPerCent()}}
+					<sup>
+						<small>%</small>
+					</sup>
 					<small>
-						<small>
-							<small>{{$ctrl.data.value.memory | limitTo:-($ctrl.data.value.memory.length-3)}}</small>
+						<small>{{$ctrl.data.value.memory.system | limitTo: $ctrl.data.value.memory.system.length-6}}
+							<small>Mo</small>
+							<i>{{$ctrl.data.value.memory.odi}}</i>
+						</small>
+					</small>
+				</span> -->
+				<span>{{$ctrl.data.value.memory.system | limitTo: $ctrl.data.value.memory.system.length-6}}
+					<small>
+						<small>{{$ctrl.getMemoryPerCent()}}
+							<sup>%</sup>
 						</small>
 					</small>
 				</span>
-		</div>
-	</div>
-
-	<div class="tileContent" data-ng-switch-when="Memory">
-		<div class="main">
-			<i class="fa fa-microchip"></i>
-			<span>{{$ctrl.data.value | limitTo:$ctrl.data.value.length-6}}
-				<sub>
-					<small>
-						<small>{{$ctrl.data.value | limitTo:-($ctrl.data.value.length-3)}}</small>
-					</small>
-				</sub>
-			</span>
 		</div>
 	</div>
 

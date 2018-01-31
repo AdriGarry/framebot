@@ -150,7 +150,7 @@ function startUIServer(mode) {
 					mode: Odi.conf.debug ? 'Debug' : Utils.firstLetterUpper(Odi.conf.mode),
 					// param: isNaN(parseFloat(mode)) ? Odi.conf.startTime : parseInt(mode),
 					param: Odi.conf.startTime,
-					switch: etatBtn ? true : false,
+					switch: etatBtn == 'high' ? true : false,
 					active: Odi.conf.debug, // TRY TO DELETE THIS (deprecated)
 					debug: Odi.conf.debug
 				}
@@ -168,8 +168,15 @@ function startUIServer(mode) {
 			},
 			music: { value: Odi.run('music'), active: false },
 			timer: { value: Odi.run('timer'), active: Odi.run('timer') > 0 ? true : false },
-			hardware: { value: { usage: cpuUsage, temp: cpuTemp, memory: Odi.run('memory') }, active: cpuTemp > 55 || cpuUsage >= 20 ? true : false },
-			//memory: { value: Odi.run('memory') },
+			hardware: {
+				value: {
+					usage: cpuUsage,
+					temp: cpuTemp,
+					memory: { odi: Odi.run('memory.odi'), system: Odi.run('memory.system') }
+				},
+				active: cpuTemp > 55 || cpuUsage >= 20 ? true : false
+			},
+			//memory: { value: Odi.run('memory.rpi') },
 			alarms: { value: Odi.conf.alarms, active: true },
 			//config: {value: Odi.conf},
 			version: { value: 'toto' /*Odi.conf.version*/ }, // DEPRECATED !

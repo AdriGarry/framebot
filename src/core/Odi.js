@@ -84,7 +84,10 @@ var _runtime = {
 		usage: null,
 		temp: null
 	},
-	memory: null,
+	memory: {
+		odi: null,
+		system: null
+	},
 	// memory: {
 	// 	used: null,
 	// 	total: null,

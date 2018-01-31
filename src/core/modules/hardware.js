@@ -10,6 +10,7 @@ var fs = require('fs');
 var os = require('os');
 
 const PATHS = [Odi._SRC];
+const BYTE_TO_MO = 1048576;
 retreiveLastModifiedDate(PATHS);
 countSoftwareLines();
 
@@ -102,13 +103,16 @@ var startMeasure = cpuAverage();
 
 /** Function to get memory usage stats */
 function retreiveMemoryUsage() {
-	let totalMem = (os.totalmem() / 1048576).toFixed(0);
-	let freeMem = (os.freemem() / 1048576).toFixed(0);
+	let usedByOdi = process.memoryUsage();
+	console.log(usedByOdi);
+	usedByOdi = (usedByOdi.rss / BYTE_TO_MO).toFixed(1);
+	console.log(usedByOdi);
+	Odi.run('memory.odi', usedByOdi + 'Mo');
+
+	let totalMem = (os.totalmem() / BYTE_TO_MO).toFixed(0);
+	let freeMem = (os.freemem() / BYTE_TO_MO).toFixed(0);
 	let usedMem = (totalMem - freeMem).toFixed(0);
-	//	let usage = Utils.perCent(usedMem, totalMem) + '%';
-	Odi.run('memory', usedMem + '/' + totalMem + 'Mo');
-	//	Odi.run('memory.usage', usage);
-	//	return percentageCPU; // useless ?
+	Odi.run('memory.system', usedMem + '/' + totalMem + 'Mo');
 }
 
 /** Function to update last modified date & time of Odi's files */
