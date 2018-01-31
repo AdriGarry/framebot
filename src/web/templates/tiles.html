@@ -145,24 +145,26 @@
 					</sup>
 				</span>&nbsp;&nbsp;&nbsp;
 				<i class="fa fa-microchip"></i>
-				<!-- <span>{{$ctrl.getMemoryPerCent()}}
+				<span>{{$ctrl.getMemoryPerCent()}}
 					<sup>
 						<small>%</small>
 					</sup>
 					<small>
 						<small>{{$ctrl.data.value.memory.system | limitTo: $ctrl.data.value.memory.system.length-6}}
-							<small>Mo</small>
-							<i>{{$ctrl.data.value.memory.odi}}</i>
+							<small>Mo
+								<i>{{$ctrl.data.value.memory.odi}}</i>
+							</small>
+
 						</small>
 					</small>
-				</span> -->
-				<span>{{$ctrl.data.value.memory.system | limitTo: $ctrl.data.value.memory.system.length-6}}
+				</span>
+				<!-- <span>{{$ctrl.data.value.memory.system | limitTo: $ctrl.data.value.memory.system.length-6}}
 					<small>
 						<small>{{$ctrl.getMemoryPerCent()}}
 							<sup>%</sup>
 						</small>
 					</small>
-				</span>
+				</span> -->
 		</div>
 	</div>
 

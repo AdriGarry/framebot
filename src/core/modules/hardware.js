@@ -17,8 +17,6 @@ countSoftwareLines();
 Flux.module.hardware.subscribe({
 	next: flux => {
 		if (flux.id == 'runtime') {
-			// retreiveLastModifiedDate(PATHS);
-			// countSoftwareLines();
 			getDiskSpace();
 			retreiveCpuTemp();
 			retreiveCpuUsage();
@@ -101,12 +99,10 @@ function cpuAverage() {
 //Grab first CPU Measure
 var startMeasure = cpuAverage();
 
-/** Function to get memory usage stats */
+/** Function to get memory usage stats (Odi + system) */
 function retreiveMemoryUsage() {
 	let usedByOdi = process.memoryUsage();
-	console.log(usedByOdi);
 	usedByOdi = (usedByOdi.rss / BYTE_TO_MO).toFixed(1);
-	console.log(usedByOdi);
 	Odi.run('memory.odi', usedByOdi + 'Mo');
 
 	let totalMem = (os.totalmem() / BYTE_TO_MO).toFixed(0);
@@ -122,8 +118,8 @@ function retreiveLastModifiedDate(paths, callback) {
 	Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1', function(data) {
 		var lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
 		log.debug('getLastModifiedDate()', lastDate[0]);
-		Odi.run('update', lastDate[0]);
-		if (callback) callback(lastDate[0]);
+		Odi.run('stats.lastUpdate', lastDate[0]);
+		// if (callback) callback(lastDate[0]);
 	});
 }
 
@@ -134,7 +130,7 @@ function countSoftwareLines(callback) {
 	var totalLines = 0;
 	extensions.forEach(function(item, index) {
 		var temp = item;
-		Utils.execCmd('find /home/pi/odi/ -name "*.' + temp + '" -print | xargs wc -l', function(data) {
+		Utils.execCmd('find /home/pi/odi/src -name "*.' + temp + '" -print | xargs wc -l', function(data) {
 			var regex = /(\d*) total/g;
 			var result = regex.exec(data);
 			var t = result && result[1] ? result[1] : -1;
@@ -143,7 +139,7 @@ function countSoftwareLines(callback) {
 			if (!typesNb) {
 				log.debug('countSoftwareLines()', totalLines);
 				Odi.run('stats.totalLines', totalLines);
-				if (callback) callback(totalLines);
+				// if (callback) callback(totalLines);
 			}
 		});
 	});
