@@ -134,9 +134,9 @@ app.component('runtime', {
 		var tileParams = {
 			label: 'Runtime',
 			actionList: [
-				{ label: 'Errors', icon: 'exclamation-triangle', url: 'http://odi.adrigarry.com/errors' },
-				{ label: 'Config', icon: 'cogs', url: 'http://odi.adrigarry.com/config.json' },
-				{ label: 'Runtime', icon: 'codepen', url: 'http://odi.adrigarry.com/runtime' }
+				{ label: 'Errors', icon: 'fas fa-exclamation-triangle', url: 'http://odi.adrigarry.com/errors' },
+				{ label: 'Config', icon: 'fas fa-facogs', url: 'http://odi.adrigarry.com/config.json' },
+				{ label: 'Runtime', icon: 'fab fa-codepen', url: 'http://odi.adrigarry.com/runtime' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

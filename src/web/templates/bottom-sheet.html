@@ -1,10 +1,10 @@
 <md-bottom-sheet class="md-grid" layout="column">
 	<md-subheader layout-align="center center" data-ng-cloak>Options</md-subheader>
 	<div data-ng-cloak>
-		<md-button data-ng-repeat="button in bottomSheetButtonList track by $index" data-ng-click="bottomSheetAction(button)"
-			class="md-grid-item-content"><!--on-long-press="button.onHold()" long-press-duration="1000"-->
-			<i data-ng-if="button.continu" class="fa fa-ellipsis-h adminFlag"></i>
-			<i class="fa fa-2x fa-{{button.icon}}"></i>
+		<md-button data-ng-repeat="button in bottomSheetButtonList track by $index" data-ng-click="bottomSheetAction(button)" class="md-grid-item-content">
+			<!--on-long-press="button.onHold()" long-press-duration="1000"-->
+			<i data-ng-if="button.continu" class="fas fa-ellipsis-h adminFlag"></i>
+			<i class="fas fa-2x fa-{{button.icon}}"></i>
 			<div class="md-grid-text">{{button.label}}</div>
 		</md-button>
 	</div>
