@@ -99,8 +99,8 @@ var _runtime = {
 	// },
 	stats: {
 		diskSpace: null,
-		update: null,
-		totalLines: null
+		totalLines: null,
+		update: null
 	}
 };
 

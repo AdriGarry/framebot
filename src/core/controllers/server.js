@@ -179,7 +179,7 @@ function startUIServer(mode) {
 			//memory: { value: Odi.run('memory.rpi') },
 			alarms: { value: Odi.conf.alarms, active: true },
 			//config: {value: Odi.conf},
-			update: { value: Odi.run('stats.lastUpdate') },
+			update: { value: Odi.run('stats.update') },
 			version: { value: 'toto' /*Odi.conf.version*/ }, // DEPRECATED !
 			debug: { value: Odi.conf.debug } // TO DEPRECATE...
 		};

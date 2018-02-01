@@ -118,7 +118,7 @@ function retreiveLastModifiedDate(paths, callback) {
 	Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1', function(data) {
 		var lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
 		log.debug('getLastModifiedDate()', lastDate[0]);
-		Odi.run('stats.lastUpdate', lastDate[0]);
+		Odi.run('stats.update', lastDate[0]);
 		// if (callback) callback(lastDate[0]);
 	});
 }
