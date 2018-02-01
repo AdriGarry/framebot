@@ -117,6 +117,7 @@ function arduinoParser(data) {
 			log.info('max data:', data);
 			break;
 	}
+	log.INFO('Set action or TTS here...');
 }
 
 arduino.on('close', function(data) {
