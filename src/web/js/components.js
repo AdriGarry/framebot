@@ -336,6 +336,7 @@ app.component('timer', {
 			label: 'Timer',
 			actionList: [
 				{ label: 'Stop timer', icon: 'stop', url: '/timer?stop' },
+				{ label: 'Timer +3', icon: 'plus', url: '/timer?min=3' },
 				{ label: 'Timer +1', icon: 'plus', url: '/timer' }
 			]
 		};

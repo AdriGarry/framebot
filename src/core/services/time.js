@@ -219,7 +219,7 @@ function setTimer(minutes) {
 	var ttsMsg =
 		'Minuterie ' + (min > 0 ? (min > 1 ? min : ' une ') + ' minutes ' : '') + (sec > 0 ? sec + ' secondes' : '');
 	Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: ttsMsg });
-	if (Odi.run('timer') == 60) {
+	if (Odi.run('timer') >= 60) {
 		startTimer();
 	}
 }
