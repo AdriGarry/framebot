@@ -122,7 +122,7 @@ app.component('volume', {
 	}
 });
 
-/** Logs component */
+/** Runtime component */
 app.component('runtime', {
 	bindings: {
 		data: '<',

@@ -113,12 +113,29 @@ function arduinoParser(data) {
 			log.INFO('max is awake!');
 			Odi.run('max', true);
 			break;
+		case 'A':
+			break;
+		case 'B':
+			break;
+		case 'C':
+			break;
+		case 'D':
+			break;
 		default:
 			log.info('max data:', data);
 			break;
 	}
 	log.INFO('Set action or TTS here...');
 }
+// playMelody
+// playRandomMelody
+// turn
+// blinkLed
+// Et, doucement la!
+// Mais non, calme toi Max !
+// Non mais c'est pas fini ?
+// Tu vas t'arrêter oui ?
+// Max, donne/sonne l'alarme! -> horn
 
 arduino.on('close', function(data) {
 	// Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);

@@ -158,6 +158,7 @@ function getDiskSpace(callback) {
 
 /** Function to clean and archive logs each week */
 function cleanLog() {
+	// TODO also clean and archive errors, tts, voicemail and request log files !!
 	log.info('cleaning logs...');
 	var date = new Date();
 	var weekNb = date.getWeek();
