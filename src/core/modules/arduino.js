@@ -113,13 +113,17 @@ function arduinoParser(data) {
 			log.INFO('max is awake!');
 			Odi.run('max', true);
 			break;
-		case 'A':
+		case 'blinkLed':
+			if (Odi.run('etat') == 'high') Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'blink led' });
 			break;
-		case 'B':
+		case 'playMelody':
+			if (Odi.run('etat') == 'high') Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'melody' });
 			break;
-		case 'C':
+		case 'playRandomMelody':
+			if (Odi.run('etat') == 'high') Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'ranndom melody' });
 			break;
-		case 'D':
+		case 'turn':
+			if (Odi.run('etat') == 'high') Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'turn' });
 			break;
 		default:
 			log.info('max data:', data);
