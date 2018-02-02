@@ -111,6 +111,8 @@ if (Odi.conf.mode == 'sleep') {
 }
 Flux.next('module', 'conf', 'runtime');
 
+Flux.next('module', 'hardware', 'archiveLog');
+
 // if (Odi.isAwake()) {
 // 	Flux.next('module', 'arduino', 'write', 'Salut mon loulou !'.toUpperCase(), 1, 2);
 // 	Flux.next('module', 'arduino', 'write', 'break', 7);

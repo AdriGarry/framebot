@@ -21,9 +21,9 @@ var path = require('path');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 
-const FILE_ERROR_HISTORY = ODI_PATH + 'log/errorHistory.log';
 const FILE_REQUEST_HISTORY = ODI_PATH + 'log/requestHistory.log';
 const FILE_GRANT = ODI_PATH + 'data/pwd.properties';
+const FILE_ERROR_HISTORY = ODI_PATH + 'log/errorHistory.json';
 const FILE_TTS_UI_HISTORY = Odi._LOG + 'ttsUIHistory.json';
 const FILE_VOICEMAIL_HISTORY = ODI_PATH + 'log/voicemailHistory.json';
 
