@@ -57,7 +57,7 @@ function doUpdate(file, newConf, restart, callback) {
 			// log.conf(Odi.conf, updatedEntries, Utils.getExecutionTime(updateBegin, '    '));
 			log.table(
 				Odi.conf,
-				'CONFIG UPDATE' + ' '.repeat(8) + Utils.getExecutionTime(updateBegin, '    ') + 'ms',
+				'CONFIG UPDATE' + ' '.repeat(3) + Utils.getExecutionTime(updateBegin, '    ') + 'ms',
 				updatedEntries
 			);
 			if (restart) process.exit();

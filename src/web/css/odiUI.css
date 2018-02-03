@@ -341,7 +341,7 @@ md-sidenav md-toolbar .tools {
 .md-sidenav-right .adminBtn:hover {
 	background-color: #495f69 !important;
 }
-.md-sidenav-right .adminBtn i.fa {
+.md-sidenav-right .adminBtn i[class*='fa-'] {
 	font-size: 8vw;
 }
 .md-sidenav-right .adminBtn i[class*='fa-sign'] {
@@ -351,8 +351,8 @@ md-sidenav md-toolbar .tools {
 	vertical-align: top;
 	visibility: hidden;
 }
-.md-sidenav-right .adminBtn:not(.admin):hover i.fa-sign-in,
-.md-sidenav-right .adminBtn.admin:hover i.fa-sign-out {
+.md-sidenav-right .adminBtn:not(.admin):hover i.fa-sign-in-alt,
+.md-sidenav-right .adminBtn.admin:hover i.fa-sign-out-alt {
 	visibility: visible;
 }
 
@@ -472,7 +472,10 @@ div[data-ng-include] {
 	font-size: 5vw;
 	/*font-size:3em;*/
 }
-[flex] > .tile > .tileContent .main .fa {
+/*[flex] > .tile > .tileContent .main .fas,
+[flex] > .tile > .tileContent .main .far,
+[flex] > .tile > .tileContent .main .fab*/
+[flex] > .tile > .tileContent .main [class*='fa-'] {
 	font-size: 1.6em;
 }
 
@@ -513,7 +516,7 @@ div[data-ng-include] {
 	background: rgba(0, 0, 0, 0.05) !important;
 }
 
-[flex] > .tile .main i.fa {
+[flex] > .tile .main i[class*='fa-'] {
 	vertical-align: middle;
 }
 
@@ -649,7 +652,7 @@ md-input-container + label {
 md-dialog {
 	min-width: 30%;
 }
-md-dialog md-dialog-content h2 i.fa {
+md-dialog md-dialog-content h2 i[class*='fa-'] {
 	float: right;
 }
 
@@ -801,8 +804,8 @@ body>.loading i{
 		margin-bottom: 0;
 		zoom: 2;
 	}
-	.md-sidenav-right .adminBtn:not(.admin) i.fa-sign-in,
-	.md-sidenav-right .adminBtn.admin i.fa-sign-out {
+	.md-sidenav-right .adminBtn:not(.admin) i.fa-sign-in-alt,
+	.md-sidenav-right .adminBtn.admin i.fa-sign-out-alt {
 		visibility: visible;
 	}
 
@@ -822,7 +825,7 @@ body>.loading i{
 	[flex] > button > .tileContent .main {
 		margin-top: -10px;
 	}
-	[flex] > button > .tileContent .main .fa {
+	[flex] > button > .tileContent .main [class*='fa-'] {
 		font-size: 1.85em;
 	}
 
@@ -886,7 +889,10 @@ body>.loading i{
 	/*[flex] > button > .tileContent .main{
 		font-size:3.5em;
 	}*/
-	[flex] > .tile > .tileContent .main .fa {
+	/*[flex] > .tile > .tileContent .main .fas,
+	[flex] > .tile > .tileContent .main .far,
+	[flex] > .tile > .tileContent .main .fab*/
+	[flex] > .tile > .tileContent .main [class*='fa-'] {
 		font-size: 1.2em;
 	}
 }

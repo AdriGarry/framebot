@@ -17,6 +17,8 @@ Flux.service.time.subscribe({
 			// cocorico(flux.value);
 		} else if (flux.id == 'setAlarm') {
 			setAlarm(flux.value);
+		} else if (flux.id == 'alarmOff') {
+			disableAllAlarms(flux.value);
 		} else if (flux.id == 'isAlarm') {
 			isAlarm();
 		} else if (flux.id == 'birthday') {
@@ -83,6 +85,12 @@ function getSeason() {
 	}
 }
 
+/** Function to disable all Odi's alarms */
+function disableAllAlarms() {
+	// var newAlarms = {};
+	Flux.next('module', 'conf', 'updateRestart', { alarms: { weekDay: null, weekEnd: null } });
+}
+
 /** Function to set Odi's custom alarm */
 function setAlarm(alarm) {
 	var newAlarms = {};
@@ -90,9 +98,7 @@ function setAlarm(alarm) {
 		if (key == alarm.when) {
 			newAlarms[key] = {
 				h: alarm.h,
-				m: alarm.m,
-				d: Odi.conf.alarms[key].d,
-				mode: Odi.conf.alarms[key].mode
+				m: alarm.m
 			};
 			log.info('>> ' + alarm.when + ' alarm set to ' + alarm.h + '.' + alarm.m);
 		} else {
@@ -100,34 +106,49 @@ function setAlarm(alarm) {
 		}
 	});
 	Flux.next('module', 'conf', 'updateRestart', { alarms: newAlarms });
-	// Odi.update({ alarms: newAlarms }, true);
 }
 
 /** Function to test if alarm now */
+const WEEK_DAYS = [1, 2, 3, 4, 5];
+// const weekEnd = [0, 6];
 function isAlarm() {
-	var now = new Date(),
+	let now = new Date(),
 		d = now.getDay(),
 		h = now.getHours(),
-		m = now.getMinutes();
-	Object.keys(Odi.conf.alarms).forEach(function(key, index) {
-		if (Odi.conf.alarms[key].d.indexOf(d) > -1 && h == Odi.conf.alarms[key].h && m == Odi.conf.alarms[key].m) {
-			log.INFO('alarm time...', Odi.conf.alarms[key].h + ':' + Odi.conf.alarms[key].m);
+		m = now.getMinutes(),
+		alarmType = WEEK_DAYS.includes(d) ? 'weekDay' : 'weekEnd';
+
+	if (Odi.conf.alarms[alarmType]) {
+		if (h == Odi.conf.alarms[alarmType].h && m == Odi.conf.alarms[alarmType].m) {
+			log.INFO('alarm time...', Odi.conf.alarms[alarmType].h + ':' + Odi.conf.alarms[alarmType].m);
 			Odi.run('alarm', true);
 			if (Odi.conf.mode == 'sleep') {
 				log.INFO('Alarm... wake up !!');
 				Flux.next('service', 'system', 'restart');
 			} else {
-				cocorico(Odi.conf.alarms[key].mode);
+				cocorico();
 			}
 		}
-	});
-	log.debug('Odi.run(alarm)=' + Odi.run('alarm'));
+	}
+	// Object.keys(Odi.conf.alarms).forEach(function(key, index) {
+	// 	if (Odi.conf.alarms[key].d.indexOf(d) > -1 && h == Odi.conf.alarms[key].h && m == Odi.conf.alarms[key].m) {
+	// 		log.INFO('alarm time...', Odi.conf.alarms[key].h + ':' + Odi.conf.alarms[key].m);
+	// 		Odi.run('alarm', true);
+	// 		if (Odi.conf.mode == 'sleep') {
+	// 			log.INFO('Alarm... wake up !!');
+	// 			Flux.next('service', 'system', 'restart');
+	// 		} else {
+	// 			cocorico(Odi.conf.alarms[key].mode);
+	// 		}
+	// 	}
+	// });
+	// log.debug('Odi.run(alarm)=' + Odi.run('alarm'));
 }
 
 /** Function alarm part 1 */
 function cocorico(mode) {
 	var alarmDelay = 1;
-	if (mode == 'sea') {
+	if (!mode || mode == 'sea') {
 		// TODO remove sea mode information
 		log.info('Morning Sea...');
 		spawn('sh', [Odi._SHELL + 'sounds.sh', 'MorningSea']);
@@ -219,7 +240,7 @@ function setTimer(minutes) {
 	var ttsMsg =
 		'Minuterie ' + (min > 0 ? (min > 1 ? min : ' une ') + ' minutes ' : '') + (sec > 0 ? sec + ' secondes' : '');
 	Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: ttsMsg });
-	if (Odi.run('timer') == 60) {
+	if (Odi.run('timer') >= 60 && !secInterval) {
 		startTimer();
 	}
 }
@@ -229,22 +250,23 @@ function startTimer() {
 	secInterval = setInterval(function() {
 		Flux.next('module', 'led', 'toggle', { leds: ['belly'], value: etat }, null, null, true);
 		etat = 1 - etat;
-		if (Odi.run('timer') < 10) {
+		let timerCountDown = Odi.run('timer');
+		if (timerCountDown < 10) {
 			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'almost']);
 		} else {
 			spawn('sh', [Odi._SHELL + 'timerSound.sh']);
 		}
 		Odi.run('timer', Odi.run('timer') - 1);
-		if (Odi.run('timer') % 120 == 0 && Odi.run('timer') / 60 > 0) {
+		timerCountDown = Odi.run('timer');
+		if (timerCountDown % 120 == 0 && timerCountDown / 60 > 0) {
 			Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: Odi.run('timer') / 60 + ' minutes et compte a rebours' });
-		} else if (Odi.run('timer') <= 0 && Odi.run('timer') > -5) {
+		} else if (timerCountDown <= 0 && timerCountDown > -5) {
 			clearInterval(secInterval);
 			log.info('End Timer !');
 			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'end']);
 			Flux.next('module', 'led', 'blink', { leds: ['belly', 'eye'], speed: 90, loop: 12 });
 			Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: 'Les raviolis sont cuits !' });
 			Flux.next('module', 'led', 'toggle', { leds: ['belly'], value: 0 }, 1);
-			console.log(Odi.run('timer'));
 		}
 	}, 1000);
 }

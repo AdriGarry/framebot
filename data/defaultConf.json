@@ -3,18 +3,8 @@
 	"debug": 0,
 	"startTime": ".",
 	"alarms": {
-		"weekDay": {
-			"h": 7,
-			"m": 10,
-			"d": [1, 2, 3, 4, 5],
-			"mode": "sea"
-		},
-		"weekEnd": {
-			"h": 12,
-			"m": 0,
-			"d": [0, 6],
-			"mode": "sea"
-		}
+		"weekDay": { "h": 7, "m": 10 },
+		"weekEnd": { "h": 12, "m": 0 }
 	},
 	"version": "5.1"
 }

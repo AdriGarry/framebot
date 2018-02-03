@@ -19,14 +19,14 @@
 	<meta name="robots" content="noindex,nofollow">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-	<link rel="stylesheet" href="css/lib/font-awesome.min.css" media="all" />
+	<!--<link rel="stylesheet" href="css/lib/font-awesome.min.css" media="all" />-->
+	<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/lib/angular-material.min.css" media="all" />
 	<link rel="stylesheet" href="css/lib/mdPickers.min.css" media="all" />
 	<link rel="stylesheet" href="css/odiUI.css" media="all" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 
 	<!-- build:js js/odiUI.min.js -->
-	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 	<script src="js/lib/angular.min.js"></script>
 	<script src="js/lib/angular-material.min.js"></script>
 	<script src="js/lib/angular-animate.min.js"></script>
@@ -119,7 +119,7 @@
 			</md-button>
 			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="$root.irda" title="Restart Odi"
 			 aria-label="Restart Odi">
-				<i class="fas fa-2x fa-flash"></i>
+				<i class="fas fa-2x fa-bolt"></i>
 			</md-button>
 			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" data-ng-hide="$root.irda" title="Hide Logs" aria-label="Hide Logs">
 				<i class="fas fa-2x fa-arrow-left"></i>
@@ -135,10 +135,10 @@
 			<md-list flex>
 				<md-list-item>
 					<md-button data-ng-click="toggleGrant($event)" data-ng-class="{admin:$root.irda}" class="adminBtn center" title="{{$root.irda? 'Log out':'Log in'}}">
-						<i data-ng-class="$root.irda" class="fas fa-sign-in"></i>
+						<i data-ng-class="$root.irda" class="fas fa-sign-in-alt"></i>
 						<i data-ng-if="!$root.irda" class="fas fa-user"></i>
 						<i data-ng-if="$root.irda" class="fas fa-user-secret"></i>
-						<i data-ng-class="$root.irda" class="fas fa-sign-out"></i>
+						<i data-ng-class="$root.irda" class="fas fa-sign-out-alt"></i>
 					</md-button>
 				</md-list-item>
 				<md-divider></md-divider>
@@ -183,7 +183,7 @@
 				<md-list-item data-ng-click="reloadUI()" title="Reload UI">
 					<div flex>Reload UI</div>
 					<div flex>
-						<i class="fas fa-lg fa-2x fa-repeat"></i>
+						<i class="fas fa-lg fa-2x fa-redo"></i>
 					</div>
 				</md-list-item>
 				<md-divider></md-divider>

@@ -160,7 +160,7 @@ function error(label, data, stackTrace) {
 		time: Utils.logTime()
 	};
 	// console.log('logError', logError);
-	Utils.appendJsonFile(ODI_PATH + 'log/errorHistory.log', logError);
+	Utils.appendJsonFile(ODI_PATH + 'log/errorHistory.json', logError);
 	Odi.errors.push(logError);
 }
 

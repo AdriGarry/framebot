@@ -90,11 +90,11 @@ app.component('mode', {
 		var tileParams = {
 			label: 'Mode',
 			actionList: [
-				{ label: 'Reset', icon: 'retweet', url: '/resetConfig' },
-				{ label: 'Test', icon: 'cubes', url: '/testSequence' },
-				{ label: '!Debug', icon: 'terminal', url: '/toggleDebug' },
-				{ label: 'Sleep', icon: 'moon-o', url: '/sleep' },
-				{ label: 'Restart', icon: 'bolt', url: '/odi' }
+				{ label: 'Reset', icon: 'fas fa-retweet', url: '/resetConfig' },
+				{ label: 'Test', icon: 'fas fa-cubes', url: '/testSequence' },
+				{ label: '!Debug', icon: 'fas fa-terminal', url: '/toggleDebug' },
+				{ label: 'Sleep', icon: 'far fa-moon', url: '/sleep' },
+				{ label: 'Restart', icon: 'fas fa-bolt', url: '/odi' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -122,7 +122,7 @@ app.component('volume', {
 	}
 });
 
-/** Logs component */
+/** Runtime component */
 app.component('runtime', {
 	bindings: {
 		data: '<',
@@ -135,7 +135,7 @@ app.component('runtime', {
 			label: 'Runtime',
 			actionList: [
 				{ label: 'Errors', icon: 'fas fa-exclamation-triangle', url: 'http://odi.adrigarry.com/errors' },
-				{ label: 'Config', icon: 'fas fa-facogs', url: 'http://odi.adrigarry.com/config.json' },
+				{ label: 'Config', icon: 'fab fa-whmcs', url: 'http://odi.adrigarry.com/config.json' },
 				{ label: 'Runtime', icon: 'fab fa-codepen', url: 'http://odi.adrigarry.com/runtime' }
 			]
 		};
@@ -156,9 +156,9 @@ app.component('alarms', {
 		var tileParams = {
 			label: 'Alarms',
 			actionList: [
-				{ label: 'Disable all', icon: 'ban', url: '/alarmOff' },
-				{ label: 'weekDay', icon: 'frown-o', url: '/alarm' },
-				{ label: 'weekEnd', icon: 'smile-o', url: '/alarm' }
+				{ label: 'Disable all', icon: 'fas fa-ban', url: '/alarmOff' },
+				{ label: 'weekDay', icon: 'far fa-frown', url: '/alarm' },
+				{ label: 'weekEnd', icon: 'far fa-smile', url: '/alarm' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -191,16 +191,24 @@ app.component('alarms', {
 		};
 
 		var specificActions = function(button) {
-			ctrl.newAlarm = button;
-			showTimePicker();
+			if (button.url == '/alarmOff') {
+				UIService.sendCommand(button, function(data) {
+					//$scope.showToast(button.label);
+				});
+			} else {
+				ctrl.newAlarm = button;
+				showTimePicker();
+			}
 		};
 
 		/** Function to display alarm of the day */
-		ctrl.isTodayAlarm = function(days) {
-			if (days.indexOf(new Date().getDay()) > -1) {
-				return true;
+		const WEEK_DAYS = [1, 2, 3, 4, 5];
+		ctrl.getTodayAlarm = function() {
+			if (ctrl.data.value.weekDay || ctrl.data.value.weekEnd) {
+				let alarmType = WEEK_DAYS.indexOf(new Date().getDay()) > -1 ? 'weekDay' : 'weekEnd';
+				return ctrl.data.value[alarmType];
 			}
-			return;
+			return false;
 		};
 	}
 });
@@ -218,8 +226,8 @@ app.component('voicemail', {
 		var tileParams = {
 			label: 'Voicemail',
 			actionList: [
-				{ label: 'Clear', icon: 'trash-o', url: '/clearVoiceMail' },
-				{ label: 'Play', icon: 'play', url: '/checkVoiceMail' }
+				{ label: 'Clear', icon: 'far fa-trash-alt', url: '/clearVoiceMail' },
+				{ label: 'Play', icon: 'fas fa-play', url: '/checkVoiceMail' }
 			]
 		};
 
@@ -257,26 +265,6 @@ app.component('hardware', {
 	}
 });
 
-/** Memory component */
-app.component('memory', {
-	bindings: {
-		data: '<',
-		access: '<',
-		odiState: '<'
-	},
-	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
-			label: 'Memory',
-			//disableOnSleep: true,
-			actionList: [{ url: '/memory' }]
-		};
-		ctrl.tile = new DefaultTile(tileParams);
-		ctrl.odiState = ctrl.odiState;
-	}
-});
-
 /** Exclamation component */
 app.component('exclamation', {
 	bindings: {
@@ -290,9 +278,9 @@ app.component('exclamation', {
 		var tileParams = {
 			label: 'Exclamation',
 			actionList: [
-				{ label: 'TTS', icon: 'commenting-o', url: '/tts?msg=RANDOM' },
-				{ label: 'Exclamation', icon: 'bullhorn', url: '/exclamation' },
-				{ label: 'Last TTS', icon: 'undo', url: '/lastTTS' }
+				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/tts?msg=RANDOM' },
+				{ label: 'Exclamation', icon: 'fas fa-bullhorn', url: '/exclamation' },
+				{ label: 'Last TTS', icon: 'fas fa-undo', url: '/lastTTS' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -313,8 +301,8 @@ app.component('jukebox', {
 		var tileParams = {
 			label: 'Jukebox',
 			actionList: [
-				{ label: 'Jukebox', icon: 'random', url: '/jukebox' },
-				{ label: 'FIP Radio', icon: 'globe', url: '/fip' }
+				{ label: 'Jukebox', icon: 'fas fa-random', url: '/jukebox' },
+				{ label: 'FIP Radio', icon: 'fas fa-globe', url: '/fip' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -335,8 +323,9 @@ app.component('timer', {
 		var tileParams = {
 			label: 'Timer',
 			actionList: [
-				{ label: 'Stop timer', icon: 'stop', url: '/timer?stop' },
-				{ label: 'Timer +1', icon: 'plus', url: '/timer' }
+				{ label: 'Stop timer', icon: 'fas fa-stop', url: '/timer?stop' },
+				{ label: 'Timer +3', icon: 'fas fa-plus', url: '/timer?min=3' },
+				{ label: 'Timer +1', icon: 'fas fa-plus', url: '/timer' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -358,9 +347,9 @@ app.component('time', {
 			label: 'Time',
 			// actionList:[{url: '/time'}]
 			actionList: [
-				{ label: "Odi's age", icon: 'birthday-cake', url: '/age' },
-				{ label: 'Today', icon: 'calendar', url: '/date' },
-				{ label: 'Time', icon: 'clock-o', url: '/time' }
+				{ label: "Odi's age", icon: 'fas fa-birthday-cake', url: '/age' },
+				{ label: 'Today', icon: 'fas fa-calendar-alt', url: '/date' },
+				{ label: 'Time', icon: 'far fa-clock', url: '/time' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -381,8 +370,8 @@ app.component('weather', {
 		var tileParams = {
 			label: 'Weather',
 			actionList: [
-				{ label: 'Official weather', icon: 'cloud', url: '/weather' },
-				{ label: 'Random weather', icon: 'cloud-upload', url: '/weatherInteractive' }
+				{ label: 'Official weather', icon: 'fas fa-cloud', url: '/weather' },
+				{ label: 'Random weather', icon: 'fas fa-cloud-upload-alt', url: '/weatherInteractive' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -403,10 +392,10 @@ app.component('idea', {
 		var tileParams = {
 			label: 'Idea',
 			actionList: [
-				{ label: 'Baby', icon: 'child', url: '/baby' },
-				{ label: 'Cigales', icon: 'bug', url: '/cigales' },
-				{ label: 'Idea', icon: 'lightbulb-o', url: '/idea' },
-				{ label: 'Test', icon: 'flag-checkered', url: '/test' }
+				{ label: 'Baby', icon: 'fas fa-child', url: '/baby' },
+				{ label: 'Cigales', icon: 'fas fa-bug', url: '/cigales' },
+				{ label: 'Idea', icon: 'far fa-lightbulb', url: '/idea' },
+				{ label: 'Test', icon: 'fas fa-flag-checkered', url: '/test' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -427,8 +416,8 @@ app.component('stories', {
 		var tileParams = {
 			label: 'Stories',
 			actionList: [
-				{ label: 'Naheulbeuk', icon: 'fort-awesome', url: '/naheulbeuk' },
-				{ label: 'Survivaure', icon: 'space-shuttle', url: '/survivaure' }
+				{ label: 'Naheulbeuk', icon: 'fab fa-fort-awesome', url: '/naheulbeuk' },
+				{ label: 'Survivaure', icon: 'fas fa-space-shuttle', url: '/survivaure' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -449,8 +438,8 @@ app.component('badBoy', {
 		var tileParams = {
 			label: 'Bad boy',
 			actionList: [
-				{ label: 'BadBoy Mode', icon: 'comments', url: '/badBoy', continu: true },
-				{ label: 'BadBoy TTS', icon: 'comment', url: '/badBoy' }
+				{ label: 'BadBoy Mode', icon: 'fas fa-comments', url: '/badBoy', continu: true },
+				{ label: 'BadBoy TTS', icon: 'fas fa-comment', url: '/badBoy' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -498,10 +487,10 @@ app.component('party', {
 		var tileParams = {
 			label: 'Party',
 			actionList: [
-				{ label: 'Birthday song', icon: 'birthday-cake', url: '/birthday' },
-				{ label: 'Party mode', icon: 'child', url: '/setParty' },
-				{ label: 'Pirate', icon: 'beer', url: '/pirate' },
-				{ label: 'TTS', icon: 'commenting-o', url: '/partyTTS' }
+				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/birthday' },
+				{ label: 'Party mode', icon: 'fas fa-child', url: '/setParty' },
+				{ label: 'Pirate', icon: 'fas fa-beer', url: '/pirate' },
+				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/partyTTS' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -522,8 +511,8 @@ app.component('russia', {
 		var tileParams = {
 			label: 'Russia',
 			actionList: [
-				{ label: 'Subway / Street', icon: 'subway', url: '/russia' },
-				{ label: 'Hymn', icon: 'star', url: '/russia?hymn' }
+				{ label: 'Subway / Street', icon: 'fas fa-subway', url: '/russia' },
+				{ label: 'Hymn', icon: 'fas fa-star', url: '/russia?hymn' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -544,8 +533,8 @@ app.component('videos', {
 		var tileParams = {
 			label: 'Video',
 			actionList: [
-				{ label: 'Sleep', icon: 'stop', url: '/videoOff' },
-				{ label: 'Play', icon: 'play', url: '/playVideo' }
+				{ label: 'Sleep', icon: 'fas fa-stop', url: '/videoOff' },
+				{ label: 'Play', icon: 'fas fa-play', url: '/playVideo' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -565,8 +554,8 @@ app.component('arduino', {
 		var tileParams = {
 			label: 'Arduino',
 			actionList: [
-				{ label: 'Sleep', icon: 'stop', url: '/arduinoSleep' },
-				{ label: 'Go', icon: 'play', url: '/arduino' }
+				{ label: 'Sleep', icon: 'fas fa-stop', url: '/arduinoSleep' },
+				{ label: 'Go', icon: 'fas fa-play', url: '/arduino' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -585,10 +574,11 @@ app.component('history', {
 		var tileParams = {
 			label: 'History',
 			actionList: [
-				{ label: 'TTS', icon: 'commenting-o', url: 'http://odi.adrigarry.com/ttsUIHistory' },
-				{ label: 'Voicemail', icon: 'envelope-o', url: 'http://odi.adrigarry.com/voicemailHistory' },
-				{ label: 'Request', icon: 'exchange', url: 'http://odi.adrigarry.com/requestHistory' },
-				{ label: 'Errors', icon: 'exclamation-triangle', url: 'http://odi.adrigarry.com/errorHistory' }
+				{ label: 'Archive', icon: 'fas fa-file-archive', url: '/archiveLog' },
+				{ label: 'TTS', icon: 'far fa-comment-alt', url: 'http://odi.adrigarry.com/ttsUIHistory' },
+				{ label: 'Voicemail', icon: 'far fa-envelope', url: 'http://odi.adrigarry.com/voicemailHistory' },
+				{ label: 'Request', icon: 'fas fa-exchange-alt', url: 'http://odi.adrigarry.com/requestHistory' },
+				{ label: 'Errors', icon: 'fas fa-exclamation-triangle', url: 'http://odi.adrigarry.com/errorHistory' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -607,8 +597,8 @@ app.component('system', {
 		var tileParams = {
 			label: 'System',
 			actionList: [
-				{ label: 'Shutdown', icon: 'power-off', url: '/shutdown' },
-				{ label: 'Reboot', icon: 'refresh', url: '/reboot' }
+				{ label: 'Shutdown', icon: 'fas fa-power-off', url: '/shutdown' },
+				{ label: 'Reboot', icon: 'fas fa-sync', url: '/reboot' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

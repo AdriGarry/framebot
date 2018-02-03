@@ -28,8 +28,8 @@ Flux.module.hardware.subscribe({
 		} else if (flux.id == 'cpu') {
 			// cpuTempTTS();
 			cpuStatsTTS();
-		} else if (flux.id == 'cleanLog') {
-			cleanLog();
+		} else if (flux.id == 'archiveLog') {
+			archiveLogs();
 		} else Odi.error('unmapped flux in Hardware module', flux, false);
 	},
 	error: err => {
@@ -157,22 +157,29 @@ function getDiskSpace(callback) {
 }
 
 /** Function to clean and archive logs each week */
-function cleanLog() {
+const LOG_FILES = ['odi.log', 'requestHistory.log', 'errorHistory.json', 'ttsUIHistory.json', 'voicemailHistory.json'];
+function archiveLogs() {
 	log.info('cleaning logs...');
 	var date = new Date();
 	var weekNb = date.getWeek();
 	if (!fs.existsSync(Odi._LOG + 'old')) {
 		fs.mkdirSync(Odi._LOG + 'old');
 	}
-	var stream = fs.createReadStream(Odi._LOG + 'odi.log'); /*, {bufferSize: 64 * 1024}*/
-	stream.pipe(fs.createWriteStream(Odi._LOG + 'old/odi' + weekNb + '.log'));
+
+	LOG_FILES.forEach(logFile => {
+		if (fs.existsSync(Odi._LOG + logFile)) archiveLogFile(logFile, weekNb);
+	});
+}
+
+function archiveLogFile(logFile, weekNb) {
+	var stream = fs.createReadStream(Odi._LOG + logFile); /*, {bufferSize: 64 * 1024}*/
+	stream.pipe(fs.createWriteStream(Odi._LOG + 'old/' + logFile + weekNb));
 	stream.on('error', function(e) {
-		// log.error('config.resetCfg() stream error', e);
-		Odi.error('config.resetCfg() stream error', e);
+		Odi.error('stream error while cleaning log file ' + logFile, e);
 	});
 	stream.on('close', function() {
-		fs.truncate(Odi._LOG + 'odi.log', 0, function() {
-			log.INFO('logs successfully cleaned.');
+		fs.truncate(Odi._LOG + logFile, 0, function() {
+			log.info(logFile + ' successfully cleaned');
 		});
 	});
 }

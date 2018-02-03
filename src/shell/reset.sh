@@ -6,7 +6,7 @@ echo 'RESET.SH'
 
 # Deleting log files
 sudo rm /home/pi/odi/log/odi.log
-sudo rm /home/pi/odi/log/errorHistory.log
+sudo rm /home/pi/odi/log/errorHistory.json
 sudo rm /home/pi/odi/log/requestHistory.log
 sudo rm /home/pi/odi/log/ttsUIHistory.json
 sudo rm /home/pi/odi/log/voicemailHistory.json

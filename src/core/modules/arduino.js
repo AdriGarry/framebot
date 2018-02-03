@@ -8,7 +8,6 @@ var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(Odi._CORE + 'Utils.js');
 
 Flux.module.arduino.subscribe({
-	// TODO: ABSOLUMENT BLOQUER LES SONS EN MODE SLEEP !!
 	next: flux => {
 		if (flux.id == 'write') {
 			write(flux.value);
@@ -113,12 +112,33 @@ function arduinoParser(data) {
 			log.INFO('max is awake!');
 			Odi.run('max', true);
 			break;
+		case 'blinkLed':
+			if (Odi.run('etat') == 'high') Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'blink led' });
+			break;
+		case 'playMelody':
+			if (Odi.run('etat') == 'high') Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'melody' });
+			break;
+		case 'playRandomMelody':
+			if (Odi.run('etat') == 'high') Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'ranndom melody' });
+			break;
+		case 'turn':
+			if (Odi.run('etat') == 'high') Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'turn' });
+			break;
 		default:
 			log.info('max data:', data);
 			break;
 	}
 	log.INFO('Set action or TTS here...');
 }
+// playMelody
+// playRandomMelody
+// turn
+// blinkLed
+// Et, doucement la!
+// Mais non, calme toi Max !
+// Non mais c'est pas fini ?
+// Tu vas t'arrêter oui ?
+// Max, donne/sonne l'alarme! -> horn
 
 arduino.on('close', function(data) {
 	// Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);

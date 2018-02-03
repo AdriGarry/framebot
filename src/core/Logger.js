@@ -160,16 +160,16 @@ function Logger(filename, debugMode, dateTimePattern) {
 		let datas = {};
 		Object.keys(obj).forEach((key, index) => {
 			let data = obj[key];
-			if (/*hideFalseValues && */ data == false || data == null || data == 0) return;
+			if (data == false || data == null || data == 0) return;
 			if (typeof data == 'object' && !Array.isArray(data)) {
 				Object.keys(data).forEach((key2, index2) => {
 					let data2 = data[key2];
 					if (data2) {
 						// not logging null entries
 						if (index2 == 0) {
-							datas[key] = [String(key2 + ': ' + data2)];
-						} else {
-							datas[key].push(String(key2 + ': ' + data2));
+							datas[key] = [String(key2 + ': ' + getDataOrObject(data2))];
+						} else if (Array.isArray(datas[key])) {
+							datas[key].push(String(key2 + ': ' + getDataOrObject(data2)));
 						}
 					}
 				});
@@ -178,6 +178,14 @@ function Logger(filename, debugMode, dateTimePattern) {
 			}
 		});
 		return datas;
+	}
+
+	function getDataOrObject(data) {
+		if (typeof data == 'object' && !Array.isArray(data)) {
+			return util.inspect(data);
+		} else {
+			return data;
+		}
 	}
 
 	/** Function to calculate array width */
@@ -208,45 +216,4 @@ function Logger(filename, debugMode, dateTimePattern) {
 		);
 		return tableSize;
 	}
-
-	// 	function tableOLD(src, title, updatedEntries) {
-	// 		var col1 = 11,
-	// 			col2 = 16;
-	// 		var logArrayTitle = '';
-	// 		if (title) {
-	// 			logArrayTitle = '│  ' + title + ' '.repeat(col1 + col2 + 2 - title.length) + ' │';
-	// 			logArrayTitle += '\n' + '├' + '─'.repeat(13) + '┬' + '─'.repeat(18) + '┤\n';
-	// 		}
-	// 		var confArray = '┌' + '─'.repeat(32) + '┐\n' + logArrayTitle;
-	// 		Object.keys(src).forEach(function(key, index) {
-	// 			if (key == 'alarms') {
-	// 				Object.keys(src[key]).forEach(function(key2, index2) {
-	// 					if (key2 != 'd') {
-	// 						var c1 = index2 > 0 ? ' '.repeat(col1) : key + ' '.repeat(col1 - key.toString().length);
-	// 						var c2 = key2 + ' ' + (src[key][key2].h < 10 ? ' ' : '') + src[key][key2].h + ':';
-	// 						c2 += (src[key][key2].m < 10 ? '0' : '') + src[key][key2].m;
-	// 						if (typeof src[key][key2].mode === 'string') c2 += ' ' + src[key][key2].mode.charAt(0); //String(src[key][key2].mode).charAt(0)
-	// 						confArray += '│ ' + c1 + ' │ ' + c2 + ' '.repeat(col2 - c2.length) + ' │\n';
-	// 					}
-	// 				});
-	// 			} else {
-	// 				var updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
-	// 				var value;
-	// 				if (src[key] == null) value = 'null';
-	// 				else if (typeof src[key] == 'object' && !Array.isArray(src[key]))
-	// 					value = Object.keys(src[key]).map(k => src[key][k]);
-	// 				else value = src[key];
-	// 				confArray +=
-	// 					'│ ' +
-	// 					(!updated ? '' : '*') +
-	// 					key +
-	// 					' '.repeat(col1 - key.length - updated) /*(updatedEntries.indexOf(key) == -1 ? ' ' : '*')*/ +
-	// 					' │ ' +
-	// 					value +
-	// 					' '.repeat(col2 - value.toString().length) +
-	// 					' │\n';
-	// 			}
-	// 		});
-	// 		console.log(confArray + '└' + '─'.repeat(13) + '┴' + '─'.repeat(18) + '┘');
-	// 	}
 }

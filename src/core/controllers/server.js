@@ -21,9 +21,9 @@ var path = require('path');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 
-const FILE_ERROR_HISTORY = ODI_PATH + 'log/errorHistory.log';
 const FILE_REQUEST_HISTORY = ODI_PATH + 'log/requestHistory.log';
 const FILE_GRANT = ODI_PATH + 'data/pwd.properties';
+const FILE_ERROR_HISTORY = ODI_PATH + 'log/errorHistory.json';
 const FILE_TTS_UI_HISTORY = Odi._LOG + 'ttsUIHistory.json';
 const FILE_VOICEMAIL_HISTORY = ODI_PATH + 'log/voicemailHistory.json';
 
@@ -190,8 +190,14 @@ function startUIServer(mode) {
 	/** POST ALARM SETTING */
 	ui.post('/alarm', function(req, res) {
 		params = req.body;
-		// log.INFO(params);
 		Flux.next('service', 'time', 'setAlarm', params);
+		res.writeHead(200);
+		res.end();
+	});
+
+	ui.post('/alarmOff', function(req, res) {
+		params = req.body;
+		Flux.next('service', 'time', 'alarmOff');
 		res.writeHead(200);
 		res.end();
 	});
@@ -300,6 +306,12 @@ function startUIServer(mode) {
 
 	ui.post('/mute', function(req, res) {
 		Flux.next('module', 'sound', 'mute');
+		res.writeHead(200);
+		res.end();
+	});
+
+	ui.post('/archiveLog', function(req, res) {
+		Flux.next('module', 'hardware', 'archiveLog');
 		res.writeHead(200);
 		res.end();
 	});
@@ -484,12 +496,11 @@ function startUIServer(mode) {
 
 		ui.post('/timer', function(req, res) {
 			params = req.query; // affiner pour récupérer les params
-			// console.log(params);
-			params.m = 1;
 			if (params.hasOwnProperty('stop')) {
 				Flux.next('service', 'time', 'timer', 'stop');
-			} else if (!isNaN(params.m)) {
-				var min = parseInt(params.m, 10);
+			} else {
+				/*if (!isNaN(params.min))*/
+				var min = parseInt(params.min, 10) || 1;
 				// log.info(min);
 				Flux.next('service', 'time', 'timer', min);
 			}

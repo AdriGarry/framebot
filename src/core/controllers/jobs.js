@@ -204,7 +204,7 @@ function setBackgroundJobs() {
 		'13 13 13 * * 0',
 		function() {
 			Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Reset config' }); // Weekly RPI reboot
-			log.info('resetCfg'); // Weekly cleaning of logs
+			log.info('resetCfg'); // Weekly reset of conf
 			Flux.next('module', 'conf', 'reset', true, 3);
 		},
 		null,
@@ -228,7 +228,7 @@ new CronJob(
 	'0 2 0 * * 1',
 	function() {
 		log.info('Clean log files  /!\\'); // Weekly cleaning of logs
-		Flux.next('module', 'hardware', 'cleanLog');
+		Flux.next('module', 'hardware', 'archiveLog');
 	},
 	null,
 	true,
