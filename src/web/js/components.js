@@ -249,7 +249,10 @@ app.component('hardware', {
 		var tileParams = {
 			label: 'Hardware',
 			//disableOnSleep: true,
-			actionList: [{ url: '/cpuTemp' }]
+			actionList: [
+				{ label: 'Disk Space', icon: 'fas fa-3x fa-chart-pie', url: '/diskSpaceTTS' },
+				{ label: 'CPU', icon: 'fab fa-3x fa-empire', url: '/cpuTTS' }
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;

@@ -13,13 +13,32 @@ var pastHour = hour;
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
-if (Odi.conf.mode != 'sleep') {
+if (Odi.isAwake()) {
 	initClock();
-	setAutoSleep();
 	setInteractiveJobs();
-	setBackgroundJobs();
-	// }else{
+	setLifeCycleJobs();
 }
+
+new CronJob(
+	'*/29 * * * * *',
+	function() {
+		Flux.next('module', 'hardware', 'runtime', null, null, null, true);
+	},
+	null,
+	true,
+	'Europe/Paris'
+);
+
+new CronJob(
+	'0 2 0 * * 1',
+	function() {
+		log.info('Clean log files  /!\\'); // Weekly cleaning of logs
+		Flux.next('module', 'hardware', 'archiveLog');
+	},
+	null,
+	true,
+	'Europe/Paris'
+);
 
 /** Function to init clock  */
 function initClock() {
@@ -62,10 +81,6 @@ function initClock() {
 /** Function to set alarms */
 function setInteractiveJobs() {
 	// WEEKDAY
-	// new CronJob('0 16 7,8 * * 1-5', function() {
-	// 	Flux.next('module', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Je crois qu\'il faut lancer l\'opairation baluchon' });
-	// }, null, true, 'Europe/Paris');
-
 	new CronJob(
 		'0 18,20,22-25 8 * * 1-5',
 		function() {
@@ -134,30 +149,6 @@ function setInteractiveJobs() {
 	log.info('Interactive jobs initialised');
 }
 
-/** Function to set auto sleep life cycles */
-function setAutoSleep() {
-	new CronJob(
-		'2 0 0 * * 1-5',
-		function() {
-			goToSleep();
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
-
-	new CronJob(
-		'2 0 2 * * 0,6',
-		function() {
-			goToSleep();
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
-	log.info('Auto Sleep Life Cycle jobs initialised');
-}
-
 /** Function to random TTS ggood night. NOT EXPORTED! */
 function goToSleep() {
 	var sleepTTS = Utils.randomItem(Odi.ttsMessages.goToSleep);
@@ -169,26 +160,28 @@ function goToSleep() {
 }
 
 /** Function to set background tasks */
-function setBackgroundJobs() {
+function setLifeCycleJobs() {
+	// Auto Sleep
 	new CronJob(
-		'*/29 * * * * *',
+		'2 0 0 * * 1-5',
 		function() {
-			Flux.next('module', 'hardware', 'runtime', null, null, null, true);
+			goToSleep();
 		},
 		null,
 		true,
 		'Europe/Paris'
 	);
-	// new CronJob(
-	// 	'*/20 * * * * *',
-	// 	function() {
-	// 		// Flux.next('module', 'hardware', 'runtime', null, null, null, true);
-	// 		// VOICEMAIL CHECK HERE ???
-	// 	},
-	// 	null,
-	// 	true,
-	// 	'Europe/Paris'
-	// );
+	new CronJob(
+		'2 0 2 * * 0,6',
+		function() {
+			goToSleep();
+		},
+		null,
+		true,
+		'Europe/Paris'
+	);
+
+	// Restart & Reboot
 	new CronJob(
 		'13 13 13 * * 1-6',
 		function() {
@@ -199,7 +192,6 @@ function setBackgroundJobs() {
 		true,
 		'Europe/Paris'
 	);
-
 	new CronJob(
 		'13 13 13 * * 0',
 		function() {
@@ -211,7 +203,6 @@ function setBackgroundJobs() {
 		true,
 		'Europe/Paris'
 	);
-
 	new CronJob(
 		'15 15 13 * * 0',
 		function() {
@@ -222,15 +213,5 @@ function setBackgroundJobs() {
 		true,
 		'Europe/Paris'
 	);
+	log.info('Life cycle jobs initialised');
 }
-
-new CronJob(
-	'0 2 0 * * 1',
-	function() {
-		log.info('Clean log files  /!\\'); // Weekly cleaning of logs
-		Flux.next('module', 'hardware', 'archiveLog');
-	},
-	null,
-	true,
-	'Europe/Paris'
-);

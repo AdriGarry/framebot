@@ -18,7 +18,7 @@ module.exports.run = function(callback) {
 	// Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 0 }, 3, null, null, true);
 	Flux.next('module', 'led', 'blink', { leds: ['belly'], speed: 600, loop: 100 });
 
-	Flux.next('module', 'hardware', 'cpu', null, 0.1);
+	Flux.next('module', 'hardware', 'cpuTTS', null, 0.1);
 
 	setTimeout(() => {
 		Flux.next('module', 'sound', 'mute', { delay: 3, message: 'DELAY 3' });

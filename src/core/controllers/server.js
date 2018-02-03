@@ -519,15 +519,14 @@ function startUIServer(mode) {
 			res.end();
 		});
 
-		// ui.post('/info', function(req, res) { // NOT USED...
-		// 	// Info
-		// 	// ODI.service.info();
-		// 	res.writeHead(200);
-		// 	res.end();
-		// });
+		ui.post('/cpuTTS', function(req, res) {
+			Flux.next('module', 'hardware', 'cpuTTS');
+			res.writeHead(200);
+			res.end();
+		});
 
-		ui.post('/cpuTemp', function(req, res) {
-			Flux.next('module', 'hardware', 'cpu');
+		ui.post('/diskSpaceTTS', function(req, res) {
+			Flux.next('module', 'hardware', 'diskSpaceTTS');
 			res.writeHead(200);
 			res.end();
 		});

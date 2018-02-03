@@ -25,9 +25,10 @@ Flux.module.hardware.subscribe({
 			// } else if (flux.id == 'stats') {
 			// 	retreiveLastModifiedDate(PATHS);
 			// 	countSoftwareLines();
-		} else if (flux.id == 'cpu') {
-			// cpuTempTTS();
+		} else if (flux.id == 'cpuTTS') {
 			cpuStatsTTS();
+		} else if (flux.id == 'diskSpaceTTS') {
+			diskSpaceTTS();
 		} else if (flux.id == 'archiveLog') {
 			archiveLogs();
 		} else Odi.error('unmapped flux in Hardware module', flux, false);
@@ -123,6 +124,26 @@ function retreiveLastModifiedDate(paths, callback) {
 	});
 }
 
+/** Function to tts disk space */
+function diskSpaceTTS() {
+	let diskSpace = parseInt(Odi.run('stats.diskSpace'));
+	let ttsMsg = Utils.random()
+		? 'Il me reste environ ' + (100 - diskSpace) + " pour cent d'espace disque disponible"
+		: "J'utilise " + diskSpace + " pour cent d'espace de stockage";
+	Flux.next('module', 'tts', 'speak', ttsMsg);
+}
+
+/** Function to retreive disk space on /dev/root */
+function getDiskSpace(callback) {
+	Utils.execCmd('df -h', function(data) {
+		var diskSpace = data.match(/\/dev\/root.*[%]/gm);
+		diskSpace = diskSpace[0].match(/[\d]*%/g);
+		log.debug('Disk space:', diskSpace[0]);
+		Odi.run('stats.diskSpace', diskSpace[0]);
+		if (callback) callback(diskSpace);
+	});
+}
+
 /** Function to count lines of Odi's software */
 function countSoftwareLines(callback) {
 	var extensions = ['js', 'json', 'properties', 'sh', 'py', 'html', 'css']; //, 'properties'
@@ -142,17 +163,6 @@ function countSoftwareLines(callback) {
 				// if (callback) callback(totalLines);
 			}
 		});
-	});
-}
-
-/** Function to retreive disk space on /dev/root */
-function getDiskSpace(callback) {
-	Utils.execCmd('df -h', function(data) {
-		var diskSpace = data.match(/\/dev\/root.*[%]/gm);
-		diskSpace = diskSpace[0].match(/[\d]*%/g);
-		log.debug('Disk space:', diskSpace[0]);
-		Odi.run('stats.diskSpace', diskSpace[0]);
-		if (callback) callback(diskSpace);
 	});
 }
 
