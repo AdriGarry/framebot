@@ -190,8 +190,14 @@ function startUIServer(mode) {
 	/** POST ALARM SETTING */
 	ui.post('/alarm', function(req, res) {
 		params = req.body;
-		// log.INFO(params);
 		Flux.next('service', 'time', 'setAlarm', params);
+		res.writeHead(200);
+		res.end();
+	});
+
+	ui.post('/alarmOff', function(req, res) {
+		params = req.body;
+		Flux.next('service', 'time', 'alarmOff');
 		res.writeHead(200);
 		res.end();
 	});

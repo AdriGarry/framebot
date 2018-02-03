@@ -8,7 +8,6 @@ var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(Odi._CORE + 'Utils.js');
 
 Flux.module.arduino.subscribe({
-	// TODO: ABSOLUMENT BLOQUER LES SONS EN MODE SLEEP !!
 	next: flux => {
 		if (flux.id == 'write') {
 			write(flux.value);

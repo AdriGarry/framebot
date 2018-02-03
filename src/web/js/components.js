@@ -196,12 +196,22 @@ app.component('alarms', {
 		};
 
 		/** Function to display alarm of the day */
-		ctrl.isTodayAlarm = function(days) {
-			if (days.indexOf(new Date().getDay()) > -1) {
-				return true;
+		const WEEK_DAYS = [1, 2, 3, 4, 5];
+		ctrl.getTodayAlarm = function() {
+			if (!ctrl.data.value) {
+				return 'null';
 			}
-			return;
+			let alarmType = WEEK_DAYS.indexOf(new Date().getDay()) > -1 ? 'weekDay' : 'weekEnd';
+			return ctrl.data.value[alarmType];
 		};
+
+		// /** Function to display alarm of the day */
+		// ctrl.isTodayAlarm = function(days) {
+		// 	if (days.indexOf(new Date().getDay()) > -1) {
+		// 		return true;
+		// 	}
+		// 	return;
+		// };
 	}
 });
 

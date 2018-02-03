@@ -111,22 +111,10 @@
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Alarms">
-		<table class="main">
-			<tr>
-				<td>
-					<i class="fa fa-bell-o"></i>
-				</td>
-				<td>
-					<table>
-						<tr data-ng-repeat="alarm in $ctrl.data.value" data-ng-if="$ctrl.isTodayAlarm(alarm.d)">
-							<td>
-								{{alarm.h}}:{{alarm.m | formatNumber:2}}
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
+		<div class="main ">
+			<i class="fa fa-bell-o"></i>
+			<span data-ng-show="$ctrl.data.value ">{{$ctrl.getTodayAlarm().h}}:{{$ctrl.getTodayAlarm().m | formatNumber:2}}</span>
+		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Hardware">
@@ -198,113 +186,113 @@
 		</div>
 	</div>
 
-	<div class=" tileContent " data-ng-switch-when="Voicemail ">
-		<div class="main ">
-			<i class="fa fa-envelope-o "></i>
-			<sub data-ng-show="$ctrl.data.value " class="fa-2x ">&nbsp;{{$ctrl.data.value}}</sub>
+	<div class="tileContent" data-ng-switch-when="Voicemail">
+		<div class="main">
+			<i class="fa fa-envelope-o"></i>
+			<sub data-ng-show="$ctrl.data.value" class="fa-2x">&nbsp;{{$ctrl.data.value}}</sub>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Exclamation ">
-		<div class="main ">
-			<i class="fa fa-commenting-o "></i>
+	<div class="tileContent" data-ng-switch-when="Exclamation">
+		<div class="main">
+			<i class="fa fa-commenting-o"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Jukebox ">
-		<div class="main ">
-			<i class="fa fa-music "></i>
+	<div class="tileContent" data-ng-switch-when="Jukebox">
+		<div class="main">
+			<i class="fa fa-music"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Timer ">
-		<div class="main ">
-			<i class="fa fa-hourglass-half "></i>
-			<span data-ng-show="$ctrl.data.value ">{{$ctrl.data.value | formatTime}}</span>
+	<div class="tileContent" data-ng-switch-when="Timer">
+		<div class="main">
+			<i class="fa fa-hourglass-half"></i>
+			<span data-ng-show="$ctrl.data.value">{{$ctrl.data.value | formatTime}}</span>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Date ">
-		<div class="main ">
-			<i class="fa fa-calendar "></i>
+	<div class="tileContent" data-ng-switch-when="Date">
+		<div class="main">
+			<i class="fa fa-calendar"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Time ">
-		<div class="main ">
-			<i class="fa fa-clock-o "></i>
+	<div class="tileContent" data-ng-switch-when="Time">
+		<div class="main">
+			<i class="fa fa-clock-o"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Weather ">
-		<div class="main ">
-			<i class="fa fa-cloud "></i>
+	<div class="tileContent" data-ng-switch-when="Weather">
+		<div class="main">
+			<i class="fa fa-cloud"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Party ">
-		<div class="main ">
-			<i class="fa fa-glass "></i>
+	<div class="tileContent" data-ng-switch-when="Party">
+		<div class="main">
+			<i class="fa fa-glass"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Russia ">
-		<div class="main ">
-			<i class="fa fa-star "></i>
+	<div class="tileContent" data-ng-switch-when="Russia">
+		<div class="main">
+			<i class="fa fa-star"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Idea ">
-		<div class="main ">
-			<i class="fa fa-lightbulb-o "></i>
+	<div class="tileContent" data-ng-switch-when="Idea">
+		<div class="main">
+			<i class="fa fa-lightbulb-o"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Stories ">
-		<div class="main ">
-			<i class="fa fa-book "></i>
+	<div class="tileContent" data-ng-switch-when="Stories">
+		<div class="main">
+			<i class="fa fa-book"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Bad boy ">
-		<div class="main ">
-			<i class="fa fa-bomb "></i>
+	<div class="tileContent" data-ng-switch-when="Bad boy">
+		<div class="main">
+			<i class="fa fa-bomb"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Video ">
-		<div class="main ">
-			<i class="fa fa-desktop "></i>
+	<div class="tileContent" data-ng-switch-when="Video">
+		<div class="main">
+			<i class="fa fa-desktop"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Arduino ">
-		<div class="main ">
-			<i class="fa fa-usb "></i>
+	<div class="tileContent" data-ng-switch-when="Arduino">
+		<div class="main">
+			<i class="fa fa-usb"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="History ">
-		<div class="main ">
-			<i class="fa fa-file-text-o "></i>
+	<div class="tileContent" data-ng-switch-when="History">
+		<div class="main">
+			<i class="fa fa-file-text-o"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="Runtime ">
-		<div class="main ">
-			<i class="fa fa-codepen "></i>
+	<div class="tileContent" data-ng-switch-when="Runtime">
+		<div class="main">
+			<i class="fa fa-codepen"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="System ">
-		<div class="main ">
-			<i class="fa fa-power-off "></i>
+	<div class="tileContent" data-ng-switch-when="System">
+		<div class="main">
+			<i class="fa fa-power-off"></i>
 		</div>
 	</div>
 
-	<div class="tileContent " data-ng-switch-when="About ">
-		<div class="main ">
-			<i class="fa fa-info "></i>
+	<div class="tileContent" data-ng-switch-when="About">
+		<div class="main">
+			<i class="fa fa-info"></i>
 		</div>
 	</div>
 
