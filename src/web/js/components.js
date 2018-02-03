@@ -191,27 +191,27 @@ app.component('alarms', {
 		};
 
 		var specificActions = function(button) {
-			ctrl.newAlarm = button;
-			showTimePicker();
+			if (button.url == '/alarmOff') {
+				UIService.sendCommand(button, function(data) {
+					//$scope.showToast(button.label);
+				});
+			} else {
+				ctrl.newAlarm = button;
+				showTimePicker();
+			}
 		};
 
 		/** Function to display alarm of the day */
 		const WEEK_DAYS = [1, 2, 3, 4, 5];
 		ctrl.getTodayAlarm = function() {
-			if (!ctrl.data.value) {
-				return 'null';
+			if (ctrl.data.value.weekDay || ctrl.data.value.weekEnd) {
+				console.log('ON', ctrl.data.value, ctrl.data);
+				let alarmType = WEEK_DAYS.indexOf(new Date().getDay()) > -1 ? 'weekDay' : 'weekEnd';
+				return ctrl.data.value[alarmType];
 			}
-			let alarmType = WEEK_DAYS.indexOf(new Date().getDay()) > -1 ? 'weekDay' : 'weekEnd';
-			return ctrl.data.value[alarmType];
+			console.log('off', ctrl.data.value, ctrl.data);
+			return false;
 		};
-
-		// /** Function to display alarm of the day */
-		// ctrl.isTodayAlarm = function(days) {
-		// 	if (days.indexOf(new Date().getDay()) > -1) {
-		// 		return true;
-		// 	}
-		// 	return;
-		// };
 	}
 });
 

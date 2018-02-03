@@ -88,7 +88,7 @@ function getSeason() {
 /** Function to disable all Odi's alarms */
 function disableAllAlarms() {
 	// var newAlarms = {};
-	Flux.next('module', 'conf', 'updateRestart', { alarms: {} });
+	Flux.next('module', 'conf', 'updateRestart', { alarms: { weekDay: null, weekEnd: null } });
 }
 
 /** Function to set Odi's custom alarm */
@@ -118,14 +118,16 @@ function isAlarm() {
 		m = now.getMinutes(),
 		alarmType = WEEK_DAYS.includes(d) ? 'weekDay' : 'weekEnd';
 
-	if (h == Odi.conf.alarms[alarmType].h && m == Odi.conf.alarms[alarmType].m) {
-		log.INFO('alarm time...', Odi.conf.alarms[alarmType].h + ':' + Odi.conf.alarms[alarmType].m);
-		Odi.run('alarm', true);
-		if (Odi.conf.mode == 'sleep') {
-			log.INFO('Alarm... wake up !!');
-			Flux.next('service', 'system', 'restart');
-		} else {
-			cocorico();
+	if (Odi.conf.alarms[alarmType]) {
+		if (h == Odi.conf.alarms[alarmType].h && m == Odi.conf.alarms[alarmType].m) {
+			log.INFO('alarm time...', Odi.conf.alarms[alarmType].h + ':' + Odi.conf.alarms[alarmType].m);
+			Odi.run('alarm', true);
+			if (Odi.conf.mode == 'sleep') {
+				log.INFO('Alarm... wake up !!');
+				Flux.next('service', 'system', 'restart');
+			} else {
+				cocorico();
+			}
 		}
 	}
 	// Object.keys(Odi.conf.alarms).forEach(function(key, index) {

@@ -168,7 +168,7 @@ function Logger(filename, debugMode, dateTimePattern) {
 						// not logging null entries
 						if (index2 == 0) {
 							datas[key] = [String(key2 + ': ' + getDataOrObject(data2))];
-						} else {
+						} else if (Array.isArray(datas[key])) {
 							datas[key].push(String(key2 + ': ' + getDataOrObject(data2)));
 						}
 					}

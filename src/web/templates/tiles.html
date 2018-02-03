@@ -112,8 +112,9 @@
 
 	<div class="tileContent" data-ng-switch-when="Alarms">
 		<div class="main ">
-			<i class="fa fa-bell-o"></i>
-			<span data-ng-show="$ctrl.data.value ">{{$ctrl.getTodayAlarm().h}}:{{$ctrl.getTodayAlarm().m | formatNumber:2}}</span>
+			<i class="fa fa-bell-o" data-ng-show="$ctrl.getTodayAlarm()"></i>
+			<i class="fa fa-bell-slash-o" data-ng-hide="$ctrl.getTodayAlarm()"></i>
+			<span data-ng-show="$ctrl.data.value && $ctrl.getTodayAlarm()">{{$ctrl.getTodayAlarm().h}}:{{$ctrl.getTodayAlarm().m | formatNumber:2}}</span>
 		</div>
 	</div>
 
