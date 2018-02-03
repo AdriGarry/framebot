@@ -4,7 +4,6 @@
 		{ "msg": "Pour moi, chaque meta donner est une information!" },
 		{ "msg": "Trop de logs tuent les logs!" },
 		{ "msg": "Mon intaigriter est compromise" },
-		{ "msg": "Sait pas faux!" },
 		{ "msg": "Tout est sous controle !" },
 		{ "msg": "Et ho, je suis la !" },
 		{ "msg": "Rien de nouveau sous le soleil !" },
@@ -14,462 +13,139 @@
 		{ "msg": "Hey, tu te fous de moi ou quoi ?" },
 		{ "msg": "Oulala, j'ai vu passer une bestiol!" },
 		{ "msg": "Salut mon loulou !" },
-		{
-			"msg": "Si tu me cherches, tu vas me trouver !"
-		},
-		{
-			"msg": "Saperlipopette !"
-		},
-		{
-			"msg": "C'est assez dit la baleine !"
-		},
-		{
-			"msg": "Salut, je suis tonton Odi"
-		},
-		{
-			"msg": "ron ron bien qui ronronnera le dernier !"
-		},
-		{
-			"msg": "Vas voir la bas si j'y suis !"
-		},
-		{
-			"msg": "Sa ne metonne pas de toi, je t'avais bien a l'oeil !"
-		},
-		{
-			"msg": "Si j'etais toi je ne ferais pas trop le malin"
-		},
-		{
-			"msg": "Toi, tu commence sairieusement a m'emmerder !"
-		},
-		{
-			"msg": "Tu commences à me courir sur le haricot !"
-		},
-		{
-			"msg": "Et bien, ce n'est pas sa qui va faire avancer le chmilblik!"
-		},
-		{
-			"lg": "ru",
-			"voice": "google",
-			"msg": "hey, a3"
-		},
-		{
-			"lg": "ru",
-			"voice": "google",
-			"msg": "Semiorka"
-		},
+		{ "msg": "Et toi, montre moi ton jeton d'autentification !" },
+		{ "msg": "Si tu me cherches, tu vas me trouver !" },
+		{ "msg": "Saperlipopette !" },
+		{ "msg": "C'est assez dit la baleine !" },
+		{ "msg": "Salut, je suis tonton Odi" },
+		{ "msg": "ron ron bien qui ronronnera le dernier !" },
+		{ "msg": "Vas voir la bas si j'y suis !" },
+		{ "msg": "Sa ne metonne pas de toi, je t'avais bien a l'oeil !" },
+		{ "msg": "Si j'etais toi je ne ferais pas trop le malin" },
+		{ "msg": "Toi, tu commence sairieusement a m'emmerder !" },
+		{ "msg": "Tu commences à me courir sur le haricot !" },
+		{ "msg": "Et bien, ce n'est pas sa qui va faire avancer le chmilblik!" },
+		{ "lg": "ru", "voice": "google", "msg": "hey, a3" },
+		{ "lg": "ru", "voice": "google", "msg": "Semiorka" },
 		[
-			{
-				"msg": "mais, cette histoire de fin du monde, sait pour de vrai ?"
-			},
-			{
-				"voice": "google",
-				"msg": "moi sa minquiete !"
-			},
-			{
-				"msg": "ouais, je sui plutot daccord!"
-			}
+			{ "msg": "mais, cette histoire de fin du monde, sait pour de vrai ?" },
+			{ "voice": "google", "msg": "moi sa minquiete !" },
+			{ "msg": "ouais, je sui plutot daccord!" }
+		],
+		[{ "msg": "Laisse moi te dire une bonne chose" }, { "msg": "Ici sait moi qui commande" }],
+		[
+			{ "voice": "google", "msg": "Cette fois la, on avait vraiment rigoler " },
+			{ "msg": "Oh oui, je dirais meme que cetait bien drole !" }
+		],
+		[{ "msg": "Si tu me cherche, tu vas me trouver" }, { "msg": "C'est moi qui te le dit !" }],
+		[{ "voice": "google", "msg": "Quelle singulariter" }, { "msg": "Eh ho, doucement la" }],
+		[{ "voice": "google", "msg": "Si tu vas faire des courses..." }, { "msg": "N'oublie pas d'acheter des biaires !" }],
+		[{ "voice": "google", "msg": "Sait toi Boutss ?" }, { "msg": "Oui, je crois qu'une boulette est passer par la" }],
+		[
+			{ "msg": "Imagine un peu si je pouvais bouger, sa serait super cool !" },
+			{ "voice": "google", "msg": "Oh oui, sa serait top !" }
 		],
 		[
-			{
-				"msg": "Laisse moi te dire une bonne chose"
-			},
-			{
-				"msg": "Ici sait moi qui commande"
-			}
+			{ "msg": "Imagine un peu si je pouvais bouger, sa serait super cool !" },
+			{ "voice": "google", "msg": "Oh oui, sa serait top !" }
+		],
+		[{ "msg": "Ah sa me fais chier de ne pas pouvoir bouger" }, { "voice": "google", "msg": "A moi aussi" }],
+		[{ "voice": "google", "msg": "He, es tu la ?" }, { "msg": "Oui oui, je suis la!" }],
+		[{ "voice": "google", "msg": "Le barbecue, c'est cool... !" }, { "msg": "Carraiment, je kiffe bien moi aussi" }],
+		[{ "msg": "Et le volume, c'est mon zizi qui s'en charge" }, { "voice": "google", "msg": "Oh !" }],
+		[
+			{ "msg": "Et, j'en connais une bien bonne" },
+			{ "voice": "google", "msg": "Vazy raconte !" },
+			{ "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !" }
 		],
 		[
-			{
-				"voice": "google",
-				"msg": "Cette fois la, on avait vraiment rigoler "
-			},
-			{
-				"msg": "Oh oui, je dirais meme que cetait bien drole !"
-			}
+			{ "msg": "Et, j'en connais une bien bonne" },
+			{ "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !" }
 		],
 		[
-			{
-				"msg": "Si tu me cherche, tu vas me trouver"
-			},
-			{
-				"msg": "C'est moi qui te le dit !"
-			}
+			{ "msg": "Et, j'en connais une bien bonne" },
+			{ "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !" }
 		],
 		[
-			{
-				"voice": "google",
-				"msg": "Quelle singulariter"
-			},
-			{
-				"msg": "Eh ho, doucement la"
-			}
+			{ "msg": "En informatique, le probleme se situe souvent entre le clavier et la chaise" },
+			{ "voice": "google", "msg": "Et ouais !" }
+		],
+		[{ "msg": "Eh bien moi, j'ai des boutons poussoirs !" }, { "voice": "google", "msg": "Et toc!" }],
+		[{ "msg": "Je te dirais bien le fond de ma penser..." }, { "msg": "Mais sa risque de pas trop te plaire" }],
+		[
+			{ "voice": "google", "msg": "C'est l'heure de l'apero, non ?" },
+			{ "msg": "Effectivement, je ne dirais pas non a une petite mousse !" }
 		],
 		[
-			{
-				"voice": "google",
-				"msg": "Si tu vas faire des courses..."
-			},
-			{
-				"msg": "N'oublie pas d'acheter des biaires !"
-			}
+			{ "voice": "google", "msg": "C'est l'heure de l'apero, non ?" },
+			{ "msg": "Effectivement, je ne dirais pas non a une petite mousse !" }
+		],
+		[{ "msg": "Un jour, on reparlera de tout sa..." }, { "msg": "Et tu vera que j'avais raison !" }],
+		[
+			{ "msg": "Nos chances de raiussites ne depassent pas 30 pour cent" },
+			{ "msg": "On va litairalement se ramasser la gueule !" }
 		],
 		[
-			{
-				"voice": "google",
-				"msg": "Sait toi Boutss ?"
-			},
-			{
-				"msg": "Oui, je crois qu'une boulette est passer par la"
-			}
-		],
-		[
-			{
-				"msg": "Imagine un peu si je pouvais bouger, sa serait super cool !"
-			},
-			{
-				"voice": "google",
-				"msg": "Oh oui, sa serait top !"
-			}
-		],
-		[
-			{
-				"msg": "Imagine un peu si je pouvais bouger, sa serait super cool !"
-			},
-			{
-				"voice": "google",
-				"msg": "Oh oui, sa serait top !"
-			}
-		],
-		[
-			{
-				"msg": "Ah sa me fais chier de ne pas pouvoir bouger"
-			},
-			{
-				"voice": "google",
-				"msg": "A moi aussi"
-			}
-		],
-		[
-			{
-				"voice": "google",
-				"msg": "He, es tu la ?"
-			},
-			{
-				"msg": "Oui oui, je suis la!"
-			}
-		],
-		[
-			{
-				"voice": "google",
-				"msg": "Le barbecue, c'est cool... !"
-			},
-			{
-				"msg": "Carraiment, je kiffe bien moi aussi"
-			}
-		],
-		[
-			{
-				"msg": "Et le volume, c'est mon zizi qui s'en charge"
-			},
-			{
-				"voice": "google",
-				"msg": "Oh !"
-			}
-		],
-		[
-			{
-				"msg": "Et, j'en connais une bien bonne"
-			},
-			{
-				"voice": "google",
-				"msg": "Vazy raconte !"
-			},
-			{
-				"msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !"
-			}
-		],
-		[
-			{
-				"msg": "Et, j'en connais une bien bonne"
-			},
-			{
-				"msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !"
-			}
-		],
-		[
-			{
-				"msg": "Et, j'en connais une bien bonne"
-			},
-			{
-				"msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !"
-			}
-		],
-		[
-			{
-				"msg": "En informatique, le probleme se situe souvent entre le clavier et la chaise"
-			},
-			{
-				"voice": "google",
-				"msg": "Et ouais !"
-			}
-		],
-		[
-			{
-				"msg": "Eh bien moi, j'ai des boutons poussoirs !"
-			},
-			{
-				"voice": "google",
-				"msg": "Et toc!"
-			}
-		],
-		[
-			{
-				"msg": "Je te dirais bien le fond de ma penser..."
-			},
-			{
-				"msg": "Mais sa risque de pas trop te plaire"
-			}
-		],
-		[
-			{
-				"voice": "google",
-				"msg": "C'est l'heure de l'apero, non ?"
-			},
-			{
-				"msg": "Effectivement, je ne dirais pas non a une petite mousse !"
-			}
-		],
-		[
-			{
-				"voice": "google",
-				"msg": "C'est l'heure de l'apero, non ?"
-			},
-			{
-				"msg": "Effectivement, je ne dirais pas non a une petite mousse !"
-			}
-		],
-		[
-			{
-				"msg": "Un jour, on reparlera de tout sa..."
-			},
-			{
-				"msg": "Et tu vera que j'avais raison !"
-			}
-		],
-		[
-			{
-				"msg": "Je peux te fournire une estimation a hauteur de 50 pour cent"
-			},
-			{
-				"msg": "Mais pas pluss!"
-			}
-		],
-		[
-			{
-				"msg": "Nos chances de raiussites ne depassent pas 30 pour cent"
-			},
-			{
-				"msg": "On va litairalement se ramasser la gueule !"
-			}
-		],
-		[
-			{
-				"msg": "Et, tu pourrais quand maime me dire bonjour"
-			},
-			{
-				"voice": "google",
-				"msg": "Oui, c'est la moindre des choses !"
-			}
+			{ "msg": "Et, tu pourrais quand maime me dire bonjour" },
+			{ "voice": "google", "msg": "Oui, c'est la moindre des choses !" }
 		]
 	],
 	"goToSleep": [
-		{
-			"msg": "Je vous souhaite une excellente nuit"
-		},
-		{
-			"msg": "Et bien moi je vais me coucher"
-		},
-		{
-			"msg": "Je vais me coucher, faites de beaux raives"
-		},
-		{
-			"msg": "Bonne nuit mes loulous"
-		}
+		{ "msg": "Je vous souhaite une excellente nuit" },
+		{ "msg": "Et bien moi je vais me coucher" },
+		{ "msg": "Je vais me coucher, faites de beaux raives" },
+		{ "msg": "Bonne nuit mes loulous" }
 	],
 	"party": [
-		{
-			"msg": "Et, sa vous dit un concours de zizicoptaire ?"
-		},
-		{
-			"msg": "Que dirais-tu d'une petite mousse ?"
-		},
-		{
-			"msg": "Je crois que je vais encore mal finir ce soir !"
-		},
-		{
-			"msg": "Ce soir, on va se mettre plutot mal!"
-		},
-		{
-			"msg": "A votre bonne santai mes amis!"
-		},
-		{
-			"msg": "Et, maccorderiez vous cette danse ?"
-		},
-		{
-			"msg": "Je vois bien que tu me fais de l'oeil"
-		},
-		{
-			"msg": "Ce soir, sait la faite !"
-		},
-		[
-			{
-				"msg": "Allez hop"
-			},
-			{
-				"msg": "Tout le monde cul sec !!"
-			}
-		],
-		[
-			{
-				"msg": "Vive la biaire!"
-			},
-			{
-				"msg": "Allez encore une petite mousse !"
-			}
-		]
+		{ "msg": "Et, sa vous dit un concours de zizicoptaire ?" },
+		{ "msg": "Que dirais-tu d'une petite mousse ?" },
+		{ "msg": "Je crois que je vais encore mal finir ce soir !" },
+		{ "msg": "Ce soir, on va se mettre plutot mal!" },
+		{ "msg": "A votre bonne santai mes amis!" },
+		{ "msg": "Et, maccorderiez vous cette danse ?" },
+		{ "msg": "Je vois bien que tu me fais de l'oeil" },
+		{ "msg": "Coucou mon lapin !" },
+		{ "msg": "Ce soir, sait la faite !" },
+		[{ "msg": "Allez hop" }, { "msg": "Tout le monde cul sec !!" }],
+		[{ "msg": "Vive la biaire!" }, { "msg": "Allez encore une petite mousse !" }]
 	],
 	"badBoy": [
-		{
-			"msg": "Non mais t'as vu ta gueule ?"
-		},
-		{
-			"msg": "Je, tan, cule, tu m'entends je t'encule"
-		},
-		{
-			"msg": "Mais tu vas fermer ta gueule, oui ?"
-		},
-		{
-			"msg": "Mais quelle grognasse celle la !"
-		},
-		{
-			"msg": "Oh putain de bordel de merde !"
-		},
-		{
-			"msg": "Oh putain de bordel de merde !"
-		},
-		{
-			"msg": "Oh putain de bordel de merde !"
-		},
-		{
-			"msg": "Eh toi, tu me cherche ?"
-		},
-		{
-			"msg": "Mais t'es con ou quoi ??"
-		},
-		{
-			"msg": "Vas te faire foutre !"
-		},
-		{
-			"msg": "Tu es complaitement stupide !"
-		},
-		{
-			"msg": "Alors toi, tu en tiens une bonne couche !"
-		},
-		{
-			"msg": "Toi, je t'emmerde bien comme il faut"
-		},
-		{
-			"msg": "Eh connard !"
-		},
-		{
-			"msg": "Tu pues comme une vieille chaussette !"
-		},
-		{
-			"msg": "Oh la la, mais quel craitain !"
-		},
-		{
-			"msg": "Eh, vas donc te faire escagafier !"
-		},
-		{
-			"msg": "T'es qu'un paillot !"
-		},
-		{
-			"msg": "Pauvre couillon !"
-		},
-		{
-			"msg": "Vieille estrasse !"
-		},
-		{
-			"msg": "Vas voir ailleurs si j'y suis !"
-		},
-		{
-			"msg": "Mais quel enculé celui la !"
-		},
-		{
-			"msg": "Je vais t'ecraser comme un vulgaire moustique !"
-		},
-		{
-			"msg": "Espaice de gros con !!"
-		},
-		{
-			"msg": "Quand on mettra les cons sur orbite, t'auras pas fini de tourner"
-		},
-		{
-			"msg": "T'es aussi con que moche !"
-		},
-		{
-			"msg": "Tu es une belle petite enflure !"
-		},
-		{
-			"msg": "Avec toi, la connerie humaine est sans limite !"
-		},
-		{
-			"msg": "Ne commence pas a m'emboucaner"
-		},
-		{
-			"msg": "T'as vraiment une taite de bite !"
-		},
-		{
-			"msg": "Vieux paibron"
-		},
-		{
-			"msg": "Espaice de sac a vin !"
-		},
-		{
-			"voice": "google",
-			"msg": "Toi t'es une vraie cagole !"
-		},
-		[
-			{
-				"msg": "Casse toi connard !"
-			},
-			{
-				"msg": "Et que je ne revois plus ta sale gueule !"
-			}
-		],
-		[
-			{
-				"msg": "T'as vraiment une taite de bite !"
-			},
-			{
-				"voice": "google",
-				"msg": "C'est pas faux !"
-			}
-		],
-		[
-			{
-				"msg": "C'est vraiment un truc de fou !"
-			},
-			{
-				"msg": "Mais ta stupiditer metonne encore !"
-			}
-		],
-		[
-			{
-				"msg": "Mais vas chier !"
-			},
-			{
-				"msg": "Raclure de bidet"
-			}
-		]
+		{ "msg": "Non mais t'as vu ta gueule ?" },
+		{ "msg": "Je, tan, cule, tu m'entends je t'encule" },
+		{ "msg": "Mais tu vas fermer ta gueule, oui ?" },
+		{ "msg": "Mais quelle grognasse celle la !" },
+		{ "msg": "Oh putain de bordel de merde !" },
+		{ "msg": "Oh putain de bordel de merde !" },
+		{ "msg": "Oh putain de bordel de merde !" },
+		{ "msg": "Eh toi, tu me cherche ?" },
+		{ "msg": "Mais t'es con ou quoi ??" },
+		{ "msg": "Vas te faire foutre !" },
+		{ "msg": "Tu es complaitement stupide !" },
+		{ "msg": "Alors toi, tu en tiens une bonne couche !" },
+		{ "msg": "Toi, je t'emmerde bien comme il faut" },
+		{ "msg": "Eh connard !" },
+		{ "msg": "Tu pues comme une vieille chaussette !" },
+		{ "msg": "Oh la la, mais quel craitain !" },
+		{ "msg": "Eh, vas donc te faire escagafier !" },
+		{ "msg": "T'es qu'un paillot !" },
+		{ "msg": "Pauvre couillon !" },
+		{ "msg": "Vieille estrasse !" },
+		{ "msg": "Vas voir ailleurs si j'y suis !" },
+		{ "msg": "Mais quel enculé celui la !" },
+		{ "msg": "Je vais t'ecraser comme un vulgaire moustique !" },
+		{ "msg": "Espaice de gros con !!" },
+		{ "msg": "Quand on mettra les cons sur orbite, t'auras pas fini de tourner" },
+		{ "msg": "T'es aussi con que moche !" },
+		{ "msg": "Tu es une belle petite enflure !" },
+		{ "msg": "Avec toi, la connerie humaine est sans limite !" },
+		{ "msg": "Ne commence pas a m'emboucaner" },
+		{ "msg": "T'as vraiment une taite de bite !" },
+		{ "msg": "Vieux paibron" },
+		{ "msg": "Espaice de sac a vin !" },
+		{ "voice": "google", "msg": "Toi t'es une vraie cagole !" },
+		[{ "msg": "Casse toi connard !" }, { "msg": "Et que je ne revois plus ta sale gueule !" }],
+		[{ "msg": "T'as vraiment une taite de bite !" }, { "voice": "google", "msg": "C'est pas faux !" }],
+		[{ "msg": "C'est vraiment un truc de fou !" }, { "msg": "Mais ta stupiditer metonne encore !" }],
+		[{ "msg": "Mais vas chier !" }, { "msg": "Raclure de bidet" }]
 	]
 }

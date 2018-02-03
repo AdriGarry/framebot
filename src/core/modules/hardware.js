@@ -154,12 +154,12 @@ function totalLinesTTS() {
 
 /** Function to count lines of Odi's software */
 function countSoftwareLines(callback) {
-	var extensions = ['js', 'json', 'properties', 'sh', 'py', 'html', 'css']; //, 'properties'
-	var typesNb = extensions.length;
+	const EXTENSIONS = ['js', 'json', 'properties', 'sh', 'py', 'html', 'css'];
+	var typesNb = EXTENSIONS.length;
 	var totalLines = 0;
-	extensions.forEach(function(item, index) {
+	EXTENSIONS.forEach(function(item, index) {
 		var temp = item;
-		Utils.execCmd('find /home/pi/odi/src -name "*.' + temp + '" -print | xargs wc -l', function(data) {
+		Utils.execCmd('find /home/pi/odi/src /home/pi/odi/data -name "*.' + temp + '" -print | xargs wc -l', data => {
 			var regex = /(\d*) total/g;
 			var result = regex.exec(data);
 			var t = result && result[1] ? result[1] : -1;
