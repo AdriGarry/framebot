@@ -387,12 +387,6 @@ function startUIServer(mode) {
 			res.end();
 		});
 
-		ui.post('/baby', function(req, res) {
-			Flux.next('service', 'mood', 'baby');
-			res.writeHead(200);
-			res.end();
-		});
-
 		ui.post('/russia', function(req, res) {
 			params = req.query;
 			log.debug('/russia', params);
@@ -527,6 +521,12 @@ function startUIServer(mode) {
 
 		ui.post('/diskSpaceTTS', function(req, res) {
 			Flux.next('module', 'hardware', 'diskSpaceTTS');
+			res.writeHead(200);
+			res.end();
+		});
+
+		ui.post('/totalLinesTTS', function(req, res) {
+			Flux.next('module', 'hardware', 'totalLinesTTS');
 			res.writeHead(200);
 			res.end();
 		});

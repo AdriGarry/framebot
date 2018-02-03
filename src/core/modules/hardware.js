@@ -29,6 +29,8 @@ Flux.module.hardware.subscribe({
 			cpuStatsTTS();
 		} else if (flux.id == 'diskSpaceTTS') {
 			diskSpaceTTS();
+		} else if (flux.id == 'totalLinesTTS') {
+			totalLinesTTS();
 		} else if (flux.id == 'archiveLog') {
 			archiveLogs();
 		} else Odi.error('unmapped flux in Hardware module', flux, false);
@@ -142,6 +144,12 @@ function getDiskSpace(callback) {
 		Odi.run('stats.diskSpace', diskSpace[0]);
 		if (callback) callback(diskSpace);
 	});
+}
+
+/** Function to TTS Odi's program total lines */
+function totalLinesTTS() {
+	let ttsMsg = 'Mon programme fait ' + Odi.run('stats.totalLines') + ' lignes de code';
+	Flux.next('module', 'tts', 'speak', ttsMsg);
 }
 
 /** Function to count lines of Odi's software */

@@ -395,7 +395,7 @@ app.component('idea', {
 		var tileParams = {
 			label: 'Idea',
 			actionList: [
-				{ label: 'Baby', icon: 'fas fa-child', url: '/baby' },
+				{ label: 'Total lines', icon: 'far fa-file-code', url: '/totalLinesTTS' },
 				{ label: 'Cigales', icon: 'fas fa-bug', url: '/cigales' },
 				{ label: 'Idea', icon: 'far fa-lightbulb', url: '/idea' },
 				{ label: 'Test', icon: 'fas fa-flag-checkered', url: '/test' }

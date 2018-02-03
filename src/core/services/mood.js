@@ -12,8 +12,6 @@ Flux.service.mood.subscribe({
 			expressive(flux.value);
 		} else if (flux.id == 'badBoy') {
 			badBoy(flux.value);
-		} else if (flux.id == 'baby') {
-			babyCry();
 		} else Odi.error('unmapped flux in Mood service', flux, false);
 	},
 	error: err => {
@@ -63,9 +61,4 @@ function getNewRdmBadBoyTTS() {
 	} while (lastRdmNb.indexOf(rdmNb) != -1);
 	lastRdmNb.push(rdmNb);
 	return rdmTTS;
-}
-
-function babyCry() {
-	log.info('babyCry()');
-	Flux.next('module', 'sound', 'play', { mp3: 'BabyCry.mp3' });
 }
