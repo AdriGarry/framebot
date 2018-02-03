@@ -205,11 +205,9 @@ app.component('alarms', {
 		const WEEK_DAYS = [1, 2, 3, 4, 5];
 		ctrl.getTodayAlarm = function() {
 			if (ctrl.data.value.weekDay || ctrl.data.value.weekEnd) {
-				console.log('ON', ctrl.data.value, ctrl.data);
 				let alarmType = WEEK_DAYS.indexOf(new Date().getDay()) > -1 ? 'weekDay' : 'weekEnd';
 				return ctrl.data.value[alarmType];
 			}
-			console.log('off', ctrl.data.value, ctrl.data);
 			return false;
 		};
 	}
@@ -596,6 +594,7 @@ app.component('history', {
 		var tileParams = {
 			label: 'History',
 			actionList: [
+				{ label: 'Archive', icon: 'archive', url: '/archiveLog' },
 				{ label: 'TTS', icon: 'commenting-o', url: 'http://odi.adrigarry.com/ttsUIHistory' },
 				{ label: 'Voicemail', icon: 'envelope-o', url: 'http://odi.adrigarry.com/voicemailHistory' },
 				{ label: 'Request', icon: 'exchange', url: 'http://odi.adrigarry.com/requestHistory' },

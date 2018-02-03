@@ -188,20 +188,6 @@ function Logger(filename, debugMode, dateTimePattern) {
 		}
 	}
 
-	function toto(obj) {
-		Object.keys(obj).forEach((key2, index2) => {
-			let data = obj[key2];
-			if (data) {
-				// not logging null entries
-				if (index2 == 0) {
-					return [String(key2 + ': ' + data)];
-				} else {
-					datas[key].push(String(key2 + ': ' + data));
-				}
-			}
-		});
-	}
-
 	/** Function to calculate array width */
 	function calculateTableSize(datas) {
 		let tableSize = { col1: [], col2: [] };

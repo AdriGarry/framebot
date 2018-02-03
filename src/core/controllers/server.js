@@ -310,6 +310,12 @@ function startUIServer(mode) {
 		res.end();
 	});
 
+	ui.post('/archiveLog', function(req, res) {
+		Flux.next('module', 'hardware', 'archiveLog');
+		res.writeHead(200);
+		res.end();
+	});
+
 	var granted = false;
 	ui.post('/grant', function(req, res) {
 		var pattern = req.headers.pwd;
