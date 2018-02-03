@@ -105,7 +105,7 @@
 
 	<md-sidenav class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
 		<div class="logs" data-ng-dblclick="refreshLog()">
-			<i class="debugLog far fa-circle" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i>
+			<i class="debugLog fas fa-circle" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i>
 			<ul>
 				<li data-ng-repeat="logLine in logData track by $index" data-ng-bind-html="toHtml(logLine | formatLog:log.mode)"></li>
 				<a id="bottomLogs"></a>
