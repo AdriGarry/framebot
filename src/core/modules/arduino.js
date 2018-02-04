@@ -128,7 +128,7 @@ function arduinoParser(data) {
 			log.info('max data:', data);
 			break;
 	}
-	log.INFO('Set action or TTS here...');
+	//log.INFO('Set action or TTS here...');
 }
 // playMelody
 // playRandomMelody

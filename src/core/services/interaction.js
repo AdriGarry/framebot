@@ -37,20 +37,20 @@ Flux.service.interaction.subscribe({
 });
 
 var randomActionBase = [
-	{ type: 'module', subject: 'tts', id: 'speak', weighting: 6 }, //7
-	// { type: 'module', subject: 'tts', id: 'conversation', weighting: 6 }, //7
-	{ type: 'service', subject: 'interaction', id: 'exclamation', weighting: 4 }, //4
-	// { type: 'service', subject: 'interaction', id: 'exclamation', weighting: 2 }, //4
-	{ type: 'service', subject: 'time', id: 'now', weighting: 1 },
-	{ type: 'service', subject: 'time', id: 'today', weighting: 1 },
-	{ type: 'service', subject: 'interaction', id: 'weather', value: 'random', weighting: 2 }, //4
-	{ type: 'module', subject: 'hardware', id: 'cpu', weighting: 1 },
-	{ type: 'service', subject: 'time', id: 'OdiAge', weighting: 1 }
+	{ type: 'module', subject: 'tts', id: 'speak', weight: 6 }, //7
+	// { type: 'module', subject: 'tts', id: 'conversation', weight: 6 }, //7
+	{ type: 'service', subject: 'interaction', id: 'exclamation', weight: 4 }, //4
+	// { type: 'service', subject: 'interaction', id: 'exclamation', weight: 2 }, //4
+	{ type: 'service', subject: 'time', id: 'now', weight: 1 },
+	{ type: 'service', subject: 'time', id: 'today', weight: 1 },
+	{ type: 'service', subject: 'interaction', id: 'weather', value: 'random', weight: 2 }, //4
+	{ type: 'module', subject: 'hardware', id: 'cpuTTS', weight: 1 },
+	{ type: 'service', subject: 'time', id: 'OdiAge', weight: 1 }
 ];
 /** Building randomActionList from randomActionBase */
 var randomActionList = [];
 for (var i = 0; i < randomActionBase.length; i++) {
-	var loop = randomActionBase[i].weighting;
+	var loop = randomActionBase[i].weight;
 	while (loop) {
 		randomActionList.push(randomActionBase[i]);
 		loop--;
@@ -64,7 +64,7 @@ function randomAction() {
 	// var action = randomActionList[Utils.random(randomActionList.length)];
 	var action = Utils.randomItem(randomActionList);
 	// log.INFO('heyheyhey==>', action);
-	log.info('randomAction:', action.id, '[' + action.weighting + ']');
+	log.info('randomAction:', action.id, '[' + action.weight + ']');
 	Flux.next(action.type, action.subject, action.id, action.value);
 }
 
