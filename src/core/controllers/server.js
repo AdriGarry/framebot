@@ -52,6 +52,17 @@ function startUIServer(mode) {
 		tooMuchBadRequests = false;
 	const noSoundUrl = ['/dashboard', '/log'];
 
+	// CORS
+	ui.use(function(request, response, next) {
+		response.header('Access-Control-Allow-Origin', '*');
+		response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+		next();
+	});
+	ui.options('/*', function(request, response, next) {
+		response.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+		response.send();
+	});
+
 	ui.use(compression()); // Compression web
 	ui.use(express.static(Odi._WEB)); // Pour fichiers statiques
 	ui.use(bodyParser.json()); // to support JSON-encoded bodies
@@ -113,19 +124,6 @@ function startUIServer(mode) {
 		}
 	};
 	ui.use(logger);
-
-	ui.get('/monitoring2', function(req, res) {
-		// DEPRECATED ???
-		//console.log(/\d/.test(mode));
-		var activity = {
-			mode: /\d/.test(mode) ? 'sleep' : 'awake',
-			pauseUI: false,
-			info: 'Refresh status'
-		};
-		//console.log(activity);
-		res.writeHead(200);
-		res.end(JSON.stringify(activity));
-	});
 
 	/** DASHBOARD SECTION */
 	ui.get('/dashboard', function(req, res) {

@@ -97,6 +97,17 @@
 		</div>
 	</div>
 
+	<div class="tileContent" data-ng-switch-when="Runtime">
+		<div class="main">
+			<i class="fab fa-codepen"></i>
+			<span data-ng-show="$ctrl.data.length">{{$ctrl.data.length}}</span>
+			<!-- <small>{{$ctrl.data.length}}
+					<i class="fas fa-exclamation" style="font-size:1em;"></i>
+				</small>
+			</span> -->
+		</div>
+	</div>
+
 	<div class="tileContent" data-ng-switch-when="Alarms">
 		<div class="main ">
 			<i class="far fa-bell" data-ng-if="$ctrl.getTodayAlarm()"></i>
@@ -237,12 +248,6 @@
 	<div class="tileContent" data-ng-switch-when="History">
 		<div class="main">
 			<i class="far fa-file-alt"></i>
-		</div>
-	</div>
-
-	<div class="tileContent" data-ng-switch-when="Runtime">
-		<div class="main">
-			<i class="fab fa-codepen"></i>
 		</div>
 	</div>
 
