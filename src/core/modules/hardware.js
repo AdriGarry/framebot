@@ -148,7 +148,7 @@ function getDiskSpace(callback) {
 
 /** Function to TTS Odi's program total lines */
 function totalLinesTTS() {
-	let ttsMsg = 'Mon programme fait ' + Odi.run('stats.totalLines') + ' lignes de code';
+	let ttsMsg = 'Mon programme est composer de ' + Odi.run('stats.totalLines') + ' lignes de code';
 	Flux.next('module', 'tts', 'speak', ttsMsg);
 }
 
