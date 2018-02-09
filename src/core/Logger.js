@@ -123,7 +123,7 @@ function Logger(filename, debugMode, dateTimePattern) {
 	 * Function to array an object
 	 */
 	function table(src, title, updatedEntries) {
-		let datas = formatObjectToTable(src);
+		let datas = formatObjectToTable(src, updatedEntries);
 		// console.log(datas);
 		let tableSize = calculateTableSize(datas);
 		let logArrayTitle = '';
@@ -156,9 +156,10 @@ function Logger(filename, debugMode, dateTimePattern) {
 	}
 
 	/** Return formated object */
-	function formatObjectToTable(obj) {
+	function formatObjectToTable(obj, updatedEntries) {
 		let datas = {};
 		Object.keys(obj).forEach((key, index) => {
+			let updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
 			let data = obj[key];
 			if (data == false || data == null || data == 0) return;
 			if (typeof data == 'object' && !Array.isArray(data)) {
@@ -174,7 +175,7 @@ function Logger(filename, debugMode, dateTimePattern) {
 					}
 				});
 			} else {
-				datas[key] = [String(data)];
+				datas[(updated ? '*' : '') + key] = [String(data)];
 			}
 		});
 		return datas;
