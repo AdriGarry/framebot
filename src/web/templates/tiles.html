@@ -181,8 +181,9 @@
 
 	<div class="tileContent" data-ng-switch-when="Timer">
 		<div class="main">
-			<i class="fas fa-hourglass-half"></i>
-			<span data-ng-show="$ctrl.data.value ">{{$ctrl.data.value | formatTime}}</span>
+			<i data-ng-hide="$ctrl.data.value" class="far fa-hourglass"></i>
+			<i data-ng-show="$ctrl.data.value" class="fas fa-hourglass-half"></i>
+			<span data-ng-show="$ctrl.data.value">{{$ctrl.data.value | formatTime}}</span>
 		</div>
 	</div>
 
