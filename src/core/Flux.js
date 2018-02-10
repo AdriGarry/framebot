@@ -3,6 +3,7 @@
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+var Utils = require(ODI_PATH + 'src/core/Utils.js');
 
 var util = require('util');
 const Rx = require('rxjs');
@@ -95,7 +96,7 @@ var scheduleFlux = flux => {
 };
 
 var fireFlux = flux => {
-	if (!flux.hidden || Odi.conf.debug) log.info('> Flux', flux.toString());
+	if (!flux.hidden || Odi.conf.debug) log.info(/*Utils.stackPosition() + */ '> Flux', flux.toString());
 	Flux[flux.type][flux.subject].next({ id: flux.id, value: flux.value });
 };
 

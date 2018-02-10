@@ -56,30 +56,34 @@ function Logger(filename, debugMode, mode) {
 	}
 
 	function info() {
-		console.log(Utils.logTime(), modeFlag + '[' + filename + ']', formatLog(arguments));
+		console.log(Utils.logTime(), modeFlag + '[' + Utils.stackPosition(true) + ']', formatLog(arguments));
 	}
 
 	function INFO() {
-		console.log(Utils.logTime(), modeFlag + '[' + filename.toUpperCase() + ']', formatLog(arguments).toUpperCase());
+		console.log(
+			Utils.logTime(),
+			modeFlag + '[' + Utils.stackPosition(true).toUpperCase() + ']',
+			formatLog(arguments).toUpperCase()
+		);
 	}
 
 	function debug() {
 		if (!modeDebug) return;
-		console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022', formatLog(arguments));
+		console.log(Utils.logTime(), modeFlag + '[' + Utils.stackPosition(true) + ']\u2022', formatLog(arguments));
 	}
 
 	function DEBUG() {
 		if (!modeDebug) return;
 		console.log(
 			Utils.logTime(),
-			modeFlag + '[' + filename.toUpperCase() + ']\u2022',
+			modeFlag + '[' + Utils.stackPosition(true).toUpperCase() + ']\u2022',
 			formatLog(arguments).toUpperCase()
 		);
 	}
 
 	function error() {
 		console.log('______________');
-		console.error(Utils.logTime(), modeFlag + '[' + filename + ']', 'ERR >>', formatLog(arguments));
+		console.error(Utils.logTime(), modeFlag + '[' + Utils.stackPosition(true) + ']', 'ERR >>', formatLog(arguments));
 	}
 
 	// executionTime + 'ms';

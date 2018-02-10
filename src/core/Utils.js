@@ -11,6 +11,7 @@ var exec = require('child_process').exec;
 // var util = require('util');
 
 module.exports = {
+	stackPosition: stackPosition,
 	repeatString: repeatString,
 	appendJsonFile: appendJsonFile,
 	execCmd: execCmd,
@@ -27,6 +28,19 @@ module.exports = {
 	searchStringInArray: searchStringInArray,
 	testConnexion: testConnexion
 };
+
+function stackPosition(displayLine) {
+	var stack = new Error().stack;
+	let temp = /\/([a-z]+.js):(\d+)/gm.exec(stack);
+	// console.log(temp[1], temp[2]);
+	if (Array.isArray(temp) && temp[1]) {
+		if (displayLine && temp[2]) {
+			return temp[1] + ':' + temp[2];
+		}
+		return temp[1];
+	}
+	return null;
+}
 
 /**
  * Repeats a string.
