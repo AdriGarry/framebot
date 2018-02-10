@@ -68,7 +68,7 @@ log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'm
 // Flux.next('service', 'interaction', 'random');
 
 if (Odi.conf.mode == 'sleep') {
-	Flux.next('module', 'arduino', 'sleep');
+	// Flux.next('module', 'arduino', 'sleep');
 	new CronJob(
 		'0 * * * * *',
 		function() {
@@ -105,17 +105,34 @@ if (Odi.conf.mode == 'sleep') {
 	if (!Odi.run('alarm')) {
 		Flux.next('service', 'voicemail', 'check');
 	}
-	Flux.next('module', 'arduino', 'sleep', null, 10 * 60);
-
-	Flux.next('module', 'arduino', 'write', 'Blink-1-2-3', 3);
+	// Flux.next('module', 'arduino', 'sleep', null, 10 * 60);
 }
 Flux.next('module', 'conf', 'runtime');
 
-// if (Odi.isAwake()) {
-// 	Flux.next('module', 'arduino', 'write', 'Salut mon loulou !'.toUpperCase(), 1, 2);
-// 	Flux.next('module', 'arduino', 'write', 'break', 7);
-// 	Flux.next('module', 'arduino', 'write', 'hi', 120);
-// }
+const HORNS = [
+	'playHornWarning',
+	'playHornDoUp',
+	'playHorn',
+	'playHornOff',
+	'playHornFire',
+	'playHornWhistle',
+	'playHornOvni',
+	'playHornBombing',
+	'playHornSiren',
+	'playHornDown'
+];
+
+if (Odi.isAwake() && !Odi.run('alarm')) {
+	// Flux.next('module', 'arduino', 'write', 'Blink-1-2-3', 3);
+	// Flux.next('module', 'arduino', 'write', 'playOneMelody', 7, 2);
+	// Flux.next('module', 'arduino', 'write', 'playRdmHorn', 5, 1);
+
+	let delay = 10;
+	HORNS.forEach(item => {
+		Flux.next('module', 'arduino', 'write', item, delay);
+		delay = delay + 10;
+	});
+}
 
 // Flux.next('module', 'sound', 'play', { mp3: 'system/beBack.mp3' });
 // Flux.next('module', 'sound', 'play', { mp3: 'jukebox/CDuncan-Say.mp3', position: 7 }, 2);

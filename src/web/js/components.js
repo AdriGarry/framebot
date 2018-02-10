@@ -557,8 +557,11 @@ app.component('arduino', {
 		var tileParams = {
 			label: 'Arduino',
 			actionList: [
-				{ label: 'Sleep', icon: 'fas fa-stop', url: '/arduinoSleep' },
-				{ label: 'Go', icon: 'fas fa-play', url: '/arduino' }
+				// { label: 'Sleep', icon: 'fas fa-stop', url: '/arduinoSleep' },
+				// { label: 'Go', icon: 'fas fa-play', url: '/arduino' }
+				{ label: 'Melody', icon: 'fas fa-music', url: '/arduinoMelody' },
+				{ label: 'RDM Melody', icon: 'fas fa-music', url: '/arduinoRdmMelody' },
+				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/arduinoHorn' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
