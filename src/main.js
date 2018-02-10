@@ -129,7 +129,7 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 
 	let delay = 10;
 	HORNS.forEach(item => {
-		Flux.next('module', 'arduino', 'write', item, delay);
+		//Flux.next('module', 'arduino', 'write', item, delay);
 		delay = delay + 10;
 	});
 }
