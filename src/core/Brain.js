@@ -74,4 +74,4 @@ function buttonHandler(flux) {
 	}
 }
 
-log.info('Brain ready'); //loaded/compiled
+// log.info('Brain ready'); //loaded/compiled

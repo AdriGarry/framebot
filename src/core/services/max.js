@@ -29,7 +29,11 @@ Flux.service.max.subscribe({
 // playHornDown();
 
 function parseDataFromMax(data) {
-	log.info('Max data:', data);
+	if (data.indexOf('...') == -1) {
+		log.info('Max data:', data);
+	} else {
+		return;
+	}
 	switch (data) {
 		case 'blinkLed':
 			if (Odi.run('etat') == 'high') Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'blink led' });
@@ -53,7 +57,7 @@ function parseDataFromMax(data) {
 			}
 			break;
 		default:
-			log.info('unmapped Max data:', data);
+			log.debug('unmapped Max data:', data);
 			break;
 	}
 	//log.INFO('Set action or TTS here...');

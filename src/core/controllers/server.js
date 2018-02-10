@@ -591,13 +591,13 @@ function startUIServer(mode) {
 	}
 
 	ui.listen(8080, function() {
-		// Listen port 8080
 		log.info('UI server started [' + Odi.conf.mode + ']');
 		Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 120, loop: 3 }, null, null, 'hidden');
 	});
 }
 
 function closingServerTemporary() {
+	// Deprecated ?
 	log.info('closingServerTemporary');
 	ui.close;
 	setTimeout(function() {

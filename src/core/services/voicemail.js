@@ -26,7 +26,7 @@ Flux.service.voicemail.subscribe({
 
 const DELAY_TO_CLEAR_VOICEMAIL = 6 * 60 * 60 * 1000; //15*60*1000;
 const VOICEMAIL_FILE = Odi._TMP + 'voicemail.json';
-log.INFO('ça doit bugger par là...');
+//log.INFO('ça doit bugger par là...');
 const VOICEMAIL_FILE_HISTORY = Odi._LOG + 'voicemailHistory.json';
 
 /** Function to persist voicemail message */
@@ -83,8 +83,8 @@ function checkVoiceMail(withTTSResult, callback) {
 
 (function voiceMailFlag() {
 	// ==> TODO to jobs.js ???
-	log.info('VoiceMail flag initialized');
 	updateVoicemailMessage();
+	log.info('VoiceMail flag initialized');
 	setInterval(function() {
 		updateVoicemailMessage();
 	}, 10000);

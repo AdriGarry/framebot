@@ -14,9 +14,9 @@ var pastHour = hour;
 var Flux = require(Odi._CORE + 'Flux.js');
 
 if (Odi.isAwake()) {
+	setLifeCycleJobs();
 	initClock();
 	setInteractiveJobs();
-	setLifeCycleJobs();
 }
 
 new CronJob(

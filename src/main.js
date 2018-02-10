@@ -36,16 +36,17 @@ const observers = {
 		sleep: ['led', 'sound', 'hardware', 'arduino'],
 		all: ['tts']
 	},
+	controllers: {
+		sleep: ['button', 'jobs', 'server']
+	},
 	services: {
 		sleep: ['conf', 'system', 'time', 'voicemail', 'video'],
 		all: ['mood', 'interaction', 'music', 'party', 'max']
-	},
-	controllers: {
-		sleep: ['button', 'jobs', 'server']
 	}
 };
 
 Object.keys(observers).forEach(function(observer) {
+	// log.info('loading ', observer + '...');
 	let observersLoaded = '';
 	for (let i = 0; i < observers[observer].sleep.length; i++) {
 		require(Odi._CORE + observer + '/' + observers[observer].sleep[i] + '.js');
@@ -57,15 +58,10 @@ Object.keys(observers).forEach(function(observer) {
 		}
 		observersLoaded += ', ' + observers[observer].all.join(', ');
 	}
-
 	log.info(observer, 'loaded:', observersLoaded);
 });
-
-// Flux.next('module', 'conf', 'runtime');
+// console.log(module.loaded);
 log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
-
-// Flux.next('service', 'interaction', 'exclamation');
-// Flux.next('service', 'interaction', 'random');
 
 if (Odi.conf.mode == 'sleep') {
 	// Flux.next('module', 'arduino', 'sleep');
@@ -94,7 +90,7 @@ if (Odi.conf.mode == 'sleep') {
 } else {
 	Flux.next('service', 'time', 'isAlarm'); // Alarm / Cocorico...
 	new CronJob(
-		'2 * * * * *',
+		'1 * * * * *',
 		function() {
 			Flux.next('service', 'time', 'isAlarm', null, null, null, true);
 		},
@@ -147,8 +143,6 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 // 	});
 // }, 1000);
 
-// Flux.next('module', 'sound', 'mute', { message: 'Auto Mute FIP', delay: 2 }, 10);
-
 // var start = new Date();
 // setTimeout(function(argument) {
 // 	// execution time simulated with setTimeout function
@@ -159,6 +153,7 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 // Flux.next('service', 'party', 'pirate', null, 2, 2);
 // Flux.next('service', 'party', 'pirate', 'full', 3);
 
-// for (var i = 0; i < 20; i++) {
-// 	console.log(Utils.random());
-// }
+// setTimeout(() => {
+// 	console.log('after timeout', module.loaded);
+// }, 1);
+// console.log('EOF', module.loaded);
