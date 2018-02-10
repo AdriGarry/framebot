@@ -59,6 +59,7 @@ arduino.on('close', function(data) {
 	data = data.toString();
 	if (data.indexOf('bad file descriptor') >= 0) {
 		Odi.error('Max is disconnected', data, false);
+		Odi.run('max', null);
 		Flux.next('module', 'tts', 'speak', { lg: 'en', msg: "I've just lost my connexion with Max!" });
 	}
 });
