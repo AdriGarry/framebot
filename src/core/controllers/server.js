@@ -4,7 +4,6 @@
 /** Liste codes http
  *		200 : OK
  *		401 : Unauthorized (sleep)
- *		418 : I'm a teapot ! (autres requetes POST)
  *		424 : Method failure (erreur)
  */
 
@@ -561,8 +560,8 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/*', function(req, res) {
-			// Redirect Error
-			Odi.error('UI > I’m a teapot !', null, false);
+			// Others
+			Odi.error('Error UI > not mapped: ' + req.url, null, false);
 			res.writeHead(418);
 			res.end();
 		});
