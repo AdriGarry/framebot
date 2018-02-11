@@ -4,6 +4,7 @@
 /** Liste codes http
  *		200 : OK
  *		401 : Unauthorized (sleep)
+ *		418 : I'm a teapot ! (autres requetes POST)
  *		424 : Method failure (erreur)
  */
 
