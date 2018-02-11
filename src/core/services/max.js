@@ -31,10 +31,13 @@ Flux.service.max.subscribe({
 function parseDataFromMax(data) {
 	if (data.indexOf('...') == -1) {
 		log.info('Max data:', data);
-	} else {
-		return;
+		// } else {
+		// 	return;
 	}
 	switch (data) {
+		case 'some random action from Max':
+			if (Odi.isAwake()) Flux.next('module', 'tts', 'speak', 'Oh, il se passe un truc du coter de chez Max!');
+			break;
 		case 'blinkLed':
 			if (Odi.run('etat') == 'high') Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'blink led' });
 			break;

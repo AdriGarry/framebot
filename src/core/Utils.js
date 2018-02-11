@@ -36,7 +36,7 @@ module.exports = {
 function stackPosition(displayLine) {
 	let stack = new Error().stack;
 	let data = /\/([a-z]+.js):(\d+)/.exec(stack);
-	console.log(stack);
+	// console.log(stack);
 	// console.log(data[1], data[2]);
 	if (Array.isArray(data) && data[1]) {
 		if (displayLine && data[2]) {

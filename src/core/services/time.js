@@ -185,10 +185,10 @@ function cocoricoPart3() {
 	Flux.next('service', 'interaction', 'weather', null, 8);
 	Flux.next('service', 'voicemail', 'check', null, 13);
 
-	var baluchonTTS = { lg: 'fr', voice: 'espeak', msg: "Je crois qu'il faut lancer l'opairation baluchon" };
-	Flux.next('module', 'tts', 'speak', baluchonTTS, Utils.random(15, 25) * 60, 3);
+	Flux.next('service', 'music', 'fip', null, 45);
 
-	Flux.next('service', 'music', 'fip', null, 30);
+	var baluchonTTS = "Je crois qu'il faut lancer l'opairation baluchon";
+	Flux.next('module', 'tts', 'speak', baluchonTTS, Utils.random(15, 25) * 60, 3);
 }
 
 const BIRTHDAYS = ['17/04', '13/12'];
