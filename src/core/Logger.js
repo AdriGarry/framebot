@@ -36,6 +36,28 @@ function Logger(filename, debugMode, mode) {
 		modeDebug = true;
 	}
 
+	/** Function to retreive stack position at runtime */
+	// const FILE_LINE_REGEX = /\/([a-zA-Z]+.js):(\d+)/g;
+	// const FILE_REGEX = /\/([a-zA-Z]+.js)/g;
+	function stackPosition(displayLine) {
+		let stack = new Error().stack;
+		// let regex;
+		// if (displayLine) regex = FILE_LINE_REGEX;
+		// else regex = FILE_REGEX;
+		// let data = /\/([a-z]+.js):(\d+)/.exec(stack);
+		let data = stack.match(/([a-zA-Z]+.js):(\d+)/g);
+		// console.log(stack);
+		// console.log(data);
+		return data[2];
+		// if (Array.isArray(data) && data[1]) {
+		// 	if (displayLine && data[2]) {
+		// 		return data[1] + ':' + data[2];
+		// 	}
+		// 	return data[1];
+		// }
+		return '';
+	}
+
 	function formatLog(args) {
 		if (typeof args === 'string') {
 			return args;
@@ -56,34 +78,30 @@ function Logger(filename, debugMode, mode) {
 	}
 
 	function info() {
-		console.log(Utils.logTime(), modeFlag + '[' + Utils.stackPosition(true) + ']', formatLog(arguments));
+		console.log(Utils.logTime(), modeFlag + '[' + filename + ']', formatLog(arguments));
 	}
 
 	function INFO() {
-		console.log(
-			Utils.logTime(),
-			modeFlag + '[' + Utils.stackPosition(true).toUpperCase() + ']',
-			formatLog(arguments).toUpperCase()
-		);
+		console.log(Utils.logTime(), modeFlag + '[' + filename.toUpperCase() + ']', formatLog(arguments).toUpperCase());
 	}
 
 	function debug() {
 		if (!modeDebug) return;
-		console.log(Utils.logTime(), modeFlag + '[' + Utils.stackPosition(true) + ']\u2022', formatLog(arguments));
+		console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022', formatLog(arguments));
 	}
 
 	function DEBUG() {
 		if (!modeDebug) return;
 		console.log(
 			Utils.logTime(),
-			modeFlag + '[' + Utils.stackPosition(true).toUpperCase() + ']\u2022',
+			modeFlag + '[' + filename.toUpperCase() + ']\u2022',
 			formatLog(arguments).toUpperCase()
 		);
 	}
 
 	function error() {
 		console.log('______________');
-		console.error(Utils.logTime(), modeFlag + '[' + Utils.stackPosition(true) + ']', 'ERR >>', formatLog(arguments));
+		console.error(Utils.logTime(), modeFlag + '[' + filename + ']', 'ERR >>', formatLog(arguments));
 	}
 
 	// executionTime + 'ms';

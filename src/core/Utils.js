@@ -29,17 +29,22 @@ module.exports = {
 	testConnexion: testConnexion
 };
 
+/**
+ * Function to retreive stack position at runtime
+ * @param {*} displayLine
+ */
 function stackPosition(displayLine) {
-	var stack = new Error().stack;
-	let temp = /\/([a-z]+.js):(\d+)/gm.exec(stack);
-	// console.log(temp[1], temp[2]);
-	if (Array.isArray(temp) && temp[1]) {
-		if (displayLine && temp[2]) {
-			return temp[1] + ':' + temp[2];
+	let stack = new Error().stack;
+	let data = /\/([a-z]+.js):(\d+)/.exec(stack);
+	console.log(stack);
+	// console.log(data[1], data[2]);
+	if (Array.isArray(data) && data[1]) {
+		if (displayLine && data[2]) {
+			return data[1] + ':' + data[2];
 		}
-		return temp[1];
+		return data[1];
 	}
-	return null;
+	return '';
 }
 
 /**

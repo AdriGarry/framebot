@@ -75,3 +75,7 @@ function buttonHandler(flux) {
 }
 
 // log.info('Brain ready'); //loaded/compiled
+
+// setTimeout(() => {
+// 	log.INFO('---> TEST !!');
+// }, 3000);

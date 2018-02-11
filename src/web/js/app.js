@@ -6,8 +6,9 @@ app.constant('CONSTANTS', {
 	URL_ODI: 'http://odi.adrigarry.com',
 	// 'DATE_TIME_REGEX': new RegExp('[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', 'g'),
 	DATE_REGEX: new RegExp('[0-9]{2}/[0-9]{2} ', 'g'),
-	FILE_REGEX: new RegExp('\\[[a-zA-Z]+.(js|JS)\\] ', 'g'),
-	IP_REGEX: new RegExp('(\\[(?=.*[0-9])(?=.*\\.)(?=.*\\:).*\\])', 'g'),
+	FILE_REGEX: new RegExp('\\[[a-zA-Z]+.(js|JS)\\] ', 'g'), //'\\[[a-zA-Z]+.(js|JS):\\d+\\] '
+	// IP_REGEX: new RegExp('from (\\[(?=.*[0-9])(?=.*\\.)(?=.*\\:).*\\])', 'g'),
+	IP_REGEX: new RegExp('from \\[((?=.*[0-9])(?=.*\\.)(?=.*\\:).*)\\]', 'g'),
 	IP_REGEX_2: new RegExp(
 		'((([0–9A-Fa-f]{1,4}:){7}[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){6}:[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){5}:([0–9A-Fa-f]{1,4}:)?[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){4}:([0–9A-Fa-f]{1,4}:){0,2}[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){3}:([0–9A-Fa-f]{1,4}:){0,3}[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){2}:([0–9A-Fa-f]{1,4}:){0,4}[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){6}((b((25[0–5])|(1d{2})|(2[0–4]d)|(d{1,2}))b).){3}(b((25[0–5])|(1d{2})|(2[0–4]d)|(d{1,2}))b))|(([0–9A-Fa-f]{1,4}:){0,5}:((b((25[0–5])|(1d{2})|(2[0–4]d)|(d{1,2}))b).){3}(b((25[0–5])|(1d{2})|(2[0–4]d)|(d{1,2}))b))|(::([0–9A-Fa-f]{1,4}:){0,5}((b((25[0–5])|(1d{2})|(2[0–4]d)|(d{1,2}))b).){3}(b((25[0–5])|(1d{2})|(2[0–4]d)|(d{1,2}))b))|([0–9A-Fa-f]{1,4}::([0–9A-Fa-f]{1,4}:){0,5}[0–9A-Fa-f]{1,4})|(::([0–9A-Fa-f]{1,4}:){0,6}[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){1,7}:))',
 		'g'
@@ -42,10 +43,10 @@ app.filter('formatLog', function(CONSTANTS) {
 			logLine = logLine.replace(CONSTANTS.FILE_REGEX, '');
 		}
 		logLine = logLine.replace(CONSTANTS.IP_REGEX, function(match, capture) {
-			var ip = match.substr(1, match.length - 2);
+			var ip = match.substr(6, match.length - 7);
 			if (ip.search(/(^192\.168\.)/g)) {
 				return (
-					'[<a href="' +
+					'from [<a href="' +
 					CONSTANTS.IP_LOCALIZATOR_URL +
 					ip +
 					'" title="Localize this IP" target="_blank">' +
@@ -56,9 +57,9 @@ app.filter('formatLog', function(CONSTANTS) {
 				return '[' + ip + ']';
 			}
 		});
-		logLine = logLine.replace(CONSTANTS.DATE_TIME_REGEX, function(match) {
-			return '<span class="timeLog">' + match + '</span>';
-		});
+		// logLine = logLine.replace(CONSTANTS.DATE_TIME_REGEX, function(match) {
+		// 	return '<span class="timeLog">' + match + '</span>';
+		// });
 		return logLine;
 	};
 });

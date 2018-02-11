@@ -130,6 +130,8 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 	});
 }
 
+// log.INFO('stackPosition', Utils.stackPosition());
+
 // Flux.next('module', 'sound', 'play', { mp3: 'system/beBack.mp3' });
 // Flux.next('module', 'sound', 'play', { mp3: 'jukebox/CDuncan-Say.mp3', position: 7 }, 2);
 
