@@ -33,30 +33,30 @@ var CronJob = require('cron').CronJob;
 
 const observers = {
 	modules: {
-		sleep: ['led', 'sound', 'hardware', 'arduino'],
-		all: ['tts']
+		base: ['led', 'sound', 'hardware', 'arduino'],
+		full: ['tts']
 	},
 	controllers: {
-		sleep: ['button', 'jobs', 'server']
+		base: ['button', 'jobs', 'server']
 	},
 	services: {
-		sleep: ['conf', 'handler', 'system', 'time', 'voicemail', 'video'],
-		all: ['mood', 'interaction', 'music', 'party', 'max']
+		base: ['conf', 'handler', 'system', 'time', 'voicemail', 'video'],
+		full: ['mood', 'interaction', 'music', 'party', 'max']
 	}
 };
 
 Object.keys(observers).forEach(function(observer) {
 	// log.info('loading ', observer + '...');
 	let observersLoaded = '';
-	for (let i = 0; i < observers[observer].sleep.length; i++) {
-		require(Odi._CORE + observer + '/' + observers[observer].sleep[i] + '.js');
+	for (let i = 0; i < observers[observer].base.length; i++) {
+		require(Odi._CORE + observer + '/' + observers[observer].base[i] + '.js');
 	}
-	observersLoaded += observers[observer].sleep.join(', ');
-	if (Odi.isAwake() && observers[observer].hasOwnProperty('all')) {
-		for (let i = 0; i < observers[observer].all.length; i++) {
-			require(Odi._CORE + observer + '/' + observers[observer].all[i] + '.js');
+	observersLoaded += observers[observer].base.join(', ');
+	if (Odi.isAwake() && observers[observer].hasOwnProperty('full')) {
+		for (let i = 0; i < observers[observer].full.length; i++) {
+			require(Odi._CORE + observer + '/' + observers[observer].full[i] + '.js');
 		}
-		observersLoaded += ', ' + observers[observer].all.join(', ');
+		observersLoaded += ', ' + observers[observer].full.join(', ');
 	}
 	log.info(observer, 'loaded:', observersLoaded);
 });
@@ -64,7 +64,6 @@ Object.keys(observers).forEach(function(observer) {
 log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
 
 if (Odi.conf.mode == 'sleep') {
-	// Flux.next('module', 'arduino', 'sleep');
 	new CronJob(
 		'0 * * * * *',
 		function() {
@@ -79,7 +78,6 @@ if (Odi.conf.mode == 'sleep') {
 	/////////////  TEST section  /////////////
 	Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'test sequence' });
 	setTimeout(function() {
-		// Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 1 }, null, null, true);
 		var testSequence = require(Odi._SRC + 'test/tests.js').launch(function(testStatus) {
 			Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'all tests succeeded!' });
 			setTimeout(function() {
@@ -101,7 +99,6 @@ if (Odi.conf.mode == 'sleep') {
 	if (!Odi.run('alarm')) {
 		Flux.next('service', 'voicemail', 'check');
 	}
-	// Flux.next('module', 'arduino', 'sleep', null, 10 * 60);
 }
 Flux.next('module', 'conf', 'runtime');
 
@@ -149,9 +146,6 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 // 	var end = new Date() - start;
 // 	console.info('Execution time: %dms', end);
 // }, 5000);
-
-// Flux.next('service', 'party', 'pirate', null, 2, 2);
-// Flux.next('service', 'party', 'pirate', 'full', 3);
 
 // setTimeout(() => {
 // 	console.log('after timeout', module.loaded);
