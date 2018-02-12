@@ -28,7 +28,7 @@ log.debug('argv', argv);
 
 var Utils = require(Odi._CORE + 'Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
-var Brain = require(Odi._CORE + 'Brain.js');
+// var Brain = require(Odi._CORE + 'Brain.js');
 var CronJob = require('cron').CronJob;
 
 const observers = {
@@ -40,7 +40,7 @@ const observers = {
 		sleep: ['button', 'jobs', 'server']
 	},
 	services: {
-		sleep: ['conf', 'system', 'time', 'voicemail', 'video'],
+		sleep: ['conf', 'handler', 'system', 'time', 'voicemail', 'video'],
 		all: ['mood', 'interaction', 'music', 'party', 'max']
 	}
 };
@@ -129,8 +129,6 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 		delay = delay + 10;
 	});
 }
-
-// log.INFO('stackPosition', Utils.stackPosition());
 
 // Flux.next('module', 'sound', 'play', { mp3: 'system/beBack.mp3' });
 // Flux.next('module', 'sound', 'play', { mp3: 'jukebox/CDuncan-Say.mp3', position: 7 }, 2);

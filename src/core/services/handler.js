@@ -5,8 +5,6 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 var Utils = require(Odi._CORE + 'Utils.js');
 
-// const Rx = require('rxjs');
-
 var Flux = require(Odi._CORE + 'Flux.js');
 
 Flux.controller.button.subscribe({
@@ -73,8 +71,6 @@ function buttonHandler(flux) {
 		}
 	}
 }
-
-// log.info('Brain ready'); //loaded/compiled
 
 // setTimeout(() => {
 // 	log.INFO('---> TEST !!');

@@ -54,7 +54,6 @@ function FluxObject(type, subject, id, value, delay, loop, hidden) {
 	this.hidden = hidden || false;
 
 	this.toString = () => {
-		// var typeSubject = '[' + this.type + '.' + this.subject + '] ';
 		var typeSubject = this.type + '|' + this.subject + ' ';
 		var value = this.id + (this.value ? ' ' + util.format(util.inspect(this.value)) : '') + ' ';
 		var delay = ' ' + (this.delay || '');
@@ -75,7 +74,6 @@ function next(type, subject, id, value, delay, loop, hidden) {
 }
 
 var inspect = flux => {
-	//log.debug('inspecting Flux:', flux.toString());
 	if (Object.keys(Flux).includes(flux.type) && Object.keys(Flux[flux.type]).includes(flux.subject)) {
 		return true;
 	}
