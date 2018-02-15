@@ -105,7 +105,10 @@ function setAlarm(alarm) {
 			newAlarms[key] = Odi.conf.alarms[key];
 		}
 	});
-	Flux.next('module', 'conf', 'updateRestart', { alarms: newAlarms });
+	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
+	let alarmTTS = 'Alarme ' + alarmMode + ' reprogramer a ' + alarm.h + ' heures et ' + alarm.m + ' minutes';
+	Flux.next('module', 'tts', 'speak', alarmTTS);
+	Flux.next('module', 'conf', 'updateRestart', { alarms: newAlarms }, 5);
 }
 
 /** Function to test if alarm now */
