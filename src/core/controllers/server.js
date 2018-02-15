@@ -102,6 +102,7 @@ function startUIServer(mode) {
 		} else {
 			if (unauthorizedRequestNb >= 2) {
 				tooMuchBadRequests = true;
+				// closingServerTemporary();
 				var badRequestTimeout = setTimeout(function() {
 					clearTimeout(badRequestTimeout);
 					tooMuchBadRequests = false;
@@ -598,9 +599,10 @@ function startUIServer(mode) {
 
 function closingServerTemporary() {
 	// Deprecated ?
-	log.info('closingServerTemporary');
+	log.INFO('closing UI server temporary.');
 	ui.close;
 	setTimeout(function() {
+		log.info('restarting UI server...');
 		startUIServer();
 	}, 3000);
 }
