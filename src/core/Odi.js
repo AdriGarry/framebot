@@ -56,7 +56,7 @@ var Odi = {
 	isAwake: isAwake,
 	run: runtimeFunctions,
 	stats: null,
-	error: error, //require(ODI_PATH + 'src/core/OdiError.json'), ??
+	error: error,
 	errors: [],
 	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
 	_SRC: ODI_PATH + 'src/',
@@ -90,15 +90,6 @@ var _runtime = {
 		odi: null,
 		system: null
 	},
-	// memory: {
-	// 	used: null,
-	// 	total: null,
-	// 	percent: null
-	// },
-	// memory: {
-	// 	odi: null,
-	// 	system: null,
-	// },
 	stats: {
 		diskSpace: null,
 		totalLines: null,
