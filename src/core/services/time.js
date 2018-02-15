@@ -87,8 +87,8 @@ function getSeason() {
 
 /** Function to disable all Odi's alarms */
 function disableAllAlarms() {
-	// var newAlarms = {};
-	Flux.next('module', 'conf', 'updateRestart', { alarms: { weekDay: null, weekEnd: null } });
+	Flux.next('module', 'tts', 'speak', 'Annulation de toutes les alarmes');
+	Flux.next('module', 'conf', 'updateRestart', { alarms: { weekDay: null, weekEnd: null } }, 4);
 }
 
 /** Function to set Odi's custom alarm */
