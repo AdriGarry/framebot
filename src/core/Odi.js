@@ -42,8 +42,10 @@ var _setRuntimeValue = function(runtimeId, newRuntimeValue) {
 			// _runtime[runtimeId] = newRuntimeValue;
 		}
 		return true;
+		// Flux.next('module', 'runtime', 'update', {id:runtimeId, value: newRuntimeValue}, null, null, true);
 	} else {
 		log.info('_setRuntimeValue ERROR:', runtimeId);
+		// Flux.next('module', 'runtime', 'update', {id:runtimeId, value: newRuntimeValue}, null, null, true);
 		return false;
 	}
 };
