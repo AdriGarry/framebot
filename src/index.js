@@ -4,10 +4,13 @@
 const argv = process.argv.splice(2);
 
 var fs = require('fs');
+var path = require('path');
 var spawn = require('child_process').spawn;
 
-const SRC_PATH = __filename.match(/\/.*\//g)[0];
-const ODI_PATH = SRC_PATH.replace('src/', '');
+let sep = path.sep;
+// const SRC_PATH = __filename.match(/\/.*\//g)[0];
+const SRC_PATH = __dirname + sep;
+const ODI_PATH = __dirname.replace('src', '');
 
 /** Function to start up Odi */
 (function startOdi(exitCode) {
