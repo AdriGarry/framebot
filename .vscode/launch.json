@@ -7,13 +7,6 @@
 			"name": "Launch Node Program",
 			"program": "${workspaceRoot}\\src\\index"
 			// "program": "${workspaceRoot}\\odi.sh"
-		},
-		{
-			"type": "sh",
-			"request": "launch",
-			"name": "Launch Shell Program",
-			// "program": "${workspaceRoot}\\src\\index"
-			"program": "${workspaceRoot}\\odi.sh"
 		}
 	]
 }
