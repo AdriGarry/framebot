@@ -1,78 +1,12 @@
 #!/usr/bin/env node
 'use strict';
 
+// var Object = new (require(ODI_PATH + 'src/core/Object.js'))();
 var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
+var Lock = require(ODI_PATH + 'src/core/Lock.js');
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var fs = require('fs');
 
-/**
- * run(), run(id), run(id, value)
- * @param {*} runtimeId
- * @param {*} newRuntimeValue
- */
-var runtimeFunctions = function(runtimeId, newRuntimeValue) {
-	if (!runtimeId) return _runtime; //return all
-	if (typeof newRuntimeValue !== 'undefined')
-		return _setRuntimeValue(runtimeId, newRuntimeValue); //set value
-	else return _getRuntimeValue(runtimeId); //get value
-};
-var _getRuntimeValue = function(runtimeId) {
-	if (_runtime.hasOwnProperty(runtimeId)) {
-		return _runtime[runtimeId];
-	} else if (runtimeId.indexOf('.' > -1)) {
-		var keys = runtimeId.split('.');
-		return _runtime[keys[0]][keys[1]];
-	} else {
-		return log.info('_getRuntimeValue ERROR:', runtimeId);
-	}
-};
-var _setRuntimeValue = function(runtimeId, newRuntimeValue) {
-	var runtimeId2;
-	if (runtimeId.indexOf('.') > -1) {
-		var keys = runtimeId.split('.');
-		runtimeId = keys[0];
-		runtimeId2 = keys[1];
-	}
-	if (_runtime.hasOwnProperty(runtimeId)) {
-		if (Array.isArray(_runtime[runtimeId])) {
-			_runtime[runtimeId].push(newRuntimeValue);
-		} else {
-			if (runtimeId2) _runtime[keys[0]][keys[1]] = newRuntimeValue;
-			else _runtime[runtimeId] = newRuntimeValue;
-			// _runtime[runtimeId] = newRuntimeValue;
-		}
-		return true;
-		// Flux.next('module', 'runtime', 'update', {id:runtimeId, value: newRuntimeValue}, null, null, true);
-	} else {
-		log.info('_setRuntimeValue ERROR:', runtimeId);
-		// Flux.next('module', 'runtime', 'update', {id:runtimeId, value: newRuntimeValue}, null, null, true);
-		return false;
-	}
-};
-
-var Odi = {
-	status: null,
-	conf: require(ODI_PATH + 'conf.json'),
-	isAwake: isAwake,
-	run: runtimeFunctions,
-	stats: null,
-	error: error,
-	errors: [],
-	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
-	_SRC: ODI_PATH + 'src/',
-	_CORE: ODI_PATH + 'src/core/',
-	_SHELL: ODI_PATH + 'src/shell/',
-	_WEB: ODI_PATH + 'src/web/',
-	_CONF: ODI_PATH + 'conf.json',
-	_DATA: ODI_PATH + 'data/',
-	_MP3: ODI_PATH + 'media/mp3/',
-	_LOG: ODI_PATH + 'log/',
-	_TMP: ODI_PATH + 'tmp/'
-};
-module.exports = {
-	init: initOdi,
-	Odi: Odi
-};
 var _runtime = {
 	etat: null,
 	volume: null,
@@ -95,6 +29,29 @@ var _runtime = {
 		totalLines: null,
 		update: null
 	}
+};
+var Odi = {
+	status: null,
+	conf: require(ODI_PATH + 'conf.json'),
+	isAwake: isAwake,
+	run: new Lock(_runtime),
+	stats: null,
+	error: error,
+	errors: [],
+	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
+	_SRC: ODI_PATH + 'src/',
+	_CORE: ODI_PATH + 'src/core/',
+	_SHELL: ODI_PATH + 'src/shell/',
+	_WEB: ODI_PATH + 'src/web/',
+	_CONF: ODI_PATH + 'conf.json',
+	_DATA: ODI_PATH + 'data/',
+	_MP3: ODI_PATH + 'media/mp3/',
+	_LOG: ODI_PATH + 'log/',
+	_TMP: ODI_PATH + 'tmp/'
+};
+module.exports = {
+	init: initOdi,
+	Odi: Odi
 };
 
 var Flux = { next: null };

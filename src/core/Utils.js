@@ -167,7 +167,8 @@ function firstLetterUpper(string) {
 
 /** Function to repeat/concat a string */
 String.prototype.repeat = function(num) {
-	return new Array(Math.abs(num) + 1).join(this);
+	if (Number(num)) return new Array(Math.abs(num) + 1).join(this);
+	return '';
 };
 
 /** Function to remove quotes in a string */

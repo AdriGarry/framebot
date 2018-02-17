@@ -91,7 +91,7 @@ app.component('mode', {
 			label: 'Mode',
 			actionList: [
 				{ label: 'Reset', icon: 'fas fa-retweet', url: '/resetConfig' },
-				{ label: 'Test', icon: 'fas fa-cubes', url: '/testSequence' },
+				// { label: 'Test', icon: 'fas fa-cubes', url: '/testSequence' },
 				{ label: '!Debug', icon: 'fas fa-terminal', url: '/toggleDebug' },
 				{ label: 'Sleep', icon: 'far fa-moon', url: '/sleep' },
 				{ label: 'Restart', icon: 'fas fa-bolt', url: '/odi' }
@@ -548,8 +548,8 @@ app.component('videos', {
 app.component('arduino', {
 	bindings: {
 		data: '<',
-		access: '<'
-		//odiState: '<'
+		access: '<',
+		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
@@ -562,6 +562,27 @@ app.component('arduino', {
 				{ label: 'Melody', icon: 'fas fa-music', url: '/arduinoMelody' },
 				{ label: 'RDM Melody', icon: 'fas fa-music', url: '/arduinoRdmMelody' },
 				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/arduinoHorn' }
+			]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+	}
+});
+
+/** Test component */
+app.component('test', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Test',
+			actionList: [
+				{ label: 'Test cycle', icon: 'fas fa-cubes', url: '/testSequence' },
+				{ label: 'Demo', icon: 'fas fa-bullhorn', url: '/arduinoHorn' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
