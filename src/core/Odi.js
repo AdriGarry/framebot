@@ -50,15 +50,15 @@ var fs = require('fs');
 // 		return false;
 // 	}
 // };
-var toto = require(ODI_PATH + 'src/core/Object.js');
+var Lock = require(ODI_PATH + 'src/core/Lock.js');
 console.log('--1');
-console.log(toto);
+console.log(Lock);
 console.log('--2');
 var Odi = {
 	status: null,
 	conf: require(ODI_PATH + 'conf.json'),
 	isAwake: isAwake,
-	run: toto.initLock,
+	run: Lock.init,
 	stats: null,
 	error: error,
 	errors: [],
