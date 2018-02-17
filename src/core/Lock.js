@@ -1,13 +1,21 @@
-// var Flux = require(ODI_PATH + 'src/core/Flux.js');
+#!/usr/bin/env node
+'use strict';
+
 var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
+var Utils = require(ODI_PATH + 'src/core/Utils.js');
+
+var Flux = {};
+setTimeout(() => {
+	Flux = require(ODI_PATH + 'src/core/Flux.js');
+	console.log(Flux.next);
+}, 100);
 
 function Lock(obj, file) {
 	var self = this;
 	this._obj = obj;
-	// log.info('initLock(obj, file)', /*obj,*/ file);
-	return lockedFunctions;
+	return _functions;
 
-	function lockedFunctions(id, newValue) {
+	function _functions(id, newValue) {
 		if (!id) return self._obj; //return all
 		if (typeof newValue !== 'undefined')
 			return _setter(id, newValue); //set value
@@ -21,7 +29,7 @@ function Lock(obj, file) {
 			var keys = id.split('.');
 			return self._obj[keys[0]][keys[1]];
 		} else {
-			return log.info('_getObjValue ERROR:', id);
+			return log.error('_getObjValue ERROR:', id);
 		}
 	}
 
@@ -39,11 +47,13 @@ function Lock(obj, file) {
 				if (id2) self._obj[keys[0]][keys[1]] = newValue;
 				else self._obj[id] = newValue;
 			}
+			if (Flux.next) {
+				// console.log('------YES');
+				//Flux.next('module', 'conf', 'updated', { id: id, value: newValue }, null, null, false);
+			}
 			return true;
-			// Flux.next('module', 'runtime', 'update', {id:runtimeId, value: newRuntimeValue}, null, null, true);
 		} else {
-			log.info('_setObjValue ERROR:', id);
-			// Flux.next('module', 'runtime', 'update', {id:runtimeId, value: newRuntimeValue}, null, null, true);
+			log.error('_setObjValue ERROR:', id);
 			return false;
 		}
 	}
