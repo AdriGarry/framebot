@@ -204,14 +204,14 @@ function startUIServer(mode) {
 	/** TOGGLE DEBUG MODE */
 	ui.post('/toggleDebug', function(req, res) {
 		log.debug('UI > Toggle debug');
-		Flux.next('module', 'conf', 'updateRestart', { debug: Odi.conf.debug ? 0 : 20 });
+		Flux.next('module', 'runtime', 'updateRestart', { debug: Odi.conf.debug ? 0 : 20 });
 		// Odi.update({ debug: Odi.conf.debug ? 0 : 20 }, true);
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/testSequence', function(req, res) {
-		Flux.next('module', 'conf', 'updateRestart', { mode: 'test' });
+		Flux.next('module', 'runtime', 'updateRestart', { mode: 'test' });
 		// Odi.update({ mode: 'test' }, true);
 		res.writeHead(200);
 		res.end();
@@ -219,7 +219,7 @@ function startUIServer(mode) {
 
 	ui.post('/resetConfig', function(req, res) {
 		log.debug('UI > Reset config');
-		Flux.next('module', 'conf', 'reset', true);
+		Flux.next('module', 'runtime', 'reset', true);
 		res.writeHead(200);
 		res.end();
 	});

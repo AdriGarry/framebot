@@ -88,7 +88,7 @@ function getSeason() {
 /** Function to disable all Odi's alarms */
 function disableAllAlarms() {
 	Flux.next('module', 'tts', 'speak', 'Annulation de toutes les alarmes');
-	Flux.next('module', 'conf', 'updateRestart', { alarms: { weekDay: null, weekEnd: null } }, 4);
+	Flux.next('module', 'runtime', 'updateRestart', { alarms: { weekDay: null, weekEnd: null } }, 4);
 }
 
 /** Function to set Odi's custom alarm */
@@ -108,7 +108,7 @@ function setAlarm(alarm) {
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
 	let alarmTTS = 'Alarme ' + alarmMode + ' reprogramer a ' + alarm.h + ' heures et ' + alarm.m + ' minutes';
 	Flux.next('module', 'tts', 'speak', alarmTTS);
-	Flux.next('module', 'conf', 'updateRestart', { alarms: newAlarms }, 6);
+	Flux.next('module', 'runtime', 'updateRestart', { alarms: newAlarms }, 6);
 }
 
 /** Function to test if alarm now */

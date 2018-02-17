@@ -31,7 +31,7 @@ var Flux = require(Odi._CORE + 'Flux.js');
 
 const observers = {
 	modules: {
-		base: ['led', 'sound', 'hardware', 'conf', 'arduino'],
+		base: ['runtime', 'led', 'sound', 'hardware', 'arduino'],
 		full: ['tts']
 	},
 	controllers: {
@@ -70,7 +70,7 @@ if (Odi.conf.mode == 'sleep') {
 		var testSequence = require(Odi._SRC + 'test/tests.js').launch(function(testStatus) {
 			Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'all tests succeeded!' });
 			setTimeout(function() {
-				if (testStatus) Flux.next('module', 'conf', 'updateRestart', { mode: 'ready' });
+				if (testStatus) Flux.next('module', 'runtime', 'updateRestart', { mode: 'ready' });
 			}, 3000);
 		});
 	}, 1000);
@@ -79,7 +79,7 @@ if (Odi.conf.mode == 'sleep') {
 		Flux.next('service', 'voicemail', 'check');
 	}
 }
-Flux.next('module', 'conf', 'runtime');
+Flux.next('module', 'runtime', 'runtime');
 
 const HORNS = [
 	'playHornWarning',

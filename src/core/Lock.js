@@ -49,7 +49,7 @@ function Lock(obj, file) {
 			}
 			if (Flux.next) {
 				// console.log('------YES');
-				//Flux.next('module', 'conf', 'updated', { id: id, value: newValue }, null, null, false);
+				//Flux.next('module', 'runtime', 'updated', { id: id, value: newValue }, null, null, false);
 			}
 			return true;
 		} else {

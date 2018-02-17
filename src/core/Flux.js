@@ -16,7 +16,7 @@ var Flux = {
 	},
 	module: {
 		arduino: new Rx.Subject(),
-		conf: new Rx.Subject(),
+		runtime: new Rx.Subject(),
 		hardware: new Rx.Subject(),
 		led: new Rx.Subject(),
 		sound: new Rx.Subject(),

@@ -88,7 +88,7 @@ function initOdi(path, forcedParams) {
 	}
 	log.info('Odi main object initialized');
 	Flux = require(Odi._CORE + 'Flux.js');
-	Flux.next('module', 'conf', 'update', confUpdate, 0.1);
+	Flux.next('module', 'runtime', 'update', confUpdate, 0.1);
 	return Odi;
 }
 
@@ -117,7 +117,7 @@ function error(label, data, stackTrace) {
 function enableDebugCountdown() {
 	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf.debug + 'min ' + '\u2022\u2022\u2022');
 	setInterval(function() {
-		Flux.next('module', 'conf', 'update', { debug: --Odi.conf.debug });
+		Flux.next('module', 'runtime', 'update', { debug: --Odi.conf.debug });
 		if (!Odi.conf.debug) {
 			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
 			setTimeout(function() {

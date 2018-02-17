@@ -8,7 +8,7 @@ var Flux = require(Odi._CORE + 'Flux.js');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 
-Flux.module.conf.subscribe({
+Flux.module.runtime.subscribe({
 	next: flux => {
 		if (flux.id == 'update') {
 			updateConf(flux.value, false);
