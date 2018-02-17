@@ -28,6 +28,15 @@ new CronJob(
 	true,
 	'Europe/Paris'
 );
+new CronJob(
+	'1 * * * * *',
+	function() {
+		Flux.next('service', 'time', 'isAlarm', null, null, null, true);
+	},
+	null,
+	true,
+	'Europe/Paris'
+);
 
 new CronJob(
 	'0 2 0 * * 1',

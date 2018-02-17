@@ -28,8 +28,6 @@ log.debug('argv', argv);
 
 var Utils = require(Odi._CORE + 'Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
-// var Brain = require(Odi._CORE + 'Brain.js');
-var CronJob = require('cron').CronJob;
 
 const observers = {
 	modules: {
@@ -64,15 +62,6 @@ Object.keys(observers).forEach(function(observer) {
 log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
 
 if (Odi.conf.mode == 'sleep') {
-	new CronJob(
-		'0 * * * * *',
-		function() {
-			Flux.next('service', 'time', 'isAlarm', null, null, null, true);
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
 	Flux.next('service', 'video', 'screenOff');
 } else if (Odi.conf.mode == 'test') {
 	/////////////  TEST section  /////////////
@@ -86,16 +75,6 @@ if (Odi.conf.mode == 'sleep') {
 		});
 	}, 1000);
 } else {
-	Flux.next('service', 'time', 'isAlarm'); // Alarm / Cocorico...
-	new CronJob(
-		'1 * * * * *',
-		function() {
-			Flux.next('service', 'time', 'isAlarm', null, null, null, true);
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
 	if (!Odi.run('alarm')) {
 		Flux.next('service', 'voicemail', 'check');
 	}
