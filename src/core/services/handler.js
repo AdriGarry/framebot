@@ -7,6 +7,15 @@ var Utils = require(Odi._CORE + 'Utils.js');
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
+// Flux.controller.button.subscribe({ // ==> general handler ? all ?
+// 	next: flux => {
+// 		buttonHandler(flux);
+// 	},
+// 	error: err => {
+// 		Odi.error(flux);
+// 	}
+// });
+
 Flux.controller.button.subscribe({
 	next: flux => {
 		buttonHandler(flux);
