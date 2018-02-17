@@ -582,7 +582,7 @@ app.component('test', {
 			label: 'Test',
 			actionList: [
 				{ label: 'Test cycle', icon: 'fas fa-cubes', url: '/testSequence' },
-				{ label: 'Demo', icon: 'fas fa-bullhorn', url: '/arduinoHorn' }
+				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
