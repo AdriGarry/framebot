@@ -12,7 +12,12 @@ setTimeout(() => {
 
 function Lock(obj, file) {
 	var self = this;
-	this._obj = obj;
+	self._obj = obj;
+	if (file) {
+		self.file = file;
+	} else {
+		self.file = false;
+	}
 	return _functions;
 
 	function _functions(id, newValue) {
@@ -50,6 +55,9 @@ function Lock(obj, file) {
 			if (Flux.next) {
 				// console.log('------YES');
 				//Flux.next('module', 'runtime', 'updated', { id: id, value: newValue }, null, null, false);
+			}
+			if (self.file) {
+				log.info('==>', self.file);
 			}
 			return true;
 		} else {
