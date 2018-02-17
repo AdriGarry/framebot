@@ -1,56 +1,52 @@
-var initLock = function(obj, file) {
-	console.log('initLock(obj, file)', obj, file);
+// var Flux = require(ODI_PATH + 'src/core/Flux.js');
+var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
+
+function Lock(obj, file) {
+	var self = this;
+	this._obj = obj;
+	// log.info('initLock(obj, file)', /*obj,*/ file);
 	return lockedFunctions;
 
-	/**
-	 * run(), run(id), run(id, value)
-	 * @param {*} runtimeId
-	 * @param {*} newRuntimeValue
-	 */
-	// var lockedFunctions = function(runtimeId, newRuntimeValue) {
-	function lockedFunctions(runtimeId, newRuntimeValue) {
-		if (!runtimeId) return _runtime; //return all
-		if (typeof newRuntimeValue !== 'undefined')
-			return _setRuntimeValue(runtimeId, newRuntimeValue); //set value
-		else return _getRuntimeValue(runtimeId); //get value
+	function lockedFunctions(id, newValue) {
+		if (!id) return self._obj; //return all
+		if (typeof newValue !== 'undefined')
+			return _setter(id, newValue); //set value
+		else return _getter(id); //get value
 	}
 
-	// var _getRuntimeValue = function(runtimeId) {
-	function _getRuntimeValue(runtimeId) {
-		if (_runtime.hasOwnProperty(runtimeId)) {
-			return _runtime[runtimeId];
-		} else if (runtimeId.indexOf('.' > -1)) {
-			var keys = runtimeId.split('.');
-			return _runtime[keys[0]][keys[1]];
+	function _getter(id) {
+		if (self._obj.hasOwnProperty(id)) {
+			return self._obj[id];
+		} else if (id.indexOf('.' > -1)) {
+			var keys = id.split('.');
+			return self._obj[keys[0]][keys[1]];
 		} else {
-			return log.info('_getRuntimeValue ERROR:', runtimeId);
+			return log.info('_getObjValue ERROR:', id);
 		}
 	}
 
-	// var _setRuntimeValue = function(runtimeId, newRuntimeValue) {
-	function _setRuntimeValue(runtimeId, newRuntimeValue) {
-		var runtimeId2;
-		if (runtimeId.indexOf('.') > -1) {
-			var keys = runtimeId.split('.');
-			runtimeId = keys[0];
-			runtimeId2 = keys[1];
+	function _setter(id, newValue) {
+		var id2;
+		if (id.indexOf('.') > -1) {
+			var keys = id.split('.');
+			id = keys[0];
+			id2 = keys[1];
 		}
-		if (_runtime.hasOwnProperty(runtimeId)) {
-			if (Array.isArray(_runtime[runtimeId])) {
-				_runtime[runtimeId].push(newRuntimeValue);
+		if (self._obj.hasOwnProperty(id)) {
+			if (Array.isArray(self._obj[id])) {
+				self._obj[id].push(newValue);
 			} else {
-				if (runtimeId2) _runtime[keys[0]][keys[1]] = newRuntimeValue;
-				else _runtime[runtimeId] = newRuntimeValue;
-				// _runtime[runtimeId] = newRuntimeValue;
+				if (id2) self._obj[keys[0]][keys[1]] = newValue;
+				else self._obj[id] = newValue;
 			}
 			return true;
 			// Flux.next('module', 'runtime', 'update', {id:runtimeId, value: newRuntimeValue}, null, null, true);
 		} else {
-			log.info('_setRuntimeValue ERROR:', runtimeId);
+			log.info('_setObjValue ERROR:', id);
 			// Flux.next('module', 'runtime', 'update', {id:runtimeId, value: newRuntimeValue}, null, null, true);
 			return false;
 		}
 	}
-};
+}
 
-module.exports.init = initLock;
+module.exports = Lock;

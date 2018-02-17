@@ -29,7 +29,6 @@ Flux.service.system.subscribe({
 function restartOdi(mode) {
 	log.info('restarting Odi...', mode || '');
 	Flux.next('module', 'conf', 'updateRestart', { mode: mode || 'ready' });
-	// Odi.update({ mode: mode || 'ready' }, true);
 }
 
 /** Function to reboot RPI */

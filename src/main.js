@@ -33,14 +33,14 @@ var CronJob = require('cron').CronJob;
 
 const observers = {
 	modules: {
-		base: ['led', 'sound', 'hardware', 'arduino'],
+		base: ['led', 'sound', 'hardware', 'conf', 'arduino'],
 		full: ['tts']
 	},
 	controllers: {
 		base: ['button', 'jobs', 'server']
 	},
 	services: {
-		base: ['conf', 'handler', 'system', 'time', 'voicemail', 'video'],
+		base: ['handler', 'system', 'time', 'voicemail', 'video'],
 		full: ['mood', 'interaction', 'music', 'party', 'max']
 	}
 };
