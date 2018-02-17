@@ -621,7 +621,7 @@ app.component('about', {
 		var ctrl = this;
 		var tileParams = {
 			label: 'About',
-			actionList: []
+			actionList: [{ url: 'http://odi.adrigarry.com/about' }]
 		};
 		ctrl.access = true;
 		ctrl.tile = new DefaultTile(tileParams, true);

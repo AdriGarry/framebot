@@ -278,6 +278,11 @@ function startUIServer(mode) {
 		res.end(fs.readFileSync(FILE_VOICEMAIL_HISTORY, 'utf8').toString());
 	});
 
+	ui.get('/about', function(req, res) {
+		res.writeHead(200);
+		res.end(fs.readFileSync(ODI_PATH + 'README.md', 'utf8').toString());
+	});
+
 	/** ==> POST SECTION */
 	ui.post('/odi', function(req, res) {
 		Flux.next('service', 'system', 'restart');
