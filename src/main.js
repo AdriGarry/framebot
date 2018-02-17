@@ -79,7 +79,7 @@ if (Odi.conf.mode == 'sleep') {
 		Flux.next('service', 'voicemail', 'check');
 	}
 }
-Flux.next('module', 'runtime', 'runtime');
+Flux.next('module', 'runtime', 'refresh');
 
 const HORNS = [
 	'playHornWarning',

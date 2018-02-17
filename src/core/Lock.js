@@ -7,7 +7,7 @@ var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var Flux = {};
 setTimeout(() => {
 	Flux = require(ODI_PATH + 'src/core/Flux.js');
-	console.log(Flux.next);
+	// console.log(Flux.next);
 }, 100);
 
 function Lock(obj, file) {

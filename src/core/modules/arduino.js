@@ -29,6 +29,9 @@ var arduino = new SerialPort(ARDUINO, function(err) {
 		// return console.log('Error opening arduino port:', err.message);
 		Odi.error('Error opening arduino port: ', err.message, false);
 		// Scheduler to retry connect...?
+		if (!Odi.run('alarm') && Odi.run('etat') == 'high') {
+			Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Max is not available' });
+		}
 	} else {
 		log.info('communication serie with arduino opened');
 		Odi.run('max', true);

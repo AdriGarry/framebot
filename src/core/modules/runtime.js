@@ -18,7 +18,7 @@ Flux.module.runtime.subscribe({
 			updateDefaultConf(flux.value);
 		} else if (flux.id == 'reset') {
 			resetCfg(flux.value);
-		} else if (flux.id == 'runtime') {
+		} else if (flux.id == 'refresh') {
 			refreshRuntime(flux.value);
 		} else Odi.error('unmapped flux in Conf service', flux, false);
 	},
