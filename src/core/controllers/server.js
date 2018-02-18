@@ -281,9 +281,9 @@ function startUIServer(mode) {
 
 	/** ==> POST SECTION */
 	ui.post('/odi', function(req, res) {
-		Flux.next('service', 'system', 'restart');
 		res.writeHead(200);
 		res.end();
+		Flux.next('service', 'system', 'restart');
 	});
 
 	ui.post('/sleep', function(req, res) {

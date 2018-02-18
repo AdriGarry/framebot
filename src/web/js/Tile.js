@@ -25,9 +25,8 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdBottom
 
 	/** Function on click on Tile **/
 	function click() {
-		if (!$rootScope.irda) {
-			UIService.showErrorToast('Unauthorized action.');
-		} else {
+		// console.log(this.label, this.label != 'About');
+		if ($rootScope.irda || this.label == 'About') {
 			if (this.actionList.length > 1) {
 				openBottomSheet(this.actionList);
 			} else if (this.actionList.length == 1) {
@@ -36,6 +35,8 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdBottom
 				console.log('No action affected.');
 				UIService.showToast('No action affected.');
 			}
+		} else {
+			UIService.showErrorToast('Unauthorized action.');
 		}
 	}
 
