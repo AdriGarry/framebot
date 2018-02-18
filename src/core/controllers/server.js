@@ -330,7 +330,7 @@ function startUIServer(mode) {
 		if (granted) granted = false;
 	});
 
-	if (!Odi.isAwake()) {
+	if (Odi.isAwake()) {
 		ui.post('/tts', function(req, res) {
 			var params = req.query;
 			if (params.voice && params.lg && params.msg) {

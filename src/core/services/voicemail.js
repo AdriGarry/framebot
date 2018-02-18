@@ -56,7 +56,7 @@ function checkVoiceMail(withTTSResult, callback) {
 	log.debug('Checking VoiceMail...');
 	Utils.getJsonFileContent(VOICEMAIL_FILE, function(messages) {
 		if (messages) {
-			messages = JSON.parse(messages);
+			messages = JSON.parse(messages); // TODO tester ici la validité du message (format etc)!!
 			log.debug(messages);
 			Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Messages' });
 			Flux.next('module', 'tts', 'speak', messages);
