@@ -655,7 +655,13 @@ md-dialog {
 md-dialog md-dialog-content h2 i[class*='fa-'] {
 	float: right;
 }
-
+md-dialog .markdown ul {
+	list-style-type: none;
+	padding-left: 1em;
+}
+md-dialog .markdown ul li:before {
+	content: '- ';
+}
 /* ------------------------------ BOTTOM SHEET ------------------------------- */
 md-bottom-sheet {
 	position: fixed;

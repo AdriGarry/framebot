@@ -9,15 +9,15 @@
 		</ul>-->
 
 		<pre data-ng-hide="modal.from.label == 'About'">{{modal.data | json:4}}</pre>
-		<div data-ng-if="modal.from.label == 'About'" data-ng-bind-html="modal.raw | markdown"></div>
+		<div data-ng-if="modal.from.label == 'About'" data-ng-bind-html="modal.raw | markdown" class="markdown"></div>
 
 		<md-dialog-actions>
-			<md-button class="md-raised" data-ng-click="close()">Close</md-button>&nbsp;&nbsp;&nbsp;
+			<md-button class=" md-raised " data-ng-click="close() ">Close</md-button>&nbsp;&nbsp;&nbsp;
 		</md-dialog-actions>
 	</md-dialog-content>
 </md-dialog>
 
-<style type="text/css">
+<style type="text/css ">
 	.modal ul {
 		list-style-type: none;
 	}

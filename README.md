@@ -1,6 +1,6 @@
-# odi
+# Odi
 
-##Hi there !
+###Hi there !
 This is Odi's program to autorun and interact !
 
 Available functionalities:
@@ -13,3 +13,11 @@ Available functionalities:
 * Web radio (FIP)
 * Exclamations
 * Can control an Arduino (Max...)
+
+####Odi.conf
+Some details about Odi.conf object...
+
+####Odi.run
+Some details about Odi.run object...
+
+_adrigarry_
