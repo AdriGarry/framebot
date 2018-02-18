@@ -12,34 +12,31 @@ let sep = path.sep;
 const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');
 
-(function launcher() {
-	console.log('\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘');
-	// To Check: conf.json, tmp & log directories, reset arg
-	if (!fs.existsSync(ODI_PATH + 'tmp')) {
-		fs.mkdirSync(ODI_PATH + 'tmp');
-		console.log('> TEMP directory created');
-	}
-	if (!fs.existsSync(ODI_PATH + 'log')) {
-		fs.mkdirSync(ODI_PATH + 'log');
-		console.log('> LOG directory created');
-	}
+console.log('\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘');
+if (!fs.existsSync(ODI_PATH + 'tmp')) {
+	fs.mkdirSync(ODI_PATH + 'tmp');
+	console.log('> TEMP directory created');
+}
+if (!fs.existsSync(ODI_PATH + 'log')) {
+	fs.mkdirSync(ODI_PATH + 'log');
+	console.log('> LOG directory created');
+}
 
-	console.log(argv);
+console.log(argv);
 
-	if (argv.indexOf('reset') > -1) {
+if (argv.indexOf('reset') > -1) {
+	reInit();
+} else {
+	try {
+		let conf = fs.readFileSync(ODI_PATH + 'conf.json', 'utf-8');
+		JSON.parse(conf);
+	} catch (err) {
+		console.log(err.message);
 		reInit();
-	} else {
-		try {
-			let conf = fs.readFileSync(ODI_PATH + 'conf.json', 'utf-8');
-			JSON.parse(conf);
-		} catch (err) {
-			console.log(err.message);
-			reInit();
-		}
 	}
+}
 
-	startOdi();
-})();
+startOdi();
 
 function reInit() {
 	let defaultConf = fs.readFileSync(ODI_PATH + 'data/defaultConf.json', 'utf-8');

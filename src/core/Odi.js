@@ -54,11 +54,11 @@ module.exports = {
 };
 
 var Flux = { next: null };
-function initOdi(path, forcedParams) {
+function initOdi(path, forcedParams, startTime) {
 	Odi.PATH = path;
 	let packageJson = require(ODI_PATH + 'package.json');
 	// console.log(packageJson.version);
-	var confUpdate = { startTime: Utils.logTime('h:m (D/M)'), version: packageJson.version },
+	var confUpdate = { 'startTime': Utils.logTime('h:m (D/M)'), version: packageJson.version },
 		forcedParamsLog = '';
 	if (forcedParams.sleep) {
 		Odi.conf('mode', 'sleep');
@@ -87,9 +87,9 @@ function initOdi(path, forcedParams) {
 		log.enableDebug();
 		enableDebugCountdown();
 	}
-	log.info('Odi main object initialized');
 	Flux = require(Odi._CORE + 'Flux.js');
 	Flux.next('module', 'runtime', 'update', confUpdate, 0.1);
+	log.info('Odi main object initialized in ' + Utils.getExecutionTime(startTime) + 'ms');
 	return Odi;
 }
 

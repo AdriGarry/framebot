@@ -5,7 +5,7 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Launch Node Program",
-			"program": "${workspaceRoot}\\src\\index"
+			"program": "${workspaceRoot}\\src\\launcher"
 			// "program": "${workspaceRoot}\\odi.sh"
 		}
 	]

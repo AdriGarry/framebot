@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const startOdiTime = new Date();
+const startTime = new Date();
 console.log('.');
 // var Gpio = require('onoff').Gpio;
 // var eye = new Gpio(14, 'out').write(1);
@@ -15,7 +15,9 @@ const forcedParams = {
 
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedParams);
+var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedParams, startTime);
+// var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf('debug'), Odi.conf('mode'));
+// log.info('--> Odi object ready in' + Utils.getExecutionTime(startTime, '     ') + 'ms');
 var spawn = require('child_process').spawn;
 if (Odi.isAwake()) {
 	spawn('sh', [ODI_PATH + 'src/shell/init.sh']);
@@ -57,8 +59,8 @@ Object.keys(observers).forEach(function(observer) {
 	}
 	log.info(observer, 'loaded:', observersLoaded);
 });
-// console.log(module.loaded);
-log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
+
+log.info('--> Odi ready in' + Utils.getExecutionTime(startTime, '     ') + 'ms');
 
 if (!Odi.isAwake()) {
 	Flux.next('service', 'video', 'screenOff');
