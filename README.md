@@ -1,6 +1,6 @@
 # Odi
 
-###Hi there !
+##Hi there !
 This is Odi's program to autorun and interact !
 
 Available functionalities:
@@ -14,13 +14,13 @@ Available functionalities:
 * Exclamations
 * Can control an Arduino (Max...)
 
-####Odi.conf
+###Odi.conf
 Some details about Odi.conf object...
 
-####Odi.run
+###Odi.run
 Some details about Odi.run object...
 
-####Flux manager
-A flux manager, based on RxJS, can threw next() function
+###Flux manager
+A flux manager, based on RxJS, can send order or schedule (delay, repeat) them, through the next() function.
 
 _adrigarry_
