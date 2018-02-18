@@ -287,9 +287,9 @@ function startUIServer(mode) {
 	});
 
 	ui.post('/sleep', function(req, res) {
-		Flux.next('service', 'system', 'restart', 'sleep');
 		res.writeHead(200);
 		res.end();
+		Flux.next('service', 'system', 'restart', 'sleep');
 	});
 
 	ui.post('/reboot', function(req, res) {
