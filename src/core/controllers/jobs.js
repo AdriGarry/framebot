@@ -206,7 +206,7 @@ function setLifeCycleJobs() {
 		function() {
 			Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Reset config' }); // Weekly RPI reboot
 			log.info('resetCfg'); // Weekly reset of conf
-			Flux.next('module', 'conf', 'reset', true, 3);
+			Flux.next('module', 'runtime', 'reset', true, 3);
 		},
 		null,
 		true,

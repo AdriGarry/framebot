@@ -14,7 +14,6 @@ const forcedParams = {
 };
 
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
-// global.SRC_PATH = 'TOTO';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedParams);
 var spawn = require('child_process').spawn;
@@ -23,7 +22,7 @@ if (Odi.isAwake()) {
 	spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
 }
 
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf.debug, Odi.conf.mode);
+var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf('debug'), Odi.conf('mode'));
 log.debug('argv', argv);
 
 var Utils = require(Odi._CORE + 'Utils.js');
@@ -31,7 +30,7 @@ var Flux = require(Odi._CORE + 'Flux.js');
 
 const observers = {
 	modules: {
-		base: ['led', 'sound', 'hardware', 'conf', 'arduino'],
+		base: ['runtime', 'led', 'sound', 'hardware', 'arduino'],
 		full: ['tts']
 	},
 	controllers: {
@@ -61,16 +60,16 @@ Object.keys(observers).forEach(function(observer) {
 // console.log(module.loaded);
 log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
 
-if (Odi.conf.mode == 'sleep') {
+if (!Odi.isAwake()) {
 	Flux.next('service', 'video', 'screenOff');
-} else if (Odi.conf.mode == 'test') {
+} else if (Odi.conf('mode') == 'test') {
 	/////////////  TEST section  /////////////
 	Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'test sequence' });
 	setTimeout(function() {
 		var testSequence = require(Odi._SRC + 'test/tests.js').launch(function(testStatus) {
 			Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'all tests succeeded!' });
 			setTimeout(function() {
-				if (testStatus) Flux.next('module', 'conf', 'updateRestart', { mode: 'ready' });
+				if (testStatus) Flux.next('module', 'runtime', 'updateRestart', { mode: 'ready' });
 			}, 3000);
 		});
 	}, 1000);
@@ -79,7 +78,7 @@ if (Odi.conf.mode == 'sleep') {
 		Flux.next('service', 'voicemail', 'check');
 	}
 }
-Flux.next('module', 'conf', 'runtime');
+Flux.next('module', 'runtime', 'refresh');
 
 const HORNS = [
 	'playHornWarning',

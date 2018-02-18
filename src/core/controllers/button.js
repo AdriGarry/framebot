@@ -21,7 +21,7 @@ blue.name = 'Blue';
 var Flux = require(Odi._CORE + 'Flux.js');
 
 const DEBOUNCE_LIMIT = 0.1;
-// if(Odi.conf.mode == 'sleep') initButtonSleep();
+// if(Odi.conf('mode') == 'sleep') initButtonSleep();
 // else initButtonReady();
 initButtonReady();
 
@@ -52,7 +52,7 @@ function initButtonReady() {
 	/** Interval pour l'etat du switch + fonctions associees */
 	// var instance = false,
 	// 	intervalEtat;
-	// var intervalDelay = Odi.conf.debug ? 2 * 60 * 1000 : 5 * 60 * 1000;
+	// var intervalDelay = Odi.conf('debug') ? 2 * 60 * 1000 : 5 * 60 * 1000;
 	// setInterval(function() {
 	// 	var value = etat.readSync();
 	// 	Flux.next('module', 'led', 'toggle', { leds: ['satellite'], value: value }, null, null, true);

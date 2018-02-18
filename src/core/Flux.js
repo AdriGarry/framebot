@@ -16,7 +16,7 @@ var Flux = {
 	},
 	module: {
 		arduino: new Rx.Subject(),
-		conf: new Rx.Subject(),
+		runtime: new Rx.Subject(),
 		hardware: new Rx.Subject(),
 		led: new Rx.Subject(),
 		sound: new Rx.Subject(),
@@ -94,7 +94,7 @@ var scheduleFlux = flux => {
 };
 
 var fireFlux = flux => {
-	if (!flux.hidden || (Odi && Odi.conf.debug)) log.info(/*Utils.stackPosition() + */ '> Flux', flux.toString());
+	if (!flux.hidden || (Odi && Odi.conf('debug'))) log.info(/*Utils.stackPosition() + */ '> Flux', flux.toString());
 	Flux[flux.type][flux.subject].next({ id: flux.id, value: flux.value });
 };
 

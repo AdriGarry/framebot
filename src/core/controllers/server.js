@@ -112,7 +112,7 @@ function startUIServer(mode) {
 			unauthorizedRequestNb++;
 
 			if (!tooMuchBadRequests) {
-				if (Odi.conf.mode == 'ready') {
+				if (Odi.isAwake()) {
 					Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, 0.5, null, true);
 				}
 			}
@@ -140,18 +140,18 @@ function startUIServer(mode) {
 		var cpuTemp = Odi.run('cpu.temp');
 		var cpuUsage = Odi.run('cpu.usage');
 		var dashboard = {
-			config: Odi.conf,
+			config: Odi.conf(),
 			//run: Odi.run(),
 			errors: Odi.errors,
 			mode: {
 				value: {
-					// mode: Odi.conf.mode != 'sleep' ? (Odi.conf.debug ? 'Debug' : 'Ready') : 'Sleep',
-					mode: Odi.conf.debug ? 'Debug' : Utils.firstLetterUpper(Odi.conf.mode),
-					// param: isNaN(parseFloat(mode)) ? Odi.conf.startTime : parseInt(mode),
-					param: Odi.conf.startTime,
+					// mode: Odi.conf('mode') != 'sleep' ? (Odi.conf('debug') ? 'Debug' : 'Ready') : 'Sleep',
+					mode: Odi.conf('debug') ? 'Debug' : Utils.firstLetterUpper(Odi.conf('mode')),
+					// param: isNaN(parseFloat(mode)) ? Odi.conf('startTime') : parseInt(mode),
+					param: Odi.conf('startTime'),
 					switch: etatBtn == 'high' ? true : false,
-					active: Odi.conf.debug, // TRY TO DELETE THIS (deprecated)
-					debug: Odi.conf.debug
+					active: Odi.conf('debug'), // TRY TO DELETE THIS (deprecated)
+					debug: Odi.conf('debug')
 				}
 			},
 			switch: { value: etatBtn, active: etatBtn ? true : false },
@@ -175,12 +175,10 @@ function startUIServer(mode) {
 				},
 				active: cpuTemp > 55 || cpuUsage >= 20 ? true : false
 			},
-			//memory: { value: Odi.run('memory.rpi') },
-			alarms: { value: Odi.conf.alarms, active: true },
-			//config: {value: Odi.conf},
+			alarms: { value: Odi.conf('alarms'), active: true },
 			update: { value: Odi.run('stats.update') },
-			version: { value: 'toto' /*Odi.conf.version*/ }, // DEPRECATED !
-			debug: { value: Odi.conf.debug } // TO DEPRECATE...
+			version: { value: 'toto' /*Odi.conf('version')*/ }, // DEPRECATED !
+			debug: { value: Odi.conf('debug') } // TO DEPRECATE...
 		};
 		res.writeHead(200);
 		res.end(JSON.stringify(dashboard));
@@ -204,14 +202,14 @@ function startUIServer(mode) {
 	/** TOGGLE DEBUG MODE */
 	ui.post('/toggleDebug', function(req, res) {
 		log.debug('UI > Toggle debug');
-		Flux.next('module', 'conf', 'updateRestart', { debug: Odi.conf.debug ? 0 : 20 });
-		// Odi.update({ debug: Odi.conf.debug ? 0 : 20 }, true);
+		Flux.next('module', 'runtime', 'updateRestart', { debug: Odi.conf('debug') ? 0 : 20 });
+		// Odi.update({ debug: Odi.conf('debug') ? 0 : 20 }, true);
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/testSequence', function(req, res) {
-		Flux.next('module', 'conf', 'updateRestart', { mode: 'test' });
+		Flux.next('module', 'runtime', 'updateRestart', { mode: 'test' });
 		// Odi.update({ mode: 'test' }, true);
 		res.writeHead(200);
 		res.end();
@@ -219,7 +217,7 @@ function startUIServer(mode) {
 
 	ui.post('/resetConfig', function(req, res) {
 		log.debug('UI > Reset config');
-		Flux.next('module', 'conf', 'reset', true);
+		Flux.next('module', 'runtime', 'reset', true);
 		res.writeHead(200);
 		res.end();
 	});
@@ -240,10 +238,8 @@ function startUIServer(mode) {
 	ui.get('/config.json', function(req, res) {
 		res.writeHead(200);
 		res.end(fs.readFileSync(Odi._CONF, 'utf8').toString());
-		//console.log(Odi.conf.toString());
-		// log.conf(Odi.conf);
-		log.table(Odi.conf, 'CONFIG');
-		res.end(JSON.stringify(Odi.conf));
+		log.table(Odi.conf(), 'CONFIG');
+		res.end(JSON.stringify(Odi.conf()));
 	});
 
 	ui.get('/runtime', function(req, res) {
@@ -334,7 +330,7 @@ function startUIServer(mode) {
 		if (granted) granted = false;
 	});
 
-	if (Odi.conf.mode != 'sleep') {
+	if (Odi.isAwake()) {
 		ui.post('/tts', function(req, res) {
 			var params = req.query;
 			if (params.voice && params.lg && params.msg) {
@@ -597,7 +593,7 @@ function startUIServer(mode) {
 	}
 
 	ui.listen(8080, function() {
-		log.info('UI server started [' + Odi.conf.mode + ']');
+		log.info('UI server started [' + Odi.conf('mode') + ']');
 		Flux.next('module', 'led', 'blink', { leds: ['satellite'], speed: 120, loop: 3 }, null, null, 'hidden');
 	});
 }

@@ -93,7 +93,7 @@ function appendJsonFile(filePath, obj, callback) {
 }
 
 /** Function getJsonFileContent */
-var fileNotFoundExceptions = ['voicemail.js'];
+var fileNotFoundExceptions = ['/home/pi/odi/tmp/voicemail.json'];
 function getJsonFileContent(filePath, callback) {
 	log.debug('getJsonFileContent() ', filePath);
 	fs.readFile(filePath, function(err, data) {

@@ -14,6 +14,7 @@ var Flux = require(Odi._CORE + 'Flux.js');
 module.exports.run = function(callback) {
 	Flux.next('service', 'time', 'today');
 	Flux.next('service', 'time', 'now');
+	Flux.next('service', 'time', 'timer');
 	// Flux.next('service', 'time', 'OdiAge');
 
 	// Flux.next('service', 'voicemail', 'new', {msg: 'are you there ?'}, 8);
@@ -28,5 +29,5 @@ module.exports.run = function(callback) {
 
 	setTimeout(() => {
 		callback('serviceTest', true);
-	}, 25000);
+	}, 40000);
 };

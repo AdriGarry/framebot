@@ -31,8 +31,7 @@ var _runtime = {
 	}
 };
 var Odi = {
-	status: null,
-	conf: require(ODI_PATH + 'conf.json'),
+	conf: new Lock(require(ODI_PATH + 'conf.json'), ODI_PATH + 'conf.json'),
 	isAwake: isAwake,
 	run: new Lock(_runtime),
 	stats: null,
@@ -57,19 +56,21 @@ module.exports = {
 var Flux = { next: null };
 function initOdi(path, forcedParams) {
 	Odi.PATH = path;
-	var confUpdate = { startTime: Utils.logTime('h:m (D/M)') },
+	let packageJson = require(ODI_PATH + 'package.json');
+	// console.log(packageJson.version);
+	var confUpdate = { startTime: Utils.logTime('h:m (D/M)'), version: packageJson.version },
 		forcedParamsLog = '';
 	if (forcedParams.sleep) {
-		Odi.conf.mode = 'sleep';
+		Odi.conf('mode', 'sleep');
 		confUpdate.mode = 'sleep';
 		forcedParamsLog += 'sleep ';
 	}
 	if (forcedParams.debug) {
-		Odi.conf.debug = 'forced';
+		Odi.conf('debug', 'forced');
 		forcedParamsLog += 'debug ';
 	}
 	const logo = fs
-		.readFileSync(ODI_PATH + 'data/' + (Odi.conf.mode == 'sleep' ? 'odiLogoSleep' : 'odiLogo') + '.properties', 'utf8')
+		.readFileSync(ODI_PATH + 'data/' + (!Odi.isAwake() ? 'odiLogoSleep' : 'odiLogo') + '.properties', 'utf8')
 		.toString()
 		.split('\n');
 	console.log('\n' + logo.join('\n'));
@@ -79,21 +80,21 @@ function initOdi(path, forcedParams) {
 	}
 	if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
-	log.table(Odi.conf, 'CONFIG');
-	log.info('initialization...', Odi.conf.debug ? 'DEBUG' + (Odi.conf.debug == 'forced' ? ' [FORCED!]' : '') : '');
-	if (Odi.conf.debug) {
-		confUpdate.debug = Odi.conf.debug;
+	log.table(Odi.conf(), 'CONFIG');
+	log.info('initialization...', Odi.conf('debug') ? 'DEBUG' + (Odi.conf('debug') == 'forced' ? ' [FORCED!]' : '') : '');
+	if (Odi.conf('debug')) {
+		confUpdate.debug = Odi.conf('debug');
 		log.enableDebug();
 		enableDebugCountdown();
 	}
 	log.info('Odi main object initialized');
 	Flux = require(Odi._CORE + 'Flux.js');
-	Flux.next('module', 'conf', 'update', confUpdate, 0.1);
+	Flux.next('module', 'runtime', 'update', confUpdate, 0.1);
 	return Odi;
 }
 
 function isAwake() {
-	return Odi.conf.mode != 'sleep';
+	return Odi.conf('mode') != 'sleep';
 }
 
 function error(label, data, stackTrace) {
@@ -115,10 +116,10 @@ function error(label, data, stackTrace) {
 }
 
 function enableDebugCountdown() {
-	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf.debug + 'min ' + '\u2022\u2022\u2022');
+	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf('debug') + 'min ' + '\u2022\u2022\u2022');
 	setInterval(function() {
-		Flux.next('module', 'conf', 'update', { debug: --Odi.conf.debug });
-		if (!Odi.conf.debug) {
+		Flux.next('module', 'runtime', 'update', { debug: Odi.conf('debug', Odi.conf('debug')--) });
+		if (!Odi.conf('debug')) {
 			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
 			setTimeout(function() {
 				process.exit();

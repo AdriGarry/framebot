@@ -5,20 +5,17 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
-var spawn = require('child_process').spawn;
 var fs = require('fs');
 
-Flux.module.conf.subscribe({
+Flux.module.runtime.subscribe({
 	next: flux => {
 		if (flux.id == 'update') {
 			updateConf(flux.value, false);
 		} else if (flux.id == 'updateRestart') {
 			updateConf(flux.value, true);
-		} else if (flux.id == 'updateDefault') {
-			updateDefaultConf(flux.value);
 		} else if (flux.id == 'reset') {
 			resetCfg(flux.value);
-		} else if (flux.id == 'runtime') {
+		} else if (flux.id == 'refresh') {
 			refreshRuntime(flux.value);
 		} else Odi.error('unmapped flux in Conf service', flux, false);
 	},
@@ -27,43 +24,17 @@ Flux.module.conf.subscribe({
 	}
 });
 
-/** Function to set/edit Odi's config */
-function updateConf(newConf, restart, callback) {
-	doUpdate(Odi._CONF, newConf, restart, callback);
-}
-
-/** Function to set/edit Odi's DEFAULT config */
-function updateDefaultConf(newConf, restart, callback) {
-	doUpdate(Odi._DATA + 'defaultConf.json', newConf, restart, callback);
-}
-
-var updateBegin;
-function doUpdate(file, newConf, restart, callback) {
-	updateBegin = new Date();
-	log.debug('Updating conf:', newConf, restart);
-	Utils.getJsonFileContent(file, function(data) {
-		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
-		var configFile = JSON.parse(data);
-		var updatedEntries = [];
-		Object.keys(newConf).forEach(function(key, index) {
-			if (configFile[key] != newConf[key]) {
-				configFile[key] = newConf[key];
-				updatedEntries.push(key);
-			}
-		});
-		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
-		Odi.conf = configFile;
-		fs.writeFile(file, JSON.stringify(Odi.conf, null, 1), function() {
-			// log.conf(Odi.conf, updatedEntries, Utils.getExecutionTime(updateBegin, '    '));
-			log.table(
-				Odi.conf,
-				'CONFIG UPDATE' + ' '.repeat(3) + Utils.getExecutionTime(updateBegin, '    ') + 'ms',
-				updatedEntries
-			);
-			if (restart) process.exit();
-			if (callback) callback();
-		});
+/** Function to set/edit Odi's config SYNC */
+function updateConf(newConf, restart) {
+	let updateBegin = new Date();
+	let updatedEntries = [];
+	Object.keys(newConf).forEach(key => {
+		updatedEntries.push(key);
+		Odi.conf(key, newConf[key], restart, true);
 	});
+	let header = 'CONFIG UPDATE' + ' '.repeat(3) + Utils.getExecutionTime(updateBegin, '    ') + 'ms';
+	log.table(Odi.conf(), header, updatedEntries);
+	if (restart) process.exit();
 }
 
 /** Function to reset Odi's config */

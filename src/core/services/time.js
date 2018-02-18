@@ -88,13 +88,13 @@ function getSeason() {
 /** Function to disable all Odi's alarms */
 function disableAllAlarms() {
 	Flux.next('module', 'tts', 'speak', 'Annulation de toutes les alarmes');
-	Flux.next('module', 'conf', 'updateRestart', { alarms: { weekDay: null, weekEnd: null } }, 4);
+	Flux.next('module', 'runtime', 'updateRestart', { alarms: { weekDay: null, weekEnd: null } }, 4);
 }
 
 /** Function to set Odi's custom alarm */
 function setAlarm(alarm) {
 	var newAlarms = {};
-	Object.keys(Odi.conf.alarms).forEach(function(key, index) {
+	Object.keys(Odi.conf('alarms')).forEach(function(key, index) {
 		if (key == alarm.when) {
 			newAlarms[key] = {
 				h: alarm.h,
@@ -102,13 +102,13 @@ function setAlarm(alarm) {
 			};
 			log.info('>> ' + alarm.when + ' alarm set to ' + alarm.h + '.' + alarm.m);
 		} else {
-			newAlarms[key] = Odi.conf.alarms[key];
+			newAlarms[key] = Odi.conf('alarms.' + key);
 		}
 	});
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
 	let alarmTTS = 'Alarme ' + alarmMode + ' reprogramer a ' + alarm.h + ' heures et ' + alarm.m + ' minutes';
 	Flux.next('module', 'tts', 'speak', alarmTTS);
-	Flux.next('module', 'conf', 'updateRestart', { alarms: newAlarms }, 6);
+	Flux.next('module', 'runtime', 'updateRestart', { alarms: newAlarms }, 6);
 }
 
 /** Function to test if alarm now */
@@ -119,13 +119,14 @@ function isAlarm() {
 		d = now.getDay(),
 		h = now.getHours(),
 		m = now.getMinutes(),
-		alarmType = WEEK_DAYS.includes(d) ? 'weekDay' : 'weekEnd';
+		alarmType = WEEK_DAYS.includes(d) ? 'weekDay' : 'weekEnd',
+		alarms = Odi.conf('alarms');
 
-	if (Odi.conf.alarms[alarmType]) {
-		if (h == Odi.conf.alarms[alarmType].h && m == Odi.conf.alarms[alarmType].m) {
-			log.INFO('alarm time...', Odi.conf.alarms[alarmType].h + ':' + Odi.conf.alarms[alarmType].m);
+	if (alarms[alarmType]) {
+		if (h == alarms[alarmType].h && m == alarms[alarmType].m) {
+			log.INFO('alarm time...', alarms[alarmType].h + ':' + alarms[alarmType].m);
 			Odi.run('alarm', true);
-			if (Odi.conf.mode == 'sleep') {
+			if (!Odi.isAwake()) {
 				log.INFO('Alarm... wake up !!');
 				Flux.next('service', 'system', 'restart');
 			} else {
@@ -133,19 +134,6 @@ function isAlarm() {
 			}
 		}
 	}
-	// Object.keys(Odi.conf.alarms).forEach(function(key, index) {
-	// 	if (Odi.conf.alarms[key].d.indexOf(d) > -1 && h == Odi.conf.alarms[key].h && m == Odi.conf.alarms[key].m) {
-	// 		log.INFO('alarm time...', Odi.conf.alarms[key].h + ':' + Odi.conf.alarms[key].m);
-	// 		Odi.run('alarm', true);
-	// 		if (Odi.conf.mode == 'sleep') {
-	// 			log.INFO('Alarm... wake up !!');
-	// 			Flux.next('service', 'system', 'restart');
-	// 		} else {
-	// 			cocorico(Odi.conf.alarms[key].mode);
-	// 		}
-	// 	}
-	// });
-	// log.debug('Odi.run(alarm)=' + Odi.run('alarm'));
 }
 
 /** Function alarm part 1 */

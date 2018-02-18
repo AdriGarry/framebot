@@ -28,12 +28,12 @@ Flux.service.system.subscribe({
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode) {
 	log.info('restarting Odi...', mode || '');
-	Flux.next('module', 'conf', 'updateRestart', { mode: mode || 'ready' });
+	Flux.next('module', 'runtime', 'updateRestart', { mode: mode || 'ready' });
 }
 
 /** Function to reboot RPI */
 function reboot() {
-	if (Odi.conf.mode == 'ready') {
+	if (Odi.isAwake()) {
 		Flux.next('module', 'sound', 'mute');
 		Flux.next('module', 'tts', 'speak', { msg: 'Je redaimarre' });
 	}
@@ -45,7 +45,7 @@ function reboot() {
 
 /** Function to shutdown RPI */
 function shutdown() {
-	if (Odi.conf.mode == 'ready') {
+	if (Odi.isAwake()) {
 		Flux.next('module', 'sound', 'mute');
 		Flux.next('module', 'tts', 'speak', { msg: 'Arret system' });
 	}
