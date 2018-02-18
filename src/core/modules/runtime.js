@@ -5,7 +5,6 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
-var spawn = require('child_process').spawn;
 var fs = require('fs');
 
 Flux.module.runtime.subscribe({

@@ -14,7 +14,6 @@ const forcedParams = {
 };
 
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
-// global.SRC_PATH = 'TOTO';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedParams);
 var spawn = require('child_process').spawn;

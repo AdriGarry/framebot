@@ -31,11 +31,9 @@ var _runtime = {
 	}
 };
 var Odi = {
-	status: null,
 	conf: new Lock(require(ODI_PATH + 'conf.json'), ODI_PATH + 'conf.json'),
-	// conf: require(ODI_PATH + 'conf.json'),
 	isAwake: isAwake,
-	run: new Lock(_runtime),//, ODI_PATH + 'runtime.js'),
+	run: new Lock(_runtime),
 	stats: null,
 	error: error,
 	errors: [],

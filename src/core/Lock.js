@@ -5,12 +5,6 @@ var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var fs = require('fs');
 
-var Flux = {};
-setTimeout(() => {
-	Flux = require(ODI_PATH + 'src/core/Flux.js');
-	// console.log(Flux.next);
-}, 100);
-
 /** accessor: object(|id, value, table, restart]) */
 function Lock(obj, file) {
 	var self = this;
@@ -66,10 +60,6 @@ function Lock(obj, file) {
 			} else {
 				if (id2) object[id][id2] = newValue;
 				else object[id] = newValue;
-			}
-			if (Flux.next) {
-				// console.log('------YES');
-				//Flux.next('module', 'runtime', 'updated', { id: id, value: newValue }, null, null, false);
 			}
 		} else {
 			log.error('setValue ERROR:', id);
