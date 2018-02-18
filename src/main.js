@@ -57,10 +57,10 @@ Object.keys(observers).forEach(function(observer) {
 		}
 		observersLoaded += ', ' + observers[observer].full.join(', ');
 	}
-	log.info(observer, 'loaded:', observersLoaded);
+	log.info(observer, 'loaded:', observersLoaded, '[' + Utils.getExecutionTime(startTime) + 'ms]');
 });
 
-log.info('--> Odi ready in' + Utils.getExecutionTime(startTime, '     ') + 'ms');
+log.info('--> Odi ready in ' + Utils.getExecutionTime(startTime) + 'ms');
 
 if (!Odi.isAwake()) {
 	Flux.next('service', 'video', 'screenOff');

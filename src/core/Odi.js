@@ -89,7 +89,7 @@ function initOdi(path, forcedParams, startTime) {
 	}
 	Flux = require(Odi._CORE + 'Flux.js');
 	Flux.next('module', 'runtime', 'update', confUpdate, 0.1);
-	log.info('Odi main object initialized in ' + Utils.getExecutionTime(startTime) + 'ms');
+	log.info('Odi main object initialized [' + Utils.getExecutionTime(startTime) + 'ms]');
 	return Odi;
 }
 
