@@ -16,6 +16,8 @@ console.log('\n┌─────────────────┐\n│  >
 if (!fs.existsSync(ODI_PATH + 'tmp')) {
 	fs.mkdirSync(ODI_PATH + 'tmp');
 	console.log('> TEMP directory created');
+} else {
+	checkVoicemailValidity();
 }
 if (!fs.existsSync(ODI_PATH + 'log')) {
 	fs.mkdirSync(ODI_PATH + 'log');
@@ -25,23 +27,39 @@ if (!fs.existsSync(ODI_PATH + 'log')) {
 console.log(argv);
 
 if (argv.indexOf('reset') > -1) {
-	reInit();
+	reInitConf();
 } else {
+	checkConfValidity();
+}
+
+startOdi();
+
+function checkConfValidity() {
 	try {
 		let conf = fs.readFileSync(ODI_PATH + 'conf.json', 'utf-8');
 		JSON.parse(conf);
 	} catch (err) {
 		console.log(err.message);
-		reInit();
+		reInitConf();
 	}
 }
-
-startOdi();
-
-function reInit() {
+function reInitConf() {
 	let defaultConf = fs.readFileSync(ODI_PATH + 'data/defaultConf.json', 'utf-8');
 	fs.writeFileSync(ODI_PATH + 'conf.json', defaultConf, 'utf-8');
 	console.log('> CONF reset');
+}
+
+function checkVoicemailValidity() {
+	if (fs.existsSync(ODI_PATH + 'tmp/voicemail.json')) {
+		try {
+			let conf = fs.readFileSync(ODI_PATH + 'tmp/voicemail.json', 'utf-8');
+			JSON.parse(conf);
+		} catch (err) {
+			console.log(err.message);
+			fs.unlinkSync(ODI_PATH + 'tmp/voicemail.json');
+			console.log('> Invalid voicemail message, deleted!');
+		}
+	}
 }
 
 /** Function to start up Odi */
@@ -52,6 +70,9 @@ function startOdi(exitCode) {
 
 	var Gpio = require('onoff').Gpio;
 	var eye = new Gpio(14, 'out').write(1);
+
+	checkConfValidity();
+	checkVoicemailValidity();
 
 	var odiProgramWithParams = [SRC_PATH + 'main.js'];
 	if (exitCode) {

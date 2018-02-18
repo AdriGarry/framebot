@@ -3,8 +3,6 @@
 
 const startTime = new Date();
 console.log('.');
-// var Gpio = require('onoff').Gpio;
-// var eye = new Gpio(14, 'out').write(1);
 
 const argv = process.argv;
 const forcedParams = {
@@ -16,8 +14,6 @@ const forcedParams = {
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedParams, startTime);
-// var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf('debug'), Odi.conf('mode'));
-// log.info('--> Odi object ready in' + Utils.getExecutionTime(startTime, '     ') + 'ms');
 var spawn = require('child_process').spawn;
 if (Odi.isAwake()) {
 	spawn('sh', [ODI_PATH + 'src/shell/init.sh']);
@@ -45,7 +41,6 @@ const observers = {
 };
 
 Object.keys(observers).forEach(function(observer) {
-	// log.info('loading ', observer + '...');
 	let observersLoaded = '';
 	for (let i = 0; i < observers[observer].base.length; i++) {
 		require(Odi._CORE + observer + '/' + observers[observer].base[i] + '.js');
@@ -114,22 +109,11 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 // Flux.next('module', 'sound', 'play', { mp3: 'system/beBack.mp3' });
 // Flux.next('module', 'sound', 'play', { mp3: 'jukebox/CDuncan-Say.mp3', position: 7 }, 2);
 
-// Utils.getMp3Duration(Odi._MP3 + 'system/birthday.mp3', function(data) {
-// 	log.info(data);
-// });
-
 // setTimeout(function() {
 // 	Utils.getMp3Duration(Odi._MP3 + 'system/birthday.mp3', function(data) {
 // 		log.info(data);
 // 	});
 // }, 1000);
-
-// var start = new Date();
-// setTimeout(function(argument) {
-// 	// execution time simulated with setTimeout function
-// 	var end = new Date() - start;
-// 	console.info('Execution time: %dms', end);
-// }, 5000);
 
 // setTimeout(() => {
 // 	console.log('after timeout', module.loaded);
