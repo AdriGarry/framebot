@@ -50,7 +50,7 @@ function addVoiceMailMessage(tts) {
 }
 
 var clearVoiceMailDelay;
-const NO_VOICEMAIL = 'No VoiceMail Message';
+const NO_VOICEMAIL = 'No voiceMail message';
 /** Function to check voicemail, and play */
 function checkVoiceMail(withTTSResult, callback) {
 	log.debug('Checking VoiceMail...');

@@ -33,7 +33,7 @@ function restartOdi(mode) {
 
 /** Function to reboot RPI */
 function reboot() {
-	if (Odi.conf.mode == 'ready') {
+	if (Odi.isAwake()) {
 		Flux.next('module', 'sound', 'mute');
 		Flux.next('module', 'tts', 'speak', { msg: 'Je redaimarre' });
 	}
@@ -45,7 +45,7 @@ function reboot() {
 
 /** Function to shutdown RPI */
 function shutdown() {
-	if (Odi.conf.mode == 'ready') {
+	if (Odi.isAwake()) {
 		Flux.next('module', 'sound', 'mute');
 		Flux.next('module', 'tts', 'speak', { msg: 'Arret system' });
 	}

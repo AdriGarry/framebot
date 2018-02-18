@@ -118,7 +118,7 @@ function toggle(config) {
 		'*/3 * * * * *',
 		function() {
 			blink({ leds: ['nose'], speed: 200, loop: 1 });
-			//blink({ leds: ['nose'], speed: Odi.conf.mode == 'test' ? 100 : 200, loop: (Odi.conf.mode = 'test' ? 2 : 1) });
+			//blink({ leds: ['nose'], speed: Odi.conf('mode') == 'test' ? 100 : 200, loop: (Odi.conf('mode') = 'test' ? 2 : 1) });
 		},
 		null,
 		1,
@@ -127,7 +127,7 @@ function toggle(config) {
 	// new CronJob('*/3 * * * * *', function() {
 	// 	blink({ leds: ['nose'], speed: 200, loop: 1 }); // Initialisation du temoin d'activite 2/2
 	// },	null,	1,	'Europe/Paris');
-})(Odi.conf.mode);
+})(Odi.conf('mode'));
 
 /** Function to start inverted blink (Eye/Belly) */
 var timer;

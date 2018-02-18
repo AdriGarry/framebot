@@ -14,8 +14,6 @@ Flux.module.runtime.subscribe({
 			updateConf(flux.value, false);
 		} else if (flux.id == 'updateRestart') {
 			updateConf(flux.value, true);
-		} else if (flux.id == 'updateDefault') {
-			updateDefaultConf(flux.value);
 		} else if (flux.id == 'reset') {
 			resetCfg(flux.value);
 		} else if (flux.id == 'refresh') {
@@ -28,17 +26,17 @@ Flux.module.runtime.subscribe({
 });
 
 /** Function to set/edit Odi's config */
-function updateConf(newConf, restart, callback) {
-	doUpdate(Odi._CONF, newConf, restart, callback);
-}
-
-/** Function to set/edit Odi's DEFAULT config */
-function updateDefaultConf(newConf, restart, callback) {
-	doUpdate(Odi._DATA + 'defaultConf.json', newConf, restart, callback);
+function updateConf(newConf, restart) {
+	let length = Object.keys(newConf).length;
+	Object.keys(newConf).forEach(key => {
+		length--;
+		Odi.conf(key, newConf[key], restart, true);
+	});
 }
 
 var updateBegin;
-function doUpdate(file, newConf, restart, callback) {
+function doUpdateOLD(file, newConf, restart, callback) {
+	console.log('====>  JE NE DEVRAIS PLUS PASSER ICI !!');
 	updateBegin = new Date();
 	log.debug('Updating conf:', newConf, restart);
 	Utils.getJsonFileContent(file, function(data) {
@@ -52,11 +50,11 @@ function doUpdate(file, newConf, restart, callback) {
 			}
 		});
 		// console.log('-->', Utils.getExecutionTime(updateBegin, true));
-		Odi.conf = configFile;
+		// Odi.conf = configFile;
 		fs.writeFile(file, JSON.stringify(Odi.conf, null, 1), function() {
 			// log.conf(Odi.conf, updatedEntries, Utils.getExecutionTime(updateBegin, '    '));
 			log.table(
-				Odi.conf,
+				Odi.conf(),
 				'CONFIG UPDATE' + ' '.repeat(3) + Utils.getExecutionTime(updateBegin, '    ') + 'ms',
 				updatedEntries
 			);

@@ -3,6 +3,7 @@
 
 var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
+var fs = require('fs');
 
 var Flux = {};
 setTimeout(() => {
@@ -10,6 +11,7 @@ setTimeout(() => {
 	// console.log(Flux.next);
 }, 100);
 
+/** accessor: object(|id, value, table, restart]) */
 function Lock(obj, file) {
 	var self = this;
 	self._obj = obj;
@@ -20,10 +22,10 @@ function Lock(obj, file) {
 	}
 	return _functions;
 
-	function _functions(id, newValue) {
-		if (!id) return self._obj; //return all
+	function _functions(id, newValue, restart, table) {
+		if (!id) return self._obj; //return all object
 		if (typeof newValue !== 'undefined')
-			return _setter(id, newValue); //set value
+			return _setter(id, newValue, restart, table); //set value
 		else return _getter(id); //get value
 	}
 
@@ -38,23 +40,18 @@ function Lock(obj, file) {
 		}
 	}
 
-	function _setter(id, newValue, restart) {
+	function _setter(id, newValue, restart, table) {
 		if (self.file) {
 			let updateBegin = new Date();
-			log.debug('Updating conf:', newConf, restart);
-			Utils.getJsonFileContent(self.file, function(data) {
-				let objFile = JSON.parse(data);
-				_setValue(objFile, id, newValue);
-				_setValue(self._obj, id, newValue);
-				let updatedEntries = [id];
-				fs.writeFile(self.file, JSON.stringify(objFile, null, 1), function() {
-					log.table(
-						objFile,
-						'CONFIG UPDATE' + ' '.repeat(3) + Utils.getExecutionTime(updateBegin, '    ') + 'ms',
-						updatedEntries
-					);
-					if (restart) process.exit();
-				});
+			log.debug('Updating :', newValue, restart);
+			_setValue(self._obj, id, newValue);
+			let updatedEntries = [id];
+			fs.writeFile(self.file, JSON.stringify(self._obj, null, 1), function() {
+				if (table) {
+					let header = 'CONFIG UPDATE' + ' '.repeat(3) + Utils.getExecutionTime(updateBegin, '    ') + 'ms';
+					log.table(self._obj, header, updatedEntries);
+				}
+				if (restart) process.exit();
 			});
 		} else {
 			_setValue(self._obj, id, newValue);
@@ -84,32 +81,6 @@ function Lock(obj, file) {
 			log.error('setValue ERROR:', id);
 		}
 	}
-
-	// var updateBegin;
-	// function doUpdate(file, newConf, restart, callback) {
-	// 	updateBegin = new Date();
-	// 	log.debug('Updating conf:', newConf, restart);
-	// 	Utils.getJsonFileContent(file, function(data) {
-	// 		var configFile = JSON.parse(data);
-	// 		var updatedEntries = [];
-	// 		Object.keys(newConf).forEach(function(key, index) {
-	// 			if (configFile[key] != newConf[key]) {
-	// 				configFile[key] = newConf[key];
-	// 				updatedEntries.push(key);
-	// 			}
-	// 		});
-	// 		Odi.conf = configFile;
-	// 		fs.writeFile(file, JSON.stringify(Odi.conf, null, 1), function() {
-	// 			log.table(
-	// 				Odi.conf,
-	// 				'CONFIG UPDATE' + ' '.repeat(3) + Utils.getExecutionTime(updateBegin, '    ') + 'ms',
-	// 				updatedEntries
-	// 			);
-	// 			if (restart) process.exit();
-	// 			if (callback) callback();
-	// 		});
-	// 	});
-	// }
 }
 
 module.exports = Lock;

@@ -23,7 +23,7 @@ if (Odi.isAwake()) {
 	spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
 }
 
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf.debug, Odi.conf.mode);
+var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf('debug'), Odi.conf('mode'));
 log.debug('argv', argv);
 
 var Utils = require(Odi._CORE + 'Utils.js');
@@ -61,9 +61,9 @@ Object.keys(observers).forEach(function(observer) {
 // console.log(module.loaded);
 log.info('--> Odi ready in' + Utils.getExecutionTime(startOdiTime, '     ') + 'ms');
 
-if (Odi.conf.mode == 'sleep') {
+if (!Odi.isAwake()) {
 	Flux.next('service', 'video', 'screenOff');
-} else if (Odi.conf.mode == 'test') {
+} else if (Odi.conf('mode') == 'test') {
 	/////////////  TEST section  /////////////
 	Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'test sequence' });
 	setTimeout(function() {
