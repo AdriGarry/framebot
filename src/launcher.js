@@ -13,30 +13,48 @@ const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');
 
 (function launcher() {
-	let launcherTitle = '\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘';
-	console.log(launcherTitle);
+	console.log('\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘');
 	// To Check: conf.json, tmp & log directories, reset arg
 	if (!fs.existsSync(ODI_PATH + 'tmp')) {
 		fs.mkdirSync(ODI_PATH + 'tmp');
-		console.log('TEMP directory created');
+		console.log('> TEMP directory created');
 	}
 	if (!fs.existsSync(ODI_PATH + 'log')) {
 		fs.mkdirSync(ODI_PATH + 'log');
-		console.log('LOG directory created');
+		console.log('> LOG directory created');
 	}
-	// if() //argv
+
+	console.log(argv);
+
+	if (argv.indexOf('reset') > -1) {
+		reInit();
+	} else {
+		try {
+			let conf = fs.readFileSync(ODI_PATH + 'conf.json', 'utf-8');
+			JSON.parse(conf);
+		} catch (err) {
+			console.log(err.message);
+			reInit();
+		}
+	}
+
+	startOdi();
 })();
 
+function reInit() {
+	let defaultConf = fs.readFileSync(ODI_PATH + 'data/defaultConf.json', 'utf-8');
+	fs.writeFileSync(ODI_PATH + 'conf.json', defaultConf, 'utf-8');
+	console.log('> CONF reset');
+}
+
 /** Function to start up Odi */
-(function startOdi(exitCode) {
+function startOdi(exitCode) {
 	spawn('sh', [SRC_PATH + 'shell/mute.sh']); // Mute
 
 	const odiConf = require(ODI_PATH + 'conf.json');
 
 	var Gpio = require('onoff').Gpio;
 	var eye = new Gpio(14, 'out').write(1);
-
-	console.log(argv);
 
 	var odiProgramWithParams = [SRC_PATH + 'main.js'];
 	if (exitCode) {
@@ -62,7 +80,7 @@ const ODI_PATH = __dirname.replace('src', '');
 		argv.remove('test'); // Removing test param before relaunching
 		startOdi(code);
 	});
-})();
+}
 
 Array.prototype.remove = function() {
 	var what,

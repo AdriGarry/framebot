@@ -40,18 +40,12 @@ function updateConf(newConf, restart) {
 /** Function to reset Odi's config */
 function resetCfg(restart) {
 	log.info('resetCfg()', restart ? 'and restart' : '');
-	var stream = fs.createReadStream(Odi._DATA + 'defaultConf.json'); /*, {bufferSize: 64 * 1024}*/
-	stream.pipe(fs.createWriteStream(ODI_PATH + 'conf.json'));
-	var had_error = false;
-	stream.on('error', function(e) {
-		had_error = true;
-		log.error('config.resetCfg() stream error', e); // Odi.error();
-	});
-	stream.on('close', function() {
-		if (!had_error && restart) {
-			process.exit();
-		}
-	});
+	let defaultConf = fs.readFileSync(ODI_PATH + 'data/defaultConf.json', 'utf-8');
+	fs.writeFileSync(ODI_PATH + 'conf.json', defaultConf, 'utf-8');
+	// TODO faire ici ce qui est fait dans reset.sh !!
+	if (restart) {
+		process.exit();
+	}
 }
 
 /** Function to refresh Odi\'s runtime data (etat, timer, moods...) */
