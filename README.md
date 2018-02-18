@@ -1,12 +1,12 @@
 # Odi
 
-## Hi there !
+Based on NodeJS, running on a Rapsberry Pi this is **Odi**'s program to autorun and interact !
 
-Based on NodeJS, running on a Rapsberry Pi this is Odi's program to autorun and interact !
+Available modes: Ready, Sleep, test
 
 Available functionalities:
 
-* Voice synthetisis (TTS)
+* Voice synthesizer (TTS)
 * Voicemail
 * Alarm (weekday & weekend)
 * Timer
@@ -29,5 +29,3 @@ This object is an isolated object, with access methods.
 ### Flux manager
 
 A flux manager, based on RxJS, can send order or schedule (delay, repeat) them, through the _next()_ function.
-
-_adrigarry_
