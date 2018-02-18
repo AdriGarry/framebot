@@ -16,6 +16,15 @@ const ODI_PATH = __dirname.replace('src', '');
 	let launcherTitle = '\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘';
 	console.log(launcherTitle);
 	// To Check: conf.json, tmp & log directories, reset arg
+	if (!fs.existsSync(ODI_PATH + 'tmp')) {
+		fs.mkdirSync(ODI_PATH + 'tmp');
+		console.log('TEMP directory created');
+	}
+	if (!fs.existsSync(ODI_PATH + 'log')) {
+		fs.mkdirSync(ODI_PATH + 'log');
+		console.log('LOG directory created');
+	}
+	// if() //argv
 })();
 
 /** Function to start up Odi */

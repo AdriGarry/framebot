@@ -1,6 +1,6 @@
 {
-	"name": "odi",
-	"version": "5.1.1",
+	"name": "Odi",
+	"version": "5.1.2",
 	"description": "Odi's program to autorun and interact !",
 	"main": "odi.sh",
 	"scripts": {
