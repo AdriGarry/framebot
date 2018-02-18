@@ -58,7 +58,9 @@ module.exports = {
 var Flux = { next: null };
 function initOdi(path, forcedParams) {
 	Odi.PATH = path;
-	var confUpdate = { startTime: Utils.logTime('h:m (D/M)') },
+	let packageJson = require(ODI_PATH + 'package.json');
+	// console.log(packageJson.version);
+	var confUpdate = { startTime: Utils.logTime('h:m (D/M)'), version: packageJson.version },
 		forcedParamsLog = '';
 	if (forcedParams.sleep) {
 		Odi.conf('mode', 'sleep');

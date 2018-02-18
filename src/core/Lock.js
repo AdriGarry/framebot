@@ -46,13 +46,7 @@ function Lock(obj, file) {
 			log.debug('Updating :', newValue, restart);
 			_setValue(self._obj, id, newValue);
 			let updatedEntries = [id];
-			fs.writeFile(self.file, JSON.stringify(self._obj, null, 1), function() {
-				if (table) {
-					let header = 'CONFIG UPDATE' + ' '.repeat(3) + Utils.getExecutionTime(updateBegin, '    ') + 'ms';
-					log.table(self._obj, header, updatedEntries);
-				}
-				if (restart) process.exit();
-			});
+			fs.writeFileSync(self.file, JSON.stringify(self._obj, null, 1));
 		} else {
 			_setValue(self._obj, id, newValue);
 		}
