@@ -8,7 +8,8 @@
 			</li>
 		</ul>-->
 
-		<pre>{{modal.data | json:4}}</pre>
+		<pre data-ng-hide="modal.from.label == 'About'">{{modal.data | json:4}}</pre>
+		<div data-ng-if="modal.from.label == 'About'" data-ng-bind-html="modal.raw | markdown"></div>
 
 		<md-dialog-actions>
 			<md-button class="md-raised" data-ng-click="close()">Close</md-button>&nbsp;&nbsp;&nbsp;
