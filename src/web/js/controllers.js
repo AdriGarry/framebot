@@ -266,10 +266,9 @@ function BottomSheetController($scope, $mdDialog, modal){
 	};
 }*/
 
-function DialogController($scope, $mdDialog, data) {
+function DialogController($scope, $mdDialog, data, from) {
 	//console.log('$scope.modal.data', $scope.modal.data);
-	console.log('data', data);
-	$scope.modal = {};
+	$scope.modal = { raw: data, from: from };
 	if (typeof data == 'string') {
 		$scope.modal.data = data.split('\n');
 	} else {
