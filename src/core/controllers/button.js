@@ -50,25 +50,25 @@ function initButtonReady() {
 	});
 
 	/** Interval pour l'etat du switch + fonctions associees */
-	// var instance = false,
-	// 	intervalEtat;
-	// var intervalDelay = Odi.conf('debug') ? 2 * 60 * 1000 : 5 * 60 * 1000;
-	// setInterval(function() {
-	// 	var value = etat.readSync();
-	// 	Flux.next('module', 'led', 'toggle', { leds: ['satellite'], value: value }, null, null, true);
-	// 	if (1 === value) {
-	// 		if (!instance) {
-	// 			instance = true;
-	// 			intervalEtat = setInterval(function() {
-	// 				log.info('Etat btn Up_ => random action');
-	// 				Flux.next('service', 'interaction', 'random');
-	// 			}, intervalDelay); //5*60*1000
-	// 		}
-	// 	} else {
-	// 		instance = false;
-	// 		clearInterval(intervalEtat);
-	// 	}
-	// }, 2000);
+	var instance = false,
+		intervalEtat;
+	var intervalDelay = Odi.conf('debug') ? 2 * 60 * 1000 : 5 * 60 * 1000;
+	setInterval(function() {
+		var value = etat.readSync();
+		Flux.next('module', 'led', 'toggle', { leds: ['satellite'], value: value }, null, null, true);
+		if (1 === value) {
+			if (!instance) {
+				instance = true;
+				intervalEtat = setInterval(function() {
+					log.info('Etat btn Up_ => random action');
+					Flux.next('service', 'interaction', 'random');
+				}, intervalDelay); //5*60*1000
+			}
+		} else {
+			instance = false;
+			clearInterval(intervalEtat);
+		}
+	}, 2000);
 
 	/** Switch watch for radio volume */
 	etat.watch(function(err, value) {
