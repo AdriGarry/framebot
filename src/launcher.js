@@ -12,6 +12,12 @@ let sep = path.sep;
 const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');
 
+(function launcher() {
+	let launcherTitle = '\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘';
+	console.log(launcherTitle);
+	// To Check: conf.json, tmp & log directories, reset arg
+})();
+
 /** Function to start up Odi */
 (function startOdi(exitCode) {
 	spawn('sh', [SRC_PATH + 'shell/mute.sh']); // Mute

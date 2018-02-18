@@ -54,7 +54,7 @@ fi
 
 # sudo python /home/pi/odi/core/py/buttons.py 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &
 # sudo node /home/pi/odi/core/master.js "$lastUpdate" 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &
-sudo node "$ODI_PATH"/src/index.js $* 2>&1 | sudo tee -a "$ODI_PATH/log/odi.log" &
+sudo node "$ODI_PATH"/src/launcher.js $* 2>&1 | sudo tee -a "$ODI_PATH/log/odi.log" &
 
 # lxterminal -e tail -f /home/pi/odi/log/odi.log
 
