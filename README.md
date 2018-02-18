@@ -20,4 +20,7 @@ Some details about Odi.conf object...
 ####Odi.run
 Some details about Odi.run object...
 
+####Flux manager
+A flux manager, based on RxJS, can threw next() function
+
 _adrigarry_
