@@ -71,6 +71,7 @@ if (!Odi.isAwake()) {
 		});
 	}, 1000);
 } else {
+	Flux.next('service', 'time', 'isAlarm'); // Alarm / Cocorico...
 	if (!Odi.run('alarm')) {
 		Flux.next('service', 'voicemail', 'check');
 	}
