@@ -34,7 +34,6 @@ var Odi = {
 	conf: new Lock(require(ODI_PATH + 'conf.json'), ODI_PATH + 'conf.json'),
 	isAwake: isAwake,
 	run: new Lock(_runtime),
-	stats: null,
 	error: error,
 	errors: [],
 	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
