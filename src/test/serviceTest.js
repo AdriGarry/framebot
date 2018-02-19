@@ -8,12 +8,12 @@ var Utils = require(Odi._CORE + 'Utils.js');
 log.info('Flux test sequence...');
 
 const Rx = require('rxjs');
-
+const assert = require('assert');
 var Flux = require(Odi._CORE + 'Flux.js');
 
 module.exports.run = function(succeedTest) {
 	Flux.next('service', 'time', 'today');
-	Flux.next('service', 'time', 'now');
+	// Flux.next('service', 'time', 'now');
 
 	assert.equal(Odi.run('timer'), 0);
 	Flux.next('service', 'time', 'timer');

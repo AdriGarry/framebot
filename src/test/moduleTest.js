@@ -8,7 +8,7 @@ var Utils = require(Odi._CORE + 'Utils.js');
 log.info('Module test sequence...');
 
 const Rx = require('rxjs');
-
+const assert = require('assert');
 var Flux = require(Odi._CORE + 'Flux.js');
 
 // const testTTSList = [{lg: 'en', msg: 'Test' },	{lg: 'fr', msg: 'Test' }];
