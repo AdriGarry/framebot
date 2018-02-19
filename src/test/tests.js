@@ -49,7 +49,7 @@ var completeTest = (testId, result) => {
 
 var allTestCompleted = () => {
 	for (var i = 0; i < sequences.length; i++) {
-		if (!(testResult.hasOwnProperty('sequences[i]') || testResult[sequences[i]])) {
+		if (!(testResult.hasOwnProperty(sequences[i]) || testResult[sequences[i]])) {
 			return false;
 		}
 	}

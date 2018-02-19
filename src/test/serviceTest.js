@@ -11,11 +11,10 @@ const Rx = require('rxjs');
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
-module.exports.run = function(callback) {
+module.exports.run = function(succeedTest) {
 	Flux.next('service', 'time', 'today');
 	Flux.next('service', 'time', 'now');
 	Flux.next('service', 'time', 'timer');
-	// Flux.next('service', 'time', 'OdiAge');
 
 	// Flux.next('service', 'voicemail', 'new', {msg: 'are you there ?'}, 8);
 	// var rdmTTS = Odi.ttsMessages.randomTTS[Utils.random(Odi.ttsMessages.randomTTS.length)];
@@ -28,6 +27,7 @@ module.exports.run = function(callback) {
 	Flux.next('service', 'interaction', 'weather', 'random', null, 16);
 
 	setTimeout(() => {
-		callback('serviceTest', true);
+		assert.equal(Odi.errors.length, 0);
+		succeedTest('serviceTest', true);
 	}, 40000);
 };
