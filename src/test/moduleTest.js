@@ -20,6 +20,7 @@ module.exports.run = function(succeedTest) {
 
 	assert.ok(Odi.conf());
 	assert.equal(Odi.conf('mode'), 'test');
+	assert.ok(Odi.isAwake());
 
 	assert.ok(Odi.run());
 	assert.equal(Odi.run('music'), false);
