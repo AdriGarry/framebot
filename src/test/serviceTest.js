@@ -18,7 +18,7 @@ module.exports.run = function(succeedTest) {
 	assert.equal(Odi.run('timer'), 0);
 	Flux.next('service', 'time', 'timer');
 
-	assert.ok(Odi.run('timer'));
+	setImmediate(assert.ok(Odi.run('timer')));
 
 	// Flux.next('service', 'voicemail', 'new', {msg: 'are you there ?'}, 8);
 	// var rdmTTS = Odi.ttsMessages.randomTTS[Utils.random(Odi.ttsMessages.randomTTS.length)];
