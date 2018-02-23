@@ -281,25 +281,25 @@ function startUIServer(mode) {
 
 	/** ==> POST SECTION */
 	ui.post('/odi', function(req, res) {
+		Flux.next('service', 'system', 'restart', null, 1);
 		res.writeHead(200);
 		res.end();
-		Flux.next('service', 'system', 'restart');
 	});
 
 	ui.post('/sleep', function(req, res) {
+		Flux.next('service', 'system', 'restart', 'sleep', 1);
 		res.writeHead(200);
 		res.end();
-		Flux.next('service', 'system', 'restart', 'sleep');
 	});
 
 	ui.post('/reboot', function(req, res) {
-		Flux.next('service', 'system', 'reboot');
+		Flux.next('service', 'system', 'reboot', null, 1);
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/shutdown', function(req, res) {
-		Flux.next('service', 'system', 'shutdown');
+		Flux.next('service', 'system', 'shutdown', null, 1);
 		res.writeHead(200);
 		res.end();
 	});
