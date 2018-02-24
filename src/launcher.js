@@ -12,24 +12,28 @@ let sep = path.sep;
 const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');
 
-console.log('\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘');
-if (!fs.existsSync(ODI_PATH + 'tmp')) {
-	fs.mkdirSync(ODI_PATH + 'tmp');
-	console.log('> TEMP directory created');
-} else {
-	checkVoicemailValidity();
-}
-if (!fs.existsSync(ODI_PATH + 'log')) {
-	fs.mkdirSync(ODI_PATH + 'log');
-	console.log('> LOG directory created');
-}
+const launcherTitle = '\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘';
 
-console.log(argv);
+function checkUp() {
+	console.log(launcherTitle); // TODO ...
+	if (!fs.existsSync(ODI_PATH + 'tmp')) {
+		fs.mkdirSync(ODI_PATH + 'tmp');
+		console.log('> TEMP directory created');
+	} else {
+		checkVoicemailValidity();
+	}
+	if (!fs.existsSync(ODI_PATH + 'log')) {
+		fs.mkdirSync(ODI_PATH + 'log');
+		console.log('> LOG directory created');
+	}
 
-if (argv.indexOf('reset') > -1) {
-	reInitConf();
-} else {
-	checkConfValidity();
+	console.log(argv);
+
+	if (argv.indexOf('reset') > -1) {
+		reInitConf();
+	} else {
+		checkConfValidity();
+	}
 }
 
 startOdi();
@@ -66,13 +70,15 @@ function checkVoicemailValidity() {
 function startOdi(exitCode) {
 	spawn('sh', [SRC_PATH + 'shell/mute.sh']); // Mute
 
+	checkUp();
+
 	const odiConf = require(ODI_PATH + 'conf.json');
 
 	var Gpio = require('onoff').Gpio;
 	var eye = new Gpio(14, 'out').write(1);
 
-	checkConfValidity();
-	checkVoicemailValidity();
+	// checkConfValidity();
+	// checkVoicemailValidity();
 
 	var odiProgramWithParams = [SRC_PATH + 'main.js'];
 	if (exitCode) {

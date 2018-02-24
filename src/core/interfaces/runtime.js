@@ -39,12 +39,13 @@ function updateConf(newConf, restart) {
 
 /** Function to reset Odi's config */
 function resetCfg(restart) {
-	log.INFO('--------------Odi.descriptor');
-	log.info(Odi.descriptor);
+	// log.INFO('--------------Odi.descriptor');
+	// log.info(Odi.descriptor.conf);
 	log.info('resetCfg()', restart ? 'and restart' : '');
-	let defaultConf = fs.readFileSync(ODI_PATH + 'data/defaultConf.json', 'utf-8');
-	fs.writeFileSync(ODI_PATH + 'conf.json', defaultConf, 'utf-8');
-	// TODO faire ici ce qui est fait dans reset.sh !!
+	// let defaultConf = fs.readFileSync(ODI_PATH + 'data/defaultConf.json', 'utf-8');
+	// fs.writeFileSync(ODI_PATH + 'conf.json', Odi.descriptor.conf, 'utf-8');
+	fs.unlinkSync(ODI_PATH + 'conf.json');
+	// + TODO faire ici ce qui est fait dans reset.sh !!
 	if (restart) {
 		process.exit();
 	}

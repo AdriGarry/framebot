@@ -12,7 +12,7 @@
 			"full": ["mood", "interaction", "music", "party", "max"]
 		}
 	},
-	"defaultConf": {
+	"conf": {
 		"mode": "ready",
 		"debug": 0,
 		"startTime": ".",
