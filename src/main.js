@@ -13,7 +13,14 @@ const forcedParams = {
 
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').init(__filename.match(/\/.*\//g)[0], forcedParams, startTime);
+var descriptor = require(ODI_PATH + 'data/descriptor.json');
+
+var Odi = require(ODI_PATH + 'src/core/Odi.js').init(
+	__filename.match(/\/.*\//g)[0],
+	descriptor,
+	forcedParams,
+	startTime
+);
 var spawn = require('child_process').spawn;
 if (Odi.isAwake()) {
 	spawn('sh', [ODI_PATH + 'src/shell/init.sh']);
@@ -24,36 +31,9 @@ var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf('debug'), 
 log.debug('argv', argv);
 
 var Utils = require(Odi._CORE + 'Utils.js');
-var Flux = require(Odi._CORE + 'Flux.js');
 
-const observers = {
-	modules: {
-		base: ['runtime', 'led', 'sound', 'hardware', 'arduino'],
-		full: ['tts']
-	},
-	controllers: {
-		base: ['button', 'jobs', 'server']
-	},
-	services: {
-		base: ['handler', 'system', 'time', 'voicemail', 'video'],
-		full: ['mood', 'interaction', 'music', 'party', 'max']
-	}
-};
-
-Object.keys(observers).forEach(function(observer) {
-	let observersLoaded = '';
-	for (let i = 0; i < observers[observer].base.length; i++) {
-		require(Odi._CORE + observer + '/' + observers[observer].base[i] + '.js');
-	}
-	observersLoaded += observers[observer].base.join(', ');
-	if (Odi.isAwake() && observers[observer].hasOwnProperty('full')) {
-		for (let i = 0; i < observers[observer].full.length; i++) {
-			require(Odi._CORE + observer + '/' + observers[observer].full[i] + '.js');
-		}
-		observersLoaded += ', ' + observers[observer].full.join(', ');
-	}
-	log.info(observer, 'loaded:', observersLoaded, '[' + Utils.getExecutionTime(startTime) + 'ms]');
-});
+log.info(descriptor.modules);
+var Flux = require(Odi._CORE + 'Flux.js').loadModules(descriptor.modules);
 
 log.info('--> Odi ready in ' + Utils.getExecutionTime(startTime) + 'ms');
 
@@ -61,12 +41,12 @@ if (!Odi.isAwake()) {
 	Flux.next('service', 'video', 'screenOff');
 } else if (Odi.conf('mode') == 'test') {
 	/////////////  TEST section  /////////////
-	Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'test sequence' });
+	Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'test sequence' });
 	setTimeout(function() {
 		var testSequence = require(Odi._SRC + 'test/tests.js').launch(function(testStatus) {
-			Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'all tests succeeded!' });
+			Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'all tests succeeded!' });
 			setTimeout(function() {
-				if (testStatus) Flux.next('module', 'runtime', 'updateRestart', { mode: 'ready' });
+				if (testStatus) Flux.next('interface', 'runtime', 'updateRestart', { mode: 'ready' });
 			}, 3000);
 		});
 	}, 1000);
@@ -76,7 +56,7 @@ if (!Odi.isAwake()) {
 		Flux.next('service', 'voicemail', 'check');
 	}
 }
-Flux.next('module', 'runtime', 'refresh');
+Flux.next('interface', 'runtime', 'refresh');
 
 const HORNS = [
 	'playHornWarning',
@@ -92,23 +72,23 @@ const HORNS = [
 ];
 
 if (Odi.isAwake() && !Odi.run('alarm')) {
-	// Flux.next('module', 'arduino', 'write', 'Blink-1-2-3', 3);
-	// Flux.next('module', 'arduino', 'write', 'playOneMelody', 7, 2);
-	// Flux.next('module', 'arduino', 'write', 'playRdmHorn', 5, 1);
+	// Flux.next('interface', 'arduino', 'write', 'Blink-1-2-3', 3);
+	// Flux.next('interface', 'arduino', 'write', 'playOneMelody', 7, 2);
+	// Flux.next('interface', 'arduino', 'write', 'playRdmHorn', 5, 1);
 
 	let delay = 10;
 	HORNS.forEach(item => {
-		//Flux.next('module', 'arduino', 'write', item, delay);
+		//Flux.next('interface', 'arduino', 'write', item, delay);
 		delay = delay + 10;
 	});
 }
 
-// Flux.next('module', 'arduino', 'write', 'playRdmHorn', 90, 5);
+// Flux.next('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
 // Odi.next('module', 'arduino', 'write', 'playRdmHorn', 90, 5);
 // Odi.do('module', 'arduino', 'write', 'playRdmHorn', 90, 5);
 
-// Flux.next('module', 'sound', 'play', { mp3: 'system/beBack.mp3' });
-// Flux.next('module', 'sound', 'play', { mp3: 'jukebox/CDuncan-Say.mp3', position: 7 }, 2);
+// Flux.next('interface', 'sound', 'play', { mp3: 'system/beBack.mp3' });
+// Flux.next('interface', 'sound', 'play', { mp3: 'jukebox/CDuncan-Say.mp3', position: 7 }, 2);
 
 // setTimeout(function() {
 // 	Utils.getMp3Duration(Odi._MP3 + 'system/birthday.mp3', function(data) {

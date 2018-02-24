@@ -52,8 +52,9 @@ module.exports = {
 	Odi: Odi
 };
 
+
 var Flux = { next: null };
-function initOdi(path, forcedParams, startTime) {
+function initOdi(path, descriptor, forcedParams, startTime) {
 	Odi.PATH = path;
 	let packageJson = require(ODI_PATH + 'package.json');
 	// console.log(packageJson.version);
@@ -86,8 +87,8 @@ function initOdi(path, forcedParams, startTime) {
 		log.enableDebug();
 		enableDebugCountdown();
 	}
-	Flux = require(Odi._CORE + 'Flux.js');
-	Flux.next('module', 'runtime', 'update', confUpdate, 0.1);
+	Flux = require(Odi._CORE + 'Flux.js').attach(descriptor.modules);
+	Flux.next('interface', 'runtime', 'update', confUpdate, 0.5);
 	log.info('Odi main object initialized [' + Utils.getExecutionTime(startTime) + 'ms]');
 	return Odi;
 }
@@ -97,8 +98,8 @@ function isAwake() {
 }
 
 function error(label, data, stackTrace) {
-	Flux.next('module', 'led', 'altLeds', { speed: 30, duration: 1.5 }, null, null, 'hidden');
-	Flux.next('module', 'sound', 'error', null, null, null, 'hidden');
+	Flux.next('interface', 'led', 'altLeds', { speed: 30, duration: 1.5 }, null, null, 'hidden');
+	Flux.next('interface', 'sound', 'error', null, null, null, 'hidden');
 	log.error(label + '\n', data || '');
 	if (stackTrace != false) {
 		// Optional ?
@@ -117,7 +118,7 @@ function error(label, data, stackTrace) {
 function enableDebugCountdown() {
 	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf('debug') + 'min ' + '\u2022\u2022\u2022');
 	setInterval(function() {
-		Flux.next('module', 'runtime', 'update', { debug: Odi.conf('debug', Odi.conf('debug')--) });
+		Flux.next('interface', 'runtime', 'update', { debug: Odi.conf('debug', Odi.conf('debug')--) });
 		if (!Odi.conf('debug')) {
 			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
 			setTimeout(function() {
