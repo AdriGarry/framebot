@@ -83,8 +83,8 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 }
 
 // Flux.next('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
-// Odi.next('module', 'arduino', 'write', 'playRdmHorn', 90, 5);
-// Odi.do('module', 'arduino', 'write', 'playRdmHorn', 90, 5);
+// Odi.next('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
+// Odi.do('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
 
 // Flux.next('interface', 'sound', 'play', { mp3: 'system/beBack.mp3' });
 // Flux.next('interface', 'sound', 'play', { mp3: 'jukebox/CDuncan-Say.mp3', position: 7 }, 2);
