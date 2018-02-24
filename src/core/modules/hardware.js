@@ -107,7 +107,8 @@ var startMeasure = cpuAverage();
 /** Function to get memory usage stats (Odi + system) */
 function soulTTS() {
 	log.info('---> soulTTS');
-	let ttsMsg = Math.round(Odi.run('memory.odi')) + ' maiga octets, sait le poid de mon ame en ce moment';
+	let size = Math.round(Odi.run('memory.odi'));
+	let ttsMsg = size + ' maiga octet, sai le poid de mon ame ' + (Utils.random() ? '' : 'en ce moment');
 	Flux.next('module', 'tts', 'speak', ttsMsg);
 }
 

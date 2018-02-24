@@ -38,14 +38,12 @@ Flux.service.interaction.subscribe({
 
 var randomActionBase = [
 	{ type: 'module', subject: 'tts', id: 'speak', weight: 6 }, //7
-	// { type: 'module', subject: 'tts', id: 'conversation', weight: 6 }, //7
 	{ type: 'service', subject: 'interaction', id: 'exclamation', weight: 4 }, //4
-	// { type: 'service', subject: 'interaction', id: 'exclamation', weight: 2 }, //4
 	{ type: 'service', subject: 'time', id: 'now', weight: 1 },
 	{ type: 'service', subject: 'time', id: 'today', weight: 1 },
 	{ type: 'service', subject: 'interaction', id: 'weather', value: 'random', weight: 2 }, //4
 	{ type: 'module', subject: 'hardware', id: 'cpuTTS', weight: 1 },
-	{ type: 'module', subject: 'hardware', id: 'soulTTS', weight: 8 },
+	{ type: 'module', subject: 'hardware', id: 'soulTTS', weight: 3 },
 	{ type: 'service', subject: 'time', id: 'OdiAge', weight: 1 }
 ];
 /** Building randomActionList from randomActionBase */
