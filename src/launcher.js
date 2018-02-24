@@ -13,6 +13,7 @@ const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');
 
 const launcherTitle = '\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘';
+var descriptor = require(ODI_PATH + 'data/descriptor.json');
 
 function checkUp() {
 	console.log(launcherTitle); // TODO ...
@@ -48,8 +49,7 @@ function checkConfValidity() {
 	}
 }
 function reInitConf() {
-	let defaultConf = fs.readFileSync(ODI_PATH + 'data/defaultConf.json', 'utf-8');
-	fs.writeFileSync(ODI_PATH + 'conf.json', defaultConf, 'utf-8');
+	fs.writeFileSync(ODI_PATH + 'conf.json', JSON.stringify(descriptor.conf), 'utf-8');
 	console.log('> CONF reset');
 }
 
