@@ -16,7 +16,7 @@ var Flux = require(Odi._CORE + 'Flux.js');
 module.exports.run = function(succeedTest) {
 	//Flux.next('interface', 'tts', 'speak', testTTSList[Utils.random(testTTSList.length)], null, null, true);
 	// Flux.next('interface', 'led', 'toggle', { leds: ['eye', 'belly', 'satellite'], value: 0 }, 3, null, null, true);
-	Flux.next('interface', 'led', 'blink', { leds: ['belly'], speed: 600, loop: 100 });
+	// Flux.next('interface', 'led', 'blink', { leds: ['belly'], speed: 600, loop: 100 });
 
 	assert.ok(Odi.conf());
 	assert.equal(Odi.conf('mode'), 'test');

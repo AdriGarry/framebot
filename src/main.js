@@ -43,7 +43,8 @@ if (!Odi.isAwake()) {
 	Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'test sequence' });
 	setTimeout(function() {
 		var testSequence = require(Odi._SRC + 'test/tests.js').launch(function(testStatus) {
-			Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'all tests succeeded!' });
+			let testTTS = Utils.random() ? 'Je suis Ok !' : { lg: 'en', msg: 'all tests succeeded!' };
+			Flux.next('interface', 'tts', 'speak', testTTS);
 			setTimeout(function() {
 				if (testStatus) Flux.next('interface', 'runtime', 'updateRestart', { mode: 'ready' });
 			}, 3000);
