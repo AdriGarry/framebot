@@ -17,7 +17,7 @@ Flux.interface.runtime.subscribe({
 			resetCfg(flux.value);
 		} else if (flux.id == 'refresh') {
 			refreshRuntime(flux.value);
-		} else Odi.error('unmapped flux in Conf service', flux, false);
+		} else Odi.error('unmapped flux in Runtime interface', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
@@ -39,11 +39,7 @@ function updateConf(newConf, restart) {
 
 /** Function to reset Odi's config */
 function resetCfg(restart) {
-	// log.INFO('--------------Odi.descriptor');
-	// log.info(Odi.descriptor.conf);
 	log.info('resetCfg()', restart ? 'and restart' : '');
-	// let defaultConf = fs.readFileSync(ODI_PATH + 'data/defaultConf.json', 'utf-8');
-	// fs.writeFileSync(ODI_PATH + 'conf.json', Odi.descriptor.conf, 'utf-8');
 	fs.unlinkSync(ODI_PATH + 'conf.json');
 	// + TODO faire ici ce qui est fait dans reset.sh !!
 	if (restart) {
@@ -55,8 +51,6 @@ function resetCfg(restart) {
 function refreshRuntime() {
 	log.info("refreshing Odi's runtime...");
 	Flux.next('interface', 'hardware', 'runtime', null, null, null, true);
-	// Flux.next('controller', 'button', 'runtime', null, null, true);
-	// Flux.next('interface', 'hardware', '');
 	setTimeout(function() {
 		log.table(Odi.run(), 'RUNTIME...');
 	}, 1000);

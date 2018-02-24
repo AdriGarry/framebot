@@ -35,7 +35,7 @@ Flux.interface.hardware.subscribe({
 			totalLinesTTS();
 		} else if (flux.id == 'archiveLog') {
 			archiveLogs();
-		} else Odi.error('unmapped flux in Hardware module', flux, false);
+		} else Odi.error('unmapped flux in Hardware interface', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);

@@ -263,6 +263,12 @@ function startUIServer(mode) {
 		res.end();
 	});
 
+	ui.post('/watcher', function(req, res) {
+		Flux.next('controller', 'watcher', 'startWatch');
+		res.writeHead(200);
+		res.end();
+	});
+
 	ui.post('/resetConfig', function(req, res) {
 		log.debug('UI > Reset config');
 		Flux.next('interface', 'runtime', 'reset', true, 1);

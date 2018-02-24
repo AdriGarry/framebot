@@ -58,6 +58,12 @@ if (!Odi.isAwake()) {
 }
 Flux.next('interface', 'runtime', 'refresh');
 
+if (Odi.conf('watcher')) {
+	Flux.next('controller', 'watcher', 'startWatch');
+}
+
+Flux.next('interface', 'runtime', 'refresh');
+
 const HORNS = [
 	'playHornWarning',
 	'playHornDoUp',

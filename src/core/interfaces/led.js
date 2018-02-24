@@ -39,9 +39,7 @@ Flux.interface.led.subscribe({
 			clearLeds();
 		} else if (flux.id == 'activity') {
 			activity(flux.value);
-		} else {
-			log.info('Led flux not mapped', flux);
-		}
+		} else Odi.error('unmapped flux in Led interface', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
