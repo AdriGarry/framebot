@@ -17,7 +17,7 @@ Flux.service.interaction.subscribe({
 			exclamation();
 		} else if (flux.id == 'weather') {
 			if (flux.value == 'random') {
-				if (Utils.random()) {
+				if (Utils.rdm()) {
 					weatherService();
 				} else {
 					weatherInteractiveService();
@@ -37,13 +37,13 @@ Flux.service.interaction.subscribe({
 });
 
 var randomActionBase = [
-	{ type: 'module', subject: 'tts', id: 'speak', weight: 6 }, //7
+	{ type: 'interface', subject: 'tts', id: 'speak', weight: 6 }, //7
 	{ type: 'service', subject: 'interaction', id: 'exclamation', weight: 4 }, //4
 	{ type: 'service', subject: 'time', id: 'now', weight: 1 },
 	{ type: 'service', subject: 'time', id: 'today', weight: 1 },
 	{ type: 'service', subject: 'interaction', id: 'weather', value: 'random', weight: 2 }, //4
-	{ type: 'module', subject: 'hardware', id: 'cpuTTS', weight: 1 },
-	{ type: 'module', subject: 'hardware', id: 'soulTTS', weight: 3 },
+	{ type: 'interface', subject: 'hardware', id: 'cpuTTS', weight: 1 },
+	{ type: 'interface', subject: 'hardware', id: 'soulTTS', weight: 3 },
 	{ type: 'service', subject: 'time', id: 'OdiAge', weight: 1 }
 ];
 /** Building randomActionList from randomActionBase */
@@ -69,14 +69,14 @@ function randomAction() {
 
 function exclamation() {
 	log.info('Exclamation !');
-	Flux.next('module', 'led', 'blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, null, null, true);
+	Flux.next('interface', 'led', 'blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, null, null, true);
 	spawn('sh', [Odi._SHELL + 'exclamation.sh']);
 }
 
 /** Fonction Russian */
 function russia() {
 	log.info('Russia !');
-	Flux.next('module', 'led', 'blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, null, null, true);
+	Flux.next('interface', 'led', 'blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, null, null, true);
 	spawn('sh', [Odi._SHELL + 'exclamation_russia.sh']);
 }
 
@@ -109,14 +109,14 @@ function getWeatherData(callback) {
 					weatherReport.wind = weatherReport.data.query.results.channel.wind.speed;
 					callback(weatherReport);
 				} else {
-					Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo' });
+					Flux.next('interface', 'tts', 'speak', { voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo' });
 					Odi.error("Weather request > Can't retreive weather informations. response.statusCode", response.statusCode);
 					if (error) {
 						Odi.error('Error getting weather info  /!\\ \n' + error);
 					}
 				}
 			} catch (e) {
-				if (Odi.isAwake()) Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Weather error' });
+				if (Odi.isAwake()) Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'Weather error' });
 				Odi.error(e);
 			}
 		}
@@ -140,7 +140,7 @@ function weatherService() {
 				' kilometre heure de vent'
 		};
 		log.debug('weatherSpeech', weatherSpeech);
-		Flux.next('module', 'tts', 'speak', weatherSpeech);
+		Flux.next('interface', 'tts', 'speak', weatherSpeech);
 	});
 }
 
@@ -197,6 +197,6 @@ function weatherInteractiveService() {
 				break;
 		}
 		log.debug('weatherSpeech', weatherSpeech);
-		Flux.next('module', 'tts', 'speak', weatherSpeech);
+		Flux.next('interface', 'tts', 'speak', weatherSpeech);
 	});
 }

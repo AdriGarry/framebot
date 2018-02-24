@@ -27,7 +27,7 @@ function expressive(args) {
 function badBoy(interval) {
 	if (typeof interval === 'number') {
 		log.info('Bad Boy mode !! [' + interval + ']');
-		Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Baad boy !' });
+		Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'Baad boy !' });
 		var loop = 0;
 		setInterval(function() {
 			loop++;
@@ -42,9 +42,9 @@ function badBoy(interval) {
 }
 
 function badBoyTTS() {
-	Flux.next('module', 'tts', 'speak', getNewRdmBadBoyTTS());
+	Flux.next('interface', 'tts', 'speak', getNewRdmBadBoyTTS());
 	setTimeout(function() {
-		Flux.next('module', 'tts', 'speak', getNewRdmBadBoyTTS());
+		Flux.next('interface', 'tts', 'speak', getNewRdmBadBoyTTS());
 	}, 1000);
 }
 

@@ -26,7 +26,7 @@ const odiLeds = {
 // todo faire des séquences de clignottements pour pouvoir les arrêter...
 var ledSequences = [];
 
-Flux.module.led.subscribe({
+Flux.interface.led.subscribe({
 	next: flux => {
 		//log.info(flux, '(you are in the led module !)');
 		if (flux.id == 'toggle') {
@@ -39,9 +39,7 @@ Flux.module.led.subscribe({
 			clearLeds();
 		} else if (flux.id == 'activity') {
 			activity(flux.value);
-		} else {
-			log.info('Led flux not mapped', flux);
-		}
+		} else Odi.error('unmapped flux in Led interface', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);

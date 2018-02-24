@@ -9,7 +9,7 @@ var Utils = require(Odi._CORE + 'Utils.js');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 
-Flux.module.sound.subscribe({
+Flux.interface.sound.subscribe({
 	// TODO: ABSOLUMENT BLOQUER LES SONS EN MODE SLEEP !!
 	next: flux => {
 		if (flux.id == 'mute') {
@@ -61,7 +61,7 @@ function playSound(arg, noLog) {
 	Utils.execCmd('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound, function(callback) {
 		// always log callback
 		if (callback.toString().indexOf('have a nice day') >= 0) {
-			if (!noLog) log.info('play end. time:', Utils.getExecutionTime(startPlayTime));
+			if (!noLog) log.info('play end. time:', Utils.executionTime(startPlayTime));
 		} else {
 			console.log(callback);
 			Odi.error('File not found', callback.unQuote(), false);
@@ -88,11 +88,11 @@ function mute(args) {
 
 /** Function to stop all sounds & leds */
 function stopAll(message) {
-	Flux.next('module', 'tts', 'clearTTSQueue', null, null, null, 'hidden');
+	Flux.next('interface', 'tts', 'clearTTSQueue', null, null, null, 'hidden');
 	Flux.next('service', 'music', 'stop', null, null, null, 'hidden');
 	spawn('sh', [Odi._SHELL + 'mute.sh']);
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
-	Flux.next('module', 'led', 'clearLeds', null, null, null, 'hidden');
-	Flux.next('module', 'led', 'toggle', { leds: ['eye', 'belly'], value: 0 }, null, null, 'hidden');
+	Flux.next('interface', 'led', 'clearLeds', null, null, null, 'hidden');
+	Flux.next('interface', 'led', 'toggle', { leds: ['eye', 'belly'], value: 0 }, null, null, 'hidden');
 	Odi.run('music', false);
 }

@@ -33,7 +33,7 @@ function initButtonReady() {
 	});
 
 	cancel.watch(function(err, value) {
-		Flux.next('module', 'sound', 'mute');
+		Flux.next('interface', 'sound', 'mute');
 		var pushTime = getPushTime(cancel);
 		Flux.next('controller', 'button', 'cancel', pushTime);
 	});
@@ -55,7 +55,7 @@ function initButtonReady() {
 	var intervalDelay = Odi.conf('debug') ? 2 * 60 * 1000 : 5 * 60 * 1000;
 	setInterval(function() {
 		var value = etat.readSync();
-		Flux.next('module', 'led', 'toggle', { leds: ['satellite'], value: value }, null, null, true);
+		Flux.next('interface', 'led', 'toggle', { leds: ['satellite'], value: value }, null, null, true);
 		if (1 === value) {
 			if (!instance) {
 				instance = true;
@@ -78,7 +78,7 @@ function initButtonReady() {
 		Odi.run('volume', Odi.isAwake() ? (value ? 400 : -400) : 'mute');
 		log.info('Etat:', value, '[Etat has changed]');
 		if (Odi.run('music') == 'fip') {
-			Flux.next('module', 'sound', 'mute');
+			Flux.next('interface', 'sound', 'mute');
 			Flux.next('service', 'music', 'fip', null, 0.1);
 		}
 		log.table(Odi.run(), 'RUNTIME...');

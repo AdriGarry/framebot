@@ -37,27 +37,27 @@ function parseDataFromMax(data) {
 	}
 	switch (data) {
 		case 'some random action from Max':
-			if (Odi.isAwake()) Flux.next('module', 'tts', 'speak', 'Oh, il se passe un truc du coter de chez Max!');
+			if (Odi.isAwake()) Flux.next('interface', 'tts', 'speak', 'Oh, il se passe un truc du coter de chez Max!');
 			break;
 		case 'blinkLed':
-			if (Odi.run('etat') == 'high') Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'blink led' });
+			if (Odi.run('etat') == 'high') Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'blink led' });
 			break;
 		case 'playOneMelodyEnd':
 		case 'playRandomMelodyEnd':
-			if (Utils.random()) {
-				Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'contact' });
+			if (Utils.rdm()) {
+				Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'contact' });
 			} else {
-				Flux.next('module', 'tts', 'speak', 'mais oui    Max');
+				Flux.next('interface', 'tts', 'speak', 'mais oui    Max');
 			}
 			break;
 		case 'turnEnd':
-			if (Odi.run('etat') == 'high') Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'turn' });
+			if (Odi.run('etat') == 'high') Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'turn' });
 			break;
 		case 'playRdmHornEnd':
-			if (Utils.random()) {
-				Flux.next('module', 'tts', 'speak', 'eh ho, sa suffit!');
+			if (Utils.rdm()) {
+				Flux.next('interface', 'tts', 'speak', 'eh ho, sa suffit!');
 			} else {
-				Flux.next('module', 'tts', 'speak', 'doucement avec ton tweeter!');
+				Flux.next('interface', 'tts', 'speak', 'doucement avec ton tweeter!');
 			}
 			break;
 		default:

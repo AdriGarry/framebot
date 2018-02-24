@@ -7,7 +7,7 @@ var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
 var fs = require('fs');
 
-Flux.module.runtime.subscribe({
+Flux.interface.runtime.subscribe({
 	next: flux => {
 		if (flux.id == 'update') {
 			updateConf(flux.value, false);
@@ -17,7 +17,7 @@ Flux.module.runtime.subscribe({
 			resetCfg(flux.value);
 		} else if (flux.id == 'refresh') {
 			refreshRuntime(flux.value);
-		} else Odi.error('unmapped flux in Conf service', flux, false);
+		} else Odi.error('unmapped flux in Runtime interface', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
@@ -32,17 +32,16 @@ function updateConf(newConf, restart) {
 		updatedEntries.push(key);
 		Odi.conf(key, newConf[key], restart, true);
 	});
-	let header = 'CONFIG UPDATE' + ' '.repeat(3) + Utils.getExecutionTime(updateBegin, '    ') + 'ms';
+	let header = 'CONFIG UPDATE' + ' '.repeat(3) + Utils.executionTime(updateBegin, '    ') + 'ms';
 	log.table(Odi.conf(), header, updatedEntries);
 	if (restart) process.exit();
 }
 
 /** Function to reset Odi's config */
 function resetCfg(restart) {
-	log.info('resetCfg()', restart ? 'and restart' : '');
-	let defaultConf = fs.readFileSync(ODI_PATH + 'data/defaultConf.json', 'utf-8');
-	fs.writeFileSync(ODI_PATH + 'conf.json', defaultConf, 'utf-8');
-	// TODO faire ici ce qui est fait dans reset.sh !!
+	log.INFO('reset conf', restart ? 'and restart' : '');
+	fs.unlinkSync(ODI_PATH + 'conf.json');
+	// + TODO faire ici ce qui est fait dans reset.sh !!
 	if (restart) {
 		process.exit();
 	}
@@ -51,9 +50,7 @@ function resetCfg(restart) {
 /** Function to refresh Odi\'s runtime data (etat, timer, moods...) */
 function refreshRuntime() {
 	log.info("refreshing Odi's runtime...");
-	Flux.next('module', 'hardware', 'runtime', null, null, null, true);
-	// Flux.next('controller', 'button', 'runtime', null, null, true);
-	// Flux.next('module', 'hardware', '');
+	Flux.next('interface', 'hardware', 'runtime', null, null, null, true);
 	setTimeout(function() {
 		log.table(Odi.run(), 'RUNTIME...');
 	}, 1000);

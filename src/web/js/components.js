@@ -569,8 +569,8 @@ app.component('arduino', {
 	}
 });
 
-/** Test component */
-app.component('test', {
+/** Options component */
+app.component('options', {
 	bindings: {
 		data: '<',
 		access: '<',
@@ -580,9 +580,10 @@ app.component('test', {
 	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
-			label: 'Test',
+			label: 'Options',
 			actionList: [
 				{ label: 'Test cycle', icon: 'fas fa-cubes', url: '/testSequence' },
+				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' },
 				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' }
 			]
 		};

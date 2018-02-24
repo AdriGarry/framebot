@@ -9,7 +9,7 @@ var spawn = require('child_process').spawn;
 var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(Odi._CORE + 'Utils.js');
 
-Flux.module.tts.subscribe({
+Flux.interface.tts.subscribe({
 	next: flux => {
 		if (flux.id == 'speak') {
 			speak(flux.value);
@@ -114,7 +114,7 @@ var playTTS = function(tts) {
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	spawn('sh', [Odi._SHELL + 'tts.sh', tts.voice, tts.lg, tts.msg.replace('%20', '')]);
 	Flux.next(
-		'module',
+		'interface',
 		'led',
 		'blink',
 		{ leds: ['eye'], speed: Utils.random(50, 150), loop: tts.msg.length / 2 + 2 },

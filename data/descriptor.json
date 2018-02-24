@@ -1,0 +1,26 @@
+{
+	"modules": {
+		"interfaces": {
+			"base": ["runtime", "led", "sound", "hardware", "arduino"],
+			"full": ["tts"]
+		},
+		"controllers": {
+			"base": ["button", "jobs", "server", "watcher"]
+		},
+		"services": {
+			"base": ["handler", "system", "time", "voicemail", "video"],
+			"full": ["mood", "interaction", "music", "party", "max"]
+		}
+	},
+	"conf": {
+		"mode": "ready",
+		"debug": 0,
+		"watcher": false,
+		"startTime": ".",
+		"alarms": {
+			"weekDay": { "h": 7, "m": 10 },
+			"weekEnd": { "h": 12, "m": 0 }
+		},
+		"version": "."
+	}
+}

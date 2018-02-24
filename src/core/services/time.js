@@ -43,7 +43,7 @@ function now() {
 	var date = new Date();
 	var hour = date.getHours();
 	var min = date.getMinutes();
-	Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: 'Il est ' + hour + ' heure ' + (min > 0 ? min : '') });
+	Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: 'Il est ' + hour + ' heure ' + (min > 0 ? min : '') });
 }
 
 const CALENDAR = require(Odi._DATA + 'calendar.json');
@@ -58,15 +58,15 @@ function today() {
 	var month = CALENDAR.months[month];
 	var year = date.getFullYear();
 
-	if (Utils.random()) {
+	if (Utils.rdm()) {
 		var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
 	} else {
 		var annonceDate = ['Nous sommes le ' + day + ' ' + dayNb + ' ' + month, "Et donc, c'est " + getSeason() + '!'];
 	}
 
 	log.debug('time.today()' + annonceDate);
-	// Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: annonceDate });
-	Flux.next('module', 'tts', 'speak', annonceDate);
+	// Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: annonceDate });
+	Flux.next('interface', 'tts', 'speak', annonceDate);
 }
 
 function getSeason() {
@@ -87,8 +87,8 @@ function getSeason() {
 
 /** Function to disable all Odi's alarms */
 function disableAllAlarms() {
-	Flux.next('module', 'tts', 'speak', 'Annulation de toutes les alarmes');
-	Flux.next('module', 'runtime', 'updateRestart', { alarms: { weekDay: null, weekEnd: null } }, 4);
+	Flux.next('interface', 'tts', 'speak', 'Annulation de toutes les alarmes');
+	Flux.next('interface', 'runtime', 'updateRestart', { alarms: { weekDay: null, weekEnd: null } }, 4);
 }
 
 /** Function to set Odi's custom alarm */
@@ -107,8 +107,8 @@ function setAlarm(alarm) {
 	});
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
 	let alarmTTS = 'Alarme ' + alarmMode + ' reprogramer a ' + alarm.h + ' heures et ' + alarm.m + ' minutes';
-	Flux.next('module', 'tts', 'speak', alarmTTS);
-	Flux.next('module', 'runtime', 'updateRestart', { alarms: newAlarms }, 6);
+	Flux.next('interface', 'tts', 'speak', alarmTTS);
+	Flux.next('interface', 'runtime', 'updateRestart', { alarms: newAlarms }, 6);
 }
 
 /** Function to test if alarm now */
@@ -179,7 +179,7 @@ function cocoricoPart3() {
 	Flux.next('service', 'music', 'fip', null, 45);
 
 	var baluchonTTS = "Je crois qu'il faut lancer l'opairation baluchon";
-	Flux.next('module', 'tts', 'speak', baluchonTTS, Utils.random(15, 25) * 60, 3);
+	Flux.next('interface', 'tts', 'speak', baluchonTTS, Utils.random(15, 25) * 60, 3);
 }
 
 const BIRTHDAYS = ['17/04', '13/12'];
@@ -214,7 +214,7 @@ function sayOdiAge() {
 	var birthDay = rdm[Utils.random(rdm.length)];
 	birthDay += "j'ai " + years + ' ans et ' + mouths + ' mois !';
 	log.info("sayOdiAge() '" + birthDay + "'");
-	Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: birthDay });
+	Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: birthDay });
 }
 
 Odi.run('timer', 0);
@@ -230,7 +230,7 @@ function setTimer(minutes) {
 	var sec = Odi.run('timer') % 60;
 	var ttsMsg =
 		'Minuterie ' + (min > 0 ? (min > 1 ? min : ' une ') + ' minutes ' : '') + (sec > 0 ? sec + ' secondes' : '');
-	Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: ttsMsg });
+	Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: ttsMsg });
 	if (Odi.run('timer') >= 60 && !secInterval) {
 		startTimer();
 	}
@@ -239,7 +239,7 @@ function setTimer(minutes) {
 function startTimer() {
 	var etat = 1;
 	secInterval = setInterval(function() {
-		Flux.next('module', 'led', 'toggle', { leds: ['belly'], value: etat }, null, null, true);
+		Flux.next('interface', 'led', 'toggle', { leds: ['belly'], value: etat }, null, null, true);
 		etat = 1 - etat;
 		let timerCountDown = Odi.run('timer');
 		if (timerCountDown < 10) {
@@ -250,14 +250,14 @@ function startTimer() {
 		Odi.run('timer', Odi.run('timer') - 1);
 		timerCountDown = Odi.run('timer');
 		if (timerCountDown % 120 == 0 && timerCountDown / 60 > 0) {
-			Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: Odi.run('timer') / 60 + ' minutes et compte a rebours' });
+			Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: Odi.run('timer') / 60 + ' minutes et compte a rebours' });
 		} else if (timerCountDown <= 0 && timerCountDown > -5) {
 			clearInterval(secInterval);
 			log.info('End Timer !');
 			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'end']);
-			Flux.next('module', 'led', 'blink', { leds: ['belly', 'eye'], speed: 90, loop: 12 });
-			Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: 'Les raviolis sont cuits !' });
-			Flux.next('module', 'led', 'toggle', { leds: ['belly'], value: 0 }, 1);
+			Flux.next('interface', 'led', 'blink', { leds: ['belly', 'eye'], speed: 90, loop: 12 });
+			Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: 'Les raviolis sont cuits !' });
+			Flux.next('interface', 'led', 'toggle', { leds: ['belly'], value: 0 }, 1);
 		}
 	}, 1000);
 }
@@ -266,7 +266,7 @@ function stopTimer() {
 	if (Odi.run('timer') > 0) {
 		clearInterval(secInterval);
 		Odi.run('timer', 0);
-		Flux.next('module', 'tts', 'speak', { lg: 'en', msg: 'Timer canceled' });
-		Flux.next('module', 'led', 'toggle', { leds: ['belly'], value: 0 }, null, null, true);
+		Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'Timer canceled' });
+		Flux.next('interface', 'led', 'toggle', { leds: ['belly'], value: 0 }, null, null, true);
 	}
 }

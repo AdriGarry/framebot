@@ -22,7 +22,7 @@ if (Odi.isAwake()) {
 new CronJob(
 	'*/29 * * * * *',
 	function() {
-		Flux.next('module', 'hardware', 'runtime', null, null, null, true);
+		Flux.next('interface', 'hardware', 'runtime', null, null, null, true);
 	},
 	null,
 	true,
@@ -42,7 +42,7 @@ new CronJob(
 	'0 2 0 * * 1',
 	function() {
 		log.info('Clean log files  /!\\'); // Weekly cleaning of logs
-		Flux.next('module', 'hardware', 'archiveLog');
+		Flux.next('interface', 'hardware', 'archiveLog');
 	},
 	null,
 	true,
@@ -93,8 +93,9 @@ function setInteractiveJobs() {
 	new CronJob(
 		'0 18,20,22-25 8 * * 1-5',
 		function() {
-			if (Utils.random()) Flux.next('module', 'tts', 'speak', { lg: 'fr', msg: 'Go go go, allez au boulot' });
-			else Flux.next('module', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Allez allez, Maitro boulot dodo' });
+			if (Utils.rdm()) Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: 'Go go go, allez au boulot' });
+			else
+				Flux.next('interface', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Allez allez, Maitro boulot dodo' });
 		},
 		null,
 		true,
@@ -135,7 +136,7 @@ function setInteractiveJobs() {
 	new CronJob(
 		'0 19 19 * * *',
 		function() {
-			Flux.next('module', 'tts', 'speak', {
+			Flux.next('interface', 'tts', 'speak', {
 				lg: 'fr',
 				voice: 'espeak',
 				msg: "Je crois qu'il faut lancer l'opairation baluchon"
@@ -161,7 +162,7 @@ function setInteractiveJobs() {
 /** Function to random TTS ggood night. NOT EXPORTED! */
 function goToSleep() {
 	var sleepTTS = Utils.randomItem(Odi.ttsMessages.goToSleep);
-	Flux.next('module', 'tts', 'speak', sleepTTS);
+	Flux.next('interface', 'tts', 'speak', sleepTTS);
 	log.info('AutoLifeCycle go to sleep !');
 	setTimeout(function() {
 		Flux.next('service', 'system', 'restart', 'sleep');
@@ -194,7 +195,7 @@ function setLifeCycleJobs() {
 	new CronJob(
 		'13 13 13 * * 1-6',
 		function() {
-			Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Auto restart' }); // Daily restart Odi's core
+			Flux.next('interface', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Auto restart' }); // Daily restart Odi's core
 			Flux.next('service', 'system', 'restart', null, 3);
 		},
 		null,
@@ -204,9 +205,9 @@ function setLifeCycleJobs() {
 	new CronJob(
 		'13 13 13 * * 0',
 		function() {
-			Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Reset config' }); // Weekly RPI reboot
+			Flux.next('interface', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Reset config' }); // Weekly RPI reboot
 			log.info('resetCfg'); // Weekly reset of conf
-			Flux.next('module', 'runtime', 'reset', true, 3);
+			Flux.next('interface', 'runtime', 'reset', true, 3);
 		},
 		null,
 		true,
@@ -215,7 +216,7 @@ function setLifeCycleJobs() {
 	new CronJob(
 		'15 15 13 * * 0',
 		function() {
-			Flux.next('module', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Auto reboot' }); // Weekly RPI reboot
+			Flux.next('interface', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Auto reboot' }); // Weekly RPI reboot
 			Flux.next('service', 'system', 'reboot', null, 3);
 		},
 		null,
