@@ -52,13 +52,12 @@ module.exports = {
 	Odi: Odi
 };
 
-
 var Flux = { next: null };
 function initOdi(path, descriptor, forcedParams, startTime) {
 	Odi.PATH = path;
 	let packageJson = require(ODI_PATH + 'package.json');
 	// console.log(packageJson.version);
-	var confUpdate = { 'startTime': Utils.logTime('h:m (D/M)'), version: packageJson.version },
+	var confUpdate = { startTime: Utils.logTime('h:m (D/M)'), version: packageJson.version },
 		forcedParamsLog = '';
 	if (forcedParams.sleep) {
 		Odi.conf('mode', 'sleep');
@@ -87,6 +86,7 @@ function initOdi(path, descriptor, forcedParams, startTime) {
 		log.enableDebug();
 		enableDebugCountdown();
 	}
+	Odi.descriptor = descriptor;
 	Flux = require(Odi._CORE + 'Flux.js').attach(descriptor.modules);
 	Flux.next('interface', 'runtime', 'update', confUpdate, 0.5);
 	log.info('Odi main object initialized [' + Utils.getExecutionTime(startTime) + 'ms]');
@@ -118,7 +118,8 @@ function error(label, data, stackTrace) {
 function enableDebugCountdown() {
 	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf('debug') + 'min ' + '\u2022\u2022\u2022');
 	setInterval(function() {
-		Flux.next('interface', 'runtime', 'update', { debug: Odi.conf('debug', Odi.conf('debug')--) });
+		let debugTimeout = Odi.conf('debug');
+		Flux.next('interface', 'runtime', 'update', { debug: Odi.conf('debug', debugTimeout--) });
 		if (!Odi.conf('debug')) {
 			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
 			setTimeout(function() {

@@ -14,7 +14,7 @@ const BYTE_TO_MO = 1048576;
 retreiveLastModifiedDate(PATHS);
 countSoftwareLines();
 
-Flux.module.hardware.subscribe({
+Flux.interface.hardware.subscribe({
 	next: flux => {
 		if (flux.id == 'runtime') {
 			getDiskSpace();

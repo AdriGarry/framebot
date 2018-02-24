@@ -7,10 +7,7 @@ var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
 var fs = require('fs');
 
-// log.INFO('-------->>>>>>>> Flux from runtime');
-// log.info(Flux);
-// log.info(Flux.module);
-Flux.module.runtime.subscribe({
+Flux.interface.runtime.subscribe({
 	next: flux => {
 		if (flux.id == 'update') {
 			updateConf(flux.value, false);
@@ -42,6 +39,8 @@ function updateConf(newConf, restart) {
 
 /** Function to reset Odi's config */
 function resetCfg(restart) {
+	log.INFO('--------------Odi.descriptor');
+	log.info(Odi.descriptor);
 	log.info('resetCfg()', restart ? 'and restart' : '');
 	let defaultConf = fs.readFileSync(ODI_PATH + 'data/defaultConf.json', 'utf-8');
 	fs.writeFileSync(ODI_PATH + 'conf.json', defaultConf, 'utf-8');

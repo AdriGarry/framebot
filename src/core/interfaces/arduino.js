@@ -7,7 +7,7 @@ var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(Odi._CORE + 'Utils.js');
 
-Flux.module.arduino.subscribe({
+Flux.interface.arduino.subscribe({
 	next: flux => {
 		if (flux.id == 'write') {
 			write(flux.value);

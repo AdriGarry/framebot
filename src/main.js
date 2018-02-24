@@ -32,7 +32,6 @@ log.debug('argv', argv);
 
 var Utils = require(Odi._CORE + 'Utils.js');
 
-log.info(descriptor.modules);
 var Flux = require(Odi._CORE + 'Flux.js').loadModules(descriptor.modules);
 
 log.info('--> Odi ready in ' + Utils.getExecutionTime(startTime) + 'ms');

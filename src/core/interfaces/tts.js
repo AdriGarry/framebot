@@ -9,7 +9,7 @@ var spawn = require('child_process').spawn;
 var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(Odi._CORE + 'Utils.js');
 
-Flux.module.tts.subscribe({
+Flux.interface.tts.subscribe({
 	next: flux => {
 		if (flux.id == 'speak') {
 			speak(flux.value);

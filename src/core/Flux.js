@@ -36,16 +36,16 @@ function loadModules(modules) {
 	Object.keys(modules).forEach(function(module) {
 		let modulesLoaded = '';
 		for (let i = 0; i < modules[module].base.length; i++) {
-			require(Odi._CORE + modules + '/' + modules[module].base[i] + '.js');
+			require(Odi._CORE + module + '/' + modules[module].base[i] + '.js');
 		}
-		modulesLoaded += modules[observer].base.join(', ');
-		if (Odi.isAwake() && modules[observer].hasOwnProperty('full')) {
-			for (let i = 0; i < modules[observer].full.length; i++) {
-				require(Odi._CORE + modules + '/' + modules[module].full[i] + '.js');
+		modulesLoaded += modules[module].base.join(', ');
+		if (Odi.isAwake() && modules[module].hasOwnProperty('full')) {
+			for (let i = 0; i < modules[module].full.length; i++) {
+				require(Odi._CORE + module + '/' + modules[module].full[i] + '.js');
 			}
 			modulesLoaded += ', ' + modules[module].full.join(', ');
 		}
-		log.info(modules, 'loaded:', modulesLoaded); //, '[' + Utils.getExecutionTime(startTime) + 'ms]');
+		log.info(module, 'loaded:', modulesLoaded); //, '[' + Utils.getExecutionTime(startTime) + 'ms]');
 	});
 	return Flux;
 }

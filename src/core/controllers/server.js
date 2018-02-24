@@ -184,44 +184,6 @@ function startUIServer(mode) {
 		res.end(JSON.stringify(dashboard));
 	});
 
-	/** POST ALARM SETTING */
-	ui.post('/alarm', function(req, res) {
-		params = req.body;
-		Flux.next('service', 'time', 'setAlarm', params);
-		res.writeHead(200);
-		res.end();
-	});
-
-	ui.post('/alarmOff', function(req, res) {
-		params = req.body;
-		Flux.next('service', 'time', 'alarmOff');
-		res.writeHead(200);
-		res.end();
-	});
-
-	/** TOGGLE DEBUG MODE */
-	ui.post('/toggleDebug', function(req, res) {
-		log.debug('UI > Toggle debug');
-		Flux.next('interface', 'runtime', 'updateRestart', { debug: Odi.conf('debug') ? 0 : 20 });
-		// Odi.update({ debug: Odi.conf('debug') ? 0 : 20 }, true);
-		res.writeHead(200);
-		res.end();
-	});
-
-	ui.post('/testSequence', function(req, res) {
-		Flux.next('interface', 'runtime', 'updateRestart', { mode: 'test' });
-		// Odi.update({ mode: 'test' }, true);
-		res.writeHead(200);
-		res.end();
-	});
-
-	ui.post('/resetConfig', function(req, res) {
-		log.debug('UI > Reset config');
-		Flux.next('interface', 'runtime', 'reset', true);
-		res.writeHead(200);
-		res.end();
-	});
-
 	/** ==> GET SECTION */
 	ui.get('/log', function(req, res) {
 		// Send Logs to UI
@@ -286,6 +248,28 @@ function startUIServer(mode) {
 		res.end();
 	});
 
+	ui.post('/toggleDebug', function(req, res) {
+		log.debug('UI > Toggle debug');
+		Flux.next('interface', 'runtime', 'updateRestart', { debug: Odi.conf('debug') ? 0 : 20 }, 1);
+		// Odi.update({ debug: Odi.conf('debug') ? 0 : 20 }, true);
+		res.writeHead(200);
+		res.end();
+	});
+
+	ui.post('/testSequence', function(req, res) {
+		Flux.next('interface', 'runtime', 'updateRestart', { mode: 'test' }, 1);
+		// Odi.update({ mode: 'test' }, true);
+		res.writeHead(200);
+		res.end();
+	});
+
+	ui.post('/resetConfig', function(req, res) {
+		log.debug('UI > Reset config');
+		Flux.next('interface', 'runtime', 'reset', true, 1);
+		res.writeHead(200);
+		res.end();
+	});
+
 	ui.post('/sleep', function(req, res) {
 		Flux.next('service', 'system', 'restart', 'sleep', 1);
 		res.writeHead(200);
@@ -306,6 +290,20 @@ function startUIServer(mode) {
 
 	ui.post('/mute', function(req, res) {
 		Flux.next('interface', 'sound', 'mute');
+		res.writeHead(200);
+		res.end();
+	});
+
+	ui.post('/alarm', function(req, res) {
+		params = req.body;
+		Flux.next('service', 'time', 'setAlarm', params);
+		res.writeHead(200);
+		res.end();
+	});
+
+	ui.post('/alarmOff', function(req, res) {
+		params = req.body;
+		Flux.next('service', 'time', 'alarmOff');
 		res.writeHead(200);
 		res.end();
 	});
