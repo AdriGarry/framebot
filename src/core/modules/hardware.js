@@ -27,6 +27,8 @@ Flux.module.hardware.subscribe({
 			// 	countSoftwareLines();
 		} else if (flux.id == 'cpuTTS') {
 			cpuStatsTTS();
+		} else if (flux.id == 'soulTTS') {
+			soulTTS();
 		} else if (flux.id == 'diskSpaceTTS') {
 			diskSpaceTTS();
 		} else if (flux.id == 'totalLinesTTS') {
@@ -103,15 +105,22 @@ function cpuAverage() {
 var startMeasure = cpuAverage();
 
 /** Function to get memory usage stats (Odi + system) */
+function soulTTS() {
+	log.info('---> soulTTS');
+	let ttsMsg = Math.round(Odi.run('memory.odi')) + ' maiga octets, sait le poid de mon ame en ce moment';
+	Flux.next('module', 'tts', 'speak', ttsMsg);
+}
+
+/** Function to get memory usage stats (Odi + system) */
 function retreiveMemoryUsage() {
 	let usedByOdi = process.memoryUsage();
 	usedByOdi = (usedByOdi.rss / BYTE_TO_MO).toFixed(1);
-	Odi.run('memory.odi', usedByOdi + 'Mo');
+	Odi.run('memory.odi', usedByOdi);
 
 	let totalMem = (os.totalmem() / BYTE_TO_MO).toFixed(0);
 	let freeMem = (os.freemem() / BYTE_TO_MO).toFixed(0);
 	let usedMem = (totalMem - freeMem).toFixed(0);
-	Odi.run('memory.system', usedMem + '/' + totalMem + 'Mo');
+	Odi.run('memory.system', usedMem + '/' + totalMem);
 }
 
 /** Function to update last modified date & time of Odi's files */

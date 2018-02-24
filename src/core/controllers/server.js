@@ -519,6 +519,12 @@ function startUIServer(mode) {
 			res.end();
 		});
 
+		ui.post('/soulTTS', function(req, res) {
+			Flux.next('module', 'hardware', 'soulTTS');
+			res.writeHead(200);
+			res.end();
+		});
+
 		ui.post('/diskSpaceTTS', function(req, res) {
 			Flux.next('module', 'hardware', 'diskSpaceTTS');
 			res.writeHead(200);
