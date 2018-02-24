@@ -32,14 +32,14 @@ function updateConf(newConf, restart) {
 		updatedEntries.push(key);
 		Odi.conf(key, newConf[key], restart, true);
 	});
-	let header = 'CONFIG UPDATE' + ' '.repeat(3) + Utils.getExecutionTime(updateBegin, '    ') + 'ms';
+	let header = 'CONFIG UPDATE' + ' '.repeat(3) + Utils.executionTime(updateBegin, '    ') + 'ms';
 	log.table(Odi.conf(), header, updatedEntries);
 	if (restart) process.exit();
 }
 
 /** Function to reset Odi's config */
 function resetCfg(restart) {
-	log.info('resetCfg()', restart ? 'and restart' : '');
+	log.INFO('reset conf', restart ? 'and restart' : '');
 	fs.unlinkSync(ODI_PATH + 'conf.json');
 	// + TODO faire ici ce qui est fait dans reset.sh !!
 	if (restart) {

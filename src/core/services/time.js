@@ -58,7 +58,7 @@ function today() {
 	var month = CALENDAR.months[month];
 	var year = date.getFullYear();
 
-	if (Utils.random()) {
+	if (Utils.rdm()) {
 		var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
 	} else {
 		var annonceDate = ['Nous sommes le ' + day + ' ' + dayNb + ' ' + month, "Et donc, c'est " + getSeason() + '!'];

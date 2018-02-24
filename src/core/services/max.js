@@ -44,7 +44,7 @@ function parseDataFromMax(data) {
 			break;
 		case 'playOneMelodyEnd':
 		case 'playRandomMelodyEnd':
-			if (Utils.random()) {
+			if (Utils.rdm()) {
 				Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'contact' });
 			} else {
 				Flux.next('interface', 'tts', 'speak', 'mais oui    Max');
@@ -54,7 +54,7 @@ function parseDataFromMax(data) {
 			if (Odi.run('etat') == 'high') Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'turn' });
 			break;
 		case 'playRdmHornEnd':
-			if (Utils.random()) {
+			if (Utils.rdm()) {
 				Flux.next('interface', 'tts', 'speak', 'eh ho, sa suffit!');
 			} else {
 				Flux.next('interface', 'tts', 'speak', 'doucement avec ton tweeter!');

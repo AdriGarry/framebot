@@ -34,7 +34,7 @@ var Utils = require(Odi._CORE + 'Utils.js');
 
 var Flux = require(Odi._CORE + 'Flux.js').loadModules(descriptor.modules);
 
-log.info('--> Odi ready in ' + Utils.getExecutionTime(startTime) + 'ms');
+log.info('--> Odi ready in ' + Utils.executionTime(startTime) + 'ms');
 
 if (!Odi.isAwake()) {
 	Flux.next('service', 'video', 'screenOff');
@@ -43,7 +43,7 @@ if (!Odi.isAwake()) {
 	Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'test sequence' });
 	setTimeout(function() {
 		var testSequence = require(Odi._SRC + 'test/tests.js').launch(function(testStatus) {
-			let testTTS = Utils.random() ? 'Je suis Ok !' : { lg: 'en', msg: 'all tests succeeded!' };
+			let testTTS = Utils.rdm() ? 'Je suis Ok !' : { lg: 'en', msg: 'all tests succeeded!' };
 			Flux.next('interface', 'tts', 'speak', testTTS);
 			setTimeout(function() {
 				if (testStatus) Flux.next('interface', 'runtime', 'updateRestart', { mode: 'ready' });

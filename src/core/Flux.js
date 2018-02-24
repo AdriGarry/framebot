@@ -45,7 +45,7 @@ function loadModules(modules) {
 			}
 			modulesLoaded += ', ' + modules[module].full.join(', ');
 		}
-		log.info(module, 'loaded:', modulesLoaded); //, '[' + Utils.getExecutionTime(startTime) + 'ms]');
+		log.info(module, 'loaded:', modulesLoaded); //, '[' + Utils.executionTime(startTime) + 'ms]');
 	});
 	return Flux;
 }
@@ -72,7 +72,7 @@ function next(type, subject, id, value, delay, loop, hidden) {
 	var flux = new FluxObject(type, subject, id, value, delay, loop, hidden);
 
 	if (!ready) {
-		log.error('--> Flux manager not ready', flux);
+		log.error('Flux manager not yet ready', flux);
 		return;
 	}
 	if (!inspect(flux)) return;

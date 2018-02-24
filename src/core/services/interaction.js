@@ -17,7 +17,7 @@ Flux.service.interaction.subscribe({
 			exclamation();
 		} else if (flux.id == 'weather') {
 			if (flux.value == 'random') {
-				if (Utils.random()) {
+				if (Utils.rdm()) {
 					weatherService();
 				} else {
 					weatherInteractiveService();

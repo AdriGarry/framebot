@@ -53,11 +53,11 @@ function getEtatValue() {
 function cpuStatsTTS() {
 	Flux.next('interface', 'tts', 'speak', {
 		lg: 'fr',
-		msg: 'Mon  ' + (Utils.random() ? 'processeur' : 'CPU') + ' est a ' + retreiveCpuTemp() + '  degrai...'
+		msg: 'Mon  ' + (Utils.rdm() ? 'processeur' : 'CPU') + ' est a ' + retreiveCpuTemp() + '  degrai...'
 	});
 	Flux.next('interface', 'tts', 'speak', {
 		lg: 'fr',
-		msg: Utils.random()
+		msg: Utils.rdm()
 			? 'Et il tourne a ' + retreiveCpuUsage() + ' pour cent'
 			: 'Pour ' + retreiveCpuUsage() + " pour cent d'utilisation"
 		// 'pour 34 pour cent d\'utilisation'
@@ -106,9 +106,8 @@ var startMeasure = cpuAverage();
 
 /** Function to get memory usage stats (Odi + system) */
 function soulTTS() {
-	log.info('---> soulTTS');
 	let size = Math.round(Odi.run('memory.odi'));
-	let ttsMsg = size + ' maiga octet, sai le poid de mon ame ' + (Utils.random() ? '' : 'en ce moment');
+	let ttsMsg = size + ' maiga octet, sai le poid de mon ame ' + (Utils.rdm() ? '' : 'en ce moment');
 	Flux.next('interface', 'tts', 'speak', ttsMsg);
 }
 
@@ -139,7 +138,7 @@ function retreiveLastModifiedDate(paths, callback) {
 /** Function to tts disk space */
 function diskSpaceTTS() {
 	let diskSpace = parseInt(Odi.run('stats.diskSpace'));
-	let ttsMsg = Utils.random()
+	let ttsMsg = Utils.rdm()
 		? 'Il me reste environ ' + (100 - diskSpace) + " pour cent d'espace disque disponible"
 		: "J'utilise " + diskSpace + " pour cent d'espace de stockage";
 	Flux.next('interface', 'tts', 'speak', ttsMsg);

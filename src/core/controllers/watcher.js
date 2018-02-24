@@ -38,7 +38,7 @@ function addWatcher(path, action) {
 				timer = new Date();
 			}
 			let logInfo = path.match(/\/(\w*)\/$/g);
-			log.info('update', logInfo[0] || logInfo, '[' + Utils.getExecutionTime(timer) + 'ms]');
+			log.info('updating', logInfo[0] || logInfo, '[' + Utils.executionTime(timer) + 'ms]');
 			waitForUpdateEnd(action);
 		}
 	});

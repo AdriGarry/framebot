@@ -38,7 +38,7 @@ function buttonHandler(flux) {
 	if (Odi.isAwake()) {
 		if (flux.id == 'ok') {
 			if (Odi.run('mood').indexOf('party') > -1) {
-				if (Utils.random()) {
+				if (Utils.rdm()) {
 					Flux.next('service', 'party', 'tts');
 				} else {
 					Flux.next('service', 'mood', 'badBoy');

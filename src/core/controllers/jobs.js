@@ -93,8 +93,9 @@ function setInteractiveJobs() {
 	new CronJob(
 		'0 18,20,22-25 8 * * 1-5',
 		function() {
-			if (Utils.random()) Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: 'Go go go, allez au boulot' });
-			else Flux.next('interface', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Allez allez, Maitro boulot dodo' });
+			if (Utils.rdm()) Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: 'Go go go, allez au boulot' });
+			else
+				Flux.next('interface', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Allez allez, Maitro boulot dodo' });
 		},
 		null,
 		true,

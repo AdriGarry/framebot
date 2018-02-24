@@ -16,7 +16,7 @@ module.exports = {
 	appendJsonFile: appendJsonFile,
 	execCmd: execCmd,
 	firstLetterUpper: firstLetterUpper,
-	getExecutionTime: getExecutionTime,
+	executionTime: getExecutionTime,
 	addPatternBefore: addPatternBefore,
 	getJsonFileContent: getJsonFileContent,
 	getMp3Duration: getMp3Duration,
@@ -24,6 +24,7 @@ module.exports = {
 	numberWithDot: numberWithDot,
 	perCent: perCent,
 	random: random,
+	rdm: random,
 	randomItem: randomItem,
 	searchStringInArray: searchStringInArray,
 	testConnexion: testConnexion
@@ -73,7 +74,7 @@ function appendJsonFile(filePath, obj, callback) {
 						.replace(/\"{/g, '{')
 						.replace(/\}"/g, '}');
 					fs.writeFile(filePath, fileData, function(cb) {
-						log.debug('file ' + filePath + ' modified in', getExecutionTime(startTime) + 'ms');
+						log.debug('file ' + filePath + ' modified in', executionTime(startTime) + 'ms');
 					});
 				}
 			});
@@ -86,7 +87,7 @@ function appendJsonFile(filePath, obj, callback) {
 				.replace(/\}"/g, '}');
 			// log.debug(fileData);
 			fs.writeFile(filePath, fileData, function() {
-				log.debug('file ' + filePath + ' created in', getExecutionTime(startTime) + 'ms');
+				log.debug('file ' + filePath + ' created in', executionTime(startTime) + 'ms');
 			});
 		}
 	});

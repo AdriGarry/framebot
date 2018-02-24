@@ -60,7 +60,7 @@ function repeatSong() {
 	var song = Utils.randomItem(JUKEBOX_SONGS);
 	var ttime = new Date();
 	Utils.getMp3Duration(Odi._MP3 + 'jukebox/' + song, function(duration) {
-		console.log(Utils.getExecutionTime(ttime));
+		console.log(Utils.executionTime(ttime));
 		// log.INFO('duration=' + duration);
 		Flux.next('interface', 'sound', 'play', { mp3: 'jukebox/' + song, duration: duration });
 		jukeboxTimeout = setTimeout(function() {
