@@ -39,7 +39,7 @@ log.info('--> Odi ready in ' + Utils.executionTime(startTime) + 'ms');
 if (!Odi.isAwake()) {
 	Flux.next('interface', 'video', 'screenOff');
 } else if (Odi.conf('mode') == 'test') {
-	/////////////  TEST section  /////////////
+	////////  TEST section  ////////
 	Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'test sequence' });
 	setTimeout(function() {
 		var testSequence = require(Odi._SRC + 'test/tests.js').launch(function(testStatus) {
