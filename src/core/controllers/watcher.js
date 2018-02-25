@@ -34,7 +34,7 @@ function startWatch() {
 
 function stopWatch() {
 	log.info('watchers stop', PATHS);
-	log.INFO('stopWatch() to implement !');
+	// log.INFO('stopWatch() to implement !');
 	watchers.forEach(watcher => {
 		removeWatcher(watcher);
 	});
@@ -45,8 +45,6 @@ var timer;
 function addWatcher(path, action) {
 	let watcher = fs.watch(path, { recursive: true }, (eventType, filename) => {
 		if (eventType) {
-			// console.log('eventType', eventType);
-			// log.info(filename + '\n');
 			if (!timer) {
 				timer = new Date();
 			}
@@ -59,8 +57,8 @@ function addWatcher(path, action) {
 }
 
 function removeWatcher(watcher) {
-	log.info('removeWatcher', watcher);
 	watcher.close();
+	// log.info('watcher', watcher, 'removed');
 }
 var watchTimeout;
 function waitForUpdateEnd(action) {
