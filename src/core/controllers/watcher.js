@@ -22,11 +22,12 @@ Flux.controller.watcher.subscribe({
 });
 
 const PATHS = [Odi._SRC, Odi._DATA];
+var watchers = [];
 
 function startWatch() {
 	log.info('starting watchers on', PATHS);
 	PATHS.forEach(path => {
-		addWatcher(path, relaunch);
+		watchers.push(addWatcher(path, relaunch));
 	});
 	Odi.conf('watcher', true);
 }
@@ -34,15 +35,15 @@ function startWatch() {
 function stopWatch() {
 	log.info('watchers stop', PATHS);
 	log.INFO('stopWatch() to implement !');
-	// PATHS.forEach(path => {
-	// 	addWatcher(path, relaunch);
-	// });
+	watchers.forEach(watcher => {
+		removeWatcher(watcher);
+	});
 	Odi.conf('watcher', false);
 }
 
 var timer;
 function addWatcher(path, action) {
-	fs.watch(path, { recursive: true }, (eventType, filename) => {
+	let watcher = fs.watch(path, { recursive: true }, (eventType, filename) => {
 		if (eventType) {
 			// console.log('eventType', eventType);
 			// log.info(filename + '\n');
@@ -54,8 +55,13 @@ function addWatcher(path, action) {
 			waitForUpdateEnd(action);
 		}
 	});
+	return watcher;
 }
 
+function removeWatcher(watcher) {
+	log.info('removeWatcher', watcher);
+	watcher.close();
+}
 var watchTimeout;
 function waitForUpdateEnd(action) {
 	// log.info('waiting for update end...');
