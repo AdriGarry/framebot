@@ -66,3 +66,22 @@ function parseDataFromMax(data) {
 	}
 	//log.INFO('Set action or TTS here...');
 }
+
+const HORNS = [
+	'playHornWarning',
+	'playHornDoUp',
+	'playHorn',
+	'playHornOff',
+	'playHornFire',
+	'playHornWhistle',
+	'playHornOvni',
+	'playHornBombing',
+	'playHornSiren',
+	'playHornDown'
+];
+
+// let delay = 10;
+// HORNS.forEach(item => {
+// 	Flux.next('interface', 'arduino', 'write', item, delay);
+// 	delay = delay + 10;
+// });

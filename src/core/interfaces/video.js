@@ -7,7 +7,7 @@ var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(Odi._CORE + 'Utils.js');
 var spawn = require('child_process').spawn;
 
-Flux.service.video.subscribe({
+Flux.interface.video.subscribe({
 	next: flux => {
 		if (flux.id == 'screenOn') {
 			screenOn();
@@ -17,7 +17,7 @@ Flux.service.video.subscribe({
 			startCycle();
 		} else if (flux.id == 'logTail') {
 			logTail();
-		} else Odi.error('unmapped flux in Video service', flux, false);
+		} else Odi.error('unmapped flux in Video interface', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);

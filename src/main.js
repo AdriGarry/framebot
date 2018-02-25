@@ -37,7 +37,7 @@ var Flux = require(Odi._CORE + 'Flux.js').loadModules(descriptor.modules);
 log.info('--> Odi ready in ' + Utils.executionTime(startTime) + 'ms');
 
 if (!Odi.isAwake()) {
-	Flux.next('service', 'video', 'screenOff');
+	Flux.next('interface', 'video', 'screenOff');
 } else if (Odi.conf('mode') == 'test') {
 	/////////////  TEST section  /////////////
 	Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'test sequence' });
@@ -62,29 +62,11 @@ if (Odi.conf('watcher')) {
 	Flux.next('controller', 'watcher', 'startWatch');
 }
 
-const HORNS = [
-	'playHornWarning',
-	'playHornDoUp',
-	'playHorn',
-	'playHornOff',
-	'playHornFire',
-	'playHornWhistle',
-	'playHornOvni',
-	'playHornBombing',
-	'playHornSiren',
-	'playHornDown'
-];
-
 if (Odi.isAwake() && !Odi.run('alarm')) {
 	// Flux.next('interface', 'arduino', 'write', 'Blink-1-2-3', 3);
 	// Flux.next('interface', 'arduino', 'write', 'playOneMelody', 7, 2);
 	// Flux.next('interface', 'arduino', 'write', 'playRdmHorn', 5, 1);
-
-	let delay = 10;
-	HORNS.forEach(item => {
-		//Flux.next('interface', 'arduino', 'write', item, delay);
-		delay = delay + 10;
-	});
+	// Flux.next('interface', 'arduino', 'write', 'playHornWhistle', 10);
 }
 
 // Flux.next('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);

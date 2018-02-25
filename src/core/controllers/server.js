@@ -449,7 +449,7 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/playVideo', function(req, res) {
-			Flux.next('service', 'video', 'cycle');
+			Flux.next('interface', 'video', 'cycle');
 			res.writeHead(200);
 			res.end();
 		});
@@ -467,7 +467,7 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/videoOff', function(req, res) {
-			Flux.next('service', 'video', 'screenOff');
+			Flux.next('interface', 'video', 'screenOff');
 			res.writeHead(200);
 			res.end();
 		});

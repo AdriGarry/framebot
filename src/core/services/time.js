@@ -158,6 +158,7 @@ function cocorico(mode) {
 /** Function alarm part 2 */
 function cocoricoPart2(mode) {
 	log.INFO('cocorico !!', mode || '');
+	Flux.next('interface', 'arduino', 'write', 'playHornDoUp');
 	spawn('sh', [Odi._SHELL + 'sounds.sh', 'cocorico']);
 	if (isBirthday()) {
 		birthdaySong();

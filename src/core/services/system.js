@@ -35,6 +35,7 @@ function restartOdi(mode) {
 function reboot() {
 	if (Odi.isAwake()) {
 		Flux.next('interface', 'sound', 'mute');
+		Flux.next('interface', 'arduino', 'write', 'playHornOff');
 		Flux.next('interface', 'tts', 'speak', { msg: 'Je redaimarre' });
 	}
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
@@ -47,6 +48,7 @@ function reboot() {
 function shutdown() {
 	if (Odi.isAwake()) {
 		Flux.next('interface', 'sound', 'mute');
+		Flux.next('interface', 'arduino', 'write', 'playHornOff');
 		Flux.next('interface', 'tts', 'speak', { msg: 'Arret system' });
 	}
 	setTimeout(function() {

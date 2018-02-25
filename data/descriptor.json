@@ -1,14 +1,14 @@
 {
 	"modules": {
 		"interfaces": {
-			"base": ["runtime", "led", "sound", "hardware", "arduino"],
+			"base": ["runtime", "led", "sound", "hardware", "arduino", "video"],
 			"full": ["tts"]
 		},
 		"controllers": {
 			"base": ["button", "jobs", "server", "watcher"]
 		},
 		"services": {
-			"base": ["handler", "system", "time", "voicemail", "video"],
+			"base": ["handler", "system", "time", "voicemail"],
 			"full": ["mood", "interaction", "music", "party", "max"]
 		}
 	},
