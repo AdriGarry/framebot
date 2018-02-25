@@ -184,7 +184,7 @@ function weatherInteractiveService() {
 			case 2:
 				weatherSpeech = [
 					{ voice: 'espeak', lg: 'fr', msg: 'Hey, il fait un temp ' + weatherReport.status },
-					{ voice: 'google', lg: 'fr', msg: 'Tu parles, il fais ' + weatherReport.temperature + ' degrer' },
+					{ voice: 'google', lg: 'fr', msg: 'Oui, il fais ' + weatherReport.temperature + ' degrer' },
 					{
 						voice: 'espeak',
 						lg: 'fr',

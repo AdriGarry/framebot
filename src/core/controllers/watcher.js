@@ -31,7 +31,7 @@ function startWatch() {
 
 var timer;
 function addWatcher(path, action) {
-	fs.watch(path, { encoding: 'buffer' }, eventType => {
+	fs.watch(path, { persistent: true, encoding: 'buffer' }, eventType => {
 		if (eventType) {
 			// console.log('eventType', eventType);
 			if (!timer) {
