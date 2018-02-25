@@ -16,7 +16,7 @@ module.exports = {
 	appendJsonFile: appendJsonFile,
 	execCmd: execCmd,
 	firstLetterUpper: firstLetterUpper,
-	executionTime: getExecutionTime,
+	executionTime: executionTime,
 	addPatternBefore: addPatternBefore,
 	getJsonFileContent: getJsonFileContent,
 	getMp3Duration: getMp3Duration,
@@ -178,7 +178,7 @@ String.prototype.unQuote = function() {
 };
 
 /** Function to calculate execution time of something */
-function getExecutionTime(startTime, formatResultPattern) {
+function executionTime(startTime, formatResultPattern) {
 	var length = 4;
 	var elapsedTime = new Date() - startTime;
 	if (formatResultPattern) {
