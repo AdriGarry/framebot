@@ -12,6 +12,8 @@ Flux.controller.watcher.subscribe({
 	next: flux => {
 		if (flux.id == 'startWatch') {
 			startWatch();
+		} else if (flux.id == 'stopWatch') {
+			stopWatch();
 		} else Odi.error('unmapped flux in Watcher controller', flux, false);
 	},
 	error: err => {
@@ -29,16 +31,26 @@ function startWatch() {
 	Odi.conf('watcher', true);
 }
 
+function stopWatch() {
+	log.info('watchers stop', PATHS);
+	log.INFO('stopWatch() to implement !');
+	// PATHS.forEach(path => {
+	// 	addWatcher(path, relaunch);
+	// });
+	Odi.conf('watcher', false);
+}
+
 var timer;
 function addWatcher(path, action) {
-	fs.watch(path, { persistent: true, encoding: 'buffer' }, eventType => {
+	fs.watch(path, { recursive: true }, (eventType, filename) => {
 		if (eventType) {
 			// console.log('eventType', eventType);
+			// log.info(filename + '\n');
 			if (!timer) {
 				timer = new Date();
 			}
 			let logInfo = path.match(/\/(\w*)\/$/g);
-			log.info('updating', logInfo[0] || logInfo, '[' + Utils.executionTime(timer) + 'ms]');
+			log.info('_updating', logInfo[0] || logInfo, filename, '[' + Utils.executionTime(timer) + 'ms]');
 			waitForUpdateEnd(action);
 		}
 	});
@@ -50,7 +62,7 @@ function waitForUpdateEnd(action) {
 	clearTimeout(watchTimeout);
 	watchTimeout = setTimeout(() => {
 		action();
-	}, 1000);
+	}, 2000);
 }
 
 function relaunch() {

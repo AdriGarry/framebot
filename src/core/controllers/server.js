@@ -264,7 +264,11 @@ function startUIServer(mode) {
 	});
 
 	ui.post('/watcher', function(req, res) {
-		Flux.next('controller', 'watcher', 'startWatch');
+		if (Odi.conf('watcher')) {
+			Flux.next('controller', 'watcher', 'stopWatch');
+		} else {
+			Flux.next('controller', 'watcher', 'startWatch');
+		}
 		res.writeHead(200);
 		res.end();
 	});
