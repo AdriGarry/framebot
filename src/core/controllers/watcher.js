@@ -49,7 +49,7 @@ function addWatcher(path, action) {
 				timer = new Date();
 			}
 			let logInfo = path.match(/\/(\w*)\/$/g);
-			log.info('_updating', logInfo[0] || logInfo, filename, '[' + Utils.executionTime(timer) + 'ms]');
+			log.info(eventType, logInfo[0] || logInfo, filename, '[' + Utils.executionTime(timer) + 'ms]');
 			waitForUpdateEnd(action);
 		}
 	});
