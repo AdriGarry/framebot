@@ -273,7 +273,7 @@ md-button.md-fab.ng-slide.active {
 	bottom: 2em;
 }
 .logs ul {
-	font-family: 'Courier New';
+	font-family: 'Courier New', Helvetica, sans-serif;
 	font-size: 0.85em;
 	line-height: 1em; /*0.95em*/
 	font-stretch: condensed;
@@ -492,7 +492,7 @@ div[data-ng-include] {
 	color: #fff;
 	/*background:rgba(0,0,0,0.18);*/
 	font-weight: 400;
-	font-family: Roboto, Helvetica Neue, sans-serif;
+	font-family: Roboto, Helvetica, sans-serif;
 }
 
 .dashboard .debugObject {
