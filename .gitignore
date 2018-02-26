@@ -58,11 +58,11 @@ admin.js
 
 #/log/*
 #/conf/
-#/media/*
+/media/*
 #/mp3/*
 #/pgm/config/*
 #/data/*
 *.jpg
-*.png
+#*.png
 *.gif
 /node_modules/*
