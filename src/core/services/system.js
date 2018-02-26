@@ -36,7 +36,7 @@ function reboot() {
 	if (Odi.isAwake()) {
 		Flux.next('interface', 'sound', 'mute');
 		Flux.next('interface', 'tts', 'speak', { msg: 'Je redaimarre' });
-		Flux.next('interface', 'arduino', 'write', 'playHornOff', 1);
+		Flux.next('interface', 'arduino', 'write', 'playHornOff', 2);
 	}
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
 	setTimeout(function() {
@@ -49,7 +49,7 @@ function shutdown() {
 	if (Odi.isAwake()) {
 		Flux.next('interface', 'sound', 'mute');
 		Flux.next('interface', 'tts', 'speak', { msg: 'Arret system' });
-		Flux.next('interface', 'arduino', 'write', 'playHornOff', 1);
+		Flux.next('interface', 'arduino', 'write', 'playHornOff', 2);
 	}
 	setTimeout(function() {
 		console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!");
