@@ -238,15 +238,15 @@ function setTimer(minutes) {
 }
 
 function startTimer() {
-	var etat = 1;
+	let etat = 1;
 	secInterval = setInterval(function() {
 		Flux.next('interface', 'led', 'toggle', { leds: ['belly'], value: etat }, null, null, true);
 		etat = 1 - etat;
 		let timerCountDown = Odi.run('timer');
 		if (timerCountDown < 10) {
-			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'almost']);
+			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'almost']); // TODO use sound.js
 		} else {
-			spawn('sh', [Odi._SHELL + 'timerSound.sh']);
+			spawn('sh', [Odi._SHELL + 'timerSound.sh']); // TODO use sound.js
 		}
 		Odi.run('timer', Odi.run('timer') - 1);
 		timerCountDown = Odi.run('timer');
@@ -255,9 +255,9 @@ function startTimer() {
 		} else if (timerCountDown <= 0 && timerCountDown > -5) {
 			clearInterval(secInterval);
 			log.info('End Timer !');
-			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'end']);
+			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'end']); // TODO use sound.js
 			Flux.next('interface', 'led', 'blink', { leds: ['belly', 'eye'], speed: 90, loop: 12 });
-			Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: 'Les raviolis sont cuits !' });
+			Flux.next('interface', 'tts', 'speak', 'Les raviolis sont cuits !');
 			Flux.next('interface', 'led', 'toggle', { leds: ['belly'], value: 0 }, 1);
 		}
 	}, 1000);
