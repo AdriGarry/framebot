@@ -17,11 +17,13 @@ countSoftwareLines();
 Flux.interface.hardware.subscribe({
 	next: flux => {
 		if (flux.id == 'runtime') {
+			let execTime = new Date();
 			getDiskSpace();
 			retreiveCpuTemp();
 			retreiveCpuUsage();
 			retreiveMemoryUsage();
 			getEtatValue();
+			log.info(Utils.executionTime(execTime));
 			// } else if (flux.id == 'stats') {
 			// 	retreiveLastModifiedDate(PATHS);
 			// 	countSoftwareLines();
