@@ -23,10 +23,7 @@ Flux.interface.hardware.subscribe({
 			retreiveCpuUsage();
 			retreiveMemoryUsage();
 			getEtatValue();
-			log.info(Utils.executionTime(execTime));
-			// } else if (flux.id == 'stats') {
-			// 	retreiveLastModifiedDate(PATHS);
-			// 	countSoftwareLines();
+			log.debug('runtime exec time:', Utils.executionTime(execTime) + 'ms');
 		} else if (flux.id == 'cpuTTS') {
 			cpuStatsTTS();
 		} else if (flux.id == 'soulTTS') {

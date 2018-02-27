@@ -20,7 +20,7 @@ if (Odi.isAwake()) {
 }
 
 new CronJob(
-	'*/29 * * * * *',
+	'*/30 * * * * *',
 	function() {
 		Flux.next('interface', 'hardware', 'runtime', null, null, null, true);
 	},

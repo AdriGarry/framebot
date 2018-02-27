@@ -23,7 +23,6 @@
 		},
 		"version": "."
 	},
-	"runtimeHelp": "Voir descriptor.json doit contenir les données du runtime ?",
 	"runtime": {
 		"etat": null,
 		"volume": null,
