@@ -62,6 +62,9 @@ if (Odi.conf('watcher')) {
 	Flux.next('controller', 'watcher', 'startWatch');
 }
 
+console.log('process.version:', process.version);
+console.log('process.versions:', process.versions);
+
 if (Odi.isAwake() && !Odi.run('alarm')) {
 	// Flux.next('interface', 'arduino', 'write', 'Blink-1-2-3', 3);
 	// Flux.next('interface', 'arduino', 'write', 'playOneMelody', 7, 2);
