@@ -176,6 +176,9 @@ function countSoftwareLines(callback) {
 			if (!typesNb) {
 				log.debug('countSoftwareLines()', totalLines);
 				Odi.run('stats.totalLines', totalLines);
+				if(Odi.conf('watcher')){
+					log.info('Afficher le nombre de lignes par extensions ;)');
+				}
 				// if (callback) callback(totalLines);
 			}
 		});
