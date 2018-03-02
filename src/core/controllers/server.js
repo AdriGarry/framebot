@@ -80,6 +80,10 @@ function startUIServer(mode) {
 
 		if (!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('interface', 'sound', 'UI', null, null, null, true);
 
+		if(!req.connection.remoteAddress){
+			log.INFO('req.connection.remoteAddress undefined ?');
+			log.info(req.connection);
+		}
 		if (req.connection.remoteAddress.indexOf('192.168') == -1) {
 			// Logging not local requests
 			var newRequest = Utils.logTime('D/M h:m:s ') + request + ' [' + req.connection.remoteAddress + ']\r\n';

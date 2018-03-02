@@ -165,7 +165,7 @@ function countSoftwareLines(callback) {
 	const EXTENSIONS = ['js', 'json', 'properties', 'sh', 'py', 'html', 'css'];
 	var typesNb = EXTENSIONS.length;
 	var totalLines = 0;
-	EXTENSIONS.forEach(function(item, index) {
+	EXTENSIONS.forEach(function(item) {
 		var temp = item;
 		Utils.execCmd('find /home/pi/odi/src /home/pi/odi/data -name "*.' + temp + '" -print | xargs wc -l', data => {
 			var regex = /(\d*) total/g;
@@ -176,8 +176,8 @@ function countSoftwareLines(callback) {
 			if (!typesNb) {
 				log.debug('countSoftwareLines()', totalLines);
 				Odi.run('stats.totalLines', totalLines);
-				if(Odi.conf('watcher')){
-					log.info('Afficher le nombre de lignes par extensions ;)');
+				if (Odi.conf('watcher')) {
+					log.INFO('---> Afficher le nombre de lignes par extensions ;)');
 				}
 				// if (callback) callback(totalLines);
 			}
@@ -188,7 +188,7 @@ function countSoftwareLines(callback) {
 /** Function to clean and archive logs each week */
 const LOG_FILES = ['odi.log', 'requestHistory.log', 'errorHistory.json', 'ttsUIHistory.json', 'voicemailHistory.json'];
 function archiveLogs() {
-	log.info('cleaning logs...');
+	log.info('Clean log files  /!\\');
 	var date = new Date();
 	var weekNb = date.getWeek();
 	if (!fs.existsSync(Odi._LOG + 'old')) {

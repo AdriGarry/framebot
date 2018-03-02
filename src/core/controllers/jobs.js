@@ -13,6 +13,25 @@ var pastHour = hour;
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
+// type, subject, id, value, delay, loop, hidden
+var JOBS = {
+	system: [
+		{
+			type: '',
+			subject: '',
+			id: '',
+			value: {},
+			delay: null,
+			loop: null,
+			hidden: false
+		}
+	],
+	//Flux.next('interface', 'hardware', 'runtime', null, null, null, true);
+	lifeCycle: null,
+	interactive: null,
+	clock: null
+};
+
 if (Odi.isAwake()) {
 	setLifeCycleJobs();
 	initClock();
@@ -41,7 +60,6 @@ new CronJob(
 new CronJob(
 	'0 2 0 * * 1',
 	function() {
-		log.info('Clean log files  /!\\'); // Weekly cleaning of logs
 		Flux.next('interface', 'hardware', 'archiveLog');
 	},
 	null,
@@ -93,9 +111,7 @@ function setInteractiveJobs() {
 	new CronJob(
 		'0 18,20,22-25 8 * * 1-5',
 		function() {
-			if (Utils.rdm()) Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: 'Go go go, allez au boulot' });
-			else
-				Flux.next('interface', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Allez allez, Maitro boulot dodo' });
+			Flux.next('service', 'interaction', 'goToWork');
 		},
 		null,
 		true,
@@ -134,13 +150,21 @@ function setInteractiveJobs() {
 	);
 
 	new CronJob(
+		'10 */20 * * * *',
+		function() {
+			log.info('night callback');
+			log.INFO('----------> night callback to activate !! <----------');
+			//Flux.next('service', 'interaction', 'nightCallback');
+		},
+		null,
+		true,
+		'Europe/Paris'
+	);
+
+	new CronJob(
 		'0 19 19 * * *',
 		function() {
-			Flux.next('interface', 'tts', 'speak', {
-				lg: 'fr',
-				voice: 'espeak',
-				msg: "Je crois qu'il faut lancer l'opairation baluchon"
-			});
+			Flux.next('interface', 'tts', 'speak', "Je crois qu'il faut lancer l'opairation baluchon");
 		},
 		null,
 		true,
@@ -161,7 +185,8 @@ function setInteractiveJobs() {
 
 /** Function to random TTS ggood night. NOT EXPORTED! */
 function goToSleep() {
-	var sleepTTS = Utils.randomItem(Odi.ttsMessages.goToSleep);
+	// TODO move this function to a service/interface
+	let sleepTTS = Utils.randomItem(Odi.ttsMessages.goToSleep);
 	Flux.next('interface', 'tts', 'speak', sleepTTS);
 	log.info('AutoLifeCycle go to sleep !');
 	setTimeout(function() {

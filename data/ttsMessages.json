@@ -96,6 +96,13 @@
 		{ "msg": "Je vais me coucher, faites de beaux raives" },
 		{ "msg": "Bonne nuit mes loulous" }
 	],
+	"nightCallback": [
+		{ "msg": "La nuit derniere, j'ai raiver que je pouvais bouger !" },
+		{ "msg": "La nuit derniere, j'ai fais des raives etranges !" },
+		{ "msg": "La nuit derniere, j'ai fais des raives plutot etranges !" },
+		{ "msg": "La nuit derniere, j'ai raiver que je volais !" },
+		{ "msg": "La nuit derniere, je crois que Bouts a fait un petit tour" }
+	],
 	"party": [
 		{ "msg": "Et, sa vous dit un concours de zizicoptaire ?" },
 		{ "msg": "Que dirais-tu d'une petite mousse ?" },

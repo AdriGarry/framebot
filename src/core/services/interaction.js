@@ -27,6 +27,10 @@ Flux.service.interaction.subscribe({
 			} else {
 				weatherService();
 			}
+		} else if (flux.id == 'goToWork') {
+			goToWork();
+		} else if (flux.id == 'nightCallback') {
+			nightCallback();
 		} else if (flux.id == 'russia') {
 			russia();
 		} else Odi.error('unmapped flux in Exclamation module', flux, false);
@@ -73,7 +77,16 @@ function exclamation() {
 	spawn('sh', [Odi._SHELL + 'exclamation.sh']);
 }
 
-/** Fonction Russian */
+function goToWork() {
+	if (Utils.rdm()) Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: 'Go go go, allez au boulot' });
+	else Flux.next('interface', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Allez allez, Maitro boulot dodo' });
+}
+function nightCallback() {
+	log.info('nightCallback');
+	let nightCallbackTts = Utils.randomItem(Odi.ttsMessages.nightCallback);
+	Flux.next('interface', 'tts', 'speak', nightCallbackTts);
+}
+
 function russia() {
 	log.info('Russia !');
 	Flux.next('interface', 'led', 'blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, null, null, true);
