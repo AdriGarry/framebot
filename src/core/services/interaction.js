@@ -27,6 +27,8 @@ Flux.service.interaction.subscribe({
 			} else {
 				weatherService();
 			}
+		} else if (flux.id == 'demo') {
+			demo();
 		} else if (flux.id == 'goToWork') {
 			goToWork();
 		} else if (flux.id == 'nightCallback') {
@@ -75,6 +77,13 @@ function exclamation() {
 	log.info('Exclamation !');
 	Flux.next('interface', 'led', 'blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, null, null, true);
 	spawn('sh', [Odi._SHELL + 'exclamation.sh']);
+}
+
+function demo() {
+	log.INFO('Starting Demo !');
+	Odi.ttsMessages.demo.forEach(tts => {
+		Flux.next('interface', 'tts', 'speak', tts);
+	});
 }
 
 function goToWork() {

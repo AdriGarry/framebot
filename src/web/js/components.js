@@ -582,7 +582,7 @@ app.component('options', {
 		var tileParams = {
 			label: 'Options',
 			actionList: [
-				{ label: 'Test cycle', icon: 'fas fa-nintendo-switch', url: '/testSequence' },
+				{ label: 'Test cycle', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
 				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' },
 				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' }
 			]

@@ -80,7 +80,7 @@ function startUIServer(mode) {
 
 		if (!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('interface', 'sound', 'UI', null, null, null, true);
 
-		if(!req.connection.remoteAddress){
+		if (!req.connection.remoteAddress) {
 			log.INFO('req.connection.remoteAddress undefined ?');
 			log.info(req.connection);
 		}
@@ -273,6 +273,12 @@ function startUIServer(mode) {
 		} else {
 			Flux.next('controller', 'watcher', 'startWatch');
 		}
+		res.writeHead(200);
+		res.end();
+	});
+
+	ui.post('/demo', function(req, res) {
+		Flux.next('service', 'interaction', 'demo');
 		res.writeHead(200);
 		res.end();
 	});

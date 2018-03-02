@@ -90,6 +90,14 @@
 			{ "voice": "google", "msg": "Oui, c'est la moindre des choses !" }
 		]
 	],
+	"demo": [
+		"Bonjour",
+		"Je suis un robot et je m'appelle Odi.",
+		"Je ne peux pas bouger, mais j'ai plein d'autres fonctions !",
+		"Je peux faire réveil, météo, jukebox, radio, minuterie, horloge...",
+		"J'ai aussi des fonctions pour surveiller mes constantes vitales, mon processeur, ou encore ma mémoire...",
+		"Et toi comment t'appelle tu ?"
+	],
 	"goToSleep": [
 		{ "msg": "Je vous souhaite une excellente nuit" },
 		{ "msg": "Et bien moi je vais me coucher" },
