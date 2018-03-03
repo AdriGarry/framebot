@@ -55,6 +55,7 @@ function initButtonReady() {
 	var intervalDelay = Odi.conf('debug') ? 2 * 60 * 1000 : 5 * 60 * 1000;
 	setInterval(function() {
 		var value = etat.readSync();
+		//TODO faire un truc avec ce flux
 		Flux.next('interface', 'led', 'toggle', { leds: ['satellite'], value: value }, null, null, true);
 		if (1 === value) {
 			if (!instance) {

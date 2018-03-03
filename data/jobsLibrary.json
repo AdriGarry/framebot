@@ -10,17 +10,17 @@
 		},
 		{
 			"when": "0 2 0 * * 1",
-			"todo": { "interface|hardware|archiveLog": null }
+			"todo": { "interface|hardware|archiveLog": {} }
 		}
 	],
 	"lifeCycle": [
 		{
 			"when": "2 0 0 * * 1-5",
-			"todo": { "service|system|goToSleep": null }
+			"todo": { "service|system|goToSleep": {} }
 		},
 		{
 			"when": "2 0 2 * * 0,6",
-			"todo": { "service|system|goToSleep": null }
+			"todo": { "service|system|goToSleep": {} }
 		},
 		{
 			"when": "13 13 13 * * 1-6",
@@ -47,15 +47,15 @@
 	"interactive": [
 		{
 			"when": "0 18,20,22-25 8 * * 1-5",
-			"todo": { "service|interaction|goToWork": null }
+			"todo": { "service|interaction|goToWork": {} }
 		},
 		{
 			"when": "0 15 18 * * 1-5",
-			"todo": { "service|music|fipOrJukebox": null }
+			"todo": { "service|music|fipOrJukebox": {} }
 		},
 		{
 			"when": "13 0 1 * * *",
-			"todo": { "service|interaction|uneHeure": null }
+			"todo": { "service|interaction|uneHeure": {} }
 		},
 		{
 			"when": "0 19 19 * * *",
@@ -63,13 +63,13 @@
 		},
 		{
 			"when": "13 13,25,40,51 17-21 * * *",
-			"todo": { "service|interaction|random": null }
+			"todo": { "service|interaction|random": {} }
 		}
 	],
 	"clock": [
 		{
 			"when": "0 0,30 * * * *",
-			"todo": { "service|time|now": null }
+			"todo": { "service|time|now": {} }
 		}
 	]
 }
