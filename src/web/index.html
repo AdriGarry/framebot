@@ -202,7 +202,8 @@
 				<!-- <div layout="row" layout-wrap> -->
 				<tts data="dashboard.runningData.mode" data-access="$root.irda" flex="100"></tts>
 				<mode data="dashboard.runningData.mode" data-access="$root.irda" flex="33"></mode>
-				<volume data="dashboard.runningData.volume" data-access="$root.irda" flex="33"></volume>
+				<options data="dashboard.runningData.mode" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></options>
+				<!-- <volume data="dashboard.runningData.volume" data-access="$root.irda" flex="33"></volume> -->
 				<runtime data="dashboard.runningData.errors" data-access="$root.irda" flex="33"></runtime>
 				<voicemail data="dashboard.runningData.voicemail" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></voicemail>
 				<alarms data="dashboard.runningData.alarms" data-access="$root.irda" flex="33"></alarms>
@@ -212,17 +213,16 @@
 				<jukebox data="dashboard.runningData.jukebox" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></jukebox>
 				<exclamation data="dashboard.runningData.exclamation" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></exclamation>
 				<time data="dashboard.runningData.time" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></time>
-				<party data="dashboard.runningData.party" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></party>
 				<bad-boy data="dashboard.runningData.ideas" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></bad-boy>
+				<party data="dashboard.runningData.party" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></party>
 				<stories data="dashboard.runningData.stories" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></stories>
-				<idea data="dashboard.runningData.ideas" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></idea>
 				<russia data="dashboard.runningData.russia" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></russia>
-				<videos data="dashboard.runningData.video" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></videos>
+				<idea data="dashboard.runningData.ideas" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></idea>
 				<arduino data="dashboard.runningData.arduino" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></arduino>
-				<options data="dashboard.runningData.mode" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></options>
+				<videos data="dashboard.runningData.video" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></videos>
 				<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
 				<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
-				<about data="dashboard.runningData.about" data-access="true" flex="33"></about>
+				<about data="dashboard.runningData.about" data-access="true" flex="66"></about>
 				<!--flex="66"-->
 			</div>
 
@@ -234,6 +234,7 @@
 			<!-- // -> TENTER d'enlever les class md-hue-2 -->
 			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-primary muteButton ng-slide"
 			 title="Mute Odi" aria-label="Mute Odi">
+				<!-- <i class="fas fa-lg fa-bell-slash"></i> -->
 				<i class="fas fa-lg fa-bell-slash"></i>
 			</md-button>
 			<!--<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" class="md-fab md-primary md-hue-2 md-mini muteButton"
