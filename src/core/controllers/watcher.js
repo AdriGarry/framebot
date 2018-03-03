@@ -72,5 +72,5 @@ function waitForUpdateEnd(action) {
 function relaunch() {
 	log.INFO('>> relaunching...');
 	// Flux.next('interface', 'runtime', 'updateRestart', { mode: mode || 'ready' });
-	Flux.next('service', 'system', 'restart');
+	Flux.next('service', 'system', 'restart', Odi.conf('mode'));
 }

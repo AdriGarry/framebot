@@ -583,8 +583,8 @@ app.component('options', {
 			label: 'Options',
 			actionList: [
 				{ label: 'Test cycle', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
-				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' },
-				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' }
+				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' },
+				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
