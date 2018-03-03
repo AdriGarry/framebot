@@ -14,6 +14,8 @@ Flux.service.system.subscribe({
 		if (flux.id == 'restart') {
 			/* || flux.id == 'restartOdi'*/
 			restartOdi(flux.value);
+		} else if (flux.id == 'goToSleep') {
+			goToSleep();
 		} else if (flux.id == 'reboot') {
 			reboot();
 		} else if (flux.id == 'shutdown') {
@@ -29,6 +31,17 @@ Flux.service.system.subscribe({
 function restartOdi(mode) {
 	log.info('restarting Odi...', mode || '');
 	Flux.next('interface', 'runtime', 'updateRestart', { mode: mode || 'ready' });
+}
+
+/** Function to random TTS ggood night. NOT EXPORTED! */
+function goToSleep() {
+	// TODO move this function to a service/interface
+	let sleepTTS = Utils.randomItem(Odi.ttsMessages.goToSleep);
+	Flux.next('interface', 'tts', 'speak', sleepTTS);
+	log.info('AutoLifeCycle go to sleep !');
+	setTimeout(function() {
+		Flux.next('service', 'system', 'restart', 'sleep');
+	}, sleepTTS.msg.length * 150);
 }
 
 /** Function to reboot RPI */

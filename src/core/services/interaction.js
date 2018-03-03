@@ -31,8 +31,8 @@ Flux.service.interaction.subscribe({
 			demo();
 		} else if (flux.id == 'goToWork') {
 			goToWork();
-		} else if (flux.id == 'nightCallback') {
-			nightCallback();
+		} else if (flux.id == 'uneHeure') {
+			uneHeure();
 		} else if (flux.id == 'russia') {
 			russia();
 		} else Odi.error('unmapped flux in Exclamation module', flux, false);
@@ -76,7 +76,12 @@ function randomAction() {
 function exclamation() {
 	log.info('Exclamation !');
 	Flux.next('interface', 'led', 'blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, null, null, true);
-	spawn('sh', [Odi._SHELL + 'exclamation.sh']);
+	spawn('sh', [Odi._SHELL + 'exclamation.sh']); // TODO passer par le module sound.js
+}
+
+function uneHeure() {
+	log.info('Il est 1 heure et tout va bien !');
+	Flux.next('interface', 'sound', 'play', { mp3: 'system/uneHeure.mp3' });
 }
 
 function demo() {
@@ -89,11 +94,6 @@ function demo() {
 function goToWork() {
 	if (Utils.rdm()) Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: 'Go go go, allez au boulot' });
 	else Flux.next('interface', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Allez allez, Maitro boulot dodo' });
-}
-function nightCallback() {
-	log.info('nightCallback');
-	let nightCallbackTts = Utils.randomItem(Odi.ttsMessages.nightCallback);
-	Flux.next('interface', 'tts', 'speak', nightCallbackTts);
 }
 
 function russia() {

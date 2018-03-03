@@ -1,0 +1,81 @@
+{
+	"system": [
+		{
+			"when": "*/30 * * * * *",
+			"todo": { "interface|hardware|runtime": { "hidden": true } }
+		},
+		{
+			"when": "1 * * * * *",
+			"todo": { "service|time|isAlarm": { "hidden": true } }
+		},
+		{
+			"when": "0 2 0 * * 1",
+			"todo": { "interface|hardware|archiveLog": null }
+		},
+		{
+			"when": "",
+			"todo": { "service|system|restart": { "value": null, "delay": 0, "loop": 1, "hidden": false } }
+		}
+	],
+	"lifeCycle": [
+		{
+			"when": "2 0 0 * * 1-5",
+			"todo": { "service|system|goToSleep": null }
+		},
+		{
+			"when": "2 0 2 * * 0,6",
+			"todo": { "service|system|goToSleep": null }
+		},
+		{
+			"when": "13 13 13 * * 1-6",
+			"todo": {
+				"interface|tts|speak": { "value": { "lg": "en", "msg": "Auto restart" } },
+				"service|system|restart": { "delay": 3 }
+			}
+		},
+		{
+			"when": "13 13 13 * * 0",
+			"todo": {
+				"interface|tts|speak": { "lg": "en", "msg": "Reset config" },
+				"interface|runtime|reset": { "value": true, "delay": 3 }
+			}
+		},
+		{
+			"when": "15 15 13 * * 0",
+			"todo": {
+				"interface|tts|speak": { "value": { "lg": "en", "msg": "Auto reboot" } },
+				"service|system|reboot": { "delay": 3 }
+			}
+		}
+	],
+	"interactive": [
+		{
+			"when": "0 18,20,22-25 8 * * 1-5",
+			"todo": { "service|interaction|goToWork": null }
+		},
+		{
+			"when": "0 15 18 * * 1-5",
+			"todo": { "service|music|fipOrJukebox": null }
+		},
+		{
+			"when": "13 0 1 * * *",
+			"todo": {
+				"service|interaction|uneHeure": {}
+			}
+		},
+		{
+			"when": "0 19 19 * * *",
+			"todo": { "interface|tts|speak": { "value": "Je crois qu'il faut lancer l'opairation baluchon" } }
+		},
+		{
+			"when": "13 13,25,40,51 17-21 * * *",
+			"todo": { "service|interaction|random": null }
+		}
+	],
+	"clock": [
+		{
+			"when": "0 0,30 * * * *",
+			"todo": { "service|time|now": null }
+		}
+	]
+}

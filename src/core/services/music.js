@@ -14,6 +14,8 @@ Flux.service.music.subscribe({
 			jukebox();
 		} else if (flux.id == 'fip') {
 			playFip();
+		} else if (flux.id == 'fipOrJukebox') {
+			fipOrJukebox();
 		} else if (flux.id == 'story') {
 			playStory(flux.value);
 		} else if (flux.id == 'stop') {
@@ -98,6 +100,21 @@ function stop(message) {
 	} else {
 		log.debug('No music playing');
 	}
+}
+
+function playFipOrJukebox() {
+	log.info('playFipOrJukebox...');
+	Utils.testConnexion(function(connexion) {
+		setTimeout(function() {
+			if (connexion == true) {
+				// Flux.next('service', 'music', 'fip');
+				playFip();
+			} else {
+				// Flux.next('service', 'music', 'jukebox');
+				jukebox();
+			}
+		}, 3000);
+	});
 }
 
 const STORIES = ['stories/Donjon-De-Naheulbeuk.mp3', 'stories/Aventuriers-Du-Survivaure.mp3'];

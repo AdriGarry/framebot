@@ -25,6 +25,11 @@
 		{ "msg": "Toi, tu commence sairieusement a m'emmerder !" },
 		{ "msg": "Tu commences à me courir sur le haricot !" },
 		{ "msg": "Et bien, ce n'est pas sa qui va faire avancer le chmilblik!" },
+		"La nuit derniaire, j'ai raiver que je pouvais bouger !",
+		"La nuit derniaire, j'ai fais des raives etranges !",
+		"La nuit derniaire, j'ai fais des raives plutot etranges !",
+		"La nuit derniaire, j'ai raiver que je volais !",
+		"La nuit derniaire, je crois que Boutss a fait un petit tour",
 		{ "lg": "ru", "voice": "google", "msg": "hey, a3" },
 		{ "lg": "ru", "voice": "google", "msg": "Semiorka" },
 		[
@@ -94,12 +99,12 @@
 		"Bonjour",
 		"Je suis un robot et je m'appelle Odi.",
 		"Je ne peux pas bouger, mais j'ai plein d'autres fonctions !",
-		{ "voice": "google", "msg": "Je peux faire réveil, météo, minuterie, horloge..." },
+		{ "voice": "google", "msg": "Je peux faire reveil, meteo, minuterie, horloge..." },
 		"Mais aussi jukebox, radio, et je peux raconter des histoires",
 		{ "voice": "google", "msg": "J'ai aussi des fonctions pour surveiller mes constantes vitales" },
-		"Oui, mon processeur, ou encore ma mémoire...",
+		"Oui, mon processeur, ou encore ma memoire...",
 		{ "voice": "google", "msg": "Ah! Je sais aussi faire les cigales !!" },
-		"Ouais, sa c'est pratique en été avec le pastis !",
+		"Ouais, sa c'est pratique en aitai avec le pastis !",
 		"Et toi, comment t'appelle tu ?"
 	],
 	"goToSleep": [
@@ -107,13 +112,6 @@
 		{ "msg": "Et bien moi je vais me coucher" },
 		{ "msg": "Je vais me coucher, faites de beaux raives" },
 		{ "msg": "Bonne nuit mes loulous" }
-	],
-	"nightCallback": [
-		{ "msg": "La nuit derniere, j'ai raiver que je pouvais bouger !" },
-		{ "msg": "La nuit derniere, j'ai fais des raives etranges !" },
-		{ "msg": "La nuit derniere, j'ai fais des raives plutot etranges !" },
-		{ "msg": "La nuit derniere, j'ai raiver que je volais !" },
-		{ "msg": "La nuit derniere, je crois que Bouts a fait un petit tour" }
 	],
 	"party": [
 		{ "msg": "Et, sa vous dit un concours de zizicoptaire ?" },

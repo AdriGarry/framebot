@@ -70,6 +70,7 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 	// Flux.next('interface', 'arduino', 'write', 'playRdmHorn', 5, 1);
 	// Flux.next('interface', 'arduino', 'write', 'playHornWhistle', 10);
 }
+// Flux.next('service', 'interaction', 'uneHeure');
 
 // Flux.next('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
 // Odi.next('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
