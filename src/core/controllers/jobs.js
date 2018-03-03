@@ -13,7 +13,7 @@ var pastHour = hour;
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
-const JOBS = require(Odi._DATA + 'jobs.json');
+const JOBS = require(Odi._DATA + 'jobsLibrary.json');
 
 function scheduleJob(job) {
 	let jobLog = '';
@@ -34,13 +34,20 @@ function scheduleJob(job) {
 		jobLog += ' _' + key;
 	});
 
-	log.info('new job: [' + job.when + '] ' + jobLog);
+	log.debug('new job: [' + job.when + '] ' + jobLog);
 }
 
-function scheduleJobs(jobsList) {
-	log.info('scheduleJobs...');
+function scheduleJobs(jobsList, jobsType) {
+	jobsList.forEach(job => {
+		scheduleJob(job);
+	});
+	log.info(jobsType + ' jobs initialised');
 }
+
+scheduleJobs(JOBS.system, 'System');
+scheduleJobs(JOBS.lifeCycle, 'Life cycle');
 
 if (Odi.isAwake()) {
-	scheduleJob(JOBS.interactive[0]);
+	scheduleJobs(JOBS.clock, 'Clock');
+	scheduleJobs(JOBS.interactive, 'Interactive');
 }

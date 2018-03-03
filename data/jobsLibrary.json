@@ -11,10 +11,6 @@
 		{
 			"when": "0 2 0 * * 1",
 			"todo": { "interface|hardware|archiveLog": null }
-		},
-		{
-			"when": "",
-			"todo": { "service|system|restart": { "value": null, "delay": 0, "loop": 1, "hidden": false } }
 		}
 	],
 	"lifeCycle": [
@@ -59,9 +55,7 @@
 		},
 		{
 			"when": "13 0 1 * * *",
-			"todo": {
-				"service|interaction|uneHeure": {}
-			}
+			"todo": { "service|interaction|uneHeure": null }
 		},
 		{
 			"when": "0 19 19 * * *",
