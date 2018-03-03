@@ -13,10 +13,11 @@ const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');
 
 const launcherTitle = '\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘';
+console.log(launcherTitle);
 var descriptor = require(ODI_PATH + 'data/descriptor.json');
 
 function checkUp() {
-	console.log(launcherTitle); // TODO ...
+	console.log('checkUp...');
 	if (!fs.existsSync(ODI_PATH + 'tmp')) {
 		fs.mkdirSync(ODI_PATH + 'tmp');
 		console.log('> TEMP directory created');
@@ -66,6 +67,26 @@ function checkVoicemailValidity() {
 	}
 }
 
+var INTERVALS = [2, 5, 10, 30, 60, 90];
+var i = 0; //INTERVALS.length
+function wrapper(code) {
+	console.log(launcherTitle);
+	timeout = INTERVALS[i];
+	i++;
+	process.stdout.write('Error, wainting for ' + timeout + ' sec');
+	if (i == INTERVALS.length) {
+		i = 0;
+	}
+	let interval = setInterval(() => {
+		process.stdout.write('.');
+	}, 1000);
+	setTimeout(() => {
+		clearInterval(interval);
+		process.stdout.write('\nand restart Odi\n');
+		startOdi(code);
+	}, timeout * 1000);
+}
+
 /** Function to start up Odi */
 function startOdi(exitCode) {
 	spawn('sh', [SRC_PATH + 'shell/mute.sh']); // Mute
@@ -102,7 +123,11 @@ function startOdi(exitCode) {
 		if (code && odiConf.mode != 'sleep') spawn('sh', [SRC_PATH + 'shell/sounds.sh', 'error']);
 		console.log("\n>> Odi's CORE restarting... [code:" + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
-		startOdi(code);
+		if (code) {
+			wrapper(code);
+		} else {
+			startOdi();
+		}
 	});
 }
 

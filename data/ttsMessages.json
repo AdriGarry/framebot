@@ -94,9 +94,13 @@
 		"Bonjour",
 		"Je suis un robot et je m'appelle Odi.",
 		"Je ne peux pas bouger, mais j'ai plein d'autres fonctions !",
-		"Je peux faire réveil, météo, jukebox, radio, minuterie, horloge...",
-		"J'ai aussi des fonctions pour surveiller mes constantes vitales, mon processeur, ou encore ma mémoire...",
-		"Et toi comment t'appelle tu ?"
+		{ "voice": "google", "msg": "Je peux faire réveil, météo, minuterie, horloge..." },
+		"Mais aussi jukebox, radio, et je peux raconter des histoires",
+		{ "voice": "google", "msg": "J'ai aussi des fonctions pour surveiller mes constantes vitales" },
+		"Oui, mon processeur, ou encore ma mémoire...",
+		{ "voice": "google", "msg": "Ah! Je sais aussi faire les cigales !!" },
+		"Ouais, sa c'est pratique en été avec le pastis !",
+		"Et toi, comment t'appelle tu ?"
 	],
 	"goToSleep": [
 		{ "msg": "Je vous souhaite une excellente nuit" },

@@ -88,3 +88,6 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 // 	console.log('after timeout', module.loaded);
 // }, 1);
 // console.log('EOF', module.loaded);
+
+// if (Odi.isAwake()) toto.toString();
+toto.toString();
