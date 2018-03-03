@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /** Params detection */
-const argv = process.argv.splice(2);
+var argv = process.argv.splice(2);
 
 var fs = require('fs');
 var path = require('path');
@@ -123,6 +123,7 @@ function startOdi(exitCode) {
 		if (code && odiConf.mode != 'sleep') spawn('sh', [SRC_PATH + 'shell/sounds.sh', 'error']);
 		console.log("\n>> Odi's CORE restarting... [code:" + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
+		argv.remove('reset'); // Removing reset param before relaunching
 		if (code) {
 			wrapper(code);
 		} else {

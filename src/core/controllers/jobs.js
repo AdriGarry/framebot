@@ -152,9 +152,7 @@ function setInteractiveJobs() {
 	new CronJob(
 		'10 */20 * * * *',
 		function() {
-			log.info('night callback');
-			log.INFO('----------> night callback to activate !! <----------');
-			//Flux.next('service', 'interaction', 'nightCallback');
+			Flux.next('service', 'interaction', 'nightCallback');
 		},
 		null,
 		true,
