@@ -182,7 +182,8 @@ function startUIServer(mode) {
 			alarms: { value: Odi.conf('alarms'), active: true },
 			update: { value: Odi.run('stats.update') },
 			version: { value: 'toto' /*Odi.conf('version')*/ }, // DEPRECATED !
-			debug: { value: Odi.conf('debug') } // TO DEPRECATE...
+			debug: { value: Odi.conf('debug') }, // TO DEPRECATE...
+			watcher: { value: Odi.conf('watcher') }
 		};
 		res.writeHead(200);
 		res.end(JSON.stringify(dashboard));
