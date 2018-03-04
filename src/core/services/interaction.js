@@ -75,30 +75,30 @@ function randomAction() {
 
 function exclamation() {
 	log.info('Exclamation !');
-	Flux.next('interface', 'led', 'blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, null, null, true);
+	Flux.next('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { hidden: true });
 	spawn('sh', [Odi._SHELL + 'exclamation.sh']); // TODO passer par le module sound.js
 }
 
 function uneHeure() {
 	log.info('Il est 1 heure et tout va bien !');
-	Flux.next('interface', 'sound', 'play', { mp3: 'system/uneHeure.mp3' });
+	Flux.next('interface|sound|play', { mp3: 'system/uneHeure.mp3' });
 }
 
 function demo() {
 	log.INFO('Starting Demo !');
 	Odi.ttsMessages.demo.forEach(tts => {
-		Flux.next('interface', 'tts', 'speak', tts);
+		Flux.next('interface|tts|speak', tts);
 	});
 }
 
 function goToWork() {
-	if (Utils.rdm()) Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: 'Go go go, allez au boulot' });
-	else Flux.next('interface', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Allez allez, Maitro boulot dodo' });
+	if (Utils.rdm()) Flux.next('interface|tts|speak', { lg: 'fr', msg: 'Go go go, allez au boulot' });
+	else Flux.next('interface|tts|speak', { lg: 'fr', voice: 'espeak', msg: 'Allez allez, Maitro boulot dodo' });
 }
 
 function russia() {
 	log.info('Russia !');
-	Flux.next('interface', 'led', 'blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, null, null, true);
+	Flux.next('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { hidden: true });
 	spawn('sh', [Odi._SHELL + 'exclamation_russia.sh']);
 }
 
@@ -131,14 +131,14 @@ function getWeatherData(callback) {
 					weatherReport.wind = weatherReport.data.query.results.channel.wind.speed;
 					callback(weatherReport);
 				} else {
-					Flux.next('interface', 'tts', 'speak', { voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo' });
+					Flux.next('interface|tts|speak', { voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo' });
 					Odi.error("Weather request > Can't retreive weather informations. response.statusCode", response.statusCode);
 					if (error) {
 						Odi.error('Error getting weather info  /!\\ \n' + error);
 					}
 				}
 			} catch (e) {
-				if (Odi.isAwake()) Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'Weather error' });
+				if (Odi.isAwake()) Flux.next('interface|tts|speak', { lg: 'en', msg: 'Weather error' });
 				Odi.error(e);
 			}
 		}
@@ -162,7 +162,7 @@ function weatherService() {
 				' kilometre heure de vent'
 		};
 		log.debug('weatherSpeech', weatherSpeech);
-		Flux.next('interface', 'tts', 'speak', weatherSpeech);
+		Flux.next('interface|tts|speak', weatherSpeech);
 	});
 }
 
@@ -219,6 +219,6 @@ function weatherInteractiveService() {
 				break;
 		}
 		log.debug('weatherSpeech', weatherSpeech);
-		Flux.next('interface', 'tts', 'speak', weatherSpeech);
+		Flux.next('interface|tts|speak', weatherSpeech);
 	});
 }

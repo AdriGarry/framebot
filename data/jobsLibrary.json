@@ -1,44 +1,44 @@
 {
 	"system": [
 		{
-			"when": "*/30 * * * * *",
-			"action": { "interface|hardware|runtime": { "hidden": true } }
+			"cron": "*/30 * * * * *",
+			"flux": { "interface|hardware|runtime": { "hidden": true } }
 		},
 		{
-			"when": "1 * * * * *",
-			"action": { "service|time|isAlarm": { "hidden": true } }
+			"cron": "1 * * * * *",
+			"flux": { "service|time|isAlarm": { "hidden": true } }
 		},
 		{
-			"when": "0 2 0 * * 1",
-			"action": { "interface|hardware|archiveLog": {} }
+			"cron": "0 2 0 * * 1",
+			"flux": { "interface|hardware|archiveLog": {} }
 		}
 	],
 	"lifeCycle": [
 		{
-			"when": "5 0 0 * * 1-5",
-			"action": { "service|system|goToSleep": {} }
+			"cron": "5 0 0 * * 1-5",
+			"flux": { "service|system|goToSleep": {} }
 		},
 		{
-			"when": "5 0 2 * * 0,6",
-			"action": { "service|system|goToSleep": {} }
+			"cron": "5 0 2 * * 0,6",
+			"flux": { "service|system|goToSleep": {} }
 		},
 		{
-			"when": "13 13 13 * * 1-6",
-			"action": {
+			"cron": "13 13 13 * * 1-6",
+			"flux": {
 				"interface|tts|speak": { "value": { "lg": "en", "msg": "Auto restart" } },
 				"service|system|restart": { "delay": 3 }
 			}
 		},
 		{
-			"when": "13 13 13 * * 0",
-			"action": {
+			"cron": "13 13 13 * * 0",
+			"flux": {
 				"interface|tts|speak": { "lg": "en", "msg": "Reset config" },
 				"interface|runtime|reset": { "value": true, "delay": 3 }
 			}
 		},
 		{
-			"when": "15 15 13 * * 0",
-			"action": {
+			"cron": "15 15 13 * * 0",
+			"flux": {
 				"interface|tts|speak": { "value": { "lg": "en", "msg": "Auto reboot" } },
 				"service|system|reboot": { "delay": 3 }
 			}
@@ -46,30 +46,43 @@
 	],
 	"interactive": [
 		{
-			"when": "0 18,20,22-25 8 * * 1-5",
-			"action": { "service|interaction|goToWork": {} }
+			"cron": "0 18,20,22-25 8 * * 1-5",
+			"flux": { "service|interaction|goToWork": {} }
 		},
 		{
-			"when": "0 15 18 * * 1-5",
-			"action": { "service|music|fipOrJukebox": {} }
+			"cron": "0 15 18 * * 1-5",
+			"flux": { "service|music|fipOrJukebox": {} }
 		},
 		{
-			"when": "13 0 1 * * *",
-			"action": { "service|interaction|uneHeure": {} }
+			"cron": "13 0 1 * * *",
+			"flux": { "service|interaction|uneHeure": {} }
 		},
 		{
-			"when": "0 19 19 * * *",
-			"action": { "interface|tts|speak": { "value": "Je crois qu'il faut lancer l'opairation baluchon" } }
+			"cron": "0 19 19 * * *",
+			"flux": { "interface|tts|speak": { "value": "Je crois qu'il faut lancer l'opairation baluchon" } }
 		},
 		{
-			"when": "13 13,25,40,51 17-21 * * *",
-			"action": { "service|interaction|random": {} }
+			"cron": "13 13,25,40,51 17-21 * * *",
+			"flux": { "service|interaction|random": {} }
 		}
 	],
 	"clock": [
 		{
-			"when": "0 0,30 * * * *",
-			"action": { "service|time|now": {} }
+			"cron": "0 0,30 * * * *",
+			"flux": { "service|time|now": {} }
+		}
+	],
+	"clock2": [
+		{
+			"cron": "0 0,30 * * * *",
+			"flux": [
+				{ "id": "service|time|now" },
+				{ "id": "service|time|now", "data": null, "conf": { "delay": 3, "loop": 2, "hidden": false } }
+			]
+		},
+		{
+			"cron": "0 0,30 * * * *",
+			"flux": { "id": "service|time|now", "data": { "value": null, "delay": 3, "loop": 2, "hidden": false } }
 		}
 	]
 }

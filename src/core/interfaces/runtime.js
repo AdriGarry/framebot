@@ -40,7 +40,7 @@ function updateConf(newConf, restart) {
 /** Function to reset Odi's config */
 function resetCfg(restart) {
 	log.INFO('reset conf', restart ? 'and restart' : '');
-	Flux.next('service', 'voicemail', 'clear');
+	Flux.next('service|voicemail|clear');
 	fs.unlinkSync(ODI_PATH + 'conf.json');
 	// + TODO faire ici ce qui est fait dans reset.sh !!
 	if (restart) {
@@ -51,7 +51,7 @@ function resetCfg(restart) {
 /** Function to refresh Odi\'s runtime data (etat, timer, moods...) */
 function refreshRuntime() {
 	log.info("refreshing Odi's runtime...");
-	Flux.next('interface', 'hardware', 'runtime', null, null, null, true);
+	Flux.next('interface|hardware|runtime', null, { hidden: true });
 	setTimeout(function() {
 		log.table(Odi.run(), 'RUNTIME...');
 	}, 1000);

@@ -27,7 +27,7 @@ Flux.service.party.subscribe({
 
 function start() {
 	log.INFO("Let's start the party !!  <|:-)");
-	Flux.next('interface', 'tts', 'speak', { voice: 'google', lg: 'en', msg: "Let's start the party" });
+	Flux.next('interface|tts|speak', { voice: 'google', lg: 'en', msg: "Let's start the party" });
 	Odi.run('mood', 'party');
 	log.table(Odi.run(), 'RUNTIME...');
 	firePartyActionAndRandom();
@@ -49,10 +49,10 @@ function firePartyActionAndRandom() {
 				pirate('full');
 				break;
 			case (2, 3):
-				Flux.next('service', 'mood', 'badBoy');
+				Flux.next('service|mood|badBoy');
 				break;
 			case (4, 5, 6):
-				Flux.next('interface', 'tts', 'random');
+				Flux.next('interface|tts|random');
 				break;
 			default:
 				partyTTS();
@@ -75,12 +75,12 @@ function pirate(mode) {
 	} else {
 		tts = { msg: 'Pirate ' + Utils.random(1, 3) + ' appelle pirate ' + Utils.random(4, 6) + ' !' };
 	}
-	Flux.next('interface', 'tts', 'speak', tts);
+	Flux.next('interface|tts|speak', tts);
 }
 
 function partyTTS() {
 	log.debug('partyTTS()');
-	Flux.next('interface', 'tts', 'speak', getNewRdmPartyTTS());
+	Flux.next('interface|tts|speak', getNewRdmPartyTTS());
 }
 
 /** Function to select a different TTS each time */

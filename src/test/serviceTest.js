@@ -13,14 +13,14 @@ var Flux = require(Odi._CORE + 'Flux.js');
 
 module.exports.run = function(succeedTest) {
 	assert.equal(Odi.run('timer'), 0);
-	Flux.next('service', 'time', 'timer');
+	Flux.next('service|time|timer');
 	setImmediate(() => {
 		assert.ok(Odi.run('timer'));
 	});
 
-	Flux.next('service', 'time', 'today');
+	Flux.next('service|time|today');
 
-	// Flux.next('service', 'voicemail', 'new', {msg: 'are you there ?'}, 8);
+	// Flux.next('service|voicemail|new', {msg: 'are you there ?'}, 8);
 	// var rdmTTS = Odi.ttsMessages.randomTTS[Utils.random(Odi.ttsMessages.randomTTS.length)];
 	let rdmTTS = Utils.randomItem(Odi.ttsMessages.randomTTS);
 	while (Array.isArray(rdmTTS)) {
@@ -28,11 +28,11 @@ module.exports.run = function(succeedTest) {
 	}
 	// var rdmTTS = Utils.randomItem(Odi.ttsMessages.randomTTS);
 	log.DEBUG(rdmTTS);
-	Flux.next('service', 'voicemail', 'new', rdmTTS, 8);
-	Flux.next('service', 'voicemail', 'check', null, 11);
-	Flux.next('service', 'voicemail', 'clear', null, 15);
+	Flux.next('service|voicemail|new', rdmTTS, { delay: 8 });
+	Flux.next('service|voicemail|check', null, { delay: 11 });
+	Flux.next('service|voicemail|clear', null, { delay: 15 });
 
-	Flux.next('service', 'interaction', 'weather', 'random', null, 16);
+	Flux.next('service|interaction|weather', 'random', { delay: 16 });
 
 	setTimeout(() => {
 		assert.equal(Odi.run('voicemail'), 0);

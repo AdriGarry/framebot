@@ -14,23 +14,23 @@ function scheduleJob(job) {
 	let jobLog = '';
 	// TODO try catch block
 	new CronJob(
-		job.when,
+		job.cron,
 		function() {
-			Object.keys(job.action).forEach(key => {
-				let fluxVal = job.action[key];
-				let flux = key.split('|');
-				Flux.next(flux[0], flux[1], flux[2], fluxVal.value, fluxVal.delay, fluxVal.loop, fluxVal.hidden);
+			Object.keys(job.flux).forEach(key => {
+				let fluxVal = job.flux[key];
+				// Flux.next(fluxId[0], fluxId[1], fluxId[2], fluxVal.value, fluxVal.delay, fluxVal.loop, fluxVal.hidden);
+				Flux.next(flux.id, flux.data, flux.conf);
 			});
 		},
 		null,
 		true,
 		'Europe/Paris'
 	);
-	Object.keys(job.action).forEach((key, index) => {
+	Object.keys(job.flux).forEach(key => {
 		jobLog += ' _' + key;
 	});
 
-	log.debug('new job: [' + job.when + '] ' + jobLog);
+	log.debug('new job: [' + job.cron + '] ' + jobLog);
 }
 
 function scheduleJobs(jobsList, jobsType) {
@@ -40,10 +40,11 @@ function scheduleJobs(jobsList, jobsType) {
 	log.info(jobsType + ' jobs initialised');
 }
 
-scheduleJobs(JOBS.system, 'System');
-scheduleJobs(JOBS.lifeCycle, 'Life cycle');
+log.INFO('reactivate jobs!');
+// scheduleJobs(JOBS.system, 'System');
+// scheduleJobs(JOBS.lifeCycle, 'Life cycle');
 
-if (Odi.isAwake()) {
-	scheduleJobs(JOBS.clock, 'Clock');
-	scheduleJobs(JOBS.interactive, 'Interactive');
-}
+// if (Odi.isAwake()) {
+// 	scheduleJobs(JOBS.clock, 'Clock');
+// 	scheduleJobs(JOBS.interactive, 'Interactive');
+// }

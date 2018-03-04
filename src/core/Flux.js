@@ -12,7 +12,8 @@ var ready = false;
 var Flux = {
 	attach: attachObservers,
 	loadModules: loadModules,
-	next: next
+	next: next,
+	list: list
 };
 
 function attachObservers(observers) {
@@ -68,7 +69,21 @@ function FluxObject(type, subject, id, value, delay, loop, hidden) {
 	};
 }
 
-function next(type, subject, id, value, delay, loop, hidden) {
+function list(fluxList) {
+	fluxList.forEach(flux => {
+		next2(flux.id, flux.data);
+	});
+}
+
+// "id": "type|subject|id", "data": { "value": null, "delay": null, "loop": null, "hidden": false } }
+function next(id, data, conf) {
+	console.log(id, data, conf);
+	id = id.split('|');
+	if (!conf) conf = {};
+	next(id[0], id[1], id[2], data, conf.delay, conf.loop, conf.hidden);
+}
+
+function next2(type, subject, id, value, delay, loop, hidden) {
 	var flux = new FluxObject(type, subject, id, value, delay, loop, hidden);
 
 	if (!ready) {

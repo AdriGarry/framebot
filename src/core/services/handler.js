@@ -39,36 +39,36 @@ function buttonHandler(flux) {
 		if (flux.id == 'ok') {
 			if (Odi.run('mood').indexOf('party') > -1) {
 				if (Utils.rdm()) {
-					Flux.next('service', 'party', 'tts');
+					Flux.next('service|party|tts');
 				} else {
-					Flux.next('service', 'mood', 'badBoy');
+					Flux.next('service|mood|badBoy');
 				}
 			} else {
 				if (Odi.run('voicemail')) {
-					Flux.next('service', 'voicemail', 'check');
+					Flux.next('service|voicemail|check');
 				} else {
-					Flux.next('service', 'interaction', 'random');
+					Flux.next('service|interaction|random');
 				}
 			}
 		} else if (flux.id == 'cancel') {
 			if (flux.value < 1) {
 				// Mute, do nothing
 			} else if (flux.value >= 1 && flux.value < 3) {
-				Flux.next('service', 'system', 'restart', null);
+				Flux.next('service|system|restart');
 			} else if (flux.value >= 3 && flux.value < 6) {
-				Flux.next('service', 'system', 'restart', 'sleep');
+				Flux.next('service|system|restart', 'sleep');
 			} else if (flux.value > 6) {
-				Flux.next('service', 'system', 'restart', 'test');
+				Flux.next('service|system|restart', 'test');
 			} else Odi.error('Button->else', flux);
 		} else if (flux.id == 'white') {
-			Flux.next('service', 'time', 'timer', Math.round(flux.value));
+			Flux.next('service|time|timer', Math.round(flux.value));
 		} else if (flux.id == 'blue') {
 			//log.INFO('to fix!!!!!');
 			if (flux.value > 0.8) {
 				if (Odi.run('etat')) {
-					Flux.next('service', 'music', 'fip'); // TODO
+					Flux.next('service|music|fip'); // TODO
 				} else {
-					Flux.next('service', 'music', 'jukebox'); // TODO
+					Flux.next('service|music|jukebox'); // TODO
 				}
 			} else {
 				log.info('Blue button must be pushed for .8s at least, try again !');
@@ -76,7 +76,7 @@ function buttonHandler(flux) {
 		} else Odi.error('Button->else', flux);
 	} else {
 		if (flux.id == 'ok') {
-			Flux.next('service', 'system', 'restart', null);
+			Flux.next('service|system|restart');
 		}
 	}
 }

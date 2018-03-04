@@ -30,26 +30,26 @@ Flux.service.system.subscribe({
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode) {
 	log.info('restarting Odi...', mode || '');
-	Flux.next('interface', 'runtime', 'updateRestart', { mode: mode || 'ready' });
+	Flux.next('interface|runtime|updateRestart', { mode: mode || 'ready' });
 }
 
 /** Function to random TTS ggood night. NOT EXPORTED! */
 function goToSleep() {
 	// TODO move this function to a service/interface
 	let sleepTTS = Utils.randomItem(Odi.ttsMessages.goToSleep);
-	Flux.next('interface', 'tts', 'speak', sleepTTS);
+	Flux.next('interface|tts|speak', sleepTTS);
 	log.info('AutoLifeCycle go to sleep !');
 	setTimeout(function() {
-		Flux.next('service', 'system', 'restart', 'sleep');
+		Flux.next('service|system|restart', 'sleep');
 	}, sleepTTS.msg.length * 150);
 }
 
 /** Function to reboot RPI */
 function reboot() {
 	if (Odi.isAwake()) {
-		Flux.next('interface', 'sound', 'mute');
-		Flux.next('interface', 'tts', 'speak', { msg: 'Je redaimarre' });
-		Flux.next('interface', 'arduino', 'write', 'playHornOff', 2);
+		Flux.next('interface|sound|mute');
+		Flux.next('interface|tts|speak', { msg: 'Je redaimarre' });
+		Flux.next('interface|arduino|write', 'playHornOff', { delay: 2 });
 	}
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
 	setTimeout(function() {
@@ -60,9 +60,9 @@ function reboot() {
 /** Function to shutdown RPI */
 function shutdown() {
 	if (Odi.isAwake()) {
-		Flux.next('interface', 'sound', 'mute');
-		Flux.next('interface', 'tts', 'speak', { msg: 'Arret system' });
-		Flux.next('interface', 'arduino', 'write', 'playHornOff', 2);
+		Flux.next('interface|sound|mute');
+		Flux.next('interface|tts|speak', { msg: 'Arret system' });
+		Flux.next('interface|arduino|write', 'playHornOff', { delay: 2 });
 	}
 	setTimeout(function() {
 		console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!");
