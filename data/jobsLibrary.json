@@ -54,7 +54,7 @@
 			"flux": { "id": "service|music|fipOrJukebox" }
 		},
 		{
-			"cron": "13 0 1 * * *",
+			"cron": "13 0 1,13 * * *",
 			"flux": { "id": "service|interaction|uneHeure" }
 		},
 		{
