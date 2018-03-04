@@ -31,4 +31,11 @@ This object is isolated, with access methods.
 
 ### Flux manager
 
-A flux manager, based on RxJS, can send order or schedule (delay, repeat) them, through the _next()_ function.
+A flux manager, based on RxJS, can send or schedule (delay, repeat) orders.
+The _Flux.next()_ function accepts flux object (full or detailled), or list of fluxs.
+
+A flux is an Object with 3 properties:
+
+* id: _type|subject|name_
+* data: any type
+* conf: `{delay:_number_, loop:_number_, hidden:_boolean_}`
