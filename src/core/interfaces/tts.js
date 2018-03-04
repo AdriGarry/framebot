@@ -114,13 +114,9 @@ var playTTS = function(tts) {
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	spawn('sh', [Odi._SHELL + 'tts.sh', tts.voice, tts.lg, tts.msg.replace('%20', '')]);
 	Flux.next(
-		'interface',
-		'led',
-		'blink',
+		'interface|led|blink',
 		{ leds: ['eye'], speed: Utils.random(50, 150), loop: tts.msg.length / 2 + 2 },
-		null,
-		null,
-		true
+		{ hidden: true }
 	);
 	log.debug('tts.msg.length :', tts.msg.length);
 

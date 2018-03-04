@@ -31,7 +31,6 @@ var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf('debug'), 
 log.debug('argv', argv);
 
 var Utils = require(Odi._CORE + 'Utils.js');
-
 var Flux = require(Odi._CORE + 'Flux.js').loadModules(descriptor.modules);
 
 log.info('--> Odi ready in ' + Utils.executionTime(startTime) + 'ms');
@@ -47,7 +46,7 @@ if (!Odi.isAwake()) {
 			Flux.next('interface|tts|speak', testTTS);
 			setTimeout(function() {
 				// if (testStatus) Flux.next('interface|runtime|updateRestart', { mode: 'ready' });
-				if (testStatus) Flux.next2('interface|runtime|updateRestart', { mode: 'ready' });
+				if (testStatus) Flux.next('interface|runtime|updateRestart', { mode: 'ready' });
 			}, 3000);
 		});
 	}, 1000);
@@ -61,14 +60,14 @@ Flux.next('interface|runtime|refresh');
 
 if (Odi.conf('watcher')) {
 	// Flux.next('controller|watcher|startWatch');
-	Flux.next2('controller|watcher|startWatch');
+	Flux.next('controller|watcher|startWatch');
 }
 
 console.log('process.version:', process.version);
 
 if (Odi.conf('flux')) {
 	setTimeout(() => {
-		Flux.nextList(Odi.conf('flux'));
+		Flux.next(Odi.conf('flux'));
 	}, 2000);
 }
 
@@ -97,6 +96,3 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 // 	console.log('after timeout', module.loaded);
 // }, 1);
 // console.log('EOF', module.loaded);
-
-// Flux.next2('interface', 'sound', 'play', { mp3: 'system/beBack.mp3' });
-// Flux.next2('interface', 'sound', 'play', { mp3: 'jukebox/CDuncan-Say.mp3', position: 7 }, 2);

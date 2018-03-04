@@ -22,6 +22,6 @@
 			"weekEnd": { "h": 12, "m": 0 }
 		},
 		"version": ".",
-		"flux": [{ "id": "service|time|now" }, { "id": "interface|tts|speak", "data": { "value": "et bonjour !" } }]
+		"flux": [{ "id": "service|time|now" }, { "id": "interface|tts|speak", "data": "et bonjour !" }]
 	}
 }

@@ -71,21 +71,27 @@ function FluxObject(type, subject, id, value, delay, loop, hidden) {
 
 function list(fluxList) {
 	fluxList.forEach(flux => {
-		next2(flux.id, flux.data);
+		// console.log('--list', flux);
+		next(flux.id, flux.data, flux.conf);
 	});
 }
 
 // "id": "type|subject|id", "data": { "value": null, "delay": null, "loop": null, "hidden": false } }
 function next(id, data, conf) {
-	console.log(id, data, conf);
+	if (Array.isArray(id)) {
+		console.log('-arrayr... to flux.list', id);
+		list(id);
+		return;
+	}
 	id = id.split('|');
 	if (!conf) conf = {};
-	next(id[0], id[1], id[2], data, conf.delay, conf.loop, conf.hidden);
+	next2(id[0], id[1], id[2], data, conf.delay, conf.loop, conf.hidden);
 }
 
 function next2(type, subject, id, value, delay, loop, hidden) {
 	var flux = new FluxObject(type, subject, id, value, delay, loop, hidden);
-
+	// console.log('__________');
+	// console.log(flux);
 	if (!ready) {
 		log.error('Flux manager not yet ready', flux);
 		return;
