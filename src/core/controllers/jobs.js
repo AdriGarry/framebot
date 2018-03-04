@@ -5,223 +5,46 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
 var CronJob = require('cron').CronJob;
-var spawn = require('child_process').spawn;
-
-var date = new Date();
-var hour = date.getHours();
-var pastHour = hour;
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
+const JOBS = require(Odi._DATA + 'jobsLibrary.json');
+
+function scheduleJob(job) {
+	let jobLog = '';
+	// TODO try catch block
+	new CronJob(
+		job.cron,
+		function() {
+			Flux.next(job.flux.id, job.flux.data, job.flux.conf);
+			// Object.keys(job.flux).forEach(key => {
+			// 	let fluxVal = job.flux[key];
+			// 	// Flux.next(fluxId[0], fluxId[1], fluxId[2], fluxVal.value, fluxVal.delay, fluxVal.loop, fluxVal.hidden);
+			// 	Flux.next(flux.id, flux.data, flux.conf);
+			// });
+		},
+		null,
+		true,
+		'Europe/Paris'
+	);
+	Object.keys(job.flux).forEach(key => {
+		jobLog += ' _' + key;
+	});
+
+	log.debug('new job: [' + job.cron + '] ' + jobLog);
+}
+
+function scheduleJobs(jobsList, jobsType) {
+	jobsList.forEach(job => {
+		scheduleJob(job);
+	});
+	log.info(jobsType + ' jobs initialised');
+}
+
+scheduleJobs(JOBS.system, 'System');
+scheduleJobs(JOBS.lifeCycle, 'Life cycle');
+
 if (Odi.isAwake()) {
-	setLifeCycleJobs();
-	initClock();
-	setInteractiveJobs();
-}
-
-new CronJob(
-	'*/30 * * * * *',
-	function() {
-		Flux.next('interface', 'hardware', 'runtime', null, null, null, true);
-	},
-	null,
-	true,
-	'Europe/Paris'
-);
-new CronJob(
-	'1 * * * * *',
-	function() {
-		Flux.next('service', 'time', 'isAlarm', null, null, null, true);
-	},
-	null,
-	true,
-	'Europe/Paris'
-);
-
-new CronJob(
-	'0 2 0 * * 1',
-	function() {
-		log.info('Clean log files  /!\\'); // Weekly cleaning of logs
-		Flux.next('interface', 'hardware', 'archiveLog');
-	},
-	null,
-	true,
-	'Europe/Paris'
-);
-
-/** Function to init clock  */
-function initClock() {
-	if (true) {
-		// Mode work
-		new CronJob(
-			'0 0,30 8-23 * * 1-5',
-			function() {
-				Flux.next('service', 'time', 'now');
-			},
-			null,
-			true,
-			'Europe/Paris'
-		);
-		new CronJob(
-			'0 0,30 12-23 * * 0,7',
-			function() {
-				Flux.next('service', 'time', 'now');
-			},
-			null,
-			true,
-			'Europe/Paris'
-		);
-		log.info('Clock jobs initialised in regular mode');
-	} else {
-		// Mode any time
-		new CronJob(
-			'0 0,30 * * * *',
-			function() {
-				Flux.next('service', 'time', 'now');
-			},
-			null,
-			true,
-			'Europe/Paris'
-		);
-		log.info('Clock jobs initialised in any time mode');
-	}
-}
-
-/** Function to set alarms */
-function setInteractiveJobs() {
-	// WEEKDAY
-	new CronJob(
-		'0 18,20,22-25 8 * * 1-5',
-		function() {
-			if (Utils.rdm()) Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: 'Go go go, allez au boulot' });
-			else
-				Flux.next('interface', 'tts', 'speak', { lg: 'fr', voice: 'espeak', msg: 'Allez allez, Maitro boulot dodo' });
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
-
-	new CronJob(
-		'0 15 18 * * 1-5',
-		function() {
-			//Flux.next('service', 'music', 'fip');
-			Utils.testConnexion(function(connexion) {
-				setTimeout(function() {
-					if (connexion == true) {
-						Flux.next('service', 'music', 'fip');
-					} else {
-						Flux.next('service', 'music', 'jukebox');
-					}
-				}, 3000);
-			});
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
-
-	// ALL DAYS
-	new CronJob(
-		'0 1 13 * * *',
-		function() {
-			log.info('Il est 13 heures et tout va bien !');
-			spawn('sh', [Odi._SHELL + 'sounds.sh', '13Heures']);
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
-
-	new CronJob(
-		'0 19 19 * * *',
-		function() {
-			Flux.next('interface', 'tts', 'speak', {
-				lg: 'fr',
-				voice: 'espeak',
-				msg: "Je crois qu'il faut lancer l'opairation baluchon"
-			});
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
-
-	new CronJob(
-		'13 13,25,40,51 17-21 * * *',
-		function() {
-			Flux.next('service', 'interaction', 'random');
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
-	log.info('Interactive jobs initialised');
-}
-
-/** Function to random TTS ggood night. NOT EXPORTED! */
-function goToSleep() {
-	var sleepTTS = Utils.randomItem(Odi.ttsMessages.goToSleep);
-	Flux.next('interface', 'tts', 'speak', sleepTTS);
-	log.info('AutoLifeCycle go to sleep !');
-	setTimeout(function() {
-		Flux.next('service', 'system', 'restart', 'sleep');
-	}, sleepTTS.msg.length * 150);
-}
-
-/** Function to set background tasks */
-function setLifeCycleJobs() {
-	// Auto Sleep
-	new CronJob(
-		'2 0 0 * * 1-5',
-		function() {
-			goToSleep();
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
-	new CronJob(
-		'2 0 2 * * 0,6',
-		function() {
-			goToSleep();
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
-
-	// Restart & Reboot
-	new CronJob(
-		'13 13 13 * * 1-6',
-		function() {
-			Flux.next('interface', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Auto restart' }); // Daily restart Odi's core
-			Flux.next('service', 'system', 'restart', null, 3);
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
-	new CronJob(
-		'13 13 13 * * 0',
-		function() {
-			Flux.next('interface', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Reset config' }); // Weekly RPI reboot
-			log.info('resetCfg'); // Weekly reset of conf
-			Flux.next('interface', 'runtime', 'reset', true, 3);
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
-	new CronJob(
-		'15 15 13 * * 0',
-		function() {
-			Flux.next('interface', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Auto reboot' }); // Weekly RPI reboot
-			Flux.next('service', 'system', 'reboot', null, 3);
-		},
-		null,
-		true,
-		'Europe/Paris'
-	);
-	log.info('Life cycle jobs initialised');
+	scheduleJobs(JOBS.clock, 'Clock');
+	scheduleJobs(JOBS.interactive, 'Interactive');
 }

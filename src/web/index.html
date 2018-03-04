@@ -43,9 +43,6 @@
 	<script src="js/components.js"></script>
 	<script src="js/Tile.js"></script>
 
-	<!--<script src="js/lib/angular-long-press.min.js"></script>-->
-	<!--<script src="js/directives.js"></script>-->
-
 	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
 	<link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
 	<link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
@@ -93,6 +90,7 @@
 				<sup class="version" title="version {{dashboard.runningData.config.version}} [{{dashboard.runningData.config.update}}]">{{dashboard.runningData.config.version}}&nbsp;</sup>
 			</h1>
 			<span flex></span>
+			<i class="fas fa-eye fa-lg" data-ng-if="dashboard.odiState.watcher" title="Watcher On"></i>&nbsp;
 			<i class="debug fas fa-circle" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i>&nbsp;
 			<!-- <i class="debug far fa-plus" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i>&nbsp; -->
 
@@ -202,7 +200,8 @@
 				<!-- <div layout="row" layout-wrap> -->
 				<tts data="dashboard.runningData.mode" data-access="$root.irda" flex="100"></tts>
 				<mode data="dashboard.runningData.mode" data-access="$root.irda" flex="33"></mode>
-				<volume data="dashboard.runningData.volume" data-access="$root.irda" flex="33"></volume>
+				<options data="dashboard.runningData.mode" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></options>
+				<!-- <volume data="dashboard.runningData.volume" data-access="$root.irda" flex="33"></volume> -->
 				<runtime data="dashboard.runningData.errors" data-access="$root.irda" flex="33"></runtime>
 				<voicemail data="dashboard.runningData.voicemail" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></voicemail>
 				<alarms data="dashboard.runningData.alarms" data-access="$root.irda" flex="33"></alarms>
@@ -212,17 +211,16 @@
 				<jukebox data="dashboard.runningData.jukebox" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></jukebox>
 				<exclamation data="dashboard.runningData.exclamation" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></exclamation>
 				<time data="dashboard.runningData.time" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></time>
-				<party data="dashboard.runningData.party" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></party>
 				<bad-boy data="dashboard.runningData.ideas" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></bad-boy>
+				<party data="dashboard.runningData.party" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></party>
 				<stories data="dashboard.runningData.stories" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></stories>
-				<idea data="dashboard.runningData.ideas" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></idea>
 				<russia data="dashboard.runningData.russia" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></russia>
+				<idea data="dashboard.runningData.ideas" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></idea>
 				<videos data="dashboard.runningData.video" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></videos>
 				<arduino data="dashboard.runningData.arduino" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></arduino>
-				<options data="dashboard.runningData.mode" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></options>
 				<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
 				<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
-				<about data="dashboard.runningData.about" data-access="true" flex="33"></about>
+				<about data="dashboard.runningData.about" data-access="true" flex="66"></about>
 				<!--flex="66"-->
 			</div>
 
@@ -234,6 +232,7 @@
 			<!-- // -> TENTER d'enlever les class md-hue-2 -->
 			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-primary muteButton ng-slide"
 			 title="Mute Odi" aria-label="Mute Odi">
+				<!-- <i class="fas fa-lg fa-bell-slash"></i> -->
 				<i class="fas fa-lg fa-bell-slash"></i>
 			</md-button>
 			<!--<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" class="md-fab md-primary md-hue-2 md-mini muteButton"

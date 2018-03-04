@@ -14,6 +14,8 @@ Flux.service.music.subscribe({
 			jukebox();
 		} else if (flux.id == 'fip') {
 			playFip();
+		} else if (flux.id == 'fipOrJukebox') {
+			fipOrJukebox();
 		} else if (flux.id == 'story') {
 			playStory(flux.value);
 		} else if (flux.id == 'stop') {
@@ -27,10 +29,10 @@ Flux.service.music.subscribe({
 
 var ledMusicFlag;
 function ledFlag() {
-	Flux.next('interface', 'led', 'altLeds', { speed: 100, duration: 1.3 });
+	Flux.next('interface|led|altLeds', { speed: 100, duration: 1.3 });
 	ledMusicFlag = setInterval(function() {
 		if (Odi.run('music')) {
-			Flux.next('interface', 'led', 'altLeds', { speed: 100, duration: 1.3 }, null, null, true);
+			Flux.next('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
 		} else {
 			clearInterval(ledMusicFlag);
 		}
@@ -51,7 +53,7 @@ function jukebox(message) {
 	Odi.run('music', 'jukebox');
 	ledFlag();
 	repeatSong();
-	Flux.next('interface', 'sound', 'mute', { message: 'Auto mute jukebox !', delay: 2 }, 60 * 60);
+	Flux.next('interface|sound|mute', { message: 'Auto mute jukebox !', delay: 2 }, { delay: 60 * 60 });
 }
 
 var jukeboxTimeout;
@@ -62,7 +64,7 @@ function repeatSong() {
 	Utils.getMp3Duration(Odi._MP3 + 'jukebox/' + song, function(duration) {
 		console.log(Utils.executionTime(ttime));
 		// log.INFO('duration=' + duration);
-		Flux.next('interface', 'sound', 'play', { mp3: 'jukebox/' + song, duration: duration });
+		Flux.next('interface|sound|play', { mp3: 'jukebox/' + song, duration: duration });
 		jukeboxTimeout = setTimeout(function() {
 			// log.INFO('Next song !!!', 'duration=' + duration);
 			repeatSong();
@@ -72,7 +74,7 @@ function repeatSong() {
 
 function playOneSong() {
 	var song = Utils.randomItem(JUKEBOX_SONGS);
-	Flux.next('interface', 'sound', 'play', { mp3: 'jukebox/' + song });
+	Flux.next('interface|sound|play', { mp3: 'jukebox/' + song });
 }
 
 /** Function to play FIP radio */
@@ -82,7 +84,7 @@ function playFip() {
 	spawn('sh', [Odi._SHELL + 'fip.sh']);
 	Odi.run('music', 'fip');
 	ledFlag();
-	Flux.next('interface', 'sound', 'mute', { message: 'Auto Mute FIP', delay: 2 }, 60 * 60);
+	Flux.next('interface|sound|mute', { message: 'Auto Mute FIP', delay: 2 }, { delay: 60 * 60 });
 }
 
 /** Function to stop music */
@@ -93,11 +95,26 @@ function stop(message) {
 		clearInterval(ledMusicFlag);
 		spawn('sh', [Odi._SHELL + 'mute.sh']);
 		Odi.run('music', false);
-		Flux.next('interface', 'led', 'toggle', { leds: ['eye', 'belly'], value: 0 }, null, null, true);
-		Flux.next('interface', 'led', 'clearLeds', { speed: 100, duration: 1.3 }, null, null, true);
+		Flux.next('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { hidden: true });
+		Flux.next('interface|led|clearLeds', { speed: 100, duration: 1.3 }, { hidden: true });
 	} else {
 		log.debug('No music playing');
 	}
+}
+
+function playFipOrJukebox() {
+	log.info('playFipOrJukebox...');
+	Utils.testConnexion(function(connexion) {
+		setTimeout(function() {
+			if (connexion == true) {
+				// Flux.next('service|music|fip');
+				playFip();
+			} else {
+				// Flux.next('service|music|jukebox');
+				jukebox();
+			}
+		}, 3000);
+	});
 }
 
 const STORIES = ['stories/Donjon-De-Naheulbeuk.mp3', 'stories/Aventuriers-Du-Survivaure.mp3'];
@@ -105,7 +122,7 @@ const STORIES = ['stories/Donjon-De-Naheulbeuk.mp3', 'stories/Aventuriers-Du-Sur
 /** Function to play a story */
 function playStory(story) {
 	var story;
-	Flux.next('interface', 'tts', 'speak', story);
+	Flux.next('interface|tts|speak', story);
 	log.debug('Play story...', story);
 	var storyToPlay = Utils.searchStringInArray(story, STORIES);
 	// console.log(storyToPlay);
@@ -117,9 +134,9 @@ function playStory(story) {
 			stop();
 			Odi.run('music', 'story');
 			ledFlag();
-			Flux.next('interface', 'sound', 'play', { mp3: storyToPlay, position: position });
+			Flux.next('interface|sound|play', { mp3: storyToPlay, position: position });
 		});
 	} else {
-		Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'error history' });
+		Flux.next('interface|tts|speak', { lg: 'en', msg: 'error history' });
 	}
 }

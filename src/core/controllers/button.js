@@ -29,23 +29,23 @@ function initButtonReady() {
 	ok.watch(function(err, value) {
 		var pushTime = getPushTime(ok);
 		//oneMorePush();
-		Flux.next('controller', 'button', 'ok', pushTime);
+		Flux.next('controller|button|ok', pushTime);
 	});
 
 	cancel.watch(function(err, value) {
-		Flux.next('interface', 'sound', 'mute');
+		Flux.next('interface|sound|mute');
 		var pushTime = getPushTime(cancel);
-		Flux.next('controller', 'button', 'cancel', pushTime);
+		Flux.next('controller|button|cancel', pushTime);
 	});
 
 	white.watch(function(err, value) {
 		var pushTime = getPushTime(white);
-		Flux.next('controller', 'button', 'white', pushTime);
+		Flux.next('controller|button|white', pushTime);
 	});
 
 	blue.watch(function(err, value) {
 		var pushTime = getPushTime(blue);
-		if (pushTime > DEBOUNCE_LIMIT) Flux.next('controller', 'button', 'blue', pushTime);
+		if (pushTime > DEBOUNCE_LIMIT) Flux.next('controller|button|blue', pushTime);
 		else log.info('Blue button pushed not enough:', pushTime);
 	});
 
@@ -55,13 +55,14 @@ function initButtonReady() {
 	var intervalDelay = Odi.conf('debug') ? 2 * 60 * 1000 : 5 * 60 * 1000;
 	setInterval(function() {
 		var value = etat.readSync();
-		Flux.next('interface', 'led', 'toggle', { leds: ['satellite'], value: value }, null, null, true);
+		//TODO faire un truc avec ce flux
+		Flux.next('interface|led|toggle', { leds: ['satellite'], value: value }, { hidden: true });
 		if (1 === value) {
 			if (!instance) {
 				instance = true;
 				intervalEtat = setInterval(function() {
 					log.info('Etat btn Up_ => random action');
-					Flux.next('service', 'interaction', 'random');
+					Flux.next('service|interaction|random');
 				}, intervalDelay); //5*60*1000
 			}
 		} else {
@@ -78,8 +79,8 @@ function initButtonReady() {
 		Odi.run('volume', Odi.isAwake() ? (value ? 400 : -400) : 'mute');
 		log.info('Etat:', value, '[Etat has changed]');
 		if (Odi.run('music') == 'fip') {
-			Flux.next('interface', 'sound', 'mute');
-			Flux.next('service', 'music', 'fip', null, 0.1);
+			Flux.next('interface|sound|mute');
+			Flux.next('service|music|fip', null, { delay: 0.1 });
 		}
 		log.table(Odi.run(), 'RUNTIME...');
 	});
@@ -113,8 +114,8 @@ function initButtonReady() {
 function initButtonSleep() {
 	ok.watch(function(err, value) {
 		var pushTime = getPushTime(ok);
-		// Flux.next('controller', 'button', 'ok', pushTime);
-		Flux.next('service', 'system', 'restart', null);
+		// Flux.next('controller|button|ok', pushTime);
+		Flux.next('service|system|restart');
 	});
 }
 

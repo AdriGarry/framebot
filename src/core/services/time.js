@@ -43,7 +43,7 @@ function now() {
 	var date = new Date();
 	var hour = date.getHours();
 	var min = date.getMinutes();
-	Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: 'Il est ' + hour + ' heure ' + (min > 0 ? min : '') });
+	Flux.next('interface|tts|speak', { lg: 'fr', msg: 'Il est ' + hour + ' heure ' + (min > 0 ? min : '') });
 }
 
 const CALENDAR = require(Odi._DATA + 'calendar.json');
@@ -65,8 +65,8 @@ function today() {
 	}
 
 	log.debug('time.today()' + annonceDate);
-	// Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: annonceDate });
-	Flux.next('interface', 'tts', 'speak', annonceDate);
+	// Flux.next('interface|tts|speak', { lg: 'fr', msg: annonceDate });
+	Flux.next('interface|tts|speak', annonceDate);
 }
 
 function getSeason() {
@@ -87,8 +87,8 @@ function getSeason() {
 
 /** Function to disable all Odi's alarms */
 function disableAllAlarms() {
-	Flux.next('interface', 'tts', 'speak', 'Annulation de toutes les alarmes');
-	Flux.next('interface', 'runtime', 'updateRestart', { alarms: { weekDay: null, weekEnd: null } }, 4);
+	Flux.next('interface|tts|speak', 'Annulation de toutes les alarmes');
+	Flux.next('interface|runtime|updateRestart', { alarms: { weekDay: null, weekEnd: null } }, { delay: 4 });
 }
 
 /** Function to set Odi's custom alarm */
@@ -107,8 +107,8 @@ function setAlarm(alarm) {
 	});
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
 	let alarmTTS = 'Alarme ' + alarmMode + ' reprogramer a ' + alarm.h + ' heures et ' + alarm.m + ' minutes';
-	Flux.next('interface', 'tts', 'speak', alarmTTS);
-	Flux.next('interface', 'runtime', 'updateRestart', { alarms: newAlarms }, 6);
+	Flux.next('interface|tts|speak', alarmTTS);
+	Flux.next('interface|runtime|updateRestart', { alarms: newAlarms }, { delay: 6 });
 }
 
 /** Function to test if alarm now */
@@ -128,7 +128,7 @@ function isAlarm() {
 			Odi.run('alarm', true);
 			if (!Odi.isAwake()) {
 				log.INFO('Alarm... wake up !!');
-				Flux.next('service', 'system', 'restart');
+				Flux.next('service|system|restart');
 			} else {
 				cocorico();
 			}
@@ -158,7 +158,7 @@ function cocorico(mode) {
 /** Function alarm part 2 */
 function cocoricoPart2(mode) {
 	log.INFO('cocorico !!', mode || '');
-	Flux.next('interface', 'arduino', 'write', 'playHornDoUp');
+	Flux.next('interface|arduino|write', 'playHornDoUp');
 	spawn('sh', [Odi._SHELL + 'sounds.sh', 'cocorico']);
 	if (isBirthday()) {
 		birthdaySong();
@@ -172,15 +172,15 @@ function cocoricoPart2(mode) {
 
 /** Function alarm part 3 */
 function cocoricoPart3() {
-	Flux.next('service', 'time', 'now', null, 3);
-	Flux.next('service', 'time', 'today', null, 5);
-	Flux.next('service', 'interaction', 'weather', null, 8);
-	Flux.next('service', 'voicemail', 'check', null, 13);
+	Flux.next('service|time|now', null, { delay: 3 });
+	Flux.next('service|time|today', null, { delay: 5 });
+	Flux.next('service|interaction|weather', null, { delay: 8 });
+	Flux.next('service|voicemail|check', null, { delay: 13 });
 
-	Flux.next('service', 'music', 'fip', null, 45);
+	Flux.next('service|music|fip', null, { delay: 45 });
 
 	var baluchonTTS = "Je crois qu'il faut lancer l'opairation baluchon";
-	Flux.next('interface', 'tts', 'speak', baluchonTTS, Utils.random(15, 25) * 60, 3);
+	Flux.next('interface|tts|speak', baluchonTTS, { delay: Utils.random(15, 25) * 60, loop: 3 });
 }
 
 const BIRTHDAYS = ['17/04', '13/12'];
@@ -215,7 +215,7 @@ function sayOdiAge() {
 	var birthDay = rdm[Utils.random(rdm.length)];
 	birthDay += "j'ai " + years + ' ans et ' + mouths + ' mois !';
 	log.info("sayOdiAge() '" + birthDay + "'");
-	Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: birthDay });
+	Flux.next('interface|tts|speak', { lg: 'fr', msg: birthDay });
 }
 
 Odi.run('timer', 0);
@@ -231,7 +231,7 @@ function setTimer(minutes) {
 	var sec = Odi.run('timer') % 60;
 	var ttsMsg =
 		'Minuterie ' + (min > 0 ? (min > 1 ? min : ' une ') + ' minutes ' : '') + (sec > 0 ? sec + ' secondes' : '');
-	Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: ttsMsg });
+	Flux.next('interface|tts|speak', { lg: 'fr', msg: ttsMsg });
 	if (Odi.run('timer') >= 60 && !secInterval) {
 		startTimer();
 	}
@@ -240,7 +240,7 @@ function setTimer(minutes) {
 function startTimer() {
 	let etat = 1;
 	secInterval = setInterval(function() {
-		Flux.next('interface', 'led', 'toggle', { leds: ['belly'], value: etat }, null, null, true);
+		Flux.next('interface|led|toggle', { leds: ['belly'], value: etat }, { hidden: true });
 		etat = 1 - etat;
 		let timerCountDown = Odi.run('timer');
 		if (timerCountDown < 10) {
@@ -251,14 +251,14 @@ function startTimer() {
 		Odi.run('timer', Odi.run('timer') - 1);
 		timerCountDown = Odi.run('timer');
 		if (timerCountDown % 120 == 0 && timerCountDown / 60 > 0) {
-			Flux.next('interface', 'tts', 'speak', { lg: 'fr', msg: Odi.run('timer') / 60 + ' minutes et compte a rebours' });
+			Flux.next('interface|tts|speak', { lg: 'fr', msg: Odi.run('timer') / 60 + ' minutes et compte a rebours' });
 		} else if (timerCountDown <= 0 && timerCountDown > -5) {
 			clearInterval(secInterval);
 			log.info('End Timer !');
 			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'end']); // TODO use sound.js
-			Flux.next('interface', 'led', 'blink', { leds: ['belly', 'eye'], speed: 90, loop: 12 });
-			Flux.next('interface', 'tts', 'speak', 'Les raviolis sont cuits !');
-			Flux.next('interface', 'led', 'toggle', { leds: ['belly'], value: 0 }, 1);
+			Flux.next('interface|led|blink', { leds: ['belly', 'eye'], speed: 90, loop: 12 });
+			Flux.next('interface|tts|speak', 'Les raviolis sont cuits !');
+			Flux.next('interface|led|toggle', { leds: ['belly'], value: 0 }, { delay: 1 });
 		}
 	}, 1000);
 }
@@ -267,7 +267,7 @@ function stopTimer() {
 	if (Odi.run('timer') > 0) {
 		clearInterval(secInterval);
 		Odi.run('timer', 0);
-		Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'Timer canceled' });
-		Flux.next('interface', 'led', 'toggle', { leds: ['belly'], value: 0 }, null, null, true);
+		Flux.next('interface|tts|speak', { lg: 'en', msg: 'Timer canceled' });
+		Flux.next('interface|led|toggle', { leds: ['belly'], value: 0 }, { hidden: true });
 	}
 }

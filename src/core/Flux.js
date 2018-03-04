@@ -12,7 +12,8 @@ var ready = false;
 var Flux = {
 	attach: attachObservers,
 	loadModules: loadModules,
-	next: next
+	next: next,
+	list: list
 };
 
 function attachObservers(observers) {
@@ -50,46 +51,68 @@ function loadModules(modules) {
 	return Flux;
 }
 
-function FluxObject(type, subject, id, value, delay, loop, hidden) {
-	this.type = type;
-	this.subject = subject;
-	this.id = id;
-	this.value = value; // || null
-	this.delay = delay;
-	this.loop = loop;
-	this.hidden = hidden || false;
+const FLUX_REGEX = new RegExp(/\w+\|\w+\|\w+/);
+
+function FluxObject(id, data, conf) {
+	if (!FLUX_REGEX.test(id)) {
+		this.error = 'Invalid Flux id: ' + id;
+	}
+	id = id.split('|');
+	if (!conf) conf = {};
+
+	this.type = id[0];
+	this.subject = id[1];
+	this.id = id[2];
+	this.value = data; // || null
+	this.delay = conf.delay;
+	this.loop = conf.loop;
+	this.hidden = conf.hidden || false;
 
 	this.toString = () => {
-		var typeSubject = this.type + '|' + this.subject + ' ';
+		var typeSubject = this.type + '|' + this.subject + '|';
 		var value = this.id + (this.value ? ' ' + util.format(util.inspect(this.value)) : '') + ' ';
 		var delay = ' ' + (this.delay || '');
 		var loop = ' ' + (this.loop || '');
 		return typeSubject + value + delay + loop;
 	};
+
+	this.isValid = () => {
+		if (!this.error && Object.keys(Flux).includes(this.type) && Object.keys(Flux[this.type]).includes(this.subject)) {
+			return true;
+		}
+		Odi.error(this.error || 'Invalid Flux', this, false);
+		return false;
+	};
 }
 
-function next(type, subject, id, value, delay, loop, hidden) {
-	var flux = new FluxObject(type, subject, id, value, delay, loop, hidden);
+function list(fluxList) {
+	fluxList.forEach(flux => {
+		next(flux.id, flux.data, flux.conf);
+	});
+}
 
+function next(id, data, conf) {
 	if (!ready) {
-		log.error('Flux manager not yet ready', flux);
+		log.error('Flux manager not yet ready');
 		return;
 	}
-	if (!inspect(flux)) return;
+	if (Array.isArray(id)) {
+		list(id);
+		return;
+	}
+	if (typeof id === 'object' && id.hasOwnProperty('id')) {
+		next(id.id, id.data, id.conf);
+		return;
+	}
+
+	let flux = new FluxObject(id, data, conf);
+	if (!flux.isValid()) return;
 	if (flux.delay && Number(flux.delay)) {
 		scheduleFlux(flux);
 		return;
 	}
 	fireFlux(flux);
 }
-
-var inspect = flux => {
-	if (Object.keys(Flux).includes(flux.type) && Object.keys(Flux[flux.type]).includes(flux.subject)) {
-		return true;
-	}
-	Odi.error('Invalid Flux', flux);
-	return false;
-};
 
 var scheduleFlux = flux => {
 	var i = 0;

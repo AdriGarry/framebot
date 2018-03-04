@@ -50,11 +50,11 @@ function getEtatValue() {
 
 /** Function to tts cpu stats */
 function cpuStatsTTS() {
-	Flux.next('interface', 'tts', 'speak', {
+	Flux.next('interface|tts|speak', {
 		lg: 'fr',
 		msg: 'Mon  ' + (Utils.rdm() ? 'processeur' : 'CPU') + ' est a ' + retreiveCpuTemp() + '  degrai...'
 	});
-	Flux.next('interface', 'tts', 'speak', {
+	Flux.next('interface|tts|speak', {
 		lg: 'fr',
 		msg: Utils.rdm()
 			? 'Et il tourne a ' + retreiveCpuUsage() + ' pour cent'
@@ -107,7 +107,7 @@ var startMeasure = cpuAverage();
 function soulTTS() {
 	let size = Math.round(Odi.run('memory.odi'));
 	let ttsMsg = size + ' maiga octet, sai le poid de mon ame ' + (Utils.rdm() ? '' : 'en ce moment');
-	Flux.next('interface', 'tts', 'speak', ttsMsg);
+	Flux.next('interface|tts|speak', ttsMsg);
 }
 
 /** Function to get memory usage stats (Odi + system) */
@@ -140,7 +140,7 @@ function diskSpaceTTS() {
 	let ttsMsg = Utils.rdm()
 		? 'Il me reste environ ' + (100 - diskSpace) + " pour cent d'espace disque disponible"
 		: "J'utilise " + diskSpace + " pour cent d'espace de stockage";
-	Flux.next('interface', 'tts', 'speak', ttsMsg);
+	Flux.next('interface|tts|speak', ttsMsg);
 }
 
 /** Function to retreive disk space on /dev/root */
@@ -157,27 +157,29 @@ function getDiskSpace(callback) {
 /** Function to TTS Odi's program total lines */
 function totalLinesTTS() {
 	let ttsMsg = 'Mon programme est composer de ' + Odi.run('stats.totalLines') + ' lignes de code';
-	Flux.next('interface', 'tts', 'speak', ttsMsg);
+	Flux.next('interface|tts|speak', ttsMsg);
 }
 
 /** Function to count lines of Odi's software */
 function countSoftwareLines(callback) {
 	const EXTENSIONS = ['js', 'json', 'properties', 'sh', 'py', 'html', 'css'];
 	var typesNb = EXTENSIONS.length;
-	var totalLines = 0;
-	EXTENSIONS.forEach(function(item, index) {
+	var lines = {},
+		totalLines = 0;
+	EXTENSIONS.forEach(function(item) {
 		var temp = item;
 		Utils.execCmd('find /home/pi/odi/src /home/pi/odi/data -name "*.' + temp + '" -print | xargs wc -l', data => {
 			var regex = /(\d*) total/g;
 			var result = regex.exec(data);
 			var t = result && result[1] ? result[1] : -1;
 			totalLines = parseInt(totalLines) + parseInt(t);
+			lines[item] = parseInt(t);
 			typesNb--;
 			if (!typesNb) {
 				log.debug('countSoftwareLines()', totalLines);
 				Odi.run('stats.totalLines', totalLines);
-				if(Odi.conf('watcher')){
-					log.info('Afficher le nombre de lignes par extensions ;)');
+				if (Odi.conf('watcher') || Odi.conf('debug')) {
+					log.info('stats.totalLines:', lines);
 				}
 				// if (callback) callback(totalLines);
 			}
@@ -188,7 +190,7 @@ function countSoftwareLines(callback) {
 /** Function to clean and archive logs each week */
 const LOG_FILES = ['odi.log', 'requestHistory.log', 'errorHistory.json', 'ttsUIHistory.json', 'voicemailHistory.json'];
 function archiveLogs() {
-	log.info('cleaning logs...');
+	log.info('Clean log files  /!\\');
 	var date = new Date();
 	var weekNb = date.getWeek();
 	if (!fs.existsSync(Odi._LOG + 'old')) {

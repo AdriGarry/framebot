@@ -21,29 +21,7 @@
 			"weekDay": { "h": 7, "m": 10 },
 			"weekEnd": { "h": 12, "m": 0 }
 		},
-		"version": "."
-	},
-	"runtime": {
-		"etat": null,
-		"volume": null,
-		"max": null,
-		"mood": [],
-		"music": null,
-		"alarm": null,
-		"timer": null,
-		"voicemail": null,
-		"cpu": {
-			"usage": null,
-			"temp": null
-		},
-		"memory": {
-			"odi": null,
-			"system": null
-		},
-		"stats": {
-			"diskSpace": null,
-			"totalLines": null,
-			"update": null
-		}
+		"version": ".",
+		"flux": []
 	}
 }

@@ -72,7 +72,8 @@ app.controller('UIController', function(
 				value: data.mode.value.mode || 'unavailable',
 				ready: data.mode.value.mode == 'Ready',
 				sleep: data.mode.value.mode == 'Sleep',
-				debug: data.debug.value
+				debug: data.debug.value,
+				watcher: data.watcher.value
 			};
 		} else {
 			odiState = {

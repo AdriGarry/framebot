@@ -76,10 +76,14 @@ function startUIServer(mode) {
 	var logger = function(req, res, next) {
 		res.header('Access-Control-Allow-Origin', 'http://adrigarry.com');
 
-		Flux.next('interface', 'led', 'blink', { leds: ['satellite'], speed: 80, loop: 3 }, null, null, true);
+		Flux.next('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
 
-		if (!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('interface', 'sound', 'UI', null, null, null, true);
+		if (!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('interface|sound|UI', null, { hidden: true });
 
+		if (!req.connection.remoteAddress) {
+			log.INFO('req.connection.remoteAddress undefined ?');
+			log.info(req.connection);
+		}
 		if (req.connection.remoteAddress.indexOf('192.168') == -1) {
 			// Logging not local requests
 			var newRequest = Utils.logTime('D/M h:m:s ') + request + ' [' + req.connection.remoteAddress + ']\r\n';
@@ -113,7 +117,11 @@ function startUIServer(mode) {
 
 			if (!tooMuchBadRequests) {
 				if (Odi.isAwake()) {
-					Flux.next('interface', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, 0.5, null, true);
+					Flux.next(
+						'interface|tts|speak',
+						{ voice: 'espeak', lg: 'en', msg: 'Bad request' },
+						{ delay: 0.5, hidden: true }
+					);
 				}
 			}
 
@@ -128,7 +136,7 @@ function startUIServer(mode) {
 
 	/** DASHBOARD SECTION */
 	ui.get('/dashboard', function(req, res) {
-		Flux.next('interface', 'hardware', 'runtime');
+		Flux.next('interface|hardware|runtime');
 		var temp = parseInt(mode);
 		var now = new Date();
 		var h = now.getHours();
@@ -178,7 +186,8 @@ function startUIServer(mode) {
 			alarms: { value: Odi.conf('alarms'), active: true },
 			update: { value: Odi.run('stats.update') },
 			version: { value: 'toto' /*Odi.conf('version')*/ }, // DEPRECATED !
-			debug: { value: Odi.conf('debug') } // TO DEPRECATE...
+			debug: { value: Odi.conf('debug') }, // TO DEPRECATE...
+			watcher: { value: Odi.conf('watcher') }
 		};
 		res.writeHead(200);
 		res.end(JSON.stringify(dashboard));
@@ -206,7 +215,7 @@ function startUIServer(mode) {
 
 	ui.get('/runtime', function(req, res) {
 		res.writeHead(200);
-		Flux.next('interface', 'hardware', 'runtime');
+		Flux.next('interface|hardware|runtime');
 		log.table(Odi.run(), 'RUNTIME...');
 		res.end(JSON.stringify(Odi.run()));
 	});
@@ -243,21 +252,21 @@ function startUIServer(mode) {
 
 	/** ==> POST SECTION */
 	ui.post('/odi', function(req, res) {
-		Flux.next('service', 'system', 'restart', null, 1);
+		Flux.next('service|system|restart', null, { delay: 1 });
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/toggleDebug', function(req, res) {
 		log.debug('UI > Toggle debug');
-		Flux.next('interface', 'runtime', 'updateRestart', { debug: Odi.conf('debug') ? 0 : 20 }, 1);
+		Flux.next('interface|runtime|updateRestart', { debug: Odi.conf('debug') ? 0 : 20 }, { delay: 1 });
 		// Odi.update({ debug: Odi.conf('debug') ? 0 : 20 }, true);
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/testSequence', function(req, res) {
-		Flux.next('interface', 'runtime', 'updateRestart', { mode: 'test' }, 1);
+		Flux.next('interface|runtime|updateRestart', { mode: 'test' }, { delay: 1 });
 		// Odi.update({ mode: 'test' }, true);
 		res.writeHead(200);
 		res.end();
@@ -265,61 +274,67 @@ function startUIServer(mode) {
 
 	ui.post('/watcher', function(req, res) {
 		if (Odi.conf('watcher')) {
-			Flux.next('controller', 'watcher', 'stopWatch');
+			Flux.next('controller|watcher|stopWatch');
 		} else {
-			Flux.next('controller', 'watcher', 'startWatch');
+			Flux.next('controller|watcher|startWatch');
 		}
+		res.writeHead(200);
+		res.end();
+	});
+
+	ui.post('/demo', function(req, res) {
+		Flux.next('service|interaction|demo');
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/resetConfig', function(req, res) {
 		log.debug('UI > Reset config');
-		Flux.next('interface', 'runtime', 'reset', true, 1);
+		Flux.next('interface|runtime|reset', true, { delay: 1 });
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/sleep', function(req, res) {
-		Flux.next('service', 'system', 'restart', 'sleep', 1);
+		Flux.next('service|system|restart', 'sleep', { delay: 1 });
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/reboot', function(req, res) {
-		Flux.next('service', 'system', 'reboot', null, 1);
+		Flux.next('service|system|reboot', null, { delay: 1 });
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/shutdown', function(req, res) {
-		Flux.next('service', 'system', 'shutdown', null, 1);
+		Flux.next('service|system|shutdown', null, { delay: 1 });
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/mute', function(req, res) {
-		Flux.next('interface', 'sound', 'mute');
+		Flux.next('interface|sound|mute');
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/alarm', function(req, res) {
 		params = req.body;
-		Flux.next('service', 'time', 'setAlarm', params);
+		Flux.next('service|time|setAlarm', params);
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/alarmOff', function(req, res) {
 		params = req.body;
-		Flux.next('service', 'time', 'alarmOff');
+		Flux.next('service|time|alarmOff');
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/archiveLog', function(req, res) {
-		Flux.next('interface', 'hardware', 'archiveLog');
+		Flux.next('interface|hardware|archiveLog');
 		res.writeHead(200);
 		res.end();
 	});
@@ -332,7 +347,7 @@ function startUIServer(mode) {
 			log.info('>> Admin granted !');
 		} else {
 			Odi.error('>> User NOT granted /!\\', pattern, false);
-			Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'User NOT granted' }, 0.5);
+			Flux.next('interface|tts|speak', { lg: 'en', msg: 'User NOT granted' }, { delay: 0.5 });
 		}
 		res.send(granted);
 		if (granted) granted = false;
@@ -343,46 +358,46 @@ function startUIServer(mode) {
 			var params = req.query;
 			if (params.voice && params.lg && params.msg) {
 				if (params.hasOwnProperty('voicemail')) {
-					Flux.next('service', 'voicemail', 'new', { voice: params.voice, lg: params.lg, msg: params.msg });
+					Flux.next('service|voicemail|new', { voice: params.voice, lg: params.lg, msg: params.msg });
 				} else {
-					Flux.next('interface', 'tts', 'speak', { voice: params.voice, lg: params.lg, msg: params.msg });
+					Flux.next('interface|tts|speak', { voice: params.voice, lg: params.lg, msg: params.msg });
 				}
 				params.timestamp = Utils.logTime('D/M h:m:s', new Date());
 				Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
 			} else {
-				Flux.next('interface', 'tts', 'random');
+				Flux.next('interface|tts|random');
 			}
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/lastTTS', function(req, res) {
-			Flux.next('interface', 'tts', 'lastTTS');
+			Flux.next('interface|tts|lastTTS');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/checkVoiceMail', function(req, res) {
-			Flux.next('service', 'voicemail', 'check', true);
+			Flux.next('service|voicemail|check', true);
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/clearVoiceMail', function(req, res) {
-			Flux.next('service', 'voicemail', 'clear');
+			Flux.next('service|voicemail|clear');
 			res.writeHead(200);
 			res.end();
 		});
 
 		// ui.post('/conversation', function(req, res) {
-		// 	Flux.next('interface', 'tts', 'conversation');
+		// 	Flux.next('interface|tts|conversation');
 		// 	res.writeHead(200);
 		// 	res.end();
 		// });
 
 		ui.post('/idea', function(req, res) {
 			// params = req.query;
-			Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: "I've got an idea !" });
+			Flux.next('interface|tts|speak', { lg: 'en', msg: "I've got an idea !" });
 			res.writeHead(200);
 			res.end();
 		});
@@ -390,7 +405,7 @@ function startUIServer(mode) {
 		ui.post('/badBoy', function(req, res) {
 			params = req.body;
 			log.debug('/badBoy', params);
-			Flux.next('service', 'mood', 'badBoy', params.value);
+			Flux.next('service|mood|badBoy', params.value);
 			res.writeHead(200);
 			res.end();
 		});
@@ -400,22 +415,22 @@ function startUIServer(mode) {
 			log.debug('/russia', params);
 			if (params.hasOwnProperty('hymn')) {
 				spawn('sh', [Odi._SHELL + 'music.sh', 'urss']);
-				Flux.next('interface', 'led', 'altLeds', { speed: 70, loop: 20 }, null, null, true);
+				Flux.next('interface|led|altLeds', { speed: 70, loop: 20 }, { hidden: true });
 			} else {
-				Flux.next('service', 'interaction', 'russia');
+				Flux.next('service|interaction|russia');
 			}
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/exclamation', function(req, res) {
-			Flux.next('service', 'interaction', 'exclamation');
+			Flux.next('service|interaction|exclamation');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/fip', function(req, res) {
-			Flux.next('service', 'music', 'fip');
+			Flux.next('service|music|fip');
 			res.writeHead(200);
 			res.end();
 		});
@@ -429,69 +444,69 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/jukebox', function(req, res) {
-			Flux.next('service', 'music', 'jukebox');
+			Flux.next('service|music|jukebox');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/naheulbeuk', function(req, res) {
 			// spawn('sh', [Odi._SHELL + 'sounds.sh', 'Naheulbeuk']); // TODO mettre ds 1 service
-			Flux.next('service', 'music', 'story', 'Naheulbeuk');
+			Flux.next('service|music|story', 'Naheulbeuk');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/survivaure', function(req, res) {
 			// spawn('sh', [Odi._SHELL + 'sounds.sh', 'Survivaure']); // TODO mettre ds 1 service
-			Flux.next('service', 'music', 'story', 'Survivaure');
+			Flux.next('service|music|story', 'Survivaure');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/playVideo', function(req, res) {
-			Flux.next('interface', 'video', 'cycle');
+			Flux.next('interface|video|cycle');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/arduinoSleep', function(req, res) {
-			Flux.next('interface', 'arduino', 'sleep');
+			Flux.next('interface|arduino|sleep');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/arduino', function(req, res) {
-			Flux.next('interface', 'arduino', 'hi');
+			Flux.next('interface|arduino|hi');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/videoOff', function(req, res) {
-			Flux.next('interface', 'video', 'screenOff');
+			Flux.next('interface|video|screenOff');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/time', function(req, res) {
-			Flux.next('service', 'time', 'now');
+			Flux.next('service|time|now');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/date', function(req, res) {
-			Flux.next('service', 'time', 'today');
+			Flux.next('service|time|today');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/birthday', function(req, res) {
-			Flux.next('service', 'time', 'birthday');
+			Flux.next('service|time|birthday');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/age', function(req, res) {
-			Flux.next('service', 'time', 'OdiAge');
+			Flux.next('service|time|OdiAge');
 			res.writeHead(200);
 			res.end();
 		});
@@ -499,48 +514,48 @@ function startUIServer(mode) {
 		ui.post('/timer', function(req, res) {
 			params = req.query; // affiner pour récupérer les params
 			if (params.hasOwnProperty('stop')) {
-				Flux.next('service', 'time', 'timer', 'stop');
+				Flux.next('service|time|timer', 'stop');
 			} else {
 				/*if (!isNaN(params.min))*/
 				var min = parseInt(params.min, 10) || 1;
 				// log.info(min);
-				Flux.next('service', 'time', 'timer', min);
+				Flux.next('service|time|timer', min);
 			}
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/weather', function(req, res) {
-			Flux.next('service', 'interaction', 'weather');
+			Flux.next('service|interaction|weather');
 			res.writeHead(200);
 			res.end();
 		});
 		ui.post('/weatherInteractive', function(req, res) {
-			Flux.next('service', 'interaction', 'weather', 'interactive');
+			Flux.next('service|interaction|weather', 'interactive');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/cpuTTS', function(req, res) {
-			Flux.next('interface', 'hardware', 'cpuTTS');
+			Flux.next('interface|hardware|cpuTTS');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/soulTTS', function(req, res) {
-			Flux.next('interface', 'hardware', 'soulTTS');
+			Flux.next('interface|hardware|soulTTS');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/diskSpaceTTS', function(req, res) {
-			Flux.next('interface', 'hardware', 'diskSpaceTTS');
+			Flux.next('interface|hardware|diskSpaceTTS');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/totalLinesTTS', function(req, res) {
-			Flux.next('interface', 'hardware', 'totalLinesTTS');
+			Flux.next('interface|hardware|totalLinesTTS');
 			res.writeHead(200);
 			res.end();
 		});
@@ -552,26 +567,26 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/setParty', function(req, res) {
-			Flux.next('service', 'party', 'start');
+			Flux.next('service|party|start');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/partyTTS', function(req, res) {
-			Flux.next('service', 'party', 'tts');
+			Flux.next('service|party|tts');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/pirate', function(req, res) {
-			Flux.next('service', 'party', 'pirate');
+			Flux.next('service|party|pirate');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/test', function(req, res) {
 			spawn('sh', [Odi._SHELL + 'sounds.sh', 'test']); //mouthTrick
-			Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: '.undefined' });
+			Flux.next('interface|tts|speak', { lg: 'en', msg: '.undefined' });
 			res.writeHead(200);
 			res.end();
 		});
@@ -587,7 +602,7 @@ function startUIServer(mode) {
 			// Add Voice Mail Message
 			params = req.query;
 			if (params['voice'] && params['lg'] && params['msg']) {
-				Flux.next('service', 'voicemail', 'new', { voice: params.voice, lg: params.lg, msg: params.msg });
+				Flux.next('service|voicemail|new', { voice: params.voice, lg: params.lg, msg: params.msg });
 				params.timestamp = Utils.logTime('D/M h:m:s', new Date());
 				Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
 				res.writeHead(200);
@@ -608,7 +623,7 @@ function startUIServer(mode) {
 
 	ui.listen(8080, function() {
 		log.info('UI server started [' + Odi.conf('mode') + ']');
-		Flux.next('interface', 'led', 'blink', { leds: ['satellite'], speed: 120, loop: 3 }, null, null, 'hidden');
+		Flux.next('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
 	});
 }
 

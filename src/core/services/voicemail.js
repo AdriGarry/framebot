@@ -58,8 +58,8 @@ function checkVoiceMail(withTTSResult, callback) {
 		if (messages) {
 			messages = JSON.parse(messages); // TODO tester ici la validité du message (format etc)!!
 			log.debug(messages);
-			Flux.next('interface', 'tts', 'speak', { voice: 'espeak', lg: 'en', msg: 'Messages' });
-			Flux.next('interface', 'tts', 'speak', messages);
+			Flux.next('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Messages' });
+			Flux.next('interface|tts|speak', messages);
 			if (clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
 			clearVoiceMailDelay = setTimeout(function() {
 				// Clearing VoiceMail
@@ -72,7 +72,7 @@ function checkVoiceMail(withTTSResult, callback) {
 			return true;
 		} else {
 			log.info(NO_VOICEMAIL);
-			if (withTTSResult) Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: NO_VOICEMAIL });
+			if (withTTSResult) Flux.next('interface|tts|speak', { lg: 'en', msg: NO_VOICEMAIL });
 			if (callback) callback(false); // for other action
 			return false;
 		}
@@ -97,7 +97,7 @@ function updateVoicemailMessage() {
 		messages = JSON.parse(messages);
 		Odi.run('voicemail', messages.length);
 		if (Odi.run('voicemail') > 0) {
-			Flux.next('interface', 'led', 'blink', { leds: ['belly'], speed: 200, loop: 2 }, null, null, true);
+			Flux.next('interface|led|blink', { leds: ['belly'], speed: 200, loop: 2 }, { hidden: true });
 		}
 	} catch (e) {
 		Odi.run('voicemail', 0);
@@ -112,7 +112,7 @@ function clearVoiceMail() {
 			else Odi.error(err);
 		} else {
 			updateVoicemailMessage();
-			Flux.next('interface', 'tts', 'speak', { lg: 'en', msg: 'VoiceMail Cleared' });
+			Flux.next('interface|tts|speak', { lg: 'en', msg: 'VoiceMail Cleared' });
 		}
 	});
 }

@@ -19,7 +19,6 @@ function Logger(filename, debugMode, mode) {
 		modeFlag = '.';
 	}
 	filename = filename.match(/(\w*).js/g)[0];
-	// debug("Logger init [" + filename + "]");
 
 	this.info = info;
 	this.INFO = INFO;
@@ -27,8 +26,6 @@ function Logger(filename, debugMode, mode) {
 	this.debug = debug;
 	this.DEBUG = DEBUG;
 	this.table = table;
-	// this.conf = logConf;
-	// this.runtime = logRuntime;
 	this.error = error;
 	return this;
 
@@ -104,14 +101,9 @@ function Logger(filename, debugMode, mode) {
 		console.error(Utils.logTime(), modeFlag + '[' + filename + ']', 'ERR >>', formatLog(arguments));
 	}
 
-	// executionTime + 'ms';
-
-	/**
-	 * Function to array an object
-	 */
+	/** Function to array an object */
 	function table(src, title, updatedEntries) {
 		let datas = formatObjectToTable(src, updatedEntries);
-		// console.log(datas);
 		let tableSize = calculateTableSize(datas);
 		let logArrayTitle = '';
 		if (title) {

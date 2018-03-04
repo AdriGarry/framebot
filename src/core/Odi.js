@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 'use strict';
 
-// var Object = new (require(ODI_PATH + 'src/core/Object.js'))();
 var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
 var Lock = require(ODI_PATH + 'src/core/Lock.js');
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
@@ -56,7 +55,6 @@ var Flux = { next: null };
 function initOdi(path, descriptor, forcedParams, startTime) {
 	Odi.PATH = path;
 	let packageJson = require(ODI_PATH + 'package.json');
-	// console.log(packageJson.version);
 	var confUpdate = { startTime: Utils.logTime('h:m (D/M)'), version: packageJson.version },
 		forcedParamsLog = '';
 	if (forcedParams.sleep) {
@@ -88,7 +86,12 @@ function initOdi(path, descriptor, forcedParams, startTime) {
 	}
 	Odi.descriptor = descriptor;
 	Flux = require(Odi._CORE + 'Flux.js').attach(descriptor.modules);
-	Flux.next('interface', 'runtime', 'update', confUpdate, 0.5);
+	Flux.next('interface|runtime|update', confUpdate, { delay: 0.5 });
+	let fluxToFire = Odi.conf('flux');
+	if (fluxToFire && fluxToFire.lenght > 0) {
+		log.table(fluxToFire, 'flux to fire');
+		Flux.next(fluxToFire);
+	}
 	log.info('Odi main object initialized [' + Utils.executionTime(startTime) + 'ms]');
 	return Odi;
 }
@@ -98,8 +101,8 @@ function isAwake() {
 }
 
 function error(label, data, stackTrace) {
-	Flux.next('interface', 'led', 'altLeds', { speed: 30, duration: 1.5 }, null, null, 'hidden');
-	Flux.next('interface', 'sound', 'error', null, null, null, 'hidden');
+	Flux.next('interface|led|altLeds', { speed: 30, duration: 1.5 }, { hidden: true });
+	Flux.next('interface|sound|error', null, { hidden: true });
 	log.error(label + '\n', data || '');
 	if (stackTrace != false) {
 		// Optional ?
@@ -110,7 +113,6 @@ function error(label, data, stackTrace) {
 		data: data,
 		time: Utils.logTime()
 	};
-	// console.log('logError', logError);
 	Utils.appendJsonFile(ODI_PATH + 'log/errorHistory.json', logError);
 	Odi.errors.push(logError);
 }
@@ -118,8 +120,8 @@ function error(label, data, stackTrace) {
 function enableDebugCountdown() {
 	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf('debug') + 'min ' + '\u2022\u2022\u2022');
 	setInterval(function() {
-		let debugTimeout = Odi.conf('debug');
-		Flux.next('interface', 'runtime', 'update', { debug: Odi.conf('debug', debugTimeout--) });
+		let debugTimeout = Odi.conf('debug'); // TODO voir pourquoi ça ne se décrémente pas
+		Flux.next('interface|runtime|update', { debug: Odi.conf('debug', debugTimeout--) });
 		if (!Odi.conf('debug')) {
 			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
 			setTimeout(function() {

@@ -20,7 +20,6 @@ Flux.interface.sound.subscribe({
 			} else if (flux.id == 'play') {
 				playSound(flux.value);
 			} else if (flux.id == 'error') {
-				// spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
 				playSound({ mp3: 'system/ressort.mp3' }, 'noLog');
 			} else if (flux.id == 'UI') {
 				spawn('sh', [Odi._SHELL + 'sounds.sh', 'UIRequest']);
@@ -57,11 +56,10 @@ function playSound(arg, noLog) {
 	var volume = arg.volume || Odi.run('volume');
 	var sound = Odi._MP3 + arg.mp3;
 	var startPlayTime = new Date();
-	// console.log('--TOTO', sound);
 	Utils.execCmd('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound, function(callback) {
 		// always log callback
 		if (callback.toString().indexOf('have a nice day') >= 0) {
-			if (!noLog) log.info('play end. time:', Utils.executionTime(startPlayTime));
+			if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
 		} else {
 			console.log(callback);
 			Odi.error('File not found', callback.unQuote(), false);
@@ -88,11 +86,11 @@ function mute(args) {
 
 /** Function to stop all sounds & leds */
 function stopAll(message) {
-	Flux.next('interface', 'tts', 'clearTTSQueue', null, null, null, 'hidden');
-	Flux.next('service', 'music', 'stop', null, null, null, 'hidden');
+	Flux.next('interface|tts|clearTTSQueue', null, { hidden: true });
+	Flux.next('service|music|stop', null, { hidden: true });
 	spawn('sh', [Odi._SHELL + 'mute.sh']);
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
-	Flux.next('interface', 'led', 'clearLeds', null, null, null, 'hidden');
-	Flux.next('interface', 'led', 'toggle', { leds: ['eye', 'belly'], value: 0 }, null, null, 'hidden');
+	Flux.next('interface|led|clearLeds', null, { hidden: true });
+	Flux.next('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { hidden: true });
 	Odi.run('music', false);
 }

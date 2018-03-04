@@ -25,6 +25,11 @@
 		{ "msg": "Toi, tu commence sairieusement a m'emmerder !" },
 		{ "msg": "Tu commences à me courir sur le haricot !" },
 		{ "msg": "Et bien, ce n'est pas sa qui va faire avancer le chmilblik!" },
+		"La nuit derniaire, j'ai raiver que je pouvais bouger !",
+		"La nuit derniaire, j'ai fais des raives etranges !",
+		"La nuit derniaire, j'ai fais des raives plutot etranges !",
+		"La nuit derniaire, j'ai raiver que je volais !",
+		"La nuit derniaire, je crois que Boutss a fait un petit tour",
 		{ "lg": "ru", "voice": "google", "msg": "hey, a3" },
 		{ "lg": "ru", "voice": "google", "msg": "Semiorka" },
 		[
@@ -89,6 +94,18 @@
 			{ "msg": "Et, tu pourrais quand maime me dire bonjour" },
 			{ "voice": "google", "msg": "Oui, c'est la moindre des choses !" }
 		]
+	],
+	"demo": [
+		"Bonjour",
+		"Je suis un robot et je m'appelle Odi.",
+		"Je ne peux pas bouger, mais j'ai plein d'autres fonctions !",
+		{ "voice": "google", "msg": "Je peux faire reveil, meteo, minuterie, horloge..." },
+		"Mais aussi jukebox, radio, et je peux raconter des histoires",
+		{ "voice": "google", "msg": "J'ai aussi des fonctions pour surveiller mes constantes vitales" },
+		"Oui, mon processeur, ou encore ma memoire...",
+		{ "voice": "google", "msg": "Ah! Je sais aussi faire les cigales !!" },
+		"Ouais, sa c'est pratique en aitai avec le pastis !",
+		"Et toi, comment t'appelle tu ?"
 	],
 	"goToSleep": [
 		{ "msg": "Je vous souhaite une excellente nuit" },

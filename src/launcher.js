@@ -1,22 +1,26 @@
 #!/usr/bin/env node
 
 /** Params detection */
-const argv = process.argv.splice(2);
+var argv = process.argv.splice(2);
 
 var fs = require('fs');
 var path = require('path');
 var spawn = require('child_process').spawn;
+var Gpio = require('onoff').Gpio;
 
-let sep = path.sep;
+var sep = path.sep;
 // const SRC_PATH = __filename.match(/\/.*\//g)[0];
 const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');
 
 const launcherTitle = '\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘';
-var descriptor = require(ODI_PATH + 'data/descriptor.json');
+console.log(launcherTitle);
+var descriptor;
 
 function checkUp() {
-	console.log(launcherTitle); // TODO ...
+	console.log('checkUp...');
+	descriptor = JSON.parse(fs.readFileSync(ODI_PATH + 'data/descriptor.json'));
+	// descriptor = fs.readFileSync(ODI_PATH + 'data/descriptor.json');
 	if (!fs.existsSync(ODI_PATH + 'tmp')) {
 		fs.mkdirSync(ODI_PATH + 'tmp');
 		console.log('> TEMP directory created');
@@ -66,15 +70,38 @@ function checkVoicemailValidity() {
 	}
 }
 
+var INTERVALS = [5, 10, 30, 60, 90, 180];
+var i = 0; //INTERVALS.length
+function wrapper(code) {
+	console.log(launcherTitle);
+	if (!code) {
+		startOdi();
+		return;
+	}
+	timeout = INTERVALS[i];
+	i++;
+	process.stdout.write('Error, wainting for ' + timeout + ' sec');
+	if (i == INTERVALS.length) {
+		i = 0;
+	}
+	let interval = setInterval(() => {
+		process.stdout.write('.');
+	}, 1000);
+	setTimeout(() => {
+		clearInterval(interval);
+		process.stdout.write('\nand restart Odi\n');
+		startOdi(code);
+	}, timeout * 1000);
+}
+
 /** Function to start up Odi */
 function startOdi(exitCode) {
 	spawn('sh', [SRC_PATH + 'shell/mute.sh']); // Mute
 
 	checkUp();
 
-	const odiConf = require(ODI_PATH + 'conf.json');
+	const odiConf = fs.readFileSync(ODI_PATH + 'conf.json');
 
-	var Gpio = require('onoff').Gpio;
 	var eye = new Gpio(14, 'out').write(1);
 
 	// checkConfValidity();
@@ -102,7 +129,8 @@ function startOdi(exitCode) {
 		if (code && odiConf.mode != 'sleep') spawn('sh', [SRC_PATH + 'shell/sounds.sh', 'error']);
 		console.log("\n>> Odi's CORE restarting... [code:" + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
-		startOdi(code);
+		argv.remove('reset'); // Removing reset param before relaunching
+		wrapper(code);
 	});
 }
 

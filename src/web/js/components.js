@@ -582,9 +582,9 @@ app.component('options', {
 		var tileParams = {
 			label: 'Options',
 			actionList: [
-				{ label: 'Test cycle', icon: 'fas fa-cubes', url: '/testSequence' },
-				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' },
-				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' }
+				{ label: 'Test cycle', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
+				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' },
+				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
