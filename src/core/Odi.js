@@ -67,7 +67,7 @@ function initOdi(path, descriptor, forcedParams, startTime) {
 		forcedParamsLog += 'debug ';
 	}
 	const logo = fs
-		.readFileSync(ODI_PATH + 'data/' + (!Odi.isAwake() ? 'odiLogoSleep' : 'odiLogo') + '.properties', 'utf8')
+		.readFileSync(ODI_PATH + 'data/' + (!Odi.isAwake() ? 'odiSleep' : 'odi') + '.logo', 'utf8')
 		.toString()
 		.split('\n');
 	console.log('\n' + logo.join('\n'));
