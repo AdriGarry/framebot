@@ -43,14 +43,14 @@ Flux.service.interaction.subscribe({
 });
 
 var randomActionBase = [
-	{ type: 'interface', subject: 'tts', id: 'speak', weight: 6 }, //7
-	{ type: 'service', subject: 'interaction', id: 'exclamation', weight: 4 }, //4
-	{ type: 'service', subject: 'time', id: 'now', weight: 1 },
-	{ type: 'service', subject: 'time', id: 'today', weight: 1 },
-	{ type: 'service', subject: 'interaction', id: 'weather', value: 'random', weight: 2 }, //4
-	{ type: 'interface', subject: 'hardware', id: 'cpuTTS', weight: 1 },
-	{ type: 'interface', subject: 'hardware', id: 'soulTTS', weight: 3 },
-	{ type: 'service', subject: 'time', id: 'OdiAge', weight: 1 }
+	{ id: 'interface|tts|speak', weight: 6 }, //7
+	{ id: 'service|interaction|exclamation', weight: 4 }, //4
+	{ id: 'service|time|now', weight: 1 },
+	{ id: 'service|time|today', weight: 1 },
+	{ id: 'service|interaction|weather', data: 'random', weight: 2 }, //4
+	{ id: 'interface|hardware|cpuTTS', weight: 1 },
+	{ id: 'interface|hardware|soulTTS', weight: 3 },
+	{ id: 'service|time|OdiAge', weight: 1 }
 ];
 /** Building randomActionList from randomActionBase */
 var randomActionList = [];
@@ -62,15 +62,13 @@ for (var i = 0; i < randomActionBase.length; i++) {
 	}
 }
 
-// Lancer les anniversaires d'ici ? (ou alors dans un calendar.js ?)
+//TODO Lancer les anniversaires d'ici ? (ou alors dans un calendar.js ?)
 
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction() {
-	// var action = randomActionList[Utils.random(randomActionList.length)];
 	var action = Utils.randomItem(randomActionList);
-	// log.INFO('heyheyhey==>', action);
 	log.info('randomAction:', action.id, '[' + action.weight + ']');
-	Flux.next(action.type, action.subject, action.id, action.value);
+	Flux.next(action.id, action.data);
 }
 
 function exclamation() {

@@ -16,11 +16,12 @@ function scheduleJob(job) {
 	new CronJob(
 		job.cron,
 		function() {
-			Object.keys(job.flux).forEach(key => {
-				let fluxVal = job.flux[key];
-				// Flux.next(fluxId[0], fluxId[1], fluxId[2], fluxVal.value, fluxVal.delay, fluxVal.loop, fluxVal.hidden);
-				Flux.next(flux.id, flux.data, flux.conf);
-			});
+			Flux.next(job.flux.id, job.flux.data, job.flux.conf);
+			// Object.keys(job.flux).forEach(key => {
+			// 	let fluxVal = job.flux[key];
+			// 	// Flux.next(fluxId[0], fluxId[1], fluxId[2], fluxVal.value, fluxVal.delay, fluxVal.loop, fluxVal.hidden);
+			// 	Flux.next(flux.id, flux.data, flux.conf);
+			// });
 		},
 		null,
 		true,
@@ -40,11 +41,10 @@ function scheduleJobs(jobsList, jobsType) {
 	log.info(jobsType + ' jobs initialised');
 }
 
-log.INFO('reactivate jobs!');
-// scheduleJobs(JOBS.system, 'System');
-// scheduleJobs(JOBS.lifeCycle, 'Life cycle');
+scheduleJobs(JOBS.system, 'System');
+scheduleJobs(JOBS.lifeCycle, 'Life cycle');
 
-// if (Odi.isAwake()) {
-// 	scheduleJobs(JOBS.clock, 'Clock');
-// 	scheduleJobs(JOBS.interactive, 'Interactive');
-// }
+if (Odi.isAwake()) {
+	scheduleJobs(JOBS.clock, 'Clock');
+	scheduleJobs(JOBS.interactive, 'Interactive');
+}

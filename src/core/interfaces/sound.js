@@ -86,7 +86,7 @@ function mute(args) {
 
 /** Function to stop all sounds & leds */
 function stopAll(message) {
-	Flux.next('interface|tts|clearTTSQueue', { hidden: true });
+	Flux.next('interface|tts|clearTTSQueue', null, { hidden: true });
 	Flux.next('service|music|stop', null, { hidden: true });
 	spawn('sh', [Odi._SHELL + 'mute.sh']);
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
