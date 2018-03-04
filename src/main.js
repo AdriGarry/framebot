@@ -65,9 +65,9 @@ if (Odi.conf('watcher')) {
 
 console.log('process.version:', process.version);
 
-if (Odi.conf('todo')) {
+if (Odi.conf('flux')) {
 	setTimeout(() => {
-		Flux.next(Odi.conf('todo').flux);
+		Flux.next(Odi.conf('flux'));
 	}, 2000);
 }
 

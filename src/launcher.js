@@ -7,7 +7,7 @@ var fs = require('fs');
 var path = require('path');
 var spawn = require('child_process').spawn;
 
-let sep = path.sep;
+var sep = path.sep;
 // const SRC_PATH = __filename.match(/\/.*\//g)[0];
 const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');
@@ -18,6 +18,7 @@ var descriptor = require(ODI_PATH + 'data/descriptor.json');
 
 function checkUp() {
 	console.log('checkUp...');
+	descriptor = require(ODI_PATH + 'data/descriptor.json');
 	if (!fs.existsSync(ODI_PATH + 'tmp')) {
 		fs.mkdirSync(ODI_PATH + 'tmp');
 		console.log('> TEMP directory created');
@@ -67,7 +68,7 @@ function checkVoicemailValidity() {
 	}
 }
 
-var INTERVALS = [2, 5, 10, 30, 60, 90, 180];
+var INTERVALS = [5, 10, 30, 60, 90, 180];
 var i = 0; //INTERVALS.length
 function wrapper(code) {
 	console.log(launcherTitle);

@@ -89,6 +89,11 @@ function initOdi(path, descriptor, forcedParams, startTime) {
 	Odi.descriptor = descriptor;
 	Flux = require(Odi._CORE + 'Flux.js').attach(descriptor.modules);
 	Flux.next('interface|runtime|update', confUpdate, { delay: 0.5 });
+	let fluxToFire = Odi.conf('flux');
+	if (fluxToFire) {
+		log.table(fluxToFire, 'flux to fire');
+		Flux.next(fluxToFire);
+	}
 	log.info('Odi main object initialized [' + Utils.executionTime(startTime) + 'ms]');
 	return Odi;
 }

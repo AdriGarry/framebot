@@ -22,8 +22,6 @@
 			"weekEnd": { "h": 12, "m": 0 }
 		},
 		"version": ".",
-		"todo": {
-			"flux": { "id": "service|interaction|random" }
-		}
+		"flux": [{ "id": "service|interaction|exclamation", "config": { "delay": 3 } }]
 	}
 }
