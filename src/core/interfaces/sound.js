@@ -20,7 +20,6 @@ Flux.interface.sound.subscribe({
 			} else if (flux.id == 'play') {
 				playSound(flux.value);
 			} else if (flux.id == 'error') {
-				// spawn('sh', [Odi._SHELL + 'sounds.sh', 'error']);
 				playSound({ mp3: 'system/ressort.mp3' }, 'noLog');
 			} else if (flux.id == 'UI') {
 				spawn('sh', [Odi._SHELL + 'sounds.sh', 'UIRequest']);
@@ -57,7 +56,6 @@ function playSound(arg, noLog) {
 	var volume = arg.volume || Odi.run('volume');
 	var sound = Odi._MP3 + arg.mp3;
 	var startPlayTime = new Date();
-	// console.log('--TOTO', sound);
 	Utils.execCmd('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound, function(callback) {
 		// always log callback
 		if (callback.toString().indexOf('have a nice day') >= 0) {
