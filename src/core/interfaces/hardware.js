@@ -164,7 +164,8 @@ function totalLinesTTS() {
 function countSoftwareLines(callback) {
 	const EXTENSIONS = ['js', 'json', 'properties', 'sh', 'py', 'html', 'css'];
 	var typesNb = EXTENSIONS.length;
-	var totalLines = 0;
+	var lines = {},
+		totalLines = 0;
 	EXTENSIONS.forEach(function(item) {
 		var temp = item;
 		Utils.execCmd('find /home/pi/odi/src /home/pi/odi/data -name "*.' + temp + '" -print | xargs wc -l', data => {
@@ -172,12 +173,13 @@ function countSoftwareLines(callback) {
 			var result = regex.exec(data);
 			var t = result && result[1] ? result[1] : -1;
 			totalLines = parseInt(totalLines) + parseInt(t);
+			lines[item] = parseInt(t);
 			typesNb--;
 			if (!typesNb) {
 				log.debug('countSoftwareLines()', totalLines);
 				Odi.run('stats.totalLines', totalLines);
 				if (Odi.conf('watcher')) {
-					log.INFO('---> Afficher le nombre de lignes par extensions ;)');
+					log.info('stats.totalLines:', lines);
 				}
 				// if (callback) callback(totalLines);
 			}

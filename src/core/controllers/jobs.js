@@ -17,6 +17,7 @@ const JOBS = require(Odi._DATA + 'jobsLibrary.json');
 
 function scheduleJob(job) {
 	let jobLog = '';
+	// TODO try catch block
 	new CronJob(
 		job.when,
 		function() {
