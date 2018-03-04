@@ -178,7 +178,7 @@ function countSoftwareLines(callback) {
 			if (!typesNb) {
 				log.debug('countSoftwareLines()', totalLines);
 				Odi.run('stats.totalLines', totalLines);
-				if (Odi.conf('watcher')) {
+				if (Odi.conf('watcher') || Odi.conf('debug')) {
 					log.info('stats.totalLines:', lines);
 				}
 				// if (callback) callback(totalLines);

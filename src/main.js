@@ -77,7 +77,6 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 	// Flux.next('interface|arduino|write', 'playRdmHorn', 5, 1);
 	// Flux.next('interface|arduino|write', 'playHornWhistle', 10);
 }
-// Flux.next('service|interaction|uneHeure');
 
 // Flux.next('interface|arduino|write', 'playRdmHorn', 90, 5);
 // Odi.next('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
@@ -91,8 +90,3 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 // 		log.info(data);
 // 	});
 // }, 1000);
-
-// setTimeout(() => {
-// 	console.log('after timeout', module.loaded);
-// }, 1);
-// console.log('EOF', module.loaded);

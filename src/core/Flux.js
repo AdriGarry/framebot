@@ -53,7 +53,6 @@ function loadModules(modules) {
 
 const FLUX_REGEX = new RegExp(/\w+\|\w+\|\w+/);
 
-// function FluxObject(type, subject, id, value, delay, loop, hidden) {
 function FluxObject(id, data, conf) {
 	if (!FLUX_REGEX.test(id)) {
 		this.error = 'Invalid Flux id: ' + id;
@@ -92,7 +91,6 @@ function list(fluxList) {
 	});
 }
 
-// {id: 'type|subject|id', data: {}, conf: {loop, delay, hidden} }
 function next(id, data, conf) {
 	if (!ready) {
 		log.error('Flux manager not yet ready');

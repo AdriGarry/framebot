@@ -6,6 +6,7 @@ var argv = process.argv.splice(2);
 var fs = require('fs');
 var path = require('path');
 var spawn = require('child_process').spawn;
+var Gpio = require('onoff').Gpio;
 
 var sep = path.sep;
 // const SRC_PATH = __filename.match(/\/.*\//g)[0];
@@ -14,11 +15,12 @@ const ODI_PATH = __dirname.replace('src', '');
 
 const launcherTitle = '\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘';
 console.log(launcherTitle);
-var descriptor = require(ODI_PATH + 'data/descriptor.json');
+var descriptor;
 
 function checkUp() {
 	console.log('checkUp...');
-	descriptor = require(ODI_PATH + 'data/descriptor.json');
+	descriptor = JSON.parse(fs.readFileSync(ODI_PATH + 'data/descriptor.json'));
+	// descriptor = fs.readFileSync(ODI_PATH + 'data/descriptor.json');
 	if (!fs.existsSync(ODI_PATH + 'tmp')) {
 		fs.mkdirSync(ODI_PATH + 'tmp');
 		console.log('> TEMP directory created');
@@ -98,9 +100,8 @@ function startOdi(exitCode) {
 
 	checkUp();
 
-	const odiConf = require(ODI_PATH + 'conf.json');
+	const odiConf = fs.readFileSync(ODI_PATH + 'conf.json');
 
-	var Gpio = require('onoff').Gpio;
 	var eye = new Gpio(14, 'out').write(1);
 
 	// checkConfValidity();

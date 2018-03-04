@@ -47,7 +47,6 @@ function Lock(obj, file) {
 	}
 
 	function _setValue(object, id, newValue) {
-		// log.info('---> setValue()', id, newValue, object);
 		let id2;
 		if (id.indexOf('.') > -1) {
 			let keys = id.split('.');

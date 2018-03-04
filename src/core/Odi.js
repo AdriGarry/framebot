@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 'use strict';
 
-// var Object = new (require(ODI_PATH + 'src/core/Object.js'))();
 var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
 var Lock = require(ODI_PATH + 'src/core/Lock.js');
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
@@ -56,7 +55,6 @@ var Flux = { next: null };
 function initOdi(path, descriptor, forcedParams, startTime) {
 	Odi.PATH = path;
 	let packageJson = require(ODI_PATH + 'package.json');
-	// console.log(packageJson.version);
 	var confUpdate = { startTime: Utils.logTime('h:m (D/M)'), version: packageJson.version },
 		forcedParamsLog = '';
 	if (forcedParams.sleep) {
@@ -90,7 +88,7 @@ function initOdi(path, descriptor, forcedParams, startTime) {
 	Flux = require(Odi._CORE + 'Flux.js').attach(descriptor.modules);
 	Flux.next('interface|runtime|update', confUpdate, { delay: 0.5 });
 	let fluxToFire = Odi.conf('flux');
-	if (fluxToFire) {
+	if (fluxToFire && fluxToFire.lenght > 0) {
 		log.table(fluxToFire, 'flux to fire');
 		Flux.next(fluxToFire);
 	}
@@ -115,7 +113,6 @@ function error(label, data, stackTrace) {
 		data: data,
 		time: Utils.logTime()
 	};
-	// console.log('logError', logError);
 	Utils.appendJsonFile(ODI_PATH + 'log/errorHistory.json', logError);
 	Odi.errors.push(logError);
 }
