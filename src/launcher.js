@@ -67,10 +67,14 @@ function checkVoicemailValidity() {
 	}
 }
 
-var INTERVALS = [2, 5, 10, 30, 60, 90];
+var INTERVALS = [2, 5, 10, 30, 60, 90, 180];
 var i = 0; //INTERVALS.length
 function wrapper(code) {
 	console.log(launcherTitle);
+	if (!code) {
+		startOdi();
+		return;
+	}
 	timeout = INTERVALS[i];
 	i++;
 	process.stdout.write('Error, wainting for ' + timeout + ' sec');
@@ -124,11 +128,7 @@ function startOdi(exitCode) {
 		console.log("\n>> Odi's CORE restarting... [code:" + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
 		argv.remove('reset'); // Removing reset param before relaunching
-		if (code) {
-			wrapper(code);
-		} else {
-			startOdi();
-		}
+		wrapper(code);
 	});
 }
 
