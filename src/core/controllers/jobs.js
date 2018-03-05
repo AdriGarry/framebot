@@ -45,6 +45,5 @@ scheduleJobs(JOBS.system, 'System');
 scheduleJobs(JOBS.lifeCycle, 'Life cycle');
 
 if (Odi.isAwake()) {
-	scheduleJobs(JOBS.clock, 'Clock');
 	scheduleJobs(JOBS.interactive, 'Interactive');
 }

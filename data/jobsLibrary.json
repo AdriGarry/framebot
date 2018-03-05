@@ -46,6 +46,14 @@
 	],
 	"interactive": [
 		{
+			"cron": "0 0,30 * * * *",
+			"flux": { "id": "service|time|now" }
+		},
+		{
+			"cron": "13 0 1,13 * * *",
+			"flux": { "id": "service|interaction|uneHeure" }
+		},
+		{
 			"cron": "0 18,20,22-25 8 * * 1-5",
 			"flux": { "id": "service|interaction|goToWork" }
 		},
@@ -54,22 +62,12 @@
 			"flux": { "id": "service|music|fipOrJukebox" }
 		},
 		{
-			"cron": "13 0 1,13 * * *",
-			"flux": { "id": "service|interaction|uneHeure" }
-		},
-		{
 			"cron": "0 19 19 * * *",
 			"flux": { "id": "interface|tts|speak", "data": "Je crois qu'il faut lancer l'opairation baluchon" }
 		},
 		{
 			"cron": "13 13,25,40,51 17-21 * * *",
 			"flux": { "id": "service|interaction|random" }
-		}
-	],
-	"clock": [
-		{
-			"cron": "0 0,30 * * * *",
-			"flux": { "id": "service|time|now" }
 		}
 	]
 }

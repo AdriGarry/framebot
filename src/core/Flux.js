@@ -12,8 +12,7 @@ var ready = false;
 var Flux = {
 	attach: attachObservers,
 	loadModules: loadModules,
-	next: next,
-	list: list
+	next: next
 };
 
 function attachObservers(observers) {
@@ -60,19 +59,19 @@ function FluxObject(id, data, conf) {
 	id = id.split('|');
 	if (!conf) conf = {};
 
-	this.type = id[0];
-	this.subject = id[1];
-	this.id = id[2];
+	this.type = id[0] || '';
+	this.subject = id[1] || '';
+	this.id = id[2] || '';
 	this.value = data; // || null
-	this.delay = conf.delay;
-	this.loop = conf.loop;
+	this.delay = Number(conf.delay) || 0;
+	this.loop = Number(conf.loop) || 1;
 	this.hidden = conf.hidden || false;
 
 	this.toString = () => {
-		var typeSubject = this.type + '|' + this.subject + '|';
-		var value = this.id + (this.value ? ' ' + util.format(util.inspect(this.value)) : '') + ' ';
-		var delay = ' ' + (this.delay || '');
-		var loop = ' ' + (this.loop || '');
+		let typeSubject = this.type + '|' + this.subject + '|';
+		let value = this.id + (this.value ? ' ' + util.format(util.inspect(this.value)) : '') + ' ';
+		let delay = ' ' + (this.delay || '');
+		let loop = ' ' + (this.loop || '');
 		return typeSubject + value + delay + loop;
 	};
 
@@ -83,12 +82,22 @@ function FluxObject(id, data, conf) {
 		Odi.error(this.error || 'Invalid Flux', this, false);
 		return false;
 	};
-}
 
-function list(fluxList) {
-	fluxList.forEach(flux => {
-		next(flux.id, flux.data, flux.conf);
-	});
+	this.schedule = () => {
+		let i = 0;
+		let interval = setInterval(() => {
+			this.fire();
+			i++;
+			if (i == this.loop) {
+				clearInterval(interval);
+			}
+		}, Number(this.delay) * 1000);
+	};
+
+	this.fire = () => {
+		if (!this.hidden || (Odi && Odi.conf('debug'))) log.info(/*Utils.stackPosition() + */ '> Flux', this.toString());
+		Flux[this.type][this.subject].next({ id: this.id, value: this.value });
+	};
 }
 
 function next(id, data, conf) {
@@ -97,7 +106,9 @@ function next(id, data, conf) {
 		return;
 	}
 	if (Array.isArray(id)) {
-		list(id);
+		id.forEach(flux => {
+			next(flux.id, flux.data, flux.conf);
+		});
 		return;
 	}
 	if (typeof id === 'object' && id.hasOwnProperty('id')) {
@@ -108,27 +119,10 @@ function next(id, data, conf) {
 	let flux = new FluxObject(id, data, conf);
 	if (!flux.isValid()) return;
 	if (flux.delay && Number(flux.delay)) {
-		scheduleFlux(flux);
+		flux.schedule();
 		return;
 	}
-	fireFlux(flux);
+	flux.fire();
 }
-
-var scheduleFlux = flux => {
-	var i = 0;
-	var totalLoop = flux.loop && Number(flux.loop) ? flux.loop : 1;
-	var interval = setInterval(() => {
-		fireFlux(flux);
-		i++;
-		if (totalLoop == i) {
-			clearInterval(interval);
-		}
-	}, Number(flux.delay) * 1000);
-};
-
-var fireFlux = flux => {
-	if (!flux.hidden || (Odi && Odi.conf('debug'))) log.info(/*Utils.stackPosition() + */ '> Flux', flux.toString());
-	Flux[flux.type][flux.subject].next({ id: flux.id, value: flux.value });
-};
 
 module.exports = Flux;

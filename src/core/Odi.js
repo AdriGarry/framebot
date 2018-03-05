@@ -88,7 +88,7 @@ function initOdi(path, descriptor, forcedParams, startTime) {
 	Flux = require(Odi._CORE + 'Flux.js').attach(descriptor.modules);
 	Flux.next('interface|runtime|update', confUpdate, { delay: 0.5 });
 	let fluxToFire = Odi.conf('flux');
-	if (fluxToFire && fluxToFire.lenght > 0) {
+	if (fluxToFire && fluxToFire.length > 0) {
 		log.table(fluxToFire, 'flux to fire');
 		Flux.next(fluxToFire);
 	}
