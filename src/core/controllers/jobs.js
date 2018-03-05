@@ -21,9 +21,13 @@ function scheduleJob(job) {
 		true,
 		'Europe/Paris'
 	);
-	Object.keys(job.flux).forEach(key => {
-		jobLog += ' _' + key;
-	});
+	if (Array.isArray(job.flux)) {
+		jobLog += ' _' + job.flux.id;
+	} else {
+		Object.keys(job.flux).forEach(key => {
+			jobLog += ' _' + job.flux[key].id;
+		});
+	}
 
 	log.debug('new job: [' + job.cron + '] ' + jobLog);
 }

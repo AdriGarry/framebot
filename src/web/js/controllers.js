@@ -231,9 +231,9 @@ app.controller('UIController', function(
 		UIService.sendCommand({ url: '/grant', data: param }, function(data) {
 			$rootScope.irda = data;
 			if ($rootScope.irda) {
-				UIService.showToast('Access granted !');
+				// UIService.showToast('Access granted !');
 			} else {
-				UIService.showErrorToast('Not granted !');
+				// UIService.showErrorToast('Not granted !');
 			}
 		});
 	};

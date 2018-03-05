@@ -230,7 +230,7 @@ function setTimer(minutes) {
 	var ttsMsg =
 		'Minuterie ' + (min > 0 ? (min > 1 ? min : ' une ') + ' minutes ' : '') + (sec > 0 ? sec + ' secondes' : '');
 	Flux.next('interface|tts|speak', { lg: 'fr', msg: ttsMsg });
-	if (Odi.run('timer') >= 60 && !secInterval) {
+	if (Odi.run('timer') && !secInterval) {
 		startTimer();
 	}
 }
