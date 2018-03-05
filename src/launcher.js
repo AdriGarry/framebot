@@ -20,7 +20,6 @@ var descriptor;
 function checkUp() {
 	console.log('checkUp...');
 	descriptor = JSON.parse(fs.readFileSync(ODI_PATH + 'data/descriptor.json'));
-	// descriptor = fs.readFileSync(ODI_PATH + 'data/descriptor.json');
 	if (!fs.existsSync(ODI_PATH + 'tmp')) {
 		fs.mkdirSync(ODI_PATH + 'tmp');
 		console.log('> TEMP directory created');
@@ -71,7 +70,7 @@ function checkVoicemailValidity() {
 }
 
 var INTERVALS = [5, 10, 30, 60, 90, 180];
-var i = 0; //INTERVALS.length
+var i = 0;
 function wrapper(code) {
 	console.log(launcherTitle);
 	if (!code) {
@@ -96,16 +95,13 @@ function wrapper(code) {
 
 /** Function to start up Odi */
 function startOdi(exitCode) {
-	spawn('sh', [SRC_PATH + 'shell/mute.sh']); // Mute
+	spawn('sh', [SRC_PATH + 'shell/mute.sh']);
 
 	checkUp();
 
 	const odiConf = fs.readFileSync(ODI_PATH + 'conf.json');
 
 	var eye = new Gpio(14, 'out').write(1);
-
-	// checkConfValidity();
-	// checkVoicemailValidity();
 
 	var odiProgramWithParams = [SRC_PATH + 'main.js'];
 	if (exitCode) {
@@ -125,7 +121,7 @@ function startOdi(exitCode) {
 	});
 
 	odiCore.on('exit', function(code) {
-		spawn('sh', [SRC_PATH + 'shell/mute.sh']); // Mute // + LEDS ???
+		spawn('sh', [SRC_PATH + 'shell/mute.sh']); //TODO + LEDS ???
 		if (code && odiConf.mode != 'sleep') spawn('sh', [SRC_PATH + 'shell/sounds.sh', 'error']);
 		console.log("\n>> Odi's CORE restarting... [code:" + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
