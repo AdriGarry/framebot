@@ -93,3 +93,6 @@ function stopAll(message) {
 	Flux.next('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { hidden: true });
 	Odi.run('music', false);
 }
+
+// sudo amixer set PCM 100%
+spawn('amixer', [' set PCM 100%']); // TODO TOTEST: Default volume & output

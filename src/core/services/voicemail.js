@@ -56,7 +56,7 @@ function checkVoiceMail(withTTSResult, callback) {
 	log.debug('Checking VoiceMail...');
 	Utils.getJsonFileContent(VOICEMAIL_FILE, function(messages) {
 		if (messages) {
-			messages = JSON.parse(messages); // TODO tester ici la validité du message (format etc)!!
+			messages = JSON.parse(messages);
 			log.debug(messages);
 			Flux.next('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Messages' });
 			Flux.next('interface|tts|speak', messages);
@@ -65,10 +65,8 @@ function checkVoiceMail(withTTSResult, callback) {
 				// Clearing VoiceMail
 				clearVoiceMail();
 			}, DELAY_TO_CLEAR_VOICEMAIL);
-			// log.info('VoiceMail will be cleared in 10 minutes.');
 			log.info('VoiceMail will be cleared in 6 hours.');
 			if (callback) callback(true); // for other action
-			//callback(true);
 			return true;
 		} else {
 			log.info(NO_VOICEMAIL);
@@ -80,9 +78,7 @@ function checkVoiceMail(withTTSResult, callback) {
 }
 
 /** Function voicemail flag (blink belly if any message) */
-
 (function voiceMailFlag() {
-	// ==> TODO to jobs.js ???
 	updateVoicemailMessage();
 	log.info('VoiceMail flag initialized');
 	setInterval(function() {

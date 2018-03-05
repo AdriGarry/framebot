@@ -16,16 +16,6 @@ const odiLeds = {
 	satellite: new Gpio(23, 'out')
 };
 
-// allLedsOn();
-// setTimeout(function() {
-// 	allLedsOff();
-// }, 300);
-
-//module.exports.attachToFlux = {};
-
-// todo faire des séquences de clignottements pour pouvoir les arrêter...
-var ledSequences = [];
-
 Flux.interface.led.subscribe({
 	next: flux => {
 		//log.info(flux, '(you are in the led module !)');
@@ -110,19 +100,15 @@ function toggle(config) {
 		odiLeds.nose.write(mode);
 	}, 900);
 
-	new CronJob(
+	new CronJob( //TODO mettre dans jobs.json (une fois le mode trace défini)
 		'*/3 * * * * *',
 		function() {
 			blink({ leds: ['nose'], speed: 200, loop: 1 });
-			//blink({ leds: ['nose'], speed: Odi.conf('mode') == 'test' ? 100 : 200, loop: (Odi.conf('mode') = 'test' ? 2 : 1) });
 		},
 		null,
 		1,
 		'Europe/Paris'
 	);
-	// new CronJob('*/3 * * * * *', function() {
-	// 	blink({ leds: ['nose'], speed: 200, loop: 1 }); // Initialisation du temoin d'activite 2/2
-	// },	null,	1,	'Europe/Paris');
 })(Odi.conf('mode'));
 
 /** Function to start inverted blink (Eye/Belly) */
@@ -130,13 +116,13 @@ var timer;
 function altLeds(args) {
 	// args : {speed, duration}
 	clearInterval(timer);
-	var etat = 1;
+	let etat = 1;
 	timer = setInterval(function() {
 		odiLeds.eye.write(etat);
 		etat = 1 - etat;
 		odiLeds.belly.write(etat);
 	}, args.speed);
-	var stopTimer = setTimeout(function() {
+	setTimeout(function() {
 		clearInterval(timer);
 		odiLeds.eye.write(0);
 		odiLeds.belly.write(0);
@@ -147,21 +133,6 @@ function altLeds(args) {
 function clearLeds() {
 	clearInterval(timer);
 }
-
-/** Function pushed button flag */
-/*function buttonPush(param){
-	if(param == 'stop'){
-		belly.write(0);
-	}else{
-		belly.write(1);
-		setInterval(function(){
-			belly.write(1);
-		}, 300);
-		setTimeout(function(){
-			belly.write(1);
-		}, 1000);		
-	}
-};*/
 
 /** Function to switch on all leds */
 function allLedsOn() {

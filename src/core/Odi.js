@@ -124,7 +124,7 @@ function enableDebugCountdown() {
 		// Flux.next('interface|runtime|update', { debug: Odi.conf('debug', debugTimeout--) });
 		Odi.conf('debug', debugTimeout--); // TOTEST
 		if (!Odi.conf('debug')) {
-			Odi.conf('debug');
+			//Odi.conf('debug');
 			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
 			setTimeout(function() {
 				process.exit();
