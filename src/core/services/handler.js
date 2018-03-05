@@ -66,9 +66,9 @@ function buttonHandler(flux) {
 			//log.INFO('to fix!!!!!');
 			if (flux.value > 0.8) {
 				if (Odi.run('etat')) {
-					Flux.next('service|music|fip'); // TODO
+					Flux.next('service|music|fip');
 				} else {
-					Flux.next('service|music|jukebox'); // TODO
+					Flux.next('service|music|jukebox');
 				}
 			} else {
 				log.info('Blue button must be pushed for .8s at least, try again !');

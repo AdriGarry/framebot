@@ -188,13 +188,10 @@ app.controller('UIController', function(
 			url: '/toggleDebug'
 		};
 		console.log('toggleDebugMode()');
-		UIService.sendCommand(cmd, function(data) {
-			//$scope.showToast(cmd.label);
-		});
+		UIService.sendCommand(cmd);
 	};
 
 	$scope.showDialog = function(modal) {
-		// TODO COMPONENT !!
 		$mdDialog.show({
 			controller: DialogController,
 			templateUrl: 'templates/dialog.html',
@@ -209,7 +206,6 @@ app.controller('UIController', function(
 
 	/** Function to toggle grant access */
 	$scope.toggleGrant = function(ev) {
-		// TODO COMPONENT !!
 		$scope.toggleMenu();
 		if (!$rootScope.irda) {
 			$timeout(function() {
@@ -228,7 +224,6 @@ app.controller('UIController', function(
 			}, 100);
 		} else {
 			$rootScope.irda = false;
-			// $scope.showToast('Not granted anymore');
 		}
 	};
 
@@ -236,9 +231,9 @@ app.controller('UIController', function(
 		UIService.sendCommand({ url: '/grant', data: param }, function(data) {
 			$rootScope.irda = data;
 			if ($rootScope.irda) {
-				// $scope.showToast('Access granted !');
+				UIService.showToast('Access granted !');
 			} else {
-				// $scope.showErrorToast('Not granted !');
+				UIService.showErrorToast('Not granted !');
 			}
 		});
 	};

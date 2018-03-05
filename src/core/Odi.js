@@ -121,8 +121,10 @@ function enableDebugCountdown() {
 	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf('debug') + 'min ' + '\u2022\u2022\u2022');
 	setInterval(function() {
 		let debugTimeout = Odi.conf('debug'); // TODO voir pourquoi ça ne se décrémente pas
-		Flux.next('interface|runtime|update', { debug: Odi.conf('debug', debugTimeout--) });
+		// Flux.next('interface|runtime|update', { debug: Odi.conf('debug', debugTimeout--) });
+		Odi.conf('debug', debugTimeout--); // TOTEST
 		if (!Odi.conf('debug')) {
+			Odi.conf('debug');
 			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
 			setTimeout(function() {
 				process.exit();

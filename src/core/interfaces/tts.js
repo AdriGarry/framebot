@@ -121,9 +121,6 @@ var playTTS = function(tts) {
 	log.debug('tts.msg.length :', tts.msg.length);
 
 	lastTtsMsg = tts;
-	/*fs.writeFile(LAST_TTS_PATH, JSON.stringify(tts), 'UTF-8', function(err){ // TODO to JSON file
-		if(err) return console.error('Error while saving last TTS : ' + err);
-	});*/
 };
 
 /** Function to clear TTS Queue */

@@ -32,7 +32,6 @@ app.service('UIService', [
 
 		/** Function to pop down toast */
 		ctrl.showToast = function(label) {
-			// TODO to delete
 			$mdToast.show(
 				$mdToast
 					.simple()
@@ -43,7 +42,6 @@ app.service('UIService', [
 		};
 		/** Function to pop down error toast */
 		ctrl.showErrorToast = function(label) {
-			// TODO to delete
 			$mdToast.show(
 				$mdToast
 					.simple()

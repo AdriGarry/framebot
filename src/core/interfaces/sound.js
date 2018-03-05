@@ -10,7 +10,6 @@ var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 
 Flux.interface.sound.subscribe({
-	// TODO: ABSOLUMENT BLOQUER LES SONS EN MODE SLEEP !!
 	next: flux => {
 		if (flux.id == 'mute') {
 			mute(flux.value);

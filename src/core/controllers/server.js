@@ -450,14 +450,12 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/naheulbeuk', function(req, res) {
-			// spawn('sh', [Odi._SHELL + 'sounds.sh', 'Naheulbeuk']); // TODO mettre ds 1 service
 			Flux.next('service|music|story', 'Naheulbeuk');
 			res.writeHead(200);
 			res.end();
 		});
 
 		ui.post('/survivaure', function(req, res) {
-			// spawn('sh', [Odi._SHELL + 'sounds.sh', 'Survivaure']); // TODO mettre ds 1 service
 			Flux.next('service|music|story', 'Survivaure');
 			res.writeHead(200);
 			res.end();
