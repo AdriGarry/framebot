@@ -53,7 +53,7 @@ function loadModules(modules) {
 const FLUX_REGEX = new RegExp(/\w+\|\w+\|\w+/);
 
 function FluxObject(id, data, conf) {
-	if (!FLUX_REGEX.test(id)) {
+	if (!id && !FLUX_REGEX.test(id)) {
 		this.error = 'Invalid Flux id: ' + id;
 	}
 	id = id.split('|');
