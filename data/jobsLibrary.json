@@ -9,12 +9,6 @@
 			"flux": { "id": "service|time|isAlarm", "conf": { "hidden": true } }
 		},
 		{
-			"cron": "0 2 0 * * 1",
-			"flux": { "id": "interface|hardware|archiveLog" }
-		}
-	],
-	"lifeCycle": [
-		{
 			"cron": "5 0 0 * * 1-5",
 			"flux": { "id": "service|system|goToSleep" }
 		},
@@ -42,6 +36,10 @@
 				{ "id": "interface|tts|speak", "data": { "lg": "en", "msg": "Auto reboot" } },
 				{ "id": "service|system|reboot", "conf": { "delay": 3 } }
 			]
+		},
+		{
+			"cron": "0 2 0 * * 1",
+			"flux": { "id": "interface|hardware|archiveLog" }
 		}
 	],
 	"interactive": [

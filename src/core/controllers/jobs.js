@@ -42,7 +42,6 @@ function scheduleJobs(jobsList, jobsType) {
 }
 
 scheduleJobs(JOBS.system, 'System');
-scheduleJobs(JOBS.lifeCycle, 'Life cycle');
 
 if (Odi.isAwake()) {
 	scheduleJobs(JOBS.interactive, 'Interactive');
