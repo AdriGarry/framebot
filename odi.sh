@@ -5,7 +5,7 @@ clear
 ODI_PATH="/home/pi/odi"
 echo $ODI_PATH
 
-echo "odi.sh -> Start Odi Pgm... [$*]"
+echo "odi.sh -> Launcher... [$*]"
 
 
 # sudo python /home/pi/odi/core/py/buttons.py 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &
