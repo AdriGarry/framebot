@@ -35,12 +35,14 @@ function restartOdi(mode) {
 
 /** Function to random TTS good night, and sleep */
 function goToSleep() {
-	let sleepTTS = Utils.randomItem(Odi.ttsMessages.goToSleep);
-	Flux.next('interface|tts|speak', sleepTTS);
-	log.info('AutoLifeCycle go to sleep !');
-	setTimeout(function() {
-		Flux.next('service|system|restart', 'sleep');
-	}, sleepTTS.msg.length * 150);
+	if (Odi.isAwake()) {
+		let sleepTTS = Utils.randomItem(Odi.ttsMessages.goToSleep);
+		Flux.next('interface|tts|speak', sleepTTS);
+		log.info('AutoLifeCycle go to sleep !');
+		setTimeout(function() {
+			Flux.next('service|system|restart', 'sleep');
+		}, sleepTTS.msg.length * 150);
+	}
 }
 
 /** Function to reboot RPI */
