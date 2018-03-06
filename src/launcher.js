@@ -13,7 +13,7 @@ var sep = path.sep;
 const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');
 
-const launcherTitle = '\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘';
+const launcherTitle = '\n┌───────────────┐\n│  > Launcher   │\n└───────────────┘';
 console.log(launcherTitle);
 var descriptor;
 

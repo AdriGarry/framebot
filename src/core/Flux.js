@@ -53,16 +53,16 @@ function loadModules(modules) {
 const FLUX_REGEX = new RegExp(/\w+\|\w+\|\w+/);
 
 function FluxObject(id, data, conf) {
-	if (!id && !FLUX_REGEX.test(id)) {
+	try {
+		id = id.split('|');
+		if (!conf) conf = {};
+		this.type = id[0] || '';
+		this.subject = id[1] || '';
+		this.id = id[2] || '';
+	} catch (err) {
 		this.error = 'Invalid Flux id: ' + id;
 	}
-	id = id.split('|');
-	if (!conf) conf = {};
-
-	this.type = id[0] || '';
-	this.subject = id[1] || '';
-	this.id = id[2] || '';
-	this.value = data; // || null
+	this.value = data;
 	this.delay = Number(conf.delay) || 0;
 	this.loop = Number(conf.loop) || 1;
 	this.hidden = conf.hidden || false;
