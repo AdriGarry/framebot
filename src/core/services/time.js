@@ -195,10 +195,7 @@ function isBirthday() {
 
 function birthdaySong() {
 	log.info('birthday song...');
-	spawn('sh', [Odi._SHELL + 'sounds.sh', 'birthday']); // todo utiliser sound.js=> TOTEST
 	Flux.next('interface|sound|play', { mp3: 'system/birthday.mp3' });
-	// Utils.getMp3Duration(Odi._MP3 + 'jukebox/' + song, function(duration) {
-	// 	console.log(Utils.executionTime(ttime));
 }
 
 /** Function to TTS Odi's age */
@@ -225,7 +222,6 @@ function setTimer(minutes) {
 		minutes = 60;
 	}
 	Odi.run('timer', Odi.run('timer') + minutes);
-	console.log(secInterval);
 	if (!secInterval) {
 		startTimer();
 	}
