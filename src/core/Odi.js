@@ -117,16 +117,19 @@ function error(label, data, stackTrace) {
 	Odi.errors.push(logError);
 }
 
-function enableDebugCountdown() {
+function enableDebugCountdown(mode) {
 	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf('debug') + 'min ' + '\u2022\u2022\u2022');
 	setInterval(function() {
 		let debugTimeout = Odi.conf('debug');
 		Odi.conf('debug', --debugTimeout);
+		if (Odi.conf('trace')) Odi.conf('trace', --debugTimeout);
+		// Flux.next('interface|runtime|update', confUpdate, { delay: 0.5 });
 		if (!Odi.conf('debug')) {
+			Odi.conf('trace', 0);
 			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
 			setTimeout(function() {
 				process.exit();
-			}, 500);
+			}, 1000);
 		}
 	}, 60 * 1000);
 }

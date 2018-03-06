@@ -97,7 +97,7 @@ app.component('mode', {
 			label: 'Mode',
 			actionList: [
 				{ label: 'Reset', icon: 'fas fa-retweet', url: '/resetConfig' },
-				{ label: '!Debug', icon: 'fas fa-terminal', url: '/toggleDebug' },
+				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' },
 				{ label: 'Sleep', icon: 'far fa-moon', url: '/sleep' },
 				{ label: 'Restart', icon: 'fas fa-bolt', url: '/odi' }
 			]
@@ -106,7 +106,30 @@ app.component('mode', {
 	}
 });
 
-/** Volume component */
+/** Options component */
+app.component('options', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Options',
+			actionList: [
+				{ label: '!Trace', icon: 'fas fa-asterisk', url: '/toggleTrace' },
+				{ label: '!Debug', icon: 'fas fa-terminal', url: '/toggleDebug' },
+				{ label: 'Test cycle', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
+				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' }
+			]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+	}
+});
+
+/** Volume component -DEPRECATED- */
 app.component('volume', {
 	bindings: {
 		data: '<',
@@ -566,28 +589,6 @@ app.component('arduino', {
 				{ label: 'Melody', icon: 'fas fa-music', url: '/arduinoMelody' },
 				{ label: 'RDM Melody', icon: 'fas fa-music', url: '/arduinoRdmMelody' },
 				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/arduinoHorn' }
-			]
-		};
-		ctrl.tile = new DefaultTile(tileParams);
-	}
-});
-
-/** Options component */
-app.component('options', {
-	bindings: {
-		data: '<',
-		access: '<',
-		odiState: '<'
-	},
-	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
-			label: 'Options',
-			actionList: [
-				{ label: 'Test cycle', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
-				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' },
-				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

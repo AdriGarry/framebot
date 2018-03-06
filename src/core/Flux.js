@@ -95,7 +95,7 @@ function FluxObject(id, data, conf) {
 	};
 
 	this.fire = () => {
-		if (!this.hidden || (Odi && Odi.conf('debug'))) log.info(/*Utils.stackPosition() + */ '> Flux', this.toString());
+		if (!this.hidden || (Odi && Odi.conf('trace'))) log.trace(/*Utils.stackPosition() + */ '> Flux', this.toString());
 		Flux[this.type][this.subject].next({ id: this.id, value: this.value });
 	};
 }

@@ -144,28 +144,25 @@ function startUIServer(mode) {
 		if (temp > h) {
 			wakeUpTime = 'Sleeping until ' + (h - temp) + 'h' + now.getMinutes();
 		}
-		var etatBtn = Odi.run('etat'); //ODI.buttons.getEtat();
+		var etatBtn = Odi.run('etat');
 		var cpuTemp = Odi.run('cpu.temp');
 		var cpuUsage = Odi.run('cpu.usage');
 		var dashboard = {
 			config: Odi.conf(),
-			//run: Odi.run(),
 			errors: Odi.errors,
 			mode: {
 				value: {
-					// mode: Odi.conf('mode') != 'sleep' ? (Odi.conf('debug') ? 'Debug' : 'Ready') : 'Sleep',
-					mode: Odi.conf('debug') ? 'Debug' : Utils.firstLetterUpper(Odi.conf('mode')),
-					// param: isNaN(parseFloat(mode)) ? Odi.conf('startTime') : parseInt(mode),
+					mode: Odi.conf('trace') ? 'Trace' : Odi.conf('debug') ? 'Debug' : Utils.firstLetterUpper(Odi.conf('mode')),
+					// mode: Utils.firstLetterUpper(Odi.conf('mode')),
 					param: Odi.conf('startTime'),
-					switch: etatBtn == 'high' ? true : false,
-					active: Odi.conf('debug'), // TRY TO DELETE THIS (deprecated)
-					debug: Odi.conf('debug')
+					switch: etatBtn == 'high' ? true : false
+					// active: Odi.conf('debug'), // TRY TO DELETE THIS (deprecated)
+					// debug: Odi.conf('debug'), // USELESS?
+					// trace: Odi.conf('trace') // USELESS?
 				}
 			},
 			switch: { value: etatBtn, active: etatBtn ? true : false },
 			volume: {
-				// value: isNaN(temp) ? (etatBtn == 1 ? 'high' : 'normal') : 'mute',
-				//value: Odi.isAwake() ? Odi.run('volume') : 'mute',
 				value: Odi.run('volume'),
 				active: isNaN(temp) && etatBtn == 1 ? true : false
 			},
@@ -187,6 +184,7 @@ function startUIServer(mode) {
 			update: { value: Odi.run('stats.update') },
 			version: { value: 'toto' /*Odi.conf('version')*/ }, // DEPRECATED !
 			debug: { value: Odi.conf('debug') }, // TO DEPRECATE...
+			trace: { value: Odi.conf('trace') }, // TO DEPRECATE...
 			watcher: { value: Odi.conf('watcher') }
 		};
 		res.writeHead(200);
@@ -260,14 +258,21 @@ function startUIServer(mode) {
 	ui.post('/toggleDebug', function(req, res) {
 		log.debug('UI > Toggle debug');
 		Flux.next('interface|runtime|updateRestart', { debug: Odi.conf('debug') ? 0 : 20 }, { delay: 1 });
-		// Odi.update({ debug: Odi.conf('debug') ? 0 : 20 }, true);
+		// Odi.run('log', 'debug');
+		res.writeHead(200);
+		res.end();
+	});
+
+	ui.post('/toggleTrace', function(req, res) {
+		log.debug('UI > Toggle trace');
+		Flux.next('interface|runtime|updateRestart', { trace: Odi.conf('trace') ? 0 : 20 }, { delay: 1 });
+		// Odi.run('log', 'trace');
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/testSequence', function(req, res) {
 		Flux.next('interface|runtime|updateRestart', { mode: 'test' }, { delay: 1 });
-		// Odi.update({ mode: 'test' }, true);
 		res.writeHead(200);
 		res.end();
 	});

@@ -73,6 +73,7 @@ app.controller('UIController', function(
 				ready: data.mode.value.mode == 'Ready',
 				sleep: data.mode.value.mode == 'Sleep',
 				debug: data.debug.value,
+				trace: data.trace.value,
 				watcher: data.watcher.value
 			};
 		} else {

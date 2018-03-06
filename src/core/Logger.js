@@ -9,12 +9,14 @@ const DATE_TIME_DEFAULT_PATTERN = 'D/M h:m:s';
 var Odi,
 	Utils,
 	modeDebug = false,
+	modeTrace = false,
 	modeFlag = '';
 
-function Logger(filename, debugMode, mode) {
+function Logger(filename, mode, debugMode, traceMode) {
 	Utils = require(ODI_PATH + 'src/core/Utils.js');
 	Odi = require(ODI_PATH + 'src/core/Odi.js');
-	modeDebug = debugMode || modeDebug;
+	modeDebug = debugMode || traceMode || modeDebug;
+	modeTrace = traceMode || modeTrace;
 	if (mode && mode == 'sleep') {
 		modeFlag = '.';
 	}
@@ -25,6 +27,8 @@ function Logger(filename, debugMode, mode) {
 	this.enableDebug = enableDebug;
 	this.debug = debug;
 	this.DEBUG = DEBUG;
+	this.trace = trace;
+	this.TRACE = TRACE;
 	this.table = table;
 	this.error = error;
 	return this;
@@ -92,6 +96,20 @@ function Logger(filename, debugMode, mode) {
 		console.log(
 			Utils.logTime(),
 			modeFlag + '[' + filename.toUpperCase() + ']\u2022',
+			formatLog(arguments).toUpperCase()
+		);
+	}
+
+	function trace() {
+		if (!modeTrace) return;
+		console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022\u2022', formatLog(arguments));
+	}
+
+	function TRACE() {
+		if (!modeTrace) return;
+		console.log(
+			Utils.logTime(),
+			modeFlag + '[' + filename.toUpperCase() + ']\u2022\u2022',
 			formatLog(arguments).toUpperCase()
 		);
 	}

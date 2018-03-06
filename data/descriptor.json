@@ -15,6 +15,7 @@
 	"conf": {
 		"mode": "ready",
 		"debug": 0,
+		"trace": 0,
 		"watcher": false,
 		"startTime": ".",
 		"alarms": {
