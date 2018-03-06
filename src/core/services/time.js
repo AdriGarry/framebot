@@ -21,14 +21,14 @@ Flux.service.time.subscribe({
 			disableAllAlarms(flux.value);
 		} else if (flux.id == 'isAlarm') {
 			isAlarm();
-		} else if (flux.id == 'birthday') {
-			birthdaySong();
-		} else if (flux.id == 'OdiAge') {
-			sayOdiAge();
 		} else if (flux.id == 'timer') {
 			if (flux.value == 'stop') {
 				stopTimer();
 			} else setTimer(flux.value);
+		} else if (flux.id == 'birthday') {
+			birthdaySong();
+		} else if (flux.id == 'OdiAge') {
+			sayOdiAge();
 		} else Odi.error('unmapped flux in Time service', flux, false);
 	},
 	error: err => {
@@ -38,7 +38,6 @@ Flux.service.time.subscribe({
 
 /** Function TTS time now */
 function now() {
-	// TODO  prendre en compte le parametre voix (créer un objet tts avant de le passer en parametre)
 	log.debug('time.now()');
 	var date = new Date();
 	var hour = date.getHours();
@@ -127,7 +126,7 @@ function isAlarm() {
 			log.INFO('alarm time...', alarms[alarmType].h + ':' + alarms[alarmType].m);
 			Odi.run('alarm', true);
 			if (!Odi.isAwake()) {
-				log.INFO('Alarm... wake up !!');
+				log.INFO('wake up !!');
 				Flux.next('service|system|restart');
 			} else {
 				cocorico();
@@ -139,20 +138,16 @@ function isAlarm() {
 /** Function alarm part 1 */
 function cocorico(mode) {
 	var alarmDelay = 1;
-	if (!mode || mode == 'sea') {
-		// TODO remove sea mode information
-		log.info('Morning Sea...');
-		spawn('sh', [Odi._SHELL + 'sounds.sh', 'MorningSea']);
-		Utils.getMp3Duration(Odi._MP3 + 'system/morningSea.mp3', function(seaDuration) {
-			log.debug('seaDuration', seaDuration);
-			alarmDelay = seaDuration * 1000;
-			setTimeout(function() {
-				cocoricoPart2(mode);
-			}, alarmDelay);
-		});
-	} else {
-		cocoricoPart2(mode);
-	}
+	// TODO remove sea mode information
+	log.info('Morning Sea...');
+	spawn('sh', [Odi._SHELL + 'sounds.sh', 'MorningSea']);
+	Utils.getMp3Duration(Odi._MP3 + 'system/morningSea.mp3', function(seaDuration) {
+		log.debug('seaDuration', seaDuration);
+		alarmDelay = seaDuration * 1000;
+		setTimeout(function() {
+			cocoricoPart2(mode);
+		}, alarmDelay);
+	});
 }
 
 /** Function alarm part 2 */
@@ -200,7 +195,7 @@ function isBirthday() {
 
 function birthdaySong() {
 	log.info('birthday song...');
-	spawn('sh', [Odi._SHELL + 'sounds.sh', 'birthday']);
+	Flux.next('interface|sound|play', { mp3: 'system/birthday.mp3' });
 }
 
 /** Function to TTS Odi's age */
@@ -221,20 +216,20 @@ function sayOdiAge() {
 Odi.run('timer', 0);
 var secInterval;
 function setTimer(minutes) {
-	if (typeof minutes !== undefined && minutes > 1) {
-		minutes = 60 * minutes;
+	if (typeof minutes !== undefined && Number(minutes) > 1) {
+		minutes = 60 * Number(minutes);
 	} else {
 		minutes = 60;
 	}
 	Odi.run('timer', Odi.run('timer') + minutes);
+	if (!secInterval) {
+		startTimer();
+	}
 	var min = Math.floor(Odi.run('timer') / 60);
 	var sec = Odi.run('timer') % 60;
 	var ttsMsg =
 		'Minuterie ' + (min > 0 ? (min > 1 ? min : ' une ') + ' minutes ' : '') + (sec > 0 ? sec + ' secondes' : '');
 	Flux.next('interface|tts|speak', { lg: 'fr', msg: ttsMsg });
-	if (Odi.run('timer') >= 60 && !secInterval) {
-		startTimer();
-	}
 }
 
 function startTimer() {

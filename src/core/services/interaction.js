@@ -62,8 +62,6 @@ for (var i = 0; i < randomActionBase.length; i++) {
 	}
 }
 
-//TODO Lancer les anniversaires d'ici ? (ou alors dans un calendar.js ?)
-
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction() {
 	var action = Utils.randomItem(randomActionList);
@@ -71,10 +69,18 @@ function randomAction() {
 	Flux.next(action.id, action.data);
 }
 
+var EXCLAMATIONS_SOUNDS;
+fs.readdir(Odi._MP3 + 'exclamation', (err, files) => {
+	EXCLAMATIONS_SOUNDS = files;
+	// console.log('EXCLAMATIONS_SOUNDS', EXCLAMATIONS_SOUNDS);
+});
+
 function exclamation() {
 	log.info('Exclamation !');
 	Flux.next('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { hidden: true });
-	spawn('sh', [Odi._SHELL + 'exclamation.sh']); // TODO passer par le module sound.js
+	// spawn('sh', [Odi._SHELL + 'exclamation.sh']); // TODO TOTEST passer par le module sound.js
+	let exclamation = Utils.randomItem(EXCLAMATIONS_SOUNDS);
+	Flux.next('interface|sound|play', { mp3: 'exclamation/' + exclamation });
 }
 
 function uneHeure() {

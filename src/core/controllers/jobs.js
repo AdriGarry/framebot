@@ -12,24 +12,22 @@ const JOBS = require(Odi._DATA + 'jobsLibrary.json');
 
 function scheduleJob(job) {
 	let jobLog = '';
-	// TODO try catch block
 	new CronJob(
 		job.cron,
 		function() {
-			Flux.next(job.flux.id, job.flux.data, job.flux.conf);
-			// Object.keys(job.flux).forEach(key => {
-			// 	let fluxVal = job.flux[key];
-			// 	// Flux.next(fluxId[0], fluxId[1], fluxId[2], fluxVal.value, fluxVal.delay, fluxVal.loop, fluxVal.hidden);
-			// 	Flux.next(flux.id, flux.data, flux.conf);
-			// });
+			Flux.next(job.flux);
 		},
 		null,
 		true,
 		'Europe/Paris'
 	);
-	Object.keys(job.flux).forEach(key => {
-		jobLog += ' _' + key;
-	});
+	if (Array.isArray(job.flux)) {
+		jobLog += ' _' + job.flux.id;
+	} else {
+		Object.keys(job.flux).forEach(key => {
+			jobLog += ' _' + job.flux[key].id;
+		});
+	}
 
 	log.debug('new job: [' + job.cron + '] ' + jobLog);
 }
@@ -42,7 +40,6 @@ function scheduleJobs(jobsList, jobsType) {
 }
 
 scheduleJobs(JOBS.system, 'System');
-
 if (Odi.isAwake()) {
 	scheduleJobs(JOBS.interactive, 'Interactive');
 }

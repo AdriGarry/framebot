@@ -13,7 +13,7 @@ var sep = path.sep;
 const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');
 
-const launcherTitle = '\n┌─────────────────┐\n│  > Launcher...  │\n└─────────────────┘';
+const launcherTitle = '\n┌───────────────┐\n│  > Launcher   │\n└───────────────┘';
 console.log(launcherTitle);
 var descriptor;
 
@@ -121,7 +121,7 @@ function startOdi(exitCode) {
 	});
 
 	odiCore.on('exit', function(code) {
-		spawn('sh', [SRC_PATH + 'shell/mute.sh']); //TODO + LEDS ???
+		spawn('sh', [SRC_PATH + 'shell/mute.sh']);
 		if (code && odiConf.mode != 'sleep') spawn('sh', [SRC_PATH + 'shell/sounds.sh', 'error']);
 		console.log("\n>> Odi's CORE restarting... [code:" + code + ']');
 		argv.remove('test'); // Removing test param before relaunching

@@ -10,7 +10,6 @@ var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 
 Flux.interface.sound.subscribe({
-	// TODO: ABSOLUMENT BLOQUER LES SONS EN MODE SLEEP !!
 	next: flux => {
 		if (flux.id == 'mute') {
 			mute(flux.value);
@@ -58,10 +57,10 @@ function playSound(arg, noLog) {
 	var startPlayTime = new Date();
 	Utils.execCmd('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound, function(callback) {
 		// always log callback
-		if (callback.toString().indexOf('have a nice day') >= 0) {
+		if (callback.toString() == '' || callback.toString().indexOf('have a nice day') >= 0) {
 			if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
 		} else {
-			console.log(callback);
+			console.log('callback', callback); // TODO mieux gérer l'erreur car elle est déclenchée si on mute un fichier audio
 			Odi.error('File not found', callback.unQuote(), false);
 		}
 	});
@@ -94,3 +93,6 @@ function stopAll(message) {
 	Flux.next('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { hidden: true });
 	Odi.run('music', false);
 }
+
+// sudo amixer set PCM 100%
+spawn('amixer', [' set PCM 100%']); // TODO TOTEST: Default volume & output

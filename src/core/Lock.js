@@ -37,9 +37,9 @@ function Lock(obj, file) {
 	function _setter(id, newValue, restart, table) {
 		if (self.file) {
 			let updateBegin = new Date();
-			log.debug('Updating :', newValue, restart);
+			log.debug('Updating ' + id + ':', newValue, restart || '');
 			_setValue(self._obj, id, newValue);
-			let updatedEntries = [id];
+			// let updatedEntries = [id]; // TODO
 			fs.writeFileSync(self.file, JSON.stringify(self._obj, null, 1));
 		} else {
 			_setValue(self._obj, id, newValue);

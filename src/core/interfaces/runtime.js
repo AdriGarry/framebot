@@ -42,7 +42,7 @@ function resetCfg(restart) {
 	log.INFO('reset conf', restart ? 'and restart' : '');
 	Flux.next('service|voicemail|clear');
 	fs.unlinkSync(ODI_PATH + 'conf.json');
-	// + TODO faire ici ce qui est fait dans reset.sh !!
+	// TODO faire ici ce qui est fait dans reset.sh !!
 	if (restart) {
 		process.exit();
 	}

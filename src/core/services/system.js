@@ -33,15 +33,16 @@ function restartOdi(mode) {
 	Flux.next('interface|runtime|updateRestart', { mode: mode || 'ready' });
 }
 
-/** Function to random TTS ggood night. NOT EXPORTED! */
+/** Function to random TTS good night, and sleep */
 function goToSleep() {
-	// TODO move this function to a service/interface
-	let sleepTTS = Utils.randomItem(Odi.ttsMessages.goToSleep);
-	Flux.next('interface|tts|speak', sleepTTS);
-	log.info('AutoLifeCycle go to sleep !');
-	setTimeout(function() {
-		Flux.next('service|system|restart', 'sleep');
-	}, sleepTTS.msg.length * 150);
+	if (Odi.isAwake()) {
+		let sleepTTS = Utils.randomItem(Odi.ttsMessages.goToSleep);
+		Flux.next('interface|tts|speak', sleepTTS);
+		log.info('AutoLifeCycle go to sleep !');
+		setTimeout(function() {
+			Flux.next('service|system|restart', 'sleep');
+		}, sleepTTS.msg.length * 150);
+	}
 }
 
 /** Function to reboot RPI */

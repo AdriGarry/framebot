@@ -44,7 +44,6 @@ fs.readdir(Odi._MP3 + 'jukebox', (err, files) => {
 	JUKEBOX_SONGS = files;
 	// console.log('JUKEBOX_SONGS', JUKEBOX_SONGS);
 });
-// var jukeboxSongsCycle = JUKEBOX_SONGS;
 
 /** Function jukebox (repeat for one hour) */
 function jukebox(message) {
@@ -59,8 +58,8 @@ function jukebox(message) {
 var jukeboxTimeout;
 function repeatSong() {
 	log.info('next song...');
-	var song = Utils.randomItem(JUKEBOX_SONGS);
-	var ttime = new Date();
+	let song = Utils.randomItem(JUKEBOX_SONGS);
+	let ttime = new Date();
 	Utils.getMp3Duration(Odi._MP3 + 'jukebox/' + song, function(duration) {
 		console.log(Utils.executionTime(ttime));
 		// log.INFO('duration=' + duration);
@@ -107,10 +106,8 @@ function playFipOrJukebox() {
 	Utils.testConnexion(function(connexion) {
 		setTimeout(function() {
 			if (connexion == true) {
-				// Flux.next('service|music|fip');
 				playFip();
 			} else {
-				// Flux.next('service|music|jukebox');
 				jukebox();
 			}
 		}, 3000);
@@ -128,8 +125,6 @@ function playStory(story) {
 	// console.log(storyToPlay);
 	if (storyToPlay) {
 		Utils.getMp3Duration(Odi._MP3 + storyToPlay, function(length) {
-			// console.log('length here==');
-			// console.log(length);
 			var position = Utils.random(1, Math.floor(length / 100 * 70)); // Position up to 70% of story duration
 			stop();
 			Odi.run('music', 'story');

@@ -120,8 +120,8 @@ function error(label, data, stackTrace) {
 function enableDebugCountdown() {
 	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf('debug') + 'min ' + '\u2022\u2022\u2022');
 	setInterval(function() {
-		let debugTimeout = Odi.conf('debug'); // TODO voir pourquoi ça ne se décrémente pas
-		Flux.next('interface|runtime|update', { debug: Odi.conf('debug', debugTimeout--) });
+		let debugTimeout = Odi.conf('debug');
+		Odi.conf('debug', --debugTimeout);
 		if (!Odi.conf('debug')) {
 			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
 			setTimeout(function() {

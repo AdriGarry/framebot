@@ -45,19 +45,25 @@ app.component('tts', {
 					{ code: 'es', label: 'Spanish' },
 					{ code: 'it', label: 'Italian' },
 					{ code: 'de', label: 'German' }
-				] /*,
-				voiceList: [{code: ':3', label: 'Nice voice'}, {code: ':1', label: 'Robot voice'}]*/
+				]
 			},
 			cleanText: function() {
-				// TODO create an UtilsService.. ==> OR A FILTER !!!!
 				console.log('cleanText');
 				var message = ctrl.tts.msg || '';
-				message = message.replace(/[àáâãäå]/g, 'a'); // TODO chainer les replace
-				message = message.replace(/[ç]/g, 'c');
-				message = message.replace(/[èéêë]/g, 'e');
-				message = message.replace(/[îï]/g, 'i');
-				message = message.replace(/[ôóö]/g, 'o');
-				message = message.replace(/[ûüù]/g, 'u');
+				// message = message.replace(/[àáâãäå]/g, 'a'); // TODO chainer les replace
+				// message = message.replace(/[ç]/g, 'c');
+				// message = message.replace(/[èéêë]/g, 'e');
+				// message = message.replace(/[îï]/g, 'i');
+				// message = message.replace(/[ôóö]/g, 'o');
+				// message = message.replace(/[ûüù]/g, 'u');
+				// TODO TOTEST chainer les replace
+				message = message
+					.replace(/[àáâãäå]/g, 'a')
+					.replace(/[ç]/g, 'c')
+					.replace(/[èéêë]/g, 'e')
+					.replace(/[îï]/g, 'i')
+					.replace(/[ôóö]/g, 'o')
+					.replace(/[ûüù]/g, 'u');
 				//message = message.replace(/[<>]/g,''); // Others characters
 				ctrl.tts.msg = message;
 			},
@@ -91,7 +97,6 @@ app.component('mode', {
 			label: 'Mode',
 			actionList: [
 				{ label: 'Reset', icon: 'fas fa-retweet', url: '/resetConfig' },
-				// { label: 'Test', icon: 'fas fa-cubes', url: '/testSequence' },
 				{ label: '!Debug', icon: 'fas fa-terminal', url: '/toggleDebug' },
 				{ label: 'Sleep', icon: 'far fa-moon', url: '/sleep' },
 				{ label: 'Restart', icon: 'fas fa-bolt', url: '/odi' }
@@ -186,15 +191,13 @@ app.component('alarms', {
 				};
 				ctrl.newAlarm.toast =
 					ctrl.newAlarm.label + ' alarm set to ' + ctrl.newAlarm.params.h + ':' + ctrl.newAlarm.params.m;
-				UIService.sendCommand(ctrl.newAlarm, function(data) {});
+				UIService.sendCommand(ctrl.newAlarm);
 			});
 		};
 
 		var specificActions = function(button) {
 			if (button.url == '/alarmOff') {
-				UIService.sendCommand(button, function(data) {
-					//$scope.showToast(button.label);
-				});
+				UIService.sendCommand(button);
 			} else {
 				ctrl.newAlarm = button;
 				showTimePicker();
