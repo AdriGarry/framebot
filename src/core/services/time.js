@@ -219,20 +219,21 @@ function sayOdiAge() {
 Odi.run('timer', 0);
 var secInterval;
 function setTimer(minutes) {
-	if (typeof minutes !== undefined && minutes > 1) {
-		minutes = 60 * minutes;
+	if (typeof minutes !== undefined && Number(minutes) > 1) {
+		minutes = 60 * Number(minutes);
 	} else {
 		minutes = 60;
 	}
 	Odi.run('timer', Odi.run('timer') + minutes);
+	console.log(secInterval);
+	if (!secInterval) {
+		startTimer();
+	}
 	var min = Math.floor(Odi.run('timer') / 60);
 	var sec = Odi.run('timer') % 60;
 	var ttsMsg =
 		'Minuterie ' + (min > 0 ? (min > 1 ? min : ' une ') + ' minutes ' : '') + (sec > 0 ? sec + ' secondes' : '');
 	Flux.next('interface|tts|speak', { lg: 'fr', msg: ttsMsg });
-	if (Odi.run('timer') && !secInterval) {
-		startTimer();
-	}
 }
 
 function startTimer() {
