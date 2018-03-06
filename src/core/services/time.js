@@ -126,7 +126,7 @@ function isAlarm() {
 			log.INFO('alarm time...', alarms[alarmType].h + ':' + alarms[alarmType].m);
 			Odi.run('alarm', true);
 			if (!Odi.isAwake()) {
-				log.INFO('Alarm... wake up !!');
+				log.INFO('wake up !!');
 				Flux.next('service|system|restart');
 			} else {
 				cocorico();
