@@ -15,8 +15,7 @@ function scheduleJob(job) {
 	new CronJob(
 		job.cron,
 		function() {
-			Flux.next(job.flux.id, job.flux.data, job.flux.conf);
-			// Flux.next(job.flux);
+			Flux.next(job.flux);
 		},
 		null,
 		true,
