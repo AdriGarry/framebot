@@ -77,7 +77,8 @@ function initOdi(path, descriptor, forcedParams, startTime) {
 	if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
 	log.table(Odi.conf(), 'CONFIG');
-	log.info('initialization...', Odi.conf('debug') ? 'DEBUG' + (Odi.conf('debug') == 'forced' ? ' [FORCED!]' : '') : ''); //TODO
+	log.info('initialization...');
+	//, Odi.conf('debug') ? 'DEBUG' + (Odi.conf('debug') == 'forced' ? ' [FORCED!]' : '') : ''); //TODO recup le forced
 
 	if (Odi.conf('log') != 'info') log.level(Odi.conf('log'));
 
