@@ -7,6 +7,7 @@ module.exports = Logger;
 
 const DATE_TIME_DEFAULT_PATTERN = 'D/M h:m:s';
 const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' };
+const TIMEOUT = 15;
 
 var Odi,
 	Utils,
@@ -43,11 +44,10 @@ function Logger(filename, modeOdi, debugMode, traceMode) {
 			let newLogLevel = String(arg).toLowerCase();
 			if (newLogLevel == LEVEL.DEBUG || newLogLevel == LEVEL.TRACE) {
 				logLevel = newLogLevel;
-				backToInfoLevel(2);
+				backToInfoLevel(TIMEOUT);
 			} else {
 				logLevel = LEVEL.INFO;
 			}
-			// Odi && Odi.conf && Odi.conf('log', newLogLevel);
 			INFO('--> Logger level set to:', logLevel);
 		} else {
 			return logLevel;
@@ -56,9 +56,9 @@ function Logger(filename, modeOdi, debugMode, traceMode) {
 
 	var cancelTimeout;
 	function backToInfoLevel(delay) {
-		setTimeout(() => {
-			debug('back to info level in', delay + 'min');
-		}, 1);
+		setImmediate(() => {
+			info('back to info level in', delay, 'min');
+		});
 		clearTimeout(cancelTimeout);
 		cancelTimeout = setTimeout(() => {
 			levelAccessor() != LEVEL.INFO && levelAccessor(LEVEL.INFO);
