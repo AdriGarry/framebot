@@ -6,18 +6,22 @@ var util = require('util');
 module.exports = Logger;
 
 const DATE_TIME_DEFAULT_PATTERN = 'D/M h:m:s';
+const MODE = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' };
+
 var Odi,
 	Utils,
 	modeDebug = false,
 	modeTrace = false,
 	modeFlag = '';
 
-function Logger(filename, mode, debugMode, traceMode) {
+var mode = MODE.INFO;
+
+function Logger(filename, modeOdi, debugMode, traceMode) {
 	Utils = require(ODI_PATH + 'src/core/Utils.js');
 	Odi = require(ODI_PATH + 'src/core/Odi.js');
-	modeDebug = debugMode || traceMode || modeDebug;
+	modeDebug = debugMode || modeDebug;
 	modeTrace = traceMode || modeTrace;
-	if (mode && mode == 'sleep') {
+	if (modeOdi && modeOdi == 'sleep') {
 		modeFlag = '.';
 	}
 	filename = filename.match(/(\w*).js/g)[0];
@@ -31,7 +35,18 @@ function Logger(filename, mode, debugMode, traceMode) {
 	this.TRACE = TRACE;
 	this.table = table;
 	this.error = error;
+	this.mode = mode;
+	// this.setMode = setMode;
 	return this;
+
+	// function setMode(arg) {
+	// 	let inputMode = String(arg).toLowerCase();
+	// 	if (inputMode == MODE.INFO || inputMode == MODE.DEBUG || inputMode == MODE.TRACE) {
+	// 		mode = MODE.DEBUG;
+	// 		info('Logger setMode:', inputMode);
+	// 		// Odi.conf('log', mode, false, true);
+	// 	}
+	// }
 
 	function enableDebug() {
 		modeDebug = true;
@@ -88,11 +103,13 @@ function Logger(filename, mode, debugMode, traceMode) {
 
 	function debug() {
 		if (!modeDebug) return;
+		// if (mode == MODE.DEBUG || mode == MODE.TRACE)
 		console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022', formatLog(arguments));
 	}
 
 	function DEBUG() {
 		if (!modeDebug) return;
+		// if (mode == MODE.DEBUG || mode == MODE.TRACE) {
 		console.log(
 			Utils.logTime(),
 			modeFlag + '[' + filename.toUpperCase() + ']\u2022',
@@ -102,11 +119,13 @@ function Logger(filename, mode, debugMode, traceMode) {
 
 	function trace() {
 		if (!modeTrace) return;
+		// if (mode == MODE.TRACE)
 		console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022\u2022', formatLog(arguments));
 	}
 
 	function TRACE() {
 		if (!modeTrace) return;
+		// if (mode == MODE.TRACE)
 		console.log(
 			Utils.logTime(),
 			modeFlag + '[' + filename.toUpperCase() + ']\u2022\u2022',

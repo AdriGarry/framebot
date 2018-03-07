@@ -258,7 +258,8 @@ function startUIServer(mode) {
 	ui.post('/toggleDebug', function(req, res) {
 		log.debug('UI > Toggle debug');
 		Flux.next('interface|runtime|updateRestart', { debug: Odi.conf('debug') ? 0 : 20 }, { delay: 1 });
-		// Odi.run('log', 'debug');
+		// if (log.mode == 'debug') log.setMode('info');
+		// else log.setMode('debug');
 		res.writeHead(200);
 		res.end();
 	});
@@ -266,7 +267,8 @@ function startUIServer(mode) {
 	ui.post('/toggleTrace', function(req, res) {
 		log.debug('UI > Toggle trace');
 		Flux.next('interface|runtime|updateRestart', { trace: Odi.conf('trace') ? 0 : 20 }, { delay: 1 });
-		// Odi.run('log', 'trace');
+		// if (log.mode == 'trace') log.setMode('info');
+		// else log.setMode('trace');
 		res.writeHead(200);
 		res.end();
 	});

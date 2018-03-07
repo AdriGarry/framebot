@@ -16,6 +16,7 @@
 		"mode": "ready",
 		"debug": 0,
 		"trace": 0,
+		"log": "info",
 		"watcher": false,
 		"startTime": ".",
 		"alarms": {

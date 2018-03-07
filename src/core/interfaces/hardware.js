@@ -13,12 +13,12 @@ const PATHS = [Odi._SRC];
 const BYTE_TO_MO = 1048576;
 retreiveLastModifiedDate(PATHS);
 countSoftwareLines();
+getDiskSpace();
 
 Flux.interface.hardware.subscribe({
 	next: flux => {
 		if (flux.id == 'runtime') {
 			let execTime = new Date();
-			getDiskSpace();
 			retreiveCpuTemp();
 			retreiveCpuUsage();
 			retreiveMemoryUsage();
@@ -179,6 +179,7 @@ function countSoftwareLines(callback) {
 				log.debug('countSoftwareLines()', totalLines);
 				Odi.run('stats.totalLines', totalLines);
 				if (Odi.conf('watcher') || Odi.conf('debug')) {
+					// TODO
 					log.info('stats.totalLines:', lines);
 				}
 				// if (callback) callback(totalLines);
