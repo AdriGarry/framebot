@@ -10,6 +10,7 @@ const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' };
 
 var Odi,
 	Utils,
+	Flux,
 	modeDebug = false,
 	modeTrace = false,
 	modeFlag = '';
@@ -39,14 +40,14 @@ function Logger(filename, modeOdi, debugMode, traceMode) {
 
 	function levelAccessor(arg) {
 		if (arg) {
-			let inputLevel = String(arg).toLowerCase();
-			if (inputLevel == LEVEL.DEBUG || inputLevel == LEVEL.TRACE) {
-				logLevel = inputLevel;
+			let newLogLevel = String(arg).toLowerCase();
+			if (newLogLevel == LEVEL.DEBUG || newLogLevel == LEVEL.TRACE) {
+				logLevel = newLogLevel;
 				backToInfoLevel(2);
 			} else {
 				logLevel = LEVEL.INFO;
 			}
-			// Odi.conf('log', mode, false, true);
+			// Odi && Odi.conf && Odi.conf('log', newLogLevel);
 			INFO('--> Logger level set to:', logLevel);
 		} else {
 			return logLevel;
@@ -59,6 +60,8 @@ function Logger(filename, modeOdi, debugMode, traceMode) {
 		clearTimeout(cancelTimeout);
 		cancelTimeout = setTimeout(() => {
 			levelAccessor() != LEVEL.INFO && levelAccessor(LEVEL.INFO);
+			if (!Flux) Flux = require(Odi._CORE + 'Flux.js');
+			Flux.next('interface|runtime|update', { log: LEVEL.INFO });
 		}, delay * 60 * 1000);
 	}
 

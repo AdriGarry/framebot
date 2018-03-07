@@ -256,21 +256,21 @@ function startUIServer(mode) {
 	});
 
 	ui.post('/toggleDebug', function(req, res) {
-		log.debug('UI > Toggle debug');
-		// Flux.next('interface|runtime|updateRestart', { debug: Odi.conf('debug') ? 0 : 20 }, { delay: 1 });
-		let newLogLevel = log.level == 'trace' ? 'info' : 'debug';
+		log.info('UI > Toggle debug');
+		let newLogLevel = log.level() == 'debug' ? 'info' : 'debug';
 		log.level(newLogLevel);
-		Odi.conf('log', newLogLevel, false, true);
+		Flux.next('interface|runtime|update', { log: newLogLevel });
+		// Odi.conf('log', newLogLevel, false, true);
 		res.writeHead(200);
 		res.end();
 	});
 
 	ui.post('/toggleTrace', function(req, res) {
-		log.debug('UI > Toggle trace');
-		// Flux.next('interface|runtime|updateRestart', { trace: Odi.conf('trace') ? 0 : 20 }, { delay: 1 });
-		let newLogLevel = log.level == 'trace' ? 'info' : 'trace';
+		log.info('UI > Toggle trace');
+		let newLogLevel = log.level() == 'trace' ? 'info' : 'trace';
 		log.level(newLogLevel);
-		Odi.conf('log', newLogLevel, false, true);
+		Flux.next('interface|runtime|update', { log: newLogLevel });
+		// Odi.conf('log', newLogLevel, false, true);
 		res.writeHead(200);
 		res.end();
 	});
