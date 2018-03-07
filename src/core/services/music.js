@@ -15,7 +15,7 @@ Flux.service.music.subscribe({
 		} else if (flux.id == 'fip') {
 			playFip();
 		} else if (flux.id == 'fipOrJukebox') {
-			fipOrJukebox();
+			playFipOrJukebox();
 		} else if (flux.id == 'story') {
 			playStory(flux.value);
 		} else if (flux.id == 'stop') {
