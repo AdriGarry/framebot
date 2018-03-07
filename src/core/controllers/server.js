@@ -152,7 +152,11 @@ function startUIServer(mode) {
 			errors: Odi.errors,
 			mode: {
 				value: {
-					mode: Odi.conf('trace') ? 'Trace' : Odi.conf('debug') ? 'Debug' : Utils.firstLetterUpper(Odi.conf('mode')),
+					mode:
+						Odi.conf('log') == 'trace'
+							? 'Trace'
+							: Odi.conf('log') == 'debug' ? 'Debug' : Utils.firstLetterUpper(Odi.conf('mode')),
+					// mode: Odi.conf('trace') ? 'Trace' : Odi.conf('debug') ? 'Debug' : Utils.firstLetterUpper(Odi.conf('mode')),
 					// mode: Utils.firstLetterUpper(Odi.conf('mode')),
 					param: Odi.conf('startTime'),
 					switch: etatBtn == 'high' ? true : false

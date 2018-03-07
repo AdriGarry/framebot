@@ -56,11 +56,13 @@ function Logger(filename, modeOdi, debugMode, traceMode) {
 
 	var cancelTimeout;
 	function backToInfoLevel(delay) {
-		debug('back to info level in', delay + 'min');
+		setTimeout(() => {
+			debug('back to info level in', delay + 'min');
+		}, 1);
 		clearTimeout(cancelTimeout);
 		cancelTimeout = setTimeout(() => {
 			levelAccessor() != LEVEL.INFO && levelAccessor(LEVEL.INFO);
-			if (!Flux) Flux = require(Odi._CORE + 'Flux.js');
+			if (!Flux) Flux = require(ODI_PATH + 'src/core/Flux.js');
 			Flux.next('interface|runtime|update', { log: LEVEL.INFO });
 		}, delay * 60 * 1000);
 	}

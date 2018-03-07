@@ -72,7 +72,6 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 	// Flux.next('interface|arduino|write', 'playHornWhistle', 10);
 }
 
-log.TRACE('-----> MODE TRACE :) :) :)');
 // Flux.next('interface|arduino|write', 'playRdmHorn', 90, 5);
 // Odi.next('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
 // Odi.do('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
