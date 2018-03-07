@@ -6,7 +6,7 @@ var util = require('util');
 module.exports = Logger;
 
 const DATE_TIME_DEFAULT_PATTERN = 'D/M h:m:s';
-const MODE = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' };
+const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' };
 
 var Odi,
 	Utils,
@@ -14,7 +14,7 @@ var Odi,
 	modeTrace = false,
 	modeFlag = '';
 
-var mode = MODE.INFO;
+var logLevel = LEVEL.INFO;
 
 function Logger(filename, modeOdi, debugMode, traceMode) {
 	Utils = require(ODI_PATH + 'src/core/Utils.js');
@@ -28,28 +28,38 @@ function Logger(filename, modeOdi, debugMode, traceMode) {
 
 	this.info = info;
 	this.INFO = INFO;
-	this.enableDebug = enableDebug;
 	this.debug = debug;
 	this.DEBUG = DEBUG;
 	this.trace = trace;
 	this.TRACE = TRACE;
 	this.table = table;
 	this.error = error;
-	this.mode = mode;
-	// this.setMode = setMode;
+	this.level = levelAccessor;
 	return this;
 
-	// function setMode(arg) {
-	// 	let inputMode = String(arg).toLowerCase();
-	// 	if (inputMode == MODE.INFO || inputMode == MODE.DEBUG || inputMode == MODE.TRACE) {
-	// 		mode = MODE.DEBUG;
-	// 		info('Logger setMode:', inputMode);
-	// 		// Odi.conf('log', mode, false, true);
-	// 	}
-	// }
+	function levelAccessor(arg) {
+		if (arg) {
+			let inputLevel = String(arg).toLowerCase();
+			if (inputLevel == LEVEL.DEBUG || inputLevel == LEVEL.TRACE) {
+				logLevel = inputLevel;
+				backToInfoLevel(2);
+			} else {
+				logLevel = LEVEL.INFO;
+			}
+			// Odi.conf('log', mode, false, true);
+			INFO('--> Logger level set to:', logLevel);
+		} else {
+			return logLevel;
+		}
+	}
 
-	function enableDebug() {
-		modeDebug = true;
+	var cancelTimeout;
+	function backToInfoLevel(delay) {
+		debug('back to info level in', delay + 'min');
+		clearTimeout(cancelTimeout);
+		cancelTimeout = setTimeout(() => {
+			levelAccessor() != LEVEL.INFO && levelAccessor(LEVEL.INFO);
+		}, delay * 60 * 1000);
 	}
 
 	/** Function to retreive stack position at runtime */
@@ -102,35 +112,35 @@ function Logger(filename, modeOdi, debugMode, traceMode) {
 	}
 
 	function debug() {
-		if (!modeDebug) return;
-		// if (mode == MODE.DEBUG || mode == MODE.TRACE)
-		console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022', formatLog(arguments));
+		// if (!modeDebug) return;
+		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
+			console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022', formatLog(arguments));
 	}
 
 	function DEBUG() {
-		if (!modeDebug) return;
-		// if (mode == MODE.DEBUG || mode == MODE.TRACE) {
-		console.log(
-			Utils.logTime(),
-			modeFlag + '[' + filename.toUpperCase() + ']\u2022',
-			formatLog(arguments).toUpperCase()
-		);
+		// if (!modeDebug) return;
+		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
+			console.log(
+				Utils.logTime(),
+				modeFlag + '[' + filename.toUpperCase() + ']\u2022',
+				formatLog(arguments).toUpperCase()
+			);
 	}
 
 	function trace() {
-		if (!modeTrace) return;
-		// if (mode == MODE.TRACE)
-		console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022\u2022', formatLog(arguments));
+		// if (!modeTrace) return;
+		if (logLevel == LEVEL.TRACE)
+			console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022\u2022', formatLog(arguments));
 	}
 
 	function TRACE() {
-		if (!modeTrace) return;
-		// if (mode == MODE.TRACE)
-		console.log(
-			Utils.logTime(),
-			modeFlag + '[' + filename.toUpperCase() + ']\u2022\u2022',
-			formatLog(arguments).toUpperCase()
-		);
+		// if (!modeTrace) return;
+		if (logLevel == LEVEL.TRACE)
+			console.log(
+				Utils.logTime(),
+				modeFlag + '[' + filename.toUpperCase() + ']\u2022\u2022',
+				formatLog(arguments).toUpperCase()
+			);
 	}
 
 	function error() {

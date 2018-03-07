@@ -81,9 +81,11 @@ function initOdi(path, descriptor, forcedParams, startTime) {
 	log.info('initialization...', Odi.conf('debug') ? 'DEBUG' + (Odi.conf('debug') == 'forced' ? ' [FORCED!]' : '') : '');
 	if (Odi.conf('debug')) {
 		confUpdate.debug = Odi.conf('debug');
-		log.enableDebug();
+		// log.enableDebug();
 		enableDebugCountdown();
 	}
+	if (Odi.conf('log') != 'info') log.level(Odi.conf('log'));
+
 	Odi.descriptor = descriptor;
 	Flux = require(Odi._CORE + 'Flux.js').attach(descriptor.modules);
 	Flux.next('interface|runtime|update', confUpdate, { delay: 0.5 });
