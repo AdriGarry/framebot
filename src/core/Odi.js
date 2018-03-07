@@ -63,7 +63,6 @@ function initOdi(path, descriptor, forcedParams, startTime) {
 		forcedParamsLog += 'sleep ';
 	}
 	if (forcedParams.debug) {
-		Odi.conf('debug', 'forced');
 		forcedParamsLog += 'debug ';
 	}
 	const logo = fs
@@ -78,12 +77,11 @@ function initOdi(path, descriptor, forcedParams, startTime) {
 	if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
 	log.table(Odi.conf(), 'CONFIG');
-	log.info('initialization...', Odi.conf('debug') ? 'DEBUG' + (Odi.conf('debug') == 'forced' ? ' [FORCED!]' : '') : '');
-	if (Odi.conf('debug')) {
-		confUpdate.debug = Odi.conf('debug');
-		log.enableDebug();
-		enableDebugCountdown();
-	}
+	log.info('initialization...');
+	//, Odi.conf('debug') ? 'DEBUG' + (Odi.conf('debug') == 'forced' ? ' [FORCED!]' : '') : ''); //TODO recup le forced
+
+	if (Odi.conf('log') != 'info') log.level(Odi.conf('log'));
+
 	Odi.descriptor = descriptor;
 	Flux = require(Odi._CORE + 'Flux.js').attach(descriptor.modules);
 	Flux.next('interface|runtime|update', confUpdate, { delay: 0.5 });
@@ -115,18 +113,4 @@ function error(label, data, stackTrace) {
 	};
 	Utils.appendJsonFile(ODI_PATH + 'log/errorHistory.json', logError);
 	Odi.errors.push(logError);
-}
-
-function enableDebugCountdown() {
-	log.info('\u2022\u2022\u2022 DEBUG MODE ' + Odi.conf('debug') + 'min ' + '\u2022\u2022\u2022');
-	setInterval(function() {
-		let debugTimeout = Odi.conf('debug');
-		Odi.conf('debug', --debugTimeout);
-		if (!Odi.conf('debug')) {
-			log.DEBUG('>> CANCELING DEBUG MODE... & Restart !!');
-			setTimeout(function() {
-				process.exit();
-			}, 500);
-		}
-	}, 60 * 1000);
 }

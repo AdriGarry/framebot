@@ -6,31 +6,65 @@ var util = require('util');
 module.exports = Logger;
 
 const DATE_TIME_DEFAULT_PATTERN = 'D/M h:m:s';
+const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' };
+const TIMEOUT = 15;
+
 var Odi,
 	Utils,
+	Flux,
 	modeDebug = false,
+	modeTrace = false,
 	modeFlag = '';
 
-function Logger(filename, debugMode, mode) {
+var logLevel = LEVEL.INFO;
+
+function Logger(filename, modeOdi, debugMode, traceMode) {
 	Utils = require(ODI_PATH + 'src/core/Utils.js');
 	Odi = require(ODI_PATH + 'src/core/Odi.js');
 	modeDebug = debugMode || modeDebug;
-	if (mode && mode == 'sleep') {
+	modeTrace = traceMode || modeTrace;
+	if (modeOdi && modeOdi == 'sleep') {
 		modeFlag = '.';
 	}
 	filename = filename.match(/(\w*).js/g)[0];
 
 	this.info = info;
 	this.INFO = INFO;
-	this.enableDebug = enableDebug;
 	this.debug = debug;
 	this.DEBUG = DEBUG;
+	this.trace = trace;
+	this.TRACE = TRACE;
 	this.table = table;
 	this.error = error;
+	this.level = levelAccessor;
 	return this;
 
-	function enableDebug() {
-		modeDebug = true;
+	function levelAccessor(arg) {
+		if (arg) {
+			let newLogLevel = String(arg).toLowerCase();
+			if (newLogLevel == LEVEL.DEBUG || newLogLevel == LEVEL.TRACE) {
+				logLevel = newLogLevel;
+				backToInfoLevel(TIMEOUT);
+			} else {
+				logLevel = LEVEL.INFO;
+			}
+			INFO('--> Logger level set to:', logLevel);
+		} else {
+			return logLevel;
+		}
+	}
+
+	var cancelTimeout;
+	function backToInfoLevel(delay) {
+		setImmediate(() => {
+			info('back to info level in', delay, 'min');
+		});
+		clearTimeout(cancelTimeout);
+		cancelTimeout = setTimeout(() => {
+			levelAccessor() != LEVEL.INFO && levelAccessor(LEVEL.INFO);
+			if (!Flux) Flux = require(ODI_PATH + 'src/core/Flux.js');
+			Flux.next('interface|runtime|update', { log: LEVEL.INFO });
+		}, delay * 60 * 1000);
 	}
 
 	/** Function to retreive stack position at runtime */
@@ -83,17 +117,35 @@ function Logger(filename, debugMode, mode) {
 	}
 
 	function debug() {
-		if (!modeDebug) return;
-		console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022', formatLog(arguments));
+		// if (!modeDebug) return;
+		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
+			console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022', formatLog(arguments));
 	}
 
 	function DEBUG() {
-		if (!modeDebug) return;
-		console.log(
-			Utils.logTime(),
-			modeFlag + '[' + filename.toUpperCase() + ']\u2022',
-			formatLog(arguments).toUpperCase()
-		);
+		// if (!modeDebug) return;
+		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
+			console.log(
+				Utils.logTime(),
+				modeFlag + '[' + filename.toUpperCase() + ']\u2022',
+				formatLog(arguments).toUpperCase()
+			);
+	}
+
+	function trace() {
+		// if (!modeTrace) return;
+		if (logLevel == LEVEL.TRACE)
+			console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022\u2022', formatLog(arguments));
+	}
+
+	function TRACE() {
+		// if (!modeTrace) return;
+		if (logLevel == LEVEL.TRACE)
+			console.log(
+				Utils.logTime(),
+				modeFlag + '[' + filename.toUpperCase() + ']\u2022\u2022',
+				formatLog(arguments).toUpperCase()
+			);
 	}
 
 	function error() {

@@ -27,7 +27,8 @@ if (Odi.isAwake()) {
 	spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
 }
 
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf('debug'), Odi.conf('mode'));
+var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf('mode'));
+// log.setMode(Odi.conf('log'));
 log.debug('argv', argv);
 
 var Utils = require(Odi._CORE + 'Utils.js');
@@ -59,7 +60,6 @@ if (!Odi.isAwake()) {
 Flux.next('interface|runtime|refresh');
 
 if (Odi.conf('watcher')) {
-	// Flux.next('controller|watcher|startWatch');
 	Flux.next('controller|watcher|startWatch');
 }
 
