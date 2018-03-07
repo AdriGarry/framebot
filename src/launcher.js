@@ -130,6 +130,10 @@ function startOdi(exitCode) {
 	});
 }
 
+fs.chmod(ODI_PATH + 'tmp/', 755, () => {
+	console.log('____________fs.chmod OK');
+});
+
 Array.prototype.remove = function() {
 	var what,
 		a = arguments,
