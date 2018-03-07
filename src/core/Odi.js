@@ -30,7 +30,7 @@ var _runtime = {
 	}
 };
 var Odi = {
-	conf: new Lock(require(ODI_PATH + 'conf.json'), ODI_PATH + 'conf.json'),
+	conf: new Lock(require(ODI_PATH + 'tmp/conf.json'), ODI_PATH + 'tmp/conf.json'),
 	isAwake: isAwake,
 	run: new Lock(_runtime),
 	error: error,
@@ -40,7 +40,7 @@ var Odi = {
 	_CORE: ODI_PATH + 'src/core/',
 	_SHELL: ODI_PATH + 'src/shell/',
 	_WEB: ODI_PATH + 'src/web/',
-	_CONF: ODI_PATH + 'conf.json',
+	_CONF: ODI_PATH + 'tmp/conf.json',
 	_DATA: ODI_PATH + 'data/',
 	_MP3: ODI_PATH + 'media/mp3/',
 	_LOG: ODI_PATH + 'log/',

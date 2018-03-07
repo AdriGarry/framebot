@@ -44,7 +44,7 @@ startOdi();
 
 function checkConfValidity() {
 	try {
-		let conf = fs.readFileSync(ODI_PATH + 'conf.json', 'utf-8');
+		let conf = fs.readFileSync(ODI_PATH + 'tmp/conf.json', 'utf-8');
 		JSON.parse(conf);
 	} catch (err) {
 		console.log(err.message);
@@ -52,7 +52,7 @@ function checkConfValidity() {
 	}
 }
 function reInitConf() {
-	fs.writeFileSync(ODI_PATH + 'conf.json', JSON.stringify(descriptor.conf), 'utf-8');
+	fs.writeFileSync(ODI_PATH + 'tmp/conf.json', JSON.stringify(descriptor.conf), 'utf-8');
 	console.log('> CONF reset');
 }
 
@@ -99,7 +99,7 @@ function startOdi(exitCode) {
 
 	checkUp();
 
-	const odiConf = fs.readFileSync(ODI_PATH + 'conf.json');
+	const odiConf = fs.readFileSync(ODI_PATH + 'tmp/conf.json');
 
 	var eye = new Gpio(14, 'out').write(1);
 
