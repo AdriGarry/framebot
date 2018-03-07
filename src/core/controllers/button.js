@@ -52,7 +52,6 @@ function initButtonReady() {
 	/** Interval pour l'etat du switch + fonctions associees */
 	var instance = false,
 		intervalEtat;
-	// var intervalDelay = Odi.conf('debug') ? 2 * 60 * 1000 : 5 * 60 * 1000;
 	var intervalDelay = 5 * 60 * 1000;
 	setInterval(function() {
 		var value = etat.readSync();

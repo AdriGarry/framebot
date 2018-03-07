@@ -27,7 +27,7 @@ if (Odi.isAwake()) {
 	spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
 }
 
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf('mode')); //, Odi.conf('debug'), Odi.conf('trace'));
+var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf('mode'));
 // log.setMode(Odi.conf('log'));
 log.debug('argv', argv);
 

@@ -156,13 +156,8 @@ function startUIServer(mode) {
 						Odi.conf('log') == 'trace'
 							? 'Trace'
 							: Odi.conf('log') == 'debug' ? 'Debug' : Utils.firstLetterUpper(Odi.conf('mode')),
-					// mode: Odi.conf('trace') ? 'Trace' : Odi.conf('debug') ? 'Debug' : Utils.firstLetterUpper(Odi.conf('mode')),
-					// mode: Utils.firstLetterUpper(Odi.conf('mode')),
 					param: Odi.conf('startTime'),
 					switch: etatBtn == 'high' ? true : false
-					// active: Odi.conf('debug'), // TRY TO DELETE THIS (deprecated)
-					// debug: Odi.conf('debug'), // USELESS?
-					// trace: Odi.conf('trace') // USELESS?
 				}
 			},
 			switch: { value: etatBtn, active: etatBtn ? true : false },
@@ -187,8 +182,8 @@ function startUIServer(mode) {
 			alarms: { value: Odi.conf('alarms'), active: true },
 			update: { value: Odi.run('stats.update') },
 			version: { value: 'toto' /*Odi.conf('version')*/ }, // DEPRECATED !
-			debug: { value: Odi.conf('debug') }, // TO DEPRECATE...
-			trace: { value: Odi.conf('trace') }, // TO DEPRECATE...
+			debug: { value: Odi.conf('log') == 'debug' ? 'debug' : '' },
+			trace: { value: Odi.conf('log') == 'trace' ? 'trace' : '' },
 			watcher: { value: Odi.conf('watcher') }
 		};
 		res.writeHead(200);
