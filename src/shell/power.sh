@@ -7,7 +7,7 @@ sudo killall mplayer
 sudo killall espeak
 
 #___Delete config file for reinitialization
-sudo rm /home/pi/odi/conf.json
+# sudo rm /home/pi/odi/conf.json
 
 #___Action redemarrage
 if [ $1 = "reboot" ]

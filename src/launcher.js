@@ -21,7 +21,8 @@ function checkUp() {
 	console.log('checkUp...');
 	descriptor = JSON.parse(fs.readFileSync(ODI_PATH + 'data/descriptor.json'));
 	if (!fs.existsSync(ODI_PATH + 'tmp')) {
-		fs.mkdirSync(ODI_PATH + 'tmp');
+		fs.mkdirSync(path.join(ODI_PATH, 'tmp'), 0777);
+		fs.chmodSync(path.join(ODI_PATH, 'tmp'), 0777);
 		console.log('> TEMP directory created');
 	} else {
 		checkVoicemailValidity();
@@ -44,7 +45,7 @@ startOdi();
 
 function checkConfValidity() {
 	try {
-		let conf = fs.readFileSync(ODI_PATH + 'conf.json', 'utf-8');
+		let conf = fs.readFileSync(ODI_PATH + 'tmp/conf.json', 'utf-8');
 		JSON.parse(conf);
 	} catch (err) {
 		console.log(err.message);
@@ -52,7 +53,7 @@ function checkConfValidity() {
 	}
 }
 function reInitConf() {
-	fs.writeFileSync(ODI_PATH + 'conf.json', JSON.stringify(descriptor.conf), 'utf-8');
+	fs.writeFileSync(ODI_PATH + 'tmp/conf.json', JSON.stringify(descriptor.conf), 'utf-8');
 	console.log('> CONF reset');
 }
 
@@ -99,7 +100,7 @@ function startOdi(exitCode) {
 
 	checkUp();
 
-	const odiConf = fs.readFileSync(ODI_PATH + 'conf.json');
+	const odiConf = fs.readFileSync(ODI_PATH + 'tmp/conf.json');
 
 	var eye = new Gpio(14, 'out').write(1);
 

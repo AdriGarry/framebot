@@ -54,7 +54,7 @@ function reboot() {
 	}
 	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
 	setTimeout(function() {
-		spawn('sh', [Odi._SHELL + 'power.sh', 'reboot']);
+		spawn('sh', [Odi._SHELL + 'power.sh', 'reboot']); // TODO supprimer le shell?
 	}, 2000);
 }
 
@@ -67,6 +67,6 @@ function shutdown() {
 	}
 	setTimeout(function() {
 		console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!");
-		spawn('sh', [Odi._SHELL + 'power.sh']);
+		spawn('sh', [Odi._SHELL + 'power.sh']); // TODO supprimer le shell?
 	}, 2000);
 }
