@@ -21,21 +21,8 @@ function checkUp() {
 	console.log('checkUp...');
 	descriptor = JSON.parse(fs.readFileSync(ODI_PATH + 'data/descriptor.json'));
 	if (!fs.existsSync(ODI_PATH + 'tmp')) {
-		fs.mkdirSync(path.join(ODI_PATH, 'tmp'));
-		fs.chmodSync(path.join(ODI_PATH, 'tmp'), 777); // https://stackoverflow.com/questions/20769023/using-nodejs-chmod-777-and-0777
-		//https://github.com/isaacs/chmodr/blob/master/chmodr.js
-
-		spawn('chmod', ['-t' + ODI_PATH + 'tmp']);
-		// const newmask = 777;
-		// const oldmask = process.umask(newmask);
-		// console.log(`Changed umask from ${oldmask.toString(8)} to ${newmask.toString(8)}`);
-
-		// fs.mkdirSync(ODI_PATH + 'tmp');
-		// fs.chmodSync(ODI_PATH + 'tmp', 755);
-
-		// fs.chmodSync(ODI_PATH + 'tmp', 755, () => {
-		// 	console.log('____________fs.chmod OK');
-		// });
+		fs.mkdirSync(path.join(ODI_PATH, 'tmp'), 0777);
+		fs.chmodSync(path.join(ODI_PATH, 'tmp'), 0777);
 		console.log('> TEMP directory created');
 	} else {
 		checkVoicemailValidity();
