@@ -40,11 +40,11 @@ var Odi = {
 	_CORE: ODI_PATH + 'src/core/',
 	_SHELL: ODI_PATH + 'src/shell/',
 	_WEB: ODI_PATH + 'src/web/',
-	_CONF: ODI_PATH + 'tmp/conf.json',
 	_DATA: ODI_PATH + 'data/',
 	_MP3: ODI_PATH + 'media/mp3/',
 	_LOG: ODI_PATH + 'log/',
-	_TMP: ODI_PATH + 'tmp/'
+	_TMP: ODI_PATH + 'tmp/',
+	_CONF: ODI_PATH + 'tmp/conf.json'
 };
 module.exports = {
 	init: initOdi,

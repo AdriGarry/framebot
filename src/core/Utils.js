@@ -13,6 +13,7 @@ var exec = require('child_process').exec;
 module.exports = {
 	stackPosition: stackPosition,
 	repeatString: repeatString,
+	deleteFolderRecursive: deleteFolderRecursive,
 	appendJsonFile: appendJsonFile,
 	execCmd: execCmd,
 	firstLetterUpper: firstLetterUpper,
@@ -56,6 +57,22 @@ function stackPosition(displayLine) {
  */
 function repeatString(string, times) {
 	return Array(times + 1).join(string);
+}
+
+function deleteFolderRecursive(path) {
+	if (fs.existsSync(path)) {
+		fs.readdirSync(path).forEach(function(file, index) {
+			var curPath = path + '/' + file;
+			if (fs.lstatSync(curPath).isDirectory()) {
+				// recurse
+				deleteFolderRecursive(curPath);
+			} else {
+				// delete file
+				fs.unlinkSync(curPath);
+			}
+		});
+		fs.rmdirSync(path);
+	}
 }
 
 /** Function to append object in JSON file */

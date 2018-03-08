@@ -22,6 +22,8 @@ Flux.interface.sound.subscribe({
 				playSound({ mp3: 'system/ressort.mp3' }, 'noLog');
 			} else if (flux.id == 'UI') {
 				spawn('sh', [Odi._SHELL + 'sounds.sh', 'UIRequest']);
+			} else if (flux.id == 'reset') {
+				resetSound();
 			} else {
 				Odi.error('unmapped flux in Sound module', flux, false);
 			}
@@ -32,8 +34,10 @@ Flux.interface.sound.subscribe({
 	}
 });
 
+resetSound();
+
 function setVolume(volume) {
-	log.info('setVolume()', volume);
+	log.info('setVolume()', volume); // TODO
 }
 
 function playSound(arg, noLog) {
@@ -94,5 +98,14 @@ function stopAll(message) {
 	Odi.run('music', false);
 }
 
-// sudo amixer set PCM 100%
-spawn('amixer', [' set PCM 100%']); // TODO TOTEST: Default volume & output
+/** Function to reset sound */
+function resetSound() {
+	log.info('resetSound [amixer set PCM 100%]');
+	Utils.execCmd('amixer set PCM 100%', function(data) {
+		log.debug(data);
+	});
+
+	// spawn('amixer', [' set PCM 100%'], callback => {
+	// 	console.log(callback);
+	// });
+}

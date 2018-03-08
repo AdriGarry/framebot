@@ -14,7 +14,7 @@ Flux.interface.runtime.subscribe({
 		} else if (flux.id == 'updateRestart') {
 			updateConf(flux.value, true);
 		} else if (flux.id == 'reset') {
-			resetCfg(flux.value);
+			resetOdi(flux.value);
 		} else if (flux.id == 'refresh') {
 			refreshRuntime(flux.value);
 		} else Odi.error('unmapped flux in Runtime interface', flux, false);
@@ -37,12 +37,11 @@ function updateConf(newConf, restart) {
 	if (restart) process.exit();
 }
 
-/** Function to reset Odi's config */
-function resetCfg(restart) {
+/** Function to reset Odi (/tmp/ directory) */
+function resetOdi(restart) {
 	log.INFO('reset conf', restart ? 'and restart' : '');
-	Flux.next('service|voicemail|clear');
-	fs.unlinkSync(Odi._TMP + 'conf.json');
-	// TODO faire ici ce qui est fait dans reset.sh !!
+	Flux.next('interface|sound|reset');
+	Utils.deleteFolderRecursive(Odi._TMP);
 	if (restart) {
 		process.exit();
 	}
