@@ -12,8 +12,9 @@ var sep = path.sep;
 // const SRC_PATH = __filename.match(/\/.*\//g)[0];
 const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');
-
+const INTERVALS = [2, 5, 10, 30, 60, 90, 180];
 const launcherTitle = '\n┌───────────────┐\n│  > Launcher   │\n└───────────────┘';
+
 console.log(launcherTitle);
 var descriptor;
 
@@ -70,7 +71,6 @@ function checkVoicemailValidity() {
 	}
 }
 
-var INTERVALS = [5, 10, 30, 60, 90, 180];
 var i = 0;
 function wrapper(code) {
 	console.log(launcherTitle);
