@@ -165,5 +165,6 @@
 		[{ "msg": "T'as vraiment une taite de bite !" }, { "voice": "google", "msg": "C'est pas faux !" }],
 		[{ "msg": "C'est vraiment un truc de fou !" }, { "msg": "Mais ta stupiditer metonne encore !" }],
 		[{ "msg": "Mais vas chier !" }, { "msg": "Raclure de bidet" }]
-	]
+	],
+	"maxCallback": ["Mais oui Max !", "Voyons Max !", "Eh oh, tu t'arraite un peu ?", "Mais ta gueule !!", "Oh!"]
 }

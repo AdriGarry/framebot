@@ -3,6 +3,7 @@
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
+var Utils = require(Odi._CORE + 'Utils.js');
 
 var Gpio = require('onoff').Gpio;
 var belly = new Gpio(17, 'out');
@@ -49,11 +50,12 @@ function initButtonReady() {
 		else log.info('Blue button pushed not enough:', pushTime);
 	});
 
-	/** Interval pour l'etat du switch + fonctions associees */
+	/** Interval for switch state + random actions */
 	var instance = false,
 		intervalEtat;
-	var intervalDelay = 5 * 60 * 1000;
+	const INTERVAL_DELAY = 20 * 1000; //3 * 60 * 1000;
 	setInterval(function() {
+		// A deplacer dans flux.next('interface|runtime|refresh')) ??
 		var value = etat.readSync();
 		//TODO faire un truc avec ce flux
 		Flux.next('interface|led|toggle', { leds: ['satellite'], value: value }, { hidden: true });
@@ -63,7 +65,7 @@ function initButtonReady() {
 				intervalEtat = setInterval(function() {
 					log.info('Etat btn Up_ => random action');
 					Flux.next('service|interaction|random');
-				}, intervalDelay); //5*60*1000
+				}, INTERVAL_DELAY);
 			}
 		} else {
 			instance = false;

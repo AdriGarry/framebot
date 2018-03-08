@@ -42,22 +42,26 @@ Flux.service.interaction.subscribe({
 	}
 });
 
-var randomActionBase = [
-	{ id: 'interface|tts|speak', weight: 6 }, //7
-	{ id: 'service|interaction|exclamation', weight: 4 }, //4
+const RANDOM_ACTIONS = [
+	// TODO a mettre dans descriptor.json
+	{ id: 'interface|tts|speak', weight: 7 },
+	{ id: 'service|interaction|exclamation', weight: 4 },
 	{ id: 'service|time|now', weight: 1 },
 	{ id: 'service|time|today', weight: 1 },
-	{ id: 'service|interaction|weather', data: 'random', weight: 2 }, //4
+	{ id: 'service|interaction|weather', data: 'random', weight: 2 },
 	{ id: 'interface|hardware|cpuTTS', weight: 1 },
 	{ id: 'interface|hardware|soulTTS', weight: 3 },
-	{ id: 'service|time|OdiAge', weight: 1 }
+	{ id: 'service|time|OdiAge', weight: 1 },
+	{ id: 'service|max|blinkAllLed', weight: 13 },
+	{ id: 'service|max|playOneMelody', weight: 83 },
+	{ id: 'service|max|hornRdm', weight: 13 }
 ];
-/** Building randomActionList from randomActionBase */
+/** Building randomActionList from RANDOM_ACTIONS */
 var randomActionList = [];
-for (var i = 0; i < randomActionBase.length; i++) {
-	var loop = randomActionBase[i].weight;
+for (var i = 0; i < RANDOM_ACTIONS.length; i++) {
+	var loop = RANDOM_ACTIONS[i].weight;
 	while (loop) {
-		randomActionList.push(randomActionBase[i]);
+		randomActionList.push(RANDOM_ACTIONS[i]);
 		loop--;
 	}
 }

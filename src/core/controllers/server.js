@@ -475,17 +475,29 @@ function startUIServer(mode) {
 			res.end();
 		});
 
-		ui.post('/arduinoSleep', function(req, res) {
-			Flux.next('interface|arduino|sleep');
+		ui.post('/max/playOneMelody', function(req, res) {
+			Flux.next('service|max|playOneMelody');
 			res.writeHead(200);
 			res.end();
 		});
 
-		ui.post('/arduino', function(req, res) {
-			Flux.next('interface|arduino|hi');
+		ui.post('/max/hornRdm', function(req, res) {
+			Flux.next('service|max|hornRdm');
 			res.writeHead(200);
 			res.end();
 		});
+
+		ui.post('/max/turn', function(req, res) {
+			Flux.next('service|max|turn');
+			res.writeHead(200);
+			res.end();
+		});
+
+		// ui.post('/arduinoSleep', function(req, res) {
+		// 	Flux.next('interface|arduino|sleep');
+		// 	res.writeHead(200);
+		// 	res.end();
+		// });
 
 		ui.post('/videoOff', function(req, res) {
 			Flux.next('interface|video|screenOff');

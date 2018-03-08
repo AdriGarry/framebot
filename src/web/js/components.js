@@ -586,9 +586,9 @@ app.component('arduino', {
 			actionList: [
 				// { label: 'Sleep', icon: 'fas fa-stop', url: '/arduinoSleep' },
 				// { label: 'Go', icon: 'fas fa-play', url: '/arduino' }
-				{ label: 'Melody', icon: 'fas fa-music', url: '/arduinoMelody' },
-				{ label: 'RDM Melody', icon: 'fas fa-music', url: '/arduinoRdmMelody' },
-				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/arduinoHorn' }
+				{ label: 'RDM Melody', icon: 'fas fa-music', url: '/max/playOneMelody' },
+				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/max/hornRdm' },
+				{ label: 'Melody', icon: 'fas fa-sync', url: '/max/turn' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
