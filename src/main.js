@@ -66,8 +66,9 @@ if (Odi.conf('watcher')) {
 console.log('process.version:', process.version);
 
 //Flux.next('service|max|hornRdm', null, { delay: 4 });
-Flux.next('service|max|blinkAllLed', { delay: 4, loop: 30 });
-Flux.next('service|max|turn', { delay: 2, loop: 30 });
+Flux.next('service|max|blinkAllLed');
+Flux.next('service|max|turn', null, { delay: 2, loop: 5 });
+Flux.next('service|max|playOneMelody', null, { delay: 11, loop: 5 });
 
 if (Odi.isAwake() && !Odi.run('alarm')) {
 	// Flux.next('interface|arduino|write', 'Blink-1-2-3', 3);

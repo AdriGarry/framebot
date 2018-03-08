@@ -166,5 +166,12 @@
 		[{ "msg": "C'est vraiment un truc de fou !" }, { "msg": "Mais ta stupiditer metonne encore !" }],
 		[{ "msg": "Mais vas chier !" }, { "msg": "Raclure de bidet" }]
 	],
-	"maxCallback": ["Mais oui Max !", "Voyons Max !", "Eh oh, tu t'arraite un peu ?", "Mais ta gueule !!", "Oh!"]
+	"maxCallback": [
+		"Mais oui Max !",
+		"Voyons Max !",
+		"Eh oh, tu t'arraite un peu ?",
+		"Mais c'est pas fini, oui ?",
+		"Mais ta gueule !!",
+		"Oh!"
+	]
 }

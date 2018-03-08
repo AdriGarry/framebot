@@ -33,8 +33,8 @@ var arduino = new SerialPort(ARDUINO, function(err) {
 	} else {
 		log.info('communication serie with arduino opened');
 		Odi.run('max', true);
-		if (Odi.isAwake() && !Odi.run('alarm') && Odi.run('etat') == 'high')
-			Flux.next('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
+		// if (Odi.isAwake() && !Odi.run('alarm') && Odi.run('etat') == 'high')
+		// 	Flux.next('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
 	}
 });
 

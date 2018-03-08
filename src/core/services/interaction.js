@@ -52,7 +52,7 @@ const RANDOM_ACTIONS = [
 	{ id: 'interface|hardware|cpuTTS', weight: 1 },
 	{ id: 'interface|hardware|soulTTS', weight: 3 },
 	{ id: 'service|time|OdiAge', weight: 1 },
-	{ id: 'service|max|blinkAllLed', weight: 13 },
+	{ id: 'service|max|blinkAllLed', weight: 2 },
 	{ id: 'service|max|playOneMelody', weight: 83 },
 	{ id: 'service|max|hornRdm', weight: 13 }
 ];
