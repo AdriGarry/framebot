@@ -22,7 +22,8 @@ function checkUp() {
 	descriptor = JSON.parse(fs.readFileSync(ODI_PATH + 'data/descriptor.json'));
 	if (!fs.existsSync(ODI_PATH + 'tmp')) {
 		fs.mkdirSync(path.join(ODI_PATH, 'tmp'));
-		fs.chmodSync(path.join(ODI_PATH, 'tmp'), 0775);
+		fs.chmodSync(path.join(ODI_PATH, 'tmp'), 775); // https://stackoverflow.com/questions/20769023/using-nodejs-chmod-777-and-0777
+		//https://github.com/isaacs/chmodr/blob/master/chmodr.js
 
 		// fs.mkdirSync(ODI_PATH + 'tmp');
 		// fs.chmodSync(ODI_PATH + 'tmp', 755);

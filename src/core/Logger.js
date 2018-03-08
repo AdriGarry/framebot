@@ -12,17 +12,18 @@ const TIMEOUT = 15;
 var Odi,
 	Utils,
 	Flux,
-	modeDebug = false,
-	modeTrace = false,
+	// modeDebug = false,
+	// modeTrace = false,
 	modeFlag = '';
 
 var logLevel = LEVEL.INFO;
 
-function Logger(filename, modeOdi, debugMode, traceMode) {
+function Logger(filename, modeOdi) {
+	//, debugMode, traceMode
 	Utils = require(ODI_PATH + 'src/core/Utils.js');
 	Odi = require(ODI_PATH + 'src/core/Odi.js');
-	modeDebug = debugMode || modeDebug;
-	modeTrace = traceMode || modeTrace;
+	// modeDebug = debugMode || modeDebug;
+	// modeTrace = traceMode || modeTrace;
 	if (modeOdi && modeOdi == 'sleep') {
 		modeFlag = '.';
 	}
