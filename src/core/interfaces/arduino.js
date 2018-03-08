@@ -11,8 +11,6 @@ Flux.interface.arduino.subscribe({
 	next: flux => {
 		if (flux.id == 'write') {
 			write(flux.value);
-		} else if (Odi.isAwake() && flux.id == '?') {
-			//
 		} else {
 			Odi.error('unmapped flux in Arduino module', flux, false);
 		}
