@@ -21,7 +21,15 @@ function checkUp() {
 	console.log('checkUp...');
 	descriptor = JSON.parse(fs.readFileSync(ODI_PATH + 'data/descriptor.json'));
 	if (!fs.existsSync(ODI_PATH + 'tmp')) {
-		fs.mkdirSync(ODI_PATH + 'tmp');
+		fs.mkdirSync(path.join(ODI_PATH, 'tmp'));
+		fs.chmodSync(path.join(ODI_PATH, 'tmp'), 0775);
+
+		// fs.mkdirSync(ODI_PATH + 'tmp');
+		// fs.chmodSync(ODI_PATH + 'tmp', 755);
+
+		// fs.chmodSync(ODI_PATH + 'tmp', 755, () => {
+		// 	console.log('____________fs.chmod OK');
+		// });
 		console.log('> TEMP directory created');
 	} else {
 		checkVoicemailValidity();
@@ -129,10 +137,6 @@ function startOdi(exitCode) {
 		wrapper(code);
 	});
 }
-
-fs.chmod(ODI_PATH + 'tmp/', 755, () => {
-	console.log('____________fs.chmod OK');
-});
 
 Array.prototype.remove = function() {
 	var what,
