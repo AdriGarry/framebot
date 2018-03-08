@@ -110,8 +110,8 @@ app.component('mode', {
 app.component('options', {
 	bindings: {
 		data: '<',
-		access: '<',
-		odiState: '<'
+		access: '<'
+		// odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
