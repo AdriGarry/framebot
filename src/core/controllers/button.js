@@ -53,14 +53,15 @@ function initButtonReady() {
 	/** Interval for switch state + random actions */
 	var instance = false,
 		intervalEtat;
-	const INTERVAL_DELAY = 20 * 1000; //3 * 60 * 1000;
+	const INTERVAL_DELAY = (Odi.conf('watcher') ? 60 : 5 * 60) * 1000; //3 * 60 * 1000;
 	setInterval(function() {
-		// A deplacer dans flux.next('interface|runtime|refresh')) ??
-		var value = etat.readSync();
+		// A deplacer dans flux.next('interface|runtime|refresh')) ?
+		let value = etat.readSync();
 		//TODO faire un truc avec ce flux
 		Flux.next('interface|led|toggle', { leds: ['satellite'], value: value }, { hidden: true });
 		if (1 === value) {
 			if (!instance) {
+				// TODO! deplacer ça dans le handler ...
 				instance = true;
 				intervalEtat = setInterval(function() {
 					log.info('Etat btn Up_ => random action');
