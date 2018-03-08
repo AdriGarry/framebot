@@ -41,10 +41,11 @@ var arduino = new SerialPort(ARDUINO, function(err) {
 /** Function to send message to arduino */
 function write(msg) {
 	log.debug('write()', msg);
-	arduino.write(msg + '\n', function(err) {
+	arduino.write(msg + '\n', function(err, data) {
 		if (err) {
 			Odi.error('Error while writing to arduino', err);
 		}
+		log.DEBUG(data);
 	});
 }
 
