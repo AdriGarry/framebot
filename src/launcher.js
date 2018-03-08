@@ -25,6 +25,7 @@ function checkUp() {
 		fs.chmodSync(path.join(ODI_PATH, 'tmp'), 777); // https://stackoverflow.com/questions/20769023/using-nodejs-chmod-777-and-0777
 		//https://github.com/isaacs/chmodr/blob/master/chmodr.js
 
+		spawn('chmod', ['-t' + ODI_PATH + 'tmp']);
 		// const newmask = 777;
 		// const oldmask = process.umask(newmask);
 		// console.log(`Changed umask from ${oldmask.toString(8)} to ${newmask.toString(8)}`);
