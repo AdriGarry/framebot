@@ -81,8 +81,9 @@ function startUIServer(mode) {
 		if (!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('interface|sound|UI', null, { hidden: true });
 
 		if (!req.connection.remoteAddress) {
-			log.INFO('req.connection.remoteAddress undefined ?');
-			log.info(req.connection);
+			// log.INFO('req.connection.remoteAddress undefined ?');
+			// log.info(req.connection);
+			Odi.error('req.connection.remoteAddress undefined ?', req.connection);
 		}
 		if (req.connection.remoteAddress.indexOf('192.168') == -1) {
 			// Logging not local requests
