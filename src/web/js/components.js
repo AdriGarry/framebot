@@ -588,7 +588,7 @@ app.component('arduino', {
 				// { label: 'Go', icon: 'fas fa-play', url: '/arduino' }
 				{ label: 'RDM Melody', icon: 'fas fa-music', url: '/max/playOneMelody' },
 				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/max/hornRdm' },
-				{ label: 'Melody', icon: 'fas fa-sync', url: '/max/turn' }
+				{ label: 'Turn', icon: 'fas fa-sync', url: '/max/turn' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

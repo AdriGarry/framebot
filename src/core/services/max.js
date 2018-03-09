@@ -79,11 +79,11 @@ function hornRdm() {
 }
 
 function parseDataFromMax(data) {
-	if (data.indexOf('...') == -1) {
+	if (typeof data == 'string' && data.indexOf('...') == -1) {
+		data.substring(0, data.length - 3);
 		log.info('Max data:', data);
-		// } else {
-		// 	return;
 	}
+	console.log('----', data);
 	switch (data) {
 		case 'some random action from Max':
 			if (Odi.isAwake()) Flux.next('interface|tts|speak', 'Oh, il se passe un truc du coter de chez Max!');
@@ -93,13 +93,8 @@ function parseDataFromMax(data) {
 			break;
 		case 'playOneMelodyEnd':
 		case 'playRandomMelodyEnd':
-			let maxCallbackTTS = Utils.randomItem(Odi.tts.maxCallback);
+			let maxCallbackTTS = Utils.randomItem(Odi.ttsMessages.maxCallback);
 			Flux.next('interface|tts|speak', maxCallbackTTS);
-			// if (Utils.rdm()) {
-			// 	Flux.next('interface|tts|speak', { lg: 'en', msg: 'contact' });
-			// } else {
-			// 	Flux.next('interface|tts|speak', 'mais oui    Max');
-			// }
 			break;
 		case 'turnEnd':
 			if (Odi.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'turn' });

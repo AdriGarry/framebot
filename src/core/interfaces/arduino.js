@@ -45,7 +45,7 @@ function write(msg) {
 		if (err) {
 			Odi.error('Error while writing to arduino', err);
 		}
-		log.DEBUG(data);
+		log.DEBUG('data:', data);
 	});
 }
 

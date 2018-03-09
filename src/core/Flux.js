@@ -71,7 +71,7 @@ function FluxObject(id, data, conf) {
 		let typeSubject = this.type + '|' + this.subject + '|';
 		let value = this.id + (this.value ? ' ' + util.format(util.inspect(this.value)) : '') + ' ';
 		let delay = ' ' + (this.delay || '');
-		let loop = ' ' + (this.loop || '');
+		let loop = ' ' + (this.loop > 1 ? this.loop : '');
 		return typeSubject + value + delay + loop;
 	};
 

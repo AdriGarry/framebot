@@ -65,7 +65,7 @@ function initButtonReady() {
 				// TODO! deplacer ça dans le handler ... !?
 				instance = true;
 				intervalEtat = setInterval(function() {
-					log.info('Etat btn Up_ => random action');
+					log.info('Etat btn Up => random action');
 					Flux.next('service|interaction|random');
 				}, INTERVAL_DELAY);
 			}

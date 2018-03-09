@@ -53,7 +53,7 @@ const RANDOM_ACTIONS = [
 	{ id: 'interface|hardware|soulTTS', weight: 3 },
 	{ id: 'service|time|OdiAge', weight: 1 },
 	{ id: 'service|max|blinkAllLed', weight: 2 },
-	{ id: 'service|max|playOneMelody', weight: 83 },
+	{ id: 'service|max|playOneMelody', weight: 155 },
 	{ id: 'service|max|hornRdm', weight: 13 }
 ];
 /** Building randomActionList from RANDOM_ACTIONS */
@@ -69,8 +69,12 @@ for (var i = 0; i < RANDOM_ACTIONS.length; i++) {
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction() {
 	var action = Utils.randomItem(randomActionList);
-	log.info('randomAction:', action.id, '[' + action.weight + ']');
-	Flux.next(action.id, action.data);
+	try {
+		log.info('randomAction:', action.id, '[' + action.weight + ']');
+		Flux.next(action.id, action.data);
+	} catch (err) {
+		Odi.error('ACTION TO DEBUG =>', action);
+	}
 }
 
 var EXCLAMATIONS_SOUNDS;
