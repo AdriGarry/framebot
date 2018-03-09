@@ -59,9 +59,10 @@ function initButtonReady() {
 		let value = etat.readSync();
 		//TODO faire un truc avec ce flux
 		Flux.next('interface|led|toggle', { leds: ['satellite'], value: value }, { hidden: true });
+
 		if (1 === value) {
 			if (!instance) {
-				// TODO! deplacer ça dans le handler ...
+				// TODO! deplacer ça dans le handler ... !?
 				instance = true;
 				intervalEtat = setInterval(function() {
 					log.info('Etat btn Up_ => random action');
@@ -87,31 +88,6 @@ function initButtonReady() {
 		}
 		log.table(Odi.run(), 'RUNTIME...');
 	});
-
-	// var pushed = 0,
-	// 	pushedLimit = 3;
-	// function oneMorePush() {
-	// 	clearTimeout(pushTimeout);
-	// 	var pushTimeout = setTimeout(function() {
-	// 		pushed = 0;
-	// 	}, 5000);
-	// 	pushed++;
-	// 	console.log('oneMorePush', pushed + '/' + pushedLimit);
-	// 	if (pushed >= pushedLimit) {
-	// 		switch (Math.round(Math.random() * 2)) {
-	// 			case 0:
-	// 				// ODI.tts.speak({ msg: 'Et ho ! Arraite un peu avec mes boutons tu veux' });
-	// 				break;
-	// 			case 1:
-	// 				// ODI.tts.speak({ msg: 'Arraite de me toucher, sa menairve !' });
-	// 				break;
-	// 			case 2:
-	// 				// ODI.tts.speak({ msg: 'Pas touche a mes boutons !' });
-	// 				break;
-	// 		}
-	// 		pushed = 0;
-	// 	}
-	// }
 }
 
 function initButtonSleep() {
@@ -135,4 +111,3 @@ function getPushTime(button) {
 	log.info(button.name + ' button pressed for ' + pushTime + ' sec...');
 	return pushTime;
 }
-// belly.write(0);

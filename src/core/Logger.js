@@ -12,18 +12,13 @@ const TIMEOUT = 15;
 var Odi,
 	Utils,
 	Flux,
-	// modeDebug = false,
-	// modeTrace = false,
 	modeFlag = '';
 
 var logLevel = LEVEL.INFO;
 
 function Logger(filename, modeOdi) {
-	//, debugMode, traceMode
 	Utils = require(ODI_PATH + 'src/core/Utils.js');
 	Odi = require(ODI_PATH + 'src/core/Odi.js');
-	// modeDebug = debugMode || modeDebug;
-	// modeTrace = traceMode || modeTrace;
 	if (modeOdi && modeOdi == 'sleep') {
 		modeFlag = '.';
 	}
@@ -118,13 +113,11 @@ function Logger(filename, modeOdi) {
 	}
 
 	function debug() {
-		// if (!modeDebug) return;
 		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
 			console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022', formatLog(arguments));
 	}
 
 	function DEBUG() {
-		// if (!modeDebug) return;
 		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
 			console.log(
 				Utils.logTime(),
@@ -134,13 +127,11 @@ function Logger(filename, modeOdi) {
 	}
 
 	function trace() {
-		// if (!modeTrace) return;
 		if (logLevel == LEVEL.TRACE)
 			console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022\u2022', formatLog(arguments));
 	}
 
 	function TRACE() {
-		// if (!modeTrace) return;
 		if (logLevel == LEVEL.TRACE)
 			console.log(
 				Utils.logTime(),

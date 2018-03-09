@@ -4,17 +4,8 @@
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 var Utils = require(Odi._CORE + 'Utils.js');
-
 var Flux = require(Odi._CORE + 'Flux.js');
 const BTN_PUSH_MIN = 0.5;
-// Flux.controller.button.subscribe({ // ==> general handler ? all ?
-// 	next: flux => {
-// 		buttonHandler(flux);
-// 	},
-// 	error: err => {
-// 		Odi.error(flux);
-// 	}
-// });
 
 Flux.controller.button.subscribe({
 	next: flux => {
@@ -22,15 +13,6 @@ Flux.controller.button.subscribe({
 	},
 	error: err => {
 		Odi.error(flux);
-	}
-});
-
-Flux.controller.jobs.subscribe({
-	next: flux => {
-		jobsHandler(flux);
-	},
-	error: err => {
-		Odi.error(err);
 	}
 });
 
@@ -63,7 +45,6 @@ function buttonHandler(flux) {
 		} else if (flux.id == 'white') {
 			Flux.next('service|time|timer', Math.round(flux.value));
 		} else if (flux.id == 'blue') {
-			//log.INFO('to fix!!!!!');
 			if (flux.value > BTN_PUSH_MIN) {
 				if (Odi.run('etat')) {
 					Flux.next('service|music|fip');
@@ -80,7 +61,3 @@ function buttonHandler(flux) {
 		}
 	}
 }
-
-// setTimeout(() => {
-// 	log.INFO('---> TEST !!');
-// }, 3000);
