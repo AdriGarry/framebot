@@ -5,14 +5,14 @@ var util = require('util');
 
 module.exports = Logger;
 
-const DATE_TIME_DEFAULT_PATTERN = 'D/M h:m:s';
 const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' };
 const TIMEOUT = 15;
+const TIMESTAMP_PATTERN = { NORMAL: 'D/M h:m:s', SLEEP: 'D/M_h:m:s' };
 
 var Odi,
 	Utils,
 	Flux,
-	modeFlag = '';
+	timestamp = TIMESTAMP_PATTERN.NORMAL;
 
 var logLevel = LEVEL.INFO;
 
@@ -20,7 +20,7 @@ function Logger(filename, modeOdi) {
 	Utils = require(ODI_PATH + 'src/core/Utils.js');
 	Odi = require(ODI_PATH + 'src/core/Odi.js');
 	if (modeOdi && modeOdi == 'sleep') {
-		modeFlag = '.';
+		timestamp = TIMESTAMP_PATTERN.SLEEP;
 	}
 	filename = filename.match(/(\w*).js/g)[0];
 
@@ -105,44 +105,44 @@ function Logger(filename, modeOdi) {
 	}
 
 	function info() {
-		console.log(Utils.logTime(), modeFlag + '[' + filename + ']', formatLog(arguments));
+		console.log(Utils.logTime(timestamp), '[' + filename + ']', formatLog(arguments));
 	}
 
 	function INFO() {
-		console.log(Utils.logTime(), modeFlag + '[' + filename.toUpperCase() + ']', formatLog(arguments).toUpperCase());
+		console.log(Utils.logTime(timestamp), '[' + filename.toUpperCase() + ']', formatLog(arguments).toUpperCase());
 	}
 
 	function debug() {
 		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
-			console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022', formatLog(arguments));
+			console.log(Utils.logTime(timestamp), '[' + filename + ']\u2022', formatLog(arguments));
 	}
 
 	function DEBUG() {
 		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
 			console.log(
-				Utils.logTime(),
-				modeFlag + '[' + filename.toUpperCase() + ']\u2022',
+				Utils.logTime(timestamp),
+				'[' + filename.toUpperCase() + ']\u2022',
 				formatLog(arguments).toUpperCase()
 			);
 	}
 
 	function trace() {
 		if (logLevel == LEVEL.TRACE)
-			console.log(Utils.logTime(), modeFlag + '[' + filename + ']\u2022\u2022', formatLog(arguments));
+			console.log(Utils.logTime(timestamp), '[' + filename + ']\u2022\u2022', formatLog(arguments));
 	}
 
 	function TRACE() {
 		if (logLevel == LEVEL.TRACE)
 			console.log(
-				Utils.logTime(),
-				modeFlag + '[' + filename.toUpperCase() + ']\u2022\u2022',
+				Utils.logTime(timestamp),
+				'[' + filename.toUpperCase() + ']\u2022\u2022',
 				formatLog(arguments).toUpperCase()
 			);
 	}
 
 	function error() {
 		console.log('______________');
-		console.error(Utils.logTime(), modeFlag + '[' + filename + ']', 'ERR >>', formatLog(arguments));
+		console.error(Utils.logTime(timestamp), '[' + filename + ']', 'ERR >>', formatLog(arguments));
 	}
 
 	/** Function to array an object */

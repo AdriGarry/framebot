@@ -167,11 +167,13 @@
 		[{ "msg": "Mais vas chier !" }, { "msg": "Raclure de bidet" }]
 	],
 	"maxCallback": [
-		"Mais oui Max !",
+		"Oh!",
+		["Eh oh", "Sa va Max ?"],
 		"Voyons Max !",
-		"Eh oh, tu t'arraite un peu ?",
+		"Mais oui Max !",
+		"Euh, c'etait quoi sa ?",
 		"Mais c'est pas fini, oui ?",
-		"Mais ta gueule !!",
-		"Oh!"
+		"Eh oh, tu t'arraite un peu ?",
+		"Mais ta gueule !!"
 	]
 }

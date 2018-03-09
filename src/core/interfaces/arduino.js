@@ -20,9 +20,9 @@ Flux.interface.arduino.subscribe({
 	}
 });
 
-const ARDUINO = '/dev/ttyACM0';
+const ARDUINO_ADDR = '/dev/ttyACM0';
 const SerialPort = require('serialport');
-var arduino = new SerialPort(ARDUINO, function(err) {
+var arduino = new SerialPort(ARDUINO_ADDR, function(err) {
 	if (err) {
 		// return console.log('Error opening arduino port:', err.message);
 		Odi.error('Error opening arduino port: ', err.message, false);

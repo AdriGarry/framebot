@@ -73,7 +73,7 @@ function randomAction() {
 		log.info('randomAction:', action.id, '[' + action.weight + ']');
 		Flux.next(action.id, action.data);
 	} catch (err) {
-		Odi.error('ACTION TO DEBUG =>', action);
+		Odi.error('ACTION TO DEBUG =>', typeof action, action);
 	}
 }
 

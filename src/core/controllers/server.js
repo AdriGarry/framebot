@@ -482,6 +482,12 @@ function startUIServer(mode) {
 			res.end();
 		});
 
+		ui.post('/max/playRdmMelody', function(req, res) {
+			Flux.next('service|max|playRdmMelody');
+			res.writeHead(200);
+			res.end();
+		});
+
 		ui.post('/max/hornRdm', function(req, res) {
 			Flux.next('service|max|hornRdm');
 			res.writeHead(200);
