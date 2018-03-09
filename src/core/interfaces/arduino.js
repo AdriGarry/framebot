@@ -53,7 +53,7 @@ const Readline = SerialPort.parsers.Readline;
 const feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
 feedback.on('data', function(data) {
 	Flux.next('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
-	Flux.next('service|max|parse', data.trim());
+	Flux.next('service|max|parse', data.trim(), { hidden: true });
 });
 
 arduino.on('close', function(data) {

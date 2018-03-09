@@ -67,6 +67,11 @@ function playOneMelody() {
 	Flux.next('interface|arduino|write', 'playOneMelody');
 }
 
+function playRdmMelody() {
+	log.info('playRdmMelody');
+	Flux.next('interface|arduino|write', 'playRdmMelody');
+}
+
 function turnNose() {
 	log.info('turnNose');
 	Flux.next('interface|arduino|write', 'turnNose');
@@ -79,27 +84,27 @@ function hornRdm() {
 }
 
 function parseDataFromMax(data) {
-	if (typeof data == 'string' && data.indexOf('...') == -1) {
-		data.substring(0, data.length - 3);
-		log.info('Max data:', data);
-	}
-	console.log('----', data);
+	log.info('Max data:', data);
+	data = String(data);
+	// if (data.indexOf('...') == -1) {
+	// 	data.substring(0, data.length - 3);
+	// }
 	switch (data) {
 		case 'some random action from Max':
 			if (Odi.isAwake()) Flux.next('interface|tts|speak', 'Oh, il se passe un truc du coter de chez Max!');
 			break;
-		case 'blinkLed':
+		case 'blinkLed_end':
 			if (Odi.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'blink led' });
 			break;
-		case 'playOneMelodyEnd':
-		case 'playRandomMelodyEnd':
+		case 'playOneMelody_end':
+		case 'playRandomMelody_end':
 			let maxCallbackTTS = Utils.randomItem(Odi.ttsMessages.maxCallback);
 			Flux.next('interface|tts|speak', maxCallbackTTS);
 			break;
-		case 'turnEnd':
+		case 'turn_end':
 			if (Odi.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'turn' });
 			break;
-		case 'playRdmHornEnd':
+		case 'playRdmHorn_end':
 			if (Utils.rdm()) {
 				Flux.next('interface|tts|speak', 'eh ho, sa suffit!');
 			} else {
