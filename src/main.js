@@ -67,7 +67,7 @@ console.log('process.version:', process.version);
 
 if (Odi.isAwake() && !Odi.run('alarm')) {
 	// Flux.next('interface|arduino|write', 'Blink-1-2-3', { delay: 3 });
-	Flux.next('service|max|playOneMelody', null, { delay: 13, loop: 10 });
+	// Flux.next('service|max|playOneMelody', null, { delay: 13, loop: 2 });
 }
 
 // Flux.next('interface|arduino|write', 'playRdmHorn', 90, 5);

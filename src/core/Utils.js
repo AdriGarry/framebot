@@ -235,7 +235,7 @@ function randomItem(array) {
 	// log.DEBUG(array);
 	var length = array.length;
 	var randomIndex = random(length - 1);
-	// log.DEBUG(randomIndex);
+	log.DEBUG('----------randomIndex', randomIndex);
 	return array[randomIndex];
 }
 

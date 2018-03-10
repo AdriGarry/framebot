@@ -28,7 +28,7 @@ Flux.interface.arduino.subscribe({
 connect();
 
 // Utils.keep(connect, [1, 2, 3]);
-Flux.next('interface|arduino|connect', null, { delay: 20, loop: 1 });
+// Flux.next('interface|arduino|connect', null, { delay: 20, loop: 1 });
 
 function connect() {
 	arduino = new SerialPort(ARDUINO_ADDR, function(err) {
@@ -75,7 +75,6 @@ arduino.on('close', function(data) {
 	data = data.toString();
 	if (data.indexOf('bad file descriptor') >= 0) {
 		Odi.error('Max is disconnected', data, false);
-		Odi.run('max', null);
 		Flux.next('interface|tts|speak', { lg: 'en', msg: "I've just lost my connexion with Max!" });
 	}
 	Odi.run('max', false);

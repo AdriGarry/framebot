@@ -53,7 +53,7 @@ const RANDOM_ACTIONS = [
 	{ id: 'interface|hardware|soulTTS', weight: 3 },
 	{ id: 'service|time|OdiAge', weight: 1 },
 	{ id: 'service|max|blinkAllLed', weight: 2 },
-	{ id: 'service|max|playOneMelody', weight: 155 },
+	{ id: 'service|max|playOneMelody', weight: 15 },
 	{ id: 'service|max|hornRdm', weight: 13 }
 ];
 /** Building randomActionList from RANDOM_ACTIONS */

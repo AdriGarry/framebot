@@ -81,6 +81,7 @@ function turnNose() {
 
 function hornRdm() {
 	let horn = Utils.randomItem(HORNS);
+	console.log('Utils.randomItem(HORNS)', horn);
 	log.debug('hornRdm', horn);
 	Flux.next('interface|arduino|write', horn);
 }
@@ -96,7 +97,7 @@ function parseDataFromMax(data) {
 			if (Odi.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'blink led' });
 			break;
 		case 'playOneMelody_end':
-		case 'playRandomMelody_end':
+		case 'playRdmMelody_end':
 			let maxCallbackTTS = Utils.randomItem(Odi.ttsMessages.maxCallback);
 			Flux.next('interface|tts|speak', maxCallbackTTS);
 			break;
