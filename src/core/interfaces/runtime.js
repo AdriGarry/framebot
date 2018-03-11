@@ -39,9 +39,9 @@ function updateConf(newConf, restart) {
 
 /** Function to reset Odi (/tmp/ directory) */
 function resetOdi(restart) {
-	log.INFO('reset conf', restart ? 'and restart' : '');
 	Flux.next('interface|sound|reset');
 	Utils.deleteFolderRecursive(Odi._TMP);
+	log.INFO('reset conf', restart ? 'and restart' : '');
 	if (restart) {
 		process.exit();
 	}
