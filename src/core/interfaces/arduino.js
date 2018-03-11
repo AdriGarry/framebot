@@ -51,6 +51,7 @@ function connect() {
 }
 
 function disconnect() {
+	//https://stackoverflow.com/questions/22395164/unable-to-close-serial-port-in-nodejs
 	log.info('Max serial channel disconnect!');
 	arduino.close();
 	Odi.run('max', false);

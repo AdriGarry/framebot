@@ -42,7 +42,7 @@ function initButton() {
 			Flux.next('controller|button|blue', pushTime); // already done in the handler
 		else
 			// else log.info('Blue button pushed not enough:', pushTime);
-			log.info('Blue button must be pushed for ' + DEBOUNCE_LIMIT + 's at least, try again !');
+			log.info('Button must be pushed for ' + DEBOUNCE_LIMIT + 's at least, try again!');
 	});
 
 	/** Interval for switch state + random actions */
