@@ -608,8 +608,8 @@ app.component('arduino', {
 		var tileParams = {
 			label: 'Arduino',
 			actionList: [
-				{ label: 'Sleep', icon: 'fas fa-stop', url: '/arduinoSleep' },
-				{ label: 'Go', icon: 'fas fa-play', url: '/arduino' }
+				{ label: 'Sleep', icon: 'far fa-stop-circle', url: '/arduino/stop' },
+				{ label: 'Connect', icon: 'fas fa-exchange-alt', url: '/arduino/connect' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

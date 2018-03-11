@@ -16,6 +16,8 @@ Flux.interface.arduino.subscribe({
 			connect();
 		} else if (flux.id == 'write') {
 			write(flux.value);
+		} else if (flux.id == 'stop') {
+			disconnect(flux.value);
 		} else {
 			Odi.error('unmapped flux in Arduino interface', flux, false);
 		}
@@ -46,6 +48,12 @@ function connect() {
 			// 	Flux.next('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
 		}
 	});
+}
+
+function disconnect() {
+	log.info('Max serial channel disconnect!');
+	arduino.close();
+	Odi.run('max', false);
 }
 
 /** Function to send message to arduino */

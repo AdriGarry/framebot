@@ -5,7 +5,7 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 var Utils = require(Odi._CORE + 'Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
-const BTN_PUSH_MIN = 0.5;
+// const BTN_PUSH_MIN = 0.5;
 
 Flux.controller.button.subscribe({
 	next: flux => {
@@ -45,15 +45,15 @@ function buttonHandler(flux) {
 		} else if (flux.id == 'white') {
 			Flux.next('service|time|timer', Math.round(flux.value));
 		} else if (flux.id == 'blue') {
-			if (flux.value > BTN_PUSH_MIN) {
-				if (Odi.run('etat')) {
-					Flux.next('service|music|fip');
-				} else {
-					Flux.next('service|music|jukebox');
-				}
+			// if (flux.value > BTN_PUSH_MIN) {
+			if (Odi.run('etat')) {
+				Flux.next('service|music|fip');
 			} else {
-				log.info('Blue button must be pushed for ' + BTN_PUSH_MIN + 's at least, try again !');
+				Flux.next('service|music|jukebox');
 			}
+			// } else {
+			// 	log.info('Blue button must be pushed for ' + BTN_PUSH_MIN + 's at least, try again !');
+			// }
 		} else Odi.error('Button->else', flux);
 	} else {
 		if (flux.id == 'ok') {

@@ -76,6 +76,7 @@ function startUIServer(mode) {
 	var logger = function(req, res, next) {
 		res.header('Access-Control-Allow-Origin', 'http://adrigarry.com');
 
+		Flux.next('service|max|blinkAllLed');
 		Flux.next('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
 
 		if (!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('interface|sound|UI', null, { hidden: true });
@@ -476,6 +477,18 @@ function startUIServer(mode) {
 			res.end();
 		});
 
+		ui.post('/arduino/connect', function(req, res) {
+			Flux.next('interface|arduino|connect');
+			res.writeHead(200);
+			res.end();
+		});
+
+		ui.post('/arduino/stop', function(req, res) {
+			Flux.next('interface|arduino|stop');
+			res.writeHead(200);
+			res.end();
+		});
+
 		ui.post('/max/blinkAllLed', function(req, res) {
 			Flux.next('service|max|blinkAllLed');
 			res.writeHead(200);
@@ -505,12 +518,6 @@ function startUIServer(mode) {
 			res.writeHead(200);
 			res.end();
 		});
-
-		// ui.post('/arduinoSleep', function(req, res) {
-		// 	Flux.next('interface|arduino|sleep');
-		// 	res.writeHead(200);
-		// 	res.end();
-		// });
 
 		ui.post('/videoOff', function(req, res) {
 			Flux.next('interface|video|screenOff');

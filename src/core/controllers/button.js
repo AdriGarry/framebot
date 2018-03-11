@@ -46,8 +46,12 @@ function initButtonReady() {
 
 	blue.watch(function(err, value) {
 		var pushTime = getPushTime(blue);
-		if (pushTime > DEBOUNCE_LIMIT) Flux.next('controller|button|blue', pushTime);
-		else log.info('Blue button pushed not enough:', pushTime);
+		// Flux.next('controller|button|blue', pushTime);
+		if (pushTime > DEBOUNCE_LIMIT)
+			Flux.next('controller|button|blue', pushTime); // already done in the handler
+		else
+			// else log.info('Blue button pushed not enough:', pushTime);
+			log.info('Blue button must be pushed for ' + DEBOUNCE_LIMIT + 's at least, try again !');
 	});
 
 	/** Interval for switch state + random actions */
@@ -98,16 +102,16 @@ function initButtonSleep() {
 	});
 }
 
-var pushTime, pushedTime;
+// var pushTime, pushedTime;
 function getPushTime(button) {
-	pushedTime = new Date();
+	let pushedTime = new Date();
 	while (button.readSync() == 1) {
 		var t = Math.round((new Date() - pushedTime) / 100) / 10;
 		if (t % 1 == 0) belly.write(0);
 		else belly.write(1);
 	}
 	belly.write(0);
-	pushTime = Math.round((new Date() - pushedTime) / 100) / 10;
+	let pushTime = Math.round((new Date() - pushedTime) / 100) / 10;
 	log.info(button.name + ' button pressed for ' + pushTime + ' sec...');
 	return pushTime;
 }
