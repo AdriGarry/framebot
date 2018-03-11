@@ -52,10 +52,9 @@ function reboot() {
 		Flux.next('interface|tts|speak', { msg: 'Je redaimarre' });
 		Flux.next('interface|arduino|write', 'playHornOff', { delay: 2 });
 	}
-	console.log('_/!\\__REBOOTING RASPBERRY PI !!');
+	console.log('\n\n_/!\\__REBOOTING RASPBERRY PI !!\n');
 	setTimeout(function() {
-		spawn('sh', [Odi._SHELL + 'power.sh', 'reboot']); // TODO supprimer le shell?
-		// sudo reboot
+		spawn('reboot');
 	}, 2000);
 }
 
@@ -67,8 +66,7 @@ function shutdown() {
 		Flux.next('interface|arduino|write', 'playHornOff', { delay: 2 });
 	}
 	setTimeout(function() {
-		console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!");
-		spawn('sh', [Odi._SHELL + 'power.sh']); // TODO supprimer le shell?
-		// sudo halt
+		console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!\n");
+		spawn('halt');
 	}, 2000);
 }
