@@ -571,6 +571,30 @@ app.component('videos', {
 	}
 });
 
+/** Max component */
+app.component('max', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Max',
+			actionList: [
+				{ label: 'All Led', icon: 'far fa-sun', url: '/max/blinkAllLed' },
+				{ label: 'Melody', icon: 'fas fa-music', url: '/max/playOneMelody' },
+				{ label: 'RDM Melody', icon: 'fas fa-exchange-alt', url: '/max/playRdmMelody' },
+				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/max/hornRdm' },
+				{ label: 'Turn', icon: 'fas fa-sync', url: '/max/turn' }
+			]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+	}
+});
+
 /** Arduino component */
 app.component('arduino', {
 	bindings: {
@@ -584,13 +608,8 @@ app.component('arduino', {
 		var tileParams = {
 			label: 'Arduino',
 			actionList: [
-				// { label: 'Sleep', icon: 'fas fa-stop', url: '/arduinoSleep' },
-				// { label: 'Go', icon: 'fas fa-play', url: '/arduino' }
-				{ label: 'All Led', icon: 'far fa-sun', url: '/max/blinkAllLed' },
-				{ label: 'Melody', icon: 'fas fa-music', url: '/max/playOneMelody' },
-				{ label: 'RDM Melody', icon: 'fas fa-exchange-alt', url: '/max/playRdmMelody' },
-				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/max/hornRdm' },
-				{ label: 'Turn', icon: 'fas fa-sync', url: '/max/turn' }
+				{ label: 'Sleep', icon: 'fas fa-stop', url: '/arduinoSleep' },
+				{ label: 'Go', icon: 'fas fa-play', url: '/arduino' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
