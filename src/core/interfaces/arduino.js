@@ -42,8 +42,8 @@ function connect() {
 		} else {
 			log.info('communication serie with arduino opened');
 			Odi.run('max', true);
-			if (Odi.isAwake() && !Odi.run('alarm') && Odi.run('etat') == 'high')
-				Flux.next('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
+			// if (Odi.isAwake() && !Odi.run('alarm') && Odi.run('etat') == 'high')
+			// 	Flux.next('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
 		}
 	});
 }
@@ -78,8 +78,8 @@ arduino.on('close', function(data) {
 		Flux.next('interface|tts|speak', { lg: 'en', msg: "I've just lost my connexion with Max!" });
 	}
 	Odi.run('max', false);
-	setTimeout(() => {
-		log.info('Trying to connect to Max...');
-		connect();
-	}, 5000);
+	// setTimeout(() => {
+	// 	log.info('Trying to connect to Max...');
+	// 	connect();
+	// }, 5000);
 });

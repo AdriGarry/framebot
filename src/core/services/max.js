@@ -27,7 +27,9 @@ Flux.service.max.subscribe({
 	}
 });
 
-blinkAllLed();
+//blinkAllLed();
+Flux.next('interface|arduino|write', 'hi', { delay: 3 });
+Flux.next('service|max|blinkAllLed', null, { delay: 6 });
 
 // playRdmHorn
 // playHornWarning();
@@ -81,7 +83,7 @@ function turnNose() {
 
 function hornRdm() {
 	let horn = Utils.randomItem(HORNS);
-	console.log('Utils.randomItem(HORNS)', horn);
+	// log.debug('Utils.randomItem(HORNS)', horn);
 	log.debug('hornRdm', horn);
 	Flux.next('interface|arduino|write', horn);
 }
@@ -90,8 +92,13 @@ function parseDataFromMax(data) {
 	log.info('Max data:', data);
 	data = String(data).trim();
 	switch (data) {
-		case data.indexOf('_end') > -1:
-			log.INFO('°°°°°°°°°°°°°°°°°°');
+		case 'hi_end':
+			if (Utils.rdm()) {
+				Flux.next('interface|tts|speak', { lg: 'en', msg: 'Hi Max!' });
+			} else {
+				Flux.next('interface|tts|speak', { lg: 'en', msg: 'Hey Max!' });
+			}
+			break;
 		case 'some random action from Max':
 			if (Odi.isAwake()) Flux.next('interface|tts|speak', 'Oh, il se passe un truc du coter de chez Max!');
 			break;
@@ -105,7 +112,6 @@ function parseDataFromMax(data) {
 		case 'turnNose_end':
 			if (Odi.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'turn' });
 			break;
-		// case data.indexOf('Horn') > -1:
 		case 'playRdmHorn_end':
 		case 'playHornDoUp_end':
 		case 'playHorn_end':

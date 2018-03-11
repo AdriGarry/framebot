@@ -476,6 +476,12 @@ function startUIServer(mode) {
 			res.end();
 		});
 
+		ui.post('/max/blinkAllLed', function(req, res) {
+			Flux.next('service|max|blinkAllLed');
+			res.writeHead(200);
+			res.end();
+		});
+
 		ui.post('/max/playOneMelody', function(req, res) {
 			Flux.next('service|max|playOneMelody');
 			res.writeHead(200);

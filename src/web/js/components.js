@@ -586,6 +586,7 @@ app.component('arduino', {
 			actionList: [
 				// { label: 'Sleep', icon: 'fas fa-stop', url: '/arduinoSleep' },
 				// { label: 'Go', icon: 'fas fa-play', url: '/arduino' }
+				{ label: 'All Led', icon: 'far fa-sun', url: '/max/blinkAllLed' },
 				{ label: 'Melody', icon: 'fas fa-music', url: '/max/playOneMelody' },
 				{ label: 'RDM Melody', icon: 'fas fa-exchange-alt', url: '/max/playRdmMelody' },
 				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/max/hornRdm' },
