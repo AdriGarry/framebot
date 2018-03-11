@@ -35,6 +35,7 @@ var Odi = {
 	run: new Lock(_runtime),
 	error: error,
 	errors: [],
+	gpio: require(ODI_PATH + 'data/gpio.json'),
 	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
 	_SRC: ODI_PATH + 'src/',
 	_CORE: ODI_PATH + 'src/core/',

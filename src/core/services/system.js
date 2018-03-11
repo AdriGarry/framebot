@@ -30,6 +30,11 @@ Flux.service.system.subscribe({
 /** Function to restart/sleep Odi's core */
 function restartOdi(mode) {
 	log.info('restarting Odi...', mode || '');
+	if (Odi.run('timer')) {
+		let timerRemaining = 'Minuterie ' + Odi.run('timer') + 'secondes';
+		Flux.next('interface|tts|speak', timerRemaining);
+		log.INFO(timerRemaining);
+	}
 	Flux.next('interface|runtime|updateRestart', { mode: mode || 'ready' });
 }
 

@@ -4,48 +4,39 @@
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Utils = require(Odi._CORE + 'Utils.js');
-
-var Gpio = require('onoff').Gpio;
-var belly = new Gpio(17, 'out');
-// belly.write(1);
-// TODO => créer une boucle pour les construire dynamiquement !
-var ok = new Gpio(20, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
-var cancel = new Gpio(16, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
-var white = new Gpio(19, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
-var blue = new Gpio(26, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
-var etat = new Gpio(13, 'in', 'both', { persistentWatch: true, debounceTimeout: 500 });
-ok.name = 'Ok';
-cancel.name = 'Cancel';
-white.name = 'White';
-blue.name = 'Blue';
-
 var Flux = require(Odi._CORE + 'Flux.js');
 
+var Gpio = require('onoff').Gpio;
+var belly = new Gpio(17, 'out'); // TODO...
 const DEBOUNCE_LIMIT = 0.4;
-// if(Odi.conf('mode') == 'sleep') initButtonSleep();
-// else initButtonReady();
-initButtonReady();
+var Button = {};
 
-function initButtonReady() {
-	ok.watch(function(err, value) {
-		var pushTime = getPushTime(ok);
+Odi.gpio.buttons.forEach(button => {
+	Button[button.id] = new Gpio(button.pin, button.direction, button.edge, button.options);
+});
+
+initButton();
+
+function initButton() {
+	Button.ok.watch(function(err, value) {
+		var pushTime = getPushTime(Button.ok);
 		//oneMorePush();
 		Flux.next('controller|button|ok', pushTime);
 	});
 
-	cancel.watch(function(err, value) {
+	Button.cancel.watch(function(err, value) {
 		Flux.next('interface|sound|mute');
-		var pushTime = getPushTime(cancel);
+		var pushTime = getPushTime(Button.cancel);
 		Flux.next('controller|button|cancel', pushTime);
 	});
 
-	white.watch(function(err, value) {
-		var pushTime = getPushTime(white);
+	Button.white.watch(function(err, value) {
+		var pushTime = getPushTime(Button.white);
 		Flux.next('controller|button|white', pushTime);
 	});
 
-	blue.watch(function(err, value) {
-		var pushTime = getPushTime(blue);
+	Button.blue.watch(function(err, value) {
+		var pushTime = getPushTime(Button.blue);
 		// Flux.next('controller|button|blue', pushTime);
 		if (pushTime > DEBOUNCE_LIMIT)
 			Flux.next('controller|button|blue', pushTime); // already done in the handler
@@ -60,7 +51,7 @@ function initButtonReady() {
 	const INTERVAL_DELAY = (Odi.conf('watcher') ? 60 : 5 * 60) * 1000; //3 * 60 * 1000;
 	setInterval(function() {
 		// A deplacer dans flux.next('interface|runtime|refresh')) ?
-		let value = etat.readSync();
+		let value = Button.etat.readSync();
 		//TODO faire un truc avec ce flux => move to jobsList.json?
 		Flux.next('interface|led|toggle', { leds: ['satellite'], value: value }, { hidden: true });
 
@@ -80,8 +71,8 @@ function initButtonReady() {
 	}, 2000);
 
 	/** Switch watch for radio volume */
-	etat.watch(function(err, value) {
-		value = etat.readSync();
+	Button.etat.watch(function(err, value) {
+		value = Button.etat.readSync();
 		log.INFO('..btn', value);
 		Odi.run('etat', value ? 'high' : 'low');
 		Odi.run('volume', Odi.isAwake() ? (value ? 400 : -400) : 'mute');
