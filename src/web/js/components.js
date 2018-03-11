@@ -164,7 +164,7 @@ app.component('runtime', {
 			actionList: [
 				{ label: 'Errors', icon: 'fas fa-exclamation-triangle', url: 'http://odi.adrigarry.com/errors' },
 				{ label: 'Config', icon: 'fab fa-whmcs', url: 'http://odi.adrigarry.com/config.json' },
-				{ label: 'Runtime', icon: 'fab fa-codepen', url: 'http://odi.adrigarry.com/runtime' }
+				{ label: 'Runtime', icon: 'fab fa-react', url: 'http://odi.adrigarry.com/runtime' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

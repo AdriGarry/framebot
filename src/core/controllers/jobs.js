@@ -8,7 +8,7 @@ var CronJob = require('cron').CronJob;
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
-const JOBS = require(Odi._DATA + 'jobsLibrary.json');
+const JOBS = require(Odi._DATA + 'jobsList.json');
 
 function scheduleJob(job) {
 	let jobLog = '';
@@ -32,8 +32,20 @@ function scheduleJob(job) {
 	log.debug('new job: [' + job.cron + '] ' + jobLog);
 }
 
+const EVAL_REGEX = new RegExp(/^eval:(\w+.\w+.\w+.)/);
+//eval:Odi.run.etat // ^eval:\w+.\w+.\w+.
 function scheduleJobs(jobsList, jobsType) {
 	jobsList.forEach(job => {
+		// if (typeof job.data == 'string') {
+		// 	let temp = EVAL_REGEX.match(job.data);
+		// if (temp) {
+		// log.INFO('====> EVALUATE JOBS DATA...');
+		let toto = job.data && findByVal(job.data, EVAL_REGEX);
+		if (toto) {
+			log.INFO('.... ok on peut parser cette valeur:', toto);
+		}
+		// 	}
+		// }
 		scheduleJob(job);
 	});
 	log.info(jobsType + ' jobs initialised');
@@ -41,5 +53,43 @@ function scheduleJobs(jobsList, jobsType) {
 
 scheduleJobs(JOBS.system, 'System');
 if (Odi.isAwake()) {
+	scheduleJobs(JOBS.cycle, 'Cycle');
 	scheduleJobs(JOBS.interactive, 'Interactive');
+}
+
+function findByKey(object, key) {
+	// TODO move to Utils.js
+	let value = false;
+	Object.keys(object).some(function(k) {
+		if (k == key) {
+			return object[k];
+		} else if (key.constructor == RegExp) {
+			if (key.test(k)) {
+				return object[k];
+			}
+		}
+		if (object[k] && typeof object[k] === 'object') {
+			return undefined !== findByKey(object[k], key);
+		}
+	});
+	return value;
+}
+
+function findByVal(object, val) {
+	// TODO move to Utils.js
+	console.log(val);
+	let value = false;
+	Object.keys(object).some(function(k) {
+		if (object[k] == val) {
+			return object[k];
+		} else if (val.constructor == RegExp) {
+			if (val.test(object[k])) {
+				return object[k];
+			}
+		}
+		if (object[k] && typeof object[k] === 'object') {
+			return undefined !== findByVal(object[k], key);
+		}
+	});
+	return value;
 }

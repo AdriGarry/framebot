@@ -57,7 +57,7 @@ function initButtonReady() {
 	setInterval(function() {
 		// A deplacer dans flux.next('interface|runtime|refresh')) ?
 		let value = etat.readSync();
-		//TODO faire un truc avec ce flux
+		//TODO faire un truc avec ce flux => move to jobsList.json?
 		Flux.next('interface|led|toggle', { leds: ['satellite'], value: value }, { hidden: true });
 
 		if (1 === value) {

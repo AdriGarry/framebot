@@ -9,6 +9,20 @@
 			"flux": { "id": "service|time|isAlarm", "conf": { "hidden": true } }
 		},
 		{
+			"cron": "*/2 * * * * *",
+			"flux": {
+				"id": "interface|led|toggle",
+				"data": { "leds": ["satellite"], "value": "eval:Odi.run.etat" },
+				"conf": { "hidden": true }
+			}
+		},
+		{
+			"cron": "0 2 0 * * 1",
+			"flux": { "id": "interface|hardware|archiveLog" }
+		}
+	],
+	"cycle": [
+		{
 			"cron": "5 0 0 * * 1-5",
 			"flux": { "id": "service|system|goToSleep" }
 		},
@@ -36,10 +50,6 @@
 				{ "id": "interface|tts|speak", "data": { "lg": "en", "msg": "Auto reboot" } },
 				{ "id": "service|system|reboot", "conf": { "delay": 3 } }
 			]
-		},
-		{
-			"cron": "0 2 0 * * 1",
-			"flux": { "id": "interface|hardware|archiveLog" }
 		}
 	],
 	"interactive": [

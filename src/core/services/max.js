@@ -101,7 +101,7 @@ function parseDataFromMax(data) {
 			let maxCallbackTTS = Utils.randomItem(Odi.ttsMessages.maxCallback);
 			Flux.next('interface|tts|speak', maxCallbackTTS);
 			break;
-		case 'turn_end':
+		case 'turnNose_end':
 			if (Odi.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'turn' });
 			break;
 		case 'playRdmHorn_end':
