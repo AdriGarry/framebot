@@ -21,7 +21,7 @@ blue.name = 'Blue';
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
-const DEBOUNCE_LIMIT = 0.1;
+const DEBOUNCE_LIMIT = 0.4;
 // if(Odi.conf('mode') == 'sleep') initButtonSleep();
 // else initButtonReady();
 initButtonReady();
