@@ -29,7 +29,6 @@ Flux.interface.arduino.subscribe({
 
 connect();
 
-// Utils.keep(connect, [1, 2, 3]);
 // Flux.next('interface|arduino|connect', null, { delay: 20, loop: 1 });
 
 function connect() {
