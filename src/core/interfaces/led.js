@@ -3,18 +3,15 @@
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-
 var Flux = require(Odi._CORE + 'Flux.js');
-
 var Gpio = require('onoff').Gpio;
 var CronJob = require('cron').CronJob;
 
-const odiLeds = {
-	eye: new Gpio(14, 'out'),
-	nose: new Gpio(15, 'out'),
-	belly: new Gpio(17, 'out'),
-	satellite: new Gpio(23, 'out')
-};
+var Led = {};
+
+Odi.gpio.leds.forEach(led => {
+	Led[led.id] = new Gpio(led.pin, led.direction);
+});
 
 Flux.interface.led.subscribe({
 	next: flux => {
@@ -50,7 +47,7 @@ function blink(config) {
 		if (config.hasOwnProperty('leds')) {
 			setTimeout(function() {
 				for (var led in config.leds) {
-					odiLeds[config.leds[led]].write(0);
+					Led[config.leds[led]].write(0);
 				}
 			}, config.speed * config.loop * 2 + 50);
 			for (loop = config.loop * 2; loop > 0; loop--) {
@@ -58,7 +55,7 @@ function blink(config) {
 					function(leds) {
 						for (var i in leds) {
 							var led = leds[i];
-							odiLeds[led].write(etat);
+							Led[led].write(etat);
 						}
 						etat = 1 - etat;
 					},
@@ -81,23 +78,21 @@ function toggle(config) {
 	// log.info('toogle:', config);
 	// if (['nose', 'eye', 'satellite', 'belly'].indexOf(config.led) > -1) {
 	for (var led in config.leds) {
-		odiLeds[config.leds[led]].write(config.value ? 1 : 0);
+		Led[config.leds[led]].write(config.value ? 1 : 0);
 	}
-	if (Object.keys(odiLeds).indexOf(config.led) > -1) {
-		odiLeds[config.led].write(config.mode ? 1 : 0);
+	if (Object.keys(Led).indexOf(config.led) > -1) {
+		Led[config.led].write(config.mode ? 1 : 0);
 	}
 }
 
 /** Function activity : program mode flag (ready/sleep/test) */
 (function activity(mode) {
-	//if(typeof mode === 'undefined') mode = 'awake';
-	//if(mode == 'ready') mode = 'awake';
 	log.info('Activity led initialised [' + mode + ']');
 	//mode = parseInt(mode, 10);
 	if (mode == 'sleep') mode = 0;
 	else mode = 1;
 	setInterval(function() {
-		odiLeds.nose.write(mode);
+		Led.nose.write(mode);
 	}, 900);
 
 	new CronJob( //TODO mettre dans jobs.json (une fois le mode trace défini)
@@ -118,14 +113,14 @@ function altLeds(args) {
 	clearInterval(timer);
 	let etat = 1;
 	timer = setInterval(function() {
-		odiLeds.eye.write(etat);
+		Led.eye.write(etat);
 		etat = 1 - etat;
-		odiLeds.belly.write(etat);
+		Led.belly.write(etat);
 	}, args.speed);
 	setTimeout(function() {
 		clearInterval(timer);
-		odiLeds.eye.write(0);
-		odiLeds.belly.write(0);
+		Led.eye.write(0);
+		Led.belly.write(0);
 	}, args.duration * 1000);
 }
 
@@ -136,18 +131,18 @@ function clearLeds() {
 
 /** Function to switch on all leds */
 function allLedsOn() {
-	odiLeds.eye.write(1);
-	odiLeds.belly.write(1);
-	odiLeds.satellite.write(1);
-	odiLeds.nose.write(1); // EXCEPT ACTIVITY LED ??
+	Led.eye.write(1);
+	Led.belly.write(1);
+	Led.satellite.write(1);
+	Led.nose.write(1); // EXCEPT ACTIVITY LED ??
 }
 
 /** Function to swith off all leds */
 function allLedsOff() {
-	odiLeds.eye.write(0);
-	odiLeds.belly.write(0);
-	odiLeds.satellite.write(0);
-	odiLeds.nose.write(0); // EXCEPT ACTIVITY LED ??
+	Led.eye.write(0);
+	Led.belly.write(0);
+	Led.satellite.write(0);
+	Led.nose.write(0); // EXCEPT ACTIVITY LED ??
 }
 
 /** Params detection for direct call */
