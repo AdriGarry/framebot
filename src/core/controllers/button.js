@@ -6,12 +6,9 @@ var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Utils = require(Odi._CORE + 'Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
 
-const DEBOUNCE_LIMIT = 0.4;
-
 var Gpio = require('onoff').Gpio;
-var belly = new Gpio(17, 'out'); // TODO useless?
-// belly.write(1);
-
+var belly = new Gpio(17, 'out'); // TODO...
+const DEBOUNCE_LIMIT = 0.4;
 var Button = {};
 
 Odi.gpio.buttons.forEach(button => {
