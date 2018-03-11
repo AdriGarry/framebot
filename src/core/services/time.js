@@ -13,7 +13,7 @@ Flux.service.time.subscribe({
 			now();
 		} else if (flux.id == 'today') {
 			today();
-		} else if (flux.id == 'cocorico') {
+			// } else if (flux.id == 'cocorico') {
 			// cocorico(flux.value);
 		} else if (flux.id == 'setAlarm') {
 			setAlarm(flux.value);
