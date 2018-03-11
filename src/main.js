@@ -70,6 +70,14 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 	// Flux.next('service|max|playOneMelody', null, { delay: 13, loop: 2 });
 }
 
+// var arr = ['aaa', 'bbb'];
+// console.log('---->');
+
+// for (var i = 0; i < 13; i++) {
+// 	console.log(Utils.randomItem(arr));
+// 	// console.log(Utils.random(2));
+// }
+
 // Flux.next('interface|arduino|write', 'playRdmHorn', 90, 5);
 // Odi.next('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
 // Odi.do('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);

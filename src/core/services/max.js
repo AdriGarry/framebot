@@ -90,6 +90,8 @@ function parseDataFromMax(data) {
 	log.info('Max data:', data);
 	data = String(data).trim();
 	switch (data) {
+		case data.indexOf('_end') > -1:
+			log.INFO('°°°°°°°°°°°°°°°°°°');
 		case 'some random action from Max':
 			if (Odi.isAwake()) Flux.next('interface|tts|speak', 'Oh, il se passe un truc du coter de chez Max!');
 			break;
@@ -98,21 +100,40 @@ function parseDataFromMax(data) {
 			break;
 		case 'playOneMelody_end':
 		case 'playRdmMelody_end':
-			let maxCallbackTTS = Utils.randomItem(Odi.ttsMessages.maxCallback);
-			Flux.next('interface|tts|speak', maxCallbackTTS);
+			maxCallbackTTS();
 			break;
 		case 'turnNose_end':
 			if (Odi.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'turn' });
 			break;
+		// case data.indexOf('Horn') > -1:
 		case 'playRdmHorn_end':
+		case 'playHornDoUp_end':
+		case 'playHorn_end':
+		case 'playHornOff_end':
+		case 'playHornFire_end':
+		case 'playHornWhistle_end':
+		case 'playHornSiren_end':
+		case 'playHornDown_end':
 			if (Utils.rdm()) {
 				Flux.next('interface|tts|speak', 'eh ho, sa suffit!');
 			} else {
 				Flux.next('interface|tts|speak', 'doucement avec ton tweeter!');
 			}
 			break;
+		case 'playHornOvni_end':
+			Flux.next('interface|tts|speak', 'Contact extra terrestre !');
+			break;
+		case 'playHornWarning_end':
+		case 'playHornBombing_end':
+			Flux.next('interface|tts|speak', 'A couvert !');
+			break;
 		default:
 			log.debug('unmapped Max data:', data);
 			break;
 	}
+}
+
+function maxCallbackTTS() {
+	let maxCallbackTTS = Utils.randomItem(Odi.ttsMessages.maxCallback);
+	Flux.next('interface|tts|speak', maxCallbackTTS);
 }

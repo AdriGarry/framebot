@@ -226,7 +226,7 @@ function random(arg1, arg2) {
 		max = arg2;
 	} else {
 		min = 0;
-		max = arg1 | 2;
+		max = arg1 || 2;
 	}
 	return Math.floor(Math.random() * (max - min) + min);
 }
@@ -234,7 +234,7 @@ function random(arg1, arg2) {
 function randomItem(array) {
 	// log.DEBUG(array);
 	var length = array.length;
-	var randomIndex = random(length - 1);
+	var randomIndex = random(length); //length - 1
 	// log.DEBUG('----------randomIndex', randomIndex);
 	return array[randomIndex];
 }
