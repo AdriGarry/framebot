@@ -83,7 +83,6 @@ function turnNose() {
 
 function hornRdm() {
 	let horn = Utils.randomItem(HORNS);
-	// log.debug('Utils.randomItem(HORNS)', horn);
 	log.debug('hornRdm', horn);
 	Flux.next('interface|arduino|write', horn);
 }
@@ -100,17 +99,12 @@ function maxCallbackAction(data) {
 	switch (data) {
 		case 'hi_end':
 			maxCallbackTTS([{ lg: 'en', msg: 'Hi Max!' }, { lg: 'en', msg: 'Hey Max!' }]);
-			// if (Utils.rdm()) {
-			// 	Flux.next('interface|tts|speak', { lg: 'en', msg: 'Hi Max!' });
-			// } else {
-			// 	Flux.next('interface|tts|speak', { lg: 'en', msg: 'Hey Max!' });
-			// }
 			break;
 		case 'some random action from Max':
 			maxCallbackTTS([
 				'Oh, il se passe un truc du coter de chez Max!',
 				'Max sensor',
-				{ lg: 'fr', msg: 'Max sensor fired' }
+				{ lg: 'en', msg: 'Max sensor fired' }
 			]);
 			break;
 		case 'blinkLed_end':
