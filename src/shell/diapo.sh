@@ -28,16 +28,29 @@ play1Video () {
 	#sleep $(( playTime - 1 ))
 }
 
-while true
-do
-	#echo operation: $(( 52 - 1 ))
-	rdm=$(shuf -i 0-4 -n 1 )
-	if [ $rdm -eq 0 ]
-	then
-		# echo AA
-		play1Video
-	else
-		# echo BB
-		display1Photo
-	fi
-done
+loopForever () {
+	echo "loopForever..."
+	while true
+	do
+		#echo operation: $(( 52 - 1 ))
+		rdm=$(shuf -i 0-4 -n 1 )
+		if [ $rdm -eq 0 ]
+		then
+			# echo AA
+			play1Video
+		else
+			# echo BB
+			display1Photo
+		fi
+	done
+}
+
+echo $1
+case $1 in
+	"display1Photo")
+		display1Photo ;;
+	"play1Video")
+		play1Video ;;
+	*)
+		loopForever ;;
+esac
