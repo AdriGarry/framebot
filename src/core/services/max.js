@@ -107,7 +107,11 @@ function maxCallbackAction(data) {
 			// }
 			break;
 		case 'some random action from Max':
-			if (Odi.isAwake()) Flux.next('interface|tts|speak', 'Oh, il se passe un truc du coter de chez Max!');
+			maxCallbackTTS([
+				'Oh, il se passe un truc du coter de chez Max!',
+				'Max sensor',
+				{ lg: 'fr', msg: 'Max sensor fired' }
+			]);
 			break;
 		case 'blinkLed_end':
 			if (Odi.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'blink led' });
@@ -123,16 +127,13 @@ function maxCallbackAction(data) {
 		case 'playHornDoUp_end':
 		case 'playHorn_end':
 		case 'playHornOff_end':
-		case 'playHornFire_end':
 		case 'playHornWhistle_end':
 		case 'playHornSiren_end':
 		case 'playHornDown_end':
 			maxCallbackTTS(['eh ho, sa suffit!', 'doucement avec ton tweeter!']);
-			// if (Utils.rdm()) {
-			// 	Flux.next('interface|tts|speak', 'eh ho, sa suffit!');
-			// } else {
-			// 	Flux.next('interface|tts|speak', 'doucement avec ton tweeter!');
-			// }
+			break;
+		case 'playHornFire_end':
+			maxCallbackTTS("Je crois qu'il y a le feu !");
 			break;
 		case 'playHornOvni_end':
 			Flux.next('interface|tts|speak', 'Contact extra terrestre !');
@@ -152,8 +153,8 @@ function maxCallbackTTS(arg) {
 	if (Array.isArray(arg)) {
 		maxCallbackTTS = Utils.randomItem(arg);
 		Flux.next('interface|tts|speak', maxCallbackTTS);
-		// } else if (typeof arg == 'string') {
-		// 	Flux.next('interface|tts|speak', arg);
+	} else if (typeof arg == 'string') {
+		Flux.next('interface|tts|speak', arg);
 	} else {
 		log.error('maxCallbackTTS: wrong arg [' + typeof arg + ']', arg);
 	}
