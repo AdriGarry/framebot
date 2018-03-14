@@ -7,7 +7,7 @@ var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(Odi._CORE + 'Utils.js');
 var SerialPort = require('serialport');
 
-const ARDUINO_ADDR = '/dev/ttyACM0';
+const ARDUINO = { address: '/dev/ttyACM0', baudRate: 115200 };
 var arduino;
 
 Flux.interface.arduino.subscribe({
@@ -28,11 +28,14 @@ Flux.interface.arduino.subscribe({
 });
 
 connect();
-
 // Flux.next('interface|arduino|connect', null, { delay: 20, loop: 1 });
 
+// process.on('unhandledRejection', error => {
+// 	Odi.error('unhandledRejection', error);
+// });
+
 function connect() {
-	arduino = new SerialPort(ARDUINO_ADDR, function(err) {
+	arduino = new SerialPort(ARDUINO.address, { baudRate: ARDUINO.baudRate }, function(err) {
 		if (err) {
 			Odi.error('Error opening arduino port: ', err.message, false);
 			// Scheduler to retry connect...?
@@ -46,6 +49,8 @@ function connect() {
 			// if (Odi.isAwake() && !Odi.run('alarm') && Odi.run('etat') == 'high')
 			// 	Flux.next('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
 		}
+		// log.INFO('-->');
+		// log.info(typeof arduino, arduino);
 	});
 }
 
@@ -74,6 +79,7 @@ function write(msg) {
 const Readline = SerialPort.parsers.Readline;
 var feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
 feedback.on('data', function(data) {
+	log.debug(data);
 	Flux.next('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
 	Flux.next('service|max|parse', data.trim(), { hidden: true });
 });

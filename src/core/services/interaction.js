@@ -150,8 +150,8 @@ function getWeatherData(callback) {
 					}
 				}
 			} catch (e) {
-				if (Odi.isAwake()) Flux.next('interface|tts|speak', { lg: 'en', msg: 'Weather error' });
 				Odi.error(e);
+				if (Odi.isAwake()) Flux.next('interface|tts|speak', { lg: 'en', msg: 'Weather error' });
 			}
 		}
 	);

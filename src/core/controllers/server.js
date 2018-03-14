@@ -76,7 +76,6 @@ function startUIServer(mode) {
 	var logger = function(req, res, next) {
 		res.header('Access-Control-Allow-Origin', 'http://adrigarry.com');
 
-		Flux.next('service|max|blinkAllLed');
 		Flux.next('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
 
 		if (!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('interface|sound|UI', null, { hidden: true });

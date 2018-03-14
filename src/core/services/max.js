@@ -92,7 +92,7 @@ function parseDataFromMax(data) {
 	log.info('Max data:', data);
 	data = String(data).trim();
 	// \n+.
-	callbackAction(data);
+	maxCallbackAction(data);
 }
 
 function maxCallbackAction(data) {
