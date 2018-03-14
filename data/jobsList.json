@@ -9,14 +9,6 @@
 			"flux": { "id": "service|time|isAlarm", "conf": { "hidden": true } }
 		},
 		{
-			"cron": "*/2 * * * * *",
-			"flux": {
-				"id": "interface|led|toggle",
-				"data": { "leds": ["satellite"], "value": "eval:Odi.run.etat" },
-				"conf": { "hidden": true }
-			}
-		},
-		{
 			"cron": "0 2 0 * * 1",
 			"flux": { "id": "interface|hardware|archiveLog" }
 		}
