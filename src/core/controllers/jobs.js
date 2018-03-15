@@ -8,7 +8,7 @@ var CronJob = require('cron').CronJob;
 
 var Flux = require(Odi._CORE + 'Flux.js');
 
-const JOBS = require(Odi._DATA + 'jobsList.json');
+const JOBS = require(Odi._DATA + 'jobList.json');
 
 function scheduleJob(job) {
 	let jobLog = '';

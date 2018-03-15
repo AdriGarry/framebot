@@ -12,6 +12,8 @@ const assert = require('assert');
 var Flux = require(Odi._CORE + 'Flux.js');
 
 module.exports.run = function(succeedTest) {
+	Flux.next('service|max|blinkAllLed', null, { delay: 2, loop: 50 });
+
 	assert.equal(Odi.run('timer'), 0);
 	Flux.next('service|time|timer');
 	setImmediate(() => {
@@ -19,6 +21,8 @@ module.exports.run = function(succeedTest) {
 	});
 
 	Flux.next('service|time|today');
+
+	Flux.next('service|max|playOneMelody');
 
 	// Flux.next('service|voicemail|new', {msg: 'are you there ?'}, 8);
 	// var rdmTTS = Odi.ttsMessages.randomTTS[Utils.random(Odi.ttsMessages.randomTTS.length)];
@@ -31,6 +35,8 @@ module.exports.run = function(succeedTest) {
 	Flux.next('service|voicemail|new', rdmTTS, { delay: 8 });
 	Flux.next('service|voicemail|check', null, { delay: 11 });
 	Flux.next('service|voicemail|clear', null, { delay: 15 });
+
+	Flux.next('service|max|hornRdm');
 
 	Flux.next('service|interaction|weather', 'random', { delay: 16 });
 

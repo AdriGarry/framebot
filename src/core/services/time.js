@@ -167,12 +167,16 @@ function cocoricoPart2(mode) {
 
 /** Function alarm part 3 */
 function cocoricoPart3() {
+	Flux.next('service|max|hornRdm');
 	Flux.next('service|time|now', null, { delay: 3 });
 	Flux.next('service|time|today', null, { delay: 5 });
 	Flux.next('service|interaction|weather', null, { delay: 8 });
 	Flux.next('service|voicemail|check', null, { delay: 13 });
 
 	Flux.next('service|music|fip', null, { delay: 45 });
+
+	Flux.next('service|max|playOneMelody', null, { delay: 8 * 60, loop: 8 });
+	Flux.next('service|max|hornRdm', null, { delay: 12 * 60, loop: 6 });
 
 	var baluchonTTS = "Je crois qu'il faut lancer l'opairation baluchon";
 	Flux.next('interface|tts|speak', baluchonTTS, { delay: Utils.random(15, 25) * 60, loop: 3 });

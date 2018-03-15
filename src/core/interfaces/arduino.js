@@ -44,7 +44,7 @@ function connect() {
 			}
 			Odi.run('max', false);
 		} else {
-			log.info('arduino serial channel opened');
+			log.INFO('arduino serial channel opened!');
 			Odi.run('max', true);
 			// if (Odi.isAwake() && !Odi.run('alarm') && Odi.run('etat') == 'high')
 			// 	Flux.next('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
@@ -56,8 +56,9 @@ function connect() {
 
 function disconnect() {
 	//https://stackoverflow.com/questions/22395164/unable-to-close-serial-port-in-nodejs
-	log.info('Max serial channel disconnect!');
-	arduino.close();
+	log.info('Max serial channel disconnection...', typeof arduino);
+	log.info(typeof arduino, arduino.constructor);
+	if (arduino) arduino.close();
 	Odi.run('max', false);
 }
 

@@ -97,6 +97,7 @@ function randomTTS() {
 const VOICE_LIST = ['google', 'espeak'];
 const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
 var playTTS = function(tts) {
+	Flux.next('service|max|blinkRdmLed');
 	// TEST IF INTERNET CONNEXION
 	if (!tts.hasOwnProperty('voice') || !VOICE_LIST.indexOf(tts.voice) == -1) {
 		// Random voice if undefined

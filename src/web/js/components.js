@@ -121,7 +121,7 @@ app.component('options', {
 			actionList: [
 				{ label: '!Trace', icon: 'fas fa-asterisk', url: '/toggleTrace' },
 				{ label: '!Debug', icon: 'fas fa-terminal', url: '/toggleDebug' },
-				{ label: 'Test cycle', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
+				{ label: 'Test', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
 				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' }
 			]
 		};
@@ -308,8 +308,8 @@ app.component('exclamation', {
 		var tileParams = {
 			label: 'Exclamation',
 			actionList: [
-				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/tts?msg=RANDOM' },
 				{ label: 'Exclamation', icon: 'fas fa-bullhorn', url: '/exclamation' },
+				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/tts?msg=RANDOM' },
 				{ label: 'Last TTS', icon: 'fas fa-undo', url: '/lastTTS' }
 			]
 		};
@@ -584,7 +584,8 @@ app.component('max', {
 		var tileParams = {
 			label: 'Max',
 			actionList: [
-				{ label: 'All Led', icon: 'far fa-sun', url: '/max/blinkAllLed' },
+				{ label: 'RDM Led', icon: 'far fa-sun', url: '/max/blinkRdmLed' },
+				{ label: 'All Led', icon: 'fas fa-sun', url: '/max/blinkAllLed' },
 				{ label: 'Melody', icon: 'fas fa-music', url: '/max/playOneMelody' },
 				{ label: 'RDM Melody', icon: 'fas fa-exchange-alt', url: '/max/playRdmMelody' },
 				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/max/hornRdm' },

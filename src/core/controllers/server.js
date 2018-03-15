@@ -494,6 +494,12 @@ function startUIServer(mode) {
 			res.end();
 		});
 
+		ui.post('/max/blinkRdmLed', function(req, res) {
+			Flux.next('service|max|blinkRdmLed');
+			res.writeHead(200);
+			res.end();
+		});
+
 		ui.post('/max/playOneMelody', function(req, res) {
 			Flux.next('service|max|playOneMelody');
 			res.writeHead(200);

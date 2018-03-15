@@ -12,6 +12,8 @@ Flux.service.max.subscribe({
 			parseDataFromMax(flux.value);
 		} else if (flux.id == 'blinkAllLed') {
 			blinkAllLed();
+		} else if (flux.id == 'blinkRdmLed') {
+			blinkRdmLed();
 		} else if (flux.id == 'playOneMelody') {
 			playOneMelody();
 		} else if (flux.id == 'playRdmMelody') {
@@ -64,6 +66,11 @@ const HORNS = [
 function blinkAllLed() {
 	log.debug('blinkAllLed');
 	Flux.next('interface|arduino|write', 'blinkAllLed');
+}
+
+function blinkRdmLed() {
+	log.debug('blinkRdmLed');
+	Flux.next('interface|arduino|write', 'blinkRdmLed');
 }
 
 function playOneMelody() {

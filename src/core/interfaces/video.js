@@ -45,6 +45,7 @@ function screenOff() {
 
 /** Function to launch a video cycle for 30 minutes */
 function startCycle() {
+	//https://www.npmjs.com/package/raspberrypi
 	spawn('sh', [Odi._SHELL + 'diapo.sh']);
 	log.info('Video cycle for one hour');
 	setTimeout(function() {
