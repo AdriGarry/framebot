@@ -44,5 +44,5 @@ module.exports.run = function(succeedTest) {
 		assert.equal(Odi.run('voicemail'), 0);
 		assert.equal(Odi.errors.length, 0);
 		succeedTest('serviceTest', true);
-	}, 50000);
+	}, 60000);
 };
