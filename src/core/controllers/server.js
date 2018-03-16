@@ -658,7 +658,7 @@ function startUIServer(mode) {
 		});
 
 		ui.post('/*', function(req, res) {
-			Odi.error('Odi not allowed to interact  -.-', null, false);
+			Odi.error('Sleep mode, not allowed to interact  -.-', null, false);
 			res.writeHead(401);
 			res.end();
 		});

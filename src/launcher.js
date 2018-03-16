@@ -71,27 +71,43 @@ function checkVoicemailValidity() {
 	}
 }
 
-var i = 0;
+var i = 0,
+	interval,
+	timeout,
+	okButton;
 function wrapper(code) {
 	console.log(launcherTitle);
 	if (!code) {
 		startOdi();
 		return;
 	}
-	timeout = INTERVALS[i];
+	let timeoutDelay = INTERVALS[i];
 	i++;
-	process.stdout.write('Error, wainting for ' + timeout + ' sec');
+	console.log('Error in Odi program!');
+	process.stdout.write('Push Ok button or wait for ' + timeoutDelay + ' sec');
 	if (i == INTERVALS.length) {
 		i = 0;
 	}
-	let interval = setInterval(() => {
+	interval = setInterval(() => {
 		process.stdout.write('.');
 	}, 1000);
-	setTimeout(() => {
-		clearInterval(interval);
-		process.stdout.write('\nand restart Odi\n');
-		startOdi(code);
-	}, timeout * 1000);
+	timeout = setTimeout(() => {
+		console.log('\nrestarting Odi');
+		restartOdiFromWrapper(code);
+	}, timeoutDelay * 1000);
+
+	okButton = new Gpio(20, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
+	okButton.watch(function(err, value) {
+		console.log('\nOk Button pushed, restarting Odi');
+		restartOdiFromWrapper(code);
+	});
+}
+
+function restartOdiFromWrapper(code) {
+	clearInterval(interval);
+	clearTimeout(timeout);
+	okButton.unwatch();
+	startOdi(code);
 }
 
 /** Function to start up Odi */
@@ -123,7 +139,7 @@ function startOdi(exitCode) {
 
 	odiCore.on('exit', function(code) {
 		spawn('sh', [SRC_PATH + 'shell/mute.sh']);
-		if (code && odiConf.mode != 'sleep') spawn('sh', [SRC_PATH + 'shell/sounds.sh', 'error']);
+		//if (code && odiConf.mode != 'sleep') spawn('sh', [SRC_PATH + 'shell/sounds.sh', 'error']);
 		console.log("\n>> Odi's CORE restarting... [code:" + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
 		argv.remove('reset'); // Removing reset param before relaunching
