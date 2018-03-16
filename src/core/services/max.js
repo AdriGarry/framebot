@@ -143,6 +143,11 @@ function maxCallbackAction(data) {
 		case 'playHornBombing_end':
 			Flux.next('interface|tts|speak', 'A couvert !');
 			break;
+		case 'Max initialization...':
+		case 'playMelody...':
+		case 'Max ready':
+			// escaping Max initialization
+			break;
 		default:
 			log.info('unmapped Max data:', data);
 			break;
