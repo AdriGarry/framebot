@@ -28,17 +28,12 @@ Flux.interface.arduino.subscribe({
 });
 
 connect();
-// Flux.next('interface|arduino|connect', null, { delay: 20, loop: 1 });
-
-// process.on('unhandledRejection', error => {
-// 	Odi.error('unhandledRejection', error);
-// });
 
 function connect() {
 	arduino = new SerialPort(ARDUINO.address, { baudRate: ARDUINO.baudRate }, function(err) {
 		if (err) {
 			Odi.error('Error opening arduino port: ', err.message, false);
-			// Scheduler to retry connect...?
+			// TODO Scheduler to retry connect...?
 			if (!Odi.run('alarm') && Odi.run('etat') == 'high') {
 				Flux.next('interface|tts|speak', { lg: 'en', msg: 'Max is not available' });
 			}
@@ -55,18 +50,15 @@ function connect() {
 }
 
 function disconnect() {
-	//https://stackoverflow.com/questions/22395164/unable-to-close-serial-port-in-nodejs
-	log.info('Max serial channel disconnection...', typeof arduino);
-	log.info(typeof arduino, arduino.constructor);
-	if (arduino) arduino.close();
-	Odi.run('max', false);
+	log.debug('Max serial channel disconnection...');
+	if (arduino instanceof SerialPort) arduino.close();
 }
 
 /** Function to send message to arduino */
 function write(msg) {
 	log.debug('write()', msg);
 	if (!Odi.run('max')) {
-		log.info('Max not available!');
+		log.INFO('Max not available!');
 		return;
 	}
 	arduino.write(msg + '\n', function(err, data) {
@@ -86,13 +78,13 @@ feedback.on('data', function(data) {
 });
 
 arduino.on('close', function(data) {
-	// Flux.next('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
-	data = data.toString();
+	data = String(data);
 	if (data.indexOf('bad file descriptor') >= 0) {
 		Odi.error('Max is disconnected', data, false);
 		Flux.next('interface|tts|speak', { lg: 'en', msg: "I've just lost my connexion with Max!" });
 	}
 	Odi.run('max', false);
+	log.INFO('Max serial channel disconnected!');
 	// setTimeout(() => {
 	// 	log.info('Trying to connect to Max...');
 	// 	connect();
