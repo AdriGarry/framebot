@@ -73,7 +73,7 @@ function initButton() {
 	/** Switch watch for radio volume */
 	Button.etat.watch(function(err, value) {
 		value = Button.etat.readSync();
-		log.INFO('..btn', value);
+		log.INFO('..btn', value);//TODO
 		Odi.run('etat', value ? 'high' : 'low');
 		Odi.run('volume', Odi.isAwake() ? (value ? 400 : -400) : 'mute');
 		log.info('Etat:', value, '[Etat has changed]');
