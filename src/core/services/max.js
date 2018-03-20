@@ -104,13 +104,13 @@ function parseDataFromMax(data) {
 function maxCallbackAction(data) {
 	log.debug('maxCallbackAction()', data);
 	switch (data) {
-		case 'hi_end':
-			maxCallbackTTS([{ lg: 'en', msg: 'Hi Max!' }, { lg: 'en', msg: 'Hey Max!' }]);
-			break;
+		// case 'hi_end':
+		// 	maxCallbackTTS([{ lg: 'en', msg: 'Hi Max!' }, { lg: 'en', msg: 'Hey Max!' }]);
+		// 	break;
 		case 'some random action from Max':
 			maxCallbackTTS([
 				'Oh, il se passe un truc du coter de chez Max!',
-				'Max sensor',
+				{ lg: 'en', msg: 'Max sensor' },
 				{ lg: 'en', msg: 'Max sensor fired' }
 			]);
 			break;
@@ -131,13 +131,13 @@ function maxCallbackAction(data) {
 		case 'playHornWhistle_end':
 		case 'playHornSiren_end':
 		case 'playHornDown_end':
-			maxCallbackTTS(['eh ho, sa suffit!', 'doucement avec ton tweeter!']);
+			maxCallbackTTS(['eh ho', 'eh ho, sa suffit!']);
 			break;
 		case 'playHornFire_end':
-			maxCallbackTTS("Je crois qu'il y a le feu !");
+			maxCallbackTTS('Au feu !');
 			break;
 		case 'playHornOvni_end':
-			Flux.next('interface|tts|speak', 'Contact extra terrestre !');
+			Flux.next('interface|tts|speak', 'OVNI!');
 			break;
 		case 'playHornWarning_end':
 		case 'playHornBombing_end':

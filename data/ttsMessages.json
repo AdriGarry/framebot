@@ -168,12 +168,14 @@
 	],
 	"maxCallback": [
 		"Oh!",
+		"Eh oh",
 		["Eh oh", "Sa va Max ?"],
 		"Voyons Max !",
 		"Mais oui Max !",
 		"Euh, c'etait quoi sa ?",
 		"Mais c'est pas fini, oui ?",
 		"Eh oh, tu t'arraite un peu ?",
-		"Mais ta gueule !!"
+		"Mais ta gueule !",
+		"Mais chute !"
 	]
 }
