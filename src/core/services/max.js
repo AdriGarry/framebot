@@ -108,18 +108,14 @@ function maxCallbackAction(data) {
 		// 	maxCallbackTTS([{ lg: 'en', msg: 'Hi Max!' }, { lg: 'en', msg: 'Hey Max!' }]);
 		// 	break;
 		case 'some random action from Max':
-			maxCallbackTTS([
-				'Oh, il se passe un truc du coter de chez Max!',
-				{ lg: 'en', msg: 'Max sensor' },
-				{ lg: 'en', msg: 'Max sensor fired' }
-			]);
+			maxCallbackTTS(Odi.ttsMessages.maxCallback.sensor);
 			break;
 		case 'blinkLed_end':
 			if (Odi.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'blink led' });
 			break;
 		case 'playOneMelody_end':
 		case 'playRdmMelody_end':
-			maxCallbackTTS(Odi.ttsMessages.maxCallback);
+			maxCallbackTTS(Odi.ttsMessages.maxCallback.melody);
 			break;
 		case 'turnNose_end':
 			if (Odi.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'turn' });
@@ -131,10 +127,10 @@ function maxCallbackAction(data) {
 		case 'playHornWhistle_end':
 		case 'playHornSiren_end':
 		case 'playHornDown_end':
-			maxCallbackTTS(['eh ho', 'eh ho, sa suffit!']);
+			maxCallbackTTS(Odi.ttsMessages.maxCallback.horn);
 			break;
 		case 'playHornFire_end':
-			maxCallbackTTS('Au feu !');
+			maxCallbackTTS(Odi.ttsMessages.maxCallback.hornFire);
 			break;
 		case 'playHornOvni_end':
 			Flux.next('interface|tts|speak', 'OVNI!');

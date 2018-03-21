@@ -78,6 +78,12 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 // 	// console.log(Utils.random(2));
 // }
 
+if (Odi.conf('watcher')) {
+	for (var i = 0, tts; (tts = Odi.ttsMessages.randomTTS[i]); i++) {
+		Flux.next('interface|tts|speak', tts, { delay: 2 });
+	}
+}
+
 // Flux.next('interface|arduino|write', 'playRdmHorn', 90, 5);
 // Odi.next('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
 // Odi.do('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
