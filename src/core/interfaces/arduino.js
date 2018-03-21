@@ -39,7 +39,7 @@ function connect() {
 			}
 			Odi.run('max', false);
 		} else {
-			log.INFO('arduino serial channel opened!');
+			log.info('arduino serial channel opened');
 			Odi.run('max', true);
 			// if (Odi.isAwake() && !Odi.run('alarm') && Odi.run('etat') == 'high')
 			// 	Flux.next('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });

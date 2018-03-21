@@ -40,7 +40,7 @@ function firePartyActionAndRandom() {
 	//console.log('firePartyActionAndRandom(). next action=', nextActionTimeout);
 	setTimeout(function() {
 		log.info('firing next party action...');
-		var rdmAction = Utils.random(11);
+		var rdmAction = Utils.random(7);
 		switch (rdmAction) {
 			case 0:
 				pirate();
@@ -48,12 +48,12 @@ function firePartyActionAndRandom() {
 			case 1:
 				pirate('full');
 				break;
-			case (2, 3):
-				Flux.next('service|mood|badBoy');
-				break;
-			case (4, 5, 6):
+			case (2, 3, 4):
 				Flux.next('interface|tts|random');
 				break;
+			// case (5, 6):
+			// 	Flux.next('service|mood|badBoy'); //TODO
+			// 	break;
 			default:
 				partyTTS();
 				break;

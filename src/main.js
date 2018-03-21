@@ -78,8 +78,8 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 // 	// console.log(Utils.random(2));
 // }
 
-if (Odi.conf('watcher')) {
-	for (var i = 0, tts; (tts = Odi.ttsMessages.randomTTS[i]); i++) {
+if (Odi.isAwake() && Odi.conf('watcher')) {
+	for (var i = 0, tts; (tts = Odi.ttsMessages.random[i]); i++) {
 		Flux.next('interface|tts|speak', tts, { delay: 2 });
 	}
 }

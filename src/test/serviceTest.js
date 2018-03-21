@@ -25,12 +25,12 @@ module.exports.run = function(succeedTest) {
 	Flux.next('service|max|playOneMelody');
 
 	// Flux.next('service|voicemail|new', {msg: 'are you there ?'}, 8);
-	// var rdmTTS = Odi.ttsMessages.randomTTS[Utils.random(Odi.ttsMessages.randomTTS.length)];
-	let rdmTTS = Utils.randomItem(Odi.ttsMessages.randomTTS);
+	// var rdmTTS = Odi.ttsMessages.random[Utils.random(Odi.ttsMessages.random.length)];
+	let rdmTTS = Utils.randomItem(Odi.ttsMessages.random);
 	while (Array.isArray(rdmTTS)) {
-		rdmTTS = Utils.randomItem(Odi.ttsMessages.randomTTS); // Avoid conversation in voicemail.json
+		rdmTTS = Utils.randomItem(Odi.ttsMessages.random); // Avoid conversation in voicemail.json
 	}
-	// var rdmTTS = Utils.randomItem(Odi.ttsMessages.randomTTS);
+	// var rdmTTS = Utils.randomItem(Odi.ttsMessages.random);
 	log.DEBUG(rdmTTS);
 	Flux.next('service|voicemail|new', rdmTTS, { delay: 8 });
 	Flux.next('service|voicemail|check', null, { delay: 11 });

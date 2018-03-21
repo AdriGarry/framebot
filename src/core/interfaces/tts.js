@@ -83,11 +83,11 @@ function proceedQueue() {
 }
 
 /** Function to launch random TTS */
-const RANDOM_TTS_LENGTH = Odi.ttsMessages.randomTTS.length;
+const RANDOM_TTS_LENGTH = Odi.ttsMessages.random.length;
 function randomTTS() {
 	var rdmNb = Utils.random(RANDOM_TTS_LENGTH);
 	log.info('tts.js> rdmNb: ', rdmNb);
-	var rdmTTS = Odi.ttsMessages.randomTTS[rdmNb];
+	var rdmTTS = Odi.ttsMessages.random[rdmNb];
 	log.info('Random TTS : ' + rdmNb + '/' + RANDOM_TTS_LENGTH);
 	speak(rdmTTS);
 	// console.log('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
