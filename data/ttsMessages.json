@@ -23,17 +23,9 @@
 		"Si j'etais toi je ne ferais pas trop le malin",
 		"Et bien, ce n'est pas sa qui va faire avancer le chmilblik!",
 		"La nuit derniaire, j'ai raiver que je pouvais bouger !",
-		"La nuit derniaire, j'ai fais des raives etranges !",
 		"La nuit derniaire, j'ai fais des raives plutot etranges !",
-		"La nuit derniaire, j'ai raiver que je volais !",
 		"La nuit derniaire, je crois que Boutss a fait un petit tour",
 		{ "lg": "ru", "voice": "google", "msg": "hey, a3" },
-		{ "lg": "ru", "voice": "google", "msg": "Semiorka" },
-		[
-			{ "msg": "mais, cette histoire de fin du monde, sait pour de vrai ?" },
-			{ "voice": "google", "msg": "moi sa minquiete !" },
-			{ "msg": "ouais, je sui plutot daccord!" }
-		],
 		[{ "msg": "Laisse moi te dire une bonne chose" }, { "msg": "Ici sait moi qui commande" }],
 		[
 			{ "voice": "google", "msg": "Cette fois la, on avait vraiment rigoler " },
@@ -47,19 +39,9 @@
 			{ "msg": "Imagine un peu si je pouvais bouger, sa serait super cool !" },
 			{ "voice": "google", "msg": "Oh oui, sa serait top !" }
 		],
-		[
-			{ "msg": "Imagine un peu si je pouvais bouger, sa serait super cool !" },
-			{ "voice": "google", "msg": "Oh oui, sa serait top !" }
-		],
 		[{ "msg": "Ah sa me fais chier de ne pas pouvoir bouger" }, { "voice": "google", "msg": "A moi aussi" }],
 		[{ "voice": "google", "msg": "He, es tu la ?" }, { "msg": "Oui oui, je suis la!" }],
 		[{ "voice": "google", "msg": "Le barbecue, c'est cool... !" }, { "msg": "Carraiment, je kiffe bien moi aussi" }],
-		[{ "msg": "Et le volume, c'est mon zizi qui s'en charge" }, { "voice": "google", "msg": "Oh !" }],
-		[
-			{ "msg": "Et, j'en connais une bien bonne" },
-			{ "voice": "google", "msg": "Vazy raconte !" },
-			{ "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !" }
-		],
 		[
 			{ "msg": "Et, j'en connais une bien bonne" },
 			{ "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !" }
@@ -69,8 +51,8 @@
 			{ "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !" }
 		],
 		[
-			{ "msg": "En informatique, le probleme se situe souvent entre le clavier et la chaise" },
-			{ "voice": "google", "msg": "Et ouais !" }
+			{ "msg": "Et, j'en connais une bien bonne" },
+			{ "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !" }
 		],
 		[{ "msg": "Eh bien moi, j'ai des boutons poussoirs !" }, { "voice": "google", "msg": "Et toc!" }],
 		[{ "msg": "Je te dirais bien le fond de ma penser..." }, { "msg": "Mais sa risque de pas trop te plaire" }],
