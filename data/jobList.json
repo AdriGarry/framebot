@@ -35,13 +35,6 @@
 				{ "id": "interface|tts|speak", "data": { "lg": "en", "msg": "Reset config" } },
 				{ "id": "interface|runtime|reset", "data": true, "conf": { "delay": 3 } }
 			]
-		},
-		{
-			"cron": "15 15 13 * * 0",
-			"flux": [
-				{ "id": "interface|tts|speak", "data": { "lg": "en", "msg": "Auto reboot" } },
-				{ "id": "service|system|reboot", "conf": { "delay": 3 } }
-			]
 		}
 	],
 	"interactive": [
