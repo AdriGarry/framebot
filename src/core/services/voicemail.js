@@ -24,10 +24,15 @@ Flux.service.voicemail.subscribe({
 	}
 });
 
-const DELAY_TO_CLEAR_VOICEMAIL = 6 * 60 * 60 * 1000; //15*60*1000;
+const DELAY_TO_CLEAR_VOICEMAIL = 60 * 60 * 1000; //15*60*1000;
 const VOICEMAIL_FILE = Odi._TMP + 'voicemail.json';
-//log.INFO('ça doit bugger par là...');
 const VOICEMAIL_FILE_HISTORY = Odi._LOG + 'voicemailHistory.json';
+
+updateVoicemailMessage();
+log.info('VoiceMail flag initialized');
+setInterval(function() {
+	updateVoicemailMessage();
+}, 10000);
 
 /** Function to persist voicemail message */
 function addVoiceMailMessage(tts) {
@@ -76,15 +81,6 @@ function checkVoiceMail(withTTSResult, callback) {
 		}
 	});
 }
-
-/** Function voicemail flag (blink belly if any message) */
-(function voiceMailFlag() {
-	updateVoicemailMessage();
-	log.info('VoiceMail flag initialized');
-	setInterval(function() {
-		updateVoicemailMessage();
-	}, 10000);
-})();
 
 /** Function to return number of voicemail message(s) */
 function updateVoicemailMessage() {
