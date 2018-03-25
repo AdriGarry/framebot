@@ -37,7 +37,6 @@ var lastRdmNb;
 function firePartyActionAndRandom() {
 	var nextActionTimeout = Utils.random(2, 10) * 30; //2, 10
 	log.debug('firePartyActionAndRandom(). next action=', nextActionTimeout);
-	//console.log('firePartyActionAndRandom(). next action=', nextActionTimeout);
 	setTimeout(function() {
 		log.info('firing next party action...');
 		var rdmAction = Utils.random(7);
@@ -51,9 +50,6 @@ function firePartyActionAndRandom() {
 			case (2, 3, 4):
 				Flux.next('interface|tts|random');
 				break;
-			// case (5, 6):
-			// 	Flux.next('service|mood|badBoy'); //TODO
-			// 	break;
 			default:
 				partyTTS();
 				break;
