@@ -68,10 +68,6 @@
 		],
 		[{ "msg": "Un jour, on reparlera de tout sa..." }, { "msg": "Et tu vera que j'avais raison !" }],
 		[
-			{ "msg": "Nos chances de raiussites ne depassent pas 30 pour cent" },
-			{ "msg": "On va litairalement se ramasser la gueule !" }
-		],
-		[
 			{ "msg": "Et, tu pourrais quand maime me dire bonjour" },
 			{ "voice": "google", "msg": "Oui, c'est la moindre des choses !" }
 		]
