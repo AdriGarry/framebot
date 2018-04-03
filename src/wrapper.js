@@ -13,70 +13,19 @@ var sep = path.sep;
 const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');
 const INTERVALS = [2, 5, 10, 30, 60, 90, 180];
-const launcherTitle = '\n┌───────────────┐\n│  > Launcher   │\n└───────────────┘';
+const wrapperTitle = '\n┌──────────────┐\n│  > Wrapper   │\n└──────────────┘';
 
-console.log(launcherTitle);
+// console.log('Wrapper started');
 var descriptor;
 
-function checkUp() {
-	console.log('checkUp...');
-	descriptor = JSON.parse(fs.readFileSync(ODI_PATH + 'data/descriptor.json'));
-	if (!fs.existsSync(ODI_PATH + 'tmp')) {
-		fs.mkdirSync(path.join(ODI_PATH, 'tmp'), 0777);
-		fs.chmodSync(path.join(ODI_PATH, 'tmp'), 0777);
-		console.log('> TEMP directory created');
-	} else {
-		checkVoicemailValidity();
-	}
-	if (!fs.existsSync(ODI_PATH + 'log')) {
-		fs.mkdirSync(ODI_PATH + 'log');
-		console.log('> LOG directory created');
-	}
-
-	console.log(argv);
-
-	if (argv.indexOf('reset') > -1) {
-		reInitConf();
-	} else {
-		checkConfValidity();
-	}
-}
-
-startOdi();
-
-function checkConfValidity() {
-	try {
-		let conf = fs.readFileSync(ODI_PATH + 'tmp/conf.json', 'utf-8');
-		JSON.parse(conf);
-	} catch (err) {
-		console.log(err.message);
-		reInitConf();
-	}
-}
-function reInitConf() {
-	fs.writeFileSync(ODI_PATH + 'tmp/conf.json', JSON.stringify(descriptor.conf), 'utf-8');
-	console.log('> CONF reset');
-}
-
-function checkVoicemailValidity() {
-	if (fs.existsSync(ODI_PATH + 'tmp/voicemail.json')) {
-		try {
-			let conf = fs.readFileSync(ODI_PATH + 'tmp/voicemail.json', 'utf-8');
-			JSON.parse(conf);
-		} catch (err) {
-			console.log(err.message);
-			fs.unlinkSync(ODI_PATH + 'tmp/voicemail.json');
-			console.log('> Invalid voicemail message, deleted!');
-		}
-	}
-}
+wrapper();
 
 var i = 0,
 	interval,
 	timeout,
 	okButton;
 function wrapper(code) {
-	console.log(launcherTitle);
+	console.log(wrapperTitle);
 	if (!code) {
 		startOdi();
 		return;
@@ -145,6 +94,58 @@ function startOdi(exitCode) {
 		argv.remove('reset'); // Removing reset param before relaunching
 		wrapper(code);
 	});
+}
+
+function checkUp() {
+	console.log('checkUp...');
+	descriptor = JSON.parse(fs.readFileSync(ODI_PATH + 'data/descriptor.json'));
+	if (!fs.existsSync(ODI_PATH + 'tmp')) {
+		fs.mkdirSync(path.join(ODI_PATH, 'tmp'), 0777);
+		fs.chmodSync(path.join(ODI_PATH, 'tmp'), 0777);
+		console.log('> TEMP directory created');
+	} else {
+		checkVoicemailValidity();
+	}
+	if (!fs.existsSync(ODI_PATH + 'log')) {
+		fs.mkdirSync(ODI_PATH + 'log');
+		console.log('> LOG directory created');
+	}
+
+	console.log(argv);
+
+	if (argv.indexOf('reset') > -1) {
+		reInitConf();
+	} else {
+		checkConfValidity();
+	}
+}
+
+function checkVoicemailValidity() {
+	if (fs.existsSync(ODI_PATH + 'tmp/voicemail.json')) {
+		try {
+			let conf = fs.readFileSync(ODI_PATH + 'tmp/voicemail.json', 'utf-8');
+			JSON.parse(conf);
+		} catch (err) {
+			console.log(err.message);
+			fs.unlinkSync(ODI_PATH + 'tmp/voicemail.json');
+			console.log('> Invalid voicemail message, deleted!');
+		}
+	}
+}
+
+function checkConfValidity() {
+	try {
+		let conf = fs.readFileSync(ODI_PATH + 'tmp/conf.json', 'utf-8');
+		JSON.parse(conf);
+	} catch (err) {
+		console.log(err.message);
+		reInitConf();
+	}
+}
+
+function reInitConf() {
+	fs.writeFileSync(ODI_PATH + 'tmp/conf.json', JSON.stringify(descriptor.conf), 'utf-8');
+	console.log('> CONF reset');
 }
 
 Array.prototype.remove = function() {
