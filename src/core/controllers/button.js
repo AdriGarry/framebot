@@ -68,20 +68,21 @@ function initButton() {
 		} else {
 			instance = false;
 			clearInterval(intervalEtat);
-			Flux.next('interface|video|screenOff');
 		}
 	}, 2000);
 
 	/** Switch watch for radio volume */
 	Button.etat.watch(function(err, value) {
 		value = Button.etat.readSync();
-		log.INFO('..btn', value); //TODO
 		Odi.run('etat', value ? 'high' : 'low');
 		Odi.run('volume', Odi.isAwake() ? (value ? 400 : -400) : 'mute');
-		log.info('Etat:', value, '[Etat has changed]');
+		log.info('Etat has changed:', value);
 		if (Odi.run('music') == 'fip') {
 			Flux.next('interface|sound|mute');
 			Flux.next('service|music|fip', null, { delay: 0.1 });
+		}
+		if (Odi.run('screen')) {
+			Flux.next('interface|video|screenOff');
 		}
 		log.table(Odi.run(), 'RUNTIME...');
 	});
