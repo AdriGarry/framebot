@@ -30,7 +30,7 @@ function logTail() {
 
 /** Function to turn screen on (for 30 minutes) */
 function screenOn() {
-	spawn('sh', [Odi._SHELL + 'screen.sh', 'on']);
+	spawn('/opt/vc/bin/tvservice', ['-p']);
 	log.info('Screen on');
 	setTimeout(function() {
 		screenOff();
@@ -39,7 +39,7 @@ function screenOn() {
 
 /** Function to turn screen off */
 function screenOff() {
-	spawn('sh', [Odi._SHELL + 'screen.sh', 'off']);
+	spawn('/opt/vc/bin/tvservice', ['-o']);
 	log.info('Screen off');
 }
 
