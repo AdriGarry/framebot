@@ -10,13 +10,11 @@ var Flux = require(Odi._CORE + 'Flux.js');
 
 const JOBS = require(Odi._DATA + 'jobList.json');
 
-// setImmediate(() => {
 scheduleJobs(JOBS.system, 'System');
 if (Odi.isAwake()) {
 	scheduleJobs(JOBS.cycle, 'Cycle');
 	scheduleJobs(JOBS.interactive, 'Interactive');
 }
-// });
 
 function scheduleJob(job) {
 	let jobLog = '';

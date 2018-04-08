@@ -83,7 +83,7 @@ function startUIServer(mode) {
 		if (!req.connection.remoteAddress) {
 			// log.INFO('req.connection.remoteAddress undefined ?');
 			// log.info(req.connection);
-			Odi.error('req.connection.remoteAddress undefined ?', req.connection);
+			Odi.error('To debug: req.connection.remoteAddress undefined ?', req.connection);
 		}
 		if (req.connection.remoteAddress.indexOf('192.168') == -1) {
 			// Logging not local requests
@@ -470,12 +470,6 @@ function startUIServer(mode) {
 			res.end();
 		});
 
-		ui.post('/playVideo', function(req, res) {
-			Flux.next('interface|video|cycle');
-			res.writeHead(200);
-			res.end();
-		});
-
 		ui.post('/arduino/connect', function(req, res) {
 			Flux.next('interface|arduino|connect');
 			res.writeHead(200);
@@ -520,6 +514,12 @@ function startUIServer(mode) {
 
 		ui.post('/max/turn', function(req, res) {
 			Flux.next('service|max|turn');
+			res.writeHead(200);
+			res.end();
+		});
+
+		ui.post('/playVideo', function(req, res) {
+			Flux.next('interface|video|cycle');
 			res.writeHead(200);
 			res.end();
 		});
