@@ -15,6 +15,7 @@ var _runtime = {
 	alarm: false,
 	timer: 0,
 	voicemail: null,
+	screen: null,
 	cpu: {
 		usage: null,
 		temp: null
@@ -43,6 +44,8 @@ var Odi = {
 	_WEB: ODI_PATH + 'src/web/',
 	_DATA: ODI_PATH + 'data/',
 	_MP3: ODI_PATH + 'media/mp3/',
+	_VIDEO: ODI_PATH + 'media/video/',
+	_PHOTO: ODI_PATH + 'media/photo/',
 	_LOG: ODI_PATH + 'log/',
 	_TMP: ODI_PATH + 'tmp/',
 	_CONF: ODI_PATH + 'tmp/conf.json'

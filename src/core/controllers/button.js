@@ -63,17 +63,19 @@ function initButton() {
 					log.info('Etat btn Up => random action');
 					Flux.next('service|interaction|random');
 				}, INTERVAL_DELAY);
+				Flux.next('interface|video|cycle');
 			}
 		} else {
 			instance = false;
 			clearInterval(intervalEtat);
+			Flux.next('interface|video|screenOff');
 		}
 	}, 2000);
 
 	/** Switch watch for radio volume */
 	Button.etat.watch(function(err, value) {
 		value = Button.etat.readSync();
-		log.INFO('..btn', value);//TODO
+		log.INFO('..btn', value); //TODO
 		Odi.run('etat', value ? 'high' : 'low');
 		Odi.run('volume', Odi.isAwake() ? (value ? 400 : -400) : 'mute');
 		log.info('Etat:', value, '[Etat has changed]');

@@ -24,6 +24,14 @@ Flux.interface.video.subscribe({
 	}
 });
 
+setImmediate(() => {
+	if (Odi.run('etat') == 'high') {
+		startCycle();
+	} else {
+		screenOff();
+	}
+});
+
 function logTail() {
 	log.info('screen on + log tail to implement!');
 }
@@ -32,6 +40,7 @@ function logTail() {
 function screenOn() {
 	spawn('/opt/vc/bin/tvservice', ['-p']);
 	log.info('Screen on');
+	Odi.run('screen', true);
 	setTimeout(function() {
 		screenOff();
 	}, 30 * 60 * 1000);
@@ -40,14 +49,16 @@ function screenOn() {
 /** Function to turn screen off */
 function screenOff() {
 	spawn('/opt/vc/bin/tvservice', ['-o']);
-	log.info('Screen off');
+	Odi.run('etat', false);
+	log.info('screen off');
 }
 
 /** Function to launch a video cycle for 30 minutes */
 function startCycle() {
+	screenOn();
 	//https://www.npmjs.com/package/raspberrypi
 	spawn('sh', [Odi._SHELL + 'diapo.sh']);
-	log.info('Video cycle for one hour');
+	log.info('Video cycle for 30 minutes');
 	setTimeout(function() {
 		screenOff();
 	}, 30 * 60 * 1000);
