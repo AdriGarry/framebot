@@ -419,6 +419,14 @@ function startUIServer(mode) {
 			res.end();
 		});
 
+		ui.post('/java', function(req, res) {
+			params = req.body;
+			log.debug('/java', params);
+			Flux.next('service|mood|java', params.value);
+			res.writeHead(200);
+			res.end();
+		});
+
 		ui.post('/russia', function(req, res) {
 			params = req.query;
 			log.debug('/russia', params);

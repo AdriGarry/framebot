@@ -12,6 +12,8 @@ Flux.service.mood.subscribe({
 			expressive(flux.value);
 		} else if (flux.id == 'badBoy') {
 			badBoy(flux.value);
+		} else if (flux.id == 'java') {
+			java(flux.value);
 		} else Odi.error('unmapped flux in Mood service', flux, false);
 	},
 	error: err => {
@@ -21,6 +23,23 @@ Flux.service.mood.subscribe({
 
 function expressive(args) {
 	console.log('expressive(args)');
+}
+
+const MAX_JAVA = ['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm'];
+
+/** Function to start bad boy mode */
+function java(interval) {
+	log.INFO('JAVA mode !');
+	Flux.next('interface|tts|speak', 'On va faire la java !');
+	for (var i = 0; i < 20; i++) {
+		Flux.next('interface|tts|speak', Utils.randomItem(Odi.ttsMessages.random));
+	}
+
+	setInterval(() => {
+		let maxAction = Utils.randomItem(MAX_JAVA);
+		Flux.next(maxAction);
+		Flux.next('service|interaction|exclamation');
+	}, 1000);
 }
 
 /** Function to start bad boy mode */

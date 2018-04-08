@@ -468,6 +468,7 @@ app.component('badBoy', {
 		var tileParams = {
 			label: 'Bad boy',
 			actionList: [
+				{ label: 'Java', icon: 'fab fa-strava', url: '/java' },
 				{ label: 'BadBoy Mode', icon: 'fas fa-comments', url: '/badBoy', continu: true },
 				{ label: 'BadBoy TTS', icon: 'fas fa-comment', url: '/badBoy' }
 			]
@@ -485,9 +486,7 @@ app.component('badBoy', {
 		};
 
 		var specificActions = function(button) {
-			if (button.label.indexOf('TTS') != -1) {
-				ctrl.tile.action(button);
-			} else {
+			if (button.label.indexOf('BADBOY MODE') != -1) {
 				var slider = {
 					label: 'Bad boy interval',
 					url: '/badBoy',
@@ -499,6 +498,8 @@ app.component('badBoy', {
 					action: null
 				};
 				ctrl.tile.openSliderBottomSheet(slider);
+			} else {
+				ctrl.tile.action(button);
 			}
 		};
 	}
