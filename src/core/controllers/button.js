@@ -14,7 +14,7 @@ var Button = {};
 
 Odi.gpio.buttons.forEach(button => {
 	Button[button.id] = new Gpio(button.pin, button.direction, button.edge, button.options);
-	Button[button.id]['id'] = button.id;
+	Button[button.id]['id'] = Utils.capitalizeFirstLetter(button.id);
 });
 
 function getPushTime(button) {

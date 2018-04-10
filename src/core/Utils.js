@@ -28,6 +28,7 @@ module.exports = {
 	rdm: random,
 	randomItem: randomItem,
 	searchStringInArray: searchStringInArray,
+	capitalizeFirstLetter: capitalizeFirstLetter,
 	testConnexion: testConnexion
 };
 
@@ -279,6 +280,10 @@ function logTime(param, date) {
 	return now;
 }
 
+function capitalizeFirstLetter(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 // Returns the ISO week of the date.
 Date.prototype.getWeek = function() {
 	var date = new Date(this.getTime());
@@ -290,17 +295,3 @@ Date.prototype.getWeek = function() {
 	// Adjust to Thursday in week 1 and count number of weeks from date to week1.
 	return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
 };
-
-/*Object.prototype.toString = () => {
-  var obj = this;
-  // console.log(obj);
-  var string = '';
-  for (var prop in obj) {
-    string = prop + '=' + obj[prop] + ' ';
-  }
-  return string;
-  // var output = '';
-  // for (var property in object) {
-  //   output += property + ': ' + object[property]+'; ';
-  // }
-};*/
