@@ -27,6 +27,7 @@ module.exports = {
 	random: random,
 	rdm: random,
 	randomItem: randomItem,
+	randomBox: randomBox,
 	searchStringInArray: searchStringInArray,
 	capitalizeFirstLetter: capitalizeFirstLetter,
 	testConnexion: testConnexion
@@ -238,6 +239,18 @@ function randomItem(array) {
 	var randomIndex = random(length); //length - 1
 	// log.DEBUG('----------randomIndex', randomIndex);
 	return array[randomIndex];
+}
+
+function randomBox(arg) {
+	let randomBoxObject = {
+		box: null,
+		next: next
+	};
+	function next() {
+		log.info('randomBox.next');
+	}
+	log.info('randomBox', arg);
+	return randomBoxObject;
 }
 
 /** Function to return date time. Pattern: 'YDT' */
