@@ -8,7 +8,7 @@
 			"base": ["button", "jobs", "server", "watcher"]
 		},
 		"services": {
-			"base": ["handler", "system", "time", "voicemail"],
+			"base": ["buttonService", "system", "time", "voicemail"],
 			"full": ["mood", "interaction", "music", "party", "max"]
 		}
 	},

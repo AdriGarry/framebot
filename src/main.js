@@ -63,8 +63,6 @@ if (Odi.conf('watcher')) {
 	Flux.next('controller|watcher|startWatch');
 }
 
-console.log('process.version:', process.version);
-
 if (Odi.isAwake() && !Odi.run('alarm')) {
 	// Flux.next('interface|arduino|write', 'Blink-1-2-3', { delay: 3 });
 	// Flux.next('service|max|playOneMelody', null, { delay: 13, loop: 2 });
@@ -79,6 +77,7 @@ if (Odi.isAwake() && !Odi.run('alarm')) {
 // }
 
 if (Odi.isAwake() && Odi.conf('watcher')) {
+	// TODO put this in a callable function from UI!
 	for (var i = 0, tts; (tts = Odi.ttsMessages.random[i]); i++) {
 		//Flux.next('interface|tts|speak', tts, { delay: 2 });
 	}
