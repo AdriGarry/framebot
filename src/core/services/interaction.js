@@ -35,7 +35,7 @@ Flux.service.interaction.subscribe({
 			uneHeure();
 		} else if (flux.id == 'russia') {
 			russia();
-		} else Odi.error('unmapped flux in Exclamation module', flux, false);
+		} else Odi.error('unmapped flux in Interfaction module', flux, false);
 	},
 	error: err => {
 		Odi.error(flux);
