@@ -20,6 +20,8 @@ Flux.service.system.subscribe({
 			reboot();
 		} else if (flux.id == 'shutdown') {
 			shutdown();
+		} else if (flux.id == 'light') {
+			light(flux.value);
 		} else Odi.error('unmapped flux in System service', flux, false);
 	},
 	error: err => {
@@ -74,4 +76,17 @@ function shutdown() {
 		console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!\n");
 		spawn('halt');
 	}, 2000);
+}
+
+/** Function to use belly led as light */
+function light(duration) {
+	log.info('light [duration=' + duration + 's]');
+	if (isNaN(duration)) Odi.error('light error: duration arg is not a number!', duration, false);
+	let loop = (duration - 2) / 2;
+	Flux.next('interface|led|toggle', { leds: ['belly'], value: 1 });
+	Flux.next('interface|led|toggle', { leds: ['belly'], value: 1 }, { hidden: true, delay: 2, loop: loop });
+
+	Flux.next('interface|led|blink', { leds: ['belly'], speed: 200, loop: 8 }, { delay: duration - 2 });
+
+	Flux.next('interface|led|toggle', { leds: ['belly'], value: 0 }, { delay: duration });
 }

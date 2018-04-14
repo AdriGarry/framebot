@@ -653,6 +653,7 @@ app.component('system', {
 		var tileParams = {
 			label: 'System',
 			actionList: [
+				{ label: 'Light', icon: 'far fa-sun', url: '/light' },
 				{ label: 'Shutdown', icon: 'fas fa-power-off', url: '/shutdown' },
 				{ label: 'Reboot', icon: 'fas fa-sync', url: '/reboot' }
 			]

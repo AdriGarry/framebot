@@ -58,6 +58,8 @@ function buttonHandler(flux) {
 	} else {
 		if (flux.id == 'ok') {
 			Flux.next('service|system|restart');
+		} else if (flux.id == 'white') {
+			Flux.next('service|system|light', flux.value * 60);
 		}
 	}
 }

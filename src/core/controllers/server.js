@@ -156,7 +156,9 @@ function startUIServer(mode) {
 					mode:
 						Odi.conf('log') == 'trace'
 							? 'Trace'
-							: Odi.conf('log') == 'debug' ? 'Debug' : Utils.firstLetterUpper(Odi.conf('mode')),
+							: Odi.conf('log') == 'debug'
+								? 'Debug'
+								: Utils.firstLetterUpper(Odi.conf('mode')),
 					param: Odi.conf('startTime'),
 					switch: etatBtn == 'high' ? true : false
 				}
@@ -322,6 +324,12 @@ function startUIServer(mode) {
 		res.end();
 	});
 
+	ui.post('/light', function(req, res) {
+		Flux.next('service|system|light', 30);
+		res.writeHead(200);
+		res.end();
+	});
+
 	ui.post('/mute', function(req, res) {
 		Flux.next('interface|sound|mute');
 		res.writeHead(200);
@@ -397,12 +405,6 @@ function startUIServer(mode) {
 			res.writeHead(200);
 			res.end();
 		});
-
-		// ui.post('/conversation', function(req, res) {
-		// 	Flux.next('interface|tts|conversation');
-		// 	res.writeHead(200);
-		// 	res.end();
-		// });
 
 		ui.post('/idea', function(req, res) {
 			// params = req.query;
