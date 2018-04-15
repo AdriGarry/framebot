@@ -83,6 +83,15 @@ if (Odi.isAwake() && Odi.conf('watcher')) {
 	}
 }
 
+const RandomBox = require('randombox').RandomBox;
+console.log(RandomBox);
+
+let toto = new RandomBox(Odi.ttsMessages.goToSleep);
+for (var i = 0; i < 15; i++) {
+	console.log(toto.next());
+}
+console.log('\n--> RANDOM BOX TO PACKAGE TO NPM !!\n');
+
 // Flux.next('interface|arduino|write', 'playRdmHorn', 90, 5);
 // Odi.next('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
 // Odi.do('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);

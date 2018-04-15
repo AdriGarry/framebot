@@ -89,6 +89,10 @@ function mute(args) {
 
 /** Function to stop all sounds & leds */
 function stopAll(message) {
+	// if (Odi.run('max')) {
+	// 	Flux.next('interface|arduino|disconnect');
+	// 	Flux.next('interface|arduino|connect', null, { delay: 2 });
+	// }
 	Flux.next('interface|tts|clearTTSQueue', null, { hidden: true });
 	Flux.next('service|music|stop', null, { hidden: true });
 	spawn('sh', [Odi._SHELL + 'mute.sh']);
