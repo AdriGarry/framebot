@@ -1,5 +1,8 @@
 #!/usr/bin/env node
-'use strict';
+
+import { CONNREFUSED } from 'dns';
+
+('use strict');
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
@@ -55,10 +58,12 @@ function jukebox(message) {
 	Flux.next('interface|sound|mute', { message: 'Auto mute jukebox !', delay: 2 }, { delay: 60 * 60 });
 }
 
-var jukeboxTimeout;
+var jukeboxTimeout,
+	jukeboxRandomBox = new jukeboxRandomBox(JUKEBOX_SONGS);
 function repeatSong() {
 	log.info('next song...');
-	let song = Utils.randomItem(JUKEBOX_SONGS);
+	// let song = Utils.randomItem(JUKEBOX_SONGS);
+	let song = jukeboxRandomBox.next();
 	let ttime = new Date();
 	Utils.getMp3Duration(Odi._MP3 + 'jukebox/' + song, function(duration) {
 		console.log(Utils.executionTime(ttime));
@@ -72,6 +77,8 @@ function repeatSong() {
 }
 
 function playOneSong() {
+	// DEPRECATED ? (never called?)
+	log.INFO("music.playOneSong() => shouldn't be CONNREFUSED...");
 	var song = Utils.randomItem(JUKEBOX_SONGS);
 	Flux.next('interface|sound|play', { mp3: 'jukebox/' + song });
 }

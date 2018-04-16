@@ -25,18 +25,25 @@ function expressive(args) {
 	console.log('expressive(args)');
 }
 
-const MAX_JAVA = ['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm'];
+// const MAX_JAVA = ['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm'];
+var maxJavaRandomBox = new maxJavaRandomBox([
+	'service|max|playOneMelody',
+	'service|max|playRdmMelody',
+	'service|max|hornRdm'
+]);
 
+var ttsRandomBox = new TTS_RANDOM_BOX(Odi.ttsMessages.random);
 /** Function to start bad boy mode */
 function java(interval) {
 	log.INFO('JAVA mode !');
 	Flux.next('interface|tts|speak', 'On va faire la java !');
 	for (var i = 0; i < 20; i++) {
-		Flux.next('interface|tts|speak', Utils.randomItem(Odi.ttsMessages.random));
+		// Flux.next('interface|tts|speak', Utils.randomItem(Odi.ttsMessages.random));
+		Flux.next('interface|tts|speak', ttsRandomBox.next());
 	}
 
 	setInterval(() => {
-		let maxAction = Utils.randomItem(MAX_JAVA);
+		let maxAction = maxJavaRandomBox.next();
 		Flux.next(maxAction);
 		Flux.next('service|interaction|exclamation');
 	}, 1000);

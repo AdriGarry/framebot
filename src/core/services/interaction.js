@@ -5,6 +5,8 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Utils = require(Odi._CORE + 'Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
+const RandomBox = require('randombox').RandomBox;
+
 var fs = require('fs');
 var request = require('request');
 var spawn = require('child_process').spawn;
@@ -66,9 +68,12 @@ for (var i = 0; i < RANDOM_ACTIONS.length; i++) {
 	}
 }
 
+var actionRandomBox = new RandomBox(randomActionList);
+
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction() {
-	var action = Utils.randomItem(randomActionList);
+	// var action = Utils.randomItem(randomActionList);
+	var action = actionRandomBox.next();
 	try {
 		log.info('randomAction:', action.id, '[' + action.weight + ']');
 		Flux.next(action.id, action.data);
@@ -83,11 +88,13 @@ fs.readdir(Odi._MP3 + 'exclamation', (err, files) => {
 	// console.log('EXCLAMATIONS_SOUNDS', EXCLAMATIONS_SOUNDS);
 });
 
+var exclamationRandomBox = new RandomBox(EXCLAMATIONS_SOUNDS);
 function exclamation() {
 	log.info('Exclamation !');
 	Flux.next('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { hidden: true });
 	// spawn('sh', [Odi._SHELL + 'exclamation.sh']); // TODO TOTEST passer par le module sound.js
-	let exclamation = Utils.randomItem(EXCLAMATIONS_SOUNDS);
+	// let exclamation = Utils.randomItem(EXCLAMATIONS_SOUNDS);
+	let exclamation = exclamationRandomBox.next();
 	Flux.next('interface|sound|play', { mp3: 'exclamation/' + exclamation });
 }
 

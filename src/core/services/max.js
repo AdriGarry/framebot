@@ -5,6 +5,7 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Utils = require(Odi._CORE + 'Utils.js');
 var Flux = require(Odi._CORE + 'Flux.js');
+const RandomBox = require('randombox').RandomBox;
 
 Flux.service.max.subscribe({
 	next: flux => {
@@ -88,8 +89,10 @@ function turnNose() {
 	Flux.next('interface|arduino|write', 'turnNose');
 }
 
+var hornRandomBox = new RandomBox(HORNS);
 function hornRdm() {
-	let horn = Utils.randomItem(HORNS);
+	// let horn = Utils.randomItem(HORNS);
+	let horn = hornRandomBox.next();
 	log.debug('hornRdm', horn);
 	Flux.next('interface|arduino|write', horn);
 }
@@ -151,6 +154,7 @@ function maxCallbackAction(data) {
 	}
 }
 
+//const maxCallbackRandomBox = new RandomBox()// TODO to implement
 function maxCallbackTTS(arg) {
 	let maxCallbackTTS;
 	if (Array.isArray(arg)) {
