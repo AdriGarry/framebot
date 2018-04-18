@@ -1,8 +1,5 @@
 #!/usr/bin/env node
-
-import { CONNREFUSED } from 'dns';
-
-('use strict');
+'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
@@ -10,6 +7,7 @@ var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(Odi._CORE + 'Utils.js');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
+const RandomBox = require('randombox').RandomBox;
 
 Flux.service.music.subscribe({
 	next: flux => {
@@ -59,7 +57,7 @@ function jukebox(message) {
 }
 
 var jukeboxTimeout,
-	jukeboxRandomBox = new jukeboxRandomBox(JUKEBOX_SONGS);
+	jukeboxRandomBox = new RandomBox(JUKEBOX_SONGS);
 function repeatSong() {
 	log.info('next song...');
 	// let song = Utils.randomItem(JUKEBOX_SONGS);

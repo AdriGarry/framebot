@@ -5,6 +5,7 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 var Flux = require(Odi._CORE + 'Flux.js');
 var Utils = require(ODI_PATH + 'src/core/Utils.js');
+const RandomBox = require('randombox').RandomBox;
 
 Flux.service.mood.subscribe({
 	next: flux => {
@@ -26,13 +27,9 @@ function expressive(args) {
 }
 
 // const MAX_JAVA = ['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm'];
-var maxJavaRandomBox = new maxJavaRandomBox([
-	'service|max|playOneMelody',
-	'service|max|playRdmMelody',
-	'service|max|hornRdm'
-]);
+var maxJavaRandomBox = new RandomBox(['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm']);
 
-var ttsRandomBox = new TTS_RANDOM_BOX(Odi.ttsMessages.random);
+var ttsRandomBox = new RandomBox(Odi.ttsMessages.random);
 /** Function to start bad boy mode */
 function java(interval) {
 	log.INFO('JAVA mode !');
