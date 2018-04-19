@@ -2,12 +2,12 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-var Flux = require(Odi._CORE + 'Flux.js');
-var Utils = require(ODI_PATH + 'src/core/Utils.js');
-var spawn = require('child_process').spawn;
-var fs = require('fs');
-var os = require('os');
+const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
+const Flux = require(Odi._CORE + 'Flux.js');
+const Utils = require(ODI_PATH + 'src/core/Utils.js');
+const spawn = require('child_process').spawn;
+const fs = require('fs');
+const os = require('os');
 
 Flux.service.system.subscribe({
 	next: flux => {

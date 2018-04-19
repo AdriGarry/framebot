@@ -2,10 +2,9 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename.match(/(\w*).js/g)[0]);
-var Utils = require(ODI_PATH + 'src/core/Utils.js');
-
-var util = require('util');
+const log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+const Utils = require(ODI_PATH + 'src/core/Utils.js');
+const util = require('util');
 const Rx = require('rxjs');
 
 var ready = false;

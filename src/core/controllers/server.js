@@ -9,17 +9,16 @@
  */
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
-var Flux = require(Odi._CORE + 'Flux.js');
-var Utils = require(ODI_PATH + 'src/core/Utils.js');
+const log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+const Flux = require(Odi._CORE + 'Flux.js');
+const Utils = require(ODI_PATH + 'src/core/Utils.js');
 const admin = require(ODI_PATH + 'src/core/services/admin.js');
-
-var express = require('express');
-var compression = require('compression');
-var bodyParser = require('body-parser');
-var path = require('path');
-var spawn = require('child_process').spawn;
-var fs = require('fs');
+const express = require('express');
+const compression = require('compression');
+const bodyParser = require('body-parser');
+const path = require('path');
+const spawn = require('child_process').spawn;
+const fs = require('fs');
 
 const FILE_REQUEST_HISTORY = ODI_PATH + 'log/requestHistory.log';
 const FILE_GRANT = ODI_PATH + 'data/pwd.properties';

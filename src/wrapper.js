@@ -3,12 +3,12 @@
 /** Params detection */
 var argv = process.argv.splice(2);
 
-var fs = require('fs');
-var path = require('path');
-var spawn = require('child_process').spawn;
-var Gpio = require('onoff').Gpio;
+const fs = require('fs');
+const path = require('path');
+const spawn = require('child_process').spawn;
+const Gpio = require('onoff').Gpio;
 
-var sep = path.sep;
+const sep = path.sep;
 // const SRC_PATH = __filename.match(/\/.*\//g)[0];
 const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');

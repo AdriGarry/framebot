@@ -13,7 +13,7 @@ const forcedParams = {
 
 global.ODI_PATH = __dirname.match(/\/.*\//g)[0];
 
-var descriptor = require(ODI_PATH + 'data/descriptor.json');
+const descriptor = require(ODI_PATH + 'data/descriptor.json');
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').init(
 	__filename.match(/\/.*\//g)[0],
@@ -21,18 +21,18 @@ var Odi = require(ODI_PATH + 'src/core/Odi.js').init(
 	forcedParams,
 	startTime
 );
-var spawn = require('child_process').spawn;
+const spawn = require('child_process').spawn;
 if (Odi.isAwake()) {
 	spawn('sh', [ODI_PATH + 'src/shell/init.sh']);
 	spawn('sh', [ODI_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
 }
 
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf('mode'));
+const log = new (require(Odi._CORE + 'Logger.js'))(__filename, Odi.conf('mode'));
 // log.setMode(Odi.conf('log'));
 log.debug('argv', argv);
 
-var Utils = require(Odi._CORE + 'Utils.js');
-var Flux = require(Odi._CORE + 'Flux.js').loadModules(descriptor.modules);
+const Utils = require(Odi._CORE + 'Utils.js');
+const Flux = require(Odi._CORE + 'Flux.js').loadModules(descriptor.modules);
 
 log.info('--> Odi ready in ' + Utils.executionTime(startTime) + 'ms');
 

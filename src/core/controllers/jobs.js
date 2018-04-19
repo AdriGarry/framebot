@@ -2,13 +2,11 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-var Utils = require(ODI_PATH + 'src/core/Utils.js');
-var CronJob = require('cron').CronJob;
-
-var Flux = require(Odi._CORE + 'Flux.js');
-
+const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
+const Utils = require(ODI_PATH + 'src/core/Utils.js');
+const Flux = require(Odi._CORE + 'Flux.js');
 const JOBS = require(Odi._DATA + 'jobList.json');
+const CronJob = require('cron').CronJob;
 
 scheduleJobs(JOBS.system, 'System');
 if (Odi.isAwake()) {

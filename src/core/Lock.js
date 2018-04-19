@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
-var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
-var Utils = require(ODI_PATH + 'src/core/Utils.js');
-var fs = require('fs');
+const log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
+const Utils = require(ODI_PATH + 'src/core/Utils.js');
+const fs = require('fs');
 
 /** accessor: object(|id, value, table, restart]) */
 function Lock(obj, file) {
@@ -18,8 +18,8 @@ function Lock(obj, file) {
 
 	function _functions(id, newValue, restart, table) {
 		if (!id) return self._obj; //return all object
-		if (typeof newValue !== 'undefined')
-			return _setter(id, newValue, restart, table); //set value
+		if (typeof newValue !== 'undefined') return _setter(id, newValue, restart, table);
+		//set value
 		else return _getter(id); //get value
 	}
 

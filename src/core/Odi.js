@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
-var Lock = require(ODI_PATH + 'src/core/Lock.js');
-var Utils = require(ODI_PATH + 'src/core/Utils.js');
-var fs = require('fs');
+const log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
+const Lock = require(ODI_PATH + 'src/core/Lock.js');
+const Utils = require(ODI_PATH + 'src/core/Utils.js');
+const fs = require('fs');
 
 var _runtime = {
 	etat: null,

@@ -2,10 +2,10 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-var Flux = require(Odi._CORE + 'Flux.js');
-var Utils = require(Odi._CORE + 'Utils.js');
-var SerialPort = require('serialport');
+const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
+const Flux = require(Odi._CORE + 'Flux.js');
+const Utils = require(Odi._CORE + 'Utils.js');
+const SerialPort = require('serialport');
 
 const ARDUINO = { address: '/dev/ttyACM0', baudRate: 115200 };
 var arduino;

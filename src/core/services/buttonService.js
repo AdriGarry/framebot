@@ -2,9 +2,9 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
-var Utils = require(Odi._CORE + 'Utils.js');
-var Flux = require(Odi._CORE + 'Flux.js');
+const log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+const Utils = require(Odi._CORE + 'Utils.js');
+const Flux = require(Odi._CORE + 'Flux.js');
 // const BTN_PUSH_MIN = 0.5;
 
 Flux.controller.button.subscribe({

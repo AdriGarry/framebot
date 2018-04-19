@@ -2,12 +2,12 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-var Flux = require(Odi._CORE + 'Flux.js');
-var Utils = require(ODI_PATH + 'src/core/Utils.js');
-var Gpio = require('onoff').Gpio;
-var fs = require('fs');
-var os = require('os');
+const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
+const Flux = require(Odi._CORE + 'Flux.js');
+const Utils = require(ODI_PATH + 'src/core/Utils.js');
+const Gpio = require('onoff').Gpio;
+const fs = require('fs');
+const os = require('os');
 
 const PATHS = [Odi._SRC];
 const BYTE_TO_MO = 1048576;

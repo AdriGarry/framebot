@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
-var util = require('util');
-
 module.exports = Logger;
+
+const util = require('util');
 
 const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' };
 const TIMEOUT = 15;

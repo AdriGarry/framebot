@@ -2,12 +2,11 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-
-var Flux = require(Odi._CORE + 'Flux.js');
-var Utils = require(Odi._CORE + 'Utils.js');
-var spawn = require('child_process').spawn;
-var exec = require('child_process').exec;
+const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
+const Flux = require(Odi._CORE + 'Flux.js');
+const Utils = require(Odi._CORE + 'Utils.js');
+const spawn = require('child_process').spawn;
+const exec = require('child_process').exec;
 
 Flux.interface.sound.subscribe({
 	next: flux => {

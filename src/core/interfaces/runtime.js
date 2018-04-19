@@ -2,10 +2,10 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-var Utils = require(ODI_PATH + 'src/core/Utils.js');
-var Flux = require(Odi._CORE + 'Flux.js');
-var fs = require('fs');
+const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
+const Utils = require(ODI_PATH + 'src/core/Utils.js');
+const Flux = require(Odi._CORE + 'Flux.js');
+const fs = require('fs');
 
 Flux.interface.runtime.subscribe({
 	next: flux => {

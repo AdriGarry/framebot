@@ -3,10 +3,10 @@
 // Module Party
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-var Utils = require(ODI_PATH + 'src/core/Utils.js');
-var Flux = require(Odi._CORE + 'Flux.js');
-var spawn = require('child_process').spawn;
+const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
+const Utils = require(ODI_PATH + 'src/core/Utils.js');
+const Flux = require(Odi._CORE + 'Flux.js');
+const spawn = require('child_process').spawn;
 
 Flux.service.party.subscribe({
 	next: flux => {

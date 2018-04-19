@@ -2,12 +2,10 @@
 'use strict';
 
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-
-var fs = require('fs');
-
-var Flux = require(Odi._CORE + 'Flux.js');
-var Utils = require(Odi._CORE + 'Utils.js');
+const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
+const Flux = require(Odi._CORE + 'Flux.js');
+const Utils = require(Odi._CORE + 'Utils.js');
+const fs = require('fs');
 
 Flux.service.voicemail.subscribe({
 	next: flux => {
@@ -45,6 +43,7 @@ function addVoiceMailMessage(tts) {
 			updateVoicemailMessage();
 		}, 1000);
 	} else if (Array.isArray(tts)) {
+		// log.INFO('______array message');
 		for (var i = 0; i < tts.length; i++) {
 			addVoiceMailMessage(tts[i]);
 		}

@@ -2,13 +2,12 @@
 'use strict';
 
 // Utils static factory (shoud not require Odi.js || Flux.js)
-var log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename); // prévoir un fallback si log n'est pas dispo log.info()=>console.log()
-
-var fs = require('fs');
-var exec = require('child_process').exec;
-// var spawn = require('child_process').spawn;
-// var os = require('os');
-// var util = require('util');
+const log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename); // prévoir un fallback si log n'est pas dispo log.info()=>console.log()
+const fs = require('fs');
+const exec = require('child_process').exec;
+// const spawn = require('child_process').spawn;
+// const os = require('os');
+// const util = require('util');
 
 module.exports = {
 	stackPosition: stackPosition,
