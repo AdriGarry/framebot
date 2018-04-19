@@ -36,12 +36,19 @@ setInterval(function() {
 function addVoiceMailMessage(tts) {
 	log.info('New voicemail message :', tts);
 	if (typeof tts === 'object' && tts.hasOwnProperty('msg') && typeof tts.msg === 'string') {
-		tts = JSON.stringify(tts);
-		Utils.appendJsonFile(VOICEMAIL_FILE, tts);
-		Utils.appendJsonFile(VOICEMAIL_FILE_HISTORY, tts);
-		setTimeout(function() {
-			updateVoicemailMessage();
-		}, 1000);
+		try {
+			let newTTS = JSON.parse(tts.msg);
+			addVoiceMailMessage(newTTS);
+			return;
+		} catch (err) {
+			log.INFO('--->this is not a real error');
+			tts = JSON.stringify(tts);
+			Utils.appendJsonFile(VOICEMAIL_FILE, tts);
+			Utils.appendJsonFile(VOICEMAIL_FILE_HISTORY, tts);
+			setTimeout(function() {
+				updateVoicemailMessage();
+			}, 1000);
+		}
 	} else if (Array.isArray(tts)) {
 		// log.INFO('______array message');
 		for (var i = 0; i < tts.length; i++) {
