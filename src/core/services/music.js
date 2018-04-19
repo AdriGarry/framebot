@@ -40,12 +40,6 @@ function ledFlag() {
 	}, 13 * 1000);
 }
 
-var JUKEBOX_SONGS;
-fs.readdir(Odi._MP3 + 'jukebox', (err, files) => {
-	JUKEBOX_SONGS = files;
-	// console.log('JUKEBOX_SONGS', JUKEBOX_SONGS);
-});
-
 /** Function jukebox (repeat for one hour) */
 function jukebox(message) {
 	stop();
@@ -56,8 +50,15 @@ function jukebox(message) {
 	Flux.next('interface|sound|mute', { message: 'Auto mute jukebox !', delay: 2 }, { delay: 60 * 60 });
 }
 
-var jukeboxTimeout,
-	jukeboxRandomBox = new RandomBox(JUKEBOX_SONGS);
+var jukeboxTimeout, jukeboxRandomBox;
+
+// var JUKEBOX_SONGS;
+fs.readdir(Odi._MP3 + 'jukebox', (err, files) => {
+	// JUKEBOX_SONGS = files;
+	jukeboxRandomBox = new RandomBox(files);
+	// console.log('JUKEBOX_SONGS', JUKEBOX_SONGS);
+});
+
 function repeatSong() {
 	log.info('next song...');
 	// let song = Utils.randomItem(JUKEBOX_SONGS);
@@ -77,7 +78,8 @@ function repeatSong() {
 function playOneSong() {
 	// DEPRECATED ? (never called?)
 	log.INFO("music.playOneSong() => shouldn't be CONNREFUSED...");
-	var song = Utils.randomItem(JUKEBOX_SONGS);
+	// var song = Utils.randomItem(JUKEBOX_SONGS);
+	let song = jukeboxRandomBox.next();
 	Flux.next('interface|sound|play', { mp3: 'jukebox/' + song });
 }
 

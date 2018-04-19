@@ -82,20 +82,19 @@ function randomAction() {
 	}
 }
 
-var EXCLAMATIONS_SOUNDS;
+var exclamationRandomBox; // = new RandomBox(EXCLAMATIONS_SOUNDS); // TODO /!\ asynchrone avec la recupération des noms de fichiers !!! (voir si d'autres cas ailleurs)
+// var EXCLAMATIONS_SOUNDS;
 fs.readdir(Odi._MP3 + 'exclamation', (err, files) => {
-	EXCLAMATIONS_SOUNDS = files;
-	console.log('EXCLAMATIONS_SOUNDS', EXCLAMATIONS_SOUNDS);
+	// EXCLAMATIONS_SOUNDS = files;
+	exclamationRandomBox = new RandomBox(files);
+	// console.log('EXCLAMATIONS_SOUNDS', EXCLAMATIONS_SOUNDS);
 });
-
-var exclamationRandomBox = new RandomBox(EXCLAMATIONS_SOUNDS); // TODO /!\ asynchrone avec la recupération des noms de fichiers !!! (voir si d'autres cas ailleurs)
-
 function exclamation() {
 	log.info('Exclamation !');
 	Flux.next('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { hidden: true });
 	// spawn('sh', [Odi._SHELL + 'exclamation.sh']); // TODO TOTEST passer par le module sound.js
 	// let exclamation = Utils.randomItem(EXCLAMATIONS_SOUNDS);
-	console.log(exclamationRandomBox.cycle);
+	// console.log(exclamationRandomBox.cycle);
 	let exclamation = exclamationRandomBox.next();
 	Flux.next('interface|sound|play', { mp3: 'exclamation/' + exclamation });
 }
