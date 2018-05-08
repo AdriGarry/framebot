@@ -55,6 +55,7 @@ function scheduleJobs(jobsList, jobsType) {
 	log.info(jobsType + ' jobs initialised');
 }
 
+// DEPRECATED ?
 function findByKey(object, key) {
 	// TODO move to Utils.js
 	let value = false;
