@@ -91,7 +91,7 @@ function appendJsonFile(filePath, obj, callback) {
 						.replace(/\\/g, '')
 						.replace(/\"{/g, '{')
 						.replace(/\}"/g, '}');
-					fs.writeFile(filePath, fileData, function(cb) {
+					fs.writeFile(filePath, fileData, function() {
 						log.debug('file ' + filePath + ' modified in', executionTime(startTime) + 'ms');
 					});
 				}
@@ -103,7 +103,6 @@ function appendJsonFile(filePath, obj, callback) {
 				.replace(/\\/g, '')
 				.replace(/\"{/g, '{')
 				.replace(/\}"/g, '}');
-			// log.debug(fileData);
 			fs.writeFile(filePath, fileData, function() {
 				log.debug('file ' + filePath + ' created in', executionTime(startTime) + 'ms');
 			});
@@ -217,7 +216,7 @@ function numberWithDot(number) {
 }
 
 function perCent(value, total, precision) {
-	return (value / total * 100).toFixed(precision | 2);
+	return ((value / total) * 100).toFixed(precision | 2);
 }
 
 function random(arg1, arg2) {
@@ -301,9 +300,9 @@ Date.prototype.getWeek = function() {
 	var date = new Date(this.getTime());
 	date.setHours(0, 0, 0, 0);
 	// Thursday in current week decides the year.
-	date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+	date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
 	// January 4 is always in week 1.
 	var week1 = new Date(date.getFullYear(), 0, 4);
 	// Adjust to Thursday in week 1 and count number of weeks from date to week1.
-	return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+	return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7);
 };
