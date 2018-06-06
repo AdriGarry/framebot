@@ -13,7 +13,7 @@ module.exports = {
 	stackPosition: stackPosition,
 	repeatString: repeatString,
 	deleteFolderRecursive: deleteFolderRecursive,
-	appendJsonFile: appendJsonFile,
+	appendJsonFile: appendArrayInJsonFile,
 	execCmd: execCmd,
 	firstLetterUpper: firstLetterUpper,
 	executionTime: executionTime,
@@ -77,7 +77,7 @@ function deleteFolderRecursive(path) {
 }
 
 /** Function to append object in JSON file */
-function appendJsonFile(filePath, obj, callback) {
+function appendArrayInJsonFile(filePath, obj, callback) {
 	var fileData,
 		startTime = new Date();
 	fs.exists(filePath, function(exists) {
@@ -86,26 +86,27 @@ function appendJsonFile(filePath, obj, callback) {
 				if (!data) console.error(data);
 				else {
 					fileData = JSON.parse(data);
-					fileData.push(obj);
-					fileData = JSON.stringify(fileData, null, 2)
-						.replace(/\\/g, '')
-						.replace(/\"{/g, '{')
-						.replace(/\}"/g, '}');
-					fs.writeFile(filePath, fileData, function() {
-						log.debug('file ' + filePath + ' modified in', executionTime(startTime) + 'ms');
-					});
+					_writeFile(filePath, obj);
 				}
 			});
 		} else {
 			fileData = [];
-			fileData.push(obj);
-			fileData = JSON.stringify(fileData, null, 2)
-				.replace(/\\/g, '')
-				.replace(/\"{/g, '{')
-				.replace(/\}"/g, '}');
-			fs.writeFile(filePath, fileData, function() {
-				log.debug('file ' + filePath + ' created in', executionTime(startTime) + 'ms');
-			});
+			_writeFile(filePath, fileData, true);
+		}
+	});
+}
+
+function _writeFile(filePath, fileData, isCreation) {
+	fileData.push(obj);
+	fileData = JSON.stringify(fileData, null, 2)
+		.replace(/\\/g, '')
+		.replace(/\"{/g, '{')
+		.replace(/\}"/g, '}');
+	fs.writeFile(filePath, fileData, { mode: 777 }, function() {
+		if (isCreation) {
+			log.debug('file ' + filePath + ' created in', executionTime(startTime) + 'ms');
+		} else {
+			log.debug('file ' + filePath + ' modified in', executionTime(startTime) + 'ms');
 		}
 	});
 }
