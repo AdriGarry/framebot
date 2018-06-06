@@ -1,22 +1,19 @@
 {
 	"random": [
 		"Je suis dubitatif !",
-		"Pour moi, chaque meta donner est une information!",
-		"Trop de logs tuent les logs!",
 		"Mon intaigriter est compromise",
 		"Tout est sous controle !",
 		"Et ho, je suis la !",
 		"Rien de nouveau sous le soleil !",
 		"Eh dis donc toi !",
 		"Eh toi, tu crois que je ne t'ai pas vu ?",
-		"Quoi, tu me cherches ?",
 		"Il pleut dehors",
 		"Et, faudrait pas lancer une lessive ?",
 		"Hey, tu te fous de moi ou quoi ?",
+		"Si tu me cherches, tu vas me trouver !",
+		"Oulala, j'ai vu passer une bestiol!",
 		"Oulala, j'ai vu passer une bestiol!",
 		"Salut mon loulou !",
-		"Si tu me cherches, tu vas me trouver !",
-		"Saperlipopette !",
 		"C'est assez dit la baleine !",
 		"Salut, je suis tonton Odi",
 		"ron ron bien qui ronronnera le dernier !",
@@ -43,7 +40,6 @@
 		],
 		[{ "msg": "Ah sa me fais chier de ne pas pouvoir bouger" }, { "voice": "google", "msg": "A moi aussi" }],
 		[{ "voice": "google", "msg": "He, es tu la ?" }, { "msg": "Oui oui, je suis la!" }],
-		[{ "voice": "google", "msg": "Le barbecue, c'est cool... !" }, { "msg": "Carraiment, je kiffe bien moi aussi" }],
 		[
 			{ "msg": "Et, j'en connais une bien bonne" },
 			{ "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !" }
@@ -57,7 +53,6 @@
 			{ "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !" }
 		],
 		[{ "msg": "Eh bien moi, j'ai des boutons poussoirs !" }, { "voice": "google", "msg": "Et toc!" }],
-		[{ "msg": "Je te dirais bien le fond de ma penser..." }, { "msg": "Mais sa risque de pas trop te plaire" }],
 		[
 			{ "voice": "google", "msg": "C'est l'heure de l'apero, non ?" },
 			{ "msg": "Effectivement, je ne dirais pas non a une petite mousse !" }
@@ -70,7 +65,8 @@
 		[
 			{ "msg": "Et, tu pourrais quand maime me dire bonjour" },
 			{ "voice": "google", "msg": "Oui, c'est la moindre des choses !" }
-		]
+		],
+		[{ "msg": "Pense a arroser les tomates !" }, { "voice": "google", "msg": "Oui, et les autres plantes aussi" }]
 	],
 	"demo": [
 		"Bonjour",
@@ -156,6 +152,8 @@
 		"hornFire": "Au feu !",
 		"sensor": [
 			"Oh, il se passe un truc du coter de chez Max!",
+			"Oh, il se passe un truc vers chez Max!",
+			"Oh Oh, sa va Max?",
 			{ "lg": "en", "msg": "Max sensor" },
 			{ "lg": "en", "msg": "Max sensor fired" }
 		]
