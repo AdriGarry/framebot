@@ -86,23 +86,24 @@ function appendArrayInJsonFile(filePath, obj, callback) {
 				if (!data) console.error(data);
 				else {
 					fileData = JSON.parse(data);
-					_writeFile(filePath, obj);
+					log.info(fileData);
+					fileData.push(obj);
+					_writeFile(filePath, obj, startTime);
 				}
 			});
 		} else {
 			fileData = [];
-			_writeFile(filePath, fileData, true);
+			fileData.push(obj);
+			_writeFile(filePath, fileData, startTime, true);
 		}
 	});
 }
-
-function _writeFile(filePath, fileData, isCreation) {
-	fileData.push(obj);
-	fileData = JSON.stringify(fileData, null, 2)
+function _writeFile(filePath, fileData, startTime, isCreation) {
+	var jsonData = JSON.stringify(fileData, null, 2)
 		.replace(/\\/g, '')
 		.replace(/\"{/g, '{')
 		.replace(/\}"/g, '}');
-	fs.writeFile(filePath, fileData, { mode: 777 }, function() {
+	fs.writeFile(filePath, jsonData, { mode: '666' }, function() {
 		if (isCreation) {
 			log.debug('file ' + filePath + ' created in', executionTime(startTime) + 'ms');
 		} else {

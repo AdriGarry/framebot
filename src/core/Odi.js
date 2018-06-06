@@ -27,7 +27,9 @@ var _runtime = {
 	stats: {
 		diskSpace: null,
 		totalLines: null,
-		update: null
+		update: null,
+		upTimeOdi: null,
+		upTimeRaspi: null
 	}
 };
 var Odi = {

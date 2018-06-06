@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+'use strict';
 
 /** Params detection */
 var argv = process.argv.splice(2);
@@ -76,7 +77,7 @@ function startOdi(exitCode) {
 	for (var i = 0; i < argv.length; i++) {
 		odiProgramWithParams.push(argv[i]);
 	}
-	odiCore = spawn('node', odiProgramWithParams);
+	var odiCore = spawn('node', odiProgramWithParams);
 
 	odiCore.stdout.on('data', function(data) {
 		process.stdout.write(data);
@@ -100,8 +101,8 @@ function checkUp() {
 	console.log('checkUp...');
 	descriptor = JSON.parse(fs.readFileSync(ODI_PATH + 'data/descriptor.json'));
 	if (!fs.existsSync(ODI_PATH + 'tmp')) {
-		fs.mkdirSync(path.join(ODI_PATH, 'tmp'), 0777);
-		fs.chmodSync(path.join(ODI_PATH, 'tmp'), 0777);
+		fs.mkdirSync(path.join(ODI_PATH, 'tmp'), 777);
+		fs.chmodSync(path.join(ODI_PATH, 'tmp'), 777);
 		console.log('> TEMP directory created');
 	} else {
 		checkVoicemailValidity();
