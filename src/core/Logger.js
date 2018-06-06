@@ -36,21 +36,24 @@ function Logger(filename, modeOdi) {
 
 	function levelAccessor(arg) {
 		if (arg) {
-			let newLogLevel = String(arg).toLowerCase();
-			if (newLogLevel == LEVEL.DEBUG || newLogLevel == LEVEL.TRACE) {
-				logLevel = newLogLevel;
-				backToInfoLevel(TIMEOUT);
-			} else {
-				logLevel = LEVEL.INFO;
-			}
-			INFO('--> Logger level set to:', logLevel);
+			setLogLevel(arg);
 		} else {
 			return logLevel;
 		}
 	}
 
+	function setLogLevel(arg) {
+		let newLogLevel = String(arg).toLowerCase();
+		logLevel = newLogLevel;
+		INFO();
+		INFO('--> Logger level set to:', logLevel);
+		if (newLogLevel == LEVEL.DEBUG || newLogLevel == LEVEL.TRACE) {
+			timeoutToInfoLevel(TIMEOUT);
+		}
+	}
+
 	var cancelTimeout;
-	function backToInfoLevel(delay) {
+	function timeoutToInfoLevel(delay) {
 		info('back to info level in', delay, 'min');
 		clearTimeout(cancelTimeout);
 		cancelTimeout = setTimeout(() => {
