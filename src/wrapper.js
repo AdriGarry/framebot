@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict';
+// 'use strict'; //Octal literals are not allowed in strict mode.
 
 /** Params detection */
 var argv = process.argv.splice(2);
@@ -101,8 +101,8 @@ function checkUp() {
 	console.log('checkUp...');
 	descriptor = JSON.parse(fs.readFileSync(ODI_PATH + 'data/descriptor.json'));
 	if (!fs.existsSync(ODI_PATH + 'tmp')) {
-		fs.mkdirSync(path.join(ODI_PATH, 'tmp'), 777);
-		fs.chmodSync(path.join(ODI_PATH, 'tmp'), 777);
+		fs.mkdirSync(path.join(ODI_PATH, 'tmp')); //, parseInt('0777', 8)
+		fs.chmodSync(path.join(ODI_PATH, 'tmp')); //, parseInt('0777', 8)
 		console.log('> TEMP directory created');
 	} else {
 		checkVoicemailValidity();

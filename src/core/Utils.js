@@ -82,18 +82,30 @@ function appendArrayInJsonFile(filePath, obj, callback) {
 		startTime = new Date();
 	fs.exists(filePath, function(exists) {
 		if (exists) {
+			log.INFO('EXIST!');
 			fs.readFile(filePath, 'utf8', function(err, data) {
-				if (!data) console.error(data);
-				else {
-					fileData = JSON.parse(data);
+				if (err || !data) {
+					log.error(err, data);
+				} else {
 					log.info(fileData);
-					fileData.push(obj);
-					_writeFile(filePath, obj, startTime);
+					fileData = JSON.parse(data);
+					log.info(Array.isArray(fileData), typeof fileData, fileData);
+					if (Array.isArray(fileData)) {
+						fileData.push(obj);
+						log.info(fileData);
+						_writeFile(filePath, obj, startTime);
+					} else {
+						// Odi.error
+						log.error('ERF !');
+						log.error('ERF !');
+					}
 				}
 			});
 		} else {
-			fileData = [];
-			fileData.push(obj);
+			log.INFO('NOT EXIST!');
+			// fileData = [];
+			// fileData.push(obj);
+			fileData = [obj];
 			_writeFile(filePath, fileData, startTime, true);
 		}
 	});
@@ -103,7 +115,8 @@ function _writeFile(filePath, fileData, startTime, isCreation) {
 		.replace(/\\/g, '')
 		.replace(/\"{/g, '{')
 		.replace(/\}"/g, '}');
-	fs.writeFile(filePath, jsonData, { mode: '666' }, function() {
+	fs.writeFile(filePath, jsonData, function() {
+		//{ mode: '666' } // { mode: parseInt('0777', 8) }
 		if (isCreation) {
 			log.debug('file ' + filePath + ' created in', executionTime(startTime) + 'ms');
 		} else {
