@@ -76,7 +76,7 @@ function retreiveCpuUsage() {
 	//Calculate the difference in idle and total time between the measures
 	var idleDifference = endMeasure.idle - startMeasure.idle;
 	var totalDifference = endMeasure.total - startMeasure.total;
-	var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference); //Calculate the average percentage CPU usage
+	var percentageCPU = 100 - ~~((100 * idleDifference) / totalDifference); //Calculate the average percentage CPU usage
 	Odi.run('cpu.usage', percentageCPU + '%');
 	return percentageCPU;
 }
