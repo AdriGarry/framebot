@@ -102,7 +102,7 @@ function checkUp() {
 	descriptor = JSON.parse(fs.readFileSync(ODI_PATH + 'data/descriptor.json'));
 	if (!fs.existsSync(ODI_PATH + 'tmp')) {
 		fs.mkdirSync(path.join(ODI_PATH, 'tmp')); //, parseInt('0777', 8)
-		fs.chmodSync(path.join(ODI_PATH, 'tmp')); //, parseInt('0777', 8)
+		fs.chmodSync(path.join(ODI_PATH, 'tmp'), parseInt('0777', 8)); //, parseInt('0777', 8)
 		console.log('> TEMP directory created');
 	} else {
 		checkVoicemailValidity();
