@@ -290,7 +290,7 @@ app.component('hardware', {
 			var match = memoryRegex.exec(memory);
 			var value = match[1],
 				total = match[2];
-			return (value / total * 100).toFixed(0);
+			return ((value / total) * 100).toFixed(0);
 		};
 	}
 });
@@ -486,7 +486,7 @@ app.component('badBoy', {
 		};
 
 		var specificActions = function(button) {
-			if (button.label.indexOf('BADBOY MODE') != -1) {
+			if (button.label.toUpperCase().indexOf('BADBOY MODE') != -1) {
 				var slider = {
 					label: 'Bad boy interval',
 					url: '/badBoy',

@@ -34,7 +34,7 @@ const fs = require('fs');
 // };
 var Odi = {};
 function buildOdiObject(Odi, descriptor) {
-	//Object.assign(cible, ...sources)
+	//Object.assign(cible, ...sources) //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object/assign
 	Odi.conf = new Lock(require(ODI_PATH + 'tmp/conf.json'), ODI_PATH + 'tmp/conf.json');
 	Odi.isAwake = isAwake;
 	Odi.run = new Lock(descriptor.runtime);
@@ -63,7 +63,6 @@ module.exports = {
 var Flux = { next: null };
 function initOdi(path, descriptor, forcedParams, startTime) {
 	Odi = buildOdiObject(Odi, descriptor);
-	log.INFO('°°°°', Odi._CORE);
 	let packageJson = require(ODI_PATH + 'package.json');
 	var confUpdate = { startTime: Utils.logTime('h:m (D/M)'), version: packageJson.version },
 		forcedParamsLog = '';
