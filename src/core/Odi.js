@@ -6,52 +6,55 @@ const Lock = require(ODI_PATH + 'src/core/Lock.js');
 const Utils = require(ODI_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 
-var _runtime = {
-	etat: null,
-	volume: null,
-	max: null,
-	mood: [],
-	music: false,
-	alarm: false,
-	timer: 0,
-	voicemail: null,
-	screen: null,
-	cpu: {
-		usage: null,
-		temp: null
-	},
-	memory: {
-		odi: null,
-		system: null
-	},
-	stats: {
-		diskSpace: null,
-		totalLines: null,
-		update: null,
-		upTimeOdi: null,
-		upTimeRaspi: null
-	}
-};
-var Odi = {
-	conf: new Lock(require(ODI_PATH + 'tmp/conf.json'), ODI_PATH + 'tmp/conf.json'),
-	isAwake: isAwake,
-	run: new Lock(_runtime),
-	error: error,
-	errors: [],
-	gpio: require(ODI_PATH + 'data/gpio.json'),
-	ttsMessages: require(ODI_PATH + 'data/ttsMessages.json'),
-	_SRC: ODI_PATH + 'src/',
-	_CORE: ODI_PATH + 'src/core/',
-	_SHELL: ODI_PATH + 'src/shell/',
-	_WEB: ODI_PATH + 'src/web/',
-	_DATA: ODI_PATH + 'data/',
-	_MP3: ODI_PATH + 'media/mp3/',
-	_VIDEO: ODI_PATH + 'media/video/',
-	_PHOTO: ODI_PATH + 'media/photo/',
-	_LOG: ODI_PATH + 'log/',
-	_TMP: ODI_PATH + 'tmp/',
-	_CONF: ODI_PATH + 'tmp/conf.json'
-};
+// var _runtime = {
+// 	etat: null,
+// 	volume: null,
+// 	max: null,
+// 	mood: [],
+// 	music: false,
+// 	alarm: false,
+// 	timer: 0,
+// 	voicemail: null,
+// 	screen: null,
+// 	cpu: {
+// 		usage: null,
+// 		temp: null
+// 	},
+// 	memory: {
+// 		odi: null,
+// 		system: null
+// 	},
+// 	stats: {
+// 		diskSpace: null,
+// 		totalLines: null,
+// 		update: null,
+// 		upTimeOdi: null,
+// 		upTimeRaspi: null
+// 	}
+// };
+var Odi = {};
+function buildOdiObject(Odi, descriptor) {
+	//Object.assign(cible, ...sources)
+	Odi.conf = new Lock(require(ODI_PATH + 'tmp/conf.json'), ODI_PATH + 'tmp/conf.json');
+	Odi.isAwake = isAwake;
+	Odi.run = new Lock(descriptor.runtime);
+	Odi.error = error;
+	Odi.errors = [];
+	Odi.gpio = require(ODI_PATH + 'data/gpio.json');
+	Odi.ttsMessages = require(ODI_PATH + 'data/ttsMessages.json');
+	Odi._SRC = ODI_PATH + 'src/';
+	Odi._CORE = ODI_PATH + 'src/core/';
+	Odi._SHELL = ODI_PATH + 'src/shell/';
+	Odi._WEB = ODI_PATH + 'src/web/';
+	Odi._DATA = ODI_PATH + 'data/';
+	Odi._MP3 = ODI_PATH + 'media/mp3/';
+	Odi._VIDEO = ODI_PATH + 'media/video/';
+	Odi._PHOTO = ODI_PATH + 'media/photo/';
+	Odi._LOG = ODI_PATH + 'log/';
+	Odi._TMP = ODI_PATH + 'tmp/';
+	Odi._CONF = ODI_PATH + 'tmp/conf.json';
+	return Odi;
+}
 module.exports = {
 	init: initOdi,
 	Odi: Odi
@@ -59,7 +62,8 @@ module.exports = {
 
 var Flux = { next: null };
 function initOdi(path, descriptor, forcedParams, startTime) {
-	Odi.PATH = path;
+	Odi = buildOdiObject(Odi, descriptor);
+	log.INFO('°°°°', Odi._CORE);
 	let packageJson = require(ODI_PATH + 'package.json');
 	var confUpdate = { startTime: Utils.logTime('h:m (D/M)'), version: packageJson.version },
 		forcedParamsLog = '';

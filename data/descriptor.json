@@ -23,5 +23,31 @@
 		},
 		"version": ".",
 		"flux": []
+	},
+	"runtime": {
+		"etat": null,
+		"volume": null,
+		"max": null,
+		"mood": [],
+		"music": false,
+		"alarm": false,
+		"timer": 0,
+		"voicemail": null,
+		"screen": null,
+		"cpu": {
+			"usage": null,
+			"temp": null
+		},
+		"memory": {
+			"odi": null,
+			"system": null
+		},
+		"stats": {
+			"diskSpace": null,
+			"totalLines": null,
+			"update": null,
+			"upTimeOdi": null,
+			"upTimeRaspi": null
+		}
 	}
 }
