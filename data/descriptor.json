@@ -1,4 +1,17 @@
 {
+	"path": {
+		"_SRC": "src/",
+		"_CORE": "src/core/",
+		"_SHELL": "src/shell/",
+		"_WEB": "src/web/",
+		"_DATA": "data/",
+		"_MP3": "media/mp3/",
+		"_VIDEO": "media/video/",
+		"_PHOTO": "media/photo/",
+		"_LOG": "log/",
+		"_TMP": "tmp/",
+		"_CONF": "tmp/conf.json"
+	},
 	"modules": {
 		"interfaces": {
 			"base": ["runtime", "led", "sound", "hardware", "arduino", "video"],
