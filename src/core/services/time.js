@@ -217,7 +217,7 @@ function sayOdiAge() {
 	Flux.next('interface|tts|speak', { lg: 'fr', msg: birthDay });
 }
 
-Odi.run('timer', 0);
+// Odi.run('timer', 0); // TODO useless, to remove ?
 var secInterval;
 function setTimer(minutes) {
 	if (typeof minutes !== undefined && Number(minutes) > 1) {
