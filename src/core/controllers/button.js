@@ -54,6 +54,10 @@ Button.blue.watch(function(err, value) {
 		// already done in the handler
 		log.info('Blue button pushed not enough:', pushTime);
 		log.info('___This should not be logged any more !!!');
+		// TODO refactor to get this unified with buttonService same code
+		var buttonCount = Odi.run('buttonStats.blueError');
+		buttonCount++;
+		Odi.run('buttonStats.blueError', buttonCount);
 	}
 });
 

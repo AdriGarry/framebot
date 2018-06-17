@@ -12,6 +12,7 @@ function buildOdiObject(Odi, descriptor) {
 	Odi.conf = new Lock(require(ODI_PATH + 'tmp/conf.json'), ODI_PATH + 'tmp/conf.json');
 	Odi.isAwake = isAwake;
 	Odi.run = new Lock(descriptor.runtime);
+	Odi.descriptor = descriptor; // TODO useless?
 	Odi.error = error;
 	Odi.errors = [];
 	Odi.gpio = require(ODI_PATH + 'data/gpio.json');

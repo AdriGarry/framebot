@@ -5,7 +5,7 @@ const log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
 const Utils = require(ODI_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 
-/** accessor: object(|id, value, table, restart]) */
+/** accessor: object([id, value, table, restart]) */
 function Lock(obj, file) {
 	var self = this;
 	self._obj = obj;
@@ -14,7 +14,7 @@ function Lock(obj, file) {
 	} else {
 		self.file = false;
 	}
-	Object.seal(self);
+	// Object.seal(self);
 	return _functions;
 
 	function _functions(id, newValue, restart, table) {
