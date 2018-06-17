@@ -1,5 +1,5 @@
 {
-	"path": {
+	"paths": {
 		"_SRC": "src/",
 		"_CORE": "src/core/",
 		"_SHELL": "src/shell/",

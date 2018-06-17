@@ -6,32 +6,6 @@ const Lock = require(ODI_PATH + 'src/core/Lock.js');
 const Utils = require(ODI_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 
-// var _runtime = {
-// 	etat: null,
-// 	volume: null,
-// 	max: null,
-// 	mood: [],
-// 	music: false,
-// 	alarm: false,
-// 	timer: 0,
-// 	voicemail: null,
-// 	screen: null,
-// 	cpu: {
-// 		usage: null,
-// 		temp: null
-// 	},
-// 	memory: {
-// 		odi: null,
-// 		system: null
-// 	},
-// 	stats: {
-// 		diskSpace: null,
-// 		totalLines: null,
-// 		update: null,
-// 		upTimeOdi: null,
-// 		upTimeRaspi: null
-// 	}
-// };
 var Odi = {};
 function buildOdiObject(Odi, descriptor) {
 	//Object.assign(cible, ...sources) //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object/assign
@@ -42,17 +16,10 @@ function buildOdiObject(Odi, descriptor) {
 	Odi.errors = [];
 	Odi.gpio = require(ODI_PATH + 'data/gpio.json');
 	Odi.ttsMessages = require(ODI_PATH + 'data/ttsMessages.json');
-	Odi._SRC = ODI_PATH + 'src/';
-	Odi._CORE = ODI_PATH + 'src/core/';
-	Odi._SHELL = ODI_PATH + 'src/shell/';
-	Odi._WEB = ODI_PATH + 'src/web/';
-	Odi._DATA = ODI_PATH + 'data/';
-	Odi._MP3 = ODI_PATH + 'media/mp3/';
-	Odi._VIDEO = ODI_PATH + 'media/video/';
-	Odi._PHOTO = ODI_PATH + 'media/photo/';
-	Odi._LOG = ODI_PATH + 'log/';
-	Odi._TMP = ODI_PATH + 'tmp/';
-	Odi._CONF = ODI_PATH + 'tmp/conf.json';
+	for (let path in descriptor.paths) {
+		// Setting _PATHS
+		Odi[path] = ODI_PATH + descriptor.paths[path];
+	}
 	return Odi;
 }
 module.exports = {
