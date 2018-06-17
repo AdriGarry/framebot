@@ -105,7 +105,7 @@ function setAlarm(alarm) {
 		}
 	});
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
-	let alarmTTS = 'Alarme ' + alarmMode + ' reprogramer a ' + alarm.h + ' heure ' + alarm.m;
+	let alarmTTS = 'Alarme ' + alarmMode + ' reprogramer a ' + alarm.h + ' heure ' + (alarm.m ? alarm.m : '');
 	Flux.next('interface|tts|speak', alarmTTS);
 	Flux.next('interface|runtime|updateRestart', { alarms: newAlarms }, { delay: 6 });
 }
