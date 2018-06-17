@@ -14,6 +14,7 @@ function Lock(obj, file) {
 	} else {
 		self.file = false;
 	}
+	Object.seal(self);
 	return _functions;
 
 	function _functions(id, newValue, restart, table) {
@@ -36,7 +37,6 @@ function Lock(obj, file) {
 
 	function _setter(id, newValue, restart, table) {
 		if (self.file) {
-			let updateBegin = new Date();
 			log.debug('Updating ' + id + ':', newValue, restart || '');
 			_setValue(self._obj, id, newValue);
 			// let updatedEntries = [id]; // TODO
