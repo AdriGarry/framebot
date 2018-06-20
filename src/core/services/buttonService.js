@@ -62,7 +62,5 @@ function buttonHandler(flux) {
 			Flux.next('service|system|light', flux.value * 60);
 		}
 	}
-	var buttonCount = Odi.run('buttonStats.' + flux.id);
-	buttonCount++;
-	Odi.run('buttonStats.' + flux.id, buttonCount);
+	Odi.run('buttonStats.' + flux.id, Odi.run('buttonStats.' + flux.id) + 1);
 }
