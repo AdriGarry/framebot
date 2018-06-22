@@ -104,7 +104,7 @@ function startUIServer(mode) {
 			res.status(401); // Unauthorized
 			res.end();
 		} else {
-			if (unauthorizedRequestNb >= 2) {
+			if (unauthorizedRequestNb >= 5) {
 				tooMuchBadRequests = true;
 				// closingServerTemporary();
 				var badRequestTimeout = setTimeout(function() {
