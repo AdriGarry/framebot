@@ -63,7 +63,7 @@ function startUIServer(mode) {
 	});
 
 	ui.use(compression()); // Compression web
-	ui.use(express.static(Odi._WEB)); // Pour fichiers statiques
+	ui.use(express.static(Odi._WEB)); // For static files
 	ui.use(bodyParser.json()); // to support JSON-encoded bodies
 	ui.use(
 		bodyParser.urlencoded({
@@ -80,11 +80,9 @@ function startUIServer(mode) {
 		if (!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('interface|sound|UI', null, { hidden: true });
 
 		if (!req.connection.remoteAddress) {
-			// log.INFO('req.connection.remoteAddress undefined ?');
-			// log.info(req.connection);
-			Odi.error('To debug: req.connection.remoteAddress undefined ?', req.connection);
-		}
-		if (req.connection.remoteAddress.indexOf('192.168') == -1) {
+			log.error('Incoming socket /!\\ /!\\');
+			log.info(req.connection);
+		} else if (req.connection.remoteAddress.indexOf('192.168') == -1) {
 			// Logging not local requests
 			var newRequest = Utils.logTime('D/M h:m:s ') + request + ' [' + req.connection.remoteAddress + ']\r\n';
 			fs.appendFile(FILE_REQUEST_HISTORY, newRequest, function(err) {
