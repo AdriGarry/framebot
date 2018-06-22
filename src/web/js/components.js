@@ -162,7 +162,7 @@ app.component('runtime', {
 		var tileParams = {
 			label: 'Runtime',
 			actionList: [
-				{ label: 'Errors', icon: 'fas fa-exclamation-triangle', url: 'http://odi.adrigarry.com/errors' },
+				{ label: 'Errors', icon: 'fab fa-sith', url: 'http://odi.adrigarry.com/errors' },
 				{ label: 'Config', icon: 'fab fa-whmcs', url: 'http://odi.adrigarry.com/config.json' },
 				{ label: 'Runtime', icon: 'fab fa-react', url: 'http://odi.adrigarry.com/runtime' }
 			]
@@ -634,7 +634,7 @@ app.component('history', {
 				{ label: 'TTS', icon: 'far fa-comment-alt', url: 'http://odi.adrigarry.com/ttsUIHistory' },
 				{ label: 'Voicemail', icon: 'far fa-envelope', url: 'http://odi.adrigarry.com/voicemailHistory' },
 				{ label: 'Request', icon: 'fas fa-exchange-alt', url: 'http://odi.adrigarry.com/requestHistory' },
-				{ label: 'Errors', icon: 'fas fa-exclamation-triangle', url: 'http://odi.adrigarry.com/errorHistory' }
+				{ label: 'Errors', icon: 'fab fa-sith', url: 'http://odi.adrigarry.com/errorHistory' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
