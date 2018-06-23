@@ -14,6 +14,8 @@ const compression = require('compression');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
+const MIDDLEWARES = require(Odi._CORE + 'controllers/server/middleware.js');
+
 var ui = express();
 
 // CORS
@@ -40,16 +42,8 @@ function startUIServer() {
 		})
 	);
 
-	ui.use(require(Odi._CORE + 'controllers/server/middlewares.js').getMiddlewaresUnified());
-	// const MIDDLEWARE = require(Odi._CORE + 'controllers/server/middlewares.js').getMiddlewares();
-	// MIDDLEWARE.forEach(function(middleware) {
-	// 	// log.info(middleware);
-	// 	ui.use(middleware);
-	// });
-	// const MIDDLEWARE = require(Odi._CORE + 'controllers/server/middlewares.js').getMiddlewares();
-	// for (var i = 0; i < MIDDLEWARE.length; i++) {
-	// 	ui.use(MIDDLEWARE[i]);
-	// }
+	ui.use(MIDDLEWARES.security());
+	ui.use(MIDDLEWARES.logger());
 
 	require(Odi._CORE + 'controllers/server/routes.js').attachRoutes(ui);
 
