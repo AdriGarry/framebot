@@ -35,7 +35,9 @@ Available modes: ready, sleep, test
 - Arduino (USB)
 - Screen (HDMI)
 
-### Odi.conf
+### Internal
+
+#### Odi.conf
 
 The Odi.conf holds Odi cycle informations: _mode, alarms, version_.
 
@@ -43,13 +45,13 @@ This object is isolated, with access methods.
 
 This object is file persisted and has a default version.
 
-### Odi.run
+#### Odi.run
 
 The Odi.run holds Odi runtime informations: _etat, volume, max, mood, music, alarms, timer, voicemail, cpu, memory, stats_.
 
 This object is isolated, with access methods.
 
-### Flux manager
+#### Flux manager
 
 A flux manager, based on RxJS, can send or schedule (delay, repeat) orders.
 The _Flux.next()_ function accepts flux object (full or detailled), or list of fluxs.
