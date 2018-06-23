@@ -6,14 +6,26 @@ Available modes: ready, sleep, test
 
 Available functionalities:
 
-* Voice synthesizer (TTS)
-* Voicemail
-* Alarm (weekday & weekend)
-* Timer
-* Jukebox
-* Web radio (FIP)
-* Exclamations
-* Can control an Arduino (Max...)
+- Voice synthesizer (TTS) & Voicemail
+- Alarm (weekday & weekend)
+- Timer
+- Jukebox
+- Web radio (FIP)
+- Exclamations
+- Interactions with an Arduino (Max...)
+
+### Input
+
+- Buttons (GPIO)
+- Jobs (internal)
+- User interface (web)
+
+### Output
+
+- Leds (GPIO)
+- Speaker (audio)
+- Arduino (USB)
+- Screen (HDMI)
 
 ### Odi.conf
 
@@ -36,6 +48,6 @@ The _Flux.next()_ function accepts flux object (full or detailled), or list of f
 
 A flux is an Object with 3 properties:
 
-* id: _type|subject|name_
-* data: any type
-* conf: `{delay:_number_, loop:_number_, hidden:_boolean_}`
+- id: _type|subject|name_
+- data: any type
+- conf: `{delay:_number_, loop:_number_, hidden:_boolean_}`
