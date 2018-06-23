@@ -4,7 +4,7 @@ Based on NodeJS, running on a Raspberry Pi, this is **Odi**'s program to autorun
 
 Available modes: ready, sleep, test
 
-Available functionalities:
+### Main functionalities:
 
 - Voice synthesizer (TTS) & Voicemail
 - Alarm (weekday & weekend)
@@ -13,6 +13,14 @@ Available functionalities:
 - Web radio (FIP)
 - Exclamations
 - Interactions with an Arduino (Max...)
+- Weather
+
+### Additional functionalities:
+
+- Expressive functionalities: birthday song, bad boy...
+- Ambiance sounds (cicadas)
+- Logger & cleaner
+- Hardware monitoring (CPU, diskspace, temperature)
 
 ### Input
 
