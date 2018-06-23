@@ -53,7 +53,7 @@ function startUIServer() {
 
 	require(Odi._CORE + 'controllers/server/routes.js').attachRoutes(ui);
 
-	ui.listen(8080, function() {
+	ui.listen(69, function() {
 		log.info('UI server started [' + Odi.conf('mode') + ']');
 		Flux.next('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
 	});
