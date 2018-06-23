@@ -17,31 +17,38 @@ const fs = require('fs');
 var ui = express();
 
 // CORS
-ui.use(function(request, response, next) {
-	response.header('Access-Control-Allow-Origin', '*');
-	response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-	next();
-});
-ui.options('/*', function(request, response, next) {
-	response.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
-	response.send();
-});
-
-ui.use(compression()); // Compression web
-ui.use(express.static(Odi._WEB)); // For static files
-ui.use(bodyParser.json()); // to support JSON-encoded bodies
-ui.use(
-	bodyParser.urlencoded({
-		extended: true // to support URL-encoded bodies
-	})
-);
-
-ui.use(require(Odi._CORE + 'controllers/server/middleware.js').getMiddleware(ui));
-
-require(Odi._CORE + 'controllers/server/routes.js').attachRoutes(ui);
 
 startUIServer();
 function startUIServer() {
+	ui.use(function(request, response, next) {
+		response.header('Access-Control-Allow-Origin', '*');
+		response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+		next();
+	});
+
+	ui.options('/*', function(request, response, next) {
+		response.header('Access-Control-Allow-Methods', 'GET, POST'); //'GET, PUT, POST, DELETE, OPTIONS'
+		response.send();
+	});
+
+	ui.use(compression()); // Compression web
+	ui.use(express.static(Odi._WEB)); // For static files
+	ui.use(bodyParser.json()); // to support JSON-encoded bodies
+	ui.use(
+		bodyParser.urlencoded({
+			extended: true // to support URL-encoded bodies
+		})
+	);
+
+	ui.use(require(Odi._CORE + 'controllers/server/middlewares.js').getMiddlewares1());
+	// const MIDDLEWARE = require(Odi._CORE + 'controllers/server/middlewares.js').getMiddlewares();
+	// MIDDLEWARE.forEach(function(middleware) {
+	// 	// log.info(middleware);
+	// 	ui.use(middleware);
+	// });
+
+	require(Odi._CORE + 'controllers/server/routes.js').attachRoutes(ui);
+
 	ui.listen(8080, function() {
 		log.info('UI server started [' + Odi.conf('mode') + ']');
 		Flux.next('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
@@ -49,7 +56,7 @@ function startUIServer() {
 }
 
 function closingServerTemporary() {
-	// Deprecated ?
+	// TODO reactivate or to deprecate ?
 	log.INFO('closing UI server temporary.');
 	ui.close;
 	setTimeout(function() {

@@ -20,14 +20,14 @@ module.exports = {
 };
 
 function attachRoutes(ui) {
-	attachBaseRoutes(ui);
+	attachDefaultRoutes(ui);
 	if (Odi.isAwake()) {
 		attachAwakeRoutes(ui);
 	} else {
 		attachSleepRoutes(ui);
 	}
 }
-function attachBaseRoutes(ui) {
+function attachDefaultRoutes(ui) {
 	/** DASHBOARD SECTION */
 	ui.get('/dashboard', function(req, res) {
 		Flux.next('interface|hardware|runtime');
@@ -234,246 +234,244 @@ function attachBaseRoutes(ui) {
 }
 
 function attachAwakeRoutes(ui) {
-	if (Odi.isAwake()) {
-		ui.post('/tts', function(req, res) {
-			let params = req.query;
-			if (params.voice && params.lg && params.msg) {
-				if (params.hasOwnProperty('voicemail')) {
-					Flux.next('service|voicemail|new', { voice: params.voice, lg: params.lg, msg: params.msg });
-				} else {
-					Flux.next('interface|tts|speak', { voice: params.voice, lg: params.lg, msg: params.msg });
-				}
-				params.timestamp = Utils.logTime('D/M h:m:s', new Date());
-				Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
+	ui.post('/tts', function(req, res) {
+		let params = req.query;
+		if (params.voice && params.lg && params.msg) {
+			if (params.hasOwnProperty('voicemail')) {
+				Flux.next('service|voicemail|new', { voice: params.voice, lg: params.lg, msg: params.msg });
 			} else {
-				Flux.next('interface|tts|random');
+				Flux.next('interface|tts|speak', { voice: params.voice, lg: params.lg, msg: params.msg });
 			}
-			res.end();
-		});
+			params.timestamp = Utils.logTime('D/M h:m:s', new Date());
+			Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
+		} else {
+			Flux.next('interface|tts|random');
+		}
+		res.end();
+	});
 
-		ui.post('/lastTTS', function(req, res) {
-			Flux.next('interface|tts|lastTTS');
-			res.end();
-		});
+	ui.post('/lastTTS', function(req, res) {
+		Flux.next('interface|tts|lastTTS');
+		res.end();
+	});
 
-		ui.post('/checkVoiceMail', function(req, res) {
-			Flux.next('service|voicemail|check', true);
-			res.end();
-		});
+	ui.post('/checkVoiceMail', function(req, res) {
+		Flux.next('service|voicemail|check', true);
+		res.end();
+	});
 
-		ui.post('/clearVoiceMail', function(req, res) {
-			Flux.next('service|voicemail|clear');
-			res.end();
-		});
+	ui.post('/clearVoiceMail', function(req, res) {
+		Flux.next('service|voicemail|clear');
+		res.end();
+	});
 
-		ui.post('/idea', function(req, res) {
-			Flux.next('interface|tts|speak', { lg: 'en', msg: "I've got an idea !" });
-			res.end();
-		});
+	ui.post('/idea', function(req, res) {
+		Flux.next('interface|tts|speak', { lg: 'en', msg: "I've got an idea !" });
+		res.end();
+	});
 
-		ui.post('/badBoy', function(req, res) {
-			let params = req.body;
-			log.debug('/badBoy', params);
-			Flux.next('service|mood|badBoy', params.value);
-			res.end();
-		});
+	ui.post('/badBoy', function(req, res) {
+		let params = req.body;
+		log.debug('/badBoy', params);
+		Flux.next('service|mood|badBoy', params.value);
+		res.end();
+	});
 
-		ui.post('/java', function(req, res) {
-			let params = req.body;
-			log.debug('/java', params);
-			Flux.next('service|mood|java', params.value);
-			res.end();
-		});
+	ui.post('/java', function(req, res) {
+		let params = req.body;
+		log.debug('/java', params);
+		Flux.next('service|mood|java', params.value);
+		res.end();
+	});
 
-		ui.post('/russia', function(req, res) {
-			let params = req.query;
-			log.debug('/russia', params);
-			if (params.hasOwnProperty('hymn')) {
-				spawn('sh', [Odi._SHELL + 'music.sh', 'urss']);
-				Flux.next('interface|led|altLeds', { speed: 70, loop: 20 }, { hidden: true });
-			} else {
-				Flux.next('service|interaction|russia');
-			}
-			res.end();
-		});
+	ui.post('/russia', function(req, res) {
+		let params = req.query;
+		log.debug('/russia', params);
+		if (params.hasOwnProperty('hymn')) {
+			spawn('sh', [Odi._SHELL + 'music.sh', 'urss']);
+			Flux.next('interface|led|altLeds', { speed: 70, loop: 20 }, { hidden: true });
+		} else {
+			Flux.next('service|interaction|russia');
+		}
+		res.end();
+	});
 
-		ui.post('/exclamation', function(req, res) {
-			Flux.next('service|interaction|exclamation');
-			res.end();
-		});
+	ui.post('/exclamation', function(req, res) {
+		Flux.next('service|interaction|exclamation');
+		res.end();
+	});
 
-		ui.post('/fip', function(req, res) {
-			Flux.next('service|music|fip');
-			res.end();
-		});
+	ui.post('/fip', function(req, res) {
+		Flux.next('service|music|fip');
+		res.end();
+	});
 
-		ui.post('/music/*', function(req, res) {
-			var song; // RECUPERER LE NOM DE LA CHANSON
-			if (!song) song = 'mouthTrick';
-			spawn('sh', [Odi._SHELL + 'music.sh', song]);
-			res.end();
-		});
+	ui.post('/music/*', function(req, res) {
+		var song; // RECUPERER LE NOM DE LA CHANSON
+		if (!song) song = 'mouthTrick';
+		spawn('sh', [Odi._SHELL + 'music.sh', song]);
+		res.end();
+	});
 
-		ui.post('/jukebox', function(req, res) {
-			Flux.next('service|music|jukebox');
-			res.end();
-		});
+	ui.post('/jukebox', function(req, res) {
+		Flux.next('service|music|jukebox');
+		res.end();
+	});
 
-		ui.post('/naheulbeuk', function(req, res) {
-			Flux.next('service|music|story', 'Naheulbeuk');
-			res.end();
-		});
+	ui.post('/naheulbeuk', function(req, res) {
+		Flux.next('service|music|story', 'Naheulbeuk');
+		res.end();
+	});
 
-		ui.post('/survivaure', function(req, res) {
-			Flux.next('service|music|story', 'Survivaure');
-			res.end();
-		});
+	ui.post('/survivaure', function(req, res) {
+		Flux.next('service|music|story', 'Survivaure');
+		res.end();
+	});
 
-		ui.post('/arduino/connect', function(req, res) {
-			Flux.next('interface|arduino|connect');
-			res.end();
-		});
+	ui.post('/arduino/connect', function(req, res) {
+		Flux.next('interface|arduino|connect');
+		res.end();
+	});
 
-		ui.post('/arduino/stop', function(req, res) {
-			Flux.next('interface|arduino|stop');
-			res.end();
-		});
+	ui.post('/arduino/stop', function(req, res) {
+		Flux.next('interface|arduino|stop');
+		res.end();
+	});
 
-		ui.post('/max/blinkAllLed', function(req, res) {
-			Flux.next('service|max|blinkAllLed');
-			res.end();
-		});
+	ui.post('/max/blinkAllLed', function(req, res) {
+		Flux.next('service|max|blinkAllLed');
+		res.end();
+	});
 
-		ui.post('/max/blinkRdmLed', function(req, res) {
-			Flux.next('service|max|blinkRdmLed');
-			res.end();
-		});
+	ui.post('/max/blinkRdmLed', function(req, res) {
+		Flux.next('service|max|blinkRdmLed');
+		res.end();
+	});
 
-		ui.post('/max/playOneMelody', function(req, res) {
-			Flux.next('service|max|playOneMelody');
-			res.end();
-		});
+	ui.post('/max/playOneMelody', function(req, res) {
+		Flux.next('service|max|playOneMelody');
+		res.end();
+	});
 
-		ui.post('/max/playRdmMelody', function(req, res) {
-			Flux.next('service|max|playRdmMelody');
-			res.end();
-		});
+	ui.post('/max/playRdmMelody', function(req, res) {
+		Flux.next('service|max|playRdmMelody');
+		res.end();
+	});
 
-		ui.post('/max/hornRdm', function(req, res) {
-			Flux.next('service|max|hornRdm');
-			res.end();
-		});
+	ui.post('/max/hornRdm', function(req, res) {
+		Flux.next('service|max|hornRdm');
+		res.end();
+	});
 
-		ui.post('/max/turn', function(req, res) {
-			Flux.next('service|max|turn');
-			res.end();
-		});
+	ui.post('/max/turn', function(req, res) {
+		Flux.next('service|max|turn');
+		res.end();
+	});
 
-		ui.post('/playVideo', function(req, res) {
-			Flux.next('interface|video|cycle');
-			res.end();
-		});
+	ui.post('/playVideo', function(req, res) {
+		Flux.next('interface|video|cycle');
+		res.end();
+	});
 
-		ui.post('/videoOff', function(req, res) {
-			Flux.next('interface|video|screenOff');
-			res.end();
-		});
+	ui.post('/videoOff', function(req, res) {
+		Flux.next('interface|video|screenOff');
+		res.end();
+	});
 
-		ui.post('/time', function(req, res) {
-			Flux.next('service|time|now');
-			res.end();
-		});
+	ui.post('/time', function(req, res) {
+		Flux.next('service|time|now');
+		res.end();
+	});
 
-		ui.post('/date', function(req, res) {
-			Flux.next('service|time|today');
-			res.end();
-		});
+	ui.post('/date', function(req, res) {
+		Flux.next('service|time|today');
+		res.end();
+	});
 
-		ui.post('/birthday', function(req, res) {
-			Flux.next('service|time|birthday');
-			res.end();
-		});
+	ui.post('/birthday', function(req, res) {
+		Flux.next('service|time|birthday');
+		res.end();
+	});
 
-		ui.post('/age', function(req, res) {
-			Flux.next('service|time|OdiAge');
-			res.end();
-		});
+	ui.post('/age', function(req, res) {
+		Flux.next('service|time|OdiAge');
+		res.end();
+	});
 
-		ui.post('/timer', function(req, res) {
-			let params = req.query; // affiner pour récupérer les params
-			if (params.hasOwnProperty('stop')) {
-				Flux.next('service|time|timer', 'stop');
-			} else {
-				var min = parseInt(params.min, 10) || 1;
-				Flux.next('service|time|timer', min);
-			}
-			res.end();
-		});
+	ui.post('/timer', function(req, res) {
+		let params = req.query; // affiner pour récupérer les params
+		if (params.hasOwnProperty('stop')) {
+			Flux.next('service|time|timer', 'stop');
+		} else {
+			var min = parseInt(params.min, 10) || 1;
+			Flux.next('service|time|timer', min);
+		}
+		res.end();
+	});
 
-		ui.post('/weather', function(req, res) {
-			Flux.next('service|interaction|weather');
-			res.end();
-		});
-		ui.post('/weatherInteractive', function(req, res) {
-			Flux.next('service|interaction|weather', 'interactive');
-			res.end();
-		});
+	ui.post('/weather', function(req, res) {
+		Flux.next('service|interaction|weather');
+		res.end();
+	});
+	ui.post('/weatherInteractive', function(req, res) {
+		Flux.next('service|interaction|weather', 'interactive');
+		res.end();
+	});
 
-		ui.post('/cpuTTS', function(req, res) {
-			Flux.next('interface|hardware|cpuTTS');
-			res.end();
-		});
+	ui.post('/cpuTTS', function(req, res) {
+		Flux.next('interface|hardware|cpuTTS');
+		res.end();
+	});
 
-		ui.post('/soulTTS', function(req, res) {
-			Flux.next('interface|hardware|soulTTS');
-			res.end();
-		});
+	ui.post('/soulTTS', function(req, res) {
+		Flux.next('interface|hardware|soulTTS');
+		res.end();
+	});
 
-		ui.post('/diskSpaceTTS', function(req, res) {
-			Flux.next('interface|hardware|diskSpaceTTS');
-			res.end();
-		});
+	ui.post('/diskSpaceTTS', function(req, res) {
+		Flux.next('interface|hardware|diskSpaceTTS');
+		res.end();
+	});
 
-		ui.post('/totalLinesTTS', function(req, res) {
-			Flux.next('interface|hardware|totalLinesTTS');
-			res.end();
-		});
+	ui.post('/totalLinesTTS', function(req, res) {
+		Flux.next('interface|hardware|totalLinesTTS');
+		res.end();
+	});
 
-		ui.post('/cigales', function(req, res) {
-			spawn('sh', [Odi._SHELL + 'sounds.sh', 'cigales']);
-			res.end();
-		});
+	ui.post('/cigales', function(req, res) {
+		spawn('sh', [Odi._SHELL + 'sounds.sh', 'cigales']);
+		res.end();
+	});
 
-		ui.post('/setParty', function(req, res) {
-			Flux.next('service|party|start');
-			res.end();
-		});
+	ui.post('/setParty', function(req, res) {
+		Flux.next('service|party|start');
+		res.end();
+	});
 
-		ui.post('/partyTTS', function(req, res) {
-			Flux.next('service|party|tts');
-			res.end();
-		});
+	ui.post('/partyTTS', function(req, res) {
+		Flux.next('service|party|tts');
+		res.end();
+	});
 
-		ui.post('/pirate', function(req, res) {
-			Flux.next('service|party|pirate');
-			res.end();
-		});
+	ui.post('/pirate', function(req, res) {
+		Flux.next('service|party|pirate');
+		res.end();
+	});
 
-		ui.post('/test', function(req, res) {
-			spawn('sh', [Odi._SHELL + 'sounds.sh', 'test']); //mouthTrick
-			Flux.next('interface|tts|speak', { lg: 'en', msg: '.undefined' });
-			res.end();
-		});
+	ui.post('/test', function(req, res) {
+		spawn('sh', [Odi._SHELL + 'sounds.sh', 'test']); //mouthTrick
+		Flux.next('interface|tts|speak', { lg: 'en', msg: '.undefined' });
+		res.end();
+	});
 
-		ui.post('/*', function(req, res) {
-			Odi.error('Error UI > not mapped: ' + req.url, null, false);
-			res.writeHead(418);
-			res.end();
-		});
-	}
+	ui.post('/*', function(req, res) {
+		Odi.error('Error UI > not mapped: ' + req.url, null, false);
+		res.writeHead(418);
+		res.end();
+	});
 }
 
-function attachSleepRoutes() {
+function attachSleepRoutes(ui) {
 	ui.post('/tts', function(req, res) {
 		// Add Voice Mail Message
 		let params = req.query;
