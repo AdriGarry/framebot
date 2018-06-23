@@ -40,12 +40,16 @@ function startUIServer() {
 		})
 	);
 
-	ui.use(require(Odi._CORE + 'controllers/server/middlewares.js').getMiddlewares1());
+	ui.use(require(Odi._CORE + 'controllers/server/middlewares.js').getMiddlewaresUnified());
 	// const MIDDLEWARE = require(Odi._CORE + 'controllers/server/middlewares.js').getMiddlewares();
 	// MIDDLEWARE.forEach(function(middleware) {
 	// 	// log.info(middleware);
 	// 	ui.use(middleware);
 	// });
+	// const MIDDLEWARE = require(Odi._CORE + 'controllers/server/middlewares.js').getMiddlewares();
+	// for (var i = 0; i < MIDDLEWARE.length; i++) {
+	// 	ui.use(MIDDLEWARE[i]);
+	// }
 
 	require(Odi._CORE + 'controllers/server/routes.js').attachRoutes(ui);
 

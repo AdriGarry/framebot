@@ -12,7 +12,7 @@ const FILE_REQUEST_HISTORY = ODI_PATH + 'log/requestHistory.log';
 const noSoundUrl = ['/dashboard', '/log'];
 
 module.exports = {
-	getMiddlewares1: getMiddlewares1,
+	getMiddlewaresUnified: getMiddlewaresUnified,
 	getMiddlewares: getMiddlewares
 };
 
@@ -25,7 +25,7 @@ function getMiddlewares(ui) {
 	// return ui;
 	return [security, logger];
 }
-function getMiddlewares1(ui) {
+function getMiddlewaresUnified(ui) {
 	// ui.use(security);
 	// ui.use(logger);
 	// return ui;
