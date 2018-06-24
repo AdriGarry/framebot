@@ -277,7 +277,7 @@ app.component('hardware', {
 			//disableOnSleep: true,
 			actionList: [
 				{ label: 'Disk Space', icon: 'fas fa-3x fa-chart-pie', url: '/diskSpaceTTS' },
-				{ label: 'CPU', icon: 'fab fa-3x fa-empire', url: '/cpuTTS' },
+				{ label: 'CPU', icon: 'fab fa-3x fa-galactic-republic', url: '/cpuTTS' },
 				{ label: 'Memory', icon: 'fas fa-3x fa-microchip', url: '/soulTTS' }
 			]
 		};
