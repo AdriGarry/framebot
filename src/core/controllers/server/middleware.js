@@ -36,6 +36,8 @@ var securityMiddleware = function(req, res, next) {
 		// 	log.info('favicon request', req.url, ipToLog);
 		// 	rejectUnauthorizedRequest(res);
 	}
+	let isLocalIp = ip.indexOf('192.168') > -1;
+	let ipToLog = isLocalIp ? '' : 'from [' + req.connection.remoteAddress + ']';
 	if (req.headers['user-interface'] !== 'UIv5') {
 		// Not allowed requests
 		if (canTTSBadRequest && Odi.isAwake()) {
@@ -45,12 +47,10 @@ var securityMiddleware = function(req, res, next) {
 				canTTSBadRequest = true;
 			}, BAD_REQUEST_TIMEOUT);
 		}
-		Odi.error('Bad request', '401 ' + decodeUrl(req.url) + ' ' + ip, false);
+		Odi.error('Bad request', '401 ' + decodeUrl(req.url) + ' ' + ipToLog, false);
 		rejectUnauthorizedRequest(res);
 	}
 
-	let isLocalIp = ip.indexOf('192.168') > -1;
-	let ipToLog = isLocalIp ? '' : 'from [' + req.connection.remoteAddress + ']';
 	if (!isLocalIp) {
 		logNotLocalRequest(req);
 	}
@@ -77,7 +77,7 @@ function rejectUnauthorizedRequest(res) {
 	res.end();
 	badRequestCount++;
 	if (badRequestCount >= BAD_REQUEST_CP_LIMIT) {
-		closingServerTemporary(3000);
+		closingServerTemporary(5000);
 	}
 }
 

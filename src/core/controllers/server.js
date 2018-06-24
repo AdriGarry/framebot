@@ -14,7 +14,7 @@ const compression = require('compression');
 const bodyParser = require('body-parser');
 
 const MIDDLEWARE = require(Odi._CORE + 'controllers/server/middleware.js');
-
+const SERVER_PORT = 69;
 var ui = express();
 
 Flux.controller.server.subscribe({
@@ -22,7 +22,7 @@ Flux.controller.server.subscribe({
 		if (flux.id == 'startUIServer') {
 			startUIServer();
 		} else if (flux.id == 'closeUIServer') {
-			closeUIServer();
+			closeUIServer(flux.value);
 		} else Odi.error('unmapped flux in Server controller', flux, false);
 	},
 	error: err => {
@@ -30,6 +30,7 @@ Flux.controller.server.subscribe({
 	}
 });
 
+var servor;
 startUIServer();
 function startUIServer() {
 	// CORS
@@ -56,7 +57,7 @@ function startUIServer() {
 
 	require(Odi._CORE + 'controllers/server/routes.js').attachRoutes(ui);
 
-	ui.listen(69, function() {
+	servor = ui.listen(SERVER_PORT, function() {
 		log.info('UI server started [' + Odi.conf('mode') + ']');
 		Flux.next('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
 	});
@@ -64,5 +65,7 @@ function startUIServer() {
 
 function closeUIServer(breakDuration) {
 	log.INFO('closing UI server for', breakDuration / 1000, 'seconds');
-	ui.close;
+	// ui.close();
+	servor.close();
+	ui = null;
 }
