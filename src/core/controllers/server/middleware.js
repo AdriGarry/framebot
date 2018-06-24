@@ -54,8 +54,6 @@ var securityMiddleware = function(req, res, next) {
 	if (!isLocalIp) {
 		logNotLocalRequest(req);
 	}
-	// requestToLog = req.headers['user-interface'] + ' ' + decodeUrl(req.url);
-	// log.info(requestToLog, ipToLog);
 	log.info(req.headers['user-interface'] + ' ' + decodeUrl(req.url), ipToLog);
 	res.statusCode = 200;
 	next();
