@@ -10,24 +10,16 @@ const fs = require('fs');
 
 const FILE_REQUEST_HISTORY = ODI_PATH + 'log/requestHistory.log';
 const noSoundUrl = ['/dashboard', '/log'];
-
-module.exports = {
-	security: security,
-	logger: logger
-};
-
-var unauthorizedRequestNb = 0,
-	tooMuchBadRequests = false;
-
 var canTTSBadRequest = true;
 
-function security() {
-	return securityMiddleware;
-}
-
-function logger() {
-	return loggerMiddleware;
-}
+module.exports = {
+	security: function() {
+		return securityMiddleware;
+	},
+	logger: function() {
+		return loggerMiddleware;
+	}
+};
 
 var securityMiddleware = function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', 'http://adrigarry.com');
@@ -46,12 +38,6 @@ var securityMiddleware = function(req, res, next) {
 	next();
 };
 
-function logNotLocalRequest() {
-	let requestToLog = Utils.logTime('D/M h:m:s ') + req.url + ' [' + req.connection.remoteAddress + ']\r\n';
-	fs.appendFile(FILE_REQUEST_HISTORY, requestToLog, function(err) {
-		if (err) return Odi.error(err);
-	});
-}
 var loggerMiddleware = function(req, res, next) {
 	let requestToLog;
 	let ip = req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : 'from [' + req.connection.remoteAddress + ']';
@@ -80,9 +66,17 @@ var loggerMiddleware = function(req, res, next) {
 	}
 };
 
+function logNotLocalRequest() {
+	let requestToLog = Utils.logTime('D/M h:m:s ') + req.url + ' [' + req.connection.remoteAddress + ']\r\n';
+	fs.appendFile(FILE_REQUEST_HISTORY, requestToLog, function(err) {
+		if (err) return Odi.error(err);
+	});
+}
+
 function endUnauthorizedRequest(res) {
 	res.status(401); // Unauthorized
 	res.end();
+	// ? closingServerTemporary();
 }
 
 function closingServerTemporary() {
