@@ -60,7 +60,8 @@ var securityMiddleware = function(req, res, next) {
 };
 
 function decodeUrl(url) {
-	return url.replace('%20', ' '); // TODO faire un vrai décodage de l'url !
+	// return url.replace('%20', ' '); // TODO faire un vrai décodage de l'url !
+	return decodeURI(url);
 }
 
 function logNotLocalRequest(req) {
