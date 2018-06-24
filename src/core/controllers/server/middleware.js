@@ -19,6 +19,8 @@ module.exports = {
 var unauthorizedRequestNb = 0,
 	tooMuchBadRequests = false;
 
+var canTTSBadRequest = true;
+
 function security() {
 	return securityMiddleware;
 }
@@ -64,25 +66,17 @@ var loggerMiddleware = function(req, res, next) {
 		log.info('favicon request', req.url, ip);
 		endUnauthorizedRequest(res);
 	} else {
-		if (unauthorizedRequestNb >= 5) {
-			tooMuchBadRequests = true;
-			// closingServerTemporary();
-			var badRequestTimeout = setTimeout(function() {
-				clearTimeout(badRequestTimeout);
-				tooMuchBadRequests = false;
-				unauthorizedRequestNb = 0;
-			}, 10000);
-		}
-		unauthorizedRequestNb++;
-
-		if (!tooMuchBadRequests && Odi.isAwake()) {
+		if (canTTSBadRequest && Odi.isAwake()) {
+			canTTSBadRequest = false;
 			Flux.next('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, hidden: true });
+			setTimeout(() => {
+				canTTSBadRequest = true;
+			}, 5000);
 		}
-
 		// Not allowed requests
 		requestToLog = '401 ' + req.url.replace('%20', ' ');
 		Odi.error('Bad request', requestToLog + ' ' + ip, false);
-		endUnauthorizedRequest();
+		endUnauthorizedRequest(res);
 	}
 };
 
