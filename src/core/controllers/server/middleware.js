@@ -10,81 +10,82 @@ const fs = require('fs');
 
 const FILE_REQUEST_HISTORY = ODI_PATH + 'log/requestHistory.log';
 const noSoundUrl = ['/dashboard', '/log'];
+const BAD_REQUEST_TIMEOUT = 5000;
+const BAD_REQUEST_CP_LIMIT = 5;
+var badRequestCount = 0;
 var canTTSBadRequest = true;
 
 module.exports = {
 	security: function() {
+		// badRequestCount = 0;
 		return securityMiddleware;
-	},
-	logger: function() {
-		return loggerMiddleware;
 	}
 };
 
 var securityMiddleware = function(req, res, next) {
-	res.header('Access-Control-Allow-Origin', 'http://adrigarry.com');
-
+	// let requestToLog;
 	Flux.next('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
-
 	if (!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('interface|sound|UI', null, { hidden: true });
 
-	if (!req.connection.remoteAddress) {
+	let ip = req.connection.remoteAddress;
+	if (!ip) {
 		log.error('Incoming socket /!\\ /!\\');
 		log.info(req); // TODO revoir cette sécurité...
-		endUnauthorizedRequest(res);
-	} else if (req.connection.remoteAddress.indexOf('192.168') == -1) {
-		logNotLocalRequest();
+		rejectUnauthorizedRequest(res);
+		// } else if (req.url == '/favicon.ico') {
+		// 	log.info('favicon request', req.url, ipToLog);
+		// 	rejectUnauthorizedRequest(res);
 	}
-	next();
-};
-
-var loggerMiddleware = function(req, res, next) {
-	let requestToLog;
-	let ip = req.connection.remoteAddress.indexOf('192.168') > -1 ? '' : 'from [' + req.connection.remoteAddress + ']';
-
-	if (req.headers['user-interface'] === 'UIv5') {
-		// Allowed requests
-		requestToLog = req.headers['user-interface'] + ' ' + req.url.replace('%20', ' ');
-		log.info(requestToLog, ip);
-		res.statusCode = 200;
-		next();
-	} else if (req.url == '/favicon.ico') {
-		log.info('favicon request', req.url, ip);
-		endUnauthorizedRequest(res);
-	} else {
+	if (req.headers['user-interface'] !== 'UIv5') {
+		// Not allowed requests
 		if (canTTSBadRequest && Odi.isAwake()) {
 			canTTSBadRequest = false;
 			Flux.next('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, hidden: true });
 			setTimeout(() => {
 				canTTSBadRequest = true;
-			}, 5000);
+			}, BAD_REQUEST_TIMEOUT);
 		}
-		// Not allowed requests
-		requestToLog = '401 ' + req.url.replace('%20', ' ');
-		Odi.error('Bad request', requestToLog + ' ' + ip, false);
-		endUnauthorizedRequest(res);
+		Odi.error('Bad request', '401 ' + decodeUrl(req.url) + ' ' + ip, false);
+		rejectUnauthorizedRequest(res);
 	}
+
+	let isLocalIp = ip.indexOf('192.168') > -1;
+	let ipToLog = isLocalIp ? '' : 'from [' + req.connection.remoteAddress + ']';
+	if (!isLocalIp) {
+		logNotLocalRequest(req);
+	}
+	// requestToLog = req.headers['user-interface'] + ' ' + decodeUrl(req.url);
+	// log.info(requestToLog, ipToLog);
+	log.info(req.headers['user-interface'] + ' ' + decodeUrl(req.url), ipToLog);
+	res.statusCode = 200;
+	next();
 };
 
-function logNotLocalRequest() {
+function decodeUrl(url) {
+	return url.replace('%20', ' '); // TODO faire un vrai décodage de l'url !
+}
+
+function logNotLocalRequest(req) {
 	let requestToLog = Utils.logTime('D/M h:m:s ') + req.url + ' [' + req.connection.remoteAddress + ']\r\n';
 	fs.appendFile(FILE_REQUEST_HISTORY, requestToLog, function(err) {
 		if (err) return Odi.error(err);
 	});
 }
 
-function endUnauthorizedRequest(res) {
+function rejectUnauthorizedRequest(res) {
 	res.status(401); // Unauthorized
 	res.end();
-	// ? closingServerTemporary();
+	badRequestCount++;
+	if (badRequestCount >= BAD_REQUEST_CP_LIMIT) {
+		closingServerTemporary(3000);
+	}
 }
 
-function closingServerTemporary() {
-	// Deprecated ?
-	log.INFO('closing UI server temporary.');
-	ui.close;
+function closingServerTemporary(breakDuration) {
+	Flux.next('controller|server|closeUIServer', breakDuration);
 	setTimeout(function() {
-		log.info('restarting UI server...');
-		startUIServer();
-	}, 3000);
+		log.INFO('restarting UI server...');
+		badRequestCount = 0;
+		Flux.next('controller|server|startUIServer');
+	}, breakDuration);
 }

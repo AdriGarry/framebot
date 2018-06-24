@@ -12,26 +12,36 @@ const Flux = require(Odi._CORE + 'Flux.js');
 const express = require('express');
 const compression = require('compression');
 const bodyParser = require('body-parser');
-const fs = require('fs');
 
-const MIDDLEWARES = require(Odi._CORE + 'controllers/server/middleware.js');
+const MIDDLEWARE = require(Odi._CORE + 'controllers/server/middleware.js');
 
 var ui = express();
 
-// CORS
+Flux.controller.server.subscribe({
+	next: flux => {
+		if (flux.id == 'startUIServer') {
+			startUIServer();
+		} else if (flux.id == 'closeUIServer') {
+			closeUIServer();
+		} else Odi.error('unmapped flux in Server controller', flux, false);
+	},
+	error: err => {
+		Odi.error(flux);
+	}
+});
 
 startUIServer();
 function startUIServer() {
-	ui.use(function(request, response, next) {
-		response.header('Access-Control-Allow-Origin', '*');
-		response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-		next();
-	});
-
-	ui.options('/*', function(request, response, next) {
-		response.header('Access-Control-Allow-Methods', 'GET, POST'); //'GET, PUT, POST, DELETE, OPTIONS'
-		response.send();
-	});
+	// CORS
+	// ui.use(function(request, response, next) {
+	// 	response.header('Access-Control-Allow-Origin', '*');
+	// 	response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+	// 	next();
+	// });
+	// ui.options('/*', function(request, response, next) {
+	// 	response.header('Access-Control-Allow-Methods', 'GET, POST'); //'GET, PUT, POST, DELETE, OPTIONS'
+	// 	response.send();
+	// });
 
 	ui.use(compression()); // Compression web
 	ui.use(express.static(Odi._WEB)); // For static files
@@ -42,8 +52,7 @@ function startUIServer() {
 		})
 	);
 
-	ui.use(MIDDLEWARES.security());
-	ui.use(MIDDLEWARES.logger());
+	ui.use(MIDDLEWARE.security());
 
 	require(Odi._CORE + 'controllers/server/routes.js').attachRoutes(ui);
 
@@ -53,12 +62,7 @@ function startUIServer() {
 	});
 }
 
-function closingServerTemporary() {
-	// TODO reactivate or to deprecate ?
-	log.INFO('closing UI server temporary.');
+function closeUIServer(breakDuration) {
+	log.INFO('closing UI server for', breakDuration / 1000, 'seconds');
 	ui.close;
-	setTimeout(function() {
-		log.info('restarting UI server...');
-		startUIServer();
-	}, 3000);
 }
