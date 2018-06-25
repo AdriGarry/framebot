@@ -74,10 +74,10 @@ function logNotLocalRequest(req) {
 function rejectUnauthorizedRequest(res) {
 	res.status(401); // Unauthorized
 	res.end();
-	badRequestCount++;
-	if (badRequestCount >= BAD_REQUEST_CP_LIMIT) {
-		closingServerTemporary(5000);
-	}
+	// badRequestCount++;
+	// if (badRequestCount >= BAD_REQUEST_CP_LIMIT) {
+	// 	closingServerTemporary(5000);
+	// }
 }
 
 function closingServerTemporary(breakDuration) {
