@@ -57,12 +57,9 @@ Temporary Items
 admin.js
 
 #/log/*
-#/conf/
 /media/*
-#/mp3/*
-#/pgm/config/*
 #/data/*
-*.jpg
+#*.jpg
 #*.png
-*.gif
+#*.gif
 /node_modules/*
