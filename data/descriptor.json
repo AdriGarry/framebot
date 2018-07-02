@@ -4,6 +4,7 @@
 		"_CORE": "src/core/",
 		"_SHELL": "src/shell/",
 		"_WEB": "src/web/",
+		"_SECURITY": "security/",
 		"_DATA": "data/",
 		"_MP3": "media/mp3/",
 		"_VIDEO": "media/video/",
