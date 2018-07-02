@@ -43,7 +43,7 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdBottom
 	/** Function to send action **/
 	function action(button) {
 		// console.log('action(button)', button);
-		if (button.url.indexOf('http://') > -1) {
+		if (button.url.indexOf('https://') > -1) {
 			//$window.open(button.url);
 			UIService.getRequest(button.url, function(data) {
 				//console.log('data', data);

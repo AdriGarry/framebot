@@ -92,9 +92,9 @@ function attachDefaultRoutes(ui) {
 	});
 
 	ui.get('/config.json', function(req, res) {
-		res.end(fs.readFileSync(Odi._CONF, 'utf8').toString());
 		log.table(Odi.conf(), 'CONFIG');
-		res.end(JSON.stringify(Odi.conf()));
+		res.end(fs.readFileSync(Odi._CONF, 'utf8').toString());
+		// res.end(JSON.stringify(Odi.conf())); // TODO useless ?
 	});
 
 	ui.get('/runtime', function(req, res) {
