@@ -82,7 +82,10 @@ function startUIServer() {
 	// https.createServer(credentials, ui).listen(HTTPS_SERVER_PORT);
 
 	// httpServer = http.createServer(ui);
-	httpsServer = https.createServer(credentials, uiHttps).listen(HTTPS_SERVER_PORT);
+	httpsServer = https.createServer(credentials, uiHttps).listen(HTTPS_SERVER_PORT, function() {
+		log.info('UI server started [' + Odi.conf('mode') + ']');
+		Flux.next('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
+	});
 
 	// httpServer.listen(HTTP_SERVER_PORT);
 	// httpsServer.listen(HTTPS_SERVER_PORT);
