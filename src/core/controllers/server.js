@@ -9,13 +9,24 @@
 var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
 const log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 const Flux = require(Odi._CORE + 'Flux.js');
+const http = require('http');
+const https = require('https');
 const express = require('express');
+const fs = require('fs');
 const compression = require('compression');
 const bodyParser = require('body-parser');
 
 const MIDDLEWARE = require(Odi._CORE + 'controllers/server/middleware.js');
-const SERVER_PORT = 69;
-var ui = express();
+const HTTP_SERVER_PORT = 3210;
+const HTTPS_SERVER_PORT = 4321;
+
+var credentials = {
+	key: fs.readFileSync(Odi._SECURITY + 'key.pem'),
+	cert: fs.readFileSync(Odi._SECURITY + 'cert.pem')
+};
+
+var ui = express(),
+	uiHttps = express();
 
 Flux.controller.server.subscribe({
 	next: flux => {
@@ -30,7 +41,7 @@ Flux.controller.server.subscribe({
 	}
 });
 
-var servor;
+var httpServer, httpsServer;
 startUIServer();
 function startUIServer() {
 	// CORS
@@ -44,23 +55,37 @@ function startUIServer() {
 	// 	response.send();
 	// });
 
-	ui.use(compression()); // Compression web
-	ui.use(express.static(Odi._WEB)); // For static files
-	ui.use(bodyParser.json()); // to support JSON-encoded bodies
-	ui.use(
+	httpServer = http.createServer(ui);
+	ui.get('*', function(req, res) {
+		if (req.isSocket) return res.redirect('wss://' + req.headers.host + req.url);
+		log.debug('Redirecting http to https');
+		return res.redirect('https://' + req.headers.host + req.url);
+	}).listen(HTTP_SERVER_PORT);
+
+	uiHttps.use(compression()); // Compression web
+	uiHttps.use(express.static(Odi._WEB)); // For static files
+	uiHttps.use(bodyParser.json()); // to support JSON-encoded bodies
+	uiHttps.use(
 		bodyParser.urlencoded({
 			extended: true // to support URL-encoded bodies
 		})
 	);
+	uiHttps.use(MIDDLEWARE.security());
 
-	ui.use(MIDDLEWARE.security());
+	require(Odi._CORE + 'controllers/server/routes.js').attachRoutes(uiHttps);
 
-	require(Odi._CORE + 'controllers/server/routes.js').attachRoutes(ui);
+	// servor = ui.listen(HTTP_SERVER_PORT, function() {
+	// 	log.info('UI server started [' + Odi.conf('mode') + ']');
+	// 	Flux.next('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
+	// });
 
-	servor = ui.listen(SERVER_PORT, function() {
-		log.info('UI server started [' + Odi.conf('mode') + ']');
-		Flux.next('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
-	});
+	// https.createServer(credentials, ui).listen(HTTPS_SERVER_PORT);
+
+	// httpServer = http.createServer(ui);
+	httpsServer = https.createServer(credentials, uiHttps).listen(HTTPS_SERVER_PORT);
+
+	// httpServer.listen(HTTP_SERVER_PORT);
+	// httpsServer.listen(HTTPS_SERVER_PORT);
 }
 
 function closeUIServer(breakDuration) {

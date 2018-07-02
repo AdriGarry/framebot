@@ -162,9 +162,9 @@ app.component('runtime', {
 		var tileParams = {
 			label: 'Runtime',
 			actionList: [
-				{ label: 'Errors', icon: 'fab fa-sith', url: 'http://odi.adrigarry.com/errors' },
-				{ label: 'Config', icon: 'fab fa-whmcs', url: 'http://odi.adrigarry.com/config.json' },
-				{ label: 'Runtime', icon: 'fab fa-react', url: 'http://odi.adrigarry.com/runtime' }
+				{ label: 'Errors', icon: 'fab fa-sith', url: 'https://odi.adrigarry.com/errors' },
+				{ label: 'Config', icon: 'fab fa-whmcs', url: 'https://odi.adrigarry.com/config.json' },
+				{ label: 'Runtime', icon: 'fab fa-react', url: 'https://odi.adrigarry.com/runtime' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -631,10 +631,10 @@ app.component('history', {
 			label: 'History',
 			actionList: [
 				{ label: 'Archive', icon: 'fas fa-file-archive', url: '/archiveLog' },
-				{ label: 'TTS', icon: 'far fa-comment-alt', url: 'http://odi.adrigarry.com/ttsUIHistory' },
-				{ label: 'Voicemail', icon: 'far fa-envelope', url: 'http://odi.adrigarry.com/voicemailHistory' },
-				{ label: 'Request', icon: 'fas fa-exchange-alt', url: 'http://odi.adrigarry.com/requestHistory' },
-				{ label: 'Errors', icon: 'fab fa-sith', url: 'http://odi.adrigarry.com/errorHistory' }
+				{ label: 'TTS', icon: 'far fa-comment-alt', url: 'https://odi.adrigarry.com/ttsUIHistory' },
+				{ label: 'Voicemail', icon: 'far fa-envelope', url: 'https://odi.adrigarry.com/voicemailHistory' },
+				{ label: 'Request', icon: 'fas fa-exchange-alt', url: 'https://odi.adrigarry.com/requestHistory' },
+				{ label: 'Errors', icon: 'fab fa-sith', url: 'https://odi.adrigarry.com/errorHistory' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -672,7 +672,7 @@ app.component('about', {
 		var ctrl = this;
 		var tileParams = {
 			label: 'About',
-			actionList: [{ url: 'http://odi.adrigarry.com/about' }]
+			actionList: [{ url: 'https://odi.adrigarry.com/about' }]
 		};
 		ctrl.access = true;
 		ctrl.tile = new DefaultTile(tileParams, true);
