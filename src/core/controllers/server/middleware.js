@@ -29,6 +29,11 @@ var securityMiddleware = function(req, res, next) {
 
 	let ip = req.connection.remoteAddress;
 	if (!ip) {
+		if (req.isSocket) {
+			log.INFO('..............This is a socket (search: "req.isSocket")!!');
+		} else {
+			log.INFO('..............This NOT is a socket (search: "req.isSocket")!!');
+		}
 		log.error('Incoming socket /!\\ /!\\');
 		log.info(req); // TODO revoir cette sécurité...
 		rejectUnauthorizedRequest(res);
