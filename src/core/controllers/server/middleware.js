@@ -37,7 +37,20 @@ var securityMiddleware = function(req, res, next) {
 		rejectUnauthorizedRequest(res);
 	}
 	let isLocalIp = ip.indexOf('192.168') > -1;
-	let ipToLog = isLocalIp ? '' : 'from [' + req.connection.remoteAddress + ']';
+	let position2 = req.headers['user-position'],
+		positionToLog = '';
+	console.log(typeof position2, position2);
+	// Object.keys(position).forEach(function(a) {
+	// 	log.info(a, position[a]);
+	// });
+	let position = JSON.parse(position2);
+	if (position && typeof position == 'object') {
+		// log.info('POSITION_TO_LOG:', position);
+		positionToLog = {};
+		positionToLog.latitude = position.latitude;
+		positionToLog.longitude = position.longitude;
+	}
+	let ipToLog = isLocalIp ? '' : 'from [' + req.connection.remoteAddress + ']/[' + positionToLog + ']';
 	if (req.headers['user-interface'] !== 'UIv5') {
 		// Not allowed requests
 		if (canTTSBadRequest && Odi.isAwake()) {

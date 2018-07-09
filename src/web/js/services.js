@@ -15,7 +15,8 @@ app.service('UIService', [
 				headers: {
 					'Content-Type': 'application/json',
 					'Access-Control-Allow-Origin': 'http://adrigarry.com',
-					'User-Interface': 'UIv5'
+					'User-Interface': 'UIv5',
+					'User-Position': ctrl.position
 				},
 				method: 'GET',
 				url: CONSTANTS.URL_ODI + '/dashboard'
@@ -74,7 +75,7 @@ app.service('UIService', [
 			// console.log('UIService.sendCommand()', cmd);
 			var uri = cmd.url;
 			$http({
-				headers: { 'User-Interface': 'UIv5', pwd: cmd.data },
+				headers: { 'User-Interface': 'UIv5', pwd: cmd.data, 'User-position': ctrl.position },
 				method: 'POST',
 				url: CONSTANTS.URL_ODI + uri /*+ params*/,
 				data: cmd.params
@@ -161,5 +162,37 @@ app.service('UIService', [
 				}
 			);
 		};
+
+		function maPosition(position) {
+			var infopos = 'Position déterminée :\n';
+			infopos += 'Latitude : ' + position.coords.latitude + '\n';
+			infopos += 'Longitude: ' + position.coords.longitude + '\n';
+			infopos += 'Altitude : ' + position.coords.altitude + '\n';
+			document.getElementById('infoposition').innerHTML = infopos;
+		}
+
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(maPosition);
+		}
+		navigator.geolocation.watchPosition(
+			function(position) {
+				console.log("i'm tracking you!", position);
+				// ctrl.position = {};
+				// ctrl.position.latitude = position.coords.latitude;
+				// ctrl.position.longitude = position.coords.longitude;
+				ctrl.position = JSON.stringify({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+				console.log(ctrl.position);
+			},
+			function(error) {
+				if (error.code == error.PERMISSION_DENIED) {
+					console.log('you denied me :-(');
+					setTimeout(function() {
+						if (navigator.geolocation) {
+							navigator.geolocation.getCurrentPosition(maPosition);
+						}
+					}, 1000);
+				}
+			}
+		);
 	}
 ]);
