@@ -100,7 +100,7 @@ app.service('UIService', [
 		}
 		$http({
 			method: 'POST',
-			url: 'http://odi.adrigarry.com' + cmd.url + params
+			url: 'https://odi.adrigarry.com' + cmd.url + params
 		}).then(function successCallback(res){
 			// console.log(res);
 			// console.log(cmd.url + params);

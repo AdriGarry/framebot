@@ -3,7 +3,7 @@ var app = angular.module('odiUI', ['ngMaterial', 'mdPickers' /*'pr.longpress'*/]
 
 app.constant('CONSTANTS', {
 	UI_VERSION: 3.0,
-	URL_ODI: 'http://odi.adrigarry.com',
+	URL_ODI: 'https://odi.adrigarry.com',
 	// 'DATE_TIME_REGEX': new RegExp('[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', 'g'),
 	DATE_REGEX: new RegExp('[0-9]{2}/[0-9]{2} ', 'g'),
 	FILE_REGEX: new RegExp('\\[[a-zA-Z]+.(js|JS)\\] ', 'g'), //'\\[[a-zA-Z]+.(js|JS):\\d+\\] '

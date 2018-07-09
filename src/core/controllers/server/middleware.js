@@ -17,24 +17,24 @@ var canTTSBadRequest = true;
 
 module.exports = {
 	security: function() {
-		// badRequestCount = 0;
 		return securityMiddleware;
 	}
 };
 
 var securityMiddleware = function(req, res, next) {
-	// let requestToLog;
 	Flux.next('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
 	if (!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('interface|sound|UI', null, { hidden: true });
 
 	let ip = req.connection.remoteAddress;
 	if (!ip) {
+		if (req.isSocket) {
+			log.INFO('..............This is a socket (search: "req.isSocket")!!');
+		} else {
+			log.INFO('..............This is NOT a socket (search: "req.isSocket")!!');
+		}
 		log.error('Incoming socket /!\\ /!\\');
 		log.info(req); // TODO revoir cette sécurité...
 		rejectUnauthorizedRequest(res);
-		// } else if (req.url == '/favicon.ico') {
-		// 	log.info('favicon request', req.url, ipToLog);
-		// 	rejectUnauthorizedRequest(res);
 	}
 	let isLocalIp = ip.indexOf('192.168') > -1;
 	let ipToLog = isLocalIp ? '' : 'from [' + req.connection.remoteAddress + ']';
