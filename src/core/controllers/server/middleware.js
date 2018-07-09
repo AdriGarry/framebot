@@ -40,10 +40,6 @@ var securityMiddleware = function(req, res, next) {
 	let position,
 		position2 = req.headers['user-position'],
 		positionToLog = '';
-	// console.log(typeof position2, position2);
-	// Object.keys(position).forEach(function(a) {
-	// 	log.info(a, position[a]);
-	// });
 	try {
 		position = JSON.parse(position2);
 		console.log(position);

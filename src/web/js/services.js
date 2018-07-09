@@ -2,12 +2,14 @@
 
 /* UI Service */
 app.service('UIService', [
+	'$rootScope',
 	'$http',
 	'$mdToast',
 	'CONSTANTS',
 	'Tile',
-	function($http, $mdToast, CONSTANTS, Tile) {
+	function($rootScope, $http, $mdToast, CONSTANTS, Tile) {
 		var ctrl = this;
+		$rootScope.position = false;
 		/** Function to update dashboard from Odi **/
 		ctrl.refreshDashboard = function(callback) {
 			// console.log('refreshDashboard()');
@@ -16,7 +18,7 @@ app.service('UIService', [
 					'Content-Type': 'application/json',
 					'Access-Control-Allow-Origin': 'http://adrigarry.com',
 					'User-Interface': 'UIv5',
-					'User-Position': ctrl.position
+					'User-Position': $rootScope.position
 				},
 				method: 'GET',
 				url: CONSTANTS.URL_ODI + '/dashboard'
@@ -57,7 +59,7 @@ app.service('UIService', [
 		ctrl.getRequest = function(url, callback) {
 			console.log('refreshDashboard()');
 			$http({
-				headers: { 'User-Interface': 'UIv5' },
+				headers: { 'User-Interface': 'UIv5', 'User-position': $rootScope.position },
 				method: 'GET',
 				url: url
 			}).then(
@@ -75,7 +77,7 @@ app.service('UIService', [
 			// console.log('UIService.sendCommand()', cmd);
 			var uri = cmd.url;
 			$http({
-				headers: { 'User-Interface': 'UIv5', pwd: cmd.data, 'User-position': ctrl.position },
+				headers: { 'User-Interface': 'UIv5', pwd: cmd.data, 'User-position': $rootScope.position },
 				method: 'POST',
 				url: CONSTANTS.URL_ODI + uri /*+ params*/,
 				data: cmd.params
@@ -180,7 +182,10 @@ app.service('UIService', [
 				// ctrl.position = {};
 				// ctrl.position.latitude = position.coords.latitude;
 				// ctrl.position.longitude = position.coords.longitude;
-				ctrl.position = JSON.stringify({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+				$rootScope.position = JSON.stringify({
+					latitude: position.coords.latitude,
+					longitude: position.coords.longitude
+				});
 				console.log(ctrl.position);
 			},
 			function(error) {
