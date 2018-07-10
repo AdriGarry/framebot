@@ -52,7 +52,8 @@ var securityMiddleware = function(req, res, next) {
 		positionToLog.latitude = position.latitude;
 		positionToLog.longitude = position.longitude;
 	}
-	let ipToLog = isLocalIp ? '' : 'from [' + req.connection.remoteAddress + ']/[' + positionToLog + ']';
+	let ipToLog = isLocalIp ? '' : 'from [' + req.connection.remoteAddress + ']';
+	let locationToLog = position ? ' [' + positionToLog + ']' : '';
 	if (req.headers['user-interface'] !== 'UIv5') {
 		// Not allowed requests
 		if (canTTSBadRequest && Odi.isAwake()) {
@@ -62,14 +63,14 @@ var securityMiddleware = function(req, res, next) {
 				canTTSBadRequest = true;
 			}, BAD_REQUEST_TIMEOUT);
 		}
-		Odi.error('Bad request', '401 ' + decodeUrl(req.url) + ' ' + ipToLog, false);
+		Odi.error('Bad request', '401 ' + decodeUrl(req.url) + ' ' + ipToLog + locationToLog, false);
 		rejectUnauthorizedRequest(res);
 	}
 
 	if (!isLocalIp) {
 		logNotLocalRequest(req);
 	}
-	log.info(req.headers['user-interface'] + ' ' + decodeUrl(req.url), ipToLog);
+	log.info(req.headers['user-interface'] + ' ' + decodeUrl(req.url), ipToLog, locationToLog);
 	res.statusCode = 200;
 	next();
 };
