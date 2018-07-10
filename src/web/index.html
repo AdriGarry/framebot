@@ -53,13 +53,55 @@
 </head>
 
 <body data-ng-controller="UIController" data-ng-mousemove="showFabButtons()" data-scroll>
-	<md-content flex layout-padding data-ng-if="!$root.position" style="text-align:center;">
-		<i class="fas fa-robot fa-spin" style="margin:15vh 0 20px;font-size:15vmax;color:#607D8B;"></i>
-		<!-- <img src="img/odi.jpg" title="Odi's face" class="fas fa-4x fa-robot fa-spin" style="margin:15vh 0 20px;font-size:20vw;"> -->
-		<h2>Odi</h2>
-		<h3>Accept location or leave</h3>
-		<p>This is a personal tool. All data are anonymous.
-			<br>IP/location will only be used to locate injurious messages sent to the robot.</p>
+	<!-- <md-toolbar class="md-theme-light">
+		<h2 class="md-toolbar-tools">
+			<span>Inset</span>
+		</h2>
+	</md-toolbar> -->
+
+	<md-content flex layout-padding data-ng-if="!$root.position" style="width:60%;margin:0 auto;color:#607D8B;">
+		<div style="text-align:center;">
+			<i class=" fas fa-robot fa-spin" style="margin:15vh 0 20px;font-size:15vmax;color:#607D8B;"></i>
+		</div>
+		<md-list>
+			<md-list-item class="md-3-line">
+				<!-- <i class="md-avatar"></i> -->
+				<div class="md-list-item-text">
+					<h2 style="text-align:center;">Accept location or leave Odi.</h2>
+				</div>
+				<md-divider md-inset ng-if="!$last "></md-divider>
+			</md-list-item>
+			<md-list-item class="md-3-line">
+				<i class="md-avatar fas fa-3x fa-info"></i>
+				<div class="md-list-item-text">
+					<h3>About</h3>
+					<p>This is a personal tool. To use Odi's UI, you have to accept geolocation on your browser.</p>
+				</div>
+				<md-divider md-inset ng-if="!$last "></md-divider>
+			</md-list-item>
+			<md-list-item class="md-3-line">
+				<i class="md-avatar fas fa-3x fa-user-secret"></i>
+				<div class="md-list-item-text">
+					<h3>Privacy</h3>
+					<p>All sent data are anonymous.</p>
+				</div>
+				<md-divider md-inset ng-if="!$last "></md-divider>
+			</md-list-item>
+			<md-list-item class="md-3-line">
+				<i class="md-avatar fas fa-3x fa-question"></i>
+				<div class="md-list-item-text">
+					<h3>Why ?</h3>
+					<p>IP/location will only be used to locate injurious messages sent to the robot.</p>
+				</div>
+				<md-divider md-inset ng-if="!$last "></md-divider>
+			</md-list-item>
+	</md-content>
+	<!-- <md-content flex layout-padding data-ng-if="!$root.position " style="text-align:center; "> -->
+	<!-- <img src="img/odi.jpg " title="Odi 's face" class="fas fa-4x fa-robot fa-spin" style="margin:15vh 0 20px;font-size:20vw;"> -->
+	<!-- <h2>Odi</h2>
+	<h3>Accept location or leave</h3>
+	<p>This is a personal tool. To use Odi's UI, you have to accept geolocation on your browser. <br> All data are anonymous.
+		<br>IP/location will only be used to locate injurious messages sent to the robot.</p> -->
 	</md-content>
 	<div data-ng-if="$root.position">
 		<md-toolbar class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
