@@ -14,7 +14,8 @@ app.constant('CONSTANTS', {
 		'g'
 	), // IPv4 & IPv6 regex: https://sroze.io/regex-ip-v4-et-ipv6-6cc005cabe8c
 	IP_LOCATION_SERVICE_URL: 'http://www.traceip.net/?query=',
-	GEOLOCATION_SERVICE_URL: 'http://www.gps-coordinates.org/my-location.php?lat=$lat&lng=$lng'
+	GEOLOCATION_REGEX: new RegExp('\\[lat:(\\d+\\.\\d+), lon:(\\d+\\.\\d+)\\]', 'g')
+	// GEOLOCATION_SERVICE_URL: `http://www.gps-coordinates.org/my-location.php?lat=${lat}&lng=${lng}`
 });
 
 app.config(function($mdThemingProvider) {
@@ -36,8 +37,13 @@ app.directive('scroll', function($window) {
 	};
 });
 
-/** Filter to format logs (link on ip address) **/
+/** Filter to format logs (link on ip address, & on geolocation) **/
 app.filter('formatLog', function(CONSTANTS) {
+	function buildGeolocationUrlService(lat = '', lng = '') {
+		console.log(`http://www.gps-coordinates.org/my-location.php?lat=${lat}&lng=${lng}`);
+		return `http://www.gps-coordinates.org/my-location.php?lat=${lat}&lng=${lng}`;
+	}
+
 	return function(logLine, fullLog) {
 		if (!fullLog) {
 			logLine = logLine.replace(CONSTANTS.DATE_REGEX, '');
@@ -58,9 +64,11 @@ app.filter('formatLog', function(CONSTANTS) {
 				return '[' + ip + ']';
 			}
 		});
-		// logLine = logLine.replace(CONSTANTS.DATE_TIME_REGEX, function(match) {
-		// 	return '<span class="timeLog">' + match + '</span>';
-		// });
+		logLine = logLine.replace(CONSTANTS.GEOLOCATION_REGEX, function(match, lat, lng) {
+			return (
+				'<a href="' + buildGeolocationUrlService(lat, lng) + '" title="Geolocation" target="_blank">' + match + '</a>'
+			);
+		});
 		return logLine;
 	};
 });
