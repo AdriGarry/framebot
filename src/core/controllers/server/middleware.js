@@ -53,7 +53,7 @@ var securityMiddleware = function(req, res, next) {
 		positionToLog.longitude = position.longitude;
 	}
 	let ipToLog = isLocalIp ? '' : 'from [' + req.connection.remoteAddress + ']';
-	let locationToLog = position ? ' [lat:' + positionToLog.latitude + ', lon:' + positionToLog.longitude + ']' : '';
+	let locationToLog = position ? '_[lat:' + positionToLog.latitude + ', lon:' + positionToLog.longitude + ']' : '';
 	if (req.headers['user-interface'] !== 'UIv5') {
 		// Not allowed requests
 		if (canTTSBadRequest && Odi.isAwake()) {

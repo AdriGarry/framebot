@@ -8,14 +8,14 @@ app.constant('CONSTANTS', {
 	DATE_REGEX: new RegExp('[0-9]{2}/[0-9]{2} ', 'g'),
 	FILE_REGEX: new RegExp('\\[[a-zA-Z]+.(js|JS)\\] ', 'g'), //'\\[[a-zA-Z]+.(js|JS):\\d+\\] '
 	// IP_REGEX: new RegExp('from (\\[(?=.*[0-9])(?=.*\\.)(?=.*\\:).*\\])', 'g'),
-	IP_REGEX: new RegExp('from \\[((?=.*[0-9])(?=.*\\.)(?=.*\\:).*)\\]', 'g'),
+	IP_REGEX: new RegExp('from \\[((?=.*[0-9])(?=.*\\.)(?=.*\\:).*)\\] ', 'g'),
 	IP_REGEX_2: new RegExp(
 		'((([0–9A-Fa-f]{1,4}:){7}[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){6}:[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){5}:([0–9A-Fa-f]{1,4}:)?[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){4}:([0–9A-Fa-f]{1,4}:){0,2}[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){3}:([0–9A-Fa-f]{1,4}:){0,3}[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){2}:([0–9A-Fa-f]{1,4}:){0,4}[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){6}((b((25[0–5])|(1d{2})|(2[0–4]d)|(d{1,2}))b).){3}(b((25[0–5])|(1d{2})|(2[0–4]d)|(d{1,2}))b))|(([0–9A-Fa-f]{1,4}:){0,5}:((b((25[0–5])|(1d{2})|(2[0–4]d)|(d{1,2}))b).){3}(b((25[0–5])|(1d{2})|(2[0–4]d)|(d{1,2}))b))|(::([0–9A-Fa-f]{1,4}:){0,5}((b((25[0–5])|(1d{2})|(2[0–4]d)|(d{1,2}))b).){3}(b((25[0–5])|(1d{2})|(2[0–4]d)|(d{1,2}))b))|([0–9A-Fa-f]{1,4}::([0–9A-Fa-f]{1,4}:){0,5}[0–9A-Fa-f]{1,4})|(::([0–9A-Fa-f]{1,4}:){0,6}[0–9A-Fa-f]{1,4})|(([0–9A-Fa-f]{1,4}:){1,7}:))',
 		'g'
 	), // IPv4 & IPv6 regex: https://sroze.io/regex-ip-v4-et-ipv6-6cc005cabe8c
 	IP_LOCATION_SERVICE_URL: 'http://www.traceip.net/?query=',
 	GEOLOCATION_REGEX: new RegExp('\\[lat:(\\d+\\.\\d+), lon:(\\d+\\.\\d+)\\]', 'g')
-	// GEOLOCATION_SERVICE_URL: `http://www.gps-coordinates.org/my-location.php?lat=${lat}&lng=${lng}`
+	// GEOLOCATION_SERVICE_URL: `http://www.gps-coordinates.org/my-location.php?lat=${lat}&lng=${lng}` // https://www.google.com/maps/?q=-15.623037,18.388672
 });
 
 app.config(function($mdThemingProvider) {
@@ -40,8 +40,10 @@ app.directive('scroll', function($window) {
 /** Filter to format logs (link on ip address, & on geolocation) **/
 app.filter('formatLog', function(CONSTANTS) {
 	function buildGeolocationUrlService(lat = '', lng = '') {
-		console.log(`http://www.gps-coordinates.org/my-location.php?lat=${lat}&lng=${lng}`);
-		return `http://www.gps-coordinates.org/my-location.php?lat=${lat}&lng=${lng}`;
+		// console.log(`http://www.gps-coordinates.org/my-location.php?lat=${lat}&lng=${lng}`);
+		// return `http://www.gps-coordinates.org/my-location.php?lat=${lat}&lng=${lng}`;
+		console.log(`https://www.google.com/maps/?q=${lat},${lng}`);
+		return `https://www.google.com/maps/?q=${lat},${lng}`;
 	}
 
 	return function(logLine, fullLog) {
