@@ -151,11 +151,13 @@
 		"horn": ["eh ho", "eh ho, sa suffit!"],
 		"hornFire": "Au feu !",
 		"sensor": [
-			"Oh, il se passe un truc du coter de chez Max!",
 			"Oh, il se passe un truc vers chez Max!",
 			"Oh Oh, sa va Max?",
+			"Bip Bip!",
+			"Bip Bip!",
+			"Oh, Max!",
 			{ "lg": "en", "msg": "Max sensor" },
-			{ "lg": "en", "msg": "Max sensor fired" }
+			{ "lg": "en", "msg": "Oh, Max!" }
 		]
 	},
 	"max": {
