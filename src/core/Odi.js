@@ -32,8 +32,11 @@ var Flux = { next: null };
 function initOdi(path, descriptor, forcedParams, startTime) {
 	Odi = buildOdiObject(Odi, descriptor);
 	let packageJson = require(ODI_PATH + 'package.json');
-	var confUpdate = { startTime: Utils.logTime('h:m (D/M)'), version: packageJson.version },
+	var confUpdate = { startTime: Utils.logTime('h:m (D/M)') },
 		forcedParamsLog = '';
+	if (confUpdate.version != packageJson.version) {
+		confUpdate.version = packageJson.version;
+	}
 	if (forcedParams.sleep) {
 		Odi.conf('mode', 'sleep');
 		confUpdate.mode = 'sleep';
