@@ -38,6 +38,10 @@ var securityMiddleware = function(req, res, next) {
 		rejectUnauthorizedRequest(res);
 	}
 
+	if (!requestData.isLocalIp) {
+		logNotLocalRequest(req);
+	}
+
 	if (requestData.ui !== 'UIv5') {
 		// Not allowed requests
 		if (canTTSBadRequest && Odi.isAwake()) {
@@ -49,11 +53,9 @@ var securityMiddleware = function(req, res, next) {
 		}
 		Odi.error('Bad request', '401 ' + decodeURI(req.url) + ' ' + requestData.log, false);
 		rejectUnauthorizedRequest(res);
+		return;
 	}
 
-	if (!requestData.isLocalIp) {
-		logNotLocalRequest(req);
-	}
 	log.info(requestData.ui + ' ' + decodeURI(req.url), requestData.log);
 	res.statusCode = 200;
 	next();
@@ -69,7 +71,7 @@ function getRequestData(req) {
 	try {
 		position = JSON.parse(req.headers['user-position']);
 		if (position && typeof position == 'object') {
-			requestData.position = {}; //{ latitude: 0, longitude: 0 };
+			requestData.position = {};
 			requestData.position.latitude = position.latitude;
 			requestData.position.longitude = position.longitude;
 		}
