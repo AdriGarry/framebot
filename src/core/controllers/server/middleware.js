@@ -69,11 +69,12 @@ function getRequestData(req) {
 	try {
 		position = JSON.parse(req.headers['user-position']);
 		if (position && typeof position == 'object') {
+			requestData.position = {}; //{ latitude: 0, longitude: 0 };
 			requestData.position.latitude = position.latitude;
 			requestData.position.longitude = position.longitude;
 		}
 	} catch (err) {
-		log.debug('position not retrieved!', position, err);
+		log.debug('position not retrieved!', position);
 	}
 
 	requestData.ui = req.headers['user-interface'];
