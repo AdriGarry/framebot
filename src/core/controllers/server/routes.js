@@ -466,7 +466,7 @@ function attachAwakeRoutes(ui) {
 
 	ui.post('/*', function(req, res) {
 		Odi.error('Error UI > not mapped: ' + req.url, null, false);
-		res.writeHead(418);
+		res.writeHead(401);
 		res.end();
 	});
 }
