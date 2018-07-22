@@ -25,8 +25,9 @@ var securityMiddleware = function(req, res, next) {
 	Flux.next('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
 	if (!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('interface|sound|UI', null, { hidden: true });
 
-	let ip = req.connection.remoteAddress;
-	if (!ip) {
+	let requestData = getRequestData(req);
+
+	if (!requestData.ip) {
 		if (req.isSocket) {
 			log.INFO('..............This is a socket (search: "req.isSocket")!!');
 		} else {
@@ -36,25 +37,8 @@ var securityMiddleware = function(req, res, next) {
 		log.info(req); // TODO revoir cette sécurité...
 		rejectUnauthorizedRequest(res);
 	}
-	let isLocalIp = ip.indexOf('192.168') > -1;
-	let position,
-		position2 = req.headers['user-position'],
-		positionToLog = '';
-	try {
-		position = JSON.parse(position2);
-		console.log(position);
-	} catch (err) {
-		log.info('position not retrieved!!');
-	}
-	if (position && typeof position == 'object') {
-		// log.info('POSITION_TO_LOG:', position);
-		positionToLog = {};
-		positionToLog.latitude = position.latitude;
-		positionToLog.longitude = position.longitude;
-	}
-	let ipToLog = isLocalIp ? '' : 'from [' + req.connection.remoteAddress + ']';
-	let locationToLog = position ? '_[lat:' + positionToLog.latitude + ', lon:' + positionToLog.longitude + ']' : '';
-	if (req.headers['user-interface'] !== 'UIv5') {
+
+	if (requestData.ui !== 'UIv5') {
 		// Not allowed requests
 		if (canTTSBadRequest && Odi.isAwake()) {
 			canTTSBadRequest = false;
@@ -63,21 +47,50 @@ var securityMiddleware = function(req, res, next) {
 				canTTSBadRequest = true;
 			}, BAD_REQUEST_TIMEOUT);
 		}
-		Odi.error('Bad request', '401 ' + decodeUrl(req.url) + ' ' + ipToLog + locationToLog, false);
+		Odi.error('Bad request', '401 ' + decodeURI(req.url) + ' ' + requestData.log, false);
 		rejectUnauthorizedRequest(res);
 	}
 
-	if (!isLocalIp) {
+	if (!requestData.isLocalIp) {
 		logNotLocalRequest(req);
 	}
-	log.info(req.headers['user-interface'] + ' ' + decodeUrl(req.url), ipToLog, locationToLog);
+	log.info(requestData.ui + ' ' + decodeURI(req.url), requestData.log);
 	res.statusCode = 200;
 	next();
 };
 
-function decodeUrl(url) {
-	// return url.replace('%20', ' '); // TODO faire un vrai décodage de l'url !
-	return decodeURI(url);
+function getRequestData(req) {
+	let position,
+		requestData = {}; // { ip, isLocalIp, position, log }
+
+	requestData.ip = req.connection.remoteAddress;
+	requestData.isLocalIp = requestData.ip.indexOf('192.168') > -1;
+
+	try {
+		position = JSON.parse(req.headers['user-position']);
+		if (position && typeof position == 'object') {
+			requestData.position.latitude = position.latitude;
+			requestData.position.longitude = position.longitude;
+		}
+	} catch (err) {
+		log.debug('position not retrieved!', position, err);
+	}
+
+	requestData.ui = req.headers['user-interface'];
+	requestData.log = 'from [' + formatIp(requestData) + formatPosition(requestData) + ']';
+	return requestData;
+}
+
+function formatIp(requestData) {
+	return requestData.isLocalIp ? '' : requestData.ip;
+}
+
+function formatPosition(requestData) {
+	let log = requestData.isLocalIp ? '' : '_';
+	log += requestData.position
+		? 'lat:' + requestData.position.latitude + '|lon:' + requestData.position.longitude
+		: 'noPos';
+	return log;
 }
 
 function logNotLocalRequest(req) {
