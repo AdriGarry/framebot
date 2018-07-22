@@ -149,7 +149,7 @@ app.service('UIService', [
 		var logIncrement = 10;
 		ctrl.updateLogs = function(callback) {
 			$http({
-				headers: { 'User-Interface': 'UIv5' },
+				headers: { 'User-Interface': 'UIv5', 'User-position': $rootScope.position },
 				method: 'GET',
 				url: CONSTANTS.URL_ODI + '/log?logSize=' + logSize
 			}).then(
