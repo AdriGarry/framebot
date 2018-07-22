@@ -53,17 +53,11 @@
 </head>
 
 <body data-ng-controller="UIController" data-ng-mousemove="showFabButtons()" data-scroll>
-	<!-- <md-toolbar class="md-theme-light">
-		<h2 class="md-toolbar-tools">
-			<span>Inset</span>
-		</h2>
-	</md-toolbar> -->
-
 	<md-content flex layout-padding data-ng-if="!$root.position" style="width:80%;margin:0 auto;color:#607D8B;">
 		<div style="text-align:center;">
 			<i class=" fas fa-robot fa-spin" style="margin:15vh 0 20px;font-size:15vmax;color:#607D8B;"></i>
 		</div>
-		<md-list>
+		<md-list style="max-width:500px;margin:0 auto;">
 			<md-list-item class="md-3-line">
 				<!-- <i class="md-avatar"></i> -->
 				<div class="md-list-item-text">

@@ -165,37 +165,24 @@ app.service('UIService', [
 			);
 		};
 
-		// function maPosition(position) {
-		// 	var infopos = 'Position déterminée :\n';
-		// 	infopos += 'Latitude : ' + position.coords.latitude + '\n';
-		// 	infopos += 'Longitude: ' + position.coords.longitude + '\n';
-		// 	infopos += 'Altitude : ' + position.coords.altitude + '\n';
-		// 	document.getElementById('infoposition').innerHTML = infopos;
-		// }
-
-		// if (navigator.geolocation) {
-		// 	navigator.geolocation.getCurrentPosition(maPosition);
-		// }
 		navigator.geolocation.watchPosition(
 			function(position) {
-				console.log("i'm tracking you!", position);
-				// ctrl.position = {};
-				// ctrl.position.latitude = position.coords.latitude;
-				// ctrl.position.longitude = position.coords.longitude;
+				console.log('Geolocation acquired', position);
 				$rootScope.position = JSON.stringify({
 					latitude: position.coords.latitude,
 					longitude: position.coords.longitude
 				});
-				console.log(ctrl.position);
 			},
 			function(error) {
 				if (error.code == error.PERMISSION_DENIED) {
-					console.log('you denied me :-(');
+					console.log('Geolocation not acquired!');
+					// accept anyway if browser not compatible?
 					setTimeout(function() {
 						if (navigator.geolocation) {
+							console.log('Geolocation retrying...');
 							navigator.geolocation.getCurrentPosition(maPosition);
 						}
-					}, 1000);
+					}, 2000);
 				}
 			}
 		);
