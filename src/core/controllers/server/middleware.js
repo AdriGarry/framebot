@@ -39,7 +39,7 @@ var securityMiddleware = function(req, res, next) {
 	}
 
 	if (!requestData.isLocalIp) {
-		logNotLocalRequest(req);
+		logNotLocalRequest(requestData);
 	}
 
 	if (requestData.ui !== 'UIv5') {
@@ -65,6 +65,7 @@ function getRequestData(req) {
 	let position,
 		requestData = {}; // { ip, isLocalIp, position, log }
 
+	requestData.url = req.url;
 	requestData.ip = req.connection.remoteAddress;
 	requestData.isLocalIp = requestData.ip.indexOf('192.168') > -1;
 
@@ -96,8 +97,8 @@ function formatPosition(requestData) {
 	return log;
 }
 
-function logNotLocalRequest(req) {
-	let requestToLog = Utils.logTime('D/M h:m:s ') + req.url + ' [' + req.connection.remoteAddress + ']\r\n';
+function logNotLocalRequest(requestData) {
+	let requestToLog = Utils.logTime('D/M h:m:s ') + requestData.url + requestData.log + '\r\n';
 	fs.appendFile(FILE_REQUEST_HISTORY, requestToLog, function(err) {
 		if (err) return Odi.error(err);
 	});
