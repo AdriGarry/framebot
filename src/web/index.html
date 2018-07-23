@@ -148,7 +148,7 @@
 		<div layout="row" class="menu">
 			<md-list flex>
 				<md-list-item>
-					<md-button data-ng-click="toggleGrant($event)" data-ng-class="{admin:$root.irda}" class="adminBtn center" title="{{$root.irda? 'Log out':'Log in'}}">
+					<md-button data-ng-click="toggleGrant($event)" data-ng-class="{admin:$root.irda}" class="adminBtn center" title="{{$root.irda? 'Log out':'Log in'}}" aria-label="{{$root.irda? 'Log out':'Log in'}}">
 						<i data-ng-class="$root.irda" class="fas fa-sign-in-alt"></i>
 						<i data-ng-if="!$root.irda" class="fas fa-user"></i>
 						<i data-ng-if="$root.irda" class="fas fa-user-secret"></i>
