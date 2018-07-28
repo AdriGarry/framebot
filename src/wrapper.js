@@ -13,7 +13,7 @@ const sep = path.sep;
 // const SRC_PATH = __filename.match(/\/.*\//g)[0];
 const SRC_PATH = __dirname + sep;
 const ODI_PATH = __dirname.replace('src', '');
-const INTERVALS = [2, 5, 10, 30, 60, 90, 180, 360, 720];
+const INTERVALS = [2, 5, 10, 30, 60, 90, 180, 300, 600, 900];
 const wrapperTitle = '\n┌──────────────┐\n│  > Wrapper   │\n└──────────────┘';
 
 // console.log('Wrapper started');
