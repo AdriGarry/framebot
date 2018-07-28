@@ -82,36 +82,18 @@ function appendArrayInJsonFile(filePath, obj, callback) {
 		startTime = new Date();
 	fs.exists(filePath, function(exists) {
 		if (exists) {
-			// log.INFO('EXIST!');
 			fs.readFile(filePath, 'utf8', function(err, data) {
-				// log.info(1, data);
-				// if (err || !data) {
-				// 	log.info(err || !data);
-				// 	log.error(err, data);
-				// } else {
-				// log.info('..A', data);
-				fileData = JSON.parse(data | '');
-				// log.info(fileData);
-				// log.info(2, Array.isArray(fileData), typeof fileData, fileData);
+				fileData = JSON.parse(data || '');
 				if (Array.isArray(fileData)) {
 					fileData.push(obj);
-					// log.info(fileData);
 					_writeFile(filePath, fileData, startTime);
 				} else {
-					// log.INFO('not and array:', typeof fileData);
 					fileData = [fileData];
 					fileData.push(obj);
-					// Odi.error
-					// log.error('ERF !');
-					// log.info(fileData);
 					_writeFile(filePath, fileData, startTime);
 				}
-				// }
 			});
 		} else {
-			// log.INFO('NOT EXIST!');
-			// fileData = [];
-			// fileData.push(obj);
 			fileData = [obj];
 			_writeFile(filePath, fileData, startTime, true);
 		}
