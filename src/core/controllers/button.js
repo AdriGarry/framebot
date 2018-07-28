@@ -90,7 +90,7 @@ Button.etat.watch(function(err, value) {
 	value = Button.etat.readSync();
 	Odi.run('etat', value ? 'high' : 'low');
 	Odi.run('volume', Odi.isAwake() ? (value ? 400 : -400) : 'mute');
-	log.info('Etat has changed:', value);
+	log.info('Etat has changed:', Odi.run('etat'));
 	if (Odi.run('music') == 'fip') {
 		Flux.next('interface|sound|mute');
 		Flux.next('service|music|fip', null, { delay: 0.1 });

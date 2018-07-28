@@ -49,7 +49,7 @@ function screenOn() {
 /** Function to turn screen off */
 function screenOff() {
 	spawn('/opt/vc/bin/tvservice', ['-o']);
-	Odi.run('etat', false);
+	Odi.run('screen', false);
 	log.info('screen off');
 }
 
