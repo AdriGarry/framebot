@@ -83,7 +83,7 @@ function appendArrayInJsonFile(filePath, obj, callback) {
 	fs.exists(filePath, function(exists) {
 		if (exists) {
 			fs.readFile(filePath, 'utf8', function(err, data) {
-				fileData = JSON.parse(data || '');
+				fileData = JSON.parse(data || ''); // TODO avoid SyntaxError: Unexpected end of JSON input
 				if (Array.isArray(fileData)) {
 					fileData.push(obj);
 					_writeFile(filePath, fileData, startTime);
