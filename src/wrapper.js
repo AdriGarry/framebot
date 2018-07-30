@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 // 'use strict'; //Octal literals are not allowed in strict mode.
 
+console.log('nodejs.version=' + process.version);
+
 /** Params detection */
 var argv = process.argv.splice(2);
 
