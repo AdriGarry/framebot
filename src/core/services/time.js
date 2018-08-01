@@ -182,7 +182,7 @@ function cocoricoPart3() {
 	Flux.next('interface|tts|speak', baluchonTTS, { delay: Utils.random(15, 25) * 60, loop: 3 });
 }
 
-const BIRTHDAYS = ['17/04', '13/12'];
+const BIRTHDAYS = ['17/04', '13/12', '31/07'];
 function isBirthday() {
 	log.info('isBirthday');
 	var today = { date: new Date() };
