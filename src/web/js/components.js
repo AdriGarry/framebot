@@ -23,6 +23,10 @@ app.component('tts', {
 			return false;
 		};
 
+		ctrl.cssClass = function() {
+			return (ctrl.tile.expanded ? 'expanded' : '') + ' ' + ctrl.tile.id;
+		};
+
 		ctrl.toggleTileHeight = function() {
 			ctrl.tile.expanded = !ctrl.tile.expanded;
 		};

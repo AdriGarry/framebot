@@ -1,5 +1,5 @@
 /** DefaultTile object **/
-app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdBottomSheet, UIService) {
+app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UIService) {
 	// Tile constructor function
 	function Tile(tile) {
 		// Basic attributes
@@ -19,6 +19,7 @@ app.factory('DefaultTile', function($rootScope, $mdSidenav, $mdDialog, $mdBottom
 		}*/
 		this.click = click;
 		this.action = action;
+		this.cssClass = this.id;
 		this.openBottomSheet = openBottomSheet;
 		this.openSliderBottomSheet = openSliderBottomSheet;
 	}

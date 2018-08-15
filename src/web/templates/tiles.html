@@ -1,5 +1,6 @@
-<div flex="1" data-ng-click="$ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="{'expanded':$ctrl.tile.expanded, {{$ctrl.tile.id}}: true}"
+<div flex="1" data-ng-click="$ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="$ctrl.cssClass()"
  title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-button md-raised ng-slide-fast">
+	<!--{'expanded':$ctrl.tile.expanded, {{$ctrl.tile.id}}: true}-->
 	<!--data-md-ink-ripple="{{$ctrl.tile.expanded}}"-->
 	<!--data-md-no-ink="$ctrl.tile.expanded" OU md-ink-ripple...-->
 	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fas fa-2x fa-ellipsis-h adminFlag"></i>
@@ -114,7 +115,8 @@
 			<i class="far fa-bell" data-ng-if="$ctrl.getTodayAlarm()"></i>
 			<i class="far fa-bell-slash" data-ng-if="!$ctrl.getTodayAlarm()"></i>
 			<span data-ng-show="$ctrl.data.value && $ctrl.getTodayAlarm()">{{$ctrl.getTodayAlarm().h}}:{{$ctrl.getTodayAlarm().m |
-				formatNumber:2}}</span>
+				formatNumber:2}}
+			</span>
 		</div>
 	</div>
 
