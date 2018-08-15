@@ -418,6 +418,14 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
+	ui.post('/maya/song1', function(req, res) {
+		Flux.next('interface|tts|speak', { voice: 'google', msg: 'et un' });
+		Flux.next('interface|tts|speak', { voice: 'google', msg: 'deux' });
+		Flux.next('interface|tts|speak', { voice: 'google', msg: 'trois,' });
+		Flux.next('interface|tts|speak', { voice: 'google', msg: 'nous irons au bois !' });
+		res.end();
+	});
+
 	ui.post('/cpuTTS', function(req, res) {
 		Flux.next('interface|hardware|cpuTTS');
 		res.end();

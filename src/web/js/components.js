@@ -425,7 +425,7 @@ app.component('maya', {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Maya',
-			actionList: []
+			actionList: [{ label: 'Song 1', icon: 'fas fa-music', url: '/maya/song1' }]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
