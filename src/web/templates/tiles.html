@@ -51,7 +51,7 @@
 				<md-input-container flex="70" class="md-block ng-slide">
 					<!-- <label>Message</label> -->
 					<label>
-						<span data-ng-show="$ctrl.tts.voicemail">Message in voicemail</span>
+						<span data-ng-show="$ctrl.tts.voicemail">Voicemail message</span>
 						<span data-ng-hide="$ctrl.tts.voicemail">Message</span>
 					</label>
 					<input type="text" id="ttsMsg" name="ttsMsg" maxlength="200" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()"
@@ -113,7 +113,8 @@
 		<div class="main ">
 			<i class="far fa-bell" data-ng-if="$ctrl.getTodayAlarm()"></i>
 			<i class="far fa-bell-slash" data-ng-if="!$ctrl.getTodayAlarm()"></i>
-			<span data-ng-show="$ctrl.data.value && $ctrl.getTodayAlarm()">{{$ctrl.getTodayAlarm().h}}:{{$ctrl.getTodayAlarm().m | formatNumber:2}}</span>
+			<span data-ng-show="$ctrl.data.value && $ctrl.getTodayAlarm()">{{$ctrl.getTodayAlarm().h}}:{{$ctrl.getTodayAlarm().m |
+				formatNumber:2}}</span>
 		</div>
 	</div>
 
