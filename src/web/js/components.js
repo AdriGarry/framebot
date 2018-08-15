@@ -413,6 +413,25 @@ app.component('weather', {
 	}
 });
 
+/** Maya component */
+app.component('maya', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Maya',
+			actionList: []
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
+	}
+});
+
 /** Idea component */
 app.component('idea', {
 	bindings: {

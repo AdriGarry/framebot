@@ -99,7 +99,8 @@
 			<img src="img/snow.gif" alt="Connexion lost" data-ng-class="connexionLost ? 'visible' : 'hidden'" class="odiFace connexionLost"
 			 title="Odi is not responding...">
 			<!--data-ng-click="reloadUI()"-->
-			<h1 class="ng-slide-fast" data-ng-dblclick="$root.irda && action({label: 'Restart Odi', url: '/odi'})" title="{{$root.irda?'Restart Odi\'s Core':'Hey, I\'m Odi !'}}">Odi UI
+			<h1 class="ng-slide-fast" data-ng-dblclick="$root.irda && action({label: 'Restart Odi', url: '/odi'})" title="{{$root.irda?'Restart Odi\'s Core':'Hey, I\'m Odi !'}}">Odi
+				UI
 				<!--Restart Odi's Core-->
 				<sup class="version" title="version {{dashboard.runningData.config.version}} [{{dashboard.runningData.config.update}}]">{{dashboard.runningData.config.version}}&nbsp;</sup>
 			</h1>
@@ -148,7 +149,8 @@
 		<div layout="row" class="menu">
 			<md-list flex>
 				<md-list-item>
-					<md-button data-ng-click="toggleGrant($event)" data-ng-class="{admin:$root.irda}" class="adminBtn center" title="{{$root.irda? 'Log out':'Log in'}}" aria-label="{{$root.irda? 'Log out':'Log in'}}">
+					<md-button data-ng-click="toggleGrant($event)" data-ng-class="{admin:$root.irda}" class="adminBtn center" title="{{$root.irda? 'Log out':'Log in'}}"
+					 aria-label="{{$root.irda? 'Log out':'Log in'}}">
 						<i data-ng-class="$root.irda" class="fas fa-sign-in-alt"></i>
 						<i data-ng-if="!$root.irda" class="fas fa-user"></i>
 						<i data-ng-if="$root.irda" class="fas fa-user-secret"></i>
@@ -224,9 +226,10 @@
 				<max data="dashboard.runningData.arduino" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></max>
 				<jukebox data="dashboard.runningData.jukebox" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></jukebox>
 				<exclamation data="dashboard.runningData.exclamation" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></exclamation>
-				<bad-boy data="dashboard.runningData.ideas" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></bad-boy>
 				<time data="dashboard.runningData.time" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></time>
 				<weather data="dashboard.runningData.weather" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></weather>
+				<maya data="dashboard.runningData.weather" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></maya>
+				<bad-boy data="dashboard.runningData.ideas" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></bad-boy>
 				<party data="dashboard.runningData.party" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></party>
 				<idea data="dashboard.runningData.ideas" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></idea>
 				<russia data="dashboard.runningData.russia" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></russia>
