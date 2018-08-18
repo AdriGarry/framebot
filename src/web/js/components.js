@@ -413,6 +413,28 @@ app.component('weather', {
 	}
 });
 
+/** Maya component */
+app.component('maya', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Maya',
+			actionList: [
+				{ label: 'Song 1', icon: 'fas fa-music', url: '/maya/song1' },
+				{ label: 'pico2wave', icon: 'fas fa-external-link-alt', url: '/maya/pico2wave' }
+			]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
+	}
+});
+
 /** Idea component */
 app.component('idea', {
 	bindings: {

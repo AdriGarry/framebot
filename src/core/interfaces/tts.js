@@ -6,11 +6,14 @@ const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
 const Flux = require(Odi._CORE + 'Flux.js');
 const Utils = require(Odi._CORE + 'Utils.js');
 const spawn = require('child_process').spawn;
+const exec = require('child_process').exec;
 
 Flux.interface.tts.subscribe({
 	next: flux => {
 		if (flux.id == 'speak') {
 			speak(flux.value);
+		} else if (flux.id == 'pico') {
+			pico(flux.value);
 		} else if (flux.id == 'lastTTS') {
 			lastTTS();
 		} else if (flux.id == 'random') {
@@ -30,6 +33,21 @@ var onAir = false,
 	ttsQueue = [],
 	allowedModes = ['ready', 'test'],
 	lastTtsMsg = { voice: 'espeak', lg: 'en', msg: '.undefined' };
+
+function pico(tts) {
+	let language = tts.lg == 'en' ? 'en-US' : 'fr-FR';
+	exec(
+		'pico2wave -l ' +
+			language +
+			' -w ' +
+			Odi._TMP +
+			'pico2waveTTS.wav "' +
+			tts.msg +
+			'" && aplay ' +
+			Odi._TMP +
+			'pico2waveTTS.wav'
+	);
+}
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts) {
@@ -111,7 +129,9 @@ var playTTS = function(tts) {
 		tts.lg = 'fr';
 	}
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
-	spawn('sh', [Odi._SHELL + 'tts.sh', tts.voice, tts.lg, tts.msg.replace('%20', '')]);
+	// spawn('sh', [Odi._SHELL + 'tts.sh', tts.voice, tts.lg, tts.msg.replace('%20', '')]);
+	pico(tts);
+
 	Flux.next(
 		'interface|led|blink',
 		{ leds: ['eye'], speed: Utils.random(50, 150), loop: tts.msg.length / 2 + 2 },

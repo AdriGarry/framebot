@@ -8,6 +8,7 @@ const Flux = require(Odi._CORE + 'Flux.js');
 const Utils = require(ODI_PATH + 'src/core/Utils.js');
 const admin = require(ODI_PATH + 'src/core/services/admin.js');
 const spawn = require('child_process').spawn;
+const exec = require('child_process').exec;
 const fs = require('fs');
 
 const FILE_REQUEST_HISTORY = ODI_PATH + 'log/requestHistory.log';
@@ -415,6 +416,33 @@ function attachAwakeRoutes(ui) {
 	});
 	ui.post('/weatherInteractive', function(req, res) {
 		Flux.next('service|interaction|weather', 'interactive');
+		res.end();
+	});
+
+	ui.post('/maya/song1', function(req, res) {
+		Flux.next('interface|tts|speak', { voice: 'google', msg: 'et un' });
+		Flux.next('interface|tts|speak', { voice: 'google', msg: 'deux' });
+		Flux.next('interface|tts|speak', { voice: 'google', msg: 'trois,' });
+		Flux.next('interface|tts|speak', { voice: 'google', msg: 'nous irons au bois !' });
+		res.end();
+	});
+
+	ui.post('/maya/pico2wave', function(req, res) {
+		log.INFO('next voice synthetizer');
+		log.info('pico2wave');
+		exec(
+			'pico2wave -l fr-FR -w ' +
+				Odi._TMP +
+				'pico2waveTTS.wav "Salut Maya, tu as bien dormi ma petite grenouille ?" && aplay ' +
+				Odi._TMP +
+				'pico2waveTTS.wav'
+		);
+		res.end();
+	});
+
+	ui.post('/maya/goodNight', function(req, res) {
+		Flux.next('interface|tts|speak', { voice: 'google', msg: 'Bonne nuit Maya' });
+		Flux.next('interface|tts|speak', 'Oui, fais de beaux reves !');
 		res.end();
 	});
 
