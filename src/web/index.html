@@ -241,8 +241,11 @@
 
 			<md-button data-ng-click="showLogs()" data-ng-show="$root.irda" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-warn logButton ng-slide"
 			 title="Logs" aria-label="Logs">
+			</md-button>
+			<md-button data-ng-click="showErrors()" data-ng-show="$root.irda" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-warn errorButton ng-slide"
+			 title="Logs" aria-label="Logs">
 				<!--data-ng-if="$root.irda"-->
-				<i class="fas fa-2x fa-quote-right"></i>
+				<i class="fas fa-2x fa-exclamation"></i>
 			</md-button>
 			<!-- // -> TENTER d'enlever les class md-hue-2 -->
 			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-primary muteButton ng-slide"
@@ -250,12 +253,6 @@
 				<!-- <i class="fas fa-lg fa-bell-slash"></i> -->
 				<i class="fas fa-lg fa-bell-slash"></i>
 			</md-button>
-			<!--<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" class="md-fab md-primary md-hue-2 md-mini muteButton"
-			title="Mute Odi" aria-label="Mute Odi">
-				<i class="fas fa-bell-slash-o"></i>
-			</md-button>-->
-
-			<!--<div data-ng-include src="'templates/dashboard.html'" data-ng-hide="loading" data-ng-class="loading ? '' : 'ng-slide'"></div>-->
 		</md-content>
 	</div>
 

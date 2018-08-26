@@ -35,8 +35,6 @@ function updateConf(newConf, restart) {
 	let header = 'CONFIG UPDATE' + ' '.repeat(3) + Utils.executionTime(updateBegin, '    ') + 'ms';
 	log.table(Core.conf(), header, updatedEntries);
 	// log.table(Core.run(), 'RUNTIME...');
-	let buttonStats = Core.run().buttonStats;
-	log.table(buttonStats, 'Button stats');
 	if (restart) process.exit();
 }
 
@@ -44,9 +42,8 @@ function updateConf(newConf, restart) {
 function resetCore() {
 	Flux.next('interface|sound|reset');
 	Utils.deleteFolderRecursive(Core._TMP);
-	log.INFO('reset conf', restart ? 'and restart' : '');
+	log.INFO('reset conf and restart');
 	// log.table(Core.run(), 'RUNTIME...');
-	log.table(Core.run(), 'RUNTIME...');
 	process.exit();
 }
 
