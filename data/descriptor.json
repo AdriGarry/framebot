@@ -1,4 +1,5 @@
 {
+	"name": "Odi",
 	"paths": {
 		"_SRC": "src/",
 		"_CORE": "src/core/",

@@ -34,7 +34,7 @@ log.debug('argv', argv);
 const Utils = require(Core._CORE + 'Utils.js');
 const Flux = require(Core._CORE + 'Flux.js').loadModules(descriptor.modules);
 
-log.info('--> ' + Core.descriptor.name + ' ready in ' + Utils.executionTime(startTime) + 'ms');
+log.info('--> ' + Core.name + ' ready in ' + Utils.executionTime(startTime) + 'ms');
 
 if (!Core.isAwake()) {
 	Flux.next('interface|video|screenOff');
