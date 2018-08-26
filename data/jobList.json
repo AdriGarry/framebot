@@ -39,7 +39,7 @@
 	],
 	"interactive": [
 		{
-			"cron": "0 0,30 * * * *",
+			"cron": "0 0 * * * *",
 			"flux": { "id": "service|time|now" }
 		},
 		{
