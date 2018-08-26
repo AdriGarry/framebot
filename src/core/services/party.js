@@ -2,10 +2,10 @@
 
 // Module Party
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Utils = require(ODI_PATH + 'src/core/Utils.js');
-const Flux = require(Odi._CORE + 'Flux.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Utils = require(_PATH + 'src/core/Utils.js');
+const Flux = require(Core._CORE + 'Flux.js');
 const spawn = require('child_process').spawn;
 
 Flux.service.party.subscribe({
@@ -21,15 +21,15 @@ Flux.service.party.subscribe({
 		}
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
 function start() {
 	log.INFO("Let's start the party !!  <|:-)");
 	Flux.next('interface|tts|speak', { voice: 'google', lg: 'en', msg: "Let's start the party" });
-	Odi.run('mood', 'party');
-	log.table(Odi.run(), 'RUNTIME...');
+	Core.run('mood', 'party');
+	log.table(Core.run(), 'RUNTIME...');
 	firePartyActionAndRandom();
 }
 
@@ -80,7 +80,7 @@ function partyTTS() {
 }
 
 /** Function to select a different TTS each time */
-const PARTY_TTS_LENGTH = Odi.ttsMessages.party.length;
+const PARTY_TTS_LENGTH = Core.ttsMessages.party.length;
 var rdmNb,
 	lastRdmNb = [],
 	rdmTTS = '';
@@ -93,5 +93,5 @@ function getNewRdmPartyTTS() {
 		return getNewRdmPartyTTS();
 	}
 	lastRdmNb.push(rdmNb);
-	return Odi.ttsMessages.party[rdmNb];
+	return Core.ttsMessages.party[rdmNb];
 }

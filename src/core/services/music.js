@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Flux = require(Odi._CORE + 'Flux.js');
-const Utils = require(Odi._CORE + 'Utils.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Flux = require(Core._CORE + 'Flux.js');
+const Utils = require(Core._CORE + 'Utils.js');
 const RandomBox = require('randombox').RandomBox;
 const spawn = require('child_process').spawn;
 const fs = require('fs');
@@ -21,10 +21,10 @@ Flux.service.music.subscribe({
 			playStory(flux.value);
 		} else if (flux.id == 'stop') {
 			stop();
-		} else Odi.error('unmapped flux in Music service', flux, false);
+		} else Core.error('unmapped flux in Music service', flux, false);
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
@@ -32,7 +32,7 @@ var ledMusicFlag;
 function ledFlag() {
 	Flux.next('interface|led|altLeds', { speed: 100, duration: 1.3 });
 	ledMusicFlag = setInterval(function() {
-		if (Odi.run('music')) {
+		if (Core.run('music')) {
 			Flux.next('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
 		} else {
 			clearInterval(ledMusicFlag);
@@ -44,7 +44,7 @@ function ledFlag() {
 function jukebox(message) {
 	stop();
 	log.info('Jukebox in loop mode !');
-	Odi.run('music', 'jukebox');
+	Core.run('music', 'jukebox');
 	ledFlag();
 	repeatSong();
 	Flux.next('interface|sound|mute', { message: 'Auto mute jukebox !', delay: 2 }, { delay: 60 * 60 });
@@ -53,7 +53,7 @@ function jukebox(message) {
 var jukeboxTimeout, jukeboxRandomBox;
 
 // var JUKEBOX_SONGS;
-fs.readdir(Odi._MP3 + 'jukebox', (err, files) => {
+fs.readdir(Core._MP3 + 'jukebox', (err, files) => {
 	// JUKEBOX_SONGS = files;
 	jukeboxRandomBox = new RandomBox(files);
 	// console.log('JUKEBOX_SONGS', JUKEBOX_SONGS);
@@ -64,7 +64,7 @@ function repeatSong() {
 	// let song = Utils.randomItem(JUKEBOX_SONGS);
 	let song = jukeboxRandomBox.next();
 	let ttime = new Date();
-	Utils.getMp3Duration(Odi._MP3 + 'jukebox/' + song, function(duration) {
+	Utils.getMp3Duration(Core._MP3 + 'jukebox/' + song, function(duration) {
 		console.log(Utils.executionTime(ttime));
 		// log.INFO('duration=' + duration);
 		Flux.next('interface|sound|play', { mp3: 'jukebox/' + song, duration: duration });
@@ -87,20 +87,20 @@ function playOneSong() {
 function playFip() {
 	stop();
 	log.info('Play FIP RADIO...');
-	spawn('sh', [Odi._SHELL + 'fip.sh']);
-	Odi.run('music', 'fip');
+	spawn('sh', [Core._SHELL + 'fip.sh']);
+	Core.run('music', 'fip');
 	ledFlag();
 	Flux.next('interface|sound|mute', { message: 'Auto Mute FIP', delay: 2 }, { delay: 60 * 60 });
 }
 
 /** Function to stop music */
 function stop(message) {
-	if (Odi.run('music')) {
+	if (Core.run('music')) {
 		log.debug('Stop music');
 		clearTimeout(jukeboxTimeout);
 		clearInterval(ledMusicFlag);
-		spawn('sh', [Odi._SHELL + 'mute.sh']);
-		Odi.run('music', false);
+		spawn('sh', [Core._SHELL + 'mute.sh']);
+		Core.run('music', false);
 		Flux.next('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { hidden: true });
 		Flux.next('interface|led|clearLeds', { speed: 100, duration: 1.3 }, { hidden: true });
 	} else {
@@ -131,10 +131,10 @@ function playStory(story) {
 	var storyToPlay = Utils.searchStringInArray(story, STORIES);
 	// console.log(storyToPlay);
 	if (storyToPlay) {
-		Utils.getMp3Duration(Odi._MP3 + storyToPlay, function(length) {
-			var position = Utils.random(1, Math.floor(length / 100 * 70)); // Position up to 70% of story duration
+		Utils.getMp3Duration(Core._MP3 + storyToPlay, function(length) {
+			var position = Utils.random(1, Math.floor((length / 100) * 70)); // Position up to 70% of story duration
 			stop();
-			Odi.run('music', 'story');
+			Core.run('music', 'story');
 			ledFlag();
 			Flux.next('interface|sound|play', { mp3: storyToPlay, position: position });
 		});

@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Flux = require(Odi._CORE + 'Flux.js');
-const Utils = require(ODI_PATH + 'src/core/Utils.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Flux = require(Core._CORE + 'Flux.js');
+const Utils = require(_PATH + 'src/core/Utils.js');
 const Gpio = require('onoff').Gpio;
 const fs = require('fs');
 const os = require('os');
 
-const PATHS = [Odi._SRC];
+const PATHS = [Core._SRC];
 const BYTE_TO_MO = 1048576;
 retreiveLastModifiedDate(PATHS);
 countSoftwareLines();
@@ -34,18 +34,18 @@ Flux.interface.hardware.subscribe({
 			totalLinesTTS();
 		} else if (flux.id == 'archiveLog') {
 			archiveLogs();
-		} else Odi.error('unmapped flux in Hardware interface', flux, false);
+		} else Core.error('unmapped flux in Hardware interface', flux, false);
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
 var etat = new Gpio(13, 'in', 'both', { persistentWatch: true, debounceTimeout: 500 });
 function getEtatValue() {
 	var etatValue = etat.readSync();
-	Odi.run('etat', etatValue ? 'high' : 'low');
-	Odi.run('volume', Odi.isAwake() ? (etatValue ? 400 : -400) : 'mute');
+	Core.run('etat', etatValue ? 'high' : 'low');
+	Core.run('volume', Core.isAwake() ? (etatValue ? 400 : -400) : 'mute');
 }
 
 /** Function to tts cpu stats */
@@ -66,7 +66,7 @@ function cpuStatsTTS() {
 function retreiveCpuTemp() {
 	var temperature = fs.readFileSync('/sys/class/thermal/thermal_zone0/temp');
 	temperature = (temperature / 1000).toPrecision(2);
-	Odi.run('cpu.temp', temperature + '°');
+	Core.run('cpu.temp', temperature + '°');
 	return temperature;
 }
 
@@ -77,7 +77,7 @@ function retreiveCpuUsage() {
 	var idleDifference = endMeasure.idle - startMeasure.idle;
 	var totalDifference = endMeasure.total - startMeasure.total;
 	var percentageCPU = 100 - ~~((100 * idleDifference) / totalDifference); //Calculate the average percentage CPU usage
-	Odi.run('cpu.usage', percentageCPU + '%');
+	Core.run('cpu.usage', percentageCPU + '%');
 	return percentageCPU;
 }
 
@@ -103,40 +103,40 @@ function cpuAverage() {
 //Grab first CPU Measure
 var startMeasure = cpuAverage();
 
-/** Function to get memory usage stats (Odi + system) */
+/** Function to get memory usage stats (Core + system) */
 function soulTTS() {
-	let size = Math.round(Odi.run('memory.odi'));
+	let size = Math.round(Core.run('memory.odi'));
 	let ttsMsg = size + ' maiga octet, sai le poid de mon ame ' + (Utils.rdm() ? '' : 'en ce moment');
 	Flux.next('interface|tts|speak', ttsMsg);
 }
 
-/** Function to get memory usage stats (Odi + system) */
+/** Function to get memory usage stats (Core + system) */
 function retreiveMemoryUsage() {
-	let usedByOdi = process.memoryUsage();
-	usedByOdi = (usedByOdi.rss / BYTE_TO_MO).toFixed(1);
-	Odi.run('memory.odi', usedByOdi);
+	let usedByCore = process.memoryUsage();
+	usedByCore = (usedByCore.rss / BYTE_TO_MO).toFixed(1);
+	Core.run('memory.odi', usedByCore);
 
 	let totalMem = (os.totalmem() / BYTE_TO_MO).toFixed(0);
 	let freeMem = (os.freemem() / BYTE_TO_MO).toFixed(0);
 	let usedMem = (totalMem - freeMem).toFixed(0);
-	Odi.run('memory.system', usedMem + '/' + totalMem);
+	Core.run('memory.system', usedMem + '/' + totalMem);
 }
 
-/** Function to update last modified date & time of Odi's files */
+/** Function to update last modified date & time of Program's files */
 function retreiveLastModifiedDate(paths, callback) {
 	// typeof paths => Array
 	paths = paths.join(' ');
 	Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1', function(data) {
 		var lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
 		log.debug('getLastModifiedDate()', lastDate[0]);
-		Odi.run('stats.update', lastDate[0]);
+		Core.run('stats.update', lastDate[0]);
 		// if (callback) callback(lastDate[0]);
 	});
 }
 
 /** Function to tts disk space */
 function diskSpaceTTS() {
-	let diskSpace = parseInt(Odi.run('stats.diskSpace'));
+	let diskSpace = parseInt(Core.run('stats.diskSpace'));
 	let ttsMsg = Utils.rdm()
 		? 'Il me reste environ ' + (100 - diskSpace) + " pour cent d'espace disque disponible"
 		: "J'utilise " + diskSpace + " pour cent d'espace de stockage";
@@ -149,18 +149,18 @@ function getDiskSpace(callback) {
 		var diskSpace = data.match(/\/dev\/root.*[%]/gm);
 		diskSpace = diskSpace[0].match(/[\d]*%/g);
 		log.debug('Disk space:', diskSpace[0]);
-		Odi.run('stats.diskSpace', diskSpace[0]);
+		Core.run('stats.diskSpace', diskSpace[0]);
 		if (callback) callback(diskSpace);
 	});
 }
 
-/** Function to TTS Odi's program total lines */
+/** Function to TTS program's program total lines */
 function totalLinesTTS() {
-	let ttsMsg = 'Mon programme est composer de ' + Odi.run('stats.totalLines') + ' lignes de code';
+	let ttsMsg = 'Mon programme est composer de ' + Core.run('stats.totalLines') + ' lignes de code';
 	Flux.next('interface|tts|speak', ttsMsg);
 }
 
-/** Function to count lines of Odi's software */
+/** Function to count lines of program's software */
 function countSoftwareLines(callback) {
 	const EXTENSIONS = ['js', 'json', 'properties', 'sh', 'py', 'html', 'css'];
 	var typesNb = EXTENSIONS.length;
@@ -177,7 +177,7 @@ function countSoftwareLines(callback) {
 			typesNb--;
 			if (!typesNb) {
 				log.debug('countSoftwareLines()', totalLines);
-				Odi.run('stats.totalLines', totalLines);
+				Core.run('stats.totalLines', totalLines);
 				log.debug('stats.totalLines:', lines);
 				// if (callback) callback(totalLines);
 			}
@@ -191,23 +191,23 @@ function archiveLogs() {
 	log.info('Clean log files  /!\\');
 	var date = new Date();
 	var weekNb = date.getWeek();
-	if (!fs.existsSync(Odi._LOG + 'old')) {
-		fs.mkdirSync(Odi._LOG + 'old');
+	if (!fs.existsSync(Core._LOG + 'old')) {
+		fs.mkdirSync(Core._LOG + 'old');
 	}
 
 	LOG_FILES.forEach(logFile => {
-		if (fs.existsSync(Odi._LOG + logFile)) archiveLogFile(logFile, weekNb);
+		if (fs.existsSync(Core._LOG + logFile)) archiveLogFile(logFile, weekNb);
 	});
 }
 
 function archiveLogFile(logFile, weekNb) {
-	var stream = fs.createReadStream(Odi._LOG + logFile); /*, {bufferSize: 64 * 1024}*/
-	stream.pipe(fs.createWriteStream(Odi._LOG + 'old/' + logFile + weekNb));
+	var stream = fs.createReadStream(Core._LOG + logFile); /*, {bufferSize: 64 * 1024}*/
+	stream.pipe(fs.createWriteStream(Core._LOG + 'old/' + logFile + weekNb));
 	stream.on('error', function(e) {
-		Odi.error('stream error while cleaning log file ' + logFile, e);
+		Core.error('stream error while cleaning log file ' + logFile, e);
 	});
 	stream.on('close', function() {
-		fs.truncate(Odi._LOG + logFile, 0, function() {
+		fs.truncate(Core._LOG + logFile, 0, function() {
 			log.info(logFile + ' successfully cleaned');
 		});
 	});

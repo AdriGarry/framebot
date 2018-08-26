@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Flux = require(Odi._CORE + 'Flux.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Flux = require(Core._CORE + 'Flux.js');
 const Gpio = require('onoff').Gpio;
 const CronJob = require('cron').CronJob;
 
 var Led = {};
 
-Odi.gpio.leds.forEach(led => {
+Core.gpio.leds.forEach(led => {
 	Led[led.id] = new Gpio(led.pin, led.direction);
 });
 
@@ -24,10 +24,10 @@ Flux.interface.led.subscribe({
 			altLeds(flux.value);
 		} else if (flux.id == 'clearLeds') {
 			clearLeds();
-		} else Odi.error('unmapped flux in Led interface', flux, false);
+		} else Core.error('unmapped flux in Led interface', flux, false);
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
@@ -65,7 +65,7 @@ function blink(config) {
 			}
 		}
 	} catch (e) {
-		Odi.error(e);
+		Core.error(e);
 	}
 }
 
@@ -104,7 +104,7 @@ function toggle(config) {
 		1,
 		'Europe/Paris'
 	);
-})(Odi.conf('mode'));
+})(Core.conf('mode'));
 
 /** Function to start inverted blink (Eye/Belly) */
 var timer;

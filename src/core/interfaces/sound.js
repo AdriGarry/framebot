@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Flux = require(Odi._CORE + 'Flux.js');
-const Utils = require(Odi._CORE + 'Utils.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Flux = require(Core._CORE + 'Flux.js');
+const Utils = require(Core._CORE + 'Utils.js');
 const spawn = require('child_process').spawn;
 const exec = require('child_process').exec;
 
@@ -12,7 +12,7 @@ Flux.interface.sound.subscribe({
 	next: flux => {
 		if (flux.id == 'mute') {
 			mute(flux.value);
-		} else if (Odi.isAwake()) {
+		} else if (Core.isAwake()) {
 			if (flux.id == 'volume') {
 				setVolume(flux.value);
 			} else if (flux.id == 'play') {
@@ -20,16 +20,16 @@ Flux.interface.sound.subscribe({
 			} else if (flux.id == 'error') {
 				playSound({ mp3: 'system/ressort.mp3' }, 'noLog');
 			} else if (flux.id == 'UI') {
-				spawn('sh', [Odi._SHELL + 'sounds.sh', 'UIRequest']);
+				spawn('sh', [Core._SHELL + 'sounds.sh', 'UIRequest']);
 			} else if (flux.id == 'reset') {
 				resetSound();
 			} else {
-				Odi.error('unmapped flux in Sound module', flux, false);
+				Core.error('unmapped flux in Sound module', flux, false);
 			}
 		}
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
@@ -55,8 +55,8 @@ function playSound(arg, noLog) {
 	if (!noLog) log.info('play', mp3Title, volLog, positionLog, durationLog);
 
 	var position = arg.position || 0;
-	var volume = arg.volume || Odi.run('volume');
-	var sound = Odi._MP3 + arg.mp3;
+	var volume = arg.volume || Core.run('volume');
+	var sound = Core._MP3 + arg.mp3;
 	var startPlayTime = new Date();
 	Utils.execCmd('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound, function(callback) {
 		// always log callback
@@ -64,19 +64,19 @@ function playSound(arg, noLog) {
 			if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
 		} else {
 			console.log('callback', callback); // TODO mieux gérer l'erreur car elle est déclenchée si on mute un fichier audio
-			Odi.error('File not found', callback.unQuote(), false);
+			Core.error('File not found', callback.unQuote(), false);
 		}
 	});
 }
 
 var muteTimer, delay;
-/** Function to mute Odi (delay:min) */
+/** Function to mute (delay:min) */
 function mute(args) {
 	clearTimeout(muteTimer);
 	if (!args) args = {};
 	if (args.hasOwnProperty('delay') && Number(args.delay)) {
 		muteTimer = setTimeout(function() {
-			spawn('sh', [Odi._SHELL + 'mute.sh', 'auto']);
+			spawn('sh', [Core._SHELL + 'mute.sh', 'auto']);
 			setTimeout(function() {
 				stopAll(args.message || null);
 			}, 1600);
@@ -88,17 +88,17 @@ function mute(args) {
 
 /** Function to stop all sounds & leds */
 function stopAll(message) {
-	// if (Odi.run('max')) {
+	// if (Core.run('max')) {
 	// 	Flux.next('interface|arduino|disconnect');
 	// 	Flux.next('interface|arduino|connect', null, { delay: 2 });
 	// }
 	Flux.next('interface|tts|clearTTSQueue', null, { hidden: true });
 	Flux.next('service|music|stop', null, { hidden: true });
-	spawn('sh', [Odi._SHELL + 'mute.sh']);
+	spawn('sh', [Core._SHELL + 'mute.sh']);
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
 	Flux.next('interface|led|clearLeds', null, { hidden: true });
 	Flux.next('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { hidden: true });
-	Odi.run('music', false);
+	Core.run('music', false);
 }
 
 /** Function to reset sound */

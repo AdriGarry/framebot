@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Utils = require(ODI_PATH + 'src/core/Utils.js');
-const Flux = require(Odi._CORE + 'Flux.js');
-const JOBS = require(Odi._DATA + 'jobList.json');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Utils = require(_PATH + 'src/core/Utils.js');
+const Flux = require(Core._CORE + 'Flux.js');
+const JOBS = require(Core._DATA + 'jobList.json');
 const CronJob = require('cron').CronJob;
 
 scheduleJobs(JOBS.system, 'System');
-if (Odi.isAwake()) {
+if (Core.isAwake()) {
 	scheduleJobs(JOBS.cycle, 'Cycle');
 	scheduleJobs(JOBS.interactive, 'Interactive');
 }
@@ -37,7 +37,7 @@ function scheduleJob(job) {
 }
 
 const EVAL_REGEX = new RegExp(/^eval:(\w+.\w+.\w+.)/);
-//eval:Odi.run.etat // ^eval:\w+.\w+.\w+.
+//eval:Core.run.etat // ^eval:\w+.\w+.\w+.
 function scheduleJobs(jobsList, jobsType) {
 	jobsList.forEach(job => {
 		// if (typeof job.data == 'string') {

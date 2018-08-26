@@ -27,7 +27,7 @@ then
 #___Son restart Odi Program
 elif [ $1 = "odi" ]
 then
-	sudo omxplayer -o local --vol $volume /home/pi/odi/media/mp3/system/startupOdi.mp3
+	sudo omxplayer -o local --vol $volume /home/pi/odi/media/mp3/system/startupCore.mp3
 #___Son restart Odi Program
 elif [ $1 = "error" ]
 then

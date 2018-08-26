@@ -2,19 +2,19 @@
 
 // Route sub-module (server)
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
-const Flux = require(Odi._CORE + 'Flux.js');
-const Utils = require(ODI_PATH + 'src/core/Utils.js');
-const admin = require(ODI_PATH + 'src/core/services/admin.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+const Flux = require(Core._CORE + 'Flux.js');
+const Utils = require(_PATH + 'src/core/Utils.js');
+const admin = require(_PATH + 'src/core/services/admin.js');
 const spawn = require('child_process').spawn;
 const exec = require('child_process').exec;
 const fs = require('fs');
 
-const FILE_REQUEST_HISTORY = ODI_PATH + 'log/requestHistory.log';
-const FILE_ERROR_HISTORY = ODI_PATH + 'log/errorHistory.json';
-const FILE_TTS_UI_HISTORY = Odi._LOG + 'ttsUIHistory.json';
-const FILE_VOICEMAIL_HISTORY = ODI_PATH + 'log/voicemailHistory.json';
+const FILE_REQUEST_HISTORY = _PATH + 'log/requestHistory.log';
+const FILE_ERROR_HISTORY = _PATH + 'log/errorHistory.json';
+const FILE_TTS_UI_HISTORY = Core._LOG + 'ttsUIHistory.json';
+const FILE_VOICEMAIL_HISTORY = _PATH + 'log/voicemailHistory.json';
 
 module.exports = {
 	attachRoutes: attachRoutes
@@ -22,7 +22,7 @@ module.exports = {
 
 function attachRoutes(ui) {
 	attachDefaultRoutes(ui);
-	if (Odi.isAwake()) {
+	if (Core.isAwake()) {
 		attachAwakeRoutes(ui);
 	} else {
 		attachSleepRoutes(ui);
@@ -32,49 +32,49 @@ function attachDefaultRoutes(ui) {
 	/** DASHBOARD SECTION */
 	ui.get('/dashboard', function(req, res) {
 		Flux.next('interface|hardware|runtime');
-		var etatBtn = Odi.run('etat');
-		var cpuTemp = Odi.run('cpu.temp');
-		var cpuUsage = Odi.run('cpu.usage');
+		var etatBtn = Core.run('etat');
+		var cpuTemp = Core.run('cpu.temp');
+		var cpuUsage = Core.run('cpu.usage');
 		var dashboard = {
-			config: Odi.conf(),
-			errors: Odi.errors,
+			config: Core.conf(),
+			errors: Core.errors,
 			mode: {
 				value: {
 					mode:
-						Odi.conf('log') == 'trace'
+						Core.conf('log') == 'trace'
 							? 'Trace'
-							: Odi.conf('log') == 'debug'
+							: Core.conf('log') == 'debug'
 								? 'Debug'
-								: Utils.firstLetterUpper(Odi.conf('mode')),
-					param: Odi.conf('startTime'),
+								: Utils.firstLetterUpper(Core.conf('mode')),
+					param: Core.conf('startTime'),
 					switch: etatBtn == 'high' ? true : false
 				}
 			},
 			switch: { value: etatBtn, active: etatBtn ? true : false },
 			volume: {
-				value: Odi.run('volume'),
+				value: Core.run('volume'),
 				active: etatBtn == 1 ? true : false
 			},
 			voicemail: {
-				value: Odi.run('voicemail'),
-				active: Odi.run('voicemail') > 0 ? true : false
+				value: Core.run('voicemail'),
+				active: Core.run('voicemail') > 0 ? true : false
 			},
-			music: { value: Odi.run('music'), active: false },
-			timer: { value: Odi.run('timer'), active: Odi.run('timer') > 0 ? true : false },
+			music: { value: Core.run('music'), active: false },
+			timer: { value: Core.run('timer'), active: Core.run('timer') > 0 ? true : false },
 			hardware: {
 				value: {
 					usage: cpuUsage,
 					temp: cpuTemp,
-					memory: { odi: Odi.run('memory.odi'), system: Odi.run('memory.system') }
+					memory: { odi: Core.run('memory.odi'), system: Core.run('memory.system') }
 				},
 				active: cpuTemp > 55 || cpuUsage >= 20 ? true : false
 			},
-			alarms: { value: Odi.conf('alarms'), active: true },
-			update: { value: Odi.run('stats.update') },
-			version: { value: 'toto' /*Odi.conf('version')*/ }, // DEPRECATED !
-			debug: { value: Odi.conf('log') == 'debug' ? 'debug' : '' },
-			trace: { value: Odi.conf('log') == 'trace' ? 'trace' : '' },
-			watcher: { value: Odi.conf('watcher') }
+			alarms: { value: Core.conf('alarms'), active: true },
+			update: { value: Core.run('stats.update') },
+			version: { value: 'toto' /*Core.conf('version')*/ }, // DEPRECATED !
+			debug: { value: Core.conf('log') == 'debug' ? 'debug' : '' },
+			trace: { value: Core.conf('log') == 'trace' ? 'trace' : '' },
+			watcher: { value: Core.conf('watcher') }
 		};
 		res.end(JSON.stringify(dashboard));
 	});
@@ -93,19 +93,19 @@ function attachDefaultRoutes(ui) {
 	});
 
 	ui.get('/config.json', function(req, res) {
-		log.table(Odi.conf(), 'CONFIG');
-		res.end(fs.readFileSync(Odi._CONF, 'utf8').toString());
-		// res.end(JSON.stringify(Odi.conf())); // TODO useless ?
+		log.table(Core.conf(), 'CONFIG');
+		res.end(fs.readFileSync(Core._CONF, 'utf8').toString());
+		// res.end(JSON.stringify(Core.conf())); // TODO useless ?
 	});
 
 	ui.get('/runtime', function(req, res) {
 		Flux.next('interface|hardware|runtime');
-		log.table(Odi.run(), 'RUNTIME...');
-		res.end(JSON.stringify(Odi.run()));
+		log.table(Core.run(), 'RUNTIME...');
+		res.end(JSON.stringify(Core.run()));
 	});
 
 	ui.get('/errors', function(req, res) {
-		res.end(JSON.stringify(Odi.errors));
+		res.end(JSON.stringify(Core.errors));
 	});
 
 	ui.get('/errorHistory', function(req, res) {
@@ -125,7 +125,7 @@ function attachDefaultRoutes(ui) {
 	});
 
 	ui.get('/about', function(req, res) {
-		res.end(fs.readFileSync(ODI_PATH + 'README.md', 'utf8').toString());
+		res.end(fs.readFileSync(_PATH + 'README.md', 'utf8').toString());
 	});
 
 	/** ==> POST SECTION */
@@ -140,7 +140,7 @@ function attachDefaultRoutes(ui) {
 		let newLogLevel = log.level() == 'debug' ? 'info' : 'debug';
 		log.level(newLogLevel);
 		Flux.next('interface|runtime|update', { log: newLogLevel });
-		// Odi.conf('log', newLogLevel, false, true);
+		// Core.conf('log', newLogLevel, false, true);
 		res.end();
 	});
 
@@ -149,7 +149,7 @@ function attachDefaultRoutes(ui) {
 		let newLogLevel = log.level() == 'trace' ? 'info' : 'trace';
 		log.level(newLogLevel);
 		Flux.next('interface|runtime|update', { log: newLogLevel });
-		// Odi.conf('log', newLogLevel, false, true);
+		// Core.conf('log', newLogLevel, false, true);
 		res.end();
 	});
 
@@ -159,7 +159,7 @@ function attachDefaultRoutes(ui) {
 	});
 
 	ui.post('/watcher', function(req, res) {
-		if (Odi.conf('watcher')) {
+		if (Core.conf('watcher')) {
 			Flux.next('controller|watcher|stopWatch');
 		} else {
 			Flux.next('controller|watcher|startWatch');
@@ -226,7 +226,7 @@ function attachDefaultRoutes(ui) {
 			granted = true;
 			log.info('>> Admin granted !');
 		} else {
-			Odi.error('>> User NOT granted /!\\', pattern, false);
+			Core.error('>> User NOT granted /!\\', pattern, false);
 			Flux.next('interface|tts|speak', { lg: 'en', msg: 'User NOT granted' }, { delay: 0.5 });
 		}
 		res.send(granted);
@@ -289,7 +289,7 @@ function attachAwakeRoutes(ui) {
 		let params = req.query;
 		log.debug('/russia', params);
 		if (params.hasOwnProperty('hymn')) {
-			spawn('sh', [Odi._SHELL + 'music.sh', 'urss']);
+			spawn('sh', [Core._SHELL + 'music.sh', 'urss']);
 			Flux.next('interface|led|altLeds', { speed: 70, loop: 20 }, { hidden: true });
 		} else {
 			Flux.next('service|interaction|russia');
@@ -310,7 +310,7 @@ function attachAwakeRoutes(ui) {
 	ui.post('/music/*', function(req, res) {
 		var song; // RECUPERER LE NOM DE LA CHANSON
 		if (!song) song = 'mouthTrick';
-		spawn('sh', [Odi._SHELL + 'music.sh', song]);
+		spawn('sh', [Core._SHELL + 'music.sh', song]);
 		res.end();
 	});
 
@@ -432,9 +432,9 @@ function attachAwakeRoutes(ui) {
 		log.info('pico2wave');
 		exec(
 			'pico2wave -l fr-FR -w ' +
-				Odi._TMP +
+				Core._TMP +
 				'pico2waveTTS.wav "Salut Maya, tu as bien dormi ma petite grenouille ?" && aplay ' +
-				Odi._TMP +
+				Core._TMP +
 				'pico2waveTTS.wav'
 		);
 		res.end();
@@ -467,7 +467,7 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/cigales', function(req, res) {
-		spawn('sh', [Odi._SHELL + 'sounds.sh', 'cigales']);
+		spawn('sh', [Core._SHELL + 'sounds.sh', 'cigales']);
 		res.end();
 	});
 
@@ -487,13 +487,13 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/test', function(req, res) {
-		spawn('sh', [Odi._SHELL + 'sounds.sh', 'test']); //mouthTrick
+		spawn('sh', [Core._SHELL + 'sounds.sh', 'test']); //mouthTrick
 		Flux.next('interface|tts|speak', { lg: 'en', msg: '.undefined' });
 		res.end();
 	});
 
 	ui.post('/*', function(req, res) {
-		Odi.error('Error UI > not mapped: ' + req.url, null, false);
+		Core.error('Error UI > not mapped: ' + req.url, null, false);
 		res.writeHead(401);
 		res.end();
 	});
@@ -509,14 +509,14 @@ function attachSleepRoutes(ui) {
 			Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
 			res.end();
 		} else {
-			Odi.error('Error while saving voiceMail message:', params);
+			Core.error('Error while saving voiceMail message:', params);
 			res.writeHead(424); // TODO changer ce code ?
 			res.end();
 		}
 	});
 
 	ui.post('/*', function(req, res) {
-		Odi.error('Sleep mode, not allowed to interact  -.-', null, false);
+		Core.error('Sleep mode, not allowed to interact  -.-', null, false);
 		res.writeHead(401);
 		res.end();
 	});
@@ -524,7 +524,7 @@ function attachSleepRoutes(ui) {
 
 function prepareLogs(lines, callback) {
 	var content = fs
-		.readFileSync(Odi._LOG + 'odi.log', 'UTF-8')
+		.readFileSync(Core._LOG + 'odi.log', 'UTF-8')
 		.toString()
 		.split('\n');
 	content = content.slice(-lines); //-120

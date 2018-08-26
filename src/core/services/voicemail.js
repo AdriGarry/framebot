@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Flux = require(Odi._CORE + 'Flux.js');
-const Utils = require(Odi._CORE + 'Utils.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Flux = require(Core._CORE + 'Flux.js');
+const Utils = require(Core._CORE + 'Utils.js');
 const fs = require('fs');
 
 Flux.service.voicemail.subscribe({
@@ -15,16 +15,16 @@ Flux.service.voicemail.subscribe({
 			checkVoiceMail(flux.value);
 		} else if (flux.id == 'clear') {
 			clearVoiceMail();
-		} else Odi.error('unmapped flux in Voicemail service', flux, false);
+		} else Core.error('unmapped flux in Voicemail service', flux, false);
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
 const DELAY_TO_CLEAR_VOICEMAIL = 60 * 60 * 1000; //15*60*1000;
-const VOICEMAIL_FILE = Odi._TMP + 'voicemail.json';
-const VOICEMAIL_FILE_HISTORY = Odi._LOG + 'voicemailHistory.json';
+const VOICEMAIL_FILE = Core._TMP + 'voicemail.json';
+const VOICEMAIL_FILE_HISTORY = Core._LOG + 'voicemailHistory.json';
 
 updateVoicemailMessage();
 log.info('VoiceMail flag initialized');
@@ -57,7 +57,7 @@ function addVoiceMailMessage(tts) {
 			addVoiceMailMessage(tts[i]);
 		}
 	} else {
-		Odi.error("Wrong tts, can't save voicemail", tts);
+		Core.error("Wrong tts, can't save voicemail", tts);
 		return;
 	}
 }
@@ -95,12 +95,12 @@ function updateVoicemailMessage() {
 	try {
 		var messages = fs.readFileSync(VOICEMAIL_FILE, 'UTF-8');
 		messages = JSON.parse(messages);
-		Odi.run('voicemail', messages.length);
-		if (Odi.run('voicemail') > 0) {
+		Core.run('voicemail', messages.length);
+		if (Core.run('voicemail') > 0) {
 			Flux.next('interface|led|blink', { leds: ['belly'], speed: 200, loop: 2 }, { hidden: true });
 		}
 	} catch (e) {
-		Odi.run('voicemail', 0);
+		Core.run('voicemail', 0);
 	}
 }
 
@@ -109,7 +109,7 @@ function clearVoiceMail() {
 	fs.unlink(VOICEMAIL_FILE, function(err) {
 		if (err) {
 			if (err.code === 'ENOENT') log.info('clearVoiceMail : No message to delete !');
-			else Odi.error(err);
+			else Core.error(err);
 		} else {
 			updateVoicemailMessage();
 			Flux.next('interface|tts|speak', { lg: 'en', msg: 'VoiceMail Cleared' });

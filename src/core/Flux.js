@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename.match(/(\w*).js/g)[0]);
-const Utils = require(ODI_PATH + 'src/core/Utils.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(_PATH + 'src/core/Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+const Utils = require(_PATH + 'src/core/Utils.js');
 const util = require('util');
 const Rx = require('rxjs');
 
@@ -35,12 +35,12 @@ function loadModules(modules) {
 	Object.keys(modules).forEach(function(module) {
 		let modulesLoaded = '';
 		for (let i = 0; i < modules[module].base.length; i++) {
-			require(Odi._CORE + module + '/' + modules[module].base[i] + '.js');
+			require(Core._CORE + module + '/' + modules[module].base[i] + '.js');
 		}
 		modulesLoaded += modules[module].base.join(', ');
-		if (Odi.isAwake() && modules[module].hasOwnProperty('full')) {
+		if (Core.isAwake() && modules[module].hasOwnProperty('full')) {
 			for (let i = 0; i < modules[module].full.length; i++) {
-				require(Odi._CORE + module + '/' + modules[module].full[i] + '.js');
+				require(Core._CORE + module + '/' + modules[module].full[i] + '.js');
 			}
 			modulesLoaded += ', ' + modules[module].full.join(', ');
 		}
@@ -78,7 +78,7 @@ function FluxObject(id, data, conf) {
 		if (!this.error && Object.keys(Flux).includes(this.type) && Object.keys(Flux[this.type]).includes(this.subject)) {
 			return true;
 		}
-		Odi.error(this.error || 'Invalid Flux', this, false);
+		Core.error(this.error || 'Invalid Flux', this, false);
 		return false;
 	};
 

@@ -9,14 +9,14 @@ const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' };
 const TIMEOUT = 15;
 const TIMESTAMP_PATTERN = { NORMAL: 'D/M h:m:s', SLEEP: 'D/M_h:m:s' };
 
-var Odi, Utils, Flux, timestamp;
+var Core, Utils, Flux, timestamp;
 
 var logLevel = LEVEL.INFO;
 
-function Logger(filename, modeOdi) {
-	Utils = require(ODI_PATH + 'src/core/Utils.js');
-	Odi = require(ODI_PATH + 'src/core/Odi.js');
-	if (modeOdi && modeOdi == 'sleep') {
+function Logger(filename, modeCore) {
+	Utils = require(_PATH + 'src/core/Utils.js');
+	Core = require(_PATH + 'src/core/Core.js');
+	if (modeCore && modeCore == 'sleep') {
 		timestamp = TIMESTAMP_PATTERN.SLEEP;
 	} else {
 		timestamp = TIMESTAMP_PATTERN.NORMAL;
@@ -58,7 +58,7 @@ function Logger(filename, modeOdi) {
 		clearTimeout(cancelTimeout);
 		cancelTimeout = setTimeout(() => {
 			levelAccessor() != LEVEL.INFO && levelAccessor(LEVEL.INFO);
-			if (!Flux) Flux = require(ODI_PATH + 'src/core/Flux.js');
+			if (!Flux) Flux = require(_PATH + 'src/core/Flux.js');
 			Flux.next('interface|runtime|update', { log: LEVEL.INFO });
 		}, delay * 60 * 1000);
 	}

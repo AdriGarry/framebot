@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
-// Utils static factory (shoud not require Odi.js || Flux.js)
-const log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename); // prévoir un fallback si log n'est pas dispo log.info()=>console.log()
+// Utils static factory (shoud not require Core.js || Flux.js)
+const log = new (require(_PATH + 'src/core/Logger.js'))(__filename); // prévoir un fallback si log n'est pas dispo log.info()=>console.log()
 const fs = require('fs');
 const exec = require('child_process').exec;
 // const spawn = require('child_process').spawn;

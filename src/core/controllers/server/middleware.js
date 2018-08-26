@@ -2,13 +2,13 @@
 
 // Middleware sub-module (server)
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
-const Flux = require(Odi._CORE + 'Flux.js');
-const Utils = require(ODI_PATH + 'src/core/Utils.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+const Flux = require(Core._CORE + 'Flux.js');
+const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 
-const FILE_REQUEST_HISTORY = ODI_PATH + 'log/requestHistory.log';
+const FILE_REQUEST_HISTORY = _PATH + 'log/requestHistory.log';
 const noSoundUrl = ['/dashboard', '/log'];
 const BAD_REQUEST_TIMEOUT = 5000;
 const BAD_REQUEST_CP_LIMIT = 5;
@@ -44,14 +44,14 @@ var securityMiddleware = function(req, res, next) {
 
 	if (requestData.ui !== 'UIv5') {
 		// Not allowed requests
-		if (canTTSBadRequest && Odi.isAwake()) {
+		if (canTTSBadRequest && Core.isAwake()) {
 			canTTSBadRequest = false;
 			Flux.next('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, hidden: true });
 			setTimeout(() => {
 				canTTSBadRequest = true;
 			}, BAD_REQUEST_TIMEOUT);
 		}
-		Odi.error('Bad request', '401 ' + decodeURI(req.url) + ' ' + requestData.log, false);
+		Core.error('Bad request', '401 ' + decodeURI(req.url) + ' ' + requestData.log, false);
 		rejectUnauthorizedRequest(res);
 		return;
 	}
@@ -100,7 +100,7 @@ function formatPosition(requestData) {
 function logNotLocalRequest(requestData) {
 	let requestToLog = Utils.logTime('D/M h:m:s ') + requestData.url + requestData.log + '\r\n';
 	fs.appendFile(FILE_REQUEST_HISTORY, requestToLog, function(err) {
-		if (err) return Odi.error(err);
+		if (err) return Core.error(err);
 	});
 }
 

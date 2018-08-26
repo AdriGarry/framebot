@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Utils = require(ODI_PATH + 'src/core/Utils.js');
-const Flux = require(Odi._CORE + 'Flux.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Utils = require(_PATH + 'src/core/Utils.js');
+const Flux = require(Core._CORE + 'Flux.js');
 const spawn = require('child_process').spawn;
 
 Flux.service.time.subscribe({
@@ -29,10 +29,10 @@ Flux.service.time.subscribe({
 			birthdaySong();
 		} else if (flux.id == 'OdiAge') {
 			sayOdiAge();
-		} else Odi.error('unmapped flux in Time service', flux, false);
+		} else Core.error('unmapped flux in Time service', flux, false);
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
@@ -45,7 +45,7 @@ function now() {
 	Flux.next('interface|tts|speak', { lg: 'fr', msg: 'Il est ' + hour + ' heure ' + (min > 0 ? min : '') });
 }
 
-const CALENDAR = require(Odi._DATA + 'calendar.json');
+const CALENDAR = require(Core._DATA + 'calendar.json');
 /** Function to say current date */
 function today() {
 	var date = new Date();
@@ -84,16 +84,16 @@ function getSeason() {
 	}
 }
 
-/** Function to disable all Odi's alarms */
+/** Function to disable all alarms */
 function disableAllAlarms() {
 	Flux.next('interface|tts|speak', 'Annulation de toutes les alarmes');
 	Flux.next('interface|runtime|updateRestart', { alarms: { weekDay: null, weekEnd: null } }, { delay: 4 });
 }
 
-/** Function to set Odi's custom alarm */
+/** Function to set custom alarm */
 function setAlarm(alarm) {
 	var newAlarms = {};
-	Object.keys(Odi.conf('alarms')).forEach(function(key, index) {
+	Object.keys(Core.conf('alarms')).forEach(function(key, index) {
 		if (key == alarm.when) {
 			newAlarms[key] = {
 				h: alarm.h,
@@ -101,7 +101,7 @@ function setAlarm(alarm) {
 			};
 			log.info('>> ' + alarm.when + ' alarm set to ' + alarm.h + '.' + alarm.m);
 		} else {
-			newAlarms[key] = Odi.conf('alarms.' + key);
+			newAlarms[key] = Core.conf('alarms.' + key);
 		}
 	});
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
@@ -119,13 +119,13 @@ function isAlarm() {
 		h = now.getHours(),
 		m = now.getMinutes(),
 		alarmType = WEEK_DAYS.includes(d) ? 'weekDay' : 'weekEnd',
-		alarms = Odi.conf('alarms');
+		alarms = Core.conf('alarms');
 
 	if (alarms[alarmType]) {
 		if (h == alarms[alarmType].h && m == alarms[alarmType].m) {
 			log.INFO('alarm time...', alarms[alarmType].h + ':' + alarms[alarmType].m);
-			Odi.run('alarm', true);
-			if (!Odi.isAwake()) {
+			Core.run('alarm', true);
+			if (!Core.isAwake()) {
 				log.INFO('wake up !!');
 				Flux.next('service|system|restart');
 			} else {
@@ -140,8 +140,8 @@ function cocorico(mode) {
 	var alarmDelay = 1;
 	// TODO remove sea mode information
 	log.info('Morning Sea...');
-	spawn('sh', [Odi._SHELL + 'sounds.sh', 'MorningSea']);
-	Utils.getMp3Duration(Odi._MP3 + 'system/morningSea.mp3', function(seaDuration) {
+	spawn('sh', [Core._SHELL + 'sounds.sh', 'MorningSea']);
+	Utils.getMp3Duration(Core._MP3 + 'system/morningSea.mp3', function(seaDuration) {
 		log.debug('seaDuration', seaDuration);
 		alarmDelay = seaDuration * 1000;
 		setTimeout(function() {
@@ -154,7 +154,7 @@ function cocorico(mode) {
 function cocoricoPart2(mode) {
 	log.INFO('cocorico !!', mode || '');
 	Flux.next('interface|arduino|write', 'playHornDoUp');
-	spawn('sh', [Odi._SHELL + 'sounds.sh', 'cocorico']);
+	spawn('sh', [Core._SHELL + 'sounds.sh', 'cocorico']);
 	if (isBirthday()) {
 		birthdaySong();
 		setTimeout(function() {
@@ -217,7 +217,7 @@ function sayOdiAge() {
 	Flux.next('interface|tts|speak', { lg: 'fr', msg: birthDay });
 }
 
-// Odi.run('timer', 0); // TODO useless, to remove ?
+// Core.run('timer', 0); // TODO useless, to remove ?
 var secInterval;
 function setTimer(minutes) {
 	if (typeof minutes !== undefined && Number(minutes) > 1) {
@@ -225,12 +225,12 @@ function setTimer(minutes) {
 	} else {
 		minutes = 60;
 	}
-	Odi.run('timer', Odi.run('timer') + minutes);
+	Core.run('timer', Core.run('timer') + minutes);
 	if (!secInterval) {
 		startTimer();
 	}
-	var min = Math.floor(Odi.run('timer') / 60);
-	var sec = Odi.run('timer') % 60;
+	var min = Math.floor(Core.run('timer') / 60);
+	var sec = Core.run('timer') % 60;
 	var ttsMsg =
 		'Minuterie ' + (min > 0 ? (min > 1 ? min : ' une ') + ' minutes ' : '') + (sec > 0 ? sec + ' secondes' : '');
 	Flux.next('interface|tts|speak', { lg: 'fr', msg: ttsMsg });
@@ -241,18 +241,18 @@ function startTimer() {
 	secInterval = setInterval(function() {
 		Flux.next('interface|led|toggle', { leds: ['belly'], value: etat }, { hidden: true });
 		etat = 1 - etat;
-		if (Odi.run('timer') < 10) {
-			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'almost']); // TODO use sound.js
+		if (Core.run('timer') < 10) {
+			spawn('sh', [Core._SHELL + 'timerSound.sh', 'almost']); // TODO use sound.js
 		} else {
-			spawn('sh', [Odi._SHELL + 'timerSound.sh']); // TODO use sound.js
+			spawn('sh', [Core._SHELL + 'timerSound.sh']); // TODO use sound.js
 		}
-		Odi.run('timer', Odi.run('timer') - 1);
-		if (Odi.run('timer') % 120 == 0 && Odi.run('timer') / 60 > 0) {
-			Flux.next('interface|tts|speak', { lg: 'fr', msg: Odi.run('timer') / 60 + ' minutes et compte a rebours' });
-		} else if (Odi.run('timer') <= 0 && Odi.run('timer') > -5) {
+		Core.run('timer', Core.run('timer') - 1);
+		if (Core.run('timer') % 120 == 0 && Core.run('timer') / 60 > 0) {
+			Flux.next('interface|tts|speak', { lg: 'fr', msg: Core.run('timer') / 60 + ' minutes et compte a rebours' });
+		} else if (Core.run('timer') <= 0 && Core.run('timer') > -5) {
 			clearInterval(secInterval);
 			log.info('End Timer !');
-			spawn('sh', [Odi._SHELL + 'timerSound.sh', 'end']); // TODO use sound.js
+			spawn('sh', [Core._SHELL + 'timerSound.sh', 'end']); // TODO use sound.js
 			Flux.next('interface|led|blink', { leds: ['belly', 'eye'], speed: 90, loop: 12 });
 			Flux.next('interface|tts|speak', 'Les raviolis sont cuits !');
 			Flux.next('interface|led|toggle', { leds: ['belly'], value: 0 }, { delay: 1 });
@@ -261,11 +261,11 @@ function startTimer() {
 }
 
 function stopTimer() {
-	if (Odi.run('timer') > 0) {
+	if (Core.run('timer') > 0) {
 		clearInterval(secInterval);
 		secInterval = false; //
-		Odi.run('timer', 0);
-		// log.debug('-------------->TIMER=', Odi.run('timer'));
+		Core.run('timer', 0);
+		// log.debug('-------------->TIMER=', Core.run('timer'));
 		Flux.next('interface|tts|speak', { lg: 'en', msg: 'Timer canceled' });
 		Flux.next('interface|led|toggle', { leds: ['belly'], value: 0 }, { hidden: true });
 	}

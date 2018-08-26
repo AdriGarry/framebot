@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
-const log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
-const Utils = require(ODI_PATH + 'src/core/Utils.js');
+const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
+const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 
 /** accessor: object([id, value, table, restart]) */

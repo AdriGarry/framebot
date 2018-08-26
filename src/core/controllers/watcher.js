@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Flux = require(Odi._CORE + 'Flux.js');
-const Utils = require(ODI_PATH + 'src/core/Utils.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Flux = require(Core._CORE + 'Flux.js');
+const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 
 Flux.controller.watcher.subscribe({
@@ -13,14 +13,14 @@ Flux.controller.watcher.subscribe({
 			startWatch();
 		} else if (flux.id == 'stopWatch') {
 			stopWatch();
-		} else Odi.error('unmapped flux in Watcher controller', flux, false);
+		} else Core.error('unmapped flux in Watcher controller', flux, false);
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
-const PATHS = [Odi._SRC, Odi._DATA];
+const PATHS = [Core._SRC, Core._DATA];
 var watchers = [];
 
 function startWatch() {
@@ -28,7 +28,7 @@ function startWatch() {
 	PATHS.forEach(path => {
 		watchers.push(addWatcher(path, relaunch));
 	});
-	Odi.conf('watcher', true);
+	Core.conf('watcher', true);
 }
 
 function stopWatch() {
@@ -37,7 +37,7 @@ function stopWatch() {
 	watchers.forEach(watcher => {
 		removeWatcher(watcher);
 	});
-	Odi.conf('watcher', false);
+	Core.conf('watcher', false);
 }
 
 var timer;
@@ -71,5 +71,5 @@ function waitForUpdateEnd(action) {
 function relaunch() {
 	log.INFO('>> relaunching...');
 	// Flux.next('interface|runtime|updateRestart', { mode: mode || 'ready' });
-	Flux.next('service|system|restart', Odi.conf('mode'));
+	Flux.next('service|system|restart', Core.conf('mode'));
 }

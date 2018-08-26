@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
-const Utils = require(Odi._CORE + 'Utils.js');
-const Flux = require(Odi._CORE + 'Flux.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+const Utils = require(Core._CORE + 'Utils.js');
+const Flux = require(Core._CORE + 'Flux.js');
 // const BTN_PUSH_MIN = 0.5;
 
 Flux.controller.button.subscribe({
@@ -12,21 +12,21 @@ Flux.controller.button.subscribe({
 		buttonHandler(flux);
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
 function buttonHandler(flux) {
-	if (Odi.isAwake()) {
+	if (Core.isAwake()) {
 		if (flux.id == 'ok') {
-			if (Odi.run('mood').indexOf('party') > -1) {
+			if (Core.run('mood').indexOf('party') > -1) {
 				if (Utils.rdm()) {
 					Flux.next('service|party|tts');
 				} else {
 					Flux.next('service|mood|badBoy');
 				}
 			} else {
-				if (Odi.run('voicemail')) {
+				if (Core.run('voicemail')) {
 					Flux.next('service|voicemail|check');
 				} else {
 					Flux.next('service|interaction|random');
@@ -41,12 +41,12 @@ function buttonHandler(flux) {
 				Flux.next('service|system|restart', 'sleep');
 			} else if (flux.value > 6) {
 				Flux.next('service|system|restart', 'test');
-			} else Odi.error('Button->else', flux);
+			} else Core.error('Button->else', flux);
 		} else if (flux.id == 'white') {
 			Flux.next('service|time|timer', Math.round(flux.value));
 		} else if (flux.id == 'blue') {
 			// if (flux.value > BTN_PUSH_MIN) {
-			if (Odi.run('etat')) {
+			if (Core.run('etat')) {
 				Flux.next('service|music|fip');
 			} else {
 				Flux.next('service|music|jukebox');
@@ -54,7 +54,7 @@ function buttonHandler(flux) {
 			// } else {
 			// 	log.info('Blue button must be pushed for ' + BTN_PUSH_MIN + 's at least, try again !');
 			// }
-		} else Odi.error('Button->else', flux);
+		} else Core.error('Button->else', flux);
 	} else {
 		if (flux.id == 'ok') {
 			Flux.next('service|system|restart');
@@ -62,5 +62,5 @@ function buttonHandler(flux) {
 			Flux.next('service|system|light', flux.value * 60);
 		}
 	}
-	Odi.run('buttonStats.' + flux.id, Odi.run('buttonStats.' + flux.id) + 1);
+	Core.run('buttonStats.' + flux.id, Core.run('buttonStats.' + flux.id) + 1);
 }

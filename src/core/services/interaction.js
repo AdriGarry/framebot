@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Utils = require(Odi._CORE + 'Utils.js');
-const Flux = require(Odi._CORE + 'Flux.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Utils = require(Core._CORE + 'Utils.js');
+const Flux = require(Core._CORE + 'Flux.js');
 const RandomBox = require('randombox').RandomBox;
 const fs = require('fs');
 const request = require('request');
@@ -36,10 +36,10 @@ Flux.service.interaction.subscribe({
 			uneHeure();
 		} else if (flux.id == 'russia') {
 			russia();
-		} else Odi.error('unmapped flux in Interfaction module', flux, false);
+		} else Core.error('unmapped flux in Interfaction module', flux, false);
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
@@ -77,13 +77,13 @@ function randomAction() {
 		log.info('randomAction:', action.id, '[' + action.weight + ']');
 		Flux.next(action.id, action.data);
 	} catch (err) {
-		Odi.error('ACTION TO DEBUG =>', typeof action, action);
+		Core.error('ACTION TO DEBUG =>', typeof action, action);
 	}
 }
 
 var exclamationRandomBox; // = new RandomBox(EXCLAMATIONS_SOUNDS); // TODO /!\ asynchrone avec la recupération des noms de fichiers !!! (voir si d'autres cas ailleurs)
 // var EXCLAMATIONS_SOUNDS;
-fs.readdir(Odi._MP3 + 'exclamation', (err, files) => {
+fs.readdir(Core._MP3 + 'exclamation', (err, files) => {
 	// EXCLAMATIONS_SOUNDS = files;
 	exclamationRandomBox = new RandomBox(files);
 	// console.log('EXCLAMATIONS_SOUNDS', EXCLAMATIONS_SOUNDS);
@@ -91,7 +91,7 @@ fs.readdir(Odi._MP3 + 'exclamation', (err, files) => {
 function exclamation() {
 	log.info('Exclamation !');
 	Flux.next('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { hidden: true });
-	// spawn('sh', [Odi._SHELL + 'exclamation.sh']); // TODO TOTEST passer par le module sound.js
+	// spawn('sh', [Core._SHELL + 'exclamation.sh']); // TODO TOTEST passer par le module sound.js
 	// let exclamation = Utils.randomItem(EXCLAMATIONS_SOUNDS);
 	// console.log(exclamationRandomBox.cycle);
 	let exclamation = exclamationRandomBox.next();
@@ -105,7 +105,7 @@ function uneHeure() {
 
 function demo() {
 	log.INFO('Starting Demo !');
-	Odi.ttsMessages.demo.forEach(tts => {
+	Core.ttsMessages.demo.forEach(tts => {
 		Flux.next('interface|tts|speak', tts);
 	});
 }
@@ -118,13 +118,13 @@ function goToWork() {
 function russia() {
 	log.info('Russia !');
 	Flux.next('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { hidden: true });
-	spawn('sh', [Odi._SHELL + 'exclamation_russia.sh']);
+	spawn('sh', [Core._SHELL + 'exclamation_russia.sh']);
 }
 
 var WEATHER_STATUS_LIST;
-fs.readFile(Odi._DATA + 'weatherStatus.json', function(err, data) {
+fs.readFile(Core._DATA + 'weatherStatus.json', function(err, data) {
 	if (err && err.code === 'ENOENT') {
-		log.debug(Odi.error('No file : ' + filePath));
+		log.debug(Core.error('No file : ' + filePath));
 		callback(null);
 	}
 	WEATHER_STATUS_LIST = JSON.parse(data);
@@ -151,14 +151,14 @@ function getWeatherData(callback) {
 					callback(weatherReport);
 				} else {
 					Flux.next('interface|tts|speak', { voice: 'espeak', lg: 'fr', msg: 'Erreur service meteo' });
-					Odi.error("Weather request > Can't retreive weather informations. response.statusCode", response.statusCode);
+					Core.error("Weather request > Can't retreive weather informations. response.statusCode", response.statusCode);
 					if (error) {
-						Odi.error('Error getting weather info  /!\\ \n' + error);
+						Core.error('Error getting weather info  /!\\ \n' + error);
 					}
 				}
 			} catch (e) {
-				Odi.error(e);
-				if (Odi.isAwake()) Flux.next('interface|tts|speak', { lg: 'en', msg: 'Weather error' });
+				Core.error(e);
+				if (Core.isAwake()) Flux.next('interface|tts|speak', { lg: 'en', msg: 'Weather error' });
 			}
 		}
 	);

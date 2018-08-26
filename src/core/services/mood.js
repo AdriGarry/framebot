@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Flux = require(Odi._CORE + 'Flux.js');
-const Utils = require(ODI_PATH + 'src/core/Utils.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Flux = require(Core._CORE + 'Flux.js');
+const Utils = require(_PATH + 'src/core/Utils.js');
 const RandomBox = require('randombox').RandomBox;
 
 Flux.service.mood.subscribe({
@@ -15,10 +15,10 @@ Flux.service.mood.subscribe({
 			badBoy(flux.value);
 		} else if (flux.id == 'java') {
 			java(flux.value);
-		} else Odi.error('unmapped flux in Mood service', flux, false);
+		} else Core.error('unmapped flux in Mood service', flux, false);
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
@@ -29,13 +29,13 @@ function expressive(args) {
 // const MAX_JAVA = ['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm'];
 var maxJavaRandomBox = new RandomBox(['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm']);
 
-var ttsRandomBox = new RandomBox(Odi.ttsMessages.random);
+var ttsRandomBox = new RandomBox(Core.ttsMessages.random);
 /** Function to start bad boy mode */
 function java(interval) {
 	log.INFO('JAVA mode !');
 	Flux.next('interface|tts|speak', 'On va faire la java !');
 	for (var i = 0; i < 20; i++) {
-		// Flux.next('interface|tts|speak', Utils.randomItem(Odi.ttsMessages.random));
+		// Flux.next('interface|tts|speak', Utils.randomItem(Core.ttsMessages.random));
 		Flux.next('interface|tts|speak', ttsRandomBox.next());
 	}
 
@@ -72,14 +72,14 @@ function badBoyTTS() {
 }
 
 /** Function to select a different TTS each time */
-const BAD_BOY_TTS_LENGTH = Odi.ttsMessages.badBoy.length;
+const BAD_BOY_TTS_LENGTH = Core.ttsMessages.badBoy.length;
 var rdmNb,
 	lastRdmNb = [],
 	rdmTTS = '';
 function getNewRdmBadBoyTTS() {
 	do {
 		rdmNb = Utils.random(BAD_BOY_TTS_LENGTH);
-		rdmTTS = Odi.ttsMessages.badBoy[rdmNb];
+		rdmTTS = Core.ttsMessages.badBoy[rdmNb];
 		if (lastRdmNb.length >= BAD_BOY_TTS_LENGTH) lastRdmNb.shift();
 	} while (lastRdmNb.indexOf(rdmNb) != -1);
 	lastRdmNb.push(rdmNb);

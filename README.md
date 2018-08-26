@@ -37,17 +37,17 @@ Available modes: ready, sleep, test
 
 ### Internal
 
-#### Odi.conf
+#### Core.conf
 
-The Odi.conf holds Odi cycle informations: _mode, alarms, version_.
+The Core.conf holds cycle informations: _mode, alarms, version_.
 
 This object is isolated, with access methods.
 
 This object is file persisted and has a default version.
 
-#### Odi.run
+#### Core.run
 
-The Odi.run holds Odi runtime informations: _etat, volume, max, mood, music, alarms, timer, voicemail, cpu, memory, stats_.
+The Core.run holds runtime informations: _etat, volume, max, mood, music, alarms, timer, voicemail, cpu, memory, stats_.
 
 This object is isolated, with access methods.
 

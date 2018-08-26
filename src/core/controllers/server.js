@@ -6,9 +6,9 @@
  *		418 : I'm a teapot ! (other POST request)
  */
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
-const Flux = require(Odi._CORE + 'Flux.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+const Flux = require(Core._CORE + 'Flux.js');
 const http = require('http');
 const https = require('https');
 const express = require('express');
@@ -16,13 +16,13 @@ const fs = require('fs');
 const compression = require('compression');
 const bodyParser = require('body-parser');
 
-const MIDDLEWARE = require(Odi._CORE + 'controllers/server/middleware.js');
+const MIDDLEWARE = require(Core._CORE + 'controllers/server/middleware.js');
 const HTTP_SERVER_PORT = 3210;
 const HTTPS_SERVER_PORT = 4321;
 
 var credentials = {
-	key: fs.readFileSync(Odi._SECURITY + 'key.pem'),
-	cert: fs.readFileSync(Odi._SECURITY + 'cert.pem')
+	key: fs.readFileSync(Core._SECURITY + 'key.pem'),
+	cert: fs.readFileSync(Core._SECURITY + 'cert.pem')
 };
 
 var ui = express(),
@@ -34,10 +34,10 @@ Flux.controller.server.subscribe({
 			startUIServer();
 		} else if (flux.id == 'closeUIServer') {
 			closeUIServer(flux.value);
-		} else Odi.error('unmapped flux in Server controller', flux, false);
+		} else Core.error('unmapped flux in Server controller', flux, false);
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
@@ -63,7 +63,7 @@ function startUIServer() {
 	}).listen(HTTP_SERVER_PORT);
 
 	uiHttps.use(compression()); // Compression web
-	uiHttps.use(express.static(Odi._WEB)); // For static files
+	uiHttps.use(express.static(Core._WEB)); // For static files
 	uiHttps.use(bodyParser.json()); // to support JSON-encoded bodies
 	uiHttps.use(
 		bodyParser.urlencoded({
@@ -72,10 +72,10 @@ function startUIServer() {
 	);
 	uiHttps.use(MIDDLEWARE.security());
 
-	require(Odi._CORE + 'controllers/server/routes.js').attachRoutes(uiHttps);
+	require(Core._CORE + 'controllers/server/routes.js').attachRoutes(uiHttps);
 
 	// servor = ui.listen(HTTP_SERVER_PORT, function() {
-	// 	log.info('UI server started [' + Odi.conf('mode') + ']');
+	// 	log.info('UI server started [' + Core.conf('mode') + ']');
 	// 	Flux.next('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
 	// });
 
@@ -83,7 +83,7 @@ function startUIServer() {
 
 	// httpServer = http.createServer(ui);
 	httpsServer = https.createServer(credentials, uiHttps).listen(HTTPS_SERVER_PORT, function() {
-		log.info('UI server started [' + Odi.conf('mode') + ']');
+		log.info('UI server started [' + Core.conf('mode') + ']');
 		Flux.next('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
 	});
 

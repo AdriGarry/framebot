@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Utils = require(Odi._CORE + 'Utils.js');
-const Flux = require(Odi._CORE + 'Flux.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Utils = require(Core._CORE + 'Utils.js');
+const Flux = require(Core._CORE + 'Flux.js');
 const RandomBox = require('randombox').RandomBox;
 
 Flux.service.max.subscribe({
@@ -23,10 +23,10 @@ Flux.service.max.subscribe({
 			hornRdm();
 		} else if (flux.id == 'turn') {
 			turnNose();
-		} else Odi.error('unmapped flux in Max service', flux, false);
+		} else Core.error('unmapped flux in Max service', flux, false);
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
@@ -111,17 +111,17 @@ function maxCallbackAction(data) {
 		// 	maxCallbackTTS([{ lg: 'en', msg: 'Hi Max!' }, { lg: 'en', msg: 'Hey Max!' }]);
 		// 	break;
 		case 'some random action from Max':
-			maxCallbackTTS(Odi.ttsMessages.maxCallback.sensor);
+			maxCallbackTTS(Core.ttsMessages.maxCallback.sensor);
 			break;
 		case 'blinkLed_end':
-			if (Odi.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'blink led' });
+			if (Core.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'blink led' });
 			break;
 		case 'playOneMelody_end':
 		case 'playRdmMelody_end':
-			maxCallbackTTS(Odi.ttsMessages.maxCallback.melody);
+			maxCallbackTTS(Core.ttsMessages.maxCallback.melody);
 			break;
 		case 'turnNose_end':
-			if (Odi.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'turn' });
+			if (Core.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'turn' });
 			break;
 		case 'playRdmHorn_end':
 		case 'playHornDoUp_end':
@@ -130,10 +130,10 @@ function maxCallbackAction(data) {
 		case 'playHornWhistle_end':
 		case 'playHornSiren_end':
 		case 'playHornDown_end':
-			maxCallbackTTS(Odi.ttsMessages.maxCallback.horn);
+			maxCallbackTTS(Core.ttsMessages.maxCallback.horn);
 			break;
 		case 'playHornFire_end':
-			maxCallbackTTS(Odi.ttsMessages.maxCallback.hornFire);
+			maxCallbackTTS(Core.ttsMessages.maxCallback.hornFire);
 			break;
 		case 'playHornOvni_end':
 			Flux.next('interface|tts|speak', 'OVNI!');

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Flux = require(Odi._CORE + 'Flux.js');
-const Utils = require(Odi._CORE + 'Utils.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Flux = require(Core._CORE + 'Flux.js');
+const Utils = require(Core._CORE + 'Utils.js');
 const spawn = require('child_process').spawn;
 const exec = require('child_process').exec;
 
@@ -20,10 +20,10 @@ Flux.interface.tts.subscribe({
 			speak();
 		} else if (flux.id == 'clearTTSQueue') {
 			clearTTSQueue();
-		} else Odi.error('unmapped flux in TTS module', flux, false);
+		} else Core.error('unmapped flux in TTS module', flux, false);
 	},
 	error: err => {
-		Odi.error(flux);
+		Core.error(flux);
 	}
 });
 
@@ -40,11 +40,11 @@ function pico(tts) {
 		'pico2wave -l ' +
 			language +
 			' -w ' +
-			Odi._TMP +
+			Core._TMP +
 			'pico2waveTTS.wav "' +
 			tts.msg +
 			'" && aplay ' +
-			Odi._TMP +
+			Core._TMP +
 			'pico2waveTTS.wav'
 	);
 }
@@ -99,11 +99,11 @@ function proceedQueue() {
 }
 
 /** Function to launch random TTS */
-const RANDOM_TTS_LENGTH = Odi.ttsMessages.random.length;
+const RANDOM_TTS_LENGTH = Core.ttsMessages.random.length;
 function randomTTS() {
 	var rdmNb = Utils.random(RANDOM_TTS_LENGTH);
 	log.info('tts.js> rdmNb: ', rdmNb);
-	var rdmTTS = Odi.ttsMessages.random[rdmNb];
+	var rdmTTS = Core.ttsMessages.random[rdmNb];
 	log.info('Random TTS : ' + rdmNb + '/' + RANDOM_TTS_LENGTH);
 	speak(rdmTTS);
 	// console.log('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
@@ -129,7 +129,7 @@ var playTTS = function(tts) {
 		tts.lg = 'fr';
 	}
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
-	spawn('sh', [Odi._SHELL + 'tts.sh', tts.voice, tts.lg, tts.msg.replace('%20', '')]);
+	spawn('sh', [Core._SHELL + 'tts.sh', tts.voice, tts.lg, tts.msg.replace('%20', '')]);
 	// pico(tts);
 
 	Flux.next(

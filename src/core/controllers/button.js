@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-const log = new (require(Odi._CORE + 'Logger.js'))(__filename);
-const Utils = require(Odi._CORE + 'Utils.js');
-const Flux = require(Odi._CORE + 'Flux.js');
+var Core = require(_PATH + 'src/core/Core.js').Core;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Utils = require(Core._CORE + 'Utils.js');
+const Flux = require(Core._CORE + 'Flux.js');
 const util = require('util');
 const Gpio = require('onoff').Gpio;
 
@@ -12,7 +12,7 @@ var belly = new Gpio(17, 'out'); // TODO...
 const DEBOUNCE_LIMIT = 0.4;
 var Button = {};
 
-Odi.gpio.buttons.forEach(button => {
+Core.gpio.buttons.forEach(button => {
 	Button[button.id] = new Gpio(button.pin, button.direction, button.edge, button.options);
 	Button[button.id]['id'] = Utils.capitalizeFirstLetter(button.id);
 });
@@ -55,14 +55,14 @@ Button.blue.watch(function(err, value) {
 		log.info('Blue button pushed not enough:', pushTime);
 		log.info('___This should not be logged any more !!!');
 		// TODO refactor to get this unified with buttonService same code
-		Odi.run('buttonStats.blueError', Odi.run('buttonStats.blueError') + 1);
+		Core.run('buttonStats.blueError', Core.run('buttonStats.blueError') + 1);
 	}
 });
 
 /** Interval for switch state + random actions */
 var instance = false,
 	intervalEtat;
-const INTERVAL_DELAY = (Odi.conf('watcher') ? 60 : 5 * 60) * 1000; //3 * 60 * 1000;
+const INTERVAL_DELAY = (Core.conf('watcher') ? 60 : 5 * 60) * 1000; //3 * 60 * 1000;
 setInterval(function() {
 	// A deplacer dans flux.next('interface|runtime|refresh')) ?
 	let value = Button.etat.readSync();
@@ -88,15 +88,15 @@ setInterval(function() {
 /** Switch watch for radio volume */
 Button.etat.watch(function(err, value) {
 	value = Button.etat.readSync();
-	Odi.run('etat', value ? 'high' : 'low');
-	Odi.run('volume', Odi.isAwake() ? (value ? 400 : -400) : 'mute');
-	log.info('Etat has changed:', Odi.run('etat'));
-	if (Odi.run('music') == 'fip') {
+	Core.run('etat', value ? 'high' : 'low');
+	Core.run('volume', Core.isAwake() ? (value ? 400 : -400) : 'mute');
+	log.info('Etat has changed:', Core.run('etat'));
+	if (Core.run('music') == 'fip') {
 		Flux.next('interface|sound|mute');
 		Flux.next('service|music|fip', null, { delay: 0.1 });
 	}
-	if (Odi.run('screen')) {
+	if (Core.run('screen')) {
 		Flux.next('interface|video|screenOff');
 	}
-	log.table(Odi.run(), 'RUNTIME...');
+	log.table(Core.run(), 'RUNTIME...');
 });

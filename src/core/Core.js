@@ -1,37 +1,38 @@
 #!/usr/bin/env node
 'use strict';
 
-const log = new (require(ODI_PATH + 'src/core/Logger.js'))(__filename);
-const Lock = require(ODI_PATH + 'src/core/Lock.js');
-const Utils = require(ODI_PATH + 'src/core/Utils.js');
+const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
+const Lock = require(_PATH + 'src/core/Lock.js');
+const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 
 var Core = {};
 function setUpContext(Core, descriptor) {
 	//Object.assign(cible, ...sources) //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object/assign
-	Core.conf = new Lock(require(ODI_PATH + 'tmp/conf.json'), ODI_PATH + 'tmp/conf.json');
+	Core.name = descriptor.name;
+	Core.conf = new Lock(require(_PATH + 'tmp/conf.json'), _PATH + 'tmp/conf.json');
 	Core.isAwake = isAwake;
 	Core.run = new Lock(descriptor.runtime);
 	Core.descriptor = descriptor; // TODO useless?
 	Core.error = error;
 	Core.errors = [];
-	Core.gpio = require(ODI_PATH + 'data/gpio.json');
-	Core.ttsMessages = require(ODI_PATH + 'data/ttsMessages.json');
+	Core.gpio = require(_PATH + 'data/gpio.json');
+	Core.ttsMessages = require(_PATH + 'data/ttsMessages.json');
 	for (let path in descriptor.paths) {
 		// Setting _PATHS
-		Core[path] = ODI_PATH + descriptor.paths[path];
+		Core[path] = _PATH + descriptor.paths[path];
 	}
 	return Core;
 }
 module.exports = {
 	init: init,
-	Odi: Core
+	Core: Core
 };
 
 var Flux = { next: null };
 function init(path, descriptor, forcedParams, startTime) {
 	Core = setUpContext(Core, descriptor);
-	let packageJson = require(ODI_PATH + 'package.json');
+	let packageJson = require(_PATH + 'package.json');
 	var confUpdate = { startTime: Utils.logTime('h:m (D/M)') },
 		forcedParamsLog = '';
 	if (confUpdate.version != packageJson.version) {
@@ -46,7 +47,7 @@ function init(path, descriptor, forcedParams, startTime) {
 		forcedParamsLog += 'debug ';
 	}
 	const logo = fs
-		.readFileSync(ODI_PATH + 'data/' + (!Core.isAwake() ? 'odiSleep' : 'odi') + '.logo', 'utf8')
+		.readFileSync(_PATH + 'data/' + (!Core.isAwake() ? 'odiSleep' : 'odi') + '.logo', 'utf8')
 		.toString()
 		.split('\n');
 	console.log('\n' + logo.join('\n'));
@@ -95,6 +96,6 @@ function error(label, data, stackTrace) {
 		data: data,
 		time: Utils.logTime()
 	};
-	Utils.appendJsonFile(ODI_PATH + 'log/errorHistory.json', logError);
+	Utils.appendJsonFile(_PATH + 'log/errorHistory.json', logError);
 	Core.errors.push(logError);
 }

@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 'use strict';
 
-var Odi = require(ODI_PATH + 'src/core/Odi.js').Odi;
-var log = new (require(Odi._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+var Core = require(_PATH + 'src/core/Core.js').Core;
+var log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 
 const Rx = require('rxjs');
 
-var Flux = require(Odi._CORE + 'Flux.js');
+var Flux = require(Core._CORE + 'Flux.js');
 
 const sequences = ['moduleTest', 'serviceTest'];
 var testResult = {};
@@ -20,7 +20,7 @@ function launchTests(callback) {
 	log.INFO('>> Launching Test Sequence...');
 	log.info('-----------------------------');
 	for (var i = 0; i < sequences.length; i++) {
-		testResult[sequences[i]] = require(Odi._SRC + 'test/' + sequences[i] + '.js').run(completeTest);
+		testResult[sequences[i]] = require(Core._SRC + 'test/' + sequences[i] + '.js').run(completeTest);
 	}
 }
 
@@ -37,7 +37,7 @@ var completeTest = (testId, result) => {
 		for (let test in testResult) {
 			log.info(test, 'completed');
 		}
-		if (Odi.errors.length > 0) log.info('Odi.errors:' + Odi.errors.length);
+		if (Core.errors.length > 0) log.info('Core.errors:' + Core.errors.length);
 
 		log.info('-------------------------');
 		log.INFO('>> All tests succeeded !!');
@@ -57,4 +57,4 @@ var allTestCompleted = () => {
 	return true;
 };
 
-// Odi.error('this is an error');
+// Core.error('this is an error');

@@ -14,7 +14,7 @@ const Gpio = require('onoff').Gpio;
 const sep = path.sep;
 // const SRC_PATH = __filename.match(/\/.*\//g)[0];
 const SRC_PATH = __dirname + sep;
-const ODI_PATH = __dirname.replace('src', '');
+const _PATH = __dirname.replace('src', '');
 const INTERVALS = [2, 5, 10, 30, 60, 90, 180, 300, 600, 900];
 const wrapperTitle = '\n┌──────────────┐\n│  > Wrapper   │\n└──────────────┘';
 
@@ -30,12 +30,12 @@ var i = 0,
 function wrapper(code) {
 	console.log(wrapperTitle);
 	if (!code) {
-		startOdi();
+		startCore();
 		return;
 	}
 	let timeoutDelay = INTERVALS[i];
 	i++;
-	console.log('Error in Odi program!');
+	console.log('Error in Core program!');
 	process.stdout.write('Push Ok button or wait for ' + timeoutDelay + ' sec');
 	if (i == INTERVALS.length) {
 		i = 0;
@@ -44,55 +44,52 @@ function wrapper(code) {
 		process.stdout.write('.');
 	}, 1000);
 	timeout = setTimeout(() => {
-		console.log('\nrestarting Odi');
-		restartOdiFromWrapper(code);
+		console.log('\nrestarting Core');
+		restartCoreFromWrapper(code);
 	}, timeoutDelay * 1000);
 
 	okButton = new Gpio(20, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
 	okButton.watch(function(err, value) {
-		console.log('\nOk Button pushed, restarting Odi');
-		restartOdiFromWrapper(code);
+		console.log('\nOk Button pushed, restarting Core');
+		restartCoreFromWrapper(code);
 	});
 }
 
-function restartOdiFromWrapper(code) {
+function restartCoreFromWrapper(code) {
 	clearInterval(interval);
 	clearTimeout(timeout);
 	okButton.unwatch();
-	startOdi(code);
+	startCore(code);
 }
 
-/** Function to start up Odi */
-function startOdi(exitCode) {
+/** Function to start up Core */
+function startCore(exitCode) {
 	spawn('sh', [SRC_PATH + 'shell/mute.sh']);
 
 	checkUp();
 
-	const odiConf = fs.readFileSync(ODI_PATH + 'tmp/conf.json');
+	new Gpio(14, 'out').write(1); //var eye =
 
-	var eye = new Gpio(14, 'out').write(1);
-
-	var odiProgramWithParams = [SRC_PATH + 'main.js'];
+	var coreProgramWithParams = [SRC_PATH + 'main.js'];
 	if (exitCode) {
-		odiProgramWithParams.push('sleep');
+		coreProgramWithParams.push('sleep');
 	}
 	for (var i = 0; i < argv.length; i++) {
-		odiProgramWithParams.push(argv[i]);
+		coreProgramWithParams.push(argv[i]);
 	}
-	var odiCore = spawn('node', odiProgramWithParams);
+	var Core = spawn('node', coreProgramWithParams);
 
-	odiCore.stdout.on('data', function(data) {
+	Core.stdout.on('data', function(data) {
 		process.stdout.write(data);
 	});
 
-	odiCore.stderr.on('data', function(data) {
+	Core.stderr.on('data', function(data) {
 		process.stdout.write(data);
 	});
 
-	odiCore.on('exit', function(code) {
+	Core.on('exit', function(code) {
 		spawn('sh', [SRC_PATH + 'shell/mute.sh']);
-		//if (code && odiConf.mode != 'sleep') spawn('sh', [SRC_PATH + 'shell/sounds.sh', 'error']);
-		console.log("\n>> Odi's CORE restarting... [code:" + code + ']');
+		console.log('\n>> Core restarting... [code:' + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
 		argv.remove('reset'); // Removing reset param before relaunching
 		wrapper(code);
@@ -101,16 +98,16 @@ function startOdi(exitCode) {
 
 function checkUp() {
 	console.log('checkUp...');
-	descriptor = JSON.parse(fs.readFileSync(ODI_PATH + 'data/descriptor.json'));
-	if (!fs.existsSync(ODI_PATH + 'tmp')) {
-		fs.mkdirSync(path.join(ODI_PATH, 'tmp')); //, parseInt('0777', 8)
-		fs.chmodSync(path.join(ODI_PATH, 'tmp'), parseInt('0777', 8)); //, parseInt('0777', 8)
+	descriptor = JSON.parse(fs.readFileSync(_PATH + 'data/descriptor.json'));
+	if (!fs.existsSync(_PATH + 'tmp')) {
+		fs.mkdirSync(path.join(_PATH, 'tmp')); //, parseInt('0777', 8)
+		fs.chmodSync(path.join(_PATH, 'tmp'), parseInt('0777', 8)); //, parseInt('0777', 8)
 		console.log('> TEMP directory created');
 	} else {
 		checkVoicemailValidity();
 	}
-	if (!fs.existsSync(ODI_PATH + 'log')) {
-		fs.mkdirSync(ODI_PATH + 'log');
+	if (!fs.existsSync(_PATH + 'log')) {
+		fs.mkdirSync(_PATH + 'log');
 		console.log('> LOG directory created');
 	}
 
@@ -124,13 +121,13 @@ function checkUp() {
 }
 
 function checkVoicemailValidity() {
-	if (fs.existsSync(ODI_PATH + 'tmp/voicemail.json')) {
+	if (fs.existsSync(_PATH + 'tmp/voicemail.json')) {
 		try {
-			let conf = fs.readFileSync(ODI_PATH + 'tmp/voicemail.json', 'utf-8');
+			let conf = fs.readFileSync(_PATH + 'tmp/voicemail.json', 'utf-8');
 			JSON.parse(conf);
 		} catch (err) {
 			console.log(err.message);
-			fs.unlinkSync(ODI_PATH + 'tmp/voicemail.json');
+			fs.unlinkSync(_PATH + 'tmp/voicemail.json');
 			console.log('> Invalid voicemail message, deleted!');
 		}
 	}
@@ -138,7 +135,7 @@ function checkVoicemailValidity() {
 
 function checkConfValidity() {
 	try {
-		let conf = fs.readFileSync(ODI_PATH + 'tmp/conf.json', 'utf-8');
+		let conf = fs.readFileSync(_PATH + 'tmp/conf.json', 'utf-8');
 		JSON.parse(conf);
 	} catch (err) {
 		console.log(err.message);
@@ -147,7 +144,7 @@ function checkConfValidity() {
 }
 
 function reInitConf() {
-	fs.writeFileSync(ODI_PATH + 'tmp/conf.json', JSON.stringify(descriptor.conf), 'utf-8');
+	fs.writeFileSync(_PATH + 'tmp/conf.json', JSON.stringify(descriptor.conf), 'utf-8');
 	console.log('> CONF reset');
 }
 
