@@ -130,6 +130,23 @@ app.controller('UIController', function(
 		}, 200);
 	};
 
+	/** Function to show logs */
+	$scope.showErrors = function() {
+		UIService.getRequest('https://odi.adrigarry.com/errors', function(data) {
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'templates/dialog.html',
+				locals: {
+					data: data,
+					from: null
+				},
+				parent: angular.element(document.body),
+				clickOutsideToClose: true,
+				fullscreen: false // Only for -xs, -sm breakpoints
+			});
+		});
+	};
+
 	/** Function to hide logs */
 	$scope.hideLogs = function() {
 		$mdSidenav('logs')

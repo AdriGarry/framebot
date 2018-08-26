@@ -239,6 +239,16 @@ button.muteButton:hover {
 	opacity: 0.9;
 }
 
+/*------------------------------ ERRORS BUTTON ------------------------------- */
+.errorButton {
+	position: fixed;
+	left: 1.5em;
+	bottom: -10em;
+}
+.errorButton.active {
+	bottom: 6.5em;
+}
+
 /*------------------------------ LOGS ------------------------------- */
 .logButton {
 	position: fixed;
@@ -727,10 +737,6 @@ body>.loading i{
 	/*img + h1*/
 	.toolbar h1 {
 		margin-left: 5em;
-	}
-	.logButton i {
-		/*zoom:1.3;*/
-		/*margin-top:0.5em;*/
 	}
 	.desktopZoom {
 		color: rgba(0, 0, 0, 0.6);
