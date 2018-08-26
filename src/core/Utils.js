@@ -83,7 +83,11 @@ function appendArrayInJsonFile(filePath, obj, callback) {
 	fs.exists(filePath, function(exists) {
 		if (exists) {
 			fs.readFile(filePath, 'utf8', function(err, data) {
-				fileData = JSON.parse(data || ''); // TODO avoid SyntaxError: Unexpected end of JSON input
+				if (!data) {
+					fileData = [];
+				} else {
+					fileData = JSON.parse(data);
+				}
 				if (Array.isArray(fileData)) {
 					fileData.push(obj);
 					_writeFile(filePath, fileData, startTime);
@@ -99,6 +103,7 @@ function appendArrayInJsonFile(filePath, obj, callback) {
 		}
 	});
 }
+
 function _writeFile(filePath, fileData, startTime, isCreation) {
 	var jsonData = JSON.stringify(fileData, null, 2)
 		.replace(/\\/g, '')
