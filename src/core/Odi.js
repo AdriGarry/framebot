@@ -78,6 +78,10 @@ function isAwake() {
 	return Core.conf('mode') != 'sleep';
 }
 
+process.on('uncaughtException', function(err) {
+	Core.error('Uncaught Exception', err, false);
+});
+
 function error(label, data, stackTrace) {
 	Flux.next('interface|led|altLeds', { speed: 30, duration: 1.5 }, { hidden: true });
 	Flux.next('interface|sound|error', null, { hidden: true });
