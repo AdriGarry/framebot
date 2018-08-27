@@ -5,6 +5,7 @@ const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
 const Lock = require(_PATH + 'src/core/Lock.js');
 const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
+const CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 
 var Core = {};
 function setUpContext(Core, descriptor) {
@@ -12,7 +13,7 @@ function setUpContext(Core, descriptor) {
 	Core.name = descriptor.name;
 	Core.conf = new Lock(require(_PATH + 'tmp/conf.json'), _PATH + 'tmp/conf.json');
 	Core.isAwake = isAwake;
-	Core.run = new Lock(descriptor.runtime);
+	Core.run = new Lock(CORE_DEFAULT.runtime);
 	Core.descriptor = descriptor; // TODO useless?
 	Core.error = error;
 	Core.errors = [];
@@ -63,10 +64,16 @@ function init(path, descriptor, forcedParams, startTime) {
 
 	if (Core.conf('log') != 'info') log.level(Core.conf('log'));
 
+	if (descriptor.conf && typeof descriptor.conf == 'object') {
+		Object.keys(descriptor.conf).forEach(key => {
+			confUpdate[key] = descriptor.conf[key];
+		});
+	}
 	Core.descriptor = descriptor;
+
 	Flux = require(Core._CORE + 'Flux.js').attach(descriptor.modules);
 	Flux.next('interface|runtime|update', confUpdate, { delay: 0.5 });
-	let fluxToFire = Core.conf('flux');
+	let fluxToFire = Core.conf('flux'); // TODO do this !
 	if (fluxToFire && fluxToFire.length > 0) {
 		log.table(fluxToFire, 'flux to fire');
 		Flux.next(fluxToFire);

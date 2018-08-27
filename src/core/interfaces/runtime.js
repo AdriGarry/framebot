@@ -34,8 +34,11 @@ function updateConf(newConf, restart) {
 	});
 	let header = 'CONFIG UPDATE' + ' '.repeat(3) + Utils.executionTime(updateBegin, '    ') + 'ms';
 	log.table(Core.conf(), header, updatedEntries);
-	// log.table(Core.run(), 'RUNTIME...');
-	if (restart) process.exit();
+	if (restart) {
+		console.log(Core.run().buttonStats);
+		// log.table(toto.buttonStats, 'RUNTIME...');
+		process.exit();
+	}
 }
 
 /** Function to reset Core (/tmp/ directory) */

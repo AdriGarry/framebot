@@ -16,6 +16,7 @@ const sep = path.sep;
 const SRC_PATH = __dirname + sep;
 const _PATH = __dirname.replace('src', '');
 const INTERVALS = [2, 5, 10, 30, 60, 90, 180, 300, 600, 900];
+const CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 const wrapperTitle = '\n┌──────────────┐\n│  > Wrapper   │\n└──────────────┘';
 
 // console.log('Wrapper started');
@@ -98,7 +99,7 @@ function startCore(exitCode) {
 
 function checkUp() {
 	console.log('checkUp...');
-	descriptor = JSON.parse(fs.readFileSync(_PATH + 'data/descriptor.json'));
+	descriptor = JSON.parse(fs.readFileSync(_PATH + 'data/descriptor.json')); // TODO require ?
 	if (!fs.existsSync(_PATH + 'tmp')) {
 		fs.mkdirSync(path.join(_PATH, 'tmp')); //, parseInt('0777', 8)
 		fs.chmodSync(path.join(_PATH, 'tmp'), parseInt('0777', 8)); //, parseInt('0777', 8)
@@ -144,7 +145,7 @@ function checkConfValidity() {
 }
 
 function reInitConf() {
-	fs.writeFileSync(_PATH + 'tmp/conf.json', JSON.stringify(descriptor.conf), 'utf-8');
+	fs.writeFileSync(_PATH + 'tmp/conf.json', JSON.stringify(CORE_DEFAULT.conf), 'utf-8');
 	console.log('> CONF reset');
 }
 

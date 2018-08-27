@@ -1,0 +1,42 @@
+{
+	"conf": {
+		"mode": "ready",
+		"log": "info",
+		"watcher": false,
+		"startTime": ".",
+		"alarms": {},
+		"version": ".",
+		"flux": []
+	},
+	"runtime": {
+		"etat": null,
+		"volume": null,
+		"max": null,
+		"mood": [],
+		"music": false,
+		"alarm": false,
+		"timer": 0,
+		"voicemail": null,
+		"screen": null,
+		"cpu": {
+			"usage": null,
+			"temp": null
+		},
+		"memory": {
+			"odi": null,
+			"system": null
+		},
+		"stats": {
+			"diskSpace": null,
+			"totalLines": null,
+			"update": null
+		},
+		"buttonStats": {
+			"ok": 0,
+			"cancel": 0,
+			"white": 0,
+			"blue": 0,
+			"blueError": 0
+		}
+	}
+}
