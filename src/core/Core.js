@@ -48,7 +48,7 @@ function init(path, descriptor, forcedParams, startTime) {
 		forcedParamsLog += 'debug ';
 	}
 	const logo = fs
-		.readFileSync(_PATH + 'data/' + (!Core.isAwake() ? 'odiSleep' : 'odi') + '.logo', 'utf8')
+		.readFileSync(_PATH + 'data/' + 'odi.logo', 'utf8')
 		.toString()
 		.split('\n');
 	console.log('\n' + logo.join('\n'));
