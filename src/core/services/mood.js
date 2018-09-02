@@ -3,11 +3,11 @@
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
 const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-const Flux = require(Core._CORE + 'Flux.js');
+// const Flux = require(Core._CORE + 'Flux.js');
 const Utils = require(_PATH + 'src/core/Utils.js');
 const RandomBox = require('randombox').RandomBox;
 
-Flux.service.mood.subscribe({
+Core.flux.service.mood.subscribe({
 	next: flux => {
 		if (flux.id == 'expressive') {
 			expressive(flux.value);

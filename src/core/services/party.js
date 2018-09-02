@@ -5,10 +5,10 @@
 var Core = require(_PATH + 'src/core/Core.js').Core;
 const log = new (require(Core._CORE + 'Logger.js'))(__filename);
 const Utils = require(_PATH + 'src/core/Utils.js');
-const Flux = require(Core._CORE + 'Flux.js');
+// const Flux = require(Core._CORE + 'Flux.js');
 const spawn = require('child_process').spawn;
 
-Flux.service.party.subscribe({
+Core.flux.service.party.subscribe({
 	next: flux => {
 		if (flux.id == 'start') {
 			start(flux.value);

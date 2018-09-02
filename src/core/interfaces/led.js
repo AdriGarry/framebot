@@ -3,7 +3,7 @@
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
 const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-const Flux = require(Core._CORE + 'Flux.js');
+// const Flux = require(Core._CORE + 'Flux.js');
 const Gpio = require('onoff').Gpio;
 const CronJob = require('cron').CronJob;
 
@@ -13,7 +13,7 @@ Core.gpio.leds.forEach(led => {
 	Led[led.id] = new Gpio(led.pin, led.direction);
 });
 
-Flux.interface.led.subscribe({
+Core.flux.interface.led.subscribe({
 	next: flux => {
 		//log.info(flux, '(you are in the led module !)');
 		if (flux.id == 'toggle') {

@@ -3,12 +3,12 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new(require(Core._CORE + 'Logger.js'))(__filename);
-const Flux = require(Core._CORE + 'Flux.js');
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+// const Flux = require(Core._CORE + 'Flux.js');
 const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 
-Flux.controller.watcher.subscribe({
+Core.flux.controller.watcher.subscribe({
 	next: flux => {
 		if (flux.id == 'startWatch') {
 			startWatch();
@@ -43,18 +43,22 @@ function stopWatch() {
 var timer;
 
 function addWatcher(path, action) {
-	let watcher = fs.watch(path, {
-		recursive: true
-	}, (eventType, filename) => {
-		if (eventType) {
-			if (!timer) {
-				timer = new Date();
+	let watcher = fs.watch(
+		path,
+		{
+			recursive: true
+		},
+		(eventType, filename) => {
+			if (eventType) {
+				if (!timer) {
+					timer = new Date();
+				}
+				let logInfo = path.match(/\/(\w*)\/$/g);
+				log.info(eventType, logInfo[0] || logInfo, filename, '[' + Utils.executionTime(timer) + 'ms]');
+				waitForUpdateEnd(action);
 			}
-			let logInfo = path.match(/\/(\w*)\/$/g);
-			log.info(eventType, logInfo[0] || logInfo, filename, '[' + Utils.executionTime(timer) + 'ms]');
-			waitForUpdateEnd(action);
 		}
-	});
+	);
 	return watcher;
 }
 

@@ -6,6 +6,7 @@ const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
 const Lock = require(_PATH + 'src/core/Lock.js');
 const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
+const spawn = require('child_process').spawn;
 const CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 
 var Core = {};
@@ -38,6 +39,11 @@ var Flux = {
 
 function initializeContext(path, descriptor, forcedParams, startTime) {
 	Core = setUpCoreObject(Core, descriptor);
+	if (Core.isAwake()) {
+		spawn('sh', [_PATH + 'src/shell/init.sh']);
+		spawn('sh', [_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
+	}
+
 	let packageJson = require(_PATH + 'package.json');
 	var confUpdate = {
 			startTime: Utils.logTime('h:m (D/M)')
@@ -79,6 +85,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	Core.descriptor = descriptor;
 
 	Flux = require(Core._CORE + 'Flux.js').attach(descriptor.modules);
+	Core.flux = Flux;
 	Core.do = Flux.next;
 	Core.do('interface|runtime|update', confUpdate, {
 		delay: 0.5
@@ -94,6 +101,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	});
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
+	Flux.loadModules(descriptor.modules);
 	return Core;
 }
 

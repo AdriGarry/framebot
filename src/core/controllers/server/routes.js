@@ -4,7 +4,7 @@
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
 const log = new(require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
-const Flux = require(Core._CORE + 'Flux.js');
+// const Flux = require(Core._CORE + 'Flux.js');
 const Utils = require(_PATH + 'src/core/Utils.js');
 const admin = require(_PATH + 'src/core/services/admin.js');
 const spawn = require('child_process').spawn;

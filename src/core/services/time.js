@@ -3,12 +3,12 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new(require(Core._CORE + 'Logger.js'))(__filename);
+const log = new (require(Core._CORE + 'Logger.js'))(__filename);
 const Utils = require(_PATH + 'src/core/Utils.js');
-const Flux = require(Core._CORE + 'Flux.js');
+// const Flux = require(Core._CORE + 'Flux.js');
 const spawn = require('child_process').spawn;
 
-Flux.service.time.subscribe({
+Core.flux.service.time.subscribe({
 	next: flux => {
 		if (flux.id == 'now') {
 			now();
@@ -91,20 +91,24 @@ function getSeason() {
 /** Function to disable all alarms */
 function disableAllAlarms() {
 	Core.do('interface|tts|speak', 'Annulation de toutes les alarmes');
-	Core.do('interface|runtime|updateRestart', {
-		alarms: {
-			weekDay: null,
-			weekEnd: null
+	Core.do(
+		'interface|runtime|updateRestart',
+		{
+			alarms: {
+				weekDay: null,
+				weekEnd: null
+			}
+		},
+		{
+			delay: 4
 		}
-	}, {
-		delay: 4
-	});
+	);
 }
 
 /** Function to set custom alarm */
 function setAlarm(alarm) {
 	var newAlarms = {};
-	Object.keys(Core.conf('alarms')).forEach(function (key, index) {
+	Object.keys(Core.conf('alarms')).forEach(function(key, index) {
 		if (key == alarm.when) {
 			newAlarms[key] = {
 				h: alarm.h,
@@ -118,11 +122,15 @@ function setAlarm(alarm) {
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
 	let alarmTTS = 'Alarme ' + alarmMode + ' reprogramer a ' + alarm.h + ' heure ' + (alarm.m ? alarm.m : '');
 	Core.do('interface|tts|speak', alarmTTS);
-	Core.do('interface|runtime|updateRestart', {
-		alarms: newAlarms
-	}, {
-		delay: 6
-	});
+	Core.do(
+		'interface|runtime|updateRestart',
+		{
+			alarms: newAlarms
+		},
+		{
+			delay: 6
+		}
+	);
 }
 
 /** Function to test if alarm now */
@@ -156,10 +164,10 @@ function cocorico(mode) {
 	// TODO remove sea mode information
 	log.info('Morning Sea...');
 	spawn('sh', [Core._SHELL + 'sounds.sh', 'MorningSea']);
-	Utils.getMp3Duration(Core._MP3 + 'system/morningSea.mp3', function (seaDuration) {
+	Utils.getMp3Duration(Core._MP3 + 'system/morningSea.mp3', function(seaDuration) {
 		log.debug('seaDuration', seaDuration);
 		alarmDelay = seaDuration * 1000;
-		setTimeout(function () {
+		setTimeout(function() {
 			cocoricoPart2(mode);
 		}, alarmDelay);
 	});
@@ -172,7 +180,7 @@ function cocoricoPart2(mode) {
 	spawn('sh', [Core._SHELL + 'sounds.sh', 'cocorico']);
 	if (isBirthday()) {
 		birthdaySong();
-		setTimeout(function () {
+		setTimeout(function() {
 			cocoricoPart3();
 		}, 53 * 1000);
 	} else {
@@ -285,13 +293,17 @@ function setTimer(minutes) {
 
 function startTimer() {
 	let etat = 1;
-	secInterval = setInterval(function () {
-		Core.do('interface|led|toggle', {
-			leds: ['belly'],
-			value: etat
-		}, {
-			hidden: true
-		});
+	secInterval = setInterval(function() {
+		Core.do(
+			'interface|led|toggle',
+			{
+				leds: ['belly'],
+				value: etat
+			},
+			{
+				hidden: true
+			}
+		);
 		etat = 1 - etat;
 		if (Core.run('timer') < 10) {
 			spawn('sh', [Core._SHELL + 'timerSound.sh', 'almost']); // TODO use sound.js
@@ -314,12 +326,16 @@ function startTimer() {
 				loop: 12
 			});
 			Core.do('interface|tts|speak', 'Les raviolis sont cuits !');
-			Core.do('interface|led|toggle', {
-				leds: ['belly'],
-				value: 0
-			}, {
-				delay: 1
-			});
+			Core.do(
+				'interface|led|toggle',
+				{
+					leds: ['belly'],
+					value: 0
+				},
+				{
+					delay: 1
+				}
+			);
 		}
 	}, 1000);
 }
@@ -334,11 +350,15 @@ function stopTimer() {
 			lg: 'en',
 			msg: 'Timer canceled'
 		});
-		Core.do('interface|led|toggle', {
-			leds: ['belly'],
-			value: 0
-		}, {
-			hidden: true
-		});
+		Core.do(
+			'interface|led|toggle',
+			{
+				leds: ['belly'],
+				value: 0
+			},
+			{
+				hidden: true
+			}
+		);
 	}
 }

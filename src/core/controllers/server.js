@@ -8,7 +8,7 @@
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
 const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
-const Flux = require(Core._CORE + 'Flux.js');
+// const Flux = require(Core._CORE + 'Flux.js');
 const http = require('http');
 const https = require('https');
 const express = require('express');
@@ -28,7 +28,7 @@ var credentials = {
 var ui = express(),
 	uiHttps = express();
 
-Flux.controller.server.subscribe({
+Core.flux.controller.server.subscribe({
 	next: flux => {
 		if (flux.id == 'startUIServer') {
 			startUIServer();

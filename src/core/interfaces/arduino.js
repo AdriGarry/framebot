@@ -3,14 +3,14 @@
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
 const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-const Flux = require(Core._CORE + 'Flux.js');
+// const Flux = require(Core._CORE + 'Flux.js');
 const Utils = require(Core._CORE + 'Utils.js');
 const SerialPort = require('serialport');
 
 const ARDUINO = { address: '/dev/ttyACM0', baudRate: 115200 };
 var arduino;
 
-Flux.interface.arduino.subscribe({
+Core.flux.interface.arduino.subscribe({
 	next: flux => {
 		if (flux.id == 'connect') {
 			connect();

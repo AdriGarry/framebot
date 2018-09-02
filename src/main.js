@@ -22,17 +22,12 @@ var Core = require(_PATH + 'src/core/Core.js').init(
 	forcedParams,
 	startTime
 );
-const spawn = require('child_process').spawn;
-if (Core.isAwake()) {
-	spawn('sh', [_PATH + 'src/shell/init.sh']);
-	spawn('sh', [_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
-}
 
 const log = new (require(Core._CORE + 'Logger.js'))(__filename, Core.conf('mode'));
 log.debug('argv', argv);
 
 const Utils = require(Core._CORE + 'Utils.js');
-const Flux = require(Core._CORE + 'Flux.js').loadModules(descriptor.modules);
+// const Flux = require(Core._CORE + 'Flux.js').loadModules(descriptor.modules);
 
 log.info('--> ' + Core.name + ' ready in ' + Utils.executionTime(startTime) + 'ms');
 

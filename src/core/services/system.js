@@ -3,13 +3,13 @@
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
 const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-const Flux = require(Core._CORE + 'Flux.js');
+// const Flux = require(Core._CORE + 'Flux.js');
 const Utils = require(_PATH + 'src/core/Utils.js');
 const spawn = require('child_process').spawn;
 const fs = require('fs');
 const os = require('os');
 
-Flux.service.system.subscribe({
+Core.flux.service.system.subscribe({
 	next: flux => {
 		if (flux.id == 'restart') {
 			/* || flux.id == 'restartCore'*/

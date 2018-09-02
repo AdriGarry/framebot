@@ -3,11 +3,11 @@
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
 const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-const Flux = require(Core._CORE + 'Flux.js');
+// const Flux = require(Core._CORE + 'Flux.js');
 const Utils = require(Core._CORE + 'Utils.js');
 const fs = require('fs');
 
-Flux.service.voicemail.subscribe({
+Core.flux.service.voicemail.subscribe({
 	next: flux => {
 		if (flux.id == 'new') {
 			addVoiceMailMessage(flux.value);

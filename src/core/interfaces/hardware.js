@@ -4,7 +4,7 @@
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
 const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-const Flux = require(Core._CORE + 'Flux.js');
+// const Flux = require(Core._CORE + 'Flux.js');
 const Utils = require(_PATH + 'src/core/Utils.js');
 const Gpio = require('onoff').Gpio;
 const fs = require('fs');
@@ -16,7 +16,7 @@ retreiveLastModifiedDate(PATHS);
 countSoftwareLines();
 getDiskSpace();
 
-Flux.interface.hardware.subscribe({
+Core.flux.interface.hardware.subscribe({
 	next: flux => {
 		if (flux.id == 'runtime') {
 			let execTime = new Date();
