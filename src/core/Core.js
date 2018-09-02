@@ -60,20 +60,15 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	if (forcedParams.debug) {
 		forcedParamsLog += 'debug ';
 	}
-	const logo = fs
-		.readFileSync(Core._CONF + Core.name + '.logo', 'utf8')
-		.toString()
-		.split('\n');
-	console.log('\n' + logo.join('\n'));
 	if (forcedParams.test) {
 		confUpdate.mode = 'test';
 		forcedParamsLog += 'test ';
 	}
 	if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
+	console.log('\n' + fs.readFileSync(Core._CONF + Core.name + '.logo', 'utf8').toString());
 	log.table(Core.conf(), 'CONFIG');
 	log.info('Core initialization...');
-	//, Core.conf('debug') ? 'DEBUG' + (Core.conf('debug') == 'forced' ? ' [FORCED!]' : '') : ''); //TODO recup le forced
 
 	if (Core.conf('log') != 'info') log.level(Core.conf('log'));
 
@@ -102,6 +97,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
 	Flux.loadModules(descriptor.modules);
+	Object.seal(Core);
 	return Core;
 }
 

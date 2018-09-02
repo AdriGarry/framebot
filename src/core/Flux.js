@@ -3,7 +3,7 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new(require(_PATH + 'src/core/Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+const log = new (require(_PATH + 'src/core/Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 const Utils = require(_PATH + 'src/core/Utils.js');
 const util = require('util');
 const Rx = require('rxjs');
@@ -33,7 +33,7 @@ function attachObservers(observers) {
 }
 
 function loadModules(modules) {
-	Object.keys(modules).forEach(function (module) {
+	Object.keys(modules).forEach(function(module) {
 		let modulesLoaded = '';
 		for (let i = 0; i < modules[module].base.length; i++) {
 			require(Core._CORE + module + '/' + modules[module].base[i] + '.js');
@@ -95,8 +95,8 @@ function FluxObject(id, data, conf) {
 	};
 
 	this.fire = () => {
-		if (this.hidden) log.trace( /*Utils.stackPosition() + */ '> Flux', this.toString());
-		else log.info( /*Utils.stackPosition() + */ '> Flux', this.toString());
+		if (this.hidden) log.trace(/*Utils.stackPosition() + */ '> Flux', this.toString());
+		else log.info(/*Utils.stackPosition() + */ '> Flux', this.toString());
 		Flux[this.type][this.subject].next({
 			id: this.id,
 			value: this.value
