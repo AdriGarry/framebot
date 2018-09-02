@@ -1,5 +1,5 @@
 'use strict';
-app.controller('UIController', function(
+app.controller('UIController', function (
 	$rootScope,
 	$scope,
 	$location,
@@ -37,17 +37,17 @@ app.controller('UIController', function(
 	$scope.readyToRefresh = true;
 	var failedRefreshs = 0;
 	$scope.connexionLost = false;
-	$scope.refreshDashboard = function() {
+	$scope.refreshDashboard = function () {
 		if ($scope.dashboard.autoRefresh && $scope.readyToRefresh) {
 			$scope.dashboard.refreshing = true;
-			UIService.refreshDashboard(function(data) {
+			UIService.refreshDashboard(function (data) {
 				if (data) {
 					$scope.dashboard.odiState = setOdiState(data);
 					$scope.dashboard.run = data.run;
 					$scope.dashboard.runningData = data;
 					$scope.connexionLost = false;
 					failedRefreshs = 0;
-					$timeout(function() {
+					$timeout(function () {
 						$scope.dashboard.refreshing = false;
 					}, 100);
 				} else {
@@ -57,7 +57,7 @@ app.controller('UIController', function(
 				}
 			});
 			$scope.readyToRefresh = false;
-			$timeout(function() {
+			$timeout(function () {
 				$scope.readyToRefresh = true;
 				if ($scope.dashboard.refreshing) $scope.refreshDashboard();
 			}, 2000);
@@ -88,24 +88,24 @@ app.controller('UIController', function(
 	}
 
 	/** Function to reloadUI */
-	$scope.reloadUI = function() {
+	$scope.reloadUI = function () {
 		console.log('reloadUI');
-		$timeout(function() {
+		$timeout(function () {
 			$window.location.reload();
 		}, 300);
 	};
 
 	/** Function to show/hide menu */
-	$scope.toggleMenu = function() {
+	$scope.toggleMenu = function () {
 		if (!$scope.menuOpen) {
 			$scope.menuOpen = true;
 			$mdSidenav('logs').close();
 			$mdDialog.cancel();
-			$timeout(function() {
+			$timeout(function () {
 				$mdSidenav('menu')
 					.toggle()
-					.then(function() {});
-				$mdSidenav('menu').onClose(function() {
+					.then(function () {});
+				$mdSidenav('menu').onClose(function () {
 					$scope.menuOpen = false;
 				});
 			}, 200);
@@ -113,26 +113,26 @@ app.controller('UIController', function(
 			$scope.menuOpen = false;
 			$mdSidenav('menu')
 				.close()
-				.then(function() {});
+				.then(function () {});
 		}
 	};
 
 	/** Function to show logs */
-	$scope.showLogs = function() {
+	$scope.showLogs = function () {
 		$mdSidenav('menu').close();
 		$scope.logData = undefined;
-		$timeout(function() {
+		$timeout(function () {
 			$mdSidenav('logs')
 				.toggle()
-				.then(function() {
+				.then(function () {
 					$scope.refreshLog();
 				});
 		}, 200);
 	};
 
 	/** Function to show logs */
-	$scope.showErrors = function() {
-		UIService.getRequest('https://odi.adrigarry.com/errors', function(data) {
+	$scope.showErrors = function () {
+		UIService.getRequest('https://odi.adrigarry.com/errors', function (data) {
 			$mdDialog.show({
 				controller: DialogController,
 				templateUrl: 'templates/dialog.html',
@@ -148,59 +148,59 @@ app.controller('UIController', function(
 	};
 
 	/** Function to hide logs */
-	$scope.hideLogs = function() {
+	$scope.hideLogs = function () {
 		$mdSidenav('logs')
 			.close()
-			.then(function() {});
+			.then(function () {});
 	};
 
 	/** Function to refresh logs */
-	$scope.refreshLog = function() {
-		UIService.updateLogs(function(logs) {
+	$scope.refreshLog = function () {
+		UIService.updateLogs(function (logs) {
 			$scope.logData = logs.split('\n');
 		});
 	};
 
 	/** Function to action for header & fab buttons */
-	$scope.action = function(action) {
-		UIService.sendCommand(action, function(data) {
+	$scope.action = function (action) {
+		UIService.sendCommand(action, function (data) {
 			$scope.refreshDashboard();
 		});
 	};
 
 	/** Function to show fab buttons for 5 seconds */
 	var timeout;
-	$scope.showFabButtons = function() {
+	$scope.showFabButtons = function () {
 		if (timeout) {
 			$timeout.cancel(timeout);
 		}
 		$scope.fabButtonsVisible = true;
-		timeout = $timeout(function() {
+		timeout = $timeout(function () {
 			$scope.fabButtonsVisible = false;
 		}, 4000);
 	};
-	$timeout(function() {
+	$timeout(function () {
 		$scope.showFabButtons();
 	}, 2000);
 
 	/** Function to inject HTML code */
-	$scope.toHtml = function(html) {
+	$scope.toHtml = function (html) {
 		return $sce.trustAsHtml(html);
 	};
 
 	/** Function to expand Tile */
-	$scope.expandTile = function(obj) {
+	$scope.expandTile = function (obj) {
 		if (obj.hasOwnProperty('rowspan')) obj.rowspan = 2;
 	};
 
 	/** Function to reduce Tile */
-	$scope.reduceTile = function(obj) {
+	$scope.reduceTile = function (obj) {
 		console.log(obj);
 		obj.rowspan = 1;
 		console.log(obj);
 	};
 
-	$scope.toggleDebugMode = function() {
+	$scope.toggleDebugMode = function () {
 		var cmd = {
 			label: '!Debug',
 			url: '/toggleDebug'
@@ -209,7 +209,7 @@ app.controller('UIController', function(
 		UIService.sendCommand(cmd);
 	};
 
-	$scope.showDialog = function(modal) {
+	$scope.showDialog = function (modal) {
 		$mdDialog.show({
 			controller: DialogController,
 			templateUrl: 'templates/dialog.html',
@@ -223,10 +223,10 @@ app.controller('UIController', function(
 	};
 
 	/** Function to toggle grant access */
-	$scope.toggleGrant = function(ev) {
+	$scope.toggleGrant = function (ev) {
 		$scope.toggleMenu();
 		if (!$rootScope.irda) {
-			$timeout(function() {
+			$timeout(function () {
 				$mdDialog
 					.show({
 						controller: AdminDialogController,
@@ -236,7 +236,7 @@ app.controller('UIController', function(
 						clickOutsideToClose: true,
 						fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints
 					})
-					.then(function(answer) {
+					.then(function (answer) {
 						$scope.requireGrantAccess(answer);
 					});
 			}, 100);
@@ -245,8 +245,11 @@ app.controller('UIController', function(
 		}
 	};
 
-	$scope.requireGrantAccess = function(param) {
-		UIService.sendCommand({ url: '/grant', data: param }, function(data) {
+	$scope.requireGrantAccess = function (param) {
+		UIService.sendCommand({
+			url: '/grant',
+			data: param
+		}, function (data) {
 			$rootScope.irda = data;
 			if ($rootScope.irda) {
 				// UIService.showToast('Access granted !');
@@ -259,7 +262,7 @@ app.controller('UIController', function(
 	if (param) $scope.requireGrantAccess(param);
 
 	/** Loading until app bootstrapped */
-	angular.element(document).ready(function() {
+	angular.element(document).ready(function () {
 		angular.element(document.querySelector('.loading')).removeClass('loading');
 	});
 });
@@ -282,7 +285,10 @@ function BottomSheetController($scope, $mdDialog, modal){
 
 function DialogController($scope, $mdDialog, data, from) {
 	//console.log('$scope.modal.data', $scope.modal.data);
-	$scope.modal = { raw: data, from: from };
+	$scope.modal = {
+		raw: data,
+		from: from
+	};
 	if (typeof data == 'string') {
 		$scope.modal.data = data.split('\n');
 	} else {
@@ -293,24 +299,24 @@ function DialogController($scope, $mdDialog, data, from) {
 	$scope.isNumber = angular.isNumber;
 
 	/** Function to close modal */
-	$scope.close = function() {
+	$scope.close = function () {
 		$mdDialog.cancel();
 	};
 }
 
 function AdminDialogController($scope, $mdDialog) {
 	/** Function to close modal */
-	$scope.hide = function() {
+	$scope.hide = function () {
 		$mdDialog.hide();
 	};
 
 	/** Function to close modal */
-	$scope.cancel = function() {
+	$scope.cancel = function () {
 		$mdDialog.cancel();
 	};
 
 	/** Function to submit modal */
-	$scope.answer = function(answer) {
+	$scope.answer = function (answer) {
 		$mdDialog.hide(answer);
 	};
 }
