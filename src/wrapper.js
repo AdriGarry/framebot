@@ -1,5 +1,5 @@
 #!/usr/bin/env node
- // 'use strict'; //Octal literals are not allowed in strict mode.
+// 'use strict'; //Octal literals are not allowed in strict mode.
 
 console.log('nodejs.version=' + process.version);
 
@@ -54,7 +54,7 @@ function wrapper(code) {
 		persistentWatch: true,
 		debounceTimeout: 500
 	});
-	okButton.watch(function (err, value) {
+	okButton.watch(function(err, value) {
 		console.log('\nOk Button pushed, restarting Core');
 		restartCoreFromWrapper(code);
 	});
@@ -84,15 +84,15 @@ function startCore(exitCode) {
 	}
 	var Core = spawn('node', coreProgramWithParams);
 
-	Core.stdout.on('data', function (data) {
+	Core.stdout.on('data', function(data) {
 		process.stdout.write(data);
 	});
 
-	Core.stderr.on('data', function (data) {
+	Core.stderr.on('data', function(data) {
 		process.stdout.write(data);
 	});
 
-	Core.on('exit', function (code) {
+	Core.on('exit', function(code) {
 		spawn('sh', [SRC_PATH + 'shell/mute.sh']);
 		console.log('\n>> Core restarting... [code:' + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
@@ -153,7 +153,7 @@ function reInitConf() {
 	console.log('> CONF reset');
 }
 
-Array.prototype.remove = function () {
+Array.prototype.remove = function() {
 	var what,
 		a = arguments,
 		L = a.length,

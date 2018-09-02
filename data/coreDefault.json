@@ -38,5 +38,45 @@
 			"blue": 0,
 			"blueError": 0
 		}
+	},
+	"jobs": {
+		"base": [
+			{
+				"cron": "*/30 * * * * *",
+				"flux": { "id": "interface|hardware|runtime", "conf": { "hidden": true } }
+			},
+			{
+				"cron": "1 * * * * *",
+				"flux": { "id": "service|time|isAlarm", "conf": { "hidden": true } }
+			},
+			{
+				"cron": "0 2 0 * * 1",
+				"flux": { "id": "interface|hardware|archiveLog" }
+			}
+		],
+		"full": [
+			{
+				"cron": "5 0 0 * * 1-5",
+				"flux": { "id": "service|system|goToSleep" }
+			},
+			{
+				"cron": "5 0 2 * * 0,6",
+				"flux": { "id": "service|system|goToSleep" }
+			},
+			{
+				"cron": "13 13 13 * * 1-6",
+				"flux": [
+					{ "id": "interface|tts|speak", "data": { "lg": "en", "msg": "Auto restart" } },
+					{ "id": "service|system|restart", "conf": { "delay": 3 } }
+				]
+			},
+			{
+				"cron": "13 13 13 * * 0",
+				"flux": [
+					{ "id": "interface|tts|speak", "data": { "lg": "en", "msg": "Reset config" } },
+					{ "id": "interface|runtime|reset", "data": true, "conf": { "delay": 3 } }
+				]
+			}
+		]
 	}
 }

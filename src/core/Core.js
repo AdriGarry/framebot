@@ -26,6 +26,7 @@ function setUpCoreObject(Core, descriptor) {
 	Core.run = new Lock(CORE_DEFAULT.runtime);
 	Core.isAwake = isAwake;
 	Core.descriptor = descriptor; // TODO useless?
+	Core.default = CORE_DEFAULT;
 	Core.error = error;
 	Core.errors = [];
 	Core.gpio = require(Core._CONF + 'gpio.json');
