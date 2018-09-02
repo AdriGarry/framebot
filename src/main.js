@@ -28,8 +28,7 @@ if (Core.isAwake()) {
 	spawn('sh', [_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
 }
 
-const log = new(require(Core._CORE + 'Logger.js'))(__filename, Core.conf('mode'));
-// log.setMode(Core.conf('log'));
+const log = new (require(Core._CORE + 'Logger.js'))(__filename, Core.conf('mode'));
 log.debug('argv', argv);
 
 const Utils = require(Core._CORE + 'Utils.js');
@@ -45,18 +44,21 @@ if (!Core.isAwake()) {
 		lg: 'en',
 		msg: 'test sequence'
 	});
-	setTimeout(function () {
-		var testSequence = require(Core._SRC + 'test/tests.js').launch(function (testStatus) {
-			let testTTS = Utils.rdm() ? 'Je suis Ok !' : {
-				lg: 'en',
-				msg: 'all tests succeeded!'
-			};
+	setTimeout(function() {
+		var testSequence = require(Core._SRC + 'test/tests.js').launch(function(testStatus) {
+			let testTTS = Utils.rdm()
+				? 'Je suis Ok !'
+				: {
+						lg: 'en',
+						msg: 'all tests succeeded!'
+				  };
 			Flux.next('interface|tts|speak', testTTS);
-			setTimeout(function () {
+			setTimeout(function() {
 				// if (testStatus) Flux.next('interface|runtime|updateRestart', { mode: 'ready' });
-				if (testStatus) Flux.next('interface|runtime|updateRestart', {
-					mode: 'ready'
-				});
+				if (testStatus)
+					Flux.next('interface|runtime|updateRestart', {
+						mode: 'ready'
+					});
 			}, 3000);
 		});
 	}, 1000);
@@ -72,23 +74,12 @@ if (Core.conf('watcher')) {
 	Flux.next('controller|watcher|startWatch');
 }
 
-if (Core.isAwake() && !Core.run('alarm')) {
-	// Flux.next('interface|arduino|write', 'Blink-1-2-3', { delay: 3 });
-	// Flux.next('service|max|playOneMelody', null, { delay: 13, loop: 2 });
-}
-
-// var arr = ['aaa', 'bbb'];
-// console.log('---->');
-
-// for (var i = 0; i < 13; i++) {
-// 	console.log(Utils.randomItem(arr));
-// 	// console.log(Utils.random(2));
-// }
-
 if (Core.isAwake() && Core.conf('watcher')) {
 	// TODO put this in a callable function from UI!
-	for (var i = 0, tts;
-		(tts = Core.ttsMessages.random[i]); i++) {
+	for (var i = 0, tts; (tts = Core.ttsMessages.random[i]); i++) {
 		//Flux.next('interface|tts|speak', tts, { delay: 2 });
 	}
 }
+
+// Core.do('interface|tts|speak', { lg: 'en', msg: 'Core dot do' });
+// Core.do('tts|speak', { lg: 'en', msg: 'Core dot do' });
