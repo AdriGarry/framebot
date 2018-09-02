@@ -21,35 +21,35 @@ function buttonHandler(flux) {
 		if (flux.id == 'ok') {
 			if (Core.run('mood').indexOf('party') > -1) {
 				if (Utils.rdm()) {
-					Flux.next('service|party|tts');
+					Core.do('service|party|tts');
 				} else {
-					Flux.next('service|mood|badBoy');
+					Core.do('service|mood|badBoy');
 				}
 			} else {
 				if (Core.run('voicemail')) {
-					Flux.next('service|voicemail|check');
+					Core.do('service|voicemail|check');
 				} else {
-					Flux.next('service|interaction|random');
+					Core.do('service|interaction|random');
 				}
 			}
 		} else if (flux.id == 'cancel') {
 			if (flux.value < 1) {
 				// Mute, do nothing
 			} else if (flux.value >= 1 && flux.value < 3) {
-				Flux.next('service|system|restart');
+				Core.do('service|system|restart');
 			} else if (flux.value >= 3 && flux.value < 6) {
-				Flux.next('service|system|restart', 'sleep');
+				Core.do('service|system|restart', 'sleep');
 			} else if (flux.value > 6) {
-				Flux.next('service|system|restart', 'test');
+				Core.do('service|system|restart', 'test');
 			} else Core.error('Button->else', flux);
 		} else if (flux.id == 'white') {
-			Flux.next('service|time|timer', Math.round(flux.value));
+			Core.do('service|time|timer', Math.round(flux.value));
 		} else if (flux.id == 'blue') {
 			// if (flux.value > BTN_PUSH_MIN) {
 			if (Core.run('etat')) {
-				Flux.next('service|music|fip');
+				Core.do('service|music|fip');
 			} else {
-				Flux.next('service|music|jukebox');
+				Core.do('service|music|jukebox');
 			}
 			// } else {
 			// 	log.info('Blue button must be pushed for ' + BTN_PUSH_MIN + 's at least, try again !');
@@ -57,9 +57,9 @@ function buttonHandler(flux) {
 		} else Core.error('Button->else', flux);
 	} else {
 		if (flux.id == 'ok') {
-			Flux.next('service|system|restart');
+			Core.do('service|system|restart');
 		} else if (flux.id == 'white') {
-			Flux.next('service|system|light', flux.value * 60);
+			Core.do('service|system|light', flux.value * 60);
 		}
 	}
 	Core.run('buttonStats.' + flux.id, Core.run('buttonStats.' + flux.id) + 1);

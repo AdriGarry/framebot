@@ -32,7 +32,7 @@ function attachRoutes(ui) {
 function attachDefaultRoutes(ui) {
 	/** DASHBOARD SECTION */
 	ui.get('/dashboard', function (req, res) {
-		Flux.next('interface|hardware|runtime');
+		Core.do('interface|hardware|runtime');
 		var etatBtn = Core.run('etat');
 		var cpuTemp = Core.run('cpu.temp');
 		var cpuUsage = Core.run('cpu.usage');
@@ -122,7 +122,7 @@ function attachDefaultRoutes(ui) {
 	});
 
 	ui.get('/runtime', function (req, res) {
-		Flux.next('interface|hardware|runtime');
+		Core.do('interface|hardware|runtime');
 		log.table(Core.run(), 'RUNTIME...');
 		res.end(JSON.stringify(Core.run()));
 	});
@@ -153,7 +153,7 @@ function attachDefaultRoutes(ui) {
 
 	/** ==> POST SECTION */
 	ui.post('/odi', function (req, res) {
-		Flux.next('service|system|restart', null, {
+		Core.do('service|system|restart', null, {
 			delay: 1
 		});
 
@@ -164,7 +164,7 @@ function attachDefaultRoutes(ui) {
 		log.info('UI > Toggle debug');
 		let newLogLevel = log.level() == 'debug' ? 'info' : 'debug';
 		log.level(newLogLevel);
-		Flux.next('interface|runtime|update', {
+		Core.do('interface|runtime|update', {
 			log: newLogLevel
 		});
 		// Core.conf('log', newLogLevel, false, true);
@@ -175,7 +175,7 @@ function attachDefaultRoutes(ui) {
 		log.info('UI > Toggle trace');
 		let newLogLevel = log.level() == 'trace' ? 'info' : 'trace';
 		log.level(newLogLevel);
-		Flux.next('interface|runtime|update', {
+		Core.do('interface|runtime|update', {
 			log: newLogLevel
 		});
 		// Core.conf('log', newLogLevel, false, true);
@@ -183,7 +183,7 @@ function attachDefaultRoutes(ui) {
 	});
 
 	ui.post('/testSequence', function (req, res) {
-		Flux.next('interface|runtime|updateRestart', {
+		Core.do('interface|runtime|updateRestart', {
 			mode: 'test'
 		}, {
 			delay: 1
@@ -193,70 +193,70 @@ function attachDefaultRoutes(ui) {
 
 	ui.post('/watcher', function (req, res) {
 		if (Core.conf('watcher')) {
-			Flux.next('controller|watcher|stopWatch');
+			Core.do('controller|watcher|stopWatch');
 		} else {
-			Flux.next('controller|watcher|startWatch');
+			Core.do('controller|watcher|startWatch');
 		}
 		res.end();
 	});
 
 	ui.post('/demo', function (req, res) {
-		Flux.next('service|interaction|demo');
+		Core.do('service|interaction|demo');
 		res.end();
 	});
 
 	ui.post('/resetConfig', function (req, res) {
 		log.debug('UI > Reset config');
-		Flux.next('interface|runtime|reset', true, {
+		Core.do('interface|runtime|reset', true, {
 			delay: 1
 		});
 		res.end();
 	});
 
 	ui.post('/sleep', function (req, res) {
-		Flux.next('service|system|restart', 'sleep', {
+		Core.do('service|system|restart', 'sleep', {
 			delay: 1
 		});
 		res.end();
 	});
 
 	ui.post('/reboot', function (req, res) {
-		Flux.next('service|system|reboot', null, {
+		Core.do('service|system|reboot', null, {
 			delay: 1
 		});
 		res.end();
 	});
 
 	ui.post('/shutdown', function (req, res) {
-		Flux.next('service|system|shutdown', null, {
+		Core.do('service|system|shutdown', null, {
 			delay: 1
 		});
 		res.end();
 	});
 
 	ui.post('/light', function (req, res) {
-		Flux.next('service|system|light', 30);
+		Core.do('service|system|light', 30);
 		res.end();
 	});
 
 	ui.post('/mute', function (req, res) {
-		Flux.next('interface|sound|mute');
+		Core.do('interface|sound|mute');
 		res.end();
 	});
 
 	ui.post('/alarm', function (req, res) {
 		let params = req.body;
-		Flux.next('service|time|setAlarm', params);
+		Core.do('service|time|setAlarm', params);
 		res.end();
 	});
 
 	ui.post('/alarmOff', function (req, res) {
-		Flux.next('service|time|alarmOff');
+		Core.do('service|time|alarmOff');
 		res.end();
 	});
 
 	ui.post('/archiveLog', function (req, res) {
-		Flux.next('interface|hardware|archiveLog');
+		Core.do('interface|hardware|archiveLog');
 		res.end();
 	});
 
@@ -268,7 +268,7 @@ function attachDefaultRoutes(ui) {
 			log.info('>> Admin granted !');
 		} else {
 			Core.error('>> User NOT granted /!\\', pattern, false);
-			Flux.next('interface|tts|speak', {
+			Core.do('interface|tts|speak', {
 				lg: 'en',
 				msg: 'User NOT granted'
 			}, {
@@ -285,13 +285,13 @@ function attachAwakeRoutes(ui) {
 		let params = req.query;
 		if (params.voice && params.lg && params.msg) {
 			if (params.hasOwnProperty('voicemail')) {
-				Flux.next('service|voicemail|new', {
+				Core.do('service|voicemail|new', {
 					voice: params.voice,
 					lg: params.lg,
 					msg: params.msg
 				});
 			} else {
-				Flux.next('interface|tts|speak', {
+				Core.do('interface|tts|speak', {
 					voice: params.voice,
 					lg: params.lg,
 					msg: params.msg
@@ -300,28 +300,28 @@ function attachAwakeRoutes(ui) {
 			params.timestamp = Utils.logTime('D/M h:m:s', new Date());
 			Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
 		} else {
-			Flux.next('interface|tts|random');
+			Core.do('interface|tts|random');
 		}
 		res.end();
 	});
 
 	ui.post('/lastTTS', function (req, res) {
-		Flux.next('interface|tts|lastTTS');
+		Core.do('interface|tts|lastTTS');
 		res.end();
 	});
 
 	ui.post('/checkVoiceMail', function (req, res) {
-		Flux.next('service|voicemail|check', true);
+		Core.do('service|voicemail|check', true);
 		res.end();
 	});
 
 	ui.post('/clearVoiceMail', function (req, res) {
-		Flux.next('service|voicemail|clear');
+		Core.do('service|voicemail|clear');
 		res.end();
 	});
 
 	ui.post('/idea', function (req, res) {
-		Flux.next('interface|tts|speak', {
+		Core.do('interface|tts|speak', {
 			lg: 'en',
 			msg: "I've got an idea !"
 		});
@@ -331,14 +331,14 @@ function attachAwakeRoutes(ui) {
 	ui.post('/badBoy', function (req, res) {
 		let params = req.body;
 		log.debug('/badBoy', params);
-		Flux.next('service|mood|badBoy', params.value);
+		Core.do('service|mood|badBoy', params.value);
 		res.end();
 	});
 
 	ui.post('/java', function (req, res) {
 		let params = req.body;
 		log.debug('/java', params);
-		Flux.next('service|mood|java', params.value);
+		Core.do('service|mood|java', params.value);
 		res.end();
 	});
 
@@ -347,25 +347,25 @@ function attachAwakeRoutes(ui) {
 		log.debug('/russia', params);
 		if (params.hasOwnProperty('hymn')) {
 			spawn('sh', [Core._SHELL + 'music.sh', 'urss']);
-			Flux.next('interface|led|altLeds', {
+			Core.do('interface|led|altLeds', {
 				speed: 70,
 				loop: 20
 			}, {
 				hidden: true
 			});
 		} else {
-			Flux.next('service|interaction|russia');
+			Core.do('service|interaction|russia');
 		}
 		res.end();
 	});
 
 	ui.post('/exclamation', function (req, res) {
-		Flux.next('service|interaction|exclamation');
+		Core.do('service|interaction|exclamation');
 		res.end();
 	});
 
 	ui.post('/fip', function (req, res) {
-		Flux.next('service|music|fip');
+		Core.do('service|music|fip');
 		res.end();
 	});
 
@@ -377,124 +377,124 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/jukebox', function (req, res) {
-		Flux.next('service|music|jukebox');
+		Core.do('service|music|jukebox');
 		res.end();
 	});
 
 	ui.post('/naheulbeuk', function (req, res) {
-		Flux.next('service|music|story', 'Naheulbeuk');
+		Core.do('service|music|story', 'Naheulbeuk');
 		res.end();
 	});
 
 	ui.post('/survivaure', function (req, res) {
-		Flux.next('service|music|story', 'Survivaure');
+		Core.do('service|music|story', 'Survivaure');
 		res.end();
 	});
 
 	ui.post('/arduino/connect', function (req, res) {
-		Flux.next('interface|arduino|connect');
+		Core.do('interface|arduino|connect');
 		res.end();
 	});
 
 	ui.post('/arduino/stop', function (req, res) {
-		Flux.next('interface|arduino|stop');
+		Core.do('interface|arduino|stop');
 		res.end();
 	});
 
 	ui.post('/max/blinkAllLed', function (req, res) {
-		Flux.next('service|max|blinkAllLed');
+		Core.do('service|max|blinkAllLed');
 		res.end();
 	});
 
 	ui.post('/max/blinkRdmLed', function (req, res) {
-		Flux.next('service|max|blinkRdmLed');
+		Core.do('service|max|blinkRdmLed');
 		res.end();
 	});
 
 	ui.post('/max/playOneMelody', function (req, res) {
-		Flux.next('service|max|playOneMelody');
+		Core.do('service|max|playOneMelody');
 		res.end();
 	});
 
 	ui.post('/max/playRdmMelody', function (req, res) {
-		Flux.next('service|max|playRdmMelody');
+		Core.do('service|max|playRdmMelody');
 		res.end();
 	});
 
 	ui.post('/max/hornRdm', function (req, res) {
-		Flux.next('service|max|hornRdm');
+		Core.do('service|max|hornRdm');
 		res.end();
 	});
 
 	ui.post('/max/turn', function (req, res) {
-		Flux.next('service|max|turn');
+		Core.do('service|max|turn');
 		res.end();
 	});
 
 	ui.post('/playVideo', function (req, res) {
-		Flux.next('interface|video|cycle');
+		Core.do('interface|video|cycle');
 		res.end();
 	});
 
 	ui.post('/videoOff', function (req, res) {
-		Flux.next('interface|video|screenOff');
+		Core.do('interface|video|screenOff');
 		res.end();
 	});
 
 	ui.post('/time', function (req, res) {
-		Flux.next('service|time|now');
+		Core.do('service|time|now');
 		res.end();
 	});
 
 	ui.post('/date', function (req, res) {
-		Flux.next('service|time|today');
+		Core.do('service|time|today');
 		res.end();
 	});
 
 	ui.post('/birthday', function (req, res) {
-		Flux.next('service|time|birthday');
+		Core.do('service|time|birthday');
 		res.end();
 	});
 
 	ui.post('/age', function (req, res) {
-		Flux.next('service|time|age');
+		Core.do('service|time|age');
 		res.end();
 	});
 
 	ui.post('/timer', function (req, res) {
 		let params = req.query; // affiner pour récupérer les params
 		if (params.hasOwnProperty('stop')) {
-			Flux.next('service|time|timer', 'stop');
+			Core.do('service|time|timer', 'stop');
 		} else {
 			var min = parseInt(params.min, 10) || 1;
-			Flux.next('service|time|timer', min);
+			Core.do('service|time|timer', min);
 		}
 		res.end();
 	});
 
 	ui.post('/weather', function (req, res) {
-		Flux.next('service|interaction|weather');
+		Core.do('service|interaction|weather');
 		res.end();
 	});
 	ui.post('/weatherInteractive', function (req, res) {
-		Flux.next('service|interaction|weather', 'interactive');
+		Core.do('service|interaction|weather', 'interactive');
 		res.end();
 	});
 
 	ui.post('/maya/song1', function (req, res) {
-		Flux.next('interface|tts|speak', {
+		Core.do('interface|tts|speak', {
 			voice: 'google',
 			msg: 'et un'
 		});
-		Flux.next('interface|tts|speak', {
+		Core.do('interface|tts|speak', {
 			voice: 'google',
 			msg: 'deux'
 		});
-		Flux.next('interface|tts|speak', {
+		Core.do('interface|tts|speak', {
 			voice: 'google',
 			msg: 'trois,'
 		});
-		Flux.next('interface|tts|speak', {
+		Core.do('interface|tts|speak', {
 			voice: 'google',
 			msg: 'nous irons au bois !'
 		});
@@ -515,31 +515,31 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/maya/goodNight', function (req, res) {
-		Flux.next('interface|tts|speak', {
+		Core.do('interface|tts|speak', {
 			voice: 'google',
 			msg: 'Bonne nuit Maya'
 		});
-		Flux.next('interface|tts|speak', 'Oui, fais de beaux reves !');
+		Core.do('interface|tts|speak', 'Oui, fais de beaux reves !');
 		res.end();
 	});
 
 	ui.post('/cpuTTS', function (req, res) {
-		Flux.next('interface|hardware|cpuTTS');
+		Core.do('interface|hardware|cpuTTS');
 		res.end();
 	});
 
 	ui.post('/soulTTS', function (req, res) {
-		Flux.next('interface|hardware|soulTTS');
+		Core.do('interface|hardware|soulTTS');
 		res.end();
 	});
 
 	ui.post('/diskSpaceTTS', function (req, res) {
-		Flux.next('interface|hardware|diskSpaceTTS');
+		Core.do('interface|hardware|diskSpaceTTS');
 		res.end();
 	});
 
 	ui.post('/totalLinesTTS', function (req, res) {
-		Flux.next('interface|hardware|totalLinesTTS');
+		Core.do('interface|hardware|totalLinesTTS');
 		res.end();
 	});
 
@@ -549,23 +549,23 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/setParty', function (req, res) {
-		Flux.next('service|party|start');
+		Core.do('service|party|start');
 		res.end();
 	});
 
 	ui.post('/partyTTS', function (req, res) {
-		Flux.next('service|party|tts');
+		Core.do('service|party|tts');
 		res.end();
 	});
 
 	ui.post('/pirate', function (req, res) {
-		Flux.next('service|party|pirate');
+		Core.do('service|party|pirate');
 		res.end();
 	});
 
 	ui.post('/test', function (req, res) {
 		spawn('sh', [Core._SHELL + 'sounds.sh', 'test']); //mouthTrick
-		Flux.next('interface|tts|speak', {
+		Core.do('interface|tts|speak', {
 			lg: 'en',
 			msg: '.undefined'
 		});
@@ -584,7 +584,7 @@ function attachSleepRoutes(ui) {
 		// Add Voice Mail Message
 		let params = req.query;
 		if (params['voice'] && params['lg'] && params['msg']) {
-			Flux.next('service|voicemail|new', {
+			Core.do('service|voicemail|new', {
 				voice: params.voice,
 				lg: params.lg,
 				msg: params.msg

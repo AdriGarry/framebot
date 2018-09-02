@@ -37,10 +37,10 @@ const Flux = require(Core._CORE + 'Flux.js').loadModules(descriptor.modules);
 log.info('--> ' + Core.name + ' ready in ' + Utils.executionTime(startTime) + 'ms');
 
 if (!Core.isAwake()) {
-	Flux.next('interface|video|screenOff');
+	Core.do('interface|video|screenOff');
 } else if (Core.conf('mode') == 'test') {
 	////////  TEST section  ////////
-	Flux.next('interface|tts|speak', {
+	Core.do('interface|tts|speak', {
 		lg: 'en',
 		msg: 'test sequence'
 	});
@@ -52,32 +52,32 @@ if (!Core.isAwake()) {
 						lg: 'en',
 						msg: 'all tests succeeded!'
 				  };
-			Flux.next('interface|tts|speak', testTTS);
+			Core.do('interface|tts|speak', testTTS);
 			setTimeout(function() {
-				// if (testStatus) Flux.next('interface|runtime|updateRestart', { mode: 'ready' });
+				// if (testStatus) Core.do('interface|runtime|updateRestart', { mode: 'ready' });
 				if (testStatus)
-					Flux.next('interface|runtime|updateRestart', {
+					Core.do('interface|runtime|updateRestart', {
 						mode: 'ready'
 					});
 			}, 3000);
 		});
 	}, 1000);
 } else {
-	Flux.next('service|time|isAlarm'); // Alarm / Cocorico...
+	Core.do('service|time|isAlarm'); // Alarm / Cocorico...
 	if (!Core.run('alarm')) {
-		Flux.next('service|voicemail|check');
+		Core.do('service|voicemail|check');
 	}
 }
-Flux.next('interface|runtime|refresh');
+Core.do('interface|runtime|refresh');
 
 if (Core.conf('watcher')) {
-	Flux.next('controller|watcher|startWatch');
+	Core.do('controller|watcher|startWatch');
 }
 
 if (Core.isAwake() && Core.conf('watcher')) {
 	// TODO put this in a callable function from UI!
 	for (var i = 0, tts; (tts = Core.ttsMessages.random[i]); i++) {
-		//Flux.next('interface|tts|speak', tts, { delay: 2 });
+		//Core.do('interface|tts|speak', tts, { delay: 2 });
 	}
 }
 

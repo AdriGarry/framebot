@@ -113,7 +113,7 @@ function randomTTS() {
 const VOICE_LIST = ['google', 'espeak'];
 const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
 var playTTS = function(tts) {
-	Flux.next('service|max|blinkRdmLed');
+	Core.do('service|max|blinkRdmLed');
 	// TEST IF INTERNET CONNEXION
 	if (!tts.hasOwnProperty('voice') || !VOICE_LIST.indexOf(tts.voice) == -1) {
 		// Random voice if undefined
@@ -132,7 +132,7 @@ var playTTS = function(tts) {
 	spawn('sh', [Core._SHELL + 'tts.sh', tts.voice, tts.lg, tts.msg.replace('%20', '')]);
 	// pico(tts);
 
-	Flux.next(
+	Core.do(
 		'interface|led|blink',
 		{ leds: ['eye'], speed: Utils.random(50, 150), loop: tts.msg.length / 2 + 2 },
 		{ hidden: true }

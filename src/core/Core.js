@@ -80,13 +80,13 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 
 	Flux = require(Core._CORE + 'Flux.js').attach(descriptor.modules);
 	Core.do = Flux.next;
-	Flux.next('interface|runtime|update', confUpdate, {
+	Core.do('interface|runtime|update', confUpdate, {
 		delay: 0.5
 	});
 	let fluxToFire = Core.conf('flux'); // TODO do this !
 	if (fluxToFire && fluxToFire.length > 0) {
 		log.table(fluxToFire, 'flux to fire');
-		Flux.next(fluxToFire);
+		Core.do(fluxToFire);
 	}
 
 	process.on('uncaughtException', function(err) {
@@ -102,7 +102,7 @@ function isAwake() {
 }
 
 function error(label, data, stackTrace) {
-	Flux.next(
+	Core.do(
 		'interface|led|altLeds',
 		{
 			speed: 30,
@@ -112,7 +112,7 @@ function error(label, data, stackTrace) {
 			hidden: true
 		}
 	);
-	Flux.next('interface|sound|error', null, {
+	Core.do('interface|sound|error', null, {
 		hidden: true
 	});
 	log.error(label + '\n', data || '');

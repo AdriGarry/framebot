@@ -14,9 +14,9 @@ var Flux = require(Core._CORE + 'Flux.js');
 // const testTTSList = [{lg: 'en', msg: 'Test' },	{lg: 'fr', msg: 'Test' }];
 
 module.exports.run = function(succeedTest) {
-	//Flux.next('interface|tts|speak', testTTSList[Utils.random(testTTSList.length)], null, null, true);
-	// Flux.next('interface|led|toggle', { leds: ['eye', 'belly', 'satellite'], value: 0 }, 3, null, null, true);
-	// Flux.next('interface|led|blink', { leds: ['belly'], speed: 600, loop: 100 });
+	//Core.do('interface|tts|speak', testTTSList[Utils.random(testTTSList.length)], null, null, true);
+	// Core.do('interface|led|toggle', { leds: ['eye', 'belly', 'satellite'], value: 0 }, 3, null, null, true);
+	// Core.do('interface|led|blink', { leds: ['belly'], speed: 600, loop: 100 });
 
 	assert.ok(Core.conf());
 	assert.equal(Core.conf('mode'), 'test');
@@ -26,11 +26,11 @@ module.exports.run = function(succeedTest) {
 	assert.equal(Core.run('music'), false);
 	assert.equal(Core.run('alarm'), false);
 
-	Flux.next('interface|hardware|cpuTTS', null, { delay: 0.1 });
+	Core.do('interface|hardware|cpuTTS', null, { delay: 0.1 });
 
 	setTimeout(() => {
 		assert.equal(Core.errors.length, 0);
-		Flux.next('interface|sound|mute', { delay: 3, message: 'DELAY 3' });
+		Core.do('interface|sound|mute', { delay: 3, message: 'DELAY 3' });
 		setTimeout(() => {
 			succeedTest('moduleTest', true);
 		}, 5000);

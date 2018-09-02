@@ -35,14 +35,14 @@ function connect() {
 			Core.error('Error opening arduino port: ', err.message, false);
 			// TODO Scheduler to retry connect...?
 			if (!Core.run('alarm') && Core.run('etat') == 'high') {
-				Flux.next('interface|tts|speak', { lg: 'en', msg: 'Max is not available' });
+				Core.do('interface|tts|speak', { lg: 'en', msg: 'Max is not available' });
 			}
 			Core.run('max', false);
 		} else {
 			log.info('arduino serial channel opened');
 			Core.run('max', true);
 			// if (Core.isAwake() && !Core.run('alarm') && Core.run('etat') == 'high')
-			// 	Flux.next('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
+			// 	Core.do('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
 		}
 		// log.INFO('-->');
 		// log.info(typeof arduino, arduino);
@@ -73,15 +73,15 @@ const Readline = SerialPort.parsers.Readline;
 var feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
 feedback.on('data', function(data) {
 	log.debug(data);
-	Flux.next('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
-	Flux.next('service|max|parse', data.trim(), { hidden: true });
+	Core.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
+	Core.do('service|max|parse', data.trim(), { hidden: true });
 });
 
 arduino.on('close', function(data) {
 	data = String(data);
 	if (data.indexOf('bad file descriptor') >= 0) {
 		Core.error('Max is disconnected', data, false);
-		Flux.next('interface|tts|speak', { lg: 'en', msg: "I've just lost my connexion with Max!" });
+		Core.do('interface|tts|speak', { lg: 'en', msg: "I've just lost my connexion with Max!" });
 	}
 	Core.run('max', false);
 	log.INFO('Max serial channel disconnected!');

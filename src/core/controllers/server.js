@@ -76,7 +76,7 @@ function startUIServer() {
 
 	// servor = ui.listen(HTTP_SERVER_PORT, function() {
 	// 	log.info('UI server started [' + Core.conf('mode') + ']');
-	// 	Flux.next('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
+	// 	Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
 	// });
 
 	// https.createServer(credentials, ui).listen(HTTPS_SERVER_PORT);
@@ -84,7 +84,7 @@ function startUIServer() {
 	// httpServer = http.createServer(ui);
 	httpsServer = https.createServer(credentials, uiHttps).listen(HTTPS_SERVER_PORT, function() {
 		log.info('UI server started [' + Core.conf('mode') + ']');
-		Flux.next('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
+		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
 	});
 
 	// httpServer.listen(HTTP_SERVER_PORT);

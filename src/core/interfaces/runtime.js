@@ -43,7 +43,7 @@ function updateConf(newConf, restart) {
 
 /** Function to reset Core (/tmp/ directory) */
 function resetCore() {
-	Flux.next('interface|sound|reset');
+	Core.do('interface|sound|reset');
 	Utils.deleteFolderRecursive(Core._TMP);
 	log.INFO('reset conf and restart');
 	// log.table(Core.run(), 'RUNTIME...');
@@ -53,7 +53,7 @@ function resetCore() {
 /** Function to refresh Core\'s runtime data (etat, timer, moods...) */
 function refreshRuntime() {
 	log.info("refreshing Core's runtime...");
-	Flux.next('interface|hardware|runtime', null, { hidden: true });
+	Core.do('interface|hardware|runtime', null, { hidden: true });
 	setTimeout(function() {
 		log.table(Core.run(), 'RUNTIME...       ' + Core.run('memory.loadAverage'));
 	}, 1000);

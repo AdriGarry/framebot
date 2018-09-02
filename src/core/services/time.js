@@ -43,7 +43,7 @@ function now() {
 	var date = new Date();
 	var hour = date.getHours();
 	var min = date.getMinutes();
-	Flux.next('interface|tts|speak', {
+	Core.do('interface|tts|speak', {
 		lg: 'fr',
 		msg: 'Il est ' + hour + ' heure ' + (min > 0 ? min : '')
 	});
@@ -68,8 +68,8 @@ function today() {
 	}
 
 	log.debug('time.today()' + annonceDate);
-	// Flux.next('interface|tts|speak', { lg: 'fr', msg: annonceDate });
-	Flux.next('interface|tts|speak', annonceDate);
+	// Core.do('interface|tts|speak', { lg: 'fr', msg: annonceDate });
+	Core.do('interface|tts|speak', annonceDate);
 }
 
 function getSeason() {
@@ -90,8 +90,8 @@ function getSeason() {
 
 /** Function to disable all alarms */
 function disableAllAlarms() {
-	Flux.next('interface|tts|speak', 'Annulation de toutes les alarmes');
-	Flux.next('interface|runtime|updateRestart', {
+	Core.do('interface|tts|speak', 'Annulation de toutes les alarmes');
+	Core.do('interface|runtime|updateRestart', {
 		alarms: {
 			weekDay: null,
 			weekEnd: null
@@ -117,8 +117,8 @@ function setAlarm(alarm) {
 	});
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
 	let alarmTTS = 'Alarme ' + alarmMode + ' reprogramer a ' + alarm.h + ' heure ' + (alarm.m ? alarm.m : '');
-	Flux.next('interface|tts|speak', alarmTTS);
-	Flux.next('interface|runtime|updateRestart', {
+	Core.do('interface|tts|speak', alarmTTS);
+	Core.do('interface|runtime|updateRestart', {
 		alarms: newAlarms
 	}, {
 		delay: 6
@@ -142,7 +142,7 @@ function isAlarm() {
 			Core.run('alarm', true);
 			if (!Core.isAwake()) {
 				log.INFO('wake up !!');
-				Flux.next('service|system|restart');
+				Core.do('service|system|restart');
 			} else {
 				cocorico();
 			}
@@ -168,7 +168,7 @@ function cocorico(mode) {
 /** Function alarm part 2 */
 function cocoricoPart2(mode) {
 	log.INFO('cocorico !!', mode || '');
-	Flux.next('interface|arduino|write', 'playHornDoUp');
+	Core.do('interface|arduino|write', 'playHornDoUp');
 	spawn('sh', [Core._SHELL + 'sounds.sh', 'cocorico']);
 	if (isBirthday()) {
 		birthdaySong();
@@ -182,35 +182,35 @@ function cocoricoPart2(mode) {
 
 /** Function alarm part 3 */
 function cocoricoPart3() {
-	Flux.next('service|max|hornRdm');
-	Flux.next('service|time|now', null, {
+	Core.do('service|max|hornRdm');
+	Core.do('service|time|now', null, {
 		delay: 3
 	});
-	Flux.next('service|time|today', null, {
+	Core.do('service|time|today', null, {
 		delay: 5
 	});
-	Flux.next('service|interaction|weather', null, {
+	Core.do('service|interaction|weather', null, {
 		delay: 8
 	});
-	Flux.next('service|voicemail|check', null, {
+	Core.do('service|voicemail|check', null, {
 		delay: 13
 	});
 
-	Flux.next('service|music|fip', null, {
+	Core.do('service|music|fip', null, {
 		delay: 45
 	});
 
-	Flux.next('service|max|playOneMelody', null, {
+	Core.do('service|max|playOneMelody', null, {
 		delay: 8 * 60,
 		loop: 8
 	});
-	Flux.next('service|max|hornRdm', null, {
+	Core.do('service|max|hornRdm', null, {
 		delay: 12 * 60,
 		loop: 6
 	});
 
 	var baluchonTTS = "Je crois qu'il faut lancer l'opairation baluchon";
-	Flux.next('interface|tts|speak', baluchonTTS, {
+	Core.do('interface|tts|speak', baluchonTTS, {
 		delay: Utils.random(15, 25) * 60,
 		loop: 3
 	});
@@ -236,7 +236,7 @@ function isBirthday() {
 
 function birthdaySong() {
 	log.info('birthday song...');
-	Flux.next('interface|sound|play', {
+	Core.do('interface|sound|play', {
 		mp3: 'system/birthday.mp3'
 	});
 }
@@ -254,7 +254,7 @@ function ttsAge() {
 	var birthDay = rdm[Utils.random(rdm.length)];
 	birthDay += "j'ai " + years + ' ans et ' + mouths + ' mois !';
 	log.info("ttsAge() '" + birthDay + "'");
-	Flux.next('interface|tts|speak', {
+	Core.do('interface|tts|speak', {
 		lg: 'fr',
 		msg: birthDay
 	});
@@ -277,7 +277,7 @@ function setTimer(minutes) {
 	var sec = Core.run('timer') % 60;
 	var ttsMsg =
 		'Minuterie ' + (min > 0 ? (min > 1 ? min : ' une ') + ' minutes ' : '') + (sec > 0 ? sec + ' secondes' : '');
-	Flux.next('interface|tts|speak', {
+	Core.do('interface|tts|speak', {
 		lg: 'fr',
 		msg: ttsMsg
 	});
@@ -286,7 +286,7 @@ function setTimer(minutes) {
 function startTimer() {
 	let etat = 1;
 	secInterval = setInterval(function () {
-		Flux.next('interface|led|toggle', {
+		Core.do('interface|led|toggle', {
 			leds: ['belly'],
 			value: etat
 		}, {
@@ -300,7 +300,7 @@ function startTimer() {
 		}
 		Core.run('timer', Core.run('timer') - 1);
 		if (Core.run('timer') % 120 == 0 && Core.run('timer') / 60 > 0) {
-			Flux.next('interface|tts|speak', {
+			Core.do('interface|tts|speak', {
 				lg: 'fr',
 				msg: Core.run('timer') / 60 + ' minutes et compte a rebours'
 			});
@@ -308,13 +308,13 @@ function startTimer() {
 			clearInterval(secInterval);
 			log.info('End Timer !');
 			spawn('sh', [Core._SHELL + 'timerSound.sh', 'end']); // TODO use sound.js
-			Flux.next('interface|led|blink', {
+			Core.do('interface|led|blink', {
 				leds: ['belly', 'eye'],
 				speed: 90,
 				loop: 12
 			});
-			Flux.next('interface|tts|speak', 'Les raviolis sont cuits !');
-			Flux.next('interface|led|toggle', {
+			Core.do('interface|tts|speak', 'Les raviolis sont cuits !');
+			Core.do('interface|led|toggle', {
 				leds: ['belly'],
 				value: 0
 			}, {
@@ -330,11 +330,11 @@ function stopTimer() {
 		secInterval = false; //
 		Core.run('timer', 0);
 		// log.debug('-------------->TIMER=', Core.run('timer'));
-		Flux.next('interface|tts|speak', {
+		Core.do('interface|tts|speak', {
 			lg: 'en',
 			msg: 'Timer canceled'
 		});
-		Flux.next('interface|led|toggle', {
+		Core.do('interface|led|toggle', {
 			leds: ['belly'],
 			value: 0
 		}, {

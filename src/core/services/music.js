@@ -30,10 +30,10 @@ Flux.service.music.subscribe({
 
 var ledMusicFlag;
 function ledFlag() {
-	Flux.next('interface|led|altLeds', { speed: 100, duration: 1.3 });
+	Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 });
 	ledMusicFlag = setInterval(function() {
 		if (Core.run('music')) {
-			Flux.next('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
+			Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
 		} else {
 			clearInterval(ledMusicFlag);
 		}
@@ -47,7 +47,7 @@ function jukebox(message) {
 	Core.run('music', 'jukebox');
 	ledFlag();
 	repeatSong();
-	Flux.next('interface|sound|mute', { message: 'Auto mute jukebox !', delay: 2 }, { delay: 60 * 60 });
+	Core.do('interface|sound|mute', { message: 'Auto mute jukebox !', delay: 2 }, { delay: 60 * 60 });
 }
 
 var jukeboxTimeout, jukeboxRandomBox;
@@ -67,7 +67,7 @@ function repeatSong() {
 	Utils.getMp3Duration(Core._MP3 + 'jukebox/' + song, function(duration) {
 		console.log(Utils.executionTime(ttime));
 		// log.INFO('duration=' + duration);
-		Flux.next('interface|sound|play', { mp3: 'jukebox/' + song, duration: duration });
+		Core.do('interface|sound|play', { mp3: 'jukebox/' + song, duration: duration });
 		jukeboxTimeout = setTimeout(function() {
 			// log.INFO('Next song !!!', 'duration=' + duration);
 			repeatSong();
@@ -80,7 +80,7 @@ function playOneSong() {
 	log.INFO("music.playOneSong() => shouldn't be CONNREFUSED...");
 	// var song = Utils.randomItem(JUKEBOX_SONGS);
 	let song = jukeboxRandomBox.next();
-	Flux.next('interface|sound|play', { mp3: 'jukebox/' + song });
+	Core.do('interface|sound|play', { mp3: 'jukebox/' + song });
 }
 
 /** Function to play FIP radio */
@@ -90,7 +90,7 @@ function playFip() {
 	spawn('sh', [Core._SHELL + 'fip.sh']);
 	Core.run('music', 'fip');
 	ledFlag();
-	Flux.next('interface|sound|mute', { message: 'Auto Mute FIP', delay: 2 }, { delay: 60 * 60 });
+	Core.do('interface|sound|mute', { message: 'Auto Mute FIP', delay: 2 }, { delay: 60 * 60 });
 }
 
 /** Function to stop music */
@@ -101,8 +101,8 @@ function stop(message) {
 		clearInterval(ledMusicFlag);
 		spawn('sh', [Core._SHELL + 'mute.sh']);
 		Core.run('music', false);
-		Flux.next('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { hidden: true });
-		Flux.next('interface|led|clearLeds', { speed: 100, duration: 1.3 }, { hidden: true });
+		Core.do('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { hidden: true });
+		Core.do('interface|led|clearLeds', { speed: 100, duration: 1.3 }, { hidden: true });
 	} else {
 		log.debug('No music playing');
 	}
@@ -126,7 +126,7 @@ const STORIES = ['stories/Donjon-De-Naheulbeuk.mp3', 'stories/Aventuriers-Du-Sur
 /** Function to play a story */
 function playStory(story) {
 	var story;
-	Flux.next('interface|tts|speak', story);
+	Core.do('interface|tts|speak', story);
 	log.debug('Play story...', story);
 	var storyToPlay = Utils.searchStringInArray(story, STORIES);
 	// console.log(storyToPlay);
@@ -136,9 +136,9 @@ function playStory(story) {
 			stop();
 			Core.run('music', 'story');
 			ledFlag();
-			Flux.next('interface|sound|play', { mp3: storyToPlay, position: position });
+			Core.do('interface|sound|play', { mp3: storyToPlay, position: position });
 		});
 	} else {
-		Flux.next('interface|tts|speak', { lg: 'en', msg: 'error history' });
+		Core.do('interface|tts|speak', { lg: 'en', msg: 'error history' });
 	}
 }

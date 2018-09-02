@@ -71,8 +71,8 @@ function checkVoiceMail(withTTSResult, callback) {
 		if (messages) {
 			messages = JSON.parse(messages);
 			log.debug(messages);
-			Flux.next('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Messages' });
-			Flux.next('interface|tts|speak', messages);
+			Core.do('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Messages' });
+			Core.do('interface|tts|speak', messages);
 			if (clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
 			clearVoiceMailDelay = setTimeout(function() {
 				// Clearing VoiceMail
@@ -83,7 +83,7 @@ function checkVoiceMail(withTTSResult, callback) {
 			return true;
 		} else {
 			log.info(NO_VOICEMAIL);
-			if (withTTSResult) Flux.next('interface|tts|speak', { lg: 'en', msg: NO_VOICEMAIL });
+			if (withTTSResult) Core.do('interface|tts|speak', { lg: 'en', msg: NO_VOICEMAIL });
 			if (callback) callback(false); // for other action
 			return false;
 		}
@@ -97,7 +97,7 @@ function updateVoicemailMessage() {
 		messages = JSON.parse(messages);
 		Core.run('voicemail', messages.length);
 		if (Core.run('voicemail') > 0) {
-			Flux.next('interface|led|blink', { leds: ['belly'], speed: 200, loop: 2 }, { hidden: true });
+			Core.do('interface|led|blink', { leds: ['belly'], speed: 200, loop: 2 }, { hidden: true });
 		}
 	} catch (e) {
 		Core.run('voicemail', 0);
@@ -112,7 +112,7 @@ function clearVoiceMail() {
 			else Core.error(err);
 		} else {
 			updateVoicemailMessage();
-			Flux.next('interface|tts|speak', { lg: 'en', msg: 'VoiceMail Cleared' });
+			Core.do('interface|tts|speak', { lg: 'en', msg: 'VoiceMail Cleared' });
 		}
 	});
 }

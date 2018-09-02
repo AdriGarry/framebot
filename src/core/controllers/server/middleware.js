@@ -22,8 +22,8 @@ module.exports = {
 };
 
 var securityMiddleware = function(req, res, next) {
-	Flux.next('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
-	if (!Utils.searchStringInArray(req.url, noSoundUrl)) Flux.next('interface|sound|UI', null, { hidden: true });
+	Core.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
+	if (!Utils.searchStringInArray(req.url, noSoundUrl)) Core.do('interface|sound|UI', null, { hidden: true });
 
 	let requestData = getRequestData(req);
 
@@ -46,7 +46,7 @@ var securityMiddleware = function(req, res, next) {
 		// Not allowed requests
 		if (canTTSBadRequest && Core.isAwake()) {
 			canTTSBadRequest = false;
-			Flux.next('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, hidden: true });
+			Core.do('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, hidden: true });
 			setTimeout(() => {
 				canTTSBadRequest = true;
 			}, BAD_REQUEST_TIMEOUT);
@@ -114,10 +114,10 @@ function rejectUnauthorizedRequest(res) {
 }
 
 function closingServerTemporary(breakDuration) {
-	Flux.next('controller|server|closeUIServer', breakDuration);
+	Core.do('controller|server|closeUIServer', breakDuration);
 	setTimeout(function() {
 		log.INFO('restarting UI server...');
 		badRequestCount = 0;
-		Flux.next('controller|server|startUIServer');
+		Core.do('controller|server|startUIServer');
 	}, breakDuration);
 }

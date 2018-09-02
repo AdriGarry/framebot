@@ -107,7 +107,7 @@ function randomAction() {
 	var action = actionRandomBox.next();
 	try {
 		log.info('randomAction:', action.id, '[' + action.weight + ']');
-		Flux.next(action.id, action.data);
+		Core.do(action.id, action.data);
 	} catch (err) {
 		Core.error('ACTION TO DEBUG =>', typeof action, action);
 	}
@@ -123,7 +123,7 @@ fs.readdir(Core._MP3 + 'exclamation', (err, files) => {
 
 function exclamation() {
 	log.info('Exclamation !');
-	Flux.next('interface|led|blink', {
+	Core.do('interface|led|blink', {
 		leds: ['eye'],
 		speed: Utils.random(40, 100),
 		loop: 6
@@ -134,14 +134,14 @@ function exclamation() {
 	// let exclamation = Utils.randomItem(EXCLAMATIONS_SOUNDS);
 	// console.log(exclamationRandomBox.cycle);
 	let exclamation = exclamationRandomBox.next();
-	Flux.next('interface|sound|play', {
+	Core.do('interface|sound|play', {
 		mp3: 'exclamation/' + exclamation
 	});
 }
 
 function uneHeure() {
 	log.info('Il est 1 heure et tout va bien !');
-	Flux.next('interface|sound|play', {
+	Core.do('interface|sound|play', {
 		mp3: 'system/uneHeure.mp3'
 	});
 }
@@ -149,16 +149,16 @@ function uneHeure() {
 function demo() {
 	log.INFO('Starting Demo !');
 	Core.ttsMessages.demo.forEach(tts => {
-		Flux.next('interface|tts|speak', tts);
+		Core.do('interface|tts|speak', tts);
 	});
 }
 
 function goToWork() {
-	if (Utils.rdm()) Flux.next('interface|tts|speak', {
+	if (Utils.rdm()) Core.do('interface|tts|speak', {
 		lg: 'fr',
 		msg: 'Go go go, allez au boulot'
 	});
-	else Flux.next('interface|tts|speak', {
+	else Core.do('interface|tts|speak', {
 		lg: 'fr',
 		voice: 'espeak',
 		msg: 'Allez allez, Maitro boulot dodo'
@@ -167,7 +167,7 @@ function goToWork() {
 
 function russia() {
 	log.info('Russia !');
-	Flux.next('interface|led|blink', {
+	Core.do('interface|led|blink', {
 		leds: ['eye'],
 		speed: Utils.random(40, 100),
 		loop: 6
@@ -206,7 +206,7 @@ function getWeatherData(callback) {
 					weatherReport.wind = weatherReport.data.query.results.channel.wind.speed;
 					callback(weatherReport);
 				} else {
-					Flux.next('interface|tts|speak', {
+					Core.do('interface|tts|speak', {
 						voice: 'espeak',
 						lg: 'fr',
 						msg: 'Erreur service meteo'
@@ -218,7 +218,7 @@ function getWeatherData(callback) {
 				}
 			} catch (e) {
 				Core.error(e);
-				if (Core.isAwake()) Flux.next('interface|tts|speak', {
+				if (Core.isAwake()) Core.do('interface|tts|speak', {
 					lg: 'en',
 					msg: 'Weather error'
 				});
@@ -243,7 +243,7 @@ function weatherService() {
 				' kilometre heure de vent'
 		};
 		log.debug('weatherSpeech', weatherSpeech);
-		Flux.next('interface|tts|speak', weatherSpeech);
+		Core.do('interface|tts|speak', weatherSpeech);
 	});
 }
 
@@ -309,6 +309,6 @@ function weatherInteractiveService() {
 				break;
 		}
 		log.debug('weatherSpeech', weatherSpeech);
-		Flux.next('interface|tts|speak', weatherSpeech);
+		Core.do('interface|tts|speak', weatherSpeech);
 	});
 }

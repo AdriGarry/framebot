@@ -25,7 +25,7 @@ function launchTests(callback) {
 }
 
 var completeTest = (testId, result) => {
-	Flux.next('interface|led|blink', { leds: ['belly'], speed: 50, loop: 10 });
+	Core.do('interface|led|blink', { leds: ['belly'], speed: 50, loop: 10 });
 	log.info(testId, 'completed.');
 	testResult[testId] = result;
 	log.debug(testResult);

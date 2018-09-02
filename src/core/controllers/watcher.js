@@ -73,5 +73,5 @@ function waitForUpdateEnd(action) {
 
 function relaunch() {
 	log.INFO('>> relaunching...');
-	Flux.next('service|system|restart', Core.conf('mode'));
+	Core.do('service|system|restart', Core.conf('mode'));
 }

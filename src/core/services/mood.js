@@ -33,16 +33,16 @@ var ttsRandomBox = new RandomBox(Core.ttsMessages.random);
 /** Function to start bad boy mode */
 function java(interval) {
 	log.INFO('JAVA mode !');
-	Flux.next('interface|tts|speak', 'On va faire la java !');
+	Core.do('interface|tts|speak', 'On va faire la java !');
 	for (var i = 0; i < 20; i++) {
-		// Flux.next('interface|tts|speak', Utils.randomItem(Core.ttsMessages.random));
-		Flux.next('interface|tts|speak', ttsRandomBox.next());
+		// Core.do('interface|tts|speak', Utils.randomItem(Core.ttsMessages.random));
+		Core.do('interface|tts|speak', ttsRandomBox.next());
 	}
 
 	setInterval(() => {
 		let maxAction = maxJavaRandomBox.next();
-		Flux.next(maxAction);
-		Flux.next('service|interaction|exclamation');
+		Core.do(maxAction);
+		Core.do('service|interaction|exclamation');
 	}, 1000);
 }
 
@@ -50,7 +50,7 @@ function java(interval) {
 function badBoy(interval) {
 	if (typeof interval === 'number') {
 		log.info('Bad Boy mode !! [' + interval + ']');
-		Flux.next('interface|tts|speak', { lg: 'en', msg: 'Baad boy !' });
+		Core.do('interface|tts|speak', { lg: 'en', msg: 'Baad boy !' });
 		var loop = 0;
 		setInterval(function() {
 			loop++;
@@ -65,9 +65,9 @@ function badBoy(interval) {
 }
 
 function badBoyTTS() {
-	Flux.next('interface|tts|speak', getNewRdmBadBoyTTS());
+	Core.do('interface|tts|speak', getNewRdmBadBoyTTS());
 	setTimeout(function() {
-		Flux.next('interface|tts|speak', getNewRdmBadBoyTTS());
+		Core.do('interface|tts|speak', getNewRdmBadBoyTTS());
 	}, 1000);
 }
 

@@ -34,21 +34,21 @@ function restartCore(mode) {
 	log.info('restarting Core...', mode || '');
 	if (Core.run('timer')) {
 		let timerRemaining = 'Minuterie ' + Core.run('timer') + 'secondes';
-		Flux.next('interface|tts|speak', timerRemaining);
+		Core.do('interface|tts|speak', timerRemaining);
 		log.INFO(timerRemaining);
 	}
 	// log.
-	Flux.next('interface|runtime|updateRestart', { mode: mode || 'ready' });
+	Core.do('interface|runtime|updateRestart', { mode: mode || 'ready' });
 }
 
 /** Function to random TTS good night, and sleep */
 function goToSleep() {
 	if (Core.isAwake()) {
 		let sleepTTS = Utils.randomItem(Core.ttsMessages.goToSleep);
-		Flux.next('interface|tts|speak', sleepTTS);
+		Core.do('interface|tts|speak', sleepTTS);
 		log.info('AutoLifeCycle go to sleep !');
 		setTimeout(function() {
-			Flux.next('service|system|restart', 'sleep');
+			Core.do('service|system|restart', 'sleep');
 		}, sleepTTS.msg.length * 150);
 	}
 }
@@ -56,9 +56,9 @@ function goToSleep() {
 /** Function to reboot RPI */
 function reboot() {
 	if (Core.isAwake()) {
-		Flux.next('interface|sound|mute');
-		Flux.next('interface|tts|speak', { msg: 'Je redaimarre' });
-		Flux.next('interface|arduino|write', 'playHornOff', { delay: 2 });
+		Core.do('interface|sound|mute');
+		Core.do('interface|tts|speak', { msg: 'Je redaimarre' });
+		Core.do('interface|arduino|write', 'playHornOff', { delay: 2 });
 	}
 	console.log('\n\n_/!\\__REBOOTING RASPBERRY PI !!\n');
 	setTimeout(function() {
@@ -69,9 +69,9 @@ function reboot() {
 /** Function to shutdown RPI */
 function shutdown() {
 	if (Core.isAwake()) {
-		Flux.next('interface|sound|mute');
-		Flux.next('interface|tts|speak', { msg: 'Arret system' });
-		Flux.next('interface|arduino|write', 'playHornOff', { delay: 2 });
+		Core.do('interface|sound|mute');
+		Core.do('interface|tts|speak', { msg: 'Arret system' });
+		Core.do('interface|arduino|write', 'playHornOff', { delay: 2 });
 	}
 	setTimeout(function() {
 		console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!\n");
@@ -84,10 +84,10 @@ function light(duration) {
 	log.info('light [duration=' + duration + 's]');
 	if (isNaN(duration)) Core.error('light error: duration arg is not a number!', duration, false);
 	let loop = (duration - 2) / 2;
-	Flux.next('interface|led|toggle', { leds: ['belly'], value: 1 });
-	Flux.next('interface|led|toggle', { leds: ['belly'], value: 1 }, { hidden: true, delay: 2, loop: loop });
+	Core.do('interface|led|toggle', { leds: ['belly'], value: 1 });
+	Core.do('interface|led|toggle', { leds: ['belly'], value: 1 }, { hidden: true, delay: 2, loop: loop });
 
-	Flux.next('interface|led|blink', { leds: ['belly'], speed: 200, loop: 8 }, { delay: duration - 2 });
+	Core.do('interface|led|blink', { leds: ['belly'], speed: 200, loop: 8 }, { delay: duration - 2 });
 
-	Flux.next('interface|led|toggle', { leds: ['belly'], value: 0 }, { delay: duration });
+	Core.do('interface|led|toggle', { leds: ['belly'], value: 0 }, { delay: duration });
 }

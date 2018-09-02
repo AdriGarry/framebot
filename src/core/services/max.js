@@ -31,8 +31,8 @@ Flux.service.max.subscribe({
 });
 
 //blinkAllLed();
-// Flux.next('interface|arduino|write', 'hi', { delay: 3 });
-// Flux.next('service|max|blinkAllLed', null, { delay: 6 });
+// Core.do('interface|arduino|write', 'hi', { delay: 3 });
+// Core.do('service|max|blinkAllLed', null, { delay: 6 });
 
 // playRdmHorn
 // playHornWarning();
@@ -60,33 +60,33 @@ const HORNS = [
 
 // let delay = 10;
 // HORNS.forEach(item => {
-// 	Flux.next('interface|arduino|write', item, {delay:delay});
+// 	Core.do('interface|arduino|write', item, {delay:delay});
 // 	delay = delay + 10;
 // });
 
 function blinkAllLed() {
 	log.debug('blinkAllLed');
-	Flux.next('interface|arduino|write', 'blinkAllLed');
+	Core.do('interface|arduino|write', 'blinkAllLed');
 }
 
 function blinkRdmLed() {
 	log.debug('blinkRdmLed');
-	Flux.next('interface|arduino|write', 'blinkRdmLed');
+	Core.do('interface|arduino|write', 'blinkRdmLed');
 }
 
 function playOneMelody() {
 	log.debug('playOneMelody');
-	Flux.next('interface|arduino|write', 'playOneMelody');
+	Core.do('interface|arduino|write', 'playOneMelody');
 }
 
 function playRdmMelody() {
 	log.debug('playRdmMelody');
-	Flux.next('interface|arduino|write', 'playRdmMelody');
+	Core.do('interface|arduino|write', 'playRdmMelody');
 }
 
 function turnNose() {
 	log.debug('turnNose');
-	Flux.next('interface|arduino|write', 'turnNose');
+	Core.do('interface|arduino|write', 'turnNose');
 }
 
 var hornRandomBox = new RandomBox(HORNS);
@@ -94,7 +94,7 @@ function hornRdm() {
 	// let horn = Utils.randomItem(HORNS);
 	let horn = hornRandomBox.next();
 	log.debug('hornRdm', horn);
-	Flux.next('interface|arduino|write', horn);
+	Core.do('interface|arduino|write', horn);
 }
 
 function parseDataFromMax(data) {
@@ -114,14 +114,14 @@ function maxCallbackAction(data) {
 			maxCallbackTTS(Core.ttsMessages.maxCallback.sensor);
 			break;
 		case 'blinkLed_end':
-			if (Core.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'blink led' });
+			if (Core.run('etat') == 'high') Core.do('interface|tts|speak', { lg: 'en', msg: 'blink led' });
 			break;
 		case 'playOneMelody_end':
 		case 'playRdmMelody_end':
 			maxCallbackTTS(Core.ttsMessages.maxCallback.melody);
 			break;
 		case 'turnNose_end':
-			if (Core.run('etat') == 'high') Flux.next('interface|tts|speak', { lg: 'en', msg: 'turn' });
+			if (Core.run('etat') == 'high') Core.do('interface|tts|speak', { lg: 'en', msg: 'turn' });
 			break;
 		case 'playRdmHorn_end':
 		case 'playHornDoUp_end':
@@ -136,11 +136,11 @@ function maxCallbackAction(data) {
 			maxCallbackTTS(Core.ttsMessages.maxCallback.hornFire);
 			break;
 		case 'playHornOvni_end':
-			Flux.next('interface|tts|speak', 'OVNI!');
+			Core.do('interface|tts|speak', 'OVNI!');
 			break;
 		case 'playHornWarning_end':
 		case 'playHornBombing_end':
-			Flux.next('interface|tts|speak', 'A couvert !');
+			Core.do('interface|tts|speak', 'A couvert !');
 			break;
 		// escape tous les '...'
 		case 'Max initialization...':
@@ -159,9 +159,9 @@ function maxCallbackTTS(arg) {
 	let maxCallbackTTS;
 	if (Array.isArray(arg)) {
 		maxCallbackTTS = Utils.randomItem(arg);
-		Flux.next('interface|tts|speak', maxCallbackTTS);
+		Core.do('interface|tts|speak', maxCallbackTTS);
 	} else if (typeof arg == 'string') {
-		Flux.next('interface|tts|speak', arg);
+		Core.do('interface|tts|speak', arg);
 	} else {
 		log.error('maxCallbackTTS: wrong arg [' + typeof arg + ']', arg);
 	}

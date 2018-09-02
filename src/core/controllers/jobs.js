@@ -20,7 +20,7 @@ function scheduleJob(job) {
 	new CronJob(
 		job.cron,
 		function () {
-			Flux.next(job.flux);
+			Core.do(job.flux);
 		},
 		null,
 		true,

@@ -89,15 +89,15 @@ function mute(args) {
 /** Function to stop all sounds & leds */
 function stopAll(message) {
 	// if (Core.run('max')) {
-	// 	Flux.next('interface|arduino|disconnect');
-	// 	Flux.next('interface|arduino|connect', null, { delay: 2 });
+	// 	Core.do('interface|arduino|disconnect');
+	// 	Core.do('interface|arduino|connect', null, { delay: 2 });
 	// }
-	Flux.next('interface|tts|clearTTSQueue', null, { hidden: true });
-	Flux.next('service|music|stop', null, { hidden: true });
+	Core.do('interface|tts|clearTTSQueue', null, { hidden: true });
+	Core.do('service|music|stop', null, { hidden: true });
 	spawn('sh', [Core._SHELL + 'mute.sh']);
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
-	Flux.next('interface|led|clearLeds', null, { hidden: true });
-	Flux.next('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { hidden: true });
+	Core.do('interface|led|clearLeds', null, { hidden: true });
+	Core.do('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { hidden: true });
 	Core.run('music', false);
 }
 

@@ -33,23 +33,23 @@ function getPushTime(button) {
 
 Button.ok.watch(function(err, value) {
 	var pushTime = getPushTime(Button.ok);
-	Flux.next('controller|button|ok', pushTime);
+	Core.do('controller|button|ok', pushTime);
 });
 
 Button.cancel.watch(function(err, value) {
-	Flux.next('interface|sound|mute');
+	Core.do('interface|sound|mute');
 	var pushTime = getPushTime(Button.cancel);
-	Flux.next('controller|button|cancel', pushTime);
+	Core.do('controller|button|cancel', pushTime);
 });
 
 Button.white.watch(function(err, value) {
 	var pushTime = getPushTime(Button.white);
-	Flux.next('controller|button|white', pushTime);
+	Core.do('controller|button|white', pushTime);
 });
 
 Button.blue.watch(function(err, value) {
 	var pushTime = getPushTime(Button.blue);
-	if (pushTime > DEBOUNCE_LIMIT) Flux.next('controller|button|blue', pushTime);
+	if (pushTime > DEBOUNCE_LIMIT) Core.do('controller|button|blue', pushTime);
 	else {
 		// already done in the handler
 		log.info('Blue button pushed not enough:', pushTime);
@@ -67,7 +67,7 @@ setInterval(function() {
 	// A deplacer dans flux.next('interface|runtime|refresh')) ?
 	let value = Button.etat.readSync();
 	//TODO faire un truc avec ce flux => move to jobsList.json?
-	Flux.next('interface|led|toggle', { leds: ['satellite'], value: value }, { hidden: true });
+	Core.do('interface|led|toggle', { leds: ['satellite'], value: value }, { hidden: true });
 
 	if (1 === value) {
 		if (!instance) {
@@ -75,9 +75,9 @@ setInterval(function() {
 			instance = true;
 			intervalEtat = setInterval(function() {
 				log.info('Etat btn Up => random action');
-				Flux.next('service|interaction|random');
+				Core.do('service|interaction|random');
 			}, INTERVAL_DELAY);
-			Flux.next('interface|video|cycle');
+			Core.do('interface|video|cycle');
 		}
 	} else {
 		instance = false;
@@ -92,11 +92,11 @@ Button.etat.watch(function(err, value) {
 	Core.run('volume', Core.isAwake() ? (value ? 400 : -400) : 'mute');
 	log.info('Etat has changed:', Core.run('etat'));
 	if (Core.run('music') == 'fip') {
-		Flux.next('interface|sound|mute');
-		Flux.next('service|music|fip', null, { delay: 0.1 });
+		Core.do('interface|sound|mute');
+		Core.do('service|music|fip', null, { delay: 0.1 });
 	}
 	if (Core.run('screen')) {
-		Flux.next('interface|video|screenOff');
+		Core.do('interface|video|screenOff');
 	}
 	log.table(Core.run(), 'RUNTIME...');
 });

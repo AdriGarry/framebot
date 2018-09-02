@@ -59,7 +59,7 @@ function Logger(filename, modeCore) {
 		cancelTimeout = setTimeout(() => {
 			levelAccessor() != LEVEL.INFO && levelAccessor(LEVEL.INFO);
 			if (!Flux) Flux = require(_PATH + 'src/core/Flux.js');
-			Flux.next('interface|runtime|update', { log: LEVEL.INFO });
+			Core.do('interface|runtime|update', { log: LEVEL.INFO });
 		}, delay * 60 * 1000);
 	}
 
