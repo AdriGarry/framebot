@@ -55,6 +55,6 @@ function refreshRuntime() {
 	log.info("refreshing Core's runtime...");
 	Flux.next('interface|hardware|runtime', null, { hidden: true });
 	setTimeout(function() {
-		log.table(Core.run(), 'RUNTIME...');
+		log.table(Core.run(), 'RUNTIME...       ' + Core.run('memory.loadAverage'));
 	}, 1000);
 }
