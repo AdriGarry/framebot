@@ -11,8 +11,12 @@ const CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 
 var Core = {};
 
+module.exports = {
+	init: initializeContext,
+	Core: Core
+};
+
 function setUpCoreObject(Core, descriptor) {
-	//Object.assign(cible, ...sources) //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object/assign
 	Core.name = descriptor.name;
 	for (let path in descriptor.paths) {
 		// Setting _PATHS
@@ -28,14 +32,6 @@ function setUpCoreObject(Core, descriptor) {
 	Core.ttsMessages = require(Core._CONF + 'ttsMessages.json');
 	return Core;
 }
-module.exports = {
-	init: initializeContext,
-	Core: Core
-};
-
-var Flux = {
-	next: null
-};
 
 function initializeContext(path, descriptor, forcedParams, startTime) {
 	Core = setUpCoreObject(Core, descriptor);
@@ -79,7 +75,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	}
 	Core.descriptor = descriptor;
 
-	Flux = require(Core._CORE + 'Flux.js').attach(descriptor.modules);
+	let Flux = require(Core._CORE + 'Flux.js').attach(descriptor.modules);
 	Core.flux = Flux;
 	Core.do = Flux.next;
 	Core.do('interface|runtime|update', confUpdate, {
