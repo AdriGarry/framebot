@@ -64,7 +64,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 
 	console.log('\n' + fs.readFileSync(Core._CONF + Core.name + '.logo', 'utf8').toString());
 	log.table(Core.conf(), 'CONFIG');
-	log.info('Core initialization...');
+	log.info('initialization...');
 
 	if (Core.conf('log') != 'info') log.level(Core.conf('log'));
 
