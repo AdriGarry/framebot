@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const log = new(require(Core._CORE + 'Logger.js'))(__filename);
 const Flux = require(Core._CORE + 'Flux.js');
 const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
@@ -33,7 +34,6 @@ function startWatch() {
 
 function stopWatch() {
 	log.info('watchers stop', PATHS);
-	// log.INFO('stopWatch() to implement !');
 	watchers.forEach(watcher => {
 		removeWatcher(watcher);
 	});
@@ -41,8 +41,11 @@ function stopWatch() {
 }
 
 var timer;
+
 function addWatcher(path, action) {
-	let watcher = fs.watch(path, { recursive: true }, (eventType, filename) => {
+	let watcher = fs.watch(path, {
+		recursive: true
+	}, (eventType, filename) => {
 		if (eventType) {
 			if (!timer) {
 				timer = new Date();
@@ -57,11 +60,11 @@ function addWatcher(path, action) {
 
 function removeWatcher(watcher) {
 	watcher.close();
-	// log.info('watcher', watcher, 'removed');
 }
 var watchTimeout;
+
 function waitForUpdateEnd(action) {
-	// log.info('waiting for update end...');
+	log.debug('waiting for update end...');
 	clearTimeout(watchTimeout);
 	watchTimeout = setTimeout(() => {
 		action();
@@ -70,6 +73,5 @@ function waitForUpdateEnd(action) {
 
 function relaunch() {
 	log.INFO('>> relaunching...');
-	// Flux.next('interface|runtime|updateRestart', { mode: mode || 'ready' });
 	Flux.next('service|system|restart', Core.conf('mode'));
 }

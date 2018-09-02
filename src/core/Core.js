@@ -66,7 +66,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
 	log.table(Core.conf(), 'CONFIG');
-	log.info('initialization...');
+	log.info('Core initialization...');
 	//, Core.conf('debug') ? 'DEBUG' + (Core.conf('debug') == 'forced' ? ' [FORCED!]' : '') : ''); //TODO recup le forced
 
 	if (Core.conf('log') != 'info') log.level(Core.conf('log'));

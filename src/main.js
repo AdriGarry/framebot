@@ -92,24 +92,3 @@ if (Core.isAwake() && Core.conf('watcher')) {
 		//Flux.next('interface|tts|speak', tts, { delay: 2 });
 	}
 }
-
-// const RandomBox = require('randombox').RandomBox;
-// console.log(RandomBox);
-// let toto = new RandomBox(Core.ttsMessages.goToSleep);
-// for (var i = 0; i < 15; i++) {
-// 	console.log(toto.next());
-// }
-// console.log('\n--> RANDOM BOX TO PACKAGE TO NPM !!\n');
-
-// Flux.next('interface|arduino|write', 'playRdmHorn', 90, 5);
-// Core.next('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
-// Core.do('interface', 'arduino', 'write', 'playRdmHorn', 90, 5);
-
-// Flux.next('interface|sound|play', { mp3: 'system/beBack.mp3' });
-// Flux.next('interface|sound|play', { mp3: 'jukebox/CDuncan-Say.mp3', position: 7 }, 2);
-
-// setTimeout(function() {
-// 	Utils.getMp3Duration(Core._MP3 + 'system/birthday.mp3', function(data) {
-// 		log.info(data);
-// 	});
-// }, 1000);

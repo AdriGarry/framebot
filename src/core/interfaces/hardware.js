@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const log = new(require(Core._CORE + 'Logger.js'))(__filename);
 const Flux = require(Core._CORE + 'Flux.js');
 const Utils = require(_PATH + 'src/core/Utils.js');
 const Gpio = require('onoff').Gpio;
@@ -41,7 +42,11 @@ Flux.interface.hardware.subscribe({
 	}
 });
 
-var etat = new Gpio(13, 'in', 'both', { persistentWatch: true, debounceTimeout: 500 });
+var etat = new Gpio(13, 'in', 'both', {
+	persistentWatch: true,
+	debounceTimeout: 500
+});
+
 function getEtatValue() {
 	var etatValue = etat.readSync();
 	Core.run('etat', etatValue ? 'high' : 'low');
@@ -56,9 +61,8 @@ function cpuStatsTTS() {
 	});
 	Flux.next('interface|tts|speak', {
 		lg: 'fr',
-		msg: Utils.rdm()
-			? 'Et il tourne a ' + retreiveCpuUsage() + ' pour cent'
-			: 'Pour ' + retreiveCpuUsage() + " pour cent d'utilisation"
+		msg: Utils.rdm() ?
+			'Et il tourne a ' + retreiveCpuUsage() + ' pour cent' : 'Pour ' + retreiveCpuUsage() + " pour cent d'utilisation"
 		// 'pour 34 pour cent d\'utilisation'
 	});
 }
@@ -98,7 +102,10 @@ function cpuAverage() {
 		totalIdle += cpu.times.idle;
 	}
 	//Return the average Idle and Tick times
-	return { idle: totalIdle / cpus.length, total: totalTick / cpus.length };
+	return {
+		idle: totalIdle / cpus.length,
+		total: totalTick / cpus.length
+	};
 }
 //Grab first CPU Measure
 var startMeasure = cpuAverage();
@@ -126,7 +133,7 @@ function retreiveMemoryUsage() {
 function retreiveLastModifiedDate(paths, callback) {
 	// typeof paths => Array
 	paths = paths.join(' ');
-	Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1', function(data) {
+	Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1', function (data) {
 		var lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
 		log.debug('getLastModifiedDate()', lastDate[0]);
 		Core.run('stats.update', lastDate[0]);
@@ -137,15 +144,15 @@ function retreiveLastModifiedDate(paths, callback) {
 /** Function to tts disk space */
 function diskSpaceTTS() {
 	let diskSpace = parseInt(Core.run('stats.diskSpace'));
-	let ttsMsg = Utils.rdm()
-		? 'Il me reste environ ' + (100 - diskSpace) + " pour cent d'espace disque disponible"
-		: "J'utilise " + diskSpace + " pour cent d'espace de stockage";
+	let ttsMsg = Utils.rdm() ?
+		'Il me reste environ ' + (100 - diskSpace) + " pour cent d'espace disque disponible" :
+		"J'utilise " + diskSpace + " pour cent d'espace de stockage";
 	Flux.next('interface|tts|speak', ttsMsg);
 }
 
 /** Function to retreive disk space on /dev/root */
 function getDiskSpace(callback) {
-	Utils.execCmd('df -h', function(data) {
+	Utils.execCmd('df -h', function (data) {
 		var diskSpace = data.match(/\/dev\/root.*[%]/gm);
 		diskSpace = diskSpace[0].match(/[\d]*%/g);
 		log.debug('Disk space:', diskSpace[0]);
@@ -161,32 +168,34 @@ function totalLinesTTS() {
 }
 
 /** Function to count lines of program's software */
-function countSoftwareLines(callback) {
+function countSoftwareLines() {
 	const EXTENSIONS = ['js', 'json', 'properties', 'sh', 'py', 'html', 'css'];
+	const PATHS = Core._SRC + ' ' + Core._DATA + ' ' + Core._CONF;
 	var typesNb = EXTENSIONS.length;
 	var lines = {},
 		totalLines = 0;
-	EXTENSIONS.forEach(function(item) {
+	EXTENSIONS.forEach(function (item) {
 		var temp = item;
-		Utils.execCmd('find /home/pi/odi/src /home/pi/odi/data -name "*.' + temp + '" -print | xargs wc -l', data => {
-			var regex = /(\d*) total/g;
-			var result = regex.exec(data);
-			var t = result && result[1] ? result[1] : -1;
-			totalLines = parseInt(totalLines) + parseInt(t);
-			lines[item] = parseInt(t);
-			typesNb--;
-			if (!typesNb) {
-				log.debug('countSoftwareLines()', totalLines);
-				Core.run('stats.totalLines', totalLines);
-				log.debug('stats.totalLines:', lines);
-				// if (callback) callback(totalLines);
-			}
-		});
+		Utils.execCmd('find ' + PATHS + ' -name "*.' + temp + '" -print | xargs wc -l',
+			data => {
+				var regex = /(\d*) total/g;
+				var result = regex.exec(data);
+				var t = result && result[1] ? result[1] : -1;
+				totalLines = parseInt(totalLines) + parseInt(t);
+				lines[item] = parseInt(t);
+				typesNb--;
+				if (!typesNb) {
+					log.debug('countSoftwareLines()', totalLines);
+					log.debug('stats.totalLines:', lines);
+					Core.run('stats.totalLines', totalLines);
+				}
+			});
 	});
 }
 
 /** Function to clean and archive logs each week */
 const LOG_FILES = ['odi.log', 'requestHistory.log', 'errorHistory.json', 'ttsUIHistory.json', 'voicemailHistory.json'];
+
 function archiveLogs() {
 	log.info('Clean log files  /!\\');
 	var date = new Date();
@@ -203,11 +212,11 @@ function archiveLogs() {
 function archiveLogFile(logFile, weekNb) {
 	var stream = fs.createReadStream(Core._LOG + logFile); /*, {bufferSize: 64 * 1024}*/
 	stream.pipe(fs.createWriteStream(Core._LOG + 'old/' + logFile + weekNb));
-	stream.on('error', function(e) {
+	stream.on('error', function (e) {
 		Core.error('stream error while cleaning log file ' + logFile, e);
 	});
-	stream.on('close', function() {
-		fs.truncate(Core._LOG + logFile, 0, function() {
+	stream.on('close', function () {
+		fs.truncate(Core._LOG + logFile, 0, function () {
 			log.info(logFile + ' successfully cleaned');
 		});
 	});
