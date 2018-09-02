@@ -1,6 +1,6 @@
 #!bin/sh
 
-# Tail odi.log
+# Tail Odi.log
 lxterminal\
 	--title="MyScriptWindow" \
-	-e "tail -f /home/pi/odi/log/odi.log"\
+	-e "tail -f /home/pi/odi/log/Odi.log"\

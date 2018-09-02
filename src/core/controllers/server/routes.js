@@ -608,7 +608,7 @@ function attachSleepRoutes(ui) {
 
 function prepareLogs(lines, callback) {
 	var content = fs
-		.readFileSync(Core._LOG + 'odi.log', 'UTF-8')
+		.readFileSync(Core._LOG + 'Odi.log', 'UTF-8')
 		.toString()
 		.split('\n');
 	content = content.slice(-lines); //-120

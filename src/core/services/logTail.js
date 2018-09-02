@@ -35,9 +35,9 @@ function spawnVim(file, cb) {
 	});
 }
 
-spawnVim(LOG_PATH + 'odi.log', function(code) {
+spawnVim(LOG_PATH + 'Odi.log', function(code) {
 	if (code == 0) {
-		fs.readFile(LOG_PATH + 'odi.log', function(err, data) {
+		fs.readFile(LOG_PATH + 'Odi.log', function(err, data) {
 			if (!err) {
 				console.log(data.toString());
 			}

@@ -194,7 +194,7 @@ function countSoftwareLines() {
 }
 
 /** Function to clean and archive logs each week */
-const LOG_FILES = ['odi.log', 'requestHistory.log', 'errorHistory.json', 'ttsUIHistory.json', 'voicemailHistory.json'];
+const LOG_FILES = ['Odi.log', 'requestHistory.log', 'errorHistory.json', 'ttsUIHistory.json', 'voicemailHistory.json'];
 
 function archiveLogs() {
 	log.info('Clean log files  /!\\');

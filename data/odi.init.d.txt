@@ -10,7 +10,7 @@ case "$1" in
 
         sudo sh /home/pi/odi/src/shell/led.sh allLedsOff
 
-        sudo python /home/pi/odi/src/python/buttons.py 2>&1 | sudo tee -a /home/pi/odi/log/odi.log &
+        sudo python /home/pi/odi/src/python/buttons.py 2>&1 | sudo tee -a /home/pi/odi/log/Odi.log &
 
         sudo sh /home/pi/odi/odi.sh &
 
