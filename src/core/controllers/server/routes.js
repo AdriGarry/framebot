@@ -42,10 +42,8 @@ function attachDefaultRoutes(ui) {
 			mode: {
 				value: {
 					mode: Core.conf('log') == 'trace' ?
-						'Trace' :
-						Core.conf('log') == 'debug' ?
-						'Debug' :
-						Utils.firstLetterUpper(Core.conf('mode')),
+						'Trace' : Core.conf('log') == 'debug' ?
+						'Debug' : Utils.firstLetterUpper(Core.conf('mode')),
 					param: Core.conf('startTime'),
 					switch: etatBtn == 'high' ? true : false
 				}
@@ -459,7 +457,7 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/age', function (req, res) {
-		Flux.next('service|time|OdiAge');
+		Flux.next('service|time|age');
 		res.end();
 	});
 

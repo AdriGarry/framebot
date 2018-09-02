@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const log = new(require(Core._CORE + 'Logger.js'))(__filename);
 const Utils = require(_PATH + 'src/core/Utils.js');
 const Flux = require(Core._CORE + 'Flux.js');
 const spawn = require('child_process').spawn;
@@ -27,8 +28,8 @@ Flux.service.time.subscribe({
 			} else setTimer(flux.value);
 		} else if (flux.id == 'birthday') {
 			birthdaySong();
-		} else if (flux.id == 'OdiAge') {
-			sayOdiAge();
+		} else if (flux.id == 'age') {
+			ttsAge();
 		} else Core.error('unmapped flux in Time service', flux, false);
 	},
 	error: err => {
@@ -42,7 +43,10 @@ function now() {
 	var date = new Date();
 	var hour = date.getHours();
 	var min = date.getMinutes();
-	Flux.next('interface|tts|speak', { lg: 'fr', msg: 'Il est ' + hour + ' heure ' + (min > 0 ? min : '') });
+	Flux.next('interface|tts|speak', {
+		lg: 'fr',
+		msg: 'Il est ' + hour + ' heure ' + (min > 0 ? min : '')
+	});
 }
 
 const CALENDAR = require(Core._DATA + 'calendar.json');
@@ -87,13 +91,20 @@ function getSeason() {
 /** Function to disable all alarms */
 function disableAllAlarms() {
 	Flux.next('interface|tts|speak', 'Annulation de toutes les alarmes');
-	Flux.next('interface|runtime|updateRestart', { alarms: { weekDay: null, weekEnd: null } }, { delay: 4 });
+	Flux.next('interface|runtime|updateRestart', {
+		alarms: {
+			weekDay: null,
+			weekEnd: null
+		}
+	}, {
+		delay: 4
+	});
 }
 
 /** Function to set custom alarm */
 function setAlarm(alarm) {
 	var newAlarms = {};
-	Object.keys(Core.conf('alarms')).forEach(function(key, index) {
+	Object.keys(Core.conf('alarms')).forEach(function (key, index) {
 		if (key == alarm.when) {
 			newAlarms[key] = {
 				h: alarm.h,
@@ -107,7 +118,11 @@ function setAlarm(alarm) {
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
 	let alarmTTS = 'Alarme ' + alarmMode + ' reprogramer a ' + alarm.h + ' heure ' + (alarm.m ? alarm.m : '');
 	Flux.next('interface|tts|speak', alarmTTS);
-	Flux.next('interface|runtime|updateRestart', { alarms: newAlarms }, { delay: 6 });
+	Flux.next('interface|runtime|updateRestart', {
+		alarms: newAlarms
+	}, {
+		delay: 6
+	});
 }
 
 /** Function to test if alarm now */
@@ -141,10 +156,10 @@ function cocorico(mode) {
 	// TODO remove sea mode information
 	log.info('Morning Sea...');
 	spawn('sh', [Core._SHELL + 'sounds.sh', 'MorningSea']);
-	Utils.getMp3Duration(Core._MP3 + 'system/morningSea.mp3', function(seaDuration) {
+	Utils.getMp3Duration(Core._MP3 + 'system/morningSea.mp3', function (seaDuration) {
 		log.debug('seaDuration', seaDuration);
 		alarmDelay = seaDuration * 1000;
-		setTimeout(function() {
+		setTimeout(function () {
 			cocoricoPart2(mode);
 		}, alarmDelay);
 	});
@@ -157,7 +172,7 @@ function cocoricoPart2(mode) {
 	spawn('sh', [Core._SHELL + 'sounds.sh', 'cocorico']);
 	if (isBirthday()) {
 		birthdaySong();
-		setTimeout(function() {
+		setTimeout(function () {
 			cocoricoPart3();
 		}, 53 * 1000);
 	} else {
@@ -168,24 +183,46 @@ function cocoricoPart2(mode) {
 /** Function alarm part 3 */
 function cocoricoPart3() {
 	Flux.next('service|max|hornRdm');
-	Flux.next('service|time|now', null, { delay: 3 });
-	Flux.next('service|time|today', null, { delay: 5 });
-	Flux.next('service|interaction|weather', null, { delay: 8 });
-	Flux.next('service|voicemail|check', null, { delay: 13 });
+	Flux.next('service|time|now', null, {
+		delay: 3
+	});
+	Flux.next('service|time|today', null, {
+		delay: 5
+	});
+	Flux.next('service|interaction|weather', null, {
+		delay: 8
+	});
+	Flux.next('service|voicemail|check', null, {
+		delay: 13
+	});
 
-	Flux.next('service|music|fip', null, { delay: 45 });
+	Flux.next('service|music|fip', null, {
+		delay: 45
+	});
 
-	Flux.next('service|max|playOneMelody', null, { delay: 8 * 60, loop: 8 });
-	Flux.next('service|max|hornRdm', null, { delay: 12 * 60, loop: 6 });
+	Flux.next('service|max|playOneMelody', null, {
+		delay: 8 * 60,
+		loop: 8
+	});
+	Flux.next('service|max|hornRdm', null, {
+		delay: 12 * 60,
+		loop: 6
+	});
 
 	var baluchonTTS = "Je crois qu'il faut lancer l'opairation baluchon";
-	Flux.next('interface|tts|speak', baluchonTTS, { delay: Utils.random(15, 25) * 60, loop: 3 });
+	Flux.next('interface|tts|speak', baluchonTTS, {
+		delay: Utils.random(15, 25) * 60,
+		loop: 3
+	});
 }
 
 const BIRTHDAYS = ['17/04', '13/12', '31/07'];
+
 function isBirthday() {
 	log.info('isBirthday');
-	var today = { date: new Date() };
+	var today = {
+		date: new Date()
+	};
 	today.day = today.date.getDate();
 	today.month = today.date.getMonth() + 1;
 	for (var i = 0; i < BIRTHDAYS.length; i++) {
@@ -199,12 +236,15 @@ function isBirthday() {
 
 function birthdaySong() {
 	log.info('birthday song...');
-	Flux.next('interface|sound|play', { mp3: 'system/birthday.mp3' });
+	Flux.next('interface|sound|play', {
+		mp3: 'system/birthday.mp3'
+	});
 }
 
-/** Function to TTS Odi's age */
-const DATE_BIRTH = new Date('August 9, 2015 00:00:00');
-function sayOdiAge() {
+/** Function to TTS age */
+const DATE_BIRTH = new Date(Core.descriptor.birthday);
+
+function ttsAge() {
 	var age = Math.abs(DATE_BIRTH.getTime() - new Date());
 	age = Math.ceil(age / (1000 * 3600 * 24));
 
@@ -213,12 +253,16 @@ function sayOdiAge() {
 	var rdm = ["Aujourd'hui, ", 'A ce jour', ''];
 	var birthDay = rdm[Utils.random(rdm.length)];
 	birthDay += "j'ai " + years + ' ans et ' + mouths + ' mois !';
-	log.info("sayOdiAge() '" + birthDay + "'");
-	Flux.next('interface|tts|speak', { lg: 'fr', msg: birthDay });
+	log.info("ttsAge() '" + birthDay + "'");
+	Flux.next('interface|tts|speak', {
+		lg: 'fr',
+		msg: birthDay
+	});
 }
 
 // Core.run('timer', 0); // TODO useless, to remove ?
 var secInterval;
+
 function setTimer(minutes) {
 	if (typeof minutes !== undefined && Number(minutes) > 1) {
 		minutes = 60 * Number(minutes);
@@ -233,13 +277,21 @@ function setTimer(minutes) {
 	var sec = Core.run('timer') % 60;
 	var ttsMsg =
 		'Minuterie ' + (min > 0 ? (min > 1 ? min : ' une ') + ' minutes ' : '') + (sec > 0 ? sec + ' secondes' : '');
-	Flux.next('interface|tts|speak', { lg: 'fr', msg: ttsMsg });
+	Flux.next('interface|tts|speak', {
+		lg: 'fr',
+		msg: ttsMsg
+	});
 }
 
 function startTimer() {
 	let etat = 1;
-	secInterval = setInterval(function() {
-		Flux.next('interface|led|toggle', { leds: ['belly'], value: etat }, { hidden: true });
+	secInterval = setInterval(function () {
+		Flux.next('interface|led|toggle', {
+			leds: ['belly'],
+			value: etat
+		}, {
+			hidden: true
+		});
 		etat = 1 - etat;
 		if (Core.run('timer') < 10) {
 			spawn('sh', [Core._SHELL + 'timerSound.sh', 'almost']); // TODO use sound.js
@@ -248,14 +300,26 @@ function startTimer() {
 		}
 		Core.run('timer', Core.run('timer') - 1);
 		if (Core.run('timer') % 120 == 0 && Core.run('timer') / 60 > 0) {
-			Flux.next('interface|tts|speak', { lg: 'fr', msg: Core.run('timer') / 60 + ' minutes et compte a rebours' });
+			Flux.next('interface|tts|speak', {
+				lg: 'fr',
+				msg: Core.run('timer') / 60 + ' minutes et compte a rebours'
+			});
 		} else if (Core.run('timer') <= 0 && Core.run('timer') > -5) {
 			clearInterval(secInterval);
 			log.info('End Timer !');
 			spawn('sh', [Core._SHELL + 'timerSound.sh', 'end']); // TODO use sound.js
-			Flux.next('interface|led|blink', { leds: ['belly', 'eye'], speed: 90, loop: 12 });
+			Flux.next('interface|led|blink', {
+				leds: ['belly', 'eye'],
+				speed: 90,
+				loop: 12
+			});
 			Flux.next('interface|tts|speak', 'Les raviolis sont cuits !');
-			Flux.next('interface|led|toggle', { leds: ['belly'], value: 0 }, { delay: 1 });
+			Flux.next('interface|led|toggle', {
+				leds: ['belly'],
+				value: 0
+			}, {
+				delay: 1
+			});
 		}
 	}, 1000);
 }
@@ -266,7 +330,15 @@ function stopTimer() {
 		secInterval = false; //
 		Core.run('timer', 0);
 		// log.debug('-------------->TIMER=', Core.run('timer'));
-		Flux.next('interface|tts|speak', { lg: 'en', msg: 'Timer canceled' });
-		Flux.next('interface|led|toggle', { leds: ['belly'], value: 0 }, { hidden: true });
+		Flux.next('interface|tts|speak', {
+			lg: 'en',
+			msg: 'Timer canceled'
+		});
+		Flux.next('interface|led|toggle', {
+			leds: ['belly'],
+			value: 0
+		}, {
+			hidden: true
+		});
 	}
 }

@@ -17,13 +17,14 @@ function setUpContext(Core, descriptor) {
 		Core[path] = _PATH + descriptor.paths[path];
 	}
 	Core.conf = new Lock(require(Core._TMP + 'conf.json'), Core._TMP + 'conf.json');
-	Core.isAwake = isAwake;
 	Core.run = new Lock(CORE_DEFAULT.runtime);
+	Core.isAwake = isAwake;
 	Core.descriptor = descriptor; // TODO useless?
 	Core.error = error;
 	Core.errors = [];
 	Core.gpio = require(Core._CONF + 'gpio.json');
 	Core.ttsMessages = require(Core._CONF + 'ttsMessages.json');
+	console.log(descriptor.birthday)
 	return Core;
 }
 module.exports = {

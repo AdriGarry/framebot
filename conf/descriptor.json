@@ -1,5 +1,6 @@
 {
 	"name": "Odi",
+	"birthday": "August 9, 2015 00:00:00",
 	"paths": {
 		"_SRC": "src/",
 		"_CORE": "src/core/",
