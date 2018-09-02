@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 'use strict';
 
 const startTime = new Date();
@@ -13,7 +14,7 @@ const forcedParams = {
 
 global._PATH = __dirname.match(/\/.*\//g)[0];
 
-const descriptor = require(_PATH + 'data/descriptor.json');
+const descriptor = require(_PATH + 'conf/descriptor.json');
 
 var Core = require(_PATH + 'src/core/Core.js').init(
 	__filename.match(/\/.*\//g)[0],
@@ -27,7 +28,7 @@ if (Core.isAwake()) {
 	spawn('sh', [_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
 }
 
-const log = new (require(Core._CORE + 'Logger.js'))(__filename, Core.conf('mode'));
+const log = new(require(Core._CORE + 'Logger.js'))(__filename, Core.conf('mode'));
 // log.setMode(Core.conf('log'));
 log.debug('argv', argv);
 
@@ -40,14 +41,22 @@ if (!Core.isAwake()) {
 	Flux.next('interface|video|screenOff');
 } else if (Core.conf('mode') == 'test') {
 	////////  TEST section  ////////
-	Flux.next('interface|tts|speak', { lg: 'en', msg: 'test sequence' });
-	setTimeout(function() {
-		var testSequence = require(Core._SRC + 'test/tests.js').launch(function(testStatus) {
-			let testTTS = Utils.rdm() ? 'Je suis Ok !' : { lg: 'en', msg: 'all tests succeeded!' };
+	Flux.next('interface|tts|speak', {
+		lg: 'en',
+		msg: 'test sequence'
+	});
+	setTimeout(function () {
+		var testSequence = require(Core._SRC + 'test/tests.js').launch(function (testStatus) {
+			let testTTS = Utils.rdm() ? 'Je suis Ok !' : {
+				lg: 'en',
+				msg: 'all tests succeeded!'
+			};
 			Flux.next('interface|tts|speak', testTTS);
-			setTimeout(function() {
+			setTimeout(function () {
 				// if (testStatus) Flux.next('interface|runtime|updateRestart', { mode: 'ready' });
-				if (testStatus) Flux.next('interface|runtime|updateRestart', { mode: 'ready' });
+				if (testStatus) Flux.next('interface|runtime|updateRestart', {
+					mode: 'ready'
+				});
 			}, 3000);
 		});
 	}, 1000);
@@ -78,7 +87,8 @@ if (Core.isAwake() && !Core.run('alarm')) {
 
 if (Core.isAwake() && Core.conf('watcher')) {
 	// TODO put this in a callable function from UI!
-	for (var i = 0, tts; (tts = Core.ttsMessages.random[i]); i++) {
+	for (var i = 0, tts;
+		(tts = Core.ttsMessages.random[i]); i++) {
 		//Flux.next('interface|tts|speak', tts, { delay: 2 });
 	}
 }

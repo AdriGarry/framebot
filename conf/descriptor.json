@@ -7,12 +7,12 @@
 		"_WEB": "src/web/",
 		"_SECURITY": "security/",
 		"_DATA": "data/",
+		"_CONF": "conf/",
 		"_MP3": "media/mp3/",
 		"_VIDEO": "media/video/",
 		"_PHOTO": "media/photo/",
 		"_LOG": "log/",
-		"_TMP": "tmp/",
-		"_CONF": "tmp/conf.json"
+		"_TMP": "tmp/"
 	},
 	"modules": {
 		"interfaces": {
@@ -29,8 +29,14 @@
 	},
 	"conf": {
 		"alarms": {
-			"weekDay": { "h": 7, "m": 10 },
-			"weekEnd": { "h": 12, "m": 0 }
+			"weekDay": {
+				"h": 7,
+				"m": 10
+			},
+			"weekEnd": {
+				"h": 12,
+				"m": 0
+			}
 		}
 	}
 }

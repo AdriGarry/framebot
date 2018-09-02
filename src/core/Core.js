@@ -1,40 +1,46 @@
 #!/usr/bin/env node
+
 'use strict';
 
-const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
+const log = new(require(_PATH + 'src/core/Logger.js'))(__filename);
 const Lock = require(_PATH + 'src/core/Lock.js');
 const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 const CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 
 var Core = {};
+
 function setUpContext(Core, descriptor) {
 	//Object.assign(cible, ...sources) //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object/assign
 	Core.name = descriptor.name;
-	Core.conf = new Lock(require(_PATH + 'tmp/conf.json'), _PATH + 'tmp/conf.json');
+	for (let path in descriptor.paths) { // Setting _PATHS
+		Core[path] = _PATH + descriptor.paths[path];
+	}
+	Core.conf = new Lock(require(Core._TMP + 'conf.json'), Core._TMP + 'conf.json');
 	Core.isAwake = isAwake;
 	Core.run = new Lock(CORE_DEFAULT.runtime);
 	Core.descriptor = descriptor; // TODO useless?
 	Core.error = error;
 	Core.errors = [];
-	Core.gpio = require(_PATH + 'data/gpio.json');
-	Core.ttsMessages = require(_PATH + 'data/ttsMessages.json');
-	for (let path in descriptor.paths) {
-		// Setting _PATHS
-		Core[path] = _PATH + descriptor.paths[path];
-	}
+	Core.gpio = require(Core._CONF + 'gpio.json');
+	Core.ttsMessages = require(Core._CONF + 'ttsMessages.json');
 	return Core;
 }
 module.exports = {
-	init: init,
+	init: initializeContext,
 	Core: Core
 };
 
-var Flux = { next: null };
-function init(path, descriptor, forcedParams, startTime) {
+var Flux = {
+	next: null
+};
+
+function initializeContext(path, descriptor, forcedParams, startTime) {
 	Core = setUpContext(Core, descriptor);
 	let packageJson = require(_PATH + 'package.json');
-	var confUpdate = { startTime: Utils.logTime('h:m (D/M)') },
+	var confUpdate = {
+			startTime: Utils.logTime('h:m (D/M)')
+		},
 		forcedParamsLog = '';
 	if (confUpdate.version != packageJson.version) {
 		confUpdate.version = packageJson.version;
@@ -48,7 +54,7 @@ function init(path, descriptor, forcedParams, startTime) {
 		forcedParamsLog += 'debug ';
 	}
 	const logo = fs
-		.readFileSync(_PATH + 'data/' + 'odi.logo', 'utf8')
+		.readFileSync(Core._CONF + Core.name + '.logo', 'utf8')
 		.toString()
 		.split('\n');
 	console.log('\n' + logo.join('\n'));
@@ -72,12 +78,19 @@ function init(path, descriptor, forcedParams, startTime) {
 	Core.descriptor = descriptor;
 
 	Flux = require(Core._CORE + 'Flux.js').attach(descriptor.modules);
-	Flux.next('interface|runtime|update', confUpdate, { delay: 0.5 });
+	Flux.next('interface|runtime|update', confUpdate, {
+		delay: 0.5
+	});
 	let fluxToFire = Core.conf('flux'); // TODO do this !
 	if (fluxToFire && fluxToFire.length > 0) {
 		log.table(fluxToFire, 'flux to fire');
 		Flux.next(fluxToFire);
 	}
+
+	process.on('uncaughtException', function (err) {
+		Core.error('Uncaught Exception', err, false);
+	});
+
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
 	return Core;
 }
@@ -86,13 +99,16 @@ function isAwake() {
 	return Core.conf('mode') != 'sleep';
 }
 
-process.on('uncaughtException', function(err) {
-	Core.error('Uncaught Exception', err, false);
-});
-
 function error(label, data, stackTrace) {
-	Flux.next('interface|led|altLeds', { speed: 30, duration: 1.5 }, { hidden: true });
-	Flux.next('interface|sound|error', null, { hidden: true });
+	Flux.next('interface|led|altLeds', {
+		speed: 30,
+		duration: 1.5
+	}, {
+		hidden: true
+	});
+	Flux.next('interface|sound|error', null, {
+		hidden: true
+	});
 	log.error(label + '\n', data || '');
 	if (stackTrace != false) {
 		// Optional ?

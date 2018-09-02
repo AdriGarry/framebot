@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// 'use strict'; //Octal literals are not allowed in strict mode.
+ // 'use strict'; //Octal literals are not allowed in strict mode.
 
 console.log('nodejs.version=' + process.version);
 
@@ -28,6 +28,7 @@ var i = 0,
 	interval,
 	timeout,
 	okButton;
+
 function wrapper(code) {
 	console.log(wrapperTitle);
 	if (!code) {
@@ -49,8 +50,11 @@ function wrapper(code) {
 		restartCoreFromWrapper(code);
 	}, timeoutDelay * 1000);
 
-	okButton = new Gpio(20, 'in', 'rising', { persistentWatch: true, debounceTimeout: 500 });
-	okButton.watch(function(err, value) {
+	okButton = new Gpio(20, 'in', 'rising', {
+		persistentWatch: true,
+		debounceTimeout: 500
+	});
+	okButton.watch(function (err, value) {
 		console.log('\nOk Button pushed, restarting Core');
 		restartCoreFromWrapper(code);
 	});
@@ -80,15 +84,15 @@ function startCore(exitCode) {
 	}
 	var Core = spawn('node', coreProgramWithParams);
 
-	Core.stdout.on('data', function(data) {
+	Core.stdout.on('data', function (data) {
 		process.stdout.write(data);
 	});
 
-	Core.stderr.on('data', function(data) {
+	Core.stderr.on('data', function (data) {
 		process.stdout.write(data);
 	});
 
-	Core.on('exit', function(code) {
+	Core.on('exit', function (code) {
 		spawn('sh', [SRC_PATH + 'shell/mute.sh']);
 		console.log('\n>> Core restarting... [code:' + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
@@ -99,7 +103,7 @@ function startCore(exitCode) {
 
 function checkUp() {
 	console.log('checkUp...');
-	descriptor = JSON.parse(fs.readFileSync(_PATH + 'data/descriptor.json')); // TODO require ?
+	descriptor = JSON.parse(fs.readFileSync(_PATH + 'conf/descriptor.json')); // TODO require ?
 	if (!fs.existsSync(_PATH + 'tmp')) {
 		fs.mkdirSync(path.join(_PATH, 'tmp')); //, parseInt('0777', 8)
 		fs.chmodSync(path.join(_PATH, 'tmp'), parseInt('0777', 8)); //, parseInt('0777', 8)
@@ -149,7 +153,7 @@ function reInitConf() {
 	console.log('> CONF reset');
 }
 
-Array.prototype.remove = function() {
+Array.prototype.remove = function () {
 	var what,
 		a = arguments,
 		L = a.length,

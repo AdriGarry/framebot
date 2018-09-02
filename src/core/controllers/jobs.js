@@ -1,11 +1,12 @@
 #!/usr/bin/env node
+
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const log = new(require(Core._CORE + 'Logger.js'))(__filename);
 const Utils = require(_PATH + 'src/core/Utils.js');
 const Flux = require(Core._CORE + 'Flux.js');
-const JOBS = require(Core._DATA + 'jobList.json');
+const JOBS = require(Core._CONF + 'jobList.json');
 const CronJob = require('cron').CronJob;
 
 scheduleJobs(JOBS.system, 'System');
@@ -18,7 +19,7 @@ function scheduleJob(job) {
 	let jobLog = '';
 	new CronJob(
 		job.cron,
-		function() {
+		function () {
 			Flux.next(job.flux);
 		},
 		null,
@@ -59,7 +60,7 @@ function scheduleJobs(jobsList, jobsType) {
 function findByKey(object, key) {
 	// TODO move to Utils.js
 	let value = false;
-	Object.keys(object).some(function(k) {
+	Object.keys(object).some(function (k) {
 		if (k == key) {
 			return object[k];
 		} else if (key.constructor == RegExp) {
@@ -78,7 +79,7 @@ function findByVal(object, val) {
 	// TODO move to Utils.js
 	console.log(val);
 	let value = false;
-	Object.keys(object).some(function(k) {
+	Object.keys(object).some(function (k) {
 		if (object[k] == val) {
 			return object[k];
 		} else if (val.constructor == RegExp) {
