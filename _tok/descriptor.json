@@ -1,0 +1,75 @@
+{
+	"name": "Odi",
+	"birthday": "August 9, 2015 00:00:00",
+	"paths": {
+		"_SRC": "src/",
+		"_CORE": "src/core/",
+		"_SHELL": "src/shell/",
+		"_WEB": "src/web/",
+		"_SECURITY": "security/",
+		"_DATA": "data/",
+		"_CONF": "conf/",
+		"_MP3": "media/mp3/",
+		"_VIDEO": "media/video/",
+		"_PHOTO": "media/photo/",
+		"_LOG": "log/",
+		"_TMP": "tmp/"
+	},
+	"modules": {
+		"interfaces": {
+			"base": ["runtime", "led", "sound", "hardware", "arduino", "video"],
+			"full": ["tts"]
+		},
+		"controllers": {
+			"base": ["button", "jobs", "server", "watcher"]
+		},
+		"services": {
+			"base": ["buttonService", "system", "time", "voicemail"],
+			"full": ["mood", "interaction", "music", "party", "max"]
+		}
+	},
+	"conf": {
+		"alarms": {
+			"weekDay": {
+				"h": 7,
+				"m": 10
+			},
+			"weekEnd": {
+				"h": 12,
+				"m": 0
+			}
+		}
+	},
+	"runtime": {
+		"toto": "titi"
+	},
+	"jobs": {
+		"base": [],
+		"full": [
+			{
+				"cron": "0 0 * * * *",
+				"flux": { "id": "service|time|now" }
+			},
+			{
+				"cron": "13 0 1,13 * * *",
+				"flux": { "id": "service|interaction|uneHeure" }
+			},
+			{
+				"cron": "0 18,20,22-25 8 * * 1-5",
+				"flux": { "id": "service|interaction|goToWork" }
+			},
+			{
+				"cron": "0 15 18 * * 1-5",
+				"flux": { "id": "service|music|fipOrJukebox" }
+			},
+			{
+				"cron": "0 19 19 * * *",
+				"flux": { "id": "interface|tts|speak", "data": "Je crois qu'il faut lancer l'opairation baluchon" }
+			},
+			{
+				"cron": "13 13,25,40,51 17-21 * * *",
+				"flux": { "id": "service|interaction|random" }
+			}
+		]
+	}
+}
