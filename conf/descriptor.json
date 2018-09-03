@@ -40,6 +40,9 @@
 			}
 		}
 	},
+	"runtime": {
+		"toto": "titi"
+	},
 	"jobs": {
 		"base": [],
 		"full": [

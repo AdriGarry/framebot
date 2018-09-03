@@ -45,6 +45,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	var confUpdate = {
 			startTime: Utils.logTime('h:m (D/M)')
 		},
+		runtimeUpdate = {},
 		forcedParamsLog = '';
 	if (confUpdate.version != packageJson.version) {
 		confUpdate.version = packageJson.version;
@@ -74,7 +75,12 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 			confUpdate[key] = descriptor.conf[key];
 		});
 	}
-	Core.descriptor = descriptor;
+	if (descriptor.runtime && typeof descriptor.runtime == 'object') {
+		Object.keys(descriptor.runtime).forEach(key => {
+			runtimeUpdate[key] = descriptor.runtime[key];
+		});
+	}
+	// Core.descriptor = descriptor;
 
 	let Flux = require(Core._CORE + 'Flux.js').attach(descriptor.modules);
 	Core.flux = Flux;
@@ -82,6 +88,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	Core.do('interface|runtime|update', confUpdate, {
 		delay: 0.5
 	});
+	Core.do('interface|runtime|refresh', runtimeUpdate);
 	let fluxToFire = Core.conf('flux'); // TODO do this !
 	if (fluxToFire && fluxToFire.length > 0) {
 		log.table(fluxToFire, 'flux to fire');
