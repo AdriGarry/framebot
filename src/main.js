@@ -16,7 +16,6 @@ const forcedParams = {
 global._PATH = __dirname.match(/\/.*\//g)[0];
 
 const descriptor = require(_PATH + '_' + name + '/descriptor.json');
-
 var Core = require(_PATH + 'src/core/Core.js').init(
 	__filename.match(/\/.*\//g)[0],
 	descriptor,
