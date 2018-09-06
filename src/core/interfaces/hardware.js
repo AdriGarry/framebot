@@ -186,7 +186,7 @@ function totalLinesTTS() {
 /** Function to count lines of program's software */
 function countSoftwareLines() {
 	const EXTENSIONS = ['js', 'json', 'properties', 'sh', 'py', 'html', 'css'];
-	const PATHS = Core._SRC + ' ' + Core._DATA + ' ' + Core._CONF;
+	const PATHS = Core._SRC + ' ' + Core._CONST + ' ' + Core._CONF;
 	var typesNb = EXTENSIONS.length;
 	var lines = {},
 		totalLines = 0;

@@ -49,7 +49,7 @@ function now() {
 	});
 }
 
-const CALENDAR = require(Core._DATA + 'calendar.json');
+const CALENDAR = require(Core._CONST + 'calendar.json');
 /** Function to say current date */
 function today() {
 	var date = new Date();

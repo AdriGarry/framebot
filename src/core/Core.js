@@ -7,7 +7,7 @@ const Lock = require(_PATH + 'src/core/Lock.js');
 const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 const spawn = require('child_process').spawn;
-const CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
+const CORE_DEFAULT = require(_PATH + 'const/coreDefault.json');
 
 var Core = {};
 
@@ -22,6 +22,7 @@ function setUpCoreObject(Core, descriptor) {
 		// Setting _PATHS
 		Core[path] = _PATH + descriptor.paths[path];
 	}
+	Core._CONF = _PATH + '_' + descriptor.name.toLowerCase() + '/';
 	Core.conf = new Lock(require(Core._TMP + 'conf.json'), Core._TMP + 'conf.json');
 	Core.run = new Lock(CORE_DEFAULT.runtime);
 	Core.isAwake = isAwake;

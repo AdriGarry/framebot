@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# TO REMOVE !!
+
 #__Params
 echo "CleanUp script"
 

@@ -6,6 +6,7 @@ const startTime = new Date();
 console.log('\u2022');
 
 const argv = process.argv;
+const name = process.argv[2];
 const forcedParams = {
 	debug: argv.indexOf('debug') > 0 ? true : false,
 	sleep: argv.indexOf('sleep') > 0 ? true : false,
@@ -14,7 +15,7 @@ const forcedParams = {
 
 global._PATH = __dirname.match(/\/.*\//g)[0];
 
-const descriptor = require(_PATH + 'conf/descriptor.json');
+const descriptor = require(_PATH + '_' + name + '/descriptor.json');
 
 var Core = require(_PATH + 'src/core/Core.js').init(
 	__filename.match(/\/.*\//g)[0],

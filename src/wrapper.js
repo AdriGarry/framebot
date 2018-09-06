@@ -4,7 +4,9 @@
 console.log('nodejs.version=' + process.version);
 
 /** Params detection */
+console.log('argv', process.argv);
 var argv = process.argv.splice(2);
+var name = argv[0];
 
 const fs = require('fs');
 const path = require('path');
@@ -16,7 +18,7 @@ const sep = path.sep;
 const SRC_PATH = __dirname + sep;
 const _PATH = __dirname.replace('src', '');
 const INTERVALS = [2, 5, 10, 30, 60, 90, 180, 300, 600, 900];
-const CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
+const CORE_DEFAULT = require(_PATH + 'const/coreDefault.json');
 const wrapperTitle = '\n┌──────────────┐\n│  > Wrapper   │\n└──────────────┘';
 
 // console.log('Wrapper started');
@@ -103,7 +105,7 @@ function startCore(exitCode) {
 
 function checkUp() {
 	console.log('checkUp...');
-	descriptor = JSON.parse(fs.readFileSync(_PATH + 'conf/descriptor.json')); // TODO require ?
+	descriptor = JSON.parse(fs.readFileSync(_PATH + '_' + name + '/descriptor.json')); // TODO require ?
 	if (!fs.existsSync(_PATH + 'tmp')) {
 		fs.mkdirSync(path.join(_PATH, 'tmp')); //, parseInt('0777', 8)
 		fs.chmodSync(path.join(_PATH, 'tmp'), parseInt('0777', 8)); //, parseInt('0777', 8)
