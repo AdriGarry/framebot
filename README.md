@@ -1,6 +1,6 @@
-# Odi
+# Core
 
-Based on NodeJS, running on a Raspberry Pi, this is **Odi**'s program to autorun and interact !
+Based on NodeJS, running on a Raspberry Pi, this is **Core** program, to autorun and interact !
 
 Available modes: ready, sleep, test
 
@@ -54,7 +54,7 @@ This object is isolated, with access methods.
 #### Flux manager
 
 A flux manager, based on RxJS, can send or schedule (delay, repeat) orders.
-The _Core.do()_ function accepts flux object (full or detailled), or list of fluxs.
+The _Core.do() (Flux.next())_ function accepts flux object (full or detailled), or list of fluxs.
 
 A flux is an Object with 3 properties:
 
