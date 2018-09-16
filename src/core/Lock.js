@@ -15,9 +15,9 @@ function Lock(obj, file) {
 		self.file = false;
 	}
 	// Object.seal(self);
-	return _functions;
+	return _accessors;
 
-	function _functions(id, newValue, restart, table) {
+	function _accessors(id, newValue, restart, table) {
 		if (!id) return self._obj; //return all object
 		if (typeof newValue !== 'undefined') return _setter(id, newValue, restart, table);
 		//set value

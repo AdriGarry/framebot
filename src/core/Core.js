@@ -74,7 +74,18 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 
 	if (descriptor.conf && typeof descriptor.conf == 'object') {
 		Object.keys(descriptor.conf).forEach(key => {
-			confUpdate[key] = descriptor.conf[key];
+			// console.log(
+			// 	Core.conf(key),
+			// 	JSON.stringify(Core.conf(key)),
+			// 	JSON.stringify(descriptor.conf[key]),
+			// 	JSON.stringify(Core.conf(key)) != JSON.stringify(descriptor.conf[key])
+			// );
+			// if (!Core.conf().hasOwnProperty(key) || Core.conf(key) !== Core.conf().hasOwnProperty(key)) {
+			// if (!Core.conf().hasOwnProperty(key)) {
+			if (Core.conf(key) == '.' || Core.conf(key) == {}) {
+				// if (JSON.stringify(Core.conf(key)) != JSON.stringify(descriptor.conf[key])) {
+				confUpdate[key] = descriptor.conf[key];
+			}
 		});
 	}
 	if (descriptor.runtime && typeof descriptor.runtime == 'object') {
