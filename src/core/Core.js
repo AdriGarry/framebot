@@ -17,7 +17,8 @@ module.exports = {
 };
 
 function setUpCoreObject(Core, descriptor) {
-	Core.name = descriptor.name;
+	Core.Name = descriptor.name;
+	Core.name = descriptor.name.toLowerCase();
 	for (let path in descriptor.paths) {
 		// Setting _PATHS
 		Core[path] = _PATH + descriptor.paths[path];
@@ -65,7 +66,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	}
 	if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
-	console.log('\n' + fs.readFileSync(Core._CONF + Core.name + '.logo', 'utf8').toString());
+	console.log('\n' + fs.readFileSync(Core._CONF + Core.Name + '.logo', 'utf8').toString());
 	log.table(Core.conf(), 'CONFIG');
 	log.info('initialization...');
 
