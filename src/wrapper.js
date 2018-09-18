@@ -18,7 +18,7 @@ const sep = path.sep;
 const SRC_PATH = __dirname + sep;
 const _PATH = __dirname.replace('src', '');
 const INTERVALS = [2, 5, 10, 30, 60, 90, 180, 300, 600, 900];
-const CORE_DEFAULT = require(_PATH + 'const/coreDefault.json');
+const CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 const wrapperTitle = '\n┌──────────────┐\n│  > Wrapper   │\n└──────────────┘';
 
 // console.log('Wrapper started');

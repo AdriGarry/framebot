@@ -7,7 +7,7 @@ const Lock = require(_PATH + 'src/core/Lock.js');
 const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 const spawn = require('child_process').spawn;
-const CORE_DEFAULT = require(_PATH + 'const/coreDefault.json');
+const CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 
 var Core = {};
 

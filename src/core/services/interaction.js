@@ -188,7 +188,7 @@ function russia() {
 }
 
 var WEATHER_STATUS_LIST;
-fs.readFile(Core._CONST + 'weatherStatus.json', function(err, data) {
+fs.readFile(Core._DATA + 'weatherStatus.json', function(err, data) {
 	if (err && err.code === 'ENOENT') {
 		log.debug(Core.error('No file : ' + filePath));
 		callback(null);

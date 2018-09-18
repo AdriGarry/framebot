@@ -21,7 +21,7 @@ Core.flux.controller.watcher.subscribe({
 	}
 });
 
-const PATHS = [Core._SRC, Core._CONST];
+const PATHS = [Core._SRC, Core._DATA];
 var watchers = [];
 
 function startWatch() {
