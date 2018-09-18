@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Terminal=true
-Name=Tail Odi Log
-Exec=--command "tail -f /home/pi/odi/log/Odi.log"
-Categories=Application;
