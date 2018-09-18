@@ -95,9 +95,9 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		Core.do(fluxToFire);
 	}
 
-	process.on('uncaughtException', function(err) {
-		Core.error('Uncaught Exception', err, false);
-	});
+	// process.on('uncaughtException', function(err) {
+	// 	Core.error('Uncaught Exception', err, false);
+	// });
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
 	Flux.loadModules(descriptor.modules);
