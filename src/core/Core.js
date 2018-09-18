@@ -77,7 +77,9 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 			// );
 			// if (!Core.conf().hasOwnProperty(key) || Core.conf(key) !== Core.conf().hasOwnProperty(key)) {
 			// if (!Core.conf().hasOwnProperty(key)) {
-			if (Core.conf(key) == '.' || Core.conf(key) == {}) {
+			if (Core.conf(key) == '.') {
+				console.log(key);
+				// || Core.conf(key) == {}
 				// if (JSON.stringify(Core.conf(key)) != JSON.stringify(descriptor.conf[key])) {
 				confUpdate[key] = descriptor.conf[key];
 			}
