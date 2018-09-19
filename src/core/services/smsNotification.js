@@ -41,13 +41,17 @@ function sendSMS(message) {
 			if (!error && response.statusCode == 200) {
 				log.debug('SMS notification successfully send');
 			} else {
-				log.error('SMS notification failure. Error code: ' + response.statusCode);
-				// gérer le code de retour :
-				// 200 : Le SMS a été envoyé sur votre mobile.
-				// 400 : Un des paramètres obligatoires est manquant.
-				// 402 : Trop de SMS ont été envoyés en trop peu de temps.
-				// 403 : Le service n'est pas activé sur l'espace abonné, ou login / clé incorrect.
-				// 500 : Erreur côté serveur. Veuillez réessayer ultérieurement.
+				let errorLog = 'SMS notification failure. Error code: ' + response.statusCode;
+				if (response.statusCode === 400) {
+					errorLog += ' missing parameter.'
+				} else if (response.statusCode === 402) {
+					errorLog += ' too much SMS sent !'
+				} else if (response.statusCode === 403) {
+					errorLog += ' wrong credential or inactive service.'
+				} else if (response.statusCode === 500) {
+					errorLog += ' SMS API server error. Try again later.'
+				}
+				log.error(errorLog);
 			}
 		}
 	);
