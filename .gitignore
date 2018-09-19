@@ -61,7 +61,6 @@ admin.js
 #/log/*
 /media/*
 #/data/*
-#/const/*
 #*.jpg
 #*.png
 #*.gif
