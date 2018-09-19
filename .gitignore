@@ -60,6 +60,7 @@ admin.js
 
 #/log/*
 /media/*
+/security/*
 #/data/*
 #*.jpg
 #*.png
