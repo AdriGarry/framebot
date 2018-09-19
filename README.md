@@ -4,7 +4,7 @@ Based on NodeJS, running on a Raspberry Pi, this is **Core** program, to autorun
 
 Available modes: ready, sleep, test
 
-### Main functionalities:
+## Main functionalities:
 
 - Voice synthesizer (TTS) & Voicemail
 - Alarm (weekday & weekend)
@@ -22,11 +22,13 @@ Available modes: ready, sleep, test
 - Logger & cleaner
 - Hardware monitoring (CPU, diskspace, temperature)
 
-### Usage
+## Usage
 
 - Go to _core_ directory
 - Execute `sh core.sh $botName` to add `core` as command and launch core with botName configuration given as first param
 - For all next launch, just execute `core $botName [params]`
+
+## Internal
 
 ### Input
 
@@ -41,7 +43,7 @@ Available modes: ready, sleep, test
 - Arduino (USB)
 - Screen (HDMI)
 
-### Internal
+### Core engine
 
 #### Core.conf
 
