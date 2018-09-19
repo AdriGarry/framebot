@@ -2,6 +2,10 @@
 
 clear
 
+# copy core shell file to bin to have core command
+sudo cp /home/pi/core/data/core /usr/bin/
+# ...
+
 echo Launching Core: $*
 
 _NAME=$1
