@@ -3,7 +3,8 @@
 clear
 
 # copy core shell file to bin to have core command
-sudo cp /home/pi/core/data/core /usr/bin/
+sudo cp /home/pi/core/core /usr/bin/
+echo "core command initialized!\n\n"
 # ...
 
 echo Launching Core: $*
