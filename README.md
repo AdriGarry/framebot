@@ -22,7 +22,7 @@ Available modes: ready, sleep, test
 - Logger & cleaner
 - Hardware monitoring (CPU, diskspace, temperature)
 
-### Launch
+### Usage
 
 - go to _core_ directory
 - execute `sh core.sh $botName` to add `core` as command and launch core with botName configuration given as first param
