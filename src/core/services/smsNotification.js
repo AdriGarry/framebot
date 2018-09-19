@@ -37,11 +37,11 @@ function sendSMS(message) {
 				msg: encodedMessage
 			}
 		},
-		function (error, response, body) {
+		function (error, response) {
 			if (!error && response.statusCode == 200) {
 				log.debug('SMS notification successfully send');
 			} else {
-				log.error('SMS notification send fail. Error code: ' + response.statusCode);
+				log.error('SMS notification failure. Error code: ' + response.statusCode);
 				// gérer le code de retour :
 				// 200 : Le SMS a été envoyé sur votre mobile.
 				// 400 : Un des paramètres obligatoires est manquant.
