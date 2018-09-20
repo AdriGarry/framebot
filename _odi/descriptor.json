@@ -24,7 +24,7 @@
 			"base": ["button", "jobs", "server", "watcher"]
 		},
 		"services": {
-			"base": ["buttonService", "system", "time", "voicemail", "smsNotification"],
+			"base": ["buttonService", "system", "time", "voicemail", "sms"],
 			"full": ["mood", "interaction", "music", "party", "max"]
 		}
 	},

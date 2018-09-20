@@ -2,7 +2,7 @@
 
 'use strict';
 
-const log = new(require(_PATH + 'src/core/Logger.js'))(__filename);
+const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
 const Lock = require(_PATH + 'src/core/Lock.js');
 const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
@@ -121,10 +121,12 @@ function isAwake() {
 
 function error(label, data, stackTrace) {
 	Core.do(
-		'interface|led|altLeds', {
+		'interface|led|altLeds',
+		{
 			speed: 30,
 			duration: 1.5
-		}, {
+		},
+		{
 			hidden: true
 		}
 	);
@@ -141,7 +143,7 @@ function error(label, data, stackTrace) {
 		data: data,
 		time: Utils.logTime()
 	};
-	Core.do('service|smsNotification|sendError', label + '\n' + data);
+	Core.do('service|sms|sendError', label + '\n' + data);
 	Utils.appendJsonFile(_PATH + 'log/errorHistory.json', logError);
 	Core.errors.push(logError);
 }
