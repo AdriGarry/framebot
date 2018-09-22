@@ -6,7 +6,7 @@ console.log('nodejs.version=' + process.version);
 /** Params detection */
 console.log('argv', process.argv);
 var argv = process.argv.splice(2);
-var name = argv[0];
+var name = argv[0]; // TODO const ?
 
 const fs = require('fs');
 const path = require('path');
@@ -77,7 +77,7 @@ function startCore(exitCode) {
 
 	new Gpio(14, 'out').write(1); //var eye =
 
-	var coreProgramWithParams = [SRC_PATH + 'main.js'];
+	var coreProgramWithParams = [SRC_PATH + 'main.js', name];
 	if (exitCode) {
 		coreProgramWithParams.push('sleep');
 	}
