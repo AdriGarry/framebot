@@ -10,7 +10,8 @@ echo "core command initialized!\n\n"
 echo Launching Core: $*
 
 _NAME=$1
-_PATH=`pwd`
+#_PATH=`pwd`
+_PATH="/home/pi/core/"
 echo _PATH $_PATH
 
 #___Intall function
@@ -19,10 +20,10 @@ install(){
 	sudo chmod +x "$_PATH"/core.sh
 }
 
-if [ $1 = "install" ]; then
-	install
-	exit 0
-fi
+# if [ $1 = "install" ]; then
+# 	install
+# 	exit 0
+# fi
 
 
 # Test if log directory exists
