@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 // 'use strict'; //Octal literals are not allowed in strict mode.
 
-console.log('nodejs.version=' + process.version);
-
 /** Params detection */
 console.log('argv', process.argv);
 var argv = process.argv.splice(2);
@@ -71,6 +69,7 @@ function restartCoreFromWrapper(code) {
 
 /** Function to start up Core */
 function startCore(exitCode) {
+	console.log('nodejs.version=' + process.version);
 	spawn('sh', [SRC_PATH + 'shell/mute.sh']);
 
 	checkUp();
