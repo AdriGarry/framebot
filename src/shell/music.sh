@@ -16,26 +16,26 @@ fi
 echo $1
 if [ $1 = "mouthTrick" ]
 then
-	music="/home/pi/odi/media/mp3/jukebox/Milan-MouthTrick.mp3"
+	music="/home/pi/core/media/mp3/jukebox/Milan-MouthTrick.mp3"
 elif [ $1 = "urss" ]
 then
-	music="/home/pi/odi/media/mp3/jukebox/HymneSovietique.mp3"
+	music="/home/pi/core/media/mp3/jukebox/HymneSovietique.mp3"
 elif [ $1 = "urss80" ]
 then
-	music="/home/pi/odi/media/mp3/jukebox/Ahcam6BOCnhckoroCaoapn.mp3"
+	music="/home/pi/core/media/mp3/jukebox/Ahcam6BOCnhckoroCaoapn.mp3"
 elif [ $1 = "ToopToop" ]
 then
-	music="/home/pi/odi/media/mp3/jukebox/CassiusToopToop.mp3"
+	music="/home/pi/core/media/mp3/jukebox/CassiusToopToop.mp3"
 elif [ $1 = "1" ]
 then
-	music="/home/pi/odi/media/mp3/jukebox/blackIsTheNight.mp3"
+	music="/home/pi/core/media/mp3/jukebox/blackIsTheNight.mp3"
 elif [ $1 = "2" ]
 then
-	music="/home/pi/odi/media/mp3/jukebox/bellX1Flame.mp3"
+	music="/home/pi/core/media/mp3/jukebox/bellX1Flame.mp3"
 else
-	music="/home/pi/odi/media/mp3/jukebox/originsOfTheVillain1.mp3"
+	music="/home/pi/core/media/mp3/jukebox/originsOfTheVillain1.mp3"
 fi
 
 sudo omxplayer -o local --vol $volume $music
-#sudo node /home/pi/odi/core/modules/allLedsOff.js
-sudo node /home/pi/odi/core/modules/leds.js allLedsOff
+#sudo node /home/pi/core/core/modules/allLedsOff.js
+sudo node /home/pi/core/core/modules/leds.js allLedsOff
