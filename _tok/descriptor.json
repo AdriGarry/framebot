@@ -29,9 +29,7 @@
 		}
 	},
 	"conf": {},
-	"runtime": {
-		"toto": "titi"
-	},
+	"runtime": {},
 	"jobs": {
 		"base": [],
 		"full": [

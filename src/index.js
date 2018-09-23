@@ -16,7 +16,7 @@ const forcedParams = {
 global._PATH = __dirname.match(/\/.*\//g)[0];
 
 const descriptor = require(_PATH + '_' + name + '/descriptor.json');
-var Core = require(_PATH + 'src/core/Core.js').init(
+var Core = require(_PATH + 'src/core/Core.js').initializeContext(
 	__filename.match(/\/.*\//g)[0],
 	descriptor,
 	forcedParams,
@@ -29,7 +29,7 @@ log.debug('argv', argv);
 const Utils = require(Core._CORE + 'Utils.js');
 // const Flux = require(Core._CORE + 'Flux.js').loadModules(descriptor.modules);
 
-log.info('--> ' + Core.name + ' ready in ' + Utils.executionTime(startTime) + 'ms');
+log.info('--> ' + Core.Name + ' ready in ' + Utils.executionTime(startTime) + 'ms');
 
 if (!Core.isAwake()) {
 	Core.do('interface|video|screenOff');

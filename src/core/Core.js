@@ -12,7 +12,7 @@ const CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 var Core = {};
 
 module.exports = {
-	init: initializeContext,
+	initializeContext: initializeContext,
 	Core: Core
 };
 
@@ -39,6 +39,7 @@ function setUpCoreObject(Core, descriptor) {
 function initializeContext(path, descriptor, forcedParams, startTime) {
 	Core = setUpCoreObject(Core, descriptor);
 	if (Core.isAwake()) {
+		// TODO vérifier si utile ?
 		spawn('sh', [_PATH + 'src/shell/init.sh']);
 		spawn('sh', [_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
 	}
@@ -49,7 +50,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		},
 		runtimeUpdate = {},
 		forcedParamsLog = '';
-	if (confUpdate.version != packageJson.version) {
+	if (Core.conf('version') !== packageJson.version) {
 		confUpdate.version = packageJson.version;
 	}
 	if (forcedParams.sleep) {
