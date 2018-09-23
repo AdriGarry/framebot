@@ -4,15 +4,7 @@ clear
 
 # copy core shell file to bin to have core command
 sudo cp /home/pi/core/core /usr/bin/
-echo "core command initialized!\n\n"
-# ...
-
-echo Launching Core: $*
-
-_NAME=$1
-#_PATH=`pwd`
-_PATH="/home/pi/core/"
-echo _PATH $_PATH
+echo "core command updated!\n"
 
 #___Intall function
 install(){
@@ -24,6 +16,20 @@ install(){
 # 	install
 # 	exit 0
 # fi
+
+if [ $1 = "stop" ]; then
+	sudo killall node
+	echo "CORE STOPPED."
+	exit 0
+fi
+
+
+echo "Launching Core: $*"
+
+_NAME=$1
+#_PATH=`pwd`
+_PATH="/home/pi/core/"
+echo _PATH $_PATH
 
 
 # Test if log directory exists
