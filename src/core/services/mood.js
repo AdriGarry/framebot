@@ -32,6 +32,7 @@ var maxJavaRandomBox = new RandomBox(['service|max|playOneMelody', 'service|max|
 var ttsRandomBox = new RandomBox(Core.ttsMessages.random);
 /** Function to start bad boy mode */
 function java(interval) {
+	Core.run('mood', 'java');
 	log.INFO('JAVA mode !');
 	Core.do('interface|tts|speak', 'On va faire la java !');
 	for (var i = 0; i < 20; i++) {
@@ -49,6 +50,7 @@ function java(interval) {
 /** Function to start bad boy mode */
 function badBoy(interval) {
 	if (typeof interval === 'number') {
+		Core.run('mood', 'badBoy');
 		log.info('Bad Boy mode !! [' + interval + ']');
 		Core.do('interface|tts|speak', { lg: 'en', msg: 'Baad boy !' });
 		var loop = 0;
