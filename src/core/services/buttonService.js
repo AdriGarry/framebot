@@ -4,7 +4,7 @@
 var Core = require(_PATH + 'src/core/Core.js').Core;
 const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 const Utils = require(Core._CORE + 'Utils.js');
-// const Flux = require(Core._CORE + 'Flux.js');
+
 // const BTN_PUSH_MIN = 0.5;
 
 Core.flux.controller.button.subscribe({

@@ -3,7 +3,7 @@
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
 const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-// const Flux = require(Core._CORE + 'Flux.js');
+
 const Gpio = require('onoff').Gpio;
 const CronJob = require('cron').CronJob;
 

@@ -4,7 +4,7 @@
 var Core = require(_PATH + 'src/core/Core.js').Core;
 const log = new (require(Core._CORE + 'Logger.js'))(__filename);
 const Utils = require(Core._CORE + 'Utils.js');
-// const Flux = require(Core._CORE + 'Flux.js');
+
 const RandomBox = require('randombox').RandomBox;
 
 Core.flux.service.max.subscribe({

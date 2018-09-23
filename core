@@ -1,11 +1,5 @@
 #!/bin/sh
 
-clear
-
-# copy core shell file to bin to have core command
-sudo cp /home/pi/core/core /usr/bin/
-echo "core command updated!\n"
-
 #___Intall function
 install(){
 	echo "installing core..."
@@ -19,12 +13,15 @@ install(){
 
 if [ $1 = "stop" ]; then
 	sudo killall node
-	echo "CORE STOPPED."
+	echo "\nCORE STOPPED."
 	exit 0
 fi
 
+clear
 
-echo "Launching Core: $*"
+# copy core shell file to bin to have core command
+sudo cp /home/pi/core/core /usr/bin/
+echo "core command updated!\n"
 
 _NAME=$1
 #_PATH=`pwd`
@@ -43,3 +40,4 @@ echo "\nStarting Wrapper... [$*]" | sudo tee -a "$_PATH/log/$_NAME.log"
 
 # sudo python /home/pi/odi/core/py/buttons.py 2>&1 | sudo tee -a /home/pi/odi/log/Odi.log &
 sudo node "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" &
+

@@ -92,7 +92,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	}
 	// Core.descriptor = descriptor;
 
-	let Flux = require(Core._CORE + 'Flux.js').attach(descriptor.modules);
+	const Flux = require(Core._CORE + 'Flux.js').attach(descriptor.modules);
 	Core.flux = Flux;
 	Core.do = Flux.next;
 	Core.do('interface|runtime|update', confUpdate, {
