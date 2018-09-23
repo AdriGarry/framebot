@@ -7,8 +7,8 @@ const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g
 const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 
-const FILE_REQUEST_HISTORY = _PATH + 'log/requestHistory.log';
-const noSoundUrl = ['/dashboard', '/log'];
+const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';
+const NO_SOUND_URL = ['/dashboard', '/log'];
 const BAD_REQUEST_TIMEOUT = 5000;
 const BAD_REQUEST_CP_LIMIT = 5;
 var badRequestCount = 0;
@@ -22,7 +22,7 @@ module.exports = {
 
 var securityMiddleware = function(req, res, next) {
 	Core.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
-	if (!Utils.searchStringInArray(req.url, noSoundUrl)) Core.do('interface|sound|UI', null, { hidden: true });
+	if (!Utils.searchStringInArray(req.url, NO_SOUND_URL)) Core.do('interface|sound|UI', null, { hidden: true });
 
 	let requestData = getRequestData(req);
 

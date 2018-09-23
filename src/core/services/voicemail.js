@@ -24,7 +24,7 @@ Core.flux.service.voicemail.subscribe({
 
 const DELAY_TO_CLEAR_VOICEMAIL = 60 * 60 * 1000; //15*60*1000;
 const VOICEMAIL_FILE = Core._TMP + 'voicemail.json';
-const VOICEMAIL_FILE_HISTORY = Core._LOG + 'voicemailHistory.json';
+const VOICEMAIL_FILE_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json';
 
 updateVoicemailMessage();
 log.info('VoiceMail flag initialized');

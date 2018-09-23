@@ -209,7 +209,6 @@ function countSoftwareLines() {
 }
 
 /** Function to clean and archive logs each week */
-const LOG_FILES = ['Odi.log', 'requestHistory.log', 'errorHistory.json', 'ttsUIHistory.json', 'voicemailHistory.json'];
 
 function archiveLogs() {
 	log.info('Clean log files  /!\\');
@@ -219,8 +218,13 @@ function archiveLogs() {
 		fs.mkdirSync(Core._LOG + 'old');
 	}
 
-	LOG_FILES.forEach(logFile => {
-		if (fs.existsSync(Core._LOG + logFile)) archiveLogFile(logFile, weekNb);
+	fs.readdir(Core._LOG, { withFileTypes: true }, (err, logFiles) => {
+		logFiles.forEach(logFile => {
+			if (logFile.isFile()) {
+				archiveLogFile(logFile.name, weekNb);
+				log.INFO("apparemment le fichier de log principal (odi.log), n'est pas reinitialisé");
+			}
+		});
 	});
 }
 
@@ -228,11 +232,11 @@ function archiveLogFile(logFile, weekNb) {
 	var stream = fs.createReadStream(Core._LOG + logFile); /*, {bufferSize: 64 * 1024}*/
 	stream.pipe(fs.createWriteStream(Core._LOG + 'old/' + logFile + weekNb));
 	stream.on('error', function(e) {
-		Core.error('stream error while cleaning log file ' + logFile, e);
+		Core.error('stream error while archiving log file ' + logFile, e);
 	});
 	stream.on('close', function() {
 		fs.truncate(Core._LOG + logFile, 0, function() {
-			log.info(logFile + ' successfully cleaned');
+			log.info(logFile + ' successfully archived');
 		});
 	});
 }

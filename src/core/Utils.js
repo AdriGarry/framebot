@@ -119,11 +119,11 @@ function _writeFile(filePath, fileData, startTime, isCreation) {
 }
 
 /** Function getJsonFileContent */
-var fileNotFoundExceptions = ['/home/pi/odi/tmp/voicemail.json'];
+const FILE_NOT_FOUND_EXCEPT = ['/home/pi/core/tmp/voicemail.json'];
 function getJsonFileContent(filePath, callback) {
 	log.debug('getJsonFileContent() ', filePath);
 	fs.readFile(filePath, function(err, data) {
-		if (err && err.code === 'ENOENT' && !searchStringInArray(filePath, fileNotFoundExceptions)) {
+		if (err && err.code === 'ENOENT' && !searchStringInArray(filePath, FILE_NOT_FOUND_EXCEPT)) {
 			log.error('No file: ' + filePath);
 			callback(null);
 		} else {

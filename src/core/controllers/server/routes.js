@@ -11,10 +11,10 @@ const spawn = require('child_process').spawn;
 const exec = require('child_process').exec;
 const fs = require('fs');
 
-const FILE_REQUEST_HISTORY = _PATH + 'log/requestHistory.log';
-const FILE_ERROR_HISTORY = _PATH + 'log/errorHistory.json';
-const FILE_TTS_UI_HISTORY = Core._LOG + 'ttsUIHistory.json';
-const FILE_VOICEMAIL_HISTORY = _PATH + 'log/voicemailHistory.json';
+const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';
+const FILE_ERROR_HISTORY = Core._LOG + Core.name + '_errorHistory.json';
+const FILE_TTS_UI_HISTORY = Core._LOG + Core.name + '_ttsUIHistory.json';
+const FILE_VOICEMAIL_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json';
 
 module.exports = {
 	attachRoutes: attachRoutes

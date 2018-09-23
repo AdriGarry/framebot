@@ -138,6 +138,6 @@ function error(label, data, stackTrace) {
 		time: Utils.logTime()
 	};
 	Core.do('service|sms|sendError', label + '\n' + data);
-	Utils.appendJsonFile(_PATH + 'log/errorHistory.json', logError);
+	Utils.appendJsonFile(Core._LOG + Core.name + '_errorHistory.json', logError);
 	Core.errors.push(logError);
 }
