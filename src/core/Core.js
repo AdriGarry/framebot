@@ -74,13 +74,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 
 	if (descriptor.conf && typeof descriptor.conf == 'object') {
 		Object.keys(descriptor.conf).forEach(key => {
-			// );
-			// if (!Core.conf().hasOwnProperty(key) || Core.conf(key) !== Core.conf().hasOwnProperty(key)) {
-			// if (!Core.conf().hasOwnProperty(key)) {
 			if (Core.conf(key) == '.') {
-				console.log(key);
-				// || Core.conf(key) == {}
-				// if (JSON.stringify(Core.conf(key)) != JSON.stringify(descriptor.conf[key])) {
 				confUpdate[key] = descriptor.conf[key];
 			}
 		});
@@ -90,7 +84,6 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 			runtimeUpdate[key] = descriptor.runtime[key];
 		});
 	}
-	// Core.descriptor = descriptor;
 
 	const Flux = require(Core._CORE + 'Flux.js').attach(descriptor.modules);
 	Core.flux = Flux;
