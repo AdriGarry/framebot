@@ -27,8 +27,6 @@ Core.flux.interface.tts.subscribe({
 	}
 });
 
-const LAST_TTS_PATH = '/home/pi/odi/tmp/lastTTS.json';
-
 var onAir = false,
 	ttsQueue = [],
 	allowedModes = ['ready', 'test'],

@@ -47,7 +47,7 @@ function blink(config) {
 		if (config.hasOwnProperty('leds')) {
 			setTimeout(function() {
 				for (var led in config.leds) {
-					Led[config.leds[led]].write(0);
+					Led[config.leds[led]].writeSync(0);
 				}
 			}, config.speed * config.loop * 2 + 50);
 			for (loop = config.loop * 2; loop > 0; loop--) {
@@ -55,7 +55,7 @@ function blink(config) {
 					function(leds) {
 						for (var i in leds) {
 							var led = leds[i];
-							Led[led].write(etat);
+							Led[led].writeSync(etat);
 						}
 						etat = 1 - etat;
 					},
@@ -78,10 +78,10 @@ function toggle(config) {
 	// log.info('toogle:', config);
 	// if (['nose', 'eye', 'satellite', 'belly'].indexOf(config.led) > -1) {
 	for (var led in config.leds) {
-		Led[config.leds[led]].write(config.value ? 1 : 0);
+		Led[config.leds[led]].writeSync(config.value ? 1 : 0);
 	}
 	if (Object.keys(Led).indexOf(config.led) > -1) {
-		Led[config.led].write(config.mode ? 1 : 0);
+		Led[config.led].writeSync(config.mode ? 1 : 0);
 	}
 }
 
@@ -92,7 +92,7 @@ function toggle(config) {
 	if (mode == 'sleep') mode = 0;
 	else mode = 1;
 	setInterval(function() {
-		Led.nose.write(mode);
+		Led.nose.writeSync(mode);
 	}, 900);
 
 	new CronJob( //TODO mettre dans jobs.json (une fois le mode trace défini)
@@ -113,14 +113,14 @@ function altLeds(args) {
 	clearInterval(timer);
 	let etat = 1;
 	timer = setInterval(function() {
-		Led.eye.write(etat);
+		Led.eye.writeSync(etat);
 		etat = 1 - etat;
-		Led.belly.write(etat);
+		Led.belly.writeSync(etat);
 	}, args.speed);
 	setTimeout(function() {
 		clearInterval(timer);
-		Led.eye.write(0);
-		Led.belly.write(0);
+		Led.eye.writeSync(0);
+		Led.belly.writeSync(0);
 	}, args.duration * 1000);
 }
 
@@ -131,18 +131,18 @@ function clearLeds() {
 
 /** Function to switch on all leds */
 function allLedsOn() {
-	Led.eye.write(1);
-	Led.belly.write(1);
-	Led.satellite.write(1);
-	Led.nose.write(1); // EXCEPT ACTIVITY LED ??
+	Led.eye.writeSync(1);
+	Led.belly.writeSync(1);
+	Led.satellite.writeSync(1);
+	Led.nose.writeSync(1); // EXCEPT ACTIVITY LED ??
 }
 
 /** Function to swith off all leds */
 function allLedsOff() {
-	Led.eye.write(0);
-	Led.belly.write(0);
-	Led.satellite.write(0);
-	Led.nose.write(0); // EXCEPT ACTIVITY LED ??
+	Led.eye.writeSync(0);
+	Led.belly.writeSync(0);
+	Led.satellite.writeSync(0);
+	Led.nose.writeSync(0); // EXCEPT ACTIVITY LED ??
 }
 
 /** Params detection for direct call */

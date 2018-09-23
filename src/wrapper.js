@@ -75,7 +75,7 @@ function startCore(exitCode) {
 
 	checkUp();
 
-	new Gpio(14, 'out').write(1); //var eye =
+	new Gpio(14, 'out').writeSync(1); //var eye =
 
 	var coreProgramWithParams = [SRC_PATH + 'index.js', name];
 	if (exitCode) {
