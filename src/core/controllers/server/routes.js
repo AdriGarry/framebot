@@ -412,7 +412,7 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/arduino/stop', function(req, res) {
-		Core.do('interface|arduino|stop');
+		Core.do('interface|arduino|disconnect');
 		res.end();
 	});
 

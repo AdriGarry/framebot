@@ -16,7 +16,7 @@ Core.flux.interface.arduino.subscribe({
 			connect();
 		} else if (flux.id == 'write') {
 			write(flux.value);
-		} else if (flux.id == 'stop') {
+		} else if (flux.id == 'disconnect') {
 			disconnect(flux.value);
 		} else {
 			Core.error('unmapped flux in Arduino interface', flux, false);
@@ -58,7 +58,7 @@ function disconnect() {
 function write(msg) {
 	log.debug('write()', msg);
 	if (!Core.run('max')) {
-		log.INFO('Max not available!');
+		log.error('Max not available!');
 		return;
 	}
 	arduino.write(msg + '\n', function(err, data) {
@@ -84,7 +84,7 @@ arduino.on('close', function(data) {
 		Core.do('interface|tts|speak', { lg: 'en', msg: "I've just lost my connexion with Max!" });
 	}
 	Core.run('max', false);
-	log.INFO('Max serial channel disconnected!');
+	log.info('arduino serial channel disconnected!');
 	// setTimeout(() => {
 	// 	log.info('Trying to connect to Max...');
 	// 	connect();

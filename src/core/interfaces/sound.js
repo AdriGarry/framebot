@@ -88,10 +88,10 @@ function mute(args) {
 
 /** Function to stop all sounds & leds */
 function stopAll(message) {
-	// if (Core.run('max')) {
-	// 	Core.do('interface|arduino|disconnect');
-	// 	Core.do('interface|arduino|connect', null, { delay: 2 });
-	// }
+	if (Core.run('max')) {
+		Core.do('interface|arduino|disconnect', null, { hidden: true });
+		Core.do('interface|arduino|connect', null, { hidden: true });
+	}
 	Core.do('interface|tts|clearTTSQueue', null, { hidden: true });
 	Core.do('service|music|stop', null, { hidden: true });
 	spawn('sh', [Core._SHELL + 'mute.sh']);
