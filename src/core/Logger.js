@@ -191,9 +191,9 @@ function Logger(filename, modeCore) {
 					if (data2) {
 						// not logging null entries
 						if (index2 == 0) {
-							datas[key] = [String(key2 + ': ' + getDataOrObject(data2))];
-						} else if (Array.isArray(datas[key])) {
-							datas[key].push(String(key2 + ': ' + getDataOrObject(data2)));
+							datas[(updated ? '*' : '') + key] = [String(key2 + ': ' + getDataOrObject(data2))];
+						} else if (Array.isArray(datas[(updated ? '*' : '') + key])) {
+							datas[(updated ? '*' : '') + key].push(String(key2 + ': ' + getDataOrObject(data2)));
 						}
 					}
 				});
