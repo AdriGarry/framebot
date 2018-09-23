@@ -77,7 +77,7 @@ function startCore(exitCode) {
 
 	new Gpio(14, 'out').write(1); //var eye =
 
-	var coreProgramWithParams = [SRC_PATH + 'main.js', name];
+	var coreProgramWithParams = [SRC_PATH + 'index.js', name];
 	if (exitCode) {
 		coreProgramWithParams.push('sleep');
 	}

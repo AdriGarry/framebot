@@ -75,7 +75,3 @@ if (Core.isAwake() && Core.conf('watcher')) {
 		//Core.do('interface|tts|speak', tts, { delay: 2 });
 	}
 }
-
-// Core.do('interface|tts|speak', { lg: 'en', msg: 'Core dot do' });
-// Core.do('tts|speak', { lg: 'en', msg: 'Core dot do' });
-// Core.do('service|sms|sendError', 'toto');
