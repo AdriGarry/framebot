@@ -50,7 +50,7 @@ function loadModules(modules) {
 	return Flux;
 }
 
-const FLUX_REGEX = new RegExp(/\w+\|\w+\|\w+/);
+const FLUX_REGEX = new RegExp(/\w+\|\w+\|\w+/); // TODO
 
 function FluxObject(id, data, conf) {
 	try {

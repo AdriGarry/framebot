@@ -126,7 +126,7 @@ function attachDefaultRoutes(ui) {
 
 	ui.get('/runtime', function(req, res) {
 		Core.do('interface|hardware|runtime');
-		log.table(Core.run(), 'RUNTIME...');
+		log.table(Core.run(), 'RUNTIME...       ' + Core.run('memory.loadAverage'));
 		res.end(JSON.stringify(Core.run()));
 	});
 

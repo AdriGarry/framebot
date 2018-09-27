@@ -101,5 +101,5 @@ Button.etat.watch((err, value) => {
 	if (Core.run('screen')) {
 		Core.do('interface|video|screenOff');
 	}
-	log.table(Core.run(), 'RUNTIME...');
+	log.table(Core.run(), 'RUNTIME...       ' + Core.run('memory.loadAverage'));
 });
