@@ -41,23 +41,23 @@ function setVolume(volume) {
 
 function playSound(arg, noLog) {
 	log.debug(arg);
-	var mp3Title;
+	let mp3Title;
 	try {
 		mp3Title = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
 	} catch (err) {
 		mp3Title = arg.mp3;
 	}
-	var durationLog = arg.duration
+	let durationLog = arg.duration
 		? 'duration=' + (Math.floor(arg.duration / 60) + 'm' + Math.round(arg.duration % 60))
 		: '';
-	var volLog = arg.volume ? 'vol=' + arg.volume : '';
-	var positionLog = arg.position ? 'pos=' + arg.position : '';
+	let volLog = arg.volume ? 'vol=' + arg.volume : '';
+	let positionLog = arg.position ? 'pos=' + arg.position : '';
 	if (!noLog) log.info('play', mp3Title, volLog, positionLog, durationLog);
 
-	var position = arg.position || 0;
-	var volume = arg.volume || Core.run('volume');
-	var sound = Core._MP3 + arg.mp3;
-	var startPlayTime = new Date();
+	let position = arg.position || 0;
+	let volume = arg.volume || Core.run('volume');
+	let sound = Core._MP3 + arg.mp3;
+	let startPlayTime = new Date();
 	Utils.execCmd('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound, function(callback) {
 		// always log callback
 		if (callback.toString() == '' || callback.toString().indexOf('have a nice day') >= 0) {

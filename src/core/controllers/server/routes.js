@@ -496,22 +496,9 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/maya/song1', function(req, res) {
-		Core.do('interface|tts|speak', {
-			voice: 'google',
-			msg: 'et un'
-		});
-		Core.do('interface|tts|speak', {
-			voice: 'google',
-			msg: 'deux'
-		});
-		Core.do('interface|tts|speak', {
-			voice: 'google',
-			msg: 'trois,'
-		});
-		Core.do('interface|tts|speak', {
-			voice: 'google',
-			msg: 'nous irons au bois !'
+	ui.post('/maya/lePetitVer', function(req, res) {
+		Core.do('interface|sound|play', {
+			mp3: 'maya/lePetitVer.mp3'
 		});
 		res.end();
 	});

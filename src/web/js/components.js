@@ -426,7 +426,7 @@ app.component('maya', {
 		var tileParams = {
 			label: 'Maya',
 			actionList: [
-				{ label: 'Song 1', icon: 'fas fa-music', url: '/maya/song1' },
+				{ label: 'Le petit ver', icon: 'fas fa-music', url: '/maya/lePetitVer' },
 				{ label: 'pico2wave', icon: 'fas fa-external-link-alt', url: '/maya/pico2wave' }
 			]
 		};
