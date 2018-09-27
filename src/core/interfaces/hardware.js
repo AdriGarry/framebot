@@ -222,7 +222,6 @@ function archiveLogs() {
 		logFiles.forEach(logFile => {
 			if (logFile.isFile()) {
 				archiveLogFile(logFile.name, weekNb);
-				log.INFO("apparemment le fichier de log principal (odi.log), n'est pas reinitialisé");
 			}
 		});
 	});
