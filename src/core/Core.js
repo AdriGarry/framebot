@@ -27,7 +27,7 @@ function setUpCoreObject(Core, descriptor) {
 	Core.conf = new Lock(require(Core._TMP + 'conf.json'), Core._TMP + 'conf.json');
 	Core.run = new Lock(CORE_DEFAULT.runtime);
 	Core.isAwake = isAwake;
-	Core.descriptor = descriptor; // TODO useless?
+	Core.descriptor = descriptor;
 	Core.default = CORE_DEFAULT;
 	Core.error = error;
 	Core.errors = [];
@@ -137,7 +137,11 @@ function error(label, data, stackTrace) {
 		data: data,
 		time: Utils.logTime()
 	};
-	Core.do('service|sms|sendError', label + '\n' + data);
+
+	if (Core.descriptor.modules.services.base.indexOf('sms') > -1) {
+		Core.do('service|sms|sendError', label + '\n' + data);
+	}
+
 	Utils.appendJsonFile(Core._LOG + Core.name + '_errorHistory.json', logError);
 	Core.errors.push(logError);
 }
