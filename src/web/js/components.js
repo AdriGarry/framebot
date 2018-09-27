@@ -300,6 +300,28 @@ app.component('hardware', {
 });
 
 /** Exclamation component */
+app.component('microphone', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Microphone',
+			actionList: [
+				{ label: 'Stop', icon: 'fas fa-stop', url: '/' },
+				{ label: 'Start', icon: 'fas fa-circle', url: '/' }
+			]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
+	}
+});
+
+/** Exclamation component */
 app.component('exclamation', {
 	bindings: {
 		data: '<',

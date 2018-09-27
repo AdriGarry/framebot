@@ -94,8 +94,8 @@
 
 	<md-toolbar data-ng-if="$root.position || $root.irda" class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools">
-			<img src="img/odi.jpg" alt="Odi's face" data-ng-hide="connexionLost" class="odiFace ng-slide-slow infiniteSwingHover" data-ng-class="dashboard.odiState.sleep ? 'sleep' : ''"
-			 data-ng-click="reloadUI()" title="Reload UI">
+			<img src="img/odi.jpg" alt="Odi's face" data-ng-hide="connexionLost" class="odiFace ng-slide-slow infiniteSwingHover"
+			 data-ng-class="dashboard.odiState.sleep ? 'sleep' : ''" data-ng-click="reloadUI()" title="Reload UI">
 			<img src="img/snow.gif" alt="Connexion lost" data-ng-class="connexionLost ? 'visible' : 'hidden'" class="odiFace connexionLost"
 			 title="Odi is not responding...">
 			<!--data-ng-click="reloadUI()"-->
@@ -128,12 +128,12 @@
 			<md-progress-circular md-diameter="150" data-ng-hide="logData"></md-progress-circular>
 		</div>
 		<div class="tools">
-			<md-button class="md-fab" data-ng-class="log.mode ? 'md-primary' : 'md-warn'" data-ng-click="log.mode = !log.mode" title="Toggle log mode"
-			 aria-label="Toggle log mode">
+			<md-button class="md-fab" data-ng-class="log.mode ? 'md-primary' : 'md-warn'" data-ng-click="log.mode = !log.mode"
+			 title="Toggle log mode" aria-label="Toggle log mode">
 				<i class="fas fa-2x" data-ng-class="log.mode ? 'fa-th' : 'fa-th-large'"></i>
 			</md-button>
-			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="$root.irda" title="Restart Odi"
-			 aria-label="Restart Odi">
+			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="$root.irda"
+			 title="Restart Odi" aria-label="Restart Odi">
 				<i class="fas fa-2x fa-bolt"></i>
 			</md-button>
 			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" title="Hide Logs" aria-label="Hide Logs">
@@ -159,8 +159,8 @@
 				<md-list-item>
 					<div flex>Auto refresh (scroll)</div>
 					<div flex>
-						<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox"
-						 role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch>
+						<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0"
+						 type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch>
 					</div>
 				</md-list-item>
 				<md-divider></md-divider>
@@ -180,8 +180,8 @@
 				</md-subheader>
 				<md-list-item title="Volume">
 					<md-slider-container ng-disabled="!$root.irda">
-						<md-slider flex data-ng-model="master" data-md-discrete md-horizontal step="10" class="md-primary" data-ng-readonly="!$root.irda"
-						 title="Volume" aria-label="Volume"></md-slider>
+						<md-slider flex data-ng-model="master" data-md-discrete md-horizontal step="10" class="md-primary"
+						 data-ng-readonly="!$root.irda" title="Volume" aria-label="Volume"></md-slider>
 					</md-slider-container>
 				</md-list-item>
 				<md-divider></md-divider>
@@ -214,7 +214,6 @@
 				<tts data="dashboard.runningData.mode" data-access="$root.irda" flex="100"></tts>
 				<mode data="dashboard.runningData.mode" data-access="$root.irda" flex="33"></mode>
 				<options data="dashboard.runningData.mode" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></options>
-				<!-- <volume data="dashboard.runningData.volume" data-access="$root.irda" flex="33"></volume> -->
 				<runtime data="dashboard.runningData.errors" data-access="$root.irda" flex="33"></runtime>
 				<voicemail data="dashboard.runningData.voicemail" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></voicemail>
 				<alarms data="dashboard.runningData.alarms" data-access="$root.irda" flex="33"></alarms>
@@ -222,6 +221,7 @@
 				<hardware data="dashboard.runningData.hardware" data-access="$root.irda" flex="100" data-odi-state="dashboard.odiState"></hardware>
 				<max data="dashboard.runningData.arduino" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></max>
 				<jukebox data="dashboard.runningData.jukebox" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></jukebox>
+				<microphone data="dashboard.runningData.microphone" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></microphone>
 				<exclamation data="dashboard.runningData.exclamation" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></exclamation>
 				<time data="dashboard.runningData.time" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></time>
 				<weather data="dashboard.runningData.weather" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></weather>
@@ -235,7 +235,7 @@
 				<arduino data="dashboard.runningData.arduino" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></arduino>
 				<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
 				<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
-				<about data="dashboard.runningData.about" data-access="true" flex="100"></about>
+				<about data="dashboard.runningData.about" data-access="true" flex="66"></about>
 				<!--flex="66"-->
 			</div>
 
@@ -248,8 +248,8 @@
 				<i class="fas fa-2x fa-exclamation"></i>
 			</md-button>
 			<!-- // -> TENTER d'enlever les class md-hue-2 -->
-			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-primary muteButton ng-slide"
-			 title="Mute Odi" aria-label="Mute Odi">
+			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-class="[{'active':fabButtonsVisible}]"
+			 class="md-fab md-primary muteButton ng-slide" title="Mute Odi" aria-label="Mute Odi">
 				<i class="fas fa-lg fa-bell-slash"></i>
 			</md-button>
 		</md-content>
