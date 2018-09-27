@@ -17,36 +17,40 @@ Core.gpio.buttons.forEach(button => {
 });
 
 function getPushTime(button) {
+	belly.writeSync(1);
 	let pushedTime = new Date();
 	while (button.readSync() == 1) {
 		var time = Math.round((new Date() - pushedTime) / 100) / 10;
-		if (time % 1 == 0) belly.write(0);
-		else belly.write(1);
+		if (time % 1 == 0) {
+			belly.writeSync(0);
+		} else {
+			belly.writeSync(1);
+		}
 	}
 	//log.info('Button must be pushed for ' + DEBOUNCE_LIMIT + 's at least, try again!');
-	belly.write(0);
+	belly.writeSync(0);
 	let pushTime = Math.round((new Date() - pushedTime) / 100) / 10;
 	log.info(button.id + ' button pressed for ' + pushTime + ' sec...');
 	return pushTime;
 }
 
-Button.ok.watch(function(err, value) {
+Button.ok.watch((err, value) => {
 	var pushTime = getPushTime(Button.ok);
 	Core.do('controller|button|ok', pushTime);
 });
 
-Button.cancel.watch(function(err, value) {
+Button.cancel.watch((err, value) => {
 	Core.do('interface|sound|mute');
 	var pushTime = getPushTime(Button.cancel);
 	Core.do('controller|button|cancel', pushTime);
 });
 
-Button.white.watch(function(err, value) {
+Button.white.watch((err, value) => {
 	var pushTime = getPushTime(Button.white);
 	Core.do('controller|button|white', pushTime);
 });
 
-Button.blue.watch(function(err, value) {
+Button.blue.watch((err, value) => {
 	var pushTime = getPushTime(Button.blue);
 	if (pushTime > DEBOUNCE_LIMIT) Core.do('controller|button|blue', pushTime);
 	else {
@@ -85,7 +89,7 @@ setInterval(function() {
 }, 2000);
 
 /** Switch watch for radio volume */
-Button.etat.watch(function(err, value) {
+Button.etat.watch((err, value) => {
 	value = Button.etat.readSync();
 	Core.run('etat', value ? 'high' : 'low');
 	Core.run('volume', Core.isAwake() ? (value ? 400 : -400) : 'mute');

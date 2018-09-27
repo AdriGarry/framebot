@@ -132,14 +132,14 @@ function error(label, data, stackTrace) {
 		// Optional ?
 		console.trace();
 	}
-	var logError = {
+	let logError = {
 		label: label,
 		data: data,
 		time: Utils.logTime()
 	};
 
 	if (Core.descriptor.modules.services.base.indexOf('sms') > -1) {
-		Core.do('service|sms|sendError', label + '\n' + data);
+		Core.do('service|sms|sendError', label + '\n' + data + '\n' + logError.time);
 	}
 
 	Utils.appendJsonFile(Core._LOG + Core.name + '_errorHistory.json', logError);

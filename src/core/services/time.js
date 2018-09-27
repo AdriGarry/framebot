@@ -135,7 +135,6 @@ function setAlarm(alarm) {
 
 /** Function to test if alarm now */
 const WEEK_DAYS = [1, 2, 3, 4, 5];
-// const weekEnd = [0, 6];
 function isAlarm() {
 	let now = new Date(),
 		d = now.getDay(),
