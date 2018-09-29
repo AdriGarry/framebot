@@ -128,7 +128,7 @@ function error(label, data, stackTrace) {
 		hidden: true
 	});
 	log.error(label + '\n', data || '');
-	if (stackTrace != false) {
+	if (stackTrace !== false) {
 		// Optional ?
 		console.trace();
 	}

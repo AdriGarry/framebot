@@ -75,14 +75,6 @@ function repeatSong() {
 	});
 }
 
-function playOneSong() {
-	// DEPRECATED ? (never called?)
-	log.INFO("music.playOneSong() => shouldn't be CONNREFUSED...");
-	// var song = Utils.randomItem(JUKEBOX_SONGS);
-	let song = jukeboxRandomBox.next();
-	Core.do('interface|sound|play', { mp3: 'jukebox/' + song });
-}
-
 /** Function to play FIP radio */
 function playFip() {
 	stop();
