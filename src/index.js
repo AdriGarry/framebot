@@ -75,3 +75,31 @@ if (Core.isAwake() && Core.conf('watcher')) {
 		//Core.do('interface|tts|speak', tts, { delay: 2 });
 	}
 }
+
+var OmxManager = require('omx-manager');
+var omxInstance = new OmxManager();
+var playlist = omxInstance.create('/home/pi/core/media/mp3/system/cigales.mp3', { '-o': 'local', '--vol': -500 });
+playlist.on('play', function(data) {
+	console.log(data);
+});
+// playlist.play();
+
+setTimeout(() => {
+	var playlist2 = omxInstance.create(
+		[
+			'/home/pi/core/media/mp3/system/bonjourSurvivaure.mp3',
+			'/home/pi/core/media/mp3/system/bonjourBonjour.mp3',
+			'/home/pi/core/media/mp3/system/beBack.mp3'
+		],
+		{
+			'-o': 'local',
+			'--vol': 12
+			// '--loop': true
+		}
+	);
+	playlist2.on('play', function(data) {
+		console.log(data);
+	});
+	// playlist2.play();
+	// playlist2.play();
+}, 3000);
