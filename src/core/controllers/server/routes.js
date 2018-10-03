@@ -167,9 +167,9 @@ function attachDefaultRoutes(ui) {
 		log.info('UI > Toggle debug');
 		let newLogLevel = log.level() == 'debug' ? 'info' : 'debug';
 		log.level(newLogLevel);
-		Core.do('interface|runtime|update', {
-			log: newLogLevel
-		});
+		// Core.do('interface|runtime|update', {
+		// 	log: newLogLevel
+		// });
 		// Core.conf('log', newLogLevel, false, true);
 		res.end();
 	});
