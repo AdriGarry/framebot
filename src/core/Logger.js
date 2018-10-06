@@ -9,13 +9,12 @@ const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' };
 const TIMEOUT = 15;
 const TIMESTAMP_PATTERN = { NORMAL: 'D/M h:m:s', SLEEP: 'D/M_h:m:s' };
 
-var Utils, Flux, timestamp;
+var Utils, Core, timestamp;
 
 var logLevel = LEVEL.INFO;
 
 function Logger(filename, modeCore) {
 	Utils = require(_PATH + 'src/core/Utils.js');
-	Flux = require(_PATH + 'src/core/Flux.js');
 	if (modeCore && modeCore == 'sleep') {
 		timestamp = TIMESTAMP_PATTERN.SLEEP;
 	} else {
@@ -45,11 +44,9 @@ function Logger(filename, modeCore) {
 	function setLogLevel(arg) {
 		let newLogLevel = String(arg).toLowerCase();
 		logLevel = newLogLevel;
-		// INFO();
-		if (!Flux) Flux = require(_PATH + 'src/core/Flux.js');
-		Flux.next('interface|runtime|update', {
-			log: newLogLevel
-		});
+		Core = require(_PATH + 'src/core/Core.js').Core;
+		Core.conf('log', logLevel);
+		info();
 		INFO('--> Logger level set to:', logLevel);
 		if (newLogLevel == LEVEL.DEBUG || newLogLevel == LEVEL.TRACE) {
 			timeoutToInfoLevel(TIMEOUT);
@@ -62,9 +59,8 @@ function Logger(filename, modeCore) {
 		clearTimeout(cancelTimeout);
 		cancelTimeout = setTimeout(() => {
 			levelAccessor() != LEVEL.INFO && levelAccessor(LEVEL.INFO);
-			Flux.next('interface|runtime|update', { log: LEVEL.INFO });
-			// }, delay * 60 * 1000);
-		}, 10 * 1000);
+			Core.conf('log', LEVEL.INFO);
+		}, delay * 60 * 1000);
 	}
 
 	/** Function to retreive stack position at runtime */
