@@ -142,7 +142,7 @@ function Logger(filename, modeCore) {
 
 	function error() {
 		console.log('______________');
-		console.error(Utils.logTime(timestamp), '[' + filename + ']', 'ERR >>', formatLog(arguments));
+		console.error(Utils.logTime(timestamp), '[' + filename + ']', /*'ERR >>',*/ formatLog(arguments));
 	}
 
 	/** Function to array an object */
