@@ -64,8 +64,8 @@ function blink(config) {
 				);
 			}
 		}
-	} catch (e) {
-		Core.error(e);
+	} catch (err) {
+		Core.error(err);
 	}
 }
 

@@ -16,9 +16,7 @@ Core.flux.service.party.subscribe({
 			partyTTS(flux.value);
 		} else if (flux.id == 'pirate') {
 			pirate(flux.value);
-		} else {
-			log.info('Party flux not mapped', flux);
-		}
+		} else log.info('Party flux not mapped', flux);
 	},
 	error: err => {
 		Core.error(flux);
