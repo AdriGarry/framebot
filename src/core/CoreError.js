@@ -5,8 +5,6 @@
 const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
 const Core = require(_PATH + 'src/core/Core.js').Core;
 const Utils = require(_PATH + 'src/core/Utils.js');
-// const fs = require('fs');
-// const spawn = require('child_process').spawn;
 
 module.exports = class CoreError extends Error {
 	constructor(message, data, displayStack) {
