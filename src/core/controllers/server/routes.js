@@ -242,7 +242,7 @@ function attachDefaultRoutes(ui) {
 	});
 
 	ui.post('/light', function(req, res) {
-		Core.do('service|system|light', 30);
+		Core.do('service|system|light', 60);
 		res.end();
 	});
 
