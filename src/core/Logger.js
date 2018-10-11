@@ -1,27 +1,25 @@
 #!/usr/bin/env node
 'use strict';
 
-module.exports = Logger;
-
 const util = require('util');
-const Utils = require(_PATH + 'src/core/Utils.js');
 
 const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' };
 const TIMEOUT = 15;
 const TIMESTAMP_PATTERN = { NORMAL: 'D/M h:m:s', SLEEP: 'D/M_h:m:s' };
 
-var Core, timestamp;
+var Utils, Core, timestamp;
 
 var logLevel = LEVEL.INFO;
 
 module.exports = class Logger {
 	constructor(filename, modeCore) {
+		Utils = require(_PATH + 'src/core/Utils.js');
 		if (modeCore && modeCore == 'sleep') {
 			timestamp = TIMESTAMP_PATTERN.SLEEP;
 		} else {
 			timestamp = TIMESTAMP_PATTERN.NORMAL;
 		}
-		filename = filename.match(/(\w*).js/g)[0];
+		this.filename = filename.match(/(\w*).js/g)[0];
 	}
 
 	level(arg) {
@@ -33,44 +31,44 @@ module.exports = class Logger {
 	}
 
 	info() {
-		console.log(Utils.logTime(timestamp), '[' + filename + ']', _formatLog(arguments));
+		console.log(Utils.logTime(timestamp), '[' + this.filename + ']', _formatLog(arguments));
 	}
 
 	INFO() {
-		console.log(Utils.logTime(timestamp), '[' + filename.toUpperCase() + ']', _formatLog(arguments).toUpperCase());
+		console.log(Utils.logTime(timestamp), '[' + this.filename.toUpperCase() + ']', _formatLog(arguments).toUpperCase());
 	}
 
 	debug() {
 		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
-			console.log(Utils.logTime(timestamp), '[' + filename + ']\u2022', _formatLog(arguments));
+			console.log(Utils.logTime(timestamp), '[' + this.filename + ']\u2022', _formatLog(arguments));
 	}
 
 	DEBUG() {
 		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
 			console.log(
 				Utils.logTime(timestamp),
-				'[' + filename.toUpperCase() + ']\u2022',
+				'[' + this.filename.toUpperCase() + ']\u2022',
 				_formatLog(arguments).toUpperCase()
 			);
 	}
 
 	trace() {
 		if (logLevel == LEVEL.TRACE)
-			console.log(Utils.logTime(timestamp), '[' + filename + ']\u2022\u2022', _formatLog(arguments));
+			console.log(Utils.logTime(timestamp), '[' + this.filename + ']\u2022\u2022', _formatLog(arguments));
 	}
 
 	TRACE() {
 		if (logLevel == LEVEL.TRACE)
 			console.log(
 				Utils.logTime(timestamp),
-				'[' + filename.toUpperCase() + ']\u2022\u2022',
+				'[' + this.filename.toUpperCase() + ']\u2022\u2022',
 				_formatLog(arguments).toUpperCase()
 			);
 	}
 
 	error() {
 		console.log('______________');
-		console.error(Utils.logTime(timestamp), '[' + filename + ']', /*'ERR >>',*/ _formatLog(arguments));
+		console.error(Utils.logTime(timestamp), '[' + this.filename + ']', /*'ERR >>',*/ _formatLog(arguments));
 	}
 
 	table(src, title, updatedEntries) {
@@ -106,26 +104,6 @@ module.exports = class Logger {
 	}
 };
 
-// function Logger(filename, modeCore) {
-// 	Utils = require(_PATH + 'src/core/Utils.js');
-// 	if (modeCore && modeCore == 'sleep') {
-// 		timestamp = TIMESTAMP_PATTERN.SLEEP;
-// 	} else {
-// 		timestamp = TIMESTAMP_PATTERN.NORMAL;
-// 	}
-// 	filename = filename.match(/(\w*).js/g)[0];
-
-// 	this.info = info;
-// 	this.INFO = INFO;
-// 	this.debug = debug;
-// 	this.DEBUG = DEBUG;
-// 	this.trace = trace;
-// 	this.TRACE = TRACE;
-// 	this.table = table;
-// 	this.error = error;
-// 	this.level = levelAccessor;
-// 	return this;
-// }
 function _setLogLevel(arg) {
 	let newLogLevel = String(arg).toLowerCase();
 	logLevel = newLogLevel;
