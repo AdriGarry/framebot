@@ -8,8 +8,10 @@ const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 const spawn = require('child_process').spawn;
 const CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
+// const CoreError = require(_PATH + 'src/core/CoreError.js');
 
-var Core = {};
+var Core = {},
+	CoreError;
 
 module.exports = {
 	initializeContext: initializeContext,
@@ -30,6 +32,7 @@ function setUpCoreObject(Core, descriptor) {
 	Core.descriptor = descriptor;
 	Core.default = CORE_DEFAULT;
 	Core.error = error;
+	// Core.Error = CoreError;
 	Core.errors = [];
 	Core.gpio = require(Core._CONF + 'gpio.json');
 	Core.ttsMessages = require(Core._CONF + 'ttsMessages.json');
@@ -113,35 +116,80 @@ function isAwake() {
 	return Core.conf('mode') != 'sleep';
 }
 
-function error(label, data, stackTrace) {
-	Core.do(
-		'interface|led|altLeds',
-		{
-			speed: 30,
-			duration: 1.5
-		},
-		{
-			hidden: true
-		}
-	);
-	Core.do('interface|sound|error', null, {
-		hidden: true
-	});
-	log.error(label + '\n', data || '');
+function error(message, data, stackTrace) {
+	if (!CoreError) {
+		CoreError = require(_PATH + 'src/core/CoreError.js');
+	}
+	new CoreError(message, data, stackTrace);
+}
+
+function error_OLD(message, data, stackTrace) {
+	Core.do('interface|led|altLeds', { speed: 30, duration: 1.5 }, { hidden: true });
+	Core.do('interface|sound|error', null, { hidden: true });
+	log.error(message + '\n', data || '');
 	if (stackTrace !== false) {
 		// Optional ?
 		console.trace();
+		//Error.captureStackTrace(this, this.constructor);
 	}
 	let logError = {
-		label: label,
+		message: message,
 		data: data,
 		time: Utils.logTime()
 	};
 
 	if (Core.descriptor.modules.services.base.indexOf('sms') > -1) {
-		Core.do('service|sms|sendError', label + '\n' + data + '\n' + logError.time);
+		Core.do('service|sms|sendError', message + '\n' + data + '\n' + logError.time);
 	}
 
 	Utils.appendJsonFile(Core._LOG + Core.name + '_errorHistory.json', logError);
 	Core.errors.push(logError);
 }
+// class CoreError extends Error {
+// 	constructor(message, data, displayStack) {
+// 		super(message);
+// 		this.name = this.constructor.name;
+// 		this.time = Utils.logTime();
+// 		this.data = data;
+// 		this.log(displayStack);
+// 		this.notify();
+// 		this.persist();
+// 	}
+
+// 	log(displayStack) {
+// 		log.error(this.name + ': ' + this.message);
+// 		if (this.data) {
+// 			console.log(this.data);
+// 		}
+// 		if (displayStack) {
+// 			console.log(this.getStackTrace());
+// 		}
+// 	}
+
+// 	getStackTrace() {
+// 		let stack = this.stack.split('\n');
+// 		stack.shift();
+// 		return stack.join('\n');
+// 	}
+
+// 	notify() {
+// 		//led, sound and sms
+// 		Core.do('interface|led|altLeds', { speed: 30, duration: 1.5 }, { hidden: true });
+// 		Core.do('interface|sound|error', null, { hidden: true });
+
+// 		if (Core.descriptor.modules.services.base.indexOf('sms') > -1) {
+// 			Core.do('service|sms|sendError', this.message + '\n' + this.data + '\n' + this.time);
+// 		}
+// 	}
+
+// 	persist() {
+// 		//persist to file
+// 		let logError = {
+// 			message: this.message,
+// 			data: this.data,
+// 			time: this.time
+// 		};
+// 		Utils.appendJsonFile(Core._LOG + Core.name + '_errorHistory.json', logError);
+// 		Core.errors.push(logError);
+// 	}
+// }
