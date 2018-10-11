@@ -63,28 +63,6 @@ function Logger(filename, modeCore) {
 		}, delay * 60 * 1000);
 	}
 
-	/** Function to retreive stack position at runtime */
-	// const FILE_LINE_REGEX = /\/([a-zA-Z]+.js):(\d+)/g;
-	// const FILE_REGEX = /\/([a-zA-Z]+.js)/g;
-	function stackPosition(displayLine) {
-		let stack = new Error().stack;
-		// let regex;
-		// if (displayLine) regex = FILE_LINE_REGEX;
-		// else regex = FILE_REGEX;
-		// let data = /\/([a-z]+.js):(\d+)/.exec(stack);
-		let data = stack.match(/([a-zA-Z]+.js):(\d+)/g);
-		// console.log(stack);
-		// console.log(data);
-		return data[2];
-		// if (Array.isArray(data) && data[1]) {
-		// 	if (displayLine && data[2]) {
-		// 		return data[1] + ':' + data[2];
-		// 	}
-		// 	return data[1];
-		// }
-		return '';
-	}
-
 	function formatLog(args) {
 		if (typeof args === 'string') {
 			return args;
