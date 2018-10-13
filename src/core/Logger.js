@@ -7,7 +7,7 @@ const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' };
 const TIMEOUT = 15;
 const TIMESTAMP_PATTERN = { NORMAL: 'D/M h:m:s', SLEEP: 'D/M_h:m:s' };
 
-var Utils, Core, timestamp;
+var Utils, Core, timestamp, cancelTimeout;
 
 var logLevel = LEVEL.INFO;
 
@@ -24,23 +24,27 @@ module.exports = class Logger {
 
 	level(arg) {
 		if (arg) {
-			_setLogLevel(arg);
+			this._setLogLevel(arg);
 		} else {
 			return logLevel;
 		}
 	}
 
 	info() {
-		console.log(Utils.logTime(timestamp), '[' + this.filename + ']', _formatLog(arguments));
+		console.log(Utils.logTime(timestamp), '[' + this.filename + ']', this._formatLog(arguments));
 	}
 
 	INFO() {
-		console.log(Utils.logTime(timestamp), '[' + this.filename.toUpperCase() + ']', _formatLog(arguments).toUpperCase());
+		console.log(
+			Utils.logTime(timestamp),
+			'[' + this.filename.toUpperCase() + ']',
+			this._formatLog(arguments).toUpperCase()
+		);
 	}
 
 	debug() {
 		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
-			console.log(Utils.logTime(timestamp), '[' + this.filename + ']\u2022', _formatLog(arguments));
+			console.log(Utils.logTime(timestamp), '[' + this.filename + ']\u2022', this._formatLog(arguments));
 	}
 
 	DEBUG() {
@@ -48,13 +52,13 @@ module.exports = class Logger {
 			console.log(
 				Utils.logTime(timestamp),
 				'[' + this.filename.toUpperCase() + ']\u2022',
-				_formatLog(arguments).toUpperCase()
+				this._formatLog(arguments).toUpperCase()
 			);
 	}
 
 	trace() {
 		if (logLevel == LEVEL.TRACE)
-			console.log(Utils.logTime(timestamp), '[' + this.filename + ']\u2022\u2022', _formatLog(arguments));
+			console.log(Utils.logTime(timestamp), '[' + this.filename + ']\u2022\u2022', this._formatLog(arguments));
 	}
 
 	TRACE() {
@@ -62,18 +66,18 @@ module.exports = class Logger {
 			console.log(
 				Utils.logTime(timestamp),
 				'[' + this.filename.toUpperCase() + ']\u2022\u2022',
-				_formatLog(arguments).toUpperCase()
+				this._formatLog(arguments).toUpperCase()
 			);
 	}
 
 	error() {
 		console.log('______________');
-		console.error(Utils.logTime(timestamp), '[' + this.filename + ']', /*'ERR >>',*/ _formatLog(arguments));
+		console.error(Utils.logTime(timestamp), '[' + this.filename + ']', /*'ERR >>',*/ this._formatLog(arguments));
 	}
 
 	table(src, title, updatedEntries) {
-		let datas = _formatObjectToTable(src, updatedEntries);
-		let tableSize = _calculateTableSize(datas);
+		let datas = this._formatObjectToTable(src, updatedEntries);
+		let tableSize = this._calculateTableSize(datas);
 		let logArrayTitle = '';
 		if (title) {
 			logArrayTitle = '│  ' + title + ' '.repeat(tableSize.col1 + tableSize.col2 + 2 - title.length) + ' │';
@@ -102,108 +106,105 @@ module.exports = class Logger {
 		});
 		console.log(confTable + '└' + '─'.repeat(tableSize.col1 + 2) + '┴' + '─'.repeat(tableSize.col2 + 2) + '┘');
 	}
-};
 
-function _setLogLevel(arg) {
-	let newLogLevel = String(arg).toLowerCase();
-	logLevel = newLogLevel;
-	Core = require(_PATH + 'src/core/Core.js').Core;
-	Core.conf('log', logLevel);
-	info();
-	INFO('--> Logger level set to:', logLevel);
-	if (newLogLevel == LEVEL.DEBUG || newLogLevel == LEVEL.TRACE) {
-		_timeoutToInfoLevel(TIMEOUT);
-	}
-}
-
-var cancelTimeout;
-function _timeoutToInfoLevel(delay) {
-	info('back to info level in', delay, 'min');
-	clearTimeout(cancelTimeout);
-	cancelTimeout = setTimeout(() => {
-		level() != LEVEL.INFO && level(LEVEL.INFO);
-		Core.conf('log', LEVEL.INFO);
-	}, delay * 60 * 1000);
-}
-
-function _formatLog(args) {
-	if (typeof args === 'string') {
-		return args;
-	}
-	var log = '';
-	if (args[0] == '\n') {
-		console.log('');
-		delete args[0];
-	}
-	for (var i in args) {
-		if (typeof args[i] == 'object') {
-			log = log + util.format(util.inspect(args[i]) + ' ');
-		} else {
-			log = log + args[i] + ' ';
+	_setLogLevel(arg) {
+		let newLogLevel = String(arg).toLowerCase();
+		logLevel = newLogLevel;
+		Core = require(_PATH + 'src/core/Core.js').Core;
+		Core.conf('log', logLevel);
+		this.info();
+		this.INFO('--> Logger level set to:', logLevel);
+		if (newLogLevel == LEVEL.DEBUG || newLogLevel == LEVEL.TRACE) {
+			this._timeoutToInfoLevel(TIMEOUT);
 		}
 	}
-	return log;
-}
 
-/** Return formated object */
-function _formatObjectToTable(obj, updatedEntries) {
-	let datas = {};
-	Object.keys(obj).forEach((key, index) => {
-		let updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
-		let data = obj[key];
-		if (data == false || data == null || data == 0) return;
-		if (typeof data == 'object' && !Array.isArray(data)) {
-			Object.keys(data).forEach((key2, index2) => {
-				let data2 = data[key2];
-				if (data2) {
-					// not logging null entries
-					if (index2 == 0) {
-						datas[(updated ? '*' : '') + key] = [String(key2 + ': ' + _getDataOrObject(data2))];
-					} else if (Array.isArray(datas[(updated ? '*' : '') + key])) {
-						datas[(updated ? '*' : '') + key].push(String(key2 + ': ' + _getDataOrObject(data2)));
+	_timeoutToInfoLevel(delay) {
+		this.info('back to info level in', delay, 'min');
+		clearTimeout(cancelTimeout);
+		cancelTimeout = setTimeout(() => {
+			this.level() != LEVEL.INFO && this.level(LEVEL.INFO);
+			Core.conf('log', LEVEL.INFO);
+		}, delay * 60 * 1000);
+	}
+
+	_formatLog(args) {
+		if (typeof args === 'string') {
+			return args;
+		}
+		var log = '';
+		if (args[0] == '\n') {
+			console.log('');
+			delete args[0];
+		}
+		for (var i in args) {
+			if (typeof args[i] == 'object') {
+				log = log + util.format(util.inspect(args[i]) + ' ');
+			} else {
+				log = log + args[i] + ' ';
+			}
+		}
+		return log;
+	}
+
+	_formatObjectToTable(obj, updatedEntries) {
+		let datas = {};
+		Object.keys(obj).forEach((key, index) => {
+			let updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
+			let data = obj[key];
+			if (data == false || data == null || data == 0) return;
+			if (typeof data == 'object' && !Array.isArray(data)) {
+				Object.keys(data).forEach((key2, index2) => {
+					let data2 = data[key2];
+					if (data2) {
+						// not logging null entries
+						if (index2 == 0) {
+							datas[(updated ? '*' : '') + key] = [String(key2 + ': ' + this._getDataOrObject(data2))];
+						} else if (Array.isArray(datas[(updated ? '*' : '') + key])) {
+							datas[(updated ? '*' : '') + key].push(String(key2 + ': ' + this._getDataOrObject(data2)));
+						}
 					}
-				}
-			});
-		} else {
-			datas[(updated ? '*' : '') + key] = [String(data)];
-		}
-	});
-	return datas;
-}
-
-function _getDataOrObject(data) {
-	if (typeof data == 'object' && !Array.isArray(data)) {
-		return util.inspect(data);
-	} else {
-		return data;
+				});
+			} else {
+				datas[(updated ? '*' : '') + key] = [String(data)];
+			}
+		});
+		return datas;
 	}
-}
 
-/** Function to calculate array width */
-function _calculateTableSize(datas) {
-	let tableSize = { col1: [], col2: [] };
-	Object.keys(datas).forEach(key => {
-		tableSize.col1.push(key.length);
-		tableSize.col2.push(
-			Math.max.apply(
-				Math,
-				datas[key].map(el => {
-					return el.length;
-				})
-			)
+	_getDataOrObject(data) {
+		if (typeof data == 'object' && !Array.isArray(data)) {
+			return util.inspect(data);
+		} else {
+			return data;
+		}
+	}
+
+	_calculateTableSize(datas) {
+		let tableSize = { col1: [], col2: [] };
+		Object.keys(datas).forEach(key => {
+			tableSize.col1.push(key.length);
+			tableSize.col2.push(
+				Math.max.apply(
+					Math,
+					datas[key].map(el => {
+						return el.length;
+					})
+				)
+			);
+		});
+		tableSize.col1 = Math.max.apply(
+			Math,
+			tableSize.col1.map(el => {
+				return el;
+			})
 		);
-	});
-	tableSize.col1 = Math.max.apply(
-		Math,
-		tableSize.col1.map(el => {
-			return el;
-		})
-	);
-	tableSize.col2 = Math.max.apply(
-		Math,
-		tableSize.col2.map(el => {
-			return el;
-		})
-	);
-	return tableSize;
-}
+		tableSize.col2 = Math.max.apply(
+			Math,
+			tableSize.col2.map(el => {
+				return el;
+			})
+		);
+		return tableSize;
+	}
+};

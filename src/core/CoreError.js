@@ -34,7 +34,6 @@ module.exports = class CoreError extends Error {
 	}
 
 	notify() {
-		//led, sound and sms
 		Core.do('interface|led|altLeds', { speed: 30, duration: 1.5 }, { hidden: true });
 		Core.do('interface|sound|error', null, { hidden: true });
 
@@ -44,7 +43,6 @@ module.exports = class CoreError extends Error {
 	}
 
 	persist() {
-		//persist to file
 		let logError = {
 			message: this.message,
 			data: this.data,
