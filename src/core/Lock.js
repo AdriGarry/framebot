@@ -5,7 +5,7 @@ const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
 const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 
-/** accessor: object([id, value, table, restart]) */
+/** accessor: object([id, value]) */
 function Lock(obj, file) {
 	var self = this;
 	self._obj = obj;
@@ -17,9 +17,9 @@ function Lock(obj, file) {
 	// Object.seal(self);
 	return _accessors;
 
-	function _accessors(id, newValue, restart, table) {
+	function _accessors(id, newValue) {
 		if (!id) return self._obj; //return all object
-		if (typeof newValue !== 'undefined') return _setter(id, newValue, restart, table);
+		if (typeof newValue !== 'undefined') return _setter(id, newValue);
 		//set value
 		else return _getter(id); //get value
 	}
@@ -35,9 +35,9 @@ function Lock(obj, file) {
 		}
 	}
 
-	function _setter(id, newValue, restart, table) {
+	function _setter(id, newValue) {
 		if (self.file) {
-			log.debug('Updating ' + id + ':', newValue, restart || '');
+			log.debug('Updating ' + id + ':', newValue);
 			_setValue(self._obj, id, newValue);
 			// let updatedEntries = [id]; // TODO
 			fs.writeFileSync(self.file, JSON.stringify(self._obj, null, 1));
