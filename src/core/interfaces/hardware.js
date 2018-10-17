@@ -12,6 +12,7 @@ const os = require('os');
 
 const PATHS = [Core._SRC];
 const BYTE_TO_MO = 1048576;
+
 retreiveLastModifiedDate(PATHS);
 countSoftwareLines();
 getDiskSpace();

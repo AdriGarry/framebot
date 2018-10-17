@@ -72,11 +72,7 @@ module.exports = class Logger {
 
 	error() {
 		console.log('______________');
-		console.error(
-			Utils.logTime(timestamp),
-			'[' + Utils.filePosition(2) + ']',
-			/*'ERR >>',*/ this._formatLog(arguments)
-		);
+		console.error(Utils.logTime(timestamp), '[' + Utils.filePosition(2) + ']', this._formatLog(arguments));
 	}
 
 	table(src, title, updatedEntries) {
