@@ -12,7 +12,7 @@ module.exports = class CoreError extends Error {
 		this.name = this.constructor.name;
 		this.time = Utils.logTime();
 		this.data = data;
-		this.log(displayStack);
+		this.log(displayStack || true);
 		this.notify();
 		this.persist();
 	}
