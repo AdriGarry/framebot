@@ -31,48 +31,52 @@ module.exports = class Logger {
 	}
 
 	info() {
-		console.log(Utils.logTime(timestamp), '[' + this.filename + ']', this._formatLog(arguments));
+		console.log(Utils.logTime(timestamp), '[' + Utils.filePosition(2) + ']', this._formatLog(arguments));
 	}
 
 	INFO() {
 		console.log(
 			Utils.logTime(timestamp),
-			'[' + this.filename.toUpperCase() + ']',
+			'[' + Utils.filePosition(2).toUpperCase() + ']',
 			this._formatLog(arguments).toUpperCase()
 		);
 	}
 
 	debug() {
 		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
-			console.log(Utils.logTime(timestamp), '[' + this.filename + ']\u2022', this._formatLog(arguments));
+			console.log(Utils.logTime(timestamp), '[' + Utils.filePosition(2) + ']\u2022', this._formatLog(arguments));
 	}
 
 	DEBUG() {
 		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
 			console.log(
 				Utils.logTime(timestamp),
-				'[' + this.filename.toUpperCase() + ']\u2022',
+				'[' + Utils.filePosition(2).toUpperCase() + ']\u2022',
 				this._formatLog(arguments).toUpperCase()
 			);
 	}
 
 	trace() {
 		if (logLevel == LEVEL.TRACE)
-			console.log(Utils.logTime(timestamp), '[' + this.filename + ']\u2022\u2022', this._formatLog(arguments));
+			console.log(Utils.logTime(timestamp), '[' + Utils.filePosition(2) + ']\u2022\u2022', this._formatLog(arguments));
 	}
 
 	TRACE() {
 		if (logLevel == LEVEL.TRACE)
 			console.log(
 				Utils.logTime(timestamp),
-				'[' + this.filename.toUpperCase() + ']\u2022\u2022',
+				'[' + Utils.filePosition(2).toUpperCase() + ']\u2022\u2022',
 				this._formatLog(arguments).toUpperCase()
 			);
 	}
 
 	error() {
 		console.log('______________');
-		console.error(Utils.logTime(timestamp), '[' + this.filename + ']', /*'ERR >>',*/ this._formatLog(arguments));
+		console.error(
+			Utils.logTime(timestamp),
+			'[' + Utils.filePosition(2) + ']',
+			/*'ERR >>',*/ this._formatLog(arguments)
+		);
 	}
 
 	table(src, title, updatedEntries) {

@@ -102,4 +102,7 @@ setTimeout(() => {
 	});
 	// playlist2.play();
 	// playlist2.play();
+	// console.log(Utils.filePosition(true));
+	// console.log(Utils.filePosition(true, 1));
+	// console.log(Utils.filePosition(true, 2));
 }, 3000);

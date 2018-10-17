@@ -10,7 +10,7 @@ const exec = require('child_process').exec;
 // const util = require('util');
 
 module.exports = {
-	stackPosition: stackPosition,
+	filePosition: filePosition,
 	repeatString: repeatString,
 	deleteFolderRecursive: deleteFolderRecursive,
 	appendJsonFile: appendArrayInJsonFile,
@@ -32,19 +32,16 @@ module.exports = {
 };
 
 /**
- * Function to retreive stack position at runtime
- * @param {*} displayLine
+ * Function to retreive file position at runtime
+ * @param {*} steps
  */
-function stackPosition(displayLine) {
+function filePosition(steps) {
 	let stack = new Error().stack;
-	let data = /\/([a-z]+.js):(\d+)/.exec(stack);
 	// console.log(stack);
-	// console.log(data[1], data[2]);
-	if (Array.isArray(data) && data[1]) {
-		if (displayLine && data[2]) {
-			return data[1] + ':' + data[2];
-		}
-		return data[1];
+	let data = stack.match(/([a-zA-Z]+.js:\d+)/gm);
+	if (isNaN(steps)) steps = 0;
+	if (Array.isArray(data) && data[steps]) {
+		return data[steps];
 	}
 	return '';
 }
