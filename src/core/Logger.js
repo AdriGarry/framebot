@@ -83,14 +83,14 @@ module.exports = class Logger {
 			logArrayTitle = '│  ' + title + ' '.repeat(tableSize.col1 + tableSize.col2 + 2 - title.length) + ' │';
 			logArrayTitle += '\n' + '├' + '─'.repeat(tableSize.col1 + 2) + '┬' + '─'.repeat(tableSize.col2 + 2) + '┤\n';
 		}
-		let confTable = '┌' + '─'.repeat(tableSize.col1 + tableSize.col2 + 5) + '┐\n' + logArrayTitle;
+		let table = '┌' + '─'.repeat(tableSize.col1 + tableSize.col2 + 5) + '┐\n' + logArrayTitle;
 
 		Object.keys(datas).forEach(function(key, index) {
 			let data = datas[key];
 			Object.keys(data).forEach(function(key2, index2) {
 				let data2 = data[key2];
 				if (index2 == 0) {
-					confTable +=
+					table +=
 						'│ ' +
 						key +
 						' '.repeat(tableSize.col1 - key.length) +
@@ -99,12 +99,12 @@ module.exports = class Logger {
 						' '.repeat(tableSize.col2 - data2.length) +
 						' │\n';
 				} else {
-					confTable +=
+					table +=
 						'│ ' + ' '.repeat(tableSize.col1) + ' │ ' + data2 + ' '.repeat(tableSize.col2 - data2.length) + ' │\n';
 				}
 			});
 		});
-		console.log(confTable + '└' + '─'.repeat(tableSize.col1 + 2) + '┴' + '─'.repeat(tableSize.col2 + 2) + '┘');
+		console.log(table + '└' + '─'.repeat(tableSize.col1 + 2) + '┴' + '─'.repeat(tableSize.col2 + 2) + '┘');
 	}
 
 	_setLogLevel(arg) {
