@@ -93,6 +93,7 @@ Button.etat.watch((err, value) => {
 	value = Button.etat.readSync();
 	Core.run('etat', value ? 'high' : 'low');
 	Core.run('volume', Core.isAwake() ? (value ? 400 : -400) : 'mute');
+	Core.do('interface|sound|volume', Core.run('volume'));
 	log.info('Etat has changed:', Core.run('etat'));
 	if (Core.run('music') == 'fip') {
 		Core.do('interface|sound|mute');
