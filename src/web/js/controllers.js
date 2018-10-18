@@ -25,7 +25,6 @@ app.controller('UIController', function(
 	$scope.volume = Math.floor(Math.random() * 100); /// WHAT FOR ??
 
 	$scope.volumeChange = function(volume) {
-		console.log('volume', volume);
 		var command = { label: 'setVolume', url: '/volume/' + volume };
 		UIService.sendCommand(command, () => {});
 	};

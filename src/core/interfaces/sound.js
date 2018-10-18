@@ -70,7 +70,7 @@ function playSound(arg, noLog) {
 		delete omxplayerInstances[sound];
 		console.log(err);
 		if (err) {
-			log.error(err);
+			Core.error('omxProcess.on(close', err);
 		} else {
 			if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
 		}
