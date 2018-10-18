@@ -39,13 +39,14 @@ function setVolume(volume) {
 	log.info('setVolume()', volume); // TODO
 }
 
-// function setVolume(volume) {
-// 	log.INFO('......');
-// 	log.INFO('setVolume', volume);
-// 	// Object.keys(playbackInstances).forEach(key => {
-// 	// 	playbackInstances[key];
-// 	// });
-// }
+var omxplayerInstances = {};
+function setVolume(volume) {
+	log.INFO('......');
+	log.INFO('setVolume', volume);
+	Object.keys(playbackInstances).forEach(key => {
+		omxplayerInstances[key].stdin.write('+');
+	});
+}
 
 function playSound(arg, noLog) {
 	log.debug(arg);
@@ -71,12 +72,16 @@ function playSound(arg, noLog) {
 	const omxProcess = spawn('omxplayer', ['-o', 'local', '--pos', position, '--vol', volume, sound]);
 
 	omxProcess.on('close', err => {
+		delete omxplayerInstances[sound];
+		console.log(err);
 		if (err) {
 			log.error(err);
 		} else {
 			if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
 		}
 	});
+
+	omxplayerInstances[sound] = omxProcess;
 
 	// Utils.execCmd('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound, function(callback) {
 	// 	// always log callback
