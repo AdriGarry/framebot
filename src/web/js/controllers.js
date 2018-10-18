@@ -27,7 +27,7 @@ app.controller('UIController', function(
 	$scope.volumeChange = function(volume) {
 		console.log('volume', volume);
 		var command = { label: 'setVolume', url: '/volume/' + volume };
-		UIService.sendCommand(command);
+		UIService.sendCommand(command, () => {});
 	};
 
 	$scope.dashboard = {

@@ -35,10 +35,6 @@ Core.flux.interface.sound.subscribe({
 
 resetSound();
 
-function setVolume(volume) {
-	log.info('setVolume()', volume); // TODO
-}
-
 var omxplayerInstances = {};
 function setVolume(volume) {
 	log.INFO('......');
