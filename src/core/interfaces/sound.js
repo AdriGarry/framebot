@@ -37,9 +37,8 @@ resetSound();
 
 var omxplayerInstances = {};
 function setVolume(volume) {
-	log.INFO('......');
 	log.INFO('setVolume', volume);
-	Object.keys(playbackInstances).forEach(key => {
+	Object.keys(omxplayerInstances).forEach(key => {
 		omxplayerInstances[key].stdin.write('+');
 	});
 }
