@@ -94,8 +94,8 @@
 
 	<md-toolbar data-ng-if="$root.position || $root.irda" class="toolbar" data-ng-class="dashboard.loading ? 'md-warn' : ''">
 		<div class="md-toolbar-tools">
-			<img src="img/odi.jpg" alt="Odi's face" data-ng-hide="connexionLost" class="odiFace ng-slide-slow infiniteSwingHover" data-ng-class="dashboard.odiState.sleep ? 'sleep' : ''"
-			 data-ng-click="reloadUI()" title="Reload UI">
+			<img src="img/odi.jpg" alt="Odi's face" data-ng-hide="connexionLost" class="odiFace ng-slide-slow infiniteSwingHover"
+			 data-ng-class="dashboard.odiState.sleep ? 'sleep' : ''" data-ng-click="reloadUI()" title="Reload UI">
 			<img src="img/snow.gif" alt="Connexion lost" data-ng-class="connexionLost ? 'visible' : 'hidden'" class="odiFace connexionLost"
 			 title="Odi is not responding...">
 			<!--data-ng-click="reloadUI()"-->
@@ -117,7 +117,7 @@
 		<!--data-ng-disabled="dashboard.refreshing"-->
 	</md-toolbar>
 
-	<md-sidenav data-ng-if="$root.position" class="md-sidenav-left" md-component-id="logs" md-whiteframe="4">
+	<md-sidenav data-ng-if="$root.position" class="md-sidenav-left" data-md-component-id="logs" data-md-whiteframe="4">
 		<div class="logs" data-ng-dblclick="refreshLog()">
 			<i class="debugLog fas fa-circle" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i>
 			<i class="debugLog fas fa-2x fa-circle" data-ng-if="dashboard.odiState.trace" title="DEBUG mode"></i>
@@ -128,12 +128,12 @@
 			<md-progress-circular md-diameter="150" data-ng-hide="logData"></md-progress-circular>
 		</div>
 		<div class="tools">
-			<md-button class="md-fab" data-ng-class="log.mode ? 'md-primary' : 'md-warn'" data-ng-click="log.mode = !log.mode" title="Toggle log mode"
-			 aria-label="Toggle log mode">
+			<md-button class="md-fab" data-ng-class="log.mode ? 'md-primary' : 'md-warn'" data-ng-click="log.mode = !log.mode"
+			 title="Toggle log mode" aria-label="Toggle log mode">
 				<i class="fas fa-2x" data-ng-class="log.mode ? 'fa-th' : 'fa-th-large'"></i>
 			</md-button>
-			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="$root.irda" title="Restart Odi"
-			 aria-label="Restart Odi">
+			<md-button class="md-fab md-warn" data-ng-click="action({label: 'Restart Odi', url: '/odi'})" data-ng-show="$root.irda"
+			 title="Restart Odi" aria-label="Restart Odi">
 				<i class="fas fa-2x fa-bolt"></i>
 			</md-button>
 			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" title="Hide Logs" aria-label="Hide Logs">
@@ -142,7 +142,7 @@
 		</div>
 	</md-sidenav>
 
-	<md-sidenav data-ng-if="$root.position" class="md-sidenav-right" md-component-id="menu" md-whiteframe="1">
+	<md-sidenav data-ng-if="$root.position" class="md-sidenav-right" data-md-component-id="menu" data-md-whiteframe="1">
 		<div layout="row" class="menu">
 			<md-list flex>
 				<md-list-item>
@@ -159,8 +159,8 @@
 				<md-list-item>
 					<div flex>Auto refresh (scroll)</div>
 					<div flex>
-						<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0" type="checkbox"
-						 role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch>
+						<md-switch class="switch md-primary" aria-label="Dashboard auto refresh" title="Dashboard auto refresh" tabindex="0"
+						 type="checkbox" role="checkbox" data-ng-model="dashboard.autoRefresh"></md-switch>
 					</div>
 				</md-list-item>
 				<md-divider></md-divider>
@@ -180,8 +180,8 @@
 				</md-subheader>
 				<md-list-item title="Volume">
 					<md-slider-container ng-disabled="!$root.irda">
-						<md-slider flex data-ng-model="master" data-md-discrete md-horizontal step="10" class="md-primary" data-ng-readonly="!$root.irda"
-						 title="Volume" aria-label="Volume"></md-slider>
+						<md-slider flex data-ng-model="volume" data-ng-change="volumeChange(volume)" data-md-discrete md-horizontal step="20"
+						 class="md-primary" data-ng-readonly="!$root.irda" title="Volume" aria-label="Volume"></md-slider>
 					</md-slider-container>
 				</md-list-item>
 				<md-divider></md-divider>
@@ -248,8 +248,8 @@
 				<i class="fas fa-2x fa-exclamation"></i>
 			</md-button>
 			<!-- // -> TENTER d'enlever les class md-hue-2 -->
-			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-primary muteButton ng-slide"
-			 title="Mute Odi" aria-label="Mute Odi">
+			<md-button data-ng-click="action({label: 'Mute', url: '/mute'})" data-ng-class="[{'active':fabButtonsVisible}]"
+			 class="md-fab md-primary muteButton ng-slide" title="Mute Odi" aria-label="Mute Odi">
 				<i class="fas fa-lg fa-bell-slash"></i>
 			</md-button>
 		</md-content>
