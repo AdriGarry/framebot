@@ -39,61 +39,6 @@ function setVolume(volume) {
 	log.info('setVolume()', volume); // TODO
 }
 
-// function playSound(arg, noLog) {
-// 	log.debug(arg);
-// 	let mp3Title;
-// 	try {
-// 		mp3Title = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
-// 	} catch (err) {
-// 		mp3Title = arg.mp3;
-// 	}
-// 	let durationLog = arg.duration
-// 		? 'duration=' + (Math.floor(arg.duration / 60) + 'm' + Math.round(arg.duration % 60))
-// 		: '';
-// 	let volLog = arg.volume ? 'vol=' + arg.volume : '';
-// 	if (!noLog) log.info('play', mp3Title, volLog, durationLog);
-
-// 	let volume = arg.volume || Core.run('volume');
-// 	let sound = Core._MP3 + arg.mp3;
-// 	let startPlayTime = new Date();
-
-// 	const { spawn } = require('child_process');
-// 	const omxProcess = spawn('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound);
-
-// 	// spawn('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound, function(callback) {
-// 	// 	// always log callback
-// 	// 	if (callback.toString() == '' || callback.toString().indexOf('have a nice day') >= 0) {
-// 	// 		if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
-// 	// 	} else {
-// 	// 		console.log('callback', callback);
-// 	// 		Core.error('File not found', callback.unQuote(), false);
-// 	// 	}
-// 	// });
-
-// 	omxProcess.on('close', err => {
-// 		console.log('OMX CLOSED.');
-// 		// always log callback
-// 		if (callback.toString() == '' || callback.toString().indexOf('have a nice day') >= 0) {
-// 			if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
-// 		} else {
-// 			console.log('callback', callback);
-// 			Core.error('File not found', callback.unQuote(), false);
-// 		}
-// 	});
-
-// 	let playback = omxInstance.create(sound, { '-o': 'local', '--vol': volume });
-// 	playbackInstances[sound] = playback;
-// 	playback.on('play', function(data) {
-// 		console.log('onPlay:', data);
-// 	});
-// 	playback.on('end', function(data) {
-// 		console.log('END: ', data);
-// 		if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
-// 		delete playbackInstances[sound];
-// 	});
-// 	playback.play();
-// }
-
 // function setVolume(volume) {
 // 	log.INFO('......');
 // 	log.INFO('setVolume', volume);
@@ -123,21 +68,14 @@ function playSound(arg, noLog) {
 	let startPlayTime = new Date();
 
 	const { spawn, exec } = require('child_process');
-	const omxProcess = exec('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound);
+	const omxProcess = spawn('omxplayer', ['-o', 'local', '--pos', position, '--vol', volume, sound]);
 
 	omxProcess.on('close', err => {
-		// always log callback
 		if (err) {
 			log.error(err);
 		} else {
 			if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
 		}
-		// if (callback.toString() == '' || callback.toString().indexOf('have a nice day') >= 0) {
-		// 	if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
-		// } else {
-		// 	console.log('callback', callback);
-		// 	Core.error('File not found', callback.unQuote(), false);
-		// }
 	});
 
 	// Utils.execCmd('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound, function(callback) {
