@@ -35,12 +35,39 @@ Core.flux.interface.sound.subscribe({
 
 resetSound();
 
+// const VOLUME_LEVELS = [-6000, -600, -300, 0, 300, 600];
+const VOLUME_LEVELS = [-6000, -400, -100, 200, 500, 800];
 var omxplayerInstances = {};
 function setVolume(volume) {
 	log.INFO('setVolume', volume);
-	Object.keys(omxplayerInstances).forEach(key => {
-		omxplayerInstances[key].stdin.write('+');
-	});
+	let volumeUpdate = getVolumeInstructions(volume);
+	console.log(volumeUpdate);
+	while (gap) {
+		Object.keys(omxplayerInstances).forEach(key => {
+			omxplayerInstances[key].stdin.write('+');
+		});
+		gap--;
+	}
+}
+
+function getVolumeInstructions(newVolume) {
+	log.info(newVolume);
+	let actualVolume = Odi.run('volume');
+	let indexNewVolume = VOLUME_LEVELS.indexOf(newVolume);
+
+	console.log(newVolume, actualVolume);
+	if (actualVolume === newVolume) {
+		log.info('no volume action (=)');
+	}
+	if (indexNewVolume < 0) {
+		Core.error('Invalid volume value', 'volume value=' + newVolume);
+	}
+	let increase = newVolume > actualVolume;
+	let indexActualVolume = VOLUME_LEVELS.indexOf(actualVolume);
+
+	let gap = Math.abs(indexNewVolume - indexActualVolume);
+	log.debug({ increase: increase, gap: gap });
+	return;
 }
 
 function playSound(arg, noLog) {
