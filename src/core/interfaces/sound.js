@@ -34,8 +34,9 @@ Core.flux.interface.sound.subscribe({
 
 resetSound();
 
-const VOLUME_LEVELS = [-700, -400, -100, 200, 500, 800];
+// const VOLUME_LEVELS = [-700, -400, -100, 200, 500, 800];
 // const VOLUME_LEVELS = [-100, 200, 500, 800, 1100, 1400];
+const VOLUME_LEVELS = [0, 20, 40, 60, 80, 100];
 var omxplayerInstances = {};
 
 function setVolume(volume) {
@@ -43,17 +44,27 @@ function setVolume(volume) {
 	if (!volumeUpdate) {
 		return;
 	}
-	let sign = volumeUpdate.increase ? '+' : '-';
+	let sign = volumeUpdate.increase ? '*' : '/';
 	console.log(volumeUpdate, sign);
 	while (volumeUpdate.gap) {
 		Object.keys(omxplayerInstances).forEach(key => {
 			console.log(key, 'stdin.write', sign);
-			omxplayerInstances[key].stdin.write(sign);
+			for (var i = 0; i < 7; i++) {
+				omxplayerInstances[key].stdin.write(sign);
+			}
 		});
 		volumeUpdate.gap--;
 	}
 	Core.run('volume', volume);
+	console.log('__');
 	log.info('setVolume', volume);
+}
+
+function setVolume2(volume) {
+	Object.keys(omxplayerInstances).forEach(key => {
+		omxplayerInstances[key].stdin.write('+');
+		console.log();
+	});
 }
 
 function getVolumeInstructions(newVolume) {
@@ -61,7 +72,6 @@ function getVolumeInstructions(newVolume) {
 	let actualVolume = parseInt(Core.run('volume'));
 	let indexNewVolume = VOLUME_LEVELS.indexOf(newVolume);
 	// console.log(VOLUME_LEVELS, VOLUME_LEVELS.indexOf(newVolume));
-
 	// console.log(newVolume, actualVolume);
 	if (actualVolume === newVolume) {
 		log.info('no volume action (=)');
@@ -98,33 +108,22 @@ function playSound(arg, noLog) {
 
 	let position = arg.position || 0;
 	let volume = arg.volume || Core.run('volume');
+	volume = 60;
 	let sound = Core._MP3 + arg.mp3;
 	let startPlayTime = new Date();
 
 	const { spawn, exec } = require('child_process');
-	const omxProcess = spawn('omxplayer', ['-o', 'local', '--pos', position, '--vol', volume, sound]);
+	// const omxProcess = spawn('omxplayer', ['-o', 'local', '--pos', position, '--vol', volume, sound]);
+	const omxProcess = spawn('mplayer', ['-volume', volume, sound]);
 
 	omxProcess.on('close', err => {
 		delete omxplayerInstances[sound];
-		console.log(err);
-		if (err) {
-			Core.error('omxProcess.on(close', err);
-		} else {
-			if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
-		}
+		// if (err) Core.error('omxProcess.on(close', err);
+		// else
+		if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
 	});
 
 	omxplayerInstances[sound] = omxProcess;
-
-	// Utils.execCmd('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound, function(callback) {
-	// 	// always log callback
-	// 	if (callback.toString() == '' || callback.toString().indexOf('have a nice day') >= 0) {
-	// 		if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
-	// 	} else {
-	// 		console.log('callback', callback); // TODO mieux gérer l'erreur car elle est déclenchée si on mute un fichier audio
-	// 		Core.error('File not found', callback.unQuote(), false);
-	// 	}
-	// });
 }
 
 var muteTimer, delay;

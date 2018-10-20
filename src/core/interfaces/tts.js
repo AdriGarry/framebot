@@ -41,7 +41,7 @@ function pico(tts) {
 			Core._TMP +
 			'pico2waveTTS.wav "' +
 			tts.msg +
-			'" && aplay ' +
+			'" && mplay ' +
 			Core._TMP +
 			'pico2waveTTS.wav'
 	);
