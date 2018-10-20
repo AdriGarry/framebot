@@ -22,7 +22,7 @@ app.controller('UIController', function(
 
 	$scope.logData;
 
-	$scope.volume = Math.floor(Math.random() * 100); /// WHAT FOR ??
+	// $scope.volume = Math.floor(Math.random() * 100); /// WHAT FOR ??
 
 	$scope.volumeChange = function(volume) {
 		var command = { label: 'setVolume', url: '/volume/' + volume };

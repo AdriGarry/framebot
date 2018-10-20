@@ -165,23 +165,13 @@
 				</md-list-item>
 				<md-divider></md-divider>
 
-				<!-- <md-list-item>
-					<div flex>Debug</div>
-					<div flex>
-						<md-switch class="switch md-primary" aria-label="Debug mode" title="Debug mode" tabindex="0" type="checkbox" role="checkbox"
-						 data-ng-model="dashboard.odiState.debug > 0 ? true : false" data-ng-model-options="{getterSetter:true}" data-ng-click="$root.irda && toggleDebugMode()"
-						 data-ng-disabled="!$root.irda"></md-switch>
-					</div>
-				</md-list-item>
-				<md-divider></md-divider> -->
-
 				<md-subheader>Volume&nbsp;&nbsp;
 					<i>{{master}}</i>
 				</md-subheader>
 				<md-list-item title="Volume">
 					<md-slider-container ng-disabled="!$root.irda">
-						<md-slider flex data-ng-model="volume" data-ng-change="volumeChange(volume)" data-md-discrete md-horizontal step="20"
-						 class="md-primary" data-ng-readonly="!$root.irda" title="Volume" aria-label="Volume"></md-slider>
+						<md-slider flex data-ng-model="volume" data-ng-change="volumeChange(volume)" data-md-discrete md-horizontal step="300"
+						 data-min="-100" data-max="1100" class="md-primary" data-ng-readonly="!$root.irda" title="Volume" aria-label="Volume"></md-slider>
 					</md-slider-container>
 				</md-list-item>
 				<md-divider></md-divider>

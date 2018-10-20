@@ -6,7 +6,6 @@ const log = new (require(Core._CORE + 'Logger.js'))(__filename);
 
 const Utils = require(Core._CORE + 'Utils.js');
 const spawn = require('child_process').spawn;
-const exec = require('child_process').exec;
 
 Core.flux.interface.sound.subscribe({
 	next: flux => {
@@ -35,39 +34,48 @@ Core.flux.interface.sound.subscribe({
 
 resetSound();
 
-// const VOLUME_LEVELS = [-6000, -600, -300, 0, 300, 600];
-const VOLUME_LEVELS = [-6000, -400, -100, 200, 500, 800];
+// const VOLUME_LEVELS = [-700, -400, -100, 200, 500, 800];
+const VOLUME_LEVELS = [-100, 200, 500, 800, 1100, 1400];
 var omxplayerInstances = {};
+
 function setVolume(volume) {
-	log.INFO('setVolume', volume);
-	let volumeUpdate = getVolumeInstructions(volume);
-	console.log(volumeUpdate);
-	while (gap) {
+	let volumeUpdate = getVolumeInstructions(parseInt(volume));
+	let sign = volumeUpdate.increase ? '+' : '-';
+	console.log(volumeUpdate, sign);
+	while (volumeUpdate.gap) {
 		Object.keys(omxplayerInstances).forEach(key => {
-			omxplayerInstances[key].stdin.write('+');
+			console.log(key, 'stdin.write', sign);
+			omxplayerInstances[key].stdin.write(sign);
 		});
-		gap--;
+		volumeUpdate.gap--;
 	}
+	Core.run('volume', volume);
+	log.info('setVolume', volume);
 }
 
 function getVolumeInstructions(newVolume) {
-	log.info(newVolume);
-	let actualVolume = Odi.run('volume');
+	log.info(typeof newVolume);
+	let actualVolume = parseInt(Core.run('volume'));
 	let indexNewVolume = VOLUME_LEVELS.indexOf(newVolume);
+	// console.log(VOLUME_LEVELS, VOLUME_LEVELS.indexOf(newVolume));
 
-	console.log(newVolume, actualVolume);
+	// console.log(newVolume, actualVolume);
 	if (actualVolume === newVolume) {
 		log.info('no volume action (=)');
+		return;
 	}
+	// console.log(indexNewVolume);
 	if (indexNewVolume < 0) {
 		Core.error('Invalid volume value', 'volume value=' + newVolume);
 	}
+	console.log(newVolume, actualVolume);
+	console.log(typeof newVolume, typeof actualVolume);
 	let increase = newVolume > actualVolume;
 	let indexActualVolume = VOLUME_LEVELS.indexOf(actualVolume);
 
 	let gap = Math.abs(indexNewVolume - indexActualVolume);
-	log.debug({ increase: increase, gap: gap });
-	return;
+	// log.debug({ increase: increase, gap: gap });
+	return { increase: increase, gap: gap };
 }
 
 function playSound(arg, noLog) {
