@@ -34,12 +34,15 @@ Core.flux.interface.sound.subscribe({
 
 resetSound();
 
-// const VOLUME_LEVELS = [-700, -400, -100, 200, 500, 800];
-const VOLUME_LEVELS = [-100, 200, 500, 800, 1100, 1400];
+const VOLUME_LEVELS = [-700, -400, -100, 200, 500, 800];
+// const VOLUME_LEVELS = [-100, 200, 500, 800, 1100, 1400];
 var omxplayerInstances = {};
 
 function setVolume(volume) {
 	let volumeUpdate = getVolumeInstructions(parseInt(volume));
+	if (!volumeUpdate) {
+		return;
+	}
 	let sign = volumeUpdate.increase ? '+' : '-';
 	console.log(volumeUpdate, sign);
 	while (volumeUpdate.gap) {
