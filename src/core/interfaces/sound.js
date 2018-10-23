@@ -38,12 +38,13 @@ const VOLUME_LEVELS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 var mplayerInstances = {};
 
 function setVolume(volume) {
+	log.info('setting volume:', volume);
 	let volumeUpdate = getVolumeInstructions(parseInt(volume));
 	if (!volumeUpdate) {
 		return;
 	}
 	let sign = volumeUpdate.increase ? '*' : '/';
-	console.log(volumeUpdate, sign);
+	// console.log(volumeUpdate, sign);
 	while (volumeUpdate.gap) {
 		Object.keys(mplayerInstances).forEach(key => {
 			console.log(key, 'stdin.write', sign);
@@ -55,11 +56,11 @@ function setVolume(volume) {
 	}
 	Core.run('volume', volume);
 	// console.log('__');
-	log.info('setVolume', volume);
+	log.info('Volume level =', volume + '%');
 }
 
 function getVolumeInstructions(newVolume) {
-	log.info(typeof newVolume, newVolume);
+	// log.info(typeof newVolume, newVolume);
 	let actualVolume = parseInt(Core.run('volume'));
 	let indexNewVolume = VOLUME_LEVELS.indexOf(newVolume);
 	if (actualVolume === newVolume) {
@@ -101,7 +102,7 @@ function playSound(arg, noLog) {
 	let startPlayTime = new Date();
 
 	const { spawn, exec } = require('child_process'); // TODO... replace anywhere ?
-	const omxProcess = spawn('mplayer', ['-volstep 10 -volume', volume, sound]);
+	const omxProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position, sound]);
 
 	omxProcess.on('close', err => {
 		delete mplayerInstances[sound];

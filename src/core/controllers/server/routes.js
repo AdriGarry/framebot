@@ -100,9 +100,6 @@ function attachDefaultRoutes(ui) {
 			},
 			watcher: {
 				value: Core.conf('watcher')
-				// },
-				// volume: {
-				// 	value: Core.run('volume')
 			}
 		};
 		res.end(JSON.stringify(dashboard));
@@ -211,7 +208,6 @@ function attachDefaultRoutes(ui) {
 	});
 
 	ui.post('/volume/:volume', function(req, res) {
-		log.INFO('volume=' + req.params.volume);
 		Core.do('interface|sound|volume', req.params.volume);
 		res.end();
 	});
