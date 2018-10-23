@@ -100,6 +100,9 @@ function attachDefaultRoutes(ui) {
 			},
 			watcher: {
 				value: Core.conf('watcher')
+				// },
+				// volume: {
+				// 	value: Core.run('volume')
 			}
 		};
 		res.end(JSON.stringify(dashboard));

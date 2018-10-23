@@ -34,10 +34,8 @@ Core.flux.interface.sound.subscribe({
 
 resetSound();
 
-// const VOLUME_LEVELS = [-700, -400, -100, 200, 500, 800];
-// const VOLUME_LEVELS = [-100, 200, 500, 800, 1100, 1400];
-const VOLUME_LEVELS = [0, 20, 40, 60, 80, 100];
-var omxplayerInstances = {};
+const VOLUME_LEVELS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+var mplayerInstances = {};
 
 function setVolume(volume) {
 	let volumeUpdate = getVolumeInstructions(parseInt(volume));
@@ -47,47 +45,37 @@ function setVolume(volume) {
 	let sign = volumeUpdate.increase ? '*' : '/';
 	console.log(volumeUpdate, sign);
 	while (volumeUpdate.gap) {
-		Object.keys(omxplayerInstances).forEach(key => {
+		Object.keys(mplayerInstances).forEach(key => {
 			console.log(key, 'stdin.write', sign);
-			for (var i = 0; i < 7; i++) {
-				omxplayerInstances[key].stdin.write(sign);
-			}
+			// for (var i = 0; i < 7; i++) {
+			mplayerInstances[key].stdin.write(sign);
+			// }
 		});
 		volumeUpdate.gap--;
 	}
 	Core.run('volume', volume);
-	console.log('__');
+	// console.log('__');
 	log.info('setVolume', volume);
 }
 
-function setVolume2(volume) {
-	Object.keys(omxplayerInstances).forEach(key => {
-		omxplayerInstances[key].stdin.write('+');
-		console.log();
-	});
-}
-
 function getVolumeInstructions(newVolume) {
-	log.info(typeof newVolume);
+	log.info(typeof newVolume, newVolume);
 	let actualVolume = parseInt(Core.run('volume'));
 	let indexNewVolume = VOLUME_LEVELS.indexOf(newVolume);
-	// console.log(VOLUME_LEVELS, VOLUME_LEVELS.indexOf(newVolume));
-	// console.log(newVolume, actualVolume);
 	if (actualVolume === newVolume) {
 		log.info('no volume action (=)');
 		return;
 	}
-	// console.log(indexNewVolume);
-	if (indexNewVolume < 0) {
+	if (indexNewVolume < 0 || indexNewVolume > 100) {
 		Core.error('Invalid volume value', 'volume value=' + newVolume);
 	}
-	console.log(newVolume, actualVolume);
-	console.log(typeof newVolume, typeof actualVolume);
+	// console.log(newVolume, actualVolume);
+	// console.log(typeof newVolume, typeof actualVolume);
 	let increase = newVolume > actualVolume;
 	let indexActualVolume = VOLUME_LEVELS.indexOf(actualVolume);
 
 	let gap = Math.abs(indexNewVolume - indexActualVolume);
-	// log.debug({ increase: increase, gap: gap });
+	log.debug({ increase: increase, gap: gap });
 	return { increase: increase, gap: gap };
 }
 
@@ -112,18 +100,17 @@ function playSound(arg, noLog) {
 	let sound = Core._MP3 + arg.mp3;
 	let startPlayTime = new Date();
 
-	const { spawn, exec } = require('child_process');
-	// const omxProcess = spawn('omxplayer', ['-o', 'local', '--pos', position, '--vol', volume, sound]);
-	const omxProcess = spawn('mplayer', ['-volume', volume, sound]);
+	const { spawn, exec } = require('child_process'); // TODO... replace anywhere ?
+	const omxProcess = spawn('mplayer', ['-volstep 10 -volume', volume, sound]);
 
 	omxProcess.on('close', err => {
-		delete omxplayerInstances[sound];
+		delete mplayerInstances[sound];
 		// if (err) Core.error('omxProcess.on(close', err);
 		// else
 		if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
 	});
 
-	omxplayerInstances[sound] = omxProcess;
+	mplayerInstances[sound] = omxProcess;
 }
 
 var muteTimer, delay;
@@ -168,4 +155,7 @@ function resetSound() {
 	// spawn('amixer', [' set PCM 100%'], callback => {
 	// 	console.log(callback);
 	// });
+
+	Core.run('volume', Core.run('etat') === 'high' ? 100 : 50);
+	log.info('Volume level =', Core.run('volume') + '%');
 }
