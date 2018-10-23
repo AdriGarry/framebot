@@ -48,9 +48,7 @@ function setVolume(volume) {
 	while (volumeUpdate.gap) {
 		Object.keys(mplayerInstances).forEach(key => {
 			console.log(key, 'stdin.write', sign);
-			// for (var i = 0; i < 7; i++) {
 			mplayerInstances[key].stdin.write(sign);
-			// }
 		});
 		volumeUpdate.gap--;
 	}
@@ -68,7 +66,7 @@ function getVolumeInstructions(newVolume) {
 		return;
 	}
 	if (indexNewVolume < 0 || indexNewVolume > 100) {
-		Core.error('Invalid volume value', 'volume value=' + newVolume);
+		Core.error('Invalid volume value', 'volume value=' + newVolume, false);
 	}
 	// console.log(newVolume, actualVolume);
 	// console.log(typeof newVolume, typeof actualVolume);
