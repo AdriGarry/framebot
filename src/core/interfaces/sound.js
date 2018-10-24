@@ -34,7 +34,8 @@ Core.flux.interface.sound.subscribe({
 
 resetSound();
 
-const VOLUME_LEVELS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+//const VOLUME_LEVELS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+const VOLUME_LEVELS = Array.from({length: 11}, (v, k) => k * 10);
 var mplayerInstances = {};
 
 function setVolume(volume) {
