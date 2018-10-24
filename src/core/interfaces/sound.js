@@ -109,7 +109,7 @@ function playSound(arg, noLog) {
 	const mplayerProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position, sound]);
 
 	mplayerProcess.stderr.on('data', err => {
-		console.log(`stderr: ${err}`);
+		log.debug(`stderr: ${err}`);
 	});
 
 	mplayerProcess.on('close', err => {
