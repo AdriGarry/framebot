@@ -38,7 +38,6 @@ const VOLUME_LEVELS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 var mplayerInstances = {};
 
 function setVolume(volume) {
-	log.info('setting volume:', volume);
 	let volumeUpdate = getVolumeInstructions(parseInt(volume));
 	if (!volumeUpdate) {
 		return;
@@ -47,7 +46,8 @@ function setVolume(volume) {
 	// console.log(volumeUpdate, sign);
 	while (volumeUpdate.gap) {
 		Object.keys(mplayerInstances).forEach(key => {
-			console.log(key, 'stdin.write', sign);
+			// console.log(key, 'stdin.write', sign);
+			log.info('Volume:', volumeUpdate.increase ? '+' : '-', sign);
 			mplayerInstances[key].stdin.write(sign);
 		});
 		volumeUpdate.gap--;
@@ -80,36 +80,47 @@ function getVolumeInstructions(newVolume) {
 
 function playSound(arg, noLog) {
 	log.debug(arg);
-	let mp3Title;
-	try {
-		mp3Title = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
-	} catch (err) {
-		mp3Title = arg.mp3;
+	let soundTitle, sound;
+	if (arg.mp3) {
+		try {
+			soundTitle = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
+		} catch (err) {
+			soundTitle = arg.mp3;
+		}
+		sound = Core._MP3 + arg.mp3;
+	} else if (arg.url) {
+		soundTitle = 'FIP???'; // or url?
+		sound = arg.url;
+	} else {
+		Core.error('No source sound arg', arg);
 	}
 	let durationLog = arg.duration
 		? 'duration=' + (Math.floor(arg.duration / 60) + 'm' + Math.round(arg.duration % 60))
 		: '';
 	let volLog = arg.volume ? 'vol=' + arg.volume : '';
 	let positionLog = arg.position ? 'pos=' + arg.position : '';
-	if (!noLog) log.info('play', mp3Title, volLog, positionLog, durationLog);
+	if (!noLog) log.info('play', soundTitle, volLog, positionLog, durationLog);
 
 	let position = arg.position || 0;
 	let volume = arg.volume || Core.run('volume');
 	volume = 60;
-	let sound = Core._MP3 + arg.mp3;
 	let startPlayTime = new Date();
 
 	const { spawn, exec } = require('child_process'); // TODO... replace anywhere ?
-	const omxProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position, sound]);
+	const mplayerProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position, sound]);
 
-	omxProcess.on('close', err => {
+	mplayerProcess.stderr.on('data', err => {
+		console.log(`stderr: ${err}`);
+	});
+
+	mplayerProcess.on('close', err => {
 		delete mplayerInstances[sound];
-		// if (err) Core.error('omxProcess.on(close', err);
+		// if (err) Core.error('mplayerProcess.on(close', err);
 		// else
 		if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
 	});
 
-	mplayerInstances[sound] = omxProcess;
+	mplayerInstances[sound] = mplayerProcess;
 }
 
 var muteTimer, delay;
