@@ -103,7 +103,6 @@ function playSound(arg, noLog) {
 
 	let position = arg.position || 0;
 	let volume = arg.volume || Core.run('volume');
-	volume = 60;
 	let startPlayTime = new Date();
 
 	const { spawn, exec } = require('child_process'); // TODO... replace anywhere ?
