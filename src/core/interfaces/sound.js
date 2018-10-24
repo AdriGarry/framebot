@@ -109,14 +109,15 @@ function playSound(arg, noLog) {
 	const mplayerProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position, sound]);
 
 	mplayerProcess.stderr.on('data', err => {
-		log.debug(`stderr: ${err}`);
+		log.debug(`stderr: ${err}`); // TODO...
 	});
 
 	mplayerProcess.on('close', err => {
 		delete mplayerInstances[sound];
 		// if (err) Core.error('mplayerProcess.on(close', err);
 		// else
-		if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
+		if (!noLog)
+			log.info('play_end' + soundTitle + ' time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
 	});
 
 	mplayerInstances[sound] = mplayerProcess;
