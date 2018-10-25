@@ -2,10 +2,9 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-
-const Utils = require(Core._CORE + 'Utils.js');
-const spawn = require('child_process').spawn;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(Core._CORE + 'Utils.js'),
+	spawn = require('child_process').spawn;
 
 Core.flux.interface.sound.subscribe({
 	next: flux => {
@@ -35,7 +34,24 @@ Core.flux.interface.sound.subscribe({
 resetSound();
 
 const VOLUME_LEVELS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-var mplayerInstances = {};
+var mplayerInstances = {},
+	muteTimer;
+
+/** Function to mute (delay:min) */
+function mute(args) {
+	clearTimeout(muteTimer);
+	if (!args) args = {};
+	if (args.hasOwnProperty('delay') && Number(args.delay)) {
+		muteTimer = setTimeout(function() {
+			spawn('sh', [Core._SHELL + 'mute.sh', 'auto']);
+			setTimeout(function() {
+				stopAll(args.message || null);
+			}, 1600);
+		}, Number(args.delay) * 1000);
+	} else {
+		stopAll(args.message || null);
+	}
+}
 
 function setVolume(volume) {
 	let volumeUpdate = getVolumeInstructions(parseInt(volume));
@@ -121,23 +137,6 @@ function playSound(arg, noLog) {
 	});
 
 	mplayerInstances[sound] = mplayerProcess;
-}
-
-var muteTimer, delay;
-/** Function to mute (delay:min) */
-function mute(args) {
-	clearTimeout(muteTimer);
-	if (!args) args = {};
-	if (args.hasOwnProperty('delay') && Number(args.delay)) {
-		muteTimer = setTimeout(function() {
-			spawn('sh', [Core._SHELL + 'mute.sh', 'auto']);
-			setTimeout(function() {
-				stopAll(args.message || null);
-			}, 1600);
-		}, Number(args.delay) * 1000);
-	} else {
-		stopAll(args.message || null);
-	}
 }
 
 /** Function to stop all sounds & leds */
