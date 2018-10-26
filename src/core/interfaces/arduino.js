@@ -6,6 +6,7 @@ const log = new (require(Core._CORE + 'Logger.js'))(__filename);
 
 const Utils = require(Core._CORE + 'Utils.js');
 const SerialPort = require('serialport');
+const Readline = SerialPort.parsers.Readline;
 
 const ARDUINO = { address: '/dev/ttyACM0', baudRate: 115200 };
 var arduino;
@@ -27,9 +28,17 @@ Core.flux.interface.arduino.subscribe({
 	}
 });
 
-connect();
+setImmediate(() => {
+	if (Core.run('volume') > 50) {
+		connect();
+	}
+});
 
 function connect() {
+	if (arduino instanceof SerialPort) {
+		log.info('arduino channel already open!');
+		return;
+	}
 	arduino = new SerialPort(ARDUINO.address, { baudRate: ARDUINO.baudRate }, function(err) {
 		if (err) {
 			Core.error('Error opening arduino port: ', err.message, false);
@@ -43,15 +52,35 @@ function connect() {
 			Core.run('max', true);
 			// if (Core.isAwake() && !Core.run('alarm') && Core.run('etat') == 'high')
 			// 	Core.do('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
+
+			var feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
+			feedback.on('data', function(data) {
+				log.debug(data);
+				Core.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
+				Core.do('service|max|parse', data.trim(), { hidden: true });
+			});
+
+			arduino.on('close', function(data) {
+				data = String(data);
+				if (data.indexOf('bad file descriptor') >= 0) {
+					Core.error('Max is disconnected', data, false);
+					Core.do('interface|tts|speak', { lg: 'en', msg: "I've just lost my connexion with Max!" });
+				}
+				Core.run('max', false);
+				log.info('arduino serial channel disconnected!');
+				// setTimeout(() => {
+				// 	log.info('Trying to connect to Max...');
+				// 	connect();
+				// }, 5000);
+			});
 		}
-		// log.INFO('-->');
-		// log.info(typeof arduino, arduino);
 	});
 }
 
 function disconnect() {
 	log.debug('Max serial channel disconnection...');
 	if (arduino instanceof SerialPort) arduino.close();
+	arduino = null;
 }
 
 /** Function to send message to arduino */
@@ -68,25 +97,3 @@ function write(msg) {
 		log.DEBUG('data:', data);
 	});
 }
-
-const Readline = SerialPort.parsers.Readline;
-var feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
-feedback.on('data', function(data) {
-	log.debug(data);
-	Core.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
-	Core.do('service|max|parse', data.trim(), { hidden: true });
-});
-
-arduino.on('close', function(data) {
-	data = String(data);
-	if (data.indexOf('bad file descriptor') >= 0) {
-		Core.error('Max is disconnected', data, false);
-		Core.do('interface|tts|speak', { lg: 'en', msg: "I've just lost my connexion with Max!" });
-	}
-	Core.run('max', false);
-	log.info('arduino serial channel disconnected!');
-	// setTimeout(() => {
-	// 	log.info('Trying to connect to Max...');
-	// 	connect();
-	// }, 5000);
-});

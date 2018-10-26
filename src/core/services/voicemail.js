@@ -26,8 +26,10 @@ const DELAY_TO_CLEAR_VOICEMAIL = 60 * 60 * 1000; //15*60*1000;
 const VOICEMAIL_FILE = Core._TMP + 'voicemail.json';
 const VOICEMAIL_FILE_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json';
 
-updateVoicemailMessage();
-log.info('VoiceMail flag initialized');
+setImmediate(() => {
+	updateVoicemailMessage();
+	log.info('VoiceMail flag initialized');
+});
 setInterval(function() {
 	updateVoicemailMessage();
 }, 10000);

@@ -40,8 +40,11 @@ Core.flux.controller.server.subscribe({
 	}
 });
 
+setImmediate(() => {
+	startUIServer();
+});
+
 var httpServer, httpsServer;
-startUIServer();
 function startUIServer() {
 	// CORS
 	// ui.use(function(request, response, next) {

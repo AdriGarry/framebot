@@ -31,7 +31,9 @@ Core.flux.interface.sound.subscribe({
 	}
 });
 
-resetSound();
+setImmediate(() => {
+	resetSound();
+});
 
 const VOLUME_LEVELS = Array.from({ length: 11 }, (v, k) => k * 10); // 0 to 100, step: 10
 var mplayerInstances = {},
@@ -76,7 +78,7 @@ function playSound(arg, noLog) {
 		// if (err) Core.error('mplayerProcess.on(close', err);
 		// else
 		if (!noLog)
-			log.info('play_end' + soundTitle + ' time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
+			log.info('play_end ' + soundTitle + ' time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
 	});
 
 	mplayerInstances[sound] = mplayerProcess;
@@ -128,6 +130,7 @@ function setVolume(volume) {
 	}
 	Core.run('volume', volume);
 	log.info('Volume level =', volume + '%');
+	additionalVolumeSetup();
 }
 
 function getVolumeInstructions(newVolume) {
@@ -148,6 +151,16 @@ function getVolumeInstructions(newVolume) {
 	return { increase: increase, gap: gap };
 }
 
+function additionalVolumeSetup() {
+	if (Core.run('volume') > 50) {
+		Core.do('interface|arduino|connect');
+	} else {
+		if (Core.run('max')) {
+			Core.do('interface|arduino|disconnect');
+		}
+	}
+}
+
 /** Function to reset sound */
 function resetSound() {
 	log.info('resetSound [amixer set PCM 100%]');
@@ -158,7 +171,4 @@ function resetSound() {
 	// spawn('amixer', [' set PCM 100%'], callback => {
 	// 	console.log(callback);
 	// });
-
-	// Core.run('volume', Core.run('etat') === 'high' ? 100 : 50); // USELESS... (done in button.js)
-	log.info('Volume level =', Core.run('volume') + '%');
 }

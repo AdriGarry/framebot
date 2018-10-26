@@ -16,10 +16,9 @@ Core.gpio.buttons.forEach(button => {
 	Button[button.id]['id'] = Utils.capitalizeFirstLetter(button.id);
 });
 
-(function init() {
-	Core.run('volume', Core.isAwake() ? (Button.etat.readSync() ? 100 : 50) : 0);
-	log.info('Volume level = ' + Core.run('volume') + '%');
-})();
+setImmediate(() => {
+	Core.do('interface|sound|volume', Core.isAwake() ? (Button.etat.readSync() ? 100 : 50) : 0);
+});
 
 function getPushTime(button) {
 	belly.writeSync(1);
@@ -99,10 +98,11 @@ Button.etat.watch((err, value) => {
 	Core.run('etat', value ? 'high' : 'low');
 	log.info('Etat has changed:', Core.run('etat'));
 	let newVolume = Core.isAwake() ? (value ? 100 : 50) : 0;
-	Core.run('volume', newVolume);
 	Core.do('interface|sound|volume', newVolume);
 	if (Core.run('screen')) {
 		Core.do('interface|video|screenOff');
 	}
-	log.table(Core.run(), 'RUNTIME...       ' + Core.run('memory.loadAverage'));
+	setTimeout(() => {
+		log.table(Core.run(), 'RUNTIME...       ' + Core.run('memory.loadAverage'));
+	}, 200);
 });
