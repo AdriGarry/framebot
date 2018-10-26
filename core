@@ -29,7 +29,6 @@ _NAME=$1
 _PATH="/home/pi/core/"
 echo _PATH $_PATH
 
-
 # Test if log directory exists
 if [ ! -d "$_PATH"/log ];
 then
