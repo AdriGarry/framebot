@@ -72,7 +72,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
 	console.log('\n' + fs.readFileSync(Core._CONF + 'logo.txt', 'utf8').toString());
-	log.table(Core.conf(), 'CONFIG');
+	// log.table(Core.conf(), 'CONFIG');
 	log.info('initialization...');
 
 	if (Core.conf('log') != 'info') log.level(Core.conf('log'));

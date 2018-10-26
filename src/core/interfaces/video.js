@@ -24,10 +24,10 @@ Core.flux.interface.video.subscribe({
 });
 
 setImmediate(() => {
-	if (Core.run('etat') == 'high') {
-		startCycle();
-	} else {
+	if (!Core.isAwake()) {
 		screenOff();
+	} else if (Core.run('etat') == 'high') {
+		startCycle();
 	}
 });
 

@@ -27,12 +27,9 @@ const log = new (require(Core._CORE + 'Logger.js'))(__filename, Core.conf('mode'
 log.debug('argv', argv);
 
 const Utils = require(Core._CORE + 'Utils.js');
-// const Flux = require(Core._CORE + 'Flux.js').loadModules(descriptor.modules);
 log.info(' -->  ' + Core.Name + ' ready in ' + Utils.executionTime(startTime) + 'ms');
 
-if (!Core.isAwake()) {
-	Core.do('interface|video|screenOff');
-} else if (Core.conf('mode') == 'test') {
+if (Core.conf('mode') == 'test') {
 	////////  TEST section  ////////
 	Core.do('interface|tts|speak', {
 		lg: 'en',
@@ -56,9 +53,4 @@ if (!Core.isAwake()) {
 			}, 3000);
 		});
 	}, 1000);
-} else {
-	// Core.do('service|time|isAlarm'); // Alarm / Cocorico...
-	// if (!Core.run('alarm')) {
-	// 	Core.do('service|voicemail|check');
-	// }
 }
