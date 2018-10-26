@@ -52,7 +52,7 @@ var etat = new Gpio(13, 'in', 'both', {
 function getEtatValue() {
 	var etatValue = etat.readSync();
 	Core.run('etat', etatValue ? 'high' : 'low');
-	// Core.run('volume', Core.isAwake() ? (etatValue ? 400 : -400) : 'mute');
+	Core.run('volume', Core.isAwake() ? (etatValue ? 100 : 50) : 0);
 }
 
 /** Function to tts cpu stats */

@@ -208,8 +208,14 @@ function attachDefaultRoutes(ui) {
 	});
 
 	ui.post('/volume/:volume', function(req, res) {
-		Core.do('interface|sound|volume', req.params.volume);
-		res.end();
+		if (Core.isAwake()) {
+			Core.do('interface|sound|volume', req.params.volume);
+			res.end();
+		} else {
+			log.error("Can't ajust volume in " + Core.conf('mode') + ' mode');
+			res.statusCode = 503;
+			res.end();
+		}
 	});
 
 	ui.post('/demo', function(req, res) {

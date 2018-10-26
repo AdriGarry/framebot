@@ -159,6 +159,6 @@ function resetSound() {
 	// 	console.log(callback);
 	// });
 
-	Core.run('volume', Core.run('etat') === 'high' ? 100 : 50);
+	// Core.run('volume', Core.run('etat') === 'high' ? 100 : 50); // USELESS... (done in button.js)
 	log.info('Volume level =', Core.run('volume') + '%');
 }

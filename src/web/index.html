@@ -171,7 +171,7 @@
 				<md-list-item title="Volume">
 					<md-slider-container ng-disabled="!$root.irda">
 						<md-slider flex data-ng-model="dashboard.runningData.volume.value" data-ng-change="volumeChange()"
-						 data-md-discrete md-horizontal step="10" data-min="0" data-max="100" class="md-primary" data-ng-readonly="!$root.irda"
+						 data-md-discrete md-horizontal data-step="10" data-min="0" data-max="100" class="md-primary" data-ng-readonly="!$root.irda"
 						 title="Volume" aria-label="Volume"></md-slider>
 					</md-slider-container>
 				</md-list-item>
@@ -205,7 +205,6 @@
 				<tts data="dashboard.runningData.mode" data-access="$root.irda" flex="100"></tts>
 				<mode data="dashboard.runningData.mode" data-access="$root.irda" flex="33"></mode>
 				<options data="dashboard.runningData.mode" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></options>
-				<!-- <volume data="dashboard.runningData.volume" data-access="$root.irda" flex="33"></volume> -->
 				<runtime data="dashboard.runningData.errors" data-access="$root.irda" flex="33"></runtime>
 				<voicemail data="dashboard.runningData.voicemail" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></voicemail>
 				<alarms data="dashboard.runningData.alarms" data-access="$root.irda" flex="33"></alarms>

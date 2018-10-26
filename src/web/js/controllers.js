@@ -23,7 +23,10 @@ app.controller('UIController', function(
 	$scope.logData;
 
 	$scope.volumeChange = function() {
-		var command = { label: 'setVolume', url: '/volume/' + $scope.dashboard.runningData.volume.value };
+		var command = {
+			label: 'set Volume ' + $scope.dashboard.runningData.volume.value + '%',
+			url: '/volume/' + $scope.dashboard.runningData.volume.value
+		};
 		UIService.sendCommand(command, () => {});
 	};
 
