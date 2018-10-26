@@ -16,6 +16,11 @@ Core.gpio.buttons.forEach(button => {
 	Button[button.id]['id'] = Utils.capitalizeFirstLetter(button.id);
 });
 
+(function init() {
+	Core.run('volume', Core.isAwake() ? (Button.etat.readSync() ? 100 : 50) : 0);
+	log.info('Volume level = ' + Core.run('volume') + '%');
+})();
+
 function getPushTime(button) {
 	belly.writeSync(1);
 	let pushedTime = new Date();
