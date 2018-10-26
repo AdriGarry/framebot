@@ -11,14 +11,20 @@ install(){
 # 	exit 0
 # fi
 
+if [ $# -eq 0 ]
+  then
+    echo "No arguments supplied, exiting."
+	exit 0
+fi
+
 if [ $1 = "stop" ]; then
 	sudo killall node
 	echo "\nCORE STOPPED."
 	exit 0
 fi
 
-clear
 
+clear
 # copy core shell file to bin to have core command
 sudo cp /home/pi/core/core /usr/bin/
 sudo cp /home/pi/core/data/_etc_init.d_core /etc/init.d/core
