@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
-var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
 	Utils = require(Core._CORE + 'Utils.js');
 
 // const BTN_PUSH_MIN = 0.5;

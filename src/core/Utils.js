@@ -1,13 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 
+const { exec } = require('child_process');
+const fs = require('fs');
+
 // Utils static factory (shoud not require Core.js || Flux.js)
 const log = new (require(_PATH + 'src/core/Logger.js'))(__filename); // prévoir un fallback si log n'est pas dispo log.info()=>console.log()
-const fs = require('fs');
-const exec = require('child_process').exec;
-// const spawn = require('child_process').spawn;
-// const os = require('os');
-// const util = require('util');
 
 module.exports = {
 	filePosition: filePosition,

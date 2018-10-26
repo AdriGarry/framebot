@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 
-// Middleware sub-module (server)
-
-var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
-	Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
+
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+	Utils = require(_PATH + 'src/core/Utils.js');
 
 const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';
 const NO_SOUND_URL = ['/dashboard', '/log'];

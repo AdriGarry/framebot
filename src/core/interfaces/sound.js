@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 
-var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(Core._CORE + 'Utils.js');
-
 const { spawn } = require('child_process');
+
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(Core._CORE + 'Utils.js');
 
 Core.flux.interface.sound.subscribe({
 	next: flux => {

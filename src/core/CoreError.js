@@ -2,9 +2,9 @@
 
 'use strict';
 
-const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
-const Core = require(_PATH + 'src/core/Core.js').Core;
-const Utils = require(_PATH + 'src/core/Utils.js');
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(_PATH + 'src/core/Logger.js'))(__filename),
+	Utils = require(_PATH + 'src/core/Utils.js');
 
 module.exports = class CoreError extends Error {
 	constructor(message, data, displayStack) {

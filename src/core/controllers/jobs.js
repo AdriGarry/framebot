@@ -2,11 +2,10 @@
 
 'use strict';
 
-var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(_PATH + 'src/core/Utils.js');
-
 const CronJob = require('cron').CronJob;
+
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename);
 
 setImmediate(() => {
 	scheduleJobs(Core.default.jobs.base, 'base default');

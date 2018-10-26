@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
-var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(_PATH + 'src/core/Utils.js');
-
-const fs = require('fs');
 
 Core.flux.interface.runtime.subscribe({
 	next: flux => {
@@ -25,7 +23,6 @@ Core.flux.interface.runtime.subscribe({
 });
 
 setImmediate(() => {
-	// Core.do('interface|runtime|refresh');
 	refreshRuntime();
 });
 

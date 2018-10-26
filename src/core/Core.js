@@ -2,12 +2,13 @@
 
 'use strict';
 
-const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
-const Lock = require(_PATH + 'src/core/Lock.js');
-const Utils = require(_PATH + 'src/core/Utils.js');
+const { spawn } = require('child_process');
 const fs = require('fs');
-const spawn = require('child_process').spawn;
-const CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
+
+const log = new (require(_PATH + 'src/core/Logger.js'))(__filename),
+	Lock = require(_PATH + 'src/core/Lock.js'),
+	Utils = require(_PATH + 'src/core/Utils.js'),
+	CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 // const CoreError = require(_PATH + 'src/core/CoreError.js');
 
 var Core = {},

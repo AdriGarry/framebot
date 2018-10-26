@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 
-var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(Core._CORE + 'Utils.js');
-
-const util = require('util');
 const Gpio = require('onoff').Gpio;
+
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(Core._CORE + 'Utils.js');
 
 var belly = new Gpio(17, 'out'); // TODO...
 const DEBOUNCE_LIMIT = 0.4;

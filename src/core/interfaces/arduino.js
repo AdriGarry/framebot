@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 
-var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(Core._CORE + 'Utils.js');
+const SerialPort = require('serialport'),
+	Readline = SerialPort.parsers.Readline;
 
-const SerialPort = require('serialport');
-const Readline = SerialPort.parsers.Readline;
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename);
 
 const ARDUINO = { address: '/dev/ttyACM0', baudRate: 115200 };
 var arduino;

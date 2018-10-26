@@ -2,11 +2,11 @@
 
 'use strict';
 
-var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(_PATH + 'src/core/Utils.js');
-
 const fs = require('fs');
+
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(_PATH + 'src/core/Utils.js');
 
 Core.flux.controller.watcher.subscribe({
 	next: flux => {

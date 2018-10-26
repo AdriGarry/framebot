@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 
-var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const Gpio = require('onoff').Gpio,
+	CronJob = require('cron').CronJob;
 
-const Gpio = require('onoff').Gpio;
-const CronJob = require('cron').CronJob;
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename);
 
 var Led = {};
 

@@ -2,11 +2,9 @@
 
 // Module Party
 
-var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(_PATH + 'src/core/Utils.js');
-
-const { spawn } = require('child_process');
 
 Core.flux.service.party.subscribe({
 	next: flux => {

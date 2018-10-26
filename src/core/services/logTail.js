@@ -3,8 +3,8 @@
 // Module log tail
 
 const { spawn } = require('child_process');
-const fs = require('fs');
-const tty = require('tty');
+const fs = require('fs'),
+	tty = require('tty');
 
 module.exports = {};
 

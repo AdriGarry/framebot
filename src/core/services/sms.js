@@ -2,11 +2,11 @@
 
 'use strict';
 
-var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	SMS_CREDENTIALS = require(Core._SECURITY + 'smsCredentials.json');
-
 const request = require('request');
+
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	SMS_CREDENTIALS = require(Core._SECURITY + 'smsCredentials.json');
 
 const ERROR_MESSAGE = Core.Name + ' error: ';
 

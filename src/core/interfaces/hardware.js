@@ -2,13 +2,13 @@
 
 'use strict';
 
-var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(_PATH + 'src/core/Utils.js');
+const fs = require('fs'),
+	os = require('os'),
+	Gpio = require('onoff').Gpio;
 
-const Gpio = require('onoff').Gpio;
-const fs = require('fs');
-const os = require('os');
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(_PATH + 'src/core/Utils.js');
 
 const PATHS = [Core._SRC];
 const BYTE_TO_MO = 1048576;

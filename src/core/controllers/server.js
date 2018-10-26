@@ -6,19 +6,19 @@
  *		418 : I'm a teapot ! (other POST request)
  */
 
-var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+const http = require('http'),
+	https = require('https'),
+	express = require('express'),
+	fs = require('fs'),
+	compression = require('compression'),
+	bodyParser = require('body-parser');
 
-const http = require('http');
-const https = require('https');
-const express = require('express');
-const fs = require('fs');
-const compression = require('compression');
-const bodyParser = require('body-parser');
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+	MIDDLEWARE = require(Core._CORE + 'controllers/server/middleware.js');
 
-const MIDDLEWARE = require(Core._CORE + 'controllers/server/middleware.js');
-const HTTP_SERVER_PORT = 3210;
-const HTTPS_SERVER_PORT = 4321;
+const HTTP_SERVER_PORT = 3210,
+	HTTPS_SERVER_PORT = 4321;
 
 var credentials = {
 	key: fs.readFileSync(Core._SECURITY + 'key.pem'),
