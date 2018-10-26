@@ -80,14 +80,6 @@ espeakTTS(){
 
 echo $*
 
-# echo "First of queue ? " $1
-# if [ "$1" = "true" ]
-# then
-# 	sudo omxplayer -o local --vol 1 /home/pi/core/media/mp3/system/tone.mp3
-# fi
-# shift
-
-
 case $1 in
 	"google")
 		shift

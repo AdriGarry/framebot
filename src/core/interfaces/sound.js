@@ -2,11 +2,9 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-
-const Utils = require(Core._CORE + 'Utils.js');
-const spawn = require('child_process').spawn;
-const exec = require('child_process').exec;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(Core._CORE + 'Utils.js'),
+	spawn = require('child_process').spawn;
 
 Core.flux.interface.sound.subscribe({
 	next: flux => {
@@ -35,41 +33,55 @@ Core.flux.interface.sound.subscribe({
 
 resetSound();
 
-function setVolume(volume) {
-	log.info('setVolume()', volume); // TODO
-}
+const VOLUME_LEVELS = Array.from({ length: 11 }, (v, k) => k * 10); // 0 to 100, step: 10
+var mplayerInstances = {},
+	muteTimer;
 
 function playSound(arg, noLog) {
 	log.debug(arg);
-	let mp3Title;
-	try {
-		mp3Title = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
-	} catch (err) {
-		mp3Title = arg.mp3;
+	let soundTitle, sound;
+	if (arg.mp3) {
+		try {
+			soundTitle = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
+		} catch (err) {
+			soundTitle = arg.mp3;
+		}
+		sound = Core._MP3 + arg.mp3;
+	} else if (arg.url) {
+		soundTitle = 'FIP???'; // or url?
+		sound = arg.url;
+	} else {
+		Core.error('No source sound arg', arg);
 	}
 	let durationLog = arg.duration
 		? 'duration=' + (Math.floor(arg.duration / 60) + 'm' + Math.round(arg.duration % 60))
 		: '';
 	let volLog = arg.volume ? 'vol=' + arg.volume : '';
 	let positionLog = arg.position ? 'pos=' + arg.position : '';
-	if (!noLog) log.info('play', mp3Title, volLog, positionLog, durationLog);
+	if (!noLog) log.info('play', soundTitle, volLog, positionLog, durationLog);
 
 	let position = arg.position || 0;
 	let volume = arg.volume || Core.run('volume');
-	let sound = Core._MP3 + arg.mp3;
 	let startPlayTime = new Date();
-	Utils.execCmd('omxplayer -o local --pos ' + position + ' --vol ' + volume + ' ' + sound, function(callback) {
-		// always log callback
-		if (callback.toString() == '' || callback.toString().indexOf('have a nice day') >= 0) {
-			if (!noLog) log.info('play end. time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
-		} else {
-			console.log('callback', callback); // TODO mieux gérer l'erreur car elle est déclenchée si on mute un fichier audio
-			Core.error('File not found', callback.unQuote(), false);
-		}
+
+	const { spawn, exec } = require('child_process'); // TODO... replace anywhere ?
+	const mplayerProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position, sound]);
+
+	mplayerProcess.stderr.on('data', err => {
+		log.debug(`stderr: ${err}`); // TODO...
 	});
+
+	mplayerProcess.on('close', err => {
+		delete mplayerInstances[sound];
+		// if (err) Core.error('mplayerProcess.on(close', err);
+		// else
+		if (!noLog)
+			log.info('play_end' + soundTitle + ' time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
+	});
+
+	mplayerInstances[sound] = mplayerProcess;
 }
 
-var muteTimer, delay;
 /** Function to mute (delay:min) */
 function mute(args) {
 	clearTimeout(muteTimer);
@@ -101,6 +113,41 @@ function stopAll(message) {
 	Core.run('music', false);
 }
 
+function setVolume(volume) {
+	let volumeUpdate = getVolumeInstructions(parseInt(volume));
+	if (!volumeUpdate) {
+		return;
+	}
+	let sign = volumeUpdate.increase ? '*' : '/';
+	while (volumeUpdate.gap) {
+		Object.keys(mplayerInstances).forEach(key => {
+			log.debug('Volume:', volumeUpdate.increase ? '+' : '-', sign);
+			mplayerInstances[key].stdin.write(sign);
+		});
+		volumeUpdate.gap--;
+	}
+	Core.run('volume', volume);
+	log.info('Volume level =', volume + '%');
+}
+
+function getVolumeInstructions(newVolume) {
+	let actualVolume = parseInt(Core.run('volume'));
+	let indexNewVolume = VOLUME_LEVELS.indexOf(newVolume);
+	if (actualVolume === newVolume) {
+		log.info('no volume action (=)');
+		return;
+	}
+	if (indexNewVolume < 0 || indexNewVolume > 100) {
+		Core.error('Invalid volume value', 'volume value=' + newVolume, false);
+	}
+	let increase = newVolume > actualVolume;
+	let indexActualVolume = VOLUME_LEVELS.indexOf(actualVolume);
+
+	let gap = Math.abs(indexNewVolume - indexActualVolume);
+	log.debug({ increase: increase, gap: gap });
+	return { increase: increase, gap: gap };
+}
+
 /** Function to reset sound */
 function resetSound() {
 	log.info('resetSound [amixer set PCM 100%]');
@@ -111,4 +158,7 @@ function resetSound() {
 	// spawn('amixer', [' set PCM 100%'], callback => {
 	// 	console.log(callback);
 	// });
+
+	Core.run('volume', Core.run('etat') === 'high' ? 100 : 50);
+	log.info('Volume level =', Core.run('volume') + '%');
 }

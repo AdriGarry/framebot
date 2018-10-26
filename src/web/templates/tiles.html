@@ -17,7 +17,8 @@
 				<md-input-container flex="30">
 					<label>Language</label>
 					<md-select name="type" data-ng-model="$ctrl.tts.lg">
-						<md-option data-ng-repeat="language in $ctrl.tts.conf.languageList track by $index" data-ng-value="language.code" data-ng-checked="language.code == fr">
+						<md-option data-ng-repeat="language in $ctrl.tts.conf.languageList track by $index" data-ng-value="language.code"
+						 data-ng-checked="language.code == fr">
 							{{language.label}}
 						</md-option>
 					</md-select>
@@ -28,8 +29,8 @@
 				</label>
 				<div flex></div>
 				<md-input-container flex="30">
-					<md-switch flex="50" data-ng-model="$ctrl.tts.voice" data-ng-true-value="'espeak'" data-ng-false-value="'google'" class="voiceSwitch desktopZoom"
-					 ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'">
+					<md-switch flex="50" data-ng-model="$ctrl.tts.voice" data-ng-true-value="'espeak'" data-ng-false-value="'google'"
+					 class="voiceSwitch desktopZoom" ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'">
 						<!-- <span>Human Voice</span>
 						<span>Robot Voice</span> -->
 						<span data-ng-show="$ctrl.tts.voice == 'google'">Human
@@ -70,8 +71,8 @@
 						<span class="desktopOnlyInline">&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;</span>
 						<i class="fas fa-lg" data-ng-class="$ctrl.tts.voicemail ? 'fa-envelope-o' : 'fa-paper-plane-o'"></i>&nbsp;&nbsp;
 					</md-button>-->
-					<md-button type="submit" class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'" title="Send the message !"
-					 data-ng-disabled="!$ctrl.tile.expanded">
+					<md-button type="submit" class="md-raised" data-ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'"
+					 title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded">
 						<span class="desktopOnlyInline">&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;</span>
 						<i class="fas fa-lg" data-ng-class="$ctrl.tts.voicemail ? 'far fa-envelope' : 'far fa-paper-plane'"></i>&nbsp;&nbsp;
 					</md-button>
@@ -114,7 +115,8 @@
 		<div class="main ">
 			<i class="far fa-bell" data-ng-if="$ctrl.getTodayAlarm()"></i>
 			<i class="far fa-bell-slash" data-ng-if="!$ctrl.getTodayAlarm()"></i>
-			<span data-ng-show="$ctrl.data.value && $ctrl.getTodayAlarm()">{{$ctrl.getTodayAlarm().h}}:{{$ctrl.getTodayAlarm().m |
+			<span data-ng-show="$ctrl.data.value && $ctrl.getTodayAlarm()">{{$ctrl.getTodayAlarm().h}}:{{$ctrl.getTodayAlarm().m
+				|
 				formatNumber:2}}
 			</span>
 		</div>
@@ -176,7 +178,7 @@
 		</div>
 	</div>
 
-	<div class="tileContent" data-ng-switch-when="Jukebox">
+	<div class="tileContent" data-ng-switch-when="Music">
 		<div class="main">
 			<i class="fas fa-music"></i>
 		</div>

@@ -207,6 +207,11 @@ function attachDefaultRoutes(ui) {
 		res.end();
 	});
 
+	ui.post('/volume/:volume', function(req, res) {
+		Core.do('interface|sound|volume', req.params.volume);
+		res.end();
+	});
+
 	ui.post('/demo', function(req, res) {
 		Core.do('service|interaction|demo');
 		res.end();

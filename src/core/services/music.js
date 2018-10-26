@@ -79,9 +79,9 @@ function repeatSong() {
 function playFip() {
 	stop();
 	log.info('Play FIP RADIO...');
-	spawn('sh', [Core._SHELL + 'fip.sh']);
+	Core.do('interface|sound|play', { url: 'http://chai5she.cdn.dvmr.fr/fip-midfi.mp3' });
 	Core.run('music', 'fip');
-	ledFlag();
+	ledFlag(); // TODO ...?
 	Core.do('interface|sound|mute', { message: 'Auto Mute FIP', delay: 2 }, { delay: 60 * 60 });
 }
 

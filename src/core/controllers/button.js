@@ -95,10 +95,11 @@ Button.etat.watch((err, value) => {
 	Core.run('volume', Core.isAwake() ? (value ? 400 : -400) : 'mute');
 	Core.do('interface|sound|volume', Core.run('volume'));
 	log.info('Etat has changed:', Core.run('etat'));
-	if (Core.run('music') == 'fip') {
-		Core.do('interface|sound|mute');
-		Core.do('service|music|fip', null, { delay: 0.1 });
-	}
+	Core.do('interface|sound|volume', Core.isAwake() ? (value ? 100 : 50) : '0');
+// 	if (Core.run('music') == 'fip') {
+// 		Core.do('interface|sound|mute');
+// 		Core.do('service|music|fip', null, { delay: 0.1 });
+// 	}
 	if (Core.run('screen')) {
 		Core.do('interface|video|screenOff');
 	}
