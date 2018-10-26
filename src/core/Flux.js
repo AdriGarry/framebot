@@ -95,7 +95,7 @@ function FluxObject(id, data, conf) {
 	};
 
 	this.fire = () => {
-		if (this.hidden) log.debug(/*Utils.filePosition(3) + */ '> Flux', this.toString());
+		if (this.hidden) log.trace(/*Utils.filePosition(3) + */ '> Flux', this.toString());
 		else log.info(/*Utils.filePosition() + */ '> Flux', this.toString());
 		Flux[this.type][this.subject].next({
 			id: this.id,

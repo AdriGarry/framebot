@@ -79,15 +79,16 @@ function shutdown() {
 	}, 2000);
 }
 
+const LIGTH_LEDS = ['eye', 'belly'];
 /** Function to use belly led as light */
 function light(duration) {
 	log.info('light [duration=' + duration + 's]');
 	if (isNaN(duration)) Core.error('light error: duration arg is not a number!', duration, false);
 	let loop = (duration - 2) / 2;
-	Core.do('interface|led|toggle', { leds: ['belly'], value: 1 });
-	Core.do('interface|led|toggle', { leds: ['belly'], value: 1 }, { hidden: true, delay: 2, loop: loop });
+	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 });
+	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { hidden: true, delay: 2, loop: loop });
 
-	Core.do('interface|led|blink', { leds: ['belly'], speed: 200, loop: 8 }, { delay: duration - 2 });
+	Core.do('interface|led|blink', { leds: LIGTH_LEDS, speed: 200, loop: 8 }, { delay: duration - 2 });
 
-	Core.do('interface|led|toggle', { leds: ['belly'], value: 0 }, { delay: duration });
+	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: duration });
 }
