@@ -25,7 +25,7 @@ Core.flux.interface.hardware.subscribe({
 			retreiveCpuUsage();
 			retreiveMemoryUsage();
 			loadAverage();
-			getEtatValue();
+			updateEtatValue();
 			log.debug('runtime exec time:', Utils.executionTime(execTime) + 'ms');
 		} else if (flux.id == 'cpuTTS') {
 			cpuStatsTTS();
@@ -49,7 +49,7 @@ var etat = new Gpio(13, 'in', 'both', {
 	debounceTimeout: 500
 });
 
-function getEtatValue() {
+function updateEtatValue() {
 	var etatValue = etat.readSync();
 	Core.run('etat', etatValue ? 'high' : 'low');
 }

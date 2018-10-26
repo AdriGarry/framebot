@@ -101,7 +101,7 @@ app.component('mode', {
 			label: 'Mode',
 			actionList: [
 				{ label: 'Reset', icon: 'fas fa-retweet', url: '/resetConfig' },
-				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' },
+				{ label: 'Test', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
 				{ label: 'Sleep', icon: 'far fa-moon', url: '/sleep' },
 				{ label: 'Restart', icon: 'fas fa-bolt', url: '/odi' }
 			]
@@ -125,7 +125,7 @@ app.component('options', {
 			actionList: [
 				{ label: '!Trace', icon: 'fas fa-asterisk', url: '/toggleTrace' },
 				{ label: '!Debug', icon: 'fas fa-terminal', url: '/toggleDebug' },
-				{ label: 'Test', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
+				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' },
 				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' }
 			]
 		};

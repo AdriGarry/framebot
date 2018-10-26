@@ -101,11 +101,6 @@ Button.etat.watch((err, value) => {
 	let newVolume = Core.isAwake() ? (value ? 100 : 50) : 0;
 	Core.run('volume', newVolume);
 	Core.do('interface|sound|volume', newVolume);
-	// Core.do('interface|sound|volume', Core.isAwake() ? (value ? 100 : 50) : '0');
-	// 	if (Core.run('music') == 'fip') {
-	// 		Core.do('interface|sound|mute');
-	// 		Core.do('service|music|fip', null, { delay: 0.1 });
-	// 	}
 	if (Core.run('screen')) {
 		Core.do('interface|video|screenOff');
 	}
