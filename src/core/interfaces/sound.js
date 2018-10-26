@@ -119,22 +119,18 @@ function setVolume(volume) {
 		return;
 	}
 	let sign = volumeUpdate.increase ? '*' : '/';
-	// console.log(volumeUpdate, sign);
 	while (volumeUpdate.gap) {
 		Object.keys(mplayerInstances).forEach(key => {
-			// console.log(key, 'stdin.write', sign);
-			log.info('Volume:', volumeUpdate.increase ? '+' : '-', sign);
+			log.debug('Volume:', volumeUpdate.increase ? '+' : '-', sign);
 			mplayerInstances[key].stdin.write(sign);
 		});
 		volumeUpdate.gap--;
 	}
 	Core.run('volume', volume);
-	// console.log('__');
 	log.info('Volume level =', volume + '%');
 }
 
 function getVolumeInstructions(newVolume) {
-	// log.info(typeof newVolume, newVolume);
 	let actualVolume = parseInt(Core.run('volume'));
 	let indexNewVolume = VOLUME_LEVELS.indexOf(newVolume);
 	if (actualVolume === newVolume) {
@@ -144,8 +140,6 @@ function getVolumeInstructions(newVolume) {
 	if (indexNewVolume < 0 || indexNewVolume > 100) {
 		Core.error('Invalid volume value', 'volume value=' + newVolume, false);
 	}
-	// console.log(newVolume, actualVolume);
-	// console.log(typeof newVolume, typeof actualVolume);
 	let increase = newVolume > actualVolume;
 	let indexActualVolume = VOLUME_LEVELS.indexOf(actualVolume);
 

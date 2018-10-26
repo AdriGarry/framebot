@@ -333,7 +333,7 @@ app.component('jukebox', {
 	controller: function(DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
-			label: 'Jukebox',
+			label: 'Music',
 			actionList: [
 				{ label: 'Jukebox', icon: 'fas fa-random', url: '/jukebox' },
 				{ label: 'FIP Radio', icon: 'fas fa-globe', url: '/fip' }
