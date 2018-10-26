@@ -37,6 +37,10 @@ Core.flux.service.time.subscribe({
 	}
 });
 
+setImmediate(() => {
+	isAlarm();
+});
+
 /** Function TTS time now */
 function now() {
 	log.debug('time.now()');

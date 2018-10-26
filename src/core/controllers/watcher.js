@@ -21,6 +21,12 @@ Core.flux.controller.watcher.subscribe({
 	}
 });
 
+setImmediate(() => {
+	if (Core.conf('watcher')) {
+		Core.do('controller|watcher|startWatch');
+	}
+});
+
 const PATHS = [Core._SRC, Core._DATA];
 var watchers = [];
 

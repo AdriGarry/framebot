@@ -93,7 +93,8 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	Core.flux = Flux;
 	Core.do = Flux.next;
 	Core.do('interface|runtime|update', confUpdate, {
-		delay: 0.5
+		delay: 0.2,
+		hidden: true
 	});
 	Core.do('interface|runtime|refresh', runtimeUpdate);
 	let fluxToFire = Core.conf('flux'); // TODO do this !

@@ -29,6 +29,9 @@ const VOICEMAIL_FILE_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json';
 setImmediate(() => {
 	updateVoicemailMessage();
 	log.info('VoiceMail flag initialized');
+	if (!Core.run('alarm')) {
+		checkVoiceMail();
+	}
 });
 setInterval(function() {
 	updateVoicemailMessage();

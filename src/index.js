@@ -57,74 +57,8 @@ if (!Core.isAwake()) {
 		});
 	}, 1000);
 } else {
-	Core.do('service|time|isAlarm'); // Alarm / Cocorico...
-	if (!Core.run('alarm')) {
-		Core.do('service|voicemail|check');
-	}
+	// Core.do('service|time|isAlarm'); // Alarm / Cocorico...
+	// if (!Core.run('alarm')) {
+	// 	Core.do('service|voicemail|check');
+	// }
 }
-Core.do('interface|runtime|refresh');
-
-if (Core.conf('watcher')) {
-	Core.do('controller|watcher|startWatch');
-}
-
-if (Core.isAwake() && Core.conf('watcher')) {
-	// TODO put this in a callable function from UI!
-	for (var i = 0, tts; (tts = Core.ttsMessages.random[i]); i++) {
-		//Core.do('interface|tts|speak', tts, { delay: 2 });
-	}
-}
-
-// var Omx = require('node-omxplayer');
-//Omx([source], [output], [loop], [initialVolume])
-// var initialVolume = 400;
-// var player = Omx('/home/pi/core/media/mp3/system/bonjourSurvivaure.mp3', null, false, initialVolume);
-// var player2 = Omx('/home/pi/core/media/mp3/system/bonjourBonjour.mp3', 'local', false, initialVolume);
-
-// '/home/pi/core/media/mp3/system/cigales.mp3',
-// 	'/home/pi/core/media/mp3/system/bonjourBonjour.mp3',
-// 	'/home/pi/core/media/mp3/system/beBack.mp3';
-
-// Control video/audio playback.
-// player.pause();
-// player.volUp();
-// console.log(player);
-// player.quit();
-// console.log(player);
-
-// var OmxManager = require('omx-manager');
-// var omxInstance = new OmxManager();
-// var playlist = omxInstance.create('/home/pi/core/media/mp3/system/bonjourSurvivaure.mp3', {
-// 	'-o': 'local',
-// 	'--vol': -500
-// });
-// playlist.on('play', function(data) {
-// 	console.log('onPlay:', data);
-// });
-// playlist.on('end', function(data) {
-// 	console.log('onEnd:', data);
-// });
-// playlist.play();
-
-setTimeout(() => {
-	// var playlist2 = omxInstance.create(
-	// 	[
-	// 		'/home/pi/core/media/mp3/system/cigales.mp3',
-	// 		'/home/pi/core/media/mp3/system/bonjourBonjour.mp3',
-	// 		'/home/pi/core/media/mp3/system/beBack.mp3'
-	// 	],
-	// 	{
-	// 		'-o': 'local',
-	// 		'--vol': 12
-	// 		// '--loop': true
-	// 	}
-	// );
-	// playlist2.on('play', function(data) {
-	// 	console.log(data);
-	// });
-	// playlist2.play();
-	// playlist2.play();
-	// console.log(Utils.filePosition(true));
-	// console.log(Utils.filePosition(true, 1));
-	// console.log(Utils.filePosition(true, 2));
-}, 3000);

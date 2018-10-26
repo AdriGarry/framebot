@@ -24,6 +24,11 @@ Core.flux.interface.runtime.subscribe({
 	}
 });
 
+setImmediate(() => {
+	// Core.do('interface|runtime|refresh');
+	refreshRuntime();
+});
+
 /** Function to set/edit Core's config SYNC */
 function updateConf(newConf, restart) {
 	let updateBegin = new Date();
