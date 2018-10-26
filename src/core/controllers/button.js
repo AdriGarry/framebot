@@ -2,8 +2,9 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-const Utils = require(Core._CORE + 'Utils.js');
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(Core._CORE + 'Utils.js');
+
 const util = require('util');
 const Gpio = require('onoff').Gpio;
 
@@ -20,6 +21,31 @@ setImmediate(() => {
 	Core.do('interface|sound|volume', Core.isAwake() ? (Button.etat.readSync() ? 100 : 50) : 0);
 });
 
+var instance = false,
+	intervalEtat;
+const INTERVAL_DELAY = (Core.conf('watcher') ? 60 : 5 * 60) * 1000; //3 * 60 * 1000;
+setInterval(function() {
+	// A deplacer dans flux.next('interface|runtime|refresh')) ?
+	let value = Button.etat.readSync();
+	//TODO faire un truc avec ce flux => move to jobsList.json?
+	Core.do('interface|led|toggle', { leds: ['satellite'], value: value }, { hidden: true });
+	Core.run('etat', value ? 'high' : 'low');
+
+	if (1 === value) {
+		if (!instance) {
+			// TODO! deplacer ça dans le handler ... !?
+			instance = true;
+			intervalEtat = setInterval(function() {
+				log.info('Etat btn Up => random action');
+				Core.do('service|interaction|random');
+			}, INTERVAL_DELAY);
+			Core.do('interface|video|cycle');
+		}
+	} else {
+		instance = false;
+		clearInterval(intervalEtat);
+	}
+}, 2000);
 function getPushTime(button) {
 	belly.writeSync(1);
 	let pushedTime = new Date();
@@ -65,32 +91,6 @@ Button.blue.watch((err, value) => {
 		Core.run('buttonStats.blueError', Core.run('buttonStats.blueError') + 1);
 	}
 });
-
-/** Interval for switch state + random actions */
-var instance = false,
-	intervalEtat;
-const INTERVAL_DELAY = (Core.conf('watcher') ? 60 : 5 * 60) * 1000; //3 * 60 * 1000;
-setInterval(function() {
-	// A deplacer dans flux.next('interface|runtime|refresh')) ?
-	let value = Button.etat.readSync();
-	//TODO faire un truc avec ce flux => move to jobsList.json?
-	Core.do('interface|led|toggle', { leds: ['satellite'], value: value }, { hidden: true });
-
-	if (1 === value) {
-		if (!instance) {
-			// TODO! deplacer ça dans le handler ... !?
-			instance = true;
-			intervalEtat = setInterval(function() {
-				log.info('Etat btn Up => random action');
-				Core.do('service|interaction|random');
-			}, INTERVAL_DELAY);
-			Core.do('interface|video|cycle');
-		}
-	} else {
-		instance = false;
-		clearInterval(intervalEtat);
-	}
-}, 2000);
 
 /** Switch watch for radio volume */
 Button.etat.watch((err, value) => {

@@ -2,10 +2,9 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-const Utils = require(Core._CORE + 'Utils.js');
-
-const RandomBox = require('randombox').RandomBox;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(Core._CORE + 'Utils.js'),
+	RandomBox = require('randombox').RandomBox;
 
 Core.flux.service.max.subscribe({
 	next: flux => {
@@ -30,21 +29,7 @@ Core.flux.service.max.subscribe({
 	}
 });
 
-//blinkAllLed();
-// Core.do('interface|arduino|write', 'hi', { delay: 3 });
-// Core.do('service|max|blinkAllLed', null, { delay: 6 });
-
-// playRdmHorn
-// playHornWarning();
-// playHornDoUp(random(1, 8));
-// playHorn();
-// playHornOff();
-// playHornFire(random(1, 5));
-// playHornWhistle();
-// playHornOvni();
-// playHornBombing(random(1, 5));
-// playHornSiren(random(3, 7));
-// playHornDown();
+var hornRandomBox;
 const HORNS = [
 	'playHornWarning',
 	'playHornDoUp',
@@ -166,3 +151,19 @@ function maxCallbackTTS(arg) {
 		log.error('maxCallbackTTS: wrong arg [' + typeof arg + ']', arg);
 	}
 }
+
+// list of commands:
+//blinkAllLed();
+// Core.do('interface|arduino|write', 'hi', { delay: 3 });
+// Core.do('service|max|blinkAllLed', null, { delay: 6 });
+// playRdmHorn
+// playHornWarning();
+// playHornDoUp(random(1, 8));
+// playHorn();
+// playHornOff();
+// playHornFire(random(1, 5));
+// playHornWhistle();
+// playHornOvni();
+// playHornBombing(random(1, 5));
+// playHornSiren(random(3, 7));
+// playHornDown();

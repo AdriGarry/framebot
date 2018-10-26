@@ -2,10 +2,9 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-
-const Utils = require(_PATH + 'src/core/Utils.js');
-const RandomBox = require('randombox').RandomBox;
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(_PATH + 'src/core/Utils.js'),
+	RandomBox = require('randombox').RandomBox;
 
 Core.flux.service.mood.subscribe({
 	next: flux => {

@@ -3,12 +3,11 @@
 // Route sub-module (server)
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+	Utils = require(_PATH + 'src/core/Utils.js'),
+	admin = require(Core._SECURITY + 'admin.js').init(Core._SECURITY);
 
-const Utils = require(_PATH + 'src/core/Utils.js');
-const admin = require(Core._SECURITY + 'admin.js').init(Core._SECURITY);
-const spawn = require('child_process').spawn;
-const exec = require('child_process').exec;
+const { spawn, exec } = require('child_process');
 const fs = require('fs');
 
 const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';

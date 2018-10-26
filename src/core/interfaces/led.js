@@ -31,6 +31,28 @@ Core.flux.interface.led.subscribe({
 	}
 });
 
+setImmediate(() => {
+	//	Core.conf('mode');
+	let mode = Core.conf('mode');
+	log.info('Activity led initialised [' + mode + ']');
+	//mode = parseInt(mode, 10);
+	if (mode == 'sleep') mode = 0;
+	else mode = 1;
+	setInterval(function() {
+		Led.nose.writeSync(mode);
+	}, 900);
+
+	new CronJob( //TODO mettre dans jobs.json (une fois le mode trace défini)
+		'*/3 * * * * *',
+		function() {
+			blink({ leds: ['nose'], speed: 200, loop: 1 });
+		},
+		null,
+		1,
+		'Europe/Paris'
+	);
+});
+
 // blink({leds:['belly', 'satellite'],loop:5, speed:70});
 
 /** Fonction clignotement
@@ -84,27 +106,6 @@ function toggle(config) {
 		Led[config.led].writeSync(config.mode ? 1 : 0);
 	}
 }
-
-/** Function activity : program mode flag (ready/sleep/test) */
-(function activity(mode) {
-	log.info('Activity led initialised [' + mode + ']');
-	//mode = parseInt(mode, 10);
-	if (mode == 'sleep') mode = 0;
-	else mode = 1;
-	setInterval(function() {
-		Led.nose.writeSync(mode);
-	}, 900);
-
-	new CronJob( //TODO mettre dans jobs.json (une fois le mode trace défini)
-		'*/3 * * * * *',
-		function() {
-			blink({ leds: ['nose'], speed: 200, loop: 1 });
-		},
-		null,
-		1,
-		'Europe/Paris'
-	);
-})(Core.conf('mode'));
 
 /** Function to start inverted blink (Eye/Belly) */
 var timer;

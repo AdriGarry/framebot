@@ -3,9 +3,9 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(_PATH + 'src/core/Utils.js');
 
-const Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 
 Core.flux.controller.watcher.subscribe({
@@ -65,8 +65,8 @@ function addWatcher(path, action) {
 function removeWatcher(watcher) {
 	watcher.close();
 }
-var watchTimeout;
 
+var watchTimeout;
 function waitForUpdateEnd(action) {
 	log.debug('waiting for update end...');
 	clearTimeout(watchTimeout);

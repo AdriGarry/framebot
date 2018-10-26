@@ -2,9 +2,9 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(Core._CORE + 'Utils.js');
 
-const Utils = require(Core._CORE + 'Utils.js');
 const fs = require('fs');
 
 Core.flux.service.voicemail.subscribe({

@@ -3,10 +3,10 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-const Utils = require(_PATH + 'src/core/Utils.js');
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(_PATH + 'src/core/Utils.js');
 
-const spawn = require('child_process').spawn;
+const { spawn } = require('child_process');
 
 Core.flux.service.time.subscribe({
 	next: flux => {
@@ -342,9 +342,8 @@ function startTimer() {
 function stopTimer() {
 	if (Core.run('timer') > 0) {
 		clearInterval(secInterval);
-		secInterval = false; //
+		secInterval = false;
 		Core.run('timer', 0);
-		// log.debug('-------------->TIMER=', Core.run('timer'));
 		Core.do('interface|tts|speak', {
 			lg: 'en',
 			msg: 'Timer canceled'

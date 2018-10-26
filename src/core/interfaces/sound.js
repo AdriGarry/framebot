@@ -3,8 +3,9 @@
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
 const log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(Core._CORE + 'Utils.js'),
-	spawn = require('child_process').spawn;
+	Utils = require(Core._CORE + 'Utils.js');
+
+const { spawn } = require('child_process');
 
 Core.flux.interface.sound.subscribe({
 	next: flux => {
@@ -66,7 +67,6 @@ function playSound(arg, noLog) {
 	let volume = arg.volume || Core.run('volume');
 	let startPlayTime = new Date();
 
-	const { spawn, exec } = require('child_process'); // TODO... replace anywhere ?
 	const mplayerProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position, sound]);
 
 	mplayerProcess.stderr.on('data', err => {

@@ -2,11 +2,11 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(Core._CORE + 'Utils.js'),
+	RandomBox = require('randombox').RandomBox;
 
-const Utils = require(Core._CORE + 'Utils.js');
-const RandomBox = require('randombox').RandomBox;
-const spawn = require('child_process').spawn;
+const { spawn } = require('child_process');
 const fs = require('fs');
 
 Core.flux.service.music.subscribe({

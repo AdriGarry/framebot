@@ -3,9 +3,9 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(_PATH + 'src/core/Utils.js');
 
-const Utils = require(_PATH + 'src/core/Utils.js');
 const Gpio = require('onoff').Gpio;
 const fs = require('fs');
 const os = require('os');
@@ -21,7 +21,6 @@ Core.flux.interface.hardware.subscribe({
 			retreiveCpuUsage();
 			retreiveMemoryUsage();
 			loadAverage();
-			updateEtatValue();
 			log.debug('runtime exec time:', Utils.executionTime(execTime) + 'ms');
 		} else if (flux.id == 'cpuTTS') {
 			cpuStatsTTS();
@@ -50,11 +49,6 @@ var etat = new Gpio(13, 'in', 'both', {
 	persistentWatch: true,
 	debounceTimeout: 500
 });
-
-function updateEtatValue() {
-	var etatValue = etat.readSync();
-	Core.run('etat', etatValue ? 'high' : 'low');
-}
 
 /** Function to tts cpu stats */
 function cpuStatsTTS() {

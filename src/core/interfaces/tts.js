@@ -2,11 +2,10 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(Core._CORE + 'Utils.js');
 
-const Utils = require(Core._CORE + 'Utils.js');
-const spawn = require('child_process').spawn;
-const exec = require('child_process').exec;
+const { spawn, exec } = require('child_process');
 
 Core.flux.interface.tts.subscribe({
 	next: flux => {

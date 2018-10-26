@@ -3,16 +3,19 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-const Utils = require(_PATH + 'src/core/Utils.js');
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(_PATH + 'src/core/Utils.js');
+
 const CronJob = require('cron').CronJob;
 
-scheduleJobs(Core.default.jobs.base, 'base default');
-scheduleJobs(Core.descriptor.jobs.base, 'base descriptor');
-if (Core.isAwake()) {
-	scheduleJobs(Core.default.jobs.full, 'full default');
-	scheduleJobs(Core.descriptor.jobs.full, 'full descriptor');
-}
+setImmediate(() => {
+	scheduleJobs(Core.default.jobs.base, 'base default');
+	scheduleJobs(Core.descriptor.jobs.base, 'base descriptor');
+	if (Core.isAwake()) {
+		scheduleJobs(Core.default.jobs.full, 'full default');
+		scheduleJobs(Core.descriptor.jobs.full, 'full descriptor');
+	}
+});
 
 function scheduleJob(job) {
 	let jobLog = '';

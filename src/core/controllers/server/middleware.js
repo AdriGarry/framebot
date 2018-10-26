@@ -3,8 +3,8 @@
 // Middleware sub-module (server)
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
-const Utils = require(_PATH + 'src/core/Utils.js');
+const log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+	Utils = require(_PATH + 'src/core/Utils.js');
 const fs = require('fs');
 
 const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';

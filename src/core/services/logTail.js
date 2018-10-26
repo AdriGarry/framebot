@@ -2,13 +2,25 @@
 
 // Module log tail
 
-const spawn = require('child_process').spawn;
+const { spawn } = require('child_process');
 const fs = require('fs');
 const tty = require('tty');
 
 module.exports = {};
 
 //var filename = '/tmp/somefile.txt';
+
+setImmediate(() => {
+	spawnVim(LOG_PATH + 'Odi.log', function(code) {
+		if (code == 0) {
+			fs.readFile(LOG_PATH + 'Odi.log', function(err, data) {
+				if (!err) {
+					console.log(data.toString());
+				}
+			});
+		}
+	});
+});
 
 function spawnVim(file, cb) {
 	var vim = spawn('vim', [file]);
@@ -34,13 +46,3 @@ function spawnVim(file, cb) {
 		cb(code);
 	});
 }
-
-spawnVim(LOG_PATH + 'Odi.log', function(code) {
-	if (code == 0) {
-		fs.readFile(LOG_PATH + 'Odi.log', function(err, data) {
-			if (!err) {
-				console.log(data.toString());
-			}
-		});
-	}
-});

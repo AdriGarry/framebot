@@ -3,13 +3,13 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
-const Utils = require(Core._CORE + 'Utils.js');
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(Core._CORE + 'Utils.js');
 
 const RandomBox = require('randombox').RandomBox;
 const fs = require('fs');
 const request = require('request');
-const spawn = require('child_process').spawn;
+const { spawn } = require('child_process');
 
 Core.flux.service.interaction.subscribe({
 	next: flux => {
@@ -43,6 +43,29 @@ Core.flux.service.interaction.subscribe({
 		Core.error(flux);
 	}
 });
+
+setImmediate(() => {
+	/** Building randomActionList from RANDOM_ACTIONS */
+	var randomActionList = [];
+	for (var i = 0; i < RANDOM_ACTIONS.length; i++) {
+		var loop = RANDOM_ACTIONS[i].weight;
+		while (loop) {
+			randomActionList.push(RANDOM_ACTIONS[i]);
+			loop--;
+		}
+	}
+
+	actionRandomBox = new RandomBox(randomActionList);
+
+	// var EXCLAMATIONS_SOUNDS;
+	fs.readdir(Core._MP3 + 'exclamation', (err, files) => {
+		// EXCLAMATIONS_SOUNDS = files;
+		exclamationRandomBox = new RandomBox(files);
+		// console.log('EXCLAMATIONS_SOUNDS', EXCLAMATIONS_SOUNDS);
+	});
+});
+
+var exclamationRandomBox, actionRandomBox;
 
 const RANDOM_ACTIONS = [
 	// TODO a mettre dans descriptor.json
@@ -89,17 +112,6 @@ const RANDOM_ACTIONS = [
 		weight: 5
 	}
 ];
-/** Building randomActionList from RANDOM_ACTIONS */
-var randomActionList = [];
-for (var i = 0; i < RANDOM_ACTIONS.length; i++) {
-	var loop = RANDOM_ACTIONS[i].weight;
-	while (loop) {
-		randomActionList.push(RANDOM_ACTIONS[i]);
-		loop--;
-	}
-}
-
-var actionRandomBox = new RandomBox(randomActionList);
 
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction() {
@@ -112,14 +124,6 @@ function randomAction() {
 		Core.error('ACTION TO DEBUG =>', typeof action, action);
 	}
 }
-
-var exclamationRandomBox; // = new RandomBox(EXCLAMATIONS_SOUNDS); // TODO /!\ asynchrone avec la recupération des noms de fichiers !!! (voir si d'autres cas ailleurs)
-// var EXCLAMATIONS_SOUNDS;
-fs.readdir(Core._MP3 + 'exclamation', (err, files) => {
-	// EXCLAMATIONS_SOUNDS = files;
-	exclamationRandomBox = new RandomBox(files);
-	// console.log('EXCLAMATIONS_SOUNDS', EXCLAMATIONS_SOUNDS);
-});
 
 function exclamation() {
 	log.info('Exclamation !');

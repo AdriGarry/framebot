@@ -3,10 +3,12 @@
 'use strict';
 
 var Core = require(_PATH + 'src/core/Core.js').Core;
-const log = new (require(Core._CORE + 'Logger.js'))(__filename);
+const log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	SMS_CREDENTIALS = require(Core._SECURITY + 'smsCredentials.json');
+
 const request = require('request');
 
-const SMS_CREDENTIALS = require(Core._SECURITY + 'smsCredentials.json');
+const ERROR_MESSAGE = Core.Name + ' error: ';
 
 Core.flux.service.sms.subscribe({
 	next: flux => {
@@ -20,8 +22,6 @@ Core.flux.service.sms.subscribe({
 		Core.error(flux);
 	}
 });
-
-const ERROR_MESSAGE = Core.Name + ' error: ';
 
 function sendErrorNotification(error) {
 	sendSMS(ERROR_MESSAGE + error);
