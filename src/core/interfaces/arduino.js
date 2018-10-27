@@ -86,7 +86,7 @@ function disconnect() {
 function write(msg) {
 	log.debug('write()', msg);
 	if (!Core.run('max')) {
-		log.error('Max not available!');
+		log.info('Max not available!');
 		return;
 	}
 	arduino.write(msg + '\n', function(err, data) {

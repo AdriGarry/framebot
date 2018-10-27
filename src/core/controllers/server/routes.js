@@ -498,11 +498,11 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/weather', function(req, res) {
-		Core.do('service|interaction|weather');
+		Core.do('service|weather|report');
 		res.end();
 	});
-	ui.post('/weatherInteractive', function(req, res) {
-		Core.do('service|interaction|weather', 'interactive');
+	ui.post('/weatherAlternative', function(req, res) {
+		Core.do('service|weather|alternative');
 		res.end();
 	});
 

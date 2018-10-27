@@ -17,18 +17,6 @@ Core.flux.service.interaction.subscribe({
 			randomAction();
 		} else if (flux.id == 'exclamation') {
 			exclamation();
-		} else if (flux.id == 'weather') {
-			if (flux.value == 'random') {
-				if (Utils.rdm()) {
-					weatherService();
-				} else {
-					weatherInteractiveService();
-				}
-			} else if (flux.value == 'interactive') {
-				weatherInteractiveService();
-			} else {
-				weatherService();
-			}
 		} else if (flux.id == 'demo') {
 			demo();
 		} else if (flux.id == 'goToWork') {
@@ -44,28 +32,7 @@ Core.flux.service.interaction.subscribe({
 	}
 });
 
-setImmediate(() => {
-	/** Building randomActionList from RANDOM_ACTIONS */
-	var randomActionList = [];
-	for (var i = 0; i < RANDOM_ACTIONS.length; i++) {
-		var loop = RANDOM_ACTIONS[i].weight;
-		while (loop) {
-			randomActionList.push(RANDOM_ACTIONS[i]);
-			loop--;
-		}
-	}
-
-	actionRandomBox = new RandomBox(randomActionList);
-
-	// var EXCLAMATIONS_SOUNDS;
-	fs.readdir(Core._MP3 + 'exclamation', (err, files) => {
-		// EXCLAMATIONS_SOUNDS = files;
-		exclamationRandomBox = new RandomBox(files);
-		// console.log('EXCLAMATIONS_SOUNDS', EXCLAMATIONS_SOUNDS);
-	});
-});
-
-var exclamationRandomBox, actionRandomBox;
+setImmediate(() => {});
 
 const RANDOM_ACTIONS = [
 	// TODO a mettre dans descriptor.json
@@ -86,17 +53,12 @@ const RANDOM_ACTIONS = [
 		weight: 1
 	},
 	{
-		id: 'service|interaction|weather',
-		data: 'random',
-		weight: 2
+		id: 'service|weather|random',
+		weight: 3
 	},
 	{
 		id: 'interface|hardware|cpuTTS',
 		weight: 1
-	},
-	{
-		id: 'interface|hardware|soulTTS',
-		weight: 3
 	},
 	{
 		id: 'service|time|age',
@@ -113,9 +75,29 @@ const RANDOM_ACTIONS = [
 	}
 ];
 
+/** Building randomActionList from RANDOM_ACTIONS */
+var randomActionList = [];
+for (var i = 0; i < RANDOM_ACTIONS.length; i++) {
+	var loop = RANDOM_ACTIONS[i].weight;
+	while (loop) {
+		randomActionList.push(RANDOM_ACTIONS[i]);
+		loop--;
+	}
+}
+
+var actionRandomBox = new RandomBox(randomActionList),
+	exclamationRandomBox,
+	russiaExclamationRandomBox;
+
+fs.readdir(Core._MP3 + 'exclamation', (err, files) => {
+	exclamationRandomBox = new RandomBox(files);
+});
+fs.readdir(Core._MP3 + 'exclamation_russia', (err, files) => {
+	russiaExclamationRandomBox = new RandomBox(files);
+});
+
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction() {
-	// var action = Utils.randomItem(randomActionList);
 	var action = actionRandomBox.next();
 	try {
 		log.info('randomAction:', action.id, '[' + action.weight + ']');
@@ -138,12 +120,29 @@ function exclamation() {
 			hidden: true
 		}
 	);
-	// spawn('sh', [Core._SHELL + 'exclamation.sh']); // TODO TOTEST passer par le module sound.js
-	// let exclamation = Utils.randomItem(EXCLAMATIONS_SOUNDS);
-	// console.log(exclamationRandomBox.cycle);
 	let exclamation = exclamationRandomBox.next();
 	Core.do('interface|sound|play', {
 		mp3: 'exclamation/' + exclamation
+	});
+}
+
+function russia() {
+	log.info('Russia !');
+	Core.do(
+		'interface|led|blink',
+		{
+			leds: ['eye'],
+			speed: Utils.random(40, 100),
+			loop: 6
+		},
+		{
+			hidden: true
+		}
+	);
+	// spawn('sh', [Core._SHELL + 'exclamation_russia.sh']);
+	let russiaExclamation = russiaExclamationRandomBox.next();
+	Core.do('interface|sound|play', {
+		mp3: 'exclamation_russia/' + russiaExclamation
 	});
 }
 
@@ -173,163 +172,4 @@ function goToWork() {
 			voice: 'espeak',
 			msg: 'Allez allez, Maitro boulot dodo'
 		});
-}
-
-function russia() {
-	log.info('Russia !');
-	Core.do(
-		'interface|led|blink',
-		{
-			leds: ['eye'],
-			speed: Utils.random(40, 100),
-			loop: 6
-		},
-		{
-			hidden: true
-		}
-	);
-	spawn('sh', [Core._SHELL + 'exclamation_russia.sh']);
-}
-
-var WEATHER_STATUS_LIST;
-fs.readFile(Core._DATA + 'weatherStatus.json', function(err, data) {
-	if (err && err.code === 'ENOENT') {
-		log.debug(Core.error('No file : ' + filePath));
-		callback(null);
-	}
-	WEATHER_STATUS_LIST = JSON.parse(data);
-});
-
-/** Function to retreive weather info */
-var weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech;
-function getWeatherData(callback) {
-	log.debug('getWeatherData()');
-	request.get(
-		{
-			url:
-				'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20%28select%20woeid%20from%20geo.places%281%29%20where%20text%3D%22Marseille%2C%20france%22%29and%20u=%27c%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
-			headers: {
-				'Content-Type': 'json'
-			}
-		},
-		function(error, response, body) {
-			try {
-				if (!error && response.statusCode == 200) {
-					weatherReport.data = JSON.parse(body);
-					weatherReport.status = weatherReport.data.query.results.channel.item.condition.code;
-					weatherReport.status = WEATHER_STATUS_LIST[weatherReport.status];
-					weatherReport.temperature = weatherReport.data.query.results.channel.item.condition.temp;
-					weatherReport.wind = weatherReport.data.query.results.channel.wind.speed;
-					callback(weatherReport);
-				} else {
-					Core.do('interface|tts|speak', {
-						voice: 'espeak',
-						lg: 'fr',
-						msg: 'Erreur service meteo'
-					});
-					Core.error("Weather request > Can't retreive weather informations. response.statusCode", response.statusCode);
-					if (error) {
-						Core.error('Error getting weather info  /!\\ \n' + error);
-					}
-				}
-			} catch (e) {
-				Core.error(e);
-				if (Core.isAwake())
-					Core.do('interface|tts|speak', {
-						lg: 'en',
-						msg: 'Weather error'
-					});
-			}
-		}
-	);
-}
-
-/** Official weather function */
-function weatherService() {
-	log.info('Official weather service...');
-	getWeatherData(function(weatherReport) {
-		var weatherSpeech = {
-			voice: 'google',
-			lg: 'fr',
-			msg:
-				'Meteo Marseille : le temps est ' +
-				weatherReport.status +
-				', il fait ' +
-				weatherReport.temperature +
-				' degres avec ' +
-				(isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) +
-				' kilometre heure de vent'
-		};
-		log.debug('weatherSpeech', weatherSpeech);
-		Core.do('interface|tts|speak', weatherSpeech);
-	});
-}
-
-/** Official weather function */
-function weatherInteractiveService() {
-	log.info('Interactive weather service...');
-	var weatherSpeech;
-	getWeatherData(function(weatherReport) {
-		log.debug('weatherReport', weatherReport);
-		switch (Utils.random(3)) {
-			case 0:
-				weatherSpeech = {
-					voice: 'google',
-					lg: 'fr',
-					msg:
-						"Aujourd'hui a Marseille, il fait " +
-						weatherReport.temperature +
-						' degrer avec ' +
-						(isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) +
-						' kilometre heure de vent'
-				};
-				break;
-			case 1:
-				weatherSpeech = [
-					{
-						voice: 'google',
-						lg: 'fr',
-						msg: "Aujourd'hui a Marseille, il fait " + weatherReport.temperature + ' degrer'
-					},
-					{
-						voice: 'espeak',
-						lg: 'fr',
-						msg:
-							'Oui, et ' +
-							(isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) +
-							' kilometre heure de vent'
-					},
-					{
-						voice: 'espeak',
-						lg: 'fr',
-						msg: 'Un temps plutot ' + weatherReport.status
-					}
-				];
-				break;
-			case 2:
-				weatherSpeech = [
-					{
-						voice: 'espeak',
-						lg: 'fr',
-						msg: 'Hey, il fait un temp ' + weatherReport.status
-					},
-					{
-						voice: 'google',
-						lg: 'fr',
-						msg: 'Oui, il fais ' + weatherReport.temperature + ' degrer'
-					},
-					{
-						voice: 'espeak',
-						lg: 'fr',
-						msg:
-							'Oui, et ' +
-							(isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) +
-							' kilometre heure de vent'
-					}
-				];
-				break;
-		}
-		log.debug('weatherSpeech', weatherSpeech);
-		Core.do('interface|tts|speak', weatherSpeech);
-	});
 }

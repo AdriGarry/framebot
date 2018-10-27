@@ -405,7 +405,7 @@ app.component('weather', {
 			label: 'Weather',
 			actionList: [
 				{ label: 'Official weather', icon: 'fas fa-cloud', url: '/weather' },
-				{ label: 'Random weather', icon: 'fas fa-cloud-upload-alt', url: '/weatherInteractive' }
+				{ label: 'Alternative weather', icon: 'fas fa-cloud-upload-alt', url: '/weatherAlternative' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

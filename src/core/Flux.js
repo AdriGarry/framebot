@@ -79,7 +79,7 @@ function FluxObject(id, data, conf) {
 		if (!this.error && Object.keys(Flux).includes(this.type) && Object.keys(Flux[this.type]).includes(this.subject)) {
 			return true;
 		}
-		Core.error(this.error || 'Invalid Flux', this, false);
+		Core.error(this.error || 'Invalid Flux', this);
 		return false;
 	};
 
