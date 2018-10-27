@@ -16,6 +16,5 @@ function google(tts) {
 	let lg = tts.lg;
 	let msg = tts.msg;
 	let url = `http://translate.google.com/translate_tts?tl=${lg}&client=tw-ob&q=${msg}`;
-	console.log(url);
-	Core.do('interface|sound|playUrl', { url: url, noLog: true });
+	Core.do('interface|sound|play', { url: url, volume: Core.run('volume') * 3, noLog: true });
 }

@@ -16,8 +16,6 @@ Core.flux.interface.sound.subscribe({
 				setVolume(flux.value);
 			} else if (flux.id == 'play') {
 				playSound(flux.value);
-			} else if (flux.id == 'playUrl') {
-				playUrl(flux.value);
 			} else if (flux.id == 'error') {
 				playSound({ mp3: 'system/ressort.mp3' }, 'noLog');
 			} else if (flux.id == 'UI') {
@@ -53,7 +51,7 @@ function playSound(arg, noLog) {
 		}
 		sound = Core._MP3 + arg.mp3;
 	} else if (arg.url) {
-		soundTitle = 'FIP???'; // or url?
+		soundTitle = arg.url; // or url?
 		sound = arg.url;
 	} else {
 		Core.error('No source sound arg', arg);
@@ -68,11 +66,6 @@ function playSound(arg, noLog) {
 	let position = arg.position || 0;
 	let volume = arg.volume || Core.run('volume');
 	play(sound, volume, position, soundTitle, noLog);
-}
-
-function playUrl(arg) {
-	log.info('play url: ', arg.url);
-	play(arg.url, Core.run('volume'), 0, arg.url, arg.url, arg.noLog);
 }
 
 function play(sound, volume, position, soundTitle, noLog) {
