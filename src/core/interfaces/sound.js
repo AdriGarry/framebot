@@ -16,6 +16,8 @@ Core.flux.interface.sound.subscribe({
 				setVolume(flux.value);
 			} else if (flux.id == 'play') {
 				playSound(flux.value);
+			} else if (flux.id == 'playUrl') {
+				playUrl(flux.value);
 			} else if (flux.id == 'error') {
 				playSound({ mp3: 'system/ressort.mp3' }, 'noLog');
 			} else if (flux.id == 'UI') {
@@ -65,9 +67,17 @@ function playSound(arg, noLog) {
 
 	let position = arg.position || 0;
 	let volume = arg.volume || Core.run('volume');
-	let startPlayTime = new Date();
+	play(sound, volume, position, soundTitle, noLog);
+}
 
-	const mplayerProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position, sound]);
+function playUrl(url) {
+	log.info('play url: ', url);
+	play(url, Core.run('volume'), 0, url);
+}
+
+function play(sound, volume, position, soundTitle, noLog) {
+	let startPlayTime = new Date();
+	let mplayerProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position || 0, sound]);
 
 	mplayerProcess.stderr.on('data', err => {
 		log.debug(`stderr: ${err}`); // TODO...
@@ -106,6 +116,7 @@ function stopAll(message) {
 		Core.do('interface|arduino|disconnect', null, { hidden: true });
 		Core.do('interface|arduino|connect', null, { hidden: true });
 	}
+	setVolumeInstances('q');
 	Core.do('interface|tts|clearTTSQueue', null, { hidden: true });
 	Core.do('service|music|stop', null, { hidden: true });
 	spawn('sh', [Core._SHELL + 'mute.sh']);
@@ -122,10 +133,7 @@ function setVolume(volume) {
 	}
 	let sign = volumeUpdate.increase ? '*' : '/';
 	while (volumeUpdate.gap) {
-		Object.keys(mplayerInstances).forEach(key => {
-			log.debug('Volume:', volumeUpdate.increase ? '+' : '-', sign);
-			mplayerInstances[key].stdin.write(sign);
-		});
+		setVolumeInstances(sign);
 		volumeUpdate.gap--;
 	}
 	Core.run('volume', volume);
@@ -133,6 +141,12 @@ function setVolume(volume) {
 	additionalVolumeSetup();
 }
 
+function setVolumeInstances(sign) {
+	log.debug('mplayerInstances.write:', sign);
+	Object.keys(mplayerInstances).forEach(key => {
+		mplayerInstances[key].stdin.write(sign);
+	});
+}
 function getVolumeInstructions(newVolume) {
 	let actualVolume = parseInt(Core.run('volume'));
 	let indexNewVolume = VOLUME_LEVELS.indexOf(newVolume);
