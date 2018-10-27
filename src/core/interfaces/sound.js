@@ -19,7 +19,7 @@ Core.flux.interface.sound.subscribe({
 			} else if (flux.id == 'error') {
 				playSound({ mp3: 'system/ressort.mp3' }, 'noLog');
 			} else if (flux.id == 'UI') {
-				spawn('sh', [Core._SHELL + 'sounds.sh', 'UIRequest']);
+				playSound({ mp3: 'system/UIrequestSound.mp3' }, 'noLog');
 			} else if (flux.id == 'reset') {
 				resetSound();
 			} else {

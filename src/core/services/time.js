@@ -166,7 +166,7 @@ function cocorico(mode) {
 	var alarmDelay = 1;
 	// TODO remove sea mode information
 	log.info('Morning Sea...');
-	spawn('sh', [Core._SHELL + 'sounds.sh', 'MorningSea']);
+	Core.do('interface|sound|play', { mp3: 'system/morningSea.mp3.mp3' });
 	Utils.getMp3Duration(Core._MP3 + 'system/morningSea.mp3', function(seaDuration) {
 		log.debug('seaDuration', seaDuration);
 		alarmDelay = seaDuration * 1000;
@@ -180,7 +180,7 @@ function cocorico(mode) {
 function cocoricoPart2(mode) {
 	log.INFO('cocorico !!', mode || '');
 	Core.do('interface|arduino|write', 'playHornDoUp');
-	spawn('sh', [Core._SHELL + 'sounds.sh', 'cocorico']);
+	Core.do('interface|sound|play', { mp3: 'system/cocorico.mp3' });
 	if (isBirthday()) {
 		birthdaySong();
 		setTimeout(function() {

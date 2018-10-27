@@ -367,7 +367,9 @@ function attachAwakeRoutes(ui) {
 		let params = req.query;
 		log.debug('/russia', params);
 		if (params.hasOwnProperty('hymn')) {
-			spawn('sh', [Core._SHELL + 'music.sh', 'urss']);
+			Core.do('interface|sound|play', {
+				mp3: 'jukebox/HymneSovietique.mp3'
+			});
 			Core.do(
 				'interface|led|altLeds',
 				{
@@ -395,9 +397,11 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/music/*', function(req, res) {
-		var song; // RECUPERER LE NOM DE LA CHANSON
-		if (!song) song = 'mouthTrick';
-		spawn('sh', [Core._SHELL + 'music.sh', song]);
+		let song; //TODO RECUPERER LE NOM DE LA CHANSON
+		if (!song) song = 'mouthTrick.mp3';
+		Core.do('interface|sound|play', {
+			mp3: 'jukebox/' + song
+		});
 		res.end();
 	});
 
@@ -556,7 +560,9 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/cigales', function(req, res) {
-		spawn('sh', [Core._SHELL + 'sounds.sh', 'cigales']);
+		Core.do('interface|sound|play', {
+			mp3: 'system/cigales.mp3'
+		});
 		res.end();
 	});
 
@@ -576,7 +582,6 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/test', function(req, res) {
-		spawn('sh', [Core._SHELL + 'sounds.sh', 'test']); //mouthTrick
 		Core.do('interface|tts|speak', {
 			lg: 'en',
 			msg: '.undefined'
