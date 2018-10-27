@@ -38,7 +38,7 @@ module.exports.run = function(succeedTest) {
 
 	Core.do('service|max|hornRdm');
 
-	Core.do('service|interaction|weather', 'random', { delay: 16 });
+	Core.do('service|weather|report', 'random', { delay: 16 });
 
 	setTimeout(() => {
 		assert.equal(Core.run('voicemail'), 0);

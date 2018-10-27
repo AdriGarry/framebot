@@ -200,7 +200,7 @@ function cocoricoPart3() {
 	Core.do('service|time|today', null, {
 		delay: 5
 	});
-	Core.do('service|interaction|weather', null, {
+	Core.do('service|weather|report', null, {
 		delay: 8
 	});
 	Core.do('service|voicemail|check', null, {
