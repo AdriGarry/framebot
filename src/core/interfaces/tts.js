@@ -6,11 +6,7 @@ const { spawn, exec } = require('child_process');
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js'),
-	VOICES = {
-		espeak: require(Core._CORE + 'interfaces/tts/espeak.js'),
-		google: require(Core._CORE + 'interfaces/tts/google.js'),
-		pico: require(Core._CORE + 'interfaces/tts/pico.js')
-	};
+	voices = require(Core._CORE + 'interfaces/tts/voices.js');
 
 Core.flux.interface.tts.subscribe({
 	next: flux => {
@@ -116,7 +112,7 @@ var playTTS = function(tts) {
 	}
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	tts.msg = tts.msg.replace('%20', '');
-	VOICES[tts.voice].speak(tts);
+	voices[tts.voice](tts);
 
 	Core.do(
 		'interface|led|blink',
