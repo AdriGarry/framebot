@@ -43,9 +43,7 @@ function setUpCoreObject(Core, descriptor) {
 function initializeContext(path, descriptor, forcedParams, startTime) {
 	Core = setUpCoreObject(Core, descriptor);
 	if (Core.isAwake()) {
-		// TODO vérifier si utile ?
-		spawn('sh', [_PATH + 'src/shell/init.sh']);
-		spawn('sh', [_PATH + 'src/shell/sounds.sh', 'odi', 'noLeds']);
+		spawn('mplayer', ['-volume', 50, Core._MP3 + 'system/startup.mp3']);
 	}
 
 	let packageJson = require(_PATH + 'package.json');
