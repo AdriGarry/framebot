@@ -111,7 +111,7 @@ var startMeasure = cpuAverage();
 /** Function to get memory usage stats (Core + system) */
 function soulTTS() {
 	let size = Math.round(Core.run('memory.odi'));
-	let ttsMsg = size + ' maiga octet, sai le poid de mon ame ' + (Utils.rdm() ? '' : 'en ce moment');
+	let ttsMsg = size + ' maiga octet, sait le poids de mon ame ' + (Utils.rdm() ? '' : 'en ce moment');
 	Core.do('interface|tts|speak', ttsMsg);
 }
 

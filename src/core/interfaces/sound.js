@@ -70,9 +70,9 @@ function playSound(arg, noLog) {
 	play(sound, volume, position, soundTitle, noLog);
 }
 
-function playUrl(url) {
-	log.info('play url: ', url);
-	play(url, Core.run('volume'), 0, url);
+function playUrl(arg) {
+	log.info('play url: ', arg.url);
+	play(arg.url, Core.run('volume'), 0, arg.url, arg.url, arg.noLog);
 }
 
 function play(sound, volume, position, soundTitle, noLog) {

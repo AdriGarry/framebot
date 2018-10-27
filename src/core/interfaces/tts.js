@@ -5,7 +5,12 @@ const { spawn, exec } = require('child_process');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(Core._CORE + 'Utils.js');
+	Utils = require(Core._CORE + 'Utils.js'),
+	VOICES = {
+		espeak: require(Core._CORE + 'interfaces/tts/espeak.js'),
+		google: require(Core._CORE + 'interfaces/tts/google.js'),
+		pico: require(Core._CORE + 'interfaces/tts/pico.js')
+	};
 
 Core.flux.interface.tts.subscribe({
 	next: flux => {
@@ -28,23 +33,7 @@ Core.flux.interface.tts.subscribe({
 
 var onAir = false,
 	ttsQueue = [],
-	allowedModes = ['ready', 'test'],
 	lastTtsMsg = { voice: 'espeak', lg: 'en', msg: '.undefined' };
-
-function pico(tts) {
-	let language = tts.lg == 'en' ? 'en-US' : 'fr-FR';
-	exec(
-		'pico2wave -l ' +
-			language +
-			' -w ' +
-			Core._TMP +
-			'pico2waveTTS.wav "' +
-			tts.msg +
-			'" && mplay ' +
-			Core._TMP +
-			'pico2waveTTS.wav'
-	);
-}
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts) {
@@ -126,8 +115,8 @@ var playTTS = function(tts) {
 		tts.lg = 'fr';
 	}
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
-	spawn('sh', [Core._SHELL + 'tts.sh', tts.voice, tts.lg, tts.msg.replace('%20', '')]);
-	// pico(tts);
+	tts.msg = tts.msg.replace('%20', '');
+	VOICES[tts.voice].speak(tts);
 
 	Core.do(
 		'interface|led|blink',
@@ -143,28 +132,6 @@ var playTTS = function(tts) {
 function clearTTSQueue() {
 	ttsQueue = [];
 }
-
-/** Detection des parametres en cas d'appel direct (pour tests ou exclamation TTS) */
-/*var params = process.argv[2];
-try{
-	params = params.split('_');
-	var lgParam = params[0];
-	// params = params.shift();
-	params.splice(0, 1);
-	// console.log('A: ' + lgParam + ', ' + params);
-	var txtParam = params.join(' ');
-	// console.log('B: ' + lgParam + ', ' + txtParam);
-	txtParam = txtParam.replace('#',':');
-}catch(e){
-	if(typeof params !== 'undefined'){
-		console.error('Exception while getting speak param at init : ' + e);
-	}
-}
-if(typeof lgParam != 'undefined' && lgParam !='' && typeof txtParam != 'undefined' && txtParam !=''){
-	console.log('TTS_PARAMS: ' + lgParam + ', ' + txtParam);
-	//self.speak(lgParam, txtParam);
-	speak(lgParam, txtParam);
-}*/
 
 /** Function last TTS message */
 function lastTTS() {
