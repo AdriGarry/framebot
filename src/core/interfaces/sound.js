@@ -46,12 +46,13 @@ function playSound(arg) {
 	log.debug(arg);
 	let soundTitle, sound;
 	if (arg.mp3) {
-		// try {
-		// 	soundTitle = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
-		// } catch (err) {
-		// 	soundTitle = arg.mp3;
-		// }
-		sound = getPath(arg.mp3);
+		try {
+			soundTitle = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
+		} catch (err) {
+			soundTitle = arg.mp3;
+		}
+		sound = Utils.getAbsolutePath(arg.mp3, Core._MP3);
+		if (!sound) return;
 	} else if (arg.url) {
 		soundTitle = arg.url;
 		sound = arg.url;
@@ -71,8 +72,9 @@ function playSound(arg) {
 }
 
 function playSoundRandomPosition(arg) {
-	//arg
-	Utils.getMp3Duration(Core._MP3 + arg.mp3, function(length) {
+	let sound = Utils.getAbsolutePath(arg.mp3, Core._MP3);
+	if (!sound) return;
+	Utils.getMp3Duration(sound, function(length) {
 		arg.position = Utils.random(1, Math.floor((length / 100) * 60)); // Position up to 60% of sound duration
 		playSound(arg);
 	});
@@ -125,7 +127,6 @@ function stopAll(message) {
 	}
 	writeAllMPlayerInstances('q');
 	Core.do('interface|tts|clearTTSQueue', null, { hidden: true });
-	Core.do('service|music|stop', null, { hidden: true });
 	spawn('sh', [Core._SHELL + 'mute.sh']);
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
 	Core.do('interface|led|clearLeds', null, { hidden: true });
@@ -187,13 +188,6 @@ function ledFlag() {
 	return setInterval(function() {
 		Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
 	}, 10 * 1000);
-}
-
-function getPath(path) {
-	if (path.indexOf('/home') === -1) {
-		return Core._MP3 + path;
-	}
-	return path;
 }
 
 /** Function to reset sound */

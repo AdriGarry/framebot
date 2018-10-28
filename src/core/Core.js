@@ -6,8 +6,8 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 
 const log = new (require(_PATH + 'src/core/Logger.js'))(__filename),
-	Lock = require(_PATH + 'src/core/Lock.js'),
 	Utils = require(_PATH + 'src/core/Utils.js'),
+	Lock = require(_PATH + 'src/core/Lock.js'),
 	CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 // const CoreError = require(_PATH + 'src/core/CoreError.js');
 
@@ -118,7 +118,7 @@ function isAwake() {
 
 function error(message, data, stackTrace) {
 	if (!CoreError) {
-		CoreError = require(_PATH + 'src/core/CoreError.js');
+		CoreError = require(_PATH + 'src/core/CoreError.js'); // TODO à mettre dans setImmediate
 	}
 	new CoreError(message, data, stackTrace);
 }

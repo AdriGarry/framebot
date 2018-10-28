@@ -5,7 +5,7 @@ const { exec } = require('child_process');
 const fs = require('fs');
 
 // Utils static factory (shoud not require Core.js || Flux.js)
-const log = new (require(_PATH + 'src/core/Logger.js'))(__filename); // prévoir un fallback si log n'est pas dispo log.info()=>console.log()
+const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
 
 module.exports = {
 	filePosition: filePosition,
@@ -17,6 +17,7 @@ module.exports = {
 	executionTime: executionTime,
 	addPatternBefore: addPatternBefore,
 	getJsonFileContent: getJsonFileContent,
+	getAbsolutePath: getAbsolutePath,
 	getMp3Duration: getMp3Duration,
 	logTime: logTime,
 	numberWithDot: numberWithDot,
@@ -160,6 +161,24 @@ function execCmd(command, callback) {
 		// if (stderr) callback(stderr);
 		if (callback) callback(stdout);
 	});
+}
+
+function getAbsolutePath(path, prefix) {
+	if (typeof path !== 'string') {
+		log.error('Path must be a string: ' + typeof path, path);
+		// new CoreError(label, path);
+		return false;
+	}
+	if (path.indexOf('/home') === -1) {
+		path = prefix + path;
+	}
+
+	if (!fs.existsSync(path)) {
+		log.error('Wrong file path', path);
+		// new CoreError(label, path);
+		return false;
+	}
+	return path;
 }
 
 /** Function to retreive mp3 file duration */

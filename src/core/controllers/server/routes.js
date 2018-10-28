@@ -512,8 +512,13 @@ function attachAwakeRoutes(ui) {
 
 	ui.post('/maya/lePetitVer', function(req, res) {
 		Core.do('interface|sound|play', {
-			mp3: 'maya/lePetitVer.mp3'
+			mp3: 'maya/songs/lePetitVer.mp3'
 		});
+		res.end();
+	});
+
+	ui.post('/maya/comptine', function(req, res) {
+		Core.do('service|maya|comptine');
 		res.end();
 	});
 

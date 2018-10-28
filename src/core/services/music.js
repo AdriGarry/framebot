@@ -19,8 +19,6 @@ Core.flux.service.music.subscribe({
 			playFipOrJukebox();
 		} else if (flux.id == 'story') {
 			playStory(flux.value);
-		} else if (flux.id == 'stop') {
-			stop();
 		} else Core.error('unmapped flux in Music service', flux, false);
 	},
 	error: err => {
@@ -30,7 +28,7 @@ Core.flux.service.music.subscribe({
 
 /** Function jukebox (repeat for one hour) */
 function jukebox() {
-	stop();
+	Core.do('interface|sound|mute');
 	log.info('Jukebox in loop mode !');
 	Core.run('music', 'jukebox');
 	repeatSong();
@@ -47,7 +45,6 @@ function repeatSong() {
 	let song = jukeboxRandomBox.next();
 	let ttime = new Date();
 	Utils.getMp3Duration(Core._MP3 + 'jukebox/' + song, function(duration) {
-		console.log(Utils.executionTime(ttime));
 		// log.INFO('duration=' + duration);
 		Core.do('interface|sound|play', { mp3: 'jukebox/' + song, duration: duration });
 		jukeboxTimeout = setTimeout(function() {
@@ -59,29 +56,14 @@ function repeatSong() {
 
 /** Function to play FIP radio */
 function playFip() {
-	stop();
+	Core.do('interface|sound|mute');
 	log.info('Play FIP RADIO...');
 	Core.do('interface|sound|play', { url: 'http://chai5she.cdn.dvmr.fr/fip-midfi.mp3' });
 	Core.run('music', 'fip');
 	Core.do('interface|sound|mute', { message: 'Auto Mute FIP', delay: 2 }, { delay: 60 * 60 });
 }
 
-/** Function to stop music */
-function stop() {
-	// TODO do something with this function
-	if (Core.run('music')) {
-		log.debug('Stop music');
-		clearTimeout(jukeboxTimeout);
-		// clearInterval(ledMusicFlag);
-		// Core.do('interface|sound|mute');
-		Core.run('music', false);
-		Core.do('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { hidden: true });
-		Core.do('interface|led|clearLeds', { speed: 100, duration: 1.3 }, { hidden: true });
-	} else {
-		log.debug('No music playing');
-	}
-}
-
+/** Function to play FIP radio or jukebox if no connexion */
 function playFipOrJukebox() {
 	log.info('playFipOrJukebox...');
 	Utils.testConnexion(function(connexion) {
