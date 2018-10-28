@@ -15,8 +15,6 @@ Core.flux.interface.tts.subscribe({
 	next: flux => {
 		if (flux.id == 'speak') {
 			speak(flux.value);
-			// } else if (flux.id == 'pico') {
-			// 	pico(flux.value);
 		} else if (flux.id == 'lastTTS') {
 			lastTTS();
 		} else if (flux.id == 'random') {

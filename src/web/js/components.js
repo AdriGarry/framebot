@@ -430,10 +430,7 @@ app.component('maya', {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Maya',
-			actionList: [
-				{ label: 'Le petit ver', icon: 'fas fa-music', url: '/maya/lePetitVer' },
-				{ label: 'pico2wave', icon: 'fas fa-external-link-alt', url: '/maya/pico2wave' }
-			]
+			actionList: [{ label: 'Le petit ver', icon: 'fas fa-music', url: '/maya/lePetitVer' }]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;

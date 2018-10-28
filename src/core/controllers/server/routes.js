@@ -517,19 +517,6 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/maya/pico2wave', function(req, res) {
-		log.INFO('next voice synthetizer');
-		log.info('pico2wave');
-		exec(
-			'pico2wave -l fr-FR -w ' +
-				Core._TMP +
-				'pico2waveTTS.wav "Salut Maya, tu as bien dormi ma petite grenouille ?" && aplay ' +
-				Core._TMP +
-				'pico2waveTTS.wav'
-		);
-		res.end();
-	});
-
 	ui.post('/maya/goodNight', function(req, res) {
 		Core.do('interface|tts|speak', {
 			voice: 'google',
