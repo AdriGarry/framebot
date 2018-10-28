@@ -109,7 +109,7 @@ function mute(args) {
 	if (args.hasOwnProperty('delay') && Number(args.delay)) {
 		muteTimer = setTimeout(function() {
 			// spawn('sh', [Core._SHELL + 'mute.sh', 'auto']);
-			Core.do('interface/sound/play', { mp3: 'system/autoMute.mp3' });
+			Core.do('interface|sound|play', { mp3: 'system/autoMute.mp3' });
 			setTimeout(function() {
 				stopAll(args.message || null);
 			}, 1600);
