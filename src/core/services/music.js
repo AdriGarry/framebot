@@ -28,17 +28,17 @@ Core.flux.service.music.subscribe({
 	}
 });
 
-var ledMusicFlag;
-function ledFlag() {
-	Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 });
-	ledMusicFlag = setInterval(function() {
-		if (Core.run('music')) {
-			Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
-		} else {
-			clearInterval(ledMusicFlag);
-		}
-	}, 13 * 1000);
-}
+// var ledMusicFlag;
+// function ledFlag() {
+// 	Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 });
+// 	ledMusicFlag = setInterval(function() {
+// 		if (Core.run('music')) {
+// 			Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
+// 		} else {
+// 			clearInterval(ledMusicFlag);
+// 		}
+// 	}, 13 * 1000);
+// }
 
 /** Function jukebox (repeat for one hour) */
 function jukebox(message) {
@@ -81,17 +81,18 @@ function playFip() {
 	log.info('Play FIP RADIO...');
 	Core.do('interface|sound|play', { url: 'http://chai5she.cdn.dvmr.fr/fip-midfi.mp3' });
 	Core.run('music', 'fip');
-	ledFlag(); // TODO ...?
+	// ledFlag(); // TODO ...?
 	Core.do('interface|sound|mute', { message: 'Auto Mute FIP', delay: 2 }, { delay: 60 * 60 });
 }
 
 /** Function to stop music */
-function stop(message) {
+function stop() {
+	console.log(Core.run('music'));
 	if (Core.run('music')) {
 		log.debug('Stop music');
 		clearTimeout(jukeboxTimeout);
-		clearInterval(ledMusicFlag);
-		spawn('sh', [Core._SHELL + 'mute.sh']);
+		// clearInterval(ledMusicFlag);
+		// Core.do('interface|sound|mute');
 		Core.run('music', false);
 		Core.do('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { hidden: true });
 		Core.do('interface|led|clearLeds', { speed: 100, duration: 1.3 }, { hidden: true });
@@ -113,24 +114,18 @@ function playFipOrJukebox() {
 	});
 }
 
-const STORIES = ['stories/Donjon-De-Naheulbeuk.mp3', 'stories/Aventuriers-Du-Survivaure.mp3'];
-
 /** Function to play a story */
+const STORIES = ['stories/Donjon-De-Naheulbeuk.mp3', 'stories/Aventuriers-Du-Survivaure.mp3'];
 function playStory(story) {
-	var story;
-	Core.do('interface|tts|speak', story);
+	Core.do('interface|tts|speak', { lg: 'en', msg: 'story' });
 	log.debug('Play story...', story);
-	var storyToPlay = Utils.searchStringInArray(story, STORIES);
-	// console.log(storyToPlay);
+	let storyToPlay = Utils.searchStringInArray(story, STORIES);
 	if (storyToPlay) {
-		Utils.getMp3Duration(Core._MP3 + storyToPlay, function(length) {
-			var position = Utils.random(1, Math.floor((length / 100) * 70)); // Position up to 70% of story duration
-			stop();
-			Core.run('music', 'story');
-			ledFlag();
-			Core.do('interface|sound|play', { mp3: storyToPlay, position: position });
-		});
+		Core.do('interface|sound|mute');
+		Core.run('music', 'story');
+		// ledFlag();
+		Core.do('interface|sound|playRandom', { mp3: storyToPlay });
 	} else {
-		Core.do('interface|tts|speak', { lg: 'en', msg: 'error history' });
+		Core.do('interface|tts|speak', { lg: 'en', msg: 'error story' });
 	}
 }

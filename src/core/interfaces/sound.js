@@ -16,6 +16,8 @@ Core.flux.interface.sound.subscribe({
 				setVolume(flux.value);
 			} else if (flux.id == 'play') {
 				playSound(flux.value);
+			} else if (flux.id == 'playRandom') {
+				playSoundRandomPosition(flux.value);
 			} else if (flux.id == 'error') {
 				playSound({ mp3: 'system/ressort.mp3', noLog: true });
 			} else if (flux.id == 'UI') {
@@ -49,11 +51,7 @@ function playSound(arg) {
 		// } catch (err) {
 		// 	soundTitle = arg.mp3;
 		// }
-		if (arg.mp3.indexOf('/home') === -1) {
-			sound = Core._MP3 + arg.mp3;
-		} else {
-			sound = arg.mp3;
-		}
+		sound = getPath(arg.mp3);
 	} else if (arg.url) {
 		soundTitle = arg.url;
 		sound = arg.url;
@@ -69,10 +67,18 @@ function playSound(arg) {
 
 	let position = arg.position || 0;
 	let volume = arg.volume || Core.run('volume');
-	play(sound, volume, position, soundTitle, arg.noLog);
+	doPlay(sound, volume, position, soundTitle, arg.noLog);
 }
 
-function play(sound, volume, position, soundTitle, noLog) {
+function playSoundRandomPosition(arg) {
+	//arg
+	Utils.getMp3Duration(Core._MP3 + arg.mp3, function(length) {
+		arg.position = Utils.random(1, Math.floor((length / 100) * 60)); // Position up to 60% of sound duration
+		playSound(arg);
+	});
+}
+
+function doPlay(sound, volume, position, soundTitle, noLog) {
 	let startPlayTime = new Date();
 	let mplayerProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position || 0, sound]);
 
@@ -171,6 +177,17 @@ function additionalVolumeSetup() {
 			Core.do('interface|arduino|disconnect');
 		}
 	}
+}
+
+function ledFlag() {
+	//
+}
+
+function getPath(path) {
+	if (path.indexOf('/home') === -1) {
+		return Core._MP3 + path;
+	}
+	return path;
 }
 
 /** Function to reset sound */
