@@ -58,7 +58,6 @@ function repeatSong() {
 
 /** Function to play FIP radio */
 function playFip() {
-	Core.do('interface|sound|mute', null, { hidden: true });
 	log.info('Play FIP radio...');
 	Core.do('interface|sound|play', { url: 'http://chai5she.cdn.dvmr.fr/fip-midfi.mp3' });
 	Core.run('music', 'fip');
@@ -95,7 +94,6 @@ function playStory(story) {
 	log.debug('Play story...', story);
 	let storyToPlay = Utils.searchStringInArray(story, STORIES);
 	if (storyToPlay) {
-		Core.do('interface|sound|mute', null, { hidden: true });
 		Core.do('interface|tts|speak', { lg: 'en', msg: 'story' });
 		Core.run('music', 'story');
 		Core.do('interface|sound|playRandom', { mp3: storyToPlay });

@@ -76,7 +76,7 @@ function checkVoiceMail(withTTSResult, callback) {
 		if (messages) {
 			messages = JSON.parse(messages);
 			log.debug(messages);
-			Core.do('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Messages' });
+			Core.do('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Messages' });
 			Core.do('interface|tts|speak', messages);
 			if (clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
 			clearVoiceMailDelay = setTimeout(function() {
