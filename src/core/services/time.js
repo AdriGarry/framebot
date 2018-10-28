@@ -166,7 +166,7 @@ function cocorico(mode) {
 	var alarmDelay = 1;
 	// TODO remove sea mode information
 	log.info('Morning Sea...');
-	Core.do('interface|sound|play', { mp3: 'system/morningSea.mp3.mp3' });
+	Core.do('interface|sound|play', { mp3: 'system/morningSea.mp3' });
 	Utils.getMp3Duration(Core._MP3 + 'system/morningSea.mp3', function(seaDuration) {
 		log.debug('seaDuration', seaDuration);
 		alarmDelay = seaDuration * 1000;
