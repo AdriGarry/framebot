@@ -24,20 +24,20 @@ function google(tts) {
 	let lg = tts.lg;
 	let msg = tts.msg;
 	let url = `http://translate.google.com/translate_tts?tl=${lg}&client=tw-ob&q=${msg}`;
-	Core.do('interface|sound|play', { url: url, volume: Core.run('volume') * 3, noLog: true }, {hidden: true});
+	Core.do('interface|sound|play', { url: url, volume: Core.run('volume') * 3, noLog: true }, { hidden: true });
 }
 
 function pico(tts) {
 	let language = tts.lg == 'en' ? 'en-US' : 'fr-FR';
-	exec(
-		'pico2wave -l ' +
-			language +
-			' -w ' +
-			Core._TMP +
-			'pico2waveTTS.wav "' +
-			tts.msg +
-			'" && mplay ' +
-			Core._TMP +
-			'pico2waveTTS.wav'
-	);
+	// let pico2wave = spawn('pico2wave', ['-l', language, '-w', Core._PATH + 'pico2waveTTS.wav "' + tts.msg + '"']);
+	// pico2wave.on('close', code => {
+	// 	console.log(`child process exited with code ${code}`);
+	// 	Core.do('interface|sound|play', { mp3: Core._PATH + 'pico2waveTTS.wav', noLog: true });
+	// });
+	let volume = Core.run('volume') * 2.5; // 175-300
+	let command = 'pico2wave -l ' + language + ' -w ' + Core._TMP + 'pico2waveTTS.wav "' + tts.msg + '"';
+	exec(command, (error, stdout, stderr) => {
+		console.log(stdout);
+		Core.do('interface|sound|play', { mp3: Core._TMP + 'pico2waveTTS.wav', volume: volume, noLog: false });
+	});
 }

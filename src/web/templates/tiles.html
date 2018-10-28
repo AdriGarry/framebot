@@ -15,6 +15,21 @@
 			<div layout="row" data-ng-show="$ctrl.tile.expanded">
 				<div flex></div>
 				<md-input-container flex="30">
+					<label>Voice</label>
+					<md-select name="type" data-ng-model="$ctrl.tts.voice">
+						<md-option data-ng-repeat="voice in $ctrl.tts.conf.voiceList track by $index" data-ng-value="voice.code"
+						 data-ng-checked="voice.code == espeak">
+							{{voice.label}}
+						</md-option>
+					</md-select>
+				</md-input-container>
+
+				<div flex></div>
+				<label flex="10" class="pointer text-center desktopZoom">
+					<i class="fa-2x" data-ng-class="!$ctrl.tts.voicemail ? 'far fa-envelope' : 'fas fa-envelope'" data-ng-click="$ctrl.tts.voicemail = !$ctrl.tts.voicemail"></i>
+				</label>
+				<div flex></div>
+				<md-input-container flex="30">
 					<label>Language</label>
 					<md-select name="type" data-ng-model="$ctrl.tts.lg">
 						<md-option data-ng-repeat="language in $ctrl.tts.conf.languageList track by $index" data-ng-value="language.code"
@@ -24,29 +39,6 @@
 					</md-select>
 				</md-input-container>
 				<div flex></div>
-				<label flex="10" class="pointer text-center desktopZoom">
-					<i class="fa-2x" data-ng-class="!$ctrl.tts.voicemail ? 'far fa-envelope' : 'fas fa-envelope'" data-ng-click="$ctrl.tts.voicemail = !$ctrl.tts.voicemail"></i>
-				</label>
-				<div flex></div>
-				<md-input-container flex="30">
-					<md-switch flex="50" data-ng-model="$ctrl.tts.voice" data-ng-true-value="'espeak'" data-ng-false-value="'google'"
-					 class="voiceSwitch desktopZoom" ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'">
-						<!-- <span>Human Voice</span>
-						<span>Robot Voice</span> -->
-						<span data-ng-show="$ctrl.tts.voice == 'google'">Human
-							<span hide-sm hide-xs>Voice</span>
-						</span>
-						<span data-ng-show="$ctrl.tts.voice == 'espeak'">Robot
-							<span hide-sm hide-xs>Voice</span>
-						</span>
-					</md-switch>
-				</md-input-container>
-				<div flex></div>
-				<!--<md-switch flex="50" data-ng-model="$ctrl.tts.voice" data-ng-true-value="'espeak'" data-ng-false-value="'google'" class="voiceSwitch desktopZoom"
-					ng-class="$ctrl.tts.voice == 'google' ? 'md-warn' : 'md-primary'">
-					<span>Human Voice</span>
-					<span>Robot Voice</span>
-				</md-switch>-->
 			</div>
 			<div layout="row" class="ttsMsg ng-slide">
 				<div flex="5"></div>

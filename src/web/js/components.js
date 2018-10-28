@@ -49,6 +49,11 @@ app.component('tts', {
 					{ code: 'es', label: 'Spanish' },
 					{ code: 'it', label: 'Italian' },
 					{ code: 'de', label: 'German' }
+				],
+				voiceList: [
+					{ code: 'espeak', label: 'Espeak' },
+					{ code: 'google', label: 'Google' },
+					{ code: 'pico', label: 'Pico' }
 				]
 			},
 			cleanText: function() {

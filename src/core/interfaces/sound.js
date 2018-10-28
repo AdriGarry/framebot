@@ -44,14 +44,18 @@ function playSound(arg) {
 	log.debug(arg);
 	let soundTitle, sound;
 	if (arg.mp3) {
-		try {
-			soundTitle = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
-		} catch (err) {
-			soundTitle = arg.mp3;
+		// try {
+		// 	soundTitle = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
+		// } catch (err) {
+		// 	soundTitle = arg.mp3;
+		// }
+		if (arg.mp3.indexOf('/home') === -1) {
+			sound = Core._MP3 + arg.mp3;
+		} else {
+			sound = arg.mp3;
 		}
-		sound = Core._MP3 + arg.mp3;
 	} else if (arg.url) {
-		soundTitle = arg.url; // or url?
+		soundTitle = arg.url;
 		sound = arg.url;
 	} else {
 		Core.error('No source sound arg', arg);
@@ -73,7 +77,7 @@ function play(sound, volume, position, soundTitle, noLog) {
 	let mplayerProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position || 0, sound]);
 
 	mplayerProcess.stderr.on('data', err => {
-		log.debug(`stderr: ${err}`); // TODO...
+		log.trace(`stderr: ${err}`); // TODO...
 	});
 
 	mplayerProcess.on('close', err => {

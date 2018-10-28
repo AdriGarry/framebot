@@ -8,12 +8,15 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js'),
 	voices = require(Core._CORE + 'interfaces/tts/voices.js');
 
+const VOICE_LIST = Object.keys(voices);
+const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
+
 Core.flux.interface.tts.subscribe({
 	next: flux => {
 		if (flux.id == 'speak') {
 			speak(flux.value);
-		} else if (flux.id == 'pico') {
-			pico(flux.value);
+			// } else if (flux.id == 'pico') {
+			// 	pico(flux.value);
 		} else if (flux.id == 'lastTTS') {
 			lastTTS();
 		} else if (flux.id == 'random') {
@@ -50,7 +53,7 @@ function speak(tts) {
 		if (tts.hasOwnProperty('msg')) {
 			var ttsQueueLength = ttsQueue.length;
 			ttsQueue.push(tts);
-			log.debug('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
+			log.debug('new TTS [' + (tts.voice || '') + ', ' + (tts.lg || '') + '] "' + tts.msg + '"');
 		} else log.debug(console.error('newTTS() Wrong TTS object ', tts));
 	}
 	if (ttsQueue.length > 0) proceedQueue();
@@ -88,26 +91,18 @@ function randomTTS() {
 	var rdmTTS = Core.ttsMessages.random[rdmNb];
 	log.info('Random TTS : ' + rdmNb + '/' + RANDOM_TTS_LENGTH);
 	speak(rdmTTS);
-	// console.log('new TTS [' + (tts.lg || '') + ', ' + (tts.voice || '') + '] "' + tts.msg + '"');
 }
 
 /** Function to play TTS message (espeak / google translate) */
-const VOICE_LIST = ['google', 'espeak'];
-const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
 var playTTS = function(tts) {
 	Core.do('service|max|blinkRdmLed');
-	// TEST IF INTERNET CONNEXION
+	// TODO TEST IF INTERNET CONNEXION ?
 	if (!tts.hasOwnProperty('voice') || !VOICE_LIST.indexOf(tts.voice) == -1) {
-		// Random voice if undefined
+		log.debug('No valid voice, fallback on espeak');
 		tts.voice = 'espeak';
-		/*ODI.utils.testConnexion(function(connexion){
-			if(connexion == true){
-			}else{
-			}
-		});*/
 	}
 	if (!tts.hasOwnProperty('lg') || !LG_LIST.indexOf(tts.lg) == -1) {
-		// Fr language if undefined
+		log.debug('No valid language, fallback on Fr');
 		tts.lg = 'fr';
 	}
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
@@ -119,7 +114,6 @@ var playTTS = function(tts) {
 		{ leds: ['eye'], speed: Utils.random(50, 150), loop: tts.msg.length / 2 + 2 },
 		{ hidden: true }
 	);
-	log.debug('tts.msg.length :', tts.msg.length);
 
 	lastTtsMsg = tts;
 };
