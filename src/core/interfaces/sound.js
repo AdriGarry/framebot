@@ -82,18 +82,21 @@ function doPlay(sound, volume, position, soundTitle, noLog) {
 	let startPlayTime = new Date();
 	let mplayerProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position || 0, sound]);
 
+	mplayerProcess.ledFlag = ledFlag();
+
 	mplayerProcess.stderr.on('data', err => {
 		log.trace(`stderr: ${err}`); // TODO...
 	});
 
 	mplayerProcess.on('close', err => {
-		delete mplayerInstances[sound];
 		// if (err) Core.error('mplayerProcess.on(close', err);
 		// else
-		if (!noLog)
+		if (!noLog) {
 			log.info('play_end ' + soundTitle + ' time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
+		}
+		clearInterval(mplayerInstances[sound].ledFlag);
+		delete mplayerInstances[sound];
 	});
-
 	mplayerInstances[sound] = mplayerProcess;
 }
 
@@ -180,7 +183,10 @@ function additionalVolumeSetup() {
 }
 
 function ledFlag() {
-	//
+	Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 });
+	return setInterval(function() {
+		Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
+	}, 10 * 1000);
 }
 
 function getPath(path) {

@@ -28,40 +28,22 @@ Core.flux.service.music.subscribe({
 	}
 });
 
-// var ledMusicFlag;
-// function ledFlag() {
-// 	Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 });
-// 	ledMusicFlag = setInterval(function() {
-// 		if (Core.run('music')) {
-// 			Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
-// 		} else {
-// 			clearInterval(ledMusicFlag);
-// 		}
-// 	}, 13 * 1000);
-// }
-
 /** Function jukebox (repeat for one hour) */
-function jukebox(message) {
+function jukebox() {
 	stop();
 	log.info('Jukebox in loop mode !');
 	Core.run('music', 'jukebox');
-	ledFlag();
 	repeatSong();
 	Core.do('interface|sound|mute', { message: 'Auto mute jukebox !', delay: 2 }, { delay: 60 * 60 });
 }
 
 var jukeboxTimeout, jukeboxRandomBox;
-
-// var JUKEBOX_SONGS;
 fs.readdir(Core._MP3 + 'jukebox', (err, files) => {
-	// JUKEBOX_SONGS = files;
 	jukeboxRandomBox = new RandomBox(files);
-	// console.log('JUKEBOX_SONGS', JUKEBOX_SONGS);
 });
 
 function repeatSong() {
 	log.info('next song...');
-	// let song = Utils.randomItem(JUKEBOX_SONGS);
 	let song = jukeboxRandomBox.next();
 	let ttime = new Date();
 	Utils.getMp3Duration(Core._MP3 + 'jukebox/' + song, function(duration) {
@@ -81,13 +63,12 @@ function playFip() {
 	log.info('Play FIP RADIO...');
 	Core.do('interface|sound|play', { url: 'http://chai5she.cdn.dvmr.fr/fip-midfi.mp3' });
 	Core.run('music', 'fip');
-	// ledFlag(); // TODO ...?
 	Core.do('interface|sound|mute', { message: 'Auto Mute FIP', delay: 2 }, { delay: 60 * 60 });
 }
 
 /** Function to stop music */
 function stop() {
-	console.log(Core.run('music'));
+	// TODO do something with this function
 	if (Core.run('music')) {
 		log.debug('Stop music');
 		clearTimeout(jukeboxTimeout);
@@ -117,13 +98,12 @@ function playFipOrJukebox() {
 /** Function to play a story */
 const STORIES = ['stories/Donjon-De-Naheulbeuk.mp3', 'stories/Aventuriers-Du-Survivaure.mp3'];
 function playStory(story) {
-	Core.do('interface|tts|speak', { lg: 'en', msg: 'story' });
 	log.debug('Play story...', story);
 	let storyToPlay = Utils.searchStringInArray(story, STORIES);
 	if (storyToPlay) {
 		Core.do('interface|sound|mute');
+		Core.do('interface|tts|speak', { lg: 'en', msg: 'story' });
 		Core.run('music', 'story');
-		// ledFlag();
 		Core.do('interface|sound|playRandom', { mp3: storyToPlay });
 	} else {
 		Core.do('interface|tts|speak', { lg: 'en', msg: 'error story' });
