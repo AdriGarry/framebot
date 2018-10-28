@@ -106,8 +106,8 @@
 			</h1>
 			<span flex></span>
 			<i class="fas fa-eye fa-lg" data-ng-if="dashboard.odiState.watcher" title="Watcher On"></i>&nbsp;
-			<i class="debug fas fa-circle" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i>&nbsp;
-			<i class="debug fas fa-circle" data-ng-if="dashboard.odiState.trace" title="TRACE mode"></i>&nbsp;
+			<i class="debug fas fa-circle" data-ng-if="dashboard.odiState.debug && !dashboard.odiState.trace" title="Debug mode"></i>&nbsp;
+			<i class="debug far fa-dot-circle" data-ng-if="dashboard.odiState.trace" title="Trace mode"></i>&nbsp;
 
 			<md-button class="md-icon-button" data-ng-click="toggleMenu()" title="Menu" aria-label="Menu">
 				<i data-ng-class="{'fa-rotate-90':menuOpen}" class="fas fa-2x fa-lg fa-bars ng-slide"></i>&nbsp;
@@ -119,8 +119,8 @@
 
 	<md-sidenav data-ng-if="$root.position" class="md-sidenav-left" data-md-component-id="logs" data-md-whiteframe="4">
 		<div class="logs" data-ng-dblclick="refreshLog()">
-			<i class="debugLog fas fa-circle" data-ng-if="dashboard.odiState.debug" title="DEBUG mode"></i>
-			<i class="debugLog fas fa-2x fa-circle" data-ng-if="dashboard.odiState.trace" title="DEBUG mode"></i>
+			<i class="debugLog fas fa-circle" data-ng-if="dashboard.odiState.debug && !dashboard.odiState.trace" title="Debug mode"></i>
+			<i class="debugLog far fa-dot-circle" data-ng-if="dashboard.odiState.trace" title="Trace mode"></i>
 			<ul>
 				<li data-ng-repeat="logLine in logData track by $index" data-ng-bind-html="toHtml(logLine | formatLog:log.mode)"></li>
 				<a id="bottomLogs"></a>
