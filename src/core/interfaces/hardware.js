@@ -21,7 +21,7 @@ Core.flux.interface.hardware.subscribe({
 			retreiveCpuUsage();
 			retreiveMemoryUsage();
 			loadAverage();
-			log.debug('runtime exec time:', Utils.executionTime(execTime) + 'ms');
+			log.trace('runtime exec time:', Utils.executionTime(execTime) + 'ms');
 		} else if (flux.id == 'cpuTTS') {
 			cpuStatsTTS();
 		} else if (flux.id == 'soulTTS') {
@@ -136,7 +136,7 @@ function loadAverage() {
 		let regex = /load average: (.+)/g;
 		let result = regex.exec(data);
 		let loadAverage = result && result[1] ? result[1] : -1;
-		log.debug('uptime', loadAverage);
+		log.trace('uptime', loadAverage);
 		Core.run('memory.loadAverage', loadAverage);
 	});
 }

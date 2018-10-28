@@ -109,7 +109,7 @@ function stopAll(message) {
 		Core.do('interface|arduino|disconnect', null, { hidden: true });
 		Core.do('interface|arduino|connect', null, { hidden: true });
 	}
-	setVolumeInstances('q');
+	writeAllMPlayerInstances('q');
 	Core.do('interface|tts|clearTTSQueue', null, { hidden: true });
 	Core.do('service|music|stop', null, { hidden: true });
 	spawn('sh', [Core._SHELL + 'mute.sh']);
@@ -126,7 +126,7 @@ function setVolume(volume) {
 	}
 	let sign = volumeUpdate.increase ? '*' : '/';
 	while (volumeUpdate.gap) {
-		setVolumeInstances(sign);
+		writeAllMPlayerInstances(sign);
 		volumeUpdate.gap--;
 	}
 	Core.run('volume', volume);
@@ -134,7 +134,7 @@ function setVolume(volume) {
 	additionalVolumeSetup();
 }
 
-function setVolumeInstances(sign) {
+function writeAllMPlayerInstances(sign) {
 	log.debug('mplayerInstances.write:', sign);
 	Object.keys(mplayerInstances).forEach(key => {
 		mplayerInstances[key].stdin.write(sign);
