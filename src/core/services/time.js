@@ -309,9 +309,9 @@ function startTimer() {
 		);
 		etat = 1 - etat;
 		if (Core.run('timer') < 10) {
-			Core.do('interface|sound|play', { mp3: 'system/timerAlmostEnd.mp3' }, { hidden: true });
+			Core.do('interface|sound|play', { mp3: 'system/timerAlmostEnd.mp3', noLog: true }, { hidden: true });
 		} else {
-			Core.do('interface|sound|play', { mp3: 'system/timer.mp3' }, { hidden: true });
+			Core.do('interface|sound|play', { mp3: 'system/timer.mp3', noLog: true }, { hidden: true });
 		}
 		Core.run('timer', Core.run('timer') - 1);
 		if (Core.run('timer') % 120 == 0 && Core.run('timer') / 60 > 0) {
@@ -322,7 +322,7 @@ function startTimer() {
 		} else if (Core.run('timer') <= 0 && Core.run('timer') > -5) {
 			clearInterval(secInterval);
 			log.info('End Timer !');
-			Core.do('interface|sound|play', { mp3: 'system/timerEnd.mp3' });
+			Core.do('interface|sound|play', { mp3: 'system/timerEnd.mp3', noLog: true });
 			Core.do('interface|led|blink', {
 				leds: ['belly', 'eye'],
 				speed: 90,

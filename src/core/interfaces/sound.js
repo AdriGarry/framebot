@@ -17,9 +17,9 @@ Core.flux.interface.sound.subscribe({
 			} else if (flux.id == 'play') {
 				playSound(flux.value);
 			} else if (flux.id == 'error') {
-				playSound({ mp3: 'system/ressort.mp3' }, 'noLog');
+				playSound({ mp3: 'system/ressort.mp3', noLog: true });
 			} else if (flux.id == 'UI') {
-				playSound({ mp3: 'system/UIrequestSound.mp3' }, 'noLog');
+				playSound({ mp3: 'system/UIrequestSound.mp3', noLog: true });
 			} else if (flux.id == 'reset') {
 				resetSound();
 			} else {
@@ -40,7 +40,7 @@ const VOLUME_LEVELS = Array.from({ length: 11 }, (v, k) => k * 10); // 0 to 100,
 var mplayerInstances = {},
 	muteTimer;
 
-function playSound(arg, noLog) {
+function playSound(arg) {
 	log.debug(arg);
 	let soundTitle, sound;
 	if (arg.mp3) {
@@ -61,11 +61,11 @@ function playSound(arg, noLog) {
 		: '';
 	let volLog = arg.volume ? 'vol=' + arg.volume : '';
 	let positionLog = arg.position ? 'pos=' + arg.position : '';
-	if (!noLog) log.info('play', soundTitle, volLog, positionLog, durationLog);
+	if (!arg.noLog) log.info('play', soundTitle, volLog, positionLog, durationLog);
 
 	let position = arg.position || 0;
 	let volume = arg.volume || Core.run('volume');
-	play(sound, volume, position, soundTitle, noLog);
+	play(sound, volume, position, soundTitle, arg.noLog);
 }
 
 function play(sound, volume, position, soundTitle, noLog) {
@@ -93,7 +93,8 @@ function mute(args) {
 	if (!args) args = {};
 	if (args.hasOwnProperty('delay') && Number(args.delay)) {
 		muteTimer = setTimeout(function() {
-			spawn('sh', [Core._SHELL + 'mute.sh', 'auto']);
+			// spawn('sh', [Core._SHELL + 'mute.sh', 'auto']);
+			Core.do('interface/sound/play', { mp3: 'system/autoMute.mp3' });
 			setTimeout(function() {
 				stopAll(args.message || null);
 			}, 1600);
