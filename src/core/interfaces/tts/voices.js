@@ -37,7 +37,7 @@ function pico(tts) {
 	let volume = Core.run('volume') * 2.5; // 175-300
 	let command = 'pico2wave -l ' + language + ' -w ' + Core._TMP + 'pico2waveTTS.wav "' + tts.msg + '"';
 	exec(command, (error, stdout, stderr) => {
-		console.log(stdout); // TODO
+		console.log(stdout); // TODO...
 		Core.do('interface|sound|play', { mp3: Core._TMP + 'pico2waveTTS.wav', volume: volume, noLog: false });
 	});
 }

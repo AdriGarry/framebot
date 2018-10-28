@@ -19,6 +19,8 @@ Core.flux.service.music.subscribe({
 			playFipOrJukebox();
 		} else if (flux.id == 'story') {
 			playStory(flux.value);
+		} else if (flux.id == 'stop') {
+			stop();
 		} else Core.error('unmapped flux in Music service', flux, false);
 	},
 	error: err => {
@@ -77,6 +79,16 @@ function playFipOrJukebox() {
 	});
 }
 
+/** Function to stop music timeout */
+function stop() {
+	if (Core.run('music')) {
+		log.debug('Stop music');
+		clearTimeout(jukeboxTimeout);
+		Core.run('music', false);
+	} else {
+		log.debug('No music playing');
+	}
+}
 /** Function to play a story */
 const STORIES = ['stories/Donjon-De-Naheulbeuk.mp3', 'stories/Aventuriers-Du-Survivaure.mp3'];
 function playStory(story) {

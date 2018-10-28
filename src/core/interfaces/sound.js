@@ -126,6 +126,7 @@ function stopAll(message) {
 		Core.do('interface|arduino|connect', null, { hidden: true });
 	}
 	writeAllMPlayerInstances('q');
+	Core.do('service|music|stop', null, { hidden: true });
 	Core.do('interface|tts|clearTTSQueue', null, { hidden: true });
 	spawn('sh', [Core._SHELL + 'mute.sh']);
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
