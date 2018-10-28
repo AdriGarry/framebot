@@ -30,7 +30,7 @@ Core.flux.service.music.subscribe({
 
 /** Function jukebox (repeat for one hour) */
 function jukebox() {
-	Core.do('interface|sound|mute');
+	Core.do('interface|sound|mute', null, { hidden: true });
 	log.info('Jukebox in loop mode !');
 	Core.run('music', 'jukebox');
 	repeatSong();
@@ -58,8 +58,8 @@ function repeatSong() {
 
 /** Function to play FIP radio */
 function playFip() {
-	Core.do('interface|sound|mute');
-	log.info('Play FIP RADIO...');
+	Core.do('interface|sound|mute', null, { hidden: true });
+	log.info('Play FIP radio...');
 	Core.do('interface|sound|play', { url: 'http://chai5she.cdn.dvmr.fr/fip-midfi.mp3' });
 	Core.run('music', 'fip');
 	Core.do('interface|sound|mute', { message: 'Auto Mute FIP', delay: 2 }, { delay: 60 * 60 });
@@ -95,7 +95,7 @@ function playStory(story) {
 	log.debug('Play story...', story);
 	let storyToPlay = Utils.searchStringInArray(story, STORIES);
 	if (storyToPlay) {
-		Core.do('interface|sound|mute');
+		Core.do('interface|sound|mute', null, { hidden: true });
 		Core.do('interface|tts|speak', { lg: 'en', msg: 'story' });
 		Core.run('music', 'story');
 		Core.do('interface|sound|playRandom', { mp3: storyToPlay });
