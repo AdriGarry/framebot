@@ -96,7 +96,7 @@ function doPlay(sound, volume, position, soundTitle, noLog) {
 		if (!noLog) {
 			log.info('play_end ' + soundTitle + ' time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
 		}
-		clearInterval(mplayerInstances[sound].ledFlag);
+		clearInterval(mplayerProcess.ledFlag);
 		delete mplayerInstances[sound];
 	});
 	mplayerInstances[sound] = mplayerProcess;
