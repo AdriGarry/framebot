@@ -16,7 +16,7 @@ module.exports = {
 function espeak(tts) {
 	let speed = Utils.random(100, 150); //0-99
 	let pitch = Utils.random(30, 60); // 80-450 / 100-200 / 130-150
-	let volume = Core.run('volume') * 2.5; // 175-300
+	let volume = Core.run('volume') * 2.5;
 	spawn('espeak', ['-v', tts.lg, '-s', speed, '-p', pitch, '-a', volume, tts.msg]);
 }
 
