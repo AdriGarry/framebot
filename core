@@ -1,36 +1,42 @@
 #!/bin/sh
 
-#___Intall function
-install(){
-	echo "installing core..."
-	sudo chmod +x "$_PATH"/core.sh
+# organize code in functions
+# init(){}
+# setup(){}
+# run(){}
+
+setupCoreCommand(){
+	sudo cp /home/pi/core/core /usr/bin/
+	sudo cp /home/pi/core/data/_etc_init.d_core /etc/init.d/core
+	echo "setupCoreCommand: core and boot commands updated!\n"
+	# sudo chmod +x "$_PATH"/core.sh
 }
 
-# if [ $1 = "install" ]; then
-# 	install
-# 	exit 0
-# fi
+exitIfNoArgs(){
+	if [ $# -eq 0 ]
+	then
+		echo "No arguments supplied, exiting."
+		exit 0
+	fi
+}
 
-if [ $# -eq 0 ]
-  then
-    echo "No arguments supplied, exiting."
-	exit 0
-fi
-
-if [ $1 = "stop" ]; then
-	sudo killall node
-	echo "\nCORE STOPPED."
-	exit 0
-fi
-
+ifStop(){
+	if [ $1 = "stop" ]; then
+		sudo killall node
+		echo "\nCORE STOPPED."
+		exit 0
+	fi
+}
 
 clear
-# copy core shell file to bin to have core command
-sudo cp /home/pi/core/core /usr/bin/
-sudo cp /home/pi/core/data/_etc_init.d_core /etc/init.d/core
-echo "core and boot commands updated!\n"
- 
-_NAME=$1
+
+setupCoreCommand $*
+
+exitIfNoArgs $*
+
+ifStop $*
+
+ _NAME=$1
 #_PATH=`pwd`
 _PATH="/home/pi/core/"
 echo _PATH $_PATH
@@ -47,7 +53,3 @@ echo "\nStarting Wrapper... [$*]" | sudo tee -a "$_PATH/log/$_NAME.log"
 # sudo python /home/pi/core/src/python/buttons.py 2>&1 | sudo tee -a /home/pi/core/log/odi.log &
 sudo node "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" &
 
-# organize code in functions
-# init(){}
-# setup(){}
-# run(){}
