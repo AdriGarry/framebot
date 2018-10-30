@@ -14,51 +14,12 @@ app.constant('CONSTANTS', {
 
 app.controller('Controller', function($rootScope, $scope) {
 	var ctrl = $scope;
-
-	angular.element(document).ready(function() {
-		// $rootScope
-		if (!console) {
-			console = {};
-		}
-		var oldLog = console.log;
-		var logs = document.getElementById('logs');
-		// console.log(logs);
-		console.log = function(message) {
-			if (typeof message == 'object') {
-				logs.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br>';
-				$rootScope.logs += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br>';
-			} else {
-				logs.innerHTML += message + '<br>';
-				$rootScope.logs += message + '<br>';
-			}
-			oldLog(message);
-		};
-		var oldError = console.error;
-		var logs = document.getElementById('logs');
-		// console.log(logs);
-		console.error = function(message) {
-			if (typeof message == 'object') {
-				logs.innerHTML +=
-					'<i><b>ERR: ' + (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '</b></i><br>';
-				$rootScope.logs +=
-					'<i><b>ERR: ' + (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '</b></i><br>';
-			} else {
-				logs.innerHTML += '<i><b>ERR: ' + message + '</b></i><br>';
-				$rootScope.logs += 'ERR:' + message + '<br>';
-			}
-			oldError(message);
-		};
-	});
-	// ctrl.toggleRecord = function(arg) {
-	// 	console.log(arg);
-	// 	toggleRecording(arg);
-	// };
 });
 
 const template = `
-<h2>audioRecorder component</h2>
+<h3>audioRecorder component</h3>
 <p>Recording: {{$ctrl.recording}}</p>
-<button data-ng-click="$ctrl.toggleRecord()" style="background-color:{{$ctrl.recording ? 'red':'green'}}"><h2>ToggleRecord</h2></button>
+<button data-ng-click="$ctrl.toggleRecord()" style="background-color:{{$ctrl.recording ? 'red':'green'}}"><h3>ToggleRecord</h3></button>
 `;
 //data-ng-disabled="!$ctrl.recorderAvailable"
 
@@ -73,36 +34,39 @@ app.component('audioRecorder', {
 		// $rootScope.position = false;
 		console.log('audioRecorder init');
 		ctrl.recorderAvailable = false;
+		ctrl.recording = false;
 
 		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 			// console.log('getUserMedia supported.');
-			navigator.mediaDevices
-				.getUserMedia({ audio: true })
-				.then(stream => setupRecorder(stream))
-				.catch(err => {
-					console.error('The following getUserMedia error occured: ' + err);
-				});
+			ctrl.recorderAvailable = true;
+			// navigator.mediaDevices
+			// 	.getUserMedia({ audio: true })
+			// 	.then(stream => setupRecorder(stream))
+			// 	.catch(err => {
+			// 		console.error('The following getUserMedia error occured: ' + err);
+			// 	});
 		} else {
 			console.error('getUserMedia not supported on your browser!');
 		}
 
-		var mediaRecorder, audioRecord, chunks;
-		function setupRecorder(stream) {
+		var mediaRecorder,
+			audioRecord,
+			chunks = [];
+		function startRecorder(stream) {
 			mediaRecorder = new MediaRecorder(stream);
-			ctrl.recorderAvailable = true;
-			ctrl.recording = false;
 
 			mediaRecorder.ondataavailable = function(e) {
 				console.log('ondataavailable:');
-				console.log(e.data);
 				chunks.push(e.data);
+				console.error('chunks updated');
 			};
 
 			mediaRecorder.onstop = function(e) {
 				console.log('data available after MediaRecorder.stop() called.');
 				console.log(e);
+				console.log('1.mediaRecorder.requestData()');
 				mediaRecorder.requestData();
-				console.log('mediaRecorder.requestData()');
+				console.log('2.mediaRecorder.requestData()');
 
 				audioRecord = document.createElement('audio');
 				audioRecord.controls = true;
@@ -111,49 +75,55 @@ app.component('audioRecorder', {
 				audioRecord.src = audioURL;
 				console.log('recorder stopped 1 2 3');
 			};
-
-			console.log('Recorder ready');
+			mediaRecorder.start();
+			console.log('recorder started');
+			console.log('mediaRecorder.state=' + mediaRecorder.state);
 		}
 
 		ctrl.toggleRecord = function() {
 			if (!ctrl.recording) {
-				console.log('<br>starting record...');
+				ctrl.recording = true;
+				// console.log('<br>starting record...');
 				startRecord();
 			} else {
-				console.log('<br>stopping record.');
+				ctrl.recording = false;
+				// console.log('<br>stopping record.');
 				stopRecord();
 			}
 		};
 
 		var startRecord = function() {
-			mediaRecorder.start();
-			console.log('recorder started');
-			console.log('mediaRecorder.state=' + mediaRecorder.state);
-			ctrl.recording = true;
+			console.log('<br>startRecord()');
+			navigator.mediaDevices
+				.getUserMedia({ audio: true })
+				.then(stream => startRecorder(stream))
+				.catch(err => {
+					console.error('The following getUserMedia error occured: ' + err);
+				});
 		};
 
 		var stopRecord = function() {
+			console.log('<br>stopRecord()');
 			mediaRecorder.stop();
 			console.log('recorder stopped');
 			console.log('mediaRecorder.state=' + mediaRecorder.state);
-			ctrl.recording = false;
 			// sendRecord();
 		};
 
-		var sendRecord = function() {
-			console.log('sendRecord...');
-			let blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-			console.log(chunks);
-			console.log(blob);
-			chunks = [];
-			// var audioURL = window.URL.createObjectURL(blob);
-			// audio.src = audioURL;
+		// var sendRecord = function() {
+		// 	console.log('sendRecord...');
+		// 	let blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+		// 	console.log(chunks);
+		// 	console.log(blob);
+		// 	chunks = [];
+		// 	// var audioURL = window.URL.createObjectURL(blob);
+		// 	// audio.src = audioURL;
 
-			var formData = new FormData();
-			formData.append('fname', 'test.wav');
-			formData.append('data', blob);
-			upload(formData);
-		};
+		// 	var formData = new FormData();
+		// 	formData.append('fname', 'test.wav');
+		// 	formData.append('data', blob);
+		// 	upload(formData);
+		// };
 
 		var upload = function(data) {
 			$http({
@@ -179,38 +149,27 @@ app.component('audioRecorder', {
 	}
 });
 
-// angular.element(document).ready(function($rootScope) {
-// 	(function() {
-// if (!console) {
-// 	console = {};
-// }
-// var oldLog = console.log;
-// var logs = document.getElementById('logs');
-// // console.log(logs);
-// console.log = function(message) {
-// 	if (typeof message == 'object') {
-// 		logs.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br>';
-// 		$rootScope.logs += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br>';
-// 	} else {
-// 		logs.innerHTML += message + '<br>';
-// 		$rootScope.logs += message + '<br>';
-// 	}
-// 	oldLog(message);
-// };
-// var oldError = console.error;
-// var logs = document.getElementById('logs');
-// // console.log(logs);
-// console.error = function(message) {
-// 	if (typeof message == 'object') {
-// 		logs.innerHTML +=
-// 			'<i><b>ERR: ' + (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '</b></i><br>';
-// 		$rootScope.logs +=
-// 			'<i><b>ERR: ' + (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '</b></i><br>';
-// 	} else {
-// 		logs.innerHTML += '<i><b>ERR: ' + message + '</b></i><br>';
-// 		$rootScope.logs += 'ERR:' + message + '<br>';
-// 	}
-// 	oldError(message);
-// };
-// 	})();
-// });
+angular.element(document).ready(function() {
+	if (!console) console = {};
+	var oldLog = console.log;
+	var logs = document.getElementById('logs');
+	console.log = function(message) {
+		if (typeof message == 'object') {
+			logs.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br>';
+		} else {
+			logs.innerHTML += message + '<br>';
+		}
+		oldLog(message);
+	};
+	var oldError = console.error;
+	console.error = function(message) {
+		if (typeof message == 'object') {
+			logs.innerHTML +=
+				'<i><b>ERR: ' + (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '</b></i><br>';
+		} else {
+			logs.innerHTML += '<i><b>ERR: ' + message + '</b></i><br>';
+		}
+		oldError(message);
+	};
+	// console.log('console initialized');
+});
