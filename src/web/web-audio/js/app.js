@@ -61,25 +61,27 @@ app.component('audioRecorder', {
 			mediaRecorder.ondataavailable = function(e) {
 				console.log('ondataavailable:');
 				chunks.push(e.data);
-				console.error('chunks updated');
+				console.log('chunks updated');
 			};
 
 			mediaRecorder.onstop = function(e) {
 				console.log('data available after MediaRecorder.stop() called.');
 				console.log(e);
 				// console.log('1.mediaRecorder.requestData()');
-				// // mediaRecorder.requestData();
-				audioRecord = document.createElement('audio');
-				audioRecord.controls = true;
+				// mediaRecorder.requestData();
+				// audioRecord = document.createElement('audio');
+				// audioRecord.controls = true;
 				var blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-				var audioURL = window.URL.createObjectURL(blob);
-				audioRecord.src = audioURL;
+				// var audioURL = window.URL.createObjectURL(blob);
+				// audioRecord.src = audioURL;
 				console.log('blob');
+				console.log(blob);
 
 				let formData = new FormData();
 				formData.append('fname', 'test.wav');
 				formData.append('data', blob);
 				console.log('formData');
+				console.log(formData);
 				upload(formData);
 				// upload('formData22');
 				console.log('uploaded ?');
@@ -111,6 +113,8 @@ app.component('audioRecorder', {
 		var stopRecord = function() {
 			console.log('<br>stopRecord()');
 			mediaRecorder.stop();
+			//stop microphone access
+			gumStream.getAudioTracks()[0].stop();
 			console.log('recorder stopped');
 			console.log('mediaRecorder.state=' + mediaRecorder.state);
 			// sendRecord();
