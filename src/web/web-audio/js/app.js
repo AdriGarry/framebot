@@ -5,13 +5,6 @@ app.constant('CONSTANTS', {
 	URL_ODI: 'https://odi.adrigarry.com'
 });
 
-// app.config(function($mdThemingProvider) {
-// 	// $mdThemingProvider
-// 	// 	.theme('default')
-// 	// 	.primaryPalette('teal')
-// 	// 	.warnPalette('red');
-// });
-
 app.controller('Controller', function($rootScope, $scope) {
 	var ctrl = $scope;
 });
@@ -46,14 +39,7 @@ app.component('audioRecorder', {
 		var audioContext = new AudioContext(); //new audio context to help us record
 
 		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-			// console.log('getUserMedia supported.');
 			ctrl.recorderAvailable = true;
-			// navigator.mediaDevices
-			// 	.getUserMedia({ audio: true })
-			// 	.then(stream => setupRecorder(stream))
-			// 	.catch(err => {
-			// 		console.error('The following getUserMedia error occured: ' + err);
-			// 	});
 		} else {
 			console.error('getUserMedia not supported on your browser!');
 		}
@@ -62,19 +48,14 @@ app.component('audioRecorder', {
 			audioRecord,
 			chunks = [];
 		function startRecorder(stream) {
-			// mediaRecorder = new MediaRecorder(stream);
-			// mediaRecorder.start();
 			console.log('recorder started');
-			// console.log('mediaRecorder.state=' + mediaRecorder.state);
 			gumStream = stream;
 
 			/* use the stream */
 			input = audioContext.createMediaStreamSource(stream);
 
-			/* 
-			Create the Recorder object and configure to record mono sound (1 channel)
-			Recording 2 channels  will double the file size
-			*/
+			/* Create the Recorder object and configure to record mono sound (1 channel)
+			Recording 2 channels  will double the file size	*/
 			rec = new Recorder(input, { numChannels: 1 });
 
 			//start the recording process
@@ -82,36 +63,6 @@ app.component('audioRecorder', {
 
 			console.log('Recording started __');
 		}
-
-		// mediaRecorder.ondataavailable = function(e) {
-		// 	console.log('ondataavailable:');
-		// 	chunks.push(e.data);
-		// 	console.log('chunks updated');
-		// };
-
-		// mediaRecorder.onstop = function(e) {
-		// 	console.log('data available after MediaRecorder.stop() called.');
-		// 	console.log(e);
-		// 	// console.log('1.mediaRecorder.requestData()');
-		// 	// mediaRecorder.requestData();
-		// 	// audioRecord = document.createElement('audio');
-		// 	// audioRecord.controls = true;
-		// 	var blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-		// 	// var audioURL = window.URL.createObjectURL(blob);
-		// 	// audioRecord.src = audioURL;
-		// 	console.log('blob');
-		// 	console.log(blob);
-
-		// 	let formData = new FormData();
-		// 	formData.append('fname', 'test.wav');
-		// 	formData.append('data', blob);
-		// 	console.log('formData');
-		// 	console.log(formData);
-		// 	upload(formData);
-		// 	// upload('formData22');
-		// 	console.log('uploaded ?');
-		// };
-		// }
 
 		ctrl.toggleRecord = function() {
 			if (!ctrl.recording) {
@@ -152,7 +103,8 @@ app.component('audioRecorder', {
 		function createFormDataThenUpload(blob) {
 			var filename = new Date().toISOString(); //filename to send to server without extension
 			var formData = new FormData();
-			formData.append('audio_data', blob, filename);
+			formData.append('toto', 'titi');
+			formData.append('audioRecord', blob, filename);
 
 			// xhr.open('POST', 'upload.php', true);
 			// xhr.send(fd);
@@ -168,6 +120,7 @@ app.component('audioRecorder', {
 					pwd: 'nn',
 					'User-position': 'noPos',
 					'Content-Type': 'application/x-www-form-urlencoded'
+					// 'Content-Type': 'multipart/form-data'
 				},
 				method: 'POST',
 				url: 'https://odi.adrigarry.com/audio',

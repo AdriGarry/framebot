@@ -3,7 +3,9 @@
 // Route sub-module (server)
 
 const { spawn, exec } = require('child_process');
-const fs = require('fs');
+const fs = require('fs'),
+	formidable = require('formidable');
+// upload = multer({ storage: multer.memoryStorage() });
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
@@ -162,12 +164,64 @@ function attachDefaultRoutes(ui) {
 		res.end();
 	});
 
+	// const audioRecordUpload = multer({
+	// 	storage: multer.memoryStorage(),
+	// 	fileFilter: function(req, file, callback) {
+	// 		log.info('\naudioRecordUpload');
+	// 		let ext = path.extname(file.originalname);
+
+	// 		if (ext !== '.wav') {
+	// 			return callback(Core.error('Only images are allowed' + exc, file));
+	// 		}
+
+	// 		callback(null, true);
+	// 	}
+	// }).single('post_image');
+
+	// var Storage = multer.diskStorage({
+	// 	destination: function(req, file, callback) {
+	// 		callback(null, 'toto/');
+	// 	},
+	// 	filename: function(req, file, callback) {
+	// 		callback(null, file.fieldname + '_' + Date.now() + '.wav');
+	// 	}
+	// });
+	// var upload = multer({ storage: Storage }).single('audioPath');
+
+	// ui.post('/audio', upload.single('somefile.wav'), function(req, res) {
 	ui.post('/audio', function(req, res) {
 		log.INFO('Audio received !!!');
-		log.info(req.body);
-		console.log('RECIEVED AUDIO TO EXTRACT INDICATORS: ', req.body);
+		log.info(JSON.stringify(res.headers));
+		console.log(req.body, req.files);
+
+		// log.info(req.body);
+		// new formidable.IncomingForm().parse(req, (err, fields, files) => {
+		// 	if (err) {
+		// 		console.error('Error', err);
+		// 		throw err;
+		// 	}
+		// 	console.log('Fields', fields);
+		// 	console.log('Files', files);
+		// 	files.map(file => {
+		// 		console.log(file);
+		// 	});
+		// });
+		// log.info(req.file);
+		// log.info(req.files);
+
+		// log.info(req.file);
+		// console.log('RECIEVED AUDIO TO EXTRACT INDICATORS: ');
+
+		// fs.writeFile('sample.wav', req.body, function(err) {
+		// 	if (err) {
+		// 		log.error('Error while writing audio file', err);
+		// 		res.statusCode = 503;
+		// 		res.end();
+		// 	}
+		// 	log.INFO('...............THIS IS OK !');
+		// 	res.end();
+		// });
 		// Core.do('service|system|restart');
-		res.end();
 	});
 
 	ui.post('/toggleDebug', function(req, res) {

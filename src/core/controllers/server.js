@@ -11,7 +11,9 @@ const http = require('http'),
 	express = require('express'),
 	fs = require('fs'),
 	compression = require('compression'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	multer = require('multer'),
+	formidable = require('formidable');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
@@ -67,9 +69,14 @@ function startUIServer() {
 
 	uiHttps.use(compression()); // Compression web
 	uiHttps.use(express.static(Core._WEB)); // For static files
-	uiHttps.use(bodyParser.json({ limit: '50mb' })); // to support JSON-encoded bodies
+	uiHttps.use(bodyParser.json()); // to support JSON-encoded bodies
 	uiHttps.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-	uiHttps.use(bodyParser.raw({ type: 'audio/ogg', limit: '100mb' }));
+
+	var multipart = require('connect-multiparty');
+	var multipartMiddleware = multipart();
+	uiHttps.use('/audio', multipartMiddleware);
+
+	// uiHttps.use(bodyParser.raw({ type: 'audio/wav', limit: '100mb' }));
 	uiHttps.use(
 		bodyParser.urlencoded({
 			extended: true // to support URL-encoded bodies
