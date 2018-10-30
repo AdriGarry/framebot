@@ -162,6 +162,13 @@ function attachDefaultRoutes(ui) {
 		res.end();
 	});
 
+	ui.post('/audio', function(req, res) {
+		log.INFO('\nAudio received !!!');
+		log.info(req.params);
+		// Core.do('service|system|restart');
+		res.end();
+	});
+
 	ui.post('/toggleDebug', function(req, res) {
 		log.info('UI > Toggle debug');
 		let newLogLevel = log.level() == 'debug' ? 'info' : 'debug';
