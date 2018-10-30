@@ -54,6 +54,9 @@ app.component('audioRecorder', {
 			chunks = [];
 		function startRecorder(stream) {
 			mediaRecorder = new MediaRecorder(stream);
+			mediaRecorder.start();
+			console.log('recorder started');
+			console.log('mediaRecorder.state=' + mediaRecorder.state);
 
 			mediaRecorder.ondataavailable = function(e) {
 				console.log('ondataavailable:');
@@ -64,20 +67,22 @@ app.component('audioRecorder', {
 			mediaRecorder.onstop = function(e) {
 				console.log('data available after MediaRecorder.stop() called.');
 				console.log(e);
-				console.log('1.mediaRecorder.requestData()');
-				mediaRecorder.requestData();
-				console.log('2.mediaRecorder.requestData()');
-
+				// console.log('1.mediaRecorder.requestData()');
+				// // mediaRecorder.requestData();
 				audioRecord = document.createElement('audio');
 				audioRecord.controls = true;
 				var blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
 				var audioURL = window.URL.createObjectURL(blob);
 				audioRecord.src = audioURL;
-				console.log('recorder stopped 1 2 3');
+				console.log('blob');
+
+				let formData = new FormData();
+				formData.append('fname', 'test.wav');
+				formData.append('data', blob);
+				console.log('formData');
+				upload(formData);
+				console.log('uploaded ?');
 			};
-			mediaRecorder.start();
-			console.log('recorder started');
-			console.log('mediaRecorder.state=' + mediaRecorder.state);
 		}
 
 		ctrl.toggleRecord = function() {
@@ -126,14 +131,15 @@ app.component('audioRecorder', {
 		// };
 
 		var upload = function(data) {
+			console.log('upload function...');
 			$http({
 				headers: {
 					'User-Interface': 'UIv5',
-					pwd: cmd.data,
+					pwd: 'nn',
 					'User-position': 'noPos'
 				},
 				method: 'POST',
-				url: 'http://odi.adrigarry.com/audio',
+				url: 'https://odi.adrigarry.com/audio',
 				data: data
 			}).then(
 				function successCallback(res) {
