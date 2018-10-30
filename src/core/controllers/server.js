@@ -68,6 +68,7 @@ function startUIServer() {
 	uiHttps.use(compression()); // Compression web
 	uiHttps.use(express.static(Core._WEB)); // For static files
 	uiHttps.use(bodyParser.json()); // to support JSON-encoded bodies
+	uiHttps.use(bodyParser.raw({ type: 'audio/wav', limit: '100mb' }));
 	uiHttps.use(
 		bodyParser.urlencoded({
 			extended: true // to support URL-encoded bodies

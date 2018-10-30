@@ -81,6 +81,7 @@ app.component('audioRecorder', {
 				formData.append('data', blob);
 				console.log('formData');
 				upload(formData);
+				// upload('formData22');
 				console.log('uploaded ?');
 			};
 		}
@@ -140,7 +141,7 @@ app.component('audioRecorder', {
 				},
 				method: 'POST',
 				url: 'https://odi.adrigarry.com/audio',
-				data: data
+				formData: data
 			}).then(
 				function successCallback(res) {
 					console.log('REQUEST OK !!');

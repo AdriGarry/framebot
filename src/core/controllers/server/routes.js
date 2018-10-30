@@ -165,6 +165,7 @@ function attachDefaultRoutes(ui) {
 	ui.post('/audio', function(req, res) {
 		log.INFO('\nAudio received !!!');
 		log.info(req.params);
+		console.log('RECIEVED AUDIO TO EXTRACT INDICATORS: ', req.body);
 		// Core.do('service|system|restart');
 		res.end();
 	});
