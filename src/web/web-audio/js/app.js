@@ -12,9 +12,43 @@ app.constant('CONSTANTS', {
 // 	// 	.warnPalette('red');
 // });
 
-app.controller('Controller', function($scope) {
+app.controller('Controller', function($rootScope, $scope) {
 	var ctrl = $scope;
 
+	angular.element(document).ready(function() {
+		// $rootScope
+		if (!console) {
+			console = {};
+		}
+		var oldLog = console.log;
+		var logs = document.getElementById('logs');
+		// console.log(logs);
+		console.log = function(message) {
+			if (typeof message == 'object') {
+				logs.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br>';
+				$rootScope.logs += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br>';
+			} else {
+				logs.innerHTML += message + '<br>';
+				$rootScope.logs += message + '<br>';
+			}
+			oldLog(message);
+		};
+		var oldError = console.error;
+		var logs = document.getElementById('logs');
+		// console.log(logs);
+		console.error = function(message) {
+			if (typeof message == 'object') {
+				logs.innerHTML +=
+					'<i><b>ERR: ' + (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '</b></i><br>';
+				$rootScope.logs +=
+					'<i><b>ERR: ' + (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '</b></i><br>';
+			} else {
+				logs.innerHTML += '<i><b>ERR: ' + message + '</b></i><br>';
+				$rootScope.logs += 'ERR:' + message + '<br>';
+			}
+			oldError(message);
+		};
+	});
 	// ctrl.toggleRecord = function(arg) {
 	// 	console.log(arg);
 	// 	toggleRecording(arg);
@@ -24,8 +58,7 @@ app.controller('Controller', function($scope) {
 const template = `
 <h2>audioRecorder component</h2>
 <p>Recording: {{$ctrl.recording}}</p>
-<h3><button data-ng-click="$ctrl.toggleRecord()" style="background-color:{{$ctrl.recording ? 'red':'green'}}">ToggleRecord</button></h3>
-
+<button data-ng-click="$ctrl.toggleRecord()" style="background-color:{{$ctrl.recording ? 'red':'green'}}"><h2>ToggleRecord</h2></button>
 `;
 //data-ng-disabled="!$ctrl.recorderAvailable"
 
@@ -47,12 +80,10 @@ app.component('audioRecorder', {
 				.getUserMedia({ audio: true })
 				.then(stream => setupRecorder(stream))
 				.catch(err => {
-					console.error('salut.........');
-
-					console.log('The following getUserMedia error occured: ' + err);
+					console.error('The following getUserMedia error occured: ' + err);
 				});
 		} else {
-			console.log('getUserMedia not supported on your browser!');
+			console.error('getUserMedia not supported on your browser!');
 		}
 
 		var mediaRecorder, audioRecord, chunks;
@@ -62,20 +93,23 @@ app.component('audioRecorder', {
 			ctrl.recording = false;
 
 			mediaRecorder.ondataavailable = function(e) {
-				chunks.push(e.data);
 				console.log('ondataavailable:');
 				console.log(e.data);
+				chunks.push(e.data);
 			};
 
 			mediaRecorder.onstop = function(e) {
 				console.log('data available after MediaRecorder.stop() called.');
+				console.log(e);
+				mediaRecorder.requestData();
+				console.log('mediaRecorder.requestData()');
 
 				audioRecord = document.createElement('audio');
 				audioRecord.controls = true;
 				var blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
 				var audioURL = window.URL.createObjectURL(blob);
 				audioRecord.src = audioURL;
-				console.log('recorder stopped 23');
+				console.log('recorder stopped 1 2 3');
 			};
 
 			console.log('Recorder ready');
@@ -103,9 +137,6 @@ app.component('audioRecorder', {
 			console.log('recorder stopped');
 			console.log('mediaRecorder.state=' + mediaRecorder.state);
 			ctrl.recording = false;
-			console.error('salut.........');
-			console.log('--recorder stopped');
-
 			// sendRecord();
 		};
 
@@ -148,33 +179,38 @@ app.component('audioRecorder', {
 	}
 });
 
-angular.element(document).ready(function() {
-	(function() {
-		if (!console) {
-			console = {};
-		}
-		var oldLog = console.log;
-		var logs = document.getElementById('logs');
-		// console.log(logs);
-		console.log = function(message) {
-			if (typeof message == 'object') {
-				logs.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br>';
-			} else {
-				logs.innerHTML += message + '<br>';
-			}
-			oldLog(message);
-		};
-		var oldError = console.error;
-		var logs = document.getElementById('logs');
-		// console.log(logs);
-		console.error = function(message) {
-			if (typeof message == 'object') {
-				logs.innerHTML +=
-					'<i>ERR: ' + (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '</i><br>';
-			} else {
-				logs.innerHTML += '<i>ERR: ' + message + '</i><br>';
-			}
-			oldError(message);
-		};
-	})();
-});
+// angular.element(document).ready(function($rootScope) {
+// 	(function() {
+// if (!console) {
+// 	console = {};
+// }
+// var oldLog = console.log;
+// var logs = document.getElementById('logs');
+// // console.log(logs);
+// console.log = function(message) {
+// 	if (typeof message == 'object') {
+// 		logs.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br>';
+// 		$rootScope.logs += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br>';
+// 	} else {
+// 		logs.innerHTML += message + '<br>';
+// 		$rootScope.logs += message + '<br>';
+// 	}
+// 	oldLog(message);
+// };
+// var oldError = console.error;
+// var logs = document.getElementById('logs');
+// // console.log(logs);
+// console.error = function(message) {
+// 	if (typeof message == 'object') {
+// 		logs.innerHTML +=
+// 			'<i><b>ERR: ' + (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '</b></i><br>';
+// 		$rootScope.logs +=
+// 			'<i><b>ERR: ' + (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '</b></i><br>';
+// 	} else {
+// 		logs.innerHTML += '<i><b>ERR: ' + message + '</b></i><br>';
+// 		$rootScope.logs += 'ERR:' + message + '<br>';
+// 	}
+// 	oldError(message);
+// };
+// 	})();
+// });

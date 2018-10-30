@@ -23,11 +23,13 @@
 
 	<audio-recorder></audio-recorder>
 
-	<code id="logs"></code>
-
-	<button onclick="location.reload();" style="position:absolute;bottom:1em;right:1em;">
+	<button onclick="location.reload();" style="position:fixed;bottom:1em;right:1em;">
 		<h3>RELOAD</h3>
 	</button>
+
+	<p>{{$rootScope.logs}}</p>
+	<table id="logs" style="overflow:auto"></table>
+
 </body>
 
 </html>
