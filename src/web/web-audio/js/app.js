@@ -47,46 +47,66 @@ app.component('audioRecorder', {
 				.getUserMedia({ audio: true })
 				.then(stream => setupRecorder(stream))
 				.catch(err => {
+					console.error('salut.........');
+
 					console.log('The following getUserMedia error occured: ' + err);
 				});
 		} else {
 			console.log('getUserMedia not supported on your browser!');
 		}
 
-		var mediaRecorder;
+		var mediaRecorder, audioRecord, chunks;
 		function setupRecorder(stream) {
 			mediaRecorder = new MediaRecorder(stream);
 			ctrl.recorderAvailable = true;
 			ctrl.recording = false;
+
+			mediaRecorder.ondataavailable = function(e) {
+				chunks.push(e.data);
+				console.log('ondataavailable:');
+				console.log(e.data);
+			};
+
+			mediaRecorder.onstop = function(e) {
+				console.log('data available after MediaRecorder.stop() called.');
+
+				audioRecord = document.createElement('audio');
+				audioRecord.controls = true;
+				var blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+				var audioURL = window.URL.createObjectURL(blob);
+				audioRecord.src = audioURL;
+				console.log('recorder stopped 23');
+			};
+
 			console.log('Recorder ready');
 		}
 
 		ctrl.toggleRecord = function() {
 			if (!ctrl.recording) {
-				console.log('starting record...');
+				console.log('<br>starting record...');
 				startRecord();
 			} else {
-				console.log('stopping record.');
+				console.log('<br>stopping record.');
 				stopRecord();
 			}
 		};
 
 		var startRecord = function() {
 			mediaRecorder.start();
-			console.log('recorder started', mediaRecorder.state);
+			console.log('recorder started');
+			console.log('mediaRecorder.state=' + mediaRecorder.state);
 			ctrl.recording = true;
-
-			mediaRecorder.ondataavailable = function(e) {
-				chunks.push(e.data);
-				console.log(e.data);
-			};
 		};
 
 		var stopRecord = function() {
 			mediaRecorder.stop();
-			console.log('recorder stopped', mediaRecorder.state);
+			console.log('recorder stopped');
+			console.log('mediaRecorder.state=' + mediaRecorder.state);
 			ctrl.recording = false;
-			sendRecord();
+			console.error('salut.........');
+			console.log('--recorder stopped');
+
+			// sendRecord();
 		};
 
 		var sendRecord = function() {
@@ -133,16 +153,28 @@ angular.element(document).ready(function() {
 		if (!console) {
 			console = {};
 		}
-		var old = console.log;
+		var oldLog = console.log;
 		var logs = document.getElementById('logs');
-		console.log(logs);
+		// console.log(logs);
 		console.log = function(message) {
 			if (typeof message == 'object') {
 				logs.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br>';
 			} else {
 				logs.innerHTML += message + '<br>';
 			}
-			old(message);
+			oldLog(message);
+		};
+		var oldError = console.error;
+		var logs = document.getElementById('logs');
+		// console.log(logs);
+		console.error = function(message) {
+			if (typeof message == 'object') {
+				logs.innerHTML +=
+					'<i>ERR: ' + (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '</i><br>';
+			} else {
+				logs.innerHTML += '<i>ERR: ' + message + '</i><br>';
+			}
+			oldError(message);
 		};
 	})();
 });
