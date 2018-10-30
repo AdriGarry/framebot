@@ -36,6 +36,15 @@ app.component('audioRecorder', {
 		ctrl.recorderAvailable = false;
 		ctrl.recording = false;
 
+		//webkitURL is deprecated but nevertheless
+		URL = window.URL || window.webkitURL;
+		var gumStream; //stream from getUserMedia()
+		var rec; //Recorder.js object
+		var input; //MediaStreamAudioSourceNode we'll be recording
+		// shim for AudioContext when it's not avb.
+		var AudioContext = window.AudioContext || window.webkitAudioContext;
+		var audioContext = new AudioContext(); //new audio context to help us record
+
 		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 			// console.log('getUserMedia supported.');
 			ctrl.recorderAvailable = true;
@@ -53,40 +62,56 @@ app.component('audioRecorder', {
 			audioRecord,
 			chunks = [];
 		function startRecorder(stream) {
-			mediaRecorder = new MediaRecorder(stream);
-			mediaRecorder.start();
+			// mediaRecorder = new MediaRecorder(stream);
+			// mediaRecorder.start();
 			console.log('recorder started');
-			console.log('mediaRecorder.state=' + mediaRecorder.state);
+			// console.log('mediaRecorder.state=' + mediaRecorder.state);
+			gumStream = stream;
 
-			mediaRecorder.ondataavailable = function(e) {
-				console.log('ondataavailable:');
-				chunks.push(e.data);
-				console.log('chunks updated');
-			};
+			/* use the stream */
+			input = audioContext.createMediaStreamSource(stream);
 
-			mediaRecorder.onstop = function(e) {
-				console.log('data available after MediaRecorder.stop() called.');
-				console.log(e);
-				// console.log('1.mediaRecorder.requestData()');
-				// mediaRecorder.requestData();
-				// audioRecord = document.createElement('audio');
-				// audioRecord.controls = true;
-				var blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-				// var audioURL = window.URL.createObjectURL(blob);
-				// audioRecord.src = audioURL;
-				console.log('blob');
-				console.log(blob);
+			/* 
+			Create the Recorder object and configure to record mono sound (1 channel)
+			Recording 2 channels  will double the file size
+			*/
+			rec = new Recorder(input, { numChannels: 1 });
 
-				let formData = new FormData();
-				formData.append('fname', 'test.wav');
-				formData.append('data', blob);
-				console.log('formData');
-				console.log(formData);
-				upload(formData);
-				// upload('formData22');
-				console.log('uploaded ?');
-			};
+			//start the recording process
+			rec.record();
+
+			console.log('Recording started __');
 		}
+
+		// mediaRecorder.ondataavailable = function(e) {
+		// 	console.log('ondataavailable:');
+		// 	chunks.push(e.data);
+		// 	console.log('chunks updated');
+		// };
+
+		// mediaRecorder.onstop = function(e) {
+		// 	console.log('data available after MediaRecorder.stop() called.');
+		// 	console.log(e);
+		// 	// console.log('1.mediaRecorder.requestData()');
+		// 	// mediaRecorder.requestData();
+		// 	// audioRecord = document.createElement('audio');
+		// 	// audioRecord.controls = true;
+		// 	var blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+		// 	// var audioURL = window.URL.createObjectURL(blob);
+		// 	// audioRecord.src = audioURL;
+		// 	console.log('blob');
+		// 	console.log(blob);
+
+		// 	let formData = new FormData();
+		// 	formData.append('fname', 'test.wav');
+		// 	formData.append('data', blob);
+		// 	console.log('formData');
+		// 	console.log(formData);
+		// 	upload(formData);
+		// 	// upload('formData22');
+		// 	console.log('uploaded ?');
+		// };
+		// }
 
 		ctrl.toggleRecord = function() {
 			if (!ctrl.recording) {
@@ -112,28 +137,28 @@ app.component('audioRecorder', {
 
 		var stopRecord = function() {
 			console.log('<br>stopRecord()');
-			mediaRecorder.stop();
+			// mediaRecorder.stop();
+			rec.stop();
+
 			//stop microphone access
-			gumStream.getAudioTracks()[0].stop();
+			// gumStream.getAudioTracks()[0].stop();
+
+			//create the wav blob and pass it on to createDownloadLink
+			rec.exportWAV(createFormDataThenUpload);
+
 			console.log('recorder stopped');
-			console.log('mediaRecorder.state=' + mediaRecorder.state);
-			// sendRecord();
 		};
 
-		// var sendRecord = function() {
-		// 	console.log('sendRecord...');
-		// 	let blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-		// 	console.log(chunks);
-		// 	console.log(blob);
-		// 	chunks = [];
-		// 	// var audioURL = window.URL.createObjectURL(blob);
-		// 	// audio.src = audioURL;
+		function createFormDataThenUpload(blob) {
+			var filename = new Date().toISOString(); //filename to send to server without extension
+			var formData = new FormData();
+			formData.append('audio_data', blob, filename);
 
-		// 	var formData = new FormData();
-		// 	formData.append('fname', 'test.wav');
-		// 	formData.append('data', blob);
-		// 	upload(formData);
-		// };
+			// xhr.open('POST', 'upload.php', true);
+			// xhr.send(fd);
+			upload(formData);
+			console.log(formData);
+		}
 
 		var upload = function(data) {
 			console.log('upload function...');
@@ -141,11 +166,12 @@ app.component('audioRecorder', {
 				headers: {
 					'User-Interface': 'UIv5',
 					pwd: 'nn',
-					'User-position': 'noPos'
+					'User-position': 'noPos',
+					'Content-Type': 'application/x-www-form-urlencoded'
 				},
 				method: 'POST',
 				url: 'https://odi.adrigarry.com/audio',
-				formData: data
+				data: data
 			}).then(
 				function successCallback(res) {
 					console.log('<b>REQUEST OK !!</b>');
