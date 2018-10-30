@@ -144,8 +144,8 @@ app.component('audioRecorder', {
 				formData: data
 			}).then(
 				function successCallback(res) {
-					console.log('REQUEST OK !!');
-					console.log(res);
+					console.log('<b>REQUEST OK !!</b>');
+					// console.log(res);
 				},
 				function errorCallback(res) {
 					console.log('ERROR REQUEST:');
