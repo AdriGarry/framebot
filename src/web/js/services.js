@@ -209,7 +209,6 @@ app.service('audioService', [
 	function($rootScope, $http, UIService) {
 		var ctrl = this;
 
-		console.log('audioRecorder init');
 		ctrl.recorderAvailable = false;
 
 		//webkitURL is deprecated but nevertheless
@@ -224,8 +223,8 @@ app.service('audioService', [
 		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 			ctrl.recorderAvailable = true;
 		} else {
-			UIService.showErrorToast('getUserMedia not supported on your browser!');
 			console.error('getUserMedia not supported on your browser!');
+			UIService.showErrorToast('getUserMedia not supported on your browser!');
 		}
 
 		ctrl.startRecord = function(callback) {
@@ -254,7 +253,7 @@ app.service('audioService', [
 		};
 
 		ctrl.cancelRecord = function(callback) {
-			if (rec) {
+			if (rec && rec.recording) {
 				rec.stop();
 				gumStream.getAudioTracks()[0].stop(); //stop microphone access
 				UIService.showToast('Record canceled');
@@ -272,7 +271,7 @@ app.service('audioService', [
 			rec = new Recorder(input, { numChannels: 1 });
 			//start the recording process
 			rec.record();
-			// UIService.showToast('Record started');
+			UIService.showToast('Record started...');
 		}
 
 		function upload(data) {
@@ -297,28 +296,3 @@ app.service('audioService', [
 		}
 	}
 ]);
-
-// angular.element(document).ready(function($rootScope) {
-// 	if (!console) console = {};
-// 	var oldLog = console.log;
-// 	var logs = document.getElementById('templogs');
-// 	console.log = function(message) {
-// 		if (typeof message == 'object') {
-// 			logs.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br>';
-// 		} else {
-// 			logs.innerHTML += message + '<br>';
-// 		}
-// 		oldLog(message);
-// 	};
-// 	var oldError = console.error;
-// 	console.error = function(message) {
-// 		if (typeof message == 'object') {
-// 			logs.innerHTML +=
-// 				'<i><b>ERR: ' + (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '</b></i><br>';
-// 		} else {
-// 			logs.innerHTML += '<i><b>ERR: ' + message + '</b></i><br>';
-// 		}
-// 		oldError(message);
-// 	};
-// 	// console.log('console initialized');
-// });
