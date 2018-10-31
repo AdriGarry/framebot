@@ -4,9 +4,7 @@
 
 const { spawn, exec } = require('child_process');
 const fs = require('fs'),
-	multer = require('multer'),
-	formidable = require('formidable');
-// upload = multer({ storage: multer.memoryStorage() });
+	multer = require('multer');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
@@ -165,112 +163,44 @@ function attachDefaultRoutes(ui) {
 		res.end();
 	});
 
-	// const audioRecordUpload = multer({
-	// 	storage: multer.memoryStorage(),
-	// 	fileFilter: function(req, file, callback) {
-	// 		log.info('\naudioRecordUpload');
-	// 		let ext = path.extname(file.originalname);
-
-	// 		if (ext !== '.wav') {
-	// 			return callback(Core.error('Only images are allowed' + exc, file));
-	// 		}
-
-	// 		callback(null, true);
-	// 	}
-	// }).single('post_image');
-
-	var Storage = multer.diskStorage({
+	var audioRecordStorage = multer.diskStorage({
 		destination: function(req, file, callback) {
-			log.info('\n_____destination');
-			callback(null, '/toto/');
+			log.info(typeof Core._UPLOAD, Core._UPLOAD);
+			if (!fs.existsSync(Core._UPLOAD)) {
+				fs.mkdirSync(Core._UPLOAD);
+			}
+			callback(null, Core._UPLOAD);
 		},
 		filename: function(req, file, callback) {
-			log.info('\n_____filename', file.fieldname);
-			callback(null, file.fieldname + '_' + Date.now() + '.wav');
+			callback(null, file.fieldname + '_' + new Date().toISOString() + '.wav');
 		}
 	});
-	var upload = multer({ storage: Storage }).single('audioPath');
+	var audioRecordUpload = multer({ storage: audioRecordStorage }).single('audioRecord');
 
-	// ui.post('/audio', upload.single('somefile.wav'), function(req, res) {
-	ui.post('/audio', function(req, res) {
+	ui.post('/audio', audioRecordUpload, function(req, res) {
 		log.INFO('Audio received !!!');
-		log.info(req.body);
-		upload(req, res, function(err) {
-			if (err) {
-				log.error('Something went wrong!');
-				return res.end('Something went wrong!');
-			}
-			log.INFO('File uploaded sucessfully!.');
-			log.info(req);
-			log.info(req.files);
-			return res.end();
-		});
+		log.debug(req.file);
+		Core.do('interface|sound|play', { mp3: req.file.path });
 
-		// console.log(req.body, req.files);
-		// fs.writeFile('req.json', JSON.stringify(req), function(err) {
-		// 	console.log('OK, fichier écrit');
-		// });
-		// log.info(req.body);
-
-		// let stream = fs.createReadStream(req.body); /*, {bufferSize: 64 * 1024}*/
-		// stream.pipe(fs.createWriteStream('upload.txt'));
-		// stream.on('error', function(e) {
-		// 	Core.error('stream error while... ', e);
-		// });
-		// stream.on('close', function() {
-		// 	log.info('_____YESSSSSSSSSS');
-		// });
-
-		// let data = [];
-		// req.on('data', chunk => {
-		// 	log.info('data');
-
-		// 	data.push(chunk);
-		// });
-		// req.on('end', (req, res) => {
-		// 	data = Buffer.concat(data);
-		// 	log.INFO('...............THIS IS OK !');
-		// 	log.info(data);
-		// });
-
-		// let form = new formidable.IncomingForm();
-		// form.parse(req, (err, fields, files) => {
+		// upload(req, res, function(err) {
 		// 	if (err) {
-		// 		console.error('Error', err);
-		// 		throw err;
+		// 		log.error('Something went wrong!');
+		// 		// return res.end('Something went wrong!');
+		// 		res.end('Something went wrong!');
 		// 	}
-		// 	console.log('Fields', fields);
-		// 	console.log('Files', files);
-		// 	files.map(file => {
-		// 		console.log(file);
-		// 	});
-		// });
-		// log.info(req.file);
-		// log.info(req.files);
-
-		// log.info(req.file);
-		// console.log('RECIEVED AUDIO TO EXTRACT INDICATORS: ');
-
-		// fs.writeFile('sample.wav', req.body, function(err) {
-		// 	if (err) {
-		// 		log.error('Error while writing audio file', err);
-		// 		res.statusCode = 503;
-		// 		res.end();
-		// 	}
-		// 	log.INFO('...............THIS IS OK !');
+		// 	log.INFO('File uploaded sucessfully!.');
+		// 	// log.info(req);
+		// 	log.info(req.files);
+		// 	log.info(req.file);
+		// 	// return res.end();
 		// 	res.end();
 		// });
-		// Core.do('service|system|restart');
 	});
 
 	ui.post('/toggleDebug', function(req, res) {
 		log.info('UI > Toggle debug');
 		let newLogLevel = log.level() == 'debug' ? 'info' : 'debug';
 		log.level(newLogLevel);
-		// Core.do('interface|runtime|update', {
-		// 	log: newLogLevel
-		// });
-		// Core.conf('log', newLogLevel, false, true);
 		res.end();
 	});
 
@@ -281,7 +211,6 @@ function attachDefaultRoutes(ui) {
 		Core.do('interface|runtime|update', {
 			log: newLogLevel
 		});
-		// Core.conf('log', newLogLevel, false, true);
 		res.end();
 	});
 

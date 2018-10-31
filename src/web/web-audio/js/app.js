@@ -101,10 +101,9 @@ app.component('audioRecorder', {
 		};
 
 		function createFormDataThenUpload(blob) {
-			var filename = new Date().toISOString(); //filename to send to server without extension
 			var formData = new FormData();
-			formData.append('filename', filename);
-			formData.append('file', blob);
+			// formData.append('filename', filename);
+			formData.append('audioRecord', blob);
 
 			// xhr.open('POST', 'upload.php', true);
 			// xhr.send(fd);
