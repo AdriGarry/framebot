@@ -281,8 +281,6 @@ app.service('audioService', [
 					'User-Interface': 'UIv5',
 					pwd: 'nn',
 					'User-position': 'noPos',
-					// 'Content-Type': 'application/x-www-form-urlencoded'
-					// 'Content-Type': 'multipart/form-data'
 					'Content-Type': undefined
 				},
 				method: 'POST',

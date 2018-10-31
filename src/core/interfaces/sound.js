@@ -185,7 +185,7 @@ function additionalVolumeSetup() {
 }
 
 function ledFlag() {
-	Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 });
+	Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
 	return setInterval(function() {
 		Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
 	}, 10 * 1000);

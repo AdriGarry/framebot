@@ -29,7 +29,7 @@ var lastRecordPath = null,
 function addRecord(path) {
 	log.debug('addRecord', path);
 	Core.do('interface|tts|speak', { lg: 'en', msg: 'record' });
-	Core.do('interface|sound|play', { mp3: path, volume: Core.run('volume') * 3 }, { delay: 1 });
+	Core.do('interface|sound|play', { mp3: path, volume: Core.run('volume') * 3 }, { delay: 1, hidden: true });
 	lastRecordPath = path;
 	recordListPath.push(path);
 }
@@ -40,26 +40,28 @@ function playLastRecord() {
 		Core.do('interface|tts|speak', { lg: 'en', msg: "I don't have any record" });
 		return;
 	}
-	Core.do('interface|sound|play', { mp3: lastRecordPath, volume: Core.run('volume') * 3 });
+	Core.do('interface|sound|play', { mp3: lastRecordPath, volume: Core.run('volume') * 3 }, { hidden: true });
 }
 
 function playAllRecords() {
-	log.debug('playAllRecords');
+	log.info('playAllRecords', recordListPath.length);
 	if (!lastRecordPath) {
 		Core.do('interface|tts|speak', { lg: 'en', msg: "I don't have any record" });
 		return;
 	}
 	Core.do('interface|tts|speak', { lg: 'en', msg: 'playing all records' });
-	let delay = 0;
-	recordListPath.forEach(i => {
+	let delay = 3000;
+	// recordListPath.forEach(recordPath => {
+	for (let i = 0; i < recordListPath.length; i++) {
+		log.info('---> TO FIX', delay, recordListPath[i]);
 		Core.do('interface|sound|play', { mp3: recordListPath[i], volume: Core.run('volume') * 3 }, { delay: delay });
-		delay = delay + 5 * 1000;
-	});
+		delay = delay + 5 * 1000; // TODO...
+	}
 }
 
 function cleanRecords() {
 	log.info('cleanRecords');
-	Core.do('interface|tts|speak', { lg: 'en', msg: 'deleting all records' });
-	// Core.do('interface|sound|play', { mp3: lastRecordPath, volume: Core.run('volume') * 3 });
 	Utils.deleteFolderRecursive(Core._UPLOAD);
+	recordListPath = [];
+	Core.do('interface|tts|speak', { lg: 'en', msg: 'all records deleted' });
 }
