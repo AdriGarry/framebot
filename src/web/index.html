@@ -19,14 +19,13 @@
 	<meta name="robots" content="noindex,nofollow">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-	<!--<link rel="stylesheet" href="css/lib/font-awesome.min.css" media="all" />-->
 	<link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/lib/angular-material.min.css" media="all" />
 	<link rel="stylesheet" href="css/lib/mdPickers.min.css" media="all" />
 	<link rel="stylesheet" href="css/odiUI.css" media="all" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 
-	<!-- build:js js/odiUI.min.js -->
+	<script src="js/lib/Recorder.js"></script>
 	<script src="js/lib/angular.min.js"></script>
 	<script src="js/lib/angular-material.min.js"></script>
 	<script src="js/lib/angular-animate.min.js"></script>
@@ -34,7 +33,6 @@
 	<script src="js/lib/moment.min.js"></script>
 	<script src="js/lib/showdown.min.js"></script>
 	<script src="js/lib/mdPickers.min.js"></script>
-	<!-- endbuild -->
 
 	<script src="js/app.js"></script>
 	<script src="js/controllers.js"></script>
@@ -209,23 +207,24 @@
 				<voicemail data="dashboard.runningData.voicemail" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></voicemail>
 				<alarms data="dashboard.runningData.alarms" data-access="$root.irda" flex="33"></alarms>
 				<timer data="dashboard.runningData.timer" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></timer>
-				<hardware data="dashboard.runningData.hardware" data-access="$root.irda" flex="100" data-odi-state="dashboard.odiState"></hardware>
-				<max data="dashboard.runningData.arduino" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></max>
-				<jukebox data="dashboard.runningData.jukebox" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></jukebox>
 				<exclamation data="dashboard.runningData.exclamation" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></exclamation>
+				<jukebox data="dashboard.runningData.jukebox" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></jukebox>
+				<audio-recorder data="dashboard.runningData.timer" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></audio-recorder>
+				<hardware data="dashboard.runningData.hardware" data-access="$root.irda" flex="100" data-odi-state="dashboard.odiState"></hardware>
 				<time data="dashboard.runningData.time" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></time>
-				<weather data="dashboard.runningData.weather" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></weather>
+				<max data="dashboard.runningData.arduino" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></max>
 				<maya data="dashboard.runningData.weather" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></maya>
 				<bad-boy data="dashboard.runningData.ideas" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></bad-boy>
 				<party data="dashboard.runningData.party" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></party>
+				<weather data="dashboard.runningData.weather" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></weather>
 				<idea data="dashboard.runningData.ideas" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></idea>
 				<russia data="dashboard.runningData.russia" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></russia>
 				<stories data="dashboard.runningData.stories" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></stories>
 				<videos data="dashboard.runningData.video" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></videos>
 				<arduino data="dashboard.runningData.arduino" data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></arduino>
-				<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
 				<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
-				<about data="dashboard.runningData.about" data-access="true" flex="100"></about>
+				<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
+				<about data="dashboard.runningData.about" data-access="true" flex="66"></about>
 				<!--flex="66"-->
 			</div>
 

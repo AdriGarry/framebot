@@ -67,11 +67,9 @@ app.component('audioRecorder', {
 		ctrl.toggleRecord = function() {
 			if (!ctrl.recording) {
 				ctrl.recording = true;
-				// console.log('<br>starting record...');
 				startRecord();
 			} else {
 				ctrl.recording = false;
-				// console.log('<br>stopping record.');
 				stopRecord();
 			}
 		};
@@ -88,35 +86,31 @@ app.component('audioRecorder', {
 
 		var stopRecord = function() {
 			console.log('<br>stopRecord()');
-			// mediaRecorder.stop();
 			rec.stop();
-
-			//stop microphone access
-			// gumStream.getAudioTracks()[0].stop();
-
-			//create the wav blob and pass it on to createDownloadLink
-			rec.exportWAV(createFormDataThenUpload);
-
+			gumStream.getAudioTracks()[0].stop(); //stop microphone access
+			// rec.exportWAV(createFormDataThenUpload);
+			rec.exportWAV(blob => {
+				var formData = new FormData();
+				formData.append('audioRecord', blob);
+				console.log('=====================');
+				upload(formData);
+			});
 			console.log('recorder stopped');
 		};
 
-		function createFormDataThenUpload(blob) {
-			var formData = new FormData();
-			// formData.append('filename', filename);
-			formData.append('audioRecord', blob);
-
-			// xhr.open('POST', 'upload.php', true);
-			// xhr.send(fd);
-			upload(formData);
-			console.log(formData);
-		}
+		// function createFormDataThenUpload(blob) {
+		// 	var formData = new FormData();
+		// 	formData.append('audioRecord', blob);
+		// 	upload(formData);
+		// 	console.log(formData);
+		// }
 
 		var upload = function(data) {
 			console.log('upload function...');
 			$http({
 				headers: {
 					'User-Interface': 'UIv5',
-					pwd: 'nn',
+					// pwd: 'nn',
 					'User-position': 'noPos',
 					// 'Content-Type': 'application/x-www-form-urlencoded'
 					// 'Content-Type': 'multipart/form-data'

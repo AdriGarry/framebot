@@ -349,6 +349,66 @@ app.component('jukebox', {
 	}
 });
 
+/** Audio recorder component */
+app.component('audioRecorder', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile, $rootScope, UIService) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Audio recorder',
+			actionList: [{ label: 'FIP Radio', icon: 'fas fa-globe', url: '/toto' }]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
+
+		/** Overwrite tile action */
+		ctrl.tile.click = function() {
+			if (!$rootScope.irda) {
+				UIService.showErrorToast('Unauthorized action.');
+			} else {
+				ctrl.tile.openCustomBottomSheet(bottomSheetcontroller, bottomSheetTemplate);
+			}
+		};
+
+		const bottomSheetTemplate = `
+		<md-bottom-sheet class="md-grid" layout="column">
+			<md-subheader data-ng-cloak>Audio recorder</md-subheader>
+			<div data-ng-cloak>
+				<p id="templogs"></p>
+				<span class="fa-2x">0:00</span>
+				{{recording}}
+
+				<md-button class="md-raised md-grid-item-content" data-ng-class="recording?'md-warn':'md-primary'" data-ng-click="toggleRecord()"
+					title="ToggleRecord"><i class="fas fa-2x fa-microphone"></i><br>Toggle Record</md-button>
+				<br>
+			</div>
+		</md-bottom-sheet>`;
+		let bottomSheetcontroller = function($scope, audioService) {
+			var ctrl = $scope;
+			ctrl.recording = false;
+
+			ctrl.toggleRecord = function() {
+				if (!ctrl.recording) {
+					audioService.startRecord(isRecording => {
+						ctrl.recording = isRecording;
+					});
+				} else {
+					ctrl.recording = audioService.stopRecord(isRecording => {
+						ctrl.recording = isRecording;
+					});
+				}
+			};
+
+			// TODO annuler l'enregistrement si fermeture du bottom sheet
+		};
+	}
+});
+
 /** Timer component */
 app.component('timer', {
 	bindings: {

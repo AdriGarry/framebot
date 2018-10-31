@@ -180,7 +180,7 @@ function attachDefaultRoutes(ui) {
 	ui.post('/audio', audioRecordUpload, function(req, res) {
 		log.INFO('Audio received !!!');
 		log.debug(req.file);
-		Core.do('interface|sound|play', { mp3: req.file.path });
+		Core.do('interface|sound|play', { mp3: req.file.path, volume: Core.run('volume') * 3 }, { delay: 0.5 });
 
 		// upload(req, res, function(err) {
 		// 	if (err) {

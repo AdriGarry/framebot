@@ -22,6 +22,7 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 		this.cssClass = this.id;
 		this.openBottomSheet = openBottomSheet;
 		this.openSliderBottomSheet = openSliderBottomSheet;
+		this.openCustomBottomSheet = openCustomBottomSheet;
 	}
 
 	/** Function on click on Tile **/
@@ -101,6 +102,25 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 					button.params = { value: button.value };
 				}
 				action(button); // à redéfinir ??
+			});
+	}
+
+	/** Function to open a custom content on bottom sheet */
+	function openCustomBottomSheet(bottomSheetController, bottomSheetTemplate) {
+		// console.log('openCustomBottomSheet()', slider);
+		// $rootScope.bottomSheetSlider = slider;
+		$mdBottomSheet
+			.show({
+				template: bottomSheetTemplate, //templateUrl: 'template/bottom-sheet-audio-recorder.html'
+				controller: bottomSheetController,
+				clickOutsideToClose: true
+			})
+			.then(function(button) {
+				if (specificAction) {
+					specificAction(button);
+				} else {
+					action(button);
+				}
 			});
 	}
 

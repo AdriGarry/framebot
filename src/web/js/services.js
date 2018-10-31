@@ -200,3 +200,135 @@ app.service('UIService', [
 		);
 	}
 ]);
+
+/* Audio record Service */
+app.service('audioService', [
+	'$rootScope',
+	'$http',
+	'UIService',
+	function($rootScope, $http, UIService) {
+		var ctrl = this;
+
+		console.log('audioRecorder init');
+		ctrl.recorderAvailable = false;
+
+		//webkitURL is deprecated but nevertheless
+		URL = window.URL || window.webkitURL;
+		var gumStream; //stream from getUserMedia()
+		var rec; //Recorder.js object
+		var input; //MediaStreamAudioSourceNode we'll be recording
+		// shim for AudioContext when it's not avb.
+		var AudioContext = window.AudioContext || window.webkitAudioContext;
+		var audioContext = new AudioContext(); //new audio context to help us record
+
+		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+			ctrl.recorderAvailable = true;
+		} else {
+			console.error('getUserMedia not supported on your browser!');
+		}
+
+		ctrl.startRecord = function(callback) {
+			navigator.mediaDevices
+				.getUserMedia({ audio: true })
+				// .then(stream => {
+				// 	startRecorder(stream);
+				// 	callback(true);
+				// })
+				.then(stream => startRecorder(stream))
+				.catch(err => {
+					console.error('getUserMedia error: ' + err);
+					UIService.showErrorToast('getUserMedia error: ' + err);
+					callback(false);
+				});
+		};
+
+		ctrl.stopRecord = function(callback) {
+			rec.stop();
+			gumStream.getAudioTracks()[0].stop(); //stop microphone access
+			// rec.exportWAV(createFormDataThenUpload);
+			rec.exportWAV(blob => {
+				UIService.showToast('exportWAV 1123');
+				var formData = new FormData();
+				formData.append('audioRecord', blob);
+				upload(formData);
+				callback(false);
+			});
+			UIService.showToast('exportWAV_END');
+		};
+
+		ctrl.cancelRecord = function() {
+			// UIService.showToast('Record canceled');
+		};
+
+		function startRecorder(stream) {
+			gumStream = stream;
+
+			/* use the stream */
+			input = audioContext.createMediaStreamSource(stream);
+
+			/* Create the Recorder object and configure to record mono sound (1 channel)
+				Recording 2 channels  will double the file size	*/
+			rec = new Recorder(input, { numChannels: 1 });
+			//start the recording process
+			rec.record();
+			// UIService.showToast('Record started');
+		}
+
+		// function createFormDataThenUpload(blob) {
+		// 	// UIService.showToast('createFormDataThenUpload');
+		// 	let formData = new FormData();
+		// 	formData.append('audioRecord', blob);
+		// 	upload(formData);
+		// }
+
+		function upload(data) {
+			// console.log('upload function...');
+			UIService.showToast('upload');
+			$http({
+				headers: {
+					'User-Interface': 'UIv5',
+					pwd: 'nn',
+					'User-position': 'noPos',
+					// 'Content-Type': 'application/x-www-form-urlencoded'
+					// 'Content-Type': 'multipart/form-data'
+					'Content-Type': undefined
+				},
+				method: 'POST',
+				url: 'https://odi.adrigarry.com/audio',
+				data: data
+			}).then(
+				function successCallback(res) {
+					// UIService.showToast('Record uploaded');
+				},
+				function errorCallback(res) {
+					// UIService.showToast('Error while uploading record');
+				}
+			);
+		}
+	}
+]);
+
+// angular.element(document).ready(function($rootScope) {
+// 	if (!console) console = {};
+// 	var oldLog = console.log;
+// 	var logs = document.getElementById('templogs');
+// 	console.log = function(message) {
+// 		if (typeof message == 'object') {
+// 			logs.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br>';
+// 		} else {
+// 			logs.innerHTML += message + '<br>';
+// 		}
+// 		oldLog(message);
+// 	};
+// 	var oldError = console.error;
+// 	console.error = function(message) {
+// 		if (typeof message == 'object') {
+// 			logs.innerHTML +=
+// 				'<i><b>ERR: ' + (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '</b></i><br>';
+// 		} else {
+// 			logs.innerHTML += '<i><b>ERR: ' + message + '</b></i><br>';
+// 		}
+// 		oldError(message);
+// 	};
+// 	// console.log('console initialized');
+// });
