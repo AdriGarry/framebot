@@ -78,7 +78,9 @@ app.component('audioRecorder', {
 			console.log('<br>startRecord()');
 			navigator.mediaDevices
 				.getUserMedia({ audio: true })
-				.then(stream => startRecorder(stream))
+				.then(stream => {
+					startRecorder(stream);
+				})
 				.catch(err => {
 					console.error('The following getUserMedia error occured: ' + err);
 				});

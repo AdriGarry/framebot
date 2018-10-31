@@ -377,14 +377,13 @@ app.component('audioRecorder', {
 
 		const bottomSheetTemplate = `
 		<md-bottom-sheet class="md-grid" layout="column">
-			<md-subheader data-ng-cloak>Audio recorder</md-subheader>
+			<md-subheader data-ng-cloak>{{recording ? 'Speak now...':'Audio recorder'}}</md-subheader>
 			<div data-ng-cloak>
 				<p id="templogs"></p>
 				<span class="fa-2x">0:00</span>
-				{{recording}}
 
 				<md-button class="md-raised md-grid-item-content" data-ng-class="recording?'md-warn':'md-primary'" data-ng-click="toggleRecord()"
-					title="ToggleRecord"><i class="fas fa-2x fa-microphone"></i><br>Toggle Record</md-button>
+					title="ToggleRecord"><br><i class="fas fa-2x fa-microphone"></i><br>{{recording ? 'Stop':'Start'}}</md-button>
 				<br>
 			</div>
 		</md-bottom-sheet>`;
@@ -394,6 +393,7 @@ app.component('audioRecorder', {
 
 			ctrl.toggleRecord = function() {
 				if (!ctrl.recording) {
+					// ctrl.recording = true;
 					audioService.startRecord(isRecording => {
 						ctrl.recording = isRecording;
 					});

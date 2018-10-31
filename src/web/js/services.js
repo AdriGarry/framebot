@@ -230,11 +230,10 @@ app.service('audioService', [
 		ctrl.startRecord = function(callback) {
 			navigator.mediaDevices
 				.getUserMedia({ audio: true })
-				// .then(stream => {
-				// 	startRecorder(stream);
-				// 	callback(true);
-				// })
-				.then(stream => startRecorder(stream))
+				.then(stream => {
+					startRecorder(stream);
+					callback(true);
+				})
 				.catch(err => {
 					console.error('getUserMedia error: ' + err);
 					UIService.showErrorToast('getUserMedia error: ' + err);
@@ -245,15 +244,12 @@ app.service('audioService', [
 		ctrl.stopRecord = function(callback) {
 			rec.stop();
 			gumStream.getAudioTracks()[0].stop(); //stop microphone access
-			// rec.exportWAV(createFormDataThenUpload);
 			rec.exportWAV(blob => {
-				UIService.showToast('exportWAV 1123');
 				var formData = new FormData();
 				formData.append('audioRecord', blob);
 				upload(formData);
 				callback(false);
 			});
-			UIService.showToast('exportWAV_END');
 		};
 
 		ctrl.cancelRecord = function() {
@@ -274,16 +270,7 @@ app.service('audioService', [
 			// UIService.showToast('Record started');
 		}
 
-		// function createFormDataThenUpload(blob) {
-		// 	// UIService.showToast('createFormDataThenUpload');
-		// 	let formData = new FormData();
-		// 	formData.append('audioRecord', blob);
-		// 	upload(formData);
-		// }
-
 		function upload(data) {
-			// console.log('upload function...');
-			UIService.showToast('upload');
 			$http({
 				headers: {
 					'User-Interface': 'UIv5',
@@ -298,10 +285,10 @@ app.service('audioService', [
 				data: data
 			}).then(
 				function successCallback(res) {
-					// UIService.showToast('Record uploaded');
+					UIService.showToast('Record uploaded');
 				},
 				function errorCallback(res) {
-					// UIService.showToast('Error while uploading record');
+					UIService.showToast('Error while uploading record');
 				}
 			);
 		}

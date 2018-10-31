@@ -178,23 +178,10 @@ function attachDefaultRoutes(ui) {
 	var audioRecordUpload = multer({ storage: audioRecordStorage }).single('audioRecord');
 
 	ui.post('/audio', audioRecordUpload, function(req, res) {
-		log.INFO('Audio received !!!');
+		log.info('Audio received!');
+		Core.do('interface|tts|speak', { lg: 'en', msg: 'record' });
 		log.debug(req.file);
-		Core.do('interface|sound|play', { mp3: req.file.path, volume: Core.run('volume') * 3 }, { delay: 0.5 });
-
-		// upload(req, res, function(err) {
-		// 	if (err) {
-		// 		log.error('Something went wrong!');
-		// 		// return res.end('Something went wrong!');
-		// 		res.end('Something went wrong!');
-		// 	}
-		// 	log.INFO('File uploaded sucessfully!.');
-		// 	// log.info(req);
-		// 	log.info(req.files);
-		// 	log.info(req.file);
-		// 	// return res.end();
-		// 	res.end();
-		// });
+		Core.do('interface|sound|play', { mp3: req.file.path, volume: Core.run('volume') * 3 }, { delay: 1 });
 	});
 
 	ui.post('/toggleDebug', function(req, res) {
