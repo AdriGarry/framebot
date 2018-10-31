@@ -368,11 +368,7 @@ app.component('audioRecorder', {
 
 		/** Overwrite tile action */
 		ctrl.tile.click = function() {
-			if (!$rootScope.irda) {
-				UIService.showErrorToast('Unauthorized action.');
-			} else {
-				ctrl.tile.openCustomBottomSheet(bottomSheetController, bottomSheetTemplate, bottomSheetCatch);
-			}
+			ctrl.tile.openCustomBottomSheet(bottomSheetController, bottomSheetTemplate, bottomSheetCatch);
 		};
 
 		let bottomSheetCatch = function(audioService) {
@@ -386,20 +382,41 @@ app.component('audioRecorder', {
 				<span data-ng-show="recording">Speak now... <i>-{{countDown}}<sup>S</sup></i></span>
 			</md-subheader>
 			<div data-ng-cloak>
+				<span data-ng-if="$root.irda">
+					<md-button class="md-grid-item-content" data-ng-click="action({label: 'Clean Records', url: '/audio/clean'})" title="Clean">
+						<br>
+						<i class="fas fa-2x fa-trash"></i>
+						<br>Clean
+					</md-button>
+					<md-button class="md-grid-item-content" data-ng-click="action({label: 'All Records', url: '/audio/all'})" title="All">
+						<br>
+						<i class="fas fa-2x fa-reply-all"></i>
+						<br>All
+					</md-button>
+					<md-button class="md-grid-item-content" data-ng-click="action({label: 'Last record', url: '/audio/last'})" title="Last">
+						<br>
+						<i class="fas fa-2x fa-undo"></i>
+						<br>Last
+					</md-button>
+				</span>
 				<md-button class="md-raised md-grid-item-content" data-ng-class="recording?'md-warn':'md-primary'" data-ng-click="toggleRecord()" title="ToggleRecord">
 					<br>
-					<i class="fas fa-3x fa-microphone" data-ng-show="!waitRecording"></i>
-					<i class="fas fa-3x fa-circle-notch fa-spin" data-ng-show="waitRecording"></i>
+					<i class="fas fa-2x fa-microphone" data-ng-show="!waitRecording"></i>
+					<i class="fas fa-2x fa-circle-notch fa-spin" data-ng-show="waitRecording"></i>
 					<br>{{recording ? 'Send':'Start'}}
 				</md-button>
 				<br>
 			</div>
 		</md-bottom-sheet>`;
 
-		let bottomSheetController = function($scope, $interval, audioService) {
+		let bottomSheetController = function($rootScope, $scope, $interval, UIService, audioService) {
 			var ctrl = $scope;
 			ctrl.recording = false;
 			ctrl.waitRecording = false;
+
+			ctrl.action = function(cmd) {
+				UIService.sendCommand(cmd);
+			};
 
 			ctrl.toggleRecord = function() {
 				if (!ctrl.recording) {

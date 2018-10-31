@@ -159,13 +159,11 @@ function attachDefaultRoutes(ui) {
 		Core.do('service|system|restart', null, {
 			delay: 1
 		});
-
 		res.end();
 	});
 
 	var audioRecordStorage = multer.diskStorage({
 		destination: function(req, file, callback) {
-			log.info(typeof Core._UPLOAD, Core._UPLOAD);
 			if (!fs.existsSync(Core._UPLOAD)) {
 				fs.mkdirSync(Core._UPLOAD);
 			}
@@ -179,9 +177,24 @@ function attachDefaultRoutes(ui) {
 
 	ui.post('/audio', audioRecordUpload, function(req, res) {
 		log.info('Audio received!');
-		Core.do('interface|tts|speak', { lg: 'en', msg: 'record' });
 		log.debug(req.file);
-		Core.do('interface|sound|play', { mp3: req.file.path, volume: Core.run('volume') * 3 }, { delay: 1 });
+		Core.do('service|audioRecord|new', req.file.path, { delay: 1 });
+		res.end();
+	});
+
+	ui.post('/audio/last', audioRecordUpload, function(req, res) {
+		Core.do('service|audioRecord|last');
+		res.end();
+	});
+
+	ui.post('/audio/all', audioRecordUpload, function(req, res) {
+		Core.do('service|audioRecord|all');
+		res.end();
+	});
+
+	ui.post('/audio/clean', audioRecordUpload, function(req, res) {
+		Core.do('service|audioRecord|clean');
+		res.end();
 	});
 
 	ui.post('/toggleDebug', function(req, res) {

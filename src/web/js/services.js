@@ -254,9 +254,11 @@ app.service('audioService', [
 		};
 
 		ctrl.cancelRecord = function(callback) {
-			rec.stop();
-			gumStream.getAudioTracks()[0].stop(); //stop microphone access
-			UIService.showToast('Record canceled');
+			if (rec) {
+				rec.stop();
+				gumStream.getAudioTracks()[0].stop(); //stop microphone access
+				UIService.showToast('Record canceled');
+			}
 		};
 
 		function startRecorder(stream) {
