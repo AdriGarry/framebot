@@ -37,6 +37,7 @@ exitIfNoArgs $*
 ifStop $*
 
  _NAME=$1
+ 
 #_PATH=`pwd`
 _PATH="/home/pi/core/"
 echo _PATH $_PATH
