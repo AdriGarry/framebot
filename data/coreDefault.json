@@ -16,7 +16,8 @@
 		"music": false,
 		"alarm": false,
 		"timer": 0,
-		"voicemail": null,
+		"voicemail": 0,
+		"audioRecord": 0,
 		"screen": null,
 		"cpu": {
 			"usage": null,

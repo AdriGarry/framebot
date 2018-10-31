@@ -379,7 +379,7 @@ app.component('audioRecorder', {
 		<md-bottom-sheet class="md-grid" layout="column">
 			<md-subheader data-ng-cloak>
 				<span data-ng-show="!recording">Audio recorder</span>
-				<span data-ng-show="recording">Speak now... <i>-{{countDown}}<sup>S</sup></i></span>
+				<span data-ng-show="recording">Speak now... <i>-{{countDown}}s</i></span>
 			</md-subheader>
 			<div data-ng-cloak>
 				<span data-ng-if="$root.irda">
@@ -401,8 +401,7 @@ app.component('audioRecorder', {
 				</span>
 				<md-button class="md-raised md-grid-item-content" data-ng-class="recording?'md-warn':'md-primary'" data-ng-click="toggleRecord()" title="ToggleRecord">
 					<br>
-					<i class="fas fa-2x fa-microphone" data-ng-show="!waitRecording"></i>
-					<i class="fas fa-2x fa-circle-notch fa-spin" data-ng-show="waitRecording"></i>
+					<i class="fas fa-2x {{waitRecording?'fa-circle-notch fa-spin':'fa-microphone'}}"></i>
 					<br>{{recording ? 'Send':'Start'}}
 				</md-button>
 				<br>

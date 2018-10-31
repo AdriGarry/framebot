@@ -23,15 +23,24 @@ Core.flux.service.audioRecord.subscribe({
 	}
 });
 
+// setImmediate(() => {
+// 	// updateVoicemailMessage();
+// 	log.info('VoiceMail flag initialized');
+// 	if (!Core.run('audioRecord')) {
+// 		// checkVoiceMail();
+// 	}
+// });
+
 var lastRecordPath = null,
 	recordListPath = [];
 
 function addRecord(path) {
 	log.debug('addRecord', path);
-	Core.do('interface|tts|speak', { lg: 'en', msg: 'record' });
+	Core.do('interface|tts|speak', { lg: 'en', msg: 'record' }, { hidden: true });
 	Core.do('interface|sound|play', { mp3: path, volume: Core.run('volume') * 3 }, { delay: 1, hidden: true });
 	lastRecordPath = path;
 	recordListPath.push(path);
+	Core.run('audioRecord', recordListPath.length);
 }
 
 function playLastRecord() {
