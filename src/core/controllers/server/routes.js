@@ -3,7 +3,8 @@
 // Route sub-module (server)
 
 const { spawn, exec } = require('child_process');
-const fs = require('fs');
+const fs = require('fs'),
+	multer = require('multer');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
@@ -158,7 +159,41 @@ function attachDefaultRoutes(ui) {
 		Core.do('service|system|restart', null, {
 			delay: 1
 		});
+		res.end();
+	});
 
+	var audioRecordStorage = multer.diskStorage({
+		destination: function(req, file, callback) {
+			if (!fs.existsSync(Core._UPLOAD)) {
+				fs.mkdirSync(Core._UPLOAD);
+			}
+			callback(null, Core._UPLOAD);
+		},
+		filename: function(req, file, callback) {
+			callback(null, file.fieldname + '_' + new Date().toISOString() + '.wav');
+		}
+	});
+	var audioRecordUpload = multer({ storage: audioRecordStorage }).single('audioRecord');
+
+	ui.post('/audio', audioRecordUpload, function(req, res) {
+		log.info('Audio received!');
+		log.debug(req.file);
+		Core.do('service|audioRecord|new', req.file.path, { delay: 1 });
+		res.end();
+	});
+
+	ui.post('/audio/last', audioRecordUpload, function(req, res) {
+		Core.do('service|audioRecord|last');
+		res.end();
+	});
+
+	ui.post('/audio/all', audioRecordUpload, function(req, res) {
+		Core.do('service|audioRecord|all');
+		res.end();
+	});
+
+	ui.post('/audio/clean', audioRecordUpload, function(req, res) {
+		Core.do('service|audioRecord|clean');
 		res.end();
 	});
 
@@ -166,10 +201,6 @@ function attachDefaultRoutes(ui) {
 		log.info('UI > Toggle debug');
 		let newLogLevel = log.level() == 'debug' ? 'info' : 'debug';
 		log.level(newLogLevel);
-		// Core.do('interface|runtime|update', {
-		// 	log: newLogLevel
-		// });
-		// Core.conf('log', newLogLevel, false, true);
 		res.end();
 	});
 
@@ -180,7 +211,6 @@ function attachDefaultRoutes(ui) {
 		Core.do('interface|runtime|update', {
 			log: newLogLevel
 		});
-		// Core.conf('log', newLogLevel, false, true);
 		res.end();
 	});
 

@@ -349,6 +349,109 @@ app.component('jukebox', {
 	}
 });
 
+/** Audio recorder component */
+app.component('audioRecorder', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile, $rootScope, UIService) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Audio recorder',
+			actionList: []
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
+
+		/** Overwrite tile action */
+		ctrl.tile.click = function() {
+			ctrl.tile.openCustomBottomSheet(bottomSheetController, bottomSheetTemplate, bottomSheetCatch);
+		};
+
+		let bottomSheetCatch = function(audioService) {
+			audioService.cancelRecord();
+		};
+
+		const bottomSheetTemplate = `
+		<md-bottom-sheet class="md-grid" layout="column">
+			<md-subheader data-ng-cloak>
+				<span data-ng-show="!recording">Audio recorder</span>
+				<span data-ng-show="recording">Speak now... <i>-{{countDown}}<sup>S</sup></i></span>
+			</md-subheader>
+			<div data-ng-cloak>
+				<span data-ng-if="$root.irda">
+					<md-button class="md-grid-item-content" data-ng-click="action({label: 'Clean Records', url: '/audio/clean'})" title="Clean">
+						<br>
+						<i class="fas fa-2x fa-trash"></i>
+						<br>Clean
+					</md-button>
+					<md-button class="md-grid-item-content" data-ng-click="action({label: 'All Records', url: '/audio/all'})" title="All">
+						<br>
+						<i class="fas fa-2x fa-reply-all"></i>
+						<br>All
+					</md-button>
+					<md-button class="md-grid-item-content" data-ng-click="action({label: 'Last record', url: '/audio/last'})" title="Last">
+						<br>
+						<i class="fas fa-2x fa-undo"></i>
+						<br>Last
+					</md-button>
+				</span>
+				<md-button class="md-raised md-grid-item-content" data-ng-class="recording?'md-warn':'md-primary'" data-ng-click="toggleRecord()" title="ToggleRecord">
+					<br>
+					<i class="fas fa-2x fa-microphone" data-ng-show="!waitRecording"></i>
+					<i class="fas fa-2x fa-circle-notch fa-spin" data-ng-show="waitRecording"></i>
+					<br>{{recording ? 'Send':'Start'}}
+				</md-button>
+				<br>
+			</div>
+		</md-bottom-sheet>`;
+
+		let bottomSheetController = function($rootScope, $scope, $interval, UIService, audioService) {
+			var ctrl = $scope;
+			ctrl.recording = false;
+			ctrl.waitRecording = false;
+
+			ctrl.action = function(cmd) {
+				UIService.sendCommand(cmd);
+			};
+
+			ctrl.toggleRecord = function() {
+				if (!ctrl.recording) {
+					ctrl.waitRecording = true;
+					audioService.startRecord(isRecording => {
+						ctrl.waitRecording = false;
+						ctrl.recording = isRecording;
+						startCountDown();
+					});
+				} else {
+					ctrl.waitRecording = true;
+					audioService.stopRecord(isRecording => {
+						ctrl.waitRecording = false;
+						ctrl.recording = isRecording;
+						ctrl.countDown = 0;
+					});
+				}
+			};
+
+			function startCountDown() {
+				ctrl.countDown = 15;
+				ctrl.countDownInterval = $interval(() => {
+					ctrl.countDown--;
+					if (!ctrl.countDown || !ctrl.recording) {
+						$interval.cancel(ctrl.countDownInterval);
+						if (ctrl.recording) {
+							ctrl.toggleRecord();
+						}
+					}
+				}, 1000);
+			}
+		};
+	}
+});
+
 /** Timer component */
 app.component('timer', {
 	bindings: {

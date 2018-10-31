@@ -159,12 +159,6 @@
 		</div>
 	</div>
 
-	<div class="tileContent" data-ng-switch-when="Exclamation">
-		<div class="main">
-			<i class="far fa-comment-alt"></i>
-		</div>
-	</div>
-
 	<div class="tileContent" data-ng-switch-when="Music">
 		<div class="main">
 			<i class="fas fa-music"></i>
@@ -176,6 +170,18 @@
 			<i data-ng-hide="$ctrl.data.value" class="far fa-hourglass"></i>
 			<i data-ng-show="$ctrl.data.value" class="fas fa-hourglass-half"></i>
 			<span data-ng-show="$ctrl.data.value">{{$ctrl.data.value | formatTime}}</span>
+		</div>
+	</div>
+
+	<div class="tileContent" data-ng-switch-when="Audio recorder">
+		<div class="main">
+			<i class="fas fa-microphone"></i>
+		</div>
+	</div>
+
+	<div class="tileContent" data-ng-switch-when="Exclamation">
+		<div class="main">
+			<i class="far fa-comment-alt"></i>
 		</div>
 	</div>
 

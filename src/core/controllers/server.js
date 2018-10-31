@@ -68,11 +68,10 @@ function startUIServer() {
 	uiHttps.use(compression()); // Compression web
 	uiHttps.use(express.static(Core._WEB)); // For static files
 	uiHttps.use(bodyParser.json()); // to support JSON-encoded bodies
-	uiHttps.use(
-		bodyParser.urlencoded({
-			extended: true // to support URL-encoded bodies
-		})
-	);
+	uiHttps.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
+	uiHttps.use(bodyParser.raw({ type: 'application/octet-stream', limit: '50mb' }));
+
 	uiHttps.use(MIDDLEWARE.security());
 
 	require(Core._CORE + 'controllers/server/routes.js').attachRoutes(uiHttps);

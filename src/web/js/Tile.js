@@ -1,5 +1,5 @@
 /** DefaultTile object **/
-app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UIService) {
+app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UIService, audioService) {
 	// Tile constructor function
 	function Tile(tile) {
 		// Basic attributes
@@ -22,6 +22,7 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 		this.cssClass = this.id;
 		this.openBottomSheet = openBottomSheet;
 		this.openSliderBottomSheet = openSliderBottomSheet;
+		this.openCustomBottomSheet = openCustomBottomSheet;
 	}
 
 	/** Function on click on Tile **/
@@ -101,6 +102,25 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 					button.params = { value: button.value };
 				}
 				action(button); // à redéfinir ??
+			});
+	}
+
+	/** Function to open a custom content on bottom sheet */
+	function openCustomBottomSheet(bottomSheetController, bottomSheetTemplate, catchFunction) {
+		// console.log('openCustomBottomSheet()', slider);
+		// $rootScope.bottomSheetSlider = slider;
+		$mdBottomSheet
+			.show({
+				template: bottomSheetTemplate, //templateUrl: 'template/bottom-sheet-audio-recorder.html'
+				controller: bottomSheetController,
+				clickOutsideToClose: true
+			})
+			.then(function(button) {
+				//
+			})
+			.catch(function() {
+				console.log('You hit escape or clicked the backdrop to close.');
+				catchFunction(audioService);
 			});
 	}
 
