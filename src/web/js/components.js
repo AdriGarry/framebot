@@ -361,7 +361,7 @@ app.component('audioRecorder', {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Audio recorder',
-			actionList: [{ label: 'FIP Radio', icon: 'fas fa-globe', url: '/toto' }]
+			actionList: []
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
@@ -371,40 +371,66 @@ app.component('audioRecorder', {
 			if (!$rootScope.irda) {
 				UIService.showErrorToast('Unauthorized action.');
 			} else {
-				ctrl.tile.openCustomBottomSheet(bottomSheetcontroller, bottomSheetTemplate);
+				ctrl.tile.openCustomBottomSheet(bottomSheetController, bottomSheetTemplate, bottomSheetCatch);
 			}
+		};
+
+		let bottomSheetCatch = function(audioService) {
+			audioService.cancelRecord();
 		};
 
 		const bottomSheetTemplate = `
 		<md-bottom-sheet class="md-grid" layout="column">
-			<md-subheader data-ng-cloak>{{recording ? 'Speak now...':'Audio recorder'}}</md-subheader>
+			<md-subheader data-ng-cloak>
+				<span data-ng-show="!recording">Audio recorder</span>
+				<span data-ng-show="recording">Speak now... <i>-{{countDown}}<sup>S</sup></i></span>
+			</md-subheader>
 			<div data-ng-cloak>
-				<p id="templogs"></p>
-				<span class="fa-2x">0:00</span>
-
-				<md-button class="md-raised md-grid-item-content" data-ng-class="recording?'md-warn':'md-primary'" data-ng-click="toggleRecord()"
-					title="ToggleRecord"><br><i class="fas fa-2x fa-microphone"></i><br>{{recording ? 'Stop':'Start'}}</md-button>
+				<md-button class="md-raised md-grid-item-content" data-ng-class="recording?'md-warn':'md-primary'" data-ng-click="toggleRecord()" title="ToggleRecord">
+					<br>
+					<i class="fas fa-3x fa-microphone" data-ng-show="!waitRecording"></i>
+					<i class="fas fa-3x fa-circle-notch fa-spin" data-ng-show="waitRecording"></i>
+					<br>{{recording ? 'Send':'Start'}}
+				</md-button>
 				<br>
 			</div>
 		</md-bottom-sheet>`;
-		let bottomSheetcontroller = function($scope, audioService) {
+
+		let bottomSheetController = function($scope, $interval, audioService) {
 			var ctrl = $scope;
 			ctrl.recording = false;
+			ctrl.waitRecording = false;
 
 			ctrl.toggleRecord = function() {
 				if (!ctrl.recording) {
-					// ctrl.recording = true;
+					ctrl.waitRecording = true;
 					audioService.startRecord(isRecording => {
+						ctrl.waitRecording = false;
 						ctrl.recording = isRecording;
+						startCountDown();
 					});
 				} else {
-					ctrl.recording = audioService.stopRecord(isRecording => {
+					ctrl.waitRecording = true;
+					audioService.stopRecord(isRecording => {
+						ctrl.waitRecording = false;
 						ctrl.recording = isRecording;
+						ctrl.countDown = 0;
 					});
 				}
 			};
 
-			// TODO annuler l'enregistrement si fermeture du bottom sheet
+			function startCountDown() {
+				ctrl.countDown = 15;
+				ctrl.countDownInterval = $interval(() => {
+					ctrl.countDown--;
+					if (!ctrl.countDown || !ctrl.recording) {
+						$interval.cancel(ctrl.countDownInterval);
+						if (ctrl.recording) {
+							ctrl.toggleRecord();
+						}
+					}
+				}, 1000);
+			}
 		};
 	}
 });

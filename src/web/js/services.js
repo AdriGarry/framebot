@@ -224,6 +224,7 @@ app.service('audioService', [
 		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 			ctrl.recorderAvailable = true;
 		} else {
+			UIService.showErrorToast('getUserMedia not supported on your browser!');
 			console.error('getUserMedia not supported on your browser!');
 		}
 
@@ -252,8 +253,10 @@ app.service('audioService', [
 			});
 		};
 
-		ctrl.cancelRecord = function() {
-			// UIService.showToast('Record canceled');
+		ctrl.cancelRecord = function(callback) {
+			rec.stop();
+			gumStream.getAudioTracks()[0].stop(); //stop microphone access
+			UIService.showToast('Record canceled');
 		};
 
 		function startRecorder(stream) {
