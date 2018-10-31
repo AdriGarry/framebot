@@ -4,6 +4,7 @@
 
 const { spawn, exec } = require('child_process');
 const fs = require('fs'),
+	multer = require('multer'),
 	formidable = require('formidable');
 // upload = multer({ storage: multer.memoryStorage() });
 
@@ -178,24 +179,62 @@ function attachDefaultRoutes(ui) {
 	// 	}
 	// }).single('post_image');
 
-	// var Storage = multer.diskStorage({
-	// 	destination: function(req, file, callback) {
-	// 		callback(null, 'toto/');
-	// 	},
-	// 	filename: function(req, file, callback) {
-	// 		callback(null, file.fieldname + '_' + Date.now() + '.wav');
-	// 	}
-	// });
-	// var upload = multer({ storage: Storage }).single('audioPath');
+	var Storage = multer.diskStorage({
+		destination: function(req, file, callback) {
+			log.info('\n_____destination');
+			callback(null, '/toto/');
+		},
+		filename: function(req, file, callback) {
+			log.info('\n_____filename', file.fieldname);
+			callback(null, file.fieldname + '_' + Date.now() + '.wav');
+		}
+	});
+	var upload = multer({ storage: Storage }).single('audioPath');
 
 	// ui.post('/audio', upload.single('somefile.wav'), function(req, res) {
 	ui.post('/audio', function(req, res) {
 		log.INFO('Audio received !!!');
-		log.info(JSON.stringify(res.headers));
-		console.log(req.body, req.files);
+		log.info(req.body);
+		upload(req, res, function(err) {
+			if (err) {
+				log.error('Something went wrong!');
+				return res.end('Something went wrong!');
+			}
+			log.INFO('File uploaded sucessfully!.');
+			log.info(req);
+			log.info(req.files);
+			return res.end();
+		});
 
+		// console.log(req.body, req.files);
+		// fs.writeFile('req.json', JSON.stringify(req), function(err) {
+		// 	console.log('OK, fichier écrit');
+		// });
 		// log.info(req.body);
-		// new formidable.IncomingForm().parse(req, (err, fields, files) => {
+
+		// let stream = fs.createReadStream(req.body); /*, {bufferSize: 64 * 1024}*/
+		// stream.pipe(fs.createWriteStream('upload.txt'));
+		// stream.on('error', function(e) {
+		// 	Core.error('stream error while... ', e);
+		// });
+		// stream.on('close', function() {
+		// 	log.info('_____YESSSSSSSSSS');
+		// });
+
+		// let data = [];
+		// req.on('data', chunk => {
+		// 	log.info('data');
+
+		// 	data.push(chunk);
+		// });
+		// req.on('end', (req, res) => {
+		// 	data = Buffer.concat(data);
+		// 	log.INFO('...............THIS IS OK !');
+		// 	log.info(data);
+		// });
+
+		// let form = new formidable.IncomingForm();
+		// form.parse(req, (err, fields, files) => {
 		// 	if (err) {
 		// 		console.error('Error', err);
 		// 		throw err;

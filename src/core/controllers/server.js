@@ -72,16 +72,12 @@ function startUIServer() {
 	uiHttps.use(bodyParser.json()); // to support JSON-encoded bodies
 	uiHttps.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-	var multipart = require('connect-multiparty');
-	var multipartMiddleware = multipart();
-	uiHttps.use('/audio', multipartMiddleware);
+	// var multipart = require('connect-multiparty');
+	// var multipartMiddleware = multipart();
+	// uiHttps.use('/audio', multipartMiddleware);
 
-	// uiHttps.use(bodyParser.raw({ type: 'audio/wav', limit: '100mb' }));
-	uiHttps.use(
-		bodyParser.urlencoded({
-			extended: true // to support URL-encoded bodies
-		})
-	);
+	uiHttps.use(bodyParser.raw({ type: 'application/octet-stream', limit: '50mb' }));
+
 	uiHttps.use(MIDDLEWARE.security());
 
 	require(Core._CORE + 'controllers/server/routes.js').attachRoutes(uiHttps);

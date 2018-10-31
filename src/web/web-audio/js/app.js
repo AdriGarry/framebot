@@ -103,8 +103,8 @@ app.component('audioRecorder', {
 		function createFormDataThenUpload(blob) {
 			var filename = new Date().toISOString(); //filename to send to server without extension
 			var formData = new FormData();
-			formData.append('toto', 'titi');
-			formData.append('audioRecord', blob, filename);
+			formData.append('filename', filename);
+			formData.append('file', blob);
 
 			// xhr.open('POST', 'upload.php', true);
 			// xhr.send(fd);
@@ -119,8 +119,9 @@ app.component('audioRecorder', {
 					'User-Interface': 'UIv5',
 					pwd: 'nn',
 					'User-position': 'noPos',
-					'Content-Type': 'application/x-www-form-urlencoded'
+					// 'Content-Type': 'application/x-www-form-urlencoded'
 					// 'Content-Type': 'multipart/form-data'
+					'Content-Type': undefined
 				},
 				method: 'POST',
 				url: 'https://odi.adrigarry.com/audio',
@@ -163,3 +164,19 @@ angular.element(document).ready(function() {
 	};
 	// console.log('console initialized');
 });
+
+/**
+ {
+ '------WebKitFormBoundaryqiVWEnGHxUGe9KLG
+ Content-Disposition: form-data; name':
+   '"toto"
+   
+   titi
+   ------WebKitFormBoundaryqiVWEnGHxUGe9KLG
+   Content-Disposition: form-data; name="audioRecord"; filename="2018-10-30T19:46:29.798Z"
+   Content-Type: audio/wav
+   
+   RIFF$\u0000\u0000\u0000WAVEfmt \u0010\u0000\u0000\u0000\u0001\u0000\u0001\u0000��\
+   ------WebKitFormBoundaryqiVWEnGHxUGe9KLG--'
+}
+*/
