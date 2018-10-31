@@ -186,14 +186,13 @@ function countSoftwareLines() {
 	var typesNb = EXTENSIONS.length;
 	var lines = {},
 		totalLines = 0;
-	EXTENSIONS.forEach(function(item) {
-		var temp = item;
-		Utils.execCmd('find ' + PATHS.join(' ') + ' -name "*.' + temp + '" -print | xargs wc -l', data => {
+	EXTENSIONS.forEach(function(extension) {
+		Utils.execCmd('find ' + PATHS.join(' ') + ' -name "*.' + extension + '" -print | xargs wc -l', data => {
 			var regex = /(\d*) total/g;
 			var result = regex.exec(data);
 			var t = result && result[1] ? result[1] : -1;
 			totalLines = parseInt(totalLines) + parseInt(t);
-			lines[item] = parseInt(t);
+			lines[extension] = parseInt(t);
 			typesNb--;
 			if (!typesNb) {
 				log.debug('countSoftwareLines()', totalLines);
@@ -205,7 +204,6 @@ function countSoftwareLines() {
 }
 
 /** Function to clean and archive logs each week */
-
 function archiveLogs() {
 	log.info('Clean log files  /!\\');
 	var date = new Date();
