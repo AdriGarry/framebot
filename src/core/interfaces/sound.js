@@ -19,9 +19,9 @@ Core.flux.interface.sound.subscribe({
 			} else if (flux.id == 'playRandom') {
 				playSoundRandomPosition(flux.value);
 			} else if (flux.id == 'error') {
-				playSound({ mp3: 'system/ressort.mp3', noLog: true });
+				playSound({ mp3: 'system/ressort.mp3', noLog: true, noLed: true });
 			} else if (flux.id == 'UI') {
-				playSound({ mp3: 'system/UIrequestSound.mp3', noLog: true });
+				playSound({ mp3: 'system/UIrequestSound.mp3', noLog: true, noLed: true });
 			} else if (flux.id == 'reset') {
 				resetSound();
 			} else {
@@ -68,7 +68,7 @@ function playSound(arg) {
 
 	let position = arg.position || 0;
 	let volume = arg.volume || Core.run('volume');
-	doPlay(sound, volume, position, soundTitle, arg.noLog);
+	doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
 }
 
 function playSoundRandomPosition(arg) {
@@ -80,11 +80,11 @@ function playSoundRandomPosition(arg) {
 	});
 }
 
-function doPlay(sound, volume, position, soundTitle, noLog) {
+function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
 	let startPlayTime = new Date();
 	let mplayerProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position || 0, sound]);
 
-	mplayerProcess.ledFlag = ledFlag();
+	if (!noLed) mplayerProcess.ledFlag = ledFlag();
 
 	mplayerProcess.stderr.on('data', err => {
 		log.trace(`stderr: ${err}`); // TODO...

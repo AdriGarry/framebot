@@ -425,7 +425,7 @@ app.component('audioRecorder', {
 							ctrl.waitRecording = false;
 							ctrl.recording = isRecording;
 							startCountDown();
-						}, 500);
+						}, 1000);
 					});
 				} else {
 					ctrl.waitRecording = true;
@@ -435,7 +435,7 @@ app.component('audioRecorder', {
 							ctrl.recording = isRecording;
 							ctrl.countDown = 0;
 						});
-					}, 500);
+					}, 1000);
 				}
 			};
 

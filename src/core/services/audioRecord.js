@@ -39,13 +39,14 @@ var lastRecordPath = null,
 function addRecord(path) {
 	log.debug('addRecord', path);
 	Core.do('interface|tts|speak', { lg: 'en', msg: 'record' }, { hidden: true });
-	Utils.execCmd('lame --scale 2 ' + path + ' ' + path + 'UP', data => {
+	Utils.execCmd('lame --scale 2 ' + path + ' ' + path + 'UP', () => {
 		//TODO -V3 to encode as mp3
-		fs.renameSync(path + 'UP', path);
-		Core.do('interface|sound|play', { mp3: path, volume: Core.run('volume') * 3 }, { hidden: true });
-		lastRecordPath = +path;
-		recordListPath.push(path);
-		Core.run('audioRecord', recordListPath.length);
+		fs.rename(path + 'UP', path, () => {
+			Core.do('interface|sound|play', { mp3: path /*,volume: Core.run('volume') * 2*/ }, { hidden: true });
+			lastRecordPath = path;
+			recordListPath.push(path);
+			Core.run('audioRecord', recordListPath.length);
+		});
 	});
 }
 
@@ -55,7 +56,7 @@ function playLastRecord() {
 		Core.do('interface|tts|speak', { lg: 'en', msg: "I don't have any record" });
 		return;
 	}
-	Core.do('interface|sound|play', { mp3: lastRecordPath, volume: Core.run('volume') * 3 }, { hidden: true });
+	Core.do('interface|sound|play', { mp3: lastRecordPath /*, volume: Core.run('volume') * 3*/ }, { hidden: true });
 }
 
 function playAllRecords() {
@@ -69,7 +70,7 @@ function playAllRecords() {
 	// recordListPath.forEach(recordPath => {
 	for (let i = 0; i < recordListPath.length; i++) {
 		log.info('---> TO FIX', delay, recordListPath[i]);
-		Core.do('interface|sound|play', { mp3: recordListPath[i], volume: Core.run('volume') * 3 }, { delay: delay });
+		Core.do('interface|sound|play', { mp3: recordListPath[i] /*, volume: Core.run('volume') * 3*/ }, { delay: delay });
 		delay = delay + 5 * 1000; // TODO...
 	}
 }
