@@ -28,13 +28,14 @@ ifStop(){
 	fi
 }
 
-clear
 
 setupCoreCommand $*
 
 exitIfNoArgs $*
 
 ifStop $*
+
+clear
 
  _NAME=$1
  
