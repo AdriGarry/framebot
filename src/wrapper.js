@@ -55,7 +55,7 @@ function wrapper(code) {
 		debounceTimeout: 500
 	});
 	okButton.watch(function(err, value) {
-		console.log('\nOk Button pushed, restarting Core');
+		console.log('\n\nOk Button pushed, restarting Core');
 		restartCoreFromWrapper(code);
 	});
 }
