@@ -167,7 +167,7 @@ function cocorico(mode) {
 	// TODO remove sea mode information
 	log.info('Morning Sea...');
 	Core.do('interface|sound|play', { mp3: 'system/morningSea.mp3' });
-	Utils.getMp3Duration(Core._MP3 + 'system/morningSea.mp3', function(seaDuration) {
+	Utils.getSoundDuration(Core._MP3 + 'system/morningSea.mp3', function(seaDuration) {
 		log.debug('seaDuration', seaDuration);
 		alarmDelay = seaDuration * 1000;
 		setTimeout(function() {
@@ -205,6 +205,10 @@ function cocoricoPart3() {
 	});
 	Core.do('service|voicemail|check', null, {
 		delay: 13
+	});
+
+	Core.do('service|audioRecord|check', null, {
+		delay: 30
 	});
 
 	Core.do('service|music|fip', null, {

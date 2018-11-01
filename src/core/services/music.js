@@ -46,7 +46,7 @@ function repeatSong() {
 	log.info('next song...');
 	let song = jukeboxRandomBox.next();
 	let ttime = new Date();
-	Utils.getMp3Duration(Core._MP3 + 'jukebox/' + song, function(duration) {
+	Utils.getSoundDuration(Core._MP3 + 'jukebox/' + song, function(duration) {
 		// log.INFO('duration=' + duration);
 		Core.do('interface|sound|play', { mp3: 'jukebox/' + song, duration: duration });
 		jukeboxTimeout = setTimeout(function() {

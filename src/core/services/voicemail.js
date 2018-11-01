@@ -57,7 +57,7 @@ function addVoiceMailMessage(tts) {
 		// 	log.INFO('--->this is not a real error', err, tts);
 		// }
 	} else if (typeof tts === 'string') {
-		addVoiceMailMessage({msg: tts});
+		addVoiceMailMessage({ msg: tts });
 	} else if (Array.isArray(tts)) {
 		// log.INFO('______array message');
 		for (var i = 0; i < tts.length; i++) {

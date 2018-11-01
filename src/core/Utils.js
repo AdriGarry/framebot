@@ -18,7 +18,7 @@ module.exports = {
 	addPatternBefore: addPatternBefore,
 	getJsonFileContent: getJsonFileContent,
 	getAbsolutePath: getAbsolutePath,
-	getMp3Duration: getMp3Duration,
+	getSoundDuration: getSoundDuration,
 	logTime: logTime,
 	numberWithDot: numberWithDot,
 	perCent: perCent,
@@ -182,21 +182,21 @@ function getAbsolutePath(path, prefix) {
 }
 
 /** Function to retreive mp3 file duration */
-function getMp3Duration(mp3File, callback) {
-	// log.info('getMp3Duration()', mp3File);
-	// console.log('**mp3File', mp3File);
-	execCmd('mplayer -ao null -identify -frames 0 ' + mp3File + ' 2>&1 | grep ID_LENGTH', function(data) {
+function getSoundDuration(soundFile, callback) {
+	// log.info('getSoundDuration()', mp3File);
+	// console.log('**soundFile', soundFile);
+	execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH', function(data) {
 		try {
 			// log.INFO(data);
 			if (data == '') {
-				getMp3Duration(mp3File, callback);
+				getSoundDuration(soundFile, callback);
 			}
 			var duration = data.split('=')[1].trim();
 			// log.INFO(duration);
-			callback(duration);
+			callback(parseInt(duration));
 		} catch (err) {
 			// Don't log error because the method will call itself until OK !
-			// console.error('getMp3Duration error:', err);
+			// console.error('getSoundDuration error:', err);
 		}
 	});
 }
