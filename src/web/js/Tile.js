@@ -89,7 +89,6 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 
 	/** Function to open slider on bottom sheet */
 	function openSliderBottomSheet(slider) {
-		// console.log('openSliderBottomSheet()', slider);
 		$rootScope.bottomSheetSlider = slider;
 		$mdBottomSheet
 			.show({
@@ -106,9 +105,8 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 	}
 
 	/** Function to open a custom content on bottom sheet */
-	function openCustomBottomSheet(bottomSheetController, bottomSheetTemplate, catchFunction) {
-		// console.log('openCustomBottomSheet()', slider);
-		// $rootScope.bottomSheetSlider = slider;
+	function openCustomBottomSheet(bottomSheetController, bottomSheetTemplate, bottomSheetList, catchFunction) {
+		$rootScope.bottomSheetButtonList = bottomSheetList;
 		$mdBottomSheet
 			.show({
 				template: bottomSheetTemplate, //templateUrl: 'template/bottom-sheet-audio-recorder.html'
