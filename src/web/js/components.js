@@ -361,14 +361,18 @@ app.component('audioRecorder', {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Audio recorder',
-			actionList: []
+			actionList: [
+				{ label: 'Clear', icon: 'fas fa-2x fa-trash', url: '/audio/clear' },
+				{ label: 'All', icon: 'fas fa-2x fa-reply-all', url: '/audio/all' },
+				{ label: 'Last', icon: 'fas fa-2x fa-undo', url: '/audio/last' }
+			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
 
 		/** Overwrite tile action */
 		ctrl.tile.click = function() {
-			ctrl.tile.openCustomBottomSheet(bottomSheetController, bottomSheetTemplate, bottomSheetCatch);
+			ctrl.tile.openCustomBottomSheet(bottomSheetController, bottomSheetTemplate, this.actionList, bottomSheetCatch);
 		};
 
 		let bottomSheetCatch = function(audioService) {
@@ -383,20 +387,9 @@ app.component('audioRecorder', {
 			</md-subheader>
 			<div data-ng-cloak>
 				<span data-ng-if="$root.irda">
-					<md-button class="md-grid-item-content" data-ng-click="action({label: 'Clear Records', url: '/audio/clear'})" title="Clean">
-						<br>
-						<i class="fas fa-2x fa-trash"></i>
-						<br>Clear
-					</md-button>
-					<md-button class="md-grid-item-content" data-ng-click="action({label: 'All Records', url: '/audio/all'})" title="All">
-						<br>
-						<i class="fas fa-2x fa-reply-all"></i>
-						<br>All
-					</md-button>
-					<md-button class="md-grid-item-content" data-ng-click="action({label: 'Last record', url: '/audio/last'})" title="Last">
-						<br>
-						<i class="fas fa-2x fa-undo"></i>
-						<br>Last
+					<md-button data-ng-repeat="button in bottomSheetButtonList track by $index" data-ng-click="action(button)" class="md-grid-item-content">
+						<i class="{{button.icon}} fa-2x"></i>
+						<div class="md-grid-text">{{button.label}}</div>
 					</md-button>
 				</span>
 				<md-button class="md-raised md-grid-item-content" data-ng-class="recording?'md-warn':'md-primary'" data-ng-click="toggleRecord()" title="ToggleRecord">
@@ -408,13 +401,23 @@ app.component('audioRecorder', {
 			</div>
 		</md-bottom-sheet>`;
 
-		let bottomSheetController = function($rootScope, $scope, $timeout, $interval, UIService, audioService) {
+		let bottomSheetController = function(
+			$rootScope,
+			$scope,
+			$timeout,
+			$interval,
+			$mdBottomSheet,
+			UIService,
+			audioService
+		) {
 			var ctrl = $scope;
 			ctrl.recording = false;
 			ctrl.waitRecording = false;
 
 			ctrl.action = function(cmd) {
-				UIService.sendCommand(cmd);
+				UIService.sendCommand(cmd, () => {
+					$mdBottomSheet.hide(cmd);
+				});
 			};
 
 			ctrl.toggleRecord = function() {
