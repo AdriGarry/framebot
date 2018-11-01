@@ -33,7 +33,6 @@ setImmediate(() => {
 	updateRecord();
 	log.info('Audio record flag initialized');
 	if (!Core.run('alarm')) {
-		log.error('Bordel', 'Core.run(alarm)', Core.run('alarm'));
 		checkRecord();
 	}
 });
@@ -42,6 +41,7 @@ setInterval(function() {
 }, 10000);
 
 const RECORD_FILE = Core._TMP + 'record.json';
+const NO_RECORD_TTS = { lg: 'en', msg: "I don't have any record" };
 const DELAY_TO_CLEAR_RECORDS = 60 * 60 * 1000; // TODO as in voicemail?
 
 var lastRecordPath = null,
@@ -57,17 +57,18 @@ function addRecord(path) {
 			recordListPath.push(path);
 			Core.run('audioRecord', recordListPath.length);
 			Core.do('interface|sound|play', { mp3: path /*,volume: Core.run('volume') * 2*/ }, { hidden: true, delay: 0.2 });
-			if (!Core.isAwake()) {
-				Utils.appendJsonFile(RECORD_FILE, path);
-			}
+			Utils.appendJsonFile(RECORD_FILE, path);
 		});
 	});
 }
 
+// TODO utiliser Utils.getJsonFileContent comme dans voicemailjs
 function checkRecord() {
 	log.info('checkRecord');
 	fs.access(RECORD_FILE, err => {
-		if (!err) {
+		if (err) {
+			log.debug('No file: ' + err);
+		} else {
 			fs.readFile(RECORD_FILE, (err, data) => {
 				let recordPaths = JSON.parse(data);
 				log.info('received records', recordPaths);
@@ -75,35 +76,6 @@ function checkRecord() {
 				playAllRecords(recordPaths);
 			});
 		}
-	});
-}
-
-function playLastRecord() {
-	log.debug('playLastRecord');
-	if (!lastRecordPath) {
-		Core.do('interface|tts|speak', { lg: 'en', msg: "I don't have any record" });
-		return;
-	}
-	Core.do('interface|sound|play', { mp3: lastRecordPath /*, volume: Core.run('volume') * 3*/ }, { hidden: true });
-}
-
-function playAllRecords(recordListPath) {
-	log.info('playAllRecords', recordListPath.length);
-	if (!recordListPath) {
-		Core.do('interface|tts|speak', { lg: 'en', msg: "I don't have any record" });
-		return;
-	}
-	Core.do('interface|tts|speak', { lg: 'en', msg: 'playing all records' });
-	let delay = 3,
-		previousRecordDuration;
-	recordListPath.forEach(recordPath => {
-		Utils.getSoundDuration(recordPath, duration => {
-			if (previousRecordDuration) {
-				delay = delay + previousRecordDuration + 2;
-			}
-			previousRecordDuration = duration;
-			Core.do('interface|sound|play', { mp3: recordPath /*, volume: Core.run('volume') * 3*/ }, { delay: delay });
-		});
 	});
 }
 
@@ -121,8 +93,37 @@ function updateRecord() {
 	}
 }
 
-function clearRecords() {
-	log.info('clearRecords');
+function playLastRecord() {
+	log.debug('playLastRecord');
+	if (!lastRecordPath) {
+		Core.do('interface|tts|speak', NO_RECORD_TTS);
+		return;
+	}
+	Core.do('interface|sound|play', { mp3: lastRecordPath /*, volume: Core.run('volume') * 3*/ }, { hidden: true });
+}
+
+function playAllRecords(recordListPath) {
+	log.info('playAllRecords', recordListPath.length);
+	if (!recordListPath.length) {
+		Core.do('interface|tts|speak', NO_RECORD_TTS);
+		return;
+	}
+	Core.do('interface|tts|speak', { lg: 'en', msg: 'playing all records' });
+	let delay = 3,
+		previousRecordDuration;
+	recordListPath.forEach(recordPath => {
+		Utils.getSoundDuration(recordPath, duration => {
+			if (previousRecordDuration) {
+				delay = delay + previousRecordDuration + 2;
+			}
+			previousRecordDuration = duration;
+			Core.do('interface|sound|play', { mp3: recordPath /*, volume: Core.run('volume') * 3*/ }, { delay: delay });
+		});
+	});
+}
+
+function clearRecords(noLog) {
+	if (!noLog) log.info('clearRecords');
 	fs.unlink(RECORD_FILE, function(err) {
 		if (err) {
 			if (err.code === 'ENOENT') log.info('clearAudioRecord : No record to delete!');
@@ -130,14 +131,15 @@ function clearRecords() {
 		} else {
 			lastRecordPath = null;
 			recordListPath = [];
-			Core.do('interface|tts|speak', { lg: 'en', msg: 'records cleared' });
+			if (!noLog) Core.do('interface|tts|speak', { lg: 'en', msg: 'records cleared' });
 		}
 	});
 }
 
 function trashAllRecords() {
-	log.info('clearRecords');
+	log.info('trashRecords');
+	clearRecords(true);
 	Utils.deleteFolderRecursive(Core._UPLOAD);
-	recordListPath = [];
+	// recordListPath = [];
 	Core.do('interface|tts|speak', { lg: 'en', msg: 'all records deleted' });
 }
