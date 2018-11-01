@@ -22,7 +22,7 @@ Core.flux.service.voicemail.subscribe({
 	}
 });
 
-const DELAY_TO_CLEAR_VOICEMAIL = 60 * 60 * 1000; //15*60*1000;
+const HOURS_TO_CLEAR_VOICEMAIL = 6;
 const VOICEMAIL_FILE = Core._TMP + 'voicemail.json';
 const VOICEMAIL_FILE_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json';
 
@@ -59,7 +59,6 @@ function addVoiceMailMessage(tts) {
 	} else if (typeof tts === 'string') {
 		addVoiceMailMessage({ msg: tts });
 	} else if (Array.isArray(tts)) {
-		// log.INFO('______array message');
 		for (var i = 0; i < tts.length; i++) {
 			addVoiceMailMessage(tts[i]);
 		}
@@ -73,7 +72,7 @@ var clearVoiceMailDelay;
 const NO_VOICEMAIL = 'No voiceMail message';
 /** Function to check voicemail, and play */
 function checkVoiceMail(withTTSResult, callback) {
-	log.debug('Checking VoiceMail...');
+	log.debug('Checking voicemail...');
 	Utils.getJsonFileContent(VOICEMAIL_FILE, function(messages) {
 		if (messages) {
 			messages = JSON.parse(messages);
@@ -84,8 +83,8 @@ function checkVoiceMail(withTTSResult, callback) {
 			clearVoiceMailDelay = setTimeout(function() {
 				// Clearing VoiceMail
 				clearVoiceMail();
-			}, DELAY_TO_CLEAR_VOICEMAIL);
-			log.info('VoiceMail will be cleared in 6 hours.');
+			}, HOURS_TO_CLEAR_VOICEMAIL * 60 * 60 * 1000);
+			log.info('VoiceMail will be cleared in ' + HOURS_TO_CLEAR_VOICEMAIL + ' hours.');
 			if (callback) callback(true); // for other action
 			return true;
 		} else {

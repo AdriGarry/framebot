@@ -17,7 +17,7 @@ Core.flux.service.audioRecord.subscribe({
 		} else if (flux.id == 'last') {
 			playLastRecord(flux.value);
 		} else if (flux.id == 'all') {
-			playAllRecords(recordListPath);
+			playAllRecords();
 		} else if (flux.id == 'clear') {
 			clearRecords();
 		} else if (flux.id == 'trash') {
@@ -41,15 +41,16 @@ setInterval(function() {
 }, 10000);
 
 const RECORD_FILE = Core._TMP + 'record.json';
+const RECORD_TTS = { lg: 'en', msg: 'record' };
 const NO_RECORD_TTS = { lg: 'en', msg: "I don't have any record" };
-const DELAY_TO_CLEAR_RECORDS = 60 * 60 * 1000; // TODO as in voicemail?
+const HOURS_TO_CLEAR_RECORDS = 6;
 
 var lastRecordPath = null,
 	recordListPath = [];
 
 function addRecord(path) {
 	log.debug('addRecord', path);
-	Core.do('interface|tts|speak', { lg: 'en', msg: 'record' }, { hidden: true });
+	Core.do('interface|tts|speak', RECORD_TTS, { hidden: true });
 	Utils.execCmd('lame --scale 2 ' + path + ' ' + path + 'UP', () => {
 		//TODO -V3 to encode as mp3
 		fs.rename(path + 'UP', path, () => {
@@ -62,20 +63,20 @@ function addRecord(path) {
 	});
 }
 
-// TODO utiliser Utils.getJsonFileContent comme dans voicemailjs
+var clearAudioRecordDelay;
+// const NO_VOICEMAIL = 'No voiceMail message';
 function checkRecord() {
-	log.info('checkRecord');
-	fs.access(RECORD_FILE, err => {
-		if (err) {
-			log.debug('No file: ' + err);
-		} else {
-			fs.readFile(RECORD_FILE, (err, data) => {
-				let recordPaths = JSON.parse(data);
-				log.info('received records', recordPaths);
-				recordListPath = recordPaths;
-				playAllRecords(recordPaths);
-			});
-		}
+	log.debug('Checking record...');
+	Utils.getJsonFileContent(RECORD_FILE, function(records) {
+		// JSON.parse(records);
+		updateRecord();
+		playAllRecords();
+		if (clearAudioRecordDelay) clearTimeout(clearAudioRecordDelay);
+		clearAudioRecordDelay = setTimeout(function() {
+			// Clearing Records
+			clearRecords();
+		}, HOURS_TO_CLEAR_RECORDS * 60 * 60 * 1000);
+		log.info('Audio Records will be cleared in ' + HOURS_TO_CLEAR_RECORDS + ' hours.');
 	});
 }
 
@@ -84,6 +85,8 @@ function updateRecord() {
 	try {
 		let records = fs.readFileSync(RECORD_FILE, 'UTF-8');
 		records = JSON.parse(records);
+		lastRecordPath = records[records.length - 1];
+		recordListPath = records;
 		Core.run('audioRecord', records.length);
 		if (Core.run('audioRecord') > 0) {
 			Core.do('interface|led|blink', { leds: ['belly'], speed: 200, loop: 2 }, { hidden: true });
@@ -102,13 +105,13 @@ function playLastRecord() {
 	Core.do('interface|sound|play', { mp3: lastRecordPath /*, volume: Core.run('volume') * 3*/ }, { hidden: true });
 }
 
-function playAllRecords(recordListPath) {
+function playAllRecords() {
 	log.info('playAllRecords', recordListPath.length);
 	if (!recordListPath.length) {
 		Core.do('interface|tts|speak', NO_RECORD_TTS);
 		return;
 	}
-	Core.do('interface|tts|speak', { lg: 'en', msg: 'playing all records' });
+	Core.do('interface|tts|speak', RECORD_TTS);
 	let delay = 3,
 		previousRecordDuration;
 	recordListPath.forEach(recordPath => {
@@ -140,6 +143,5 @@ function trashAllRecords() {
 	log.info('trashRecords');
 	clearRecords(true);
 	Utils.deleteFolderRecursive(Core._UPLOAD);
-	// recordListPath = [];
 	Core.do('interface|tts|speak', { lg: 'en', msg: 'all records deleted' });
 }

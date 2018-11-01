@@ -63,6 +63,10 @@ function attachDefaultRoutes(ui) {
 				value: Core.run('voicemail'),
 				active: Core.run('voicemail') > 0 ? true : false
 			},
+			audioRecord: {
+				value: Core.run('audioRecord'),
+				active: Core.run('audioRecord') > 0 ? true : false
+			},
 			music: {
 				value: Core.run('music'),
 				active: false
