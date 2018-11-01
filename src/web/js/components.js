@@ -408,7 +408,7 @@ app.component('audioRecorder', {
 			</div>
 		</md-bottom-sheet>`;
 
-		let bottomSheetController = function($scope, $timeout, $interval, UIService, audioService) {
+		let bottomSheetController = function($rootScope, $scope, $timeout, $interval, UIService, audioService) {
 			var ctrl = $scope;
 			ctrl.recording = false;
 			ctrl.waitRecording = false;
@@ -440,7 +440,7 @@ app.component('audioRecorder', {
 			};
 
 			function startCountDown() {
-				ctrl.countDown = 15;
+				ctrl.countDown = $rootScope.irda ? 30 : 15;
 				ctrl.countDownInterval = $interval(() => {
 					ctrl.countDown--;
 					if (!ctrl.countDown || !ctrl.recording) {
