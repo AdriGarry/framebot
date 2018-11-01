@@ -383,10 +383,10 @@ app.component('audioRecorder', {
 			</md-subheader>
 			<div data-ng-cloak>
 				<span data-ng-if="$root.irda">
-					<md-button class="md-grid-item-content" data-ng-click="action({label: 'Clean Records', url: '/audio/clean'})" title="Clean">
+					<md-button class="md-grid-item-content" data-ng-click="action({label: 'Clear Records', url: '/audio/clear'})" title="Clean">
 						<br>
 						<i class="fas fa-2x fa-trash"></i>
-						<br>Clean
+						<br>Clear
 					</md-button>
 					<md-button class="md-grid-item-content" data-ng-click="action({label: 'All Records', url: '/audio/all'})" title="All">
 						<br>
@@ -440,7 +440,7 @@ app.component('audioRecorder', {
 			};
 
 			function startCountDown() {
-				ctrl.countDown = $rootScope.irda ? 30 : 15;
+				ctrl.countDown = $rootScope.irda ? 30 : 10;
 				ctrl.countDownInterval = $interval(() => {
 					ctrl.countDown--;
 					if (!ctrl.countDown || !ctrl.recording) {
@@ -767,6 +767,7 @@ app.component('history', {
 		var tileParams = {
 			label: 'History',
 			actionList: [
+				{ label: 'Trash uploads', icon: 'fas fa-microphone', url: '/audio/trash' },
 				{ label: 'Archive', icon: 'fas fa-file-archive', url: '/archiveLog' },
 				{ label: 'TTS', icon: 'far fa-comment-alt', url: 'https://odi.adrigarry.com/ttsUIHistory' },
 				{ label: 'Voicemail', icon: 'far fa-envelope', url: 'https://odi.adrigarry.com/voicemailHistory' },

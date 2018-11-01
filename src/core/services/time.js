@@ -14,8 +14,6 @@ Core.flux.service.time.subscribe({
 			now();
 		} else if (flux.id == 'today') {
 			today();
-			// } else if (flux.id == 'cocorico') {
-			// cocorico(flux.value);
 		} else if (flux.id == 'setAlarm') {
 			setAlarm(flux.value);
 		} else if (flux.id == 'alarmOff') {
@@ -124,7 +122,7 @@ function setAlarm(alarm) {
 		}
 	});
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
-	let alarmTTS = 'Alarme ' + alarmMode + ' reprogramer a ' + alarm.h + ' heure ' + (alarm.m ? alarm.m : '');
+	let alarmTTS = 'Alarme ' + alarmMode + ' ' + alarm.h + ' heure ' + (alarm.m ? alarm.m : '');
 	Core.do('interface|tts|speak', alarmTTS);
 	Core.do(
 		'interface|runtime|updateRestart',
@@ -155,30 +153,29 @@ function isAlarm() {
 				log.INFO('wake up !!');
 				Core.do('service|system|restart');
 			} else {
-				cocorico();
+				setImmediate(() => {
+					cocorico();
+				});
 			}
 		}
 	}
 }
 
 /** Function alarm part 1 */
-function cocorico(mode) {
-	var alarmDelay = 1;
-	// TODO remove sea mode information
+function cocorico() {
 	log.info('Morning Sea...');
 	Core.do('interface|sound|play', { mp3: 'system/morningSea.mp3' });
 	Utils.getSoundDuration(Core._MP3 + 'system/morningSea.mp3', function(seaDuration) {
 		log.debug('seaDuration', seaDuration);
-		alarmDelay = seaDuration * 1000;
 		setTimeout(function() {
-			cocoricoPart2(mode);
-		}, alarmDelay);
+			cocoricoPart2();
+		}, seaDuration * 1000);
 	});
 }
 
 /** Function alarm part 2 */
-function cocoricoPart2(mode) {
-	log.INFO('cocorico !!', mode || '');
+function cocoricoPart2() {
+	log.info('cocorico !!');
 	Core.do('interface|arduino|write', 'playHornDoUp');
 	Core.do('interface|sound|play', { mp3: 'system/cocorico.mp3' });
 	if (isBirthday()) {
@@ -193,26 +190,35 @@ function cocoricoPart2(mode) {
 
 /** Function alarm part 3 */
 function cocoricoPart3() {
+	let delay = 3;
 	Core.do('service|max|hornRdm');
-	Core.do('service|time|now', null, {
-		delay: 3
-	});
 	Core.do('service|time|today', null, {
-		delay: 5
+		delay: delay
 	});
+
+	delay += 3;
+	Core.do('service|time|now', null, {
+		delay: delay
+	});
+
+	delay += 2;
 	Core.do('service|weather|report', null, {
-		delay: 8
+		delay: delay
 	});
+
+	delay += 10;
 	Core.do('service|voicemail|check', null, {
-		delay: 13
+		delay: delay
 	});
 
+	delay += Core.run('voicemail') * 10;
 	Core.do('service|audioRecord|check', null, {
-		delay: 30
+		delay: delay
 	});
 
+	delay += Core.run('audioRecord') * 10;
 	Core.do('service|music|fip', null, {
-		delay: 45
+		delay: delay
 	});
 
 	Core.do('service|max|playOneMelody', null, {
@@ -229,6 +235,10 @@ function cocoricoPart3() {
 		delay: Utils.random(15, 25) * 60,
 		loop: 3
 	});
+
+	setTimeout(() => {
+		Core.run('alarm', false);
+	}, delay * 1000);
 }
 
 const BIRTHDAYS = ['17/04', '13/12', '31/07'];

@@ -192,8 +192,13 @@ function attachDefaultRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/audio/clean', audioRecordUpload, function(req, res) {
-		Core.do('service|audioRecord|clean');
+	ui.post('/audio/clear', audioRecordUpload, function(req, res) {
+		Core.do('service|audioRecord|clear');
+		res.end();
+	});
+
+	ui.post('/audio/trash', audioRecordUpload, function(req, res) {
+		Core.do('service|audioRecord|trash');
 		res.end();
 	});
 

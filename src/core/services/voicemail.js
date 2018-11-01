@@ -97,7 +97,7 @@ function checkVoiceMail(withTTSResult, callback) {
 	});
 }
 
-/** Function to return number of voicemail message(s) */
+/** Function to update runtime with number of voicemail message(s) */
 function updateVoicemailMessage() {
 	try {
 		var messages = fs.readFileSync(VOICEMAIL_FILE, 'UTF-8');
@@ -113,9 +113,10 @@ function updateVoicemailMessage() {
 
 /** Function to clear all voicemail messages */
 function clearVoiceMail() {
+	log.info('clearVoiceMail');
 	fs.unlink(VOICEMAIL_FILE, function(err) {
 		if (err) {
-			if (err.code === 'ENOENT') log.info('clearVoiceMail : No message to delete !');
+			if (err.code === 'ENOENT') log.info('clearVoiceMail : No message to delete!');
 			else Core.error(err);
 		} else {
 			updateVoicemailMessage();

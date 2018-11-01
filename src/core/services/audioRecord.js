@@ -18,8 +18,10 @@ Core.flux.service.audioRecord.subscribe({
 			playLastRecord(flux.value);
 		} else if (flux.id == 'all') {
 			playAllRecords(recordListPath);
-		} else if (flux.id == 'clean') {
-			cleanRecords();
+		} else if (flux.id == 'clear') {
+			clearRecords();
+		} else if (flux.id == 'trash') {
+			trashAllRecords();
 		} else Core.error('unmapped flux in Audio Record service', flux, false);
 	},
 	error: err => {
@@ -28,12 +30,19 @@ Core.flux.service.audioRecord.subscribe({
 });
 
 setImmediate(() => {
+	updateRecord();
+	log.info('Audio record flag initialized');
 	if (!Core.run('alarm')) {
+		log.error('Bordel', 'Core.run(alarm)', Core.run('alarm'));
 		checkRecord();
 	}
 });
+setInterval(function() {
+	updateRecord();
+}, 10000);
 
 const RECORD_FILE = Core._TMP + 'record.json';
+const DELAY_TO_CLEAR_RECORDS = 60 * 60 * 1000; // TODO as in voicemail?
 
 var lastRecordPath = null,
 	recordListPath = [];
@@ -98,8 +107,36 @@ function playAllRecords(recordListPath) {
 	});
 }
 
-function cleanRecords() {
-	log.info('cleanRecords');
+/** Function to update runtime with number of voicemail message(s) */
+function updateRecord() {
+	try {
+		let records = fs.readFileSync(RECORD_FILE, 'UTF-8');
+		records = JSON.parse(records);
+		Core.run('audioRecord', records.length);
+		if (Core.run('audioRecord') > 0) {
+			Core.do('interface|led|blink', { leds: ['belly'], speed: 200, loop: 2 }, { hidden: true });
+		}
+	} catch (e) {
+		Core.run('audioRecord', 0);
+	}
+}
+
+function clearRecords() {
+	log.info('clearRecords');
+	fs.unlink(RECORD_FILE, function(err) {
+		if (err) {
+			if (err.code === 'ENOENT') log.info('clearAudioRecord : No record to delete!');
+			else Core.error(err);
+		} else {
+			lastRecordPath = null;
+			recordListPath = [];
+			Core.do('interface|tts|speak', { lg: 'en', msg: 'records cleared' });
+		}
+	});
+}
+
+function trashAllRecords() {
+	log.info('clearRecords');
 	Utils.deleteFolderRecursive(Core._UPLOAD);
 	recordListPath = [];
 	Core.do('interface|tts|speak', { lg: 'en', msg: 'all records deleted' });
