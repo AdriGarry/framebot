@@ -408,7 +408,7 @@ app.component('audioRecorder', {
 			</div>
 		</md-bottom-sheet>`;
 
-		let bottomSheetController = function($rootScope, $scope, $interval, UIService, audioService) {
+		let bottomSheetController = function($scope, $timeout, $interval, UIService, audioService) {
 			var ctrl = $scope;
 			ctrl.recording = false;
 			ctrl.waitRecording = false;
@@ -421,17 +421,21 @@ app.component('audioRecorder', {
 				if (!ctrl.recording) {
 					ctrl.waitRecording = true;
 					audioService.startRecord(isRecording => {
-						ctrl.waitRecording = false;
-						ctrl.recording = isRecording;
-						startCountDown();
+						$timeout(() => {
+							ctrl.waitRecording = false;
+							ctrl.recording = isRecording;
+							startCountDown();
+						}, 500);
 					});
 				} else {
 					ctrl.waitRecording = true;
-					audioService.stopRecord(isRecording => {
-						ctrl.waitRecording = false;
-						ctrl.recording = isRecording;
-						ctrl.countDown = 0;
-					});
+					$timeout(() => {
+						audioService.stopRecord(isRecording => {
+							ctrl.waitRecording = false;
+							ctrl.recording = isRecording;
+							ctrl.countDown = 0;
+						});
+					}, 500);
 				}
 			};
 
