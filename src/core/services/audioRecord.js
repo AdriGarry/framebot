@@ -2,6 +2,8 @@
 
 'use strict';
 
+const fs = require('fs');
+
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js');
@@ -37,10 +39,14 @@ var lastRecordPath = null,
 function addRecord(path) {
 	log.debug('addRecord', path);
 	Core.do('interface|tts|speak', { lg: 'en', msg: 'record' }, { hidden: true });
-	Core.do('interface|sound|play', { mp3: path, volume: Core.run('volume') * 3 }, { delay: 1, hidden: true });
-	lastRecordPath = path;
-	recordListPath.push(path);
-	Core.run('audioRecord', recordListPath.length);
+	Utils.execCmd('lame --scale 2 ' + path + ' ' + path + 'UP', data => {
+		//TODO -V3 to encode as mp3
+		fs.renameSync(path + 'UP', path);
+		Core.do('interface|sound|play', { mp3: path, volume: Core.run('volume') * 3 }, { hidden: true });
+		lastRecordPath = +path;
+		recordListPath.push(path);
+		Core.run('audioRecord', recordListPath.length);
+	});
 }
 
 function playLastRecord() {
