@@ -28,6 +28,8 @@ function buttonHandler(flux) {
 			} else {
 				if (Core.run('voicemail')) {
 					Core.do('service|voicemail|check');
+				} else if (Core.run('audioRecord')) {
+					Core.do('service|audioRecord|check');
 				} else {
 					Core.do('service|interaction|random');
 				}
