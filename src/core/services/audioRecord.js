@@ -68,15 +68,17 @@ var clearAudioRecordDelay;
 function checkRecord() {
 	log.debug('Checking record...');
 	Utils.getJsonFileContent(RECORD_FILE, function(records) {
-		// JSON.parse(records);
-		updateRecord();
-		playAllRecords();
-		if (clearAudioRecordDelay) clearTimeout(clearAudioRecordDelay);
-		clearAudioRecordDelay = setTimeout(function() {
-			// Clearing Records
-			clearRecords();
-		}, HOURS_TO_CLEAR_RECORDS * 60 * 60 * 1000);
-		log.info('Audio Records will be cleared in ' + HOURS_TO_CLEAR_RECORDS + ' hours.');
+		if (records) {
+			// JSON.parse(records);
+			updateRecord();
+			playAllRecords();
+			if (clearAudioRecordDelay) clearTimeout(clearAudioRecordDelay);
+			clearAudioRecordDelay = setTimeout(function() {
+				// Clearing Records
+				clearRecords();
+			}, HOURS_TO_CLEAR_RECORDS * 60 * 60 * 1000);
+			log.info('Audio Records will be cleared in ' + HOURS_TO_CLEAR_RECORDS + ' hours.');
+		}
 	});
 }
 
