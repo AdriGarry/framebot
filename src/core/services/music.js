@@ -59,9 +59,13 @@ function repeatSong() {
 /** Function to play FIP radio */
 function playFip() {
 	log.info('Play FIP radio...');
-	Core.do('interface|sound|play', { url: 'http://chai5she.cdn.dvmr.fr/fip-midfi.mp3' });
-	Core.run('music', 'fip');
-	Core.do('interface|sound|mute', { message: 'Auto Mute FIP', delay: 2 }, { delay: 60 * 60 });
+	if (Core.run('music') === 'fip') {
+		log.info('FIP already playing');
+	} else {
+		Core.do('interface|sound|play', { url: 'http://chai5she.cdn.dvmr.fr/fip-midfi.mp3' });
+		Core.run('music', 'fip');
+		Core.do('interface|sound|mute', { message: 'Auto Mute FIP', delay: 2 }, { delay: 60 * 60 });
+	}
 }
 
 /** Function to play FIP radio or jukebox if no connexion */
