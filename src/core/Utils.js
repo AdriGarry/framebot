@@ -115,7 +115,7 @@ function _writeFile(filePath, fileData, startTime, isCreation) {
 }
 
 /** Function getJsonFileContent */
-const FILE_NOT_FOUND_EXCEPT = ['/home/pi/core/tmp/voicemail.json'];
+const FILE_NOT_FOUND_EXCEPT = ['/home/pi/core/tmp/voicemail.json', '/home/pi/core/tmp/record.json'];
 function getJsonFileContent(filePath, callback) {
 	log.debug('getJsonFileContent() ', filePath);
 	fs.readFile(filePath, function(err, data) {
