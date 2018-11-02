@@ -8,8 +8,6 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	SMS_CREDENTIALS = require(Core._SECURITY + 'smsCredentials.json');
 
-const ERROR_MESSAGE = Core.Name + ' error: ';
-
 Core.flux.service.sms.subscribe({
 	next: flux => {
 		if (flux.id == 'sendSMS') {
@@ -23,8 +21,8 @@ Core.flux.service.sms.subscribe({
 	}
 });
 
-function sendErrorNotification(error) {
-	sendSMS(ERROR_MESSAGE + error);
+function sendErrorNotification(errorMessage) {
+	sendSMS(errorMessage);
 }
 
 function sendSMS(message) {

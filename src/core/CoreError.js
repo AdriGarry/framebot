@@ -12,18 +12,20 @@ module.exports = class CoreError extends Error {
 		this.name = this.constructor.name;
 		this.time = Utils.logTime();
 		this.data = data;
-		this.log(typeof displayStack !== 'undefined' ? displayStack : true);
+		this.displayStack = typeof displayStack !== 'undefined' ? displayStack : true;
+		this.log();
 		this.notify();
 		this.persist();
 	}
 
-	log(displayStack) {
+	log() {
 		log.error(this.name + ': ' + this.message);
 		if (this.data) {
 			console.log(this.data);
 		}
-		if (displayStack) {
-			console.log(this.getStackTrace());
+		if (this.displayStack) {
+			this.stack = this.getStackTrace();
+			console.log(this.stack);
 		}
 	}
 
@@ -38,7 +40,9 @@ module.exports = class CoreError extends Error {
 		Core.do('interface|sound|error', null, { hidden: true });
 
 		if (Core.descriptor.modules.services.base.indexOf('sms') > -1) {
-			Core.do('service|sms|sendError', this.message + '\n' + this.data + '\n' + this.time, { hidden: true });
+			let smsMessage = this.time + '\n' + Core.Name + ' error: ' + this.message + '\n' + this.data;
+			if (this.displayStack) smsMessage += '\n' + this.stack;
+			Core.do('service|sms|sendError', smsMessage, { hidden: true });
 		}
 	}
 
