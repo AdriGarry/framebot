@@ -208,7 +208,7 @@ app.service('audioService', [
 	'UIService',
 	function($rootScope, $http, UIService) {
 		var ctrl = this;
-
+		ctrl.recording = false;
 		ctrl.recorderAvailable = false;
 
 		//webkitURL is deprecated but nevertheless
@@ -231,6 +231,7 @@ app.service('audioService', [
 			navigator.mediaDevices
 				.getUserMedia({ audio: true })
 				.then(stream => {
+					ctrl.recording = true;
 					startRecorder(stream);
 					callback(true);
 				})
@@ -242,20 +243,24 @@ app.service('audioService', [
 		};
 
 		ctrl.stopRecord = function(callback) {
-			rec.stop();
-			gumStream.getAudioTracks()[0].stop(); //stop microphone access
-			rec.exportWAV(blob => {
-				var formData = new FormData();
-				formData.append('audioRecord', blob);
-				upload(formData);
-				callback(false);
-			});
+			if (ctrl.recording) {
+				rec.stop();
+				gumStream.getAudioTracks()[0].stop(); //stop microphone access
+				ctrl.recording = false;
+				rec.exportWAV(blob => {
+					var formData = new FormData();
+					formData.append('audioRecord', blob);
+					upload(formData);
+					callback(false);
+				});
+			}
 		};
 
 		ctrl.cancelRecord = function(callback) {
 			if (rec && rec.recording) {
 				rec.stop();
 				gumStream.getAudioTracks()[0].stop(); //stop microphone access
+				ctrl.recording = false;
 				UIService.showToast('Record canceled');
 			}
 		};
