@@ -78,7 +78,7 @@ function waitForUpdateEnd(action) {
 	clearTimeout(watchTimeout);
 	watchTimeout = setTimeout(() => {
 		action();
-	}, 2000);
+	}, 3000);
 }
 
 function relaunch() {
