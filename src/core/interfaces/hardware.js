@@ -187,7 +187,8 @@ function countSoftwareLines() {
 	var lines = {},
 		totalLines = 0;
 	EXTENSIONS.forEach(function(extension) {
-		Utils.execCmd('find ' + PATHS.join(' ') + ' -regex ".+[^min].' + extension + '" -print | xargs wc -l', data => {
+		let command = 'find ' + PATHS.join(' ') + ' -regex ".+.' + extension + '" -print | grep -v lib | xargs wc -l';
+		Utils.execCmd(command, data => {
 			var regex = /(\d*) total/g;
 			var result = regex.exec(data);
 			var t = result && result[1] ? result[1] : -1;
