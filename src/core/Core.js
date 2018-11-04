@@ -139,7 +139,7 @@ function error_OLD(message, data, stackTrace) {
 	};
 
 	if (Core.descriptor.modules.services.base.indexOf('sms') > -1) {
-		Core.do('service|sms|sendError', message + '\n' + data + '\n' + logError.time);
+		Core.do('service|sms|send', message + '\n' + data + '\n' + logError.time);
 	}
 
 	Utils.appendJsonFile(Core._LOG + Core.name + '_errorHistory.json', logError);

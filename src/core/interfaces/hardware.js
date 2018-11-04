@@ -169,6 +169,14 @@ function getDiskSpace(callback) {
 		diskSpace = diskSpace[0].match(/[\d]*%/g);
 		log.debug('Disk space:', diskSpace[0]);
 		Core.run('stats.diskSpace', diskSpace[0]);
+
+		// log.info('\nwarning: Disk space almost full : ' + Core.run('stats.diskSpace'));
+		if (parseInt(diskSpace) > 40) {
+			let logMessage = 'Warning: Disk space almost full : ' + Core.run('stats.diskSpace');
+			log.info();
+			log.INFO(logMessage);
+			Core.do('service|sms|send', logMessage);
+		}
 		if (callback) callback(diskSpace);
 	});
 }

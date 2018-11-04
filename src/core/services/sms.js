@@ -10,20 +10,14 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 Core.flux.service.sms.subscribe({
 	next: flux => {
-		if (flux.id == 'sendSMS') {
+		if (flux.id == 'send') {
 			sendSMS(flux.value);
-		} else if (flux.id == 'sendError') {
-			sendErrorNotification(flux.value);
 		} else Core.error('unmapped flux in SMS service', flux, false);
 	},
 	error: err => {
 		Core.error(flux);
 	}
 });
-
-function sendErrorNotification(errorMessage) {
-	sendSMS(errorMessage);
-}
 
 function sendSMS(message) {
 	request.post(
