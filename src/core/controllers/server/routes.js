@@ -641,7 +641,7 @@ function attachSleepRoutes(ui) {
 			Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
 			res.end();
 		} else {
-			Core.error('Error while saving voiceMail message:', params);
+			Core.error('Error while saving voicemail message:', params);
 			res.writeHead(424); // TODO changer ce code ?
 			res.end();
 		}

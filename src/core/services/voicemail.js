@@ -10,11 +10,11 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 Core.flux.service.voicemail.subscribe({
 	next: flux => {
 		if (flux.id == 'new') {
-			addVoiceMailMessage(flux.value);
+			addVoicemailMessage(flux.value);
 		} else if (flux.id == 'check') {
-			checkVoiceMail(flux.value);
+			checkVoicemail(flux.value);
 		} else if (flux.id == 'clear') {
-			clearVoiceMail();
+			clearVoicemail();
 		} else Core.error('unmapped flux in Voicemail service', flux, false);
 	},
 	error: err => {
@@ -22,15 +22,18 @@ Core.flux.service.voicemail.subscribe({
 	}
 });
 
-const HOURS_TO_CLEAR_VOICEMAIL = 6;
-const VOICEMAIL_FILE = Core._TMP + 'voicemail.json';
-const VOICEMAIL_FILE_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json';
+const NO_VOICEMAIL = 'No voicemail message',
+	VOICEMAIL_FILE = Core._TMP + 'voicemail.json',
+	VOICEMAIL_FILE_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json',
+	HOURS_TO_CLEAR_VOICEMAIL = 6;
+
+var clearVoicemailDelay;
 
 setImmediate(() => {
 	updateVoicemailMessage();
 	log.info('VoiceMail flag initialized');
 	if (!Core.run('alarm')) {
-		checkVoiceMail();
+		checkVoicemail();
 	}
 });
 setInterval(function() {
@@ -38,7 +41,7 @@ setInterval(function() {
 }, 10000);
 
 /** Function to persist voicemail message */
-function addVoiceMailMessage(tts) {
+function addVoicemailMessage(tts) {
 	log.info('New voicemail message :', tts);
 	if (typeof tts === 'object' && tts.hasOwnProperty('msg') && typeof tts.msg === 'string') {
 		tts.timestamp = Utils.logTime('D/M h:m:s', new Date());
@@ -51,16 +54,16 @@ function addVoiceMailMessage(tts) {
 		// 	console.log(tts.msg);
 		// 	let newTTS = JSON.parse(tts.msg);
 		// 	console.log(newTTS);
-		// 	addVoiceMailMessage(newTTS);
+		// 	addVoicemailMessage(newTTS);
 		// 	return;
 		// } catch (err) {
 		// 	log.INFO('--->this is not a real error', err, tts);
 		// }
 	} else if (typeof tts === 'string') {
-		addVoiceMailMessage({ msg: tts });
+		addVoicemailMessage({ msg: tts });
 	} else if (Array.isArray(tts)) {
 		for (var i = 0; i < tts.length; i++) {
-			addVoiceMailMessage(tts[i]);
+			addVoicemailMessage(tts[i]);
 		}
 	} else {
 		Core.error("Wrong tts, can't save voicemail", tts);
@@ -68,8 +71,6 @@ function addVoiceMailMessage(tts) {
 	}
 }
 
-var clearVoiceMailDelay;
-const NO_VOICEMAIL = 'No voiceMail message';
 /** Function to check voicemail, and play */
 function checkVoiceMail(withTTSResult, callback) {
 	log.debug('Checking voicemail...');
@@ -79,12 +80,7 @@ function checkVoiceMail(withTTSResult, callback) {
 			log.debug(messages);
 			Core.do('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Messages' });
 			Core.do('interface|tts|speak', messages);
-			if (clearVoiceMailDelay) clearTimeout(clearVoiceMailDelay);
-			clearVoiceMailDelay = setTimeout(function() {
-				// Clearing VoiceMail
-				clearVoiceMail();
-			}, HOURS_TO_CLEAR_VOICEMAIL * 60 * 60 * 1000);
-			log.info('VoiceMail will be cleared in ' + HOURS_TO_CLEAR_VOICEMAIL + ' hours.');
+			clearVoicemailLater();
 			if (callback) callback(true); // for other action
 			return true;
 		} else {
@@ -110,16 +106,29 @@ function updateVoicemailMessage() {
 	}
 }
 
+/** Function to schedule voicemail deletion */
+function clearVoicemailLater() {
+	log.info('clearVoicemail');
+	if (clearVoicemailDelay) {
+		clearTimeout(clearVoicemailDelay);
+		clearVoicemailDelay = null;
+	}
+	clearVoiceMailDelay = setTimeout(function() {
+		clearVoicemail();
+	}, HOURS_TO_CLEAR_VOICEMAIL * 60 * 60 * 1000);
+	log.info('VoiceMail will be cleared in ' + HOURS_TO_CLEAR_VOICEMAIL + ' hours.');
+}
+
 /** Function to clear all voicemail messages */
-function clearVoiceMail() {
-	log.info('clearVoiceMail');
+function clearVoicemail() {
+	log.info('clearVoicemail');
 	fs.unlink(VOICEMAIL_FILE, function(err) {
 		if (err) {
-			if (err.code === 'ENOENT') log.info('clearVoiceMail : No message to delete!');
+			if (err.code === 'ENOENT') log.info('clearVoicemail : No message to delete!');
 			else Core.error(err);
 		} else {
 			updateVoicemailMessage();
-			Core.do('interface|tts|speak', { lg: 'en', msg: 'VoiceMail Cleared' });
+			Core.do('interface|tts|speak', { lg: 'en', msg: 'Voicemail Cleared' });
 		}
 	});
 }

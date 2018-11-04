@@ -40,13 +40,14 @@ setInterval(function() {
 	updateRecord();
 }, 10000);
 
-const RECORD_FILE = Core._TMP + 'record.json';
-const RECORD_TTS = { lg: 'en', msg: 'record' };
-const NO_RECORD_TTS = { lg: 'en', msg: "I don't have any record" };
-const HOURS_TO_CLEAR_RECORDS = 6;
+const RECORD_FILE = Core._TMP + 'record.json',
+	RECORD_TTS = { lg: 'en', msg: 'record' },
+	NO_RECORD_TTS = { lg: 'en', msg: "I don't have any record" },
+	HOURS_TO_CLEAR_RECORDS = 6;
 
 var lastRecordPath = null,
-	recordListPath = [];
+	recordListPath = [],
+	clearAudioRecordDelay;
 
 function addRecord(path) {
 	log.debug('addRecord', path);
@@ -63,8 +64,6 @@ function addRecord(path) {
 	});
 }
 
-var clearAudioRecordDelay;
-// const NO_VOICEMAIL = 'No voiceMail message';
 function checkRecord() {
 	log.debug('Checking record...');
 	Utils.getJsonFileContent(RECORD_FILE, function(records) {
@@ -72,11 +71,7 @@ function checkRecord() {
 			// JSON.parse(records);
 			updateRecord();
 			playAllRecords();
-			if (clearAudioRecordDelay) clearTimeout(clearAudioRecordDelay);
-			clearAudioRecordDelay = setTimeout(function() {
-				// Clearing Records
-				clearRecords();
-			}, HOURS_TO_CLEAR_RECORDS * 60 * 60 * 1000);
+			clearAudioRecordLater();
 			log.info('Audio Records will be cleared in ' + HOURS_TO_CLEAR_RECORDS + ' hours.');
 		}
 	});
@@ -125,6 +120,18 @@ function playAllRecords() {
 			Core.do('interface|sound|play', { mp3: recordPath /*, volume: Core.run('volume') * 3*/ }, { delay: delay });
 		});
 	});
+}
+
+/** Function to schedule voicemail deletion */
+function clearAudioRecordLater() {
+	if (clearAudioRecordDelay) {
+		clearTimeout(clearAudioRecordDelay);
+		clearAudioRecordDelay = null;
+	}
+	clearAudioRecordDelay = setTimeout(function() {
+		clearRecords();
+	}, HOURS_TO_CLEAR_RECORDS * 60 * 60 * 1000);
+	log.info('VoiceMail will be cleared in ' + HOURS_TO_CLEAR_VOICEMAIL + ' hours.');
 }
 
 function clearRecords(noLog) {
