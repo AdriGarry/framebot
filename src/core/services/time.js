@@ -323,9 +323,9 @@ function startTimer() {
 		);
 		etat = 1 - etat;
 		if (Core.run('timer') < 10) {
-			Core.do('interface|sound|play', { mp3: 'system/timerAlmostEnd.mp3', noLog: true }, { hidden: true });
+			Core.do('interface|sound|play', { mp3: 'system/timerAlmostEnd.mp3', noLog: true, noLed: true }, { hidden: true });
 		} else {
-			Core.do('interface|sound|play', { mp3: 'system/timer.mp3', noLog: true }, { hidden: true });
+			Core.do('interface|sound|play', { mp3: 'system/timer.mp3', noLog: true, noLed: true }, { hidden: true });
 		}
 		Core.run('timer', Core.run('timer') - 1);
 		if (Core.run('timer') % 120 == 0 && Core.run('timer') / 60 > 0) {
