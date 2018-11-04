@@ -27,7 +27,8 @@ setImmediate(() => {
 	}
 });
 
-const PATHS = [Core._SRC, Core._DATA];
+const PATHS = [Core._SRC, Core._DATA],
+	SEC_TO_RESTART = 3;
 var watchers = [];
 
 function startWatch() {
@@ -74,11 +75,11 @@ function removeWatcher(watcher) {
 
 var watchTimeout;
 function waitForUpdateEnd(action) {
-	log.debug('waiting for update end...');
+	log.debug('waiting for update end (' + SEC_TO_RESTART + 's)...');
 	clearTimeout(watchTimeout);
 	watchTimeout = setTimeout(() => {
 		action();
-	}, 3000);
+	}, SEC_TO_RESTART * 1000);
 }
 
 function relaunch() {
