@@ -191,8 +191,8 @@ function attachDefaultRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/audio/all', audioRecordUpload, function(req, res) {
-		Core.do('service|audioRecord|all');
+	ui.post('/audio/check', audioRecordUpload, function(req, res) {
+		Core.do('service|audioRecord|check');
 		res.end();
 	});
 
@@ -370,12 +370,12 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/checkVoiceMail', function(req, res) {
+	ui.post('/checkVoicemail', function(req, res) {
 		Core.do('service|voicemail|check', true);
 		res.end();
 	});
 
-	ui.post('/clearVoiceMail', function(req, res) {
+	ui.post('/clearVoicemail', function(req, res) {
 		Core.do('service|voicemail|clear');
 		res.end();
 	});

@@ -261,8 +261,8 @@ app.component('voicemail', {
 		var tileParams = {
 			label: 'Voicemail',
 			actionList: [
-				{ label: 'Clear', icon: 'far fa-trash-alt', url: '/clearVoiceMail' },
-				{ label: 'Play', icon: 'fas fa-play', url: '/checkVoiceMail' }
+				{ label: 'Clear', icon: 'far fa-trash-alt', url: '/clearVoicemail' },
+				{ label: 'Play', icon: 'fas fa-play', url: '/checkVoicemail' }
 			]
 		};
 
@@ -362,9 +362,9 @@ app.component('audioRecorder', {
 		var tileParams = {
 			label: 'Audio recorder',
 			actionList: [
-				{ label: 'Clear', icon: 'fas fa-2x fa-trash', url: '/audio/clear' },
-				{ label: 'All', icon: 'fas fa-2x fa-reply-all', url: '/audio/all' },
-				{ label: 'Last', icon: 'fas fa-2x fa-undo', url: '/audio/last' }
+				{ label: 'Clear', icon: 'fas fa-trash', url: '/audio/clear' },
+				{ label: 'All', icon: 'fas fa-play', url: '/audio/check' },
+				{ label: 'Last', icon: 'fas fa-undo', url: '/audio/last' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

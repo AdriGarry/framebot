@@ -16,8 +16,8 @@ Core.flux.service.audioRecord.subscribe({
 			checkRecord(flux.value);
 		} else if (flux.id == 'last') {
 			playLastRecord(flux.value);
-		} else if (flux.id == 'all') {
-			playAllRecords();
+			// } else if (flux.id == 'all') {
+			// 	playAllRecords();
 		} else if (flux.id == 'clear') {
 			clearRecords();
 		} else if (flux.id == 'trash') {
@@ -72,7 +72,6 @@ function checkRecord() {
 			updateRecord();
 			playAllRecords();
 			clearAudioRecordLater();
-			log.info('Audio Records will be cleared in ' + HOURS_TO_CLEAR_RECORDS + ' hours.');
 		}
 	});
 }
@@ -131,7 +130,7 @@ function clearAudioRecordLater() {
 	clearAudioRecordDelay = setTimeout(function() {
 		clearRecords();
 	}, HOURS_TO_CLEAR_RECORDS * 60 * 60 * 1000);
-	log.info('VoiceMail will be cleared in ' + HOURS_TO_CLEAR_VOICEMAIL + ' hours.');
+	log.info('AudioRecord will be cleared in ' + HOURS_TO_CLEAR_RECORDS + ' hours');
 }
 
 function clearRecords(noLog) {

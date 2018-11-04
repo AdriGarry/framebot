@@ -31,7 +31,7 @@ var clearVoicemailDelay;
 
 setImmediate(() => {
 	updateVoicemailMessage();
-	log.info('VoiceMail flag initialized');
+	log.info('Voicemail flag initialized');
 	if (!Core.run('alarm')) {
 		checkVoicemail();
 	}
@@ -72,7 +72,7 @@ function addVoicemailMessage(tts) {
 }
 
 /** Function to check voicemail, and play */
-function checkVoiceMail(withTTSResult, callback) {
+function checkVoicemail(withTTSResult, callback) {
 	log.debug('Checking voicemail...');
 	Utils.getJsonFileContent(VOICEMAIL_FILE, function(messages) {
 		if (messages) {
@@ -113,10 +113,10 @@ function clearVoicemailLater() {
 		clearTimeout(clearVoicemailDelay);
 		clearVoicemailDelay = null;
 	}
-	clearVoiceMailDelay = setTimeout(function() {
+	clearVoicemailDelay = setTimeout(function() {
 		clearVoicemail();
 	}, HOURS_TO_CLEAR_VOICEMAIL * 60 * 60 * 1000);
-	log.info('VoiceMail will be cleared in ' + HOURS_TO_CLEAR_VOICEMAIL + ' hours.');
+	log.info('Voicemail will be cleared in ' + HOURS_TO_CLEAR_VOICEMAIL + ' hours');
 }
 
 /** Function to clear all voicemail messages */
