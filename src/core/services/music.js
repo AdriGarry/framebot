@@ -34,7 +34,7 @@ function jukebox() {
 	log.info('Jukebox in loop mode !');
 	Core.run('music', 'jukebox');
 	repeatSong();
-	Core.do('interface|sound|mute', { message: 'Auto mute jukebox !', delay: 2 }, { delay: 60 * 60 });
+	Core.do('interface|sound|mute', { message: 'Auto mute jukebox !', delay: 60 * 60 });
 }
 
 var jukeboxTimeout, jukeboxRandomBox;
@@ -64,7 +64,7 @@ function playFip() {
 	} else {
 		Core.do('interface|sound|play', { url: 'http://chai5she.cdn.dvmr.fr/fip-midfi.mp3' });
 		Core.run('music', 'fip');
-		Core.do('interface|sound|mute', { message: 'Auto Mute FIP', delay: 2 }, { delay: 60 * 60 });
+		Core.do('interface|sound|mute', { message: 'Auto Mute FIP', delay: 60 * 60 });
 	}
 }
 

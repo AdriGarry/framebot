@@ -102,13 +102,12 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
 	mplayerInstances[sound] = mplayerProcess;
 }
 
-/** Function to mute (delay:min) */
+/** Function to mute */
 function mute(args) {
 	clearTimeout(muteTimer);
 	if (!args) args = {};
 	if (args.hasOwnProperty('delay') && Number(args.delay)) {
 		muteTimer = setTimeout(function() {
-			// spawn('sh', [Core._SHELL + 'mute.sh', 'auto']);
 			Core.do('interface|sound|play', { mp3: 'system/autoMute.mp3' });
 			setTimeout(function() {
 				stopAll(args.message || null);
@@ -197,8 +196,4 @@ function resetSound() {
 	Utils.execCmd('amixer set PCM 100%', function(data) {
 		log.debug(data);
 	});
-
-	// spawn('amixer', [' set PCM 100%'], callback => {
-	// 	console.log(callback);
-	// });
 }
