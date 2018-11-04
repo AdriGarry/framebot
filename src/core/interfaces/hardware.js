@@ -191,7 +191,7 @@ function countSoftwareLines() {
 		Utils.execCmd(command, data => {
 			var regex = /(\d*) total/g;
 			var result = regex.exec(data);
-			var t = result && result[1] ? result[1] : -1;
+			var t = result && result[1] ? result[1] : 0;
 			totalLines = parseInt(totalLines) + parseInt(t);
 			lines[extension] = parseInt(t);
 			typesNb--;
