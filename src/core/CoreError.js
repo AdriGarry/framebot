@@ -42,7 +42,6 @@ module.exports = class CoreError extends Error {
 		if (Core.descriptor.modules.services.base.indexOf('sms') > -1) {
 			let smsMessage = this.time + '\n' + Core.Name + ' error: ' + this.message + '\n' + this.data;
 			if (this.displayStack) smsMessage += '\n' + this.stack;
-			log.info('__OLD STUFF...');
 			Core.do('service|sms|send', smsMessage, { hidden: true });
 		}
 	}

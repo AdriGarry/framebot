@@ -144,4 +144,5 @@ function error_OLD(message, data, stackTrace) {
 
 	Utils.appendJsonFile(Core._LOG + Core.name + '_errorHistory.json', logError);
 	Core.errors.push(logError);
+	log.info('__OLD STUFF...');
 }
