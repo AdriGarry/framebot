@@ -1,10 +1,10 @@
 #!/bin/sh
 
 #___Fonction silence automatique dans une heure
-if [ $1 = "auto" ]
-then
-	sudo omxplayer -o local --vol 200 /home/pi/core/media/mp3/system/autoMute.mp3
-fi
+# if [ $1 = "auto" ]
+# then
+# 	sudo omxplayer -o local --vol 200 /home/pi/core/media/mp3/system/autoMute.mp3
+# fi
 
 #___Fonction silence
 sudo killall omxplayer.bin
