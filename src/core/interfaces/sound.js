@@ -184,7 +184,8 @@ function additionalVolumeSetup() {
 }
 
 function ledFlag() {
-	Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
+	// Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
+	Core.do('interface|led|blink', { leds: ['eye'], speed: 100, loop: 3 }, { hidden: true });
 	return setInterval(function() {
 		Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
 	}, 10 * 1000);
