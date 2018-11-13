@@ -77,6 +77,7 @@ function getRequestData(req) {
 		}
 	} catch (err) {
 		log.debug('position not retrieved!', position);
+		log.debug(err);
 	}
 
 	requestData.ui = req.headers['user-interface'];

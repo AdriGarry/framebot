@@ -28,12 +28,22 @@ ifStop(){
 	fi
 }
 
+ifCerbot(){
+	if [ $1 = "cerbot" ]; then
+		echo "\nCERBOT..."
+		sh /home/pi/core/src/shell/cerbot.sh
+		exit 0
+	fi
+}
+
 
 setupCoreCommand $*
 
 exitIfNoArgs $*
 
 ifStop $*
+
+ifCerbot $*
 
 clear
 
