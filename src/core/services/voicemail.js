@@ -99,7 +99,7 @@ function updateVoicemailMessage() {
 		messages = JSON.parse(messages);
 		Core.run('voicemail', messages.length);
 		if (Core.run('voicemail') > 0) {
-			Core.do('interface|led|blink', { leds: ['belly'], speed: 200, loop: 2 }, { hidden: true });
+			Core.do('interface|led|blink', { leds: ['belly'], speed: 200, loop: 1 }, { hidden: true });
 		}
 	} catch (e) {
 		Core.run('voicemail', 0);

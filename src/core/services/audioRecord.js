@@ -16,8 +16,6 @@ Core.flux.service.audioRecord.subscribe({
 			checkRecord(flux.value);
 		} else if (flux.id == 'last') {
 			playLastRecord(flux.value);
-			// } else if (flux.id == 'all') {
-			// 	playAllRecords();
 		} else if (flux.id == 'clear') {
 			clearRecords();
 		} else if (flux.id == 'trash') {
