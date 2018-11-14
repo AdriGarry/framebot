@@ -11,7 +11,7 @@ const Rx = require('rxjs');
 const assert = require('assert');
 var Flux = require(Core._CORE + 'Flux.js');
 
-module.exports.run = function(succeedTest) {
+module.exports.runTest = function(succeedTest) {
 	Core.do('service|max|blinkAllLed', null, { delay: 2, loop: 50 });
 
 	assert.equal(Core.run('timer'), 0);
@@ -43,6 +43,7 @@ module.exports.run = function(succeedTest) {
 	setTimeout(() => {
 		assert.equal(Core.run('voicemail'), 0);
 		assert.equal(Core.errors.length, 0);
+		Core.do('service|sms|send', 'ALL TEST SUCCEED !!');
 		succeedTest('serviceTest', true);
 	}, 60000);
 };

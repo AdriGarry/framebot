@@ -50,7 +50,7 @@ if (Core.conf('mode') == 'test') {
 					Core.do('interface|runtime|updateRestart', {
 						mode: 'ready'
 					});
-			}, 3000);
+			}, 4000);
 		});
 	}, 1000);
 }

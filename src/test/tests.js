@@ -20,7 +20,7 @@ function launchTests(callback) {
 	log.INFO('>> Launching Test Sequence...');
 	log.info('-----------------------------');
 	for (var i = 0; i < sequences.length; i++) {
-		testResult[sequences[i]] = require(Core._SRC + 'test/' + sequences[i] + '.js').run(completeTest);
+		testResult[sequences[i]] = require(Core._SRC + 'test/' + sequences[i] + '.js').runTest(completeTest);
 	}
 }
 
@@ -28,17 +28,17 @@ var completeTest = (testId, result) => {
 	Core.do('interface|led|blink', { leds: ['belly'], speed: 50, loop: 10 });
 	log.info(testId, 'completed.');
 	testResult[testId] = result;
+	log.info();
+	log.info(testId, 'completed!');
+	log.info('-------------------------');
 	log.debug(testResult);
 	if (allTestCompleted()) {
-		// log.info();
-		// log.info('\n', 'testResult');
-		log.info();
-		log.info('-------------------------');
 		for (let test in testResult) {
 			log.info(test, 'completed');
 		}
 		if (Core.errors.length > 0) log.info('Core.errors:' + Core.errors.length);
 
+		log.info();
 		log.info('-------------------------');
 		log.INFO('>> All tests succeeded !!');
 		log.info('-------------------------');
