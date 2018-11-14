@@ -8,7 +8,7 @@ const Rx = require('rxjs');
 
 var Flux = require(Core._CORE + 'Flux.js');
 
-const sequences = ['moduleTest', 'serviceTest'];
+const sequences = ['interfaceTest', 'serviceTest'];
 var testResult = {};
 
 module.exports.launch = launchTests;
