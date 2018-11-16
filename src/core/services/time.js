@@ -206,7 +206,7 @@ function cocoricoPart3() {
 		delay: delay
 	});
 
-	delay += 10;
+	delay += 13;
 	Core.do('service|voicemail|check', null, {
 		delay: delay
 	});
