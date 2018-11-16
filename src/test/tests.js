@@ -4,10 +4,6 @@
 var Core = require(_PATH + 'src/core/Core.js').Core;
 var log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 
-const Rx = require('rxjs');
-
-var Flux = require(Core._CORE + 'Flux.js');
-
 const sequences = ['interfaceTest', 'serviceTest'];
 var testResult = {};
 
