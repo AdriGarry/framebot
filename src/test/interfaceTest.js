@@ -7,9 +7,7 @@ var Utils = require(Core._CORE + 'Utils.js');
 
 log.info('Module test sequence...');
 
-const Rx = require('rxjs');
 const assert = require('assert');
-var Flux = require(Core._CORE + 'Flux.js');
 
 // const testTTSList = [{lg: 'en', msg: 'Test' },	{lg: 'fr', msg: 'Test' }];
 
@@ -26,8 +24,8 @@ module.exports.runTest = function(succeedTest) {
 	assert.equal(Core.run('music'), false);
 	assert.equal(Core.run('alarm'), false);
 
-	Core.do('interface|sound|volume', 70);
-	Core.do('interface|sound|volume', 40, { delay: 4 });
+	Core.do('interface|sound|volume', 60);
+	// Core.do('interface|sound|volume', 40, { delay: 4 });
 
 	Core.do('interface|hardware|cpuTTS', null, { delay: 0.1 });
 
@@ -37,5 +35,5 @@ module.exports.runTest = function(succeedTest) {
 		setTimeout(() => {
 			succeedTest('interfaceTest', true);
 		}, 5000);
-	}, 30000);
+	}, 30 * 1000);
 };
