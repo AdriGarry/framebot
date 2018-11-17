@@ -1,56 +1,72 @@
 #!/usr/bin/env node
 'use strict';
 
-var Core = require(_PATH + 'src/core/Core.js').Core;
-var log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+	Utils = require(Core._CORE + 'Utils.js');
 
 const testSequences = ['interfaceTest', 'serviceTest'];
-var testResult = {};
+
+var testResults = {};
 
 module.exports.launch = launchTests;
-var testCallback = null;
 
-function launchTests(callback) {
-	testCallback = callback;
+function launchTests() {
 	log.info('-----------------------------');
 	log.INFO('>> Launching Test Sequence...');
 	log.info('-----------------------------');
 	for (var i = 0; i < testSequences.length; i++) {
-		testResult[testSequences[i]] = require(Core._SRC + 'test/' + testSequences[i] + '.js').runTest(completeTest);
+		require(Core._SRC + 'test/' + testSequences[i] + '.js').runTest(completeTest);
+		testResults[testSequences[i]] = false;
 	}
 }
 
 var completeTest = (testId, result) => {
 	Core.do('interface|led|blink', { leds: ['belly'], speed: 50, loop: 10 });
-	// log.info(testId, 'completed.');
-	testResult[testId] = result;
+	testResults[testId] = result;
 	log.info();
-	log.info(testId, 'completed.************');
-	log.info('-------------------------');
-	log.debug(testResult);
-	if (allTestCompleted()) {
-		for (let test in testResult) {
+	log.info(testId, 'completed.');
+	log.debug(testResults);
+	if (areAllTestCompleted()) {
+		Core.do('service|sms|send', 'ALL TEST SUCCEED !!');
+		for (let test in testResults) {
 			log.info(test, 'completed');
 		}
 		if (Core.errors.length > 0) log.info('Core.errors:' + Core.errors.length);
-
 		log.info();
 		log.info('-------------------------');
 		log.INFO('>> All tests succeeded !!');
 		log.info('-------------------------');
 		setTimeout(function() {
-			testCallback(true); //testResult
+			allTestSuceedFeedback(true); //testResults
 		}, 1000);
 	}
 };
 
-var allTestCompleted = () => {
-	for (var i = 0; i < testSequences.length; i++) {
-		if (!(testResult.hasOwnProperty(testSequences[i]) || testResult[testSequences[i]])) {
-			return false;
+function areAllTestCompleted() {
+	let anyTestNotCompleted = true;
+	Object.keys(testResults).forEach(item => {
+		if (!testResults[item]) {
+			anyTestNotCompleted = false;
 		}
-	}
-	return true;
-};
+	});
+	return anyTestNotCompleted;
+}
+
+function allTestSuceedFeedback() {
+	let testTTS = Utils.rdm()
+		? 'Je suis Ok !'
+		: {
+				lg: 'en',
+				msg: 'all tests succeeded!'
+		  };
+	Core.do('interface|tts|speak', testTTS);
+	setTimeout(function() {
+		// if (testStatus) Core.do('interface|runtime|updateRestart', { mode: 'ready' });
+		Core.do('interface|runtime|updateRestart', {
+			mode: 'ready'
+		});
+	}, 4000);
+}
 
 // Core.error('this is an error');

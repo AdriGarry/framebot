@@ -12,13 +12,13 @@ const assert = require('assert');
 module.exports.runTest = function(succeedTest) {
 	Core.do('service|max|blinkAllLed', null, { delay: 2, loop: 3 });
 
+	Core.do('service|time|today');
+
 	assert.equal(Core.run('timer'), 0);
 	Core.do('service|time|timer');
 	setImmediate(() => {
 		assert.ok(Core.run('timer'));
 	});
-
-	Core.do('service|time|today');
 
 	Core.do('service|max|playOneMelody');
 
@@ -32,7 +32,7 @@ module.exports.runTest = function(succeedTest) {
 	log.DEBUG(rdmTTS);
 	Core.do('service|voicemail|new', rdmTTS, { delay: 8 });
 	Core.do('service|voicemail|check', null, { delay: 11 });
-	Core.do('service|voicemail|clear', null, { delay: 15 });
+	Core.do('service|voicemail|clear', null, { delay: 30 });
 
 	Core.do('service|max|hornRdm');
 
@@ -41,9 +41,6 @@ module.exports.runTest = function(succeedTest) {
 	setTimeout(() => {
 		assert.equal(Core.run('voicemail'), 0);
 		assert.equal(Core.errors.length, 0);
-		log.INFO('ALL TEST SUCCEED !!');
-		Core.do('service|sms|send', 'ALL TEST SUCCEED !!');
-		log.INFO('ALL TEST SUCCEED !!');
-		//succeedTest('serviceTest', true);
-	}, 60 * 1000);
+		succeedTest('serviceTest', true);
+	}, 45 * 1000);
 };

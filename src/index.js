@@ -29,28 +29,13 @@ log.debug('argv', argv);
 const Utils = require(Core._CORE + 'Utils.js');
 log.info(' -->  ' + Core.Name + ' ready in ' + Utils.executionTime(startTime) + 'ms');
 
-if (Core.conf('mode') == 'test') {
-	////////  TEST section  ////////
-	Core.do('interface|tts|speak', {
-		lg: 'en',
-		msg: 'test sequence'
-	});
-	setTimeout(function() {
-		var testSequence = require(Core._SRC + 'test/tests.js').launch(function(testStatus) {
-			let testTTS = Utils.rdm()
-				? 'Je suis Ok !'
-				: {
-						lg: 'en',
-						msg: 'all tests succeeded!'
-				  };
-			Core.do('interface|tts|speak', testTTS);
-			setTimeout(function() {
-				// if (testStatus) Core.do('interface|runtime|updateRestart', { mode: 'ready' });
-				if (testStatus)
-					Core.do('interface|runtime|updateRestart', {
-						mode: 'ready'
-					});
-			}, 4000);
+////////  TEST section  ////////
+setTimeout(function() {
+	if (Core.conf('mode') == 'test') {
+		Core.do('interface|tts|speak', {
+			lg: 'en',
+			msg: 'test sequence'
 		});
-	}, 1000);
-}
+		require(Core._SRC + 'test/tests.js').launch();
+	}
+}, 1000);
