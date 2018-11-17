@@ -4,7 +4,7 @@
 var Core = require(_PATH + 'src/core/Core.js').Core;
 var log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 
-const sequences = ['interfaceTest', 'serviceTest'];
+const testSequences = ['interfaceTest', 'serviceTest'];
 var testResult = {};
 
 module.exports.launch = launchTests;
@@ -15,17 +15,17 @@ function launchTests(callback) {
 	log.info('-----------------------------');
 	log.INFO('>> Launching Test Sequence...');
 	log.info('-----------------------------');
-	for (var i = 0; i < sequences.length; i++) {
-		testResult[sequences[i]] = require(Core._SRC + 'test/' + sequences[i] + '.js').runTest(completeTest);
+	for (var i = 0; i < testSequences.length; i++) {
+		testResult[testSequences[i]] = require(Core._SRC + 'test/' + testSequences[i] + '.js').runTest(completeTest);
 	}
 }
 
 var completeTest = (testId, result) => {
 	Core.do('interface|led|blink', { leds: ['belly'], speed: 50, loop: 10 });
-	log.info(testId, 'completed.');
+	// log.info(testId, 'completed.');
 	testResult[testId] = result;
 	log.info();
-	log.info(testId, 'completed!');
+	log.info(testId, 'completed.************');
 	log.info('-------------------------');
 	log.debug(testResult);
 	if (allTestCompleted()) {
@@ -45,8 +45,8 @@ var completeTest = (testId, result) => {
 };
 
 var allTestCompleted = () => {
-	for (var i = 0; i < sequences.length; i++) {
-		if (!(testResult.hasOwnProperty(sequences[i]) || testResult[sequences[i]])) {
+	for (var i = 0; i < testSequences.length; i++) {
+		if (!(testResult.hasOwnProperty(testSequences[i]) || testResult[testSequences[i]])) {
 			return false;
 		}
 	}
