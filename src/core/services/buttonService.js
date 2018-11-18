@@ -45,7 +45,7 @@ function buttonHandler(flux) {
 				Core.do('service|system|restart', 'test');
 			} else Core.error('Button->else', flux);
 		} else if (flux.id == 'white') {
-			Core.do('service|time|timer', Math.round(flux.value));
+			Core.do('service|timer|increase', Math.round(flux.value));
 		} else if (flux.id == 'blue') {
 			// if (flux.value > BTN_PUSH_MIN) {
 			if (Core.run('etat')) {

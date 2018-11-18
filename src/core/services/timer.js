@@ -7,10 +7,10 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 Core.flux.service.timer.subscribe({
 	next: flux => {
-		if (flux.id == 'timer') {
-			if (flux.value == 'stop') {
-				stopTimer();
-			} else setTimer(flux.value);
+		if (flux.id == 'increase') {
+			setTimer(flux.value);
+		} else if (flux.id == 'stop') {
+			stopTimer();
 		} else Core.error('unmapped flux in Timer service', flux, false);
 	},
 	error: err => {

@@ -15,7 +15,7 @@ module.exports.runTest = function(succeedTest) {
 	Core.do('service|time|today');
 
 	assert.equal(Core.run('timer'), 0);
-	Core.do('service|time|timer');
+	Core.do('service|timer|increase');
 	setImmediate(() => {
 		assert.ok(Core.run('timer'));
 	});
