@@ -45,8 +45,8 @@ function attachDefaultRoutes(ui) {
 						Core.conf('log') == 'trace'
 							? 'Trace'
 							: Core.conf('log') == 'debug'
-								? 'Debug'
-								: Utils.firstLetterUpper(Core.conf('mode')),
+							? 'Debug'
+							: Utils.firstLetterUpper(Core.conf('mode')),
 					param: Core.conf('startTime'),
 					switch: etatBtn == 'high' ? true : false
 				}
@@ -302,12 +302,12 @@ function attachDefaultRoutes(ui) {
 
 	ui.post('/alarm', function(req, res) {
 		let params = req.body;
-		Core.do('service|time|setAlarm', params);
+		Core.do('service|alarm|setAlarm', params);
 		res.end();
 	});
 
 	ui.post('/alarmOff', function(req, res) {
-		Core.do('service|time|alarmOff');
+		Core.do('service|alarm|alarmOff');
 		res.end();
 	});
 
@@ -520,7 +520,7 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/birthday', function(req, res) {
-		Core.do('service|time|birthday');
+		Core.do('service|alarm|birthday');
 		res.end();
 	});
 
