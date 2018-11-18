@@ -77,10 +77,8 @@ function getSeason() {
 }
 
 /** Function to TTS age */
-const DATE_BIRTH = new Date(Core.descriptor.birthday);
-
 function ttsAge() {
-	var age = Math.abs(DATE_BIRTH.getTime() - new Date());
+	var age = Math.abs(new Date(Core.descriptor.botBirthday).getTime() - new Date());
 	age = Math.ceil(age / (1000 * 3600 * 24));
 
 	var years = Math.floor(age / 365);

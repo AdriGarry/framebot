@@ -108,7 +108,6 @@ function cocorico() {
 	});
 }
 
-const BIRTHDAYS = ['17/04', '13/12', '31/07', '18/11']; // TODO... !!!
 function isBirthday() {
 	log.info('isBirthday');
 	var today = {
@@ -116,8 +115,8 @@ function isBirthday() {
 	};
 	today.day = today.date.getDate();
 	today.month = today.date.getMonth() + 1;
-	for (var i = 0; i < BIRTHDAYS.length; i++) {
-		var splited = BIRTHDAYS[i].split('/');
+	for (var i = 0; i < Core.descriptor.birthdays.length; i++) {
+		var splited = Core.descriptor.birthdays[i].split('/');
 		if (today.day == splited[0] && today.month == splited[1]) {
 			return true;
 		}
