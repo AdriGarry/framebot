@@ -1,6 +1,7 @@
 {
 	"name": "Odi",
-	"birthday": "August 9, 2015 00:00:00",
+	"botBirthday": "August 9, 2015 00:00:00",
+	"birthdays": ["17/04", "13/12", "31/07"],
 	"paths": {
 		"_SRC": "src/",
 		"_CORE": "src/core/",
