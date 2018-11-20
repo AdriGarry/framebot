@@ -111,8 +111,7 @@ function attachDefaultRoutes(ui) {
 
 	/** ==> GET SECTION */
 	ui.get('/log', function(req, res) {
-		// Send Logs to UI
-		var logSize = 100;
+		let logSize = 100;
 		let params = req.query;
 		if (params.hasOwnProperty('logSize') && !isNaN(params.logSize)) {
 			logSize = parseInt(params.logSize);
