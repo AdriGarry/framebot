@@ -31,48 +31,59 @@ module.exports = class Logger {
 	}
 
 	info() {
-		console.log(Utils.logTime(timestamp), '[' + Utils.filePosition(2) + ']', this._formatLog(arguments));
+		console.log(
+			Utils.logTime(timestamp) +
+				' | info' +
+				(logLevel == LEVEL.INFO ? ' ' : '  ') +
+				'| ' +
+				Utils.filePosition(2) +
+				' |',
+			this._formatLog(arguments)
+		);
 	}
 
 	INFO() {
 		console.log(
-			Utils.logTime(timestamp),
-			'[' + Utils.filePosition(2).toUpperCase() + ']',
+			Utils.logTime(timestamp) +
+				' | INFO' +
+				(logLevel == LEVEL.INFO ? ' ' : '  ') +
+				'| ' +
+				Utils.filePosition(2).toUpperCase() +
+				' |',
 			this._formatLog(arguments).toUpperCase()
 		);
 	}
 
 	debug() {
 		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
-			console.log(Utils.logTime(timestamp), '[' + Utils.filePosition(2) + ']\u2022', this._formatLog(arguments));
+			console.log(Utils.logTime(timestamp) + ' | debug | ' + Utils.filePosition(2) + ' |', this._formatLog(arguments));
 	}
 
 	DEBUG() {
 		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
 			console.log(
-				Utils.logTime(timestamp),
-				'[' + Utils.filePosition(2).toUpperCase() + ']\u2022',
+				Utils.logTime(timestamp) + ' | DEBUG | ' + Utils.filePosition(2).toUpperCase() + ' |',
 				this._formatLog(arguments).toUpperCase()
 			);
 	}
 
 	trace() {
 		if (logLevel == LEVEL.TRACE)
-			console.log(Utils.logTime(timestamp), '[' + Utils.filePosition(2) + ']\u2022\u2022', this._formatLog(arguments));
+			console.log(Utils.logTime(timestamp) + ' | trace | ' + Utils.filePosition(2) + ' |', this._formatLog(arguments));
 	}
 
 	TRACE() {
 		if (logLevel == LEVEL.TRACE)
 			console.log(
-				Utils.logTime(timestamp),
-				'[' + Utils.filePosition(2).toUpperCase() + ']\u2022\u2022',
+				Utils.logTime(timestamp) + ' | TRACE | ' + Utils.filePosition(2).toUpperCase() + ' |',
 				this._formatLog(arguments).toUpperCase()
 			);
 	}
 
+	// TODO...
 	error() {
 		console.log('______________');
-		console.error(Utils.logTime(timestamp), '[' + Utils.filePosition(2) + ']', this._formatLog(arguments));
+		console.error(Utils.logTime(timestamp) + ' | ERROR | ' + Utils.filePosition(2) + ' |', this._formatLog(arguments));
 	}
 
 	table(src, title, updatedEntries) {
@@ -112,7 +123,6 @@ module.exports = class Logger {
 		logLevel = newLogLevel;
 		Core = require(_PATH + 'src/core/Core.js').Core;
 		Core.conf('log', logLevel);
-		this.info();
 		this.INFO('--> Logger level set to:', logLevel);
 		if (newLogLevel == LEVEL.DEBUG || newLogLevel == LEVEL.TRACE) {
 			this._timeoutToInfoLevel(TIMEOUT);
@@ -120,7 +130,7 @@ module.exports = class Logger {
 	}
 
 	_timeoutToInfoLevel(delay) {
-		this.info('back to info level in', delay, 'min');
+		this[logLevel]('back to info level in', delay, 'min');
 		clearTimeout(cancelTimeout);
 		cancelTimeout = setTimeout(() => {
 			this.level() != LEVEL.INFO && this.level(LEVEL.INFO);

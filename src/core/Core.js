@@ -88,7 +88,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		});
 	}
 
-	const Flux = require(Core._CORE + 'Flux.js').attach(descriptor.modules);
+	const Flux = require(Core._CORE + 'Flux.js').init(descriptor.modules);
 	Core.flux = Flux;
 	Core.do = Flux.next;
 	Core.do('interface|runtime|update', confUpdate, {
@@ -118,31 +118,31 @@ function isAwake() {
 
 function error(message, data, stackTrace) {
 	if (!CoreError) {
-		CoreError = require(_PATH + 'src/core/CoreError.js'); // TODO à mettre dans setImmediate
+		CoreError = require(_PATH + 'src/core/CoreError.js');
 	}
 	new CoreError(message, data, stackTrace);
 }
 
-function error_OLD(message, data, stackTrace) {
-	Core.do('interface|led|altLeds', { speed: 30, duration: 1.5 }, { hidden: true });
-	Core.do('interface|sound|error', null, { hidden: true });
-	log.error(message + '\n', data || '');
-	if (stackTrace !== false) {
-		// Optional ?
-		console.trace();
-		//Error.captureStackTrace(this, this.constructor);
-	}
-	let logError = {
-		message: message,
-		data: data,
-		time: Utils.logTime()
-	};
+// function error_OLD(message, data, stackTrace) {
+// 	Core.do('interface|led|altLeds', { speed: 30, duration: 1.5 }, { hidden: true });
+// 	Core.do('interface|sound|error', null, { hidden: true });
+// 	log.error(message + '\n', data || '');
+// 	if (stackTrace !== false) {
+// 		// Optional ?
+// 		console.trace();
+// 		//Error.captureStackTrace(this, this.constructor);
+// 	}
+// 	let logError = {
+// 		message: message,
+// 		data: data,
+// 		time: Utils.logTime()
+// 	};
 
-	if (Core.descriptor.modules.services.base.indexOf('sms') > -1) {
-		Core.do('service|sms|send', message + '\n' + data + '\n' + logError.time);
-	}
+// 	if (Core.descriptor.modules.services.base.indexOf('sms') > -1) {
+// 		Core.do('service|sms|send', message + '\n' + data + '\n' + logError.time);
+// 	}
 
-	Utils.appendJsonFile(Core._LOG + Core.name + '_errorHistory.json', logError);
-	Core.errors.push(logError);
-	log.info('__OLD STUFF...');
-}
+// 	Utils.appendJsonFile(Core._LOG + Core.name + '_errorHistory.json', logError);
+// 	Core.errors.push(logError);
+// 	log.info('__OLD STUFF...');
+// }

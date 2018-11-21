@@ -10,13 +10,15 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 var ready = false;
 var Flux = {
-	attach: attachObservers,
+	init: attachObservers,
 	loadModules: loadModules,
 	next: next
 };
 
+module.exports = Flux;
+
 function attachObservers(observers) {
-	log.debug('attaching observers...');
+	log.debug('initializing observers...');
 	Object.keys(observers).forEach((key, index) => {
 		let proto = key.substring(0, key.length - 1);
 		Flux[proto] = {};
@@ -45,7 +47,7 @@ function loadModules(modules) {
 			}
 			modulesLoaded += ', ' + modules[module].full.join(', ');
 		}
-		log.info(module, 'loaded:', modulesLoaded); //, '[' + Utils.executionTime(startTime) + 'ms]');
+		log.info(module, 'loaded [' + modulesLoaded + ']'); //, '[' + Utils.executionTime(startTime) + 'ms]');
 	});
 	return Flux;
 }
@@ -128,5 +130,3 @@ function next(id, data, conf) {
 	}
 	flux.fire();
 }
-
-module.exports = Flux;
