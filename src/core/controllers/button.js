@@ -102,6 +102,6 @@ Button.etat.watch((err, value) => {
 		Core.do('interface|video|screenOff');
 	}
 	setTimeout(() => {
-		log.table(Core.run(), 'RUNTIME...       ' + Core.run('memory.loadAverage'));
+		log.table(Core.run(), 'RUNTIME');
 	}, 200);
 });

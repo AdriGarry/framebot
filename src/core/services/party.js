@@ -25,7 +25,7 @@ function start() {
 	log.INFO("Let's start the party !!  <|:-)");
 	Core.do('interface|tts|speak', { voice: 'google', lg: 'en', msg: "Let's start the party" });
 	Core.run('mood', 'party');
-	log.table(Core.run(), 'RUNTIME...       ' + Core.run('memory.loadAverage'));
+	log.table(Core.run(), 'RUNTIME...');
 	firePartyActionAndRandom();
 }
 

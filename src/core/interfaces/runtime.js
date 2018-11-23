@@ -56,6 +56,6 @@ function refreshRuntime() {
 	log.info("refreshing Core's runtime...");
 	Core.do('interface|hardware|runtime', null, { hidden: true });
 	setTimeout(function() {
-		log.table(Core.run(), 'RUNTIME...       ' + Core.run('memory.loadAverage'));
+		log.table(Core.run(), 'RUNTIME');
 	}, 1000);
 }
