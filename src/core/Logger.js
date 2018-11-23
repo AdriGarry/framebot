@@ -6,7 +6,7 @@ const util = require('util');
 const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' },
 	TIMEOUT = 15,
 	LOG_LEVEL_LENGTH = 5,
-	FILE_POSITION_LENGTH = 13,
+	FILE_POSITION_LENGTH = 12,
 	TIMESTAMP_PATTERN = { NORMAL: 'D/M h:m:s', SLEEP: 'D/M_h:m:s' };
 
 var Utils, Core, timestamp, cancelTimeout;
