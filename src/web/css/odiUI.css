@@ -261,8 +261,8 @@ button.muteButton:hover {
 }
 
 .md-sidenav-left {
-	width: 80%;
-	max-width: 80%;
+	width: 85%;
+	max-width: 85%;
 	background-color: #1b2631;
 	z-index: 120;
 }

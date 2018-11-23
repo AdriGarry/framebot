@@ -38,6 +38,7 @@ function updateConf(newConf, restart) {
 	log.table(Core.conf(), header, updatedEntries);
 	if (restart) {
 		log.info('buttonStats:', Core.run().buttonStats);
+		log.info('exit program.');
 		process.exit();
 	}
 }
@@ -48,6 +49,7 @@ function resetCore() {
 	Utils.deleteFolderRecursive(Core._TMP);
 	log.INFO('reset conf and restart');
 	log.info('buttonStats:', Core.run().buttonStats);
+	log.info('exit.');
 	process.exit();
 }
 
