@@ -8,8 +8,9 @@ const fs = require('fs');
 const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
 
 module.exports = {
-	filePosition: filePosition,
+	codePosition: codePosition,
 	repeatString: repeatString,
+	formatStringLength: formatStringLength,
 	deleteFolderRecursive: deleteFolderRecursive,
 	appendJsonFile: appendArrayInJsonFile,
 	execCmd: execCmd,
@@ -32,16 +33,17 @@ module.exports = {
 };
 
 /**
- * Function to retreive file position at runtime
+ * Function to retreive code position (file & line) at runtime
  * @param {*} steps
  */
-function filePosition(steps) {
+function codePosition(steps) {
 	let stack = new Error().stack;
 	// console.log(stack);
 	let data = stack.match(/([a-zA-Z]+.js:\d+)/gm);
 	if (isNaN(steps)) steps = 0;
 	if (Array.isArray(data) && data[steps]) {
-		return data[steps];
+		let result = data[steps].split(':');
+		return { file: result[0], line: result[1] };
 	}
 	return '';
 }
@@ -53,7 +55,26 @@ function filePosition(steps) {
  * @return {String} repeated string
  */
 function repeatString(string, times) {
+	// console.log('repeatString', string, times);
 	return Array(times + 1).join(string);
+}
+
+function formatStringLength(string, expectedLength, before) {
+	let stringLength = string.length,
+		stringFormated;
+	if (stringLength >= expectedLength) {
+		stringFormated = string.substring(0, expectedLength);
+		// console.log(stringLength, 'if', stringFormated);
+	} else {
+		if (before) {
+			stringFormated = repeatString(' ', expectedLength - stringLength) + string;
+		} else {
+			stringFormated = string + repeatString(' ', expectedLength - stringLength);
+		}
+		// stringFormated = string + repeatString(' ', Math.abs(stringLength - expectedLength) + 2);
+		// console.log(stringLength, 'else', stringFormated);
+	}
+	return stringFormated;
 }
 
 function deleteFolderRecursive(path) {

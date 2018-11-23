@@ -3,9 +3,11 @@
 
 const util = require('util');
 
-const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' };
-const TIMEOUT = 15;
-const TIMESTAMP_PATTERN = { NORMAL: 'D/M h:m:s', SLEEP: 'D/M_h:m:s' };
+const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' },
+	TIMEOUT = 15,
+	LOG_LEVEL_LENGTH = 5,
+	FILE_POSITION_LENGTH = 13,
+	TIMESTAMP_PATTERN = { NORMAL: 'D/M h:m:s', SLEEP: 'D/M_h:m:s' };
 
 var Utils, Core, timestamp, cancelTimeout;
 
@@ -31,59 +33,35 @@ module.exports = class Logger {
 	}
 
 	info() {
-		console.log(
-			Utils.logTime(timestamp) +
-				' | info' +
-				(logLevel == LEVEL.INFO ? ' ' : '  ') +
-				'| ' +
-				Utils.filePosition(2) +
-				' |',
-			this._formatLog(arguments)
-		);
+		console.log(this._formatLogPrefix('info'), this._formatLog(arguments));
 	}
 
 	INFO() {
-		console.log(
-			Utils.logTime(timestamp) +
-				' | INFO' +
-				(logLevel == LEVEL.INFO ? ' ' : '  ') +
-				'| ' +
-				Utils.filePosition(2).toUpperCase() +
-				' |',
-			this._formatLog(arguments).toUpperCase()
-		);
+		console.log(this._formatLogPrefix('INFO'), this._formatLog(arguments).toUpperCase());
 	}
 
 	debug() {
 		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
-			console.log(Utils.logTime(timestamp) + ' | debug | ' + Utils.filePosition(2) + ' |', this._formatLog(arguments));
+			console.log(this._formatLogPrefix('debug'), this._formatLog(arguments));
 	}
 
 	DEBUG() {
 		if (logLevel == LEVEL.DEBUG || logLevel == LEVEL.TRACE)
-			console.log(
-				Utils.logTime(timestamp) + ' | DEBUG | ' + Utils.filePosition(2).toUpperCase() + ' |',
-				this._formatLog(arguments).toUpperCase()
-			);
+			console.log(this._formatLogPrefix('DEBUG'), this._formatLog(arguments).toUpperCase());
 	}
 
 	trace() {
-		if (logLevel == LEVEL.TRACE)
-			console.log(Utils.logTime(timestamp) + ' | trace | ' + Utils.filePosition(2) + ' |', this._formatLog(arguments));
+		if (logLevel == LEVEL.TRACE) console.log(this._formatLogPrefix('trace'), this._formatLog(arguments));
 	}
 
 	TRACE() {
-		if (logLevel == LEVEL.TRACE)
-			console.log(
-				Utils.logTime(timestamp) + ' | TRACE | ' + Utils.filePosition(2).toUpperCase() + ' |',
-				this._formatLog(arguments).toUpperCase()
-			);
+		if (logLevel == LEVEL.TRACE) console.log(this._formatLogPrefix('TRACE'), this._formatLog(arguments).toUpperCase());
 	}
 
 	// TODO...
 	error() {
 		console.log('______________');
-		console.error(Utils.logTime(timestamp) + ' | ERROR | ' + Utils.filePosition(2) + ' |', this._formatLog(arguments));
+		console.error(this._formatLogPrefix('error'), this._formatLog(arguments));
 	}
 
 	table(src, title, updatedEntries) {
@@ -136,6 +114,20 @@ module.exports = class Logger {
 			this.level() != LEVEL.INFO && this.level(LEVEL.INFO);
 			Core.conf('log', LEVEL.INFO);
 		}, delay * 60 * 1000);
+	}
+
+	_formatLogPrefix(logLevel) {
+		return Utils.logTime(timestamp) + this._formatLogLevel(logLevel) + this._formatLogPosition() + ' |';
+	}
+
+	_formatLogLevel(logLevel) {
+		return ' | ' + Utils.formatStringLength(logLevel, LOG_LEVEL_LENGTH) + ' | ';
+	}
+
+	_formatLogPosition() {
+		let codePosition = Utils.codePosition(4);
+		let file = Utils.formatStringLength(codePosition.file, FILE_POSITION_LENGTH - 3, true);
+		return Utils.formatStringLength(file + ':' + codePosition.line, FILE_POSITION_LENGTH, true);
 	}
 
 	_formatLog(args) {
