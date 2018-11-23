@@ -301,6 +301,7 @@ function logTime(param, date) {
 	var h = date.getHours();
 	var m = date.getMinutes();
 	var s = date.getSeconds();
+	var x = date.getMilliseconds();
 	var now = '';
 
 	if (typeof param === 'undefined') param = dateTimeDefaultPattern;
@@ -323,6 +324,9 @@ function logTime(param, date) {
 				break;
 			case 's':
 				now += (s < 10 ? '0' : '') + s;
+				break;
+			case 'x':
+				now += (x < 100 ? (x < 10 ? '00' : '0') : '') + x;
 				break;
 			default:
 				now += param[i];
