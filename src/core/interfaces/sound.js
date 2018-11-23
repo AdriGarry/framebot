@@ -94,7 +94,8 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
 		// if (err) Core.error('mplayerProcess.on(close', err);
 		// else
 		if (!noLog) {
-			log.info('play_end ' + soundTitle + ' time=' + Math.round(Utils.executionTime(startPlayTime) / 100) / 10 + 'sec');
+			let playTime = Utils.formatDuration(Math.round(Utils.executionTime(startPlayTime) / 100) / 10);
+			log.info('play_end ' + soundTitle + ' time=' + playTime);
 		}
 		clearInterval(mplayerProcess.ledFlag);
 		delete mplayerInstances[sound];

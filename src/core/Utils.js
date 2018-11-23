@@ -15,6 +15,7 @@ module.exports = {
 	execCmd: execCmd,
 	firstLetterUpper: firstLetterUpper,
 	executionTime: executionTime,
+	formatDuration: formatDuration,
 	addPatternBefore: addPatternBefore,
 	getJsonFileContent: getJsonFileContent,
 	getAbsolutePath: getAbsolutePath,
@@ -231,6 +232,14 @@ function addPatternBefore(time, pattern) {
 		return pattern.charAt(0).repeat(pattern.length - time.toString().length) + time;
 	}
 	return time;
+}
+
+function formatDuration(duration) {
+	duration = parseInt(duration);
+	if (duration > 120) {
+		return Math.round(duration / 60) + 'm' + (duration % 60) + 's';
+	}
+	return duration + 's';
 }
 
 function numberWithDot(number) {
