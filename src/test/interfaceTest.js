@@ -25,7 +25,7 @@ module.exports.runTest = function(succeedTest) {
 	assert.equal(Core.run('alarm'), false);
 
 	Core.do('interface|sound|volume', 60);
-	// Core.do('interface|sound|volume', 40, { delay: 4 });
+	Core.do('interface|sound|volume', 40, { delay: 4 });
 
 	Core.do('interface|hardware|cpuTTS', null, { delay: 0.1 });
 
