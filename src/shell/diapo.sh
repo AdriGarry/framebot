@@ -23,7 +23,8 @@ play1Video () {
 	playTime=${playTimeDecimal%.*}
 	echo "playTime" $playTime
 
-	sudo omxplayer -o hdmi --vol 0 --blank --win '0 0 1680 1050' --layer 0 $path &
+	# --win '0 0 1680 1050' // landscape position
+	sudo omxplayer -o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0 $path &
 	sleep $playTime
 	#sleep $(( playTime - 1 ))
 }
