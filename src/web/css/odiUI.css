@@ -290,6 +290,10 @@ md-button.md-fab.ng-slide.active {
 	word-break: break-all;
 	white-space: pre-wrap;
 }
+.logs ul.fullLine {
+	white-space: pre;
+}
+
 .logs ul li {
 	line-height: 1.1em;
 }
@@ -799,8 +803,8 @@ body>.loading i{
 		font-size: 0.75em;
 		line-height: 0.95em;
 		font-stretch: condensed;
-		word-break: break-all;
-		white-space: pre-wrap;
+		/*word-break: break-all;
+		white-space: pre;*/
 	}
 
 	.md-sidenav-right {
