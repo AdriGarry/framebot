@@ -42,9 +42,6 @@ function setUpCoreObject(Core, descriptor) {
 
 function initializeContext(path, descriptor, forcedParams, startTime) {
 	Core = setUpCoreObject(Core, descriptor);
-	if (Core.isAwake()) {
-		spawn('mplayer', ['-volume', 50, Core._MP3 + 'system/startup.mp3']);
-	}
 
 	let packageJson = require(_PATH + 'package.json');
 	var confUpdate = {
@@ -71,6 +68,9 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 
 	console.log('\n' + fs.readFileSync(Core._CONF + 'logo.txt', 'utf8').toString());
 	log.table(Core.conf(), 'CONFIG');
+	if (Core.isAwake()) {
+		spawn('mplayer', ['-volume', 50, Core._MP3 + 'system/startup.mp3']);
+	}
 	log.info('initialization...');
 
 	if (Core.conf('log') != 'info') log.level(Core.conf('log'));
