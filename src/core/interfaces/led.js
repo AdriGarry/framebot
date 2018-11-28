@@ -45,7 +45,7 @@ setInterval(function() {
 }, 900);
 
 new CronJob( //TODO mettre dans jobs.json (une fois le mode trace défini)
-	'*/3 * * * * *',
+	'*/3 * * * * *', // TODO tester de mettre aussi dans un setInterval
 	function() {
 		blink({ leds: ['nose'], speed: 200, loop: 1 });
 	},

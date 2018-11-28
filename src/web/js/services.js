@@ -154,7 +154,7 @@ app.service('UIService', [
 		};
 
 		/** Function to update logs **/
-		var logSize = 200;
+		var logSize = 150;
 		var logIncrement = 50;
 		ctrl.updateLogs = function(callback) {
 			$http({
