@@ -31,31 +31,24 @@ Core.flux.interface.led.subscribe({
 	}
 });
 
-//	Core.conf('mode');
-let mode = Core.conf('mode');
-//mode = parseInt(mode, 10);
-if (mode == 'sleep') mode = 0;
-else mode = 1;
-setInterval(function() {
-	Led.nose.writeSync(mode);
-}, 900);
+setImmediate(() => {
+	let mode = Core.isAwake() ? 1 : 0;
 
-setInterval(function() {
-	Led.nose.writeSync(mode);
-}, 900);
+	setInterval(function() {
+		Led.nose.writeSync(mode);
+	}, 900);
 
-new CronJob( //TODO mettre dans jobs.json (une fois le mode trace défini)
-	'*/3 * * * * *', // TODO tester de mettre aussi dans un setInterval
-	function() {
-		blink({ leds: ['nose'], speed: 200, loop: 1 });
-	},
-	null,
-	1,
-	'Europe/Paris'
-);
-log.info('Activity led initialised [' + mode + ']');
-
-setImmediate(() => {});
+	new CronJob( //TODO mettre dans jobs.json (une fois le mode trace défini)
+		'*/3 * * * * *', // TODO tester de mettre aussi dans un setInterval
+		function() {
+			blink({ leds: ['nose'], speed: 200, loop: 1 });
+		},
+		null,
+		1,
+		'Europe/Paris'
+	);
+	log.info('Activity led initialised [' + Core.conf('mode') + ']');
+});
 
 // blink({leds:['belly', 'satellite'],loop:5, speed:70});
 
