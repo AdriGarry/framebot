@@ -63,7 +63,7 @@ function playSound(arg) {
 		? 'duration=' + (Math.floor(arg.duration / 60) + 'm' + Math.round(arg.duration % 60))
 		: '';
 	let volLog = arg.volume ? 'vol=' + arg.volume : '';
-	let positionLog = arg.position ? 'pos=' + arg.position : '';
+	let positionLog = arg.position ? 'pos=' + Utils.formatDuration(arg.position) : '';
 	if (!arg.noLog) log.info('play', soundTitle, volLog, positionLog, durationLog);
 
 	let position = arg.position || 0;
