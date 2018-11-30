@@ -3,7 +3,7 @@ var app = angular.module('odiUI', ['ngMaterial', 'mdPickers' /*'pr.longpress'*/]
 
 app.constant('CONSTANTS', {
 	URL_ODI: 'https://odi.adrigarry.com',
-	DATE_REGEX: new RegExp('[0-9]{2}/[0-9]{2} ', 'g'),
+	DATE_REGEX: new RegExp('[0-9]{2}/[0-9]{2}[ _]', 'g'),
 	LOG_LEVEL_REGEX: new RegExp('\\| [a-zA-Z]+ *\\|', 'g'),
 	FILE_REGEX: new RegExp('\\| *[a-zA-Z]+.?(j|js|J|JS)?:\\d+ \\|', 'g'),
 	IP_REGEX: new RegExp('\\[((?=.*[0-9])(?=.*\\.)(?=.*\\:).*)_', 'g'),
