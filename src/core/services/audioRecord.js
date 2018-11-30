@@ -106,7 +106,7 @@ function playAllRecords() {
 		return;
 	}
 	Core.do('interface|tts|speak', RECORD_TTS);
-	let delay = 3,
+	let delay = 1,
 		previousRecordDuration;
 	recordListPath.forEach(recordPath => {
 		Utils.getSoundDuration(recordPath, duration => {
