@@ -126,7 +126,11 @@ module.exports = class Logger {
 
 	_formatLogPosition() {
 		let codePosition = Utils.codePosition(4);
-		let file = Utils.formatStringLength(codePosition.file, FILE_POSITION_LENGTH - 3, true);
+		let file = Utils.formatStringLength(
+			codePosition.file,
+			FILE_POSITION_LENGTH - codePosition.line.toString().length - 1,
+			true
+		);
 		return Utils.formatStringLength(file + ':' + codePosition.line, FILE_POSITION_LENGTH, true);
 	}
 
