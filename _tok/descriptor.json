@@ -19,7 +19,7 @@
 	},
 	"modules": {
 		"interfaces": {
-			"base": ["runtime", "led", "sound", "hardware", "arduino", "video"],
+			"base": ["context", "led", "sound", "hardware", "arduino", "video"],
 			"full": ["tts"]
 		},
 		"controllers": {

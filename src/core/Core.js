@@ -91,11 +91,11 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	const Flux = require(Core._CORE + 'Flux.js').init(descriptor.modules);
 	Core.flux = Flux;
 	Core.do = Flux.next;
-	Core.do('interface|runtime|update', confUpdate, {
+	Core.do('interface|context|update', confUpdate, {
 		delay: 0.2,
 		hidden: true
 	});
-	Core.do('interface|runtime|refresh', runtimeUpdate);
+	Core.do('interface|context|refresh', runtimeUpdate);
 	let fluxToFire = Core.conf('flux'); // TODO do this !
 	if (fluxToFire && fluxToFire.length > 0) {
 		log.table(fluxToFire, 'flux to fire');

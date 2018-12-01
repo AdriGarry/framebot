@@ -5,7 +5,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(_PATH + 'src/core/Utils.js');
 
-Core.flux.interface.runtime.subscribe({
+Core.flux.interface.context.subscribe({
 	next: flux => {
 		if (flux.id == 'update') {
 			updateConf(flux.value, false);

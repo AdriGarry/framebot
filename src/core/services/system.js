@@ -36,7 +36,7 @@ function restartCore(mode) {
 		log.INFO(timerRemaining);
 	}
 	// log.
-	Core.do('interface|runtime|updateRestart', { mode: mode || 'ready' });
+	Core.do('interface|context|updateRestart', { mode: mode || 'ready' });
 }
 
 /** Function to random TTS good night, and sleep */

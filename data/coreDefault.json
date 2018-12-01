@@ -75,7 +75,7 @@
 				"cron": "13 13 13 * * 0",
 				"flux": [
 					{ "id": "interface|tts|speak", "data": { "lg": "en", "msg": "Reset config" } },
-					{ "id": "interface|runtime|reset", "data": true, "conf": { "delay": 3 } }
+					{ "id": "interface|context|reset", "data": true, "conf": { "delay": 3 } }
 				]
 			}
 		]

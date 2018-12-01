@@ -29,7 +29,7 @@ setImmediate(() => {
 function disableAllAlarms() {
 	Core.do('interface|tts|speak', 'Annulation de toutes les alarmes');
 	Core.do(
-		'interface|runtime|updateRestart',
+		'interface|context|updateRestart',
 		{
 			alarms: {
 				weekDay: null,
@@ -60,7 +60,7 @@ function setAlarm(alarm) {
 	let alarmTTS = 'Alarme ' + alarmMode + ' ' + alarm.h + ' heure ' + (alarm.m ? alarm.m : '');
 	Core.do('interface|tts|speak', alarmTTS);
 	Core.do(
-		'interface|runtime|updateRestart',
+		'interface|context|updateRestart',
 		{
 			alarms: newAlarms
 		},
