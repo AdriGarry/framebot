@@ -4,6 +4,7 @@ var app = angular.module('odiUI', ['ngMaterial', 'mdPickers' /*'pr.longpress'*/]
 app.constant('CONSTANTS', {
 	URL_ODI: 'https://odi.adrigarry.com',
 	DATE_REGEX: new RegExp('[0-9]{2}/[0-9]{2}[ _]', 'g'),
+	MILLISEC_REGEX: new RegExp(',\\d{3} \\|', 'g'),
 	LOG_LEVEL_REGEX: new RegExp('\\| [a-zA-Z]+ *\\|', 'g'),
 	FILE_REGEX: new RegExp('\\| *[a-zA-Z]+.?(j|js|J|JS)?:\\d+ \\|', 'g'),
 	IP_REGEX: new RegExp('\\[((?=.*[0-9])(?=.*\\.)(?=.*\\:).*)_', 'g'),
@@ -45,6 +46,7 @@ app.filter('formatLog', function(CONSTANTS) {
 	return function(logLine, fullLog) {
 		if (!fullLog) {
 			logLine = logLine.replace(CONSTANTS.DATE_REGEX, '');
+			logLine = logLine.replace(CONSTANTS.MILLISEC_REGEX, ' |');
 			logLine = logLine.replace(CONSTANTS.LOG_LEVEL_REGEX, '|');
 			logLine = logLine.replace(CONSTANTS.FILE_REGEX, '|');
 		}
