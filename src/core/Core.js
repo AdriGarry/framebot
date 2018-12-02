@@ -97,7 +97,6 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		// hidden: true
 	});
 	Core.do('service|context|refresh', runtimeUpdate, {
-		delay: 0.2,
 		log: 'debug'
 		// hidden: true
 	});
