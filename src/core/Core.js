@@ -92,11 +92,13 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	Core.flux = Flux;
 	Core.do = Flux.next;
 	Core.do('service|context|update', confUpdate, {
-		delay: 0.2
+		delay: 0.2,
+		log: 'debug'
 		// hidden: true
 	});
 	Core.do('service|context|refresh', runtimeUpdate, {
-		delay: 0.2
+		delay: 0.2,
+		log: 'debug'
 		// hidden: true
 	});
 	let fluxToFire = Core.conf('flux'); // TODO do this !
