@@ -21,6 +21,7 @@ app.controller('UIController', function(
 	$scope.menuOpen = false;
 
 	$scope.logData;
+	$scope.log = { fullLine: true };
 
 	$scope.volumeChange = function() {
 		var command = {
