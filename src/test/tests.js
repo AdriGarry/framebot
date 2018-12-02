@@ -62,8 +62,8 @@ function allTestSuceedFeedback() {
 		  };
 	Core.do('interface|tts|speak', testTTS);
 	setTimeout(function() {
-		// if (testStatus) Core.do('interface|context|updateRestart', { mode: 'ready' });
-		Core.do('interface|context|updateRestart', {
+		// if (testStatus) Core.do('service|context|updateRestart', { mode: 'ready' });
+		Core.do('service|context|updateRestart', {
 			mode: 'ready'
 		});
 	}, 4000);

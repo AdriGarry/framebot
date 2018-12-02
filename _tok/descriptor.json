@@ -19,14 +19,14 @@
 	},
 	"modules": {
 		"interfaces": {
-			"base": ["context", "led", "sound", "hardware", "arduino", "video"],
+			"base": ["led", "sound", "hardware", "arduino", "video"],
 			"full": ["tts"]
 		},
 		"controllers": {
 			"base": ["button", "jobs", "server", "watcher"]
 		},
 		"services": {
-			"base": ["buttonService", "system", "time", "alarm", "voicemail", "sms", "audioRecord"],
+			"base": ["context", "buttonService", "system", "time", "alarm", "voicemail", "sms", "audioRecord"],
 			"full": ["mood", "interaction", "weather", "timer", "music", "party", "max", "maya"]
 		}
 	},

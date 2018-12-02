@@ -216,7 +216,7 @@ function attachDefaultRoutes(ui) {
 		log.info('UI > Toggle trace');
 		let newLogLevel = log.level() == 'trace' ? 'info' : 'trace';
 		log.level(newLogLevel);
-		Core.do('interface|context|update', {
+		Core.do('service|context|update', {
 			log: newLogLevel
 		});
 		res.end();
@@ -224,7 +224,7 @@ function attachDefaultRoutes(ui) {
 
 	ui.post('/testSequence', function(req, res) {
 		Core.do(
-			'interface|context|updateRestart',
+			'service|context|updateRestart',
 			{
 				mode: 'test'
 			},
@@ -262,7 +262,7 @@ function attachDefaultRoutes(ui) {
 
 	ui.post('/resetConfig', function(req, res) {
 		log.debug('UI > Reset config');
-		Core.do('interface|context|reset', true, {
+		Core.do('service|context|reset', true, {
 			delay: 1
 		});
 		res.end();

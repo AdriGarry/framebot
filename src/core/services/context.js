@@ -5,7 +5,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(_PATH + 'src/core/Utils.js');
 
-Core.flux.interface.context.subscribe({
+Core.flux.service.context.subscribe({
 	next: flux => {
 		if (flux.id == 'update') {
 			updateConf(flux.value, false);
@@ -15,7 +15,7 @@ Core.flux.interface.context.subscribe({
 			resetCore();
 		} else if (flux.id == 'refresh') {
 			refreshRuntime(flux.value);
-		} else Core.error('unmapped flux in Runtime interface', flux, false);
+		} else Core.error('unmapped flux in Context service', flux, false);
 	},
 	error: err => {
 		Core.error(flux);

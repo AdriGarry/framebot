@@ -24,7 +24,7 @@ var instance = false,
 	intervalEtat;
 const INTERVAL_DELAY = (Core.conf('watcher') ? 60 : 5 * 60) * 1000; //3 * 60 * 1000;
 setInterval(function() {
-	// A deplacer dans flux.next('interface|context|refresh')) ?
+	// A deplacer dans flux.next('service|context|refresh')) ?
 	let value = Button.etat.readSync();
 	//TODO faire un truc avec ce flux => move to jobsList.json?
 	Core.do('interface|led|toggle', { leds: ['satellite'], value: value }, { hidden: true });
