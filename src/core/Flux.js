@@ -69,7 +69,7 @@ function FluxObject(id, data, conf) {
 	this.loop = Number(conf.loop) || 1;
 	// this.hidden = conf.hidden || false;
 	this.log = conf.log || 'info';
-	if (conf.hidden) this.log = 'trace';
+	if (conf.hidden) this.log = 'trace'; // TODO remove this line, but test if conf.log Utils.searchStringInArray of log levels
 
 	this.toString = () => {
 		let typeSubject = this.type + '|' + this.subject + '|';

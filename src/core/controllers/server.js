@@ -78,7 +78,7 @@ function startUIServer() {
 
 	httpsServer = https.createServer(CREDENTIALS, uiHttps).listen(HTTPS_SERVER_PORT, function() {
 		log.info('UI https server started [' + Core.conf('mode') + ']');
-		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { hidden: true });
+		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 	});
 }
 

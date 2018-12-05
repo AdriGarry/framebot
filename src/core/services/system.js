@@ -84,7 +84,7 @@ function light(duration) {
 	if (isNaN(duration)) Core.error('light error: duration arg is not a number!', duration, false);
 	let loop = (duration - 2) / 2;
 	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 });
-	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { hidden: true, delay: 2, loop: loop });
+	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'trace', delay: 2, loop: loop });
 
 	Core.do('interface|led|blink', { leds: LIGTH_LEDS, speed: 200, loop: 8 }, { delay: duration - 2 });
 

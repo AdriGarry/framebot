@@ -415,7 +415,7 @@ function attachAwakeRoutes(ui) {
 					loop: 20
 				},
 				{
-					hidden: true
+					log: 'trace'
 				}
 			);
 		} else {
