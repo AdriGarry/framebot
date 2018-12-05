@@ -1,6 +1,6 @@
 {
 	"name": "core",
-	"version": "6.4.9",
+	"version": "6.5.0",
 	"private": true,
 	"description": "Core program to autorun and interact !",
 	"main": "core.sh",
