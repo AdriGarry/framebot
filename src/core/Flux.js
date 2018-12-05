@@ -67,7 +67,9 @@ function FluxObject(id, data, conf) {
 	this.value = data;
 	this.delay = Number(conf.delay) || 0;
 	this.loop = Number(conf.loop) || 1;
-	this.hidden = conf.hidden || false;
+	// this.hidden = conf.hidden || false;
+	this.log = conf.log || 'info';
+	if (conf.hidden) this.log = 'trace';
 
 	this.toString = () => {
 		let typeSubject = this.type + '|' + this.subject + '|';
@@ -97,8 +99,9 @@ function FluxObject(id, data, conf) {
 	};
 
 	this.fire = () => {
-		if (this.hidden) log.trace(/*Utils.filePosition(3) + */ '> Flux', this.toString());
-		else log.info(/*Utils.filePosition() + */ '> Flux', this.toString());
+		// if (this.hidden) log.trace(/*Utils.filePosition(3) + */ '> Flux', this.toString());
+		// else log.info(/*Utils.filePosition() + */ '> Flux', this.toString());
+		log[this.log]('> Flux', this.toString());
 		Flux[this.type][this.subject].next({
 			id: this.id,
 			value: this.value
