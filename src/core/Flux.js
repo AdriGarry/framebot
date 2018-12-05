@@ -6,9 +6,13 @@ const util = require('util'),
 	Rx = require('rxjs');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(_PATH + 'src/core/Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+	log = new (require(_PATH + 'src/core/Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+	Utils = require(_PATH + 'src/core/Utils.js');
+
+const LOG_LEVELS = ['info', 'debug', 'trace'];
 
 var ready = false;
+
 var Flux = {
 	init: attachObservers,
 	loadModules: loadModules,
@@ -35,19 +39,19 @@ function attachObservers(observers) {
 }
 
 function loadModules(modules) {
-	Object.keys(modules).forEach(function(module) {
+	Object.keys(modules).forEach(function(moduleId) {
 		let modulesLoaded = '';
-		for (let i = 0; i < modules[module].base.length; i++) {
-			require(Core._CORE + module + '/' + modules[module].base[i] + '.js');
+		for (let i = 0; i < modules[moduleId].base.length; i++) {
+			require(Core._CORE + moduleId + '/' + modules[moduleId].base[i] + '.js');
 		}
-		modulesLoaded += modules[module].base.join(', ');
-		if (Core.isAwake() && modules[module].hasOwnProperty('full')) {
-			for (let i = 0; i < modules[module].full.length; i++) {
-				require(Core._CORE + module + '/' + modules[module].full[i] + '.js');
+		modulesLoaded += modules[moduleId].base.join(', ');
+		if (Core.isAwake() && modules[moduleId].hasOwnProperty('full')) {
+			for (let i = 0; i < modules[moduleId].full.length; i++) {
+				require(Core._CORE + moduleId + '/' + modules[moduleId].full[i] + '.js');
 			}
-			modulesLoaded += ', ' + modules[module].full.join(', ');
+			modulesLoaded += ', ' + modules[moduleId].full.join(', ');
 		}
-		log.info(module, 'loaded [' + modulesLoaded + ']'); //, '[' + Utils.executionTime(startTime) + 'ms]');
+		log.info(moduleId, 'loaded [' + modulesLoaded + ']');
 	});
 	return Flux;
 }
@@ -67,15 +71,10 @@ function FluxObject(id, data, conf) {
 	this.value = data;
 	this.delay = Number(conf.delay) || 0;
 	this.loop = Number(conf.loop) || 1;
-	this.hidden = conf.hidden || false;
-
-	this.toString = () => {
-		let typeSubject = this.type + '|' + this.subject + '|';
-		let value = this.id + (this.value ? ' ' + util.format(util.inspect(this.value)) : '') + ' ';
-		let delay = ' ' + (this.delay || '');
-		let loop = ' ' + (this.loop > 1 ? this.loop : '');
-		return typeSubject + value + delay + loop;
-	};
+	this.log = conf.log || 'info';
+	if (!Utils.searchStringInArray(this.log, LOG_LEVELS)) {
+		this.error = 'Invalid Flux log level: ' + this.log;
+	}
 
 	this.isValid = () => {
 		if (!this.error && Object.keys(Flux).includes(this.type) && Object.keys(Flux[this.type]).includes(this.subject)) {
@@ -97,12 +96,19 @@ function FluxObject(id, data, conf) {
 	};
 
 	this.fire = () => {
-		if (this.hidden) log.trace(/*Utils.filePosition(3) + */ '> Flux', this.toString());
-		else log.info(/*Utils.filePosition() + */ '> Flux', this.toString());
+		log[this.log]('> Flux', this.toString());
 		Flux[this.type][this.subject].next({
 			id: this.id,
 			value: this.value
 		});
+	};
+
+	this.toString = () => {
+		let typeSubject = this.type + '|' + this.subject + '|';
+		let value = this.id + (this.value ? ' ' + util.format(util.inspect(this.value)) : '') + ' ';
+		let delay = ' ' + (this.delay || '');
+		let loop = ' ' + (this.loop > 1 ? this.loop : '');
+		return typeSubject + value + delay + loop;
 	};
 }
 

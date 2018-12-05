@@ -117,7 +117,7 @@ function exclamation() {
 			loop: 6
 		},
 		{
-			hidden: true
+			log: 'trace'
 		}
 	);
 	let exclamation = exclamationRandomBox.next();
@@ -136,7 +136,7 @@ function russia() {
 			loop: 6
 		},
 		{
-			hidden: true
+			log: 'trace'
 		}
 	);
 	// spawn('sh', [Core._SHELL + 'exclamation_russia.sh']);

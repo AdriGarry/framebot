@@ -110,7 +110,7 @@ var playTTS = function(tts) {
 	Core.do(
 		'interface|led|blink',
 		{ leds: ['eye'], speed: Utils.random(50, 150), loop: tts.msg.length / 2 + 2 },
-		{ hidden: true }
+		{ log: 'trace' }
 	);
 
 	lastTtsMsg = tts;

@@ -55,8 +55,8 @@ function connect() {
 			var feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
 			feedback.on('data', function(data) {
 				log.debug(data);
-				Core.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
-				Core.do('service|max|parse', data.trim(), { hidden: true });
+				Core.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
+				Core.do('service|max|parse', data.trim(), { log: 'trace' });
 			});
 
 			arduino.on('close', function(data) {

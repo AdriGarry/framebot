@@ -25,7 +25,7 @@ function comptine() {
 		Core.error("Can't play comptine");
 		return;
 	}
-	Core.do('interface|sound|mute', null, { hidden: true });
+	Core.do('interface|sound|mute', null, { log: 'trace' });
 	Core.run('music', 'comptines');
 	Core.do('interface|sound|playRandom', { mp3: songPath }, { delay: 0.5 });
 }

@@ -122,16 +122,16 @@ function mute(args) {
 /** Function to stop all sounds & leds */
 function stopAll(message) {
 	if (Core.run('max')) {
-		Core.do('interface|arduino|disconnect', null, { hidden: true });
-		Core.do('interface|arduino|connect', null, { hidden: true });
+		Core.do('interface|arduino|disconnect', null, { log: 'trace' });
+		Core.do('interface|arduino|connect', null, { log: 'trace' });
 	}
 	writeAllMPlayerInstances('q');
-	Core.do('service|music|stop', null, { hidden: true });
-	Core.do('interface|tts|clearTTSQueue', null, { hidden: true });
+	Core.do('service|music|stop', null, { log: 'trace' });
+	Core.do('interface|tts|clearTTSQueue', null, { log: 'trace' });
 	spawn('sh', [Core._SHELL + 'mute.sh']);
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
-	Core.do('interface|led|clearLeds', null, { hidden: true });
-	Core.do('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { hidden: true });
+	Core.do('interface|led|clearLeds', null, { log: 'trace' });
+	Core.do('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { log: 'trace' });
 	Core.run('music', false);
 }
 
@@ -185,10 +185,10 @@ function additionalVolumeSetup() {
 }
 
 function ledFlag() {
-	// Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
-	Core.do('interface|led|blink', { leds: ['eye'], speed: 100, loop: 3 }, { hidden: true });
+	// Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
+	Core.do('interface|led|blink', { leds: ['eye'], speed: 100, loop: 3 }, { log: 'trace' });
 	return setInterval(function() {
-		Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { hidden: true });
+		Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
 	}, 10 * 1000);
 }
 

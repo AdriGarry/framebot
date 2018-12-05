@@ -15,7 +15,6 @@ Core.gpio.leds.forEach(led => {
 
 Core.flux.interface.led.subscribe({
 	next: flux => {
-		//log.info(flux, '(you are in the led module !)');
 		if (flux.id == 'toggle') {
 			toggle(flux.value);
 		} else if (flux.id == 'blink') {

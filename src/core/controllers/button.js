@@ -27,7 +27,7 @@ setInterval(function() {
 	// A deplacer dans flux.next('service|context|refresh')) ?
 	let value = Button.etat.readSync();
 	//TODO faire un truc avec ce flux => move to jobsList.json?
-	Core.do('interface|led|toggle', { leds: ['satellite'], value: value }, { hidden: true });
+	Core.do('interface|led|toggle', { leds: ['satellite'], value: value }, { log: 'trace' });
 	Core.run('etat', value ? 'high' : 'low');
 
 	if (1 === value) {

@@ -56,7 +56,7 @@ function resetCore() {
 /** Function to refresh Core\'s runtime data (etat, timer, moods...) */
 function refreshRuntime() {
 	log.info("refreshing Core's runtime...");
-	Core.do('interface|hardware|runtime', null, { hidden: true });
+	Core.do('interface|hardware|runtime', null, { log: 'trace' });
 	setTimeout(function() {
 		log.table(Core.run(), 'RUNTIME');
 	}, 1000);

@@ -20,8 +20,8 @@ module.exports = {
 };
 
 var securityMiddleware = function(req, res, next) {
-	Core.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { hidden: true });
-	if (!Utils.searchStringInArray(req.url, NO_SOUND_URL)) Core.do('interface|sound|UI', null, { hidden: true });
+	Core.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
+	if (!Utils.searchStringInArray(req.url, NO_SOUND_URL)) Core.do('interface|sound|UI', null, { log: 'trace' });
 
 	let requestData = getRequestData(req);
 
@@ -44,7 +44,7 @@ var securityMiddleware = function(req, res, next) {
 		// Not allowed requests
 		if (canTTSBadRequest && Core.isAwake()) {
 			canTTSBadRequest = false;
-			Core.do('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, hidden: true });
+			Core.do('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });
 			setTimeout(() => {
 				canTTSBadRequest = true;
 			}, BAD_REQUEST_TIMEOUT);

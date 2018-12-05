@@ -94,11 +94,9 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	Core.do('service|context|update', confUpdate, {
 		delay: 0.2,
 		log: 'debug'
-		// hidden: true
 	});
 	Core.do('service|context|refresh', runtimeUpdate, {
 		log: 'debug'
-		// hidden: true
 	});
 	let fluxToFire = Core.conf('flux'); // TODO do this !
 	if (fluxToFire && fluxToFire.length > 0) {
@@ -128,8 +126,8 @@ function error(message, data, stackTrace) {
 }
 
 // function error_OLD(message, data, stackTrace) {
-// 	Core.do('interface|led|altLeds', { speed: 30, duration: 1.5 }, { hidden: true });
-// 	Core.do('interface|sound|error', null, { hidden: true });
+// 	Core.do('interface|led|altLeds', { speed: 30, duration: 1.5 }, { log: 'trace' });
+// 	Core.do('interface|sound|error', null, { log: 'trace' });
 // 	log.error(message + '\n', data || '');
 // 	if (stackTrace !== false) {
 // 		// Optional ?

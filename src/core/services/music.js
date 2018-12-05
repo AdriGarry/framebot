@@ -30,7 +30,7 @@ Core.flux.service.music.subscribe({
 
 /** Function jukebox (repeat for one hour) */
 function jukebox() {
-	Core.do('interface|sound|mute', null, { hidden: true });
+	Core.do('interface|sound|mute', null, { log: 'trace' });
 	log.info('Jukebox in loop mode !');
 	Core.run('music', 'jukebox');
 	repeatSong();
