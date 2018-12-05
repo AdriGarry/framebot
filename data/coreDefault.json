@@ -44,11 +44,11 @@
 		"base": [
 			{
 				"cron": "*/30 * * * * *",
-				"flux": { "id": "interface|hardware|runtime", "conf": { "hidden": true } }
+				"flux": { "id": "interface|hardware|runtime", "conf": { "log": "trace" } }
 			},
 			{
 				"cron": "1 * * * * *",
-				"flux": { "id": "service|alarm|isAlarm", "conf": { "hidden": true } }
+				"flux": { "id": "service|alarm|isAlarm", "conf": { "log": "trace" } }
 			},
 			{
 				"cron": "0 2 0 * * 1",

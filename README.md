@@ -68,6 +68,6 @@ A flux is an Object with 3 properties:
 
 - id: _type|subject|name_
 - data: any type
-- conf: `{delay:_number_, loop:_number_, hidden:_boolean_}`
+- conf: `{delay:_number_, loop:_number_, log:_string_}`
 
 .
