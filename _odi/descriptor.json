@@ -27,7 +27,7 @@
 		},
 		"services": {
 			"base": ["context", "buttonService", "system", "time", "alarm", "voicemail", "sms", "audioRecord"],
-			"full": ["mood", "interaction", "weather", "timer", "music", "party", "max", "maya"]
+			"full": ["mood", "interaction", "weather", "timer", "music", "party", "diapo", "max", "maya"]
 		}
 	},
 	"conf": {
