@@ -1,10 +1,11 @@
 {
 	"indent_size": 4,
-	"wrap_line_length": 120,
+	"indent_with_tabs": true,
+	"wrap_line_length": 200,
 	"space_in_paren": false,
 	"space_before_conditional": true,
 	"keep_array_indentation": true,
-	"wrap_attributes": "force-aligned",
-	"space_after_anon_function": true,
-	"indent_with_tabs": true
+	"wrap_attributes": "auto",
+	"space_after_anon_function": false,
+	"end_with_newline": true
 }
