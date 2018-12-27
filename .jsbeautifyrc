@@ -1,5 +1,6 @@
 {
     "indent_size": 4,
+    "indent_with_tabs": true,
     "wrap_line_length": 200,
     "space_in_paren": false,
     "space_before_conditional": true,
