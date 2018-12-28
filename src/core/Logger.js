@@ -58,6 +58,14 @@ module.exports = class Logger {
 		if (logLevel == LEVEL.TRACE) console.log(this._formatLogPrefix('TRACE'), this._formatLog(arguments).toUpperCase());
 	}
 
+	warn() {
+		console.log(this._formatLogPrefix('warn'), this._formatLog(arguments));
+	}
+
+	WARN() {
+		console.log(this._formatLogPrefix('WARN'), this._formatLog(arguments).toUpperCase());
+	}
+
 	// TODO...
 	error() {
 		console.log('______________');
