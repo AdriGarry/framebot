@@ -43,10 +43,6 @@ var mplayerInstances = {},
 	muteTimer;
 
 function playSound(arg) {
-	if (!Core.isAwake() && !arg.noLog) {
-		log.INFO('Can\'t play sound while sleeping!');
-		return;
-	}
 	log.debug(arg);
 	let soundTitle, sound;
 	if (arg.mp3) {
@@ -78,7 +74,7 @@ function playSound(arg) {
 function playSoundRandomPosition(arg) {
 	let sound = Utils.getAbsolutePath(arg.mp3, Core._MP3);
 	if (!sound) return;
-	Utils.getSoundDuration(sound, function (length) {
+	Utils.getSoundDuration(sound, function(length) {
 		arg.position = Utils.random(1, Math.floor((length / 100) * 60)); // Position up to 60% of sound duration
 		playSound(arg);
 	});
@@ -112,9 +108,9 @@ function mute(args) {
 	clearTimeout(muteTimer);
 	if (!args) args = {};
 	if (args.hasOwnProperty('delay') && Number(args.delay)) {
-		muteTimer = setTimeout(function () {
+		muteTimer = setTimeout(function() {
 			Core.do('interface|sound|play', { mp3: 'system/autoMute.mp3' });
-			setTimeout(function () {
+			setTimeout(function() {
 				stopAll(args.message || null);
 			}, 1600);
 		}, Number(args.delay) * 1000);
@@ -191,7 +187,7 @@ function additionalVolumeSetup() {
 function ledFlag() {
 	// Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
 	Core.do('interface|led|blink', { leds: ['eye'], speed: 100, loop: 3 }, { log: 'trace' });
-	return setInterval(function () {
+	return setInterval(function() {
 		Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
 	}, 10 * 1000);
 }
@@ -199,7 +195,7 @@ function ledFlag() {
 /** Function to reset sound */
 function resetSound() {
 	log.info('resetSound [amixer set PCM 100%]');
-	Utils.execCmd('amixer set PCM 100%', function (data) {
+	Utils.execCmd('amixer set PCM 100%', function(data) {
 		log.debug(data);
 	});
 }
