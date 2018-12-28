@@ -1,7 +1,11 @@
 {
 	"name": "Odi",
 	"botBirthday": "August 9, 2015 00:00:00",
-	"birthdays": ["17/04", "13/12", "31/07"],
+	"birthdays": [
+		"17/04",
+		"13/12",
+		"31/07"
+	],
 	"paths": {
 		"_SRC": "src/",
 		"_CORE": "src/core/",
@@ -19,15 +23,47 @@
 	},
 	"modules": {
 		"interfaces": {
-			"base": ["led", "sound", "hardware", "arduino", "video"],
-			"full": ["tts"]
+			"base": [
+				"led",
+				"sound",
+				"hardware",
+				"arduino",
+				"video"
+			],
+			"full": [
+				"tts"
+			]
 		},
 		"controllers": {
-			"base": ["button", "jobs", "server", "watcher"]
+			"base": [
+				"button",
+				"jobs",
+				"server",
+				"watcher"
+			]
 		},
 		"services": {
-			"base": ["context", "buttonService", "system", "time", "alarm", "voicemail", "sms", "audioRecord"],
-			"full": ["mood", "interaction", "weather", "timer", "music", "party", "diapo", "max", "maya"]
+			"base": [
+				"context",
+				"buttonService",
+				"system",
+				"time",
+				"alarm",
+				"voicemail",
+				"sms",
+				"audioRecord"
+			],
+			"full": [
+				"mood",
+				"interaction",
+				"weather",
+				"timer",
+				"music",
+				"party",
+				"diapo",
+				"max",
+				"maya"
+			]
 		}
 	},
 	"conf": {
