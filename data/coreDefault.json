@@ -128,7 +128,6 @@
 					},
 					{
 						"id": "service|system|reboot",
-						"data": true,
 						"conf": {
 							"delay": 3
 						}
