@@ -181,8 +181,7 @@ function cocoricoPart3() {
 		loop: 6
 	});
 
-	var baluchonTTS = "Je crois qu'il faut lancer l'opairation baluchon";
-	Core.do('interface|tts|speak', baluchonTTS, {
+	Core.do('service|interaction|baluchon', null, {
 		delay: Utils.random(15, 25) * 60,
 		loop: 3
 	});

@@ -73,8 +73,7 @@
 			{
 				"cron": "0 19 19 * * *",
 				"flux": {
-					"id": "interface|tts|speak",
-					"data": "Je crois qu'il faut lancer l'opairation baluchon"
+					"id": "service|interaction|baluchon"
 				}
 			},
 			{

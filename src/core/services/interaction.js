@@ -20,7 +20,9 @@ Core.flux.service.interaction.subscribe({
 		} else if (flux.id == 'demo') {
 			demo();
 		} else if (flux.id == 'goToWork') {
-			goToWork();
+			goToWorkTTS();
+		} else if (flux.id == 'baluchon') {
+			baluchonTTS();
 		} else if (flux.id == 'uneHeure') {
 			uneHeure();
 		} else if (flux.id == 'russia') {
@@ -160,16 +162,19 @@ function demo() {
 	});
 }
 
-function goToWork() {
-	if (Utils.rdm())
-		Core.do('interface|tts|speak', {
-			lg: 'fr',
-			msg: 'Go go go, allez au boulot'
-		});
-	else
-		Core.do('interface|tts|speak', {
-			lg: 'fr',
-			voice: 'espeak',
-			msg: 'Allez allez, Maitro boulot dodo'
-		});
+const BALUCHON_MSG = [
+	{ voice: 'espeak', msg: 'Je crois quil faut lancer lopairation baluchon' },
+	{ voice: 'pico', msg: 'il faut lancer loperation baluchon !' }
+];
+function baluchonTTS() {
+	let tts = Utils.randomItem(BALUCHON_MSG);
+	log.debug('baluchonTTS', tts);
+	Core.do('interface|tts|speak', tts);
+}
+
+const GO_TO_WORK_TTS = [{ msg: 'Go go go, allez au boulot' }, { msg: 'Allez allez, Maitro boulot dodo' }];
+function goToWorkTTS() {
+	let tts = Utils.randomItem(GO_TO_WORK_TTS);
+	log.debug('goToWorkTTS', tts);
+	Core.do('interface|tts|speak', tts);
 }
