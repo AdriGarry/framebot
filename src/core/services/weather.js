@@ -38,7 +38,8 @@ fs.readFile(Core._DATA + 'weatherStatus.json', function(err, data) {
 	}
 	WEATHER_STATUS_LIST = JSON.parse(data);
 });
-const WEATHER_SERVICE_URL = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20%28select%20woeid%20from%20geo.places%281%29%20where%20text%3D%22Marseille%2C%20france%22%29and%20u=%27c%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
+const WEATHER_SERVICE_URL =
+	'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20%28select%20woeid%20from%20geo.places%281%29%20where%20text%3D%22Marseille%2C%20france%22%29and%20u=%27c%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
 
 /** Official weather function */
 function reportTTS() {
@@ -75,11 +76,28 @@ function alternativeReportTTS() {
 /** Function to retreive weather info */
 var weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech;
 function getWeatherData(callback) {
+	log.INFO('--> getWeatherData');
+	request.get(
+		{
+			url: WEATHER_SERVICE_URL,
+			headers: {
+				'Content-Type': 'json'
+			}
+		},
+		function(error, response, body) {
+			log.INFO(error, response, body);
+			var json = JSON.parse(response.body);
+			console.log('Access Token:', json.access_token);
+		}
+	);
+}
+/** Function to retreive weather info */
+var weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech;
+function getWeatherData2(callback) {
 	log.debug('getWeatherData()');
 	request.get(
 		{
-			url:
-				WEATHER_SERVICE_URL,
+			url: WEATHER_SERVICE_URL,
 			headers: {
 				'Content-Type': 'json'
 			}
