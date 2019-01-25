@@ -107,25 +107,29 @@ function appendArrayInJsonFile(filePath, obj, callback) {
 	var fileData,
 		startTime = new Date();
 	fs.exists(filePath, function(exists) {
-		if (exists) {
-			fs.readFile(filePath, 'utf8', function(err, data) {
-				if (!data) {
-					fileData = [];
-				} else {
-					fileData = JSON.parse(data);
-				}
-				if (Array.isArray(fileData)) {
-					fileData.push(obj);
-					_writeFile(filePath, fileData, startTime);
-				} else {
-					fileData = [fileData];
-					fileData.push(obj);
-					_writeFile(filePath, fileData, startTime);
-				}
-			});
-		} else {
-			fileData = [obj];
-			_writeFile(filePath, fileData, startTime, true);
+		try {
+			if (exists) {
+				fs.readFile(filePath, 'utf8', function(err, data) {
+					if (!data) {
+						fileData = [];
+					} else {
+						fileData = JSON.parse(data);
+					}
+					if (Array.isArray(fileData)) {
+						fileData.push(obj);
+						_writeFile(filePath, fileData, startTime);
+					} else {
+						fileData = [fileData];
+						fileData.push(obj);
+						_writeFile(filePath, fileData, startTime);
+					}
+				});
+			} else {
+				fileData = [obj];
+				_writeFile(filePath, fileData, startTime, true);
+			}
+		} catch (err) {
+			console.error('Utils.appendArrayInJsonFile error', err);
 		}
 	});
 }
