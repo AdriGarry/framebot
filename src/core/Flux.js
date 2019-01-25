@@ -58,15 +58,15 @@ function loadModules(modules) {
 
 const FLUX_REGEX = new RegExp(/\w+\|\w+\|\w+/); // TODO
 
-function FluxObject(id, data, conf) {
+function FluxObject(idFrom, data, conf) {
 	try {
-		id = id.split('|');
+		let id = idFrom.split('|');
 		if (!conf) conf = {};
 		this.type = id[0] || '';
 		this.subject = id[1] || '';
 		this.id = id[2] || '';
 	} catch (err) {
-		this.error = 'Invalid Flux id: ' + id;
+		this.error = 'Invalid Flux structure: ' + idFrom;
 	}
 	this.value = data;
 	this.delay = Number(conf.delay) || 0;
@@ -77,11 +77,28 @@ function FluxObject(id, data, conf) {
 	}
 
 	this.isValid = () => {
-		if (!this.error && Object.keys(Flux).includes(this.type) && Object.keys(Flux[this.type]).includes(this.subject)) {
-			return true;
+		if (this.error) {
+			Core.error('Flux error:' + this.error, this);
+			return false;
+		} else if (!Object.keys(Flux).includes(this.type) || !Object.keys(Flux[this.type]).includes(this.subject)) {
+			log.warn('Invalid Flux id: ' + this.type, this.subject);
+			return false;
 		}
-		Core.error(this.error || 'Invalid Flux', this);
-		return false;
+		return true;
+		// if (
+		// 	!this.error &&
+		// 	!this.warn &&
+		// 	Object.keys(Flux).includes(this.type) &&
+		// 	Object.keys(Flux[this.type]).includes(this.subject)
+		// ) {
+		// 	return true;
+		// } else if (this.warn) {
+		// 	log.warn('Flux warn:' + this.warn, this);
+		// 	//'Invalid Flux id: ' + id
+		// } else {
+		// 	Core.error('Flux error:' + this.error, this);
+		// }
+		// return false;
 	};
 
 	this.schedule = () => {

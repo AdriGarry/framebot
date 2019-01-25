@@ -8,28 +8,37 @@ const fs = require('fs');
 const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
 
 module.exports = {
+	//array
+	randomItem: randomItem,
+	searchStringInArray: searchStringInArray,
+
+	//custom/execution/all
+	logTime: logTime,
 	codePosition: codePosition,
-	repeatString: repeatString,
-	formatStringLength: formatStringLength,
-	deleteFolderRecursive: deleteFolderRecursive,
-	appendJsonFile: appendArrayInJsonFile,
 	execCmd: execCmd,
-	firstLetterUpper: firstLetterUpper,
 	executionTime: executionTime,
-	formatDuration: formatDuration,
-	addPatternBefore: addPatternBefore,
+	testConnexion: testConnexion,
+
+	//file
 	getJsonFileContent: getJsonFileContent,
 	getAbsolutePath: getAbsolutePath,
 	getSoundDuration: getSoundDuration,
-	logTime: logTime,
+	deleteFolderRecursive: deleteFolderRecursive,
+	appendJsonFile: appendArrayInJsonFile,
+
+	//number
 	numberWithDot: numberWithDot,
 	perCent: perCent,
 	random: random,
 	rdm: random,
-	randomItem: randomItem,
-	searchStringInArray: searchStringInArray,
+
+	//string
+	repeatString: repeatString,
+	formatStringLength: formatStringLength,
+	firstLetterUpper: firstLetterUpper,
 	capitalizeFirstLetter: capitalizeFirstLetter,
-	testConnexion: testConnexion
+	formatDuration: formatDuration,
+	addPatternBefore: addPatternBefore
 };
 
 /**
@@ -167,10 +176,10 @@ function testConnexion(callback) {
 	//console.log('testConnexion()...');
 	require('dns').resolve('www.google.com', function(err) {
 		if (err) {
-			// console.log('Odi is not connected to internet (utils.testConnexion)   /!\\');
+			log.debug('Odi is not connected to internet (utils.testConnexion)   /!\\');
 			callback(false);
 		} else {
-			//console.log('Odi is online   :');
+			log.debug('Odi is online!');
 			callback(true);
 		}
 	});
