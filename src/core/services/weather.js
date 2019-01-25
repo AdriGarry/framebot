@@ -3,7 +3,8 @@
 'use strict';
 
 const fs = require('fs'),
-	request = require('request');
+	// request = require('request'),
+	OAuth = require('oauth');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
@@ -74,61 +75,50 @@ function alternativeReportTTS() {
 }
 
 /** Function to retreive weather info */
+const header = {
+	'Yahoo-App-Id': 'your-app-id'
+};
+const request = new OAuth.OAuth(
+	null,
+	null,
+	'your-consumer-key', // TODO à mettre dans /security ?
+	'your-consumer-secret', // TODO à mettre dans /security ?
+	'1.0',
+	null,
+	'HMAC-SHA1',
+	null,
+	header
+);
 var weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech;
 function getWeatherData(callback) {
-	log.INFO('--> getWeatherData');
-	request.get(
-		{
-			url: WEATHER_SERVICE_URL,
-			headers: {
-				'Content-Type': 'json'
-			}
-		},
-		function(error, response, body) {
-			log.INFO(error, response, body);
-			var json = JSON.parse(response.body);
-			console.log('Access Token:', json.access_token);
-		}
-	);
-}
-/** Function to retreive weather info */
-var weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech;
-function getWeatherData2(callback) {
 	log.debug('getWeatherData()');
 	request.get(
-		{
-			url: WEATHER_SERVICE_URL,
-			headers: {
-				'Content-Type': 'json'
-			}
-		},
-		function(error, response, body) {
-			try {
-				if (!error && response.statusCode == 200) {
+		'https://weather-ydn-yql.media.yahoo.com/forecastrss?location=sunnyvale,ca&format=json', // TODO à mettre en constante
+		null,
+		null,
+		function(err, data, result) {
+			// TODO isoler dans une fonction parseWeatherResult() ?
+			if (err) {
+				console.log(err);
+				Core.error("Weather request > Can't retreive weather informations. response.statusCode", response.statusCode);
+			} else {
+				console.log('data', data);
+				console.log('result', result);
+				try {
 					weatherReport.data = JSON.parse(body);
 					weatherReport.status = weatherReport.data.query.results.channel.item.condition.code;
 					weatherReport.status = WEATHER_STATUS_LIST[weatherReport.status];
 					weatherReport.temperature = weatherReport.data.query.results.channel.item.condition.temp;
 					weatherReport.wind = weatherReport.data.query.results.channel.wind.speed;
-					callback(weatherReport);
-				} else {
-					Core.do('interface|tts|speak', {
-						voice: 'espeak',
-						lg: 'fr',
-						msg: 'Erreur service meteo'
-					});
-					Core.error("Weather request > Can't retreive weather informations. response.statusCode", response.statusCode);
-					if (error) {
-						Core.error('Error getting weather info  /!\\ \n' + error);
-					}
+					callback(weatherReport); // Promise ?!
+				} catch (e) {
+					Core.error(e);
+					if (Core.isAwake())
+						Core.do('interface|tts|speak', {
+							lg: 'en',
+							msg: 'Weather error'
+						});
 				}
-			} catch (e) {
-				Core.error(e);
-				if (Core.isAwake())
-					Core.do('interface|tts|speak', {
-						lg: 'en',
-						msg: 'Weather error'
-					});
 			}
 		}
 	);
