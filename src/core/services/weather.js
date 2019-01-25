@@ -3,7 +3,6 @@
 'use strict';
 
 const fs = require('fs'),
-	// request = require('request'),
 	OAuth = require('oauth');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
@@ -31,7 +30,7 @@ Core.flux.service.weather.subscribe({
 		} else Core.error('unmapped flux in Weather module', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

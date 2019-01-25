@@ -17,7 +17,7 @@ Core.flux.service.alarm.subscribe({
 		} else Core.error('unmapped flux in Alarm service', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

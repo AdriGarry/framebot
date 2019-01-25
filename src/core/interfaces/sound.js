@@ -30,7 +30,7 @@ Core.flux.interface.sound.subscribe({
 		}
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

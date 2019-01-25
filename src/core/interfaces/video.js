@@ -19,7 +19,7 @@ Core.flux.interface.video.subscribe({
 		} else Core.error('unmapped flux in Video interface', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

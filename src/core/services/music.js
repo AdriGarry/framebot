@@ -24,7 +24,7 @@ Core.flux.service.music.subscribe({
 		} else Core.error('unmapped flux in Music service', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

@@ -23,7 +23,7 @@ Core.flux.service.system.subscribe({
 		} else Core.error('unmapped flux in System service', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

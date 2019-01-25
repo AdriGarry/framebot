@@ -25,7 +25,7 @@ Core.flux.service.max.subscribe({
 		} else Core.error('unmapped flux in Max service', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

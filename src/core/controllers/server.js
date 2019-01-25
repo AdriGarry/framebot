@@ -37,7 +37,7 @@ Core.flux.controller.server.subscribe({
 		} else Core.error('unmapped flux in Server controller', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

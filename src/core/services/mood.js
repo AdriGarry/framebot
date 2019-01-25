@@ -17,7 +17,7 @@ Core.flux.service.mood.subscribe({
 		} else Core.error('unmapped flux in Mood service', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

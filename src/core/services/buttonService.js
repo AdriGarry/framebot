@@ -12,7 +12,7 @@ Core.flux.controller.button.subscribe({
 		buttonHandler(flux);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

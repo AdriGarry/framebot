@@ -21,7 +21,7 @@ Core.flux.service.time.subscribe({
 		} else Core.error('unmapped flux in Time service', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

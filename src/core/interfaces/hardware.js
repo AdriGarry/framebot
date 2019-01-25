@@ -35,7 +35,7 @@ Core.flux.interface.hardware.subscribe({
 		} else Core.error('unmapped flux in Hardware interface', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

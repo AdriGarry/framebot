@@ -17,7 +17,7 @@ Core.flux.controller.watcher.subscribe({
 		} else Core.error('unmapped flux in Watcher controller', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

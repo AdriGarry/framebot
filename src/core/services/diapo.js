@@ -16,7 +16,7 @@ Core.flux.service.diapo.subscribe({
 		} else Core.error('unmapped flux in Diapo service', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

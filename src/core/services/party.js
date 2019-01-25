@@ -17,7 +17,7 @@ Core.flux.service.party.subscribe({
 		} else log.info('Party flux not mapped', flux);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

@@ -14,7 +14,7 @@ Core.flux.service.maya.subscribe({
 		} else Core.error('unmapped flux in Maya service', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 
