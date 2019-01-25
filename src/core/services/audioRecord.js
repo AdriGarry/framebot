@@ -23,7 +23,7 @@ Core.flux.service.audioRecord.subscribe({
 		} else Core.error('unmapped flux in Audio Record service', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

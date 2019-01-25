@@ -15,7 +15,7 @@ Core.flux.interface.hdmi.subscribe({
 		} else Core.error('unmapped flux in Hdmi interface', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

@@ -8,28 +8,37 @@ const fs = require('fs');
 const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
 
 module.exports = {
+	//array
+	randomItem: randomItem,
+	searchStringInArray: searchStringInArray,
+
+	//custom/execution/all
+	logTime: logTime,
 	codePosition: codePosition,
-	repeatString: repeatString,
-	formatStringLength: formatStringLength,
-	deleteFolderRecursive: deleteFolderRecursive,
-	appendJsonFile: appendArrayInJsonFile,
 	execCmd: execCmd,
-	firstLetterUpper: firstLetterUpper,
 	executionTime: executionTime,
-	formatDuration: formatDuration,
-	addPatternBefore: addPatternBefore,
+	testConnexion: testConnexion,
+
+	//file
 	getJsonFileContent: getJsonFileContent,
 	getAbsolutePath: getAbsolutePath,
 	getSoundDuration: getSoundDuration,
-	logTime: logTime,
+	deleteFolderRecursive: deleteFolderRecursive,
+	appendJsonFile: appendArrayInJsonFile,
+
+	//number
 	numberWithDot: numberWithDot,
 	perCent: perCent,
 	random: random,
 	rdm: random,
-	randomItem: randomItem,
-	searchStringInArray: searchStringInArray,
+
+	//string
+	repeatString: repeatString,
+	formatStringLength: formatStringLength,
+	firstLetterUpper: firstLetterUpper,
 	capitalizeFirstLetter: capitalizeFirstLetter,
-	testConnexion: testConnexion
+	formatDuration: formatDuration,
+	addPatternBefore: addPatternBefore
 };
 
 /**
@@ -98,25 +107,29 @@ function appendArrayInJsonFile(filePath, obj, callback) {
 	var fileData,
 		startTime = new Date();
 	fs.exists(filePath, function(exists) {
-		if (exists) {
-			fs.readFile(filePath, 'utf8', function(err, data) {
-				if (!data) {
-					fileData = [];
-				} else {
-					fileData = JSON.parse(data);
-				}
-				if (Array.isArray(fileData)) {
-					fileData.push(obj);
-					_writeFile(filePath, fileData, startTime);
-				} else {
-					fileData = [fileData];
-					fileData.push(obj);
-					_writeFile(filePath, fileData, startTime);
-				}
-			});
-		} else {
-			fileData = [obj];
-			_writeFile(filePath, fileData, startTime, true);
+		try {
+			if (exists) {
+				fs.readFile(filePath, 'utf8', function(err, data) {
+					if (!data) {
+						fileData = [];
+					} else {
+						fileData = JSON.parse(data);
+					}
+					if (Array.isArray(fileData)) {
+						fileData.push(obj);
+						_writeFile(filePath, fileData, startTime);
+					} else {
+						fileData = [fileData];
+						fileData.push(obj);
+						_writeFile(filePath, fileData, startTime);
+					}
+				});
+			} else {
+				fileData = [obj];
+				_writeFile(filePath, fileData, startTime, true);
+			}
+		} catch (err) {
+			console.error('Utils.appendArrayInJsonFile error', err);
 		}
 	});
 }
@@ -167,10 +180,10 @@ function testConnexion(callback) {
 	//console.log('testConnexion()...');
 	require('dns').resolve('www.google.com', function(err) {
 		if (err) {
-			// console.log('Odi is not connected to internet (utils.testConnexion)   /!\\');
+			log.debug('Odi is not connected to internet (utils.testConnexion)   /!\\');
 			callback(false);
 		} else {
-			//console.log('Odi is online   :');
+			log.debug('Odi is online!');
 			callback(true);
 		}
 	});

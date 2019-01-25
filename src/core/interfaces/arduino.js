@@ -23,7 +23,7 @@ Core.flux.interface.arduino.subscribe({
 		}
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

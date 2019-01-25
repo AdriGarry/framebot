@@ -24,7 +24,7 @@ Core.flux.interface.tts.subscribe({
 		} else Core.error('unmapped flux in TTS module', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

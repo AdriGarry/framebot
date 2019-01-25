@@ -18,7 +18,7 @@ Core.flux.service.video.subscribe({
 		} else Core.error('unmapped flux in Video service', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

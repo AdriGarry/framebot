@@ -18,7 +18,7 @@ Core.flux.service.context.subscribe({
 		} else Core.error('unmapped flux in Context service', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

@@ -26,7 +26,7 @@ Core.flux.interface.led.subscribe({
 		} else Core.error('unmapped flux in Led interface', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

@@ -18,7 +18,7 @@ Core.flux.service.voicemail.subscribe({
 		} else Core.error('unmapped flux in Voicemail service', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

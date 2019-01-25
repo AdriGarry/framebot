@@ -6,7 +6,7 @@ const request = require('request');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	SMS_CREDENTIALS = require(Core._SECURITY + 'smsCredentials.json');
+	SMS_CREDENTIALS = require(Core._SECURITY + 'credentials.json').sms;
 
 Core.flux.service.sms.subscribe({
 	next: flux => {
@@ -15,7 +15,7 @@ Core.flux.service.sms.subscribe({
 		} else Core.error('unmapped flux in SMS service', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 

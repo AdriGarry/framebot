@@ -35,7 +35,7 @@ Core.flux.interface.hardware.subscribe({
 		} else Core.error('unmapped flux in Hardware interface', flux, false);
 	},
 	error: err => {
-		Core.error(flux);
+		Core.error('Flux error', err);
 	}
 });
 
@@ -174,7 +174,7 @@ function getDiskSpace(callback) {
 		if (parseInt(diskSpace) >= 80) {
 			let logMessage = 'Warning: Disk space almost full : ' + Core.run('stats.diskSpace');
 			log.warn();
-			log.WARN(logMessage);
+			log.warn(logMessage);
 			Core.do('service|sms|send', logMessage);
 		}
 		if (callback) callback(diskSpace);
