@@ -45,33 +45,40 @@ fs.readFile(Core._DATA + 'weatherStatus.json', function(err, data) {
 /** Official weather function */
 function reportTTS() {
 	log.info('Weather report...');
-	getWeatherData(function(weatherReport) {
-		var weatherSpeech = {
-			voice: 'google',
-			lg: 'fr',
-			msg:
-				'Meteo Marseille : le temps est ' +
-				weatherReport.status +
-				', il fait ' +
-				weatherReport.temperature +
-				' degres avec ' +
-				(isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) +
-				' kilometre heure de vent'
-		};
-		log.debug('weatherSpeech', weatherSpeech);
-		Core.do('interface|tts|speak', weatherSpeech);
-	});
+	fetchWeatherData()
+		.then(weatherReport => {
+			var weatherSpeech = {
+				voice: 'google',
+				lg: 'fr',
+				msg:
+					'Meteo Marseille : le temps est ' +
+					weatherReport.status +
+					', il fait ' +
+					weatherReport.temperature +
+					' degres avec ' +
+					(isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) +
+					' kilometre heure de vent'
+			};
+			log.debug('weatherSpeech', weatherSpeech);
+			Core.do('interface|tts|speak', weatherSpeech);
+		})
+		.catch(err => {
+			Core.error('Error weather', err);
+		});
 }
 
 /** Official weather function */
 function alternativeReportTTS() {
 	log.info('Alternative weather report...');
-	var weatherSpeech;
-	getWeatherData(weatherReport => {
-		log.debug('weatherReport', weatherReport);
-		weatherSpeech = getAlternativeWeatherReport(weatherReport);
-		Core.do('interface|tts|speak', weatherSpeech);
-	});
+	fetchWeatherData()
+		.then(weatherReport => {
+			log.debug('weatherReport', weatherReport);
+			let weatherSpeech = getAlternativeWeatherReport(weatherReport);
+			Core.do('interface|tts|speak', weatherSpeech);
+		})
+		.catch(err => {
+			Core.error('Error weather', err);
+		});
 }
 
 /** Function to retreive weather info */
@@ -88,32 +95,34 @@ const REQUEST = new OAuth.OAuth(
 		'Yahoo-App-Id': WEATHER_CREDENTIALS.yahooAppId
 	}
 );
-var weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech;
-function getWeatherData(callback) {
-	log.debug('getWeatherData()');
-	REQUEST.get(WEATHER_SERVICE_URL, null, null, function(err, data, result) {
-		// TODO isoler dans une fonction parseWeatherResult() ?
-		if (err) {
-			console.log(err);
-			Core.error("Weather request > Can't retreive weather informations. response.statusCode", err);
-		} else {
-			try {
-				weatherReport.data = JSON.parse(data);
-				// "current_observation":{
-				// 	"astronomy":{
-				// 		"sunrise":"8:00 am",
-				// 		"sunset":"5:42 pm"
-				// 	},
-				// }
-				log.debug(weatherReport.data.current_observation.astronomy);
-				weatherReport.status = WEATHER_STATUS_LIST[weatherReport.data.current_observation.condition.code];
-				weatherReport.temperature = weatherReport.data.current_observation.condition.temperature;
-				weatherReport.wind = weatherReport.data.current_observation.wind.speed;
-				callback(weatherReport); // Promise ?!
-			} catch (err) {
-				Core.error('Error while parsing weather API response', err);
+var weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech... add astronomy!
+function fetchWeatherData() {
+	log.debug('fetchWeatherData()');
+	return new Promise((resolve, reject) => {
+		REQUEST.get(WEATHER_SERVICE_URL, null, null, function(err, data, result) {
+			if (err) {
+				// Core.error("Weather request > Can't retreive weather informations. response.statusCode", err);
+				reject(err);
+			} else {
+				try {
+					weatherReport.data = JSON.parse(data);
+					// "current_observation":{
+					// 	"astronomy":{
+					// 		"sunrise":"8:00 am",
+					// 		"sunset":"5:42 pm"
+					// 	},
+					// }
+					log.debug(weatherReport.data.current_observation.astronomy);
+					weatherReport.status = WEATHER_STATUS_LIST[weatherReport.data.current_observation.condition.code];
+					weatherReport.temperature = weatherReport.data.current_observation.condition.temperature;
+					weatherReport.wind = weatherReport.data.current_observation.wind.speed;
+					resolve(weatherReport);
+				} catch (err) {
+					//"Can't parse weather data"
+					reject(err);
+				}
 			}
-		}
+		});
 	});
 }
 
