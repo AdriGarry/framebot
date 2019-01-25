@@ -3,11 +3,18 @@
 'use strict';
 
 const fs = require('fs'),
-	request = require('request');
+	// request = require('request'),
+	OAuth = require('oauth');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(Core._CORE + 'Utils.js');
+	Utils = require(Core._CORE + 'Utils.js'),
+	WEATHER_CREDENTIALS = require(Core._SECURITY + 'credentials.json').weather;
+
+const WEATHER_SERVICE_URL_OLD =
+	'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20%28select%20woeid%20from%20geo.places%281%29%20where%20text%3D%22Marseille%2C%20france%22%29and%20u=%27c%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
+
+const WEATHER_SERVICE_URL = 'https://weather-ydn-yql.media.yahoo.com/forecastrss?location=marseille,fr&format=json';
 
 Core.flux.service.weather.subscribe({
 	next: flux => {
@@ -38,7 +45,6 @@ fs.readFile(Core._DATA + 'weatherStatus.json', function(err, data) {
 	}
 	WEATHER_STATUS_LIST = JSON.parse(data);
 });
-const WEATHER_SERVICE_URL = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20%28select%20woeid%20from%20geo.places%281%29%20where%20text%3D%22Marseille%2C%20france%22%29and%20u=%27c%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
 
 /** Official weather function */
 function reportTTS() {
@@ -73,47 +79,43 @@ function alternativeReportTTS() {
 }
 
 /** Function to retreive weather info */
+const header = {
+	'Yahoo-App-Id': 'iROAWW52'
+};
+const request = new OAuth.OAuth(
+	null,
+	null,
+	WEATHER_CREDENTIALS.consumerKey,
+	WEATHER_CREDENTIALS.consumerSecret,
+	'1.0',
+	null,
+	'HMAC-SHA1',
+	null,
+	header
+);
 var weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech;
 function getWeatherData(callback) {
 	log.debug('getWeatherData()');
-	request.get(
-		{
-			url:
-				WEATHER_SERVICE_URL,
-			headers: {
-				'Content-Type': 'json'
-			}
-		},
-		function(error, response, body) {
+	request.get(WEATHER_SERVICE_URL, null, null, function(err, data, result) {
+		// TODO isoler dans une fonction parseWeatherResult() ?
+		if (err) {
+			console.log(err);
+			Core.error("Weather request > Can't retreive weather informations. response.statusCode", err);
+		} else {
+			console.log('data', data);
+			console.log('result', result);
 			try {
-				if (!error && response.statusCode == 200) {
-					weatherReport.data = JSON.parse(body);
-					weatherReport.status = weatherReport.data.query.results.channel.item.condition.code;
-					weatherReport.status = WEATHER_STATUS_LIST[weatherReport.status];
-					weatherReport.temperature = weatherReport.data.query.results.channel.item.condition.temp;
-					weatherReport.wind = weatherReport.data.query.results.channel.wind.speed;
-					callback(weatherReport);
-				} else {
-					Core.do('interface|tts|speak', {
-						voice: 'espeak',
-						lg: 'fr',
-						msg: 'Erreur service meteo'
-					});
-					Core.error("Weather request > Can't retreive weather informations. response.statusCode", response.statusCode);
-					if (error) {
-						Core.error('Error getting weather info  /!\\ \n' + error);
-					}
-				}
-			} catch (e) {
-				Core.error(e);
-				if (Core.isAwake())
-					Core.do('interface|tts|speak', {
-						lg: 'en',
-						msg: 'Weather error'
-					});
+				weatherReport.data = JSON.parse(body);
+				weatherReport.status = weatherReport.data.query.results.channel.item.condition.code;
+				weatherReport.status = WEATHER_STATUS_LIST[weatherReport.status];
+				weatherReport.temperature = weatherReport.data.query.results.channel.item.condition.temp;
+				weatherReport.wind = weatherReport.data.query.results.channel.wind.speed;
+				callback(weatherReport); // Promise ?!
+			} catch (err) {
+				Core.error('Error while parsing weather API response', err);
 			}
 		}
-	);
+	});
 }
 
 function getAlternativeWeatherReport(weatherReport) {
