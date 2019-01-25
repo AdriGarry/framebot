@@ -19,7 +19,7 @@
 	},
 	"modules": {
 		"interfaces": {
-			"base": ["led", "sound", "hardware", "arduino", "video"],
+			"base": ["led", "sound", "hardware", "arduino", "hdmi"],
 			"full": ["tts"]
 		},
 		"controllers": {
@@ -27,7 +27,7 @@
 		},
 		"services": {
 			"base": ["context", "buttonService", "system", "time", "alarm", "voicemail", "sms", "audioRecord"],
-			"full": ["mood", "interaction", "weather", "timer", "music", "party", "diapo", "max", "maya"]
+			"full": ["mood", "interaction", "weather", "timer", "music", "party", "video", "max", "maya"]
 		}
 	},
 	"conf": {

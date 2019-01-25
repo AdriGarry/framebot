@@ -499,12 +499,12 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/playVideo', function(req, res) {
-		Core.do('interface|video|cycle');
+		Core.do('service|video|loop');
 		res.end();
 	});
 
 	ui.post('/videoOff', function(req, res) {
-		Core.do('interface|video|screenOff');
+		Core.do('interface|hdmi|off');
 		res.end();
 	});
 

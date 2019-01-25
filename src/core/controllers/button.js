@@ -38,7 +38,7 @@ setInterval(function() {
 				log.info('Etat btn Up => random action');
 				Core.do('service|interaction|random');
 			}, INTERVAL_DELAY);
-			Core.do('interface|video|cycle');
+			Core.do('service|video|loop');
 		}
 	} else {
 		instance = false;
@@ -99,7 +99,7 @@ Button.etat.watch((err, value) => {
 	let newVolume = Core.isAwake() ? (value ? 100 : 50) : 0;
 	Core.do('interface|sound|volume', newVolume);
 	if (Core.run('screen')) {
-		Core.do('interface|video|screenOff');
+		Core.do('interface|hdmi|off');
 	}
 	setTimeout(() => {
 		log.table(Core.run(), 'RUNTIME');

@@ -6,17 +6,13 @@ const { spawn } = require('child_process');
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename);
 
-Core.flux.interface.video.subscribe({
+Core.flux.interface.hdmi.subscribe({
 	next: flux => {
-		if (flux.id == 'screenOn') {
+		if (flux.id == 'on') {
 			screenOn();
-		} else if (flux.id == 'screenOff') {
+		} else if (flux.id == 'off') {
 			screenOff();
-		} else if (flux.id == 'cycle') {
-			startCycle();
-		} else if (flux.id == 'logTail') {
-			logTail();
-		} else Core.error('unmapped flux in Video interface', flux, false);
+		} else Core.error('unmapped flux in Hdmi interface', flux, false);
 	},
 	error: err => {
 		Core.error('Flux error', err);
@@ -26,14 +22,8 @@ Core.flux.interface.video.subscribe({
 setImmediate(() => {
 	if (!Core.isAwake()) {
 		screenOff();
-	} else if (Core.run('etat') == 'high') {
-		startCycle();
 	}
 });
-
-function logTail() {
-	log.info('screen on + log tail to implement!');
-}
 
 /** Function to turn screen on (for 30 minutes) */
 function screenOn() {
@@ -54,11 +44,11 @@ function screenOff() {
 
 /** Function to launch a video cycle for 30 minutes */
 function startCycle() {
-	screenOn();
-	//https://www.npmjs.com/package/raspberrypi
-	spawn('sh', [Core._SHELL + 'diapo.sh']);
-	log.info('Video cycle for 30 minutes');
-	setTimeout(function() {
-		screenOff();
-	}, 30 * 60 * 1000);
+	// screenOn();
+	// //https://www.npmjs.com/package/raspberrypi
+	// spawn('sh', [Core._SHELL + 'diapo.sh']);
+	// log.info('Video cycle for 30 minutes');
+	// setTimeout(function() {
+	// 	screenOff();
+	// }, 30 * 60 * 1000);
 }
