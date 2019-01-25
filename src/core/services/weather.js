@@ -10,10 +10,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js'),
 	WEATHER_CREDENTIALS = require(Core._SECURITY + 'credentials.json').weather;
 
-const WEATHER_SERVICE_URL_OLD =
-	'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20%28select%20woeid%20from%20geo.places%281%29%20where%20text%3D%22Marseille%2C%20france%22%29and%20u=%27c%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
-
-const WEATHER_SERVICE_URL = 'https://weather-ydn-yql.media.yahoo.com/forecastrss?location=marseille,fr&format=json';
+const WEATHER_SERVICE_URL = 'https://weather-ydn-yql.media.yahoo.com/forecastrss?location=marseille,fr&u=c&format=json';
 
 Core.flux.service.weather.subscribe({
 	next: flux => {
@@ -78,10 +75,7 @@ function alternativeReportTTS() {
 }
 
 /** Function to retreive weather info */
-const header = {
-	'Yahoo-App-Id': 'iROAWW52'
-};
-const request = new OAuth.OAuth(
+const REQUEST = new OAuth.OAuth(
 	null,
 	null,
 	WEATHER_CREDENTIALS.consumerKey,
@@ -90,25 +84,31 @@ const request = new OAuth.OAuth(
 	null,
 	'HMAC-SHA1',
 	null,
-	header
+	{
+		'Yahoo-App-Id': WEATHER_CREDENTIALS.yahooAppId
+	}
 );
 var weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech;
 function getWeatherData(callback) {
 	log.debug('getWeatherData()');
-	request.get(WEATHER_SERVICE_URL, null, null, function(err, data, result) {
+	REQUEST.get(WEATHER_SERVICE_URL, null, null, function(err, data, result) {
 		// TODO isoler dans une fonction parseWeatherResult() ?
 		if (err) {
 			console.log(err);
 			Core.error("Weather request > Can't retreive weather informations. response.statusCode", err);
 		} else {
-			console.log('data', data);
-			console.log('result', result);
 			try {
-				weatherReport.data = JSON.parse(body);
-				weatherReport.status = weatherReport.data.query.results.channel.item.condition.code;
-				weatherReport.status = WEATHER_STATUS_LIST[weatherReport.status];
-				weatherReport.temperature = weatherReport.data.query.results.channel.item.condition.temp;
-				weatherReport.wind = weatherReport.data.query.results.channel.wind.speed;
+				weatherReport.data = JSON.parse(data);
+				// "current_observation":{
+				// 	"astronomy":{
+				// 		"sunrise":"8:00 am",
+				// 		"sunset":"5:42 pm"
+				// 	},
+				// }
+				log.debug(weatherReport.data.current_observation.astronomy);
+				weatherReport.status = WEATHER_STATUS_LIST[weatherReport.data.current_observation.condition.code];
+				weatherReport.temperature = weatherReport.data.current_observation.condition.temperature;
+				weatherReport.wind = weatherReport.data.current_observation.wind.speed;
 				callback(weatherReport); // Promise ?!
 			} catch (err) {
 				Core.error('Error while parsing weather API response', err);
