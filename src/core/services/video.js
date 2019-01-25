@@ -5,7 +5,7 @@ const { spawn } = require('child_process');
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename);
 
-Core.flux.service.diapo.subscribe({
+Core.flux.service.video.subscribe({
 	next: flux => {
 		if (flux.id == 'loop') {
 			loop();
@@ -13,7 +13,9 @@ Core.flux.service.diapo.subscribe({
 			displayOnePhoto();
 		} else if (flux.id == 'video') {
 			playOneVideo();
-		} else Core.error('unmapped flux in Diapo service', flux, false);
+			// } else if (flux.id == 'logTail') {
+			// 	logTail();
+		} else Core.error('unmapped flux in Video service', flux, false);
 	},
 	error: err => {
 		Core.error(flux);
@@ -21,15 +23,15 @@ Core.flux.service.diapo.subscribe({
 });
 
 setImmediate(() => {
-	// if (!Core.isAwake()) {
-	// 	screenOff();
-	// } else if (Core.run('etat') == 'high') {
-	// 	startCycle();
-	// }
+	if (Core.run('etat') == 'high') {
+		loop();
+	}
 });
 
 function loop() {
 	log.debug('diapo loop');
+	Core.do('interface|hdmi|on');
+	//
 }
 
 function displayOnePhoto() {
