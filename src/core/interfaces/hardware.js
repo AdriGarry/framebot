@@ -147,7 +147,7 @@ function loadAverage() {
 }
 
 /** Function to update last modified date & time of Program's files */
-function retreiveLastModifiedDate(paths, callback) {
+function retreiveLastModifiedDate(paths) {
 	// typeof paths => Array
 	paths = paths.join(' ');
 	Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
@@ -155,7 +155,6 @@ function retreiveLastModifiedDate(paths, callback) {
 			let lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
 			log.debug('getLastModifiedDate()', lastDate[0]);
 			Core.run('stats.update', lastDate[0]);
-			// if (callback) callback(lastDate[0]);
 		})
 		.catch(err => {
 			Core.error('retreiveLastModifiedDate error', err);
@@ -187,7 +186,7 @@ function getDiskSpace(callback) {
 				log.warn(logMessage);
 				Core.do('service|sms|send', logMessage);
 			}
-			if (callback) callback(diskSpace);
+			if (callback) callback(diskSpace); // TODO Promise
 		})
 		.catch(err => {
 			Core.error('getDiskSpace error', err);

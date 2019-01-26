@@ -117,6 +117,7 @@ function attachDefaultRoutes(ui) {
 			logSize = parseInt(params.logSize);
 		}
 		prepareLogs(logSize, function(log) {
+			// TODO Promise, avec lecture du fichier de logs Async !
 			res.end(log);
 		});
 	});
@@ -166,14 +167,14 @@ function attachDefaultRoutes(ui) {
 	});
 
 	var audioRecordStorage = multer.diskStorage({
-		destination: function(req, file, callback) {
+		destination: function(req, file, cb) {
 			if (!fs.existsSync(Core._UPLOAD)) {
 				fs.mkdirSync(Core._UPLOAD);
 			}
-			callback(null, Core._UPLOAD);
+			cb(null, Core._UPLOAD);
 		},
-		filename: function(req, file, callback) {
-			callback(null, file.fieldname + '_' + new Date().toISOString() + '.wav');
+		filename: function(req, file, cb) {
+			cb(null, file.fieldname + '_' + new Date().toISOString() + '.wav');
 		}
 	});
 	var audioRecordUpload = multer({ storage: audioRecordStorage }).single('audioRecord');
@@ -654,6 +655,7 @@ function attachSleepRoutes(ui) {
 }
 
 function prepareLogs(lines, callback) {
+	// TODO Promise
 	var content = fs
 		.readFileSync(Core._LOG + Core.name + '.log', 'UTF-8')
 		.toString()

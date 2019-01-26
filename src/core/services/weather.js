@@ -37,7 +37,7 @@ var WEATHER_STATUS_LIST;
 fs.readFile(Core._DATA + 'weatherStatus.json', function(err, data) {
 	if (err && err.code === 'ENOENT') {
 		log.debug(Core.error('No file : ' + filePath));
-		callback(null);
+		// TODO disable module itself
 	}
 	WEATHER_STATUS_LIST = JSON.parse(data);
 });
