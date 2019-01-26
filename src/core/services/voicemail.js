@@ -74,28 +74,32 @@ function addVoicemailMessage(tts) {
 /** Function to check voicemail, and play */
 function checkVoicemail(withTTSResult, callback) {
 	log.debug('Checking voicemail...');
-	Utils.getJsonFileContent(VOICEMAIL_FILE, function(messages) {
-		if (messages) {
-			messages = JSON.parse(messages);
-			log.debug(messages);
-			Core.do('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Messages' });
-			Core.do('interface|tts|speak', messages);
-			clearVoicemailLater();
-			if (callback) callback(true); // for other action
-			return true;
-		} else {
-			log.info(NO_VOICEMAIL);
-			if (withTTSResult) Core.do('interface|tts|speak', { lg: 'en', msg: NO_VOICEMAIL });
-			if (callback) callback(false); // for other action
-			return false;
-		}
-	});
+	Utils.getJsonFileContent(VOICEMAIL_FILE)
+		.then(data => {
+			if (data) {
+				let messages = JSON.parse(data);
+				log.debug(messages);
+				Core.do('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Messages' });
+				Core.do('interface|tts|speak', messages);
+				clearVoicemailLater();
+				if (callback) callback(true); // for other action
+				return true;
+			} else {
+				log.info(NO_VOICEMAIL);
+				if (withTTSResult) Core.do('interface|tts|speak', { lg: 'en', msg: NO_VOICEMAIL });
+				if (callback) callback(false); // for other action
+				return false;
+			}
+		})
+		.catch(err => {
+			Core.error('checkVoicemail error', err);
+		});
 }
 
 /** Function to update runtime with number of voicemail message(s) */
 function updateVoicemailMessage() {
 	try {
-		var messages = fs.readFileSync(VOICEMAIL_FILE, 'UTF-8');
+		let messages = fs.readFileSync(VOICEMAIL_FILE, 'UTF-8');
 		messages = JSON.parse(messages);
 		Core.run('voicemail', messages.length);
 		if (Core.run('voicemail') > 0) {

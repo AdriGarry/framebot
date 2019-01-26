@@ -67,20 +67,24 @@ function addRecord(path) {
 			});
 		})
 		.catch(err => {
-			Core.error('XXX error', err);
+			Core.error('addRecord error', err);
 		});
 }
 
 function checkRecord() {
 	log.debug('Checking record...');
-	Utils.getJsonFileContent(RECORD_FILE, function(records) {
-		if (records) {
-			// JSON.parse(records);
-			updateRecord();
-			playAllRecords();
-			clearAudioRecordLater();
-		}
-	});
+	Utils.getJsonFileContent(RECORD_FILE)
+		.then(data => {
+			if (data) {
+				// JSON.parse(data);
+				updateRecord();
+				playAllRecords();
+				clearAudioRecordLater();
+			}
+		})
+		.catch(err => {
+			Core.error('checkRecord error', err);
+		});
 }
 
 /** Function to update runtime with number of voicemail message(s) */

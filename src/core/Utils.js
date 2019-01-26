@@ -135,6 +135,7 @@ function appendArrayInJsonFile(filePath, obj, callback) {
 	});
 }
 
+/** Get name of files in directory. Return a Promise  */
 function directoryContent(path) {
 	return new Promise((resolve, reject) => {
 		fs.readdir(path, (err, files) => {
@@ -162,17 +163,19 @@ function _writeFile(filePath, fileData, startTime, isCreation) {
 	});
 }
 
-/** Function getJsonFileContent */
+/** Function getJsonFileContent. Return a Promise */
 const FILE_NOT_FOUND_EXCEPT = ['/home/pi/core/tmp/voicemail.json', '/home/pi/core/tmp/record.json'];
 function getJsonFileContent(filePath, callback) {
 	log.debug('getJsonFileContent() ', filePath);
-	fs.readFile(filePath, function(err, data) {
-		if (err && err.code === 'ENOENT' && !searchStringInArray(filePath, FILE_NOT_FOUND_EXCEPT)) {
-			log.error('No file: ' + filePath);
-			callback(null);
-		} else {
-			callback(data);
-		}
+	return new Promise((resolve, reject) => {
+		fs.readFile(filePath, function(err, data) {
+			if (err && err.code === 'ENOENT' && !searchStringInArray(filePath, FILE_NOT_FOUND_EXCEPT)) {
+				log.error('No file: ' + filePath);
+				reject(err);
+			} else {
+				resolve(data);
+			}
+		});
 	});
 }
 
@@ -202,7 +205,7 @@ function testConnexion(callback) {
 	});
 }
 
-/** Function to execute a shell command with callback */
+/** Function to execute a shell command. Return a Promise */
 function execCmd(command, noLog) {
 	return new Promise((resolve, reject) => {
 		exec(command, function(err, stdout, stderr) {
@@ -237,7 +240,7 @@ function getAbsolutePath(path, prefix) {
 	return path;
 }
 
-/** Function to retreive mp3 file duration */
+/** Function to retreive mp3 file duration. Return a Promise */
 function getSoundDuration(soundFile, callback) {
 	// log.info('getSoundDuration()', mp3File);
 	// console.log('**soundFile', soundFile);
