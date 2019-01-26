@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const { spawn } = require('child_process');
+const { spawn, exec } = require('child_process');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
@@ -195,7 +195,11 @@ function ledFlag() {
 /** Function to reset sound */
 function resetSound() {
 	log.info('resetSound [amixer set PCM 100%]');
-	Utils.execCmd('amixer set PCM 100%', function(data) {
-		log.debug(data);
-	});
+	Utils.execCmd('amixer set PCM 100%')
+		.then(data => {
+			log.debug(data);
+		})
+		.catch(err => {
+			Core.error('XXX error', err);
+		});
 }

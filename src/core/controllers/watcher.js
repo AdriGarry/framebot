@@ -50,22 +50,16 @@ function stopWatch() {
 var timer;
 
 function addWatcher(path, action) {
-	let watcher = fs.watch(
-		path,
-		{
-			recursive: true
-		},
-		(eventType, filename) => {
-			if (eventType) {
-				if (!timer) {
-					timer = new Date();
-				}
-				let logInfo = path.match(/\/(\w*)\/$/g);
-				log.info(eventType, logInfo[0] || logInfo, filename, '[' + Utils.executionTime(timer) + 'ms]');
-				waitForUpdateEnd(action);
+	let watcher = fs.watch(path, { recursive: true }, (eventType, filename) => {
+		if (eventType) {
+			if (!timer) {
+				timer = new Date();
 			}
+			let logInfo = path.match(/\/(\w*)\/$/g);
+			log.info(eventType, logInfo[0] || logInfo, filename, '[' + Utils.executionTime(timer) + 'ms]');
+			waitForUpdateEnd(action);
 		}
-	);
+	});
 	return watcher;
 }
 

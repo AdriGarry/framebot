@@ -130,7 +130,7 @@ function appendArrayInJsonFile(filePath, obj, callback) {
 				_writeFile(filePath, fileData, startTime, true);
 			}
 		} catch (err) {
-			console.error('Utils.appendArrayInJsonFile error', err);
+			// console.log('Utils.appendArrayInJsonFile error', err);
 		}
 	});
 }
@@ -203,11 +203,19 @@ function testConnexion(callback) {
 }
 
 /** Function to execute a shell command with callback */
-function execCmd(command, callback) {
-	exec(command, function(error, stdout, stderr) {
-		// console.log('execCmd(' + command + ')\n', stdout);
-		// if (stderr) callback(stderr);
-		if (callback) callback(stdout);
+function execCmd(command, noLog) {
+	return new Promise((resolve, reject) => {
+		exec(command, function(err, stdout, stderr) {
+			if (err && !noLog) {
+				log.error('execCmd', err, stderr);
+				reject();
+			} else {
+				resolve(stdout);
+			}
+			// // console.log('execCmd(' + command + ')\n', stdout);
+			// // if (stderr) callback(stderr);
+			// if (callback) callback(stdout);
+		});
 	});
 }
 
@@ -233,20 +241,24 @@ function getAbsolutePath(path, prefix) {
 function getSoundDuration(soundFile, callback) {
 	// log.info('getSoundDuration()', mp3File);
 	// console.log('**soundFile', soundFile);
-	execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH', function(data) {
-		try {
-			// log.INFO(data);
-			if (data == '') {
-				getSoundDuration(soundFile, callback);
+	execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH')
+		.then(data => {
+			try {
+				// log.INFO(data);
+				if (data == '') {
+					getSoundDuration(soundFile, callback);
+				}
+				let duration = data.split('=')[1].trim();
+				// log.INFO(duration);
+				callback(parseInt(duration));
+			} catch (err) {
+				// Don't log error because the method will call itself until OK !
+				// console.error('getSoundDuration error:', err);
 			}
-			var duration = data.split('=')[1].trim();
-			// log.INFO(duration);
-			callback(parseInt(duration));
-		} catch (err) {
-			// Don't log error because the method will call itself until OK !
-			// console.error('getSoundDuration error:', err);
-		}
-	});
+		})
+		.catch(err => {
+			Core.error('getSoundDuration error', err);
+		});
 }
 
 function firstLetterUpper(string) {

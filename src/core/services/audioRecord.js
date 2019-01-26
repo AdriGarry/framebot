@@ -2,6 +2,7 @@
 
 'use strict';
 
+const { exec } = require('child_process');
 const fs = require('fs');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
@@ -50,16 +51,24 @@ var lastRecordPath = null,
 function addRecord(path) {
 	log.debug('addRecord', path);
 	Core.do('interface|tts|speak', RECORD_TTS, { log: 'trace' });
-	Utils.execCmd('lame --scale 2 ' + path + ' ' + path + 'UP', () => {
-		//TODO -V3 to encode as mp3
-		fs.rename(path + 'UP', path, () => {
-			lastRecordPath = path;
-			recordListPath.push(path);
-			Core.run('audioRecord', recordListPath.length);
-			Core.do('interface|sound|play', { mp3: path /*,volume: Core.run('volume') * 2*/ }, { log: 'trace', delay: 0.2 });
-			Utils.appendJsonFile(RECORD_FILE, path);
+	Utils.execCmd('lame --scale 2 ' + path + ' ' + path + 'UP')
+		.then(data => {
+			//TODO -V3 to encode as mp3
+			fs.rename(path + 'UP', path, () => {
+				lastRecordPath = path;
+				recordListPath.push(path);
+				Core.run('audioRecord', recordListPath.length);
+				Core.do(
+					'interface|sound|play',
+					{ mp3: path /*,volume: Core.run('volume') * 2*/ },
+					{ log: 'trace', delay: 0.2 }
+				);
+				Utils.appendJsonFile(RECORD_FILE, path);
+			});
+		})
+		.catch(err => {
+			Core.error('XXX error', err);
 		});
-	});
 }
 
 function checkRecord() {
