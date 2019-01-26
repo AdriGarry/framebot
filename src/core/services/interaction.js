@@ -59,6 +59,10 @@ const RANDOM_ACTIONS = [
 		weight: 3
 	},
 	{
+		id: 'service|weather|astronomy',
+		weight: 3
+	},
+	{
 		id: 'interface|hardware|cpuTTS',
 		weight: 1
 	},

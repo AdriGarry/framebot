@@ -161,6 +161,11 @@ function cocoricoPart3() {
 		delay: delay
 	});
 
+	delay += 5;
+	Core.do('service|weather|astronomy', null, {
+		delay: delay
+	});
+
 	delay += 15;
 	Core.do('service|voicemail|check', null, {
 		delay: delay

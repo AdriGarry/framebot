@@ -103,10 +103,13 @@ var weatherReport;
 
 function astronomyTTS() {
 	if (!weatherReport) {
-		Core.do('interface|tts|speak', 'Je ne connais pas le cycle du soleil');
+		Core.do('interface|tts|speak', [
+			{ msg: "Aujourd'hui, le soleil se laive a lest" },
+			{ msg: 'Et se couche a louest' }
+		]);
 	} else {
 		let ttsSunrise =
-			"Aujourdh'ui, le soleil se laive a " +
+			"Aujourd'hui, le soleil se laive a " +
 			weatherReport.sunrise.getHours() +
 			' heure ' +
 			weatherReport.sunrise.getMinutes();

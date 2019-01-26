@@ -520,7 +520,7 @@ app.component('weather', {
 			actionList: [
 				{ label: 'Official weather', icon: 'fas fa-cloud-sun', url: '/weather' },
 				{ label: 'Alternative weather', icon: 'fas fa-cloud-sun-rain', url: '/weatherAlternative' },
-				{ label: 'Astronomy', icon: 'far sun', url: '/astronomy' }
+				{ label: 'Astronomy', icon: 'far fa-sun', url: '/astronomy' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
