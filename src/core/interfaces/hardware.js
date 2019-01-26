@@ -2,6 +2,7 @@
 
 'use strict';
 
+const { exec } = require('child_process');
 const fs = require('fs'),
 	os = require('os'),
 	Gpio = require('onoff').Gpio;
@@ -66,7 +67,7 @@ function cpuStatsTTS() {
 }
 
 function retreiveCpuTemp() {
-	var temperature = fs.readFileSync('/sys/class/thermal/thermal_zone0/temp');
+	let temperature = fs.readFileSync('/sys/class/thermal/thermal_zone0/temp');
 	temperature = (temperature / 1000).toPrecision(2);
 	Core.run('cpu.temp', temperature + '°');
 	return temperature;
@@ -74,11 +75,11 @@ function retreiveCpuTemp() {
 
 /** Function to get CPU usage */
 function retreiveCpuUsage() {
-	var endMeasure = cpuAverage(); //Grab second Measure
+	let endMeasure = cpuAverage(); //Grab second Measure
 	//Calculate the difference in idle and total time between the measures
-	var idleDifference = endMeasure.idle - startMeasure.idle;
-	var totalDifference = endMeasure.total - startMeasure.total;
-	var percentageCPU = 100 - ~~((100 * idleDifference) / totalDifference); //Calculate the average percentage CPU usage
+	let idleDifference = endMeasure.idle - startMeasure.idle;
+	let totalDifference = endMeasure.total - startMeasure.total;
+	let percentageCPU = 100 - ~~((100 * idleDifference) / totalDifference); //Calculate the average percentage CPU usage
 	Core.run('cpu.usage', percentageCPU + '%');
 	return percentageCPU;
 }
@@ -86,14 +87,14 @@ function retreiveCpuUsage() {
 //Create function to get CPU information
 function cpuAverage() {
 	//Initialise sum of idle and time of cores and fetch CPU info
-	var totalIdle = 0,
-		totalTick = 0;
-	var cpus = os.cpus();
+	let totalIdle = 0,
+		totalTick = 0,
+		cpus = os.cpus();
 	//Loop through CPU cores
 	for (var i = 0, len = cpus.length; i < len; i++) {
-		var cpu = cpus[i]; // Select CPU core
+		let cpu = cpus[i]; // Select CPU core
 		//Total up the time in the cores tick
-		for (var type in cpu.times) {
+		for (let type in cpu.times) {
 			totalTick += cpu.times[type];
 		}
 		//Total up the idle time of the core
@@ -129,28 +130,36 @@ function retreiveMemoryUsage() {
 
 /** Function to get load average (uptime) */
 function loadAverage() {
-	Utils.execCmd('uptime', function(data) {
-		// var loadAverage = data.match(/load average: (.+)/g);
-		// log.debug('>uptime', loadAverage);
-		// Core.run('memory.loadAverage', loadAverage[0]);
-		let regex = /load average: (.+)/g;
-		let result = regex.exec(data);
-		let loadAverage = result && result[1] ? result[1] : -1;
-		log.trace('uptime', loadAverage);
-		Core.run('memory.loadAverage', loadAverage);
-	});
+	Utils.execCmd('uptime')
+		.then(data => {
+			// var loadAverage = data.match(/load average: (.+)/g);
+			// log.debug('>uptime', loadAverage);
+			// Core.run('memory.loadAverage', loadAverage[0]);
+			let regex = /load average: (.+)/g;
+			let result = regex.exec(data);
+			let loadAverage = result && result[1] ? result[1] : -1;
+			log.trace('uptime', loadAverage);
+			Core.run('memory.loadAverage', loadAverage);
+		})
+		.catch(err => {
+			Core.error('loadAverage error', err);
+		});
 }
 
 /** Function to update last modified date & time of Program's files */
 function retreiveLastModifiedDate(paths, callback) {
 	// typeof paths => Array
 	paths = paths.join(' ');
-	Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1', function(data) {
-		var lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
-		log.debug('getLastModifiedDate()', lastDate[0]);
-		Core.run('stats.update', lastDate[0]);
-		// if (callback) callback(lastDate[0]);
-	});
+	Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
+		.then(data => {
+			let lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
+			log.debug('getLastModifiedDate()', lastDate[0]);
+			Core.run('stats.update', lastDate[0]);
+			// if (callback) callback(lastDate[0]);
+		})
+		.catch(err => {
+			Core.error('XXX error', err);
+		});
 }
 
 /** Function to tts disk space */
@@ -164,21 +173,25 @@ function diskSpaceTTS() {
 
 /** Function to retreive disk space on /dev/root */
 function getDiskSpace(callback) {
-	Utils.execCmd('df -h', function(data) {
-		var diskSpace = data.match(/\/dev\/root.*[%]/gm);
-		diskSpace = diskSpace[0].match(/[\d]*%/g);
-		log.debug('Disk space:', diskSpace[0]);
-		Core.run('stats.diskSpace', diskSpace[0]);
+	Utils.execCmd('df -h')
+		.then(data => {
+			let diskSpace = data.match(/\/dev\/root.*[%]/gm);
+			diskSpace = diskSpace[0].match(/[\d]*%/g);
+			log.debug('Disk space:', diskSpace[0]);
+			Core.run('stats.diskSpace', diskSpace[0]);
 
-		// log.info('\nwarning: Disk space almost full : ' + Core.run('stats.diskSpace'));
-		if (parseInt(diskSpace) >= 80) {
-			let logMessage = 'Warning: Disk space almost full : ' + Core.run('stats.diskSpace');
-			log.warn();
-			log.warn(logMessage);
-			Core.do('service|sms|send', logMessage);
-		}
-		if (callback) callback(diskSpace);
-	});
+			// log.info('\nwarning: Disk space almost full : ' + Core.run('stats.diskSpace'));
+			if (parseInt(diskSpace) >= 80) {
+				let logMessage = 'Warning: Disk space almost full : ' + Core.run('stats.diskSpace');
+				log.warn();
+				log.warn(logMessage);
+				Core.do('service|sms|send', logMessage);
+			}
+			if (callback) callback(diskSpace);
+		})
+		.catch(err => {
+			Core.error('getDiskSpace error', err);
+		});
 }
 
 /** Function to TTS program's program total lines */
@@ -191,32 +204,37 @@ function totalLinesTTS() {
 function countSoftwareLines() {
 	const EXTENSIONS = ['js', 'json', 'properties', 'sh', 'py', 'html', 'css'];
 	const PATHS = [Core._SRC, Core._DATA, Core._CONF];
-	var typesNb = EXTENSIONS.length;
-	var lines = {},
+	let typesNb = EXTENSIONS.length;
+	let lines = {},
 		totalLines = 0;
 	EXTENSIONS.forEach(function(extension) {
 		let command = 'find ' + PATHS.join(' ') + ' -regex ".+.' + extension + '" -print | grep -v lib | xargs wc -l';
-		Utils.execCmd(command, data => {
-			var regex = /(\d*) total/g;
-			var result = regex.exec(data);
-			var t = result && result[1] ? result[1] : 0;
-			totalLines = parseInt(totalLines) + parseInt(t);
-			lines[extension] = parseInt(t);
-			typesNb--;
-			if (!typesNb) {
-				log.debug('countSoftwareLines()', totalLines);
-				log.debug('stats.totalLines:', lines);
-				Core.run('stats.totalLines', totalLines);
-			}
-		});
+		//find /home/pi/core/src/ /home/pi/core/data/ /home/pi/core/conf/ -regex ".+.css" -print | grep -v lib | xargs wc -l
+		Utils.execCmd(command, 'noLog')
+			.then(data => {
+				let regex = /(\d*) total/g;
+				let result = regex.exec(data);
+				let t = result && result[1] ? result[1] : 0;
+				totalLines = parseInt(totalLines) + parseInt(t);
+				lines[extension] = parseInt(t);
+				typesNb--;
+				if (!typesNb) {
+					log.debug('countSoftwareLines()', totalLines);
+					log.debug('stats.totalLines:', lines);
+					Core.run('stats.totalLines', totalLines);
+				}
+			})
+			.catch(err => {
+				Core.error('countSoftwareLines error', err);
+			});
 	});
 }
 
 /** Function to clean and archive logs each week */
 function archiveLogs() {
 	log.info('Clean log files  /!\\');
-	var date = new Date();
-	var weekNb = date.getWeek();
+	let date = new Date();
+	let weekNb = date.getWeek();
 	if (!fs.existsSync(Core._LOG + 'old')) {
 		fs.mkdirSync(Core._LOG + 'old');
 	}
@@ -231,7 +249,7 @@ function archiveLogs() {
 }
 
 function archiveLogFile(logFile, weekNb) {
-	var stream = fs.createReadStream(Core._LOG + logFile); /*, {bufferSize: 64 * 1024}*/
+	let stream = fs.createReadStream(Core._LOG + logFile); /*, {bufferSize: 64 * 1024}*/
 	stream.pipe(fs.createWriteStream(Core._LOG + 'old/' + logFile + weekNb));
 	stream.on('error', function(e) {
 		Core.error('stream error while archiving log file ' + logFile, e);
