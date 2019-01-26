@@ -25,6 +25,7 @@ module.exports = {
 	getSoundDuration: getSoundDuration,
 	deleteFolderRecursive: deleteFolderRecursive,
 	appendJsonFile: appendArrayInJsonFile,
+	directoryContent: directoryContent,
 
 	//number
 	numberWithDot: numberWithDot,
@@ -131,6 +132,18 @@ function appendArrayInJsonFile(filePath, obj, callback) {
 		} catch (err) {
 			console.error('Utils.appendArrayInJsonFile error', err);
 		}
+	});
+}
+
+function directoryContent(path) {
+	return new Promise((resolve, reject) => {
+		fs.readdir(path, (err, files) => {
+			if (err) {
+				reject(err);
+			} else {
+				resolve(files);
+			}
+		});
 	});
 }
 
