@@ -518,8 +518,9 @@ app.component('weather', {
 		var tileParams = {
 			label: 'Weather',
 			actionList: [
-				{ label: 'Official weather', icon: 'fas fa-cloud', url: '/weather' },
-				{ label: 'Alternative weather', icon: 'fas fa-cloud-upload-alt', url: '/weatherAlternative' }
+				{ label: 'Official weather', icon: 'fas fa-cloud-sun', url: '/weather' },
+				{ label: 'Alternative weather', icon: 'fas fa-cloud-sun-rain', url: '/weatherAlternative' },
+				{ label: 'Astronomy', icon: 'far sun', url: '/astronomy' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

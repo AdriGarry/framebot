@@ -186,7 +186,7 @@ function getDiskSpace(callback) {
 				log.warn(logMessage);
 				Core.do('service|sms|send', logMessage);
 			}
-			if (callback) callback(diskSpace); // TODO Promise
+			// if (callback) callback(diskSpace); // TODO Promise
 		})
 		.catch(err => {
 			Core.error('getDiskSpace error', err);

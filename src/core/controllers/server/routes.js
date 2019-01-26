@@ -552,6 +552,10 @@ function attachAwakeRoutes(ui) {
 		Core.do('service|weather|alternative');
 		res.end();
 	});
+	ui.post('/astronomy', function(req, res) {
+		Core.do('service|weather|astronomy');
+		res.end();
+	});
 
 	ui.post('/maya/lePetitVer', function(req, res) {
 		Core.do('interface|sound|play', {

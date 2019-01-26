@@ -20,7 +20,7 @@
 		<meta name="robots" content="noindex,nofollow" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-		<link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" rel="stylesheet" />
+		<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet" />
 		<link rel="stylesheet" href="css/lib/angular-material.min.css" media="all" />
 		<link rel="stylesheet" href="css/lib/mdPickers.min.css" media="all" />
 		<link rel="stylesheet" href="css/odiUI.css" media="all" />
@@ -120,13 +120,13 @@
 				<h1
 					class="ng-slide-fast"
 					data-ng-dblclick="$root.irda && action({label: 'Restart Odi', url: '/odi'})"
-					title="{{$root.irda?'Restart Odi\'s Core':'Hey, I\'m Odi !'}}"
+					title="{{ $root.irda ? 'Restart Odi\'s Core' : 'Hey, I\'m Odi !' }}"
 				>
 					Odi UI
 					<!-- Restart Odi's Core -->
 					<sup
 						class="version"
-						title="version {{dashboard.runningData.config.version}} [{{dashboard.runningData.config.update}}]"
+						title="version {{ dashboard.runningData.config.version }} [{{ dashboard.runningData.config.update }}]"
 						>{{ dashboard.runningData.config.version }}&nbsp;</sup
 					>
 				</h1>
@@ -197,8 +197,8 @@
 							data-ng-click="toggleGrant($event)"
 							data-ng-class="{admin:$root.irda}"
 							class="adminBtn center"
-							title="{{$root.irda? 'Log out':'Log in'}}"
-							aria-label="{{$root.irda? 'Log out':'Log in'}}"
+							title="{{ $root.irda ? 'Log out' : 'Log in' }}"
+							aria-label="{{ $root.irda ? 'Log out' : 'Log in' }}"
 						>
 							<i data-ng-class="$root.irda" class="fas fa-sign-in-alt"></i>
 							<i data-ng-if="!$root.irda" class="fas fa-user"></i>

@@ -24,6 +24,8 @@ Core.flux.service.weather.subscribe({
 			} else {
 				alternativeReportTTS();
 			}
+		} else if (flux.id == 'astronomy') {
+			astronomyTTS();
 		} else Core.error('unmapped flux in Weather module', flux, false);
 	},
 	error: err => {
@@ -95,6 +97,27 @@ const REQUEST = new OAuth.OAuth(
 		'Yahoo-App-Id': WEATHER_CREDENTIALS.yahooAppId
 	}
 );
+
+const DAY_FOR_ASTRONOMY = 'December 17, 1995 ';
+var weatherReport;
+
+function astronomyTTS() {
+	if (!weatherReport) {
+		Core.do('interface|tts|speak', 'Je ne connais pas le cycle du soleil');
+	} else {
+		console.log(weatherReport);
+		let ttsSunrise =
+			"Aujourdh'ui, le soleil se laive a " +
+			weatherReport.sunrise.getHours() +
+			' heure ' +
+			weatherReport.sunrise.getMinutes();
+		Core.do('interface|tts|speak', ttsSunrise);
+		let ttsSunset =
+			'Et il se couchera a ' + weatherReport.sunset.getHours() + ' heure ' + weatherReport.sunset.getMinutes();
+		Core.do('interface|tts|speak', ttsSunset, { delay: 5 });
+	}
+}
+
 function fetchWeatherData() {
 	log.debug('fetchWeatherData()');
 	return new Promise((resolve, reject) => {
@@ -104,7 +127,7 @@ function fetchWeatherData() {
 				reject(err);
 			} else {
 				try {
-					let weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech... add astronomy!
+					weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech... add astronomy!
 					weatherReport.data = JSON.parse(data);
 					// "current_observation":{
 					// 	"astronomy":{
@@ -116,6 +139,11 @@ function fetchWeatherData() {
 					weatherReport.status = WEATHER_STATUS_LIST[weatherReport.data.current_observation.condition.code];
 					weatherReport.temperature = weatherReport.data.current_observation.condition.temperature;
 					weatherReport.wind = weatherReport.data.current_observation.wind.speed;
+					weatherReport.sunrise = new Date(
+						DAY_FOR_ASTRONOMY + weatherReport.data.current_observation.astronomy.sunrise
+					);
+					weatherReport.sunset = new Date(DAY_FOR_ASTRONOMY + weatherReport.data.current_observation.astronomy.sunset);
+
 					resolve(weatherReport);
 				} catch (err) {
 					//"Can't parse weather data"
