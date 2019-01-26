@@ -158,7 +158,7 @@ function retreiveLastModifiedDate(paths, callback) {
 			// if (callback) callback(lastDate[0]);
 		})
 		.catch(err => {
-			Core.error('XXX error', err);
+			Core.error('retreiveLastModifiedDate error', err);
 		});
 }
 

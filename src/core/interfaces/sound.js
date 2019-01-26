@@ -204,6 +204,6 @@ function resetSound() {
 			log.debug(data);
 		})
 		.catch(err => {
-			Core.error('XXX error', err);
+			Core.error('resetSound error', err);
 		});
 }
