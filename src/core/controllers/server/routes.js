@@ -116,10 +116,14 @@ function attachDefaultRoutes(ui) {
 		if (params.hasOwnProperty('logSize') && !isNaN(params.logSize)) {
 			logSize = parseInt(params.logSize);
 		}
-		prepareLogs(logSize, function(log) {
-			// TODO Promise, avec lecture du fichier de logs Async !
-			res.end(log);
-		});
+		prepareLogs(logSize)
+			.then(data => {
+				res.end(data);
+			})
+			.catch(err => {
+				res.status(500);
+				res.end();
+			});
 	});
 
 	ui.get('/config.json', function(req, res) {
@@ -655,8 +659,20 @@ function attachSleepRoutes(ui) {
 }
 
 function prepareLogs(lines, callback) {
-	// TODO Promise
-	var content = fs
+	return new Promise((resolve, reject) => {
+		fs.readFile(Core._LOG + Core.name + '.log', 'UTF-8', (err, data) => {
+			if (err) {
+				reject(err);
+			} else {
+				let content = data.toString().split('\n');
+				content = content.slice(-lines); //-120
+				content = content.join('\n');
+				resolve(content);
+			}
+		});
+	});
+
+	let content = fs
 		.readFileSync(Core._LOG + Core.name + '.log', 'UTF-8')
 		.toString()
 		.split('\n');
