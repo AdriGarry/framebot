@@ -86,6 +86,7 @@ function startUIServer() {
 function attachRoutesFromDescriptor(ui) {
 	Core.descriptor.api.POST.forEach(item => {
 		log.info('item=', item);
+		log.info('/' + item.url);
 		ui.post('/' + item.url, (req, res) => {
 			log.warn('------------hey this is from json url api');
 			// add to url: /api/...
