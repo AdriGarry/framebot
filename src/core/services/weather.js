@@ -105,7 +105,6 @@ function astronomyTTS() {
 	if (!weatherReport) {
 		Core.do('interface|tts|speak', 'Je ne connais pas le cycle du soleil');
 	} else {
-		console.log(weatherReport);
 		let ttsSunrise =
 			"Aujourdh'ui, le soleil se laive a " +
 			weatherReport.sunrise.getHours() +
