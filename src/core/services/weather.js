@@ -116,7 +116,7 @@ function astronomyTTS() {
 		Core.do('interface|tts|speak', ttsSunrise);
 		let ttsSunset =
 			'Et il se couchera a ' + weatherReport.sunset.getHours() + ' heure ' + weatherReport.sunset.getMinutes();
-		Core.do('interface|tts|speak', ttsSunset, { delay: 5 });
+		Core.do('interface|tts|speak', ttsSunset);
 	}
 }
 

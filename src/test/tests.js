@@ -17,6 +17,7 @@ function launchTests() {
 	log.info('-----------------------------');
 	for (var i = 0; i < testSequences.length; i++) {
 		require(Core._SRC + 'test/' + testSequences[i] + '.js').runTest(completeTest);
+		// TODO Promise.all()
 		testResults[testSequences[i]] = false;
 	}
 }

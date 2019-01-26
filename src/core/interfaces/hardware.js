@@ -22,6 +22,7 @@ Core.flux.interface.hardware.subscribe({
 			retreiveCpuUsage();
 			retreiveMemoryUsage();
 			loadAverage();
+			// TODO Promise.all()
 			log.trace('runtime exec time:', Utils.executionTime(execTime) + 'ms');
 		} else if (flux.id == 'cpuTTS') {
 			cpuStatsTTS();
@@ -44,6 +45,7 @@ setImmediate(() => {
 	retreiveLastModifiedDate(PATHS);
 	countSoftwareLines();
 	getDiskSpace();
+	// TODO Promise.all()
 });
 
 var etat = new Gpio(13, 'in', 'both', {
