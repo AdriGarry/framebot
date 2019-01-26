@@ -47,7 +47,7 @@ function reportTTS() {
 	log.info('Weather report...');
 	fetchWeatherData()
 		.then(weatherReport => {
-			var weatherSpeech = {
+			let weatherSpeech = {
 				voice: 'google',
 				lg: 'fr',
 				msg:
@@ -95,7 +95,6 @@ const REQUEST = new OAuth.OAuth(
 		'Yahoo-App-Id': WEATHER_CREDENTIALS.yahooAppId
 	}
 );
-var weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech... add astronomy!
 function fetchWeatherData() {
 	log.debug('fetchWeatherData()');
 	return new Promise((resolve, reject) => {
@@ -105,6 +104,7 @@ function fetchWeatherData() {
 				reject(err);
 			} else {
 				try {
+					let weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech... add astronomy!
 					weatherReport.data = JSON.parse(data);
 					// "current_observation":{
 					// 	"astronomy":{

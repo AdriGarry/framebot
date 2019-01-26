@@ -1,9 +1,11 @@
 'use strict';
 
 const { spawn } = require('child_process');
+const fs = require('fs');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._CORE + 'Logger.js'))(__filename);
+	log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(Core._CORE + 'Utils.js');
 
 Core.flux.service.video.subscribe({
 	next: flux => {
@@ -30,16 +32,58 @@ setImmediate(() => {
 
 function loop() {
 	log.debug('diapo loop');
-	Core.do('interface|hdmi|on');
-	//
+	if (!Core.run('screen')) {
+		Core.do('interface|hdmi|on');
+	}
+	setTimeout(() => {
+		// displayOnePhoto();
+		playOneVideo();
+	});
 }
 
 function displayOnePhoto() {
 	log.debug('displayOnePhoto');
+	Utils.directoryContent(Core._PHOTO)
+		.then(files => {
+			let randomTimeout = Utils.rdm(3, 7);
+			let photoPath = Utils.randomItem(files);
+			log.info(photoPath);
+			// let photoInstance = spawn('fbi', ['-a -T 2 ', photoPath]);
+			let photoInstance = spawn('fbi', ['-a', '-T', 2, photoPath]);
+			setTimeout(() => {
+				photoInstance.kill();
+			}, randomTimeout * 1000);
+		})
+		.catch();
 }
 
 function playOneVideo() {
 	log.debug('playOneVideo');
+	Utils.directoryContent(Core._VIDEO + 'rdm/')
+		.then(files => {
+			let videoPath = Utils.randomItem(files);
+			log.info(videoPath);
+			// let videoInstance = spawn('omxplayer', ["-o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0", videoPath]);
+			let videoInstance = spawn('omxplayer', [
+				'-o',
+				'hdmi',
+				'--vol',
+				0,
+				'--blank',
+				'--win',
+				0,
+				420,
+				1050,
+				1260,
+				'--layer',
+				0,
+				videoPath
+			]);
+			//omxplayer -o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0 $path &
+		})
+		.catch(err => {
+			Core.error('Video error', err);
+		});
 }
 
 // # Turn screen On
