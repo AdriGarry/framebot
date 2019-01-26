@@ -100,12 +100,16 @@ function isAlarm() {
 function cocorico() {
 	log.info('Morning Sea...');
 	Core.do('interface|sound|play', { mp3: 'system/morningSea.mp3' });
-	Utils.getSoundDuration(Core._MP3 + 'system/morningSea.mp3', function(seaDuration) {
-		log.debug('seaDuration', seaDuration);
-		setTimeout(function() {
-			cocoricoPart2();
-		}, seaDuration * 1000);
-	});
+	Utils.getSoundDuration(Core._MP3 + 'system/morningSea.mp3')
+		.then(data => {
+			log.debug('seaDuration', data);
+			setTimeout(function() {
+				cocoricoPart2();
+			}, data * 1000);
+		})
+		.catch(err => {
+			Core.error('cocorico error', err);
+		});
 }
 
 function isBirthday() {

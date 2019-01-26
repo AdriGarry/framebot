@@ -130,7 +130,7 @@ function appendArrayInJsonFile(filePath, obj, callback) {
 				_writeFile(filePath, fileData, startTime, true);
 			}
 		} catch (err) {
-			// console.log('Utils.appendArrayInJsonFile error', err);
+			log.error('Utils.appendArrayInJsonFile error', err);
 		}
 	});
 }
@@ -241,24 +241,28 @@ function getAbsolutePath(path, prefix) {
 function getSoundDuration(soundFile, callback) {
 	// log.info('getSoundDuration()', mp3File);
 	// console.log('**soundFile', soundFile);
-	execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH')
-		.then(data => {
-			try {
-				// log.INFO(data);
-				if (data == '') {
-					getSoundDuration(soundFile, callback);
+	return new Promise((resolve, reject) => {
+		execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH')
+			.then(data => {
+				try {
+					// log.INFO(data);
+					if (data == '') {
+						// TODO ??
+						getSoundDuration(soundFile, callback);
+					}
+					let duration = data.split('=')[1].trim();
+					// log.INFO(duration);
+					// callback(parseInt(duration));
+					resolve(parseInt(duration));
+				} catch (err) {
+					// Don't log error because the method will call itself until OK !
+					// console.error('getSoundDuration error:', err);
 				}
-				let duration = data.split('=')[1].trim();
-				// log.INFO(duration);
-				callback(parseInt(duration));
-			} catch (err) {
-				// Don't log error because the method will call itself until OK !
-				// console.error('getSoundDuration error:', err);
-			}
-		})
-		.catch(err => {
-			Core.error('getSoundDuration error', err);
-		});
+			})
+			.catch(err => {
+				Core.error('getSoundDuration error', err);
+			});
+	});
 }
 
 function firstLetterUpper(string) {

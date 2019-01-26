@@ -46,14 +46,17 @@ function repeatSong() {
 	log.info('next song...');
 	let song = jukeboxRandomBox.next();
 	let ttime = new Date();
-	Utils.getSoundDuration(Core._MP3 + 'jukebox/' + song, function(duration) {
-		// log.INFO('duration=' + duration);
-		Core.do('interface|sound|play', { mp3: 'jukebox/' + song, duration: duration });
-		jukeboxTimeout = setTimeout(function() {
-			// log.INFO('Next song !!!', 'duration=' + duration);
-			repeatSong();
-		}, duration * 1000);
-	});
+	Utils.getSoundDuration(Core._MP3 + 'jukebox/' + song)
+		.then(data => {
+			Core.do('interface|sound|play', { mp3: 'jukebox/' + song, duration: data });
+			jukeboxTimeout = setTimeout(function() {
+				// log.INFO('Next song !!!', 'duration=' + data);
+				repeatSong();
+			}, data * 1000);
+		})
+		.catch(err => {
+			Core.error('repeatSong error', err);
+		});
 }
 
 /** Function to play FIP radio */
