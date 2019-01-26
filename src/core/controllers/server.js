@@ -16,7 +16,7 @@ const http = require('http'),
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
 	middleware = require(Core._CORE + 'controllers/server/middleware.js'),
-	routes = require(Core._CORE + 'controllers/server/routes.js');
+	api = require(Core._CORE + 'controllers/server/api.js');
 
 const HTTP_SERVER_PORT = 3210,
 	HTTPS_SERVER_PORT = 4321,
@@ -74,11 +74,28 @@ function startUIServer() {
 
 	uiHttps.use(middleware.security());
 
-	routes.attachRoutes(uiHttps);
+	api.attachRoutes(uiHttps);
+	attachRoutesFromDescriptor(uiHttps);
 
 	httpsServer = https.createServer(CREDENTIALS, uiHttps).listen(HTTPS_SERVER_PORT, function() {
 		log.info('UI https server started [' + Core.conf('mode') + ']');
 		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
+	});
+}
+
+function attachRoutesFromDescriptor(ui) {
+	Core.descriptor.api.POST.forEach(item => {
+		log.info('item=', item);
+		ui.post('/' + item.url, (req, res) => {
+			log.warn('------------hey this is from json url api');
+			// add to url: /api/...
+			item.flux.forEach(flux => {
+				Core.do(flux.id, flux.data, flux.conf);
+			});
+			res.end();
+		});
+		console.log();
+		log.info('attachRoutesFromDescriptor');
 	});
 }
 
