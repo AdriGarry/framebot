@@ -118,13 +118,17 @@ function playAllRecords() {
 	let delay = 1,
 		previousRecordDuration;
 	recordListPath.forEach(recordPath => {
-		Utils.getSoundDuration(recordPath, duration => {
-			if (previousRecordDuration) {
-				delay = delay + previousRecordDuration + 2;
-			}
-			previousRecordDuration = duration;
-			Core.do('interface|sound|play', { mp3: recordPath /*, volume: Core.run('volume') * 3*/ }, { delay: delay });
-		});
+		Utils.getSoundDuration(recordPath)
+			.then(data => {
+				if (previousRecordDuration) {
+					delay = delay + previousRecordDuration + 2;
+				}
+				previousRecordDuration = data;
+				Core.do('interface|sound|play', { mp3: recordPath /*, volume: Core.run('volume') * 3*/ }, { delay: delay });
+			})
+			.catch(err => {
+				Core.error('playAllRecords error', err);
+			});
 	});
 }
 

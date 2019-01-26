@@ -74,10 +74,14 @@ function playSound(arg) {
 function playSoundRandomPosition(arg) {
 	let sound = Utils.getAbsolutePath(arg.mp3, Core._MP3);
 	if (!sound) return;
-	Utils.getSoundDuration(sound, function(length) {
-		arg.position = Utils.random(1, Math.floor((length / 100) * 60)); // Position up to 60% of sound duration
-		playSound(arg);
-	});
+	Utils.getSoundDuration(sound)
+		.then(data => {
+			arg.position = Utils.random(1, Math.floor((data / 100) * 60)); // Position up to 60% of sound duration
+			playSound(arg);
+		})
+		.catch(err => {
+			Core.error('playSoundRandomPosition error', err);
+		});
 }
 
 function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
