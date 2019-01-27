@@ -15,34 +15,50 @@ function launchTests() {
 	log.info('-----------------------------');
 	log.INFO('>> Launching Test Sequence...');
 	log.info('-----------------------------');
+	let promiseList = [];
 	for (var i = 0; i < testSequences.length; i++) {
-		require(Core._SRC + 'test/' + testSequences[i] + '.js').runTest(completeTest);
-		// TODO Promise.all()
-		testResults[testSequences[i]] = false;
+		let testModule = require(Core._SRC + 'test/' + testSequences[i] + '.js').runTest();
+		promiseList.push(testModule);
 	}
+	Promise.all(promiseList)
+		.then(data => {
+			Core.do('service|sms|send', 'ALL TEST SUCCEED !!');
+			if (Core.errors.length > 0) log.info('Core.errors:' + Core.errors.length);
+			log.info(data);
+			log.info('-------------------------');
+			log.INFO('>> All tests succeeded !!');
+			log.info('-------------------------');
+			setTimeout(function() {
+				allTestSuceedFeedback(); //testResults
+			}, 1000);
+		})
+		.catch(err => {
+			log.error('Error in test sequence!');
+			// Core.do('service|context|updateRestart', { mode: 'ready' }, { delay: 2 });
+		});
 }
 
-var completeTest = (testId, result) => {
-	Core.do('interface|led|blink', { leds: ['belly'], speed: 50, loop: 10 });
-	testResults[testId] = result;
-	log.info();
-	log.info(testId, 'completed.');
-	log.debug(testResults);
-	if (areAllTestCompleted()) {
-		Core.do('service|sms|send', 'ALL TEST SUCCEED !!');
-		for (let test in testResults) {
-			log.info(test, 'completed');
-		}
-		if (Core.errors.length > 0) log.info('Core.errors:' + Core.errors.length);
-		log.info();
-		log.info('-------------------------');
-		log.INFO('>> All tests succeeded !!');
-		log.info('-------------------------');
-		setTimeout(function() {
-			allTestSuceedFeedback(true); //testResults
-		}, 1000);
-	}
-};
+// var completeTest = (testId, result) => {
+// 	Core.do('interface|led|blink', { leds: ['belly'], speed: 50, loop: 10 });
+// 	testResults[testId] = result;
+// 	log.info();
+// 	log.info(testId, 'completed.');
+// 	log.debug(testResults);
+// 	if (areAllTestCompleted()) {
+// 		Core.do('service|sms|send', 'ALL TEST SUCCEED !!');
+// 		for (let test in testResults) {
+// 			log.info(test, 'completed');
+// 		}
+// 		if (Core.errors.length > 0) log.info('Core.errors:' + Core.errors.length);
+// 		log.info();
+// 		log.info('-------------------------');
+// 		log.INFO('>> All tests succeeded !!');
+// 		log.info('-------------------------');
+// 		setTimeout(function() {
+// 			allTestSuceedFeedback(true); //testResults
+// 		}, 1000);
+// 	}
+// };
 
 function areAllTestCompleted() {
 	let anyTestNotCompleted = true;
@@ -63,10 +79,7 @@ function allTestSuceedFeedback() {
 		  };
 	Core.do('interface|tts|speak', testTTS);
 	setTimeout(function() {
-		// if (testStatus) Core.do('service|context|updateRestart', { mode: 'ready' });
-		Core.do('service|context|updateRestart', {
-			mode: 'ready'
-		});
+		Core.do('service|context|updateRestart', { mode: 'ready' });
 	}, 4000);
 }
 
