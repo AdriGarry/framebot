@@ -7,8 +7,6 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 const testSequences = ['interfaceTest', 'serviceTest'];
 
-var testResults = {};
-
 module.exports.launch = launchTests;
 
 function launchTests() {
@@ -16,70 +14,27 @@ function launchTests() {
 	log.INFO('>> Launching Test Sequence...');
 	log.info('-----------------------------');
 	let promiseList = [];
-	for (var i = 0; i < testSequences.length; i++) {
-		let testModule = require(Core._SRC + 'test/' + testSequences[i] + '.js').runTest();
-		promiseList.push(testModule);
-	}
+	testSequences.forEach(testSequence => {
+		promiseList.push(require(Core._SRC + 'test/' + testSequence + '.js').runTest());
+	});
 	Promise.all(promiseList)
 		.then(data => {
-			if (Core.errors.length > 0) log.info('Core.errors:' + Core.errors.length); // TODO à déplacer pour l'avoir aussi dans le .catch
-			log.info(data);
-			log.info('-------------------------');
-			log.INFO('>> All tests succeeded !!');
-			log.info('-------------------------');
-			Core.do('service|sms|send', 'ALL TEST SUCCEED !!');
-			setTimeout(function() {
-				allTestSuceedFeedback(); //testResults
-			}, 1000);
+			allTestSuceedFeedback(data);
 		})
 		.catch(err => {
-			log.error('Error in test sequences:', err);
-			Core.do('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
-			// Core.do('service|context|updateRestart', { mode: 'ready' }, { delay: 2 });
+			log.error('Error(s) in test sequences:', err);
+			log.info('Core.errors:' + Core.errors.length);
+			// Core.do('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
 		});
 }
 
-// var completeTest = (testId, result) => {
-// 	Core.do('interface|led|blink', { leds: ['belly'], speed: 50, loop: 10 });
-// 	testResults[testId] = result;
-// 	log.info();
-// 	log.info(testId, 'completed.');
-// 	log.debug(testResults);
-// 	if (areAllTestCompleted()) {
-// 		Core.do('service|sms|send', 'ALL TEST SUCCEED !!');
-// 		for (let test in testResults) {
-// 			log.info(test, 'completed');
-// 		}
-// 		if (Core.errors.length > 0) log.info('Core.errors:' + Core.errors.length);
-// 		log.info();
-// 		log.info('-------------------------');
-// 		log.INFO('>> All tests succeeded !!');
-// 		log.info('-------------------------');
-// 		setTimeout(function() {
-// 			allTestSuceedFeedback(true); //testResults
-// 		}, 1000);
-// 	}
-// };
-
-function areAllTestCompleted() {
-	let anyTestNotCompleted = true;
-	Object.keys(testResults).forEach(item => {
-		if (!testResults[item]) {
-			anyTestNotCompleted = false;
-		}
-	});
-	return anyTestNotCompleted;
-}
-
-function allTestSuceedFeedback() {
-	let testTTS = Utils.rdm()
-		? 'Je suis Ok !'
-		: {
-				lg: 'en',
-				msg: 'all tests succeeded!'
-		  };
+function allTestSuceedFeedback(data) {
+	log.info(data);
+	log.info('-------------------------');
+	log.INFO('>> All tests succeeded !!');
+	log.info('-------------------------');
+	Core.do('service|sms|send', 'ALL TEST SUCCEED !!');
+	let testTTS = Utils.rdm() ? 'Je suis Ok !' : { lg: 'en', msg: 'all tests succeeded!' };
 	Core.do('interface|tts|speak', testTTS);
 	Core.do('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
 }
-
-// Core.error('this is an error');

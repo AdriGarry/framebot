@@ -32,10 +32,11 @@ module.exports.runTest = function(succeedTest) {
 
 		setTimeout(() => {
 			assert.equal(Core.errors.length, 0);
-			Core.do('interface|sound|mute', { delay: 3, message: 'DELAY 3' });
+			Core.do('interface|sound|mute', { delay: 5, message: 'DELAY 3' });
 			setTimeout(() => {
-				resolve('interfaceTest', true);
+				if (Core.errors.length > 0) reject('interfaceTest');
+				resolve('interfaceTest');
 			}, 5000);
-		}, 30 * 1000);
+		}, 40 * 1000);
 	});
 };

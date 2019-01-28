@@ -72,7 +72,7 @@ function addVoicemailMessage(tts) {
 }
 
 /** Function to check voicemail, and play */
-function checkVoicemail(withTTSResult, callback) {
+function checkVoicemail(withTTSResult) {
 	log.debug('Checking voicemail...');
 	Utils.getJsonFileContent(VOICEMAIL_FILE)
 		.then(data => {
@@ -82,13 +82,9 @@ function checkVoicemail(withTTSResult, callback) {
 				Core.do('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Messages' });
 				Core.do('interface|tts|speak', messages);
 				clearVoicemailLater();
-				// if (callback) callback(true); // for other action ?
-				// return true;
 			} else {
 				log.info(NO_VOICEMAIL);
 				if (withTTSResult) Core.do('interface|tts|speak', { lg: 'en', msg: NO_VOICEMAIL });
-				// if (callback) callback(false); // for other action ?
-				// return false;
 			}
 		})
 		.catch(err => {

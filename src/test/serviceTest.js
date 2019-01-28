@@ -44,7 +44,8 @@ module.exports.runTest = function(succeedTest) {
 		setTimeout(() => {
 			assert.equal(Core.run('voicemail'), 0);
 			assert.equal(Core.errors.length, 0);
-			resolve('serviceTest', true);
+			if (Core.errors.length > 0) reject('serviceTest');
+			resolve('serviceTest');
 		}, 45 * 1000);
 	});
 };
