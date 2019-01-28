@@ -22,18 +22,19 @@ function launchTests() {
 	}
 	Promise.all(promiseList)
 		.then(data => {
-			Core.do('service|sms|send', 'ALL TEST SUCCEED !!');
-			if (Core.errors.length > 0) log.info('Core.errors:' + Core.errors.length);
+			if (Core.errors.length > 0) log.info('Core.errors:' + Core.errors.length); // TODO à déplacer pour l'avoir aussi dans le .catch
 			log.info(data);
 			log.info('-------------------------');
 			log.INFO('>> All tests succeeded !!');
 			log.info('-------------------------');
+			Core.do('service|sms|send', 'ALL TEST SUCCEED !!');
 			setTimeout(function() {
 				allTestSuceedFeedback(); //testResults
 			}, 1000);
 		})
 		.catch(err => {
-			log.error('Error in test sequence!');
+			log.error('Error in test sequences:', err);
+			Core.do('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
 			// Core.do('service|context|updateRestart', { mode: 'ready' }, { delay: 2 });
 		});
 }
@@ -78,9 +79,7 @@ function allTestSuceedFeedback() {
 				msg: 'all tests succeeded!'
 		  };
 	Core.do('interface|tts|speak', testTTS);
-	setTimeout(function() {
-		Core.do('service|context|updateRestart', { mode: 'ready' });
-	}, 4000);
+	Core.do('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
 }
 
 // Core.error('this is an error');
