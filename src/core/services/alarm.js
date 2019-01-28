@@ -100,7 +100,7 @@ function isAlarm() {
 function cocorico() {
 	log.info('Morning Sea...');
 	Core.do('interface|sound|play', { mp3: 'system/morningSea.mp3' });
-	Utils.getSoundDuration(Core._MP3 + 'system/morningSea.mp3')
+	Utils.getDuration(Core._MP3 + 'system/morningSea.mp3')
 		.then(data => {
 			log.debug('seaDuration', data);
 			setTimeout(function() {
