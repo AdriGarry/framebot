@@ -662,7 +662,7 @@ function attachSleepRoutes(ui) {
 	});
 }
 
-function prepareLogs(lines, callback) {
+function prepareLogs(lines) {
 	return new Promise((resolve, reject) => {
 		fs.readFile(Core._LOG + Core.name + '.log', 'UTF-8', (err, data) => {
 			if (err) {
@@ -675,13 +675,4 @@ function prepareLogs(lines, callback) {
 			}
 		});
 	});
-
-	let content = fs
-		.readFileSync(Core._LOG + Core.name + '.log', 'UTF-8')
-		.toString()
-		.split('\n');
-	content = content.slice(-lines); //-120
-	content = content.join('\n');
-	callback(content);
-	return content;
 }
