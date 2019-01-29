@@ -74,33 +74,80 @@ function displayOnePhoto() {
 	});
 }
 
+// function playOneVideo() {
+// 	log.debug('playOneVideo');
+// 	return new Promise((resolve, reject) => {
+// 		Utils.directoryContent(Core._VIDEO + 'rdm/')
+// 			.then(files => {
+// 				let videoPath = Utils.randomItem(files);
+// 				log.info(videoPath);
+// 				Utils.getDuration(Core._VIDEO + 'rdm/' + videoPath)
+// 					.then(data => {
+// 						spawn('omxplayer', [
+// 							'-o',
+// 							'hdmi',
+// 							'--vol',
+// 							0,
+// 							'--blank',
+// 							'--win',
+// 							0,
+// 							420,
+// 							1050,
+// 							1260,
+// 							'--layer',
+// 							0,
+// 							Core._VIDEO + 'rdm/' + videoPath
+// 						]);
+// 						setTimeout(() => {
+// 							resolve();
+// 						}, data * 1000);
+// 					})
+// 					.catch(err => {});
+// 				// let videoInstance = spawn('omxplayer', ["-o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0", Core._VIDEO + 'rdm/' + videoPath]);
+// 				//omxplayer -o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0 $path &
+// 			})
+// 			.catch(err => {
+// 				Core.error('playOneVideo error', err);
+// 			});
+// 	});
+// }
+
 function playOneVideo() {
 	log.debug('playOneVideo');
-	Utils.directoryContent(Core._VIDEO + 'rdm/')
-		.then(files => {
-			let videoPath = Utils.randomItem(files);
-			log.info(videoPath);
-			// let videoInstance = spawn('omxplayer', ["-o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0", Core._VIDEO + 'rdm/' + videoPath]);
-			let videoInstance = spawn('omxplayer', [
-				'-o',
-				'hdmi',
-				'--vol',
-				0,
-				'--blank',
-				'--win',
-				0,
-				420,
-				1050,
-				1260,
-				'--layer',
-				0,
-				Core._VIDEO + 'rdm/' + videoPath
-			]);
-			//omxplayer -o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0 $path &
-		})
-		.catch(err => {
-			Core.error('playOneVideo error', err);
-		});
+	return new Promise((resolve, reject) => {
+		Utils.directoryContent(Core._VIDEO + 'rdm/')
+			.then(files => {
+				let videoPath = Utils.randomItem(files);
+				log.info(videoPath);
+				return Utils.getDuration(Core._VIDEO + 'rdm/' + videoPath);
+			})
+			.then(data => {
+				spawn('omxplayer', [
+					'-o',
+					'hdmi',
+					'--vol',
+					0,
+					'--blank',
+					'--win',
+					0,
+					420,
+					1050,
+					1260,
+					'--layer',
+					0,
+					Core._VIDEO + 'rdm/' + videoPath
+				]);
+				setTimeout(() => {
+					resolve();
+				}, data * 1000);
+
+				// let videoInstance = spawn('omxplayer', ["-o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0", Core._VIDEO + 'rdm/' + videoPath]);
+				//omxplayer -o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0 $path &
+			})
+			.catch(err => {
+				Core.error('playOneVideo error', err);
+			});
+	});
 }
 
 // # Turn screen On
