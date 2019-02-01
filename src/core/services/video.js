@@ -42,10 +42,10 @@ function loop() {
 }
 
 function looper() {
-	displayOnePhoto().then(looper);
-	// playOneVideo().then(looper);
+	// displayOnePhoto().then(looper);
+	playOneVideo().then(looper);
 
-	let rdm = Utils.rdm(4);
+	// let rdm = Utils.rdm(4);
 	// if (rdm) {
 	// 	displayOnePhoto().then(looper);
 	// } else {
@@ -58,7 +58,7 @@ function displayOnePhoto() {
 	return new Promise((resolve, reject) => {
 		Utils.directoryContent(Core._PHOTO)
 			.then(files => {
-				let randomTimeout = Utils.rdm(3, 7);
+				let randomTimeout = Utils.rdm(5, 10);
 				let photoPath = Utils.randomItem(files);
 				log.info(photoPath);
 				let photoInstance = spawn('fbi', ['-a', '-T', 2, Core._PHOTO + photoPath]);
@@ -114,39 +114,40 @@ function displayOnePhoto() {
 
 function playOneVideo() {
 	log.debug('playOneVideo');
+	log.INFO('---------playOneVideo');
 	return new Promise((resolve, reject) => {
-		Utils.directoryContent(Core._VIDEO + 'rdm/')
-			.then(files => {
-				let videoPath = Utils.randomItem(files);
-				log.info(videoPath);
-				return Utils.getDuration(Core._VIDEO + 'rdm/' + videoPath);
-			})
-			.then(data => {
-				spawn('omxplayer', [
-					'-o',
-					'hdmi',
-					'--vol',
-					0,
-					'--blank',
-					'--win',
-					0,
-					420,
-					1050,
-					1260,
-					'--layer',
-					0,
-					Core._VIDEO + 'rdm/' + videoPath
-				]);
-				setTimeout(() => {
-					resolve();
-				}, data * 1000);
-
-				// let videoInstance = spawn('omxplayer', ["-o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0", Core._VIDEO + 'rdm/' + videoPath]);
-				//omxplayer -o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0 $path &
-			})
-			.catch(err => {
-				Core.error('playOneVideo error', err);
-			});
+		Utils.directoryContent(Core._VIDEO + 'rdm/').then(files => {
+			let video = Utils.randomItem(files);
+			let videoPath = Core._VIDEO + 'rdm/' + video;
+			log.info(videoPath);
+			Utils.getDuration(videoPath)
+				.then(data => {
+					// TODO get Mp4 duration to set timeout
+					// let videoInstance = spawn('omxplayer', ["-o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0", Core._VIDEO + 'rdm/' + videoPath]);
+					spawn('omxplayer', [
+						'-o',
+						'hdmi',
+						'--vol',
+						0,
+						'--blank',
+						'--win',
+						0,
+						420,
+						1050,
+						1260,
+						'--layer',
+						0,
+						videoPath
+					]);
+					setTimeout(() => {
+						resolve();
+					}, parseFloat(data) * 1000);
+				})
+				.catch(err => {
+					Core.error('playOneVideo error', err);
+					reject();
+				});
+		});
 	});
 }
 
