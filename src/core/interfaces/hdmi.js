@@ -29,7 +29,7 @@ setImmediate(() => {
 function screenOn() {
 	spawn('/opt/vc/bin/tvservice', ['-p']);
 	log.info('Screen on');
-	Core.run('screen', true);
+	Core.run('hdmi', true);
 	setTimeout(function() {
 		screenOff();
 	}, 30 * 60 * 1000);
@@ -39,7 +39,7 @@ function screenOn() {
 function screenOff() {
 	spawn('/opt/vc/bin/tvservice', ['-o']);
 	Core.do('service|video|stopLoop');
-	Core.run('screen', false);
+	Core.run('hdmi', false);
 	log.info('screen off');
 }
 

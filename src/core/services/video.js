@@ -37,9 +37,10 @@ var loopStart;
 
 function loop() {
 	log.info('starting diapo loop...');
-	if (!Core.run('screen')) {
+	if (!Core.run('hdmi')) {
 		Core.do('interface|hdmi|on');
 	}
+	Core.run('screen', true);
 	loopStart = new Date();
 	setTimeout(() => {
 		looper();
@@ -48,6 +49,7 @@ function loop() {
 
 function stopLoop() {
 	loopStart = null;
+	Core.run('screen', false);
 }
 
 function shouldContinueVideoLoop() {
