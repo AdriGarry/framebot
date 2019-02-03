@@ -705,8 +705,9 @@ app.component('videos', {
 		var tileParams = {
 			label: 'Video',
 			actionList: [
-				{ label: 'Sleep', icon: 'fas fa-stop', url: '/videoOff' },
-				{ label: 'Play', icon: 'fas fa-play', url: '/playVideo' }
+				{ label: 'Hdmi off', icon: 'fas fa-stop', url: '/hdmi/off' },
+				{ label: 'Hdmi on', icon: 'fas fa-play', url: '/hdmi/on' },
+				{ label: 'Loop', icon: 'fas fa-film', url: '/video/loop' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

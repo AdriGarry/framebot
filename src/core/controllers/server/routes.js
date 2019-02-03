@@ -503,13 +503,18 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/playVideo', function(req, res) {
-		Core.do('service|video|loop');
+	ui.post('/hdmi/off', function(req, res) {
+		Core.do('interface|hdmi|off');
 		res.end();
 	});
 
-	ui.post('/videoOff', function(req, res) {
-		Core.do('interface|hdmi|off');
+	ui.post('/hdmi/on', function(req, res) {
+		Core.do('interface|hdmi|on');
+		res.end();
+	});
+
+	ui.post('/video/loop', function(req, res) {
+		Core.do('service|video|loop');
 		res.end();
 	});
 

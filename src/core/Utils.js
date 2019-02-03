@@ -90,7 +90,7 @@ function formatStringLength(string, expectedLength, before) {
 function deleteFolderRecursive(path) {
 	if (fs.existsSync(path)) {
 		fs.readdirSync(path).forEach(function(file, index) {
-			var curPath = path + '/' + file;
+			let curPath = path + '/' + file;
 			if (fs.lstatSync(curPath).isDirectory()) {
 				// recurse
 				deleteFolderRecursive(curPath);
@@ -105,7 +105,7 @@ function deleteFolderRecursive(path) {
 
 /** Function to append object in JSON file */
 function appendArrayInJsonFile(filePath, obj, callback) {
-	var fileData,
+	let fileData,
 		startTime = new Date();
 	fs.exists(filePath, function(exists) {
 		try {
@@ -149,7 +149,7 @@ function directoryContent(path) {
 }
 
 function _writeFile(filePath, fileData, startTime, isCreation) {
-	var jsonData = JSON.stringify(fileData, null, 2)
+	let jsonData = JSON.stringify(fileData, null, 2)
 		.replace(/\\/g, '')
 		.replace(/\"{/g, '{')
 		.replace(/\}"/g, '}');
@@ -181,7 +181,7 @@ function getJsonFileContent(filePath, callback) {
 
 /** Function to return true if one of string of stringArray is found in string param */
 function searchStringInArray(string, stringArray) {
-	for (var i = 0; i < stringArray.length; i++) {
+	for (let i = 0; i < stringArray.length; i++) {
 		if (stringArray[i].toLowerCase().indexOf(string.toLowerCase()) > -1) {
 			// if (string.toLowerCase().search(stringArray[i].toLowerCase()) > -1) {
 			//return true;
@@ -285,8 +285,8 @@ String.prototype.unQuote = function() {
 
 /** Function to calculate execution time of something */
 function executionTime(startTime, formatResultPattern) {
-	var length = 4;
-	var elapsedTime = new Date() - startTime;
+	// let length = 4;
+	let elapsedTime = new Date() - startTime;
 	if (formatResultPattern) {
 		return addPatternBefore(elapsedTime, formatResultPattern);
 	}
@@ -317,7 +317,7 @@ function perCent(value, total, precision) {
 }
 
 function random(arg1, arg2) {
-	var min, max;
+	let min, max;
 	if (arg2) {
 		min = arg1;
 		max = arg2;
@@ -330,8 +330,8 @@ function random(arg1, arg2) {
 
 function randomItem(array) {
 	// log.DEBUG(array);
-	var length = array.length;
-	var randomIndex = random(length); //length - 1
+	let length = array.length;
+	let randomIndex = random(length); //length - 1
 	// log.DEBUG('----------randomIndex', randomIndex);
 	return array[randomIndex];
 }
@@ -340,17 +340,17 @@ function randomItem(array) {
 const dateTimeDefaultPattern = 'D/M h:m:s';
 function logTime(param, date) {
 	if (typeof date === 'undefined') date = new Date();
-	var D = date.getDate();
-	var M = date.getMonth() + 1;
-	var Y = date.getFullYear();
-	var h = date.getHours();
-	var m = date.getMinutes();
-	var s = date.getSeconds();
-	var x = date.getMilliseconds();
-	var now = '';
+	let D = date.getDate();
+	let M = date.getMonth() + 1;
+	let Y = date.getFullYear();
+	let h = date.getHours();
+	let m = date.getMinutes();
+	let s = date.getSeconds();
+	let x = date.getMilliseconds();
+	let now = '';
 
 	if (typeof param === 'undefined') param = dateTimeDefaultPattern;
-	for (var i = 0; i < param.length; i++) {
+	for (let i = 0; i < param.length; i++) {
 		switch (param[i]) {
 			case 'Y':
 				now += Y;
@@ -386,12 +386,12 @@ function capitalizeFirstLetter(string) {
 
 // Returns the ISO week of the date.
 Date.prototype.getWeek = function() {
-	var date = new Date(this.getTime());
+	let date = new Date(this.getTime());
 	date.setHours(0, 0, 0, 0);
 	// Thursday in current week decides the year.
 	date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
 	// January 4 is always in week 1.
-	var week1 = new Date(date.getFullYear(), 0, 4);
+	let week1 = new Date(date.getFullYear(), 0, 4);
 	// Adjust to Thursday in week 1 and count number of weeks from date to week1.
 	return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7);
 };

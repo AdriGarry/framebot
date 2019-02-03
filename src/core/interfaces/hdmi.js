@@ -38,6 +38,7 @@ function screenOn() {
 /** Function to turn screen off */
 function screenOff() {
 	spawn('/opt/vc/bin/tvservice', ['-o']);
+	Core.do('service|video|stopLoop');
 	Core.run('screen', false);
 	log.info('screen off');
 }

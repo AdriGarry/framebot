@@ -11,6 +11,8 @@ Core.flux.service.video.subscribe({
 	next: flux => {
 		if (flux.id == 'loop') {
 			loop();
+		} else if (flux.id == 'stopLoop') {
+			stopLoop();
 		} else if (flux.id == 'photo') {
 			displayOnePhoto();
 		} else if (flux.id == 'video') {
@@ -30,27 +32,42 @@ setImmediate(() => {
 	}
 });
 
+const LOOP_TIMEOUT = 60 * 60;
+var loopStart;
+
 function loop() {
-	log.debug('diapo loop');
-	log.INFO('diapo loop');
+	log.info('starting diapo loop...');
 	if (!Core.run('screen')) {
 		Core.do('interface|hdmi|on');
 	}
+	loopStart = new Date();
 	setTimeout(() => {
 		looper();
 	}, 1000);
 }
 
-function looper() {
-	// displayOnePhoto().then(looper);
-	playOneVideo().then(looper);
+function stopLoop() {
+	loopStart = null;
+}
 
-	// let rdm = Utils.rdm(4);
-	// if (rdm) {
-	// 	displayOnePhoto().then(looper);
-	// } else {
-	// 	playOneVideo().then(looper);
-	// }
+function shouldContinueVideoLoop() {
+	if (!loopStart) {
+		return false;
+	}
+	let now = new Date();
+	let timeDiff = Math.ceil(Math.abs(now.getTime() - loopStart.getTime()) / 1000);
+	if (timeDiff >= LOOP_TIMEOUT) return false;
+	else return true;
+}
+
+function looper() {
+	if (shouldContinueVideoLoop()) {
+		if (Utils.rdm()) {
+			displayOnePhoto().then(looper);
+		} else {
+			playOneVideo().then(looper);
+		}
+	} else log.info('stop video loop (' + LOOP_TIMEOUT + ')');
 }
 
 function displayOnePhoto() {
@@ -59,11 +76,11 @@ function displayOnePhoto() {
 		Utils.directoryContent(Core._PHOTO)
 			.then(files => {
 				let randomTimeout = Utils.rdm(5, 10);
-				let photoPath = Utils.randomItem(files);
-				log.info(photoPath);
-				let photoInstance = spawn('fbi', ['-a', '-T', 2, Core._PHOTO + photoPath]);
+				let photoName = Utils.randomItem(files);
+				log.info('displayOnePhoto:', photoName);
+				spawn('fbi', ['-a', '-T', 2, Core._PHOTO + photoName]);
 				setTimeout(() => {
-					photoInstance.kill();
+					spawn('killall', ['fbi']); // fbi running in background
 					resolve();
 				}, randomTimeout * 1000);
 			})
@@ -74,135 +91,39 @@ function displayOnePhoto() {
 	});
 }
 
-// function playOneVideo() {
-// 	log.debug('playOneVideo');
-// 	return new Promise((resolve, reject) => {
-// 		Utils.directoryContent(Core._VIDEO + 'rdm/')
-// 			.then(files => {
-// 				let videoPath = Utils.randomItem(files);
-// 				log.info(videoPath);
-// 				Utils.getDuration(Core._VIDEO + 'rdm/' + videoPath)
-// 					.then(data => {
-// 						spawn('omxplayer', [
-// 							'-o',
-// 							'hdmi',
-// 							'--vol',
-// 							0,
-// 							'--blank',
-// 							'--win',
-// 							0,
-// 							420,
-// 							1050,
-// 							1260,
-// 							'--layer',
-// 							0,
-// 							Core._VIDEO + 'rdm/' + videoPath
-// 						]);
-// 						setTimeout(() => {
-// 							resolve();
-// 						}, data * 1000);
-// 					})
-// 					.catch(err => {});
-// 				// let videoInstance = spawn('omxplayer', ["-o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0", Core._VIDEO + 'rdm/' + videoPath]);
-// 				//omxplayer -o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0 $path &
-// 			})
-// 			.catch(err => {
-// 				Core.error('playOneVideo error', err);
-// 			});
-// 	});
-// }
-
 function playOneVideo() {
-	log.debug('playOneVideo');
-	log.INFO('---------playOneVideo');
 	return new Promise((resolve, reject) => {
-		Utils.directoryContent(Core._VIDEO + 'rdm/').then(files => {
-			let video = Utils.randomItem(files);
-			let videoPath = Core._VIDEO + 'rdm/' + video;
-			log.info(videoPath);
-			Utils.getDuration(videoPath)
-				.then(data => {
-					// TODO get Mp4 duration to set timeout
-					// let videoInstance = spawn('omxplayer', ["-o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0", Core._VIDEO + 'rdm/' + videoPath]);
-					spawn('omxplayer', [
-						'-o',
-						'hdmi',
-						'--vol',
-						0,
-						'--blank',
-						'--win',
-						0,
-						420,
-						1050,
-						1260,
-						'--layer',
-						0,
-						videoPath
-					]);
-					setTimeout(() => {
-						resolve();
-					}, parseFloat(data) * 1000);
-				})
-				.catch(err => {
-					Core.error('playOneVideo error', err);
-					reject();
+		Utils.directoryContent(Core._VIDEO + 'rdm/')
+			.then(files => {
+				let videoName = Utils.randomItem(files);
+				log.info('playOneVideo:', videoName);
+				let videoInstance = spawn('omxplayer', [
+					'-o',
+					'hdmi',
+					'--vol',
+					0,
+					'--blank',
+					'--win',
+					"'0 420 1050 1260'",
+					'--layer',
+					0,
+					Core._VIDEO + 'rdm/' + videoName
+				]);
+				videoInstance.stdout.on('data', data => {
+					log.debug(`stdout: ${data}`);
 				});
-		});
+
+				videoInstance.stderr.on('data', data => {
+					log.error(`stderr: ${data}`);
+				});
+
+				videoInstance.on('close', code => {
+					resolve();
+				});
+			})
+			.catch(err => {
+				Core.error('playOneVideo error', err);
+				reject();
+			});
 	});
 }
-
-// # Turn screen On
-// sudo /opt/vc/bin/tvservice -p
-
-// display1Photo () {
-// 	path=$(sudo find /home/pi/core/media/photo -maxdepth 1 -type f | shuf | head -1)
-// 	echo $rdm diapoPhoto: $path
-// 	rdm=$(shuf -i 5-9 -n 1)
-// 	echo $rdm sec
-// 	sudo fbi -a -T 2 $path
-// 	sleep $rdm
-// 	#q
-// 	sudo killall fbi
-// }
-
-// play1Video () {
-// 	path=$(sudo find /home/pi/core/media/video/rdm -maxdepth 1 -type f | shuf | head -1)
-// 	echo $rdm playVideo: $path
-
-// 	playTimeDecimal=$(mplayer -identify -ao null -vo null -frames 0 $path | grep ^ID_LENGTH= | cut -d = -f 2)
-// 	# echo "playTimeDecimal" $playTimeDecimal
-// 	playTime=${playTimeDecimal%.*}
-// 	echo "playTime" $playTime
-
-// 	# --win '0 0 1680 1050' // landscape position
-// 	sudo omxplayer -o hdmi --vol 0 --blank --win '0 420 1050 1260' --layer 0 $path &
-// 	sleep $playTime
-// 	#sleep $(( playTime - 1 ))
-// }
-
-// loopForever () {
-// 	echo "loopForever..."
-// 	while true
-// 	do
-// 		#echo operation: $(( 52 - 1 ))
-// 		rdm=$(shuf -i 0-4 -n 1 )
-// 		if [ $rdm -eq 0 ]
-// 		then
-// 			# echo AA
-// 			play1Video
-// 		else
-// 			# echo BB
-// 			display1Photo
-// 		fi
-// 	done
-// }
-
-// echo $1
-// case $1 in
-// 	"display1Photo")
-// 		display1Photo ;;
-// 	"play1Video")
-// 		play1Video ;;
-// 	*)
-// 		loopForever ;;
-// esac
