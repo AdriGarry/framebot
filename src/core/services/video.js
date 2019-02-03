@@ -32,7 +32,7 @@ setImmediate(() => {
 	}
 });
 
-const LOOP_TIMEOUT = 60 * 60;
+const LOOP_TIMEOUT = 30 * 60;
 var loopStart;
 
 function loop() {
