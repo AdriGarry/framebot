@@ -18,6 +18,7 @@
 		"timer": 0,
 		"voicemail": 0,
 		"audioRecord": 0,
+		"hdmi": null,
 		"screen": null,
 		"cpu": {
 			"usage": null,
