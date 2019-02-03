@@ -609,9 +609,9 @@ app.component('badBoy', {
 		var tileParams = {
 			label: 'Bad boy',
 			actionList: [
-				{ label: 'Java', icon: 'fab fa-strava', url: '/java' },
-				{ label: 'BadBoy Mode', icon: 'fas fa-comments', url: '/badBoy', continu: true },
-				{ label: 'BadBoy TTS', icon: 'fas fa-comment', url: '/badBoy' }
+				{ label: 'Java', icon: 'fas fa-grin-squint-tears', url: '/java' },
+				{ label: 'BadBoy Mode', icon: 'fas fa-hand-middle-finger', url: '/badBoy', continu: true },
+				{ label: 'BadBoy TTS', icon: 'fas fa-hand-middle-finger', url: '/badBoy' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
