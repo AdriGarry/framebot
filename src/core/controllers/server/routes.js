@@ -165,7 +165,7 @@ function attachDefaultRoutes(ui) {
 	/** ==> POST SECTION */
 	ui.post('/odi', function(req, res) {
 		Core.do('service|system|restart', null, {
-			delay: 1
+			delay: 2
 		});
 		res.end();
 	});
