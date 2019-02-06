@@ -49,7 +49,7 @@ function scheduleJobs(jobList, jobType) {
 			// log.INFO('====> EVALUATE JOBS DATA...');
 			let toto = job.data && findByVal(job.data, EVAL_REGEX);
 			if (toto) {
-				log.INFO('.... ok on peut parser cette valeur:', toto);
+				log.warn('.... ok on peut parser cette valeur:', toto);
 			}
 			// 	}
 			// }
