@@ -167,8 +167,11 @@ function demo() {
 }
 
 const BALUCHON_MSG = [
-	{ voice: 'espeak', msg: 'Je crois quil faut lancer lopairation baluchon' },
-	{ voice: 'pico', msg: 'il faut lancer loperation baluchon !' }
+	[
+		{ voice: 'espeak', msg: 'Je crois quil faut lancer lopairation baluchon' },
+		{ voice: 'pico', msg: 'Sans oublier la gamelle' }
+	],
+	[{ voice: 'pico', msg: 'il faut lancer loperation baluchon !' }, { voice: 'pico', msg: "Et aussi la gamelle d'eau" }]
 ];
 function baluchonTTS() {
 	let tts = Utils.randomItem(BALUCHON_MSG);
@@ -176,7 +179,11 @@ function baluchonTTS() {
 	Core.do('interface|tts|speak', tts);
 }
 
-const GO_TO_WORK_TTS = [{ msg: 'Go go go, allez au boulot' }, { msg: 'Allez allez, Maitro boulot dodo' }];
+const GO_TO_WORK_TTS = [
+	{ msg: 'Allez, bonne journée !' },
+	{ msg: 'Go go go, allez au boulot' },
+	{ msg: 'Allez allez, Maitro boulot dodo' }
+];
 function goToWorkTTS() {
 	let tts = Utils.randomItem(GO_TO_WORK_TTS);
 	log.debug('goToWorkTTS', tts);
