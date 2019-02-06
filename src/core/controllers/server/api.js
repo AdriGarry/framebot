@@ -18,15 +18,33 @@ const FILE_VOICEMAIL_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json';
 
 module.exports = {
 	attachRoutes: attachRoutes
+	// attachRoutesFromDescriptor: attachRoutesFromDescriptor
 };
 
 function attachRoutes(ui) {
 	attachDefaultRoutes(ui);
 	if (Core.isAwake()) {
+		// attachRoutesFromDescriptor(ui);
 		attachAwakeRoutes(ui);
 	} else {
 		attachSleepRoutes(ui);
 	}
+}
+
+function attachRoutesFromDescriptor(ui) {
+	log.info('attachRoutesFromDescriptor');
+	Core.descriptor.api.POST.forEach(item => {
+		log.info('api.item=', item);
+		log.info('/' + item.url);
+		ui.post('/' + item.url, (req, res) => {
+			log.warn('------------hey this is from json url api');
+			// add to url: /api/...
+			item.flux.forEach(flux => {
+				Core.do(flux.id, flux.data, flux.conf);
+			});
+			res.end();
+		});
+	});
 }
 
 function attachDefaultRoutes(ui) {
