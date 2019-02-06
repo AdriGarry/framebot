@@ -181,6 +181,7 @@ function baluchonTTS() {
 
 const GO_TO_WORK_TTS = [
 	{ msg: 'Allez, bonne journée !' },
+	{ msg: 'Allez, a ce soir !' },
 	{ msg: 'Go go go, allez au boulot' },
 	{ msg: 'Allez allez, Maitro boulot dodo' }
 ];
