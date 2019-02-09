@@ -39,21 +39,23 @@ function attachObservers(observers) {
 }
 
 function loadModules(modules) {
-	Object.keys(modules).forEach(function(moduleId) {
-		let modulesLoaded = '';
-		for (let i = 0; i < modules[moduleId].base.length; i++) {
-			require(Core._CORE + moduleId + '/' + modules[moduleId].base[i] + '.js');
+	Object.keys(modules).forEach(moduleType => {
+		let modulesLoaded = loadModulesArray(moduleType, modules[moduleType].base);
+		if (Core.isAwake() && modules[moduleType].hasOwnProperty('full')) {
+			modulesLoaded += ', ' + loadModulesArray(moduleType, modules[moduleType].full);
 		}
-		modulesLoaded += modules[moduleId].base.join(', ');
-		if (Core.isAwake() && modules[moduleId].hasOwnProperty('full')) {
-			for (let i = 0; i < modules[moduleId].full.length; i++) {
-				require(Core._CORE + moduleId + '/' + modules[moduleId].full[i] + '.js');
-			}
-			modulesLoaded += ', ' + modules[moduleId].full.join(', ');
-		}
-		log.info(moduleId, 'loaded [' + modulesLoaded + ']');
+		log.info(moduleType, 'loaded [' + modulesLoaded + ']');
 	});
 	return Flux;
+}
+
+function loadModulesArray(moduleType, moduleArray) {
+	let modulesLoadedList = '';
+	for (let i = 0; i < moduleArray.length; i++) {
+		require(Core._CORE + moduleType + '/' + moduleArray[i] + '.js');
+	}
+	modulesLoadedList += moduleArray.join(', ');
+	return modulesLoadedList;
 }
 
 const FLUX_REGEX = new RegExp(/\w+\|\w+\|\w+/); // TODO
