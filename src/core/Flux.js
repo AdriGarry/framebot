@@ -11,11 +11,13 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 const LOG_LEVELS = ['info', 'debug', 'trace'];
 
-var ready = false;
+var ready = false,
+	cronAndApi = {};
 
 var Flux = {
 	init: attachObservers,
 	loadModules: loadModules,
+	// loadModulesJson: loadModulesJson,
 	next: next
 };
 
@@ -35,6 +37,7 @@ function attachObservers(observers) {
 	});
 	ready = true;
 	log.info('Flux manager ready');
+	log.info(cronAndApi);
 	return Flux;
 }
 
@@ -50,12 +53,18 @@ function loadModules(modules) {
 }
 
 function loadModulesArray(moduleType, moduleArray) {
+	// console.log(moduleType, moduleArray);
 	let modulesLoadedList = '';
 	for (let i = 0; i < moduleArray.length; i++) {
-		require(Core._CORE + moduleType + '/' + moduleArray[i] + '.js');
+		let exportsFromModule = require(Core._CORE + moduleType + '/' + moduleArray[i] + '.js');
+		cronAndApi[moduleArray[i]] = exportsFromModule;
 	}
 	modulesLoadedList += moduleArray.join(', ');
 	return modulesLoadedList;
+}
+
+function loadModulesJson(modules) {
+	//
 }
 
 const FLUX_REGEX = new RegExp(/\w+\|\w+\|\w+/); // TODO
