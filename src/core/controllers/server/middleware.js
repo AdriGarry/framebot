@@ -10,7 +10,7 @@ const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';
 const NO_SOUND_URL = ['/dashboard', '/log'];
 const BAD_REQUEST_TIMEOUT = 5000;
 const BAD_REQUEST_CP_LIMIT = 5;
-var badRequestCount = 0;
+
 var canTTSBadRequest = true;
 
 module.exports = {

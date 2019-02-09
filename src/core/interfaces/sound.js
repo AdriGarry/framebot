@@ -7,6 +7,26 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js');
 
+module.exports = {
+	cron: {
+		base: [
+			{
+				cron: '0 0 * * * *',
+				flux: { id: 'service|time|now' }
+			}
+		],
+		full: []
+	},
+	api: {
+		base: { POST: [{ url: 'pirate', flux: [{ id: 'service|party|pirate', data: null, conf: null }] }], GET: [] },
+		full: {}
+		// },
+		// FLUX = {
+		// 	base: [{ id: 'mute', exec: mute(flux.value) }, { id: 'volume', exec: setVolume(flux.value) }],
+		// 	full: []
+	}
+};
+
 Core.flux.interface.sound.subscribe({
 	next: flux => {
 		if (flux.id == 'mute') {
