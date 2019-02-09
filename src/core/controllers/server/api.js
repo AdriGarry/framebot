@@ -29,6 +29,7 @@ function attachRoutes(ui) {
 	} else {
 		attachSleepRoutes(ui);
 	}
+	return ui;
 }
 
 function attachRoutesFromDescriptor(ui) {

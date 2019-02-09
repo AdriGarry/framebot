@@ -32,6 +32,8 @@ Core.flux.controller.server.subscribe({
 	next: flux => {
 		if (flux.id == 'startUIServer') {
 			startUIServer();
+		} else if (flux.id == 'addApi') {
+			addApi(flux.value);
 		} else if (flux.id == 'closeUIServer') {
 			closeUIServer(flux.value);
 		} else Core.error('unmapped flux in Server controller', flux, false);
@@ -75,12 +77,25 @@ function startUIServer() {
 	uiHttps.use(middleware.security());
 
 	api.attachRoutes(uiHttps);
-	attachRoutesFromDescriptor(uiHttps);
+	// attachRoutesFromDescriptor(uiHttps);
+	// attachRoutesFromDescriptor();
 
 	httpsServer = https.createServer(CREDENTIALS, uiHttps).listen(HTTPS_SERVER_PORT, function() {
 		log.info('UI https server started [' + Core.conf('mode') + ']');
 		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 	});
+}
+
+function addApi(arg) {
+	log.info(arg);
+	// uiHttps.post('/' + item.url, (req, res) => {
+	// 	log.warn('...............hey new url api!');
+	// 	// add to url: /api/...
+	// 	item.flux.forEach(flux => {
+	// 		Core.do(flux.id, flux.data, flux.conf);
+	// 	});
+	// 	res.end();
+	// });
 }
 
 function attachRoutesFromDescriptor(ui) {
