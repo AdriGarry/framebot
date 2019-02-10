@@ -16,37 +16,52 @@ const FILE_ERROR_HISTORY = Core._LOG + Core.name + '_errorHistory.json';
 const FILE_TTS_UI_HISTORY = Core._LOG + Core.name + '_ttsUIHistory.json';
 const FILE_VOICEMAIL_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json';
 
+var uiHttp;
 module.exports = {
 	attachRoutes: attachRoutes
+	// add: addApi
 	// attachRoutesFromDescriptor: attachRoutesFromDescriptor
 };
 
 function attachRoutes(ui) {
-	attachDefaultRoutes(ui);
+	uiHttp = ui;
+	attachDefaultRoutes(uiHttp);
 	if (Core.isAwake()) {
 		// attachRoutesFromDescriptor(ui);
-		attachAwakeRoutes(ui);
+		attachAwakeRoutes(uiHttp);
 	} else {
-		attachSleepRoutes(ui);
+		attachSleepRoutes(uiHttp);
 	}
-	return ui;
+	return uiHttp;
 }
 
-function attachRoutesFromDescriptor(ui) {
-	log.info('attachRoutesFromDescriptor');
-	Core.descriptor.api.POST.forEach(item => {
-		log.info('api.item=', item);
-		log.info('/' + item.url);
-		ui.post('/' + item.url, (req, res) => {
-			log.warn('------------hey this is from json url api');
-			// add to url: /api/...
-			item.flux.forEach(flux => {
-				Core.do(flux.id, flux.data, flux.conf);
-			});
-			res.end();
-		});
-	});
-}
+// function addApi(item) {
+// 	log.INFO('addApi', item);
+// 	uiHttp.post('/' + item.url, (req, res) => {
+// 		log.warn('...............hey new url api!');
+// 		// add to url: /api/...
+// 		item.flux.forEach(flux => {
+// 			Core.do(flux.id, flux.data, flux.conf);
+// 		});
+// 		res.end();
+// 	});
+// }
+
+// function attachRoutesFromDescriptor(ui) {
+// 	log.info('attachRoutesFromDescriptor');
+// 	Core.descriptor.api.POST.forEach(item => {
+// 		log.info('api.item=', item);
+// 		log.info('/' + item.url);
+// 		ui.post('/' + item.url, (req, res) => {
+// 			log.warn('------------hey this is from json url api');
+// 			// add to url: /api/...
+// 			item.flux.forEach(flux => {
+// 				Core.do(flux.id, flux.data, flux.conf);
+// 			});
+// 			res.end();
+// 		});
+// 	});
+// }
 
 function attachDefaultRoutes(ui) {
 	/** DASHBOARD SECTION */
@@ -350,6 +365,7 @@ function attachDefaultRoutes(ui) {
 		res.send(granted);
 		if (granted) granted = false;
 	});
+	return ui;
 }
 
 function attachAwakeRoutes(ui) {
@@ -637,6 +653,7 @@ function attachAwakeRoutes(ui) {
 		res.writeHead(401);
 		res.end();
 	});
+	return ui;
 }
 
 function attachSleepRoutes(ui) {
@@ -664,6 +681,7 @@ function attachSleepRoutes(ui) {
 		res.writeHead(401);
 		res.end();
 	});
+	return ui;
 }
 
 function prepareLogs(lines, callback) {

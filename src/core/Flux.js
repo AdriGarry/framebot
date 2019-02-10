@@ -17,7 +17,7 @@ var ready = false,
 var Flux = {
 	init: attachObservers,
 	loadModules: loadModules,
-	// loadModulesJson: loadModulesJson,
+	loadModulesJson: loadModulesJson,
 	next: next
 };
 
@@ -64,7 +64,7 @@ function loadModulesArray(moduleType, moduleArray) {
 }
 
 function loadModulesJson(modules) {
-	//
+	//cronAndApi
 }
 
 const FLUX_REGEX = new RegExp(/\w+\|\w+\|\w+/); // TODO

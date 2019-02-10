@@ -110,6 +110,19 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
 	Flux.loadModules(descriptor.modules);
+	// Flux.loadModulesJson();
+	Core.do(
+		'controller|server|addApi',
+		{ url: 'pirate', flux: [{ id: 'service|party|pirate', data: null, conf: null }] },
+		{ delay: 1 }
+	);
+
+	// "api": {
+	// 	"POST": [{ "url": "pirate", "flux": [{ "id": "service|party|pirate", "data": null, "conf": null }] }],
+	// 	"GET": []
+	// }
+
+	log.INFO('-------> loadModulesJson !!');
 	Object.seal(Core);
 	return Core;
 }
