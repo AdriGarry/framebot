@@ -41,7 +41,7 @@
 			"blueError": 0
 		}
 	},
-	"jobs": {
+	"cron": {
 		"base": [
 			{
 				"cron": "*/30 * * * * *",

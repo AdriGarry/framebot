@@ -37,16 +37,12 @@ setImmediate(() => {
 		Led.nose.writeSync(mode);
 	}, 900);
 
-	new CronJob( //TODO mettre dans jobs.json (une fois le mode trace défini)
-		'*/3 * * * * *', // TODO tester de mettre aussi dans un setInterval
-		function() {
-			blink({ leds: ['nose'], speed: 200, loop: 1 });
-		},
-		null,
-		1,
-		'Europe/Paris'
-	);
-	log.info('Activity led initialised [' + Core.conf('mode') + ']');
+	let ledCronJob = {
+		cron: '*/3 * * * * *',
+		flux: { id: 'interface|led|blink', data: { leds: ['nose'], speed: 200, loop: 1 }, conf: { log: 'trace' } },
+		log: 'Activity led initialised [' + Core.conf('mode') + ']'
+	};
+	Core.do('controller|cron|add', ledCronJob);
 });
 
 // blink({leds:['belly', 'satellite'],loop:5, speed:70});

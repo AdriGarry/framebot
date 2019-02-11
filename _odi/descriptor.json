@@ -23,7 +23,7 @@
 			"full": ["tts"]
 		},
 		"controllers": {
-			"base": ["button", "jobs", "server", "watcher"]
+			"base": ["button", "cron", "server", "watcher"]
 		},
 		"services": {
 			"base": ["context", "buttonService", "system", "time", "alarm", "voicemail", "sms", "audioRecord"],
@@ -43,7 +43,7 @@
 		}
 	},
 	"runtime": {},
-	"jobs": {
+	"cron": {
 		"base": [],
 		"full": [
 			{

@@ -7,16 +7,33 @@ const CronJob = require('cron').CronJob;
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename);
 
-setImmediate(() => {
-	scheduleJobs(Core.default.jobs.base, 'base default');
-	scheduleJobs(Core.descriptor.jobs.base, 'base descriptor');
-	if (Core.isAwake()) {
-		scheduleJobs(Core.default.jobs.full, 'full default');
-		scheduleJobs(Core.descriptor.jobs.full, 'full descriptor');
+Core.flux.controller.cron.subscribe({
+	next: flux => {
+		if (flux.id == 'add') {
+			addJob(flux.value);
+		} else Core.error('unmapped flux in Cron controller', flux, false);
+	},
+	error: err => {
+		Core.error('Flux error', err);
 	}
 });
 
+setImmediate(() => {
+	scheduleJobs(Core.default.cron.base, 'base default');
+	scheduleJobs(Core.descriptor.cron.base, 'base descriptor');
+	if (Core.isAwake()) {
+		scheduleJobs(Core.default.cron.full, 'full default');
+		scheduleJobs(Core.descriptor.cron.full, 'full descriptor');
+	}
+});
+
+function addJob(jobs) {
+	log.debug('addJob', jobs);
+	if (!Array.isArray(jobs)) jobs = [jobs];
+	scheduleJobs(jobs, 'module');
+}
 function scheduleJob(job) {
+	log.debug('scheduleJob(job)', job);
 	let jobLog = '';
 	new CronJob(
 		job.cron,
@@ -35,7 +52,7 @@ function scheduleJob(job) {
 		jobLog += '_' + job.flux.id;
 	}
 
-	log.debug('new job: [' + job.cron + '] ' + jobLog);
+	log.debug('new cron job: [' + job.cron + '] ' + jobLog);
 }
 
 const EVAL_REGEX = new RegExp(/^eval:(\w+.\w+.\w+.)/);
@@ -55,7 +72,7 @@ function scheduleJobs(jobList, jobType) {
 			// }
 			scheduleJob(job);
 		});
-		log.info(jobType + ' jobs initialised');
+		log.info(jobType + ' cron jobs initialised');
 	}
 }
 
@@ -63,7 +80,7 @@ function scheduleJobs(jobList, jobType) {
 function findByKey(object, key) {
 	// TODO move to Utils.js
 	let value = false;
-	Object.keys(object).some(function(k) {
+	Object.keys(object).some(k => {
 		if (k == key) {
 			return object[k];
 		} else if (key.constructor == RegExp) {
@@ -82,7 +99,7 @@ function findByVal(object, val) {
 	// TODO move to Utils.js
 	console.log(val);
 	let value = false;
-	Object.keys(object).some(function(k) {
+	Object.keys(object).some(k => {
 		if (object[k] == val) {
 			return object[k];
 		} else if (val.constructor == RegExp) {
