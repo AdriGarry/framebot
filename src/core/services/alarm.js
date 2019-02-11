@@ -6,6 +6,31 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(_PATH + 'src/core/Utils.js');
 
+module.exports = {
+	cron: {
+		base: [
+			{
+				cron: '1 * * * * *',
+				flux: {
+					id: 'service|alarm|isAlarm',
+					conf: {
+						log: 'trace'
+					}
+				}
+			}
+		],
+		full: []
+	},
+	api: {
+		// 	base: { POST: [{ url: 'pirate', flux: [{ id: 'service|party|pirate', data: null, conf: null }] }], GET: [] },
+		// 	full: {}
+		// 	// },
+		// 	// FLUX = {
+		// 	// 	base: [{ id: 'mute', exec: mute(flux.value) }, { id: 'volume', exec: setVolume(flux.value) }],
+		// 	// 	full: []
+	}
+};
+
 Core.flux.service.alarm.subscribe({
 	next: flux => {
 		if (flux.id == 'setAlarm') {

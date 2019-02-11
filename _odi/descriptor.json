@@ -71,12 +71,6 @@
 				}
 			},
 			{
-				"cron": "0 19 19 * * *",
-				"flux": {
-					"id": "service|interaction|baluchon"
-				}
-			},
-			{
 				"cron": "0 30 8 * * *",
 				"flux": {
 					"id": "interface|sound|volume",
@@ -88,6 +82,12 @@
 				"flux": {
 					"id": "interface|sound|volume",
 					"data": 60
+				}
+			},
+			{
+				"cron": "0 19 19 * * *",
+				"flux": {
+					"id": "service|interaction|baluchon"
 				}
 			},
 			{

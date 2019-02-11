@@ -13,6 +13,18 @@ Core.gpio.leds.forEach(led => {
 	Led[led.id] = new Gpio(led.pin, led.direction);
 });
 
+module.exports = {
+	cron: {
+		full: [
+			{
+				cron: '*/3 * * * * *',
+				flux: { id: 'interface|led|blink', data: { leds: ['nose'], speed: 200, loop: 1 }, conf: { log: 'trace' } },
+				log: 'Activity led initialised [' + Core.conf('mode') + ']'
+			}
+		]
+	}
+};
+
 Core.flux.interface.led.subscribe({
 	next: flux => {
 		if (flux.id == 'toggle') {
@@ -37,12 +49,12 @@ setImmediate(() => {
 		Led.nose.writeSync(mode);
 	}, 900);
 
-	let ledCronJob = {
-		cron: '*/3 * * * * *',
-		flux: { id: 'interface|led|blink', data: { leds: ['nose'], speed: 200, loop: 1 }, conf: { log: 'trace' } },
-		log: 'Activity led initialised [' + Core.conf('mode') + ']'
-	};
-	Core.do('controller|cron|add', ledCronJob);
+	// let ledCronJob = {
+	// 	cron: '*/3 * * * * *',
+	// 	flux: { id: 'interface|led|blink', data: { leds: ['nose'], speed: 200, loop: 1 }, conf: { log: 'trace' } },
+	// 	log: 'Activity led initialised [' + Core.conf('mode') + ']'
+	// };
+	// Core.do('controller|cron|add', ledCronJob);
 });
 
 // blink({leds:['belly', 'satellite'],loop:5, speed:70});

@@ -53,15 +53,6 @@
 				}
 			},
 			{
-				"cron": "1 * * * * *",
-				"flux": {
-					"id": "service|alarm|isAlarm",
-					"conf": {
-						"log": "trace"
-					}
-				}
-			},
-			{
 				"cron": "0 2 0 * * 1",
 				"flux": {
 					"id": "interface|hardware|archiveLog"

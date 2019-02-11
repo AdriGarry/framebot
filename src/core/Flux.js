@@ -37,7 +37,6 @@ function attachObservers(observers) {
 	});
 	ready = true;
 	log.info('Flux manager ready');
-	log.info(cronAndApi);
 	return Flux;
 }
 
@@ -53,7 +52,6 @@ function loadModules(modules) {
 }
 
 function loadModulesArray(moduleType, moduleArray) {
-	// console.log(moduleType, moduleArray);
 	let modulesLoadedList = '';
 	for (let i = 0; i < moduleArray.length; i++) {
 		let exportsFromModule = require(Core._CORE + moduleType + '/' + moduleArray[i] + '.js');
@@ -64,7 +62,30 @@ function loadModulesArray(moduleType, moduleArray) {
 }
 
 function loadModulesJson(modules) {
-	//cronAndApi
+	let toLoad = organizeCronAndApi();
+	initCronJobs(toLoad.cronList);
+}
+
+function organizeCronAndApi() {
+	let cronList = [],
+		apiList = [];
+	Object.keys(cronAndApi).forEach(mod => {
+		if (cronAndApi[mod].cron && Array.isArray(cronAndApi[mod].cron.base))
+			cronList.push.apply(cronList, cronAndApi[mod].cron.base);
+		if (cronAndApi[mod].cron && Array.isArray(cronAndApi[mod].cron.full)) {
+			cronList.push.apply(cronList, cronAndApi[mod].cron.full);
+		}
+		// apiList.push(cronAndApi[mod].api);
+	});
+	return { cronList, apiList };
+}
+
+function initCronJobs(cronJobs) {
+	log.info('initCronJobs');
+	log.debug(cronJobs);
+	cronJobs.forEach(job => {
+		Core.do('controller|cron|add', job);
+	});
 }
 
 const FLUX_REGEX = new RegExp(/\w+\|\w+\|\w+/); // TODO
