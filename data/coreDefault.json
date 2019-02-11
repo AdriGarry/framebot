@@ -107,24 +107,6 @@
 						}
 					}
 				]
-			},
-			{
-				"cron": "30 13 13 * * 0",
-				"flux": [
-					{
-						"id": "interface|tts|speak",
-						"data": {
-							"lg": "en",
-							"msg": "Reboot"
-						}
-					},
-					{
-						"id": "service|system|reboot",
-						"conf": {
-							"delay": 3
-						}
-					}
-				]
 			}
 		]
 	}

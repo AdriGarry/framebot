@@ -8,15 +8,24 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js');
 
 module.exports = {
-	// cron: {
-	// 	base: [
-	// 		{
-	// 			cron: '0 0 * * * *',
-	// 			flux: { id: 'service|time|now' }
-	// 		}
-	// 	],
-	// 	full: []
-	// },
+	cron: {
+		full: [
+			{
+				cron: '0 30 8 * * *',
+				flux: {
+					id: 'interface|sound|volume',
+					data: 40
+				}
+			},
+			{
+				cron: '0 45 18 * * *',
+				flux: {
+					id: 'interface|sound|volume',
+					data: 60
+				}
+			}
+		]
+	}
 	// api: {
 	// 	base: { POST: [{ url: 'pirate', flux: [{ id: 'service|party|pirate', data: null, conf: null }] }], GET: [] },
 	// 	full: {}

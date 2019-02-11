@@ -7,6 +7,32 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(_PATH + 'src/core/Utils.js');
 
+module.exports = {
+	cron: {
+		full: [
+			{
+				cron: '30 13 13 * * 0',
+				flux: [
+					{
+						id: 'interface|tts|speak',
+						data: {
+							lg: 'en',
+							msg: 'Reboot'
+						}
+					},
+					{
+						id: 'service|system|reboot',
+						conf: {
+							delay: 3
+						}
+					}
+				],
+				log: 'Reboot'
+			}
+		]
+	}
+};
+
 Core.flux.service.system.subscribe({
 	next: flux => {
 		if (flux.id == 'restart') {

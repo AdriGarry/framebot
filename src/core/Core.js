@@ -110,7 +110,6 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
 	Flux.loadModules(descriptor.modules);
-
 	Flux.loadModulesJson();
 	Object.seal(Core);
 	return Core;

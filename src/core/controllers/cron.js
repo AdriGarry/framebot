@@ -30,7 +30,7 @@ setImmediate(() => {
 function addJob(jobs) {
 	log.debug('addJob', jobs);
 	if (!Array.isArray(jobs)) jobs = [jobs];
-	scheduleJobs(jobs, 'module');
+	scheduleJobs(jobs);
 }
 function scheduleJob(job) {
 	log.debug('scheduleJob(job)', job);
@@ -71,8 +71,10 @@ function scheduleJobs(jobList, jobType) {
 			// 	}
 			// }
 			scheduleJob(job);
+			// log.info('job', job);
+			if (!jobType) log.info(jobType || job.log || job.flux.id, 'cron job initialised');
 		});
-		log.info(jobType + ' cron jobs initialised');
+		if (jobType) log.info(jobType, 'cron jobs initialised');
 	}
 }
 

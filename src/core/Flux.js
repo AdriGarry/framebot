@@ -83,9 +83,10 @@ function organizeCronAndApi() {
 function initCronJobs(cronJobs) {
 	log.info('initCronJobs');
 	log.debug(cronJobs);
-	cronJobs.forEach(job => {
-		Core.do('controller|cron|add', job);
-	});
+	Core.do('controller|cron|add', cronJobs, { log: 'debug' });
+	// cronJobs.forEach(job => {
+	// 	Core.do('controller|cron|add', job, { log: 'debug' });
+	// });
 }
 
 const FLUX_REGEX = new RegExp(/\w+\|\w+\|\w+/); // TODO
