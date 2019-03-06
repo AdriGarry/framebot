@@ -42,16 +42,16 @@ function attachObservers(observers) {
 
 function loadModules(modules) {
 	Object.keys(modules).forEach(moduleType => {
-		let modulesLoaded = loadModulesArray(moduleType, modules[moduleType].base);
+		let modulesLoaded = _loadModulesArray(moduleType, modules[moduleType].base);
 		if (Core.isAwake() && modules[moduleType].hasOwnProperty('full')) {
-			modulesLoaded += ', ' + loadModulesArray(moduleType, modules[moduleType].full);
+			modulesLoaded += ', ' + _loadModulesArray(moduleType, modules[moduleType].full);
 		}
 		log.info(moduleType, 'loaded [' + modulesLoaded + ']');
 	});
 	return Flux;
 }
 
-function loadModulesArray(moduleType, moduleArray) {
+function _loadModulesArray(moduleType, moduleArray) {
 	let modulesLoadedList = '';
 	for (let i = 0; i < moduleArray.length; i++) {
 		let exportsFromModule = require(Core._CORE + moduleType + '/' + moduleArray[i] + '.js');
@@ -62,11 +62,11 @@ function loadModulesArray(moduleType, moduleArray) {
 }
 
 function loadModulesJson(modules) {
-	let toLoad = organizeCronAndApi();
-	initCronJobs(toLoad.cronList);
+	let toLoad = _organizeCronAndApi();
+	_initCronJobs(toLoad.cronList);
 }
 
-function organizeCronAndApi() {
+function _organizeCronAndApi() {
 	let cronList = [],
 		apiList = [];
 	Object.keys(cronAndApi).forEach(mod => {
@@ -80,7 +80,7 @@ function organizeCronAndApi() {
 	return { cronList, apiList };
 }
 
-function initCronJobs(cronJobs) {
+function _initCronJobs(cronJobs) {
 	log.info('initCronJobs');
 	log.debug(cronJobs);
 	Core.do('controller|cron|add', cronJobs, { log: 'debug' });
