@@ -122,7 +122,7 @@ function startHttpsServer(additionalApi) {
 }
 
 function addApi(route) {
-	// log.INFO('addApi', route);
+	log.INFO('addApi', route);
 	resetHttpsServerAndStart(route);
 }
 
@@ -141,7 +141,6 @@ function attachAdditionalApi(ui, additionalApi) {
 			});
 			res.end();
 		});
-		// console.log();
 		log.info('attachAdditionalApi');
 	});
 }

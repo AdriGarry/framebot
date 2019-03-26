@@ -24,6 +24,7 @@ module.exports = {
 };
 
 function attachRoutes(ui) {
+	log.INFO('*****************attachRoutes');
 	uiHttp = ui;
 	attachDefaultRoutes(uiHttp);
 	if (Core.isAwake()) {

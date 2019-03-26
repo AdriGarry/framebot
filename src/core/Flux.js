@@ -11,13 +11,10 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 const LOG_LEVELS = ['info', 'debug', 'trace'];
 
-var ready = false,
-	cronAndApi = {};
+var ready = false;
 
 var Flux = {
 	init: attachObservers,
-	loadModules: loadModules,
-	loadModulesJson: loadModulesJson,
 	next: next
 };
 
@@ -38,55 +35,6 @@ function attachObservers(observers) {
 	ready = true;
 	log.info('Flux manager ready');
 	return Flux;
-}
-
-function loadModules(modules) {
-	Object.keys(modules).forEach(moduleType => {
-		let modulesLoaded = _loadModulesArray(moduleType, modules[moduleType].base);
-		if (Core.isAwake() && modules[moduleType].hasOwnProperty('full')) {
-			modulesLoaded += ', ' + _loadModulesArray(moduleType, modules[moduleType].full);
-		}
-		log.info(moduleType, 'loaded [' + modulesLoaded + ']');
-	});
-	return Flux;
-}
-
-function _loadModulesArray(moduleType, moduleArray) {
-	let modulesLoadedList = '';
-	for (let i = 0; i < moduleArray.length; i++) {
-		let exportsFromModule = require(Core._CORE + moduleType + '/' + moduleArray[i] + '.js');
-		cronAndApi[moduleArray[i]] = exportsFromModule;
-	}
-	modulesLoadedList += moduleArray.join(', ');
-	return modulesLoadedList;
-}
-
-function loadModulesJson(modules) {
-	let toLoad = _organizeCronAndApi();
-	_initCronJobs(toLoad.cronList);
-}
-
-function _organizeCronAndApi() {
-	let cronList = [],
-		apiList = [];
-	Object.keys(cronAndApi).forEach(mod => {
-		if (cronAndApi[mod].cron && Array.isArray(cronAndApi[mod].cron.base))
-			cronList.push.apply(cronList, cronAndApi[mod].cron.base);
-		if (cronAndApi[mod].cron && Array.isArray(cronAndApi[mod].cron.full)) {
-			cronList.push.apply(cronList, cronAndApi[mod].cron.full);
-		}
-		// apiList.push(cronAndApi[mod].api);
-	});
-	return { cronList, apiList };
-}
-
-function _initCronJobs(cronJobs) {
-	log.info('initCronJobs');
-	log.debug(cronJobs);
-	Core.do('controller|cron|add', cronJobs, { log: 'debug' });
-	// cronJobs.forEach(job => {
-	// 	Core.do('controller|cron|add', job, { log: 'debug' });
-	// });
 }
 
 const FLUX_REGEX = new RegExp(/\w+\|\w+\|\w+/); // TODO

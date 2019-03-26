@@ -9,47 +9,65 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(_PATH + 'src/core/Logger.js'))(__filename.match(/(\w*).js/g)[0]),
 	Utils = require(_PATH + 'src/core/Utils.js');
 
-// const LOG_LEVELS = ['info', 'debug', 'trace'];
-// var ready = false;
-
-var Flux = {
-	init: attachObservers,
-	loadModules: loadModules
+var ModuleLoader = {
+	loadModules: loadModules,
+	loadModulesJson: loadModulesJson
 };
 
-module.exports = Flux;
+module.exports = ModuleLoader;
 
-function attachObservers(observers) {
-	log.debug('initializing observers...');
-	Object.keys(observers).forEach((key, index) => {
-		let proto = key.substring(0, key.length - 1);
-		Flux[proto] = {};
-		Object.keys(observers[key]).forEach((key2, index2) => {
-			let tmp = observers[key][key2];
-			tmp.forEach(index => {
-				Flux[proto][index] = new Rx.Subject();
-			});
-		});
-	});
-	ready = true;
-	log.info('Flux manager ready');
-	return Flux;
-}
+var cronAndApi = {};
 
 function loadModules(modules) {
-	Object.keys(modules).forEach(function(moduleId) {
-		let modulesLoaded = '';
-		for (let i = 0; i < modules[moduleId].base.length; i++) {
-			require(Core._CORE + moduleId + '/' + modules[moduleId].base[i] + '.js');
+	Object.keys(modules).forEach(moduleType => {
+		let modulesLoaded = _loadModulesArray(moduleType, modules[moduleType].base);
+		if (Core.isAwake() && modules[moduleType].hasOwnProperty('full')) {
+			modulesLoaded += ', ' + _loadModulesArray(moduleType, modules[moduleType].full);
 		}
-		modulesLoaded += modules[moduleId].base.join(', ');
-		if (Core.isAwake() && modules[moduleId].hasOwnProperty('full')) {
-			for (let i = 0; i < modules[moduleId].full.length; i++) {
-				require(Core._CORE + moduleId + '/' + modules[moduleId].full[i] + '.js');
-			}
-			modulesLoaded += ', ' + modules[moduleId].full.join(', ');
-		}
-		log.info(moduleId, 'loaded [' + modulesLoaded + ']');
+		log.info(moduleType, 'loaded [' + modulesLoaded + ']');
 	});
-	return Flux;
+	return ModuleLoader;
+}
+
+function _loadModulesArray(moduleType, moduleArray) {
+	let modulesLoadedList = '';
+	for (let i = 0; i < moduleArray.length; i++) {
+		let exportsFromModule = require(Core._CORE + moduleType + '/' + moduleArray[i] + '.js');
+		cronAndApi[moduleArray[i]] = exportsFromModule;
+	}
+	modulesLoadedList += moduleArray.join(', ');
+	return modulesLoadedList;
+}
+
+function loadModulesJson(modules) {
+	let toLoad = _organizeCronAndApi();
+	_initCronJobs(toLoad.cronList);
+	_initWebApi(toLoad.apiList);
+}
+
+function _organizeCronAndApi() {
+	let cronList = [],
+		apiList = [];
+	Object.keys(cronAndApi).forEach(mod => {
+		if (cronAndApi[mod].cron && Array.isArray(cronAndApi[mod].cron.base))
+			cronList.push.apply(cronList, cronAndApi[mod].cron.base);
+		if (cronAndApi[mod].cron && Array.isArray(cronAndApi[mod].cron.full)) {
+			cronList.push.apply(cronList, cronAndApi[mod].cron.full);
+		}
+		// apiList.push(cronAndApi[mod].api);
+	});
+	return { cronList, apiList };
+}
+
+function _initWebApi(apiList) {
+	log.warn('_initWebApi', apiList);
+}
+
+function _initCronJobs(cronJobs) {
+	log.info('initCronJobs');
+	log.debug(cronJobs);
+	Core.do('controller|cron|add', cronJobs, { log: 'debug' });
+	// cronJobs.forEach(job => {
+	// 	Core.do('controller|cron|add', job, { log: 'debug' });
+	// });
 }

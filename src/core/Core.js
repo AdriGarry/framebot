@@ -19,7 +19,7 @@ module.exports = {
 	Core: Core
 };
 
-function setUpCoreObject(Core, descriptor) {
+function _setUpCoreObject(Core, descriptor) {
 	Core.Name = descriptor.name;
 	Core.name = descriptor.name.toLowerCase();
 	for (let path in descriptor.paths) {
@@ -41,7 +41,7 @@ function setUpCoreObject(Core, descriptor) {
 }
 
 function initializeContext(path, descriptor, forcedParams, startTime) {
-	Core = setUpCoreObject(Core, descriptor);
+	Core = _setUpCoreObject(Core, descriptor);
 
 	let packageJson = require(_PATH + 'package.json');
 	var confUpdate = {
@@ -88,7 +88,8 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		});
 	}
 
-	const Flux = require(Core._CORE + 'Flux.js').init(descriptor.modules);
+	const Flux = require(Core._CORE + 'Flux.js').init(descriptor.modules),
+		ModuleLoader = require(Core._CORE + 'ModuleLoader.js'); //.init(descriptor.modules)
 	Core.flux = Flux;
 	Core.do = Flux.next;
 	Core.do('service|context|update', confUpdate, {
@@ -109,8 +110,8 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	// });
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
-	Flux.loadModules(descriptor.modules);
-	Flux.loadModulesJson();
+	ModuleLoader.loadModules(descriptor.modules);
+	ModuleLoader.loadModulesJson();
 	Object.seal(Core);
 	return Core;
 }
