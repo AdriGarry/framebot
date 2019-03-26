@@ -60,7 +60,7 @@ function _organizeCronAndApi() {
 }
 
 function _initWebApi(apiList) {
-	log.warn('_initWebApi', apiList);
+	log.warn('_initWebApi... TO IMPLEMENT !!!', apiList);
 }
 
 function _initCronJobs(cronJobs) {
