@@ -14,6 +14,30 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 const PATHS = [Core._SRC];
 const BYTE_TO_MO = 1048576;
 
+module.exports = {
+	cron: {
+		base: [
+			{
+				cron: '*/30 * * * * *',
+				flux: {
+					id: 'interface|hardware|runtime',
+					conf: { log: 'trace' }
+				}
+			},
+			{
+				cron: '0 2 0 * * 1',
+				flux: {
+					id: 'interface|hardware|archiveLog'
+				}
+			}
+		]
+	}
+	// api: {
+	// 	base: { POST: [{ url: 'pirate', flux: [{ id: 'service|party|pirate', data: null, conf: null }] }], GET: [] },
+	// 	full: {}
+	// }
+};
+
 Core.flux.interface.hardware.subscribe({
 	next: flux => {
 		if (flux.id == 'runtime') {

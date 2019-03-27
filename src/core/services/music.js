@@ -9,6 +9,23 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js'),
 	RandomBox = require('randombox').RandomBox;
 
+module.exports = {
+	cron: {
+		full: [
+			{
+				cron: '0 15 18 * * 1-5',
+				flux: {
+					id: 'service|music|fipOrJukebox'
+				}
+			}
+		]
+	}
+	// api: {
+	// 	base: { POST: [{ url: 'pirate', flux: [{ id: 'service|party|pirate', data: null, conf: null }] }], GET: [] },
+	// 	full: {}
+	// }
+};
+
 Core.flux.service.music.subscribe({
 	next: flux => {
 		if (flux.id == 'jukebox') {

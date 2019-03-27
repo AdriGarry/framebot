@@ -18,22 +18,24 @@ Core.flux.controller.cron.subscribe({
 	}
 });
 
-setImmediate(() => {
-	scheduleJobs(Core.default.cron.base, 'base default');
-	scheduleJobs(Core.descriptor.cron.base, 'base descriptor');
-	if (Core.isAwake()) {
-		scheduleJobs(Core.default.cron.full, 'full default');
-		scheduleJobs(Core.descriptor.cron.full, 'full descriptor');
-	}
-});
+// TODO vérifier que tout les cron ont bien été chargés avant de supprimer ce code !
+// setImmediate(() => {
+// 	scheduleJobs(Core.default.cron.base, 'base default');
+// 	scheduleJobs(Core.descriptor.cron.base, 'base descriptor');
+// 	if (Core.isAwake()) {
+// 		scheduleJobs(Core.default.cron.full, 'full default');
+// 		scheduleJobs(Core.descriptor.cron.full, 'full descriptor');
+// 	}
+// });
 
 function addJob(jobs) {
-	log.debug('addJob', jobs);
+	// log.debug('addJob', jobs);
 	if (!Array.isArray(jobs)) jobs = [jobs];
 	scheduleJobs(jobs);
+	log.info('all jobs initialized');
 }
 function scheduleJob(job) {
-	log.debug('scheduleJob(job)', job);
+	// log.debug('scheduleJob(job)', job);
 	let jobLog = '';
 	new CronJob(
 		job.cron,
@@ -52,7 +54,7 @@ function scheduleJob(job) {
 		jobLog += '_' + job.flux.id;
 	}
 
-	log.debug('new cron job: [' + job.cron + '] ' + jobLog);
+	log.info('new cron job: [' + job.cron + '] ' + jobLog);
 }
 
 const EVAL_REGEX = new RegExp(/^eval:(\w+.\w+.\w+.)/);
@@ -60,41 +62,23 @@ const EVAL_REGEX = new RegExp(/^eval:(\w+.\w+.\w+.)/);
 function scheduleJobs(jobList, jobType) {
 	if (jobList.length) {
 		jobList.forEach(job => {
-			// if (typeof job.data == 'string') {
-			// 	let temp = EVAL_REGEX.match(job.data);
-			// if (temp) {
-			// log.INFO('====> EVALUATE JOBS DATA...');
-			let toto = job.data && findByVal(job.data, EVAL_REGEX);
-			if (toto) {
-				log.warn('.... ok on peut parser cette valeur:', toto);
-			}
-			// 	}
+			// // if (typeof job.data == 'string') {
+			// // 	let temp = EVAL_REGEX.match(job.data);
+			// // if (temp) {
+			// // log.INFO('====> EVALUATE JOBS DATA...');
+			// let toto = job.data && findByVal(job.data, EVAL_REGEX);
+			// if (toto) {
+			// 	log.warn('.... ok on peut parser cette valeur:', toto);
 			// }
+			// // 	}
+			// // }
 			scheduleJob(job);
-			// log.info('job', job);
-			if (!jobType) log.info(jobType || job.log || job.flux.id, 'cron job initialised');
+			// if (!jobType) log.info(jobType || job.log || job.flux.id, 'cron job initialised');
 		});
-		if (jobType) log.info(jobType, 'cron jobs initialised');
+		// if (jobType) log.info(jobType, 'cron jobs initialised');
+	} else {
+		Core.error('Wrong jobList:', jobList);
 	}
-}
-
-// DEPRECATED ?
-function findByKey(object, key) {
-	// TODO move to Utils.js
-	let value = false;
-	Object.keys(object).some(k => {
-		if (k == key) {
-			return object[k];
-		} else if (key.constructor == RegExp) {
-			if (key.test(k)) {
-				return object[k];
-			}
-		}
-		if (object[k] && typeof object[k] === 'object') {
-			return undefined !== findByKey(object[k], key);
-		}
-	});
-	return value;
 }
 
 function findByVal(object, val) {
@@ -111,6 +95,25 @@ function findByVal(object, val) {
 		}
 		if (object[k] && typeof object[k] === 'object') {
 			return undefined !== findByVal(object[k], key);
+		}
+	});
+	return value;
+}
+
+// DEPRECATED ?
+function findByKey(object, key) {
+	// TODO move to Utils.js
+	let value = false;
+	Object.keys(object).some(k => {
+		if (k == key) {
+			return object[k];
+		} else if (key.constructor == RegExp) {
+			if (key.test(k)) {
+				return object[k];
+			}
+		}
+		if (object[k] && typeof object[k] === 'object') {
+			return undefined !== findByKey(object[k], key);
 		}
 	});
 	return value;

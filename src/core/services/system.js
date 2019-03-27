@@ -11,6 +11,36 @@ module.exports = {
 	cron: {
 		full: [
 			{
+				cron: '5 0 0 * * 1-5',
+				flux: {
+					id: 'service|system|goToSleep'
+				}
+			},
+			{
+				cron: '5 0 2 * * 0,6',
+				flux: {
+					id: 'service|system|goToSleep'
+				}
+			},
+			{
+				cron: '13 13 13 * * 1-6',
+				flux: [
+					{
+						id: 'interface|tts|speak',
+						data: {
+							lg: 'en',
+							msg: 'Auto restart'
+						}
+					},
+					{
+						id: 'service|system|restart',
+						conf: {
+							delay: 3
+						}
+					}
+				]
+			},
+			{
 				cron: '30 13 13 * * 0',
 				flux: [
 					{

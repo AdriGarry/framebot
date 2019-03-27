@@ -30,9 +30,6 @@ module.exports = {
 	// 	base: { POST: [{ url: 'pirate', flux: [{ id: 'service|party|pirate', data: null, conf: null }] }], GET: [] },
 	// 	full: {}
 	// 	// },
-	// 	// FLUX = {
-	// 	// 	base: [{ id: 'mute', exec: mute(flux.value) }, { id: 'volume', exec: setVolume(flux.value) }],
-	// 	// 	full: []
 	// }
 };
 
@@ -64,7 +61,7 @@ Core.flux.interface.sound.subscribe({
 });
 
 setImmediate(() => {
-	resetSound();
+	resetSound(); // TODO mettre dans le module.exports
 });
 
 const VOLUME_LEVELS = Array.from({ length: 11 }, (v, k) => k * 10); // 0 to 100, step: 10
