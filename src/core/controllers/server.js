@@ -27,11 +27,11 @@ const HTTP_SERVER_PORT = 3210,
 
 Core.flux.controller.server.subscribe({
 	next: flux => {
-		if (flux.id == 'startUIServer') {
-			startUIServer();
-		} else if (flux.id == 'addApi') {
-			// api.add(uiHttps, flux.value);
-			addApi(flux.value);
+		if (flux.id == 'start') {
+			startUIServer(flux.value);
+			// } else if (flux.id == 'addApi') {
+			// 	// api.add(uiHttps, flux.value);
+			// 	addApi(flux.value);
 		} else if (flux.id == 'closeUIServer') {
 			closeUIServer(flux.value);
 		} else Core.error('unmapped flux in Server controller', flux, false);
@@ -41,17 +41,16 @@ Core.flux.controller.server.subscribe({
 	}
 });
 
-setImmediate(() => {
-	startUIServer();
-});
+// setImmediate(() => {
+// 	startUIServer();
+// });
 
-function startUIServer() {
-	startHttpServer();
-	resetHttpsServerAndStart();
+function startUIServer(modulesApi) {
+	startHttpServer(modulesApi);
+	// resetHttpsServerAndStart();
+	startHttpsServer(modulesApi);
 }
 
-// var ui = express(),
-// 	uiHttps = express();
 var ui, uiHttps;
 var httpServer, httpsServer;
 
@@ -65,32 +64,33 @@ function startHttpServer() {
 	}).listen(HTTP_SERVER_PORT);
 }
 
-function resetHttpsServerAndStart(additionalApi) {
-	resetServer(httpsServer)
-		// .then(() => {
-		// 	return resetServer(httpsServer);
-		// })
-		.then(() => {
-			return startHttpsServer(additionalApi);
-		})
-		.catch(err => Core.error('Reset UI failed', err));
-}
+// function resetHttpsServerAndStart(modulesApi) {
+// 	resetServer(httpsServer)
+// 		// .then(() => {
+// 		// 	return resetServer(httpsServer);
+// 		// })
+// 		.then(() => {
+// 			return startHttpsServer(modulesApi);
+// 		})
+// 		.catch(err => Core.error('Reset UI failed', err));
+// }
 
-function resetServer(server) {
-	return new Promise((resolve, reject) => {
-		if (server) {
-			log.info('Restarting ui server...');
-			server.close(() => {
-				log.warn('server closed');
-				resolve();
-			});
-		} else resolve();
-	});
-}
+// function resetServer(server) {
+// 	return new Promise((resolve, reject) => {
+// 		if (server) {
+// 			log.info('Restarting ui server...');
+// 			server.close(() => {
+// 				log.warn('server closed');
+// 				resolve();
+// 			});
+// 		} else resolve();
+// 	});
+// }
 
-function startHttpsServer(additionalApi) {
+function startHttpsServer(modulesApi) {
 	// ui = express();
 	uiHttps = express();
+	log.info(modulesApi);
 	// CORS
 	// ui.use(function(request, response, next) {
 	// 	response.header('Access-Control-Allow-Origin', '*');
@@ -111,8 +111,8 @@ function startHttpsServer(additionalApi) {
 
 	uiHttps.use(middleware.security());
 
-	api.attachRoutes(uiHttps);
-	if (additionalApi) attachAdditionalApi(uiHttps, additionalApi);
+	api.attachRoutes(uiHttps, modulesApi);
+	// if (modulesApi) attachAdditionalApi(uiHttps, modulesApi);
 	// attachRoutesFromDescriptor();
 
 	httpsServer = https.createServer(CREDENTIALS, uiHttps).listen(HTTPS_SERVER_PORT, () => {
@@ -121,29 +121,30 @@ function startHttpsServer(additionalApi) {
 	});
 }
 
-function addApi(route) {
-	log.INFO('addApi', route);
-	resetHttpsServerAndStart(route);
-}
+// function addApi(route) {
+// 	log.INFO('addApi', route);
+// 	resetHttpsServerAndStart(route);
+// }
 
-function attachAdditionalApi(ui, additionalApi) {
-	// console.log(typeof additionalApi);
-	// console.log(additionalApi);
-	if (!Array.isArray(additionalApi)) additionalApi = [additionalApi];
-	additionalApi.forEach(item => {
-		log.info('server.item=', item);
-		log.info('/' + item.url);
-		ui.post('/' + item.url, (req, res) => {
-			log.warn('------------hey this is from json url api');
-			// add to url: /api/... ?
-			item.flux.forEach(flux => {
-				Core.do(flux.id, flux.data, flux.conf);
-			});
-			res.end();
-		});
-		log.info('attachAdditionalApi');
-	});
-}
+// function attachAdditionalApi(ui, modulesApi) {
+// 	// console.log(typeof modulesApi);
+// 	// console.log(modulesApi);
+// 	if (!Array.isArray(modulesApi)) modulesApi = [modulesApi];
+// 	modulesApi.forEach(item => {
+// 		log.info('server.item=', item);
+// 		log.info('/' + item.url);
+// 		ui.post('/' + item.url, (req, res) => {
+// 			log.warn('');
+// 			log.warn('------------hey this is from json url api');
+// 			// add to url: /api/... ?
+// 			item.flux.forEach(flux => {
+// 				Core.do(flux.id, flux.data, flux.conf);
+// 			});
+// 			res.end();
+// 		});
+// 		log.info('attachAdditionalApi');
+// 	});
+// }
 
 // function attachRoutesFromDescriptor(ui) {
 // 	Core.descriptor.api.POST.forEach(item => {

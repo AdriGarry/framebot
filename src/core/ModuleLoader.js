@@ -37,8 +37,12 @@ function _requireModules(moduleType, moduleArray) {
 
 function setupCronAndApi(modules) {
 	let toLoad = _organizeCronAndApi();
-	_setupCronJobs(toLoad.cronList);
-	_setupWebApi(toLoad.apiList);
+	Core.do('controller|cron|add', toLoad.cronList, { log: 'debug' }); //delay: 0.1,
+	log.info(toLoad.apiList);
+	Core.do('controller|server|start', toLoad.apiList, { log: 'debug' }); //delay: 0.1,
+
+	// _setupCronJobs(toLoad.cronList);
+	// _setupWebApi(toLoad.apiList);
 }
 
 function _organizeCronAndApi() {
@@ -57,9 +61,11 @@ function _organizeCronAndApi() {
 }
 
 function _setupWebApi(apiList) {
-	log.warn('setupWebApi... TO IMPLEMENT !!!', apiList);
+	//startUIServer
+	log.info('setupWebApi... TO IMPLEMENT !!!', apiList);
+	Core.do('controller|api|start', cronJobs, { log: 'debug' }); //delay: 0.1,
 }
 
-function _setupCronJobs(cronJobs) {
-	Core.do('controller|cron|add', cronJobs, { log: 'debug' }); //delay: 0.1,
-}
+// function _setupCronJobs(cronJobs) {
+// 	Core.do('controller|cron|add', cronJobs, { log: 'debug' }); //delay: 0.1,
+// }

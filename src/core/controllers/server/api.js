@@ -23,18 +23,40 @@ module.exports = {
 	// attachRoutesFromDescriptor: attachRoutesFromDescriptor
 };
 
-function attachRoutes(ui) {
+function attachRoutes(ui, modulesApi) {
 	log.INFO('*****************attachRoutes');
 	uiHttp = ui;
 	attachDefaultRoutes(uiHttp);
-	if (Core.isAwake()) {
-		// attachRoutesFromDescriptor(ui);
-		attachAwakeRoutes(uiHttp);
-	} else {
-		attachSleepRoutes(uiHttp);
-	}
-	return uiHttp;
+
+	if (!Array.isArray(modulesApi)) modulesApi = [modulesApi];
+	modulesApi.forEach(item => {
+		log.info('server.item=', item);
+		log.info('/' + item.url);
+		ui.post('/' + item.url, (req, res) => {
+			log.warn('');
+			log.warn('------------hey this is from json url api');
+			// add to url: /api/... ?
+			item.flux.forEach(flux => {
+				Core.do(flux.id, flux.data, flux.conf);
+			});
+			res.end();
+		});
+		log.info('attachAdditionalApi');
+	});
 }
+
+// function attachRoutes(ui) {
+// 	log.INFO('*****************attachRoutes');
+// 	uiHttp = ui;
+// 	attachDefaultRoutes(uiHttp);
+// 	if (Core.isAwake()) {
+// 		// attachRoutesFromDescriptor(ui);
+// 		attachAwakeRoutes(uiHttp);
+// 	} else {
+// 		attachSleepRoutes(uiHttp);
+// 	}
+// 	return uiHttp;
+// }
 
 // function addApi(item) {
 // 	log.INFO('addApi', item);

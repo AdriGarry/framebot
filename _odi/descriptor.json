@@ -46,9 +46,5 @@
 	"cron": {
 		"base": [],
 		"full": []
-	},
-	"api": {
-		"POST": [{ "url": "pirate", "flux": [{ "id": "service|party|pirate", "data": null, "conf": null }] }],
-		"GET": []
 	}
 }
