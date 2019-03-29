@@ -61,10 +61,5 @@ function _setupWebApi(apiList) {
 }
 
 function _setupCronJobs(cronJobs) {
-	log.info('setupCronJobs');
-	// log.debug(cronJobs);
-	Core.do('controller|cron|add', cronJobs, { delay: 1, log: 'debug' });
-	// cronJobs.forEach(job => {
-	// 	Core.do('controller|cron|add', job, { log: 'debug' });
-	// });
+	Core.do('controller|cron|add', cronJobs, { log: 'debug' }); //delay: 0.1,
 }

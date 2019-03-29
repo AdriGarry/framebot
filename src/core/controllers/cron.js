@@ -28,14 +28,18 @@ Core.flux.controller.cron.subscribe({
 // 	}
 // });
 
-function addJob(jobs) {
-	// log.debug('addJob', jobs);
-	if (!Array.isArray(jobs)) jobs = [jobs];
-	scheduleJobs(jobs);
-	log.info('all jobs initialized');
+function addJob(jobList) {
+	if (!Array.isArray(jobList)) jobList = [jobList];
+	if (jobList.length) {
+		jobList.forEach(job => {
+			scheduleJob(job);
+		});
+	} else {
+		Core.error('Wrong jobList:', jobList);
+	}
 }
+
 function scheduleJob(job) {
-	// log.debug('scheduleJob(job)', job);
 	let jobLog = '';
 	new CronJob(
 		job.cron,
@@ -81,40 +85,40 @@ function scheduleJobs(jobList, jobType) {
 	}
 }
 
-function findByVal(object, val) {
-	// TODO move to Utils.js
-	console.log(val);
-	let value = false;
-	Object.keys(object).some(k => {
-		if (object[k] == val) {
-			return object[k];
-		} else if (val.constructor == RegExp) {
-			if (val.test(object[k])) {
-				return object[k];
-			}
-		}
-		if (object[k] && typeof object[k] === 'object') {
-			return undefined !== findByVal(object[k], key);
-		}
-	});
-	return value;
-}
+// function findByVal(object, val) {
+// 	// TODO move to Utils.js
+// 	console.log(val);
+// 	let value = false;
+// 	Object.keys(object).some(k => {
+// 		if (object[k] == val) {
+// 			return object[k];
+// 		} else if (val.constructor == RegExp) {
+// 			if (val.test(object[k])) {
+// 				return object[k];
+// 			}
+// 		}
+// 		if (object[k] && typeof object[k] === 'object') {
+// 			return undefined !== findByVal(object[k], key);
+// 		}
+// 	});
+// 	return value;
+// }
 
-// DEPRECATED ?
-function findByKey(object, key) {
-	// TODO move to Utils.js
-	let value = false;
-	Object.keys(object).some(k => {
-		if (k == key) {
-			return object[k];
-		} else if (key.constructor == RegExp) {
-			if (key.test(k)) {
-				return object[k];
-			}
-		}
-		if (object[k] && typeof object[k] === 'object') {
-			return undefined !== findByKey(object[k], key);
-		}
-	});
-	return value;
-}
+// // DEPRECATED ?
+// function findByKey(object, key) {
+// 	// TODO move to Utils.js
+// 	let value = false;
+// 	Object.keys(object).some(k => {
+// 		if (k == key) {
+// 			return object[k];
+// 		} else if (key.constructor == RegExp) {
+// 			if (key.test(k)) {
+// 				return object[k];
+// 			}
+// 		}
+// 		if (object[k] && typeof object[k] === 'object') {
+// 			return undefined !== findByKey(object[k], key);
+// 		}
+// 	});
+// 	return value;
+// }
