@@ -90,7 +90,6 @@ function startHttpServer() {
 function startHttpsServer(modulesApi) {
 	// ui = express();
 	uiHttps = express();
-	log.info(modulesApi);
 	// CORS
 	// ui.use(function(request, response, next) {
 	// 	response.header('Access-Control-Allow-Origin', '*');

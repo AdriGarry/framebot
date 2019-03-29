@@ -25,6 +25,7 @@ module.exports = {
 
 function attachRoutes(ui, modulesApi) {
 	log.INFO('*****************attachRoutes');
+	log.info(modulesApi);
 	uiHttp = ui;
 	attachDefaultRoutes(uiHttp);
 
