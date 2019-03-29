@@ -17,23 +17,19 @@ const BYTE_TO_MO = 1048576;
 module.exports = {
 	api: {
 		base: { POST: [{ url: 'archiveLog', flux: { id: 'interface|hardware|archiveLog' } }] },
-		full: {}
+		full: {
+			POST: [
+				{ url: 'cpuTTS', flux: { id: 'interface|hardware|cpuTTS' } },
+				{ url: 'soulTTS', flux: { id: 'interface|hardware|soulTTS' } },
+				{ url: 'diskSpaceTTS', flux: { id: 'interface|hardware|diskSpaceTTS' } },
+				{ url: 'totalLinesTTS', flux: { id: 'interface|hardware|totalLinesTTS' } }
+			]
+		}
 	},
 	cron: {
 		base: [
-			{
-				cron: '*/30 * * * * *',
-				flux: {
-					id: 'interface|hardware|runtime',
-					conf: { log: 'trace' }
-				}
-			},
-			{
-				cron: '0 2 0 * * 1',
-				flux: {
-					id: 'interface|hardware|archiveLog'
-				}
-			}
+			{ cron: '*/30 * * * * *', flux: { id: 'interface|hardware|runtime', conf: { log: 'trace' } } },
+			{ cron: '0 2 0 * * 1', flux: { id: 'interface|hardware|archiveLog' } }
 		]
 	}
 };

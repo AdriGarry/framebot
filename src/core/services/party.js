@@ -10,8 +10,9 @@ module.exports = {
 	api: {
 		base: {
 			POST: [
-				{ url: 'pirate', flux: [{ id: 'service|party|pirate', data: null, conf: null }] },
-				{ url: 'partyTts', flux: { id: 'service|party|tts', data: null, conf: null } }
+				{ url: 'setParty', flux: [{ id: 'service|party|start' }] },
+				{ url: 'pirate', flux: [{ id: 'service|party|pirate' }] },
+				{ url: 'partyTts', flux: { id: 'service|party|tts' } }
 			],
 			GET: []
 		},

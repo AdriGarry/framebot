@@ -8,14 +8,12 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js');
 
 module.exports = {
-	// Core.do('interface|sound|mute');
 	api: {
 		base: {
-			POST: [{ url: 'mute', flux: { id: 'interface|sound|mute', data: null, conf: null } }]
-			// },
-			// full: {
-			// 	POST: [{ url: 'mute', flux: { id: 'interface|sound|mute', data: null, conf: null } }],
-			// 	GET: []
+			POST: [{ url: 'mute', flux: { id: 'interface|sound|mute' } }]
+		},
+		full: {
+			POST: [{ url: 'cigales', flux: { id: 'interface|sound|play', data: { mp3: 'system/cigales.mp3' } } }]
 		}
 	},
 	cron: {

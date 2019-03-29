@@ -13,7 +13,13 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {
 	api: {
-		full: { POST: [{ url: 'demo', flux: { id: 'service|interaction|demo', data: null, conf: null } }] }
+		full: {
+			POST: [
+				{ url: 'demo', flux: { id: 'service|interaction|demo' } },
+				{ url: 'idea', flux: { id: 'interface|tts|speak', data: { lg: 'en', msg: "I've got an idea !" } } },
+				{ url: 'exclamation', flux: { id: 'service|interaction|exclamation' } }
+			]
+		}
 	},
 	cron: {
 		full: [

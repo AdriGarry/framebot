@@ -541,6 +541,7 @@ app.component('maya', {
 		var tileParams = {
 			label: 'Maya',
 			actionList: [
+				{ label: 'Bonne nuit', icon: 'fas fa-moon', url: '/maya/goodNight' },
 				{ label: 'Le petit ver', icon: 'fas fa-music', url: '/maya/lePetitVer' },
 				{ label: 'Comptines', icon: 'fas fa-music', url: '/maya/comptine' }
 			]

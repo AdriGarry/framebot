@@ -35,6 +35,7 @@ function attachRoutes(ui, modulesApi) {
 			if (!Array.isArray(item.flux)) item.flux = [item.flux];
 			item.flux.forEach(flux => {
 				Core.do(flux.id, flux.data, flux.conf);
+				// TODO req.body => flux.value
 			});
 			res.end();
 		});
@@ -372,28 +373,28 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/lastTTS', function(req, res) {
-		Core.do('interface|tts|lastTTS');
-		res.end();
-	});
+	// ui.post('/lastTTS', function(req, res) {
+	// 	Core.do('interface|tts|lastTTS');
+	// 	res.end();
+	// });
 
-	ui.post('/checkVoicemail', function(req, res) {
-		Core.do('service|voicemail|check', true);
-		res.end();
-	});
+	// ui.post('/checkVoicemail', function(req, res) {
+	// 	Core.do('service|voicemail|check', true);
+	// 	res.end();
+	// });
 
-	ui.post('/clearVoicemail', function(req, res) {
-		Core.do('service|voicemail|clear');
-		res.end();
-	});
+	// ui.post('/clearVoicemail', function(req, res) {
+	// 	Core.do('service|voicemail|clear');
+	// 	res.end();
+	// });
 
-	ui.post('/idea', function(req, res) {
-		Core.do('interface|tts|speak', {
-			lg: 'en',
-			msg: "I've got an idea !"
-		});
-		res.end();
-	});
+	// ui.post('/idea', function(req, res) {
+	// 	Core.do('interface|tts|speak', {
+	// 		lg: 'en',
+	// 		msg: "I've got an idea !"
+	// 	});
+	// 	res.end();
+	// });
 
 	ui.post('/badBoy', function(req, res) {
 		let params = req.body;
@@ -432,109 +433,109 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/exclamation', function(req, res) {
-		Core.do('service|interaction|exclamation');
-		res.end();
-	});
+	// ui.post('/exclamation', function(req, res) {
+	// 	Core.do('service|interaction|exclamation');
+	// 	res.end();
+	// });
 
-	ui.post('/fip', function(req, res) {
-		Core.do('service|music|fip');
-		res.end();
-	});
+	// ui.post('/fip', function(req, res) {
+	// 	Core.do('service|music|fip');
+	// 	res.end();
+	// });
 
-	ui.post('/music/*', function(req, res) {
-		let song; //TODO RECUPERER LE NOM DE LA CHANSON
-		if (!song) song = 'mouthTrick.mp3';
-		Core.do('interface|sound|play', {
-			mp3: 'jukebox/' + song
-		});
-		res.end();
-	});
+	// ui.post('/music/*', function(req, res) {
+	// 	let song; //TODO RECUPERER LE NOM DE LA CHANSON
+	// 	if (!song) song = 'mouthTrick.mp3';
+	// 	Core.do('interface|sound|play', {
+	// 		mp3: 'jukebox/' + song
+	// 	});
+	// 	res.end();
+	// });
 
-	ui.post('/jukebox', function(req, res) {
-		Core.do('service|music|jukebox');
-		res.end();
-	});
+	// ui.post('/jukebox', function(req, res) {
+	// 	Core.do('service|music|jukebox');
+	// 	res.end();
+	// });
 
-	ui.post('/naheulbeuk', function(req, res) {
-		Core.do('service|music|story', 'Naheulbeuk');
-		res.end();
-	});
+	// ui.post('/naheulbeuk', function(req, res) {
+	// 	Core.do('service|music|story', 'Naheulbeuk');
+	// 	res.end();
+	// });
 
-	ui.post('/survivaure', function(req, res) {
-		Core.do('service|music|story', 'Survivaure');
-		res.end();
-	});
+	// ui.post('/survivaure', function(req, res) {
+	// 	Core.do('service|music|story', 'Survivaure');
+	// 	res.end();
+	// });
 
-	ui.post('/arduino/connect', function(req, res) {
-		Core.do('interface|arduino|connect');
-		res.end();
-	});
+	// ui.post('/arduino/connect', function(req, res) {
+	// 	Core.do('interface|arduino|connect');
+	// 	res.end();
+	// });
 
-	ui.post('/arduino/stop', function(req, res) {
-		Core.do('interface|arduino|disconnect');
-		res.end();
-	});
+	// ui.post('/arduino/stop', function(req, res) {
+	// 	Core.do('interface|arduino|disconnect');
+	// 	res.end();
+	// });
 
-	ui.post('/max/blinkAllLed', function(req, res) {
-		Core.do('service|max|blinkAllLed');
-		res.end();
-	});
+	// ui.post('/max/blinkAllLed', function(req, res) {
+	// 	Core.do('service|max|blinkAllLed');
+	// 	res.end();
+	// });
 
-	ui.post('/max/blinkRdmLed', function(req, res) {
-		Core.do('service|max|blinkRdmLed');
-		res.end();
-	});
+	// ui.post('/max/blinkRdmLed', function(req, res) {
+	// 	Core.do('service|max|blinkRdmLed');
+	// 	res.end();
+	// });
 
-	ui.post('/max/playOneMelody', function(req, res) {
-		Core.do('service|max|playOneMelody');
-		res.end();
-	});
+	// ui.post('/max/playOneMelody', function(req, res) {
+	// 	Core.do('service|max|playOneMelody');
+	// 	res.end();
+	// });
 
-	ui.post('/max/playRdmMelody', function(req, res) {
-		Core.do('service|max|playRdmMelody');
-		res.end();
-	});
+	// ui.post('/max/playRdmMelody', function(req, res) {
+	// 	Core.do('service|max|playRdmMelody');
+	// 	res.end();
+	// });
 
-	ui.post('/max/hornRdm', function(req, res) {
-		Core.do('service|max|hornRdm');
-		res.end();
-	});
+	// ui.post('/max/hornRdm', function(req, res) {
+	// 	Core.do('service|max|hornRdm');
+	// 	res.end();
+	// });
 
-	ui.post('/max/turn', function(req, res) {
-		Core.do('service|max|turn');
-		res.end();
-	});
+	// ui.post('/max/turn', function(req, res) {
+	// 	Core.do('service|max|turn');
+	// 	res.end();
+	// });
 
-	ui.post('/playVideo', function(req, res) {
-		Core.do('service|video|loop');
-		res.end();
-	});
+	// ui.post('/playVideo', function(req, res) {
+	// 	Core.do('service|video|loop');
+	// 	res.end();
+	// });
 
-	ui.post('/videoOff', function(req, res) {
-		Core.do('interface|hdmi|off');
-		res.end();
-	});
+	// ui.post('/videoOff', function(req, res) {
+	// 	Core.do('interface|hdmi|off');
+	// 	res.end();
+	// });
 
-	ui.post('/time', function(req, res) {
-		Core.do('service|time|now');
-		res.end();
-	});
+	// ui.post('/time', function(req, res) {
+	// 	Core.do('service|time|now');
+	// 	res.end();
+	// });
 
-	ui.post('/date', function(req, res) {
-		Core.do('service|time|today');
-		res.end();
-	});
+	// ui.post('/date', function(req, res) {
+	// 	Core.do('service|time|today');
+	// 	res.end();
+	// });
 
-	ui.post('/birthday', function(req, res) {
-		Core.do('service|alarm|birthday');
-		res.end();
-	});
+	// ui.post('/birthday', function(req, res) {
+	// 	Core.do('service|alarm|birthday');
+	// 	res.end();
+	// });
 
-	ui.post('/age', function(req, res) {
-		Core.do('service|time|age');
-		res.end();
-	});
+	// ui.post('/age', function(req, res) {
+	// 	Core.do('service|time|age');
+	// 	res.end();
+	// });
 
 	ui.post('/timer', function(req, res) {
 		let params = req.query; // affiner pour récupérer les params
@@ -547,75 +548,73 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/weather', function(req, res) {
-		Core.do('service|weather|report');
-		res.end();
-	});
-	ui.post('/weatherAlternative', function(req, res) {
-		Core.do('service|weather|alternative');
-		res.end();
-	});
+	// ui.post('/weather', function(req, res) {
+	// 	Core.do('service|weather|report');
+	// 	res.end();
+	// });
+	// ui.post('/weatherAlternative', function(req, res) {
+	// 	Core.do('service|weather|alternative');
+	// 	res.end();
+	// });
 
-	ui.post('/maya/lePetitVer', function(req, res) {
-		Core.do('interface|sound|play', {
-			mp3: 'maya/songs/lePetitVer.mp3'
-		});
-		res.end();
-	});
+	// ui.post('/maya/lePetitVer', function(req, res) {
+	// 	Core.do();
+	// 	res.end();
+	// });
 
-	ui.post('/maya/comptine', function(req, res) {
-		Core.do('service|maya|comptine');
-		res.end();
-	});
+	// ui.post('/maya/comptine', function(req, res) {
+	// 	Core.do('service|maya|comptine');
+	// 	res.end();
+	// });
 
-	ui.post('/maya/goodNight', function(req, res) {
-		Core.do('interface|tts|speak', {
-			voice: 'google',
-			msg: 'Bonne nuit Maya'
-		});
-		Core.do('interface|tts|speak', 'Oui, fais de beaux reves !');
-		res.end();
-	});
+	// ui.post('/maya/goodNight', function(req, res) {
+	// 	Core.do('interface|tts|speak', {
+	// 		voice: 'google',
+	// 		msg: 'Bonne nuit Maya'
+	// 	});
+	// 	Core.do('interface|tts|speak', 'Oui, fais de beaux reves !');
+	// 	res.end();
+	// });
 
-	ui.post('/cpuTTS', function(req, res) {
-		Core.do('interface|hardware|cpuTTS');
-		res.end();
-	});
+	// ui.post('/cpuTTS', function(req, res) {
+	// 	Core.do('interface|hardware|cpuTTS');
+	// 	res.end();
+	// });
 
-	ui.post('/soulTTS', function(req, res) {
-		Core.do('interface|hardware|soulTTS');
-		res.end();
-	});
+	// ui.post('/soulTTS', function(req, res) {
+	// 	Core.do('interface|hardware|soulTTS');
+	// 	res.end();
+	// });
 
-	ui.post('/diskSpaceTTS', function(req, res) {
-		Core.do('interface|hardware|diskSpaceTTS');
-		res.end();
-	});
+	// ui.post('/diskSpaceTTS', function(req, res) {
+	// 	Core.do('interface|hardware|diskSpaceTTS');
+	// 	res.end();
+	// });
 
-	ui.post('/totalLinesTTS', function(req, res) {
-		Core.do('interface|hardware|totalLinesTTS');
-		res.end();
-	});
+	// ui.post('/totalLinesTTS', function(req, res) {
+	// 	Core.do('interface|hardware|totalLinesTTS');
+	// 	res.end();
+	// });
 
-	ui.post('/cigales', function(req, res) {
-		Core.do('interface|sound|play', {
-			mp3: 'system/cigales.mp3'
-		});
-		res.end();
-	});
+	// ui.post('/cigales', function(req, res) {
+	// 	Core.do('interface|sound|play', {
+	// 		mp3: 'system/cigales.mp3'
+	// 	});
+	// 	res.end();
+	// });
 
-	ui.post('/setParty', function(req, res) {
-		Core.do('service|party|start');
-		res.end();
-	});
+	// ui.post('/setParty', function(req, res) {
+	// 	Core.do('service|party|start');
+	// 	res.end();
+	// });
 
-	ui.post('/test', function(req, res) {
-		Core.do('interface|tts|speak', {
-			lg: 'en',
-			msg: '.undefined'
-		});
-		res.end();
-	});
+	// ui.post('/test', function(req, res) {
+	// 	Core.do('interface|tts|speak', {
+	// 		lg: 'en',
+	// 		msg: '.undefined'
+	// 	});
+	// 	res.end();
+	// });
 
 	ui.post('/*', function(req, res) {
 		Core.error('Error UI > not mapped: ' + req.url, null, false);
