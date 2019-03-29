@@ -7,27 +7,13 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(_PATH + 'src/core/Utils.js');
 
 module.exports = {
-	cron: {
-		base: [
-			{
-				cron: '1 * * * * *',
-				flux: {
-					id: 'service|alarm|isAlarm',
-					conf: {
-						log: 'trace'
-					}
-				}
-			}
-		],
-		full: []
-	},
 	api: {
-		// 	base: { POST: [{ url: 'pirate', flux: [{ id: 'service|party|pirate', data: null, conf: null }] }], GET: [] },
-		// 	full: {}
-		// 	// },
-		// 	// FLUX = {
-		// 	// 	base: [{ id: 'mute', exec: mute(flux.value) }, { id: 'volume', exec: setVolume(flux.value) }],
-		// 	// 	full: []
+		base: { POST: [{ url: 'alarmOff', flux: { id: 'service|alarm|alarmOff' } }] },
+		full: {}
+	},
+	cron: {
+		base: [{ cron: '1 * * * * *', flux: { id: 'service|alarm|isAlarm', conf: { log: 'trace' } } }],
+		full: []
 	}
 };
 

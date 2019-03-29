@@ -8,54 +8,33 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(_PATH + 'src/core/Utils.js');
 
 module.exports = {
+	api: {
+		base: {
+			POST: [
+				{ url: 'odi', flux: { id: 'service|system|restart', conf: { delay: 0.1 } } },
+				{ url: 'sleep', flux: { id: 'service|system|restart', data: 'sleep', conf: { delay: 0.1 } } },
+				{ url: 'reboot', flux: { id: 'service|system|reboot', conf: { delay: 0.1 } } },
+				{ url: 'shutdown', flux: { id: 'service|system|shutdown', conf: { delay: 0.1 } } },
+				{ url: 'light', flux: { id: 'service|system|light', conf: { delay: 0.1 } } }
+			]
+		}
+	},
 	cron: {
 		full: [
-			{
-				cron: '5 0 0 * * 1-5',
-				flux: {
-					id: 'service|system|goToSleep'
-				}
-			},
-			{
-				cron: '5 0 2 * * 0,6',
-				flux: {
-					id: 'service|system|goToSleep'
-				}
-			},
+			{ cron: '5 0 0 * * 1-5', flux: { id: 'service|system|goToSleep' } },
+			{ cron: '5 0 2 * * 0,6', flux: { id: 'service|system|goToSleep' } },
 			{
 				cron: '13 13 13 * * 1-6',
 				flux: [
-					{
-						id: 'interface|tts|speak',
-						data: {
-							lg: 'en',
-							msg: 'Auto restart'
-						}
-					},
-					{
-						id: 'service|system|restart',
-						conf: {
-							delay: 3
-						}
-					}
+					{ id: 'interface|tts|speak', data: { lg: 'en', msg: 'Auto restart' } },
+					{ id: 'service|system|restart', conf: { delay: 3 } }
 				]
 			},
 			{
 				cron: '30 13 13 * * 0',
 				flux: [
-					{
-						id: 'interface|tts|speak',
-						data: {
-							lg: 'en',
-							msg: 'Reboot'
-						}
-					},
-					{
-						id: 'service|system|reboot',
-						conf: {
-							delay: 3
-						}
-					}
+					{ id: 'interface|tts|speak', data: { lg: 'en', msg: 'Reboot' } },
+					{ id: 'service|system|reboot', conf: { delay: 3 } }
 				],
 				log: 'Reboot'
 			}

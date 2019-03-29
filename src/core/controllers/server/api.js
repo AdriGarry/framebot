@@ -22,8 +22,7 @@ module.exports = {
 };
 
 function attachRoutes(ui, modulesApi) {
-	log.INFO('*****************attachRoutes');
-	log.info(modulesApi);
+	log.INFO('    ------------ attachRoutes');
 	uiHttp = ui;
 
 	if (!Array.isArray(modulesApi)) modulesApi = [modulesApi];
@@ -40,57 +39,16 @@ function attachRoutes(ui, modulesApi) {
 			res.end();
 		});
 	});
+
 	attachDefaultRoutes(uiHttp);
+
 	if (Core.isAwake()) {
-		// attachRoutesFromDescriptor(ui);
 		attachAwakeRoutes(uiHttp);
 	} else {
 		attachSleepRoutes(uiHttp);
 	}
-
 	return uiHttp;
 }
-
-// function attachRoutes(ui) {
-// 	log.INFO('*****************attachRoutes');
-// 	uiHttp = ui;
-// 	attachDefaultRoutes(uiHttp);
-// 	if (Core.isAwake()) {
-// 		// attachRoutesFromDescriptor(ui);
-// 		attachAwakeRoutes(uiHttp);
-// 	} else {
-// 		attachSleepRoutes(uiHttp);
-// 	}
-// 	return uiHttp;
-// }
-
-// function addApi(item) {
-// 	log.INFO('addApi', item);
-// 	uiHttp.post('/' + item.url, (req, res) => {
-// 		log.warn('...............hey new url api!');
-// 		// add to url: /api/...
-// 		item.flux.forEach(flux => {
-// 			Core.do(flux.id, flux.data, flux.conf);
-// 		});
-// 		res.end();
-// 	});
-// }
-
-// function attachRoutesFromDescriptor(ui) {
-// 	log.info('attachRoutesFromDescriptor');
-// 	Core.descriptor.api.POST.forEach(item => {
-// 		log.info('api.item=', item);
-// 		log.info('/' + item.url);
-// 		ui.post('/' + item.url, (req, res) => {
-// 			log.warn('------------hey this is from json url api');
-// 			// add to url: /api/...
-// 			item.flux.forEach(flux => {
-// 				Core.do(flux.id, flux.data, flux.conf);
-// 			});
-// 			res.end();
-// 		});
-// 	});
-// }
 
 function attachDefaultRoutes(ui) {
 	/** DASHBOARD SECTION */
@@ -221,10 +179,10 @@ function attachDefaultRoutes(ui) {
 	});
 
 	/** ==> POST SECTION */
-	ui.post('/odi', function(req, res) {
-		Core.do('service|system|restart');
-		res.end();
-	});
+	// ui.post('/odi', function(req, res) {
+	// 	Core.do('service|system|restart');
+	// 	res.end();
+	// });
 
 	var audioRecordStorage = multer.diskStorage({
 		destination: function(req, file, callback) {
@@ -246,25 +204,25 @@ function attachDefaultRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/audio/last', audioRecordUpload, function(req, res) {
-		Core.do('service|audioRecord|last');
-		res.end();
-	});
+	// ui.post('/audio/last', audioRecordUpload, function(req, res) {
+	// 	Core.do('service|audioRecord|last');
+	// 	res.end();
+	// });
 
-	ui.post('/audio/check', audioRecordUpload, function(req, res) {
-		Core.do('service|audioRecord|check');
-		res.end();
-	});
+	// ui.post('/audio/check', audioRecordUpload, function(req, res) {
+	// 	Core.do('service|audioRecord|check');
+	// 	res.end();
+	// });
 
-	ui.post('/audio/clear', audioRecordUpload, function(req, res) {
-		Core.do('service|audioRecord|clear');
-		res.end();
-	});
+	// ui.post('/audio/clear', audioRecordUpload, function(req, res) {
+	// 	Core.do('service|audioRecord|clear');
+	// 	res.end();
+	// });
 
-	ui.post('/audio/trash', audioRecordUpload, function(req, res) {
-		Core.do('service|audioRecord|trash');
-		res.end();
-	});
+	// ui.post('/audio/trash', audioRecordUpload, function(req, res) {
+	// 	Core.do('service|audioRecord|trash');
+	// 	res.end();
+	// });
 
 	ui.post('/toggleDebug', function(req, res) {
 		log.info('UI > Toggle debug');
@@ -283,18 +241,10 @@ function attachDefaultRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/testSequence', function(req, res) {
-		Core.do(
-			'service|context|updateRestart',
-			{
-				mode: 'test'
-			},
-			{
-				delay: 1
-			}
-		);
-		res.end();
-	});
+	// ui.post('/testSequence', function(req, res) {
+	// 	Core.do('service|context|updateRestart', { mode: 'test' }, { delay: 1 });
+	// 	res.end();
+	// });
 
 	ui.post('/watcher', function(req, res) {
 		if (Core.conf('watcher')) {
@@ -316,45 +266,45 @@ function attachDefaultRoutes(ui) {
 		}
 	});
 
-	ui.post('/demo', function(req, res) {
-		Core.do('service|interaction|demo');
-		res.end();
-	});
+	// ui.post('/demo', function(req, res) {
+	// 	Core.do('service|interaction|demo');
+	// 	res.end();
+	// });
 
-	ui.post('/resetConfig', function(req, res) {
-		log.debug('UI > Reset config');
-		Core.do('service|context|reset', null, {
-			delay: 1
-		});
-		res.end();
-	});
+	// ui.post('/resetConfig', function(req, res) {
+	// 	log.debug('UI > Reset config');
+	// 	Core.do('service|context|reset', null, {
+	// 		delay: 1
+	// 	});
+	// 	res.end();
+	// });
 
-	ui.post('/sleep', function(req, res) {
-		Core.do('service|system|restart', 'sleep', {
-			delay: 1
-		});
-		res.end();
-	});
+	// ui.post('/sleep', function(req, res) {
+	// 	Core.do('service|system|restart', 'sleep', {
+	// 		delay: 1
+	// 	});
+	// 	res.end();
+	// });
 
-	ui.post('/reboot', function(req, res) {
-		Core.do('service|system|reboot', null);
-		res.end();
-	});
+	// ui.post('/reboot', function(req, res) {
+	// 	Core.do('service|system|reboot', null);
+	// 	res.end();
+	// });
 
-	ui.post('/shutdown', function(req, res) {
-		Core.do('service|system|shutdown', null);
-		res.end();
-	});
+	// ui.post('/shutdown', function(req, res) {
+	// 	Core.do('service|system|shutdown', null);
+	// 	res.end();
+	// });
 
-	ui.post('/light', function(req, res) {
-		Core.do('service|system|light', 120);
-		res.end();
-	});
+	// ui.post('/light', function(req, res) {
+	// 	Core.do('service|system|light', 120);
+	// 	res.end();
+	// });
 
-	ui.post('/mute', function(req, res) {
-		Core.do('interface|sound|mute');
-		res.end();
-	});
+	// ui.post('/mute', function(req, res) {
+	// 	Core.do('interface|sound|mute');
+	// 	res.end();
+	// });
 
 	ui.post('/alarm', function(req, res) {
 		let params = req.body;
@@ -362,15 +312,15 @@ function attachDefaultRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/alarmOff', function(req, res) {
-		Core.do('service|alarm|alarmOff');
-		res.end();
-	});
+	// ui.post('/alarmOff', function(req, res) {
+	// 	Core.do('service|alarm|alarmOff');
+	// 	res.end();
+	// });
 
-	ui.post('/archiveLog', function(req, res) {
-		Core.do('interface|hardware|archiveLog');
-		res.end();
-	});
+	// ui.post('/archiveLog', function(req, res) {
+	// 	Core.do('interface|hardware|archiveLog');
+	// 	res.end();
+	// });
 
 	var granted = false;
 	ui.post('/grant', function(req, res) {

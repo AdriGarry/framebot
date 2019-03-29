@@ -15,6 +15,10 @@ const PATHS = [Core._SRC];
 const BYTE_TO_MO = 1048576;
 
 module.exports = {
+	api: {
+		base: { POST: [{ url: 'archiveLog', flux: { id: 'interface|hardware|archiveLog' } }] },
+		full: {}
+	},
 	cron: {
 		base: [
 			{
@@ -32,10 +36,6 @@ module.exports = {
 			}
 		]
 	}
-	// api: {
-	// 	base: { POST: [{ url: 'pirate', flux: [{ id: 'service|party|pirate', data: null, conf: null }] }], GET: [] },
-	// 	full: {}
-	// }
 };
 
 Core.flux.interface.hardware.subscribe({

@@ -105,7 +105,7 @@ app.component('mode', {
 		var tileParams = {
 			label: 'Mode',
 			actionList: [
-				{ label: 'Reset', icon: 'fas fa-retweet', url: '/resetConfig' },
+				{ label: 'Reset', icon: 'fas fa-retweet', url: '/reset' },
 				{ label: 'Test', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
 				{ label: 'Sleep', icon: 'far fa-moon', url: '/sleep' },
 				{ label: 'Restart', icon: 'fas fa-bolt', url: '/odi' }
