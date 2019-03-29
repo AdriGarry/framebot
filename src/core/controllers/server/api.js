@@ -19,31 +19,36 @@ const FILE_VOICEMAIL_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json';
 var uiHttp;
 module.exports = {
 	attachRoutes: attachRoutes
-	// add: addApi
-	// attachRoutesFromDescriptor: attachRoutesFromDescriptor
 };
 
 function attachRoutes(ui, modulesApi) {
 	log.INFO('*****************attachRoutes');
 	log.info(modulesApi);
 	uiHttp = ui;
-	attachDefaultRoutes(uiHttp);
 
 	if (!Array.isArray(modulesApi)) modulesApi = [modulesApi];
 	modulesApi.forEach(item => {
-		log.info('server.item=', item);
 		log.info('/' + item.url);
-		ui.post('/' + item.url, (req, res) => {
+		uiHttp.post('/' + item.url, (req, res) => {
 			log.warn('');
 			log.warn('------------hey this is from json url api');
 			// add to url: /api/... ?
+			if (!Array.isArray(item.flux)) item.flux = [item.flux];
 			item.flux.forEach(flux => {
 				Core.do(flux.id, flux.data, flux.conf);
 			});
 			res.end();
 		});
-		log.info('attachAdditionalApi');
 	});
+	attachDefaultRoutes(uiHttp);
+	if (Core.isAwake()) {
+		// attachRoutesFromDescriptor(ui);
+		attachAwakeRoutes(uiHttp);
+	} else {
+		attachSleepRoutes(uiHttp);
+	}
+
+	return uiHttp;
 }
 
 // function attachRoutes(ui) {
@@ -306,7 +311,7 @@ function attachDefaultRoutes(ui) {
 			res.end();
 		} else {
 			log.error("Can't ajust volume in " + Core.conf('mode') + ' mode');
-			res.statusCode = 503;
+			res.statusCode = 500;
 			res.end();
 		}
 	});
@@ -653,16 +658,6 @@ function attachAwakeRoutes(ui) {
 		Core.do('service|party|start');
 		res.end();
 	});
-
-	ui.post('/partyTTS', function(req, res) {
-		Core.do('service|party|tts');
-		res.end();
-	});
-
-	// ui.post('/pirate', function(req, res) {
-	// 	Core.do('service|party|pirate');
-	// 	res.end();
-	// });
 
 	ui.post('/test', function(req, res) {
 		Core.do('interface|tts|speak', {

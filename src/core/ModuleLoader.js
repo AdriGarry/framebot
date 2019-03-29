@@ -44,14 +44,12 @@ function setupCronAndApi(modules) {
 function _organizeCronAndApi() {
 	let cronList = [],
 		apiList = [];
-	// log.info(cronAndApi);
 	Object.keys(cronAndApi).forEach(mod => {
 		if (cronAndApi[mod].cron) {
 			if (Array.isArray(cronAndApi[mod].cron.base)) cronList.push.apply(cronList, cronAndApi[mod].cron.base);
 			if (Array.isArray(cronAndApi[mod].cron.full)) cronList.push.apply(cronList, cronAndApi[mod].cron.full);
 		}
 		if (cronAndApi[mod].api) {
-			// log.info(cronAndApi[mod].api);
 			if (cronAndApi[mod].api.base) {
 				if (Array.isArray(cronAndApi[mod].api.base.GET)) {
 					apiList.push.apply(apiList, cronAndApi[mod].api.base.GET);

@@ -29,9 +29,6 @@ Core.flux.controller.server.subscribe({
 	next: flux => {
 		if (flux.id == 'start') {
 			startUIServer(flux.value);
-			// } else if (flux.id == 'addApi') {
-			// 	// api.add(uiHttps, flux.value);
-			// 	addApi(flux.value);
 		} else if (flux.id == 'closeUIServer') {
 			closeUIServer(flux.value);
 		} else Core.error('unmapped flux in Server controller', flux, false);
@@ -40,10 +37,6 @@ Core.flux.controller.server.subscribe({
 		Core.error('Flux error', err);
 	}
 });
-
-// setImmediate(() => {
-// 	startUIServer();
-// });
 
 function startUIServer(modulesApi) {
 	startHttpServer(modulesApi);

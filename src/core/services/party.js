@@ -8,9 +8,14 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {
 	api: {
-		base: { POST: [{ url: 'pirate', flux: [{ id: 'service|party|pirate', data: null, conf: null }] }], GET: [] },
+		base: {
+			POST: [
+				{ url: 'pirate', flux: [{ id: 'service|party|pirate', data: null, conf: null }] },
+				{ url: 'partyTts', flux: { id: 'service|party|tts', data: null, conf: null } }
+			],
+			GET: []
+		},
 		full: {}
-		// },
 	}
 };
 
