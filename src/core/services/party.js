@@ -8,15 +8,13 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {
 	api: {
-		base: {
+		full: {
 			POST: [
 				{ url: 'setParty', flux: [{ id: 'service|party|start' }] },
 				{ url: 'pirate', flux: [{ id: 'service|party|pirate' }] },
 				{ url: 'partyTts', flux: { id: 'service|party|tts' } }
-			],
-			GET: []
-		},
-		full: {}
+			]
+		}
 	}
 };
 

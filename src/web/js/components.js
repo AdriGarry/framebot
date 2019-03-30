@@ -660,7 +660,7 @@ app.component('party', {
 		var tileParams = {
 			label: 'Party',
 			actionList: [
-				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/birthday' },
+				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/birthdaySong' },
 				{ label: 'Party mode', icon: 'fas fa-child', url: '/setParty' },
 				{ label: 'Pirate', icon: 'fas fa-beer', url: '/pirate' },
 				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/partyTTS' }

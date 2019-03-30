@@ -14,7 +14,8 @@ module.exports = {
 			POST: [
 				{ url: 'time', flux: { id: 'service|time|now' } },
 				{ url: 'date', flux: { id: 'service|time|today' } },
-				{ url: 'age', flux: { id: 'service|time|age' } }
+				{ url: 'age', flux: { id: 'service|time|age' } },
+				{ url: 'birthdaySong', flux: { id: 'service|time|birthday' } }
 			]
 		}
 	},

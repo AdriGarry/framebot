@@ -58,7 +58,7 @@ function scheduleJob(job) {
 		jobLog += '_' + job.flux.id;
 	}
 
-	log.info('new cron job: [' + job.cron + '] ' + jobLog);
+	log.debug('new cron job: [' + job.cron + '] ' + jobLog);
 }
 
 const EVAL_REGEX = new RegExp(/^eval:(\w+.\w+.\w+.)/);

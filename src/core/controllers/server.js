@@ -15,7 +15,9 @@ const http = require('http'),
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
-	middleware = require(Core._CORE + 'controllers/server/middleware.js'),
+	Utils = require(_PATH + 'src/core/Utils.js');
+
+const middleware = require(Core._CORE + 'controllers/server/middleware.js'),
 	api = require(Core._CORE + 'controllers/server/api.js');
 
 const HTTP_SERVER_PORT = 3210,
@@ -40,7 +42,6 @@ Core.flux.controller.server.subscribe({
 
 function startUIServer(modulesApi) {
 	startHttpServer(modulesApi);
-	// resetHttpsServerAndStart();
 	startHttpsServer(modulesApi);
 }
 
@@ -56,29 +57,6 @@ function startHttpServer() {
 		return res.redirect('https://' + req.headers.host + req.url);
 	}).listen(HTTP_SERVER_PORT);
 }
-
-// function resetHttpsServerAndStart(modulesApi) {
-// 	resetServer(httpsServer)
-// 		// .then(() => {
-// 		// 	return resetServer(httpsServer);
-// 		// })
-// 		.then(() => {
-// 			return startHttpsServer(modulesApi);
-// 		})
-// 		.catch(err => Core.error('Reset UI failed', err));
-// }
-
-// function resetServer(server) {
-// 	return new Promise((resolve, reject) => {
-// 		if (server) {
-// 			log.info('Restarting ui server...');
-// 			server.close(() => {
-// 				log.warn('server closed');
-// 				resolve();
-// 			});
-// 		} else resolve();
-// 	});
-// }
 
 function startHttpsServer(modulesApi) {
 	// ui = express();
@@ -104,56 +82,12 @@ function startHttpsServer(modulesApi) {
 	uiHttps.use(middleware.security());
 
 	api.attachRoutes(uiHttps, modulesApi);
-	// if (modulesApi) attachAdditionalApi(uiHttps, modulesApi);
-	// attachRoutesFromDescriptor();
 
 	httpsServer = https.createServer(CREDENTIALS, uiHttps).listen(HTTPS_SERVER_PORT, () => {
-		log.info('UI https server started [' + Core.conf('mode') + ']');
+		log.info('UI https server started [' + Utils.executionTime(Core.startTime) + 'ms]');
 		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 	});
 }
-
-// function addApi(route) {
-// 	log.INFO('addApi', route);
-// 	resetHttpsServerAndStart(route);
-// }
-
-// function attachAdditionalApi(ui, modulesApi) {
-// 	// console.log(typeof modulesApi);
-// 	// console.log(modulesApi);
-// 	if (!Array.isArray(modulesApi)) modulesApi = [modulesApi];
-// 	modulesApi.forEach(item => {
-// 		log.info('server.item=', item);
-// 		log.info('/' + item.url);
-// 		ui.post('/' + item.url, (req, res) => {
-// 			log.warn('');
-// 			log.warn('------------hey this is from json url api');
-// 			// add to url: /api/... ?
-// 			item.flux.forEach(flux => {
-// 				Core.do(flux.id, flux.data, flux.conf);
-// 			});
-// 			res.end();
-// 		});
-// 		log.info('attachAdditionalApi');
-// 	});
-// }
-
-// function attachRoutesFromDescriptor(ui) {
-// 	Core.descriptor.api.POST.forEach(item => {
-// 		log.info('server.item=', item);
-// 		log.info('/' + item.url);
-// 		ui.post('/' + item.url, (req, res) => {
-// 			log.warn('------------hey this is from json url api');
-// 			// add to url: /api/...
-// 			item.flux.forEach(flux => {
-// 				Core.do(flux.id, flux.data, flux.conf);
-// 			});
-// 			res.end();
-// 		});
-// 		console.log();
-// 		log.info('attachRoutesFromDescriptor');
-// 	});
-// }
 
 function closeUIServer(breakDuration) {
 	log.INFO('closing UI server for', breakDuration / 1000, 'seconds');

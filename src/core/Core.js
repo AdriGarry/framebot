@@ -19,9 +19,10 @@ module.exports = {
 	Core: Core
 };
 
-function _setUpCoreObject(Core, descriptor) {
+function _setUpCoreObject(Core, descriptor, startTime) {
 	Core.Name = descriptor.name;
 	Core.name = descriptor.name.toLowerCase();
+	Core.startTime = startTime;
 	for (let path in descriptor.paths) {
 		// Setting _PATHS
 		Core[path] = _PATH + descriptor.paths[path];
@@ -41,10 +42,10 @@ function _setUpCoreObject(Core, descriptor) {
 }
 
 function initializeContext(path, descriptor, forcedParams, startTime) {
-	Core = _setUpCoreObject(Core, descriptor);
+	Core = _setUpCoreObject(Core, descriptor, startTime);
 
 	let packageJson = require(_PATH + 'package.json');
-	var confUpdate = {
+	let confUpdate = {
 			startTime: Utils.logTime('h:m (D/M)')
 		},
 		runtimeUpdate = {},
@@ -111,6 +112,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
 	ModuleLoader.loadModules(descriptor.modules);
+	log.info('[here, we are at ' + Utils.executionTime(startTime) + 'ms]');
 	ModuleLoader.setupCronAndApi();
 	Object.seal(Core);
 	return Core;

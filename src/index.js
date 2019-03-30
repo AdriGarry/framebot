@@ -27,7 +27,7 @@ const log = new (require(Core._CORE + 'Logger.js'))(__filename, Core.conf('mode'
 log.debug('argv', argv);
 
 const Utils = require(Core._CORE + 'Utils.js');
-log.info(' -->  ' + Core.Name + ' ready in ' + Utils.executionTime(startTime) + 'ms');
+log.info(' -->  ' + Core.Name + ' ready in ' + Utils.executionTime(Core.startTime) + 'ms');
 
 ////////  TEST section  ////////
 setTimeout(function() {

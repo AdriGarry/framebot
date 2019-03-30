@@ -3,8 +3,7 @@
 'use strict';
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(_PATH + 'src/core/Logger.js'))(__filename.match(/(\w*).js/g)[0]),
-	Utils = require(_PATH + 'src/core/Utils.js');
+	log = new (require(_PATH + 'src/core/Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 
 var ModuleLoader = {
 	loadModules: loadModules,
@@ -36,9 +35,10 @@ function _requireModules(moduleType, moduleArray) {
 }
 
 function setupCronAndApi(modules) {
+	log.info('setup cron and api');
 	let toLoad = _organizeCronAndApi();
+	Core.do('controller|server|start', toLoad.apiList, { log: 'debug' }); //delay: 0.1,
 	Core.do('controller|cron|add', toLoad.cronList, { log: 'debug' }); //delay: 0.1,
-	Core.do('controller|server|start', toLoad.apiList, { delay: 1, log: 'debug' }); //delay: 0.1,
 }
 
 function _organizeCronAndApi() {
