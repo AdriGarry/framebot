@@ -5,7 +5,8 @@
 const CronJob = require('cron').CronJob;
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._CORE + 'Logger.js'))(__filename);
+	log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(_PATH + 'src/core/Utils.js');
 
 Core.flux.controller.cron.subscribe({
 	next: flux => {
@@ -18,22 +19,13 @@ Core.flux.controller.cron.subscribe({
 	}
 });
 
-// TODO vérifier que tout les cron ont bien été chargés avant de supprimer ce code !
-// setImmediate(() => {
-// 	scheduleJobs(Core.default.cron.base, 'base default');
-// 	scheduleJobs(Core.descriptor.cron.base, 'base descriptor');
-// 	if (Core.isAwake()) {
-// 		scheduleJobs(Core.default.cron.full, 'full default');
-// 		scheduleJobs(Core.descriptor.cron.full, 'full descriptor');
-// 	}
-// });
-
 function addJob(jobList) {
 	if (!Array.isArray(jobList)) jobList = [jobList];
 	if (jobList.length) {
 		jobList.forEach(job => {
 			scheduleJob(job);
 		});
+		log.info('Cron loaded [' + Utils.executionTime(Core.startTime) + 'ms]');
 	} else {
 		Core.error('Wrong jobList:', jobList);
 	}
