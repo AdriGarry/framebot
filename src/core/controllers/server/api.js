@@ -112,9 +112,6 @@ function attachDefaultRoutes(ui) {
 			update: {
 				value: Core.run('stats.update')
 			},
-			version: {
-				value: 'toto' /*Core.conf('version')*/
-			}, // DEPRECATED !
 			debug: {
 				value: Core.conf('log') == 'debug' ? 'debug' : ''
 			},
@@ -177,10 +174,6 @@ function attachDefaultRoutes(ui) {
 	});
 
 	/** ==> POST SECTION */
-	// ui.post('/odi', function(req, res) {
-	// 	Core.do('service|system|restart');
-	// 	res.end();
-	// });
 
 	var audioRecordStorage = multer.diskStorage({
 		destination: function(req, file, callback) {
@@ -202,26 +195,6 @@ function attachDefaultRoutes(ui) {
 		res.end();
 	});
 
-	// ui.post('/audio/last', audioRecordUpload, function(req, res) {
-	// 	Core.do('service|audioRecord|last');
-	// 	res.end();
-	// });
-
-	// ui.post('/audio/check', audioRecordUpload, function(req, res) {
-	// 	Core.do('service|audioRecord|check');
-	// 	res.end();
-	// });
-
-	// ui.post('/audio/clear', audioRecordUpload, function(req, res) {
-	// 	Core.do('service|audioRecord|clear');
-	// 	res.end();
-	// });
-
-	// ui.post('/audio/trash', audioRecordUpload, function(req, res) {
-	// 	Core.do('service|audioRecord|trash');
-	// 	res.end();
-	// });
-
 	ui.post('/toggleDebug', function(req, res) {
 		log.info('UI > Toggle debug');
 		let newLogLevel = log.level() == 'debug' ? 'info' : 'debug';
@@ -238,11 +211,6 @@ function attachDefaultRoutes(ui) {
 		});
 		res.end();
 	});
-
-	// ui.post('/testSequence', function(req, res) {
-	// 	Core.do('service|context|updateRestart', { mode: 'test' }, { delay: 1 });
-	// 	res.end();
-	// });
 
 	ui.post('/watcher', function(req, res) {
 		if (Core.conf('watcher')) {
@@ -264,56 +232,11 @@ function attachDefaultRoutes(ui) {
 		}
 	});
 
-	// ui.post('/demo', function(req, res) {
-	// 	Core.do('service|interaction|demo');
-	// 	res.end();
-	// });
-
-	// ui.post('/resetConfig', function(req, res) {
-	// 	log.debug('UI > Reset config');
-	// 	Core.do('service|context|reset', null, {
-	// 		delay: 1
-	// 	});
-	// 	res.end();
-	// });
-
-	// ui.post('/sleep', function(req, res) {
-	// 	Core.do('service|system|restart', 'sleep', {
-	// 		delay: 1
-	// 	});
-	// 	res.end();
-	// });
-
-	// ui.post('/reboot', function(req, res) {
-	// 	Core.do('service|system|reboot', null);
-	// 	res.end();
-	// });
-
-	// ui.post('/shutdown', function(req, res) {
-	// 	Core.do('service|system|shutdown', null);
-	// 	res.end();
-	// });
-
-	// ui.post('/light', function(req, res) {
-	// 	Core.do('service|system|light', 120);
-	// 	res.end();
-	// });
-
-	// ui.post('/mute', function(req, res) {
-	// 	Core.do('interface|sound|mute');
-	// 	res.end();
-	// });
-
 	ui.post('/alarm', function(req, res) {
 		let params = req.body;
 		Core.do('service|alarm|setAlarm', params);
 		res.end();
 	});
-
-	// ui.post('/alarmOff', function(req, res) {
-	// 	Core.do('service|alarm|alarmOff');
-	// 	res.end();
-	// });
 
 	// ui.post('/archiveLog', function(req, res) {
 	// 	Core.do('interface|hardware|archiveLog');
@@ -369,29 +292,6 @@ function attachAwakeRoutes(ui) {
 		}
 		res.end();
 	});
-
-	// ui.post('/lastTTS', function(req, res) {
-	// 	Core.do('interface|tts|lastTTS');
-	// 	res.end();
-	// });
-
-	// ui.post('/checkVoicemail', function(req, res) {
-	// 	Core.do('service|voicemail|check', true);
-	// 	res.end();
-	// });
-
-	// ui.post('/clearVoicemail', function(req, res) {
-	// 	Core.do('service|voicemail|clear');
-	// 	res.end();
-	// });
-
-	// ui.post('/idea', function(req, res) {
-	// 	Core.do('interface|tts|speak', {
-	// 		lg: 'en',
-	// 		msg: "I've got an idea !"
-	// 	});
-	// 	res.end();
-	// });
 
 	ui.post('/badBoy', function(req, res) {
 		let params = req.body;

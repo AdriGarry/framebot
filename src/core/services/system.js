@@ -15,7 +15,7 @@ module.exports = {
 				{ url: 'sleep', flux: { id: 'service|system|restart', data: 'sleep', conf: { delay: 0.1 } } },
 				{ url: 'reboot', flux: { id: 'service|system|reboot', conf: { delay: 0.1 } } },
 				{ url: 'shutdown', flux: { id: 'service|system|shutdown', conf: { delay: 0.1 } } },
-				{ url: 'light', flux: { id: 'service|system|light', conf: { delay: 0.1 } } }
+				{ url: 'light', flux: { id: 'service|system|light', data: 120, conf: { delay: 0.1 } } }
 			]
 		}
 	},
