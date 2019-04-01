@@ -50,7 +50,6 @@ var securityMiddleware = function(req, res, next) {
 			}, BAD_REQUEST_TIMEOUT);
 		}
 		Core.error('Bad request', '401 ' + req.url + ' ' + requestData.log, false);
-		// new Core.Error('Bad request', '401 ' + decodeURI(req.url) + ' ' + requestData.log, false);
 		rejectUnauthorizedRequest(res);
 		return;
 	}

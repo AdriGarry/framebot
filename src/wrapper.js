@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// 'use strict'; //Octal literals are not allowed in strict mode.
+'use strict'; //Octal literals are not allowed in strict mode.
 
 /** Params detection */
 console.log('argv', process.argv);
@@ -12,14 +12,12 @@ const spawn = require('child_process').spawn;
 const Gpio = require('onoff').Gpio;
 
 const sep = path.sep;
-// const SRC_PATH = __filename.match(/\/.*\//g)[0];
 const SRC_PATH = __dirname + sep;
 const _PATH = __dirname.replace('src', '');
 const INTERVALS = [2, 5, 10, 30, 60, 90, 180, 300, 600, 900];
 const CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 const wrapperTitle = '\n┌──────────────┐\n│  > Wrapper   │\n└──────────────┘';
 
-// console.log('Wrapper started');
 var descriptor;
 
 wrapper();
