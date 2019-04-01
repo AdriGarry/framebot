@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// Route sub-module (server)
+// Api sub-module (server)
 
 const { spawn, exec } = require('child_process');
 const fs = require('fs'),
@@ -139,8 +139,7 @@ function attachDefaultRoutes(ui) {
 
 	ui.get('/config.json', function(req, res) {
 		log.table(Core.conf(), 'CONFIG');
-		// res.end(fs.readFileSync(Core._CONF, 'utf8').toString());
-		res.end(JSON.stringify(Core.conf())); // TODO useless ?
+		res.end(JSON.stringify(Core.conf()));
 	});
 
 	ui.get('/runtime', function(req, res) {
@@ -237,11 +236,6 @@ function attachDefaultRoutes(ui) {
 		Core.do('service|alarm|setAlarm', params);
 		res.end();
 	});
-
-	// ui.post('/archiveLog', function(req, res) {
-	// 	Core.do('interface|hardware|archiveLog');
-	// 	res.end();
-	// });
 
 	var granted = false;
 	ui.post('/grant', function(req, res) {
@@ -364,7 +358,7 @@ function attachSleepRoutes(ui) {
 			res.end();
 		} else {
 			Core.error('Error while saving voicemail message:', params);
-			res.writeHead(424); // TODO changer ce code ?
+			res.writeHead(500);
 			res.end();
 		}
 	});

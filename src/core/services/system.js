@@ -44,7 +44,6 @@ module.exports = {
 Core.flux.service.system.subscribe({
 	next: flux => {
 		if (flux.id == 'restart') {
-			/* || flux.id == 'restartCore'*/
 			restartCore(flux.value);
 		} else if (flux.id == 'goToSleep') {
 			goToSleep();
@@ -69,7 +68,6 @@ function restartCore(mode) {
 		Core.do('interface|tts|speak', timerRemaining);
 		log.INFO(timerRemaining);
 	}
-	// log.
 	Core.do('service|context|updateRestart', { mode: mode || 'ready' });
 }
 

@@ -27,7 +27,9 @@ module.exports = {
 
 Core.flux.interface.led.subscribe({
 	next: flux => {
-		if (flux.id == 'toggle') {
+		if (flux.id == 'activitySignal') {
+			activitySignal();
+		} else if (flux.id == 'toggle') {
 			toggle(flux.value);
 		} else if (flux.id == 'blink') {
 			blink(flux.value);
@@ -43,23 +45,20 @@ Core.flux.interface.led.subscribe({
 });
 
 setImmediate(() => {
+	activitySignal();
+});
+
+function activitySignal() {
 	let mode = Core.isAwake() ? 1 : 0;
 
 	setInterval(function() {
 		Led.nose.writeSync(mode);
 	}, 900);
-
-	// let ledCronJob = {
-	// 	cron: '*/3 * * * * *',
-	// 	flux: { id: 'interface|led|blink', data: { leds: ['nose'], speed: 200, loop: 1 }, conf: { log: 'trace' } },
-	// 	log: 'Activity led initialised [' + Core.conf('mode') + ']'
-	// };
-	// Core.do('controller|cron|add', ledCronJob);
-});
+}
 
 // blink({leds:['belly', 'satellite'],loop:5, speed:70});
 
-/** Fonction clignotement
+/** Fonction to blink leds
  * @param config : {
  * 	leds : ['eye', 'satellite'...]
  *		speed : number (50 - 200)
@@ -149,17 +148,3 @@ function allLedsOff() {
 	Led.satellite.writeSync(0);
 	Led.nose.writeSync(0); // EXCEPT ACTIVITY LED ??
 }
-
-/** Params detection for direct call */
-/*var params = process.argv[2];
-if (params) {
-	// console.log('leds params:', params);
-	var gpioPins = require('./gpioPins.js');
-	if (params === 'allLedsOn') {
-		console.log('All Leds On');
-		allLedsOn();
-	} else if (params === 'allLedsOff') {
-		console.log('All Leds Off');
-		allLedsOff();
-	}
-}*/

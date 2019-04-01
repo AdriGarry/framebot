@@ -38,7 +38,7 @@ function setupCronAndApi(modules) {
 	log.info('setup cron and api');
 	let toLoad = _organizeCronAndApi();
 	Core.do('controller|server|start', toLoad.apiList, { log: 'trace' }); //delay: 0.1,
-	Core.do('controller|cron|add', toLoad.cronList, { delay: 0.1, log: 'trace' }); //delay: 0.1,
+	Core.do('controller|cron|start', toLoad.cronList, { delay: 0.1, log: 'trace' }); //delay: 0.1,
 }
 
 function _organizeCronAndApi() {
