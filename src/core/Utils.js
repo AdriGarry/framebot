@@ -211,7 +211,7 @@ function execCmd(command, noLog) {
 		exec(command, function(err, stdout, stderr) {
 			if (err && !noLog) {
 				log.error('execCmd', err, stderr);
-				reject();
+				reject(err);
 			} else {
 				resolve(stdout);
 			}
@@ -242,8 +242,7 @@ function getAbsolutePath(path, prefix) {
 
 /** Function to retreive mp3 file duration. Return a Promise */
 function getSoundOrVideoDuration(soundFile, callback) {
-	// log.info('getDuration()', mp3File);
-	// console.log('**soundFile', soundFile);
+	log.debug('getDuration()', soundFile);
 	return new Promise((resolve, reject) => {
 		execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH')
 			.then(data => {
@@ -263,7 +262,7 @@ function getSoundOrVideoDuration(soundFile, callback) {
 				}
 			})
 			.catch(err => {
-				Core.error('getDuration error', err);
+				log.error('getDuration error', err);
 			});
 	});
 }

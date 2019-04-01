@@ -31,7 +31,7 @@ Core.flux.interface.hdmi.subscribe({
 });
 
 setImmediate(() => {
-	if (!Core.isAwake()) {
+	if (!Core.isAwake() || !Core.run('hdmi')) {
 		screenOff();
 	}
 });
@@ -39,7 +39,7 @@ setImmediate(() => {
 /** Function to turn screen on (for 30 minutes) */
 function screenOn() {
 	spawn('/opt/vc/bin/tvservice', ['-p']);
-	log.info('Screen on');
+	log.info('Hdmi on');
 	Core.run('hdmi', true);
 	setTimeout(function() {
 		screenOff();
@@ -51,7 +51,7 @@ function screenOff() {
 	spawn('/opt/vc/bin/tvservice', ['-o']);
 	Core.do('service|video|stopLoop');
 	Core.run('hdmi', false);
-	log.info('screen off');
+	log.info('Hdmi off');
 }
 
 /** Function to launch a video cycle for 30 minutes */
