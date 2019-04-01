@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// Route sub-module (server)
+// Api sub-module (server)
 
 const { spawn, exec } = require('child_process');
 const fs = require('fs'),
@@ -16,17 +16,36 @@ const FILE_ERROR_HISTORY = Core._LOG + Core.name + '_errorHistory.json';
 const FILE_TTS_UI_HISTORY = Core._LOG + Core.name + '_ttsUIHistory.json';
 const FILE_VOICEMAIL_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json';
 
+var uiHttp;
 module.exports = {
 	attachRoutes: attachRoutes
 };
 
-function attachRoutes(ui) {
-	attachDefaultRoutes(ui);
+function attachRoutes(ui, modulesApi) {
+	uiHttp = ui;
+
+	if (!Array.isArray(modulesApi)) modulesApi = [modulesApi];
+	modulesApi.forEach(item => {
+		log.trace('POST /' + item.url);
+		uiHttp.post('/' + item.url, (req, res) => {
+			// add to url: /api/... ?
+			if (!Array.isArray(item.flux)) item.flux = [item.flux];
+			item.flux.forEach(flux => {
+				Core.do(flux.id, flux.data, flux.conf);
+				// TODO req.body => flux.value
+			});
+			res.end();
+		});
+	});
+
+	attachDefaultRoutes(uiHttp);
+
 	if (Core.isAwake()) {
-		attachAwakeRoutes(ui);
+		attachAwakeRoutes(uiHttp);
 	} else {
-		attachSleepRoutes(ui);
+		attachSleepRoutes(uiHttp);
 	}
+	return uiHttp;
 }
 
 function attachDefaultRoutes(ui) {
@@ -93,9 +112,6 @@ function attachDefaultRoutes(ui) {
 			update: {
 				value: Core.run('stats.update')
 			},
-			version: {
-				value: 'toto' /*Core.conf('version')*/
-			}, // DEPRECATED !
 			debug: {
 				value: Core.conf('log') == 'debug' ? 'debug' : ''
 			},
@@ -116,20 +132,14 @@ function attachDefaultRoutes(ui) {
 		if (params.hasOwnProperty('logSize') && !isNaN(params.logSize)) {
 			logSize = parseInt(params.logSize);
 		}
-		prepareLogs(logSize)
-			.then(data => {
-				res.end(data);
-			})
-			.catch(err => {
-				res.status(500);
-				res.end();
-			});
+		prepareLogs(logSize, function(log) {
+			res.end(log);
+		});
 	});
 
 	ui.get('/config.json', function(req, res) {
 		log.table(Core.conf(), 'CONFIG');
-		// res.end(fs.readFileSync(Core._CONF, 'utf8').toString());
-		res.end(JSON.stringify(Core.conf())); // TODO useless ?
+		res.end(JSON.stringify(Core.conf()));
 	});
 
 	ui.get('/runtime', function(req, res) {
@@ -163,22 +173,16 @@ function attachDefaultRoutes(ui) {
 	});
 
 	/** ==> POST SECTION */
-	ui.post('/odi', function(req, res) {
-		Core.do('service|system|restart', null, {
-			delay: 2
-		});
-		res.end();
-	});
 
 	var audioRecordStorage = multer.diskStorage({
-		destination: function(req, file, cb) {
+		destination: function(req, file, callback) {
 			if (!fs.existsSync(Core._UPLOAD)) {
 				fs.mkdirSync(Core._UPLOAD);
 			}
-			cb(null, Core._UPLOAD);
+			callback(null, Core._UPLOAD);
 		},
-		filename: function(req, file, cb) {
-			cb(null, file.fieldname + '_' + new Date().toISOString() + '.wav');
+		filename: function(req, file, callback) {
+			callback(null, file.fieldname + '_' + new Date().toISOString() + '.wav');
 		}
 	});
 	var audioRecordUpload = multer({ storage: audioRecordStorage }).single('audioRecord');
@@ -187,26 +191,6 @@ function attachDefaultRoutes(ui) {
 		log.info('Audio received!');
 		log.debug(req.file);
 		Core.do('service|audioRecord|new', req.file.path, { delay: 1 });
-		res.end();
-	});
-
-	ui.post('/audio/last', audioRecordUpload, function(req, res) {
-		Core.do('service|audioRecord|last');
-		res.end();
-	});
-
-	ui.post('/audio/check', audioRecordUpload, function(req, res) {
-		Core.do('service|audioRecord|check');
-		res.end();
-	});
-
-	ui.post('/audio/clear', audioRecordUpload, function(req, res) {
-		Core.do('service|audioRecord|clear');
-		res.end();
-	});
-
-	ui.post('/audio/trash', audioRecordUpload, function(req, res) {
-		Core.do('service|audioRecord|trash');
 		res.end();
 	});
 
@@ -227,19 +211,6 @@ function attachDefaultRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/testSequence', function(req, res) {
-		Core.do(
-			'service|context|updateRestart',
-			{
-				mode: 'test'
-			},
-			{
-				delay: 1
-			}
-		);
-		res.end();
-	});
-
 	ui.post('/watcher', function(req, res) {
 		if (Core.conf('watcher')) {
 			Core.do('controller|watcher|stopWatch');
@@ -255,68 +226,14 @@ function attachDefaultRoutes(ui) {
 			res.end();
 		} else {
 			log.error("Can't ajust volume in " + Core.conf('mode') + ' mode');
-			res.statusCode = 503;
+			res.statusCode = 500;
 			res.end();
 		}
-	});
-
-	ui.post('/demo', function(req, res) {
-		Core.do('service|interaction|demo');
-		res.end();
-	});
-
-	ui.post('/resetConfig', function(req, res) {
-		log.debug('UI > Reset config');
-		Core.do('service|context|reset', null, {
-			delay: 1
-		});
-		res.end();
-	});
-
-	ui.post('/sleep', function(req, res) {
-		Core.do('service|system|restart', 'sleep', {
-			delay: 1
-		});
-		res.end();
-	});
-
-	ui.post('/reboot', function(req, res) {
-		Core.do('service|system|reboot', null, {
-			delay: 1
-		});
-		res.end();
-	});
-
-	ui.post('/shutdown', function(req, res) {
-		Core.do('service|system|shutdown', null, {
-			delay: 1
-		});
-		res.end();
-	});
-
-	ui.post('/light', function(req, res) {
-		Core.do('service|system|light', 120);
-		res.end();
-	});
-
-	ui.post('/mute', function(req, res) {
-		Core.do('interface|sound|mute');
-		res.end();
 	});
 
 	ui.post('/alarm', function(req, res) {
 		let params = req.body;
 		Core.do('service|alarm|setAlarm', params);
-		res.end();
-	});
-
-	ui.post('/alarmOff', function(req, res) {
-		Core.do('service|alarm|alarmOff');
-		res.end();
-	});
-
-	ui.post('/archiveLog', function(req, res) {
-		Core.do('interface|hardware|archiveLog');
 		res.end();
 	});
 
@@ -342,6 +259,7 @@ function attachDefaultRoutes(ui) {
 		res.send(granted);
 		if (granted) granted = false;
 	});
+	return ui;
 }
 
 function attachAwakeRoutes(ui) {
@@ -366,29 +284,6 @@ function attachAwakeRoutes(ui) {
 		} else {
 			Core.do('interface|tts|random');
 		}
-		res.end();
-	});
-
-	ui.post('/lastTTS', function(req, res) {
-		Core.do('interface|tts|lastTTS');
-		res.end();
-	});
-
-	ui.post('/checkVoicemail', function(req, res) {
-		Core.do('service|voicemail|check', true);
-		res.end();
-	});
-
-	ui.post('/clearVoicemail', function(req, res) {
-		Core.do('service|voicemail|clear');
-		res.end();
-	});
-
-	ui.post('/idea', function(req, res) {
-		Core.do('interface|tts|speak', {
-			lg: 'en',
-			msg: "I've got an idea !"
-		});
 		res.end();
 	});
 
@@ -429,115 +324,6 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/exclamation', function(req, res) {
-		Core.do('service|interaction|exclamation');
-		res.end();
-	});
-
-	ui.post('/fip', function(req, res) {
-		Core.do('service|music|fip');
-		res.end();
-	});
-
-	ui.post('/music/*', function(req, res) {
-		let song; //TODO RECUPERER LE NOM DE LA CHANSON
-		if (!song) song = 'mouthTrick.mp3';
-		Core.do('interface|sound|play', {
-			mp3: 'jukebox/' + song
-		});
-		res.end();
-	});
-
-	ui.post('/jukebox', function(req, res) {
-		Core.do('service|music|jukebox');
-		res.end();
-	});
-
-	ui.post('/naheulbeuk', function(req, res) {
-		Core.do('service|music|story', 'Naheulbeuk');
-		res.end();
-	});
-
-	ui.post('/survivaure', function(req, res) {
-		Core.do('service|music|story', 'Survivaure');
-		res.end();
-	});
-
-	ui.post('/arduino/connect', function(req, res) {
-		Core.do('interface|arduino|connect');
-		res.end();
-	});
-
-	ui.post('/arduino/stop', function(req, res) {
-		Core.do('interface|arduino|disconnect');
-		res.end();
-	});
-
-	ui.post('/max/blinkAllLed', function(req, res) {
-		Core.do('service|max|blinkAllLed');
-		res.end();
-	});
-
-	ui.post('/max/blinkRdmLed', function(req, res) {
-		Core.do('service|max|blinkRdmLed');
-		res.end();
-	});
-
-	ui.post('/max/playOneMelody', function(req, res) {
-		Core.do('service|max|playOneMelody');
-		res.end();
-	});
-
-	ui.post('/max/playRdmMelody', function(req, res) {
-		Core.do('service|max|playRdmMelody');
-		res.end();
-	});
-
-	ui.post('/max/hornRdm', function(req, res) {
-		Core.do('service|max|hornRdm');
-		res.end();
-	});
-
-	ui.post('/max/turn', function(req, res) {
-		Core.do('service|max|turn');
-		res.end();
-	});
-
-	ui.post('/hdmi/off', function(req, res) {
-		Core.do('interface|hdmi|off');
-		res.end();
-	});
-
-	ui.post('/hdmi/on', function(req, res) {
-		Core.do('interface|hdmi|on');
-		res.end();
-	});
-
-	ui.post('/video/loop', function(req, res) {
-		Core.do('service|video|loop');
-		res.end();
-	});
-
-	ui.post('/time', function(req, res) {
-		Core.do('service|time|now');
-		res.end();
-	});
-
-	ui.post('/date', function(req, res) {
-		Core.do('service|time|today');
-		res.end();
-	});
-
-	ui.post('/birthday', function(req, res) {
-		Core.do('service|alarm|birthday');
-		res.end();
-	});
-
-	ui.post('/age', function(req, res) {
-		Core.do('service|time|age');
-		res.end();
-	});
-
 	ui.post('/timer', function(req, res) {
 		let params = req.query; // affiner pour récupérer les params
 		if (params.hasOwnProperty('stop')) {
@@ -549,95 +335,12 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/weather', function(req, res) {
-		Core.do('service|weather|report');
-		res.end();
-	});
-	ui.post('/weatherAlternative', function(req, res) {
-		Core.do('service|weather|alternative');
-		res.end();
-	});
-	ui.post('/astronomy', function(req, res) {
-		Core.do('service|weather|astronomy');
-		res.end();
-	});
-
-	ui.post('/maya/lePetitVer', function(req, res) {
-		Core.do('interface|sound|play', {
-			mp3: 'maya/songs/lePetitVer.mp3'
-		});
-		res.end();
-	});
-
-	ui.post('/maya/comptine', function(req, res) {
-		Core.do('service|maya|comptine');
-		res.end();
-	});
-
-	ui.post('/maya/goodNight', function(req, res) {
-		Core.do('interface|tts|speak', {
-			voice: 'google',
-			msg: 'Bonne nuit Maya'
-		});
-		Core.do('interface|tts|speak', 'Oui, fais de beaux reves !');
-		res.end();
-	});
-
-	ui.post('/cpuTTS', function(req, res) {
-		Core.do('interface|hardware|cpuTTS');
-		res.end();
-	});
-
-	ui.post('/soulTTS', function(req, res) {
-		Core.do('interface|hardware|soulTTS');
-		res.end();
-	});
-
-	ui.post('/diskSpaceTTS', function(req, res) {
-		Core.do('interface|hardware|diskSpaceTTS');
-		res.end();
-	});
-
-	ui.post('/totalLinesTTS', function(req, res) {
-		Core.do('interface|hardware|totalLinesTTS');
-		res.end();
-	});
-
-	ui.post('/cigales', function(req, res) {
-		Core.do('interface|sound|play', {
-			mp3: 'system/cigales.mp3'
-		});
-		res.end();
-	});
-
-	ui.post('/setParty', function(req, res) {
-		Core.do('service|party|start');
-		res.end();
-	});
-
-	ui.post('/partyTTS', function(req, res) {
-		Core.do('service|party|tts');
-		res.end();
-	});
-
-	ui.post('/pirate', function(req, res) {
-		Core.do('service|party|pirate');
-		res.end();
-	});
-
-	ui.post('/test', function(req, res) {
-		Core.do('interface|tts|speak', {
-			lg: 'en',
-			msg: '.undefined'
-		});
-		res.end();
-	});
-
 	ui.post('/*', function(req, res) {
 		Core.error('Error UI > not mapped: ' + req.url, null, false);
 		res.writeHead(401);
 		res.end();
 	});
+	return ui;
 }
 
 function attachSleepRoutes(ui) {
@@ -655,7 +358,7 @@ function attachSleepRoutes(ui) {
 			res.end();
 		} else {
 			Core.error('Error while saving voicemail message:', params);
-			res.writeHead(424); // TODO changer ce code ?
+			res.writeHead(500);
 			res.end();
 		}
 	});
@@ -665,19 +368,16 @@ function attachSleepRoutes(ui) {
 		res.writeHead(401);
 		res.end();
 	});
+	return ui;
 }
 
-function prepareLogs(lines) {
-	return new Promise((resolve, reject) => {
-		fs.readFile(Core._LOG + Core.name + '.log', 'UTF-8', (err, data) => {
-			if (err) {
-				reject(err);
-			} else {
-				let content = data.toString().split('\n');
-				content = content.slice(-lines); //-120
-				content = content.join('\n');
-				resolve(content);
-			}
-		});
-	});
+function prepareLogs(lines, callback) {
+	var content = fs
+		.readFileSync(Core._LOG + Core.name + '.log', 'UTF-8')
+		.toString()
+		.split('\n');
+	content = content.slice(-lines); //-120
+	content = content.join('\n');
+	callback(content);
+	return content;
 }

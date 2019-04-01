@@ -15,7 +15,6 @@ var ready = false;
 
 var Flux = {
 	init: attachObservers,
-	loadModules: loadModules,
 	next: next
 };
 
@@ -35,24 +34,6 @@ function attachObservers(observers) {
 	});
 	ready = true;
 	log.info('Flux manager ready');
-	return Flux;
-}
-
-function loadModules(modules) {
-	Object.keys(modules).forEach(function(moduleId) {
-		let modulesLoaded = '';
-		for (let i = 0; i < modules[moduleId].base.length; i++) {
-			require(Core._CORE + moduleId + '/' + modules[moduleId].base[i] + '.js');
-		}
-		modulesLoaded += modules[moduleId].base.join(', ');
-		if (Core.isAwake() && modules[moduleId].hasOwnProperty('full')) {
-			for (let i = 0; i < modules[moduleId].full.length; i++) {
-				require(Core._CORE + moduleId + '/' + modules[moduleId].full[i] + '.js');
-			}
-			modulesLoaded += ', ' + modules[moduleId].full.join(', ');
-		}
-		log.info(moduleId, 'loaded [' + modulesLoaded + ']');
-	});
 	return Flux;
 }
 

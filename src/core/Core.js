@@ -19,9 +19,10 @@ module.exports = {
 	Core: Core
 };
 
-function setUpCoreObject(Core, descriptor) {
+function _setUpCoreObject(Core, descriptor, startTime) {
 	Core.Name = descriptor.name;
 	Core.name = descriptor.name.toLowerCase();
+	Core.startTime = startTime;
 	for (let path in descriptor.paths) {
 		// Setting _PATHS
 		Core[path] = _PATH + descriptor.paths[path];
@@ -41,10 +42,10 @@ function setUpCoreObject(Core, descriptor) {
 }
 
 function initializeContext(path, descriptor, forcedParams, startTime) {
-	Core = setUpCoreObject(Core, descriptor);
+	Core = _setUpCoreObject(Core, descriptor, startTime);
 
 	let packageJson = require(_PATH + 'package.json');
-	var confUpdate = {
+	let confUpdate = {
 			startTime: Utils.logTime('h:m (D/M)')
 		},
 		runtimeUpdate = {},
@@ -88,7 +89,8 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		});
 	}
 
-	const Flux = require(Core._CORE + 'Flux.js').init(descriptor.modules);
+	const Flux = require(Core._CORE + 'Flux.js').init(descriptor.modules),
+		ModuleLoader = require(Core._CORE + 'ModuleLoader.js'); //.init(descriptor.modules)
 	Core.flux = Flux;
 	Core.do = Flux.next;
 	Core.do('service|context|update', confUpdate, {
@@ -109,7 +111,8 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	// });
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
-	Flux.loadModules(descriptor.modules);
+	ModuleLoader.loadModules(descriptor.modules);
+	ModuleLoader.setupCronAndApi();
 	Object.seal(Core);
 	return Core;
 }
@@ -124,27 +127,3 @@ function error(message, data, stackTrace) {
 	}
 	new CoreError(message, data, stackTrace);
 }
-
-// function error_OLD(message, data, stackTrace) {
-// 	Core.do('interface|led|altLeds', { speed: 30, duration: 1.5 }, { log: 'trace' });
-// 	Core.do('interface|sound|error', null, { log: 'trace' });
-// 	log.error(message + '\n', data || '');
-// 	if (stackTrace !== false) {
-// 		// Optional ?
-// 		console.trace();
-// 		//Error.captureStackTrace(this, this.constructor);
-// 	}
-// 	let logError = {
-// 		message: message,
-// 		data: data,
-// 		time: Utils.logTime()
-// 	};
-
-// 	if (Core.descriptor.modules.services.base.indexOf('sms') > -1) {
-// 		Core.do('service|sms|send', message + '\n' + data + '\n' + logError.time);
-// 	}
-
-// 	Utils.appendJsonFile(Core._LOG + Core.name + '_errorHistory.json', logError);
-// 	Core.errors.push(logError);
-// 	log.info('__OLD STUFF...');
-// }

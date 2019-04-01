@@ -9,6 +9,20 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js');
 
+module.exports = {
+	api: {
+		base: {
+			POST: [
+				{ url: 'audio/check', flux: { id: 'service|audioRecord|check' } },
+				{ url: 'audio/clear', flux: { id: 'service|audioRecord|clear' } },
+				{ url: 'audio/trash', flux: { id: 'service|audioRecord|trash' } }
+			],
+			GET: [{ url: 'audio/last', flux: { id: 'service|audioRecord|last' } }]
+		},
+		full: {}
+	}
+};
+
 Core.flux.service.audioRecord.subscribe({
 	next: flux => {
 		if (flux.id == 'new') {

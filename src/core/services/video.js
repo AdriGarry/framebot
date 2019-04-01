@@ -7,6 +7,14 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js');
 
+module.exports = {
+	api: {
+		full: {
+			POST: [{ url: 'video/loop', flux: { id: 'service|video|loop' } }]
+		}
+	}
+};
+
 Core.flux.service.video.subscribe({
 	next: flux => {
 		if (flux.id == 'loop') {

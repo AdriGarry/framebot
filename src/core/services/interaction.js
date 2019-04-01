@@ -11,6 +11,26 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js'),
 	RandomBox = require('randombox').RandomBox;
 
+module.exports = {
+	api: {
+		full: {
+			POST: [
+				{ url: 'demo', flux: { id: 'service|interaction|demo' } },
+				{ url: 'idea', flux: { id: 'interface|tts|speak', data: { lg: 'en', msg: "I've got an idea !" } } },
+				{ url: 'exclamation', flux: { id: 'service|interaction|exclamation' } }
+			]
+		}
+	},
+	cron: {
+		full: [
+			{ cron: '0 18,20,22-25 8 * * 1-5', flux: { id: 'service|interaction|goToWork' } },
+			{ cron: '0 19 19 * * *', flux: { id: 'service|interaction|baluchon' } },
+			{ cron: '13 0 1,13 * * *', flux: { id: 'service|interaction|uneHeure' } },
+			{ cron: '13 13,25,40,51 17-21 * * *', flux: { id: 'service|interaction|random' } }
+		]
+	}
+};
+
 Core.flux.service.interaction.subscribe({
 	next: flux => {
 		if (flux.id == 'random') {
@@ -37,7 +57,6 @@ Core.flux.service.interaction.subscribe({
 setImmediate(() => {});
 
 const RANDOM_ACTIONS = [
-	// TODO a mettre dans descriptor.json
 	{
 		id: 'interface|tts|speak',
 		weight: 7
@@ -70,7 +89,6 @@ const RANDOM_ACTIONS = [
 		id: 'service|time|age',
 		weight: 1
 	},
-	// { id: 'service|max|blinkAllLed', weight: 3 },
 	{
 		id: 'service|max|playOneMelody',
 		weight: 5

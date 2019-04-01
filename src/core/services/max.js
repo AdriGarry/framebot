@@ -6,6 +6,21 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js'),
 	RandomBox = require('randombox').RandomBox;
 
+module.exports = {
+	api: {
+		full: {
+			POST: [
+				{ url: 'max/blinkAllLed', flux: { id: 'service|max|blinkAllLed' } },
+				{ url: 'max/blinkRdmLed', flux: { id: 'service|max|blinkRdmLed' } },
+				{ url: 'max/playOneMelody', flux: { id: 'service|max|playOneMelody' } },
+				{ url: 'max/playRdmMelody', flux: { id: 'service|max|playRdmMelody' } },
+				{ url: 'max/hornRdm', flux: { id: 'service|max|hornRdm' } },
+				{ url: 'max/turn', flux: { id: 'service|max|turn' } }
+			]
+		}
+	}
+};
+
 Core.flux.service.max.subscribe({
 	next: flux => {
 		if (flux.id == 'parse') {

@@ -10,7 +10,7 @@ const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';
 const NO_SOUND_URL = ['/dashboard', '/log'];
 const BAD_REQUEST_TIMEOUT = 5000;
 const BAD_REQUEST_CP_LIMIT = 5;
-var badRequestCount = 0;
+
 var canTTSBadRequest = true;
 
 module.exports = {
@@ -50,7 +50,6 @@ var securityMiddleware = function(req, res, next) {
 			}, BAD_REQUEST_TIMEOUT);
 		}
 		Core.error('Bad request', '401 ' + req.url + ' ' + requestData.log, false);
-		// new Core.Error('Bad request', '401 ' + decodeURI(req.url) + ' ' + requestData.log, false);
 		rejectUnauthorizedRequest(res);
 		return;
 	}

@@ -10,7 +10,17 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js'),
 	WEATHER_CREDENTIALS = require(Core._SECURITY + 'credentials.json').weather;
 
-const WEATHER_SERVICE_URL = 'https://weather-ydn-yql.media.yahoo.com/forecastrss?location=marseille,fr&u=c&format=json';
+module.exports = {
+	api: {
+		full: {
+			POST: [
+				{ url: 'weather', flux: { id: 'service|weather|report' } },
+				{ url: 'weatherAlternative', flux: { id: 'service|weather|alternative' } },
+				{ url: 'astronomy', flux: { id: 'service|weather|astronomy' } }
+			]
+		}
+	}
+};
 
 Core.flux.service.weather.subscribe({
 	next: flux => {
@@ -33,7 +43,7 @@ Core.flux.service.weather.subscribe({
 	}
 });
 
-setImmediate(() => {});
+const WEATHER_SERVICE_URL = 'https://weather-ydn-yql.media.yahoo.com/forecastrss?location=marseille,fr&u=c&format=json';
 
 var WEATHER_STATUS_LIST;
 fs.readFile(Core._DATA + 'weatherStatus.json', function(err, data) {

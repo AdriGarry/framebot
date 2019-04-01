@@ -14,6 +14,26 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 const PATHS = [Core._SRC];
 const BYTE_TO_MO = 1048576;
 
+module.exports = {
+	api: {
+		base: { POST: [{ url: 'archiveLog', flux: { id: 'interface|hardware|archiveLog' } }] },
+		full: {
+			POST: [
+				{ url: 'cpuTTS', flux: { id: 'interface|hardware|cpuTTS' } },
+				{ url: 'soulTTS', flux: { id: 'interface|hardware|soulTTS' } },
+				{ url: 'diskSpaceTTS', flux: { id: 'interface|hardware|diskSpaceTTS' } },
+				{ url: 'totalLinesTTS', flux: { id: 'interface|hardware|totalLinesTTS' } }
+			]
+		}
+	},
+	cron: {
+		base: [
+			{ cron: '*/30 * * * * *', flux: { id: 'interface|hardware|runtime', conf: { log: 'trace' } } },
+			{ cron: '0 2 0 * * 1', flux: { id: 'interface|hardware|archiveLog' } }
+		]
+	}
+};
+
 Core.flux.interface.hardware.subscribe({
 	next: flux => {
 		if (flux.id == 'runtime') {
@@ -181,14 +201,12 @@ function getDiskSpace(callback) {
 			log.debug('Disk space:', diskSpace[0]);
 			Core.run('stats.diskSpace', diskSpace[0]);
 
-			// log.info('\nwarning: Disk space almost full : ' + Core.run('stats.diskSpace'));
 			if (parseInt(diskSpace) >= 80) {
 				let logMessage = 'Warning: Disk space almost full : ' + Core.run('stats.diskSpace');
 				log.warn();
 				log.warn(logMessage);
 				Core.do('service|sms|send', logMessage);
 			}
-			// if (callback) callback(diskSpace); // TODO Promise
 		})
 		.catch(err => {
 			Core.error('getDiskSpace error', err);

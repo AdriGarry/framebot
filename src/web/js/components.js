@@ -105,7 +105,7 @@ app.component('mode', {
 		var tileParams = {
 			label: 'Mode',
 			actionList: [
-				{ label: 'Reset', icon: 'fas fa-retweet', url: '/resetConfig' },
+				{ label: 'Reset', icon: 'fas fa-retweet', url: '/reset' },
 				{ label: 'Test', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
 				{ label: 'Sleep', icon: 'far fa-moon', url: '/sleep' },
 				{ label: 'Restart', icon: 'fas fa-bolt', url: '/odi' }
@@ -541,6 +541,7 @@ app.component('maya', {
 		var tileParams = {
 			label: 'Maya',
 			actionList: [
+				{ label: 'Bonne nuit', icon: 'fas fa-moon', url: '/maya/goodNight' },
 				{ label: 'Le petit ver', icon: 'fas fa-music', url: '/maya/lePetitVer' },
 				{ label: 'Comptines', icon: 'fas fa-music', url: '/maya/comptine' }
 			]
@@ -659,7 +660,7 @@ app.component('party', {
 		var tileParams = {
 			label: 'Party',
 			actionList: [
-				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/birthday' },
+				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/birthdaySong' },
 				{ label: 'Party mode', icon: 'fas fa-child', url: '/setParty' },
 				{ label: 'Pirate', icon: 'fas fa-beer', url: '/pirate' },
 				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/partyTTS' }

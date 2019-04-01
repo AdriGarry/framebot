@@ -15,8 +15,10 @@ const http = require('http'),
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
-	middleware = require(Core._CORE + 'controllers/server/middleware.js'),
-	routes = require(Core._CORE + 'controllers/server/routes.js');
+	Utils = require(_PATH + 'src/core/Utils.js');
+
+const middleware = require(Core._CORE + 'controllers/server/middleware.js'),
+	api = require(Core._CORE + 'controllers/server/api.js');
 
 const HTTP_SERVER_PORT = 3210,
 	HTTPS_SERVER_PORT = 4321,
@@ -25,13 +27,10 @@ const HTTP_SERVER_PORT = 3210,
 		cert: fs.readFileSync(Core._SECURITY + 'cert.pem')
 	};
 
-var ui = express(),
-	uiHttps = express();
-
 Core.flux.controller.server.subscribe({
 	next: flux => {
-		if (flux.id == 'startUIServer') {
-			startUIServer();
+		if (flux.id == 'start') {
+			startUIServer(flux.value);
 		} else if (flux.id == 'closeUIServer') {
 			closeUIServer(flux.value);
 		} else Core.error('unmapped flux in Server controller', flux, false);
@@ -41,12 +40,27 @@ Core.flux.controller.server.subscribe({
 	}
 });
 
-setImmediate(() => {
-	startUIServer();
-});
+function startUIServer(modulesApi) {
+	startHttpServer(modulesApi);
+	startHttpsServer(modulesApi);
+}
 
+var ui, uiHttps;
 var httpServer, httpsServer;
-function startUIServer() {
+
+function startHttpServer() {
+	ui = express();
+	httpServer = http.createServer(ui);
+	ui.get('*', (req, res) => {
+		if (req.isSocket) return res.redirect('wss://' + req.headers.host + req.url);
+		log.debug('Redirecting http to https');
+		return res.redirect('https://' + req.headers.host + req.url);
+	}).listen(HTTP_SERVER_PORT);
+}
+
+function startHttpsServer(modulesApi) {
+	// ui = express();
+	uiHttps = express();
 	// CORS
 	// ui.use(function(request, response, next) {
 	// 	response.header('Access-Control-Allow-Origin', '*');
@@ -58,13 +72,6 @@ function startUIServer() {
 	// 	response.send();
 	// });
 
-	httpServer = http.createServer(ui);
-	ui.get('*', function(req, res) {
-		if (req.isSocket) return res.redirect('wss://' + req.headers.host + req.url);
-		log.debug('Redirecting http to https');
-		return res.redirect('https://' + req.headers.host + req.url);
-	}).listen(HTTP_SERVER_PORT);
-
 	uiHttps.use(compression()); // Compression web
 	uiHttps.use(express.static(Core._WEB)); // For static files
 
@@ -74,10 +81,10 @@ function startUIServer() {
 
 	uiHttps.use(middleware.security());
 
-	routes.attachRoutes(uiHttps);
+	api.attachRoutes(uiHttps, modulesApi);
 
-	httpsServer = https.createServer(CREDENTIALS, uiHttps).listen(HTTPS_SERVER_PORT, function() {
-		log.info('UI https server started [' + Core.conf('mode') + ']');
+	httpsServer = https.createServer(CREDENTIALS, uiHttps).listen(HTTPS_SERVER_PORT, () => {
+		log.info('UI https server started [' + Utils.executionTime(Core.startTime) + 'ms]');
 		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 	});
 }
@@ -85,6 +92,6 @@ function startUIServer() {
 function closeUIServer(breakDuration) {
 	log.INFO('closing UI server for', breakDuration / 1000, 'seconds');
 	// ui.close();
-	servor.close();
+	// servor.close();
 	ui = null;
 }

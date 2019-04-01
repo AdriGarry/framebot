@@ -8,6 +8,22 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(_PATH + 'src/core/Utils.js');
 
+module.exports = {
+	api: {
+		full: {
+			POST: [
+				{ url: 'time', flux: { id: 'service|time|now' } },
+				{ url: 'date', flux: { id: 'service|time|today' } },
+				{ url: 'age', flux: { id: 'service|time|age' } },
+				{ url: 'birthdaySong', flux: { id: 'service|time|birthday' } }
+			]
+		}
+	},
+	cron: {
+		full: [{ cron: '0 0 * * * *', flux: { id: 'service|time|now' } }]
+	}
+};
+
 Core.flux.service.time.subscribe({
 	next: flux => {
 		if (flux.id == 'now') {

@@ -6,6 +6,16 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(_PATH + 'src/core/Utils.js');
 
+module.exports = {
+	api: {
+		base: { POST: [{ url: 'alarmOff', flux: { id: 'service|alarm|alarmOff' } }] }
+	},
+	cron: {
+		base: [{ cron: '1 * * * * *', flux: { id: 'service|alarm|isAlarm', conf: { log: 'trace' } } }],
+		full: []
+	}
+};
+
 Core.flux.service.alarm.subscribe({
 	next: flux => {
 		if (flux.id == 'setAlarm') {

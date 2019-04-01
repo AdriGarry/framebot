@@ -9,6 +9,22 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js'),
 	RandomBox = require('randombox').RandomBox;
 
+module.exports = {
+	api: {
+		full: {
+			POST: [
+				{ url: 'fip', flux: { id: 'service|music|fip' } },
+				{ url: 'julebox', flux: { id: 'service|music|jukebox' } },
+				{ url: 'naheulbeuk', flux: { id: 'service|music|story', data: 'Naheulbeuk' } },
+				{ url: 'survivaure', flux: { id: 'service|music|story', data: 'Survivaure' } }
+			]
+		}
+	},
+	cron: {
+		full: [{ cron: '0 15 18 * * 1-5', flux: { id: 'service|music|fipOrJukebox' } }]
+	}
+};
+
 Core.flux.service.music.subscribe({
 	next: flux => {
 		if (flux.id == 'jukebox') {
@@ -98,7 +114,6 @@ function stop() {
 /** Function to play a story */
 const STORIES = ['stories/Donjon-De-Naheulbeuk.mp3', 'stories/Aventuriers-Du-Survivaure.mp3'];
 function playStory(story) {
-	log.debug('Play story...', story);
 	let storyToPlay = Utils.searchStringInArray(story, STORIES);
 	if (storyToPlay) {
 		Core.do('interface|tts|speak', { lg: 'en', msg: 'story' });

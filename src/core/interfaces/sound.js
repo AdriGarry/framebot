@@ -7,6 +7,29 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js');
 
+module.exports = {
+	api: {
+		base: {
+			POST: [{ url: 'mute', flux: { id: 'interface|sound|mute' } }]
+		},
+		full: {
+			POST: [{ url: 'cigales', flux: { id: 'interface|sound|play', data: { mp3: 'system/cigales.mp3' } } }]
+		}
+	},
+	cron: {
+		full: [
+			{
+				cron: '0 30 8 * * *',
+				flux: { id: 'interface|sound|volume', data: 40 }
+			},
+			{
+				cron: '0 45 18 * * *',
+				flux: { id: 'interface|sound|volume', data: 60 }
+			}
+		]
+	}
+};
+
 Core.flux.interface.sound.subscribe({
 	next: flux => {
 		if (flux.id == 'mute') {
@@ -35,7 +58,7 @@ Core.flux.interface.sound.subscribe({
 });
 
 setImmediate(() => {
-	resetSound();
+	resetSound(); // TODO mettre dans le module.exports
 });
 
 const VOLUME_LEVELS = Array.from({ length: 11 }, (v, k) => k * 10); // 0 to 100, step: 10
