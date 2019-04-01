@@ -35,8 +35,7 @@ module.exports = {
 				flux: [
 					{ id: 'interface|tts|speak', data: { lg: 'en', msg: 'Reboot' } },
 					{ id: 'service|system|reboot', conf: { delay: 3 } }
-				],
-				log: 'Reboot'
+				]
 			}
 		]
 	}

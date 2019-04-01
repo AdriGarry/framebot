@@ -51,6 +51,7 @@ function scheduleJob(job) {
 	}
 
 	log.debug('new cron job: [' + job.cron + '] ' + jobLog);
+	if (job.log) log.info(job.log);
 }
 
 const EVAL_REGEX = new RegExp(/^eval:(\w+.\w+.\w+.)/);
