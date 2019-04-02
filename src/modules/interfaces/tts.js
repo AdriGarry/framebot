@@ -6,7 +6,7 @@ const { spawn, exec } = require('child_process');
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js'),
-	voices = require(Core._CORE + 'interfaces/tts/voices.js');
+	voices = require(Core._MODULES + 'interfaces/tts/voices.js');
 
 const VOICE_LIST = Object.keys(voices);
 const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];

@@ -17,8 +17,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
 	Utils = require(_PATH + 'src/core/Utils.js');
 
-const middleware = require(Core._CORE + 'controllers/server/middleware.js'),
-	api = require(Core._CORE + 'controllers/server/api.js');
+const middleware = require(Core._MODULES + 'controllers/server/middleware.js'),
+	api = require(Core._MODULES + 'controllers/server/api.js');
 
 const HTTP_SERVER_PORT = 3210,
 	HTTPS_SERVER_PORT = 4321,

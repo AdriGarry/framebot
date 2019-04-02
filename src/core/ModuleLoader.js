@@ -28,7 +28,7 @@ function loadModules(modules) {
 function _requireModules(moduleType, moduleArray) {
 	let modulesLoadedList = '';
 	for (let i = 0; i < moduleArray.length; i++) {
-		cronAndApi[moduleArray[i]] = require(Core._CORE + moduleType + '/' + moduleArray[i] + '.js');
+		cronAndApi[moduleArray[i]] = require(Core._MODULES + moduleType + '/' + moduleArray[i] + '.js');
 	}
 	modulesLoadedList += moduleArray.join(', ');
 	return modulesLoadedList;

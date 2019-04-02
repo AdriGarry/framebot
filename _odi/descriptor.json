@@ -5,6 +5,7 @@
 	"paths": {
 		"_SRC": "src/",
 		"_CORE": "src/core/",
+		"_MODULES": "src/modules/",
 		"_SHELL": "src/shell/",
 		"_WEB": "src/web/",
 		"_SECURITY": "security/",
