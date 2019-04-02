@@ -308,16 +308,7 @@ function attachAwakeRoutes(ui) {
 			Core.do('interface|sound|play', {
 				mp3: 'jukebox/HymneSovietique.mp3'
 			});
-			Core.do(
-				'interface|led|altLeds',
-				{
-					speed: 70,
-					loop: 20
-				},
-				{
-					log: 'trace'
-				}
-			);
+			Core.do('interface|led|altLeds', { speed: 70, loop: 20 }, { log: 'trace' });
 		} else {
 			Core.do('service|interaction|russia');
 		}
