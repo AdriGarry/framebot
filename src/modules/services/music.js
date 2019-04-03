@@ -14,7 +14,7 @@ module.exports = {
 		full: {
 			POST: [
 				{ url: 'fip', flux: { id: 'service|music|fip' } },
-				{ url: 'julebox', flux: { id: 'service|music|jukebox' } },
+				{ url: 'jukebox', flux: { id: 'service|music|jukebox' } },
 				{ url: 'naheulbeuk', flux: { id: 'service|music|story', data: 'Naheulbeuk' } },
 				{ url: 'survivaure', flux: { id: 'service|music|story', data: 'Survivaure' } }
 			]
