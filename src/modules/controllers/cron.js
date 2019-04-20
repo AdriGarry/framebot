@@ -44,10 +44,10 @@ function scheduleJob(job) {
 	);
 	if (Array.isArray(job.flux)) {
 		Object.keys(job.flux).forEach(key => {
-			jobLog += '_' + job.flux[key].id;
+			jobLog += job.flux[key].id + ' ';
 		});
 	} else {
-		jobLog += '_' + job.flux.id;
+		jobLog += job.flux.id + ' ';
 	}
 
 	log.debug('new cron job: [' + job.cron + '] ' + jobLog);
