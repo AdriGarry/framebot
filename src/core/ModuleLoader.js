@@ -47,7 +47,8 @@ function _organizeCronAndApi() {
 	Object.keys(cronAndApi).forEach(mod => {
 		if (cronAndApi[mod].cron) {
 			if (Array.isArray(cronAndApi[mod].cron.base)) cronList.push.apply(cronList, cronAndApi[mod].cron.base);
-			if (Array.isArray(cronAndApi[mod].cron.full)) cronList.push.apply(cronList, cronAndApi[mod].cron.full);
+			if (Array.isArray(cronAndApi[mod].cron.full) && Core.isAwake())
+				cronList.push.apply(cronList, cronAndApi[mod].cron.full);
 		}
 		if (cronAndApi[mod].api) {
 			if (cronAndApi[mod].api.base) {

@@ -25,7 +25,7 @@ function startJobs(jobList) {
 		jobList.forEach(job => {
 			scheduleJob(job);
 		});
-		log.info('Cron loaded [' + Utils.executionTime(Core.startTime) + 'ms]');
+		log.info(jobList.length + ' cron loaded [' + Utils.executionTime(Core.startTime) + 'ms]');
 	} else {
 		Core.error('Wrong jobList:', jobList);
 	}
