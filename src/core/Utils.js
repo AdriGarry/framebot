@@ -225,16 +225,13 @@ function execCmd(command, noLog) {
 function getAbsolutePath(path, prefix) {
 	if (typeof path !== 'string') {
 		log.error('Path must be a string: ' + typeof path, path);
-		// new CoreError(label, path);
 		return false;
 	}
 	if (path.indexOf('/home') === -1) {
 		path = prefix + path;
 	}
-
 	if (!fs.existsSync(path)) {
 		log.error('Wrong file path', path);
-		// new CoreError(label, path);
 		return false;
 	}
 	return path;
