@@ -38,11 +38,11 @@ function buttonHandler(flux) {
 			if (flux.value < 1) {
 				// Mute, do nothing
 			} else if (flux.value >= 1 && flux.value < 3) {
-				Core.do('service|system|restart');
+				Core.do('service|context|restart');
 			} else if (flux.value >= 3 && flux.value < 6) {
-				Core.do('service|system|restart', 'sleep');
+				Core.do('service|context|restart', 'sleep');
 			} else if (flux.value > 6) {
-				Core.do('service|system|restart', 'test');
+				Core.do('service|context|restart', 'test');
 			} else Core.error('Button->else', flux);
 		} else if (flux.id == 'white') {
 			Core.do('service|timer|increase', Math.round(flux.value));
@@ -59,7 +59,7 @@ function buttonHandler(flux) {
 		} else Core.error('Button->else', flux);
 	} else {
 		if (flux.id == 'ok') {
-			Core.do('service|system|restart');
+			Core.do('service|context|restart');
 		} else if (flux.id == 'white') {
 			Core.do('service|system|light', flux.value * 60);
 		}

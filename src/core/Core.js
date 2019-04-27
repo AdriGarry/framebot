@@ -97,7 +97,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		delay: 0.2,
 		log: 'debug'
 	});
-	Core.do('service|context|refresh', runtimeUpdate, {
+	Core.do('interface|hardware|runtime', runtimeUpdate, {
 		log: 'debug'
 	});
 	let fluxToFire = Core.conf('flux'); // TODO do this !
@@ -125,5 +125,6 @@ function error(message, data, stackTrace) {
 	if (!CoreError) {
 		CoreError = require(_PATH + 'src/core/CoreError.js');
 	}
+
 	new CoreError(message, data, stackTrace);
 }

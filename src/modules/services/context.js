@@ -10,6 +10,8 @@ module.exports = {
 		base: { POST: [{ url: 'reset', flux: { id: 'service|context|reset', conf: { delay: 1 } } }] },
 		full: {
 			POST: [
+				{ url: 'odi', flux: { id: 'service|context|restart', conf: { delay: 0.1 } } },
+				{ url: 'sleep', flux: { id: 'service|context|restart', data: 'sleep', conf: { delay: 0.1 } } },
 				{
 					url: 'testSequence',
 					flux: { id: 'service|context|updateRestart', data: { mode: 'test' }, conf: { delay: 1 } }
@@ -19,6 +21,15 @@ module.exports = {
 	},
 	cron: {
 		full: [
+			{ cron: '5 0 0 * * 1-5', flux: { id: 'service|context|goToSleep' } },
+			{ cron: '5 0 2 * * 0,6', flux: { id: 'service|context|goToSleep' } },
+			{
+				cron: '13 13 13 * * 1-6',
+				flux: [
+					{ id: 'interface|tts|speak', data: { lg: 'en', msg: 'Auto restart' } },
+					{ id: 'service|context|restart', conf: { delay: 3 } }
+				]
+			},
 			{
 				cron: '13 13 13 * * 0',
 				flux: [
@@ -32,7 +43,11 @@ module.exports = {
 
 Core.flux.service.context.subscribe({
 	next: flux => {
-		if (flux.id == 'update') {
+		if (flux.id == 'restart') {
+			restartCore(flux.value);
+		} else if (flux.id == 'goToSleep') {
+			goToSleep();
+		} else if (flux.id == 'update') {
 			updateConf(flux.value, false);
 		} else if (flux.id == 'updateRestart') {
 			updateConf(flux.value, true);
@@ -50,6 +65,29 @@ Core.flux.service.context.subscribe({
 setImmediate(() => {
 	refreshRuntime();
 });
+
+/** Function to restart/sleep Core */
+function restartCore(mode) {
+	log.info('restarting Core...', mode || '');
+	if (Core.run('timer')) {
+		let timerRemaining = 'Minuterie ' + Core.run('timer') + 'secondes';
+		Core.do('interface|tts|speak', timerRemaining);
+		log.INFO(timerRemaining);
+	}
+	Core.do('service|context|updateRestart', { mode: mode || 'ready' });
+}
+
+/** Function to random TTS good night, and sleep */
+function goToSleep() {
+	if (Core.isAwake()) {
+		let sleepTTS = Utils.randomItem(Core.ttsMessages.goToSleep);
+		Core.do('interface|tts|speak', sleepTTS);
+		log.info('AutoLifeCycle go to sleep !');
+		setTimeout(function() {
+			Core.do('service|context|restart', 'sleep');
+		}, sleepTTS.msg.length * 150);
+	}
+}
 
 /** Function to set/edit Core's config SYNC */
 function updateConf(newConf, restart) {

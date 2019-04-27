@@ -78,5 +78,5 @@ function waitForUpdateEnd(action) {
 
 function relaunch() {
 	log.INFO('>> relaunching...');
-	Core.do('service|system|restart', Core.conf('mode'));
+	Core.do('service|context|restart', Core.conf('mode'));
 }

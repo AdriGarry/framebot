@@ -96,7 +96,7 @@ function isAlarm() {
 			Core.run('alarm', true);
 			if (!Core.isAwake()) {
 				log.INFO('wake up !!');
-				Core.do('service|system|restart');
+				Core.do('service|context|restart');
 			} else {
 				setImmediate(() => {
 					cocorico();
