@@ -27,7 +27,15 @@ setImmediate(() => {
 	}
 });
 
-const PATHS = [Core._SRC, Core._DATA],
+const PATHS = [
+		_PATH,
+		Core._SRC,
+		Core._CORE,
+		Core._MODULES + '/controllers/',
+		Core._MODULES + '/interfaces/',
+		Core._MODULES + '/services/',
+		Core._DATA
+	],
 	SEC_TO_RESTART = 3;
 var watchers = [];
 
