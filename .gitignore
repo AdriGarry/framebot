@@ -67,3 +67,4 @@ admin.js
 #*.gif
 /node_modules/*
 .idea/*
+sftp.json
