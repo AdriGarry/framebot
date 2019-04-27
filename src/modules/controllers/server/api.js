@@ -137,6 +137,7 @@ function attachDefaultRoutes(ui) {
 		});
 	});
 
+	// '/file/:filename'
 	ui.get('/config.json', function(req, res) {
 		log.table(Core.conf(), 'CONFIG');
 		res.end(JSON.stringify(Core.conf()));
@@ -208,15 +209,6 @@ function attachDefaultRoutes(ui) {
 		Core.do('service|context|update', {
 			log: newLogLevel
 		});
-		res.end();
-	});
-
-	ui.post('/watcher', function(req, res) {
-		if (Core.conf('watcher')) {
-			Core.do('controller|watcher|stopWatch');
-		} else {
-			Core.do('controller|watcher|startWatch');
-		}
 		res.end();
 	});
 

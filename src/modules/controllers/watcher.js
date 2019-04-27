@@ -8,12 +8,20 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(_PATH + 'src/core/Utils.js');
 
+module.exports = {
+	api: {
+		base: { POST: [{ url: 'watcher', flux: { id: 'controller|watcher|toggle' } }] }
+	}
+};
+
 Core.flux.controller.watcher.subscribe({
 	next: flux => {
-		if (flux.id == 'startWatch') {
+		if (flux.id == 'start') {
 			startWatch();
-		} else if (flux.id == 'stopWatch') {
+		} else if (flux.id == 'stop') {
 			stopWatch();
+		} else if (flux.id == 'toggle') {
+			toggleWatch();
 		} else Core.error('unmapped flux in Watcher controller', flux, false);
 	},
 	error: err => {
@@ -23,7 +31,7 @@ Core.flux.controller.watcher.subscribe({
 
 setImmediate(() => {
 	if (Core.conf('watcher')) {
-		Core.do('controller|watcher|startWatch');
+		Core.do('controller|watcher|start');
 	}
 });
 
@@ -38,6 +46,11 @@ const PATHS = [
 	],
 	SEC_TO_RESTART = 3;
 var watchers = [];
+
+function toggleWatch() {
+	if (Core.conf('watcher')) stopWatch();
+	else startWatch();
+}
 
 function startWatch() {
 	log.info('starting watchers on', PATHS);
