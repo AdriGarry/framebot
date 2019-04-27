@@ -39,6 +39,7 @@ module.exports = class CoreError extends Error {
 		Core.do('interface|led|altLeds', { speed: 30, duration: 1.5 }, { log: 'trace' });
 		Core.do('interface|sound|error', null, { log: 'trace' });
 
+		// Deprecated
 		if (Core.isAwake() && Core.descriptor.modules.services.base.indexOf('sms') > -1) {
 			let smsMessage = this.time + '\n' + Core.Name + ' error: ' + this.message + '\n' + this.data;
 			if (this.displayStack) smsMessage += '\n' + this.stack;

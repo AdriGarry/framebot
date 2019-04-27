@@ -202,8 +202,8 @@ function getDiskSpace(callback) {
 			Core.run('stats.diskSpace', diskSpace[0]);
 
 			if (parseInt(diskSpace) >= 80) {
-				let logMessage = 'Warning: Disk space almost full : ' + Core.run('stats.diskSpace');
-				log.warn();
+				// log.warn('Warning: disk space almost full: ' + Core.run('stats.diskSpace') + '%');
+				let logMessage = 'Warning: disk space almost full: ' + Core.run('stats.diskSpace') + '%';
 				log.warn(logMessage);
 				Core.do('service|sms|send', logMessage);
 			}

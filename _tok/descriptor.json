@@ -5,6 +5,7 @@
 	"paths": {
 		"_SRC": "src/",
 		"_CORE": "src/core/",
+		"_MODULES": "src/modules/",
 		"_SHELL": "src/shell/",
 		"_WEB": "src/web/",
 		"_SECURITY": "security/",
@@ -26,7 +27,7 @@
 			"base": ["button", "cron", "server", "watcher"]
 		},
 		"services": {
-			"base": ["context", "buttonService", "system", "time", "alarm", "voicemail", "sms", "audioRecord"],
+			"base": ["context", "buttonService", "system", "time", "alarm", "voicemail", "audioRecord"],
 			"full": ["mood", "interaction", "weather", "timer", "music", "party", "video", "max", "maya"]
 		}
 	},
