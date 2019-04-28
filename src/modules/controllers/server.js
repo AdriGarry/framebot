@@ -84,7 +84,7 @@ function startHttpsServer(modulesApi) {
 	api.attachRoutes(uiHttps, modulesApi);
 
 	httpsServer = https.createServer(CREDENTIALS, uiHttps).listen(HTTPS_SERVER_PORT, () => {
-		log.info('UI https server started [' + Utils.executionTime(Core.startTime) + 'ms]');
+		log.info('API https server started [' + Utils.executionTime(Core.startTime) + 'ms]');
 		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 	});
 }

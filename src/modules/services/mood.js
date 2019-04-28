@@ -3,7 +3,7 @@
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(_PATH + 'src/core/Utils.js'),
+	Utils = require(Core._CORE + 'Utils.js'),
 	RandomBox = require('randombox').RandomBox;
 
 Core.flux.service.mood.subscribe({

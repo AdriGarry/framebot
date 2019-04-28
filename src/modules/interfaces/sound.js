@@ -99,7 +99,7 @@ function playSoundRandomPosition(arg) {
 	if (!sound) return;
 	Utils.getDuration(sound)
 		.then(data => {
-			arg.position = Utils.random(1, Math.floor((data / 100) * 60)); // Position up to 60% of sound duration
+			arg.position = Utils.random(1, Math.floor((data / 100) * 50)); // Position up to 50% of sound duration
 			playSound(arg);
 		})
 		.catch(err => {

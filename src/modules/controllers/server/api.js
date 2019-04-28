@@ -8,7 +8,7 @@ const fs = require('fs'),
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
-	Utils = require(_PATH + 'src/core/Utils.js'),
+	Utils = require(Core._CORE + 'Utils.js'),
 	admin = require(Core._SECURITY + 'admin.js').init(Core._SECURITY);
 
 const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';
