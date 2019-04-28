@@ -17,7 +17,10 @@ module.exports = {
 	codePosition: codePosition,
 	execCmd: execCmd,
 	executionTime: executionTime,
+
+	//network
 	testConnexion: testConnexion,
+	getPublicIp: getPublicIp,
 
 	//file
 	getJsonFileContent: getJsonFileContent,
@@ -154,7 +157,6 @@ function _writeFile(filePath, fileData, startTime, isCreation) {
 		.replace(/\"{/g, '{')
 		.replace(/\}"/g, '}');
 	fs.writeFile(filePath, jsonData, function() {
-		//{ mode: '666' } // { mode: parseInt('0777', 8) }
 		if (isCreation) {
 			log.debug('file ' + filePath + ' created in', executionTime(startTime) + 'ms');
 		} else {
@@ -191,6 +193,18 @@ function searchStringInArray(string, stringArray) {
 	return false;
 }
 
+function getPublicIp() {
+	return new Promise((resolve, reject) => {
+		execCmd('curl icanhazip.com')
+			.then(data => {
+				resolve(data);
+			})
+			.catch(err => {
+				log.warn("Can't retreive public IP " + err);
+				reject(err);
+			});
+	});
+}
 /** Function to test internet connexion */
 function testConnexion(callback) {
 	//console.log('testConnexion()...');

@@ -235,6 +235,9 @@ function attachDefaultRoutes(ui) {
 		if (pattern && admin.checkPassword(pattern)) {
 			granted = true;
 			log.info('>> Admin granted !');
+			Utils.getPublicIp().then(data => {
+				log.info('public ip: ' + data);
+			});
 		} else {
 			Core.error('>> User NOT granted /!\\', pattern, false);
 			Core.do(
