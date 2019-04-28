@@ -128,34 +128,13 @@ app.component('options', {
 		var tileParams = {
 			label: 'Options',
 			actionList: [
-				{ label: '!Trace', icon: 'fas fa-asterisk', url: '/toggleTrace' },
-				{ label: '!Debug', icon: 'fas fa-terminal', url: '/toggleDebug' },
+				{ label: '!Trace', icon: 'far fa-dot-circle', url: '/toggleTrace' },
+				{ label: '!Debug', icon: 'fas fa-circle', url: '/toggleDebug' },
 				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' },
 				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
-	}
-});
-
-/** Volume component -DEPRECATED- */
-app.component('volume', {
-	bindings: {
-		data: '<',
-		access: '<'
-	},
-	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
-			label: 'Volume',
-			actionList: [{ label: 'Mute', url: '/mute' }]
-		};
-		ctrl.tile = new DefaultTile(tileParams);
-		ctrl.hasAccess = function() {
-			console.log('hasAccess()', ctrl.access);
-			return ctrl.access;
-		};
 	}
 });
 
@@ -173,7 +152,7 @@ app.component('runtime', {
 			actionList: [
 				{ label: 'Errors', icon: 'fab fa-sith', url: 'https://odi.adrigarry.com/errors' },
 				{ label: 'Config', icon: 'fab fa-whmcs', url: 'https://odi.adrigarry.com/config.json' },
-				{ label: 'Runtime', icon: 'fab fa-react', url: 'https://odi.adrigarry.com/runtime' }
+				{ label: 'Runtime', icon: 'fab fa-buffer', url: 'https://odi.adrigarry.com/runtime' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

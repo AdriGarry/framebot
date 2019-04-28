@@ -78,23 +78,19 @@
 		</div>
 	</div>
 
-	<div class="tileContent" data-ng-switch-when="Volume">
-		<div data-ng-switch="$ctrl.data.value" class="main">
-			<i data-ng-switch-when="mute" class="fas fa-volume-off"></i>
-			<i data-ng-switch-when="400" class="fas fa-volume-up"></i>
-			<i data-ng-switch-default class="fas fa-volume-down"></i>
+	<div class="tileContent" data-ng-switch-when="Options">
+		<div class="main">
+				<i class="far fa-dot-circle" data-ng-show="$ctrl.data.trace.value"></i>
+				<i class="fas fa-circle" data-ng-show="$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
+				<i class="fas fa-eye" data-ng-show="$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
+				<i class="fas fa-cogs" data-ng-show="!$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Runtime">
 		<div class="main">
-			<i class="fab fa-react"></i>
+			<i class="fab fa-buffer"></i>
 			<span data-ng-show="$ctrl.data.length">{{$ctrl.data.length}}</span>
-			<!-- <span data-ng-show="$ctrl.data.length">
-				<small>{{$ctrl.data.length}}
-					<i class="fas fa-exclamation-triangle" style="font-size:1em;"></i>
-				</small>
-			</span> -->
 		</div>
 	</div>
 
@@ -102,9 +98,7 @@
 		<div class="main ">
 			<i class="far fa-bell" data-ng-if="$ctrl.getTodayAlarm()"></i>
 			<i class="far fa-bell-slash" data-ng-if="!$ctrl.getTodayAlarm()"></i>
-			<span data-ng-show="$ctrl.data.value && $ctrl.getTodayAlarm()">{{$ctrl.getTodayAlarm().h}}:{{$ctrl.getTodayAlarm().m
-				|
-				formatNumber:2}}
+			<span data-ng-show="$ctrl.data.value && $ctrl.getTodayAlarm()">{{$ctrl.getTodayAlarm().h}}:{{$ctrl.getTodayAlarm().m | formatNumber:2}}
 			</span>
 		</div>
 	</div>
@@ -206,7 +200,7 @@
 
 	<div class="tileContent" data-ng-switch-when="Maya">
 		<div class="main">
-			<i class="fas fa-child"></i>
+			<i class="fas fa-baby"></i>
 		</div>
 	</div>
 
@@ -255,12 +249,6 @@
 	<div class="tileContent" data-ng-switch-when="Arduino">
 		<div class="main">
 			<i class="fab fa-usb"></i>
-		</div>
-	</div>
-
-	<div class="tileContent" data-ng-switch-when="Options">
-		<div class="main">
-			<i class="fas fa-cubes"></i>
 		</div>
 	</div>
 
