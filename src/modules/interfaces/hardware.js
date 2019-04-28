@@ -2,7 +2,7 @@
 
 'use strict';
 
-const { exec } = require('child_process');
+const { exec, spawn } = require('child_process');
 const fs = require('fs'),
 	os = require('os'),
 	Gpio = require('onoff').Gpio;
