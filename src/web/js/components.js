@@ -522,6 +522,7 @@ app.component('maya', {
 			actionList: [
 				{ label: 'Bonne nuit', icon: 'fas fa-moon', url: '/maya/goodNight' },
 				{ label: 'Le petit ver', icon: 'fas fa-music', url: '/maya/lePetitVer' },
+				{ label: 'Songs', icon: 'fas fa-music', url: '/maya/songs' },
 				{ label: 'Comptines', icon: 'fas fa-music', url: '/maya/comptine' }
 			]
 		};

@@ -44,6 +44,11 @@ Core.flux.service.music.subscribe({
 	}
 });
 
+var jukeboxTimeout, jukeboxRandomBox;
+fs.readdir(Core._MP3 + 'jukebox', (err, files) => {
+	jukeboxRandomBox = new RandomBox(files);
+});
+
 /** Function jukebox (repeat for one hour) */
 function jukebox() {
 	Core.do('interface|sound|mute', null, { log: 'trace' });
@@ -52,11 +57,6 @@ function jukebox() {
 	repeatSong();
 	Core.do('interface|sound|mute', { message: 'Auto mute jukebox !', delay: 60 * 60 });
 }
-
-var jukeboxTimeout, jukeboxRandomBox;
-fs.readdir(Core._MP3 + 'jukebox', (err, files) => {
-	jukeboxRandomBox = new RandomBox(files);
-});
 
 function repeatSong() {
 	log.info('next song...');
