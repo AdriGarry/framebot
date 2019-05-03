@@ -59,9 +59,8 @@ fs.readdir(Core._MP3 + 'jukebox', (err, files) => {
 });
 
 function repeatSong() {
-	log.info('next song...');
 	let song = jukeboxRandomBox.next();
-	let ttime = new Date();
+	log.info('Jukebox next song:', song);
 	Utils.getDuration(Core._MP3 + 'jukebox/' + song)
 		.then(data => {
 			Core.do('interface|sound|play', { mp3: 'jukebox/' + song, duration: data });
