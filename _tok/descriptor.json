@@ -18,6 +18,9 @@
 		"_LOG": "log/",
 		"_TMP": "tmp/"
 	},
+	"url": {
+		"ODI": "https://odi.adrigarry.com/"
+	},
 	"modules": {
 		"interfaces": {
 			"base": ["led", "sound", "hardware", "arduino", "hdmi"],
