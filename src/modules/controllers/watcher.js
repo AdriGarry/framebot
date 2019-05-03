@@ -42,6 +42,7 @@ const PATHS = [
 		Core._MODULES + 'controllers/',
 		Core._MODULES + 'interfaces/',
 		Core._MODULES + 'services/',
+		Core._SRC + 'test/',
 		Core._DATA
 	],
 	SEC_TO_RESTART = 3;
