@@ -13,8 +13,17 @@ module.exports.runTest = function(succeedTest) {
 	return new Promise((resolve, reject) => {
 		Core.do('service|max|blinkAllLed', null, { delay: 2, loop: 3 });
 
-		Core.do('service|time|today');
-		Core.do('service|weather|random');
+		Utils.delay(2)
+			.then(() => Utils.postOdi(Core.url.ODI + 'time'))
+			.then(() => Utils.postOdi(Core.url.ODI + 'date'))
+			.then(() => {
+				log.INFO('All test successfully sent !');
+			})
+			.catch(err => {
+				Core.error('Fail while postOdi all service test request', err);
+				reject(err);
+			});
+
 		Core.do('service|weather|astronomy', null, { delay: 3 });
 
 		assert.equal(Core.run('timer'), 0);
