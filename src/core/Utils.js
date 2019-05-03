@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
-const { exec } = require('child_process');
-const fs = require('fs');
+const { exec } = require('child_process'),
+	fs = require('fs'),
+	request = require('request');
 
 // Utils static factory (shoud not require Core.js || Flux.js)
 const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
@@ -13,14 +14,16 @@ module.exports = {
 	searchStringInArray: searchStringInArray,
 
 	//custom/execution/all
+	delay: delay,
 	logTime: logTime,
+	executionTime: executionTime,
 	codePosition: codePosition,
 	execCmd: execCmd,
-	executionTime: executionTime,
 
 	//network
 	testConnexion: testConnexion,
 	getPublicIp: getPublicIp,
+	postOdi: postOdi,
 
 	//file
 	getJsonFileContent: getJsonFileContent,
@@ -205,6 +208,27 @@ function getPublicIp() {
 			});
 	});
 }
+
+function postOdi(url, data) {
+	return new Promise((resolve, reject) => {
+		request.post(
+			{
+				url: url,
+				headers: {
+					'Content-Type': 'application/json',
+					'User-Interface': 'UIv5'
+				},
+				json: true,
+				data: data
+			},
+			(err, httpResponse, body) => {
+				if (err) reject(err);
+				resolve(body);
+			}
+		);
+	});
+}
+
 /** Function to test internet connexion */
 function testConnexion(callback) {
 	//console.log('testConnexion()...');
@@ -343,6 +367,14 @@ function randomItem(array) {
 	let length = array.length;
 	let randomIndex = random(length); //length - 1
 	return array[randomIndex];
+}
+
+function delay(sec) {
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve();
+		}, sec * 1000);
+	});
 }
 
 /** Function to return date time. Pattern: 'YDT' */
