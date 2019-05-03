@@ -28,7 +28,7 @@ module.exports.runTest = function(succeedTest) {
 		Core.do('interface|sound|volume', 60);
 		Core.do('interface|sound|volume', 40, { delay: 4 });
 
-		Core.do('interface|hardware|cpuTTS', null, { delay: 0.1 });
+		Core.do('interface|hardware|cpuTTS', null, { delay: 1 });
 
 		setTimeout(() => {
 			assert.equal(Core.errors.length, 0);
@@ -37,6 +37,6 @@ module.exports.runTest = function(succeedTest) {
 				if (Core.errors.length > 0) reject('interfaceTest');
 				resolve('interfaceTest');
 			}, 5000);
-		}, 40 * 1000);
+		}, 50 * 1000);
 	});
 };
