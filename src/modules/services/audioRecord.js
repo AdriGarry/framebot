@@ -65,7 +65,7 @@ var lastRecordPath = null,
 function addRecord(path) {
 	log.debug('addRecord', path);
 	Core.do('interface|tts|speak', RECORD_TTS, { log: 'trace' });
-	Utils.execCmd('lame --scale 2 ' + path + ' ' + path + 'UP')
+	Utils.execCmd('lame --scale 3 ' + path + ' ' + path + 'UP')
 		.then(data => {
 			//TODO -V3 to encode as mp3
 			fs.rename(path + 'UP', path, () => {

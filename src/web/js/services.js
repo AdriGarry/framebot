@@ -179,7 +179,7 @@ app.service('UIService', [
 
 		navigator.geolocation.watchPosition(
 			function(position) {
-				console.log('Geolocation acquired', position);
+				// console.log('Geolocation acquired', position);
 				$rootScope.position = JSON.stringify({
 					latitude: position.coords.latitude,
 					longitude: position.coords.longitude
@@ -236,8 +236,8 @@ app.service('audioService', [
 					callback(true);
 				})
 				.catch(err => {
-					console.error('getUserMedia error: ' + err);
-					UIService.showErrorToast('getUserMedia error: ' + err);
+					console.error('getUserMedia: ' + err);
+					UIService.showErrorToast('getUserMedia: ' + err);
 					callback(false);
 				});
 		};
@@ -283,7 +283,6 @@ app.service('audioService', [
 			$http({
 				headers: {
 					'User-Interface': 'UIv5',
-					pwd: 'nn',
 					'User-position': 'noPos',
 					'Content-Type': undefined
 				},
