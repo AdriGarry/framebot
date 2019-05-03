@@ -55,6 +55,6 @@ module.exports.runTest = function(succeedTest) {
 			assert.equal(Core.errors.length, 0);
 			if (Core.errors.length > 0) reject('serviceTest');
 			resolve('serviceTest');
-		}, 45 * 1000);
+		}, 50 * 1000);
 	});
 };
