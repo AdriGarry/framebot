@@ -27,6 +27,7 @@ function _setUpCoreObject(Core, descriptor, startTime) {
 		// Setting _PATHS
 		Core[path] = _PATH + descriptor.paths[path];
 	}
+	Core.url = descriptor.url;
 	Core._CONF = _PATH + '_' + descriptor.name.toLowerCase() + '/';
 	Core.conf = new Lock(require(Core._TMP + 'conf.json'), Core._TMP + 'conf.json');
 	Core.run = new Lock(CORE_DEFAULT.runtime);
