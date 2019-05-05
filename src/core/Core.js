@@ -23,9 +23,9 @@ function _setUpCoreObject(Core, descriptor, startTime) {
 	Core.Name = descriptor.name;
 	Core.name = descriptor.name.toLowerCase();
 	Core.startTime = startTime;
-	for (let path in descriptor.paths) {
+	for (let path in CORE_DEFAULT.paths) {
 		// Setting _PATHS
-		Core[path] = _PATH + descriptor.paths[path];
+		Core[path] = _PATH + CORE_DEFAULT.paths[path];
 	}
 	Core.url = descriptor.url;
 	Core._CONF = _PATH + '_' + descriptor.name.toLowerCase() + '/';

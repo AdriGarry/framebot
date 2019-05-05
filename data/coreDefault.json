@@ -1,4 +1,20 @@
 {
+	"paths": {
+		"_SRC": "src/",
+		"_CORE": "src/core/",
+		"_MODULES": "src/modules/",
+		"_SHELL": "src/shell/",
+		"_WEB": "src/web/",
+		"_SECURITY": "security/",
+		"_DATA": "data/",
+		"_CONF": null,
+		"_UPLOAD": "upload/",
+		"_MP3": "media/mp3/",
+		"_VIDEO": "media/video/",
+		"_PHOTO": "media/photo/",
+		"_LOG": "log/",
+		"_TMP": "tmp/"
+	},
 	"conf": {
 		"mode": "ready",
 		"log": "info",
