@@ -69,15 +69,7 @@ function setAlarm(alarm) {
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
 	let alarmTTS = 'Alarme ' + alarmMode + ' ' + alarm.h + ' heure ' + (alarm.m ? alarm.m : '');
 	Core.do('interface|tts|speak', alarmTTS);
-	Core.do(
-		'service|context|updateRestart',
-		{
-			alarms: newAlarms
-		},
-		{
-			delay: 6
-		}
-	);
+	Core.do('service|context|updateRestart', { alarms: newAlarms }, { delay: 3 });
 }
 
 /** Function to test if alarm now */
