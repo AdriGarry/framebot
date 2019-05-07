@@ -246,7 +246,7 @@ function testConnexion(callback) {
 /** Function to execute a shell command. Return a Promise */
 function execCmd(command, noLog) {
 	return new Promise((resolve, reject) => {
-		exec(command, (err, stdout, stderr) => {
+		exec(command, { shell: true }, (err, stdout, stderr) => {
 			if (err && !noLog) {
 				log.error('execCmd', err, stderr);
 				reject(err);
@@ -294,10 +294,12 @@ function getSoundOrVideoDuration(soundFile, callback) {
 				} catch (err) {
 					// Don't log error because the method will call itself until OK !
 					// console.error('getDuration error:', err);
+					reject(err);
 				}
 			})
 			.catch(err => {
 				log.error('getDuration error', err);
+				reject(err);
 			});
 	});
 }
