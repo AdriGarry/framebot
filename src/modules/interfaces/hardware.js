@@ -47,13 +47,7 @@ Core.flux.interface.hardware.subscribe({
 		} else if (flux.id == 'light') {
 			light(flux.value);
 		} else if (flux.id == 'runtime') {
-			let execTime = new Date();
-			retreiveCpuTemp();
-			retreiveCpuUsage();
-			retreiveMemoryUsage();
-			loadAverage();
-			// TODO Promise.all()
-			log.trace('runtime exec time:', Utils.executionTime(execTime) + 'ms');
+			runtime(flux.value);
 		} else if (flux.id == 'cpuTTS') {
 			cpuStatsTTS();
 		} else if (flux.id == 'soulTTS') {
@@ -121,6 +115,18 @@ function light(duration) {
 	Core.do('interface|led|blink', { leds: LIGTH_LEDS, speed: 200, loop: 8 }, { delay: duration - 2 });
 
 	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: duration });
+}
+
+function runtime(data) {
+	let execTime = new Date();
+	retreiveCpuTemp();
+	retreiveCpuUsage();
+	retreiveMemoryUsage();
+	loadAverage();
+	// TODO Promise.all()
+	log.trace('runtime exec time:', Utils.executionTime(execTime) + 'ms');
+	// if(data.log){
+	// }
 }
 
 /** Function to tts cpu stats */
