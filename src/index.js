@@ -39,3 +39,18 @@ setTimeout(function() {
 		require(Core._SRC + 'test/tests.js').launch();
 	}
 }, 1000);
+
+let fs = require('fs');
+let folder = Core._MP3 + 'jukebox/';
+setTimeout(() => {
+	log.info('folder:', folder);
+	fs.readdirSync(folder).forEach(function(file, index) {
+		Utils.getDuration(folder + file)
+			.then(data => {
+				log.info('getDuration', file, '=>', data);
+			})
+			.catch(err => {
+				Core.error('..........error', err);
+			});
+	});
+}, 1000);
