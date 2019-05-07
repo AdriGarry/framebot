@@ -246,16 +246,16 @@ function testConnexion(callback) {
 /** Function to execute a shell command. Return a Promise */
 function execCmd(command, noLog) {
 	return new Promise((resolve, reject) => {
-		exec(command, { shell: true }, (err, stdout, stderr) => {
-			if (err && !noLog) {
-				log.error('execCmd', err, stderr);
+		exec(command, (err, stdout, stderr) => {
+			if (err) {
+				if (!noLog) log.error('execCmd', err, stderr);
+				// if (err && !noLog) {
+				// 	log.error('execCmd', err, stderr);
+				// log.info(noLog, command, '\nERR:');
 				reject(err);
 			} else {
 				resolve(stdout);
 			}
-			// // console.log('execCmd(' + command + ')\n', stdout);
-			// // if (stderr) callback(stderr);
-			// if (callback) callback(stdout);
 		});
 	});
 }
@@ -265,9 +265,7 @@ function getAbsolutePath(path, prefix) {
 		log.error('Path must be a string: ' + typeof path, path);
 		return false;
 	}
-	if (path.indexOf('/home') === -1) {
-		path = prefix + path;
-	}
+	if (path.indexOf('/home') === -1) path = prefix + path;
 	if (!fs.existsSync(path)) {
 		log.error('Wrong file path', path);
 		return false;
@@ -298,7 +296,7 @@ function getSoundOrVideoDuration(soundFile, callback) {
 				}
 			})
 			.catch(err => {
-				log.error('getDuration error', err);
+				// log.error('getDuration error', err);
 				reject(err);
 			});
 	});
