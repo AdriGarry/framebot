@@ -52,10 +52,10 @@ function attachDefaultRoutes(ui) {
 	/** DASHBOARD SECTION */
 	ui.get('/dashboard', function(req, res) {
 		Core.do('interface|hardware|runtime');
-		var etatBtn = Core.run('etat');
-		var cpuTemp = Core.run('cpu.temp');
-		var cpuUsage = Core.run('cpu.usage');
-		var dashboard = {
+		let etatBtn = Core.run('etat');
+		let cpuTemp = Core.run('cpu.temp');
+		let cpuUsage = Core.run('cpu.usage');
+		let dashboard = {
 			config: Core.conf(),
 			errors: Core.errors,
 			mode: {
@@ -132,9 +132,9 @@ function attachDefaultRoutes(ui) {
 		if (params.hasOwnProperty('logSize') && !isNaN(params.logSize)) {
 			logSize = parseInt(params.logSize);
 		}
-		prepareLogs(logSize, function(log) {
-			res.end(log);
-		});
+		prepareLogs(logSize)
+			.then(logs => res.end(logs))
+			.catch(err => Core.error("Can't retrieve logs", err));
 	});
 
 	// '/file/:filename'
@@ -357,13 +357,16 @@ function attachSleepRoutes(ui) {
 	return ui;
 }
 
-function prepareLogs(lines, callback) {
-	var content = fs
-		.readFileSync(Core._LOG + Core.name + '.log', 'UTF-8')
-		.toString()
-		.split('\n');
-	content = content.slice(-lines); //-120
-	content = content.join('\n');
-	callback(content);
-	return content;
+function prepareLogs(lines) {
+	return new Promise((resolve, reject) => {
+		fs.readFile(Core._LOG + Core.name + '.log', 'UTF-8', (err, logs) => {
+			if (err) reject(err);
+			logs
+				.toString()
+				.split('\n')
+				.slice(-lines) //-120
+				.join('\n');
+			resolve(logs);
+		});
+	});
 }
