@@ -212,7 +212,6 @@ app.service('audioService', [
 		ctrl.recorderAvailable = false;
 
 		//webkitURL is deprecated but nevertheless
-		URL = window.URL || window.webkitURL;
 		var gumStream; //stream from getUserMedia()
 		var rec; //Recorder.js object
 		var input; //MediaStreamAudioSourceNode we'll be recording
@@ -248,9 +247,13 @@ app.service('audioService', [
 				gumStream.getAudioTracks()[0].stop(); //stop microphone access
 				ctrl.recording = false;
 				rec.exportWAV(blob => {
-					var formData = new FormData();
-					formData.append('audioRecord', blob);
-					upload(formData);
+					if (blob.size <= 44) {
+						UIService.showErrorToast('Audio record error, reload app...');
+					} else {
+						let formData = new FormData();
+						formData.append('audioRecord', blob);
+						upload(formData);
+					}
 					callback(false);
 				});
 			}
