@@ -107,6 +107,7 @@ app.component('mode', {
 			actionList: [
 				{ label: 'Reset', icon: 'fas fa-retweet', url: '/reset' },
 				{ label: 'Test', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
+				{ label: 'Sleep forever', icon: 'fas fa-moon', url: '/sleep/forever' },
 				{ label: 'Sleep', icon: 'far fa-moon', url: '/sleep' },
 				{ label: 'Restart', icon: 'fas fa-bolt', url: '/odi' }
 			]
@@ -150,7 +151,7 @@ app.component('runtime', {
 		var tileParams = {
 			label: 'Runtime',
 			actionList: [
-				{ label: 'Errors', icon: 'fab fa-sith', url: 'https://odi.adrigarry.com/errors' },
+				// { label: 'Errors', icon: 'fab fa-sith', url: 'https://odi.adrigarry.com/errors' },
 				{ label: 'Config', icon: 'fab fa-whmcs', url: 'https://odi.adrigarry.com/config.json' },
 				{ label: 'Runtime', icon: 'fab fa-buffer', url: 'https://odi.adrigarry.com/runtime' }
 			]
@@ -172,6 +173,7 @@ app.component('alarms', {
 		var tileParams = {
 			label: 'Alarms',
 			actionList: [
+				{ label: 'Sleep forever', icon: 'fas fa-moon', url: '/sleep/forever' },
 				{ label: 'Disable all', icon: 'fas fa-ban', url: '/alarmOff' },
 				{ label: 'weekDay', icon: 'far fa-frown', url: '/alarm' },
 				{ label: 'weekEnd', icon: 'far fa-smile', url: '/alarm' }

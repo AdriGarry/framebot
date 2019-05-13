@@ -13,6 +13,14 @@ module.exports = {
 				{ url: 'odi', flux: { id: 'service|context|restart', conf: { delay: 0.1 } } },
 				{ url: 'sleep', flux: { id: 'service|context|restart', data: 'sleep', conf: { delay: 0.1 } } },
 				{
+					url: 'sleep/forever',
+					flux: {
+						id: 'service|context|updateRestart',
+						data: { mode: 'sleep', alarms: { weekDay: null, weekEnd: null } },
+						conf: { delay: 0.1 }
+					}
+				},
+				{
 					url: 'testSequence',
 					flux: { id: 'service|context|updateRestart', data: { mode: 'test' }, conf: { delay: 1 } }
 				}
