@@ -209,11 +209,11 @@ app.component('alarms', {
 		};
 
 		var specificActions = function(button) {
-			if (button.url == '/alarmOff') {
-				UIService.sendCommand(button);
-			} else {
+			if (button.url == '/alarm') {
 				ctrl.newAlarm = button;
 				showTimePicker();
+			} else {
+				UIService.sendCommand(button);
 			}
 		};
 
