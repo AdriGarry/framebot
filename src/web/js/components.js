@@ -105,10 +105,9 @@ app.component('mode', {
 		var tileParams = {
 			label: 'Mode',
 			actionList: [
-				{ label: 'Reset', icon: 'fas fa-retweet', url: '/reset' },
-				{ label: 'Test', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
 				{ label: 'Sleep forever', icon: 'fas fa-moon', url: '/sleep/forever' },
 				{ label: 'Sleep', icon: 'far fa-moon', url: '/sleep' },
+				{ label: 'Reset', icon: 'fas fa-retweet', url: '/reset' },
 				{ label: 'Restart', icon: 'fas fa-bolt', url: '/odi' }
 			]
 		};
@@ -132,6 +131,7 @@ app.component('options', {
 				{ label: '!Trace', icon: 'far fa-dot-circle', url: '/toggleTrace' },
 				{ label: '!Debug', icon: 'fas fa-circle', url: '/toggleDebug' },
 				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' },
+				{ label: 'Test', icon: 'fab fa-nintendo-switch', url: '/testSequence' },
 				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' }
 			]
 		};
@@ -173,7 +173,6 @@ app.component('alarms', {
 		var tileParams = {
 			label: 'Alarms',
 			actionList: [
-				{ label: 'Sleep forever', icon: 'fas fa-moon', url: '/sleep/forever' },
 				{ label: 'Disable all', icon: 'fas fa-ban', url: '/alarmOff' },
 				{ label: 'weekDay', icon: 'far fa-frown', url: '/alarm' },
 				{ label: 'weekEnd', icon: 'far fa-smile', url: '/alarm' }
