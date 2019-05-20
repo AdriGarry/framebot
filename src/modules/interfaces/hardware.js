@@ -133,14 +133,14 @@ function runtime(data) {
 function cpuStatsTTS() {
 	Core.do('interface|tts|speak', {
 		lg: 'fr',
-		msg: 'Mon  ' + (Utils.rdm() ? 'processeur' : 'CPU') + ' est a ' + retreiveCpuTemp() + '  degrai...'
+		msg:
+			'Mon  ' + Utils.randomItem(['processeur', 'CPU', 'calculateur']) + ' est a ' + retreiveCpuTemp() + '  degrai...'
 	});
 	Core.do('interface|tts|speak', {
 		lg: 'fr',
 		msg: Utils.rdm()
-			? 'Et il tourne a ' + retreiveCpuUsage() + ' pour cent'
-			: 'Pour ' + retreiveCpuUsage() + " pour cent d'utilisation"
-		// 'pour 34 pour cent d\'utilisation'
+			? 'Et il tourne a ' + retreiveCpuUsage() + ' pour cent' + (Utils.rdm() ? '' : 'de sa capacitai')
+			: 'Pour ' + retreiveCpuUsage() + ' pour cent ' + (Utils.rdm() ? 'de raiflexion' : "d'utilisation")
 	});
 }
 
