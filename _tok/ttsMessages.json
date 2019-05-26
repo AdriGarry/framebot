@@ -1,15 +1,16 @@
 {
 	"random": [
 		"Coucou Pirouette",
-		"Et et, moi, je suis tonton !",
+		"Moi, je suis une entiter, mais je nai pas dame",
+		"Moi, je suis une entiter, mais je nai pas dame",
 		"Je suis dubitatif !",
 		"Mon intaigriter est compromise",
 		"Tout est sous controle !",
-		"Et ho, je suis la !",
 		"Rien de nouveau sous le soleil !",
 		"Eh dis donc toi !",
 		"Eh toi, tu crois que je ne t'ai pas vu ?",
 		"Il pleut dehors",
+		"Trop de log tuent les logs !",
 		"Et, faudrait pas lancer une lessive ?",
 		"Hey, tu te fous de moi ou quoi ?",
 		"Si tu me cherches, tu vas me trouver !",
@@ -17,6 +18,7 @@
 		"Oulala, j'ai vu passer une bestiol!",
 		"Salut mon loulou !",
 		"C'est assez dit la baleine !",
+		"Un écrivain qui se livre, c'est un peu comme un canard qui se confie",
 		"Salut, je suis tonton Odi",
 		"ron ron bien qui ronronnera le dernier !",
 		"Vas voir la bas si j'y suis !",
@@ -155,8 +157,7 @@
 		"sensor": [
 			"Oh, il se passe un truc vers chez Max!",
 			"Oh Oh, sa va Max?",
-			"Bip Bip!",
-			"Bip Bip!",
+			"Hey, Max!",
 			"Oh, Max!",
 			{ "lg": "en", "msg": "Max sensor" },
 			{ "lg": "en", "msg": "Oh, Max!" }
