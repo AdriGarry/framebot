@@ -73,7 +73,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	if (Core.isAwake()) {
 		spawn('mplayer', ['-volume', 50, Core._MP3 + 'system/startup.mp3']);
 	}
-	log.info('initialization...');
+	log.info('Context initializing...');
 
 	if (Core.conf('log') != 'info') log.level(Core.conf('log'));
 
