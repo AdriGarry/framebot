@@ -15,7 +15,7 @@ Core.gpio.leds.forEach(led => {
 
 module.exports = {
 	cron: {
-		full: [
+		base: [
 			{
 				cron: '*/3 * * * * *',
 				flux: { id: 'interface|led|blink', data: { leds: ['nose'], speed: 200, loop: 1 }, conf: { log: 'trace' } },
@@ -55,8 +55,6 @@ function activitySignal() {
 		Led.nose.writeSync(mode);
 	}, 900);
 }
-
-// blink({leds:['belly', 'satellite'],loop:5, speed:70});
 
 /** Fonction to blink leds
  * @param config : {
