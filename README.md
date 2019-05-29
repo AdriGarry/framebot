@@ -33,8 +33,8 @@ Available modes: ready, sleep, test
 ### Input
 
 - Buttons (GPIO)
-- Cron (internal)
-- User interface (web)
+- Cron
+- User interface / web API
 
 ### Output
 
