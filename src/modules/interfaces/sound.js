@@ -66,7 +66,7 @@ var mplayerInstances = {},
 	muteTimer;
 
 function playSound(arg) {
-	log.debug(arg);
+	log.debug('playSound(arg)', arg);
 	let soundTitle, sound;
 	if (arg.mp3) {
 		try {
