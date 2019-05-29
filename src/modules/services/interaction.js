@@ -57,46 +57,16 @@ Core.flux.service.interaction.subscribe({
 setImmediate(() => {});
 
 const RANDOM_ACTIONS = [
-	{
-		id: 'interface|tts|speak',
-		weight: 7
-	},
-	{
-		id: 'service|interaction|exclamation',
-		weight: 4
-	},
-	{
-		id: 'service|time|now',
-		weight: 1
-	},
-	{
-		id: 'service|time|today',
-		weight: 1
-	},
-	{
-		id: 'service|weather|random',
-		weight: 3
-	},
-	{
-		id: 'service|weather|astronomy',
-		weight: 3
-	},
-	{
-		id: 'interface|hardware|cpuTTS',
-		weight: 1
-	},
-	{
-		id: 'service|time|age',
-		weight: 1
-	},
-	{
-		id: 'service|max|playOneMelody',
-		weight: 5
-	},
-	{
-		id: 'service|max|hornRdm',
-		weight: 5
-	}
+	{ id: 'interface|tts|speak', weight: 7 },
+	{ id: 'service|interaction|exclamation', weight: 4 },
+	{ id: 'service|time|now', weight: 1 },
+	{ id: 'service|time|today', weight: 1 },
+	{ id: 'service|weather|random', weight: 3 },
+	{ id: 'service|weather|astronomy', weight: 3 },
+	{ id: 'interface|hardware|cpuTTS', weight: 1 },
+	{ id: 'service|time|age', weight: 1 },
+	{ id: 'service|max|playOneMelody', weight: 5 },
+	{ id: 'service|max|hornRdm', weight: 5 }
 ];
 
 /** Building randomActionList from RANDOM_ACTIONS */
@@ -152,18 +122,7 @@ function exclamation() {
 
 function russia() {
 	log.info('Russia !');
-	Core.do(
-		'interface|led|blink',
-		{
-			leds: ['eye'],
-			speed: Utils.random(40, 100),
-			loop: 6
-		},
-		{
-			log: 'trace'
-		}
-	);
-	// spawn('sh', [Core._SHELL + 'exclamation_russia.sh']);
+	Core.do('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { log: 'trace' });
 	let russiaExclamation = russiaExclamationRandomBox.next();
 	Core.do('interface|sound|play', {
 		mp3: 'exclamation_russia/' + russiaExclamation

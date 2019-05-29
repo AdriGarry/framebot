@@ -69,14 +69,14 @@ function blink(config) {
 			loop;
 		if (config.hasOwnProperty('leds')) {
 			setTimeout(function() {
-				for (var led in config.leds) {
+				for (let led in config.leds) {
 					Led[config.leds[led]].writeSync(0);
 				}
 			}, config.speed * config.loop * 2 + 50);
 			for (loop = config.loop * 2; loop > 0; loop--) {
 				setTimeout(
 					function(leds) {
-						for (var i in leds) {
+						for (let i in leds) {
 							var led = leds[i];
 							Led[led].writeSync(etat);
 						}

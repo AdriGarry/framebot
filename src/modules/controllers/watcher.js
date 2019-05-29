@@ -35,7 +35,8 @@ setImmediate(() => {
 	}
 });
 
-const PATHS = [
+const SEC_TO_RESTART = 3,
+	PATHS_TO_WATCH = [
 		_PATH,
 		Core._SRC,
 		Core._CORE,
@@ -44,8 +45,7 @@ const PATHS = [
 		Core._MODULES + 'services/',
 		Core._SRC + 'test/',
 		Core._DATA
-	],
-	SEC_TO_RESTART = 3;
+	];
 var watchers = [];
 
 function toggleWatch() {
@@ -54,15 +54,15 @@ function toggleWatch() {
 }
 
 function startWatch() {
-	log.info('starting watchers on', PATHS);
-	PATHS.forEach(path => {
+	log.info('starting watchers on', PATHS_TO_WATCH);
+	PATHS_TO_WATCH.forEach(path => {
 		watchers.push(addWatcher(path, relaunch));
 	});
 	Core.conf('watcher', true);
 }
 
 function stopWatch() {
-	log.info('watchers stop', PATHS);
+	log.info('watchers stop', PATHS_TO_WATCH);
 	watchers.forEach(watcher => {
 		removeWatcher(watcher);
 	});
