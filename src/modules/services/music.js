@@ -56,7 +56,25 @@ function jukebox() {
 var jukeboxTimeout, jukeboxRandomBox;
 fs.readdir(Core._MP3 + 'jukebox', (err, files) => {
 	jukeboxRandomBox = new RandomBox(files);
+	testJukebox();
 });
+
+let i = 0;
+function testJukebox() {
+	let song = jukeboxRandomBox.next();
+	log.info('Jukebox next song:', song);
+	Utils.getDuration(Core._MP3 + 'jukebox/' + song)
+		.then(data => {
+			log.info(i, song, '==>', data);
+			if (i < 20) {
+				i++;
+				testJukebox();
+			}
+		})
+		.catch(err => {
+			Core.error('..........error', err);
+		});
+}
 
 function repeatSong() {
 	let song = jukeboxRandomBox.next();
