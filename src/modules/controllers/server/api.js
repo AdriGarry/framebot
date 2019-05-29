@@ -240,16 +240,7 @@ function attachDefaultRoutes(ui) {
 			});
 		} else {
 			Core.error('>> User NOT granted /!\\', pattern, false);
-			Core.do(
-				'interface|tts|speak',
-				{
-					lg: 'en',
-					msg: 'User NOT granted'
-				},
-				{
-					delay: 0.5
-				}
-			);
+			Core.do('interface|tts|speak', { lg: 'en', msg: 'User NOT granted' }, { delay: 0.5 });
 		}
 		res.send(granted);
 		if (granted) granted = false;
