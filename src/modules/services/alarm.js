@@ -38,18 +38,7 @@ setImmediate(() => {
 /** Function to disable all alarms */
 function disableAllAlarms() {
 	Core.do('interface|tts|speak', 'Annulation de toutes les alarmes');
-	Core.do(
-		'service|context|updateRestart',
-		{
-			alarms: {
-				weekDay: null,
-				weekEnd: null
-			}
-		},
-		{
-			delay: 4
-		}
-	);
+	Core.do('service|context|updateRestart', { alarms: { weekDay: null, weekEnd: null } }, { delay: 4 });
 }
 
 /** Function to set custom alarm */
@@ -197,10 +186,8 @@ function cocoricoPart3() {
 		loop: 3
 	});
 
-	Core.do('interface|tts|speak', 'Allez, hop hop les abdo !', { delay: 30, loop: 2 });
-	Core.do('interface|tts|speak', "J'ai dis, Allez, hop hop les abdo !", { delay: 80 });
+	Core.do('interface|tts|speak', 'Allez, hop hop les abdo !', { delay: 50 });
 	Core.do('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 3 * 60 });
-	Core.do('interface|tts|speak', { voice: 'pico', msg: 'En es-tu vraiment sur ?' }, { delay: 3 * 61 });
 
 	setTimeout(() => {
 		Core.run('alarm', false);
