@@ -15,6 +15,7 @@ module.exports = {
 			POST: [
 				{ url: 'fip', flux: { id: 'service|music|fip' } },
 				{ url: 'jukebox', flux: { id: 'service|music|jukebox' } },
+				{ url: 'jukebox/comptines', flux: { id: 'service|music|jukebox', data: 'comptines' } },
 				{ url: 'naheulbeuk', flux: { id: 'service|music|story', data: 'Naheulbeuk' } },
 				{ url: 'survivaure', flux: { id: 'service|music|story', data: 'Survivaure' } }
 			]
@@ -28,7 +29,7 @@ module.exports = {
 Core.flux.service.music.subscribe({
 	next: flux => {
 		if (flux.id == 'jukebox') {
-			jukebox();
+			jukebox(flux.value);
 		} else if (flux.id == 'fip') {
 			playFip();
 		} else if (flux.id == 'fipOrJukebox') {
@@ -44,31 +45,43 @@ Core.flux.service.music.subscribe({
 	}
 });
 
+var JUKEBOX = {
+	jukebox: { id: 'jukebox', path: Core._MP3 + 'jukebox/', randomBox: null, timeout: null },
+	comptines: { id: 'comptines', path: Core._MP3 + 'comptines/', randomBox: null, timeout: null }
+};
+
+Object.keys(JUKEBOX).forEach((id, index) => {
+	fs.readdir(JUKEBOX[id].path, (err, files) => {
+		if (err) Core.error("Can't retrieve " + id + ' songs', err);
+		JUKEBOX[id].randomBox = new RandomBox(files);
+	});
+});
+
 /** Function jukebox (repeat for one hour) */
-function jukebox() {
+function jukebox(jukeboxId) {
 	Core.do('interface|sound|mute', null, { log: 'trace' });
-	log.info('Jukebox in loop mode !');
-	Core.run('music', 'jukebox');
+	if (!jukeboxId || !Utils.searchStringInArray(jukeboxId, Object.keys(JUKEBOX))) {
+		log.info("Jukebox id '" + jukeboxId + "' not reconized, fallback to default jukebox.");
+		jukeboxId = 'jukebox';
+	}
+	log.info('Jukebox ' + jukeboxId + ' in loop mode !');
+	log.info(`Jukebox ${jukeboxId} in loop mode !`);
+	Core.run('music', jukeboxId);
 	Core.do('interface|sound|mute', { message: 'Auto mute jukebox !', delay: 60 * 60 });
 	setTimeout(() => {
-		repeatSong();
+		repeatSong(JUKEBOX[jukeboxId]);
 	}, 1000);
 }
 
-var jukeboxTimeout, jukeboxRandomBox;
-fs.readdir(Core._MP3 + 'jukebox', (err, files) => {
-	jukeboxRandomBox = new RandomBox(files);
-});
-
-function repeatSong() {
-	let song = jukeboxRandomBox.next();
-	log.info('Jukebox next song:', song);
-	Utils.getDuration(Core._MP3 + 'jukebox/' + song)
+function repeatSong(jukebox) {
+	let song = jukebox.randomBox.next();
+	log.info('Jukebox ' + jukebox.id + ' next song:', song);
+	Utils.getDuration(jukebox.path + song)
 		.then(data => {
-			Core.do('interface|sound|play', { mp3: 'jukebox/' + song, duration: data });
-			jukeboxTimeout = setTimeout(function() {
+			Core.do('interface|sound|play', { mp3: jukebox.path + song, duration: data });
+			jukebox.timeout = setTimeout(function() {
 				// log.INFO('Next song !!!', 'duration=' + data);
-				repeatSong();
+				repeatSong(jukebox);
 			}, data * 1000);
 		})
 		.catch(err => {
@@ -106,10 +119,12 @@ function playFipOrJukebox() {
 function stop() {
 	if (Core.run('music')) {
 		log.debug('Stop music');
-		clearTimeout(jukeboxTimeout);
+		Object.keys(JUKEBOX).forEach(id => {
+			clearTimeout(JUKEBOX[id].timeout);
+		});
 		Core.run('music', false);
 	} else {
-		log.debug('No music playing');
+		log.debug('Stop, but no music playing');
 	}
 }
 /** Function to play a story */

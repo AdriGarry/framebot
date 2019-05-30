@@ -523,7 +523,8 @@ app.component('maya', {
 			actionList: [
 				{ label: 'Bonne nuit', icon: 'fas fa-moon', url: '/maya/goodNight' },
 				{ label: 'Le petit ver', icon: 'fas fa-music', url: '/maya/lePetitVer' },
-				{ label: 'Comptines', icon: 'fas fa-music', url: '/maya/comptine' }
+				// { label: 'Comptines', icon: 'fas fa-music', url: '/maya/comptine' }
+				{ label: 'Comptines', icon: 'fas fa-music', url: '/jukebox/comptines' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

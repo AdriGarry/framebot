@@ -10,7 +10,7 @@ module.exports = {
 	api: {
 		full: {
 			POST: [
-				{ url: 'maya/comptine', flux: { id: 'service|maya|comptine', data: null } },
+				// { url: 'maya/comptine', flux: { id: 'service|maya|comptine', data: null } },
 				{ url: 'maya/lePetitVer', flux: { id: 'interface|sound|play', data: { mp3: 'maya/songs/lePetitVer.mp3' } } },
 				{
 					url: 'maya/goodNight',
