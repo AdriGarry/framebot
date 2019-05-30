@@ -243,8 +243,10 @@ function retreiveLastModifiedDate(paths) {
 function diskSpaceTTS() {
 	let diskSpace = parseInt(Core.run('stats.diskSpace'));
 	let ttsMsg = Utils.rdm()
-		? 'Il me reste environ ' + (100 - diskSpace) + " pour cent d'espace disque disponible"
-		: "J'utilise " + diskSpace + " pour cent d'espace de stockage";
+		? 'Il me reste ' + (100 - diskSpace) + " pour cent d'espace disque disponible"
+		: Utils.rdm()
+		? "J'utilise " + diskSpace + " pour cent d'espace de stockage"
+		: 'Mon espace disque est utiliser a ' + diskSpace + 'pour cent';
 	Core.do('interface|tts|speak', ttsMsg);
 }
 
