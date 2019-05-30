@@ -642,7 +642,7 @@ app.component('party', {
 			label: 'Party',
 			actionList: [
 				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/birthdaySong' },
-				{ label: 'Party mode', icon: 'fas fa-child', url: '/setParty' },
+				{ label: 'Party mode', icon: 'far fa-grin-tongue', url: '/setParty' },
 				{ label: 'Pirate', icon: 'fas fa-beer', url: '/pirate' },
 				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/partyTTS' }
 			]
