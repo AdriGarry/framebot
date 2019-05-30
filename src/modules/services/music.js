@@ -46,8 +46,8 @@ Core.flux.service.music.subscribe({
 });
 
 var JUKEBOX = {
-	jukebox: { id: 'jukebox', path: Core._MP3 + 'jukebox/', randomBox: null, timeout: null },
-	comptines: { id: 'comptines', path: Core._MP3 + 'comptines/', randomBox: null, timeout: null }
+	jukebox: { id: 'jukebox', path: Core._MP3 + 'jukebox/' },
+	comptines: { id: 'comptines', path: Core._MP3 + 'comptines/' }
 };
 
 Object.keys(JUKEBOX).forEach((id, index) => {
