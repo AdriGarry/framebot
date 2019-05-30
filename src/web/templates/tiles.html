@@ -89,7 +89,8 @@
 
 	<div class="tileContent" data-ng-switch-when="Runtime">
 		<div class="main">
-			<i class="fab fa-buffer"></i>
+			<i data-ng-show="!$ctrl.data.length" class="fab fa-buffer"></i>
+			<i data-ng-show="$ctrl.data.length" class="fab fa-sith"></i>
 			<span data-ng-show="$ctrl.data.length">{{$ctrl.data.length}}</span>
 		</div>
 	</div>
