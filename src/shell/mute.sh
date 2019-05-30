@@ -10,4 +10,4 @@
 sudo killall omxplayer.bin
 sudo killall mplayer
 sudo killall espeak
-sudo killall sh
+# sudo killall sh
