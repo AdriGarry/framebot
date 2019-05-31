@@ -6,10 +6,10 @@ console.log('argv', process.argv);
 var argv = process.argv.splice(2);
 const NAME = argv[0];
 
-const fs = require('fs');
-const path = require('path');
-const spawn = require('child_process').spawn;
-const Gpio = require('onoff').Gpio;
+const fs = require('fs'),
+	path = require('path'),
+	spawn = require('child_process').spawn,
+	Gpio = require('onoff').Gpio;
 
 const sep = path.sep;
 const SRC_PATH = __dirname + sep;
