@@ -320,8 +320,8 @@ app.component('jukebox', {
 		var tileParams = {
 			label: 'Music',
 			actionList: [
-				{ label: 'Low', icon: 'fas fa-random', url: '/jukebox/low' },
-				{ label: 'Jukebox', icon: 'fas fa-random', url: '/jukebox' },
+				{ label: 'Low', icon: 'fab fa-servicestack', url: '/jukebox/low' },
+				{ label: 'Jukebox', icon: 'fab fa-squarespace', url: '/jukebox' },
 				{ label: 'FIP Radio', icon: 'fas fa-globe', url: '/fip' }
 			]
 		};
