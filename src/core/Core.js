@@ -121,5 +121,5 @@ function error(message, data, stackTrace) {
 	if (!CoreError) {
 		CoreError = require(_PATH + 'src/core/CoreError.js');
 	}
-	new CoreError(message, data, stackTrace);
+	throw new CoreError(message, data, stackTrace);
 }
