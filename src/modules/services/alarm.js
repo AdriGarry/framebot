@@ -21,7 +21,7 @@ Core.flux.service.alarm.subscribe({
 		if (flux.id == 'setAlarm') {
 			setAlarm(flux.value);
 		} else if (flux.id == 'alarmOff') {
-			disableAllAlarms(flux.value);
+			disableAllAlarms();
 		} else if (flux.id == 'isAlarm') {
 			isAlarm();
 		} else Core.error('unmapped flux in Alarm service', flux, false);

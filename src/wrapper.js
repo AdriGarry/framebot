@@ -4,12 +4,12 @@
 /** Params detection */
 console.log('argv', process.argv);
 var argv = process.argv.splice(2);
-var name = argv[0]; // TODO const ?
+const NAME = argv[0];
 
-const fs = require('fs');
-const path = require('path');
-const spawn = require('child_process').spawn;
-const Gpio = require('onoff').Gpio;
+const fs = require('fs'),
+	path = require('path'),
+	spawn = require('child_process').spawn,
+	Gpio = require('onoff').Gpio;
 
 const sep = path.sep;
 const SRC_PATH = __dirname + sep;
@@ -74,7 +74,7 @@ function startCore(exitCode) {
 
 	new Gpio(14, 'out').writeSync(1); //var eye =
 
-	var coreProgramWithParams = [SRC_PATH + 'index.js', name];
+	var coreProgramWithParams = [SRC_PATH + 'index.js', NAME];
 	if (exitCode) {
 		coreProgramWithParams.push('sleep');
 	}
@@ -102,7 +102,7 @@ function startCore(exitCode) {
 
 function checkUp() {
 	console.log('checkUp...');
-	descriptor = JSON.parse(fs.readFileSync(_PATH + '_' + name + '/descriptor.json')); // TODO require ?
+	descriptor = JSON.parse(fs.readFileSync(_PATH + '_' + NAME + '/descriptor.json')); // TODO require ?
 	if (!fs.existsSync(_PATH + 'tmp')) {
 		fs.mkdirSync(path.join(_PATH, 'tmp')); //, parseInt('0777', 8)
 		fs.chmodSync(path.join(_PATH, 'tmp'), parseInt('0777', 8)); //, parseInt('0777', 8)

@@ -85,8 +85,7 @@ function alternativeReportTTS() {
 	fetchWeatherData()
 		.then(weatherReport => {
 			log.debug('weatherReport', weatherReport);
-			let weatherSpeech = getAlternativeWeatherReport(weatherReport);
-			Core.do('interface|tts|speak', weatherSpeech);
+			Core.do('interface|tts|speak', getAlternativeWeatherReport(weatherReport));
 		})
 		.catch(err => {
 			Core.error('Error weather', err);

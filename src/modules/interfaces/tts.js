@@ -47,7 +47,7 @@ var onAir = false,
 function speak(tts) {
 	// log.debug(tts);
 	if (Array.isArray(tts)) {
-		log.info('TTS array object... processing'); // , tts
+		log.info('TTS array object... processing');
 		tts.forEach(function(message) {
 			if (typeof message === 'string' || message.hasOwnProperty('msg')) {
 				speak(message);
@@ -60,7 +60,6 @@ function speak(tts) {
 		randomTTS();
 	} else {
 		if (tts.hasOwnProperty('msg')) {
-			var ttsQueueLength = ttsQueue.length;
 			ttsQueue.push(tts);
 			log.debug('new TTS [' + (tts.voice || '') + ', ' + (tts.lg || '') + '] "' + tts.msg + '"');
 		} else log.debug(console.error('newTTS() Wrong TTS object ', tts));

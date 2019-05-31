@@ -62,7 +62,7 @@ Core.flux.service.context.subscribe({
 		} else if (flux.id == 'reset') {
 			resetCore();
 		} else if (flux.id == 'refresh') {
-			refreshRuntime(flux.value);
+			refreshRuntime();
 		} else Core.error('unmapped flux in Context service', flux, false);
 	},
 	error: err => {

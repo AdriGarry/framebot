@@ -103,17 +103,7 @@ function randomAction() {
 
 function exclamation() {
 	log.info('Exclamation !');
-	Core.do(
-		'interface|led|blink',
-		{
-			leds: ['eye'],
-			speed: Utils.random(40, 100),
-			loop: 6
-		},
-		{
-			log: 'trace'
-		}
-	);
+	Core.do('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { log: 'trace' });
 	let exclamation = exclamationRandomBox.next();
 	Core.do('interface|sound|play', {
 		mp3: 'exclamation/' + exclamation

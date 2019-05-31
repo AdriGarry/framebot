@@ -44,7 +44,6 @@ Core.flux.service.max.subscribe({
 	}
 });
 
-var hornRandomBox;
 const HORNS = [
 	'playHornWarning',
 	'playHornDoUp',
@@ -91,7 +90,6 @@ function turnNose() {
 
 var hornRandomBox = new RandomBox(HORNS);
 function hornRdm() {
-	// let horn = Utils.randomItem(HORNS);
 	let horn = hornRandomBox.next();
 	log.debug('hornRdm', horn);
 	Core.do('interface|arduino|write', horn);
@@ -156,10 +154,8 @@ function maxCallbackAction(data) {
 
 //const maxCallbackRandomBox = new RandomBox()// TODO to implement
 function maxCallbackTTS(arg) {
-	let maxCallbackTTS;
 	if (Array.isArray(arg)) {
-		maxCallbackTTS = Utils.randomItem(arg);
-		Core.do('interface|tts|speak', maxCallbackTTS);
+		Core.do('interface|tts|speak', Utils.randomItem(arg));
 	} else if (typeof arg == 'string') {
 		Core.do('interface|tts|speak', arg);
 	} else {
