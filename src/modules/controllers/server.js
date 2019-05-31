@@ -41,7 +41,7 @@ Core.flux.controller.server.subscribe({
 });
 
 function startUIServer(modulesApi) {
-	startHttpServer(modulesApi);
+	startHttpServer();
 	startHttpsServer(modulesApi);
 }
 

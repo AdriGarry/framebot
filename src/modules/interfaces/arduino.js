@@ -28,7 +28,7 @@ Core.flux.interface.arduino.subscribe({
 		} else if (flux.id == 'write') {
 			write(flux.value);
 		} else if (flux.id == 'disconnect') {
-			disconnect(flux.value);
+			disconnect();
 		} else {
 			Core.error('unmapped flux in Arduino interface', flux, false);
 		}

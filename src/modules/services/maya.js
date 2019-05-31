@@ -27,7 +27,7 @@ module.exports = {
 Core.flux.service.maya.subscribe({
 	next: flux => {
 		if (flux.id == 'comptine') {
-			comptine(flux.value);
+			comptine();
 			// } else if (flux.id == '') {
 		} else Core.error('unmapped flux in Maya service', flux, false);
 	},

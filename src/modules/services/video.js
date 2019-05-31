@@ -68,6 +68,7 @@ function shouldContinueVideoLoop() {
 	let timeDiff = Math.ceil(Math.abs(now.getTime() - loopStart.getTime()) / 1000);
 	if (timeDiff >= LOOP_TIMEOUT) return false;
 	else return true;
+	// TODO sonar
 }
 
 function looper() {

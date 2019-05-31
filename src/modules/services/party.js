@@ -21,9 +21,9 @@ module.exports = {
 Core.flux.service.party.subscribe({
 	next: flux => {
 		if (flux.id == 'start') {
-			start(flux.value);
+			start();
 		} else if (flux.id == 'tts') {
-			partyTTS(flux.value);
+			partyTTS();
 		} else if (flux.id == 'pirate') {
 			pirate(flux.value);
 		} else log.info('Party flux not mapped', flux);
@@ -41,9 +41,8 @@ function start() {
 	firePartyActionAndRandom();
 }
 
-var lastRdmNb;
 function firePartyActionAndRandom() {
-	var nextActionTimeout = Utils.random(2, 10) * 30; //2, 10
+	var nextActionTimeout = Utils.random(2, 10) * 30;
 	log.debug('firePartyActionAndRandom(). next action=', nextActionTimeout);
 	setTimeout(function() {
 		log.info('firing next party action...');

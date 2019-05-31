@@ -56,29 +56,29 @@ function now() {
 const CALENDAR = require(Core._DATA + 'calendar.json');
 /** Function to say current date */
 function today() {
-	var date = new Date();
-	var dayNb = date.getDate();
+	let date = new Date();
+	let dayNb = date.getDate();
 	if (dayNb == 1) dayNb = 'premier';
-	var day = date.getDay();
-	var day = CALENDAR.days[day];
-	var month = date.getMonth();
-	var month = CALENDAR.months[month];
-	var year = date.getFullYear();
+	let day = date.getDay();
+	day = CALENDAR.days[day];
+	let month = date.getMonth();
+	month = CALENDAR.months[month];
+	let year = date.getFullYear();
+	let annonceDate;
 
 	if (Utils.rdm()) {
-		var annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
+		annonceDate = 'Nous sommes le ' + day + ' ' + dayNb + ' ' + month + ' ' + year;
 	} else {
-		var annonceDate = ['Nous sommes le ' + day + ' ' + dayNb + ' ' + month, "Et donc, c'est " + getSeason() + '!'];
+		annonceDate = ['Nous sommes le ' + day + ' ' + dayNb + ' ' + month, "Et donc, c'est " + getSeason() + '!'];
 	}
 
 	log.debug('time.today()' + annonceDate);
-	// Core.do('interface|tts|speak', { lg: 'fr', msg: annonceDate });
 	Core.do('interface|tts|speak', annonceDate);
 }
 
 function getSeason() {
-	var date = new Date();
-	var month_day = date.getMonth() * 100 + date.getDate();
+	let date = new Date();
+	let month_day = date.getMonth() * 100 + date.getDate();
 	if (month_day < 221) {
 		return "l'hiver";
 	} else if (month_day < 521) {
@@ -94,24 +94,19 @@ function getSeason() {
 
 /** Function to TTS age */
 function ttsAge() {
-	var age = Math.abs(new Date(Core.descriptor.botBirthday).getTime() - new Date());
+	let age = Math.abs(new Date(Core.descriptor.botBirthday).getTime() - new Date());
 	age = Math.ceil(age / (1000 * 3600 * 24));
 
-	var years = Math.floor(age / 365);
-	var mouths = Math.floor((age % 365) / 30);
-	var rdm = ["Aujourd'hui, ", 'A ce jour', ''];
-	var birthDay = rdm[Utils.random(rdm.length)];
+	let years = Math.floor(age / 365);
+	let mouths = Math.floor((age % 365) / 30);
+	let rdm = ["Aujourd'hui, ", 'A ce jour', ''];
+	let birthDay = rdm[Utils.random(rdm.length)];
 	birthDay += "j'ai " + years + ' ans et ' + mouths + ' mois !';
 	log.info("ttsAge() '" + birthDay + "'");
-	Core.do('interface|tts|speak', {
-		lg: 'fr',
-		msg: birthDay
-	});
+	Core.do('interface|tts|speak', { lg: 'fr', msg: birthDay });
 }
 
 function birthdaySong() {
 	log.info('birthday song...');
-	Core.do('interface|sound|play', {
-		mp3: 'system/birthday.mp3'
-	});
+	Core.do('interface|sound|play', { mp3: 'system/birthday.mp3' });
 }

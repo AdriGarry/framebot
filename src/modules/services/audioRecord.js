@@ -28,9 +28,9 @@ Core.flux.service.audioRecord.subscribe({
 		if (flux.id == 'new') {
 			addRecord(flux.value);
 		} else if (flux.id == 'check') {
-			checkRecord(flux.value);
+			checkRecord();
 		} else if (flux.id == 'last') {
-			playLastRecord(flux.value);
+			playLastRecord();
 		} else if (flux.id == 'clear') {
 			clearRecords();
 		} else if (flux.id == 'trash') {
@@ -72,11 +72,7 @@ function addRecord(path) {
 				lastRecordPath = path;
 				recordListPath.push(path);
 				Core.run('audioRecord', recordListPath.length);
-				Core.do(
-					'interface|sound|play',
-					{ mp3: path /*,volume: Core.run('volume') * 2*/ },
-					{ log: 'trace', delay: 0.2 }
-				);
+				Core.do('interface|sound|play', { mp3: path }, { log: 'trace', delay: 0.2 });
 				Utils.appendJsonFile(RECORD_FILE, path);
 			});
 		})
