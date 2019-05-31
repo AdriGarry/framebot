@@ -15,6 +15,7 @@ module.exports = {
 			POST: [
 				{ url: 'fip', flux: { id: 'service|music|fip' } },
 				{ url: 'jukebox', flux: { id: 'service|music|jukebox' } },
+				{ url: 'jukebox/low', flux: { id: 'service|music|jukebox', data: 'low' } },
 				{ url: 'jukebox/comptines', flux: { id: 'service|music|jukebox', data: 'comptines' } },
 				{ url: 'naheulbeuk', flux: { id: 'service|music|story', data: 'Naheulbeuk' } },
 				{ url: 'survivaure', flux: { id: 'service|music|story', data: 'Survivaure' } }
@@ -47,10 +48,11 @@ Core.flux.service.music.subscribe({
 
 var JUKEBOX = {
 	jukebox: { id: 'jukebox', path: Core._MP3 + 'jukebox/' },
+	low: { id: 'low', path: Core._MP3 + 'low/' },
 	comptines: { id: 'comptines', path: Core._MP3 + 'comptines/' }
 };
 
-Object.keys(JUKEBOX).forEach((id, index) => {
+Object.keys(JUKEBOX).forEach(id => {
 	fs.readdir(JUKEBOX[id].path, (err, files) => {
 		if (err) Core.error("Can't retrieve " + id + ' songs', err);
 		JUKEBOX[id].randomBox = new RandomBox(files);
