@@ -8,9 +8,9 @@ console.log('\u2022');
 const argv = process.argv;
 const name = process.argv[2];
 const forcedParams = {
-	debug: argv.include('debug') ? true : false,
-	sleep: argv.include('sleep') ? true : false,
-	test: argv.include('test') ? true : false
+	debug: argv.indexOf('debug') > 0 ? true : false,
+	sleep: argv.indexOf('sleep') > 0 ? true : false,
+	test: argv.indexOf('test') > 0 ? true : false
 };
 
 global._PATH = __dirname.match(/\/.*\//g)[0];
