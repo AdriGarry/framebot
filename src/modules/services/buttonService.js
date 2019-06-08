@@ -5,7 +5,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
 	Utils = require(Core._CORE + 'Utils.js');
 
-// const BTN_PUSH_MIN = 0.5;
+// const BTN_PUSH_MIN = 0.4;
 
 Core.flux.controller.button.subscribe({
 	next: flux => {
@@ -35,6 +35,7 @@ function buttonHandler(flux) {
 				}
 			}
 		} else if (flux.id == 'cancel') {
+			Core.do('interface|sound|mute');
 			if (flux.value < 1) {
 				// Mute, do nothing
 			} else if (flux.value >= 1 && flux.value < 3) {
@@ -56,6 +57,9 @@ function buttonHandler(flux) {
 			// } else {
 			// 	log.info('Blue button must be pushed for ' + BTN_PUSH_MIN + 's at least, try again !');
 			// }
+		} else if (flux.id == 'etat') {
+			//Do nothing...
+			log.info(flux);
 		} else Core.error('Button->else', flux);
 	} else {
 		if (flux.id == 'ok') {
