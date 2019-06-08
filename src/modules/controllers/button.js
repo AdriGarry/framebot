@@ -18,6 +18,7 @@ Core.gpio.buttons.forEach(button => {
 	Button[button.id] = new Gpio(button.pin, button.direction, button.edge, button.options);
 	Button[button.id]['id'] = button.id;
 	Button[button.id]['name'] = Utils.capitalizeFirstLetter(button.id);
+	Button[button.id]['edge'] = button.edge;
 	Core.run('buttonStats.' + button.id, 0);
 });
 
@@ -30,16 +31,16 @@ Object.keys(Button).forEach(id => {
 	let button = Button[id];
 	button.watch((err, value) => {
 		if (err) Core.error('Button error', err);
-		let pushTime = getButtonData(button);
-		Core.do('controller|button|' + button.id, pushTime);
+		let buttonData = getButtonData(button);
+		Core.do('controller|button|' + button.id, buttonData);
 	});
 });
 
 function getButtonData(button) {
 	if (button.edge == 'rising') {
-		return getPushTime();
+		return getPushTime(button);
 	} else if (button.edge == 'both') {
-		return button.etat.readSync();
+		return button.readSync();
 	} else {
 		return;
 	}

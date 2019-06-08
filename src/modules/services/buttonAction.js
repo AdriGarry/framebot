@@ -27,14 +27,25 @@ function buttonHandler(flux) {
 		blueButtonAction(flux.value);
 	} else if (flux.id == 'etat') {
 		etatButtonAction(flux.value);
-	} else Core.error('Button->else', flux);
+	} else {
+		log.error('Unkown button', flux);
+		return;
+	}
 	Core.run('buttonStats.' + flux.id, Core.run('buttonStats.' + flux.id) + 1);
 }
 
 function okButtonAction(duration) {
 	if (Core.isAwake()) {
-		if (false) {
-			//
+		/*if (Core.run('timer')) {
+			Core.do('service|music|playlist', Core.run('music'));
+		} else */
+		if (Core.run('voicemail')) {
+			Core.do('service|voicemail|check');
+		} else if (Core.run('audioRecord')) {
+			Core.do('service|audioRecord|check');
+		} else if (Core.run('music')) {
+			Core.do('service|music|jukebox', Core.run('music'));
+			// Core.do('service|music|playlist', Core.run('music'));
 		} else if (Core.run('mood').indexOf('party') > -1) {
 			if (Utils.rdm()) {
 				Core.do('service|party|tts');
@@ -42,13 +53,7 @@ function okButtonAction(duration) {
 				Core.do('service|mood|badBoy');
 			}
 		} else {
-			if (Core.run('voicemail')) {
-				Core.do('service|voicemail|check');
-			} else if (Core.run('audioRecord')) {
-				Core.do('service|audioRecord|check');
-			} else {
-				Core.do('service|interaction|random');
-			}
+			Core.do('service|interaction|random');
 		}
 	} else {
 		Core.do('service|context|restart');
