@@ -108,6 +108,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
 	ModuleLoader.loadModules(descriptor.modules);
+	log.info('All modules listening');
 	ModuleLoader.setupCronAndApi();
 	Object.seal(Core);
 	return Core;
