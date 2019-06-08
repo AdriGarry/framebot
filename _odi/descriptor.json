@@ -14,7 +14,7 @@
 			"base": ["button", "cron", "server", "watcher"]
 		},
 		"services": {
-			"base": ["context", "buttonService", "time", "alarm", "voicemail", "audioRecord"],
+			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord"],
 			"full": ["mood", "interaction", "weather", "timer", "music", "party", "video", "max", "maya"]
 		}
 	},
