@@ -68,7 +68,7 @@ function restartCoreFromWrapper(code) {
 /** Function to start up Core */
 function startCore(exitCode) {
 	console.log('nodejs.version=' + process.version);
-	spawn('sh', [SRC_PATH + 'shell/mute.sh']);
+	mute();
 
 	checkUp();
 
@@ -92,7 +92,7 @@ function startCore(exitCode) {
 	});
 
 	Core.on('exit', function(code) {
-		spawn('sh', [SRC_PATH + 'shell/mute.sh']);
+		mute();
 		console.log('\n>> Core restarting... [code:' + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
 		argv.remove('reset'); // Removing reset param before relaunching
@@ -150,6 +150,11 @@ function checkConfValidity() {
 function reInitConf() {
 	fs.writeFileSync(_PATH + 'tmp/conf.json', JSON.stringify(CORE_DEFAULT.conf), 'utf-8');
 	console.log('> CONF reset');
+}
+
+function mute() {
+	exec('sudo killall omxplayer.bin');
+	exec('sudo killall espeak');
 }
 
 Array.prototype.remove = function() {

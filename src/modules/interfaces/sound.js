@@ -132,16 +132,16 @@ function mute(args) {
 		muteTimer = setTimeout(function() {
 			Core.do('interface|sound|play', { mp3: 'system/autoMute.mp3' });
 			setTimeout(function() {
-				stopAll(args.message || null);
+				muteAll(args.message || null);
 			}, 1600);
 		}, Number(args.delay) * 1000);
 	} else {
-		stopAll(args.message || null);
+		muteAll(args.message || null);
 	}
 }
 
 /** Function to stop all sounds & leds */
-function stopAll(message) {
+function muteAll(message) {
 	if (Core.run('max')) {
 		Core.do('interface|arduino|disconnect', null, { log: 'trace' });
 		Core.do('interface|arduino|connect', null, { log: 'trace' });
@@ -149,7 +149,8 @@ function stopAll(message) {
 	writeAllMPlayerInstances('q');
 	Core.do('service|music|stop', null, { log: 'trace' });
 	Core.do('interface|tts|clearTTSQueue', null, { log: 'trace' });
-	spawn('sh', [Core._SHELL + 'mute.sh']);
+	exec('sudo killall omxplayer.bin');
+	exec('sudo killall espeak');
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
 	Core.do('interface|led|clearLeds', null, { log: 'trace' });
 	Core.do('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { log: 'trace' });
