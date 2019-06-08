@@ -62,7 +62,6 @@ module.exports = class Logger {
 		console.log(this._formatLogPrefix('WARN'), this._formatLog(arguments).toUpperCase());
 	}
 
-	// TODO...
 	error() {
 		console.log('______________');
 		console.error(this._formatLogPrefix('error'), this._formatLog(arguments));
