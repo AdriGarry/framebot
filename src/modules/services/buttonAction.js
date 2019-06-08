@@ -33,7 +33,9 @@ function buttonHandler(flux) {
 
 function okButtonAction(duration) {
 	if (Core.isAwake()) {
-		if (Core.run('mood').indexOf('party') > -1) {
+		if (false) {
+			//
+		} else if (Core.run('mood').indexOf('party') > -1) {
 			if (Utils.rdm()) {
 				Core.do('service|party|tts');
 			} else {
@@ -54,22 +56,22 @@ function okButtonAction(duration) {
 }
 function cancelButtonAction(duration) {
 	Core.do('interface|sound|mute');
-	if (flux.value < 1) {
+	if (duration < 1) {
 		// Mute, do nothing
-	} else if (flux.value >= 1 && flux.value < 3) {
+	} else if (duration >= 1 && duration < 3) {
 		Core.do('service|context|restart');
-	} else if (flux.value >= 3 && flux.value < 6) {
+	} else if (duration >= 3 && duration < 6) {
 		Core.do('service|context|restart', 'sleep');
-	} else if (flux.value > 6) {
+	} else if (duration > 6) {
 		Core.do('service|context|restart', 'test');
 	} else Core.error('Button->else', flux);
 }
 
 function whiteButtonAction(duration) {
 	if (Core.isAwake()) {
-		Core.do('service|timer|increase', Math.round(flux.value));
+		Core.do('service|timer|increase', Math.round(duration));
 	} else {
-		Core.do('service|system|light', flux.value * 60);
+		Core.do('service|system|light', duration * 60);
 	}
 }
 
