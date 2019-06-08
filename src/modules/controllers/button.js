@@ -7,12 +7,12 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js');
 
-// var belly = new Gpio(17, 'out'); // TODO...
 var Button = {},
 	LED_FLAG;
 Core.gpio.leds.forEach(led => {
 	if (led.id == 'buttonFlag') LED_FLAG = new Gpio(led.pin, led.direction);
 });
+if (!LED_FLAG) Core.error('LED_FLAG not initialized!');
 
 Core.gpio.buttons.forEach(button => {
 	Button[button.id] = new Gpio(button.pin, button.direction, button.edge, button.options);
@@ -59,28 +59,28 @@ function getPushTime(button) {
 	return pushTime;
 }
 
-var instance = false,
-	intervalEtat;
-const INTERVAL_DELAY = (Core.conf('watcher') ? 60 : 5 * 60) * 1000; //3 * 60 * 1000;
-setInterval(function() {
-	// TODO A deplacer dans flux.next('service|context|refresh')) ?
-	let value = Button.etat.readSync();
-	// TODO faire un truc avec ce flux => move to jobsList.json?
-	Core.do('interface|led|toggle', { leds: ['satellite'], value: value }, { log: 'trace' });
-	Core.run('etat', value ? 'high' : 'low');
+// var instance = false,
+// 	intervalEtat;
+// const INTERVAL_DELAY = (Core.conf('watcher') ? 60 : 5 * 60) * 1000; //3 * 60 * 1000;
+// setInterval(function() {
+// 	// TODO A deplacer dans flux.next('service|context|refresh')) ?
+// 	let value = Button.etat.readSync();
+// 	// TODO faire un truc avec ce flux => move to jobsList.json?
+// 	// Core.do('interface|led|toggle', { leds: ['satellite'], value: value }, { log: 'trace' });
+// 	// Core.run('etat', value ? 'high' : 'low');
 
-	if (1 === value) {
-		if (!instance) {
-			// TODO! deplacer ça dans le handler ... !?
-			instance = true;
-			intervalEtat = setInterval(function() {
-				log.info('Etat btn Up => random action');
-				Core.do('service|interaction|random');
-			}, INTERVAL_DELAY);
-			Core.do('service|video|loop');
-		}
-	} else {
-		instance = false;
-		clearInterval(intervalEtat);
-	}
-}, 2000);
+// 	if (1 === value) {
+// 		if (!instance) {
+// 			// TODO! deplacer ça dans le handler ... !?
+// 			instance = true;
+// 			intervalEtat = setInterval(function() {
+// 				log.info('Etat btn Up => random action');
+// 				Core.do('service|interaction|random');
+// 			}, INTERVAL_DELAY);
+// 			Core.do('service|video|loop');
+// 		}
+// 	} else {
+// 		instance = false;
+// 		clearInterval(intervalEtat);
+// 	}
+// }, 2000);

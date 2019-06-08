@@ -82,9 +82,9 @@ function blueButtonAction(duration) {
 }
 
 function etatButtonAction(value) {
-	log.warn('etatButtonAction, value=', value);
 	Core.run('etat', value ? 'high' : 'low');
 	log.info('Etat has changed:', Core.run('etat'));
+	Core.do('interface|led|toggle', { leds: ['satellite'], value: value }, { log: 'trace' });
 	let newVolume = Core.isAwake() ? (value ? 100 : 50) : 0;
 	Core.do('interface|sound|volume', newVolume);
 	if (Core.run('screen')) {
@@ -93,4 +93,24 @@ function etatButtonAction(value) {
 	setTimeout(() => {
 		log.table(Core.run(), 'RUNTIME');
 	}, 200);
+	etatInteraction(value);
+}
+
+var instance = false,
+	intervalEtat;
+const INTERVAL_DELAY = (Core.conf('watcher') ? 60 : 5 * 60) * 1000; //3 * 60 * 1000;
+function etatInteraction(value) {
+	if (1 === value) {
+		if (!instance) {
+			instance = true;
+			intervalEtat = setInterval(function() {
+				log.info('Etat btn Up => random action');
+				Core.do('service|interaction|random');
+			}, INTERVAL_DELAY);
+			Core.do('service|video|loop');
+		}
+	} else {
+		instance = false;
+		clearInterval(intervalEtat);
+	}
 }
