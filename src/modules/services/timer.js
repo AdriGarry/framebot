@@ -11,7 +11,7 @@ Core.flux.service.timer.subscribe({
 			setTimer(flux.value);
 		} else if (flux.id == 'stop') {
 			stopTimer();
-		} else Core.error('unmapped flux in Timer service', flux, false);
+		} else Core.error('unmapped flux in Timer service', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);

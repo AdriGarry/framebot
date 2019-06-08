@@ -7,7 +7,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(_PATH + 'src/core/Utils.js');
 
 module.exports = class CoreError extends Error {
-	constructor(message, data, displayStack) {
+	constructor(message, data /*, displayStack*/) {
 		super(message);
 		this.name = this.constructor.name;
 		this.time = Utils.logTime();
@@ -23,17 +23,17 @@ module.exports = class CoreError extends Error {
 		if (this.data) {
 			console.log(this.data);
 		}
-		if (this.displayStack) {
-			this.stack = this.getStackTrace();
-			console.log(this.stack);
-		}
+		// if (this.displayStack) {
+		// 	this.stack = this.getStackTrace();
+		// 	console.log(this.stack);
+		// }
 	}
 
-	getStackTrace() {
-		let stack = this.stack.split('\n');
-		stack.shift();
-		return stack.join('\n');
-	}
+	// getStackTrace() {
+	// 	let stack = this.stack.split('\n');
+	// 	stack.shift();
+	// 	return stack.join('\n');
+	// }
 
 	notify() {
 		Core.do('interface|led|altLeds', { speed: 30, duration: 1.5 }, { log: 'trace' });

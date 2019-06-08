@@ -47,7 +47,7 @@ Core.flux.service.interaction.subscribe({
 			uneHeure();
 		} else if (flux.id == 'russia') {
 			russia();
-		} else Core.error('unmapped flux in Interfaction module', flux, false);
+		} else Core.error('unmapped flux in Interfaction module', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);
@@ -97,7 +97,7 @@ function randomAction() {
 		log.info('randomAction:', action.id, '[' + action.weight + ']');
 		Core.do(action.id, action.data);
 	} catch (err) {
-		Core.error('ACTION TO DEBUG =>', typeof action, action);
+		Core.error('ACTION TO DEBUG => ' + typeof action, action);
 	}
 }
 

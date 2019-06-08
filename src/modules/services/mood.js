@@ -14,7 +14,7 @@ Core.flux.service.mood.subscribe({
 			badBoy(flux.value);
 		} else if (flux.id == 'java') {
 			java(flux.value);
-		} else Core.error('unmapped flux in Mood service', flux, false);
+		} else Core.error('unmapped flux in Mood service', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);

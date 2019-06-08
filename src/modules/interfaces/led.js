@@ -37,7 +37,7 @@ Core.flux.interface.led.subscribe({
 			altLeds(flux.value);
 		} else if (flux.id == 'clearLeds') {
 			clearLeds();
-		} else Core.error('unmapped flux in Led interface', flux, false);
+		} else Core.error('unmapped flux in Led interface', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);
@@ -88,7 +88,7 @@ function blink(config) {
 			}
 		}
 	} catch (err) {
-		Core.error(err);
+		Core.error('Led blink error', err);
 	}
 }
 

@@ -35,7 +35,7 @@ Core.flux.service.audioRecord.subscribe({
 			clearRecords();
 		} else if (flux.id == 'trash') {
 			trashAllRecords();
-		} else Core.error('unmapped flux in Audio Record service', flux, false);
+		} else Core.error('unmapped flux in Audio Record service', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);
@@ -163,7 +163,7 @@ function clearRecords(noLog) {
 	fs.unlink(RECORD_FILE, function(err) {
 		if (err) {
 			if (err.code === 'ENOENT') log.info('clearAudioRecord : No record to delete!');
-			else Core.error(err);
+			else Core.error('Error while deleting records', err);
 		} else {
 			lastRecordPath = null;
 			recordListPath = [];

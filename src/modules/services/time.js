@@ -34,7 +34,7 @@ Core.flux.service.time.subscribe({
 			ttsAge();
 		} else if (flux.id == 'birthday') {
 			birthdaySong();
-		} else Core.error('unmapped flux in Time service', flux, false);
+		} else Core.error('unmapped flux in Time service', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);

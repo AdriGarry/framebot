@@ -30,7 +30,7 @@ Core.flux.interface.arduino.subscribe({
 		} else if (flux.id == 'disconnect') {
 			disconnect();
 		} else {
-			Core.error('unmapped flux in Arduino interface', flux, false);
+			Core.error('unmapped flux in Arduino interface', flux);
 		}
 	},
 	error: err => {
@@ -51,7 +51,7 @@ function connect() {
 	}
 	arduino = new SerialPort(ARDUINO.address, { baudRate: ARDUINO.baudRate }, function(err) {
 		if (err) {
-			Core.error('Error opening arduino port: ', err.message, false);
+			Core.error('Error opening arduino port: ', err.message);
 			// TODO Scheduler to retry connect...?
 			if (!Core.run('alarm') && Core.run('etat') == 'high') {
 				Core.do('interface|tts|speak', { lg: 'en', msg: 'Max is not available' });
@@ -73,7 +73,7 @@ function connect() {
 			arduino.on('close', function(data) {
 				data = String(data);
 				if (data.indexOf('bad file descriptor') >= 0) {
-					Core.error('Max is disconnected', data, false);
+					log.error('Max is disconnected', data);
 					Core.do('interface|tts|speak', { lg: 'en', msg: "I've just lost my connexion with Max!" });
 				}
 				Core.run('max', false);

@@ -22,7 +22,7 @@ Core.flux.controller.watcher.subscribe({
 			stopWatch();
 		} else if (flux.id == 'toggle') {
 			toggleWatch();
-		} else Core.error('unmapped flux in Watcher controller', flux, false);
+		} else Core.error('unmapped flux in Watcher controller', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);

@@ -33,7 +33,7 @@ Core.flux.controller.server.subscribe({
 			startUIServer(flux.value);
 		} else if (flux.id == 'closeUIServer') {
 			closeUIServer(flux.value);
-		} else Core.error('unmapped flux in Server controller', flux, false);
+		} else Core.error('unmapped flux in Server controller', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);

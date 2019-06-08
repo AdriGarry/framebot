@@ -29,7 +29,7 @@ Core.flux.service.maya.subscribe({
 		if (flux.id == 'comptine') {
 			comptine();
 			// } else if (flux.id == '') {
-		} else Core.error('unmapped flux in Maya service', flux, false);
+		} else Core.error('unmapped flux in Maya service', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);
@@ -40,7 +40,7 @@ const COMPTINE = 'maya/songs/comptines.mp3';
 function comptine() {
 	let songPath = Utils.getAbsolutePath(COMPTINE, Core._MP3);
 	if (!songPath) {
-		Core.error("Can't play comptine");
+		Core.error("Can't play comptine:", songPath);
 		return;
 	}
 	Core.do('interface|sound|mute', null, { log: 'trace' });

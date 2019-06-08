@@ -49,7 +49,8 @@ var securityMiddleware = function(req, res, next) {
 				canTTSBadRequest = true;
 			}, BAD_REQUEST_TIMEOUT);
 		}
-		Core.error('Bad request', '401 ' + req.url + ' ' + requestData.log, false);
+		// Core.error('Bad request', '401 ' + req.url + ' ' + requestData.log, false);
+		log.error('Bad request', '401 ' + req.url + ' ' + requestData.log);
 		rejectUnauthorizedRequest(res);
 		return;
 	}

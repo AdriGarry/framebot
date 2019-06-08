@@ -28,7 +28,7 @@ function buttonHandler(flux) {
 	} else if (flux.id == 'etat') {
 		etatButtonAction(flux.value);
 	} else {
-		log.error('Unkown button', flux);
+		Core.error('Unkown button', flux);
 		return;
 	}
 	Core.run('buttonStats.' + flux.id, Core.run('buttonStats.' + flux.id) + 1);
@@ -68,7 +68,7 @@ function cancelButtonAction(duration) {
 		Core.do('service|context|restart', 'sleep');
 	} else if (duration > 6) {
 		Core.do('service|context|restart', 'test');
-	} else Core.error('Button->else', flux);
+	}
 }
 
 function whiteButtonAction(duration) {

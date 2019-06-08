@@ -37,7 +37,7 @@ Core.flux.service.max.subscribe({
 			hornRdm();
 		} else if (flux.id == 'turn') {
 			turnNose();
-		} else Core.error('unmapped flux in Max service', flux, false);
+		} else Core.error('unmapped flux in Max service', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);

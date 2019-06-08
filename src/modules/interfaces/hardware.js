@@ -58,7 +58,7 @@ Core.flux.interface.hardware.subscribe({
 			totalLinesTTS();
 		} else if (flux.id == 'archiveLog') {
 			archiveLogs();
-		} else Core.error('unmapped flux in Hardware interface', flux, false);
+		} else Core.error('unmapped flux in Hardware interface', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);
@@ -107,7 +107,7 @@ const LIGTH_LEDS = ['eye', 'belly'];
 /** Function to use belly led as light */
 function light(duration) {
 	log.info('light [duration=' + duration + 's]');
-	if (isNaN(duration)) Core.error('light error: duration arg is not a number!', duration, false);
+	if (isNaN(duration)) Core.error('light error: duration arg is not a number!', duration);
 	let loop = (duration - 2) / 2;
 	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 });
 	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'trace', delay: 2, loop: loop });
@@ -328,8 +328,8 @@ function archiveLogs() {
 function archiveLogFile(logFile, weekNb) {
 	let stream = fs.createReadStream(Core._LOG + logFile); /*, {bufferSize: 64 * 1024}*/
 	stream.pipe(fs.createWriteStream(Core._LOG + 'old/' + logFile + weekNb));
-	stream.on('error', function(e) {
-		Core.error('stream error while archiving log file ' + logFile, e);
+	stream.on('error', function(err) {
+		Core.error('stream error while archiving log file ' + logFile, err);
 	});
 	stream.on('close', function() {
 		fs.truncate(Core._LOG + logFile, 0, function() {

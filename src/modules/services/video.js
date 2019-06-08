@@ -27,7 +27,7 @@ Core.flux.service.video.subscribe({
 			playOneVideo();
 			// } else if (flux.id == 'logTail') {
 			// 	logTail();
-		} else Core.error('unmapped flux in Video service', flux, false);
+		} else Core.error('unmapped flux in Video service', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);

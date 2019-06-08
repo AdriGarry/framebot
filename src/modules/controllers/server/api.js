@@ -239,7 +239,7 @@ function attachDefaultRoutes(ui) {
 				log.info('public ip: ' + data);
 			});
 		} else {
-			Core.error('>> User NOT granted /!\\', pattern, false);
+			log.error('>> User NOT granted /!\\', pattern);
 			Core.do('interface|tts|speak', { lg: 'en', msg: 'User NOT granted' }, { delay: 0.5 });
 		}
 		res.send(granted);
@@ -313,7 +313,7 @@ function attachAwakeRoutes(ui) {
 	});
 
 	ui.post('/*', function(req, res) {
-		Core.error('Error UI > not mapped: ' + req.url, null, false);
+		log.error('Error UI > not mapped: ' + req.url, null);
 		res.writeHead(401);
 		res.end();
 	});
@@ -341,7 +341,7 @@ function attachSleepRoutes(ui) {
 	});
 
 	ui.post('/*', function(req, res) {
-		Core.error('Sleep mode, not allowed to interact  -.-', null, false);
+		log.error('Sleep mode, not allowed to interact  -.-', null);
 		res.writeHead(401);
 		res.end();
 	});

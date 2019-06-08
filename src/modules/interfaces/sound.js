@@ -42,7 +42,7 @@ Core.flux.interface.sound.subscribe({
 			} else if (flux.id == 'reset') {
 				resetSound();
 			} else {
-				Core.error('unmapped flux in Sound module', flux, false);
+				Core.error('unmapped flux in Sound module', flux);
 			}
 		}
 	},
@@ -185,7 +185,7 @@ function getVolumeInstructions(newVolume) {
 		return;
 	}
 	if (indexNewVolume < 0 || indexNewVolume > 100) {
-		Core.error('Invalid volume value', 'volume value=' + newVolume, false);
+		Core.error('Invalid volume value', 'volume value=' + newVolume);
 	}
 	let increase = newVolume > actualVolume;
 	let indexActualVolume = VOLUME_LEVELS.indexOf(actualVolume);

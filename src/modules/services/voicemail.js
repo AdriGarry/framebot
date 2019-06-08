@@ -26,7 +26,7 @@ Core.flux.service.voicemail.subscribe({
 			checkVoicemail(flux.value);
 		} else if (flux.id == 'clear') {
 			clearVoicemail();
-		} else Core.error('unmapped flux in Voicemail service', flux, false);
+		} else Core.error('unmapped flux in Voicemail service', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);
@@ -136,7 +136,7 @@ function clearVoicemail() {
 	fs.unlink(VOICEMAIL_FILE, function(err) {
 		if (err) {
 			if (err.code === 'ENOENT') log.info('clearVoicemail : No message to delete!');
-			else Core.error(err);
+			else Core.error('error while deleting voicemail file', err);
 		} else {
 			updateVoicemailMessage();
 			Core.do('interface|tts|speak', { lg: 'en', msg: 'Voicemail Cleared' });

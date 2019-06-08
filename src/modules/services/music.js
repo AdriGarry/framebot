@@ -39,7 +39,7 @@ Core.flux.service.music.subscribe({
 			playStory(flux.value);
 		} else if (flux.id == 'stop') {
 			stop();
-		} else Core.error('unmapped flux in Music service', flux, false);
+		} else Core.error('unmapped flux in Music service', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);

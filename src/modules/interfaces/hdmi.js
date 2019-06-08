@@ -23,7 +23,7 @@ Core.flux.interface.hdmi.subscribe({
 			screenOn();
 		} else if (flux.id == 'off') {
 			screenOff();
-		} else Core.error('unmapped flux in Hdmi interface', flux, false);
+		} else Core.error('unmapped flux in Hdmi interface', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);

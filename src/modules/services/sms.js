@@ -12,7 +12,7 @@ Core.flux.service.sms.subscribe({
 	next: flux => {
 		if (flux.id == 'send') {
 			sendSMS(flux.value);
-		} else Core.error('unmapped flux in SMS service', flux, false);
+		} else Core.error('unmapped flux in SMS service', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);

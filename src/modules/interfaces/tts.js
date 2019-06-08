@@ -32,7 +32,7 @@ Core.flux.interface.tts.subscribe({
 			speak();
 		} else if (flux.id == 'clearTTSQueue') {
 			clearTTSQueue();
-		} else Core.error('unmapped flux in TTS module', flux, false);
+		} else Core.error('unmapped flux in TTS module', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);

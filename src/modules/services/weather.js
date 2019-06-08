@@ -36,7 +36,7 @@ Core.flux.service.weather.subscribe({
 			}
 		} else if (flux.id == 'astronomy') {
 			astronomyTTS();
-		} else Core.error('unmapped flux in Weather module', flux, false);
+		} else Core.error('unmapped flux in Weather module', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);
