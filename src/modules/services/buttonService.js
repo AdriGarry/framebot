@@ -17,56 +17,71 @@ Core.flux.controller.button.subscribe({
 });
 
 function buttonHandler(flux) {
-	if (Core.isAwake()) {
-		if (flux.id == 'ok') {
-			if (Core.run('mood').indexOf('party') > -1) {
-				if (Utils.rdm()) {
-					Core.do('service|party|tts');
-				} else {
-					Core.do('service|mood|badBoy');
-				}
-			} else {
-				if (Core.run('voicemail')) {
-					Core.do('service|voicemail|check');
-				} else if (Core.run('audioRecord')) {
-					Core.do('service|audioRecord|check');
-				} else {
-					Core.do('service|interaction|random');
-				}
-			}
-		} else if (flux.id == 'cancel') {
-			Core.do('interface|sound|mute');
-			if (flux.value < 1) {
-				// Mute, do nothing
-			} else if (flux.value >= 1 && flux.value < 3) {
-				Core.do('service|context|restart');
-			} else if (flux.value >= 3 && flux.value < 6) {
-				Core.do('service|context|restart', 'sleep');
-			} else if (flux.value > 6) {
-				Core.do('service|context|restart', 'test');
-			} else Core.error('Button->else', flux);
-		} else if (flux.id == 'white') {
-			Core.do('service|timer|increase', Math.round(flux.value));
-		} else if (flux.id == 'blue') {
-			// if (flux.value > BTN_PUSH_MIN) {
-			if (Core.run('etat')) {
-				Core.do('service|music|fip');
-			} else {
-				Core.do('service|music|jukebox');
-			}
-			// } else {
-			// 	log.info('Blue button must be pushed for ' + BTN_PUSH_MIN + 's at least, try again !');
-			// }
-		} else if (flux.id == 'etat') {
-			//Do nothing...
-			log.info(flux);
-		} else Core.error('Button->else', flux);
-	} else {
-		if (flux.id == 'ok') {
-			Core.do('service|context|restart');
-		} else if (flux.id == 'white') {
-			Core.do('service|system|light', flux.value * 60);
-		}
-	}
+	if (flux.id == 'ok') {
+		okButtonAction(flux.value);
+	} else if (flux.id == 'cancel') {
+		cancelButtonAction(flux.value);
+	} else if (flux.id == 'white') {
+		whiteButtonAction(flux.value);
+	} else if (flux.id == 'blue') {
+		blueButtonAction(flux.value);
+	} else if (flux.id == 'etat') {
+		etatButtonAction(flux.value);
+	} else Core.error('Button->else', flux);
 	Core.run('buttonStats.' + flux.id, Core.run('buttonStats.' + flux.id) + 1);
+}
+
+function okButtonAction(duration) {
+	if (Core.isAwake()) {
+		if (Core.run('mood').indexOf('party') > -1) {
+			if (Utils.rdm()) {
+				Core.do('service|party|tts');
+			} else {
+				Core.do('service|mood|badBoy');
+			}
+		} else {
+			if (Core.run('voicemail')) {
+				Core.do('service|voicemail|check');
+			} else if (Core.run('audioRecord')) {
+				Core.do('service|audioRecord|check');
+			} else {
+				Core.do('service|interaction|random');
+			}
+		}
+	} else {
+		Core.do('service|context|restart');
+	}
+}
+function cancelButtonAction(duration) {
+	Core.do('interface|sound|mute');
+	if (flux.value < 1) {
+		// Mute, do nothing
+	} else if (flux.value >= 1 && flux.value < 3) {
+		Core.do('service|context|restart');
+	} else if (flux.value >= 3 && flux.value < 6) {
+		Core.do('service|context|restart', 'sleep');
+	} else if (flux.value > 6) {
+		Core.do('service|context|restart', 'test');
+	} else Core.error('Button->else', flux);
+}
+
+function whiteButtonAction(duration) {
+	if (Core.isAwake()) {
+		Core.do('service|timer|increase', Math.round(flux.value));
+	} else {
+		Core.do('service|system|light', flux.value * 60);
+	}
+}
+
+function blueButtonAction(duration) {
+	if (Core.run('etat')) {
+		Core.do('service|music|fip');
+	} else {
+		Core.do('service|music|jukebox');
+	}
+}
+
+function etatButtonAction(value) {
+	//Do nothing...
+	log.info('Do nothing...');
 }
