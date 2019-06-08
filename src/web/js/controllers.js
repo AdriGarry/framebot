@@ -253,20 +253,14 @@ app.controller('UIController', function(
 	};
 
 	$scope.requireGrantAccess = function(param) {
-		UIService.sendCommand(
-			{
-				url: '/grant',
-				data: param
-			},
-			function(data) {
-				$rootScope.irda = data;
-				if ($rootScope.irda) {
-					// UIService.showToast('Access granted !');
-				} else {
-					// UIService.showErrorToast('Not granted !');
-				}
+		UIService.sendCommand({ url: '/grant', data: param }, function(data) {
+			$rootScope.irda = data;
+			if ($rootScope.irda) {
+				// UIService.showToast('Access granted !');
+			} else {
+				// UIService.showErrorToast('Not granted !');
 			}
-		);
+		});
 	};
 	var param = $location.$$absUrl.split('?')[1];
 	if (param) $scope.requireGrantAccess(param);
@@ -277,24 +271,7 @@ app.controller('UIController', function(
 	});
 });
 
-/*// app.controller('BottomSheetController', function($scope, $mdDialog){
-// });
-function BottomSheetController($scope, $mdDialog, modal){
-	$scope.modal = modal;
-	//console.log('$scope.modal.data', $scope.modal.data);
-	if(typeof $scope.modal.data == 'string'){
-		$scope.modal.data = $scope.modal.data.split('\n');
-	}
-	/** Function to test if number 
-	$scope.isNumber = angular.isNumber;
-	/** Function to close modal 
-	$scope.close = function(){
-		$mdDialog.cancel();
-	};
-}*/
-
 function DialogController($scope, $mdDialog, data, from) {
-	//console.log('$scope.modal.data', $scope.modal.data);
 	$scope.modal = {
 		raw: data,
 		from: from
