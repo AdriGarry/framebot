@@ -14,9 +14,9 @@ module.exports = {
 		full: {
 			POST: [
 				{ url: 'fip', flux: { id: 'service|music|fip' } },
-				{ url: 'jukebox', flux: { id: 'service|music|jukebox' } },
-				{ url: 'jukebox/low', flux: { id: 'service|music|jukebox', data: 'low' } },
-				{ url: 'jukebox/comptines', flux: { id: 'service|music|jukebox', data: 'comptines' } },
+				{ url: 'playlist/jukebox', flux: { id: 'service|music|playlist', data: 'jukebox' } },
+				{ url: 'playlist/low', flux: { id: 'service|music|playlist', data: 'low' } },
+				{ url: 'playlist/comptines', flux: { id: 'service|music|playlist', data: 'comptines' } },
 				{ url: 'naheulbeuk', flux: { id: 'service|music|story', data: 'Naheulbeuk' } },
 				{ url: 'survivaure', flux: { id: 'service|music|story', data: 'Survivaure' } }
 			]
@@ -29,8 +29,8 @@ module.exports = {
 
 Core.flux.service.music.subscribe({
 	next: flux => {
-		if (flux.id == 'jukebox') {
-			jukebox(flux.value);
+		if (flux.id == 'playlist') {
+			playlist(flux.value);
 		} else if (flux.id == 'fip') {
 			playFip();
 		} else if (flux.id == 'fipOrJukebox') {
@@ -46,43 +46,43 @@ Core.flux.service.music.subscribe({
 	}
 });
 
-var JUKEBOX = {
+var PLAYLIST = {
 	jukebox: { id: 'jukebox', path: Core._MP3 + 'playlists/jukebox/' },
 	low: { id: 'low', path: Core._MP3 + 'playlists/low/' },
 	comptines: { id: 'comptines', path: Core._MP3 + 'playlists/comptines/' }
 };
 
-Object.keys(JUKEBOX).forEach(id => {
-	fs.readdir(JUKEBOX[id].path, (err, files) => {
+Object.keys(PLAYLIST).forEach(id => {
+	fs.readdir(PLAYLIST[id].path, (err, files) => {
 		if (err) Core.error("Can't retrieve " + id + ' songs', err);
-		JUKEBOX[id].randomBox = new RandomBox(files);
+		PLAYLIST[id].randomBox = new RandomBox(files);
 	});
 });
 
-/** Function jukebox (repeat for one hour) */
-function jukebox(jukeboxId) {
+/** Function playlist (repeat for one hour) */
+function playlist(playlistId) {
 	Core.do('interface|sound|mute', null, { log: 'trace' });
-	if (!jukeboxId || !Utils.searchStringInArray(jukeboxId, Object.keys(JUKEBOX))) {
-		log.info("Jukebox id '" + jukeboxId + "' not reconized, fallback to default jukebox.");
-		jukeboxId = 'jukebox';
+	if (!playlistId || !Utils.searchStringInArray(playlistId, Object.keys(PLAYLIST))) {
+		log.info("Playlist id '" + playlistId + "' not reconized, fallback to default playlist.");
+		playlistId = 'jukebox';
 	}
-	log.info(`Jukebox ${jukeboxId} in loop mode !`);
-	Core.run('music', jukeboxId);
+	log.info(`Playlist ${playlistId} in loop mode !`);
+	Core.run('music', playlistId);
 	Core.do('interface|sound|mute', { message: 'Auto mute jukebox !', delay: 60 * 60 });
 	setTimeout(() => {
-		repeatSong(JUKEBOX[jukeboxId]);
+		repeatSong(PLAYLIST[playlistId]);
 	}, 1000);
 }
 
-function repeatSong(jukebox) {
-	let song = jukebox.randomBox.next();
-	log.info('Jukebox ' + jukebox.id + ' next song:', song);
-	Utils.getDuration(jukebox.path + song)
+function repeatSong(playlist) {
+	let song = playlist.randomBox.next();
+	log.info('Playlist ' + playlist.id + ' next song:', song);
+	Utils.getDuration(playlist.path + song)
 		.then(data => {
-			Core.do('interface|sound|play', { mp3: jukebox.path + song, duration: data });
-			jukebox.timeout = setTimeout(function() {
+			Core.do('interface|sound|play', { mp3: playlist.path + song, duration: data });
+			playlist.timeout = setTimeout(function() {
 				// log.INFO('Next song !!!', 'duration=' + data);
-				repeatSong(jukebox);
+				repeatSong(playlist);
 			}, data * 1000);
 		})
 		.catch(err => {
@@ -121,8 +121,8 @@ function playFipOrJukebox() {
 function stop() {
 	if (Core.run('music')) {
 		log.debug('Stop music');
-		Object.keys(JUKEBOX).forEach(id => {
-			clearTimeout(JUKEBOX[id].timeout);
+		Object.keys(PLAYLIST).forEach(id => {
+			clearTimeout(PLAYLIST[id].timeout);
 		});
 		Core.run('music', false);
 	} else {

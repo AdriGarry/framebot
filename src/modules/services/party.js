@@ -65,7 +65,6 @@ function firePartyActionAndRandom() {
 	}, nextActionTimeout * 1000);
 }
 
-/** Function jukebox [mode: 'full'] */
 function pirate(mode) {
 	log.info('pirate(mode)', mode);
 	var tts;

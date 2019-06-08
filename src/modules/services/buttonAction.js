@@ -44,8 +44,7 @@ function okButtonAction(duration) {
 		} else if (Core.run('audioRecord')) {
 			Core.do('service|audioRecord|check');
 		} else if (Core.run('music')) {
-			Core.do('service|music|jukebox', Core.run('music'));
-			// Core.do('service|music|playlist', Core.run('music'));
+			Core.do('service|music|playlist', Core.run('music'));
 		} else if (Core.run('mood').indexOf('party') > -1) {
 			if (Utils.rdm()) {
 				Core.do('service|party|tts');
@@ -84,7 +83,7 @@ function blueButtonAction(duration) {
 	if (Core.run('etat')) {
 		Core.do('service|music|fip');
 	} else {
-		Core.do('service|music|jukebox');
+		Core.do('service|music|playlist', 'jukebox');
 	}
 }
 

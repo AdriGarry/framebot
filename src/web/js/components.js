@@ -320,8 +320,8 @@ app.component('jukebox', {
 		var tileParams = {
 			label: 'Music',
 			actionList: [
-				{ label: 'Low', icon: 'fab fa-servicestack', url: '/jukebox/low' },
-				{ label: 'Jukebox', icon: 'fab fa-squarespace', url: '/jukebox' },
+				{ label: 'Low', icon: 'fab fa-servicestack', url: '/playlist/low' },
+				{ label: 'Jukebox', icon: 'fab fa-squarespace', url: '/playlist/jukebox' },
 				{ label: 'FIP Radio', icon: 'fas fa-globe', url: '/fip' }
 			]
 		};
@@ -525,7 +525,7 @@ app.component('maya', {
 				{ label: 'Bonne nuit', icon: 'fas fa-moon', url: '/maya/goodNight' },
 				{ label: 'Le petit ver', icon: 'fas fa-music', url: '/maya/lePetitVer' },
 				// { label: 'Comptines', icon: 'fas fa-music', url: '/maya/comptine' }
-				{ label: 'Comptines', icon: 'fas fa-music', url: '/jukebox/comptines' }
+				{ label: 'Comptines', icon: 'fas fa-music', url: '/playlist/comptines' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

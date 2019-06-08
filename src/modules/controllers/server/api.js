@@ -292,7 +292,7 @@ function attachAwakeRoutes(ui) {
 		log.debug('/russia', params);
 		if (params.hasOwnProperty('hymn')) {
 			Core.do('interface|sound|play', {
-				mp3: 'jukebox/HymneSovietique.mp3'
+				mp3: 'playlist/jukebox/HymneSovietique.mp3'
 			});
 			Core.do('interface|led|altLeds', { speed: 70, loop: 20 }, { log: 'trace' });
 		} else {
