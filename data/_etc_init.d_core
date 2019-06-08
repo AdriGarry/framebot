@@ -3,12 +3,8 @@
 case "$1" in
 
     start)
-
-        sudo sh /home/pi/core/src/shell/led.sh allLedsOn
-
+    
         sudo sh /home/pi/core/src/shell/sounds.sh startup
-
-        sudo sh /home/pi/core/src/shell/led.sh allLedsOff
 
         sudo python /home/pi/core/src/python/buttons.py 2>&1 | sudo tee -a /home/pi/core/log/button.py.log &
 
@@ -21,7 +17,6 @@ case "$1" in
         sudo killall omxplayer.bin
         sudo killall node
         sudo sh /home/pi/core/src/shell/sounds.sh reboot
-        sudo sh /home/pi/core/src/shell/led.sh allLedsOff
     ;;
 esac
 
