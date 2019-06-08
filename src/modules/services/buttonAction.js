@@ -97,9 +97,6 @@ function etatButtonAction(value) {
 	if (Core.run('screen')) {
 		Core.do('interface|hdmi|off');
 	}
-	setTimeout(() => {
-		log.table(Core.run(), 'RUNTIME');
-	}, 200);
 	etatInteraction(value);
 }
 
