@@ -47,9 +47,9 @@ Core.flux.service.music.subscribe({
 });
 
 var JUKEBOX = {
-	jukebox: { id: 'jukebox', path: Core._MP3 + 'jukebox/' },
-	low: { id: 'low', path: Core._MP3 + 'low/' },
-	comptines: { id: 'comptines', path: Core._MP3 + 'comptines/' }
+	jukebox: { id: 'jukebox', path: Core._MP3 + 'playlists/jukebox/' },
+	low: { id: 'low', path: Core._MP3 + 'playlists/low/' },
+	comptines: { id: 'comptines', path: Core._MP3 + 'playlists/comptines/' }
 };
 
 Object.keys(JUKEBOX).forEach(id => {
@@ -66,7 +66,6 @@ function jukebox(jukeboxId) {
 		log.info("Jukebox id '" + jukeboxId + "' not reconized, fallback to default jukebox.");
 		jukeboxId = 'jukebox';
 	}
-	log.info('Jukebox ' + jukeboxId + ' in loop mode !');
 	log.info(`Jukebox ${jukeboxId} in loop mode !`);
 	Core.run('music', jukeboxId);
 	Core.do('interface|sound|mute', { message: 'Auto mute jukebox !', delay: 60 * 60 });
@@ -93,6 +92,7 @@ function repeatSong(jukebox) {
 
 /** Function to play FIP radio */
 function playFip() {
+	Core.do('interface|sound|mute', null, { log: 'trace' });
 	log.info('Play FIP radio...');
 	if (Core.run('music') === 'fip') {
 		log.info('FIP already playing');
