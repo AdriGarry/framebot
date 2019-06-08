@@ -82,6 +82,15 @@ function blueButtonAction(duration) {
 }
 
 function etatButtonAction(value) {
-	//Do nothing...
-	log.info('Do nothing...');
+	log.warn('etatButtonAction, value=', value);
+	Core.run('etat', value ? 'high' : 'low');
+	log.info('Etat has changed:', Core.run('etat'));
+	let newVolume = Core.isAwake() ? (value ? 100 : 50) : 0;
+	Core.do('interface|sound|volume', newVolume);
+	if (Core.run('screen')) {
+		Core.do('interface|hdmi|off');
+	}
+	setTimeout(() => {
+		log.table(Core.run(), 'RUNTIME');
+	}, 200);
 }

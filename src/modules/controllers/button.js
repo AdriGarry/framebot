@@ -18,6 +18,7 @@ Core.gpio.buttons.forEach(button => {
 	Button[button.id] = new Gpio(button.pin, button.direction, button.edge, button.options);
 	Button[button.id]['id'] = button.id;
 	Button[button.id]['name'] = Utils.capitalizeFirstLetter(button.id);
+	Core.run('buttonStats.' + button.id, 0);
 });
 
 setImmediate(() => {
@@ -83,18 +84,3 @@ setInterval(function() {
 		clearInterval(intervalEtat);
 	}
 }, 2000);
-
-/** Switch watch for radio volume */
-Button.etat.watch((err, value) => {
-	// value = Button.etat.readSync();
-	Core.run('etat', value ? 'high' : 'low');
-	log.info('Etat has changed:', Core.run('etat'));
-	let newVolume = Core.isAwake() ? (value ? 100 : 50) : 0;
-	Core.do('interface|sound|volume', newVolume);
-	if (Core.run('screen')) {
-		Core.do('interface|hdmi|off');
-	}
-	setTimeout(() => {
-		log.table(Core.run(), 'RUNTIME');
-	}, 200);
-});

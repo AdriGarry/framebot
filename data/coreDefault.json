@@ -49,13 +49,7 @@
 			"totalLines": null,
 			"update": null
 		},
-		"buttonStats": {
-			"ok": 0,
-			"cancel": 0,
-			"white": 0,
-			"blue": 0,
-			"blueError": 0
-		}
+		"buttonStats": {}
 	},
 	"cron": {
 		"base": [],
