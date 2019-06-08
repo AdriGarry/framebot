@@ -9,6 +9,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 var Button = {},
 	LED_FLAG;
+
 Core.gpio.leds.forEach(led => {
 	if (led.id == 'buttonFlag') LED_FLAG = new Gpio(led.pin, led.direction);
 });
@@ -22,19 +23,27 @@ Core.gpio.buttons.forEach(button => {
 	Core.run('buttonStats.' + button.id, 0);
 });
 
-setImmediate(() => {
-	Core.do('interface|sound|volume', Core.isAwake() ? (Button.etat.readSync() ? 100 : 50) : 0);
-	// TODO move this somewhere else ==> hardware ? sound ?
+Object.keys(Button).forEach(id => {
+	watchButton(Button[id]);
+	getButtonValue(Button[id]);
 });
 
-Object.keys(Button).forEach(id => {
-	let button = Button[id];
+function watchButton(button) {
 	button.watch((err, value) => {
 		if (err) Core.error('Button error', err);
 		let buttonData = getButtonData(button);
 		Core.do('controller|button|' + button.id, buttonData);
 	});
-});
+}
+
+function getButtonValue(button) {
+	if (button.edge == 'both') {
+		setTimeout(() => {
+			let buttonData = getButtonData(button);
+			Core.do('controller|button|' + button.id, buttonData);
+		}, 100);
+	}
+}
 
 function getButtonData(button) {
 	if (button.edge == 'rising') {
@@ -59,29 +68,3 @@ function getPushTime(button) {
 	log.info(button.name + ' button pressed for ' + pushTime + ' sec...');
 	return pushTime;
 }
-
-// var instance = false,
-// 	intervalEtat;
-// const INTERVAL_DELAY = (Core.conf('watcher') ? 60 : 5 * 60) * 1000; //3 * 60 * 1000;
-// setInterval(function() {
-// 	// TODO A deplacer dans flux.next('service|context|refresh')) ?
-// 	let value = Button.etat.readSync();
-// 	// TODO faire un truc avec ce flux => move to jobsList.json?
-// 	// Core.do('interface|led|toggle', { leds: ['satellite'], value: value }, { log: 'trace' });
-// 	// Core.run('etat', value ? 'high' : 'low');
-
-// 	if (1 === value) {
-// 		if (!instance) {
-// 			// TODO! deplacer ça dans le handler ... !?
-// 			instance = true;
-// 			intervalEtat = setInterval(function() {
-// 				log.info('Etat btn Up => random action');
-// 				Core.do('service|interaction|random');
-// 			}, INTERVAL_DELAY);
-// 			Core.do('service|video|loop');
-// 		}
-// 	} else {
-// 		instance = false;
-// 		clearInterval(intervalEtat);
-// 	}
-// }, 2000);

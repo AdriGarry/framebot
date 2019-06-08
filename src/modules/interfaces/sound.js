@@ -159,9 +159,8 @@ function muteAll(message) {
 
 function setVolume(volume) {
 	let volumeUpdate = getVolumeInstructions(parseInt(volume));
-	if (!volumeUpdate) {
-		return;
-	}
+	if (!volumeUpdate) return;
+
 	let sign = volumeUpdate.increase ? '*' : '/';
 	while (volumeUpdate.gap) {
 		writeAllMPlayerInstances(sign);
@@ -182,7 +181,7 @@ function getVolumeInstructions(newVolume) {
 	let actualVolume = parseInt(Core.run('volume'));
 	let indexNewVolume = VOLUME_LEVELS.indexOf(newVolume);
 	if (actualVolume === newVolume) {
-		log.info('no volume action (=)');
+		log.debug('no volume action (=)');
 		return;
 	}
 	if (indexNewVolume < 0 || indexNewVolume > 100) {
@@ -224,4 +223,15 @@ function resetSound() {
 		.catch(err => {
 			Core.error('resetSound error', err);
 		});
+	getEtatButton();
+}
+
+function getEtatButton() {
+	if (Core.run('etat') == null) {
+		setTimeout(() => {
+			return getEtatButton();
+		}, 2000);
+	} else {
+		setVolume(Core.isAwake() ? (Core.run('etat') == 'high' ? 100 : 50) : 0);
+	}
 }
