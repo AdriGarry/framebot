@@ -352,10 +352,10 @@ function prepareLogs(lines) {
 	return new Promise((resolve, reject) => {
 		fs.readFile(Core._LOG + Core.name + '.log', 'UTF-8', (err, logs) => {
 			if (err) reject(err);
-			logs
+			logs = logs
 				.toString()
 				.split('\n')
-				.slice(-lines) //-120
+				.slice(-lines)
 				.join('\n');
 			resolve(logs);
 		});
