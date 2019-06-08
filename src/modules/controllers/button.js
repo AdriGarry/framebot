@@ -25,7 +25,7 @@ Core.gpio.buttons.forEach(button => {
 
 Object.keys(Button).forEach(id => {
 	watchButton(Button[id]);
-	getButtonValue(Button[id]);
+	getEdgeButtonValue(Button[id]);
 });
 
 function watchButton(button) {
@@ -36,7 +36,7 @@ function watchButton(button) {
 	});
 }
 
-function getButtonValue(button) {
+function getEdgeButtonValue(button) {
 	if (button.edge == 'both') {
 		setTimeout(() => {
 			let buttonData = getButtonData(button);
