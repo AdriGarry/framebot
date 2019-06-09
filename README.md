@@ -17,7 +17,7 @@ Available modes: ready, sleep, test
 
 ### Additional functionalities:
 
-- Expressive functionalities: birthday song, bad boy...
+- Expressive functionalities: child and birthday song, bad boy...
 - Ambiance sounds (cicadas)
 - Logger & cleaner
 - Hardware monitoring (CPU, diskspace, temperature)
