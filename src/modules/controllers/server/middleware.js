@@ -14,12 +14,12 @@ const BAD_REQUEST_CP_LIMIT = 5;
 var canTTSBadRequest = true;
 
 module.exports = {
-	security: function() {
+	security: function () {
 		return securityMiddleware;
 	}
 };
 
-var securityMiddleware = function(req, res, next) {
+var securityMiddleware = function (req, res, next) {
 	Core.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
 	if (!Utils.searchStringInArray(req.url, NO_SOUND_URL)) Core.do('interface|sound|UI', null, { log: 'trace' });
 
@@ -99,7 +99,7 @@ function formatPosition(requestData) {
 
 function logNotLocalRequest(requestData) {
 	let requestToLog = Utils.logTime('D/M h:m:s ') + requestData.url + requestData.log + '\r\n';
-	fs.appendFile(FILE_REQUEST_HISTORY, requestToLog, function(err) {
+	fs.appendFile(FILE_REQUEST_HISTORY, requestToLog, function (err) {
 		if (err) return Core.error(err);
 	});
 }
@@ -115,7 +115,7 @@ function rejectUnauthorizedRequest(res) {
 
 function closingServerTemporary(breakDuration) {
 	Core.do('controller|server|closeUIServer', breakDuration);
-	setTimeout(function() {
+	setTimeout(function () {
 		log.INFO('restarting UI server...');
 		badRequestCount = 0;
 		Core.do('controller|server|startUIServer');
