@@ -9,7 +9,7 @@ Available modes: ready, sleep, test
 - Voice synthesizer (TTS), Voicemail & Audio record
 - Alarm (weekday & weekend)
 - Timer
-- Jukebox
+- Playlist (jukebox, low, comptines)
 - Web radio (FIP)
 - Exclamations
 - Interactions with an Arduino (Max...)
