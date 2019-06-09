@@ -6,7 +6,7 @@ Available modes: ready, sleep, test
 
 ## Main functionalities:
 
-- Voice synthesizer (TTS) & Voicemail
+- Voice synthesizer (TTS), Voicemail & Audio record
 - Alarm (weekday & weekend)
 - Timer
 - Jukebox
