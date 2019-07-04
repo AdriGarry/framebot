@@ -26,7 +26,7 @@ Core.flux.service.party.subscribe({
 			partyTTS();
 		} else if (flux.id == 'pirate') {
 			pirate(flux.value);
-		} else log.info('Party flux not mapped', flux);
+		} else Core.error('unmapped flux in Party service', flux);
 	},
 	error: err => {
 		Core.error('Flux error', err);
@@ -44,7 +44,7 @@ function start() {
 function firePartyActionAndRandom() {
 	var nextActionTimeout = Utils.random(2, 10) * 30;
 	log.debug('firePartyActionAndRandom(). next action=', nextActionTimeout);
-	setTimeout(function() {
+	setTimeout(function () {
 		log.info('firing next party action...');
 		var rdmAction = Utils.random(7);
 		switch (rdmAction) {

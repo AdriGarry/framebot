@@ -47,7 +47,7 @@ setImmediate(() => {
 		checkVoicemail();
 	}
 });
-setInterval(function() {
+setInterval(function () {
 	updateVoicemailMessage();
 }, 10000);
 
@@ -58,7 +58,7 @@ function addVoicemailMessage(tts) {
 		tts.timestamp = Utils.logTime('D/M h:m:s', new Date());
 		Utils.appendJsonFile(VOICEMAIL_FILE, tts);
 		Utils.appendJsonFile(VOICEMAIL_FILE_HISTORY, tts);
-		setTimeout(function() {
+		setTimeout(function () {
 			updateVoicemailMessage();
 		}, 1000);
 		// try {
@@ -124,7 +124,7 @@ function clearVoicemailLater() {
 		clearTimeout(clearVoicemailDelay);
 		clearVoicemailDelay = null;
 	}
-	clearVoicemailDelay = setTimeout(function() {
+	clearVoicemailDelay = setTimeout(function () {
 		clearVoicemail();
 	}, HOURS_TO_CLEAR_VOICEMAIL * 60 * 60 * 1000);
 	log.info('Voicemail will be cleared in ' + HOURS_TO_CLEAR_VOICEMAIL + ' hours');
@@ -133,10 +133,10 @@ function clearVoicemailLater() {
 /** Function to clear all voicemail messages */
 function clearVoicemail() {
 	log.info('clearVoicemail');
-	fs.unlink(VOICEMAIL_FILE, function(err) {
+	fs.unlink(VOICEMAIL_FILE, function (err) {
 		if (err) {
-			if (err.code === 'ENOENT') log.info('clearVoicemail : No message to delete!');
-			else Core.error(err);
+			if (err.code === 'ENOENT') log.info('clearVoicemail: No message to delete!');
+			else Core.error('Error while deleting voicemail file', err);
 		} else {
 			updateVoicemailMessage();
 			Core.do('interface|tts|speak', { lg: 'en', msg: 'Voicemail Cleared' });

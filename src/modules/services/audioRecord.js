@@ -49,7 +49,7 @@ setImmediate(() => {
 		checkRecord();
 	}
 });
-setInterval(function() {
+setInterval(function () {
 	updateRecord();
 }, 10000);
 
@@ -152,7 +152,7 @@ function clearAudioRecordLater() {
 		clearTimeout(clearAudioRecordDelay);
 		clearAudioRecordDelay = null;
 	}
-	clearAudioRecordDelay = setTimeout(function() {
+	clearAudioRecordDelay = setTimeout(function () {
 		clearRecords();
 	}, HOURS_TO_CLEAR_RECORDS * 60 * 60 * 1000);
 	log.info('AudioRecord will be cleared in ' + HOURS_TO_CLEAR_RECORDS + ' hours');
@@ -160,10 +160,10 @@ function clearAudioRecordLater() {
 
 function clearRecords(noLog) {
 	if (!noLog) log.info('clearRecords');
-	fs.unlink(RECORD_FILE, function(err) {
+	fs.unlink(RECORD_FILE, function (err) {
 		if (err) {
 			if (err.code === 'ENOENT') log.info('clearAudioRecord : No record to delete!');
-			else Core.error(err);
+			else Core.error('Error while deleting records', err);
 		} else {
 			lastRecordPath = null;
 			recordListPath = [];

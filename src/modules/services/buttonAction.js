@@ -106,7 +106,7 @@ function etatInteraction(value) {
 	if (1 === value) {
 		if (!instance) {
 			instance = true;
-			intervalEtat = setInterval(function() {
+			intervalEtat = setInterval(function () {
 				log.info('Etat btn Up => random action');
 				Core.do('service|interaction|random');
 			}, INTERVAL_DELAY);
