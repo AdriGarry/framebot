@@ -33,7 +33,7 @@ function attachObservers(observers) {
 		});
 	});
 	ready = true;
-	log.info('Flux manager ready');
+	log.info('Observers attached');
 	return Flux;
 }
 

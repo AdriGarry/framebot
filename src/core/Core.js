@@ -47,8 +47,8 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 
 	let packageJson = require(_PATH + 'package.json');
 	let confUpdate = {
-			startTime: Utils.logTime('h:m (D/M)')
-		},
+		startTime: Utils.logTime('h:m (D/M)')
+	},
 		runtimeUpdate = {},
 		forcedParamsLog = '';
 	if (Core.conf('version') !== packageJson.version) {
@@ -108,7 +108,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
 	ModuleLoader.loadModules(descriptor.modules);
-	log.info('All modules listening');
+	log.info('all modules subscribed');
 	ModuleLoader.setupCronAndApi();
 	Object.seal(Core);
 	return Core;
