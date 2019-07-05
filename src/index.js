@@ -24,14 +24,14 @@ var Core = require(_PATH + 'src/core/Core.js').initializeContext(
 );
 
 const log = new (require(Core._CORE + 'Logger.js'))(__filename, Core.conf('mode'));
-log.debug('argv', argv);
+log.debug('argv:', argv);
 
 const Utils = require(Core._CORE + 'Utils.js');
-log.info(' -->  ' + Core.Name + ' ready in ' + Utils.executionTime(Core.startTime) + 'ms');
+log.info(' -->  ' + Core.Name + ' ready [' + Utils.executionTime(Core.startTime) + 'ms]');
 
 ////////  TEST section  ////////
 if (Core.conf('mode') == 'test') {
-	setTimeout(function() {
+	setTimeout(function () {
 		Core.do('interface|tts|speak', { lg: 'en', msg: 'test sequence' });
 		require(Core._SRC + 'test/tests.js').launch();
 	}, 1000);
