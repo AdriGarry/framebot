@@ -39,7 +39,7 @@ Core.flux.interface.remoteDebug.subscribe({
 function startRemoteDebug() {
 	inspector.open(9229)
 	Core.run('remoteDebug', inspector.url());
-	log.info('Remote debug started on', inspector.url())
+	log.info('Remote debug linked on', inspector.url())
 }
 
 function stopRemoteDebug() {
