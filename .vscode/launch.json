@@ -5,9 +5,9 @@
 			"type": "node",
 			"request": "attach",
 			"name": "Remote Debug",
-			"address": "192.168.1.96",
+			"address": "192.168.1.96/970df5cb-0277-4f5e-877e-e349f661435e",
 			"port": 9229,
-			"localRoot": "${workspaceFolder}/src/core",
+			"localRoot": "${workspaceFolder}/src",
 			"remoteRoot": "Absolute path to the remote directory containing the program"
 		},
 		{

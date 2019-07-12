@@ -4,7 +4,7 @@ app.component('tts', {
 		data: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function($window, DefaultTile, UIService) {
+	controller: function ($window, DefaultTile, UIService) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Text To Speech',
@@ -15,7 +15,7 @@ app.component('tts', {
 		ctrl.tile = new DefaultTile(tileParams, true);
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function($event) {
+		ctrl.tile.click = function ($event) {
 			if (!ctrl.tile.expanded) {
 				ctrl.toggleTileHeight();
 				focusOnTtsInput();
@@ -23,11 +23,11 @@ app.component('tts', {
 			return false;
 		};
 
-		ctrl.cssClass = function() {
+		ctrl.cssClass = function () {
 			return (ctrl.tile.expanded ? 'expanded' : '') + ' ' + ctrl.tile.id;
 		};
 
-		ctrl.toggleTileHeight = function() {
+		ctrl.toggleTileHeight = function () {
 			ctrl.tile.expanded = !ctrl.tile.expanded;
 		};
 
@@ -56,7 +56,7 @@ app.component('tts', {
 					{ code: 'pico', label: 'Pico' }
 				]
 			},
-			cleanText: function() {
+			cleanText: function () {
 				console.log('cleanText');
 				var message = ctrl.tts.msg || '';
 				// message = message.replace(/[àáâãäå]/g, 'a'); // TODO chainer les replace
@@ -76,10 +76,10 @@ app.component('tts', {
 				//message = message.replace(/[<>]/g,''); // Others characters
 				ctrl.tts.msg = message;
 			},
-			submit: function() {
+			submit: function () {
 				console.log('submit', ctrl.tts);
 				if (ctrl.tts.msg != '') {
-					UIService.sendTTS(ctrl.tts, function(callback) {
+					UIService.sendTTS(ctrl.tts, function (callback) {
 						if (callback.status == 200) {
 							ctrl.tts.msg = '';
 							ctrl.tts.error = ''; // Reinit TTS
@@ -100,11 +100,12 @@ app.component('mode', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Mode',
 			actionList: [
+				{ label: 'Toggle remote', icon: 'fas fa-thumbtack', url: '/remoteDebug/toggle' },
 				{ label: 'Sleep forever', icon: 'fas fa-moon', url: '/sleep/forever' },
 				{ label: 'Sleep', icon: 'far fa-moon', url: '/sleep' },
 				{ label: 'Reset', icon: 'fas fa-retweet', url: '/reset' },
@@ -123,7 +124,7 @@ app.component('options', {
 		// odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Options',
@@ -146,7 +147,7 @@ app.component('runtime', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Runtime',
@@ -168,7 +169,7 @@ app.component('alarms', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile, $rootScope, UIService, $mdpTimePicker) {
+	controller: function (DefaultTile, $rootScope, UIService, $mdpTimePicker) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Alarms',
@@ -182,7 +183,7 @@ app.component('alarms', {
 		ctrl.odiState = ctrl.odiState;
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function() {
+		ctrl.tile.click = function () {
 			if (!$rootScope.irda) {
 				UIService.showErrorToast('Unauthorized action.');
 			} else {
@@ -190,12 +191,12 @@ app.component('alarms', {
 			}
 		};
 
-		var showTimePicker = function(ev) {
+		var showTimePicker = function (ev) {
 			// A déplacer dans Tile.js ?
 			$mdpTimePicker(new Date(), {
 				targetEvent: ev,
 				autoSwitch: true
-			}).then(function(selectedDate) {
+			}).then(function (selectedDate) {
 				ctrl.newAlarm.params = {
 					when: ctrl.newAlarm.label,
 					h: selectedDate.getHours(),
@@ -207,7 +208,7 @@ app.component('alarms', {
 			});
 		};
 
-		var specificActions = function(button) {
+		var specificActions = function (button) {
 			if (button.url == '/alarm') {
 				ctrl.newAlarm = button;
 				showTimePicker();
@@ -218,7 +219,7 @@ app.component('alarms', {
 
 		/** Function to display alarm of the day */
 		const WEEK_DAYS = [1, 2, 3, 4, 5];
-		ctrl.getTodayAlarm = function() {
+		ctrl.getTodayAlarm = function () {
 			if (ctrl.data.value.weekDay || ctrl.data.value.weekEnd) {
 				let alarmType = WEEK_DAYS.indexOf(new Date().getDay()) > -1 ? 'weekDay' : 'weekEnd';
 				return ctrl.data.value[alarmType];
@@ -236,7 +237,7 @@ app.component('voicemail', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Voicemail',
@@ -259,7 +260,7 @@ app.component('hardware', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Hardware',
@@ -273,7 +274,7 @@ app.component('hardware', {
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
 
-		ctrl.getMemoryPerCent = function() {
+		ctrl.getMemoryPerCent = function () {
 			var memory = ctrl.data.value.memory.system;
 			var memoryRegex = /([\d]+)\/([\d]+)/g;
 			var match = memoryRegex.exec(memory);
@@ -292,7 +293,7 @@ app.component('exclamation', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Exclamation',
@@ -315,7 +316,7 @@ app.component('jukebox', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Music',
@@ -338,7 +339,7 @@ app.component('audioRecorder', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile, $rootScope, UIService) {
+	controller: function (DefaultTile, $rootScope, UIService) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Audio recorder',
@@ -352,11 +353,11 @@ app.component('audioRecorder', {
 		ctrl.odiState = ctrl.odiState;
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function() {
+		ctrl.tile.click = function () {
 			ctrl.tile.openCustomBottomSheet(bottomSheetController, bottomSheetTemplate, this.actionList, bottomSheetCatch);
 		};
 
-		let bottomSheetCatch = function(audioService) {
+		let bottomSheetCatch = function (audioService) {
 			audioService.cancelRecord();
 		};
 
@@ -382,7 +383,7 @@ app.component('audioRecorder', {
 			</div>
 		</md-bottom-sheet>`;
 
-		let bottomSheetController = function(
+		let bottomSheetController = function (
 			$rootScope,
 			$scope,
 			$timeout,
@@ -395,13 +396,13 @@ app.component('audioRecorder', {
 			ctrl.recording = false;
 			ctrl.waitRecording = false;
 
-			ctrl.action = function(cmd) {
+			ctrl.action = function (cmd) {
 				UIService.sendCommand(cmd, () => {
 					$mdBottomSheet.hide(cmd);
 				});
 			};
 
-			ctrl.toggleRecord = function() {
+			ctrl.toggleRecord = function () {
 				if (!ctrl.recording) {
 					ctrl.waitRecording = true;
 					audioService.startRecord(isRecording => {
@@ -447,7 +448,7 @@ app.component('timer', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Timer',
@@ -470,7 +471,7 @@ app.component('time', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Time',
@@ -494,7 +495,7 @@ app.component('weather', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Weather',
@@ -517,7 +518,7 @@ app.component('maya', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Maya',
@@ -541,7 +542,7 @@ app.component('idea', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Idea',
@@ -565,7 +566,7 @@ app.component('stories', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Stories',
@@ -587,7 +588,7 @@ app.component('badBoy', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile, $rootScope, UIService) {
+	controller: function (DefaultTile, $rootScope, UIService) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Bad boy',
@@ -601,7 +602,7 @@ app.component('badBoy', {
 		ctrl.odiState = ctrl.odiState;
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function() {
+		ctrl.tile.click = function () {
 			if (!$rootScope.irda) {
 				UIService.showErrorToast('Unauthorized action.');
 			} else {
@@ -609,7 +610,7 @@ app.component('badBoy', {
 			}
 		};
 
-		var specificActions = function(button) {
+		var specificActions = function (button) {
 			if (button.label.toUpperCase().indexOf('BADBOY MODE') != -1) {
 				var slider = {
 					label: 'Bad boy interval',
@@ -637,7 +638,7 @@ app.component('party', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Party',
@@ -661,7 +662,7 @@ app.component('russia', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Russia',
@@ -683,7 +684,7 @@ app.component('videos', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Video',
@@ -705,7 +706,7 @@ app.component('max', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Max',
@@ -730,7 +731,7 @@ app.component('arduino', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Arduino',
@@ -750,7 +751,7 @@ app.component('history', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'History',
@@ -774,7 +775,7 @@ app.component('system', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'System',
@@ -794,7 +795,7 @@ app.component('about', {
 		data: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'About',

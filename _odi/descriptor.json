@@ -1,21 +1,56 @@
 {
 	"name": "Odi",
 	"botBirthday": "August 9, 2015 00:00:00",
-	"birthdays": ["17/04", "13/12", "31/07"],
+	"birthdays": [
+		"17/04",
+		"13/12",
+		"31/07"
+	],
 	"url": {
 		"ODI": "https://odi.adrigarry.com/"
 	},
 	"modules": {
 		"interfaces": {
-			"base": ["led", "sound", "hardware", "arduino", "hdmi"],
-			"full": ["tts"]
+			"base": [
+				"led",
+				"sound",
+				"hardware",
+				"arduino",
+				"hdmi"
+			],
+			"full": [
+				"tts",
+				"remoteDebug"
+			]
 		},
 		"controllers": {
-			"base": ["button", "cron", "server", "watcher"]
+			"base": [
+				"button",
+				"cron",
+				"server",
+				"watcher"
+			]
 		},
 		"services": {
-			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord"],
-			"full": ["mood", "interaction", "weather", "timer", "music", "party", "video", "max", "maya"]
+			"base": [
+				"context",
+				"buttonAction",
+				"time",
+				"alarm",
+				"voicemail",
+				"audioRecord"
+			],
+			"full": [
+				"mood",
+				"interaction",
+				"weather",
+				"timer",
+				"music",
+				"party",
+				"video",
+				"max",
+				"maya"
+			]
 		}
 	},
 	"conf": {

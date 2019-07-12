@@ -34,6 +34,7 @@
 		"timer": 0,
 		"voicemail": 0,
 		"audioRecord": 0,
+		"remoteDebug": false,
 		"hdmi": null,
 		"screen": null,
 		"cpu": {
