@@ -75,7 +75,7 @@ function whiteButtonAction(duration) {
 	if (Core.isAwake()) {
 		Core.do('service|timer|increase', Math.round(duration));
 	} else {
-		Core.do('service|system|light', duration * 60);
+		Core.do('interface|hardware|light', duration * 60);
 	}
 }
 
