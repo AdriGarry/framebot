@@ -95,7 +95,7 @@ function formatStringLength(string, expectedLength, before) {
 
 function deleteFolderRecursive(path) {
 	if (fs.existsSync(path)) {
-		fs.readdirSync(path).forEach(function(file, index) {
+		fs.readdirSync(path).forEach(function (file, index) {
 			let curPath = path + '/' + file;
 			if (fs.lstatSync(curPath).isDirectory()) {
 				// recurse
@@ -109,14 +109,26 @@ function deleteFolderRecursive(path) {
 	}
 }
 
+var writeFileInstances = {};
+function appendJsonFile(filePath, obj) {
+	//appendJsonFile adding queue...
+	if (writeFileInstances[filePath]) {
+		//
+	} else {
+		//writeFileInstances.push(filePath)
+		writeFileInstances[filePath] = true;
+		appendArrayInJsonFile(filePath, obj);
+	}
+}
+
 /** Function to append object in JSON file */
-function appendArrayInJsonFile(filePath, obj, callback) {
+function appendArrayInJsonFile(filePath, obj) {
 	let fileData,
 		startTime = new Date();
-	fs.exists(filePath, function(exists) {
+	fs.exists(filePath, function (exists) {
 		try {
 			if (exists) {
-				fs.readFile(filePath, 'utf8', function(err, data) {
+				fs.readFile(filePath, 'utf8', function (err, data) {
 					if (!data) {
 						fileData = [];
 					} else {
@@ -159,7 +171,7 @@ function _writeFile(filePath, fileData, startTime, isCreation) {
 		.replace(/\\/g, '')
 		.replace(/\"{/g, '{')
 		.replace(/\}"/g, '}');
-	fs.writeFile(filePath, jsonData, function() {
+	fs.writeFile(filePath, jsonData, function () {
 		if (isCreation) {
 			log.debug('file ' + filePath + ' created in', executionTime(startTime) + 'ms');
 		} else {
@@ -173,7 +185,7 @@ const FILE_NOT_FOUND_EXCEPT = ['/home/pi/core/tmp/voicemail.json', '/home/pi/cor
 function getJsonFileContent(filePath, callback) {
 	log.debug('getJsonFileContent() ', filePath);
 	return new Promise((resolve, reject) => {
-		fs.readFile(filePath, function(err, data) {
+		fs.readFile(filePath, function (err, data) {
 			if (err && err.code === 'ENOENT' && !searchStringInArray(filePath, FILE_NOT_FOUND_EXCEPT)) {
 				log.error('No file: ' + filePath);
 				reject(err);
@@ -232,7 +244,7 @@ function postOdi(url, data) {
 /** Function to test internet connexion */
 function testConnexion(callback) {
 	//console.log('testConnexion()...');
-	require('dns').resolve('www.google.com', function(err) {
+	require('dns').resolve('www.google.com', function (err) {
 		if (err) {
 			log.debug('Odi is not connected to internet (utils.testConnexion)   /!\\');
 			callback(false);
@@ -309,13 +321,13 @@ function firstLetterUpper(string) {
 }
 
 /** Function to repeat/concat a string */
-String.prototype.repeat = function(num) {
+String.prototype.repeat = function (num) {
 	if (Number(num)) return new Array(Math.abs(num) + 1).join(this);
 	return '';
 };
 
 /** Function to remove quotes in a string */
-String.prototype.unQuote = function() {
+String.prototype.unQuote = function () {
 	return this.replace(/'|"/gm, '');
 };
 
@@ -428,7 +440,7 @@ function capitalizeFirstLetter(string) {
 }
 
 // Returns the ISO week of the date.
-Date.prototype.getWeek = function() {
+Date.prototype.getWeek = function () {
 	let date = new Date(this.getTime());
 	date.setHours(0, 0, 0, 0);
 	// Thursday in current week decides the year.
