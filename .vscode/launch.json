@@ -4,18 +4,11 @@
 		{
 			"type": "node",
 			"request": "attach",
-			"name": "Remote Debug",
-			"address": "192.168.1.96/970df5cb-0277-4f5e-877e-e349f661435e",
+			"name": "Core Remote Debug",
+			"address": "ws://192.168.1.96:9229/d3d322a7-0940-4f31-a53b-0487a7302a1d",
 			"port": 9229,
 			"localRoot": "${workspaceFolder}/src",
-			"remoteRoot": "Absolute path to the remote directory containing the program"
-		},
-		{
-			"type": "node",
-			"request": "launch",
-			"name": "Launch Node Program",
-			"program": "${workspaceRoot}\\src\\launcher"
-			// "program": "${workspaceRoot}\\odi.sh"
+			"remoteRoot": "/home/pi/core/src"
 		}
 	]
 }
