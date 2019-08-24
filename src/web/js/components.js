@@ -225,6 +225,33 @@ app.component('alarms', {
 			}
 			return false;
 		};
+
+		const DAYS = { weekDay: [1, 2, 3, 4, 5], weekEnd: [6, 0] };
+		function _incrementDay(date, time) {
+			return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, time.h, time.m);
+		}
+		ctrl.getNextAlarm = function() {
+			let ALARMS = ctrl.data.value;
+			if (ALARMS.weekDay || ALARMS.weekEnd) {
+				let now = new Date(),
+					nextAlarms = {};
+				Object.keys(ALARMS).forEach(key => {
+					let nextAlarm = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ALARMS[key].h, ALARMS[key].m);
+					if (nextAlarm < now) {
+						nextAlarm = _incrementDay(now, ALARMS[key]);
+						while (!DAYS[key].includes(nextAlarm.getDay())) {
+							nextAlarm = _incrementDay(nextAlarm, ALARMS[key]);
+						}
+					}
+					nextAlarms[key] = nextAlarm;
+				});
+				if (nextAlarms.weekDay < nextAlarms.weekEnd)
+					return { h: nextAlarms.weekDay.getHours(), m: nextAlarms.weekDay.getMinutes() };
+				else return { h: 0, m: 0 };
+				// else return { h: nextAlarms.weekEnd.getHours(), m: nextAlarms.weekEnd.getMinutes() };
+			} else return false;
+		};
+		ctrl.getTodayAlarm();
 	}
 });
 
