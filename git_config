@@ -12,12 +12,3 @@
 	st = status
 	lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
 	push = "!f(){ for i in `git remote`; do git push $i; done; };f"
-[remote "origin"]
-	url = https://github.com/AdriGarry/odi
-	fetch = +refs/heads/*:refs/remotes/origin/*
-[branch "master"]
-	remote = origin
-	merge = refs/heads/master
-[branch "4.2"]
-	remote = origin
-	merge = refs/heads/4.2
