@@ -21,7 +21,6 @@ module.exports = {
 
 var securityMiddleware = function(req, res, next) {
 	Core.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
-	if (!Utils.searchStringInArray(req.url, NO_SOUND_URL)) Core.do('interface|sound|UI', null, { log: 'trace' });
 
 	let requestData = getRequestData(req);
 
@@ -55,6 +54,7 @@ var securityMiddleware = function(req, res, next) {
 	}
 
 	log.info(requestData.ui + ' ' + decodeURI(req.url), requestData.log);
+	if (!Utils.searchStringInArray(req.url, NO_SOUND_URL)) Core.do('interface|sound|UI', null, { log: 'trace' });
 	res.statusCode = 200;
 	next();
 };
