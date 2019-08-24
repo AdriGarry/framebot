@@ -11,6 +11,7 @@ module.exports = {
 		full: {
 			POST: [
 				// { url: 'maya/comptine', flux: { id: 'service|maya|comptine', data: null } },
+				{ url: 'maya/animals', flux: { id: 'service|maya|animals', data: null } },
 				{ url: 'maya/lePetitVer', flux: { id: 'interface|sound|play', data: { mp3: 'maya/songs/lePetitVer.mp3' } } },
 				{
 					url: 'maya/goodNight',
@@ -29,6 +30,8 @@ Core.flux.service.maya.subscribe({
 		if (flux.id == 'comptine') {
 			comptine();
 			// } else if (flux.id == '') {
+		} else if (flux.id == 'animals') {
+			animals();
 		} else Core.error('unmapped flux in Maya service', flux, false);
 	},
 	error: err => {
@@ -46,4 +49,16 @@ function comptine() {
 	Core.do('interface|sound|mute', null, { log: 'trace' });
 	Core.run('music', 'comptines');
 	Core.do('interface|sound|playRandom', { mp3: songPath }, { delay: 0.5 });
+}
+
+const ANIMALS_SOUNDS = 'maya/animalsSounds.mp3';
+function animals() {
+	let songPath = Utils.getAbsolutePath(ANIMALS_SOUNDS, Core._MP3);
+	if (!songPath) {
+		Core.error("Can't play animals:", songPath);
+		return;
+	}
+	Core.do('interface|sound|mute', null, { log: 'trace' });
+	Core.run('music', 'animals');
+	Core.do('interface|sound|play', { mp3: songPath }, { delay: 0.5 });
 }
