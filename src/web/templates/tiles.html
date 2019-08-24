@@ -97,9 +97,9 @@
 
 	<div class="tileContent" data-ng-switch-when="Alarms">
 		<div class="main ">
-			<i class="far fa-bell" data-ng-if="$ctrl.getNextAlarm()"></i>
-			<i class="far fa-bell-slash" data-ng-if="!$ctrl.getNextAlarm()"></i>
-			<span data-ng-show="$ctrl.data.value && $ctrl.getNextAlarm()">{{$ctrl.getNextAlarm().h}}:{{$ctrl.getNextAlarm().m | formatNumber:2}}
+			<i class="far fa-bell" data-ng-if="$ctrl.nextAlarm"></i>
+			<i class="far fa-bell-slash" data-ng-if="!$ctrl.nextAlarm"></i>
+			<span data-ng-show="$ctrl.data.value && $ctrl.nextAlarm">{{$ctrl.nextAlarm.h}}:{{$ctrl.nextAlarm.m | formatNumber:2}}
 			</span>
 		</div>
 	</div>

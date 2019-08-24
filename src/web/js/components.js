@@ -181,6 +181,10 @@ app.component('alarms', {
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
 
+		ctrl.$onChanges = function(changes) {
+			updateNextAlarm();
+		};
+
 		/** Overwrite tile action */
 		ctrl.tile.click = function() {
 			if (!$rootScope.irda) {
@@ -216,42 +220,29 @@ app.component('alarms', {
 			}
 		};
 
-		/** Function to display alarm of the day */
-		const WEEK_DAYS = [1, 2, 3, 4, 5];
-		ctrl.getTodayAlarm = function() {
-			if (ctrl.data.value.weekDay || ctrl.data.value.weekEnd) {
-				let alarmType = WEEK_DAYS.indexOf(new Date().getDay()) > -1 ? 'weekDay' : 'weekEnd';
-				return ctrl.data.value[alarmType];
-			}
-			return false;
-		};
-
 		const DAYS = { weekDay: [1, 2, 3, 4, 5], weekEnd: [6, 0] };
-		function _incrementDay(date, time) {
-			return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, time.h, time.m);
-		}
-		ctrl.getNextAlarm = function() {
+		var updateNextAlarm = function() {
 			let ALARMS = ctrl.data.value;
 			if (ALARMS.weekDay || ALARMS.weekEnd) {
 				let now = new Date(),
 					nextAlarms = {};
 				Object.keys(ALARMS).forEach(key => {
 					let nextAlarm = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ALARMS[key].h, ALARMS[key].m);
-					if (nextAlarm < now) {
-						nextAlarm = _incrementDay(now, ALARMS[key]);
-						while (!DAYS[key].includes(nextAlarm.getDay())) {
-							nextAlarm = _incrementDay(nextAlarm, ALARMS[key]);
-						}
+					while (!DAYS[key].includes(nextAlarm.getDay()) || nextAlarm < now) {
+						nextAlarm = _incrementDay(nextAlarm, ALARMS[key]);
 					}
 					nextAlarms[key] = nextAlarm;
 				});
-				if (nextAlarms.weekDay < nextAlarms.weekEnd)
-					return { h: nextAlarms.weekDay.getHours(), m: nextAlarms.weekDay.getMinutes() };
-				else return { h: 0, m: 0 };
-				// else return { h: nextAlarms.weekEnd.getHours(), m: nextAlarms.weekEnd.getMinutes() };
-			} else return false;
+				let alarmToReturn;
+				if (nextAlarms.weekDay < nextAlarms.weekEnd) alarmToReturn = nextAlarms.weekDay;
+				else alarmToReturn = nextAlarms.weekEnd;
+				ctrl.nextAlarm = { h: alarmToReturn.getHours(), m: alarmToReturn.getMinutes() };
+			} else ctrl.nextAlarm = false;
 		};
-		ctrl.getTodayAlarm();
+
+		var _incrementDay = function(date, time) {
+			return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, time.h, time.m);
+		};
 	}
 });
 
