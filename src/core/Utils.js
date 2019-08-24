@@ -115,14 +115,14 @@ function appendArrayInJsonFile(filePath, obj) {
 	let startTime = new Date();
 	fsPromises
 		.readFile(filePath)
-		.catch(err => _fileNotExists(filePath, err))
+		.catch(_fileNotExists)
 		.then(data => _appendFileData(data, obj))
 		.then(data => fsPromises.writeFile(filePath, data))
-		.then(() => _fileUpdateSuccess(filePath, startTime))
+		.then(() => log.debug('file ' + filePath + ' updated in', executionTime(startTime) + 'ms'))
 		.catch(err => log.error('Utils.appendArrayInJsonFile', err));
 }
 
-function _fileNotExists(filePath, err) {
+function _fileNotExists(err) {
 	return new Promise((resolve, reject) => {
 		if (err.code == 'ENOENT') resolve('[]');
 		else reject(err);
@@ -147,10 +147,6 @@ function _appendFileData(data, obj) {
 			reject(err);
 		}
 	});
-}
-
-function _fileUpdateSuccess(filePath, startTime) {
-	log.debug('file ' + filePath + ' modified in', executionTime(startTime) + 'ms');
 }
 
 /** Get name of files in directory. Return a Promise  */
