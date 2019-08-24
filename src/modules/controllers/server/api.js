@@ -21,6 +21,9 @@ module.exports = {
 	attachRoutes: attachRoutes
 };
 
+let IP = { local: Utils.getLocalIp() };
+Utils.getPublicIp().then(data => (IP.public = data));
+
 function attachRoutes(ui, modulesApi) {
 	uiHttp = ui;
 
@@ -235,9 +238,7 @@ function attachDefaultRoutes(ui) {
 		if (pattern && admin.checkPassword(pattern)) {
 			granted = true;
 			log.info('>> Admin granted !');
-			Utils.getPublicIp().then(data => {
-				log.info('public ip: ' + data);
-			});
+			log.info('ip:', IP.local + ' / ' + IP.public);
 		} else {
 			Core.error('>> User NOT granted /!\\', pattern, false);
 			Core.do('interface|tts|speak', { lg: 'en', msg: 'User NOT granted' }, { delay: 0.5 });

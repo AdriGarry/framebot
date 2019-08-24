@@ -4,6 +4,7 @@
 const { exec } = require('child_process'),
 	fs = require('fs'),
 	fsPromises = fs.promises,
+	os = require('os'),
 	request = require('request');
 
 // Utils static factory (shoud not require Core.js || Flux.js)
@@ -23,6 +24,7 @@ module.exports = {
 
 	//network
 	testConnexion: testConnexion,
+	getLocalIp: getLocalIp,
 	getPublicIp: getPublicIp,
 	postOdi: postOdi,
 
@@ -188,6 +190,32 @@ function searchStringInArray(string, stringArray) {
 		}
 	}
 	return false;
+}
+
+function getLocalIp() {
+	let ifaces = os.networkInterfaces(),
+		localIp = '';
+	Object.keys(ifaces).forEach(function(ifname) {
+		let alias = 0;
+		ifaces[ifname].forEach(function(iface) {
+			if ('IPv4' !== iface.family || iface.internal !== false) {
+				// skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+				return;
+			}
+
+			if (alias >= 1) {
+				// this single interface has multiple ipv4 addresses
+				// console.log(ifname + ':' + alias, iface.address);
+				localIp += ifname + ':' + alias + ' ' + iface.address;
+			} else {
+				// this interface has only one ipv4 adress
+				// console.log(ifname, iface.address);
+				localIp += ifname + ' ' + iface.address;
+			}
+			++alias;
+		});
+	});
+	return localIp;
 }
 
 function getPublicIp() {
