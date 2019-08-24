@@ -3,6 +3,7 @@
 
 const { exec } = require('child_process'),
 	fs = require('fs'),
+	fsPromises = fs.promises,
 	request = require('request');
 
 // Utils static factory (shoud not require Core.js || Flux.js)
@@ -95,7 +96,7 @@ function formatStringLength(string, expectedLength, before) {
 
 function deleteFolderRecursive(path) {
 	if (fs.existsSync(path)) {
-		fs.readdirSync(path).forEach(function (file, index) {
+		fs.readdirSync(path).forEach(function(file, index) {
 			let curPath = path + '/' + file;
 			if (fs.lstatSync(curPath).isDirectory()) {
 				// recurse
@@ -111,48 +112,45 @@ function deleteFolderRecursive(path) {
 
 /** Function to append object in JSON file */
 function appendArrayInJsonFile(filePath, obj) {
-	let fileData,
-		startTime = new Date();
-	fs.exists(filePath, function (exists) {
+	let startTime = new Date();
+	fsPromises
+		.readFile(filePath)
+		.catch(err => _fileNotExists(filePath, err))
+		.then(data => _appendFileData(data, obj))
+		.then(data => fsPromises.writeFile(filePath, data))
+		.then(() => _fileUpdateSuccess(filePath, startTime))
+		.catch(err => log.error('Utils.appendArrayInJsonFile', err));
+}
+
+function _fileNotExists(filePath, err) {
+	return new Promise((resolve, reject) => {
+		if (err.code == 'ENOENT') resolve('[]');
+		else reject(err);
+	});
+}
+
+function _appendFileData(data, obj) {
+	return new Promise((resolve, reject) => {
 		try {
-			if (exists) {
-				fs.readFile(filePath, 'utf8', function (err, data) {
-					if (!data) {
-						fileData = [];
-					} else {
-						fileData = JSON.parse(data);
-					}
-					if (Array.isArray(fileData)) {
-						fileData.push(obj);
-						_writeFile(filePath, fileData, startTime);
-					} else {
-						fileData = [fileData];
-						fileData.push(obj);
-						_writeFile(filePath, fileData, startTime);
-					}
-				});
-			} else {
-				fileData = [obj];
-				_writeFile(filePath, fileData, startTime, true);
-			}
+			let fileData = JSON.parse(data);
+			if (!Array.isArray(fileData)) fileData = [fileData];
+
+			fileData.push(obj);
+
+			let jsonData = JSON.stringify(fileData, null, 2)
+				.replace(/\\/g, '')
+				.replace(/\"{/g, '{')
+				.replace(/\}"/g, '}');
+
+			resolve(jsonData);
 		} catch (err) {
-			log.error('Utils.appendArrayInJsonFile error', err);
+			reject(err);
 		}
 	});
 }
 
-function _writeFile(filePath, fileData, startTime, isCreation) {
-	let jsonData = JSON.stringify(fileData, null, 2)
-		.replace(/\\/g, '')
-		.replace(/\"{/g, '{')
-		.replace(/\}"/g, '}');
-	fs.writeFile(filePath, jsonData, function () {
-		if (isCreation) {
-			log.debug('file ' + filePath + ' created in', executionTime(startTime) + 'ms');
-		} else {
-			log.debug('file ' + filePath + ' modified in', executionTime(startTime) + 'ms');
-		}
-	});
+function _fileUpdateSuccess(filePath, startTime) {
+	log.debug('file ' + filePath + ' modified in', executionTime(startTime) + 'ms');
 }
 
 /** Get name of files in directory. Return a Promise  */
@@ -173,7 +171,7 @@ const FILE_NOT_FOUND_EXCEPT = ['/home/pi/core/tmp/voicemail.json', '/home/pi/cor
 function getJsonFileContent(filePath, callback) {
 	log.debug('getJsonFileContent() ', filePath);
 	return new Promise((resolve, reject) => {
-		fs.readFile(filePath, function (err, data) {
+		fs.readFile(filePath, function(err, data) {
 			if (err && err.code === 'ENOENT' && !searchStringInArray(filePath, FILE_NOT_FOUND_EXCEPT)) {
 				log.error('No file: ' + filePath);
 				reject(err);
@@ -232,7 +230,7 @@ function postOdi(url, data) {
 /** Function to test internet connexion */
 function testConnexion(callback) {
 	//console.log('testConnexion()...');
-	require('dns').resolve('www.google.com', function (err) {
+	require('dns').resolve('www.google.com', function(err) {
 		if (err) {
 			log.debug('Odi is not connected to internet (utils.testConnexion)   /!\\');
 			callback(false);
@@ -309,13 +307,13 @@ function firstLetterUpper(string) {
 }
 
 /** Function to repeat/concat a string */
-String.prototype.repeat = function (num) {
+String.prototype.repeat = function(num) {
 	if (Number(num)) return new Array(Math.abs(num) + 1).join(this);
 	return '';
 };
 
 /** Function to remove quotes in a string */
-String.prototype.unQuote = function () {
+String.prototype.unQuote = function() {
 	return this.replace(/'|"/gm, '');
 };
 
@@ -428,7 +426,7 @@ function capitalizeFirstLetter(string) {
 }
 
 // Returns the ISO week of the date.
-Date.prototype.getWeek = function () {
+Date.prototype.getWeek = function() {
 	let date = new Date(this.getTime());
 	date.setHours(0, 0, 0, 0);
 	// Thursday in current week decides the year.
