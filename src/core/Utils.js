@@ -3,6 +3,8 @@
 
 const { exec } = require('child_process'),
 	fs = require('fs'),
+	fsPromises = fs.promises,
+	os = require('os'),
 	request = require('request');
 
 // Utils static factory (shoud not require Core.js || Flux.js)
@@ -22,6 +24,7 @@ module.exports = {
 
 	//network
 	testConnexion: testConnexion,
+	getLocalIp: getLocalIp,
 	getPublicIp: getPublicIp,
 	postOdi: postOdi,
 
@@ -110,33 +113,40 @@ function deleteFolderRecursive(path) {
 }
 
 /** Function to append object in JSON file */
-function appendArrayInJsonFile(filePath, obj, callback) {
-	let fileData,
-		startTime = new Date();
-	fs.exists(filePath, function(exists) {
+function appendArrayInJsonFile(filePath, obj) {
+	let startTime = new Date();
+	fsPromises
+		.readFile(filePath)
+		.catch(_fileNotExists)
+		.then(data => _appendFileData(data, obj))
+		.then(data => fsPromises.writeFile(filePath, data))
+		.then(() => log.debug('file ' + filePath + ' updated in', executionTime(startTime) + 'ms'))
+		.catch(err => log.error('Utils.appendArrayInJsonFile', err));
+}
+
+function _fileNotExists(err) {
+	return new Promise((resolve, reject) => {
+		if (err.code == 'ENOENT') resolve('[]');
+		else reject(err);
+	});
+}
+
+function _appendFileData(data, obj) {
+	return new Promise((resolve, reject) => {
 		try {
-			if (exists) {
-				fs.readFile(filePath, 'utf8', function(err, data) {
-					if (!data) {
-						fileData = [];
-					} else {
-						fileData = JSON.parse(data);
-					}
-					if (Array.isArray(fileData)) {
-						fileData.push(obj);
-						_writeFile(filePath, fileData, startTime);
-					} else {
-						fileData = [fileData];
-						fileData.push(obj);
-						_writeFile(filePath, fileData, startTime);
-					}
-				});
-			} else {
-				fileData = [obj];
-				_writeFile(filePath, fileData, startTime, true);
-			}
+			let fileData = JSON.parse(data);
+			if (!Array.isArray(fileData)) fileData = [fileData];
+
+			fileData.push(obj);
+
+			let jsonData = JSON.stringify(fileData, null, 2)
+				.replace(/\\/g, '')
+				.replace(/\"{/g, '{')
+				.replace(/\}"/g, '}');
+
+			resolve(jsonData);
 		} catch (err) {
-			log.error('Utils.appendArrayInJsonFile error', err);
+			reject(err);
 		}
 	});
 }
@@ -151,20 +161,6 @@ function directoryContent(path) {
 				resolve(files);
 			}
 		});
-	});
-}
-
-function _writeFile(filePath, fileData, startTime, isCreation) {
-	let jsonData = JSON.stringify(fileData, null, 2)
-		.replace(/\\/g, '')
-		.replace(/\"{/g, '{')
-		.replace(/\}"/g, '}');
-	fs.writeFile(filePath, jsonData, function() {
-		if (isCreation) {
-			log.debug('file ' + filePath + ' created in', executionTime(startTime) + 'ms');
-		} else {
-			log.debug('file ' + filePath + ' modified in', executionTime(startTime) + 'ms');
-		}
 	});
 }
 
@@ -194,6 +190,32 @@ function searchStringInArray(string, stringArray) {
 		}
 	}
 	return false;
+}
+
+function getLocalIp() {
+	let ifaces = os.networkInterfaces(),
+		localIp = '';
+	Object.keys(ifaces).forEach(function(ifname) {
+		let alias = 0;
+		ifaces[ifname].forEach(function(iface) {
+			if ('IPv4' !== iface.family || iface.internal !== false) {
+				// skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+				return;
+			}
+
+			if (alias >= 1) {
+				// this single interface has multiple ipv4 addresses
+				// console.log(ifname + ':' + alias, iface.address);
+				localIp += ifname + ':' + alias + ' ' + iface.address;
+			} else {
+				// this interface has only one ipv4 adress
+				// console.log(ifname, iface.address);
+				localIp += ifname + ' ' + iface.address;
+			}
+			++alias;
+		});
+	});
+	return localIp;
 }
 
 function getPublicIp() {

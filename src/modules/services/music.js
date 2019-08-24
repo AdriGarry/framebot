@@ -111,7 +111,7 @@ function playFipOrJukebox() {
 			if (connexion == true) {
 				playFip();
 			} else {
-				jukebox();
+				playlist();
 			}
 		}, 3000);
 	});
