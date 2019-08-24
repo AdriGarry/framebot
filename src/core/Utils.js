@@ -109,18 +109,6 @@ function deleteFolderRecursive(path) {
 	}
 }
 
-var writeFileInstances = {};
-function appendJsonFile(filePath, obj) {
-	//appendJsonFile adding queue...
-	if (writeFileInstances[filePath]) {
-		//
-	} else {
-		//writeFileInstances.push(filePath)
-		writeFileInstances[filePath] = true;
-		appendArrayInJsonFile(filePath, obj);
-	}
-}
-
 /** Function to append object in JSON file */
 function appendArrayInJsonFile(filePath, obj) {
 	let fileData,
