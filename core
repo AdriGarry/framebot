@@ -28,6 +28,14 @@ ifStop(){
 	fi
 }
 
+ifReset(){
+	if [ $1 = "reset" ]; then
+		echo "\nCORE RESETED !"
+		sudo rm -r -f /home/odi/core/tmp
+		exit 0
+	fi
+}
+
 ifCerbot(){
 	if [ $1 = "cerbot" ]; then
 		echo "\nCERBOT..."
@@ -42,6 +50,8 @@ setupCoreCommand $*
 exitIfNoArgs $*
 
 ifStop $*
+
+ifReset $*
 
 ifCerbot $*
 
