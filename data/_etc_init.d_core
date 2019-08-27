@@ -4,11 +4,11 @@ case "$1" in
 
     start)
     
-        sudo sh /home/pi/core/src/shell/sounds.sh startup
+        sudo sh /home/odi/core/src/shell/sounds.sh startup
 
-        sudo python /home/pi/core/src/python/buttons.py 2>&1 | sudo tee -a /home/pi/core/log/button.py.log &
+        sudo python /home/odi/core/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/core/log/button.py.log &
 
-        sudo sh /home/pi/core/core odi &
+        sudo sh /home/odi/core/core odi &
 
     ;;
 
@@ -16,7 +16,7 @@ case "$1" in
 
         sudo killall omxplayer.bin
         sudo killall node
-        sudo sh /home/pi/core/src/shell/sounds.sh reboot
+        sudo sh /home/odi/core/src/shell/sounds.sh reboot
     ;;
 esac
 

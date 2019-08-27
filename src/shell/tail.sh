@@ -3,4 +3,4 @@
 # Tail Odi.log
 lxterminal\
 	--title="MyScriptWindow" \
-	-e "tail -f /home/pi/odi/log/Odi.log"\
+	-e "tail -f /home/odi/odi/log/Odi.log"\

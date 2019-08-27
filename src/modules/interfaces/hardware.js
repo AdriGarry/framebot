@@ -286,7 +286,7 @@ function countSoftwareLines() {
 		totalLines = 0;
 	EXTENSIONS.forEach(function (extension) {
 		let command = 'find ' + PATHS.join(' ') + ' -regex ".+.' + extension + '" -print | grep -v lib | xargs wc -l';
-		//find /home/pi/core/src/ /home/pi/core/data/ /home/pi/core/conf/ -regex ".+.css" -print | grep -v lib | xargs wc -l
+		//find /home/odi/core/src/ /home/odi/core/data/ /home/odi/core/conf/ -regex ".+.css" -print | grep -v lib | xargs wc -l
 		Utils.execCmd(command, 'noLog')
 			.then(data => {
 				let regex = /(\d*) total/g;
