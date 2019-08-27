@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/pi/odi 
+cd /home/odi/odi 
 
 echo "\n___Git command: "$1
 
@@ -15,26 +15,26 @@ then
 	then
 		sudo git reset --hard
 		sudo git pull https://adrigarry:pnal6931@github.com/adrigarry/odi
-		# sudo sh /home/pi/odi/src/shell/sounds.sh bb8 &
-		sudo cp /home/pi/odi/src/shell/git.sh /home/pi/git.sh
-		if [ ! -d "/home/pi/odi/mp3" ]
+		# sudo sh /home/odi/odi/src/shell/sounds.sh bb8 &
+		sudo cp /home/odi/odi/src/shell/git.sh /home/odi/git.sh
+		if [ ! -d "/home/odi/odi/mp3" ]
 		then
-			sudo cp -rf /home/pi/odiSave/mp3 /home/pi/odi/mp3 &
+			sudo cp -rf /home/odi/odiSave/mp3 /home/odi/odi/mp3 &
 		fi
-		sudo rm -rf /home/pi/odi/log/*
+		sudo rm -rf /home/odi/odi/log/*
 
 	elif [ $1 = "clone" ]
 	then
-		sudo rm -rf /home/pi/odi/
-		sudo git clone https://adrigarry:pnal6931@github.com/adrigarry/odi /home/pi/odi/
-		sudo cp /home/pi/odi/pgm/sh/git.sh /home/pi/git.sh
-		if [ ! -d "/home/pi/odi/mp3" ]
+		sudo rm -rf /home/odi/odi/
+		sudo git clone https://adrigarry:pnal6931@github.com/adrigarry/odi /home/odi/odi/
+		sudo cp /home/odi/odi/pgm/sh/git.sh /home/odi/git.sh
+		if [ ! -d "/home/odi/odi/mp3" ]
 		then
-			sudo cp -rf /home/pi/odiSave/mp3 /home/pi/odi/mp3 &
+			sudo cp -rf /home/odi/odiSave/mp3 /home/odi/odi/mp3 &
 		fi
-		if [ ! -d "/home/pi/odi/log" ]
+		if [ ! -d "/home/odi/odi/log" ]
 		then
-			sudo mkdir /home/pi/odi/log &
+			sudo mkdir /home/odi/odi/log &
 		fi
 	else
 		sudo git status

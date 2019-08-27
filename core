@@ -6,8 +6,8 @@
 # run(){}
 
 setupCoreCommand(){
-	sudo cp /home/pi/core/core /usr/bin/
-	sudo cp /home/pi/core/data/_etc_init.d_core /etc/init.d/core
+	sudo cp /home/odi/core/core /usr/bin/
+	sudo cp /home/odi/core/data/_etc_init.d_core /etc/init.d/core
 	echo "setupCoreCommand: core and boot commands updated!\n"
 	# sudo chmod +x "$_PATH"/core.sh
 }
@@ -31,7 +31,7 @@ ifStop(){
 ifCerbot(){
 	if [ $1 = "cerbot" ]; then
 		echo "\nCERBOT..."
-		sh /home/pi/core/src/shell/cerbot.sh
+		sh /home/odi/core/src/shell/cerbot.sh
 		exit 0
 	fi
 }
@@ -50,7 +50,7 @@ clear
  _NAME=$1
  
 #_PATH=`pwd`
-_PATH="/home/pi/core/"
+_PATH="/home/odi/core/"
 echo _PATH $_PATH
 
 # Test if log directory exists
@@ -62,6 +62,6 @@ fi
 
 echo "\nStarting Wrapper... [$*]" | sudo tee -a "$_PATH/log/$_NAME.log"
 
-# sudo python /home/pi/core/src/python/buttons.py 2>&1 | sudo tee -a /home/pi/core/log/odi.log &
+# sudo python /home/odi/core/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/core/log/odi.log &
 sudo node "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" &
 

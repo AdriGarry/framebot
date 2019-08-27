@@ -165,7 +165,7 @@ function directoryContent(path) {
 }
 
 /** Function getJsonFileContent. Return a Promise */
-const FILE_NOT_FOUND_EXCEPT = ['/home/pi/core/tmp/voicemail.json', '/home/pi/core/tmp/record.json'];
+const FILE_NOT_FOUND_EXCEPT = ['/home/odi/core/tmp/voicemail.json', '/home/odi/core/tmp/record.json'];
 function getJsonFileContent(filePath, callback) {
 	log.debug('getJsonFileContent() ', filePath);
 	return new Promise((resolve, reject) => {
