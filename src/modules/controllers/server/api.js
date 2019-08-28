@@ -238,7 +238,7 @@ function attachDefaultRoutes(ui) {
 		if (pattern && admin.checkPassword(pattern)) {
 			granted = true;
 			log.info('>> Admin granted !');
-			log.info('ip:', IP.local + ' / ' + IP.public);
+			log.info('ip:', IP.local + ' / ' + IP.public.trim());
 		} else {
 			Core.error('>> User NOT granted /!\\', pattern, false);
 			Core.do('interface|tts|speak', { lg: 'en', msg: 'User NOT granted' }, { delay: 0.5 });
