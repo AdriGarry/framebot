@@ -4,8 +4,6 @@ case "$1" in
 
     start)
     
-        sudo sh /home/odi/core/src/shell/sounds.sh startup
-
         sudo python /home/odi/core/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/core/log/button.py.log &
 
         sudo sh /home/odi/core/core odi &
@@ -14,9 +12,10 @@ case "$1" in
 
     stop)
 
-        sudo killall omxplayer.bin
-        sudo killall node
-        sudo sh /home/odi/core/src/shell/sounds.sh reboot
+        # sudo killall omxplayer.bin
+        # sudo killall node
+        # sudo sh /home/odi/core/src/shell/sounds.sh reboot
+
     ;;
 esac
 

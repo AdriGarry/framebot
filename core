@@ -1,14 +1,15 @@
 #!/bin/sh
 
-# organize code in functions
-# init(){}
-# setup(){}
-# run(){}
 
-setupCoreCommand(){
+setupCoreCommandAndService(){
 	sudo cp /home/odi/core/core /usr/bin/
-	sudo cp /home/odi/core/data/_etc_init.d_core /etc/init.d/core
-	echo "setupCoreCommand: core and boot commands updated!\n"
+	
+	sudo cp /home/odi/core/data/coreStartup.service /etc/systemd/system/coreStartup.service
+	sudo chmod 664 /etc/systemd/system/coreStartup.service
+	sudo systemctl daemon-reload
+	sudo systemctl enable coreStartup.service
+
+	echo "setupCoreCommand: core command & service updated!\n"
 	# sudo chmod +x "$_PATH"/core.sh
 }
 
@@ -45,7 +46,7 @@ ifCerbot(){
 }
 
 
-setupCoreCommand $*
+setupCoreCommandAndService $*
 
 exitIfNoArgs $*
 
@@ -73,5 +74,5 @@ fi
 echo "\nStarting Wrapper... [$*]" | sudo tee -a "$_PATH/log/$_NAME.log"
 
 # sudo python /home/odi/core/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/core/log/odi.log &
+# sudo python /home/odi/core/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/core/log/buttons.py.log &
 sudo node "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" &
-

@@ -1,0 +1,11 @@
+ [Unit]
+ Description=Core service
+ After=multi-user.target
+
+ [Service]
+ Type=simple
+ KillMode=process
+ ExecStart=/bin/sh /home/odi/core/core odi
+
+ [Install]
+ WantedBy=multi-user.target
