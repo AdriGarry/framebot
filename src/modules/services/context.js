@@ -116,7 +116,6 @@ function updateConf(newConf, restart) {
 
 /** Function to reset Core (/tmp/ directory) */
 function resetCore() {
-	Core.do('interface|tts|speak', { lg: 'en', msg: 'reset config' });
 	Core.do('interface|sound|reset');
 	Utils.deleteFolderRecursive(Core._TMP);
 	log.INFO('reset conf and restart');
