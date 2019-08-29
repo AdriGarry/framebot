@@ -106,9 +106,9 @@ app.component('mode', {
 			label: 'Mode',
 			actionList: [
 				{ label: 'Sleep forever', icon: 'fas fa-moon', url: '/sleep/forever' },
-				{ label: 'Sleep', icon: 'far fa-moon', url: '/sleep' },
-				{ label: 'Reset', icon: 'fas fa-retweet', url: '/reset' },
-				{ label: 'Restart', icon: 'fas fa-bolt', url: '/odi' }
+				{ label: 'Sleep', icon: 'far fa-moon', url: '/flux/service/context/sleep' },
+				{ label: 'Reset', icon: 'fas fa-retweet', url: '/flux/service/context/reset' },
+				{ label: 'Restart', icon: 'fas fa-bolt', url: '/flux/service/context/restart' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

@@ -7,11 +7,11 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {
 	api: {
-		base: { POST: [{ url: 'reset', flux: { id: 'service|context|reset', conf: { delay: 1 } } }] },
+		// base: { POST: [{ url: 'reset', flux: { id: 'service|context|reset', conf: { delay: 1 } } }] },
 		full: {
 			POST: [
-				{ url: 'odi', flux: { id: 'service|context|restart', conf: { delay: 0.1 } } },
-				{ url: 'sleep', flux: { id: 'service|context|restart', data: 'sleep', conf: { delay: 0.1 } } },
+				// { url: 'odi', flux: { id: 'service|context|restart' } },
+				// { url: 'sleep', flux: { id: 'service|context|restart', data: 'sleep', conf: { delay: 0.1 } } },
 				{
 					url: 'sleep/forever',
 					flux: {
@@ -29,8 +29,8 @@ module.exports = {
 	},
 	cron: {
 		full: [
-			{ cron: '5 0 0 * * 1-5', flux: { id: 'service|context|goToSleep' } },
-			{ cron: '5 0 2 * * 0,6', flux: { id: 'service|context|goToSleep' } },
+			{ cron: '5 0 0 * * 1-5', flux: { id: 'service|context|sleep' } },
+			{ cron: '5 0 2 * * 0,6', flux: { id: 'service|context|sleep' } },
 			{
 				cron: '13 13 13 * * 1-6',
 				flux: [
@@ -53,6 +53,8 @@ Core.flux.service.context.subscribe({
 	next: flux => {
 		if (flux.id == 'restart') {
 			restartCore(flux.value);
+		} else if (flux.id == 'sleep') {
+			restartCore('sleep');
 		} else if (flux.id == 'goToSleep') {
 			goToSleep();
 		} else if (flux.id == 'update') {
@@ -82,7 +84,9 @@ function restartCore(mode) {
 		Core.do('interface|tts|speak', timerRemaining);
 		log.INFO(timerRemaining);
 	}
-	Core.do('service|context|updateRestart', { mode: mode || 'ready' });
+	setTimeout(() => {
+		Core.do('service|context|updateRestart', { mode: mode || 'ready' });
+	}, 100);
 }
 
 /** Function to random TTS good night, and sleep */
@@ -121,7 +125,9 @@ function resetCore() {
 	log.INFO('reset conf and restart');
 	log.info('buttonStats:', Core.run().buttonStats);
 	log.info('exit.');
-	process.exit();
+	setTimeout(function() {
+		process.exit();
+	}, 500);
 }
 
 /** Function to refresh Core\'s runtime data (etat, timer, moods...) */
