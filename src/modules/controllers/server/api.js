@@ -45,10 +45,32 @@ function attachRoutes(ui, modulesApi) {
 
 	if (Core.isAwake()) {
 		attachAwakeRoutes(uiHttp);
+		attachFluxRoutes(uiHttp); // ONLY IN AWAKE MODE FOR NOW
+		attachUnmappedRouteHandler(uiHttp);
 	} else {
 		attachSleepRoutes(uiHttp);
 	}
 	return uiHttp;
+}
+
+function attachFluxRoutes(ui) {
+	log.INFO('--> attachFluxRoutes');
+	ui.post('/flux/:type/:subject/:id', function(req, res) {
+		let params = req.body;
+		log.info('----> /flux/' + req.params.type + '/' + req.params.subject + '/' + req.params.id, params);
+		// Core.do('service|mood|java', params.value);
+		res.end();
+	});
+	return ui;
+}
+
+function attachUnmappedRouteHandler(ui) {
+	ui.post('/*', function(req, res) {
+		Core.error('Error UI > not mapped: ' + req.url, null, false);
+		res.writeHead(401);
+		res.end();
+	});
+	return ui;
 }
 
 function attachDefaultRoutes(ui) {
@@ -313,11 +335,6 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/*', function(req, res) {
-		Core.error('Error UI > not mapped: ' + req.url, null, false);
-		res.writeHead(401);
-		res.end();
-	});
 	return ui;
 }
 

@@ -119,9 +119,10 @@
 				<!-- data-ng-click="reloadUI()" -->
 				<h1
 					class="ng-slide-fast"
-					data-ng-dblclick="$root.irda && action({label: 'Restart Odi', url: '/odi'})"
+					data-ng-dblclick="$root.irda && action({label: 'Restart Odi', url: '/flux/service/context/restart'})"
 					title="{{ $root.irda ? 'Restart Odi\'s Core' : 'Hey, I\'m Odi !' }}"
 				>
+					<!--data-ng-dblclick="$root.irda && action({label: 'Restart Odi', url: '/odi'})"-->
 					Odi UI
 					<!-- Restart Odi's Core -->
 					<sup
