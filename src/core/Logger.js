@@ -112,7 +112,7 @@ module.exports = class Logger {
 	}
 
 	_timeoutToInfoLevel(delay) {
-		this[logLevel]('back to info level in', delay, 'min');
+		this[logLevel]('back to info in', delay, 'min');
 		clearTimeout(cancelTimeout);
 		cancelTimeout = setTimeout(() => {
 			this.level() != LEVEL.INFO && this.level(LEVEL.INFO);
