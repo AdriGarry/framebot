@@ -43,30 +43,27 @@ function attachRoutes(ui, modulesApi) {
 
 	attachDefaultRoutes(uiHttp);
 
-	if (Core.isAwake()) {
-		attachAwakeRoutes(uiHttp);
-		attachFluxRoutes(uiHttp); // ONLY IN AWAKE MODE FOR NOW
-		attachUnmappedRouteHandler(uiHttp);
-	} else {
-		attachSleepRoutes(uiHttp);
-	}
+	if (Core.isAwake()) attachAwakeRoutes(uiHttp);
+	else attachSleepRoutes(uiHttp);
+
+	attachFluxRoutes(uiHttp);
+	attachUnmappedRouteHandler(uiHttp);
 	return uiHttp;
 }
 
 function attachFluxRoutes(ui) {
-	log.INFO('--> attachFluxRoutes');
 	ui.post('/flux/:type/:subject/:id', function(req, res) {
 		let params = req.body;
-		log.info('----> /flux/' + req.params.type + '/' + req.params.subject + '/' + req.params.id, params);
-		// Core.do('service|mood|java', params.value);
+		Core.do(req.params.type + '|' + req.params.subject + '|' + req.params.id, params.value);
 		res.end();
 	});
 	return ui;
 }
 
-function attachUnmappedRouteHandler(ui) {
+function attachUnmappedRouteHandler(ui, mode) {
+	let errorMsg = Core.isAwake() ? 'Error UI > not mapped:' : 'Sleep mode, not allowed to interact';
 	ui.post('/*', function(req, res) {
-		Core.error('Error UI > not mapped: ' + req.url, null, false);
+		Core.error(errorMsg, req.url, false);
 		res.writeHead(401);
 		res.end();
 	});
@@ -358,11 +355,6 @@ function attachSleepRoutes(ui) {
 		}
 	});
 
-	ui.post('/*', function(req, res) {
-		Core.error('Sleep mode, not allowed to interact  -.-', null, false);
-		res.writeHead(401);
-		res.end();
-	});
 	return ui;
 }
 
