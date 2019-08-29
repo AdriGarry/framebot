@@ -157,7 +157,7 @@ function fetchWeatherData() {
 
 					resolve(weatherReport);
 				} catch (err) {
-					//"Can't parse weather data"
+					log.error("Can't parse weather data");
 					reject(err);
 				}
 			}
