@@ -2,7 +2,7 @@
 	"name": "core",
 	"version": "6.8.0-WIP:api-to-flux",
 	"private": true,
-	"description": "Core program to autorun and interact !",
+	"description": "Core program to autorun and interact!",
 	"main": "core.sh",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
