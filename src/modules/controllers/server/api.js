@@ -54,7 +54,7 @@ function attachRoutes(ui, modulesApi) {
 function attachFluxRoutes(ui) {
 	ui.post('/flux/:type/:subject/:id', function(req, res) {
 		let params = req.body;
-		Core.do(req.params.type + '|' + req.params.subject + '|' + req.params.id, params.value);
+		Core.do(req.params.type + '|' + req.params.subject + '|' + req.params.id, params);
 		res.end();
 	});
 	return ui;

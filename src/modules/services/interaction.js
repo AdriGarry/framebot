@@ -15,7 +15,7 @@ module.exports = {
 	api: {
 		full: {
 			POST: [
-				{ url: 'demo', flux: { id: 'service|interaction|demo' } },
+				// { url: 'demo', flux: { id: 'service|interaction|demo' } },
 				{ url: 'idea', flux: { id: 'interface|tts|speak', data: { lg: 'en', msg: "I've got an idea !" } } },
 				{ url: 'exclamation', flux: { id: 'service|interaction|exclamation' } }
 			]

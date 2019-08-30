@@ -19,11 +19,11 @@ module.exports = {
 						data: { mode: 'sleep', alarms: { weekDay: null, weekEnd: null } },
 						conf: { delay: 0.1 }
 					}
-				},
-				{
-					url: 'testSequence',
-					flux: { id: 'service|context|updateRestart', data: { mode: 'test' }, conf: { delay: 1 } }
 				}
+				// {
+				// 	url: 'testSequence',
+				// 	flux: { id: 'service|context|updateRestart', data: { mode: 'test' }, conf: { delay: 1 } }
+				// }
 			]
 		}
 	},
@@ -112,9 +112,11 @@ function updateConf(newConf, restart) {
 	let header = 'CONFIG UPDATE' + ' '.repeat(3) + Utils.executionTime(updateBegin, '    ') + 'ms';
 	log.table(Core.conf(), header, updatedEntries);
 	if (restart) {
-		log.info('buttonStats:', Core.run().buttonStats);
-		log.info('exit program.');
-		process.exit();
+		setTimeout(() => {
+			log.info('buttonStats:', Core.run().buttonStats);
+			log.info('exit program.');
+			process.exit();
+		}, 1000);
 	}
 }
 

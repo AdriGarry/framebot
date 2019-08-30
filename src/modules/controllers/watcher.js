@@ -9,9 +9,9 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(_PATH + 'src/core/Utils.js');
 
 module.exports = {
-	api: {
-		base: { POST: [{ url: 'watcher', flux: { id: 'controller|watcher|toggle' } }] }
-	}
+	// api: {
+	// 	base: { POST: [{ url: 'watcher', flux: { id: 'controller|watcher|toggle' } }] }
+	// }
 };
 
 Core.flux.controller.watcher.subscribe({

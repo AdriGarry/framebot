@@ -130,9 +130,14 @@ app.component('options', {
 			actionList: [
 				{ label: '!Trace', icon: 'far fa-dot-circle', url: '/toggleTrace' },
 				{ label: '!Debug', icon: 'fas fa-circle', url: '/toggleDebug' },
-				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' },
-				{ label: 'Test', icon: 'far fa-caret-square-right', url: '/testSequence' },
-				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' }
+				{ label: 'Watcher', icon: 'fas fa-eye', url: '/flux/controller/watcher/toggle' },
+				{
+					label: 'Test',
+					icon: 'far fa-caret-square-right',
+					url: '/flux/service/context/updateRestart',
+					params: { mode: 'test' }
+				},
+				{ label: 'Demo', icon: 'fas fa-play', url: '/flux/service/interaction/demo' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -565,7 +570,12 @@ app.component('idea', {
 			label: 'Idea',
 			actionList: [
 				{ label: 'Total lines', icon: 'far fa-file-code', url: '/totalLinesTTS' },
-				{ label: 'Cigales', icon: 'fas fa-bug', url: '/cigales' },
+				{
+					label: 'Cigales',
+					icon: 'fas fa-bug',
+					url: '/flux/interface/sound/play',
+					params: { mp3: 'system/cigales.mp3' }
+				},
 				{ label: 'Idea', icon: 'far fa-lightbulb', url: '/idea' },
 				{ label: 'Test', icon: 'fas fa-flag-checkered', url: '/test' }
 			]
