@@ -53,8 +53,11 @@ function attachRoutes(ui, modulesApi) {
 
 function attachFluxRoutes(ui) {
 	ui.post('/flux/:type/:subject/:id', function(req, res) {
+		log.info('--1');
 		let params = req.body;
+		log.info('--2', params);
 		Core.do(req.params.type + '|' + req.params.subject + '|' + req.params.id, params);
+		log.info('--3');
 		res.end();
 	});
 	return ui;
@@ -232,17 +235,6 @@ function attachDefaultRoutes(ui) {
 			log: newLogLevel
 		});
 		res.end();
-	});
-
-	ui.post('/volume/:volume', function(req, res) {
-		if (Core.isAwake()) {
-			Core.do('interface|sound|volume', req.params.volume);
-			res.end();
-		} else {
-			log.error("Can't ajust volume in " + Core.conf('mode') + ' mode');
-			res.statusCode = 500;
-			res.end();
-		}
 	});
 
 	ui.post('/alarm', function(req, res) {
