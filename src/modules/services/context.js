@@ -29,8 +29,8 @@ module.exports = {
 	},
 	cron: {
 		full: [
-			{ cron: '5 0 0 * * 1-5', flux: { id: 'service|context|sleep' } },
-			{ cron: '5 0 2 * * 0,6', flux: { id: 'service|context|sleep' } },
+			{ cron: '5 0 0 * * 1-5', flux: { id: 'service|context|goToSleep' } },
+			{ cron: '5 0 2 * * 0,6', flux: { id: 'service|context|goToSleep' } },
 			{
 				cron: '13 13 13 * * 1-6',
 				flux: [
