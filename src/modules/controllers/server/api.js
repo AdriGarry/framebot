@@ -53,11 +53,11 @@ function attachRoutes(ui, modulesApi) {
 
 function attachFluxRoutes(ui) {
 	ui.post('/flux/:type/:subject/:id', function(req, res) {
-		log.info('--1');
+		// log.info('--1');
 		let params = req.body;
-		log.info('--2', params);
+		// log.info('--2', params);
 		Core.do(req.params.type + '|' + req.params.subject + '|' + req.params.id, params);
-		log.info('--3');
+		// log.info('--3');
 		res.end();
 	});
 	return ui;

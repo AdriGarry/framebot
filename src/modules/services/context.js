@@ -78,16 +78,15 @@ setImmediate(() => {
 
 /** Function to restart/sleep Core */
 function restartCore(mode) {
-	log.INFO('----A');
-	log.info('restarting Core...', mode || '');
-	log.INFO('----B');
+	log.info('restarting Core...', mode);
+	if (typeof mode !== 'string') mode = Core.conf('mode');
 	if (Core.run('timer')) {
 		let timerRemaining = 'Minuterie ' + Core.run('timer') + 'secondes';
 		Core.do('interface|tts|speak', timerRemaining);
 		log.INFO(timerRemaining);
 	}
 	setTimeout(() => {
-		Core.do('service|context|updateRestart', { mode: mode || 'ready' });
+		Core.do('service|context|updateRestart', { mode: mode });
 	}, 100);
 }
 
