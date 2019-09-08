@@ -7,14 +7,14 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename);
 
 module.exports = {
-	api: {
-		full: {
-			POST: [
-				{ url: 'hdmi/on', flux: { id: 'interface|hdmi|on' } },
-				{ url: 'hdmi/off', flux: { id: 'interface|hdmi|off' } }
-			]
-		}
-	}
+	// api: {
+	// 	full: {
+	// 		POST: [
+	// 			{ url: 'hdmi/on', flux: { id: 'interface|hdmi|on' } },
+	// 			{ url: 'hdmi/off', flux: { id: 'interface|hdmi|off' } }
+	// 		]
+	// 	}
+	// }
 };
 
 Core.flux.interface.hdmi.subscribe({

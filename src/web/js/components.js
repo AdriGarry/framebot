@@ -716,9 +716,9 @@ app.component('videos', {
 		var tileParams = {
 			label: 'Video',
 			actionList: [
-				{ label: 'Hdmi off', icon: 'fas fa-stop', url: '/hdmi/off' },
-				{ label: 'Hdmi on', icon: 'fas fa-play', url: '/hdmi/on' },
-				{ label: 'Loop', icon: 'fas fa-film', url: '/video/loop' }
+				{ label: 'Hdmi off', icon: 'fas fa-stop', url: '/flux/interface/hdmi/off' },
+				{ label: 'Hdmi on', icon: 'fas fa-play', url: '/flux/interface/hdmi/on' },
+				{ label: 'Loop', icon: 'fas fa-film', url: '/flux/service/video/loop' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
