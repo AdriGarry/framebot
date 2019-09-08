@@ -135,7 +135,7 @@ app.component('options', {
 					label: 'Test',
 					icon: 'far fa-caret-square-right',
 					url: '/flux/service/context/updateRestart',
-					params: { mode: 'test' }
+					value: { mode: 'test' }
 				},
 				{ label: 'Demo', icon: 'fas fa-play', url: '/flux/service/interaction/demo' }
 			]
@@ -288,9 +288,9 @@ app.component('hardware', {
 			label: 'Hardware',
 			//disableOnSleep: true,
 			actionList: [
-				{ label: 'Disk Space', icon: 'fas fa-3x fa-chart-pie', url: '/diskSpaceTTS' },
-				{ label: 'CPU', icon: 'fab fa-3x fa-empire', url: '/cpuTTS' },
-				{ label: 'Memory', icon: 'fas fa-3x fa-microchip', url: '/soulTTS' }
+				{ label: 'Disk Space', icon: 'fas fa-3x fa-chart-pie', url: '/flux/interface/hardware/diskSpaceTTS' },
+				{ label: 'CPU', icon: 'fab fa-3x fa-empire', url: '/flux/interface/hardware/cpuTTS' },
+				{ label: 'Memory', icon: 'fas fa-3x fa-microchip', url: '/flux/interface/hardware/soulTTS' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -569,12 +569,12 @@ app.component('idea', {
 		var tileParams = {
 			label: 'Idea',
 			actionList: [
-				{ label: 'Total lines', icon: 'far fa-file-code', url: '/totalLinesTTS' },
+				{ label: 'Total lines', icon: 'far fa-file-code', url: '/flux/interface/hardware/totalLinesTTS' },
 				{
 					label: 'Cigales',
 					icon: 'fas fa-bug',
 					url: '/flux/interface/sound/play',
-					params: { mp3: 'system/cigales.mp3' }
+					value: { mp3: 'system/cigales.mp3' }
 				},
 				{ label: 'Idea', icon: 'far fa-lightbulb', url: '/idea' },
 				{ label: 'Test', icon: 'fas fa-flag-checkered', url: '/test' }
@@ -620,9 +620,9 @@ app.component('badBoy', {
 		var tileParams = {
 			label: 'Bad boy',
 			actionList: [
-				{ label: 'Java', icon: 'fas fa-grin-squint-tears', url: '/java' },
-				{ label: 'BadBoy Mode', icon: 'fas fa-hand-middle-finger', url: '/badBoy', continu: true },
-				{ label: 'BadBoy TTS', icon: 'fas fa-hand-middle-finger', url: '/badBoy' }
+				{ label: 'Java', icon: 'fas fa-grin-squint-tears', url: '/flux/service/mood/java' },
+				{ label: 'BadBoy Mode', icon: 'fas fa-hand-middle-finger', url: '/flux/service/mood/badBoy', continu: true },
+				{ label: 'BadBoy TTS', icon: 'fas fa-hand-middle-finger', url: '/flux/service/mood/badBoy' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -637,11 +637,11 @@ app.component('badBoy', {
 			}
 		};
 
-		var specificActions = function(button) {
+		let specificActions = function(button) {
 			if (button.label.toUpperCase().indexOf('BADBOY MODE') != -1) {
-				var slider = {
+				let slider = {
 					label: 'Bad boy interval',
-					url: '/badBoy',
+					url: '/flux/service/mood/badBoy',
 					legend: 'min',
 					min: 10,
 					max: 300,
@@ -807,9 +807,9 @@ app.component('system', {
 		var tileParams = {
 			label: 'System',
 			actionList: [
-				{ label: 'Light', icon: 'far fa-sun', url: '/light' },
-				{ label: 'Shutdown', icon: 'fas fa-power-off', url: '/shutdown' },
-				{ label: 'Reboot', icon: 'fas fa-sync', url: '/reboot' }
+				{ label: 'Light', icon: 'far fa-sun', url: '/flux/interface/hardware/light', value: 120 },
+				{ label: 'Shutdown', icon: 'fas fa-power-off', url: '/flux/interface/hardware/shutdown' },
+				{ label: 'Reboot', icon: 'fas fa-sync', url: '/flux/interface/hardware/reboot' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

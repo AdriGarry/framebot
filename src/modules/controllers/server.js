@@ -75,8 +75,9 @@ function startHttpsServer(modulesApi) {
 	uiHttps.use(compression()); // Compression web
 	uiHttps.use(express.static(Core._WEB)); // For static files
 
-	uiHttps.use(bodyParser.json()); // to support JSON-encoded bodies
 	uiHttps.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+	uiHttps.use(bodyParser.text({ defaultCharset: 'utf-8' }));
+	uiHttps.use(bodyParser.json()); // to support JSON-encoded bodies
 	uiHttps.use(bodyParser.raw({ type: 'application/octet-stream', limit: '50mb' }));
 
 	uiHttps.use(middleware.security());

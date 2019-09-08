@@ -27,7 +27,7 @@ app.controller('UIController', function(
 		let command = {
 			label: 'Volume ' + $scope.dashboard.runningData.volume.value + '%',
 			url: '/flux/interface/sound/volume',
-			params: { value: $scope.dashboard.runningData.volume.value }
+			value: { value: $scope.dashboard.runningData.volume.value }
 		};
 		UIService.sendCommand(command, () => {});
 	};

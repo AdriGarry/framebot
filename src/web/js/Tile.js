@@ -90,9 +90,6 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 				clickOutsideToClose: true
 			})
 			.then(function(button) {
-				if (!button.params && button.value) {
-					button.params = { value: button.value };
-				}
 				action(button); // à redéfinir ??
 			});
 	}

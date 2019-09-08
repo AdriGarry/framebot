@@ -53,11 +53,11 @@ function attachRoutes(ui, modulesApi) {
 
 function attachFluxRoutes(ui) {
 	ui.post('/flux/:type/:subject/:id', function(req, res) {
-		// log.info('--1');
-		let params = req.body;
-		// log.info('--2', params);
-		Core.do(req.params.type + '|' + req.params.subject + '|' + req.params.id, params);
-		// log.info('--3');
+		let value = req.body;
+		log.info('--1 value:', value);
+		if (typeof value === 'object' && value.hasOwnProperty('_value')) value = value._value;
+		log.info('--2 value:', value);
+		Core.do(req.params.type + '|' + req.params.subject + '|' + req.params.id, value);
 		res.end();
 	});
 	return ui;
@@ -282,20 +282,6 @@ function attachAwakeRoutes(ui) {
 		} else {
 			Core.do('interface|tts|random');
 		}
-		res.end();
-	});
-
-	ui.post('/badBoy', function(req, res) {
-		let params = req.body;
-		log.debug('/badBoy', params);
-		Core.do('service|mood|badBoy', params.value);
-		res.end();
-	});
-
-	ui.post('/java', function(req, res) {
-		let params = req.body;
-		log.debug('/java', params);
-		Core.do('service|mood|java', params.value);
 		res.end();
 	});
 
