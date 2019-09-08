@@ -322,7 +322,7 @@ app.component('exclamation', {
 			actionList: [
 				{ label: 'Exclamation', icon: 'fas fa-bullhorn', url: '/exclamation' },
 				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/tts?msg=RANDOM' },
-				{ label: 'Last TTS', icon: 'fas fa-undo', url: '/lastTTS' }
+				{ label: 'Last TTS', icon: 'fas fa-undo', url: '/flux/interface/tts/lastTTS' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
