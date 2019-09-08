@@ -174,13 +174,13 @@ app.component('alarms', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile, $rootScope, UIService, $mdpTimePicker) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Alarms',
 			actionList: [
-				{ label: 'Disable all', icon: 'fas fa-ban', url: '/alarmOff' },
-				{ label: 'weekDay', icon: 'far fa-frown', url: '/alarm' },
-				{ label: 'weekEnd', icon: 'far fa-smile', url: '/alarm' }
+				{ label: 'Disable all', icon: 'fas fa-ban', url: '/flux/service/alarm/off' },
+				{ label: 'weekDay', icon: 'far fa-frown', url: '/flux/service/alarm/set' },
+				{ label: 'weekEnd', icon: 'far fa-smile', url: '/flux/service/alarm/set' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -199,25 +199,25 @@ app.component('alarms', {
 			}
 		};
 
-		var showTimePicker = function(ev) {
+		let showTimePicker = function(ev) {
 			// A déplacer dans Tile.js ?
 			$mdpTimePicker(new Date(), {
 				targetEvent: ev,
 				autoSwitch: true
 			}).then(function(selectedDate) {
-				ctrl.newAlarm.params = {
+				ctrl.newAlarm.value = {
 					when: ctrl.newAlarm.label,
 					h: selectedDate.getHours(),
 					m: selectedDate.getMinutes()
 				};
 				ctrl.newAlarm.toast =
-					ctrl.newAlarm.label + ' alarm set to ' + ctrl.newAlarm.params.h + ':' + ctrl.newAlarm.params.m;
+					ctrl.newAlarm.label + ' alarm set to ' + ctrl.newAlarm.value.h + ':' + ctrl.newAlarm.value.m;
 				UIService.sendCommand(ctrl.newAlarm);
 			});
 		};
 
-		var specificActions = function(button) {
-			if (button.url == '/alarm') {
+		let specificActions = function(button) {
+			if (button.url !== '/flux/service/alarm/off') {
 				ctrl.newAlarm = button;
 				showTimePicker();
 			} else {
@@ -226,7 +226,7 @@ app.component('alarms', {
 		};
 
 		const DAYS = { weekDay: [1, 2, 3, 4, 5], weekEnd: [6, 0] };
-		var updateNextAlarm = function() {
+		let updateNextAlarm = function() {
 			let ALARMS = ctrl.data.value;
 			if (ALARMS.weekDay || ALARMS.weekEnd) {
 				let now = new Date(),
@@ -245,7 +245,7 @@ app.component('alarms', {
 			} else ctrl.nextAlarm = false;
 		};
 
-		var _incrementDay = function(date, time) {
+		let _incrementDay = function(date, time) {
 			return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, time.h, time.m);
 		};
 	}

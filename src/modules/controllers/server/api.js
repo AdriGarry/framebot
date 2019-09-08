@@ -237,12 +237,6 @@ function attachDefaultRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/alarm', function(req, res) {
-		let params = req.body;
-		Core.do('service|alarm|setAlarm', params);
-		res.end();
-	});
-
 	var granted = false;
 	ui.post('/grant', function(req, res) {
 		var pattern = req.headers.pwd;

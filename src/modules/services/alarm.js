@@ -7,9 +7,9 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(_PATH + 'src/core/Utils.js');
 
 module.exports = {
-	api: {
-		base: { POST: [{ url: 'alarmOff', flux: { id: 'service|alarm|alarmOff' } }] }
-	},
+	// api: {
+	// 	base: { POST: [{ url: 'alarmOff', flux: { id: 'service|alarm|alarmOff' } }] }
+	// },
 	cron: {
 		base: [{ cron: '1 * * * * *', flux: { id: 'service|alarm|isAlarm', conf: { log: 'trace' } } }],
 		full: []
@@ -18,9 +18,9 @@ module.exports = {
 
 Core.flux.service.alarm.subscribe({
 	next: flux => {
-		if (flux.id == 'setAlarm') {
+		if (flux.id == 'set') {
 			setAlarm(flux.value);
-		} else if (flux.id == 'alarmOff') {
+		} else if (flux.id == 'off') {
 			disableAllAlarms();
 		} else if (flux.id == 'isAlarm') {
 			isAlarm();
@@ -43,7 +43,7 @@ function disableAllAlarms() {
 
 /** Function to set custom alarm */
 function setAlarm(alarm) {
-	var newAlarms = {};
+	let newAlarms = {};
 	Object.keys(Core.conf('alarms')).forEach(function(key, index) {
 		if (key == alarm.when) {
 			newAlarms[key] = {
