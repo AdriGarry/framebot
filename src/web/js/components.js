@@ -763,8 +763,8 @@ app.component('arduino', {
 		var tileParams = {
 			label: 'Arduino',
 			actionList: [
-				{ label: 'Sleep', icon: 'far fa-stop-circle', url: '/arduino/stop' },
-				{ label: 'Connect', icon: 'fas fa-exchange-alt', url: '/arduino/connect' }
+				{ label: 'Sleep', icon: 'far fa-stop-circle', url: '/flux/interface/arduino/disconnect' },
+				{ label: 'Connect', icon: 'fas fa-exchange-alt', url: '/flux/interface/arduino/connect' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

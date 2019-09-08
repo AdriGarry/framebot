@@ -11,14 +11,14 @@ const ARDUINO = { address: '/dev/ttyACM0', baudRate: 115200 };
 var arduino;
 
 module.exports = {
-	api: {
-		full: {
-			POST: [
-				{ url: 'arduino/connect', flux: { id: 'interface|arduino|connect' } },
-				{ url: 'arduino/stop', flux: { id: 'interface|arduino|disconnect' } }
-			]
-		}
-	}
+	// api: {
+	// 	full: {
+	// 		POST: [
+	// 			{ url: 'arduino/connect', flux: { id: 'interface|arduino|connect' } },
+	// 			{ url: 'arduino/stop', flux: { id: 'interface|arduino|disconnect' } }
+	// 		]
+	// 	}
+	// }
 };
 
 Core.flux.interface.arduino.subscribe({
