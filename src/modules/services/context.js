@@ -79,7 +79,7 @@ setImmediate(() => {
 /** Function to restart/sleep Core */
 function restartCore(mode) {
 	log.info('restarting Core...', mode);
-	if (typeof mode !== 'string') mode = Core.conf('mode');
+	if (typeof mode !== 'string') mode = 'ready';
 	if (Core.run('timer')) {
 		let timerRemaining = 'Minuterie ' + Core.run('timer') + 'secondes';
 		Core.do('interface|tts|speak', timerRemaining);
