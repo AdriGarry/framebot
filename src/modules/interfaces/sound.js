@@ -159,7 +159,7 @@ function muteAll(message) {
 
 function setVolume(volume) {
 	log.info(volume);
-	if (typeof volume === 'object' && volume.hasOwnProperty(value)) volume = volume.value;
+	if (typeof volume === 'object' && volume.hasOwnProperty('value')) volume = volume.value;
 
 	let volumeUpdate = getVolumeInstructions(parseInt(volume));
 	if (!volumeUpdate) return;
