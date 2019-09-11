@@ -347,9 +347,9 @@ app.component('jukebox', {
 		var tileParams = {
 			label: 'Music',
 			actionList: [
-				{ label: 'Low', icon: 'fab fa-servicestack', url: '/playlist/low' },
-				{ label: 'Jukebox', icon: 'fab fa-squarespace', url: '/playlist/jukebox' },
-				{ label: 'FIP Radio', icon: 'fas fa-globe', url: '/fip' }
+				{ label: 'Low', icon: 'fab fa-servicestack', url: '/flux/service/music/playlist', value: 'low' },
+				{ label: 'Jukebox', icon: 'fab fa-squarespace', url: '/flux/service/music/playlist' },
+				{ label: 'FIP Radio', icon: 'fas fa-globe', url: '/flux/service/music/fip' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -552,7 +552,7 @@ app.component('maya', {
 				{ label: 'Animals', icon: 'fas fa-cat', url: '/flux/service/maya/animals' },
 				{ label: 'Bonne nuit', icon: 'fas fa-moon', url: '/flux/service/maya/bonneNuit' },
 				{ label: 'Le petit ver', icon: 'fas fa-music', url: '/flux/service/maya/lePetitVer' },
-				{ label: 'Comptines', icon: 'fas fa-music', url: '/playlist/comptines' }
+				{ label: 'Comptines', icon: 'fas fa-music', url: '/flux/service/music/playlist', value: 'comptines' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

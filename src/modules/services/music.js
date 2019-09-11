@@ -13,10 +13,10 @@ module.exports = {
 	api: {
 		full: {
 			POST: [
-				{ url: 'fip', flux: { id: 'service|music|fip' } },
-				{ url: 'playlist/jukebox', flux: { id: 'service|music|playlist', data: 'jukebox' } },
-				{ url: 'playlist/low', flux: { id: 'service|music|playlist', data: 'low' } },
-				{ url: 'playlist/comptines', flux: { id: 'service|music|playlist', data: 'comptines' } },
+				// { url: 'fip', flux: { id: 'service|music|fip' } },
+				// { url: 'playlist/jukebox', flux: { id: 'service|music|playlist', data: 'jukebox' } },
+				// { url: 'playlist/low', flux: { id: 'service|music|playlist', data: 'low' } },
+				// { url: 'playlist/comptines', flux: { id: 'service|music|playlist', data: 'comptines' } },
 				{ url: 'naheulbeuk', flux: { id: 'service|music|story', data: 'Naheulbeuk' } },
 				{ url: 'survivaure', flux: { id: 'service|music|story', data: 'Survivaure' } }
 			]
@@ -62,7 +62,7 @@ Object.keys(PLAYLIST).forEach(id => {
 /** Function playlist (repeat for one hour) */
 function playlist(playlistId) {
 	Core.do('interface|sound|mute', null, { log: 'trace' });
-	if (!playlistId || !Utils.searchStringInArray(playlistId, Object.keys(PLAYLIST))) {
+	if (typeof playlistId !== 'string' || !Utils.searchStringInArray(playlistId, Object.keys(PLAYLIST))) {
 		log.info("Playlist id '" + playlistId + "' not reconized, fallback to default playlist.");
 		playlistId = 'jukebox';
 	}
