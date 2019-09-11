@@ -503,9 +503,9 @@ app.component('time', {
 			label: 'Time',
 			// actionList:[{url: '/time'}]
 			actionList: [
-				{ label: "Odi's age", icon: 'fas fa-birthday-cake', url: '/age' },
-				{ label: 'Today', icon: 'fas fa-calendar-alt', url: '/date' },
-				{ label: 'Time', icon: 'far fa-clock', url: '/time' }
+				{ label: "Odi's age", icon: 'fas fa-birthday-cake', url: '/flux/service/time/age' },
+				{ label: 'Today', icon: 'fas fa-calendar-alt', url: '/flux/service/time/today' },
+				{ label: 'Time', icon: 'far fa-clock', url: '/flux/service/time/now' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -679,10 +679,10 @@ app.component('party', {
 		var tileParams = {
 			label: 'Party',
 			actionList: [
-				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/birthdaySong' },
-				{ label: 'Party mode', icon: 'far fa-grin-tongue', url: '/setParty' },
-				{ label: 'Pirate', icon: 'fas fa-beer', url: '/pirate' },
-				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/partyTTS' }
+				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/flux/service/time/birthday' },
+				{ label: 'Party mode', icon: 'far fa-grin-tongue', url: '/flux/service/party/start' },
+				{ label: 'Pirate', icon: 'fas fa-beer', url: '/flux/service/party/pirate' },
+				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/flux/service/party/tts' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

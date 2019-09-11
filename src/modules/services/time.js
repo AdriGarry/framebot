@@ -9,16 +9,16 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(_PATH + 'src/core/Utils.js');
 
 module.exports = {
-	api: {
-		full: {
-			POST: [
-				{ url: 'time', flux: { id: 'service|time|now' } },
-				{ url: 'date', flux: { id: 'service|time|today' } },
-				{ url: 'age', flux: { id: 'service|time|age' } },
-				{ url: 'birthdaySong', flux: { id: 'service|time|birthday' } }
-			]
-		}
-	},
+	// api: {
+	// 	full: {
+	// 		POST: [
+	// 			{ url: 'time', flux: { id: 'service|time|now' } },
+	// 			{ url: 'date', flux: { id: 'service|time|today' } },
+	// 			{ url: 'age', flux: { id: 'service|time|age' } }
+	// 			// { url: 'birthdaySong', flux: { id: 'service|time|birthday' } }
+	// 		]
+	// 	}
+	// },
 	cron: {
 		full: [{ cron: '0 0 * * * *', flux: { id: 'service|time|now' } }]
 	}
@@ -33,7 +33,7 @@ Core.flux.service.time.subscribe({
 		} else if (flux.id == 'age') {
 			ttsAge();
 		} else if (flux.id == 'birthday') {
-			birthdaySong();
+			birthdaySong(); // TODO move to party.js service
 		} else Core.error('unmapped flux in Time service', flux, false);
 	},
 	error: err => {
