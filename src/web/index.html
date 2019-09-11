@@ -119,7 +119,7 @@
 				<!-- data-ng-click="reloadUI()" -->
 				<h1
 					class="ng-slide-fast"
-					data-ng-dblclick="$root.irda && action({label: 'Restart Odi', url: '/odi'})"
+					data-ng-dblclick="$root.irda && action({label: 'Restart Odi', url: '/flux/service/context/restart'})"
 					title="{{ $root.irda ? 'Restart Odi\'s Core' : 'Hey, I\'m Odi !' }}"
 				>
 					Odi UI
@@ -408,7 +408,7 @@
 				</md-button>
 				<!-- // -> TENTER d'enlever les class md-hue-2 -->
 				<md-button
-					data-ng-click="action({label: 'Mute', url: '/mute'})"
+					data-ng-click="action({label: 'Mute', url: '/flux/interface/sound/mute'})"
 					data-ng-class="[{'active':fabButtonsVisible}]"
 					class="md-fab md-primary muteButton ng-slide"
 					title="Mute Odi"

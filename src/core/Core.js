@@ -73,7 +73,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	if (Core.isAwake()) {
 		spawn('mplayer', ['-volume', 50, Core._MP3 + 'system/startup.mp3']);
 	}
-	log.info('Context initializing...');
+	log.info('Core context initializing...');
 
 	if (Core.conf('log') != 'info') log.level(Core.conf('log'));
 
@@ -102,14 +102,12 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		Core.do(fluxToFire);
 	}
 
-	// process.on('uncaughtException', function(err) {
-	// 	Core.error('Uncaught Exception', err, false);
-	// });
-
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
 	ModuleLoader.loadModules(descriptor.modules);
 	log.info('all modules subscribed [' + Utils.executionTime(Core.startTime) + 'ms]');
-	ModuleLoader.setupCronAndApi();
+
+	Core.do('controller|server|start', null, { log: 'trace' });
+	ModuleLoader.setupCron();
 	Object.seal(Core);
 	return Core;
 }

@@ -24,9 +24,10 @@ app.controller('UIController', function(
 	$scope.log = { fullLine: true };
 
 	$scope.volumeChange = function() {
-		var command = {
-			label: 'set Volume ' + $scope.dashboard.runningData.volume.value + '%',
-			url: '/volume/' + $scope.dashboard.runningData.volume.value
+		let command = {
+			label: 'Volume ' + $scope.dashboard.runningData.volume.value + '%',
+			url: '/flux/interface/sound/volume',
+			value: { value: $scope.dashboard.runningData.volume.value }
 		};
 		UIService.sendCommand(command, () => {});
 	};

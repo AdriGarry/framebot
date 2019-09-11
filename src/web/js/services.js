@@ -78,7 +78,9 @@ app.service('UIService', [
 		/** Function to send command to Odi **/
 		ctrl.sendCommand = function(cmd, callback) {
 			// console.log('UIService.sendCommand()', cmd);
-			var uri = cmd.url;
+			let uri = cmd.url;
+			let value = cmd.value;
+			if (value !== 'object') value = { _value: value };
 			$http({
 				headers: {
 					'User-Interface': 'UIv5',
@@ -87,7 +89,7 @@ app.service('UIService', [
 				},
 				method: 'POST',
 				url: CONSTANTS.URL_ODI + uri /*+ params*/,
-				data: cmd.params
+				data: value
 			}).then(
 				function successCallback(res) {
 					if (res.data != null) {

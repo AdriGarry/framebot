@@ -8,14 +8,6 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js');
 
 module.exports = {
-	api: {
-		base: {
-			POST: [{ url: 'mute', flux: { id: 'interface|sound|mute' } }]
-		},
-		full: {
-			POST: [{ url: 'cigales', flux: { id: 'interface|sound|play', data: { mp3: 'system/cigales.mp3' } } }]
-		}
-	},
 	cron: {
 		full: [
 			{ cron: '0 30 8 * * *', flux: { id: 'interface|sound|volume', data: 40 } },
@@ -158,17 +150,23 @@ function muteAll(message) {
 }
 
 function setVolume(volume) {
-	let volumeUpdate = getVolumeInstructions(parseInt(volume));
-	if (!volumeUpdate) return;
+	log.info('setVolume', volume);
+	if (typeof volume === 'object' && volume.hasOwnProperty('value')) volume = volume.value;
+	if (!isNaN(volume)) {
+		let volumeUpdate = getVolumeInstructions(parseInt(volume));
+		if (!volumeUpdate) return;
 
-	let sign = volumeUpdate.increase ? '*' : '/';
-	while (volumeUpdate.gap) {
-		writeAllMPlayerInstances(sign);
-		volumeUpdate.gap--;
+		let sign = volumeUpdate.increase ? '*' : '/';
+		while (volumeUpdate.gap) {
+			writeAllMPlayerInstances(sign);
+			volumeUpdate.gap--;
+		}
+		Core.run('volume', volume);
+		log.info('Volume level =', volume + '%');
+		additionalVolumeSetup();
+	} else {
+		Core.error('volume argument not a numeric value', volume);
 	}
-	Core.run('volume', volume);
-	log.info('Volume level =', volume + '%');
-	additionalVolumeSetup();
 }
 
 function writeAllMPlayerInstances(sign) {

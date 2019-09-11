@@ -105,10 +105,14 @@ app.component('mode', {
 		var tileParams = {
 			label: 'Mode',
 			actionList: [
-				{ label: 'Sleep forever', icon: 'fas fa-moon', url: '/sleep/forever' },
-				{ label: 'Sleep', icon: 'far fa-moon', url: '/sleep' },
-				{ label: 'Reset', icon: 'fas fa-retweet', url: '/reset' },
-				{ label: 'Restart', icon: 'fas fa-bolt', url: '/odi' }
+				{
+					label: 'Sleep forever',
+					icon: 'fas fa-moon',
+					url: '/flux/service/context/sleepForever'
+				},
+				{ label: 'Sleep', icon: 'far fa-moon', url: '/flux/service/context/sleep' },
+				{ label: 'Reset', icon: 'fas fa-retweet', url: '/flux/service/context/reset' },
+				{ label: 'Restart', icon: 'fas fa-bolt', url: '/flux/service/context/restart' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -130,9 +134,14 @@ app.component('options', {
 			actionList: [
 				{ label: '!Trace', icon: 'far fa-dot-circle', url: '/toggleTrace' },
 				{ label: '!Debug', icon: 'fas fa-circle', url: '/toggleDebug' },
-				{ label: 'Watcher', icon: 'fas fa-eye', url: '/watcher' },
-				{ label: 'Test', icon: 'far fa-caret-square-right', url: '/testSequence' },
-				{ label: 'Demo', icon: 'fas fa-play', url: '/demo' }
+				{ label: 'Watcher', icon: 'fas fa-eye', url: '/flux/controller/watcher/toggle' },
+				{
+					label: 'Test',
+					icon: 'far fa-caret-square-right',
+					url: '/flux/service/context/updateRestart',
+					value: { mode: 'test' }
+				},
+				{ label: 'Demo', icon: 'fas fa-play', url: '/flux/service/interaction/demo' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -169,13 +178,13 @@ app.component('alarms', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile, $rootScope, UIService, $mdpTimePicker) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Alarms',
 			actionList: [
-				{ label: 'Disable all', icon: 'fas fa-ban', url: '/alarmOff' },
-				{ label: 'weekDay', icon: 'far fa-frown', url: '/alarm' },
-				{ label: 'weekEnd', icon: 'far fa-smile', url: '/alarm' }
+				{ label: 'Disable all', icon: 'fas fa-ban', url: '/flux/service/alarm/off' },
+				{ label: 'weekDay', icon: 'far fa-frown', url: '/flux/service/alarm/set' },
+				{ label: 'weekEnd', icon: 'far fa-smile', url: '/flux/service/alarm/set' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -194,25 +203,25 @@ app.component('alarms', {
 			}
 		};
 
-		var showTimePicker = function(ev) {
+		let showTimePicker = function(ev) {
 			// A déplacer dans Tile.js ?
 			$mdpTimePicker(new Date(), {
 				targetEvent: ev,
 				autoSwitch: true
 			}).then(function(selectedDate) {
-				ctrl.newAlarm.params = {
+				ctrl.newAlarm.value = {
 					when: ctrl.newAlarm.label,
 					h: selectedDate.getHours(),
 					m: selectedDate.getMinutes()
 				};
 				ctrl.newAlarm.toast =
-					ctrl.newAlarm.label + ' alarm set to ' + ctrl.newAlarm.params.h + ':' + ctrl.newAlarm.params.m;
+					ctrl.newAlarm.label + ' alarm set to ' + ctrl.newAlarm.value.h + ':' + ctrl.newAlarm.value.m;
 				UIService.sendCommand(ctrl.newAlarm);
 			});
 		};
 
-		var specificActions = function(button) {
-			if (button.url == '/alarm') {
+		let specificActions = function(button) {
+			if (button.url !== '/flux/service/alarm/off') {
 				ctrl.newAlarm = button;
 				showTimePicker();
 			} else {
@@ -221,7 +230,7 @@ app.component('alarms', {
 		};
 
 		const DAYS = { weekDay: [1, 2, 3, 4, 5], weekEnd: [6, 0] };
-		var updateNextAlarm = function() {
+		let updateNextAlarm = function() {
 			let ALARMS = ctrl.data.value;
 			if (ALARMS.weekDay || ALARMS.weekEnd) {
 				let now = new Date(),
@@ -240,7 +249,7 @@ app.component('alarms', {
 			} else ctrl.nextAlarm = false;
 		};
 
-		var _incrementDay = function(date, time) {
+		let _incrementDay = function(date, time) {
 			return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, time.h, time.m);
 		};
 	}
@@ -259,8 +268,8 @@ app.component('voicemail', {
 		var tileParams = {
 			label: 'Voicemail',
 			actionList: [
-				{ label: 'Clear', icon: 'far fa-trash-alt', url: '/clearVoicemail' },
-				{ label: 'Play', icon: 'fas fa-play', url: '/checkVoicemail' }
+				{ label: 'Clear', icon: 'far fa-trash-alt', url: '/flux/service/voicemail/clear' },
+				{ label: 'Play', icon: 'fas fa-play', url: '/flux/service/voicemail/check' }
 			]
 		};
 
@@ -283,9 +292,9 @@ app.component('hardware', {
 			label: 'Hardware',
 			//disableOnSleep: true,
 			actionList: [
-				{ label: 'Disk Space', icon: 'fas fa-3x fa-chart-pie', url: '/diskSpaceTTS' },
-				{ label: 'CPU', icon: 'fab fa-3x fa-empire', url: '/cpuTTS' },
-				{ label: 'Memory', icon: 'fas fa-3x fa-microchip', url: '/soulTTS' }
+				{ label: 'Disk Space', icon: 'fas fa-3x fa-chart-pie', url: '/flux/interface/hardware/diskSpaceTTS' },
+				{ label: 'CPU', icon: 'fab fa-3x fa-empire', url: '/flux/interface/hardware/cpuTTS' },
+				{ label: 'Memory', icon: 'fas fa-3x fa-microchip', url: '/flux/interface/hardware/soulTTS' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -315,9 +324,9 @@ app.component('exclamation', {
 		var tileParams = {
 			label: 'Exclamation',
 			actionList: [
-				{ label: 'Exclamation', icon: 'fas fa-bullhorn', url: '/exclamation' },
-				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/tts?msg=RANDOM' },
-				{ label: 'Last TTS', icon: 'fas fa-undo', url: '/lastTTS' }
+				{ label: 'Exclamation', icon: 'fas fa-bullhorn', url: '/flux/service/interaction/exclamation' },
+				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/flux/interface/tts/random' },
+				{ label: 'Last TTS', icon: 'fas fa-undo', url: '/flux/interface/tts/lastTTS' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -338,9 +347,9 @@ app.component('jukebox', {
 		var tileParams = {
 			label: 'Music',
 			actionList: [
-				{ label: 'Low', icon: 'fab fa-servicestack', url: '/playlist/low' },
-				{ label: 'Jukebox', icon: 'fab fa-squarespace', url: '/playlist/jukebox' },
-				{ label: 'FIP Radio', icon: 'fas fa-globe', url: '/fip' }
+				{ label: 'Low', icon: 'fab fa-servicestack', url: '/flux/service/music/playlist', value: 'low' },
+				{ label: 'Jukebox', icon: 'fab fa-squarespace', url: '/flux/service/music/playlist' },
+				{ label: 'FIP Radio', icon: 'fas fa-globe', url: '/flux/service/music/fip' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -361,9 +370,9 @@ app.component('audioRecorder', {
 		var tileParams = {
 			label: 'Audio recorder',
 			actionList: [
-				{ label: 'Clear', icon: 'fas fa-trash', url: '/audio/clear' },
-				{ label: 'All', icon: 'fas fa-play', url: '/audio/check' },
-				{ label: 'Last', icon: 'fas fa-undo', url: '/audio/last' }
+				{ label: 'Clear', icon: 'fas fa-trash', url: '/flux/service/audioRecord/clear' },
+				{ label: 'All', icon: 'fas fa-play', url: '/flux/service/audioRecord/check' },
+				{ label: 'Last', icon: 'fas fa-undo', url: '/flux/service/audioRecord/last' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -470,9 +479,9 @@ app.component('timer', {
 		var tileParams = {
 			label: 'Timer',
 			actionList: [
-				{ label: 'Stop timer', icon: 'fas fa-stop', url: '/timer?stop' },
-				{ label: 'Timer +3', icon: 'fas fa-plus', url: '/timer?min=3' },
-				{ label: 'Timer +1', icon: 'fas fa-plus', url: '/timer' }
+				{ label: 'Stop timer', icon: 'fas fa-stop', url: '/flux/service/timer/stop' },
+				{ label: 'Timer +3', icon: 'fas fa-plus', url: '/flux/service/timer/increase', value: 3 },
+				{ label: 'Timer +1', icon: 'fas fa-plus', url: '/flux/service/timer/increase', value: 1 }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -494,9 +503,9 @@ app.component('time', {
 			label: 'Time',
 			// actionList:[{url: '/time'}]
 			actionList: [
-				{ label: "Odi's age", icon: 'fas fa-birthday-cake', url: '/age' },
-				{ label: 'Today', icon: 'fas fa-calendar-alt', url: '/date' },
-				{ label: 'Time', icon: 'far fa-clock', url: '/time' }
+				{ label: "Odi's age", icon: 'fas fa-birthday-cake', url: '/flux/service/time/age' },
+				{ label: 'Today', icon: 'fas fa-calendar-alt', url: '/flux/service/time/today' },
+				{ label: 'Time', icon: 'far fa-clock', url: '/flux/service/time/now' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -517,9 +526,9 @@ app.component('weather', {
 		var tileParams = {
 			label: 'Weather',
 			actionList: [
-				{ label: 'Official weather', icon: 'fas fa-cloud-sun', url: '/weather' },
-				{ label: 'Alternative weather', icon: 'fas fa-cloud-sun-rain', url: '/weatherAlternative' },
-				{ label: 'Astronomy', icon: 'far fa-sun', url: '/astronomy' }
+				{ label: 'Official weather', icon: 'fas fa-cloud-sun', url: '/flux/service/weather/report' },
+				{ label: 'Alternative weather', icon: 'fas fa-cloud-sun-rain', url: '/flux/service/weather/alternative' },
+				{ label: 'Astronomy', icon: 'far fa-sun', url: '/flux/service/weather/astronomy' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -540,10 +549,10 @@ app.component('maya', {
 		var tileParams = {
 			label: 'Maya',
 			actionList: [
-				{ label: 'Animals', icon: 'fas fa-cat', url: '/maya/animals' },
-				{ label: 'Bonne nuit', icon: 'fas fa-moon', url: '/maya/goodNight' },
-				{ label: 'Le petit ver', icon: 'fas fa-music', url: '/maya/lePetitVer' },
-				{ label: 'Comptines', icon: 'fas fa-music', url: '/playlist/comptines' }
+				{ label: 'Animals', icon: 'fas fa-cat', url: '/flux/service/maya/animals' },
+				{ label: 'Bonne nuit', icon: 'fas fa-moon', url: '/flux/service/maya/bonneNuit' },
+				{ label: 'Le petit ver', icon: 'fas fa-music', url: '/flux/service/maya/lePetitVer' },
+				{ label: 'Comptines', icon: 'fas fa-music', url: '/flux/service/music/playlist', value: 'comptines' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -564,9 +573,19 @@ app.component('idea', {
 		var tileParams = {
 			label: 'Idea',
 			actionList: [
-				{ label: 'Total lines', icon: 'far fa-file-code', url: '/totalLinesTTS' },
-				{ label: 'Cigales', icon: 'fas fa-bug', url: '/cigales' },
-				{ label: 'Idea', icon: 'far fa-lightbulb', url: '/idea' },
+				{ label: 'Total lines', icon: 'far fa-file-code', url: '/flux/interface/hardware/totalLinesTTS' },
+				{
+					label: 'Cigales',
+					icon: 'fas fa-bug',
+					url: '/flux/interface/sound/play',
+					value: { mp3: 'system/cigales.mp3' }
+				},
+				{
+					label: 'Idea',
+					icon: 'far fa-lightbulb',
+					url: '/flux/interface/tts/speak',
+					value: { lg: 'en', msg: "I've got an idea !" }
+				},
 				{ label: 'Test', icon: 'fas fa-flag-checkered', url: '/test' }
 			]
 		};
@@ -588,8 +607,8 @@ app.component('stories', {
 		var tileParams = {
 			label: 'Stories',
 			actionList: [
-				{ label: 'Naheulbeuk', icon: 'fab fa-fort-awesome', url: '/naheulbeuk' },
-				{ label: 'Survivaure', icon: 'fas fa-space-shuttle', url: '/survivaure' }
+				{ label: 'Naheulbeuk', icon: 'fab fa-fort-awesome', url: '/flux/service/music/story', value: 'naheulbeuk' },
+				{ label: 'Survivaure', icon: 'fas fa-space-shuttle', url: '/flux/service/music/story', value: 'survivaure' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -610,9 +629,9 @@ app.component('badBoy', {
 		var tileParams = {
 			label: 'Bad boy',
 			actionList: [
-				{ label: 'Java', icon: 'fas fa-grin-squint-tears', url: '/java' },
-				{ label: 'BadBoy Mode', icon: 'fas fa-hand-middle-finger', url: '/badBoy', continu: true },
-				{ label: 'BadBoy TTS', icon: 'fas fa-hand-middle-finger', url: '/badBoy' }
+				{ label: 'Java', icon: 'fas fa-grin-squint-tears', url: '/flux/service/mood/java' },
+				{ label: 'BadBoy Mode', icon: 'fas fa-hand-middle-finger', url: '/flux/service/mood/badBoy', continu: true },
+				{ label: 'BadBoy TTS', icon: 'fas fa-hand-middle-finger', url: '/flux/service/mood/badBoy' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -627,11 +646,11 @@ app.component('badBoy', {
 			}
 		};
 
-		var specificActions = function(button) {
+		let specificActions = function(button) {
 			if (button.label.toUpperCase().indexOf('BADBOY MODE') != -1) {
-				var slider = {
+				let slider = {
 					label: 'Bad boy interval',
-					url: '/badBoy',
+					url: '/flux/service/mood/badBoy',
 					legend: 'min',
 					min: 10,
 					max: 300,
@@ -660,10 +679,10 @@ app.component('party', {
 		var tileParams = {
 			label: 'Party',
 			actionList: [
-				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/birthdaySong' },
-				{ label: 'Party mode', icon: 'far fa-grin-tongue', url: '/setParty' },
-				{ label: 'Pirate', icon: 'fas fa-beer', url: '/pirate' },
-				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/partyTTS' }
+				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/flux/service/time/birthday' },
+				{ label: 'Party mode', icon: 'far fa-grin-tongue', url: '/flux/service/party/start' },
+				{ label: 'Pirate', icon: 'fas fa-beer', url: '/flux/service/party/pirate' },
+				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/flux/service/party/tts' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -684,8 +703,8 @@ app.component('russia', {
 		var tileParams = {
 			label: 'Russia',
 			actionList: [
-				{ label: 'Subway / Street', icon: 'fas fa-subway', url: '/russia' },
-				{ label: 'Hymn', icon: 'fas fa-star', url: '/russia?hymn' }
+				{ label: 'Subway / Street', icon: 'fas fa-subway', url: '/flux/service/interaction/russia' },
+				{ label: 'Hymn', icon: 'fas fa-star', url: '/flux/service/interaction/russiaHymn' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -706,9 +725,9 @@ app.component('videos', {
 		var tileParams = {
 			label: 'Video',
 			actionList: [
-				{ label: 'Hdmi off', icon: 'fas fa-stop', url: '/hdmi/off' },
-				{ label: 'Hdmi on', icon: 'fas fa-play', url: '/hdmi/on' },
-				{ label: 'Loop', icon: 'fas fa-film', url: '/video/loop' }
+				{ label: 'Hdmi off', icon: 'fas fa-stop', url: '/flux/interface/hdmi/off' },
+				{ label: 'Hdmi on', icon: 'fas fa-play', url: '/flux/interface/hdmi/on' },
+				{ label: 'Loop', icon: 'fas fa-film', url: '/flux/service/video/loop' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -728,12 +747,12 @@ app.component('max', {
 		var tileParams = {
 			label: 'Max',
 			actionList: [
-				{ label: 'RDM Led', icon: 'far fa-sun', url: '/max/blinkRdmLed' },
-				{ label: 'All Led', icon: 'fas fa-sun', url: '/max/blinkAllLed' },
-				{ label: 'Melody', icon: 'fas fa-music', url: '/max/playOneMelody' },
-				{ label: 'RDM Melody', icon: 'fas fa-exchange-alt', url: '/max/playRdmMelody' },
-				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/max/hornRdm' },
-				{ label: 'Turn', icon: 'fas fa-sync', url: '/max/turn' }
+				{ label: 'RDM Led', icon: 'far fa-sun', url: '/flux/service/max/blinkRdmLed' },
+				{ label: 'All Led', icon: 'fas fa-sun', url: '/flux/service/max/blinkAllLed' },
+				{ label: 'Melody', icon: 'fas fa-music', url: '/flux/service/max/playOneMelody' },
+				{ label: 'RDM Melody', icon: 'fas fa-exchange-alt', url: '/flux/service/max/playRdmMelody' },
+				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/flux/service/max/hornRdm' },
+				{ label: 'Turn', icon: 'fas fa-sync', url: '/flux/service/max/turn' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -753,8 +772,8 @@ app.component('arduino', {
 		var tileParams = {
 			label: 'Arduino',
 			actionList: [
-				{ label: 'Sleep', icon: 'far fa-stop-circle', url: '/arduino/stop' },
-				{ label: 'Connect', icon: 'fas fa-exchange-alt', url: '/arduino/connect' }
+				{ label: 'Sleep', icon: 'far fa-stop-circle', url: '/flux/interface/arduino/disconnect' },
+				{ label: 'Connect', icon: 'fas fa-exchange-alt', url: '/flux/interface/arduino/connect' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -797,9 +816,9 @@ app.component('system', {
 		var tileParams = {
 			label: 'System',
 			actionList: [
-				{ label: 'Light', icon: 'far fa-sun', url: '/light' },
-				{ label: 'Shutdown', icon: 'fas fa-power-off', url: '/shutdown' },
-				{ label: 'Reboot', icon: 'fas fa-sync', url: '/reboot' }
+				{ label: 'Light', icon: 'far fa-sun', url: '/flux/interface/hardware/light', value: 120 },
+				{ label: 'Shutdown', icon: 'fas fa-power-off', url: '/flux/interface/hardware/shutdown' },
+				{ label: 'Reboot', icon: 'fas fa-sync', url: '/flux/interface/hardware/reboot' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

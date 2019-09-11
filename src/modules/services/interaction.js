@@ -12,15 +12,6 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	RandomBox = require('randombox').RandomBox;
 
 module.exports = {
-	api: {
-		full: {
-			POST: [
-				{ url: 'demo', flux: { id: 'service|interaction|demo' } },
-				{ url: 'idea', flux: { id: 'interface|tts|speak', data: { lg: 'en', msg: "I've got an idea !" } } },
-				{ url: 'exclamation', flux: { id: 'service|interaction|exclamation' } }
-			]
-		}
-	},
 	cron: {
 		full: [
 			{ cron: '0 18,20,22-25 8 * * 1-5', flux: { id: 'service|interaction|goToWork' } },
@@ -47,6 +38,8 @@ Core.flux.service.interaction.subscribe({
 			uneHeure();
 		} else if (flux.id == 'russia') {
 			russia();
+		} else if (flux.id == 'russiaHymn') {
+			russiaHymn();
 		} else Core.error('unmapped flux in Interfaction module', flux, false);
 	},
 	error: err => {
@@ -112,10 +105,16 @@ function exclamation() {
 
 function russia() {
 	log.info('Russia !');
-	Core.do('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { log: 'trace' });
 	let russiaExclamation = russiaExclamationRandomBox.next();
 	Core.do('interface|sound|play', {
 		mp3: 'exclamation_russia/' + russiaExclamation
+	});
+}
+
+function russiaHymn() {
+	log.info('Russia Hymn!');
+	Core.do('interface|sound|play', {
+		mp3: 'playlists/jukebox/HymneSovietique.mp3'
 	});
 }
 

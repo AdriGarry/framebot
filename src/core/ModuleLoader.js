@@ -7,12 +7,12 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 var ModuleLoader = {
 	loadModules: loadModules,
-	setupCronAndApi: setupCronAndApi
+	setupCron: setupCron
 };
 
 module.exports = ModuleLoader;
 
-var cronAndApi = {};
+var loadedModules = {};
 
 function loadModules(modules) {
 	Object.keys(modules).forEach(moduleType => {
@@ -28,46 +28,26 @@ function loadModules(modules) {
 function _requireModules(moduleType, moduleArray) {
 	let modulesLoadedList = '';
 	for (let i = 0; i < moduleArray.length; i++) {
-		cronAndApi[moduleArray[i]] = require(Core._MODULES + moduleType + '/' + moduleArray[i] + '.js');
+		loadedModules[moduleArray[i]] = require(Core._MODULES + moduleType + '/' + moduleArray[i] + '.js');
 	}
 	modulesLoadedList += moduleArray.join(', ');
 	return modulesLoadedList;
 }
 
-function setupCronAndApi(modules) {
-	log.info('setting up cron and api...');
-	let toLoad = _organizeCronAndApi();
-	Core.do('controller|server|start', toLoad.apiList, { log: 'trace' }); //delay: 0.1,
-	Core.do('controller|cron|start', toLoad.cronList, { delay: 0.1, log: 'trace' });
+function setupCron(modules) {
+	log.info('setting up cron...');
+	let cronList = _organizeCron();
+	Core.do('controller|cron|start', cronList, { delay: 0.1, log: 'trace' });
 }
 
-function _organizeCronAndApi() {
-	let cronList = [],
-		apiList = [];
-	Object.keys(cronAndApi).forEach(mod => {
-		if (cronAndApi[mod].cron) {
-			if (Array.isArray(cronAndApi[mod].cron.base)) cronList.push.apply(cronList, cronAndApi[mod].cron.base);
-			if (Array.isArray(cronAndApi[mod].cron.full) && Core.isAwake())
-				cronList.push.apply(cronList, cronAndApi[mod].cron.full);
-		}
-		if (cronAndApi[mod].api) {
-			if (cronAndApi[mod].api.base) {
-				if (Array.isArray(cronAndApi[mod].api.base.GET)) {
-					apiList.push.apply(apiList, cronAndApi[mod].api.base.GET);
-				}
-				if (Array.isArray(cronAndApi[mod].api.base.POST)) {
-					apiList.push.apply(apiList, cronAndApi[mod].api.base.POST);
-				}
-			}
-			if (cronAndApi[mod].api.full) {
-				if (Array.isArray(cronAndApi[mod].api.full.GET)) {
-					apiList.push.apply(apiList, cronAndApi[mod].api.full.GET);
-				}
-				if (Array.isArray(cronAndApi[mod].api.full.POST)) {
-					apiList.push.apply(apiList, cronAndApi[mod].api.full.POST);
-				}
-			}
+function _organizeCron() {
+	let cronList = [];
+	Object.keys(loadedModules).forEach(mod => {
+		if (loadedModules[mod].cron) {
+			if (Array.isArray(loadedModules[mod].cron.base)) cronList.push.apply(cronList, loadedModules[mod].cron.base);
+			if (Array.isArray(loadedModules[mod].cron.full) && Core.isAwake())
+				cronList.push.apply(cronList, loadedModules[mod].cron.full);
 		}
 	});
-	return { cronList, apiList };
+	return cronList;
 }

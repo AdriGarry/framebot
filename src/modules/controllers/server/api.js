@@ -27,28 +27,31 @@ Utils.getPublicIp().then(data => (IP.public = data));
 function attachRoutes(ui, modulesApi) {
 	uiHttp = ui;
 
-	if (!Array.isArray(modulesApi)) modulesApi = [modulesApi];
-	modulesApi.forEach(item => {
-		log.trace('POST /' + item.url);
-		uiHttp.post('/' + item.url, (req, res) => {
-			// add to url: /api/... ?
-			if (!Array.isArray(item.flux)) item.flux = [item.flux];
-			item.flux.forEach(flux => {
-				Core.do(flux.id, flux.data, flux.conf);
-				// TODO req.body => flux.value
-			});
-			res.end();
-		});
-	});
-
+	// TODO attachUiRoute(uiHttp);
 	attachDefaultRoutes(uiHttp);
-
-	if (Core.isAwake()) {
-		attachAwakeRoutes(uiHttp);
-	} else {
-		attachSleepRoutes(uiHttp);
-	}
+	attachFluxRoutes(uiHttp);
+	attachUnmappedRouteHandler(uiHttp);
 	return uiHttp;
+}
+
+function attachFluxRoutes(ui) {
+	ui.post('/flux/:type/:subject/:id', function(req, res) {
+		let value = req.body;
+		if (typeof value === 'object' && value.hasOwnProperty('_value')) value = value._value;
+		Core.do(req.params.type + '|' + req.params.subject + '|' + req.params.id, value);
+		res.end();
+	});
+	return ui;
+}
+
+function attachUnmappedRouteHandler(ui, mode) {
+	let errorMsg = Core.isAwake() ? 'Error UI > not mapped:' : 'Sleep mode, not allowed to interact';
+	ui.post('/*', function(req, res) {
+		Core.error(errorMsg, req.url, false);
+		res.writeHead(401);
+		res.end();
+	});
+	return ui;
 }
 
 function attachDefaultRoutes(ui) {
@@ -215,23 +218,6 @@ function attachDefaultRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/volume/:volume', function(req, res) {
-		if (Core.isAwake()) {
-			Core.do('interface|sound|volume', req.params.volume);
-			res.end();
-		} else {
-			log.error("Can't ajust volume in " + Core.conf('mode') + ' mode');
-			res.statusCode = 500;
-			res.end();
-		}
-	});
-
-	ui.post('/alarm', function(req, res) {
-		let params = req.body;
-		Core.do('service|alarm|setAlarm', params);
-		res.end();
-	});
-
 	var granted = false;
 	ui.post('/grant', function(req, res) {
 		var pattern = req.headers.pwd;
@@ -246,14 +232,11 @@ function attachDefaultRoutes(ui) {
 		res.send(granted);
 		if (granted) granted = false;
 	});
-	return ui;
-}
 
-function attachAwakeRoutes(ui) {
 	ui.post('/tts', function(req, res) {
 		let params = req.query;
 		if (params.voice && params.lg && params.msg) {
-			if (params.hasOwnProperty('voicemail')) {
+			if (!Core.isAwake() || params.hasOwnProperty('voicemail')) {
 				Core.do('service|voicemail|new', {
 					voice: params.voice,
 					lg: params.lg,
@@ -274,78 +257,6 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/badBoy', function(req, res) {
-		let params = req.body;
-		log.debug('/badBoy', params);
-		Core.do('service|mood|badBoy', params.value);
-		res.end();
-	});
-
-	ui.post('/java', function(req, res) {
-		let params = req.body;
-		log.debug('/java', params);
-		Core.do('service|mood|java', params.value);
-		res.end();
-	});
-
-	ui.post('/russia', function(req, res) {
-		let params = req.query;
-		log.debug('/russia', params);
-		if (params.hasOwnProperty('hymn')) {
-			Core.do('interface|sound|play', {
-				mp3: 'playlist/jukebox/HymneSovietique.mp3'
-			});
-			Core.do('interface|led|altLeds', { speed: 70, loop: 20 }, { log: 'trace' });
-		} else {
-			Core.do('service|interaction|russia');
-		}
-		res.end();
-	});
-
-	ui.post('/timer', function(req, res) {
-		let params = req.query; // affiner pour récupérer les params
-		if (params.hasOwnProperty('stop')) {
-			Core.do('service|timer|stop');
-		} else {
-			var min = parseInt(params.min, 10) || 1;
-			Core.do('service|timer|increase', min);
-		}
-		res.end();
-	});
-
-	ui.post('/*', function(req, res) {
-		Core.error('Error UI > not mapped: ' + req.url, null, false);
-		res.writeHead(401);
-		res.end();
-	});
-	return ui;
-}
-
-function attachSleepRoutes(ui) {
-	ui.post('/tts', function(req, res) {
-		// Add Voice Mail Message
-		let params = req.query;
-		if (params['voice'] && params['lg'] && params['msg']) {
-			Core.do('service|voicemail|new', {
-				voice: params.voice,
-				lg: params.lg,
-				msg: params.msg
-			});
-			params.timestamp = Utils.logTime('D/M h:m:s', new Date());
-			Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
-			res.end();
-		} else {
-			Core.error('Error while saving voicemail message:', params);
-			res.writeHead(500);
-			res.end();
-		}
-	});
-
-	ui.post('/*', function(req, res) {
-		Core.error('Sleep mode, not allowed to interact  -.-', null, false);
-		res.writeHead(401);
-		res.end();
-	});
 	return ui;
 }
 

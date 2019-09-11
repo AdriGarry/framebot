@@ -6,27 +6,6 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(_PATH + 'src/core/Utils.js');
 
 module.exports = {
-	api: {
-		base: { POST: [{ url: 'reset', flux: { id: 'service|context|reset', conf: { delay: 1 } } }] },
-		full: {
-			POST: [
-				{ url: 'odi', flux: { id: 'service|context|restart', conf: { delay: 0.1 } } },
-				{ url: 'sleep', flux: { id: 'service|context|restart', data: 'sleep', conf: { delay: 0.1 } } },
-				{
-					url: 'sleep/forever',
-					flux: {
-						id: 'service|context|updateRestart',
-						data: { mode: 'sleep', alarms: { weekDay: null, weekEnd: null } },
-						conf: { delay: 0.1 }
-					}
-				},
-				{
-					url: 'testSequence',
-					flux: { id: 'service|context|updateRestart', data: { mode: 'test' }, conf: { delay: 1 } }
-				}
-			]
-		}
-	},
 	cron: {
 		full: [
 			{ cron: '5 0 0 * * 1-5', flux: { id: 'service|context|goToSleep' } },
@@ -53,6 +32,10 @@ Core.flux.service.context.subscribe({
 	next: flux => {
 		if (flux.id == 'restart') {
 			restartCore(flux.value);
+		} else if (flux.id == 'sleep') {
+			restartCore('sleep');
+		} else if (flux.id == 'sleepForever') {
+			updateConf({ mode: 'sleep', alarms: { weekDay: null, weekEnd: null } }, true);
 		} else if (flux.id == 'goToSleep') {
 			goToSleep();
 		} else if (flux.id == 'update') {
@@ -76,13 +59,16 @@ setImmediate(() => {
 
 /** Function to restart/sleep Core */
 function restartCore(mode) {
-	log.info('restarting Core...', mode || '');
+	log.info('restarting Core...', mode);
+	if (typeof mode !== 'string') mode = 'ready';
 	if (Core.run('timer')) {
 		let timerRemaining = 'Minuterie ' + Core.run('timer') + 'secondes';
 		Core.do('interface|tts|speak', timerRemaining);
 		log.INFO(timerRemaining);
 	}
-	Core.do('service|context|updateRestart', { mode: mode || 'ready' });
+	setTimeout(() => {
+		Core.do('service|context|updateRestart', { mode: mode });
+	}, 100);
 }
 
 /** Function to random TTS good night, and sleep */
@@ -108,9 +94,9 @@ function updateConf(newConf, restart) {
 	let header = 'CONFIG UPDATE' + ' '.repeat(3) + Utils.executionTime(updateBegin, '    ') + 'ms';
 	log.table(Core.conf(), header, updatedEntries);
 	if (restart) {
-		log.info('buttonStats:', Core.run().buttonStats);
-		log.info('exit program.');
-		process.exit();
+		setTimeout(() => {
+			processExit();
+		}, 1000);
 	}
 }
 
@@ -121,6 +107,14 @@ function resetCore() {
 	log.INFO('reset conf and restart');
 	log.info('buttonStats:', Core.run().buttonStats);
 	log.info('exit.');
+	setTimeout(function() {
+		processExit();
+	}, 500);
+}
+
+function processExit() {
+	log.info('buttonStats:', Core.run().buttonStats);
+	log.info('exit program.');
 	process.exit();
 }
 

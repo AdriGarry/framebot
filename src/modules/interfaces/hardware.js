@@ -15,20 +15,6 @@ const PATHS = [Core._SRC],
 	BYTE_TO_MO = 1048576;
 
 module.exports = {
-	api: {
-		base: { POST: [{ url: 'archiveLog', flux: { id: 'interface|hardware|archiveLog' } }] },
-		full: {
-			POST: [
-				{ url: 'reboot', flux: { id: 'interface|hardware|reboot', conf: { delay: 0.1 } } },
-				{ url: 'shutdown', flux: { id: 'interface|hardware|shutdown', conf: { delay: 0.1 } } },
-				{ url: 'light', flux: { id: 'interface|hardware|light', data: 120, conf: { delay: 0.1 } } },
-				{ url: 'cpuTTS', flux: { id: 'interface|hardware|cpuTTS' } },
-				{ url: 'soulTTS', flux: { id: 'interface|hardware|soulTTS' } },
-				{ url: 'diskSpaceTTS', flux: { id: 'interface|hardware|diskSpaceTTS' } },
-				{ url: 'totalLinesTTS', flux: { id: 'interface|hardware|totalLinesTTS' } }
-			]
-		}
-	},
 	cron: {
 		base: [
 			{ cron: '*/30 * * * * *', flux: { id: 'interface|hardware|runtime', conf: { log: 'trace' } } },
@@ -85,7 +71,7 @@ function reboot() {
 		Core.do('interface|arduino|write', 'playHornOff', { delay: 2 });
 	}
 	console.log('\n\n_/!\\__REBOOTING RASPBERRY PI !!\n');
-	setTimeout(function () {
+	setTimeout(function() {
 		spawn('reboot');
 	}, 2000);
 }
@@ -97,7 +83,7 @@ function shutdown() {
 		Core.do('interface|tts|speak', { msg: 'Arret system' });
 		Core.do('interface|arduino|write', 'playHornOff', { delay: 2 });
 	}
-	setTimeout(function () {
+	setTimeout(function() {
 		console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!\n");
 		spawn('halt');
 	}, 2000);
@@ -245,8 +231,8 @@ function diskSpaceTTS() {
 	let ttsMsg = Utils.rdm()
 		? 'Il me reste ' + (100 - diskSpace) + " pour cent d'espace disque disponible"
 		: Utils.rdm()
-			? "J'utilise " + diskSpace + " pour cent d'espace de stockage"
-			: 'Mon espace disque est utiliser a ' + diskSpace + 'pour cent';
+		? "J'utilise " + diskSpace + " pour cent d'espace de stockage"
+		: 'Mon espace disque est utiliser a ' + diskSpace + 'pour cent';
 	Core.do('interface|tts|speak', ttsMsg);
 }
 
@@ -284,7 +270,7 @@ function countSoftwareLines() {
 	let typesNb = EXTENSIONS.length;
 	let lines = {},
 		totalLines = 0;
-	EXTENSIONS.forEach(function (extension) {
+	EXTENSIONS.forEach(function(extension) {
 		let command = 'find ' + PATHS.join(' ') + ' -regex ".+.' + extension + '" -print | grep -v lib | xargs wc -l';
 		//find /home/odi/core/src/ /home/odi/core/data/ /home/odi/core/conf/ -regex ".+.css" -print | grep -v lib | xargs wc -l
 		Utils.execCmd(command, 'noLog')
@@ -328,11 +314,11 @@ function archiveLogs() {
 function archiveLogFile(logFile, weekNb) {
 	let stream = fs.createReadStream(Core._LOG + logFile); /*, {bufferSize: 64 * 1024}*/
 	stream.pipe(fs.createWriteStream(Core._LOG + 'old/' + logFile + weekNb));
-	stream.on('error', function (err) {
+	stream.on('error', function(err) {
 		Core.error('stream error while archiving log file ' + logFile, err);
 	});
-	stream.on('close', function () {
-		fs.truncate(Core._LOG + logFile, 0, function () {
+	stream.on('close', function() {
+		fs.truncate(Core._LOG + logFile, 0, function() {
 			log.info(logFile + ' successfully archived');
 		});
 	});

@@ -11,16 +11,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 const VOICE_LIST = Object.keys(voices);
 const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
 
-module.exports = {
-	api: {
-		full: {
-			POST: [
-				{ url: 'lastTTS', flux: { id: 'interface|tts|lastTTS' } },
-				{ url: 'test', flux: { id: 'interface|tts|speak', data: { lg: 'en', msg: '.undefined' } } }
-			]
-		}
-	}
-};
+module.exports = {};
 
 Core.flux.interface.tts.subscribe({
 	next: flux => {

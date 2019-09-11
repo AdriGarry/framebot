@@ -10,17 +10,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js'),
 	WEATHER_CREDENTIALS = require(Core._SECURITY + 'credentials.json').weather;
 
-module.exports = {
-	api: {
-		full: {
-			POST: [
-				{ url: 'weather', flux: { id: 'service|weather|report' } },
-				{ url: 'weatherAlternative', flux: { id: 'service|weather|alternative' } },
-				{ url: 'astronomy', flux: { id: 'service|weather|astronomy' } }
-			]
-		}
-	}
-};
+module.exports = {};
 
 Core.flux.service.weather.subscribe({
 	next: flux => {
