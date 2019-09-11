@@ -325,7 +325,7 @@ app.component('exclamation', {
 			label: 'Exclamation',
 			actionList: [
 				{ label: 'Exclamation', icon: 'fas fa-bullhorn', url: '/flux/service/interaction/exclamation' },
-				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/tts?msg=RANDOM' },
+				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/flux/interface/tts/random' },
 				{ label: 'Last TTS', icon: 'fas fa-undo', url: '/flux/interface/tts/lastTTS' }
 			]
 		};
@@ -607,8 +607,8 @@ app.component('stories', {
 		var tileParams = {
 			label: 'Stories',
 			actionList: [
-				{ label: 'Naheulbeuk', icon: 'fab fa-fort-awesome', url: '/naheulbeuk' },
-				{ label: 'Survivaure', icon: 'fas fa-space-shuttle', url: '/survivaure' }
+				{ label: 'Naheulbeuk', icon: 'fab fa-fort-awesome', url: '/flux/service/music/story', value: 'naheulbeuk' },
+				{ label: 'Survivaure', icon: 'fas fa-space-shuttle', url: '/flux/service/music/story', value: 'survivaure' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

@@ -27,11 +27,8 @@ Utils.getPublicIp().then(data => (IP.public = data));
 function attachRoutes(ui, modulesApi) {
 	uiHttp = ui;
 
+	// TODO attachUiRoute(uiHttp);
 	attachDefaultRoutes(uiHttp);
-
-	// if (Core.isAwake()) attachAwakeRoutes(uiHttp);
-	// else attachSleepRoutes(uiHttp);
-
 	attachFluxRoutes(uiHttp);
 	attachUnmappedRouteHandler(uiHttp);
 	return uiHttp;

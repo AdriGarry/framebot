@@ -95,9 +95,7 @@ function updateConf(newConf, restart) {
 	log.table(Core.conf(), header, updatedEntries);
 	if (restart) {
 		setTimeout(() => {
-			log.info('buttonStats:', Core.run().buttonStats);
-			log.info('exit program.');
-			process.exit();
+			processExit();
 		}, 1000);
 	}
 }
@@ -110,8 +108,14 @@ function resetCore() {
 	log.info('buttonStats:', Core.run().buttonStats);
 	log.info('exit.');
 	setTimeout(function() {
-		process.exit();
+		processExit();
 	}, 500);
+}
+
+function processExit() {
+	log.info('buttonStats:', Core.run().buttonStats);
+	log.info('exit program.');
+	process.exit();
 }
 
 /** Function to refresh Core\'s runtime data (etat, timer, moods...) */

@@ -150,20 +150,23 @@ function muteAll(message) {
 }
 
 function setVolume(volume) {
-	log.info(volume);
+	log.info('setVolume', volume);
 	if (typeof volume === 'object' && volume.hasOwnProperty('value')) volume = volume.value;
+	if (!isNaN(volume)) {
+		let volumeUpdate = getVolumeInstructions(parseInt(volume));
+		if (!volumeUpdate) return;
 
-	let volumeUpdate = getVolumeInstructions(parseInt(volume));
-	if (!volumeUpdate) return;
-
-	let sign = volumeUpdate.increase ? '*' : '/';
-	while (volumeUpdate.gap) {
-		writeAllMPlayerInstances(sign);
-		volumeUpdate.gap--;
+		let sign = volumeUpdate.increase ? '*' : '/';
+		while (volumeUpdate.gap) {
+			writeAllMPlayerInstances(sign);
+			volumeUpdate.gap--;
+		}
+		Core.run('volume', volume);
+		log.info('Volume level =', volume + '%');
+		additionalVolumeSetup();
+	} else {
+		Core.error('volume argument not a numeric value', volume);
 	}
-	Core.run('volume', volume);
-	log.info('Volume level =', volume + '%');
-	additionalVolumeSetup();
 }
 
 function writeAllMPlayerInstances(sign) {

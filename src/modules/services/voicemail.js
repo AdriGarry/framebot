@@ -25,8 +25,8 @@ Core.flux.service.voicemail.subscribe({
 });
 
 const NO_VOICEMAIL = 'No voicemail message',
-	VOICEMAIL_FILE = Core._TMP + 'voicemail.json',
-	VOICEMAIL_FILE_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json',
+	FILE_VOICEMAIL = Core._TMP + 'voicemail.json',
+	FILE_VOICEMAIL_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json',
 	HOURS_TO_CLEAR_VOICEMAIL = 6;
 
 var clearVoicemailDelay;
@@ -47,8 +47,8 @@ function addVoicemailMessage(tts) {
 	log.info('New voicemail message :', tts);
 	if (typeof tts === 'object' && tts.hasOwnProperty('msg') && typeof tts.msg === 'string') {
 		tts.timestamp = Utils.logTime('D/M h:m:s', new Date());
-		Utils.appendJsonFile(VOICEMAIL_FILE, tts);
-		Utils.appendJsonFile(VOICEMAIL_FILE_HISTORY, tts);
+		Utils.appendJsonFile(FILE_VOICEMAIL, tts);
+		Utils.appendJsonFile(FILE_VOICEMAIL_HISTORY, tts);
 		setTimeout(function() {
 			updateVoicemailMessage();
 		}, 1000);
@@ -76,7 +76,7 @@ function addVoicemailMessage(tts) {
 /** Function to check voicemail, and play */
 function checkVoicemail(withTTSResult) {
 	log.debug('Checking voicemail...');
-	Utils.getJsonFileContent(VOICEMAIL_FILE)
+	Utils.getJsonFileContent(FILE_VOICEMAIL)
 		.then(data => {
 			if (data) {
 				let messages = JSON.parse(data);
@@ -97,7 +97,7 @@ function checkVoicemail(withTTSResult) {
 /** Function to update runtime with number of voicemail message(s) */
 function updateVoicemailMessage() {
 	try {
-		let messages = fs.readFileSync(VOICEMAIL_FILE, 'UTF-8');
+		let messages = fs.readFileSync(FILE_VOICEMAIL, 'UTF-8');
 		messages = JSON.parse(messages);
 		Core.run('voicemail', messages.length);
 		if (Core.run('voicemail') > 0) {
@@ -124,7 +124,7 @@ function clearVoicemailLater() {
 /** Function to clear all voicemail messages */
 function clearVoicemail() {
 	log.info('clearVoicemail');
-	fs.unlink(VOICEMAIL_FILE, function(err) {
+	fs.unlink(FILE_VOICEMAIL, function(err) {
 		if (err) {
 			if (err.code === 'ENOENT') log.info('clearVoicemail: No message to delete!');
 			else Core.error('Error while deleting voicemail file', err);
