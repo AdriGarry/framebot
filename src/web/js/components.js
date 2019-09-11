@@ -747,12 +747,12 @@ app.component('max', {
 		var tileParams = {
 			label: 'Max',
 			actionList: [
-				{ label: 'RDM Led', icon: 'far fa-sun', url: '/max/blinkRdmLed' },
-				{ label: 'All Led', icon: 'fas fa-sun', url: '/max/blinkAllLed' },
-				{ label: 'Melody', icon: 'fas fa-music', url: '/max/playOneMelody' },
-				{ label: 'RDM Melody', icon: 'fas fa-exchange-alt', url: '/max/playRdmMelody' },
-				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/max/hornRdm' },
-				{ label: 'Turn', icon: 'fas fa-sync', url: '/max/turn' }
+				{ label: 'RDM Led', icon: 'far fa-sun', url: '/flux/service/max/blinkRdmLed' },
+				{ label: 'All Led', icon: 'fas fa-sun', url: '/flux/service/max/blinkAllLed' },
+				{ label: 'Melody', icon: 'fas fa-music', url: '/flux/service/max/playOneMelody' },
+				{ label: 'RDM Melody', icon: 'fas fa-exchange-alt', url: '/flux/service/max/playRdmMelody' },
+				{ label: 'Horn', icon: 'fas fa-bullhorn', url: '/flux/service/max/hornRdm' },
+				{ label: 'Turn', icon: 'fas fa-sync', url: '/flux/service/max/turn' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
