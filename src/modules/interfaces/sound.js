@@ -8,14 +8,6 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js');
 
 module.exports = {
-	// api: {
-	// 	base: {
-	// 		POST: [{ url: 'mute', flux: { id: 'interface|sound|mute' } }]
-	// 	},
-	// 	full: {
-	// 		POST: [{ url: 'cigales', flux: { id: 'interface|sound|play', data: { mp3: 'system/cigales.mp3' } } }]
-	// 	}
-	// },
 	cron: {
 		full: [
 			{ cron: '0 30 8 * * *', flux: { id: 'interface|sound|volume', data: 40 } },
