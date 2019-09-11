@@ -27,24 +27,10 @@ Utils.getPublicIp().then(data => (IP.public = data));
 function attachRoutes(ui, modulesApi) {
 	uiHttp = ui;
 
-	if (!Array.isArray(modulesApi)) modulesApi = [modulesApi];
-	modulesApi.forEach(item => {
-		log.trace('POST /' + item.url);
-		uiHttp.post('/' + item.url, (req, res) => {
-			// add to url: /api/... ?
-			if (!Array.isArray(item.flux)) item.flux = [item.flux];
-			item.flux.forEach(flux => {
-				Core.do(flux.id, flux.data, flux.conf);
-				// TODO req.body => flux.value
-			});
-			res.end();
-		});
-	});
-
 	attachDefaultRoutes(uiHttp);
 
-	if (Core.isAwake()) attachAwakeRoutes(uiHttp);
-	else attachSleepRoutes(uiHttp);
+	// if (Core.isAwake()) attachAwakeRoutes(uiHttp);
+	// else attachSleepRoutes(uiHttp);
 
 	attachFluxRoutes(uiHttp);
 	attachUnmappedRouteHandler(uiHttp);
@@ -54,9 +40,7 @@ function attachRoutes(ui, modulesApi) {
 function attachFluxRoutes(ui) {
 	ui.post('/flux/:type/:subject/:id', function(req, res) {
 		let value = req.body;
-		log.info('--1 value:', value);
 		if (typeof value === 'object' && value.hasOwnProperty('_value')) value = value._value;
-		log.info('--2 value:', value);
 		Core.do(req.params.type + '|' + req.params.subject + '|' + req.params.id, value);
 		res.end();
 	});
@@ -251,14 +235,11 @@ function attachDefaultRoutes(ui) {
 		res.send(granted);
 		if (granted) granted = false;
 	});
-	return ui;
-}
 
-function attachAwakeRoutes(ui) {
 	ui.post('/tts', function(req, res) {
 		let params = req.query;
 		if (params.voice && params.lg && params.msg) {
-			if (params.hasOwnProperty('voicemail')) {
+			if (!Core.isAwake() || params.hasOwnProperty('voicemail')) {
 				Core.do('service|voicemail|new', {
 					voice: params.voice,
 					lg: params.lg,
@@ -277,29 +258,6 @@ function attachAwakeRoutes(ui) {
 			Core.do('interface|tts|random');
 		}
 		res.end();
-	});
-
-	return ui;
-}
-
-function attachSleepRoutes(ui) {
-	ui.post('/tts', function(req, res) {
-		// Add Voice Mail Message
-		let params = req.query;
-		if (params['voice'] && params['lg'] && params['msg']) {
-			Core.do('service|voicemail|new', {
-				voice: params.voice,
-				lg: params.lg,
-				msg: params.msg
-			});
-			params.timestamp = Utils.logTime('D/M h:m:s', new Date());
-			Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
-			res.end();
-		} else {
-			Core.error('Error while saving voicemail message:', params);
-			res.writeHead(500);
-			res.end();
-		}
 	});
 
 	return ui;

@@ -102,6 +102,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		Core.do(fluxToFire);
 	}
 
+	// TODO avec le throw new CoreError(message, data, stackTrace);
 	// process.on('uncaughtException', function(err) {
 	// 	Core.error('Uncaught Exception', err, false);
 	// });
@@ -109,6 +110,8 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
 	ModuleLoader.loadModules(descriptor.modules);
 	log.info('all modules subscribed [' + Utils.executionTime(Core.startTime) + 'ms]');
+
+	Core.do('controller|server|start', null, { log: 'trace' }); //delay: 0.1,
 	ModuleLoader.setupCron();
 	Object.seal(Core);
 	return Core;

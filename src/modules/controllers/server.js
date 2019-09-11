@@ -30,7 +30,7 @@ const HTTP_SERVER_PORT = 3210,
 Core.flux.controller.server.subscribe({
 	next: flux => {
 		if (flux.id == 'start') {
-			startUIServer(flux.value);
+			startUIServer();
 		} else if (flux.id == 'closeUIServer') {
 			closeUIServer(flux.value);
 		} else Core.error('unmapped flux in Server controller', flux, false);
@@ -40,9 +40,9 @@ Core.flux.controller.server.subscribe({
 	}
 });
 
-function startUIServer(modulesApi) {
+function startUIServer() {
 	startHttpServer();
-	startHttpsServer(modulesApi);
+	startHttpsServer();
 }
 
 var ui, uiHttps;
@@ -58,7 +58,7 @@ function startHttpServer() {
 	}).listen(HTTP_SERVER_PORT);
 }
 
-function startHttpsServer(modulesApi) {
+function startHttpsServer() {
 	// ui = express();
 	uiHttps = express();
 	// CORS
@@ -82,7 +82,7 @@ function startHttpsServer(modulesApi) {
 
 	uiHttps.use(middleware.security());
 
-	api.attachRoutes(uiHttps, modulesApi);
+	api.attachRoutes(uiHttps);
 
 	httpsServer = https.createServer(CREDENTIALS, uiHttps).listen(HTTPS_SERVER_PORT, () => {
 		log.info('API https server started [' + Utils.executionTime(Core.startTime) + 'ms]');

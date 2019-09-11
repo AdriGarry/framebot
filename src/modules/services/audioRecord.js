@@ -15,6 +15,7 @@ Core.flux.service.audioRecord.subscribe({
 	next: flux => {
 		if (flux.id == 'new') {
 			addRecord(flux.value);
+			// TODO tous les flux suivants, les filtrer si mode veille !
 		} else if (flux.id == 'check') {
 			checkRecord();
 		} else if (flux.id == 'last') {
