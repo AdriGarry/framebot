@@ -10,17 +10,17 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js');
 
 module.exports = {
-	api: {
-		base: {
-			POST: [
-				{ url: 'audio/check', flux: { id: 'service|audioRecord|check' } },
-				{ url: 'audio/clear', flux: { id: 'service|audioRecord|clear' } },
-				{ url: 'audio/trash', flux: { id: 'service|audioRecord|trash' } }
-			],
-			GET: [{ url: 'audio/last', flux: { id: 'service|audioRecord|last' } }]
-		},
-		full: {}
-	}
+	// api: {
+	// 	base: {
+	// 		POST: [
+	// 			{ url: 'audio/check', flux: { id: 'service|audioRecord|check' } },
+	// 			{ url: 'audio/clear', flux: { id: 'service|audioRecord|clear' } },
+	// 			{ url: 'audio/trash', flux: { id: 'service|audioRecord|trash' } }
+	// 		],
+	// 		GET: [{ url: 'audio/last', flux: { id: 'service|audioRecord|last' } }]
+	// 	},
+	// 	full: {}
+	// }
 };
 
 Core.flux.service.audioRecord.subscribe({
@@ -49,7 +49,7 @@ setImmediate(() => {
 		checkRecord();
 	}
 });
-setInterval(function () {
+setInterval(function() {
 	updateRecord();
 }, 10000);
 
@@ -152,7 +152,7 @@ function clearAudioRecordLater() {
 		clearTimeout(clearAudioRecordDelay);
 		clearAudioRecordDelay = null;
 	}
-	clearAudioRecordDelay = setTimeout(function () {
+	clearAudioRecordDelay = setTimeout(function() {
 		clearRecords();
 	}, HOURS_TO_CLEAR_RECORDS * 60 * 60 * 1000);
 	log.info('AudioRecord will be cleared in ' + HOURS_TO_CLEAR_RECORDS + ' hours');
@@ -160,7 +160,7 @@ function clearAudioRecordLater() {
 
 function clearRecords(noLog) {
 	if (!noLog) log.info('clearRecords');
-	fs.unlink(RECORD_FILE, function (err) {
+	fs.unlink(RECORD_FILE, function(err) {
 		if (err) {
 			if (err.code === 'ENOENT') log.info('clearAudioRecord : No record to delete!');
 			else Core.error('Error while deleting records', err);

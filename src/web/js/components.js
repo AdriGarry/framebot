@@ -366,9 +366,9 @@ app.component('audioRecorder', {
 		var tileParams = {
 			label: 'Audio recorder',
 			actionList: [
-				{ label: 'Clear', icon: 'fas fa-trash', url: '/audio/clear' },
-				{ label: 'All', icon: 'fas fa-play', url: '/audio/check' },
-				{ label: 'Last', icon: 'fas fa-undo', url: '/audio/last' }
+				{ label: 'Clear', icon: 'fas fa-trash', url: '/flux/service/audioRecord/clear' },
+				{ label: 'All', icon: 'fas fa-play', url: '/flux/service/audioRecord/check' },
+				{ label: 'Last', icon: 'fas fa-undo', url: '/flux/service/audioRecord/last' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
