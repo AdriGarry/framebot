@@ -268,8 +268,8 @@ app.component('voicemail', {
 		var tileParams = {
 			label: 'Voicemail',
 			actionList: [
-				{ label: 'Clear', icon: 'far fa-trash-alt', url: '/clearVoicemail' },
-				{ label: 'Play', icon: 'fas fa-play', url: '/checkVoicemail' }
+				{ label: 'Clear', icon: 'far fa-trash-alt', url: '/flux/service/voicemail/clear' },
+				{ label: 'Play', icon: 'fas fa-play', url: '/flux/service/voicemail/check' }
 			]
 		};
 
