@@ -703,8 +703,8 @@ app.component('russia', {
 		var tileParams = {
 			label: 'Russia',
 			actionList: [
-				{ label: 'Subway / Street', icon: 'fas fa-subway', url: '/russia' },
-				{ label: 'Hymn', icon: 'fas fa-star', url: '/russia?hymn' }
+				{ label: 'Subway / Street', icon: 'fas fa-subway', url: '/flux/service/interaction/russia' },
+				{ label: 'Hymn', icon: 'fas fa-star', url: '/flux/service/interaction/russiaHymn' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

@@ -47,6 +47,8 @@ Core.flux.service.interaction.subscribe({
 			uneHeure();
 		} else if (flux.id == 'russia') {
 			russia();
+		} else if (flux.id == 'russiaHymn') {
+			russiaHymn();
 		} else Core.error('unmapped flux in Interfaction module', flux, false);
 	},
 	error: err => {
@@ -112,10 +114,16 @@ function exclamation() {
 
 function russia() {
 	log.info('Russia !');
-	Core.do('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { log: 'trace' });
 	let russiaExclamation = russiaExclamationRandomBox.next();
 	Core.do('interface|sound|play', {
 		mp3: 'exclamation_russia/' + russiaExclamation
+	});
+}
+
+function russiaHymn() {
+	log.info('Russia Hymn!');
+	Core.do('interface|sound|play', {
+		mp3: 'playlists/jukebox/HymneSovietique.mp3'
 	});
 }
 
