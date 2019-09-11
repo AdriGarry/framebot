@@ -21,7 +21,7 @@ Core.flux.service.timer.subscribe({
 var secInterval;
 
 function setTimer(minutes) {
-	if (typeof minutes !== undefined && Number(minutes) > 1) {
+	if (typeof minutes !== 'undefined' && Number(minutes) > 1) {
 		// TODO sonar
 		minutes = 60 * Number(minutes);
 	} else {

@@ -479,9 +479,9 @@ app.component('timer', {
 		var tileParams = {
 			label: 'Timer',
 			actionList: [
-				{ label: 'Stop timer', icon: 'fas fa-stop', url: '/timer?stop' },
-				{ label: 'Timer +3', icon: 'fas fa-plus', url: '/timer?min=3' },
-				{ label: 'Timer +1', icon: 'fas fa-plus', url: '/timer' }
+				{ label: 'Stop timer', icon: 'fas fa-stop', url: '/flux/service/timer/stop' },
+				{ label: 'Timer +3', icon: 'fas fa-plus', url: '/flux/service/timer/increase', value: 3 },
+				{ label: 'Timer +1', icon: 'fas fa-plus', url: '/flux/service/timer/increase', value: 1 }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

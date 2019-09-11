@@ -293,16 +293,16 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
-	ui.post('/timer', function(req, res) {
-		let params = req.query; // affiner pour récupérer les params
-		if (params.hasOwnProperty('stop')) {
-			Core.do('service|timer|stop');
-		} else {
-			var min = parseInt(params.min, 10) || 1;
-			Core.do('service|timer|increase', min);
-		}
-		res.end();
-	});
+	// ui.post('/timer', function(req, res) {
+	// 	let params = req.query; // affiner pour récupérer les params
+	// 	if (params.hasOwnProperty('stop')) {
+	// 		Core.do('service|timer|stop');
+	// 	} else {
+	// 		var min = parseInt(params.min, 10) || 1;
+	// 		Core.do('service|timer|increase', min);
+	// 	}
+	// 	res.end();
+	// });
 
 	return ui;
 }
