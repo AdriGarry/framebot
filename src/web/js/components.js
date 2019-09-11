@@ -324,7 +324,7 @@ app.component('exclamation', {
 		var tileParams = {
 			label: 'Exclamation',
 			actionList: [
-				{ label: 'Exclamation', icon: 'fas fa-bullhorn', url: '/exclamation' },
+				{ label: 'Exclamation', icon: 'fas fa-bullhorn', url: '/flux/service/interaction/exclamation' },
 				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/tts?msg=RANDOM' },
 				{ label: 'Last TTS', icon: 'fas fa-undo', url: '/flux/interface/tts/lastTTS' }
 			]
@@ -580,7 +580,12 @@ app.component('idea', {
 					url: '/flux/interface/sound/play',
 					value: { mp3: 'system/cigales.mp3' }
 				},
-				{ label: 'Idea', icon: 'far fa-lightbulb', url: '/idea' },
+				{
+					label: 'Idea',
+					icon: 'far fa-lightbulb',
+					url: '/flux/interface/tts/speak',
+					value: { lg: 'en', msg: "I've got an idea !" }
+				},
 				{ label: 'Test', icon: 'fas fa-flag-checkered', url: '/test' }
 			]
 		};
