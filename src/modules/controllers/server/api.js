@@ -279,31 +279,6 @@ function attachAwakeRoutes(ui) {
 		res.end();
 	});
 
-	// ui.post('/russia', function(req, res) {
-	// 	let params = req.query;
-	// 	log.debug('/russia', params);
-	// 	if (params.hasOwnProperty('hymn')) {
-	// 		Core.do('interface|sound|play', {
-	// 			mp3: 'playlist/jukebox/HymneSovietique.mp3'
-	// 		});
-	// 		Core.do('interface|led|altLeds', { speed: 70, loop: 20 }, { log: 'trace' });
-	// 	} else {
-	// 		Core.do('service|interaction|russia');
-	// 	}
-	// 	res.end();
-	// });
-
-	// ui.post('/timer', function(req, res) {
-	// 	let params = req.query; // affiner pour récupérer les params
-	// 	if (params.hasOwnProperty('stop')) {
-	// 		Core.do('service|timer|stop');
-	// 	} else {
-	// 		var min = parseInt(params.min, 10) || 1;
-	// 		Core.do('service|timer|increase', min);
-	// 	}
-	// 	res.end();
-	// });
-
 	return ui;
 }
 

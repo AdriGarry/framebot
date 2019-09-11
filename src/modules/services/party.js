@@ -6,17 +6,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(_PATH + 'src/core/Utils.js');
 
-module.exports = {
-	// api: {
-	// 	full: {
-	// 		POST: [
-	// 			{ url: 'setParty', flux: [{ id: 'service|party|start' }] },
-	// 			{ url: 'pirate', flux: [{ id: 'service|party|pirate' }] },
-	// 			{ url: 'partyTts', flux: { id: 'service|party|tts' } }
-	// 		]
-	// 	}
-	// }
-};
+module.exports = {};
 
 Core.flux.service.party.subscribe({
 	next: flux => {

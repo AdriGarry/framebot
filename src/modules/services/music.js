@@ -10,18 +10,6 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	RandomBox = require('randombox').RandomBox;
 
 module.exports = {
-	// api: {
-	// 	full: {
-	// 		POST: [
-	// 			// { url: 'fip', flux: { id: 'service|music|fip' } },
-	// 			// { url: 'playlist/jukebox', flux: { id: 'service|music|playlist', data: 'jukebox' } },
-	// 			// { url: 'playlist/low', flux: { id: 'service|music|playlist', data: 'low' } },
-	// 			// { url: 'playlist/comptines', flux: { id: 'service|music|playlist', data: 'comptines' } },
-	// 			{ url: 'naheulbeuk', flux: { id: 'service|music|story', data: 'Naheulbeuk' } },
-	// 			{ url: 'survivaure', flux: { id: 'service|music|story', data: 'Survivaure' } }
-	// 		]
-	// 	}
-	// },
 	cron: {
 		full: [{ cron: '0 15 18 * * 1-5', flux: { id: 'service|music|fipOrJukebox' } }]
 	}

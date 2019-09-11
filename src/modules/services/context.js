@@ -6,27 +6,6 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(_PATH + 'src/core/Utils.js');
 
 module.exports = {
-	// api: {
-	// 	// base: { POST: [{ url: 'reset', flux: { id: 'service|context|reset', conf: { delay: 1 } } }] },
-	// 	full: {
-	// 		POST: [
-	// 			// { url: 'odi', flux: { id: 'service|context|restart' } },
-	// 			// { url: 'sleep', flux: { id: 'service|context|restart', data: 'sleep', conf: { delay: 0.1 } } },
-	// 			{
-	// 				url: 'sleep/forever',
-	// 				flux: {
-	// 					id: 'service|context|updateRestart',
-	// 					data: { mode: 'sleep', alarms: { weekDay: null, weekEnd: null } },
-	// 					conf: { delay: 0.1 }
-	// 				}
-	// 			}
-	// 			// {
-	// 			// 	url: 'testSequence',
-	// 			// 	flux: { id: 'service|context|updateRestart', data: { mode: 'test' }, conf: { delay: 1 } }
-	// 			// }
-	// 		]
-	// 	}
-	// },
 	cron: {
 		full: [
 			{ cron: '5 0 0 * * 1-5', flux: { id: 'service|context|goToSleep' } },

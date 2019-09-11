@@ -12,15 +12,6 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	RandomBox = require('randombox').RandomBox;
 
 module.exports = {
-	// api: {
-	// 	full: {
-	// 		POST: [
-	// 			// { url: 'demo', flux: { id: 'service|interaction|demo' } },
-	// 			// { url: 'idea', flux: { id: 'interface|tts|speak', data: { lg: 'en', msg: "I've got an idea !" } } },
-	// 			{ url: 'exclamation', flux: { id: 'service|interaction|exclamation' } }
-	// 		]
-	// 	}
-	// },
 	cron: {
 		full: [
 			{ cron: '0 18,20,22-25 8 * * 1-5', flux: { id: 'service|interaction|goToWork' } },

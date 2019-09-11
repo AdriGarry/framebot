@@ -7,9 +7,6 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(_PATH + 'src/core/Utils.js');
 
 module.exports = {
-	// api: {
-	// 	base: { POST: [{ url: 'alarmOff', flux: { id: 'service|alarm|alarmOff' } }] }
-	// },
 	cron: {
 		base: [{ cron: '1 * * * * *', flux: { id: 'service|alarm|isAlarm', conf: { log: 'trace' } } }],
 		full: []

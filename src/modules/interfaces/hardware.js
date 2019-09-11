@@ -15,20 +15,6 @@ const PATHS = [Core._SRC],
 	BYTE_TO_MO = 1048576;
 
 module.exports = {
-	// api: {
-	// 	base: { POST: [{ url: 'archiveLog', flux: { id: 'interface|hardware|archiveLog' } }] },
-	// 	full: {
-	// 		POST: [
-	// 			{ url: 'reboot', flux: { id: 'interface|hardware|reboot', conf: { delay: 0.1 } } },
-	// 			{ url: 'shutdown', flux: { id: 'interface|hardware|shutdown', conf: { delay: 0.1 } } },
-	// 			{ url: 'light', flux: { id: 'interface|hardware|light', data: 120, conf: { delay: 0.1 } } },
-	// 			{ url: 'cpuTTS', flux: { id: 'interface|hardware|cpuTTS' } },
-	// 			{ url: 'soulTTS', flux: { id: 'interface|hardware|soulTTS' } },
-	// 			{ url: 'diskSpaceTTS', flux: { id: 'interface|hardware|diskSpaceTTS' } },
-	// 			{ url: 'totalLinesTTS', flux: { id: 'interface|hardware|totalLinesTTS' } }
-	// 		]
-	// 	}
-	// },
 	cron: {
 		base: [
 			{ cron: '*/30 * * * * *', flux: { id: 'interface|hardware|runtime', conf: { log: 'trace' } } },
