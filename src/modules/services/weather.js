@@ -11,15 +11,15 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	WEATHER_CREDENTIALS = require(Core._SECURITY + 'credentials.json').weather;
 
 module.exports = {
-	api: {
-		full: {
-			POST: [
-				{ url: 'weather', flux: { id: 'service|weather|report' } },
-				{ url: 'weatherAlternative', flux: { id: 'service|weather|alternative' } },
-				{ url: 'astronomy', flux: { id: 'service|weather|astronomy' } }
-			]
-		}
-	}
+	// api: {
+	// 	full: {
+	// 		POST: [
+	// 			{ url: 'weather', flux: { id: 'service|weather|report' } },
+	// 			{ url: 'weatherAlternative', flux: { id: 'service|weather|alternative' } },
+	// 			{ url: 'astronomy', flux: { id: 'service|weather|astronomy' } }
+	// 		]
+	// 	}
+	// }
 };
 
 Core.flux.service.weather.subscribe({

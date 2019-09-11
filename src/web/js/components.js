@@ -526,9 +526,9 @@ app.component('weather', {
 		var tileParams = {
 			label: 'Weather',
 			actionList: [
-				{ label: 'Official weather', icon: 'fas fa-cloud-sun', url: '/weather' },
-				{ label: 'Alternative weather', icon: 'fas fa-cloud-sun-rain', url: '/weatherAlternative' },
-				{ label: 'Astronomy', icon: 'far fa-sun', url: '/astronomy' }
+				{ label: 'Official weather', icon: 'fas fa-cloud-sun', url: '/flux/service/weather/report' },
+				{ label: 'Alternative weather', icon: 'fas fa-cloud-sun-rain', url: '/flux/service/weather/alternative' },
+				{ label: 'Astronomy', icon: 'far fa-sun', url: '/flux/service/weather/astronomy' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
