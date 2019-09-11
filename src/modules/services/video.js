@@ -8,11 +8,11 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js');
 
 module.exports = {
-	api: {
-		full: {
-			POST: [{ url: 'video/loop', flux: { id: 'service|video|loop' } }]
-		}
-	}
+	// api: {
+	// 	full: {
+	// 		POST: [{ url: 'video/loop', flux: { id: 'service|video|loop' } }]
+	// 	}
+	// }
 };
 
 Core.flux.service.video.subscribe({
