@@ -80,7 +80,7 @@ function repeatSong(playlist) {
 	Utils.getDuration(playlist.path + song)
 		.then(data => {
 			Core.do('interface|sound|play', { mp3: playlist.path + song, duration: data });
-			playlist.timeout = setTimeout(function () {
+			playlist.timeout = setTimeout(function() {
 				// log.INFO('Next song !!!', 'duration=' + data);
 				repeatSong(playlist);
 			}, data * 1000);
@@ -106,8 +106,8 @@ function playFip() {
 /** Function to play FIP radio or jukebox if no connexion */
 function playFipOrJukebox() {
 	log.info('playFipOrJukebox...');
-	Utils.testConnexion(function (connexion) {
-		setTimeout(function () {
+	Utils.testConnexion(function(connexion) {
+		setTimeout(function() {
 			if (connexion == true) {
 				playFip();
 			} else {

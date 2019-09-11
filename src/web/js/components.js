@@ -549,9 +549,9 @@ app.component('maya', {
 		var tileParams = {
 			label: 'Maya',
 			actionList: [
-				{ label: 'Animals', icon: 'fas fa-cat', url: '/maya/animals' },
-				{ label: 'Bonne nuit', icon: 'fas fa-moon', url: '/maya/goodNight' },
-				{ label: 'Le petit ver', icon: 'fas fa-music', url: '/maya/lePetitVer' },
+				{ label: 'Animals', icon: 'fas fa-cat', url: '/flux/service/maya/animals' },
+				{ label: 'Bonne nuit', icon: 'fas fa-moon', url: '/flux/service/maya/bonneNuit' },
+				{ label: 'Le petit ver', icon: 'fas fa-music', url: '/flux/service/maya/lePetitVer' },
 				{ label: 'Comptines', icon: 'fas fa-music', url: '/playlist/comptines' }
 			]
 		};

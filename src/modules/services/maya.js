@@ -7,31 +7,35 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js');
 
 module.exports = {
-	api: {
-		full: {
-			POST: [
-				// { url: 'maya/comptine', flux: { id: 'service|maya|comptine', data: null } },
-				{ url: 'maya/animals', flux: { id: 'service|maya|animals', data: null } },
-				{ url: 'maya/lePetitVer', flux: { id: 'interface|sound|play', data: { mp3: 'maya/songs/lePetitVer.mp3' } } },
-				{
-					url: 'maya/goodNight',
-					flux: [
-						{ id: 'interface|tts|speak', data: { voice: 'google', msg: 'Bonne nuit Maya' } },
-						{ id: 'interface|tts|speak', data: 'Oui, fais de beaux raives !' }
-					]
-				}
-			]
-		}
-	}
+	// api: {
+	// 	full: {
+	// 		POST: [
+	// 			// { url: 'maya/comptine', flux: { id: 'service|maya|comptine', data: null } },
+	// 			{ url: 'maya/animals', flux: { id: 'service|maya|animals', data: null } },
+	// 			// { url: 'maya/lePetitVer', flux: { id: 'interface|sound|play', data: { mp3: 'maya/songs/lePetitVer.mp3' } } },
+	// 			{
+	// 				url: 'maya/goodNight',
+	// 				flux: [
+	// 					{ id: 'interface|tts|speak', data: { voice: 'google', msg: 'Bonne nuit Maya' } },
+	// 					{ id: 'interface|tts|speak', data: 'Oui, fais de beaux raives !' }
+	// 				]
+	// 			}
+	// 		]
+	// 	}
+	// }
 };
 
 Core.flux.service.maya.subscribe({
 	next: flux => {
 		if (flux.id == 'comptine') {
-			comptine();
+			comptine(); // Deprecated... to delete ?
 			// } else if (flux.id == '') {
+		} else if (flux.id == 'bonneNuit') {
+			bonneNuit();
 		} else if (flux.id == 'animals') {
 			animals();
+		} else if (flux.id == 'lePetitVer') {
+			lePetitVer();
 		} else Core.error('unmapped flux in Maya service', flux, false);
 	},
 	error: err => {
@@ -41,6 +45,7 @@ Core.flux.service.maya.subscribe({
 
 const COMPTINE = 'maya/songs/comptines.mp3';
 function comptine() {
+	// Deprecated... to delete ?
 	let songPath = Utils.getAbsolutePath(COMPTINE, Core._MP3);
 	if (!songPath) {
 		Core.error("Can't play comptine:", songPath);
@@ -61,4 +66,15 @@ function animals() {
 	Core.do('interface|sound|mute', null, { log: 'trace' });
 	Core.run('music', 'animals');
 	Core.do('interface|sound|play', { mp3: songPath }, { delay: 0.5 });
+}
+
+function bonneNuit() {
+	Core.do([
+		{ id: 'interface|tts|speak', data: { voice: 'google', msg: 'Bonne nuit Maya' } },
+		{ id: 'interface|tts|speak', data: 'Oui, fais de beaux raives !' }
+	]);
+}
+
+function lePetitVer() {
+	Core.do({ id: 'interface|sound|play', data: { mp3: 'maya/songs/lePetitVer.mp3' } });
 }
