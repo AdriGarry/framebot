@@ -105,7 +105,11 @@ app.component('mode', {
 		var tileParams = {
 			label: 'Mode',
 			actionList: [
-				{ label: 'Sleep forever', icon: 'fas fa-moon', url: '/sleep/forever' },
+				{
+					label: 'Sleep forever',
+					icon: 'fas fa-moon',
+					url: '/flux/service/context/sleepForever'
+				},
 				{ label: 'Sleep', icon: 'far fa-moon', url: '/flux/service/context/sleep' },
 				{ label: 'Reset', icon: 'fas fa-retweet', url: '/flux/service/context/reset' },
 				{ label: 'Restart', icon: 'fas fa-bolt', url: '/flux/service/context/restart' }
