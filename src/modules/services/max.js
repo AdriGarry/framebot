@@ -139,7 +139,7 @@ function maxCallbackAction(data) {
 	}
 }
 
-//const maxCallbackRandomBox = new RandomBox()// TODO to implement
+//const maxCallbackRandomBox = new RandomBox(); // TODO to implement
 function maxCallbackTTS(arg) {
 	if (Array.isArray(arg)) {
 		Core.do('interface|tts|speak', Utils.randomItem(arg));

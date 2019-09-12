@@ -103,7 +103,7 @@ function startCore(exitCode) {
 
 function checkUp() {
 	console.log('checkUp...');
-	descriptor = JSON.parse(fs.readFileSync(_PATH + '_' + NAME + '/descriptor.json')); // TODO require ?
+	descriptor = JSON.parse(fs.readFileSync(_PATH + '_' + NAME + '/descriptor.json'));
 	if (!fs.existsSync(_PATH + 'tmp')) {
 		fs.mkdirSync(path.join(_PATH, 'tmp')); //, parseInt('0777', 8)
 		fs.chmodSync(path.join(_PATH, 'tmp'), parseInt('0777', 8)); //, parseInt('0777', 8)

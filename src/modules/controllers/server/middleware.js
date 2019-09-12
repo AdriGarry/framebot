@@ -31,7 +31,7 @@ var securityMiddleware = function(req, res, next) {
 			log.INFO('..............This is NOT a socket (search: "req.isSocket")!!');
 		}
 		log.error('Incoming socket /!\\ /!\\');
-		log.info(req); // TODO revoir cette sécurité...
+		log.info(req);
 		rejectUnauthorizedRequest(res);
 	}
 

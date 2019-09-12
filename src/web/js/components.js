@@ -59,13 +59,6 @@ app.component('tts', {
 			cleanText: function() {
 				console.log('cleanText');
 				var message = ctrl.tts.msg || '';
-				// message = message.replace(/[àáâãäå]/g, 'a'); // TODO chainer les replace
-				// message = message.replace(/[ç]/g, 'c');
-				// message = message.replace(/[èéêë]/g, 'e');
-				// message = message.replace(/[îï]/g, 'i');
-				// message = message.replace(/[ôóö]/g, 'o');
-				// message = message.replace(/[ûüù]/g, 'u');
-				// TODO TOTEST chainer les replace
 				message = message
 					.replace(/[àáâãäå]/g, 'a')
 					.replace(/[ç]/g, 'c')

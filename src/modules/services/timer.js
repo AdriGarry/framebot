@@ -21,8 +21,7 @@ Core.flux.service.timer.subscribe({
 var secInterval;
 
 function setTimer(minutes) {
-	if (typeof minutes !== 'undefined' && Number(minutes) > 1) {
-		// TODO sonar
+	if (typeof minutes === 'number' && Number(minutes) > 1) {
 		minutes = 60 * Number(minutes);
 	} else {
 		minutes = 60;
@@ -31,9 +30,9 @@ function setTimer(minutes) {
 	if (!secInterval) {
 		startTimer();
 	}
-	var min = Math.floor(Core.run('timer') / 60);
-	var sec = Core.run('timer') % 60;
-	var ttsMsg =
+	let min = Math.floor(Core.run('timer') / 60);
+	let sec = Core.run('timer') % 60;
+	let ttsMsg =
 		'Minuterie ' + (min > 0 ? (min > 1 ? min : ' une ') + ' minutes ' : '') + (sec > 0 ? sec + ' secondes' : '');
 	Core.do('interface|tts|speak', {
 		lg: 'fr',

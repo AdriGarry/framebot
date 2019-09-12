@@ -100,7 +100,7 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
 	if (!noLed) mplayerProcess.ledFlag = ledFlag();
 
 	mplayerProcess.stderr.on('data', err => {
-		log.trace(`stderr: ${err}`); // TODO...
+		log.trace(`stderr: ${err}`);
 	});
 
 	mplayerProcess.on('close', err => {
