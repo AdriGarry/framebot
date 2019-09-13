@@ -22,8 +22,6 @@ Core.flux.service.time.subscribe({
 			today();
 		} else if (flux.id == 'age') {
 			ttsAge();
-		} else if (flux.id == 'birthday') {
-			birthdaySong(); // TODO move to party.js service
 		} else Core.error('unmapped flux in Time service', flux, false);
 	},
 	error: err => {
@@ -94,9 +92,4 @@ function ttsAge() {
 	birthDay += "j'ai " + years + ' ans et ' + mouths + ' mois !';
 	log.info("ttsAge() '" + birthDay + "'");
 	Core.do('interface|tts|speak', { lg: 'fr', msg: birthDay });
-}
-
-function birthdaySong() {
-	log.info('birthday song...');
-	Core.do('interface|sound|play', { mp3: 'system/birthday.mp3' });
 }

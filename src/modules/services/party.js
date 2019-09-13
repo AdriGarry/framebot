@@ -12,6 +12,8 @@ Core.flux.service.party.subscribe({
 	next: flux => {
 		if (flux.id == 'start') {
 			start();
+		} else if (flux.id == 'birthdaySong') {
+			birthdaySong();
 		} else if (flux.id == 'tts') {
 			partyTTS();
 		} else if (flux.id == 'pirate') {
@@ -22,6 +24,11 @@ Core.flux.service.party.subscribe({
 		Core.error('Flux error', err);
 	}
 });
+
+function birthdaySong() {
+	log.info('birthday song...');
+	Core.do('interface|sound|play', { mp3: 'system/birthday.mp3' });
+}
 
 function start() {
 	log.INFO("Let's start the party !!  <|:-)");
