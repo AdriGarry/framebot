@@ -37,7 +37,7 @@ function attachRoutes(ui, modulesApi) {
 function attachFluxRoutes(ui) {
 	ui.post('/flux/:type/:subject/:id', function(req, res) {
 		let value = req.body;
-		if (typeof value === 'object' && value.hasOwnProperty('_value')) value = value._value;
+		if (typeof value === 'object' && value.hasOwnProperty('_wrapper')) value = value._wrapper;
 		Core.do(req.params.type + '|' + req.params.subject + '|' + req.params.id, value);
 		res.end();
 	});

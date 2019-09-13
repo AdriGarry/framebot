@@ -80,7 +80,7 @@ app.service('UIService', [
 			// console.log('UIService.sendCommand()', cmd);
 			let uri = cmd.url;
 			let value = cmd.value;
-			if (value !== 'object') value = { _value: value };
+			if (value !== 'object') value = { _wrapper: value };
 			$http({
 				headers: {
 					'User-Interface': 'UIv5',
