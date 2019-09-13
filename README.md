@@ -1,15 +1,15 @@
 # Core
 
-Based on NodeJS, running on a Raspberry Pi, this is **Core** program, to autorun and interact !
+Based on NodeJS, running on a Raspberry Pi, this is **Core** program, to autorun and interact.
 
 Available modes: ready, sleep, test
 
 ## Main functionalities:
 
-- Voice synthesizer (TTS), Voicemail & Audio record
+- Voice synthesizer (TTS), Voicemail & Audio record from UI
 - Alarm (weekday & weekend)
 - Timer
-- Playlist (jukebox, low, comptines)
+- Playlist (jukebox, low...)
 - Web radio (FIP)
 - Exclamations
 - Interactions with an Arduino (Max...)
@@ -26,7 +26,8 @@ Available modes: ready, sleep, test
 
 - Go to _core_ directory
 - Execute `sh core.sh $botName` to add `core` as command and launch core with botName configuration given as first param
-- For all next launch, just execute `core $botName [params]`
+- To launch, just execute `core $botName [params]`
+- To stop, just execute `core stop`
 
 ## Internal
 
