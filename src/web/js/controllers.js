@@ -201,12 +201,12 @@ app.controller('UIController', function(
 		if (obj.hasOwnProperty('rowspan')) obj.rowspan = 2;
 	};
 
-	/** Function to reduce Tile */
-	$scope.reduceTile = function(obj) {
-		console.log(obj);
-		obj.rowspan = 1;
-		console.log(obj);
-	};
+	// /** Function to reduce Tile */ // Deprecated
+	// $scope.reduceTile = function(obj) {
+	// 	console.log(obj);
+	// 	obj.rowspan = 1;
+	// 	console.log(obj);
+	// };
 
 	$scope.toggleDebugMode = function() {
 		var cmd = {
