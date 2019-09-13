@@ -92,7 +92,7 @@ const REQUEST = new OAuth.OAuth(
 	'HMAC-SHA1',
 	null,
 	{
-		'Yahoo-App-Id': WEATHER_CREDENTIALS.yahooAppId
+		'Yahoo-App-Id': WEATHER_CREDENTIALS['Yahoo-App-Id']
 	}
 );
 
