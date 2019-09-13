@@ -672,7 +672,7 @@ app.component('party', {
 		var tileParams = {
 			label: 'Party',
 			actionList: [
-				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/flux/service/party/birthday' },
+				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/flux/service/party/birthdaySong' },
 				{ label: 'Party mode', icon: 'far fa-grin-tongue', url: '/flux/service/party/start' },
 				{ label: 'Pirate', icon: 'fas fa-beer', url: '/flux/service/party/pirate' },
 				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/flux/service/party/tts' }
