@@ -21,8 +21,8 @@
 	"conf": {
 		"alarms": {
 			"weekDay": {
-				"h": 7,
-				"m": 10
+				"h": 6,
+				"m": 50
 			},
 			"weekEnd": {
 				"h": 12,
