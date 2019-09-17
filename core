@@ -38,9 +38,9 @@ ifReset(){
 }
 
 ifCerbot(){
-	if [ $1 = "cerbot" ]; then
-		echo "\nCERBOT..."
-		sh /home/odi/core/src/shell/cerbot.sh
+	if [ $1 = "certbot" ]; then
+		echo "\nCERTBOT..."
+		sudo sh /home/odi/core/src/shell/certbot.sh
 		exit 0
 	fi
 }
