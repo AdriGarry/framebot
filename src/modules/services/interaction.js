@@ -14,7 +14,6 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 module.exports = {
 	cron: {
 		full: [
-			{ cron: '0 18,20,22-25 8 * * 1-5', flux: { id: 'service|interaction|goToWork' } },
 			{ cron: '0 19 19 * * *', flux: { id: 'service|interaction|baluchon' } },
 			{ cron: '13 0 1,13 * * *', flux: { id: 'service|interaction|uneHeure' } },
 			{ cron: '13 13,25,40,51 17-21 * * *', flux: { id: 'service|interaction|random' } }
@@ -32,6 +31,8 @@ Core.flux.service.interaction.subscribe({
 			demo();
 		} else if (flux.id == 'goToWork') {
 			goToWorkTTS();
+		} else if (flux.id == 'goToWorkQueue') {
+			goToWorkTTSQueue();
 		} else if (flux.id == 'baluchon') {
 			baluchonTTS();
 		} else if (flux.id == 'uneHeure') {
@@ -151,6 +152,11 @@ const GO_TO_WORK_TTS = [
 	{ msg: 'Go go go, allez au boulot' },
 	{ msg: 'Allez allez, Maitro boulot dodo' }
 ];
+function goToWorkTTSQueue() {
+	log.debug('goToWorkTTSQueue...');
+	Core.do('service|interaction|goToWorkTTS', null, { delay: 2 * 60, loop: 5 });
+}
+
 function goToWorkTTS() {
 	let tts = Utils.randomItem(GO_TO_WORK_TTS);
 	log.debug('goToWorkTTS', tts);
