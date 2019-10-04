@@ -100,7 +100,7 @@ function playRadio(radioId) {
 		radio = RADIO_LIST.fip;
 	}
 	log.info('Play radio ' + radio.id);
-	Core.do('interface|tts|speak', 'Playing ' + radio.id + ' radio');
+	Core.do('interface|tts|speak', 'Play ' + radio.id + ' radio');
 
 	Core.do('interface|sound|play', { url: radio.url }, { delay: 2 });
 	Core.run('music', radio.id);

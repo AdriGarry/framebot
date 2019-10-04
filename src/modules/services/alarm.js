@@ -77,7 +77,7 @@ function isAlarm() {
 				Core.do('service|context|restart');
 			} else {
 				setImmediate(() => {
-					cocorico();
+					doAlarm();
 				});
 			}
 		}
@@ -85,108 +85,103 @@ function isAlarm() {
 }
 
 /** Function alarm part 1 */
-function cocorico() {
-	log.info('Morning Sea...');
-	Core.do('interface|sound|play', { mp3: 'system/morningSea.mp3' });
-	Utils.getDuration(Core._MP3 + 'system/morningSea.mp3')
-		.then(data => {
-			log.debug('seaDuration', data);
-			setTimeout(function() {
-				cocoricoPart2();
-			}, data * 1000);
-		})
+function doAlarm() {
+	alarmPart1()
+		.then(alarmPart2)
+		.then(alarmPart3)
+		// .then(alarmPart4)
+		// .then(alarmPart5)
 		.catch(err => {
-			Core.error('cocorico error', err);
+			Core.error('Alarm error', err);
 		});
+}
+
+/** Function alarm part 1 */
+function alarmPart1() {
+	return new Promise((resolve, reject) => {
+		log.info('Morning Sea...');
+		Core.do('interface|sound|play', { mp3: 'system/morningSea.mp3' });
+		Utils.getDuration(Core._MP3 + 'system/morningSea.mp3')
+			.then(data => {
+				log.debug('seaDuration', data);
+				setTimeout(function() {
+					resolve();
+				}, data * 1000);
+			})
+			.catch(err => {
+				reject(err);
+			});
+	});
+}
+
+/** Function alarm part 2 */
+function alarmPart2() {
+	return new Promise((resolve, reject) => {
+		log.info('cocorico !!');
+		Core.do('interface|arduino|write', 'playHornDoUp');
+		Core.do('interface|sound|play', { mp3: 'system/cocorico.mp3' });
+		if (isBirthday()) {
+			Core.do('service|time|birthday');
+			setTimeout(function() {
+				resolve();
+			}, 53 * 1000);
+		} else {
+			resolve();
+		}
+	});
+}
+
+/** Function alarm part 3 */
+function alarmPart3() {
+	let delay = 3;
+	Core.do('service|max|hornRdm');
+	Core.do('service|time|today', null, { delay: delay });
+
+	delay += 3;
+	Core.do('service|time|now', null, { delay: delay });
+
+	delay += 2;
+	Core.do('service|weather|report', null, { delay: delay });
+
+	delay += 5;
+	Core.do('service|weather|astronomy', null, { delay: delay });
+
+	delay += 15;
+	Core.do('service|voicemail|check', null, { delay: delay });
+
+	delay += Core.run('voicemail') * 10;
+	Core.do('service|audioRecord|check', null, { delay: delay });
+
+	delay += Core.run('audioRecord') * 10;
+	Core.do('service|music|radio', 'fip', { delay: delay });
+
+	Core.do('service|max|playOneMelody', null, { delay: 8 * 60, loop: 8 });
+	Core.do('service|max|hornRdm', null, { delay: 12 * 60, loop: 6 });
+
+	Core.do('service|interaction|baluchon', null, { delay: Utils.random(15, 25) * 60, loop: 3 });
+
+	Core.do('interface|tts|speak', 'Allez, hop hop les abdo !', { delay: 50 });
+	Core.do('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 3 * 60 });
+
+	Core.do('service|interaction|goToWorkQueue', { delay: 70 * 60 });
+
+	setTimeout(() => {
+		Core.run('alarm', false);
+	}, delay * 1000);
 }
 
 function isBirthday() {
 	log.info('isBirthday');
-	var today = {
+	let today = {
 		date: new Date()
 	};
 	today.day = today.date.getDate();
 	today.month = today.date.getMonth() + 1;
 	for (var i = 0; i < Core.descriptor.birthdays.length; i++) {
-		var splited = Core.descriptor.birthdays[i].split('/');
+		let splited = Core.descriptor.birthdays[i].split('/');
 		if (today.day == splited[0] && today.month == splited[1]) {
 			return true;
 		}
 	}
 	return false;
-}
-
-/** Function alarm part 2 */
-function cocoricoPart2() {
-	log.info('cocorico !!');
-	Core.do('interface|arduino|write', 'playHornDoUp');
-	Core.do('interface|sound|play', { mp3: 'system/cocorico.mp3' });
-	if (isBirthday()) {
-		Core.do('service|time|birthday');
-		setTimeout(function() {
-			cocoricoPart3();
-		}, 53 * 1000);
-	} else {
-		cocoricoPart3();
-	}
-}
-
-/** Function alarm part 3 */
-function cocoricoPart3() {
-	let delay = 3;
-	Core.do('service|max|hornRdm');
-	Core.do('service|time|today', null, {
-		delay: delay
-	});
-
-	delay += 3;
-	Core.do('service|time|now', null, {
-		delay: delay
-	});
-
-	delay += 2;
-	Core.do('service|weather|report', null, {
-		delay: delay
-	});
-
-	delay += 5;
-	Core.do('service|weather|astronomy', null, {
-		delay: delay
-	});
-
-	delay += 15;
-	Core.do('service|voicemail|check', null, {
-		delay: delay
-	});
-
-	delay += Core.run('voicemail') * 10;
-	Core.do('service|audioRecord|check', null, {
-		delay: delay
-	});
-
-	delay += Core.run('audioRecord') * 10;
-	Core.do('service|music|fip', null, {
-		delay: delay
-	});
-
-	Core.do('service|max|playOneMelody', null, {
-		delay: 8 * 60,
-		loop: 8
-	});
-	Core.do('service|max|hornRdm', null, {
-		delay: 12 * 60,
-		loop: 6
-	});
-
-	Core.do('service|interaction|baluchon', null, {
-		delay: Utils.random(15, 25) * 60,
-		loop: 3
-	});
-
-	Core.do('interface|tts|speak', 'Allez, hop hop les abdo !', { delay: 50 });
-	Core.do('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 3 * 60 });
-
-	setTimeout(() => {
-		Core.run('alarm', false);
-	}, delay * 1000);
 }
