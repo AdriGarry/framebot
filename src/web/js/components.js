@@ -342,7 +342,8 @@ app.component('jukebox', {
 			actionList: [
 				{ label: 'Low', icon: 'fab fa-servicestack', url: '/flux/service/music/playlist', value: 'low' },
 				{ label: 'Jukebox', icon: 'fab fa-squarespace', url: '/flux/service/music/playlist' },
-				{ label: 'FIP Radio', icon: 'fas fa-globe', url: '/flux/service/music/fip' }
+				{ label: 'Radio BAM', icon: 'fas fa-otter', url: '/flux/service/music/radio', value: 'bam' },
+				{ label: 'FIP Radio', icon: 'fas fa-globe', url: '/flux/service/music/radio', value: 'fip' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
