@@ -14,7 +14,6 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 module.exports = {
 	cron: {
 		full: [
-			// { cron: '0 18,20,22-25 8 * * 1-5', flux: { id: 'service|interaction|goToWork' } },
 			{ cron: '0 19 19 * * *', flux: { id: 'service|interaction|baluchon' } },
 			{ cron: '13 0 1,13 * * *', flux: { id: 'service|interaction|uneHeure' } },
 			{ cron: '13 13,25,40,51 17-21 * * *', flux: { id: 'service|interaction|random' } }

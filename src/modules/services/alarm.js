@@ -89,8 +89,6 @@ function doAlarm() {
 	alarmPart1()
 		.then(alarmPart2)
 		.then(alarmPart3)
-		// .then(alarmPart4)
-		// .then(alarmPart5)
 		.catch(err => {
 			Core.error('Alarm error', err);
 		});
