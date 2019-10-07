@@ -29,7 +29,7 @@ Core.flux.service.interaction.subscribe({
 			exclamation();
 		} else if (flux.id == 'demo') {
 			demo();
-		} else if (flux.id == 'goToWork') {
+		} else if (flux.id == 'goToWorkTTS') {
 			goToWorkTTS();
 		} else if (flux.id == 'goToWorkQueue') {
 			goToWorkTTSQueue();
