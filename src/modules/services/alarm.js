@@ -160,7 +160,7 @@ function alarmPart3() {
 	Core.do('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 3 * 60 });
 
 	Core.do('service|interaction|baluchon', null, { delay: Utils.random(15, 25) * 60, loop: 3 });
-	Core.do('service|interaction|goToWorkQueue', { delay: 70 * 60 });
+	Core.do('service|interaction|goToWorkQueue', null, { delay: 70 * 60 });
 
 	setTimeout(() => {
 		Core.run('alarm', false);
