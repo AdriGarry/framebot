@@ -131,21 +131,25 @@ function cpuStatsTTS() {
 }
 
 function retreiveCpuTemp() {
-	let temperature = fs.readFileSync('/sys/class/thermal/thermal_zone0/temp');
-	temperature = (temperature / 1000).toPrecision(2);
-	Core.run('cpu.temp', temperature + '°');
-	return temperature;
+	return new Promise((resolve, reject) => {
+		let temperature = fs.readFileSync('/sys/class/thermal/thermal_zone0/temp');
+		temperature = (temperature / 1000).toPrecision(2);
+		Core.run('cpu.temp', temperature + '°');
+		resolve(temperature);
+	});
 }
 
 /** Function to get CPU usage */
 function retreiveCpuUsage() {
-	let endMeasure = cpuAverage(); //Grab second Measure
-	//Calculate the difference in idle and total time between the measures
-	let idleDifference = endMeasure.idle - startMeasure.idle;
-	let totalDifference = endMeasure.total - startMeasure.total;
-	let percentageCPU = 100 - ~~((100 * idleDifference) / totalDifference); //Calculate the average percentage CPU usage
-	Core.run('cpu.usage', percentageCPU + '%');
-	return percentageCPU;
+	return new Promise((resolve, reject) => {
+		let endMeasure = cpuAverage(); //Grab second Measure
+		//Calculate the difference in idle and total time between the measures
+		let idleDifference = endMeasure.idle - startMeasure.idle;
+		let totalDifference = endMeasure.total - startMeasure.total;
+		let percentageCPU = 100 - ~~((100 * idleDifference) / totalDifference); //Calculate the average percentage CPU usage
+		Core.run('cpu.usage', percentageCPU + '%');
+		resolve(percentageCPU);
+	});
 }
 
 //Create function to get CPU information
@@ -182,47 +186,57 @@ function soulTTS() {
 
 /** Function to get memory usage stats (Core + system) */
 function retreiveMemoryUsage() {
-	let usedByCore = process.memoryUsage();
-	usedByCore = (usedByCore.rss / BYTE_TO_MO).toFixed(1);
-	Core.run('memory.odi', usedByCore);
-
-	let totalMem = (os.totalmem() / BYTE_TO_MO).toFixed(0);
-	let freeMem = (os.freemem() / BYTE_TO_MO).toFixed(0);
-	let usedMem = (totalMem - freeMem).toFixed(0);
-	Core.run('memory.system', usedMem + '/' + totalMem);
+	return new Promise((resolve, reject) => {
+		let usedByCore = process.memoryUsage();
+		usedByCore = (usedByCore.rss / BYTE_TO_MO).toFixed(1);
+		Core.run('memory.odi', usedByCore);
+		let totalMem = (os.totalmem() / BYTE_TO_MO).toFixed(0);
+		let freeMem = (os.freemem() / BYTE_TO_MO).toFixed(0);
+		let usedMem = (totalMem - freeMem).toFixed(0);
+		Core.run('memory.system', usedMem + '/' + totalMem);
+		resolve(usedMem + '/' + totalMem);
+	});
 }
 
 /** Function to get load average (uptime) */
 function loadAverage() {
-	Utils.execCmd('uptime')
-		.then(data => {
-			// var loadAverage = data.match(/load average: (.+)/g);
-			// log.debug('>uptime', loadAverage);
-			// Core.run('memory.loadAverage', loadAverage[0]);
-			let regex = /load average: (.+)/g;
-			let result = regex.exec(data);
-			let loadAverage = result && result[1] ? result[1] : -1;
-			log.trace('uptime', loadAverage);
-			Core.run('memory.loadAverage', loadAverage);
-		})
-		.catch(err => {
-			Core.error('loadAverage error', err);
-		});
+	return new Promise((resolve, reject) => {
+		Utils.execCmd('uptime')
+			.then(data => {
+				// var loadAverage = data.match(/load average: (.+)/g);
+				// log.debug('>uptime', loadAverage);
+				// Core.run('memory.loadAverage', loadAverage[0]);
+				let regex = /load average: (.+)/g;
+				let result = regex.exec(data);
+				let loadAverage = result && result[1] ? result[1] : -1;
+				log.trace('uptime', loadAverage);
+				Core.run('memory.loadAverage', loadAverage);
+				resolve(loadAverage);
+			})
+			.catch(err => {
+				Core.error('loadAverage error', err);
+				reject(err);
+			});
+	});
 }
 
 /** Function to update last modified date & time of Program's files */
 function retreiveLastModifiedDate(paths) {
-	// typeof paths => Array
-	paths = paths.join(' ');
-	Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
-		.then(data => {
-			let lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
-			log.debug('getLastModifiedDate()', lastDate[0]);
-			Core.run('stats.update', lastDate[0]);
-		})
-		.catch(err => {
-			Core.error('retreiveLastModifiedDate error', err);
-		});
+	return new Promise((resolve, reject) => {
+		// typeof paths => Array
+		paths = paths.join(' ');
+		Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
+			.then(data => {
+				let lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
+				log.debug('getLastModifiedDate()', lastDate[0]);
+				Core.run('stats.update', lastDate[0]);
+				resolve(lastDate[0]);
+			})
+			.catch(err => {
+				Core.error('retreiveLastModifiedDate error', err);
+				reject(err);
+			});
+	});
 }
 
 /** Function to tts disk space */
@@ -238,23 +252,27 @@ function diskSpaceTTS() {
 
 /** Function to retreive disk space on /dev/root */
 function getDiskSpace(callback) {
-	Utils.execCmd('df -h')
-		.then(data => {
-			let diskSpace = data.match(/\/dev\/root.*[%]/gm);
-			diskSpace = diskSpace[0].match(/[\d]*%/g);
-			log.debug('Disk space:', diskSpace[0]);
-			Core.run('stats.diskSpace', diskSpace[0]);
+	return new Promise((resolve, reject) => {
+		Utils.execCmd('df -h')
+			.then(data => {
+				let diskSpace = data.match(/\/dev\/root.*[%]/gm);
+				diskSpace = diskSpace[0].match(/[\d]*%/g);
+				log.debug('Disk space:', diskSpace[0]);
+				Core.run('stats.diskSpace', diskSpace[0]);
 
-			if (parseInt(diskSpace) >= 80) {
-				// log.warn('Warning: disk space almost full: ' + Core.run('stats.diskSpace') + '%');
-				let logMessage = 'Warning: disk space almost full: ' + Core.run('stats.diskSpace') + '%';
-				log.warn(logMessage);
-				Core.do('service|sms|send', logMessage);
-			}
-		})
-		.catch(err => {
-			Core.error('getDiskSpace error', err);
-		});
+				if (parseInt(diskSpace) >= 80) {
+					// log.warn('Warning: disk space almost full: ' + Core.run('stats.diskSpace') + '%');
+					let logMessage = 'Warning: disk space almost full: ' + Core.run('stats.diskSpace') + '%';
+					log.warn(logMessage);
+					Core.do('service|sms|send', logMessage);
+				}
+				resolve(diskSpace[0]);
+			})
+			.catch(err => {
+				Core.error('getDiskSpace error', err);
+				reject(err);
+			});
+	});
 }
 
 /** Function to TTS program's program total lines */
@@ -265,31 +283,35 @@ function totalLinesTTS() {
 
 /** Function to count lines of program's software */
 function countSoftwareLines() {
-	const EXTENSIONS = ['js', 'json', 'properties', 'sh', 'py', 'html', 'css'];
-	const PATHS = [Core._SRC, Core._DATA, Core._CONF];
-	let typesNb = EXTENSIONS.length;
-	let lines = {},
-		totalLines = 0;
-	EXTENSIONS.forEach(function(extension) {
-		let command = 'find ' + PATHS.join(' ') + ' -regex ".+.' + extension + '" -print | grep -v lib | xargs wc -l';
-		//find /home/odi/core/src/ /home/odi/core/data/ /home/odi/core/conf/ -regex ".+.css" -print | grep -v lib | xargs wc -l
-		Utils.execCmd(command, 'noLog')
-			.then(data => {
-				let regex = /(\d*) total/g;
-				let result = regex.exec(data);
-				let t = result && result[1] ? result[1] : 0;
-				totalLines = parseInt(totalLines) + parseInt(t);
-				lines[extension] = parseInt(t);
-				typesNb--;
-				if (!typesNb) {
-					log.debug('countSoftwareLines()', totalLines);
-					log.debug('stats.totalLines:', lines);
-					Core.run('stats.totalLines', totalLines);
-				}
-			})
-			.catch(err => {
-				Core.error('countSoftwareLines error', err);
-			});
+	return new Promise((resolve, reject) => {
+		const EXTENSIONS = ['js', 'json', 'properties', 'sh', 'py', 'html', 'css'];
+		const PATHS = [Core._SRC, Core._DATA, Core._CONF];
+		let typesNb = EXTENSIONS.length;
+		let lines = {},
+			totalLines = 0;
+		EXTENSIONS.forEach(function(extension) {
+			let command = 'find ' + PATHS.join(' ') + ' -regex ".+.' + extension + '" -print | grep -v lib | xargs wc -l';
+			//find /home/odi/core/src/ /home/odi/core/data/ /home/odi/core/conf/ -regex ".+.css" -print | grep -v lib | xargs wc -l
+			Utils.execCmd(command, 'noLog')
+				.then(data => {
+					let regex = /(\d*) total/g;
+					let result = regex.exec(data);
+					let t = result && result[1] ? result[1] : 0;
+					totalLines = parseInt(totalLines) + parseInt(t);
+					lines[extension] = parseInt(t);
+					typesNb--;
+					if (!typesNb) {
+						log.debug('countSoftwareLines()', totalLines);
+						log.debug('stats.totalLines:', lines);
+						Core.run('stats.totalLines', totalLines);
+						resolve(totalLines);
+					}
+				})
+				.catch(err => {
+					Core.error('countSoftwareLines error', err);
+					reject(err);
+				});
+		});
 	});
 }
 
