@@ -45,11 +45,6 @@ function google(tts) {
 
 function pico(tts) {
 	let language = tts.lg == 'en' ? 'en-US' : 'fr-FR';
-	// let pico2wave = spawn('pico2wave', ['-l', language, '-w', Core._PATH + 'pico2waveTTS.wav "' + tts.msg + '"']);
-	// pico2wave.on('close', code => {
-	// 	console.log(`child process exited with code ${code}`);
-	// 	Core.do('interface|sound|play', { mp3: Core._PATH + 'pico2waveTTS.wav', noLog: true });
-	// });
 	let volume = Core.run('volume') * 2.5; // 175-300
 	let command = 'pico2wave -l ' + language + ' -w ' + Core._TMP + 'picoTTS.wav "' + tts.msg + '"';
 	exec(command, (error, stdout, stderr) => {
