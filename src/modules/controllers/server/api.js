@@ -150,9 +150,10 @@ function attachDefaultRoutes(ui) {
 	});
 
 	ui.get('/runtime', function(req, res) {
-		Core.do('interface|hardware|runtime');
-		log.table(Core.run(), 'RUNTIME');
-		res.end(JSON.stringify(Core.run()));
+		Core.do('interface|hardware|runtime', true);
+		setTimeout(() => {
+			res.end(JSON.stringify(Core.run()));
+		}, 500);
 	});
 
 	ui.get('/errors', function(req, res) {

@@ -44,17 +44,11 @@ Core.flux.service.context.subscribe({
 			updateConf(flux.value, true);
 		} else if (flux.id == 'reset') {
 			resetCore();
-		} else if (flux.id == 'refresh') {
-			refreshRuntime();
 		} else Core.error('unmapped flux in Context service', flux, false);
 	},
 	error: err => {
 		Core.error('Flux error', err);
 	}
-});
-
-setImmediate(() => {
-	refreshRuntime();
 });
 
 /** Function to restart/sleep Core */
@@ -116,13 +110,4 @@ function processExit() {
 	log.info('buttonStats:', Core.run().buttonStats);
 	log.info('exit program.');
 	process.exit();
-}
-
-/** Function to refresh Core\'s runtime data (etat, timer, moods...) */
-function refreshRuntime() {
-	log.info("refreshing Core's runtime...");
-	Core.do('interface|hardware|runtime', null, { log: 'trace' });
-	setTimeout(function() {
-		log.table(Core.run(), 'RUNTIME');
-	}, 1000);
 }

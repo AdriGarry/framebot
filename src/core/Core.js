@@ -84,18 +84,12 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 			}
 		});
 	}
-	if (descriptor.runtime && typeof descriptor.runtime == 'object') {
-		Object.keys(descriptor.runtime).forEach(key => {
-			runtimeUpdate[key] = descriptor.runtime[key];
-		});
-	}
 
 	const Flux = require(Core._CORE + 'Flux.js').init(descriptor.modules),
 		ModuleLoader = require(Core._CORE + 'ModuleLoader.js'); //.init(descriptor.modules)
 	Core.flux = Flux;
 	Core.do = Flux.next;
 	Core.do('service|context|update', confUpdate, { delay: 0.2, log: 'debug' });
-	Core.do('interface|hardware|runtime', runtimeUpdate, { log: 'debug' });
 	let fluxToFire = Core.conf('flux'); // TODO do this !
 	if (fluxToFire && fluxToFire.length > 0) {
 		log.table(fluxToFire, 'flux to fire');
