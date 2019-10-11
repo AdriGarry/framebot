@@ -52,16 +52,33 @@ Core.flux.interface.hardware.subscribe({
 });
 
 setImmediate(() => {
-	retreiveLastModifiedDate(PATHS);
-	countSoftwareLines();
-	getDiskSpace();
-	// TODO Promise.all()
+	Promise.all([retreiveLastModifiedDate(PATHS), countSoftwareLines(), getDiskSpace()])
+		.then(() => {
+			runtime(true);
+		})
+		.catch(err => {
+			Core.error('runtime immediate error', err);
+		});
 });
 
 var etat = new Gpio(13, 'in', 'both', {
+	// TODO deprecated, to delete ?
 	persistentWatch: true,
 	debounceTimeout: 500
 });
+
+function runtime(shouldLogRuntime) {
+	let execTime = new Date();
+	Promise.all([retreiveCpuTemp(), retreiveCpuUsage(), retreiveMemoryUsage(), loadAverage()])
+		.then(() => {
+			if (shouldLogRuntime) {
+				log.table(Core.run(), 'RUNTIME     ' + Utils.executionTime(execTime) + 'ms');
+			}
+		})
+		.catch(err => {
+			Core.error('runtime refresh error', err);
+		});
+}
 
 /** Function to reboot RPI */
 function reboot() {
@@ -101,18 +118,6 @@ function light(duration) {
 	Core.do('interface|led|blink', { leds: LIGTH_LEDS, speed: 200, loop: 8 }, { delay: duration - 2 });
 
 	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: duration });
-}
-
-function runtime(data) {
-	let execTime = new Date();
-	retreiveCpuTemp();
-	retreiveCpuUsage();
-	retreiveMemoryUsage();
-	loadAverage();
-	// TODO Promise.all()
-	log.trace('runtime exec time:', Utils.executionTime(execTime) + 'ms');
-	// if(data.log){
-	// }
 }
 
 /** Function to tts cpu stats */
@@ -203,9 +208,6 @@ function loadAverage() {
 	return new Promise((resolve, reject) => {
 		Utils.execCmd('uptime')
 			.then(data => {
-				// var loadAverage = data.match(/load average: (.+)/g);
-				// log.debug('>uptime', loadAverage);
-				// Core.run('memory.loadAverage', loadAverage[0]);
 				let regex = /load average: (.+)/g;
 				let result = regex.exec(data);
 				let loadAverage = result && result[1] ? result[1] : -1;
