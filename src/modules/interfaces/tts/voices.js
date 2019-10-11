@@ -9,15 +9,31 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {
 	espeak: espeak,
+	mbrola1: espeakMbrola1,
+	mbrola4: espeakMbrola4,
 	google: google,
 	pico: pico
 };
 
 function espeak(tts) {
-	let speed = Utils.random(100, 150); //0-99
-	let pitch = Utils.random(30, 60); // 80-450 / 100-200 / 130-150
+	let speed = Utils.random(100, 150); //100-150
+	let pitch = Utils.random(30, 60); // 30-60
 	let volume = Core.run('volume') * 2.5;
 	spawn('espeak', ['-v', tts.lg, '-s', speed, '-p', pitch, '-a', volume, tts.msg]);
+}
+
+function espeakMbrola1(tts) {
+	let speed = Utils.random(130, 200); //130-200
+	let pitch = Utils.random(30, 60); // 30-60
+	let volume = Core.run('volume') * 2.5;
+	spawn('espeak', ['-v', 'mb/mb-fr1', '-s', speed, '-a', volume, '-p', pitch, tts.msg]);
+}
+
+function espeakMbrola4(tts) {
+	let speed = Utils.random(130, 160); //130-160
+	let pitch = Utils.random(30, 60); // 30-60
+	let volume = Core.run('volume') * 2.5;
+	spawn('espeak', ['-v', 'mb/mb-fr4', '-s', speed, '-a', volume, '-p', pitch, tts.msg]);
 }
 
 function google(tts) {

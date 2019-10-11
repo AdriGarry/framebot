@@ -53,7 +53,7 @@ function speak(tts) {
 		if (tts.hasOwnProperty('msg')) {
 			ttsQueue.push(tts);
 			log.debug('new TTS [' + (tts.voice || '') + ', ' + (tts.lg || '') + '] "' + tts.msg + '"');
-		} else log.debug(console.error('newTTS() Wrong TTS object ', tts));
+		} else log.debug(console.error('newTTS() Wrong TTS object // TODO something...', tts));
 	}
 	if (ttsQueue.length > 0) proceedQueue();
 }
@@ -93,9 +93,9 @@ function randomTTS() {
 }
 
 /** Function to play TTS message (espeak / google translate) */
-var playTTS = function(tts) {
+function playTTS(tts) {
 	Core.do('service|max|blinkRdmLed');
-	// TODO TEST IF INTERNET CONNEXION ?
+	// TODO test if internet connexion?
 	if (!tts.hasOwnProperty('voice') || !VOICE_LIST.indexOf(tts.voice) == -1) {
 		log.debug('No valid voice, fallback on espeak');
 		tts.voice = 'espeak';
@@ -104,8 +104,12 @@ var playTTS = function(tts) {
 		log.debug('No valid language, fallback on Fr');
 		tts.lg = 'fr';
 	}
+
+	if (tts.voice === 'espeak') tts.voice = Utils.randomItem(['espeak', 'mbrola1', 'mbrola4']);
+
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	tts.msg = tts.msg.replace('%20', '');
+
 	voices[tts.voice](tts);
 
 	Core.do(
@@ -115,7 +119,7 @@ var playTTS = function(tts) {
 	);
 
 	lastTtsMsg = tts;
-};
+}
 
 /** Function to clear TTS Queue */
 function clearTTSQueue() {
