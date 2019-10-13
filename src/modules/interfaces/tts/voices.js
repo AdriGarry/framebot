@@ -9,8 +9,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {
 	espeak: espeak,
-	mbrola1: espeakMbrola1,
-	mbrola4: espeakMbrola4,
+	mbrolaFr1: espeakMbrolaFr1,
+	mbrolaFr4: espeakMbrolaFr4,
 	google: google,
 	pico: pico
 };
@@ -22,14 +22,14 @@ function espeak(tts) {
 	spawn('espeak', ['-v', tts.lg, '-s', speed, '-p', pitch, '-a', volume, tts.msg]);
 }
 
-function espeakMbrola1(tts) {
+function espeakMbrolaFr1(tts) {
 	let speed = Utils.random(130, 200); //130-200
 	let pitch = Utils.random(30, 60); // 30-60
 	let volume = Core.run('volume') * 2.5;
 	spawn('espeak', ['-v', 'mb/mb-fr1', '-s', speed, '-a', volume, '-p', pitch, tts.msg]);
 }
 
-function espeakMbrola4(tts) {
+function espeakMbrolaFr4(tts) {
 	let speed = Utils.random(130, 160); //130-160
 	let pitch = Utils.random(30, 60); // 30-60
 	let volume = Core.run('volume') * 2.5;
