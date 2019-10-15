@@ -121,7 +121,7 @@ function appendArrayInJsonFile(filePath, obj) {
 		.then(data => _appendFileData(data, obj))
 		.then(data => fsPromises.writeFile(filePath, data))
 		.then(() => log.debug('file ' + filePath + ' updated in', executionTime(startTime) + 'ms'))
-		.catch(err => log.error('Utils.appendArrayInJsonFile', err));
+		.catch(err => Core.error('Utils.appendArrayInJsonFile', err));
 }
 
 function _fileNotExists(err) {
@@ -134,7 +134,13 @@ function _fileNotExists(err) {
 function _appendFileData(data, obj) {
 	return new Promise((resolve, reject) => {
 		try {
-			let fileData = JSON.parse(data);
+			let fileData;
+			try {
+				fileData = JSON.parse(data);
+			} catch (err) {
+				log.info(data);
+				log.error('appendFileData: error while JSON.parse(data)', err);
+			}
 			if (!Array.isArray(fileData)) fileData = [fileData];
 
 			fileData.push(obj);
