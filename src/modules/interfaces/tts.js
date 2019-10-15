@@ -105,7 +105,7 @@ function playTTS(tts) {
 		tts.lg = 'fr';
 	}
 
-	if (tts.voice === 'espeak') tts.voice = Utils.randomItem(['espeak', 'mbrolaFr1', 'mbrolaFr4']);
+	//if (tts.voice === 'espeak') tts.voice = Utils.randomItem(['espeak', 'mbrolaFr1', 'mbrolaFr4']);
 
 	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
 	tts.msg = tts.msg.replace('%20', '');
