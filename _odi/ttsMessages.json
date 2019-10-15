@@ -34,7 +34,7 @@
 			{ "msg": "Oh oui, je dirais meme que cetait bien drole !" }
 		],
 		[{ "msg": "Si tu me cherche, tu vas me trouver" }, { "msg": "C'est moi qui te le dit !" }],
-		[{ "voice": "google", "msg": "Quelle singulariter" }, { "msg": "Eh ho, doucement la" }],
+		[{ "voice": "google", "msg": "Quelle singulariter" }, { "msg": "Eh ho, doucement" }],
 		[{ "voice": "google", "msg": "Si tu vas faire des courses..." }, { "msg": "N'oublie pas d'acheter des biaires !" }],
 		[{ "voice": "google", "msg": "Sait toi Boutss ?" }, { "msg": "Oui, je crois qu'une boulette est passer par la" }],
 		[
@@ -79,7 +79,7 @@
 		"Bonjour",
 		"Je suis un robot et je m'appelle Odi.",
 		"Je ne peux pas bouger, mais j'ai plein d'autres fonctions !",
-		{ "voice": "google", "msg": "Je peux faire reveil, meteo, minuterie, horloge..." },
+		{ "voice": "google", "msg": "Je peux faire raiveil, meteo, minuterie, horloge..." },
 		"Mais aussi jukebox, radio, et je peux raconter des histoires",
 		{ "voice": "google", "msg": "J'ai aussi des fonctions pour surveiller mes constantes vitales" },
 		"Oui, mon processeur, ou encore ma memoire...",
