@@ -15,6 +15,7 @@ module.exports = {
 	cron: {
 		full: [
 			{ cron: '0 19 19 * * *', flux: { id: 'service|interaction|baluchon' } },
+			{ cron: '0 0 12 * * 0', flux: { id: 'service|interaction|civilHorn' } },
 			{ cron: '13 0 1,13 * * *', flux: { id: 'service|interaction|uneHeure' } },
 			{ cron: '13 13,25,40,51 17-21 * * *', flux: { id: 'service|interaction|random' } }
 		]
@@ -41,6 +42,8 @@ Core.flux.service.interaction.subscribe({
 			russia();
 		} else if (flux.id == 'russiaHymn') {
 			russiaHymn();
+		} else if (flux.id == 'civilHorn') {
+			civilHorn();
 		} else Core.error('unmapped flux in Interfaction module', flux, false);
 	},
 	error: err => {
@@ -96,12 +99,22 @@ function randomAction() {
 }
 
 function exclamation() {
-	log.info('Exclamation !');
+	log.info('Exclamation');
 	Core.do('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { log: 'trace' });
 	let exclamation = exclamationRandomBox.next();
 	Core.do('interface|sound|play', {
 		mp3: 'exclamation/' + exclamation
 	});
+}
+
+function civilHorn() {
+	log.info('Civil Horn');
+	Core.do('interface|led|blink', { leds: ['eye', 'belly'], speed: 90, loop: 50 }, { log: 'trace' });
+	Core.do('interface|arduino|connect');
+	Core.do('interface|sound|play', {
+		mp3: 'civilHorn.mp3'
+	});
+	Core.do('service|max|hornSiren', null, { delay: 3.2 });
 }
 
 function russia() {

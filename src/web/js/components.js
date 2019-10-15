@@ -699,6 +699,7 @@ app.component('russia', {
 		var tileParams = {
 			label: 'Russia',
 			actionList: [
+				{ label: 'Civil Horn', icon: 'fas fa-bullhorn', url: '/flux/service/interaction/civilHorn' },
 				{ label: 'Subway / Street', icon: 'fas fa-subway', url: '/flux/service/interaction/russia' },
 				{ label: 'Hymn', icon: 'fas fa-star', url: '/flux/service/interaction/russiaHymn' }
 			]

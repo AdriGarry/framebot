@@ -22,6 +22,8 @@ Core.flux.service.max.subscribe({
 			playRdmMelody();
 		} else if (flux.id == 'hornRdm') {
 			hornRdm();
+		} else if (flux.id == 'hornSiren') {
+			hornSiren();
 		} else if (flux.id == 'turn') {
 			turnNose();
 		} else Core.error('unmapped flux in Max service', flux, false);
@@ -80,6 +82,11 @@ function hornRdm() {
 	let horn = hornRandomBox.next();
 	log.debug('hornRdm', horn);
 	Core.do('interface|arduino|write', horn);
+}
+
+function hornSiren() {
+	log.debug('playHornWarning');
+	Core.do('interface|arduino|write', 'playHornWarning');
 }
 
 function parseDataFromMax(data) {
