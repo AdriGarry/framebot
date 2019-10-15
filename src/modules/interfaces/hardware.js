@@ -122,17 +122,20 @@ function light(duration) {
 
 /** Function to tts cpu stats */
 function cpuStatsTTS() {
-	Core.do('interface|tts|speak', {
-		lg: 'fr',
-		msg:
-			'Mon  ' + Utils.randomItem(['processeur', 'CPU', 'calculateur']) + ' est a ' + retreiveCpuTemp() + '  degrai...'
-	});
-	Core.do('interface|tts|speak', {
-		lg: 'fr',
-		msg: Utils.rdm()
-			? 'Et il tourne a ' + retreiveCpuUsage() + ' pour cent' + (Utils.rdm() ? '' : 'de sa capacitai')
-			: 'Pour ' + retreiveCpuUsage() + ' pour cent ' + (Utils.rdm() ? 'de raiflexion' : "d'utilisation")
-	});
+	retreiveCpuTemp()
+		.then(retreiveCpuUsage)
+		.then(() => {
+			Core.do('interface|tts|speak', {
+				lg: 'fr',
+				msg: 'Mon  ' + Utils.randomItem(['processeur', 'CPU', 'calculateur']) + ' est a ' + Core.run('cpu.temp')
+			});
+			Core.do('interface|tts|speak', {
+				lg: 'fr',
+				msg: Utils.rdm()
+					? 'Et il tourne a ' + Core.run('cpu.usage') + (Utils.rdm() ? '' : ' de sa capacitai')
+					: 'Pour ' + Core.run('cpu.usage') + (Utils.rdm() ? ' de raiflexion' : " d'utilisation")
+			});
+		});
 }
 
 function retreiveCpuTemp() {
