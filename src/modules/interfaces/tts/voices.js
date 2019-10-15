@@ -9,15 +9,31 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {
 	espeak: espeak,
+	mbrolaFr1: espeakMbrolaFr1,
+	mbrolaFr4: espeakMbrolaFr4,
 	google: google,
 	pico: pico
 };
 
 function espeak(tts) {
-	let speed = Utils.random(100, 150); //0-99
-	let pitch = Utils.random(30, 60); // 80-450 / 100-200 / 130-150
+	let speed = Utils.random(100, 150); //100-150
+	let pitch = Utils.random(30, 60); // 30-60
 	let volume = Core.run('volume') * 2.5;
 	spawn('espeak', ['-v', tts.lg, '-s', speed, '-p', pitch, '-a', volume, tts.msg]);
+}
+
+function espeakMbrolaFr1(tts) {
+	let speed = Utils.random(130, 200); //130-200
+	let pitch = Utils.random(30, 60); // 30-60
+	let volume = Core.run('volume') * 2.5;
+	spawn('espeak', ['-v', 'mb/mb-fr1', '-s', speed, '-a', volume, '-p', pitch, tts.msg]);
+}
+
+function espeakMbrolaFr4(tts) {
+	let speed = Utils.random(130, 160); //130-160
+	let pitch = Utils.random(30, 60); // 30-60
+	let volume = Core.run('volume') * 2.5;
+	spawn('espeak', ['-v', 'mb/mb-fr4', '-s', speed, '-a', volume, '-p', pitch, tts.msg]);
 }
 
 function google(tts) {
@@ -29,11 +45,6 @@ function google(tts) {
 
 function pico(tts) {
 	let language = tts.lg == 'en' ? 'en-US' : 'fr-FR';
-	// let pico2wave = spawn('pico2wave', ['-l', language, '-w', Core._PATH + 'pico2waveTTS.wav "' + tts.msg + '"']);
-	// pico2wave.on('close', code => {
-	// 	console.log(`child process exited with code ${code}`);
-	// 	Core.do('interface|sound|play', { mp3: Core._PATH + 'pico2waveTTS.wav', noLog: true });
-	// });
 	let volume = Core.run('volume') * 2.5; // 175-300
 	let command = 'pico2wave -l ' + language + ' -w ' + Core._TMP + 'picoTTS.wav "' + tts.msg + '"';
 	exec(command, (error, stdout, stderr) => {

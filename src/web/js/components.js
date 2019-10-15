@@ -52,6 +52,8 @@ app.component('tts', {
 				],
 				voiceList: [
 					{ code: 'espeak', label: 'Espeak' },
+					{ code: 'mbrolaFr1', label: 'MbrolaFr1' },
+					{ code: 'mbrolaFr4', label: 'MbrolaFr4' },
 					{ code: 'google', label: 'Google' },
 					{ code: 'pico', label: 'Pico' }
 				]
