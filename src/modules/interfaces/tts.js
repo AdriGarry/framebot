@@ -75,7 +75,7 @@ function proceedQueue() {
 				onAir = false;
 			}, timeout);
 			if (ttsQueue.length === 0) {
-				log.debug('No more TTS, stop processing TTS queue!');
+				log.trace('No more TTS, stop processing TTS queue!');
 				clearInterval(queueInterval);
 			}
 		}

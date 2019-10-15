@@ -179,7 +179,7 @@ function getVolumeInstructions(newVolume) {
 	let actualVolume = parseInt(Core.run('volume'));
 	let indexNewVolume = VOLUME_LEVELS.indexOf(newVolume);
 	if (actualVolume === newVolume) {
-		log.debug('no volume action (=)');
+		log.debug('same volume as configured');
 		return;
 	}
 	if (indexNewVolume < 0 || indexNewVolume > 100) {
