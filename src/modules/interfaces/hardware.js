@@ -72,7 +72,7 @@ function runtime(shouldLogRuntime) {
 	Promise.all([retreiveCpuTemp(), retreiveCpuUsage(), retreiveMemoryUsage(), loadAverage()])
 		.then(() => {
 			if (shouldLogRuntime) {
-				log.table(Core.run(), 'RUNTIME     ' + Utils.executionTime(execTime) + 'ms');
+				log.table(Core.run(), 'RUNTIME' + ' '.repeat(5) + Utils.executionTime(execTime) + 'ms');
 			}
 		})
 		.catch(err => {

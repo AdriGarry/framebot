@@ -85,7 +85,7 @@ function updateConf(newConf, restart) {
 		updatedEntries.push(key);
 		Core.conf(key, newConf[key], restart, true);
 	});
-	let header = 'CONFIG UPDATE' + ' '.repeat(3) + Utils.executionTime(updateBegin, '    ') + 'ms';
+	let header = 'CONFIG UPDATE' + ' '.repeat(5) + Utils.executionTime(updateBegin) + 'ms';
 	log.table(Core.conf(), header, updatedEntries);
 	if (restart) {
 		setTimeout(() => {
