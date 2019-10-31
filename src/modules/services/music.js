@@ -110,15 +110,12 @@ function playRadio(radioId) {
 /** Function to play radio or jukebox if no connexion */
 function playRadioOrJukebox() {
 	log.info('playRadioOrJukebox...');
-	Utils.testConnexion(function(connexion) {
-		setTimeout(function() {
-			if (connexion == true) {
-				playRadio();
-			} else {
-				playlist();
-			}
-		}, 3000);
-	});
+	Utils.testConnexion()
+		.then(playRadio)
+		.catch(() => {
+			log.info('No internet connexion, falling back to jukebox');
+			playlist();
+		});
 }
 
 /** Function to stop music timeout */

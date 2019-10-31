@@ -5,7 +5,8 @@ const { exec } = require('child_process'),
 	fs = require('fs'),
 	fsPromises = fs.promises,
 	os = require('os'),
-	request = require('request');
+	request = require('request'),
+	dns = require('dns');
 
 // Utils static factory (shoud not require Core.js || Flux.js)
 const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
@@ -258,16 +259,17 @@ function postOdi(url, data) {
 }
 
 /** Function to test internet connexion */
-function testConnexion(callback) {
-	//console.log('testConnexion()...');
-	require('dns').resolve('www.google.com', function(err) {
-		if (err) {
-			log.debug('Odi is not connected to internet (utils.testConnexion)   /!\\');
-			callback(false);
-		} else {
-			log.debug('Odi is online!');
-			callback(true);
-		}
+function testConnexion() {
+	return new Promise((resolve, reject) => {
+		dns.resolve('www.google.com', function(err) {
+			if (err) {
+				log.error(Core.Name + ' is not connected to internet!', err);
+				reject();
+			} else {
+				log.debug('Odi is online');
+				resolve();
+			}
+		});
 	});
 }
 
