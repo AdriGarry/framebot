@@ -11,7 +11,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {
 	cron: {
-		full: [{ cron: '0 15 18 * * 1-5', flux: { id: 'service|music|radioOrJukebox' } }]
+		full: [{ cron: '0 15 18 * * 1-5', flux: { id: 'service|music|radio' } }]
 	}
 };
 
@@ -21,8 +21,6 @@ Core.flux.service.music.subscribe({
 			playlist(flux.value);
 		} else if (flux.id == 'radio') {
 			playRadio(flux.value);
-		} else if (flux.id == 'radioOrJukebox') {
-			playRadioOrJukebox();
 		} else if (flux.id == 'story') {
 			playStory(flux.value);
 		} else if (flux.id == 'stop') {
@@ -87,31 +85,27 @@ function repeatSong(playlist) {
 
 /** Function to play radio */
 function playRadio(radioId) {
-	if (Core.run('music') && Core.run('music') === radioId) {
-		log.info('Already playing radio', Core.run('music'));
-		return;
-	}
-	Core.do('interface|sound|mute', null, { log: 'trace' });
-	let radio;
-	if (radioId && RADIO_LIST.hasOwnProperty(radioId)) {
-		radio = RADIO_LIST[radioId];
-	} else {
-		log.info("Radio id '" + radioId + "' not reconized, fallback to default radio.");
-		radio = RADIO_LIST.fip;
-	}
-	log.info('Play radio ' + radio.id);
-	Core.do('interface|tts|speak', radio.id + ' radio');
-
-	Core.do('interface|sound|play', { url: radio.url }, { delay: 2 });
-	Core.run('music', radio.id);
-	Core.do('interface|sound|mute', { message: 'Auto Mute radio!', delay: AUTO_MUTE_TIMEOUT });
-}
-
-/** Function to play radio or jukebox if no connexion */
-function playRadioOrJukebox() {
-	log.info('playRadioOrJukebox...');
 	Utils.testConnexion()
-		.then(playRadio)
+		.then(() => {
+			if (Core.run('music') && Core.run('music') === radioId) {
+				log.info('Already playing radio', Core.run('music'));
+				return;
+			}
+			Core.do('interface|sound|mute', null, { log: 'trace' });
+			let radio;
+			if (radioId && RADIO_LIST.hasOwnProperty(radioId)) {
+				radio = RADIO_LIST[radioId];
+			} else {
+				log.info("Radio id '" + radioId + "' not reconized, fallback to default radio.");
+				radio = RADIO_LIST.fip;
+			}
+			log.info('Play radio ' + radio.id);
+			Core.do('interface|tts|speak', radio.id + ' radio');
+
+			Core.do('interface|sound|play', { url: radio.url }, { delay: 2 });
+			Core.run('music', radio.id);
+			Core.do('interface|sound|mute', { message: 'Auto Mute radio!', delay: AUTO_MUTE_TIMEOUT });
+		})
 		.catch(() => {
 			log.info('No internet connexion, falling back to jukebox');
 			playlist();
