@@ -18,6 +18,7 @@ module.exports = {
 
 	//custom/execution/all
 	delay: delay,
+	delayMs: delayMs,
 	logTime: logTime,
 	executionTime: executionTime,
 	codePosition: codePosition,
@@ -263,7 +264,7 @@ function testConnexion() {
 	return new Promise((resolve, reject) => {
 		dns.resolve('www.google.com', function(err) {
 			if (err) {
-				log.error(Core.Name + ' is not connected to internet!', err);
+				log.error("I'm not connected to internet!", err);
 				reject();
 			} else {
 				log.debug('Odi is online');
@@ -406,6 +407,14 @@ function delay(sec) {
 		setTimeout(() => {
 			resolve();
 		}, sec * 1000);
+	});
+}
+
+function delayMs(ms) {
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve();
+		}, ms);
 	});
 }
 
