@@ -47,7 +47,8 @@
 		"stats": {
 			"diskSpace": null,
 			"totalLines": null,
-			"update": null
+			"update": null,
+			"fluxCount": 0
 		},
 		"buttonStats": {}
 	},

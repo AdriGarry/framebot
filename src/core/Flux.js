@@ -14,13 +14,13 @@ const LOG_LEVELS = ['info', 'debug', 'trace'];
 var ready = false;
 
 var Flux = {
-	init: attachObservers,
+	init: initObservers,
 	next: next
 };
 
 module.exports = Flux;
 
-function attachObservers(observers) {
+function initObservers(observers) {
 	log.debug('initializing observers...');
 	Object.keys(observers).forEach((key, index) => {
 		let proto = key.substring(0, key.length - 1);
@@ -128,6 +128,7 @@ function next(id, data, conf) {
 
 	let flux = new FluxObject(id, data, conf);
 	if (!flux.isValid()) return;
+	Core.run('stats.fluxCount', Core.run('stats.fluxCount') + 1);
 	if (flux.delay && Number(flux.delay)) {
 		flux.schedule();
 		return;
