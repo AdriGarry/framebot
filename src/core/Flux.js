@@ -37,7 +37,7 @@ function initObservers(observers) {
 	return Flux;
 }
 
-const FLUX_REGEX = new RegExp(/(?<type>\w+)\|(?<subject>\w+)\|(?<id>\w+)/); // TODO
+const FLUX_REGEX = new RegExp(/(?<type>\w+)\|(?<subject>\w+)\|(?<id>\w+)/);
 
 function FluxObject(idFrom, data, conf) {
 	if (!conf) conf = {};
