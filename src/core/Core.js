@@ -90,11 +90,6 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	Core.flux = Flux;
 	Core.do = Flux.next;
 	Core.do('service|context|update', confUpdate, { delay: 0.2, log: 'debug' });
-	let fluxToFire = Core.conf('flux'); // TODO do this !
-	if (fluxToFire && fluxToFire.length > 0) {
-		log.table(fluxToFire, 'flux to fire');
-		Core.do(fluxToFire);
-	}
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
 	ModuleLoader.loadModules(descriptor.modules);
