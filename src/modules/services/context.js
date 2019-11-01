@@ -106,8 +106,10 @@ function resetCore() {
 	}, 500);
 }
 
+const EXIT_LOG_ARRAY = ['bye!', 'see ya!', 'hope to see u soon!'];
 function processExit() {
 	log.info('buttonStats:', Core.run().buttonStats);
-	log.info('exit program.');
+	log.info('fluxCount:', Core.run('stats.fluxCount'));
+	log.info('exit program,', EXIT_LOG_ARRAY[Utils.rdm(3)]);
 	process.exit();
 }
