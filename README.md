@@ -2,18 +2,22 @@
 
 Based on NodeJS, running on a Raspberry Pi, this is **Core** program, to autorun and interact.
 
+It's a kind of framework, with a flux manager, a logger, tools (Utils.js)...
+
 Available modes: ready, sleep, test
 
 ## Main functionalities:
 
-- Voice synthesizer (TTS), Voicemail & Audio record from UI
+- Voice synthesizer (TTS)
+- Voicemail
+- Audio record from UI
 - Alarm (weekday & weekend)
 - Timer
 - Playlist (jukebox, low...)
-- Web radio (FIP)
+- Web radio (FIP, radio Bam)
 - Exclamations
 - Interactions with an Arduino (Max...)
-- Weather
+- Weather report
 
 ### Additional functionalities:
 
@@ -48,11 +52,11 @@ Available modes: ready, sleep, test
 
 #### Core.conf
 
-The Core.conf holds cycle informations: _mode, alarms, version_.
+The Core.conf holds cycle informations: _mode, alarms, version_...
 
 This object is isolated, with access methods.
 
-This object is file persisted and has a default version.
+This object is file persisted and has a default version to reset.
 
 #### Core.run
 
@@ -68,7 +72,17 @@ The _Core.do() (Flux.next())_ function accepts flux object (full or detailled), 
 A flux is an Object with 3 properties:
 
 - id: _type|subject|name_
-- data: any type
-- conf: `{delay:_number_, loop:_number_, log:_string_}`
+
+- [data]: any type
+
+- [conf]: `{delay:_number_, loop:_number_, log:_string_}`
+
+- [conf]: `{delay, loop, log}`
+
+  - [delay]: _number_ delay to fire flux in seconds
+
+  - [loop]: _number_ times to loop flux
+
+  - [log]: _string_ log level where the flux will be logged
 
 .
