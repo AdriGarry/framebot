@@ -18,3 +18,9 @@ Core.flux.service.radiator.subscribe({
 		Core.error('Flux error', err);
 	}
 });
+
+// on/off
+
+// scheduler
+
+// timer
