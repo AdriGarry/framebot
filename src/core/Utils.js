@@ -170,7 +170,7 @@ function directoryContent(path) {
 
 /** Function getJsonFileContent. Return a Promise */
 const FILE_NOT_FOUND_EXCEPT = ['/home/odi/core/tmp/voicemail.json', '/home/odi/core/tmp/record.json'];
-function getJsonFileContent(filePath, callback) {
+function getJsonFileContent(filePath) {
 	log.debug('getJsonFileContent() ', filePath);
 	return new Promise((resolve, reject) => {
 		fs.readFile(filePath, function(err, data) {
@@ -204,7 +204,6 @@ function getLocalIp() {
 				// skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
 				return;
 			}
-
 			if (alias >= 1) {
 				// this single interface has multiple ipv4 addresses
 				// console.log(ifname + ':' + alias, iface.address);
