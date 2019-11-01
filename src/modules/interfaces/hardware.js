@@ -4,8 +4,7 @@
 
 const { exec, spawn } = require('child_process');
 const fs = require('fs'),
-	os = require('os'),
-	Gpio = require('onoff').Gpio;
+	os = require('os');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
@@ -59,12 +58,6 @@ setImmediate(() => {
 		.catch(err => {
 			Core.error('runtime immediate error', err);
 		});
-});
-
-var etat = new Gpio(13, 'in', 'both', {
-	// TODO deprecated, to delete ?
-	persistentWatch: true,
-	debounceTimeout: 500
 });
 
 function runtime(shouldLogRuntime) {

@@ -44,7 +44,7 @@ Core.flux.interface.sound.subscribe({
 });
 
 setImmediate(() => {
-	resetSound(); // TODO mettre dans le module.exports
+	resetSound();
 });
 
 const VOLUME_LEVELS = Array.from({ length: 11 }, (v, k) => k * 10); // 0 to 100, step: 10

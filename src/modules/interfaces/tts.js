@@ -53,7 +53,7 @@ function speak(tts) {
 		if (tts.hasOwnProperty('msg')) {
 			ttsQueue.push(tts);
 			log.debug('new TTS [' + (tts.voice || '') + ', ' + (tts.lg || '') + '] "' + tts.msg + '"');
-		} else log.debug(console.error('newTTS() Wrong TTS object // TODO something...', tts));
+		} else log.debug(console.error('newTTS() Wrong TTS object...', tts));
 	}
 	if (ttsQueue.length > 0) proceedQueue();
 }
