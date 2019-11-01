@@ -206,14 +206,14 @@ function retreiveMemoryUsage() {
 	});
 }
 
+let LOAD_AVERAGE_REGEX = new RegExp(/load average: (?<loadAverage>.+)/);
 /** Function to get load average (uptime) */
 function loadAverage() {
 	return new Promise((resolve, reject) => {
 		Utils.execCmd('uptime')
 			.then(data => {
-				let regex = /load average: (.+)/g;
-				let result = regex.exec(data);
-				let loadAverage = result && result[1] ? result[1] : -1;
+				let matchObj = LOAD_AVERAGE_REGEX.exec(data);
+				let loadAverage = matchObj && matchObj.groups.loadAverage ? matchObj.groups.loadAverage : 0;
 				log.trace('uptime', loadAverage);
 				Core.run('memory.loadAverage', loadAverage);
 				resolve(loadAverage);
@@ -286,6 +286,7 @@ function totalLinesTTS() {
 	Core.do('interface|tts|speak', ttsMsg);
 }
 
+const TOTAL_LINES_REGEX = new RegExp(/(?<totalLines>\d*) total/);
 /** Function to count lines of program's software */
 function countSoftwareLines() {
 	return new Promise((resolve, reject) => {
@@ -299,9 +300,8 @@ function countSoftwareLines() {
 			//find /home/odi/core/src/ /home/odi/core/data/ /home/odi/core/conf/ -regex ".+.css" -print | grep -v lib | xargs wc -l
 			Utils.execCmd(command, 'noLog')
 				.then(data => {
-					let regex = /(\d*) total/g;
-					let result = regex.exec(data);
-					let t = result && result[1] ? result[1] : 0;
+					let matchObj = TOTAL_LINES_REGEX.exec(data);
+					let t = matchObj && matchObj.groups.totalLines ? matchObj.groups.totalLines : 0;
 					totalLines = parseInt(totalLines) + parseInt(t);
 					lines[extension] = parseInt(t);
 					typesNb--;

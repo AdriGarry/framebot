@@ -296,11 +296,11 @@ app.component('hardware', {
 		ctrl.odiState = ctrl.odiState;
 
 		ctrl.getMemoryPerCent = function() {
+			const MEMORY_REGEX = new RegExp(/(?<usedMem>[\d]+)\/(?<totalMem>[\d]+)/g);
 			var memory = ctrl.data.value.memory.system;
-			var memoryRegex = /([\d]+)\/([\d]+)/g;
-			var match = memoryRegex.exec(memory);
-			var value = match[1],
-				total = match[2];
+			var regexMatch = MEMORY_REGEX.exec(memory);
+			var value = regexMatch && regexMatch.groups.usedMem ? regexMatch.groups.usedMem : 0,
+				total = regexMatch && regexMatch.groups.totalMem ? regexMatch.groups.totalMem : 0;
 			return ((value / total) * 100).toFixed(0);
 		};
 	}
