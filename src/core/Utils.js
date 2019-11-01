@@ -8,7 +8,7 @@ const { exec } = require('child_process'),
 	request = require('request'),
 	dns = require('dns');
 
-// Utils static factory (shoud not require Core.js || Flux.js)
+// Utils static factory (shoud not require Core.js or Flux.js)
 const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
 
 module.exports = {
@@ -76,7 +76,6 @@ function codePosition(steps) {
  * @return {String} repeated string
  */
 function repeatString(string, times) {
-	// console.log('repeatString', string, times);
 	return Array(times + 1).join(string);
 }
 
@@ -85,15 +84,12 @@ function formatStringLength(string, expectedLength, before) {
 		stringFormated;
 	if (stringLength >= expectedLength) {
 		stringFormated = string.substring(0, expectedLength);
-		// console.log(stringLength, 'if', stringFormated);
 	} else {
 		if (before) {
 			stringFormated = repeatString(' ', expectedLength - stringLength) + string;
 		} else {
 			stringFormated = string + repeatString(' ', expectedLength - stringLength);
 		}
-		// stringFormated = string + repeatString(' ', Math.abs(stringLength - expectedLength) + 2);
-		// console.log(stringLength, 'else', stringFormated);
 	}
 	return stringFormated;
 }
@@ -192,8 +188,6 @@ function getJsonFileContent(filePath, callback) {
 function searchStringInArray(string, stringArray) {
 	for (let i = 0; i < stringArray.length; i++) {
 		if (stringArray[i].toLowerCase().indexOf(string.toLowerCase()) > -1) {
-			// if (string.toLowerCase().search(stringArray[i].toLowerCase()) > -1) {
-			//return true;
 			return stringArray[i];
 		}
 	}
@@ -284,9 +278,6 @@ function execCmd(command, noLog) {
 			} else {
 				resolve(stdout);
 			}
-			// // console.log('execCmd(' + command + ')\n', stdout);
-			// // if (stderr) callback(stderr);
-			// if (callback) callback(stdout);
 		});
 	});
 }
@@ -313,14 +304,10 @@ function getSoundOrVideoDuration(soundFile, callback) {
 		execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH')
 			.then(data => {
 				try {
-					// log.INFO(data);
 					if (data == '') {
-						// TODO ??
 						getDuration(soundFile, callback);
 					}
 					let duration = data.split('=')[1].trim();
-					// log.INFO(duration);
-					// callback(parseInt(duration));
 					resolve(parseInt(duration));
 				} catch (err) {
 					// Don't log error because the method will call itself until OK !
@@ -352,7 +339,6 @@ String.prototype.unQuote = function() {
 
 /** Function to calculate execution time of something */
 function executionTime(startTime, formatResultPattern) {
-	// let length = 4;
 	let elapsedTime = new Date() - startTime;
 	if (formatResultPattern) {
 		return addPatternBefore(elapsedTime, formatResultPattern);
@@ -396,9 +382,8 @@ function random(arg1, arg2) {
 }
 
 function randomItem(array) {
-	// log.DEBUG(array);
 	let length = array.length;
-	let randomIndex = random(length); //length - 1
+	let randomIndex = random(length); // length - 1
 	return array[randomIndex];
 }
 
