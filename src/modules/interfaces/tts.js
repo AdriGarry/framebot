@@ -6,7 +6,8 @@ const { spawn, exec } = require('child_process');
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js'),
-	voices = require(Core._MODULES + 'interfaces/tts/voices.js');
+	voices = require(Core._MODULES + 'interfaces/tts/voices.js'),
+	RandomBox = require('randombox').RandomBox;
 
 const VOICE_LIST = Object.keys(voices);
 const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
@@ -83,12 +84,10 @@ function proceedQueue() {
 }
 
 /** Function to launch random TTS */
-const RANDOM_TTS_LENGTH = Core.ttsMessages.random.length;
+const TTS_RANDOMBOX = new RandomBox(Core.ttsMessages.random);
 function randomTTS() {
-	var rdmNb = Utils.random(RANDOM_TTS_LENGTH);
-	log.info('tts.js> rdmNb: ', rdmNb);
-	var rdmTTS = Core.ttsMessages.random[rdmNb];
-	log.info('Random TTS : ' + rdmNb + '/' + RANDOM_TTS_LENGTH);
+	let rdmTTS = TTS_RANDOMBOX.next();
+	log.info('Random TTS : ', rdmTTS);
 	speak(rdmTTS);
 }
 
