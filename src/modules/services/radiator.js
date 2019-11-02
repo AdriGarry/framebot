@@ -20,7 +20,13 @@ Core.flux.service.radiator.subscribe({
 });
 
 // on/off
+function setState(state) {
+	//
+}
 
-// scheduler
+// scheduler => cron
 
 // timer
+function timer() {
+	//
+}
