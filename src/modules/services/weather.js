@@ -173,37 +173,25 @@ function getAlternativeWeatherReport(weatherReport) {
 			weatherSpeech = [
 				{
 					voice: 'google',
-					lg: 'fr',
 					msg: "Aujourd'hui a Marseille, il fait " + weatherReport.temperature + ' degrer'
 				},
 				{
-					voice: 'espeak',
-					lg: 'fr',
 					msg:
 						'Oui, et ' + (isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) + ' kilometre heure de vent'
 				},
 				{
-					voice: 'espeak',
-					lg: 'fr',
 					msg: 'Un temps plutot ' + weatherReport.status
 				}
 			];
 			break;
 		case 2:
 			weatherSpeech = [
-				{
-					voice: 'espeak',
-					lg: 'fr',
-					msg: 'Hey, il fait un temp ' + weatherReport.status
-				},
+				{ msg: 'Hey, il fait un temp ' + weatherReport.status },
 				{
 					voice: 'google',
-					lg: 'fr',
 					msg: 'Oui, il fais ' + weatherReport.temperature + ' degrer'
 				},
 				{
-					voice: 'espeak',
-					lg: 'fr',
 					msg:
 						'Oui, et ' + (isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) + ' kilometre heure de vent'
 				}
