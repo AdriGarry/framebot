@@ -1,7 +1,7 @@
 {
 	"leds": [
 		{ "id": "eye", "pin": 14, "direction": "out" },
-		{ "id": "nose", "pin": 18, "direction": "out" },
+		{ "id": "nose", "pin": 15, "direction": "out" },
 		{ "id": "satellite", "pin": 23, "direction": "out" },
 		{ "id": "belly", "pin": 4, "direction": "out" },
 		{ "id": "buttonFlag", "pin": 4, "direction": "out" }
