@@ -25,5 +25,5 @@ setImmediate(() => {
 
 /** Function to... */
 function send(data) {
-	log.info('Radio433Mhz:', data);
+	log.info('radio433Mhz:', data);
 }
