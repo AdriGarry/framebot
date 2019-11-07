@@ -29,19 +29,19 @@ setImmediate(() => {
 
 // on/off
 function setState(state) {
-	//
+	log.info('Radiator.state:', state);
 }
 
 // timer
 function timer(time) {
-	//
+	log.info('Radiator.timer:', time);
 }
 
 function resetScheduler() {
-	//
+	log.info('Radiator.resetScheduler');
 }
 
 // scheduler => cron
 function scheduler() {
-	//
+	log.info('Radiator.scheduler');
 }
