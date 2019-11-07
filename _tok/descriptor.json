@@ -7,22 +7,22 @@
 	},
 	"modules": {
 		"interfaces": {
-			"base": ["led", "sound", "hardware", "arduino", "hdmi"],
+			"base": ["led", "sound", "hardware", "arduino", "hdmi", "radio433Mhz"],
 			"full": ["tts"]
 		},
 		"controllers": {
 			"base": ["button", "cron", "server", "watcher"]
 		},
 		"services": {
-			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord"],
+			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord", "radiator"],
 			"full": ["mood", "interaction", "weather", "timer", "music", "party", "video", "max", "maya"]
 		}
 	},
 	"conf": {
 		"alarms": {
 			"weekDay": {
-				"h": 7,
-				"m": 10
+				"h": 6,
+				"m": 50
 			},
 			"weekEnd": {
 				"h": 12,
