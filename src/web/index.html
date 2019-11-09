@@ -368,6 +368,18 @@
 						flex="33"
 						data-odi-state="dashboard.odiState"
 					></stories>
+					<radiator
+						data="dashboard.runningData"
+						data-access="$root.irda"
+						flex="33"
+						data-odi-state="dashboard.odiState"
+					></radiator>
+					<power-plug
+						data="dashboard.runningData"
+						data-access="$root.irda"
+						flex="33"
+						data-odi-state="dashboard.odiState"
+					></power-plug>
 					<videos
 						data="dashboard.runningData.video"
 						data-access="$root.irda"
@@ -382,7 +394,7 @@
 					></arduino>
 					<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
 					<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
-					<about data="dashboard.runningData.about" data-access="true" flex="66"></about>
+					<about data="dashboard.runningData.about" data-access="true" flex="100"></about>
 					<!-- flex="66" -->
 				</div>
 
