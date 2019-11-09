@@ -25,6 +25,7 @@
 		"request": "2.81.0",
 		"rxjs": "5.5.2",
 		"serialport": "6.1.1",
-		"traceback": "0.3.1"
+		"traceback": "0.3.1",
+		"rpi-433-v2": "1.0.3"
 	}
 }
