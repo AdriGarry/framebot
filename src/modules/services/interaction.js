@@ -15,7 +15,7 @@ module.exports = {
 	cron: {
 		full: [
 			{ cron: '0 19 19 * * *', flux: { id: 'service|interaction|baluchon' } },
-			{ cron: '0 0 12 * * 0', flux: { id: 'service|interaction|civilHorn' } },
+			//{ cron: '0 0 12 * * 0', flux: { id: 'service|interaction|civilHorn' } },
 			{ cron: '13 0 1,13 * * *', flux: { id: 'service|interaction|uneHeure' } },
 			{ cron: '13 13,25,40,51 17-21 * * *', flux: { id: 'service|interaction|random' } }
 		]
