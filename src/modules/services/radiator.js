@@ -33,14 +33,23 @@ setImmediate(() => {
 	scheduler();
 });
 
-// on/off
-function setState(state) {
-	log.info('Radiator.state:', state);
-}
+const radiatorSchedule = {
+	monday: {},
+	tuesday: {},
+	wenesday: {},
+	thurday: {},
+	friday: {},
+	saetuday: {},
+	dunday: {}
+};
 
 // scheduleSend
 function scheduleSend() {
 	log.info('Radiator.scheduleSend...');
+}
+// on/off
+function setState(state) {
+	log.info('Radiator.state:', state);
 }
 
 // timer
