@@ -8,11 +8,11 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {
 	cron: {
-		base: [{ cron: '10 */10 * * * *', flux: { id: 'service|radiator|scheduleSend' } }]
+		base: [{ cron: '10 */10 * * * *', flux: { id: 'service|timeRange|scheduleSend' } }]
 	}
 };
 
-Core.flux.service.radiator.subscribe({
+Core.flux.service.timeRange.subscribe({
 	next: flux => {
 		if (flux.id == 'setState') {
 			setState(flux.value);
@@ -22,7 +22,7 @@ Core.flux.service.radiator.subscribe({
 			timer(flux.value);
 		} else if (flux.id == 'scheduler') {
 			resetScheduler();
-		} else Core.error('unmapped flux in Radiator service', flux, false);
+		} else Core.error('unmapped flux in Time Range service', flux, false);
 	},
 	error: err => {
 		Core.error('Flux error', err);
@@ -30,38 +30,31 @@ Core.flux.service.radiator.subscribe({
 });
 
 setImmediate(() => {
-	scheduler();
+	scheduler(); // TODO usefull?
 });
 
-const radiatorSchedule = {
-	monday: {},
-	tuesday: {},
-	wenesday: {},
-	thurday: {},
-	friday: {},
-	saetuday: {},
-	dunday: {}
-};
+// TODO use moment.js? https://www.npmjs.com/package/moment
 
 // scheduleSend
 function scheduleSend() {
-	log.info('Radiator.scheduleSend...');
+	log.info('timeRange.scheduleSend...');
 }
+
 // on/off
 function setState(state) {
-	log.info('Radiator.state:', state);
+	log.info('timeRange.state:', state);
 }
 
 // timer
 function timer(time) {
-	log.info('Radiator.timer:', time);
+	log.info('timeRange.timer:', time);
 }
 
 function resetScheduler() {
-	log.info('Radiator.resetScheduler');
+	log.info('timeRange.resetScheduler');
 }
 
 // scheduler => cron
 function scheduler() {
-	log.info('Radiator.scheduler');
+	log.info('timeRange.scheduler');
 }
