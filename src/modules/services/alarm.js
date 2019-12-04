@@ -156,11 +156,14 @@ function alarmPart3() {
 	Core.do('service|max|playOneMelody', null, { delay: 8 * 60, loop: 8 });
 	Core.do('service|max|hornRdm', null, { delay: 12 * 60, loop: 6 });
 
-	Core.do('interface|tts|speak', 'Allez, hop hop les abdo !', { delay: 50 });
-	Core.do('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 3 * 60 });
+	if (!Utils.isWeekend()) {
+		Core.do('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 120 });
+	}
 
 	Core.do('service|interaction|baluchon', null, { delay: Utils.random(15, 25) * 60, loop: 3 });
-	Core.do('service|interaction|goToWorkQueue', null, { delay: 70 * 60 });
+	if (!Utils.isWeekend()) {
+		Core.do('service|interaction|goToWorkQueue', null, { delay: 70 * 60 });
+	}
 
 	setTimeout(() => {
 		Core.run('alarm', false);

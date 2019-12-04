@@ -17,10 +17,6 @@ module.exports = {
 	searchStringInArray: searchStringInArray,
 
 	//custom/execution/all
-	delay: delay,
-	delayMs: delayMs,
-	logTime: logTime,
-	executionTime: executionTime,
 	codePosition: codePosition,
 	execCmd: execCmd,
 
@@ -50,7 +46,14 @@ module.exports = {
 	firstLetterUpper: firstLetterUpper,
 	capitalizeFirstLetter: capitalizeFirstLetter,
 	formatDuration: formatDuration,
-	addPatternBefore: addPatternBefore
+	addPatternBefore: addPatternBefore,
+
+	//date/time
+	delay: delay,
+	delayMs: delayMs,
+	logTime: logTime,
+	executionTime: executionTime,
+	isWeekend: isWeekend
 };
 
 /**
@@ -448,6 +451,12 @@ function logTime(param, date) {
 
 function capitalizeFirstLetter(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function isWeekend(date) {
+	if (!date) date = new Date();
+	let day = date.getDay();
+	return day === 6 || day === 0;
 }
 
 // Returns the ISO week of the date.
