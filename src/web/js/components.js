@@ -296,7 +296,7 @@ app.component('hardware', {
 		ctrl.odiState = ctrl.odiState;
 
 		ctrl.getMemoryPerCent = function() {
-			const MEMORY_REGEX = new RegExp(/(?<usedMem>[\d]+)\/(?<totalMem>[\d]+)/g);
+			const MEMORY_REGEX = `/(?<usedMem>[\d]+)\/(?<totalMem>[\d]+)/g`;
 			var memory = ctrl.data.value.memory.system;
 			var regexMatch = MEMORY_REGEX.exec(memory);
 			var value = regexMatch && regexMatch.groups.usedMem ? regexMatch.groups.usedMem : 0,
