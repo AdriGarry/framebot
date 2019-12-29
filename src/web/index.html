@@ -224,9 +224,7 @@
 					</md-list-item>
 					<md-divider></md-divider>
 
-					<md-subheader
-						>Volume&nbsp;&nbsp; <i>{{ master }}</i>
-					</md-subheader>
+					<md-subheader>Volume&nbsp;&nbsp; <i>{{ master }}</i> </md-subheader>
 					<md-list-item title="Volume">
 						<md-slider-container ng-disabled="!$root.irda">
 							<md-slider
@@ -374,6 +372,18 @@
 						flex="33"
 						data-odi-state="dashboard.odiState"
 					></videos>
+					<radiator
+						data="dashboard.runningData"
+						data-access="$root.irda"
+						flex="33"
+						data-odi-state="dashboard.odiState"
+					></radiator>
+					<power-plug
+						data="dashboard.runningData"
+						data-access="$root.irda"
+						flex="33"
+						data-odi-state="dashboard.odiState"
+					></power-plug>
 					<arduino
 						data="dashboard.runningData.arduino"
 						data-access="$root.irda"
@@ -382,7 +392,7 @@
 					></arduino>
 					<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
 					<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
-					<about data="dashboard.runningData.about" data-access="true" flex="66"></about>
+					<about data="dashboard.runningData.about" data-access="true" flex="100"></about>
 					<!-- flex="66" -->
 				</div>
 

@@ -754,6 +754,48 @@ app.component('max', {
 	}
 });
 
+/** Radiator component */
+app.component('radiator', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Radiator',
+			actionList: [
+				{ label: 'Hdmi on', icon: 'fas fa-play', url: '/flux/interface/hdmi/on' },
+				{ label: 'Loop', icon: 'fas fa-film', url: '/flux/service/video/loop' }
+			]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+	}
+});
+
+/** Power plug component */
+app.component('powerPlug', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Power plug',
+			actionList: [
+				{ label: 'Hdmi on', icon: 'fas fa-play', url: '/flux/interface/hdmi/on' },
+				{ label: 'Loop', icon: 'fas fa-film', url: '/flux/service/video/loop' }
+			]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+	}
+});
+
 /** Arduino component */
 app.component('arduino', {
 	bindings: {

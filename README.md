@@ -47,6 +47,7 @@ Available modes: ready, sleep, test
 - Speaker (audio)
 - Arduino (USB)
 - Screen (HDMI)
+- Radio 433Mhz
 
 ### Core engine
 
