@@ -14,8 +14,8 @@ module.exports.runTest = function(succeedTest) {
 		Core.do('service|max|blinkAllLed', null, { delay: 2, loop: 3 });
 
 		Utils.delay(2)
-			.then(() => Utils.postOdi(Core.url.ODI + 'now'))
-			.then(() => Utils.postOdi(Core.url.ODI + 'today'))
+			.then(() => Utils.postOdi(Core.url.ODI + 'flux/service/time/now'))
+			.then(() => Utils.postOdi(Core.url.ODI + 'flux/service/time/today'))
 			.then(() => {
 				log.INFO('All test successfully sent !');
 			})
