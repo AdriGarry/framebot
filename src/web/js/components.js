@@ -809,13 +809,13 @@ app.component('powerPlug', {
 		let specificPlugActions = function(action) {
 			let actionList = [
 				{
-					label: action.value.device + ' on',
+					label: action.label + ' on',
 					icon: 'fas fa-toggle-on',
 					url: PLUG_FLUX_URL,
 					value: { device: action.value.device, value: true }
 				},
 				{
-					label: action.value.device + ' off',
+					label: action.label + ' off',
 					icon: 'fas fa-toggle-off',
 					url: PLUG_FLUX_URL,
 					value: { device: action.value.device, value: false }
