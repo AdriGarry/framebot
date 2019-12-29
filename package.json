@@ -1,6 +1,6 @@
 {
 	"name": "core",
-	"version": "6.8.18-WIP",
+	"version": "6.9.0-WIP",
 	"private": true,
 	"description": "Core program to autorun and interact!",
 	"main": "core.sh",
@@ -23,8 +23,9 @@
 		"pi-utils": "0.1.7",
 		"randombox": "*",
 		"request": "2.81.0",
+		"rfxcom": "2.1.1",
 		"rxjs": "5.5.2",
-		"serialport": "6.1.1",
+		"serialport": "8.0.6",
 		"traceback": "0.3.1"
 	}
 }

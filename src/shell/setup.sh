@@ -1,6 +1,12 @@
 #!/bin/sh
 
 # Setup script
+echo "setup..."
+
+# give odi user's access to needed repositories
+sudo chown -R odi /root
+sudo chown -R odi /dev/ttyUSB0
+echo "odi user granted to needed repositories"
 
 # install espeak
 sudo apt-get install espeak
