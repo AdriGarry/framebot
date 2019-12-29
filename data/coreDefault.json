@@ -35,6 +35,7 @@
 		"voicemail": 0,
 		"audioRecord": 0,
 		"hdmi": null,
+		"rfxcom": false,
 		"screen": null,
 		"cpu": {
 			"usage": null,

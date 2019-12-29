@@ -35,12 +35,17 @@ const DEVICE_LIST = Utils.arrayToObject(Core.descriptor.rfxcom, 'name');
 let ready = false;
 
 rfxtrx.initialise(function() {
-	log.info('Rfxcom gateway ready');
 	ready = true;
+	Core.run('rfxcom', true);
+	log.info('Rfxcom gateway ready');
 });
 
 rfxtrx.on('receive', function(evt) {
 	log.info('Rfxcom_receive:', Buffer.from(evt).toString('hex'));
+});
+
+rfxtrx.on('disconnect', function(evt) {
+	log.info('Rfxcom disconnected!', Buffer.from(evt).toString('hex'));
 });
 
 function setStatus(args) {
