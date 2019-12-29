@@ -32,10 +32,8 @@ setImmediate(() => {
 
 const DEVICE = new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
 const DEVICE_LIST = Utils.arrayToObject(Core.descriptor.rfxcom, 'name');
-let ready = false;
 
 rfxtrx.initialise(function() {
-	ready = true;
 	Core.run('rfxcom', true);
 	log.info('Rfxcom gateway ready');
 });
@@ -49,16 +47,16 @@ rfxtrx.on('disconnect', function(evt) {
 });
 
 function setStatus(args) {
-	log.info('setStatus', args);
-	if (!ready) {
-		log.warn('rfxcom not initialized!');
+	if (!Core.run('rfxcom')) {
+		log.warn('rfxcom not yet initialized!');
 		return;
 	}
+	log.info('setStatus', args);
 	let deviceName = args.device,
 		value = args.value;
-	let knownDevice = DEVICE_LIST.hasOwnProperty(deviceName);
-	if (knownDevice) {
+	if (!DEVICE_LIST.hasOwnProperty(deviceName)) log.error('Unreconized device:', deviceName);
+	else {
 		if (value) DEVICE.switchOn(DEVICE_LIST[deviceName].id);
 		else DEVICE.switchOff(DEVICE_LIST[deviceName].id);
-	} else log.error('Unreconized device:', deviceName);
+	}
 }
