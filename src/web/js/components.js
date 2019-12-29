@@ -295,13 +295,11 @@ app.component('hardware', {
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
 
+		const MEMORY_REGEX = /([\d]+)\/([\d]+)/;
 		ctrl.getMemoryPerCent = function() {
-			const MEMORY_REGEX = `/(?<usedMem>[\d]+)\/(?<totalMem>[\d]+)/g`;
-			var memory = ctrl.data.value.memory.system;
-			var regexMatch = MEMORY_REGEX.exec(memory);
-			var value = regexMatch && regexMatch.groups.usedMem ? regexMatch.groups.usedMem : 0,
-				total = regexMatch && regexMatch.groups.totalMem ? regexMatch.groups.totalMem : 0;
-			return ((value / total) * 100).toFixed(0);
+			let memory = ctrl.data.value.memory.system;
+			let regexResult = memory.match(MEMORY_REGEX);
+			return ((regexResult[1] / regexResult[2]) * 100).toFixed(0);
 		};
 	}
 });
