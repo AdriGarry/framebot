@@ -7,7 +7,7 @@
 	},
 	"modules": {
 		"interfaces": {
-			"base": ["led", "sound", "hardware", "arduino", "hdmi", "radio433Mhz"],
+			"base": ["led", "sound", "hardware", "arduino", "hdmi", "rfxcom"],
 			"full": ["tts"]
 		},
 		"controllers": {
@@ -31,33 +31,48 @@
 		}
 	},
 	"runtime": {},
-	"timeRange": {
-		"radiator": {
-			"monday": [
-				{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
-				{ "start": { "h": 17 }, "end": { "h": 23 } }
-			],
-			"tuesday": [
-				{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
-				{ "start": { "h": 17 }, "end": { "h": 23 } }
-			],
-			"wenesday": [
-				{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
-				{ "start": { "h": 17 }, "end": { "h": 23 } }
-			],
-			"thursday": [
-				{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
-				{ "start": { "h": 17 }, "end": { "h": 23 } }
-			],
-			"friday": [
-				{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
-				{ "start": { "h": 17 }, "end": { "h": 23 } }
-			],
-			"saturday": [{ "start": { "h": 7, "m": 30 }, "end": { "h": 23, "m": 30 } }],
-			"sunday": [{ "start": { "h": 7, "m": 30 }, "end": { "h": 23, "m": 30 } }]
+	"rfxcom": [
+		{
+			"name": "plugA",
+			"id": "0x01F4BF8E/1"
 		},
-		"powerPlugA": {},
-		"powerPlugB": {},
-		"powerPlugC": {}
-	}
+		{
+			"name": "plugB",
+			"id": "0x01F4BF8E/2",
+			"timeRange": {
+				"default": [
+					{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
+					{ "start": { "h": 17 }, "end": { "h": 23 } }
+				]
+			}
+		},
+		{
+			"name": "radiator",
+			"id": "",
+			"timeRange": {
+				"monday": [
+					{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
+					{ "start": { "h": 17 }, "end": { "h": 23 } }
+				],
+				"tuesday": [
+					{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
+					{ "start": { "h": 17 }, "end": { "h": 23 } }
+				],
+				"wenesday": [
+					{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
+					{ "start": { "h": 17 }, "end": { "h": 23 } }
+				],
+				"thursday": [
+					{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
+					{ "start": { "h": 17 }, "end": { "h": 23 } }
+				],
+				"friday": [
+					{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
+					{ "start": { "h": 17 }, "end": { "h": 23 } }
+				],
+				"saturday": [{ "start": { "h": 7, "m": 30 }, "end": { "h": 23, "m": 30 } }],
+				"sunday": [{ "start": { "h": 7, "m": 30 }, "end": { "h": 23, "m": 30 } }]
+			}
+		}
+	]
 }
