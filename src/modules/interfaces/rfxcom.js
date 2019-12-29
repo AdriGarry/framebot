@@ -5,7 +5,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename);
 
 const rfxcom = require('rfxcom'),
-	rfxtrx = new rfxcom.RfxCom('/dev/ttyUSB0', { debug: true });
+	rfxtrx = new rfxcom.RfxCom('/dev/ttyUSB0', { debug: Core.conf('log') == 'info' ? false : true });
 
 module.exports = {};
 
@@ -34,13 +34,11 @@ setTimeout(() => {
 let ready = false;
 
 rfxtrx.initialise(function() {
-	log.info('Rfxcom gateway ready\n');
+	log.info('Rfxcom gateway ready');
 	ready = true;
 });
 
 const DEVICE = new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
-
-///////////////////////////
 
 rfxtrx.on('receive', function(evt) {
 	log.debug('Rfxcom_receive:', Buffer.from(evt).toString('hex'));
@@ -53,7 +51,7 @@ const arrayToObject = array =>
 	}, {});
 
 const DEVICE_LIST = arrayToObject(Core.descriptor.rfxcom);
-console.log(DEVICE_LIST);
+// console.log(DEVICE_LIST);
 
 function setDeviceStatus(args) {
 	log.info('setDeviceStatus', args);
@@ -65,7 +63,7 @@ function setDeviceStatus(args) {
 		value = args.value;
 	// let knownDevice = DEVICE_LIST.filter(device => device.name === deviceName).length > 0;
 	let knownDevice = DEVICE_LIST.hasOwnProperty(deviceName);
-	log.info(DEVICE_LIST[deviceName]);
+	// log.info(DEVICE_LIST[deviceName]);
 	if (knownDevice) {
 		if (value) DEVICE.switchOn(DEVICE_LIST[deviceName].id);
 		else DEVICE.switchOff(DEVICE_LIST[deviceName].id);
