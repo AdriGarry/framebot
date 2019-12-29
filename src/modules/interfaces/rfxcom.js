@@ -11,8 +11,8 @@ module.exports = {};
 
 Core.flux.interface.rfxcom.subscribe({
 	next: flux => {
-		if (flux.id == 'status') {
-			setDeviceStatus(flux.value);
+		if (flux.id == 'send') {
+			sendDeviceStatus(flux.value);
 		} else {
 			Core.error('unmapped flux in Rfxcom interface', flux, false);
 		}
@@ -26,10 +26,10 @@ setImmediate(() => {
 	// do something, or useless?
 });
 
-setTimeout(() => {
-	Core.do('interface|rfxcom|status', { device: 'plugB', value: true });
-	Core.do('interface|rfxcom|status', { device: 'plugB', value: false }, { delay: 10 });
-}, 13000);
+// setTimeout(() => {
+// 	Core.do('interface|rfxcom|send', { device: 'plugB', value: true });
+// 	Core.do('interface|rfxcom|send', { device: 'plugB', value: false }, { delay: 10 });
+// }, 13000);
 
 let ready = false;
 
@@ -53,8 +53,8 @@ const arrayToObject = array =>
 const DEVICE_LIST = arrayToObject(Core.descriptor.rfxcom);
 // console.log(DEVICE_LIST);
 
-function setDeviceStatus(args) {
-	log.info('setDeviceStatus', args);
+function sendDeviceStatus(args) {
+	log.info('sendDeviceStatus', args);
 	if (!ready) {
 		log.warn('rfxcom not initialized!');
 		return;

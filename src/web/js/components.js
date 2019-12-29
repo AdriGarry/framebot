@@ -783,16 +783,47 @@ app.component('powerPlug', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function(DefaultTile, $rootScope) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Power plug',
 			actionList: [
-				{ label: 'Hdmi on', icon: 'fas fa-play', url: '/flux/interface/hdmi/on' },
-				{ label: 'Loop', icon: 'fas fa-film', url: '/flux/service/video/loop' }
+				{ label: 'plug A', icon: 'fas fa-plug', value: { device: 'plugA' } },
+				{ label: 'plug B', icon: 'fas fa-plug', value: { device: 'plugB' } },
+				{ label: 'plug C', icon: 'fas fa-plug', value: { device: 'plugC' } }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
+
+		/** Overwrite tile action */
+		ctrl.tile.click = function() {
+			if (!$rootScope.irda) {
+				UIService.showErrorToast('Unauthorized action.');
+			} else {
+				ctrl.tile.openBottomSheet(this.actionList, specificPlugActions);
+			}
+		};
+
+		const PLUG_FLUX_URL = '/flux/interface/rfxcom/send';
+		let specificPlugActions = function(action) {
+			let actionList = [
+				{
+					label: action.value.device + ' on',
+					icon: 'fas fa-toggle-on',
+					url: PLUG_FLUX_URL,
+					value: { device: action.value.device, value: true }
+				},
+				{
+					label: action.value.device + ' off',
+					icon: 'fas fa-toggle-off',
+					url: PLUG_FLUX_URL,
+					value: { device: action.value.device, value: false }
+				}
+			];
+
+			ctrl.tile.openBottomSheet(actionList, ctrl.tile.action);
+		};
 	}
 });
 
