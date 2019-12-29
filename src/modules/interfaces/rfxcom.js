@@ -23,13 +23,6 @@ Core.flux.interface.rfxcom.subscribe({
 	}
 });
 
-setImmediate(() => {
-	// do something, or useless?
-	// if (Core.isAwake()) {
-	// 	Core.do('interface|rfxcom|setAllOff');
-	// }
-});
-
 const DEVICE = new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
 const DEVICE_LIST = Utils.arrayToObject(Core.descriptor.rfxcom, 'name');
 

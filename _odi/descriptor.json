@@ -38,6 +38,7 @@
 		{
 			"name": "radiator",
 			"id": "0x01F4BF8E/4",
+			"cron": [],
 			"timeRange": {
 				"monday": [
 					{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },

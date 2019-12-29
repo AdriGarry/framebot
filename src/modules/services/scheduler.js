@@ -8,7 +8,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {
 	cron: {
-		// base: [{ cron: '10 */10 * * * *', flux: { id: 'service|scheduler|scheduleSend' } }]
+		// 	base: [{ cron: '30 0 * * * *', flux: { id: 'service|scheduler|scheduleSend' } }]
 	}
 };
 
