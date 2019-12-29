@@ -805,7 +805,7 @@ app.component('powerPlug', {
 			}
 		};
 
-		const PLUG_FLUX_URL = '/flux/interface/rfxcom/send';
+		const PLUG_FLUX_URL = '/flux/interface/rfxcom/set';
 		let specificPlugActions = function(action) {
 			let actionList = [
 				{

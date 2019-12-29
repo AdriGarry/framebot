@@ -15,6 +15,7 @@ module.exports = {
 	//array
 	randomItem: randomItem,
 	searchStringInArray: searchStringInArray,
+	arrayToObject: arrayToObject,
 
 	//custom/execution/all
 	codePosition: codePosition,
@@ -195,6 +196,13 @@ function searchStringInArray(string, stringArray) {
 		}
 	}
 	return false;
+}
+
+function arrayToObject(array, property) {
+	return array.reduce((obj, item) => {
+		obj[item[property]] = item;
+		return obj;
+	}, {});
 }
 
 function getLocalIp() {
