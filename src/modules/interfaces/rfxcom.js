@@ -55,5 +55,5 @@ function setStatus(args) {
 	if (knownDevice) {
 		if (value) DEVICE.switchOn(DEVICE_LIST[deviceName].id);
 		else DEVICE.switchOff(DEVICE_LIST[deviceName].id);
-	} else log.info('Unreconized device:', deviceName);
+	} else log.error('Unreconized device:', deviceName);
 }

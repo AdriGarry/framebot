@@ -47,6 +47,10 @@
 			}
 		},
 		{
+			"name": "plugC",
+			"id": "0x01F4BF8E/3"
+		},
+		{
 			"name": "radiator",
 			"id": "",
 			"timeRange": {
