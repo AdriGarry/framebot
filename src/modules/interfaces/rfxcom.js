@@ -40,7 +40,7 @@ rfxtrx.initialise(function() {
 });
 
 rfxtrx.on('receive', function(evt) {
-	log.debug('Rfxcom_receive:', Buffer.from(evt).toString('hex'));
+	log.info('Rfxcom_receive:', Buffer.from(evt).toString('hex'));
 });
 
 function setStatus(args) {
