@@ -32,27 +32,12 @@
 	},
 	"runtime": {},
 	"rfxcom": [
-		{
-			"name": "plugA",
-			"id": "0x01F4BF8E/1"
-		},
-		{
-			"name": "plugB",
-			"id": "0x01F4BF8E/2",
-			"timeRange": {
-				"default": [
-					{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
-					{ "start": { "h": 17 }, "end": { "h": 23 } }
-				]
-			}
-		},
-		{
-			"name": "plugC",
-			"id": "0x01F4BF8E/3"
-		},
+		{ "name": "plugA", "id": "0x01F4BF8E/1" },
+		{ "name": "plugB", "id": "0x01F4BF8E/2" },
+		{ "name": "plugC", "id": "0x01F4BF8E/3" },
 		{
 			"name": "radiator",
-			"id": "",
+			"id": "0x01F4BF8E/4",
 			"timeRange": {
 				"monday": [
 					{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
