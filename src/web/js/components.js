@@ -767,8 +767,18 @@ app.component('radiator', {
 		var tileParams = {
 			label: 'Radiator',
 			actionList: [
-				// { label: 'Hdmi on', icon: 'fas fa-play', url: '/flux/interface/hdmi/on' },
-				// { label: 'Loop', icon: 'fas fa-film', url: '/flux/service/video/loop' }
+				{
+					label: 'Radiator on',
+					icon: 'fas fa-toggle-on',
+					url: '/flux/interface/rfxcom/set',
+					value: { device: 'radiator', value: true }
+				},
+				{
+					label: 'Radiator off',
+					icon: 'fas fa-toggle-off',
+					url: '/flux/interface/rfxcom/set',
+					value: { device: 'radiator', value: false }
+				}
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
