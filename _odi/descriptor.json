@@ -38,7 +38,20 @@
 		{
 			"name": "radiator",
 			"id": "0x01F4BF8E/4",
-			"cron": [],
+			"cron": [
+				{
+					"cron": "45 */2 6-8,17-23 * * *",
+					"flux": { "id": "wrong|flux|forTest" }
+				},
+				{
+					"cron": "30 0 6-8,17-23 * * *",
+					"flux": { "id": "interface|rfxcom|set", "data": { "device": "plugB", "value": true } }
+				},
+				{
+					"cron": "30 0 0-5 * * *",
+					"flux": { "id": "interface|rfxcom|set", "data": { "device": "plugB", "value": false } }
+				}
+			],
 			"timeRange": {
 				"monday": [
 					{ "start": { "h": 6, "m": 30 }, "end": { "h": 8, "m": 30 } },
