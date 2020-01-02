@@ -55,6 +55,7 @@ var securityMiddleware = function(req, res, next) {
 
 	log.info(requestData.ui + ' ' + decodeURI(req.url), requestData.log);
 	if (!Utils.searchStringInArray(req.url, NO_SOUND_URL)) Core.do('interface|sound|UI', null, { log: 'trace' });
+	res.header('Content-Type', ' text/plain; charset=utf-8');
 	res.statusCode = 200;
 	next();
 };

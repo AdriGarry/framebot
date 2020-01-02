@@ -128,7 +128,6 @@ function attachDefaultRoutes(ui) {
 				value: Core.conf('watcher')
 			}
 		};
-		res.header('Content-Type', 'application/json; charset=utf-8');
 		res.end(JSON.stringify(dashboard));
 	});
 
@@ -139,7 +138,6 @@ function attachDefaultRoutes(ui) {
 		if (params.hasOwnProperty('logSize') && !isNaN(params.logSize)) {
 			logSize = parseInt(params.logSize);
 		}
-		// res.header('Content-Type', 'application/json; charset=utf-8');
 		prepareLogs(logSize)
 			.then(logs => res.end(logs))
 			.catch(err => Core.error("Can't retrieve logs", err));
@@ -148,20 +146,17 @@ function attachDefaultRoutes(ui) {
 	// '/file/:filename'
 	ui.get('/config.json', function(req, res) {
 		log.table(Core.conf(), 'CONFIG');
-		res.header('Content-Type', 'application/json; charset=utf-8');
 		res.end(JSON.stringify(Core.conf()));
 	});
 
 	ui.get('/runtime', function(req, res) {
 		Core.do('interface|hardware|runtime', true);
 		setTimeout(() => {
-			res.header('Content-Type', 'application/json; charset=utf-8');
 			res.end(JSON.stringify(Core.run()));
 		}, 500);
 	});
 
 	ui.get('/errors', function(req, res) {
-		res.header('Content-Type', 'application/json; charset=utf-8');
 		res.end(JSON.stringify(Core.errors));
 	});
 
