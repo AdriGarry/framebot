@@ -771,13 +771,13 @@ app.component('radiator', {
 					label: 'Radiator on',
 					icon: 'fas fa-toggle-on',
 					url: '/flux/interface/rfxcom/set',
-					value: { device: 'radiator', value: true }
+					value: { device: 'radiator', value: false }
 				},
 				{
 					label: 'Radiator off',
 					icon: 'fas fa-toggle-off',
 					url: '/flux/interface/rfxcom/set',
-					value: { device: 'radiator', value: false }
+					value: { device: 'radiator', value: true }
 				}
 			]
 		};
