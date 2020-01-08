@@ -14,7 +14,7 @@
 			"base": ["button", "cron", "server", "watcher"]
 		},
 		"services": {
-			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord", "scheduler"],
+			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord", "radiator"],
 			"full": ["mood", "interaction", "weather", "timer", "music", "party", "video", "max", "maya"]
 		}
 	},
@@ -45,11 +45,15 @@
 				},
 				{
 					"cron": "30 0 6-8,17-23 * * *",
-					"flux": { "id": "interface|rfxcom|set", "data": { "device": "plugB", "value": true } }
+					"flux": { "id": "interface|rfxcom|set", "data": { "device": "radiator", "value": true } }
+				},
+				{
+					"cron": "30 0 6-8,17-23 * * *",
+					"flux": { "id": "interface|rfxcom|set", "data": { "device": "radiator", "value": true } }
 				},
 				{
 					"cron": "30 0 0-5 * * *",
-					"flux": { "id": "interface|rfxcom|set", "data": { "device": "plugB", "value": false } }
+					"flux": { "id": "interface|rfxcom|set", "data": { "device": "radiator", "value": false } }
 				}
 			],
 			"timeRange": {
