@@ -7,7 +7,7 @@ const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
 
 /** accessor: object([id, value]) */
 function Lock(obj, file) {
-	var self = this;
+	let self = this;
 	self._obj = obj;
 	if (file) {
 		self.file = file;
@@ -25,11 +25,11 @@ function Lock(obj, file) {
 	}
 
 	function _getter(id) {
-		if (self._obj.hasOwnProperty(id)) {
-			return self._obj[id];
-		} else if (id.indexOf('.' > -1)) {
-			var keys = id.split('.');
+		if (id.indexOf('.') > -1) {
+			let keys = id.split('.');
 			return self._obj[keys[0]][keys[1]];
+		} else if (self._obj.hasOwnProperty(id)) {
+			return self._obj[id];
 		} else {
 			return log.error('_getObjValue ERROR:', id);
 		}
