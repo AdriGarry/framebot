@@ -31,7 +31,8 @@ function Lock(obj, file) {
 		} else if (self._obj.hasOwnProperty(id)) {
 			return self._obj[id];
 		} else {
-			return log.error('_getObjValue ERROR:', id);
+			log.error('_getObjValue ERROR:', id);
+			return false;
 		}
 	}
 
