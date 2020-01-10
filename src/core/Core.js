@@ -49,7 +49,6 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	let confUpdate = {
 			startTime: Utils.logTime('h:m (D/M)')
 		},
-		runtimeUpdate = {},
 		forcedParamsLog = '';
 	if (Core.conf('version') !== packageJson.version) {
 		confUpdate.version = packageJson.version;

@@ -21,6 +21,7 @@
 		"watcher": false,
 		"startTime": ".",
 		"alarms": ".",
+		"radiator": ".",
 		"version": ".",
 		"flux": []
 	},
