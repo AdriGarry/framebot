@@ -12,6 +12,8 @@ Core.flux.controller.cron.subscribe({
 	next: flux => {
 		if (flux.id == 'start') {
 			startJobs(flux.value);
+		} else if (flux.id == 'stop') {
+			stopJob(flux.value);
 		} else Core.error('unmapped flux in Cron controller', flux, false);
 	},
 	error: err => {
@@ -19,21 +21,30 @@ Core.flux.controller.cron.subscribe({
 	}
 });
 
+var jobList = {};
+
 function startJobs(jobList) {
 	if (!Array.isArray(jobList)) jobList = [jobList];
 	if (jobList.length) {
 		jobList.forEach(job => {
 			scheduleJob(job);
 		});
-		log.info(jobList.length + ' cron loaded [' + Utils.executionTime(Core.startTime) + 'ms]');
+		log.info(jobList.length + ' cron loaded');
 	} else {
 		Core.error('Wrong jobList:', jobList);
 	}
 }
 
+function stopJob(jobId) {
+	log.info('stopJob', jobId);
+	if (jobList.hasOwnProperty(jobId)) {
+		jobList[jobId].stop(); // TODO to test!!
+	}
+}
+
 function scheduleJob(job) {
 	let jobLog = '';
-	new CronJob(
+	let createdJob = new CronJob(
 		job.cron,
 		function() {
 			Core.do(job.flux);
@@ -49,6 +60,8 @@ function scheduleJob(job) {
 	} else {
 		jobLog += job.flux.id + ' ';
 	}
+
+	if (job.id) jobList[job.id] = createdJob;
 
 	log.debug('new cron job: [' + job.cron + '] ' + jobLog);
 	if (job.log) log.info(job.log);
