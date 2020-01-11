@@ -768,16 +768,22 @@ app.component('radiator', {
 			label: 'Radiator',
 			actionList: [
 				{
+					label: 'Timeout',
+					icon: 'fas fa-clock',
+					url: '/flux/service/radiator/timeout',
+					value: 3
+				},
+				{
 					label: 'Radiator on',
 					icon: 'fas fa-toggle-on',
-					url: '/flux/interface/rfxcom/set',
-					value: { device: 'radiator', value: false }
+					url: '/flux/service/radiator/toggle',
+					value: 'on'
 				},
 				{
 					label: 'Radiator off',
 					icon: 'fas fa-toggle-off',
-					url: '/flux/interface/rfxcom/set',
-					value: { device: 'radiator', value: true }
+					url: '/flux/service/radiator/toggle',
+					value: 'off'
 				}
 			]
 		};
