@@ -13,6 +13,7 @@ Available modes: ready, sleep, test
 - Audio record from UI
 - Alarm (weekday & weekend)
 - Timer
+- Radiator management
 - Playlist (jukebox, low...)
 - Web radio (FIP, radio Bam)
 - Exclamations
