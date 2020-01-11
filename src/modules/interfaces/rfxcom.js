@@ -41,7 +41,7 @@ rfxtrx.on('disconnect', function(evt) {
 
 function setStatus(args) {
 	if (!Core.run('rfxcom')) {
-		log.warn('rfxcom not yet initialized!');
+		Core.error('rfxcom gateway not initialized!', null, false);
 		return;
 	}
 	log.info('setStatus', args);

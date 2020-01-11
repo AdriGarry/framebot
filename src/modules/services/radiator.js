@@ -26,17 +26,18 @@ Core.flux.service.radiator.subscribe({
 });
 
 setImmediate(() => {
-	setupRadiatorMode();
+	Utils.delay(10).then(setupRadiatorMode);
 });
 
 const RADIATOR_CRON = Core.descriptor.radiator.cron;
 
 function setupRadiatorMode() {
 	let radiatorMode = Core.conf('radiator');
-	log.info('setupRadiatorMode', radiatorMode); // debug ?
+	log.info('setupRadiatorMode', radiatorMode, !isNaN(radiatorMode) ? '[timeout]' : ''); // debug ?
 	if (radiatorMode == 'auto') {
-		// Utils.delay(10).then(setupRadiatorCron);
 		setupRadiatorCron();
+	} else if (!isNaN(radiatorMode)) {
+		setRadiatorTimeout(radiatorMode);
 	} else if (radiatorMode == 'on') {
 		Core.do('interface|rfxcom|set', { device: 'radiator', value: false });
 	} else {
@@ -68,7 +69,8 @@ function setRadiatorTimeout(hoursToTimeout) {
 		clearTimeout(radiatorTimeout);
 		return;
 	}
+	hoursToTimeout = --hoursToTimeout;
 	radiatorTimeout = setTimeout(() => {
-		setRadiatorTimeout(hoursToTimeout--);
-	}, 20 * 1000);
+		setRadiatorTimeout(hoursToTimeout);
+	}, 10 * 1000);
 }
