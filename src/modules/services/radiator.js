@@ -30,23 +30,33 @@ setImmediate(() => {
 });
 
 const RADIATOR_CRON = Core.descriptor.radiator.cron;
+const RADIATOR_CRON_OFF = {
+	cron: '30 0 * * * *',
+	flux: { id: 'interface|rfxcom|set', data: { device: 'radiator', value: true } }
+};
 
 function setupRadiatorMode() {
 	let radiatorMode = Core.conf('radiator');
 	log.info('setupRadiatorMode', radiatorMode, !isNaN(radiatorMode) ? '[timeout]' : ''); // debug ?
-	if (radiatorMode == 'auto') {
-		setupRadiatorCron();
-	} else if (!isNaN(radiatorMode)) {
+	setupRadiatorCron();
+	if (!isNaN(radiatorMode)) {
+		// TODO y'a un truc ici...
 		setRadiatorTimeout(radiatorMode);
 	} else if (radiatorMode == 'on') {
 		Core.do('interface|rfxcom|set', { device: 'radiator', value: false });
 	} else {
 		Core.do('interface|rfxcom|set', { device: 'radiator', value: true });
 	}
+	log.warn('-----> setRadiatorTimeout TODO set 60*60*1000 as timeout'); // TODO remove this line
 }
 
 function setupRadiatorCron() {
-	Core.do('controller|cron|start', RADIATOR_CRON, { log: 'debug' });
+	let radiatorCronToLaunch = RADIATOR_CRON_OFF;
+	if (Core.conf('radiator') == 'auto') {
+		radiatorCronToLaunch = [].concat(radiatorCronToLaunch, RADIATOR_CRON);
+	}
+	log.debug(radiatorCronToLaunch);
+	Core.do('controller|cron|start', radiatorCronToLaunch, { log: 'debug' });
 }
 
 function toggleRadiator(mode) {
@@ -71,6 +81,7 @@ function setRadiatorTimeout(hoursToTimeout) {
 	}
 	hoursToTimeout = --hoursToTimeout;
 	radiatorTimeout = setTimeout(() => {
+		log.warn('TODO set 60*60*1000 as timeout'); // TODO remove this line
 		setRadiatorTimeout(hoursToTimeout);
-	}, 10 * 1000);
+	}, 10 * 1000); // TODO set 60*60*1000 as timeout
 }
