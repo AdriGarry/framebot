@@ -41,8 +41,6 @@
 			{ "msg": "Imagine un peu si je pouvais bouger, sa serait super cool !" },
 			{ "voice": "google", "msg": "Oh oui, sa serait top !" }
 		],
-		[{ "msg": "Ah sa me fais chier de ne pas pouvoir bouger" }, { "voice": "google", "msg": "A moi aussi" }],
-		[{ "voice": "google", "msg": "He, es tu la ?" }, { "msg": "Oui oui, je suis la!" }],
 		[
 			{ "msg": "Et, j'en connais une bien bonne" },
 			{ "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !" }
