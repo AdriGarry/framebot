@@ -788,6 +788,10 @@ app.component('radiator', {
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
+
+		ctrl.isTimeout = function() {
+			return !isNaN(ctrl.data.config.radiator);
+		};
 	}
 });
 

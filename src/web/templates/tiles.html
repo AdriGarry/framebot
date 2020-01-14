@@ -250,6 +250,7 @@
 	<div class="tileContent" data-ng-switch-when="Radiator">
 		<div class="main">
 			<i class="fas fa-temperature-high"></i>
+			<small>{{$ctrl.data.config.radiator}} <span data-ng-if="$ctrl.isTimeout()">h</span></small>
 		</div>
 	</div>
 
