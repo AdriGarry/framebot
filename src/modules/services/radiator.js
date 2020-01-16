@@ -44,8 +44,10 @@ function setupRadiatorMode() {
 		setRadiatorTimeout(radiatorMode);
 	} else if (radiatorMode == 'on') {
 		Core.do('interface|rfxcom|send', { device: 'radiator', value: false });
-	} else {
+	} else if (radiatorMode == 'off') {
 		Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
+	} else {
+		// auto, do nothing
 	}
 	log.warn('-----> setRadiatorTimeout TODO set 60*60*1000 as timeout'); // TODO remove this line
 }
