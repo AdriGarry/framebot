@@ -12,8 +12,8 @@ module.exports = {};
 
 Core.flux.interface.rfxcom.subscribe({
 	next: flux => {
-		if (flux.id == 'set') {
-			setStatus(flux.value);
+		if (flux.id == 'send') {
+			sendStatus(flux.value);
 		} else {
 			Core.error('unmapped flux in Rfxcom interface', flux, false);
 		}
@@ -39,12 +39,12 @@ rfxtrx.on('disconnect', function(evt) {
 	log.info('Rfxcom disconnected!', Buffer.from(evt).toString('hex'));
 });
 
-function setStatus(args) {
+function sendStatus(args) {
 	if (!Core.run('rfxcom')) {
 		Core.error('rfxcom gateway not initialized!', null, false);
 		return;
 	}
-	log.info('setStatus', args);
+	log.info('sendStatus', args);
 	let deviceName = args.device,
 		value = args.value;
 	if (!DEVICE_LIST.hasOwnProperty(deviceName)) log.error('Unreconized device:', deviceName);

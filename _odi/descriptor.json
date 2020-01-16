@@ -42,15 +42,15 @@
 		"cron": [
 			{
 				"cron": "35 0 5-8,17-23 * * 1,4,5",
-				"flux": { "id": "interface|rfxcom|set", "data": { "device": "radiator", "value": false } }
+				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
 			},
 			{
 				"cron": "35 0 5-23 * * 2,3",
-				"flux": { "id": "interface|rfxcom|set", "data": { "device": "radiator", "value": false } }
+				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
 			},
 			{
 				"cron": "35 0 7,23 * * 6,0",
-				"flux": { "id": "interface|rfxcom|set", "data": { "device": "radiator", "value": false } }
+				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
 			}
 		]
 	}

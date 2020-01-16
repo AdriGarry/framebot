@@ -32,7 +32,7 @@ setImmediate(() => {
 const RADIATOR_CRON = Core.descriptor.radiator.cron;
 const RADIATOR_CRON_OFF = {
 	cron: '30 0 * * * *',
-	flux: { id: 'interface|rfxcom|set', data: { device: 'radiator', value: true } }
+	flux: { id: 'interface|rfxcom|send', data: { device: 'radiator', value: true } }
 };
 
 function setupRadiatorMode() {
@@ -43,9 +43,9 @@ function setupRadiatorMode() {
 		// TODO y'a un truc ici...
 		setRadiatorTimeout(radiatorMode);
 	} else if (radiatorMode == 'on') {
-		Core.do('interface|rfxcom|set', { device: 'radiator', value: false });
+		Core.do('interface|rfxcom|send', { device: 'radiator', value: false });
 	} else {
-		Core.do('interface|rfxcom|set', { device: 'radiator', value: true });
+		Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
 	}
 	log.warn('-----> setRadiatorTimeout TODO set 60*60*1000 as timeout'); // TODO remove this line
 }
@@ -63,7 +63,7 @@ function toggleRadiator(mode) {
 	log.info('toggleRadiator', mode);
 	clearTimeout(radiatorTimeout);
 	Core.conf('radiator', mode);
-	Core.do('interface|rfxcom|set', { device: 'radiator', value: mode == 'on' ? false : true });
+	Core.do('interface|rfxcom|send', { device: 'radiator', value: mode == 'on' ? false : true });
 }
 
 let radiatorTimeout;
@@ -71,9 +71,9 @@ let radiatorTimeout;
 function setRadiatorTimeout(hoursToTimeout) {
 	log.info('setRadiatorTimeout', hoursToTimeout);
 	Core.conf('radiator', hoursToTimeout);
-	Core.do('interface|rfxcom|set', { device: 'radiator', value: false });
+	Core.do('interface|rfxcom|send', { device: 'radiator', value: false });
 	if (!Core.conf('radiator')) {
-		Core.do('interface|rfxcom|set', { device: 'radiator', value: true });
+		Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
 		Core.conf('radiator', 'auto');
 		log.info('radiator timeout, back to off or auto');
 		clearTimeout(radiatorTimeout);
