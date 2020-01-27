@@ -46,7 +46,7 @@ function sendStatus(args) {
 		Core.error('rfxcom gateway not initialized!', null, false);
 		return;
 	}
-	log.info('sendStatus', args);
+	log.debug('sendStatus', args);
 	let deviceName = args.device,
 		value = args.value;
 	if (!DEVICE_LIST.hasOwnProperty(deviceName)) log.error('Unreconized device:', deviceName);

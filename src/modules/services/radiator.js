@@ -2,6 +2,8 @@
 
 'use strict';
 
+const CronJob = require('cron').CronJob;
+
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js');
@@ -29,22 +31,70 @@ setImmediate(() => {
 	Utils.delay(10).then(setupRadiatorMode);
 });
 
-const RADIATOR_CRON = Core.descriptor.radiator.cron;
-const RADIATOR_CRON_OFF = {
-	cron: '30 0 * * * *',
-	flux: { id: 'interface|rfxcom|send', data: { device: 'radiator', value: true } }
+const RADIATOR_JOB = {
+	OFF: new CronJob('30 0 * * * *', function() {
+		Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
+	}),
+	ON: new CronJob('35 0 * * * *', function() {
+		Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
+	}),
+	AUTO: new CronJobList(Core.descriptor.radiator.cron)
 };
+
+function CronJobList(jobList, id) {
+	this.id = id;
+	this.jobList = setJobList(jobList);
+	this.start = function() {
+		this.jobList.forEach(job => {
+			job.start();
+		});
+	};
+	this.stop = function() {
+		this.jobList.forEach(job => {
+			job.stop();
+		});
+	};
+
+	function setJobList(jobList) {
+		let jobs = [];
+		jobList.forEach(job => {
+			jobs.push(
+				new CronJob(
+					job.cron,
+					function() {
+						Core.do(job.flux);
+					},
+					null,
+					true,
+					'Europe/Paris'
+				)
+			);
+		});
+		return jobs;
+	}
+}
 
 function setupRadiatorMode() {
 	let radiatorMode = Core.conf('radiator');
-	log.info('setupRadiatorMode', radiatorMode, !isNaN(radiatorMode) ? '[timeout]' : ''); // debug ?
-	setupRadiatorCron();
-	if (!isNaN(radiatorMode)) {
+	log.info(
+		'setupRadiatorMode',
+		radiatorMode,
+		!isNaN(radiatorMode) ? '[timeout]' : '',
+		'[' + Utils.executionTime(Core.startTime) + 'ms]'
+	); // debug ?
+
+	RADIATOR_JOB.OFF.start();
+
+	if (radiatorMode == 'auto') {
+		RADIATOR_JOB.AUTO.start();
+	} else if (!isNaN(radiatorMode)) {
 		// TODO y'a un truc ici...
 		setRadiatorTimeout(radiatorMode);
 	} else if (radiatorMode == 'on') {
+		RADIATOR_JOB.ON.start();
 		Core.do('interface|rfxcom|send', { device: 'radiator', value: false });
 	} else if (radiatorMode == 'off') {
+		RADIATOR_JOB.OFF.start();
 		Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
 	} else {
 		// auto, do nothing
@@ -52,20 +102,19 @@ function setupRadiatorMode() {
 	log.warn('-----> setRadiatorTimeout TODO set 60*60*1000 as timeout'); // TODO remove this line
 }
 
-function setupRadiatorCron() {
-	let radiatorCronToLaunch = RADIATOR_CRON_OFF;
-	if (Core.conf('radiator') == 'auto') {
-		radiatorCronToLaunch = [].concat(radiatorCronToLaunch, RADIATOR_CRON);
-	}
-	log.debug(radiatorCronToLaunch);
-	Core.do('controller|cron|start', radiatorCronToLaunch, { log: 'debug' });
-}
-
 function toggleRadiator(mode) {
 	log.info('toggleRadiator', mode);
+	RADIATOR_JOB.AUTO.stop();
+	RADIATOR_JOB.ON.stop();
+	RADIATOR_JOB.OFF.stop();
 	clearTimeout(radiatorTimeout);
 	Core.conf('radiator', mode);
 	Core.do('interface|rfxcom|send', { device: 'radiator', value: mode == 'on' ? false : true });
+	if (mode == 'on') {
+		RADIATOR_JOB.ON.start();
+	} else {
+		RADIATOR_JOB.OFF.start();
+	}
 }
 
 let radiatorTimeout;
