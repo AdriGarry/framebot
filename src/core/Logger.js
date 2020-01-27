@@ -59,6 +59,10 @@ module.exports = class Logger {
 	}
 
 	warn() {
+		console.log(this._formatLogPrefix('warn'), this._formatLog(arguments));
+	}
+
+	WARN() {
 		console.log(this._formatLogPrefix('WARN'), this._formatLog(arguments).toUpperCase());
 	}
 
