@@ -51,8 +51,8 @@ function setupRadiatorMode() {
 
 	if (radiatorMode == 'auto') {
 		RADIATOR_JOB.AUTO.start();
+		// TODO ...
 	} else if (!isNaN(radiatorMode)) {
-		// TODO y'a un truc ici...
 		setRadiatorTimeout(radiatorMode);
 	} else if (radiatorMode == 'on') {
 		RADIATOR_JOB.ON.start();
@@ -61,9 +61,9 @@ function setupRadiatorMode() {
 		RADIATOR_JOB.OFF.start();
 		Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
 	} else {
-		// auto, do nothing
+		Core.error('Unrecognized radiator:', radiatorMode);
 	}
-	log.warn('-----> setRadiatorTimeout TODO set 60*60*1000 as timeout'); // TODO remove this line
+	log.test('setRadiatorTimeout TODO set 60*60*1000 as timeout'); // TODO remove this line
 }
 
 function toggleRadiator(mode) {
@@ -73,12 +73,12 @@ function toggleRadiator(mode) {
 	RADIATOR_JOB.OFF.stop();
 	clearTimeout(radiatorTimeout);
 	Core.conf('radiator', mode);
-	Core.do('interface|rfxcom|send', { device: 'radiator', value: mode == 'on' ? false : true });
 	if (mode == 'on') {
 		RADIATOR_JOB.ON.start();
 	} else {
 		RADIATOR_JOB.OFF.start();
 	}
+	Core.do('interface|rfxcom|send', { device: 'radiator', value: mode == 'on' ? false : true });
 }
 
 let radiatorTimeout;
@@ -94,9 +94,9 @@ function setRadiatorTimeout(hoursToTimeout) {
 		clearTimeout(radiatorTimeout);
 		return;
 	}
-	hoursToTimeout = --hoursToTimeout;
+	hoursToTimeout--;
 	radiatorTimeout = setTimeout(() => {
-		log.warn('TODO set 60*60*1000 as timeout'); // TODO remove this line
+		log.test('TODO set 60*60*1000 as timeout'); // TODO remove this line
 		setRadiatorTimeout(hoursToTimeout);
 	}, 10 * 1000); // TODO set 60*60*1000 as timeout
 }

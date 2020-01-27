@@ -771,7 +771,7 @@ app.component('radiator', {
 					label: 'Timeout',
 					icon: 'fas fa-clock',
 					url: '/flux/service/radiator/timeout',
-					value: 3
+					value: 2
 				},
 				{
 					label: 'Radiator on',
