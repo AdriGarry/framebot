@@ -66,6 +66,8 @@ function setupRadiatorMode() {
 	log.test('setRadiatorTimeout TODO set 60*60*1000 as timeout'); // TODO remove this line
 }
 
+// TODO comparer les prochaines dates pour les différents cron (on & off)
+
 function toggleRadiator(mode) {
 	log.info('toggleRadiator', mode);
 	RADIATOR_JOB.AUTO.stop();
