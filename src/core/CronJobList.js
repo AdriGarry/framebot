@@ -4,6 +4,8 @@
 
 const CronJob = require('cron').CronJob;
 
+const Core = require(_PATH + 'src/core/Core.js').Core;
+
 module.exports = CronJobList;
 
 function CronJobList(jobList, id) {
