@@ -83,7 +83,16 @@ function toggleRadiator(mode) {
 
 let radiatorTimeout;
 
-function setRadiatorTimeout(hoursToTimeout) {
+function setRadiatorTimeout(arg) {
+	let hoursToTimeout = arg.timeout,
+		mode = arg.mode;
+
+	// if (mode == 'on') {
+	// 	RADIATOR_JOB.ON.stop();
+	// } else {
+	// 	RADIATOR_JOB.OFF.stop();
+	// }
+
 	log.info('setRadiatorTimeout', hoursToTimeout);
 	Core.conf('radiator', hoursToTimeout);
 	Core.do('interface|rfxcom|send', { device: 'radiator', value: false });
@@ -94,9 +103,9 @@ function setRadiatorTimeout(hoursToTimeout) {
 		clearTimeout(radiatorTimeout);
 		return;
 	}
-	hoursToTimeout--;
+	hoursToTimeout = --hoursToTimeout;
 	radiatorTimeout = setTimeout(() => {
 		log.test('TODO set 60*60*1000 as timeout'); // TODO remove this line
-		setRadiatorTimeout(hoursToTimeout);
+		setRadiatorTimeout({ timeout: hoursToTimeout, mode: mode });
 	}, 10 * 1000); // TODO set 60*60*1000 as timeout
 }
