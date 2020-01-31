@@ -1,4 +1,4 @@
-name: auto tag new versions
+name: auto_tag_new_versions
 
 on:
   push:
