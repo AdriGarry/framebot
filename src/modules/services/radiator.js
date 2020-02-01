@@ -45,14 +45,14 @@ function setupRadiatorMode() {
 		radiatorMode,
 		!isNaN(radiatorMode) ? '[timeout]' : '',
 		'[' + Utils.executionTime(Core.startTime) + 'ms]'
-	); // debug ?
+	);
 
 	RADIATOR_JOB.OFF.start();
 
 	if (radiatorMode == 'auto') {
 		RADIATOR_JOB.AUTO.start();
-		// TODO ...
-	} else if (!isNaN(radiatorMode)) {
+		// TODO ... (useless TODO?)
+	} else if (typeof radiatorMode === 'object') {
 		setRadiatorTimeout(radiatorMode);
 	} else if (radiatorMode == 'on') {
 		RADIATOR_JOB.ON.start();
@@ -63,7 +63,6 @@ function setupRadiatorMode() {
 	} else {
 		Core.error('Unrecognized radiator:', radiatorMode);
 	}
-	log.test('setRadiatorTimeout TODO set 60*60*1000 as timeout'); // TODO remove this line
 }
 
 // TODO comparer les prochaines dates pour les différents cron (on & off)
@@ -86,28 +85,35 @@ function toggleRadiator(mode) {
 let radiatorTimeout;
 
 function setRadiatorTimeout(arg) {
-	let hoursToTimeout = arg.timeout,
-		mode = arg.mode;
+	log.info('setRadiatorTimeout', arg);
+	clearTimeout(radiatorTimeout);
+	Core.conf('radiator', arg);
+	RADIATOR_JOB.ON.stop();
+	RADIATOR_JOB.OFF.stop();
+	Core.do('interface|rfxcom|send', { device: 'radiator', value: arg.mode == 'on' ? false : true });
+	decrementRadiatorTimeout();
+}
 
-	// if (mode == 'on') {
-	// 	RADIATOR_JOB.ON.stop();
-	// } else {
-	// 	RADIATOR_JOB.OFF.stop();
-	// }
-
-	log.info('setRadiatorTimeout', hoursToTimeout);
-	Core.conf('radiator', hoursToTimeout);
-	Core.do('interface|rfxcom|send', { device: 'radiator', value: false });
-	if (!Core.conf('radiator')) {
-		Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
-		Core.conf('radiator', 'auto');
-		log.info('radiator timeout, back to off or auto');
-		clearTimeout(radiatorTimeout);
+function decrementRadiatorTimeout() {
+	let arg = Core.conf('radiator');
+	log.info('decrementRadiatorTimeout', arg);
+	if (!arg.timeout) {
+		endRadiatorTimeout();
 		return;
 	}
-	hoursToTimeout = --hoursToTimeout;
+
+	arg.timeout = --arg.timeout;
+	Core.conf('radiator', arg);
 	radiatorTimeout = setTimeout(() => {
-		log.test('TODO set 60*60*1000 as timeout'); // TODO remove this line
-		setRadiatorTimeout({ timeout: hoursToTimeout, mode: mode });
-	}, 10 * 1000); // TODO set 60*60*1000 as timeout
+		decrementRadiatorTimeout();
+	}, 60 * 1000);
+}
+
+function endRadiatorTimeout() {
+	clearTimeout(radiatorTimeout);
+	RADIATOR_JOB.AUTO.start();
+	RADIATOR_JOB.OFF.start();
+	Core.do('interface|rfxcom|send', { device: 'radiator', value: Core.conf('radiator').mode == 'on' ? true : false });
+	Core.conf('radiator', 'auto');
+	log.info('radiator timeout, back to off before auto mode...');
 }
