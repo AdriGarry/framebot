@@ -94,7 +94,6 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 				} else {
 					action(button);
 				}
-				// action(button); // à redéfinir ??
 			});
 	}
 

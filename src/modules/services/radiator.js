@@ -51,7 +51,6 @@ function setupRadiatorMode() {
 
 	if (radiatorMode == 'auto') {
 		RADIATOR_JOB.AUTO.start();
-		// TODO ... (useless TODO?)
 	} else if (typeof radiatorMode === 'object') {
 		setRadiatorTimeout(radiatorMode);
 	} else if (radiatorMode == 'on') {
@@ -101,7 +100,6 @@ function decrementRadiatorTimeout() {
 		endRadiatorTimeout();
 		return;
 	}
-
 	arg.timeout = --arg.timeout;
 	Core.conf('radiator', arg);
 	radiatorTimeout = setTimeout(() => {
