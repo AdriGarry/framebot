@@ -762,16 +762,22 @@ app.component('radiator', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function(DefaultTile, $rootScope, UIService) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Radiator',
 			actionList: [
 				{
-					label: 'Timeout',
+					label: 'On Timeout',
 					icon: 'fas fa-clock',
 					url: '/flux/service/radiator/timeout',
-					value: { timeout: 2, mode: 'on' }
+					value: { mode: 'on' }
+				},
+				{
+					label: 'Off Timeout',
+					icon: 'fas fa-clock',
+					url: '/flux/service/radiator/timeout',
+					value: { mode: 'off' }
 				},
 				{
 					label: 'Radiator on',
@@ -790,7 +796,42 @@ app.component('radiator', {
 		ctrl.tile = new DefaultTile(tileParams);
 
 		ctrl.isTimeout = function() {
-			return !isNaN(ctrl.data.config.radiator);
+			let obj = ctrl.data.config.radiator;
+			return typeof obj === 'object';
+			//return !isNaN(ctrl.data.config.radiator);
+		};
+
+		/** Overwrite tile action */
+		ctrl.tile.click = function() {
+			if (!$rootScope.irda) {
+				UIService.showErrorToast('Unauthorized action.');
+			} else {
+				ctrl.tile.openBottomSheet(this.actionList, specificActions);
+			}
+		};
+
+		let specificActions = function(button) {
+			if (button.label.toUpperCase().indexOf('TIMEOUT') != -1) {
+				let slider = {
+					label: button.label,
+					url: '/flux/service/radiator/timeout',
+					legend: 'h',
+					min: 10,
+					max: 360,
+					step: 10,
+					value: 120,
+					action: null,
+					data: button.value
+				};
+				ctrl.tile.openSliderBottomSheet(slider, specificEndAction);
+			} else {
+				ctrl.tile.action(button);
+			}
+		};
+
+		let specificEndAction = function(button) {
+			button.value = { mode: button.label.toUpperCase().indexOf('ON') > -1 ? 'on' : 'off', timeout: button.value };
+			ctrl.tile.action(button);
 		};
 	}
 });

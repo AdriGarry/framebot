@@ -64,7 +64,6 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 	/** Function to open bottom sheet **/
 	function openBottomSheet(bottomSheetList, specificAction) {
 		$rootScope.bottomSheetButtonList = bottomSheetList;
-		//$scope.alert = '';
 		$mdBottomSheet
 			.show({
 				templateUrl: 'templates/bottom-sheet.html',
@@ -81,7 +80,7 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 	}
 
 	/** Function to open slider on bottom sheet */
-	function openSliderBottomSheet(slider) {
+	function openSliderBottomSheet(slider, specificAction) {
 		$rootScope.bottomSheetSlider = slider;
 		$mdBottomSheet
 			.show({
@@ -90,7 +89,12 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 				clickOutsideToClose: true
 			})
 			.then(function(button) {
-				action(button); // à redéfinir ??
+				if (specificAction) {
+					specificAction(button);
+				} else {
+					action(button);
+				}
+				// action(button); // à redéfinir ??
 			});
 	}
 
