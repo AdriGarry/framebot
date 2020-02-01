@@ -87,6 +87,7 @@ function setRadiatorTimeout(arg) {
 	log.info('setRadiatorTimeout', arg);
 	clearTimeout(radiatorTimeout);
 	Core.conf('radiator', arg);
+	RADIATOR_JOB.AUTO.stop();
 	RADIATOR_JOB.ON.stop();
 	RADIATOR_JOB.OFF.stop();
 	Core.do('interface|rfxcom|send', { device: 'radiator', value: arg.mode == 'on' ? false : true });
