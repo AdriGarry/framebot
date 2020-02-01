@@ -281,19 +281,14 @@
 					></options>
 					<runtime data="dashboard.runningData.errors" data-access="$root.irda" flex="33"></runtime>
 					<alarms data="dashboard.runningData.alarms" data-access="$root.irda" flex="33"></alarms>
+					<radiator data="dashboard.runningData" data-access="$root.irda" flex="33"></radiator>
+					<audio-recorder data="dashboard.runningData.audioRecord" data-access="true" flex="33"></audio-recorder>
 					<voicemail
 						data="dashboard.runningData.voicemail"
 						data-access="$root.irda"
 						flex="33"
 						data-odi-state="dashboard.odiState"
 					></voicemail>
-					<audio-recorder data="dashboard.runningData.audioRecord" data-access="true" flex="33"></audio-recorder>
-					<exclamation
-						data="dashboard.runningData.exclamation"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></exclamation>
 					<jukebox
 						data="dashboard.runningData.jukebox"
 						data-access="$root.irda"
@@ -312,6 +307,12 @@
 						flex="100"
 						data-odi-state="dashboard.odiState"
 					></hardware>
+					<exclamation
+						data="dashboard.runningData.exclamation"
+						data-access="$root.irda"
+						flex="33"
+						data-odi-state="dashboard.odiState"
+					></exclamation>
 					<time
 						data="dashboard.runningData.time"
 						data-access="$root.irda"
@@ -372,16 +373,15 @@
 						flex="33"
 						data-odi-state="dashboard.odiState"
 					></videos>
-					<radiator data="dashboard.runningData" data-access="$root.irda" flex="33"></radiator>
-					<power-plug data="dashboard.runningData" data-access="$root.irda" flex="33"></power-plug>
 					<arduino
 						data="dashboard.runningData.arduino"
 						data-access="$root.irda"
 						flex="33"
 						data-odi-state="dashboard.odiState"
 					></arduino>
-					<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
 					<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
+					<power-plug data="dashboard.runningData" data-access="$root.irda" flex="33"></power-plug>
+					<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
 					<about data="dashboard.runningData.about" data-access="true" flex="100"></about>
 					<!-- flex="66" -->
 				</div>
