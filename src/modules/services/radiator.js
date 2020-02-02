@@ -54,10 +54,10 @@ function setupRadiatorMode() {
 	} else if (typeof radiatorMode === 'object') {
 		setRadiatorTimeout(radiatorMode);
 	} else if (radiatorMode == 'on') {
+		RADIATOR_JOB.OFF.stop();
 		RADIATOR_JOB.ON.start();
 		Core.do('interface|rfxcom|send', { device: 'radiator', value: false });
 	} else if (radiatorMode == 'off') {
-		RADIATOR_JOB.OFF.start();
 		Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
 	} else {
 		Core.error('Unrecognized radiator:', radiatorMode);
@@ -101,9 +101,9 @@ function decrementRadiatorTimeout() {
 		endRadiatorTimeout();
 		return;
 	}
-	arg.timeout = --arg.timeout;
-	Core.conf('radiator', arg);
 	radiatorTimeout = setTimeout(() => {
+		arg.timeout = --arg.timeout;
+		Core.conf('radiator', arg);
 		decrementRadiatorTimeout();
 	}, 60 * 1000);
 }

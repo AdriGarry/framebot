@@ -26,15 +26,9 @@ function CronJobList(jobList, id) {
 		let jobs = [];
 		jobList.forEach(job => {
 			jobs.push(
-				new CronJob(
-					job.cron,
-					function() {
-						Core.do(job.flux);
-					},
-					null,
-					true,
-					'Europe/Paris'
-				)
+				new CronJob(job.cron, function() {
+					Core.do(job.flux);
+				})
 			);
 		});
 		return jobs;
