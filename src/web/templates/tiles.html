@@ -249,9 +249,9 @@
 
 	<div class="tileContent" data-ng-switch-when="Radiator">
 		<div class="main">
-			<i class="fas fa-thermometer-half" data-ng-if="$ctrl.data.config.radiator == 'auto' || $ctrl.isTimeout()"></i>
-			<i class="fas fa-temperature-high" data-ng-if="$ctrl.data.config.radiator == 'on'"></i>
-			<i class="fas fa-temperature-low" data-ng-if="$ctrl.data.config.radiator == 'off'"></i>
+			<i class="fas fa-thermometer-half" data-ng-if="$ctrl.data.config.radiator == 'auto'"></i>
+			<i class="fas fa-thermometer-full" data-ng-if="$ctrl.data.config.radiator == 'on' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='on'"></i>
+			<i class="fas fa-thermometer-quarter" data-ng-if="$ctrl.data.config.radiator == 'off' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='off'"></i>
 			<small>
 				<span data-ng-if="!$ctrl.isTimeout()">{{$ctrl.data.config.radiator}}</span>
 				<span data-ng-if="$ctrl.isTimeout()">{{$ctrl.data.config.radiator.timeout}}<small>min</small></span></small>
