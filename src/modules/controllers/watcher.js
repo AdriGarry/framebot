@@ -40,7 +40,8 @@ const SEC_TO_RESTART = 3,
 		Core._MODULES + 'interfaces/',
 		Core._MODULES + 'services/',
 		Core._SRC + 'test/',
-		Core._DATA
+		Core._DATA,
+		Core._CONF
 	];
 var watchers = [];
 
