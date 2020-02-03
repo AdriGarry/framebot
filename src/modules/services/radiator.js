@@ -33,7 +33,7 @@ const RADIATOR_JOB = {
 		Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
 	}),
 	ON: new CronJob('35 0 * * * *', function() {
-		Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
+		Core.do('interface|rfxcom|send', { device: 'radiator', value: false });
 	}),
 	AUTO: new CronJobList(Core.descriptor.radiator.cron)
 };
@@ -62,10 +62,18 @@ function setupRadiatorMode() {
 	} else {
 		Core.error('Unrecognized radiator:', radiatorMode);
 	}
+	onOrOffUntilNextOrder();
 }
 
-// TODO comparer les prochaines dates pour les différents cron (on & off)
-
+function onOrOffUntilNextOrder() {
+	let datesToCompare = [
+		{ id: 'OFF', date: new Date(RADIATOR_JOB.OFF.nextDate()).toLocaleString() },
+		{ id: 'AUTO', date: new Date(RADIATOR_JOB.AUTO.nextDate()).toLocaleString() }
+	];
+	let nextDate = Utils.getNextDateObject(datesToCompare);
+	log.info('onOrOffUntilNextOrder', nextDate);
+	Core.do('interface|rfxcom|send', { device: 'radiator', value: nextDate.id == 'on' ? false : true });
+}
 function toggleRadiator(mode) {
 	log.info('toggleRadiator', mode);
 	RADIATOR_JOB.AUTO.stop();
