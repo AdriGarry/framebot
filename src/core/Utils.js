@@ -54,7 +54,8 @@ module.exports = {
 	delayMs: delayMs,
 	logTime: logTime,
 	executionTime: executionTime,
-	isWeekend: isWeekend
+	isWeekend: isWeekend,
+	getNextDateObject: getNextDateObject
 };
 
 /**
@@ -459,6 +460,17 @@ function logTime(param, date) {
 
 function capitalizeFirstLetter(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+/**  Function to return next object with date from array of objects with date property **/
+function getNextDateObject(datesObjectArray) {
+	log.test(datesObjectArray);
+	let nextDateObject;
+	datesObjectArray.forEach(obj => {
+		if (!nextDateObject || nextDateObject.date > obj.date) nextDateObject = obj;
+	});
+	log.debug('getNextDateObject:', nextDateObject);
+	return nextDateObject;
 }
 
 function isWeekend(date) {
