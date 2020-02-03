@@ -11,15 +11,26 @@ module.exports = CronJobList;
 function CronJobList(jobList, id) {
 	this.id = id;
 	this.jobList = setJobList(jobList);
+
 	this.start = function() {
 		this.jobList.forEach(job => {
 			job.start();
 		});
 	};
+
 	this.stop = function() {
 		this.jobList.forEach(job => {
 			job.stop();
 		});
+	};
+
+	this.nextDate = function() {
+		let nextDate;
+		this.jobList.forEach(job => {
+			let date = new Date(job.nextDate()).toLocaleString();
+			if (!nextDate || nextDate > date) nextDate = date;
+		});
+		return nextDate;
 	};
 
 	function setJobList(jobList) {
