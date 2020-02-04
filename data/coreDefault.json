@@ -37,6 +37,7 @@
 		"audioRecord": 0,
 		"hdmi": null,
 		"rfxcom": false,
+		"radiator": false,
 		"screen": null,
 		"cpu": {
 			"usage": null,

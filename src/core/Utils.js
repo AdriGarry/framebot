@@ -464,7 +464,6 @@ function capitalizeFirstLetter(string) {
 
 /**  Function to return next object with date from array of objects with date property **/
 function getNextDateObject(datesObjectArray) {
-	log.test(datesObjectArray);
 	let nextDateObject;
 	datesObjectArray.forEach(obj => {
 		if (!nextDateObject || nextDateObject.date > obj.date) nextDateObject = obj;
