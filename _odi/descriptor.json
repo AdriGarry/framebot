@@ -49,7 +49,7 @@
 				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
 			},
 			{
-				"cron": "35 0 7-21 * * 0,6",
+				"cron": "35 0 6-22 * * 0,6",
 				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
 			}
 		]
