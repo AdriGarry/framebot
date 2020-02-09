@@ -8,7 +8,6 @@
 	"editor.wordWrap": "off", // bounded || wordWrapColumn
 	//"editor.wordWrapColumn": 150,
 	"files.encoding": "utf8",
-	"prettier.eslintIntegration": true,
 	"prettier.singleQuote": true,
 	"prettier.useTabs": true,
 	"prettier.tabWidth": 2,
