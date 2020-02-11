@@ -754,6 +754,140 @@ app.component('max', {
 	}
 });
 
+/** Radiator component */
+app.component('radiator', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile, $rootScope, UIService) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Radiator',
+			actionList: [
+				{
+					label: 'On Timeout',
+					icon: 'fas fa-clock',
+					url: '/flux/service/radiator/timeout',
+					value: { mode: 'on' }
+				},
+				{
+					label: 'Off Timeout',
+					icon: 'fas fa-clock',
+					url: '/flux/service/radiator/timeout',
+					value: { mode: 'off' }
+				},
+				{
+					label: 'Radiator on',
+					icon: 'fas fa-toggle-on',
+					url: '/flux/service/radiator/toggle',
+					value: 'on'
+				},
+				{
+					label: 'Radiator off',
+					icon: 'fas fa-toggle-off',
+					url: '/flux/service/radiator/toggle',
+					value: 'off'
+				}
+			]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+
+		ctrl.isTimeout = function() {
+			let obj = ctrl.data.config.radiator;
+			return typeof obj === 'object';
+			//return !isNaN(ctrl.data.config.radiator);
+		};
+
+		/** Overwrite tile action */
+		ctrl.tile.click = function() {
+			if (!$rootScope.irda) {
+				UIService.showErrorToast('Unauthorized action.');
+			} else {
+				ctrl.tile.openBottomSheet(this.actionList, specificActions);
+			}
+		};
+
+		let specificActions = function(button) {
+			if (button.label.toUpperCase().indexOf('TIMEOUT') != -1) {
+				let slider = {
+					label: button.label,
+					url: '/flux/service/radiator/timeout',
+					legend: 'h',
+					min: 10,
+					max: 360,
+					step: 10,
+					value: 120,
+					action: null,
+					data: button.value
+				};
+				ctrl.tile.openSliderBottomSheet(slider, specificEndAction);
+			} else {
+				ctrl.tile.action(button);
+			}
+		};
+
+		let specificEndAction = function(button) {
+			button.value = { mode: button.label.toUpperCase().indexOf('ON') > -1 ? 'on' : 'off', timeout: button.value };
+			ctrl.tile.action(button);
+		};
+	}
+});
+
+/** Power plug component */
+app.component('powerPlug', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function(DefaultTile, $rootScope) {
+		var ctrl = this;
+		var tileParams = {
+			label: 'Power plug',
+			actionList: [
+				{ label: 'plug A', icon: 'fas fa-plug', value: { device: 'plugA' } },
+				{ label: 'plug B', icon: 'fas fa-plug', value: { device: 'plugB' } },
+				{ label: 'plug C', icon: 'fas fa-plug', value: { device: 'plugC' } }
+			]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
+
+		/** Overwrite tile action */
+		ctrl.tile.click = function() {
+			if (!$rootScope.irda) {
+				UIService.showErrorToast('Unauthorized action.');
+			} else {
+				ctrl.tile.openBottomSheet(this.actionList, specificPlugActions);
+			}
+		};
+
+		const PLUG_FLUX_URL = '/flux/interface/rfxcom/set';
+		let specificPlugActions = function(action) {
+			let actionList = [
+				{
+					label: action.label + ' on',
+					icon: 'fas fa-toggle-on',
+					url: PLUG_FLUX_URL,
+					value: { device: action.value.device, value: true }
+				},
+				{
+					label: action.label + ' off',
+					icon: 'fas fa-toggle-off',
+					url: PLUG_FLUX_URL,
+					value: { device: action.value.device, value: false }
+				}
+			];
+
+			ctrl.tile.openBottomSheet(actionList, ctrl.tile.action);
+		};
+	}
+});
+
 /** Arduino component */
 app.component('arduino', {
 	bindings: {

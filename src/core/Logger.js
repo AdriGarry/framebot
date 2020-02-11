@@ -58,6 +58,10 @@ module.exports = class Logger {
 		if (logLevel == LEVEL.TRACE) console.log(this._formatLogPrefix('TRACE'), this._formatLog(arguments).toUpperCase());
 	}
 
+	test() {
+		console.log(this._formatLogPrefix('TEST!', '-->'), this._formatLog(arguments));
+	}
+
 	warn() {
 		console.log(this._formatLogPrefix('warn'), this._formatLog(arguments));
 	}
@@ -123,8 +127,14 @@ module.exports = class Logger {
 		}, delay * 60 * 1000);
 	}
 
-	_formatLogPrefix(logLevel) {
-		return Utils.logTime(timestamp) + this._formatLogLevel(logLevel) + this._formatLogPosition() + ' |';
+	_formatLogPrefix(logLevel, sufix) {
+		return (
+			Utils.logTime(timestamp) +
+			this._formatLogLevel(logLevel) +
+			this._formatLogPosition() +
+			' |' +
+			(sufix ? sufix : '')
+		);
 	}
 
 	_formatLogLevel(logLevel) {

@@ -224,9 +224,7 @@
 					</md-list-item>
 					<md-divider></md-divider>
 
-					<md-subheader
-						>Volume&nbsp;&nbsp; <i>{{ master }}</i>
-					</md-subheader>
+					<md-subheader>Volume&nbsp;&nbsp; <i>{{ master }}</i> </md-subheader>
 					<md-list-item title="Volume">
 						<md-slider-container ng-disabled="!$root.irda">
 							<md-slider
@@ -283,19 +281,14 @@
 					></options>
 					<runtime data="dashboard.runningData.errors" data-access="$root.irda" flex="33"></runtime>
 					<alarms data="dashboard.runningData.alarms" data-access="$root.irda" flex="33"></alarms>
+					<radiator data="dashboard.runningData" data-access="$root.irda" flex="33"></radiator>
+					<audio-recorder data="dashboard.runningData.audioRecord" data-access="true" flex="33"></audio-recorder>
 					<voicemail
 						data="dashboard.runningData.voicemail"
 						data-access="$root.irda"
 						flex="33"
 						data-odi-state="dashboard.odiState"
 					></voicemail>
-					<audio-recorder data="dashboard.runningData.audioRecord" data-access="true" flex="33"></audio-recorder>
-					<exclamation
-						data="dashboard.runningData.exclamation"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></exclamation>
 					<jukebox
 						data="dashboard.runningData.jukebox"
 						data-access="$root.irda"
@@ -320,18 +313,18 @@
 						flex="33"
 						data-odi-state="dashboard.odiState"
 					></time>
+					<exclamation
+						data="dashboard.runningData.exclamation"
+						data-access="$root.irda"
+						flex="33"
+						data-odi-state="dashboard.odiState"
+					></exclamation>
 					<weather
 						data="dashboard.runningData.weather"
 						data-access="$root.irda"
 						flex="33"
 						data-odi-state="dashboard.odiState"
 					></weather>
-					<maya
-						data="dashboard.runningData.weather"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></maya>
 					<bad-boy
 						data="dashboard.runningData.ideas"
 						data-access="$root.irda"
@@ -343,47 +336,53 @@
 						data-access="$root.irda"
 						flex="33"
 						data-odi-state="dashboard.odiState"
-					></party
-					><max
-						data="dashboard.runningData.arduino"
+					></party>
+					<maya
+						data="dashboard.runningData.weather"
 						data-access="$root.irda"
 						flex="33"
 						data-odi-state="dashboard.odiState"
-					></max>
+					></maya>
 					<russia
 						data="dashboard.runningData.russia"
 						data-access="$root.irda"
 						flex="33"
 						data-odi-state="dashboard.odiState"
 					></russia>
-					<idea
-						data="dashboard.runningData.ideas"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></idea>
 					<stories
 						data="dashboard.runningData.stories"
 						data-access="$root.irda"
 						flex="33"
 						data-odi-state="dashboard.odiState"
 					></stories>
-					<videos
-						data="dashboard.runningData.video"
+					<max
+						data="dashboard.runningData.arduino"
 						data-access="$root.irda"
 						flex="33"
 						data-odi-state="dashboard.odiState"
-					></videos>
+					></max>
+					<idea
+						data="dashboard.runningData.ideas"
+						data-access="$root.irda"
+						flex="33"
+						data-odi-state="dashboard.odiState"
+					></idea>
 					<arduino
 						data="dashboard.runningData.arduino"
 						data-access="$root.irda"
 						flex="33"
 						data-odi-state="dashboard.odiState"
 					></arduino>
+					<videos
+						data="dashboard.runningData.video"
+						data-access="$root.irda"
+						flex="33"
+						data-odi-state="dashboard.odiState"
+					></videos>
+					<power-plug data="dashboard.runningData" data-access="$root.irda" flex="66"></power-plug>
 					<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
 					<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
 					<about data="dashboard.runningData.about" data-access="true" flex="66"></about>
-					<!-- flex="66" -->
 				</div>
 
 				<md-button

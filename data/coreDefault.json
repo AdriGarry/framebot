@@ -21,6 +21,7 @@
 		"watcher": false,
 		"startTime": ".",
 		"alarms": ".",
+		"radiator": ".",
 		"version": ".",
 		"flux": []
 	},
@@ -35,6 +36,8 @@
 		"voicemail": 0,
 		"audioRecord": 0,
 		"hdmi": null,
+		"rfxcom": false,
+		"radiator": false,
 		"screen": null,
 		"cpu": {
 			"usage": null,

@@ -7,28 +7,51 @@
 	},
 	"modules": {
 		"interfaces": {
-			"base": ["led", "sound", "hardware", "arduino", "hdmi"],
+			"base": ["led", "sound", "hardware", "arduino", "hdmi", "rfxcom"],
 			"full": ["tts"]
 		},
 		"controllers": {
 			"base": ["button", "cron", "server", "watcher"]
 		},
 		"services": {
-			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord"],
+			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord", "radiator"],
 			"full": ["mood", "interaction", "weather", "timer", "music", "party", "video", "max", "maya"]
 		}
 	},
 	"conf": {
 		"alarms": {
 			"weekDay": {
-				"h": 7,
-				"m": 10
+				"h": 6,
+				"m": 50
 			},
 			"weekEnd": {
 				"h": 12,
 				"m": 0
 			}
-		}
+		},
+		"radiator": "auto"
 	},
-	"runtime": {}
+	"runtime": {},
+	"rfxcom": [
+		{ "name": "plugA", "id": "0x01F4BF8E/1" },
+		{ "name": "plugB", "id": "0x01F4BF8E/2" },
+		{ "name": "plugC", "id": "0x01F4BF8E/3" },
+		{ "name": "radiator", "id": "0x01F4BF8E/4" }
+	],
+	"radiator": {
+		"cron": [
+			{
+				"cron": "35 0 5-8,17-23 * * 1,4,5",
+				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
+			},
+			{
+				"cron": "35 0 5-23 * * 2,3",
+				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
+			},
+			{
+				"cron": "35 0 7,23 * * 6,0",
+				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
+			}
+		]
+	}
 }

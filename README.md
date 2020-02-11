@@ -13,6 +13,7 @@ Available modes: ready, sleep, test
 - Audio record from UI
 - Alarm (weekday & weekend)
 - Timer
+- Radiator management
 - Playlist (jukebox, low...)
 - Web radio (FIP, radio Bam)
 - Exclamations
@@ -47,6 +48,7 @@ Available modes: ready, sleep, test
 - Speaker (audio)
 - Arduino (USB)
 - Screen (HDMI)
+- Rfxcom
 
 ### Core engine
 

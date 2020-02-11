@@ -15,6 +15,7 @@ module.exports = {
 	//array
 	randomItem: randomItem,
 	searchStringInArray: searchStringInArray,
+	arrayToObject: arrayToObject,
 
 	//custom/execution/all
 	codePosition: codePosition,
@@ -53,7 +54,8 @@ module.exports = {
 	delayMs: delayMs,
 	logTime: logTime,
 	executionTime: executionTime,
-	isWeekend: isWeekend
+	isWeekend: isWeekend,
+	getNextDateObject: getNextDateObject
 };
 
 /**
@@ -195,6 +197,13 @@ function searchStringInArray(string, stringArray) {
 		}
 	}
 	return false;
+}
+
+function arrayToObject(array, property) {
+	return array.reduce((obj, item) => {
+		obj[item[property]] = item;
+		return obj;
+	}, {});
 }
 
 function getLocalIp() {
@@ -451,6 +460,15 @@ function logTime(param, date) {
 
 function capitalizeFirstLetter(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+/**  Function to return next object with date from array of objects with date property **/
+function getNextDateObject(datesObjectArray) {
+	let nextDateObject;
+	datesObjectArray.forEach(obj => {
+		if (!nextDateObject || (nextDateObject && nextDateObject.date > obj.date)) nextDateObject = obj;
+	});
+	return nextDateObject;
 }
 
 function isWeekend(date) {

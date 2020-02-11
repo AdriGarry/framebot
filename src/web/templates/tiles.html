@@ -177,7 +177,7 @@
 
 	<div class="tileContent" data-ng-switch-when="Exclamation">
 		<div class="main">
-			<i class="far fa-comment-alt"></i>
+			<i class="far fa-comment-dots"></i>
 		</div>
 	</div>
 
@@ -244,6 +244,25 @@
 	<div class="tileContent" data-ng-switch-when="Max">
 		<div class="main">
 			<i class="fas fa-podcast"></i>
+		</div>
+	</div>
+
+	<div class="tileContent" data-ng-switch-when="Radiator">
+		<div class="main">
+			<i class="fas fa-thermometer-half" data-ng-if="$ctrl.data.config.radiator == 'auto'"></i>
+			<i class="fas fa-thermometer-full" data-ng-if="$ctrl.data.config.radiator == 'on' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='on'"></i>
+			<i class="fas fa-thermometer-quarter" data-ng-if="$ctrl.data.config.radiator == 'off' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='off'"></i>
+			<small>
+				<span data-ng-if="!$ctrl.isTimeout()">{{$ctrl.data.config.radiator}}</span>
+				<span data-ng-if="$ctrl.isTimeout()">{{$ctrl.data.config.radiator.timeout}}<small>min</small></span></small>
+		</div>
+	</div>
+
+	<div class="tileContent" data-ng-switch-when="Power plug">
+		<div class="main">
+			<i class="fas fa-plug"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+			<i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+			<i class="fas fa-times"></i>
 		</div>
 	</div>
 
