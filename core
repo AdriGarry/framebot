@@ -1,15 +1,18 @@
 #!/bin/sh
 
+_PATH=`pwd`
+echo _PATH: $_PATH
 
-setupCoreCommandAndService(){
-	sudo cp /home/odi/core/core /usr/bin/
+
+updateCoreScript(){
+	sudo cp $_PATH/core /usr/bin/
 	
-	sudo cp /home/odi/core/data/coreStartup.service /etc/systemd/system/coreStartup.service
+	sudo cp $_PATH/data/coreStartup.service /etc/systemd/system/coreStartup.service
 	sudo chmod 664 /etc/systemd/system/coreStartup.service
 	sudo systemctl daemon-reload
 	sudo systemctl enable coreStartup.service
 
-	echo "setupCoreCommand: core command & service updated!\n"
+	echo "updateCoreScript: core command & service updated!\n"
 	# sudo chmod +x "$_PATH"/core.sh
 }
 
@@ -32,7 +35,7 @@ ifStop(){
 ifReset(){
 	if [ $1 = "reset" ]; then
 		echo "\nCORE RESETED !"
-		sudo rm -r -f /home/odi/core/tmp
+		sudo rm -r -f $_PATH/tmp
 		exit 0
 	fi
 }
@@ -40,13 +43,13 @@ ifReset(){
 ifCerbot(){
 	if [ $1 = "certbot" ]; then
 		echo "\nCERTBOT..."
-		sudo sh /home/odi/core/src/shell/certbot.sh
+		sudo sh $_PATH/src/shell/certbot.sh
 		exit 0
 	fi
 }
 
 
-setupCoreCommandAndService $*
+updateCoreScript $*
 
 exitIfNoArgs $*
 
@@ -59,10 +62,7 @@ ifCerbot $*
 clear
 
  _NAME=$1
- 
-#_PATH=`pwd`
-_PATH="/home/odi/core/"
-echo _PATH $_PATH
+
 
 # Test if log directory exists
 if [ ! -d "$_PATH"/log ];
@@ -73,6 +73,5 @@ fi
 
 echo "\nStarting Wrapper... [$*]" | sudo tee -a "$_PATH/log/$_NAME.log"
 
-# sudo python /home/odi/core/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/core/log/odi.log &
 # sudo python /home/odi/core/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/core/log/buttons.py.log &
 sudo node "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" &
