@@ -30,10 +30,10 @@ setImmediate(() => {
 
 const RADIATOR_JOB = {
 	OFF: new CronJob('30 0 * * * *', function() {
-		Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
+		radiatorOrder('off');
 	}),
 	ON: new CronJob('35 0 * * * *', function() {
-		Core.do('interface|rfxcom|send', { device: 'radiator', value: false });
+		radiatorOrder('on');
 	}),
 	AUTO: new CronJobList(Core.descriptor.radiator.cron)
 };
@@ -51,29 +51,39 @@ function setupRadiatorMode() {
 
 	if (radiatorMode == 'auto') {
 		RADIATOR_JOB.AUTO.start();
+		//onOrOffUntilNextOrder();
 	} else if (typeof radiatorMode === 'object') {
 		setRadiatorTimeout(radiatorMode);
 	} else if (radiatorMode == 'on') {
 		RADIATOR_JOB.OFF.stop();
 		RADIATOR_JOB.ON.start();
-		Core.do('interface|rfxcom|send', { device: 'radiator', value: false });
+		radiatorOrder('on');
 	} else if (radiatorMode == 'off') {
-		Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
+		radiatorOrder('off');
 	} else {
 		Core.error('Unrecognized radiator:', radiatorMode);
 	}
-	onOrOffUntilNextOrder();
 }
 
 function onOrOffUntilNextOrder() {
 	let datesToCompare = [
-		{ id: 'OFF', date: new Date(RADIATOR_JOB.OFF.nextDate()).toLocaleString() },
-		{ id: 'AUTO', date: new Date(RADIATOR_JOB.AUTO.nextDate()).toLocaleString() }
+		{ mode: 'off', date: new Date(RADIATOR_JOB.OFF.nextDate()).toLocaleString() },
+		{ mode: 'on', date: new Date(RADIATOR_JOB.AUTO.nextDate()).toLocaleString() }
 	];
 	let nextDate = Utils.getNextDateObject(datesToCompare);
 	log.info('onOrOffUntilNextOrder', nextDate);
-	Core.do('interface|rfxcom|send', { device: 'radiator', value: nextDate.id == 'on' ? false : true });
+	radiatorOrder(nextDate.mode);
 }
+
+function radiatorOrder(mode) {
+	if (mode !== 'on' || mode !== 'off') {
+		mode = 'off';
+	}
+	Core.run('radiator', mode);
+	log.info('radiatorOrder', mode);
+	Core.do('interface|rfxcom|send', { device: 'radiator', value: mode == 'on' ? false : true });
+}
+
 function toggleRadiator(mode) {
 	log.info('toggleRadiator', mode);
 	RADIATOR_JOB.AUTO.stop();
@@ -83,10 +93,11 @@ function toggleRadiator(mode) {
 	Core.conf('radiator', mode);
 	if (mode == 'on') {
 		RADIATOR_JOB.ON.start();
+		radiatorOrder('on');
 	} else {
 		RADIATOR_JOB.OFF.start();
+		radiatorOrder('off');
 	}
-	Core.do('interface|rfxcom|send', { device: 'radiator', value: mode == 'on' ? false : true });
 }
 
 let radiatorTimeout;
@@ -98,7 +109,7 @@ function setRadiatorTimeout(arg) {
 	RADIATOR_JOB.AUTO.stop();
 	RADIATOR_JOB.ON.stop();
 	RADIATOR_JOB.OFF.stop();
-	Core.do('interface|rfxcom|send', { device: 'radiator', value: arg.mode == 'on' ? false : true });
+	radiatorOrder(arg.mode);
 	decrementRadiatorTimeout();
 }
 
@@ -117,10 +128,12 @@ function decrementRadiatorTimeout() {
 }
 
 function endRadiatorTimeout() {
+	let radiatorTimeoutMode = Core.conf('radiator').mode;
+	Core.conf('radiator', 'auto');
 	clearTimeout(radiatorTimeout);
 	RADIATOR_JOB.AUTO.start();
 	RADIATOR_JOB.OFF.start();
-	Core.do('interface|rfxcom|send', { device: 'radiator', value: Core.conf('radiator').mode == 'on' ? true : false });
-	Core.conf('radiator', 'auto');
+
+	radiatorOrder(radiatorTimeoutMode == 'on' ? 'off' : 'on'); // invert mode
 	log.info('radiator timeout, back to off before auto mode...');
 }
