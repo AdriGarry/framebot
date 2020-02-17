@@ -41,7 +41,7 @@
 	"radiator": {
 		"cron": [
 			{
-				"cron": "35 0 5-8,17-21 * * 1,4,5",
+				"cron": "35 0 5-7,17-21 * * 1,4,5",
 				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
 			},
 			{
