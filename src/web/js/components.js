@@ -474,6 +474,7 @@ app.component('timer', {
 			label: 'Timer',
 			actionList: [
 				{ label: 'Stop timer', icon: 'fas fa-stop', url: '/flux/service/timer/stop' },
+				{ label: 'Timer ...', icon: 'fas fa-plus', url: '/flux/service/timer/increase', value: 3 },
 				{ label: 'Timer +3', icon: 'fas fa-plus', url: '/flux/service/timer/increase', value: 3 },
 				{ label: 'Timer +1', icon: 'fas fa-plus', url: '/flux/service/timer/increase', value: 1 }
 			]
@@ -771,13 +772,15 @@ app.component('radiator', {
 					label: 'On Timeout',
 					icon: 'fas fa-clock',
 					url: '/flux/service/radiator/timeout',
-					value: { mode: 'on' }
+					value: { mode: 'on' },
+					continu: true
 				},
 				{
 					label: 'Off Timeout',
 					icon: 'fas fa-clock',
 					url: '/flux/service/radiator/timeout',
-					value: { mode: 'off' }
+					value: { mode: 'off' },
+					continu: true
 				},
 				{
 					label: 'Radiator on',
@@ -849,9 +852,9 @@ app.component('powerPlug', {
 		var tileParams = {
 			label: 'Power plug',
 			actionList: [
-				{ label: 'plug A', icon: 'fas fa-plug', value: { device: 'plugA' } },
-				{ label: 'plug B', icon: 'fas fa-plug', value: { device: 'plugB' } },
-				{ label: 'plug C', icon: 'fas fa-plug', value: { device: 'plugC' } }
+				{ label: 'plug A', icon: 'fas fa-plug', value: { device: 'plugA', continu: true } },
+				{ label: 'plug B', icon: 'fas fa-plug', value: { device: 'plugB', continu: true } },
+				{ label: 'plug C', icon: 'fas fa-plug', value: { device: 'plugC', continu: true } }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
