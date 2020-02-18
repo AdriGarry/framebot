@@ -119,7 +119,7 @@ function alarmPart2() {
 		Core.do('interface|arduino|write', 'playHornDoUp');
 		Core.do('interface|sound|play', { mp3: 'system/cocorico.mp3' });
 		if (isBirthday()) {
-			Core.do('service|time|birthday');
+			Core.do('service|party|birthdaySong');
 			setTimeout(function() {
 				resolve();
 			}, 53 * 1000);
@@ -177,7 +177,7 @@ function isBirthday() {
 	};
 	today.day = today.date.getDate();
 	today.month = today.date.getMonth() + 1;
-	for (var i = 0; i < Core.descriptor.birthdays.length; i++) {
+	for (let i = 0; i < Core.descriptor.birthdays.length; i++) {
 		let splited = Core.descriptor.birthdays[i].split('/');
 		if (today.day == splited[0] && today.month == splited[1]) {
 			return true;
