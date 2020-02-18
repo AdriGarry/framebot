@@ -76,7 +76,7 @@ function onOrOffUntilNextOrder() {
 }
 
 function radiatorOrder(mode) {
-	if (mode !== 'on' || mode !== 'off') {
+	if (!(mode === 'on' || mode === 'off')) {
 		mode = 'off';
 	}
 	Core.run('radiator', mode);
