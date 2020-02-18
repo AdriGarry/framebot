@@ -1,14 +1,31 @@
 <md-bottom-sheet class="md-grid" layout="column">
-	<md-subheader data-ng-cloak>{{bottomSheetSlider.label}}&nbsp;&nbsp;&nbsp;{{bottomSheetSlider.value | formatTime}} <em>{{bottomSheetSlider.legend}}</em></md-subheader>
+	<md-subheader data-ng-cloak
+		>{{bottomSheetSlider.label}} &nbsp;&nbsp;&nbsp;
+		<span data-ng-if="!bottomSheetSlider.formatTime">{{bottomSheetSlider.value}}</span>
+		<span data-ng-if="bottomSheetSlider.formatTime">{{bottomSheetSlider.value | formatTime}}</span>
+		<em>{{bottomSheetSlider.legend}}</em></md-subheader
+	>
 	<!-- <md-subheader data-ng-cloak><span class="md-display-2">{{bottomSheetSlider.value | formatTime}} <em>{{bottomSheetSlider.legend}}</em></span></md-subheader> -->
 	<div data-ng-cloak>
-		<md-slider flex class="md-warn" data-md-discrete data-ng-model="bottomSheetSlider.value" data-step="{{bottomSheetSlider.step}}"
-		 data-min="{{bottomSheetSlider.min}}" data-max="{{bottomSheetSlider.max}}" aria-label="{{bottomSheetSlider.label}}"></md-slider>
+		<md-slider
+			flex
+			class="md-warn"
+			data-md-discrete
+			data-ng-model="bottomSheetSlider.value"
+			data-step="{{bottomSheetSlider.step}}"
+			data-min="{{bottomSheetSlider.min}}"
+			data-max="{{bottomSheetSlider.max}}"
+			aria-label="{{bottomSheetSlider.label}}"
+		></md-slider>
 	</div>
-	<br>
+	<br />
 	<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-		<md-button class="md-raised md-primary md-grid-item-content" data-ng-click="bottomSheetAction(bottomSheetSlider)"
-		 title="Submit">Submit</md-button>
+		<md-button
+			class="md-raised md-primary md-grid-item-content"
+			data-ng-click="bottomSheetAction(bottomSheetSlider)"
+			title="Submit"
+			>Submit</md-button
+		>
 	</section>
-	<br>
+	<br />
 </md-bottom-sheet>

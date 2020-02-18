@@ -468,19 +468,53 @@ app.component('timer', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function(DefaultTile, $rootScope, UIService) {
 		var ctrl = this;
 		var tileParams = {
 			label: 'Timer',
 			actionList: [
 				{ label: 'Stop timer', icon: 'fas fa-stop', url: '/flux/service/timer/stop' },
-				{ label: 'Timer ...', icon: 'fas fa-plus', url: '/flux/service/timer/increase', value: 3 },
+				{
+					label: 'Manual',
+					icon: 'fas fa-hourglass-half',
+					url: '/flux/service/timer/increase',
+					value: 3,
+					continu: true
+				},
 				{ label: 'Timer +3', icon: 'fas fa-plus', url: '/flux/service/timer/increase', value: 3 },
 				{ label: 'Timer +1', icon: 'fas fa-plus', url: '/flux/service/timer/increase', value: 1 }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
+
+		/** Overwrite tile action */
+		ctrl.tile.click = function() {
+			if (!$rootScope.irda) {
+				UIService.showErrorToast('Unauthorized action.');
+			} else {
+				ctrl.tile.openBottomSheet(this.actionList, specificActions);
+			}
+		};
+
+		let specificActions = function(button) {
+			if (button.label.indexOf('Manual') != -1) {
+				let slider = {
+					label: 'Manual timer',
+					url: '/flux/service/timer/increase',
+					legend: 'min',
+					min: 2,
+					max: 30,
+					step: 1,
+					value: 10,
+					action: null,
+					formatTime: false
+				};
+				ctrl.tile.openSliderBottomSheet(slider);
+			} else {
+				ctrl.tile.action(button);
+			}
+		};
 	}
 });
 
@@ -651,7 +685,8 @@ app.component('badBoy', {
 					max: 300,
 					step: 1,
 					value: 60,
-					action: null
+					action: null,
+					formatTime: true
 				};
 				ctrl.tile.openSliderBottomSheet(slider);
 			} else {
@@ -824,6 +859,7 @@ app.component('radiator', {
 					step: 10,
 					value: 120,
 					action: null,
+					formatTime: true,
 					data: button.value
 				};
 				ctrl.tile.openSliderBottomSheet(slider, specificEndAction);
