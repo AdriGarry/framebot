@@ -1,5 +1,5 @@
 {
-	"name": "Odi",
+	"name": "Tok",
 	"botBirthday": "August 9, 2015 00:00:00",
 	"birthdays": ["17/04", "13/12", "31/07"],
 	"url": {
@@ -14,7 +14,7 @@
 			"base": ["button", "cron", "server", "watcher"]
 		},
 		"services": {
-			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord", "radiator"],
+			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord", "radiator", "task"],
 			"full": ["mood", "interaction", "weather", "timer", "music", "party", "video", "max", "maya"]
 		}
 	},
@@ -41,15 +41,15 @@
 	"radiator": {
 		"cron": [
 			{
-				"cron": "35 0 5-8,17-23 * * 1,4,5",
+				"cron": "35 0 5-7,17-21 * * 1,4,5",
 				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
 			},
 			{
-				"cron": "35 0 5-23 * * 2,3",
+				"cron": "35 0 5-21 * * 2,3",
 				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
 			},
 			{
-				"cron": "35 0 7,23 * * 6,0",
+				"cron": "35 0 6-22 * * 0,6",
 				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
 			}
 		]
