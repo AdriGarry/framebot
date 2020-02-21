@@ -9,12 +9,10 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 Core.flux.service.task.subscribe({
 	next: flux => {
-		if (flux.id == 'goToSleep') {
-			goToSleep(flux.value);
-		} else if (flux.id == 'onWakeUp') {
-			onWakeUp(flux.value);
-		} else if (flux.id == 'beforeWakeUp') {
-			beforeWakeUp(flux.value);
+		if (flux.id == 'beforeRestart') {
+			beforeRestart();
+		} else if (flux.id == 'goToSleep') {
+			goToSleep();
 		} else Core.error('unmapped flux in Task service', flux, false);
 	},
 	error: err => {
@@ -26,10 +24,7 @@ function goToSleep() {
 	log.test('goToSleep');
 }
 
-function onWakeUp() {
-	log.test('onWakeUp');
-}
-
-function beforeWakeUp() {
-	log.test('beforeWakeUp');
+function beforeRestart() {
+	log.test('beforeRestart');
+	Core.do('interface|rfxcom|send', { device: 'plugB', value: true });
 }
