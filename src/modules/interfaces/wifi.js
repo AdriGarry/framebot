@@ -3,6 +3,7 @@
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
+	Utils = require(Core._CORE + 'Utils.js'),
 	WIFI_NETWORK_LIST = require(Core._SECURITY + 'credentials.json').wifi;
 
 const piWifi = require('pi-wifi');
@@ -25,13 +26,20 @@ Core.flux.interface.wifi.subscribe({
 });
 
 setImmediate(() => {
-	keepOnline();
-	//connectIfAvailable();
+	startKeepOnline();
 });
 
+function startKeepOnline() {
+	log.info('startKeepOnline');
+	keepOnline();
+}
 function keepOnline() {
-	log.info('keepOnline');
-	connectIfAvailable();
+	Utils.testConnection().catch(() => {
+		connectIfAvailable();
+	});
+	Utils.delay(30).then(() => {
+		keepOnline();
+	});
 }
 
 function scanNetworks() {
@@ -45,7 +53,7 @@ function scanNetworks() {
 			networks.forEach(network => {
 				availableNetworksId.push(network.ssid);
 			});
-			log.info('Available networks:', availableNetworksId); // TODO set to debug mode
+			log.info('Available networks:', availableNetworksId); // TODO set to debug level
 			resolve(networks);
 		});
 	});
