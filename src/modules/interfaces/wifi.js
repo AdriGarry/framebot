@@ -26,19 +26,19 @@ Core.flux.interface.wifi.subscribe({
 });
 
 setImmediate(() => {
-	startKeepOnline();
+	keepOnline();
 });
 
-function startKeepOnline() {
-	log.info('startKeepOnline');
-	keepOnline();
-}
 function keepOnline() {
+	log.info('keepOnline');
+	keepOnlineRecursive();
+}
+function keepOnlineRecursive() {
 	Utils.testConnection().catch(() => {
 		connectIfAvailable();
 	});
 	Utils.delay(30).then(() => {
-		keepOnline();
+		keepOnlineRecursive();
 	});
 }
 
