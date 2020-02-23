@@ -1,8 +1,8 @@
 # Core
 
-Based on NodeJS, running on a Raspberry Pi, this is **Core** program, to autorun and interact.
+Based on NodeJS, running on a Raspberry Pi, this is **Core** program, to autorun, manage stuff and interact.
 
-It's a kind of framework, with a flux manager, a logger, tools (Utils.js)...
+It's a kind of framework, to run js modules, with a flux manager, logger, tools...
 
 Available modes: ready, sleep, test
 
@@ -12,7 +12,7 @@ Available modes: ready, sleep, test
 - Voicemail
 - Audio record from UI
 - Alarm (weekday & weekend)
-- Timer
+- Time/Timer
 - Radiator management
 - Playlist (jukebox, low...)
 - Web radio (FIP, radio Bam)
@@ -30,9 +30,9 @@ Available modes: ready, sleep, test
 ## Usage
 
 - Go to _core_ directory
-- Execute `sh core.sh $botName` to add `core` as command and launch core with botName configuration given as first param
-- To launch, just execute `core $botName [params]`
-- To stop, just execute `core stop`
+- Execute `sh core.sh $botName` to add `core` as command and launch core with _botName_ configuration given as first param
+- To launch, execute `core $botName [params]`
+- To stop, execute `core stop`
 
 ## Internal
 
@@ -86,5 +86,45 @@ A flux is an Object with 3 properties:
   - [loop]: _number_ times to loop flux
 
   - [log]: _string_ log level where the flux will be logged
+
+### Modules
+
+#### Controllers
+
+- button
+- cron
+- server
+- watcher
+
+#### Interfaces
+
+- arduino
+- hardware
+- hdmi
+- led
+- rfxcom
+- sound
+- tts
+
+#### Services
+
+- alarm
+- audio record
+- buttonAction
+- context
+- interaction
+- _logTail_
+- max
+- maya
+- mood
+- music
+- party
+- radiator
+- sms
+- time
+- timer
+- video
+- voicemail
+- weather
 
 .
