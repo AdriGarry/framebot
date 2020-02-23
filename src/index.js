@@ -37,4 +37,4 @@ if (Core.conf('mode') == 'test') {
 	}, 1000);
 }
 
-Core.do('service|mail|send', {}, { delay: 5 });
+Core.do('service|mail|send', {}, { delay: 3 });
