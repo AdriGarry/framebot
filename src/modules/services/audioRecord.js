@@ -43,6 +43,7 @@ setInterval(function() {
 }, 10000);
 
 const RECORD_FILE = Core._TMP + 'record.json',
+	NO_RECORD = 'No record',
 	RECORD_TTS = { lg: 'en', msg: 'record' },
 	NO_RECORD_TTS = { lg: 'en', msg: "I don't have any record" },
 	HOURS_TO_CLEAR_RECORDS = 6;
@@ -79,6 +80,8 @@ function checkRecord() {
 				updateRecord();
 				playAllRecords();
 				clearAudioRecordLater();
+			} else {
+				log.debug(NO_RECORD);
 			}
 		})
 		.catch(err => {

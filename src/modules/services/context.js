@@ -97,14 +97,12 @@ function resetCore() {
 	Core.do('interface|sound|reset');
 	Utils.deleteFolderRecursive(Core._TMP);
 	log.INFO('reset conf and restart');
-	log.info('buttonStats:', Core.run().buttonStats);
-	log.info('exit.');
 	processExit();
 }
 
 const EXIT_LOG_ARRAY = ['bye!', 'see ya!', 'hope to see u soon!'];
 function processExit() {
-	Core.do('service|tasks|beforeRestart');
+	Core.do('service|task|beforeRestart');
 	log.info('buttonStats:', Core.run().buttonStats);
 	log.info('fluxCount:', Core.run('stats.fluxCount'));
 	log.info('exit program,', EXIT_LOG_ARRAY[Utils.rdm(3)]);

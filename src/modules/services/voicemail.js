@@ -85,8 +85,7 @@ function checkVoicemail(withTTSResult) {
 				Core.do('interface|tts|speak', messages);
 				clearVoicemailLater();
 			} else {
-				log.info(NO_VOICEMAIL);
-				if (withTTSResult) Core.do('interface|tts|speak', { lg: 'en', msg: NO_VOICEMAIL });
+				log.debug(NO_VOICEMAIL);
 			}
 		})
 		.catch(err => {
