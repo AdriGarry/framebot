@@ -2,7 +2,7 @@
 
 'use strict';
 
-const request = require('request');
+const { spawn } = require('child_process');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
@@ -14,6 +14,8 @@ Core.flux.service.task.subscribe({
 			beforeRestart();
 		} else if (flux.id == 'goToSleep') {
 			goToSleep();
+		} else if (flux.id == 'certbot') {
+			renewCertbot();
 		} else Core.error('unmapped flux in Task service', flux, false);
 	},
 	error: err => {
@@ -44,4 +46,18 @@ function goToSleep() {
 function beforeRestart() {
 	log.info('beforeRestart');
 	Core.do('interface|rfxcom|send', { device: 'plugB', value: true });
+}
+
+function renewCertbot() {
+	log.INFO('renew Certbot certificate');
+	// TODO y'a un truc car il faut intervenir dans le script
+	Utils.execCmd('core certbot')
+		.then(data => {
+			log.info('core certificate successfully', data);
+			resolve(lastDate[0]);
+		})
+		.catch(err => {
+			Core.error('retreiveLastModifiedDate error', err);
+			reject(err);
+		});
 }
