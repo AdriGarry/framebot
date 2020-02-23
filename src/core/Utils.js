@@ -264,15 +264,14 @@ function postOdi(url, data) {
 	});
 }
 
-/** Function to test internet connexion */
+/** Function to test internet connection */
 function testConnection() {
 	return new Promise((resolve, reject) => {
 		dns.resolve('www.google.com', function(err) {
 			if (err) {
-				log.error("I'm not connected to internet!", err);
 				reject();
 			} else {
-				log.debug("I'm online, connected onthe internet!");
+				log.debug("I'm online, connected on the internet!");
 				resolve();
 			}
 		});

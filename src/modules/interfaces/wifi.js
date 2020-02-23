@@ -8,7 +8,11 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 const piWifi = require('pi-wifi');
 
-module.exports = {};
+module.exports = {
+	cron: {
+		base: [{ cron: '0 45 6 * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: true } } }]
+	}
+};
 
 Core.flux.interface.wifi.subscribe({
 	next: flux => {
@@ -31,46 +35,37 @@ setImmediate(() => {
 
 function keepOnline() {
 	log.info('keepOnline');
-	keepOnlineRecursive();
-}
-
-// TODO replace by setInterval() ? or not if increment timeout before next connection
-function keepOnlineRecursive() {
-	// TODO replace by setInterval() ? or not if increment timeout before next connection
-	Utils.testConnection().catch(() => {
-		connectIfAvailable();
-	});
-	Utils.delay(30).then(() => {
-		keepOnlineRecursive();
-	});
+	setInterval(() => {
+		Utils.testConnection().catch(() => {
+			log.warn("I'm not connected to the internet!");
+			connectIfAvailable();
+		});
+	}, 60 * 1000);
 }
 
 function scanNetworks() {
 	return new Promise((resolve, reject) => {
 		piWifi.scan(function(err, networks) {
 			if (err) {
-				Core.error('Wifi list error', err.message);
+				Core.error('Wifi scan error', err.message);
 				reject(err);
 			}
 			let availableNetworksId = [];
 			networks.forEach(network => {
 				availableNetworksId.push(network.ssid);
 			});
-			log.info('Available networks:', availableNetworksId); // TODO set to debug level
+			log.debug('Detected networks:', availableNetworksId);
 			resolve(networks);
 		});
 	});
 }
 
 async function connectIfAvailable() {
-	log.info('connectIfAvailable');
 	let availableNetworks = await scanNetworks();
-	log.debug('connectIfAvailable.availableNetworks', availableNetworks);
 	let networkToConnect = null;
 	availableNetworks.forEach(network => {
 		Object.keys(WIFI_NETWORK_LIST).forEach(knownNetworkId => {
 			if (WIFI_NETWORK_LIST[knownNetworkId].ssid === network.ssid) {
-				log.test('yeah', WIFI_NETWORK_LIST[knownNetworkId]);
 				networkToConnect = WIFI_NETWORK_LIST[knownNetworkId];
 				return;
 			}
@@ -91,6 +86,21 @@ function connect(wifi) {
 	});
 }
 
-function disconnect() {
-	log.info('disconnect');
+// Deprecated ?
+function isConnected() {
+	return new Promise((resolve, reject) => {
+		let connected = false,
+			result = [];
+		Object.keys(WIFI_NETWORK_LIST).forEach(indice => {
+			piWifi.check(WIFI_NETWORK_LIST[indice].ssid, function(err, res) {
+				if (err) {
+					reject(err);
+				}
+				result.push(res);
+				if (result.connected) connected = true;
+			});
+		});
+		if (connected) resolve(result);
+		else reject(result);
+	});
 }
