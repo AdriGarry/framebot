@@ -31,6 +31,8 @@ rfxtrx.initialise(function() {
 	Core.run('rfxcom', true);
 	log.info('Rfxcom gateway ready', '[' + Utils.executionTime(Core.startTime) + 'ms]');
 
+	Core.do('interface|rfxcom|send', { device: 'plugB', value: true });
+
 	rfxtrx.on('receive', function(evt) {
 		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 		log.info('Rfxcom_receive:', Buffer.from(evt).toString('hex'));

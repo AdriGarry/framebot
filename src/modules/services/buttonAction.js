@@ -36,9 +36,7 @@ function buttonHandler(flux) {
 
 function okButtonAction(duration) {
 	if (Core.isAwake()) {
-		/*if (Core.run('timer')) {
-			Core.do('service|music|playlist', Core.run('music'));
-		} else */
+		Core.do('interface|rfxcom|send', { device: 'plugA', value: true });
 		if (Core.run('voicemail')) {
 			Core.do('service|voicemail|check');
 		} else if (Core.run('audioRecord')) {
@@ -60,14 +58,12 @@ function okButtonAction(duration) {
 }
 function cancelButtonAction(duration) {
 	Core.do('interface|sound|mute');
-	if (duration < 1) {
-		// Mute, do nothing
-	} else if (duration >= 1 && duration < 3) {
+	if (duration < 3) {
 		Core.do('service|context|restart');
 	} else if (duration >= 3 && duration < 6) {
 		Core.do('service|context|restart', 'sleep');
 	} else if (duration > 6) {
-		Core.do('service|context|restart', 'test');
+		Core.do('interface|hardware|reboot', null, { delay: 3 });
 	} else Core.error('Button->else', flux);
 }
 
