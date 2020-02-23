@@ -80,7 +80,7 @@ function turnNose() {
 var hornRandomBox = new RandomBox(HORNS);
 function hornRdm() {
 	let horn = hornRandomBox.next();
-	log.debug('hornRdm', horn);
+	log.debug(`hornRdm ${horn}`);
 	Core.do('interface|arduino|write', horn);
 }
 
@@ -90,14 +90,14 @@ function hornSiren() {
 }
 
 function parseDataFromMax(data) {
-	log.info('Max data:', data);
+	log.info(`Max data: ${data}`);
 	data = String(data).trim();
 	// \n+.
 	maxCallbackAction(data);
 }
 
 function maxCallbackAction(data) {
-	log.debug('maxCallbackAction()', data);
+	log.debug(`maxCallbackAction() ${data}`);
 	switch (data) {
 		// case 'hi_end':
 		// 	maxCallbackTTS([{ lg: 'en', msg: 'Hi Max!' }, { lg: 'en', msg: 'Hey Max!' }]);
@@ -141,7 +141,7 @@ function maxCallbackAction(data) {
 			// escaping Max initialization
 			break;
 		default:
-			log.info('unmapped Max data:', data);
+			log.info(`unmapped Max data: ${data}`);
 			break;
 	}
 }

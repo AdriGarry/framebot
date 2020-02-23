@@ -90,9 +90,9 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 	Core.do = Flux.next;
 	Core.do('service|context|update', confUpdate, { delay: 0.2, log: 'debug' });
 
-	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
+	log.info(`Core context initialized [${Utils.executionTime(startTime)}ms]`);
 	ModuleLoader.loadModules(descriptor.modules);
-	log.info('all modules subscribed [' + Utils.executionTime(Core.startTime) + 'ms]');
+	log.info(`all modules subscribed [${Utils.executionTime(Core.startTime)} ms]`);
 
 	Core.do('controller|server|start', null, { log: 'trace' });
 	ModuleLoader.setupCron();

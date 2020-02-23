@@ -39,7 +39,7 @@ function start() {
 
 function firePartyActionAndRandom() {
 	var nextActionTimeout = Utils.random(2, 10) * 30;
-	log.debug('firePartyActionAndRandom(). next action=', nextActionTimeout);
+	log.debug(`firePartyActionAndRandom(). next action= ${nextActionTimeout}`);
 	setTimeout(function() {
 		log.info('firing next party action...');
 		var rdmAction = Utils.random(7);
@@ -62,7 +62,7 @@ function firePartyActionAndRandom() {
 }
 
 function pirate(mode) {
-	log.info('pirate(mode)', mode);
+	log.info(`pirate(mode) ${mode}`);
 	var tts;
 	if (mode == 'full') {
 		var msg1 = { msg: 'Pirate un appelle pirate 2 !' };

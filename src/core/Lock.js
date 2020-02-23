@@ -38,7 +38,7 @@ function Lock(obj, file) {
 
 	function _setter(id, newValue) {
 		if (self.file) {
-			log.debug('Updating: ' + id + '=' + newValue);
+			log.debug(`Updating: ${id}=${newValue}`);
 			_setValue(self._obj, id, newValue);
 			fs.writeFileSync(self.file, JSON.stringify(self._obj, null, 1));
 		} else {

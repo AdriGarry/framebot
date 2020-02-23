@@ -52,7 +52,7 @@ var lastRecordPath = null,
 	clearAudioRecordDelay;
 
 function addRecord(path) {
-	log.debug('addRecord', path);
+	log.debug(`addRecord ${path}`);
 	Core.do('interface|tts|speak', RECORD_TTS, { log: 'trace' });
 	Utils.execCmd('lame --scale 3 ' + path + ' ' + path + 'UP')
 		.then(data => {
@@ -112,7 +112,7 @@ function playLastRecord() {
 }
 
 function playAllRecords() {
-	log.info('playAllRecords', recordListPath.length);
+	log.info(`playAllRecords ${recordListPath.length}`);
 	if (!recordListPath.length) {
 		Core.do('interface|tts|speak', NO_RECORD_TTS);
 		return;
@@ -144,7 +144,7 @@ function clearAudioRecordLater() {
 	clearAudioRecordDelay = setTimeout(function() {
 		clearRecords();
 	}, HOURS_TO_CLEAR_RECORDS * 60 * 60 * 1000);
-	log.info('AudioRecord will be cleared in ' + HOURS_TO_CLEAR_RECORDS + ' hours');
+	log.info(`AudioRecord will be cleared in ${HOURS_TO_CLEAR_RECORDS} hours`);
 }
 
 function clearRecords(noLog) {
