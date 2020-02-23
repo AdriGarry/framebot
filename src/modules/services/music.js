@@ -56,7 +56,7 @@ Object.keys(PLAYLIST).forEach(id => {
 function playlist(playlistId) {
 	Core.do('interface|sound|mute', null, { log: 'trace' });
 	if (typeof playlistId !== 'string' || !Utils.searchStringInArray(playlistId, Object.keys(PLAYLIST))) {
-		log.info("Playlist id '" + playlistId + "' not reconized, fallback to default playlist.");
+		log.info(`Playlist id "${playlistId}" not reconized, fallback to default playlist.`);
 		playlistId = 'jukebox';
 	}
 	log.info(`Playlist ${playlistId} in loop mode !`);
@@ -69,7 +69,7 @@ function playlist(playlistId) {
 
 function repeatSong(playlist) {
 	let song = playlist.randomBox.next();
-	log.info('Playlist ' + playlist.id + ' next song:', song);
+	log.info(`Playlist ${playlist.id} next song: ${song}`);
 	Utils.getDuration(playlist.path + song)
 		.then(data => {
 			Core.do('interface|sound|play', { mp3: playlist.path + song, duration: data });
@@ -88,7 +88,7 @@ function playRadio(radioId) {
 	Utils.testConnection()
 		.then(() => {
 			if (Core.run('music') && Core.run('music') === radioId) {
-				log.info('Already playing radio', Core.run('music'));
+				log.info(`Already playing radio ${Core.run('music')}`);
 				return;
 			}
 			Core.do('interface|sound|mute', null, { log: 'trace' });
@@ -96,10 +96,10 @@ function playRadio(radioId) {
 			if (radioId && RADIO_LIST.hasOwnProperty(radioId)) {
 				radio = RADIO_LIST[radioId];
 			} else {
-				log.info("Radio id '" + radioId + "' not reconized, fallback to default radio.");
+				log.info(`Radio id '${radioId}' not reconized, fallback to default radio.`);
 				radio = RADIO_LIST.fip;
 			}
-			log.info('Play radio ' + radio.id);
+			log.info(`Play radio ${radio.id}`);
 			Core.do('interface|tts|speak', radio.id + ' radio');
 
 			Core.do('interface|sound|play', { url: radio.url }, { delay: 2 });

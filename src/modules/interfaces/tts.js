@@ -87,7 +87,7 @@ function proceedQueue() {
 const TTS_RANDOMBOX = new RandomBox(Core.ttsMessages.random);
 function randomTTS() {
 	let rdmTTS = TTS_RANDOMBOX.next();
-	log.info('Random TTS : ', rdmTTS);
+	log.info(`Random TTS : ${rdmTTS}`);
 	speak(rdmTTS);
 }
 
@@ -106,7 +106,7 @@ function playTTS(tts) {
 
 	//if (tts.voice === 'espeak') tts.voice = Utils.randomItem(['espeak', 'mbrolaFr1', 'mbrolaFr4']);
 
-	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
+	log.info(`play TTS [${tts.voice}, ${tts.lg}] "${tts.msg}"`);
 	tts.msg = tts.msg.replace('%20', '');
 
 	voices[tts.voice](tts);
@@ -127,6 +127,6 @@ function clearTTSQueue() {
 
 /** Function last TTS message */
 function lastTTS() {
-	log.info('LastTTS ->', lastTtsMsg);
+	log.info(`LastTTS -> ${lastTtsMsg}`);
 	speak(lastTtsMsg);
 }

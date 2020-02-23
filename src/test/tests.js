@@ -23,7 +23,7 @@ function launchTests() {
 		})
 		.catch(err => {
 			log.error('Error(s) in test sequences:', err);
-			log.info('Core.errors:' + Core.errors.length);
+			log.info(`Core.errors: ${Core.errors.length}`);
 			// Core.do('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
 		});
 }

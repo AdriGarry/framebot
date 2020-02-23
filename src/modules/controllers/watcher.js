@@ -51,7 +51,7 @@ function toggleWatch() {
 }
 
 function startWatch() {
-	log.info('starting watchers on', PATHS_TO_WATCH);
+	log.info(`starting watchers on ${PATHS_TO_WATCH}`);
 	PATHS_TO_WATCH.forEach(path => {
 		watchers.push(addWatcher(path, relaunch));
 	});
@@ -59,7 +59,7 @@ function startWatch() {
 }
 
 function stopWatch() {
-	log.info('watchers stop', PATHS_TO_WATCH);
+	log.info(`watchers stop ${PATHS_TO_WATCH}`);
 	watchers.forEach(watcher => {
 		removeWatcher(watcher);
 	});
@@ -88,7 +88,7 @@ function removeWatcher(watcher) {
 
 var watchTimeout;
 function waitForUpdateEnd(action) {
-	log.debug('waiting for update end (' + SEC_TO_RESTART + 's)...');
+	log.debug(`waiting for update end (${SEC_TO_RESTART}s)...`);
 	clearTimeout(watchTimeout);
 	watchTimeout = setTimeout(() => {
 		action();

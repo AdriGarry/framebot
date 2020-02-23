@@ -86,7 +86,7 @@ function disconnect() {
 
 /** Function to send message to arduino */
 function write(msg) {
-	log.debug('write()', msg);
+	log.debug(`write() ${msg}`);
 	if (!arduino || !Core.run('max')) {
 		log.info('Max not available!');
 		return;
