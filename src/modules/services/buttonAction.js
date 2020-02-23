@@ -89,7 +89,7 @@ function blueButtonAction(duration) {
 
 function etatButtonAction(value) {
 	Core.run('etat', value ? 'high' : 'low');
-	log.info(`Etat button value: ${Core.run('etat')}`);
+	log.info('Etat button value:', Core.run('etat'));
 	Core.do('interface|led|toggle', { leds: ['satellite'], value: value }, { log: 'trace' });
 	let newVolume = Core.isAwake() ? (value ? 100 : 50) : 0;
 	Core.do('interface|sound|volume', newVolume, { log: 'debug' });

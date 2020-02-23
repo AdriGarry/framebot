@@ -65,6 +65,6 @@ function getPushTime(button) {
 	}
 	LED_FLAG.writeSync(0);
 	let pushTime = Math.round((new Date() - startPushTime) / 100) / 10;
-	log.info(`${button.name} button pressed for ${pushTime} sec...`);
+	log.info(button.name + ' button pressed for ' + pushTime + ' sec...');
 	return pushTime;
 }

@@ -141,7 +141,7 @@ function _appendFileData(data, obj) {
 			try {
 				fileData = JSON.parse(data);
 			} catch (err) {
-				log.warn(data);
+				log.info(data);
 				log.error('appendFileData: error while JSON.parse(data)', err);
 			}
 			if (!Array.isArray(fileData)) fileData = [fileData];
@@ -176,11 +176,11 @@ function directoryContent(path) {
 /** Function getJsonFileContent. Return a Promise */
 const FILE_NOT_FOUND_EXCEPT = ['/home/odi/core/tmp/voicemail.json', '/home/odi/core/tmp/record.json'];
 function getJsonFileContent(filePath) {
-	log.debug(`getJsonFileContent() ${filePath}`);
+	log.debug('getJsonFileContent() ', filePath);
 	return new Promise((resolve, reject) => {
 		fs.readFile(filePath, function(err, data) {
 			if (err && err.code === 'ENOENT' && !searchStringInArray(filePath, FILE_NOT_FOUND_EXCEPT)) {
-				log.error(`No file: ${filePath}`);
+				log.error('No file: ' + filePath);
 				reject(err);
 			} else {
 				resolve(data);
@@ -238,7 +238,7 @@ function getPublicIp() {
 				resolve(data);
 			})
 			.catch(err => {
-				log.warn(`Can't retreive public IP ${err}`);
+				log.warn("Can't retreive public IP " + err);
 				reject(err);
 			});
 	});
@@ -309,7 +309,7 @@ function getAbsolutePath(path, prefix) {
 
 /** Function to retreive mp3 file duration. Return a Promise */
 function getSoundOrVideoDuration(soundFile, callback) {
-	log.debug(`getDuration: ${soundFile}`);
+	log.debug('getDuration:', soundFile);
 	return new Promise((resolve, reject) => {
 		execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH')
 			.then(data => {

@@ -85,13 +85,13 @@ function startHttpsServer() {
 	api.attachRoutes(uiHttps);
 
 	httpsServer = https.createServer(CREDENTIALS, uiHttps).listen(HTTPS_SERVER_PORT, () => {
-		log.info(`API https server started [${Utils.executionTime(Core.startTime)}ms]`);
+		log.info('API https server started [' + Utils.executionTime(Core.startTime) + 'ms]');
 		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 	});
 }
 
 function closeUIServer(breakDuration) {
-	log.INFO(`closing UI server for ${breakDuration / 1000} seconds`);
+	log.INFO('closing UI server for', breakDuration / 1000, 'seconds');
 	// ui.close();
 	// servor.close();
 	ui = null;

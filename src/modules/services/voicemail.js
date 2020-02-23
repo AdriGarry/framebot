@@ -44,7 +44,7 @@ setInterval(function() {
 
 /** Function to persist voicemail message */
 function addVoicemailMessage(tts) {
-	log.info(`New voicemail message : ${tts}`);
+	log.info('New voicemail message :', tts);
 	if (typeof tts === 'object' && tts.hasOwnProperty('msg') && typeof tts.msg === 'string') {
 		tts.timestamp = Utils.logTime('D/M h:m:s', new Date());
 		Utils.appendJsonFile(FILE_VOICEMAIL, tts);
@@ -118,7 +118,7 @@ function clearVoicemailLater() {
 	clearVoicemailDelay = setTimeout(function() {
 		clearVoicemail();
 	}, HOURS_TO_CLEAR_VOICEMAIL * 60 * 60 * 1000);
-	log.info(`Voicemail will be cleared in ${HOURS_TO_CLEAR_VOICEMAIL} hours`);
+	log.info('Voicemail will be cleared in ' + HOURS_TO_CLEAR_VOICEMAIL + ' hours');
 }
 
 /** Function to clear all voicemail messages */

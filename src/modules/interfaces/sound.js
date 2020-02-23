@@ -52,7 +52,7 @@ var mplayerInstances = {},
 	muteTimer;
 
 function playSound(arg) {
-	log.debug(`playSound(arg) ${arg}`);
+	log.debug('playSound(arg)', arg);
 	let soundTitle, sound;
 	if (arg.mp3) {
 		try {
@@ -73,7 +73,7 @@ function playSound(arg) {
 		: '';
 	let volLog = arg.volume ? 'vol=' + arg.volume : '';
 	let positionLog = arg.position ? 'pos=' + Utils.formatDuration(arg.position) : '';
-	if (!arg.noLog) log.info(`play ${soundTitle} ${volLog} ${positionLog} ${durationLog}`);
+	if (!arg.noLog) log.info('play', soundTitle, volLog, positionLog, durationLog);
 
 	let position = arg.position || 0;
 	let volume = arg.volume || Core.run('volume');
@@ -108,7 +108,7 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
 		// else
 		if (!noLog) {
 			let playTime = Utils.formatDuration(Math.round(Utils.executionTime(startPlayTime) / 100) / 10);
-			log.info(`play_end ${soundTitle} time=${playTime}`);
+			log.info('play_end ' + soundTitle + ' time=' + playTime);
 		}
 		clearInterval(mplayerProcess.ledFlag);
 		delete mplayerInstances[sound];
@@ -150,7 +150,7 @@ function muteAll(message) {
 }
 
 function setVolume(volume) {
-	log.info(`setVolume ${volume}`);
+	log.info('setVolume', volume);
 	if (typeof volume === 'object' && volume.hasOwnProperty('value')) volume = volume.value;
 	if (!isNaN(volume)) {
 		let volumeUpdate = getVolumeInstructions(parseInt(volume));
@@ -162,7 +162,7 @@ function setVolume(volume) {
 			volumeUpdate.gap--;
 		}
 		Core.run('volume', volume);
-		log.info(`Volume level = ${volume}%`);
+		log.info('Volume level =', volume + '%');
 		additionalVolumeSetup();
 	} else {
 		Core.error('volume argument not a numeric value', volume);
@@ -170,7 +170,7 @@ function setVolume(volume) {
 }
 
 function writeAllMPlayerInstances(sign) {
-	log.debug(`mplayerInstances.write: ${sign}`);
+	log.debug('mplayerInstances.write:', sign);
 	Object.keys(mplayerInstances).forEach(key => {
 		mplayerInstances[key].stdin.write(sign);
 	});

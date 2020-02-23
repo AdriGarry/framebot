@@ -50,7 +50,7 @@ function java(interval) {
 function badBoy(interval) {
 	if (typeof interval === 'number') {
 		Core.run('mood', 'badBoy');
-		log.info(`Bad Boy mode !! [${interval}]`);
+		log.info('Bad Boy mode !! [' + interval + ']');
 		Core.do('interface|tts|speak', { lg: 'en', msg: 'Baad boy !' });
 		var loop = 0;
 		setInterval(function() {

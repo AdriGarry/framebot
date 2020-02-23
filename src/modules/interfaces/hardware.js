@@ -102,7 +102,7 @@ function shutdown() {
 const LIGTH_LEDS = ['eye', 'belly'];
 /** Function to use belly led as light */
 function light(duration) {
-	log.info(`light [duration=${duration}s]`);
+	log.info('light [duration=' + duration + 's]');
 	if (isNaN(duration)) Core.error('light error: duration arg is not a number!', duration, false);
 	let loop = (duration - 2) / 2;
 	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 });
@@ -207,7 +207,7 @@ function loadAverage() {
 			.then(data => {
 				let matchObj = LOAD_AVERAGE_REGEX.exec(data);
 				let loadAverage = matchObj && matchObj.groups.loadAverage ? matchObj.groups.loadAverage : 0;
-				log.trace(`uptime ${loadAverage}`);
+				log.trace('uptime', loadAverage);
 				Core.run('memory.loadAverage', loadAverage);
 				resolve(loadAverage);
 			})
@@ -226,7 +226,7 @@ function retreiveLastModifiedDate(paths) {
 		Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
 			.then(data => {
 				let lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
-				log.debug(`getLastModifiedDate() ${lastDate[0]}`);
+				log.debug('getLastModifiedDate()', lastDate[0]);
 				Core.run('stats.update', lastDate[0]);
 				resolve(lastDate[0]);
 			})
@@ -299,8 +299,8 @@ function countSoftwareLines() {
 					lines[extension] = parseInt(t);
 					typesNb--;
 					if (!typesNb) {
-						log.debug(`countSoftwareLines() ${totalLines}`);
-						log.debug(`stats.totalLines: ${lines}`);
+						log.debug('countSoftwareLines()', totalLines);
+						log.debug('stats.totalLines:', lines);
 						Core.run('stats.totalLines', totalLines);
 						resolve(totalLines);
 					}
@@ -339,7 +339,7 @@ function archiveLogFile(logFile, weekNb) {
 	});
 	stream.on('close', function() {
 		fs.truncate(Core._LOG + logFile, 0, function() {
-			log.info(`${logFile} successfully archived`);
+			log.info(logFile + ' successfully archived');
 		});
 	});
 }
