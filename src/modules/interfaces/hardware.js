@@ -82,7 +82,7 @@ function reboot() {
 	}
 	console.log('\n\n_/!\\__REBOOTING RASPBERRY PI !!\n');
 	setTimeout(function() {
-		spawn('reboot');
+		spawn('systemctl reboot');
 	}, 2000);
 }
 
@@ -95,7 +95,7 @@ function shutdown() {
 	}
 	setTimeout(function() {
 		console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!\n");
-		spawn('halt');
+		spawn('systemctl poweroff');
 	}, 2000);
 }
 
