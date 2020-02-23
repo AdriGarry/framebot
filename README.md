@@ -1,6 +1,6 @@
 # Core
 
-Based on NodeJS, running on a Raspberry Pi, this is **Core** program, to autorun and interact.
+Based on NodeJS, running on a Raspberry Pi, this is **Core** program, to autorun, manage stuff and interact.
 
 It's a kind of framework, to run js modules, with a flux manager, logger, tools...
 
@@ -12,7 +12,7 @@ Available modes: ready, sleep, test
 - Voicemail
 - Audio record from UI
 - Alarm (weekday & weekend)
-- Timer
+- Time/Timer
 - Radiator management
 - Playlist (jukebox, low...)
 - Web radio (FIP, radio Bam)
@@ -25,14 +25,14 @@ Available modes: ready, sleep, test
 - Expressive functionalities: child and birthday song, bad boy...
 - Ambiance sounds (cicadas)
 - Logger & cleaner
-- Hardware monitoring (CPU, diskspace, temperature)
+- Hardware monitoring (wifi, CPU, diskspace, temperature)
 
 ## Usage
 
 - Go to _core_ directory
-- Execute `sh core.sh $botName` to add `core` as command and launch core with botName configuration given as first param
-- To launch, just execute `core $botName [params]`
-- To stop, just execute `core stop`
+- Execute `sh core.sh $botName` to add `core` as command and launch core with _botName_ configuration given as first param
+- To launch, execute `core $botName [params]`
+- To stop, execute `core stop`
 
 ## Internal
 
