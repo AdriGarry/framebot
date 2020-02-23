@@ -22,7 +22,7 @@ module.exports = {
 	execCmd: execCmd,
 
 	//network
-	testConnexion: testConnexion,
+	testConnection: testConnection,
 	getLocalIp: getLocalIp,
 	getPublicIp: getPublicIp,
 	postOdi: postOdi,
@@ -264,15 +264,14 @@ function postOdi(url, data) {
 	});
 }
 
-/** Function to test internet connexion */
-function testConnexion() {
+/** Function to test internet connection */
+function testConnection() {
 	return new Promise((resolve, reject) => {
 		dns.resolve('www.google.com', function(err) {
 			if (err) {
-				log.error("I'm not connected to internet!", err);
 				reject();
 			} else {
-				log.debug('Odi is online');
+				log.debug("I'm online, connected on the internet!");
 				resolve();
 			}
 		});
