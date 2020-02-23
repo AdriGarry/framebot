@@ -20,7 +20,7 @@ function loadModules(modules) {
 		if (Core.isAwake() && modules[moduleType].hasOwnProperty('full')) {
 			modulesLoaded += ', ' + _requireModules(moduleType, modules[moduleType].full);
 		}
-		log.info(`${moduleType} loaded [${modulesLoaded}]`);
+		log.info(moduleType, 'loaded [' + modulesLoaded + ']');
 	});
 	return ModuleLoader;
 }

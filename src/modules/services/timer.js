@@ -55,7 +55,7 @@ function startTimer() {
 			Core.do('interface|tts|speak', Core.run('timer') / 60 + ' minutes et compte a rebours');
 		} else if (Core.run('timer') <= 0 && Core.run('timer') > -5) {
 			clearInterval(secInterval);
-			log.info('End Timer!');
+			log.info('End Timer !');
 			Core.do('interface|sound|play', { mp3: 'system/timerEnd.mp3', noLog: true });
 			Core.do('interface|led|blink', { leds: ['belly', 'eye'], speed: 90, loop: 12 });
 			Core.do('interface|tts|speak', 'Les raviolis sont cuits !');

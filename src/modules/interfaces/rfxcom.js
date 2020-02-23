@@ -29,17 +29,17 @@ const DEVICE_LIST = Utils.arrayToObject(Core.descriptor.rfxcom, 'name');
 log.debug('Rfxcom gateway initializing...');
 rfxtrx.initialise(function() {
 	Core.run('rfxcom', true);
-	log.info(`Rfxcom gateway ready [${Utils.executionTime(Core.startTime)}ms]`);
+	log.info('Rfxcom gateway ready', '[' + Utils.executionTime(Core.startTime) + 'ms]');
 
 	Core.do('interface|rfxcom|send', { device: 'plugB', value: true });
 
 	rfxtrx.on('receive', function(evt) {
 		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
-		log.info(`Rfxcom_receive: ${Buffer.from(evt).toString('hex')}`);
+		log.info('Rfxcom_receive:', Buffer.from(evt).toString('hex'));
 	});
 
 	rfxtrx.on('disconnect', function(evt) {
-		log.info(`Rfxcom disconnected! ${Buffer.from(evt).toString('hex')}`);
+		log.info('Rfxcom disconnected!', Buffer.from(evt).toString('hex'));
 	});
 });
 
@@ -48,7 +48,7 @@ function sendStatus(args) {
 		Core.error('rfxcom gateway not initialized!', null, false);
 		return;
 	}
-	log.debug(`sendStatus ${args}`);
+	log.debug('sendStatus', args);
 	let deviceName = args.device,
 		value = args.value;
 	if (!DEVICE_LIST.hasOwnProperty(deviceName)) log.error('Unreconized device:', deviceName);

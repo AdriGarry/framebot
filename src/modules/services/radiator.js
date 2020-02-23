@@ -41,9 +41,10 @@ const RADIATOR_JOB = {
 function setupRadiatorMode() {
 	let radiatorMode = Core.conf('radiator');
 	log.info(
-		`setupRadiatorMode ${radiatorMode} ${!isNaN(radiatorMode) ? '[timeout]' : ''} [${Utils.executionTime(
-			Core.startTime
-		)}ms]`
+		'setupRadiatorMode',
+		radiatorMode,
+		!isNaN(radiatorMode) ? '[timeout]' : '',
+		'[' + Utils.executionTime(Core.startTime) + 'ms]'
 	);
 
 	RADIATOR_JOB.OFF.start();
@@ -70,7 +71,7 @@ function onOrOffUntilNextOrder() {
 		{ mode: 'on', date: new Date(RADIATOR_JOB.AUTO.nextDate()).toLocaleString() }
 	];
 	let nextDate = Utils.getNextDateObject(datesToCompare);
-	log.info(`onOrOffUntilNextOrder ${nextDate}`);
+	log.info('onOrOffUntilNextOrder', nextDate);
 	radiatorOrder(nextDate.mode);
 }
 
@@ -79,12 +80,12 @@ function radiatorOrder(mode) {
 		mode = 'off';
 	}
 	Core.run('radiator', mode);
-	log.info(`radiatorOrder ${mode}`);
+	log.info('radiatorOrder', mode);
 	Core.do('interface|rfxcom|send', { device: 'radiator', value: mode == 'on' ? false : true });
 }
 
 function toggleRadiator(mode) {
-	log.info(`toggleRadiator ${mode}`);
+	log.info('toggleRadiator', mode);
 	RADIATOR_JOB.AUTO.stop();
 	RADIATOR_JOB.ON.stop();
 	RADIATOR_JOB.OFF.stop();
@@ -102,7 +103,7 @@ function toggleRadiator(mode) {
 let radiatorTimeout;
 
 function setRadiatorTimeout(arg) {
-	log.info(`setRadiatorTimeout ${arg}`);
+	log.info('setRadiatorTimeout', arg);
 	clearTimeout(radiatorTimeout);
 	Core.conf('radiator', arg);
 	RADIATOR_JOB.AUTO.stop();
@@ -114,7 +115,7 @@ function setRadiatorTimeout(arg) {
 
 function decrementRadiatorTimeout() {
 	let arg = Core.conf('radiator');
-	log.info(`decrementRadiatorTimeout ${arg}`);
+	log.info('decrementRadiatorTimeout', arg);
 	if (!arg.timeout) {
 		endRadiatorTimeout();
 		return;

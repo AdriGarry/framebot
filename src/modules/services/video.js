@@ -70,7 +70,7 @@ function looper() {
 		} else {
 			playOneVideo().then(looper);
 		}
-	} else log.info(`stop video loop (${LOOP_TIMEOUT})`);
+	} else log.info('stop video loop (' + LOOP_TIMEOUT + ')');
 }
 
 function displayOnePhoto() {
@@ -80,7 +80,7 @@ function displayOnePhoto() {
 			.then(files => {
 				let randomTimeout = Utils.rdm(5, 10);
 				let photoName = Utils.randomItem(files);
-				log.info(`displayOnePhoto: ${photoName}`);
+				log.info('displayOnePhoto:', photoName);
 				spawn('fbi', ['-a', '-T', 2, Core._PHOTO + photoName]);
 				setTimeout(() => {
 					spawn('killall', ['fbi']); // fbi running in background
@@ -99,7 +99,7 @@ function playOneVideo() {
 		Utils.directoryContent(Core._VIDEO + 'rdm/')
 			.then(files => {
 				let videoName = Utils.randomItem(files);
-				log.info(`playOneVideo: ${videoName}`);
+				log.info('playOneVideo:', videoName);
 				let videoInstance = spawn('omxplayer', [
 					'-o',
 					'hdmi',

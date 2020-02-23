@@ -60,7 +60,7 @@ function reportTTS() {
 					(isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) +
 					' kilometre heure de vent'
 			};
-			log.debug(`weatherSpeech ${weatherSpeech}`);
+			log.debug('weatherSpeech', weatherSpeech);
 			Core.do('interface|tts|speak', weatherSpeech);
 		})
 		.catch(err => {
@@ -73,7 +73,7 @@ function alternativeReportTTS() {
 	log.info('Alternative weather report...');
 	fetchWeatherData()
 		.then(weatherReport => {
-			log.debug(`weatherReport ${weatherReport}`);
+			log.debug('weatherReport', weatherReport);
 			Core.do('interface|tts|speak', getAlternativeWeatherReport(weatherReport));
 		})
 		.catch(err => {

@@ -60,7 +60,7 @@ function today() {
 		annonceDate = ['Nous sommes le ' + day + ' ' + dayNb + ' ' + month, "Et donc, c'est " + getSeason() + '!'];
 	}
 
-	log.debug(`time.today() ${annonceDate}`);
+	log.debug('time.today()' + annonceDate);
 	Core.do('interface|tts|speak', annonceDate);
 }
 
@@ -90,6 +90,6 @@ function ttsAge() {
 	let rdm = ["Aujourd'hui, ", 'A ce jour', ''];
 	let birthDay = rdm[Utils.random(rdm.length)];
 	birthDay += "j'ai " + years + ' ans et ' + mouths + ' mois !';
-	log.info(`ttsAge() '${birthDay}'`);
+	log.info("ttsAge() '" + birthDay + "'");
 	Core.do('interface|tts|speak', { lg: 'fr', msg: birthDay });
 }

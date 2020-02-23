@@ -2,6 +2,8 @@
 
 'use strict';
 
+const request = require('request');
+
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js');

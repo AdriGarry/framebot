@@ -91,7 +91,7 @@ fs.readdir(Core._MP3 + 'exclamation_russia', (err, files) => {
 function randomAction() {
 	var action = actionRandomBox.next();
 	try {
-		log.info(`randomAction: ${action.id} [${action.weight}]`);
+		log.info('randomAction:', action.id, '[' + action.weight + ']');
 		Core.do(action.id, action.data);
 	} catch (err) {
 		Core.error('ACTION TO DEBUG =>', typeof action, action);
@@ -151,14 +151,11 @@ const BALUCHON_MSG = [
 		{ voice: 'espeak', msg: 'Je crois quil faut lancer lopairation baluchon' },
 		{ voice: 'pico', msg: 'Sans oublier la gamelle' }
 	],
-	[
-		{ voice: 'pico', msg: 'il faut lancer loperation baluchon !' },
-		{ voice: 'pico', msg: "Et aussi la gamelle d'eau" }
-	]
+	[{ voice: 'pico', msg: 'il faut lancer loperation baluchon !' }, { voice: 'pico', msg: "Et aussi la gamelle d'eau" }]
 ];
 function baluchonTTS() {
 	let tts = Utils.randomItem(BALUCHON_MSG);
-	log.debug(`baluchonTTS ${tts}`);
+	log.debug('baluchonTTS', tts);
 	Core.do('interface|tts|speak', tts);
 }
 
@@ -175,6 +172,6 @@ function goToWorkTTSQueue() {
 
 function goToWorkTTS() {
 	let tts = Utils.randomItem(GO_TO_WORK_TTS);
-	log.debug(`goToWorkTTS ${tts}`);
+	log.debug('goToWorkTTS', tts);
 	Core.do('interface|tts|speak', tts);
 }

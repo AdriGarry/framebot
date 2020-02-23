@@ -47,7 +47,7 @@ function setAlarm(alarm) {
 				h: alarm.h,
 				m: alarm.m
 			};
-			log.info(`>> ${alarm.when} alarm set to ${alarm.h}.${alarm.m}`);
+			log.info('>> ' + alarm.when + ' alarm set to ' + alarm.h + '.' + alarm.m);
 		} else {
 			newAlarms[key] = Core.conf('alarms.' + key);
 		}
@@ -70,7 +70,7 @@ function isAlarm() {
 
 	if (alarms[alarmType]) {
 		if (h == alarms[alarmType].h && m == alarms[alarmType].m) {
-			log.info(`alarm time... ${alarms[alarmType].h}:${alarms[alarmType].m}`);
+			log.info('alarm time...', alarms[alarmType].h + ':' + alarms[alarmType].m);
 			Core.run('alarm', true);
 			if (!Core.isAwake()) {
 				log.INFO('wake up !!');
@@ -101,7 +101,7 @@ function alarmPart1() {
 		Core.do('interface|sound|play', { mp3: 'system/morningSea.mp3' });
 		Utils.getDuration(Core._MP3 + 'system/morningSea.mp3')
 			.then(data => {
-				log.debug(`seaDuration ${data}`);
+				log.debug('seaDuration', data);
 				setTimeout(function() {
 					resolve();
 				}, data * 1000);
