@@ -36,7 +36,7 @@ Core.flux.service.weather.subscribe({
 const WEATHER_SERVICE_URL = 'https://weather-ydn-yql.media.yahoo.com/forecastrss?location=marseille,fr&u=c&format=json';
 
 var WEATHER_STATUS_LIST;
-fs.readFile(Core._DATA + 'weatherStatus.json', function(err, data) {
+fs.readFile(Core._DATA + 'weatherStatus-fr.json', function(err, data) {
 	if (err && err.code === 'ENOENT') {
 		log.debug(Core.error('No file : ' + filePath));
 	}
