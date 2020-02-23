@@ -45,6 +45,7 @@ rfxtrx.initialise(function() {
 
 function sendStatus(args) {
 	if (!Core.run('rfxcom')) {
+		Core.do('interface|tts|speak', { lg: 'en', msg: 'rfxcom' });
 		Core.error('rfxcom gateway not initialized!', null, false);
 		return;
 	}

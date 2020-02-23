@@ -105,7 +105,7 @@ function processExit() {
 	Core.do('service|task|beforeRestart');
 	log.info('buttonStats:', Core.run().buttonStats);
 	log.info('fluxCount:', Core.run('stats.fluxCount'));
-	log.info('exit program,', EXIT_LOG_ARRAY[Utils.rdm(3)]);
+	log.INFO('exit program,', EXIT_LOG_ARRAY[Utils.rdm(3)]);
 	setTimeout(() => {
 		process.exit();
 	}, 1000);
