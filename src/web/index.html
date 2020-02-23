@@ -244,20 +244,17 @@
 						>&nbsp;{{ dashboard.runningData.volume.value }}
 					</md-list-item>
 					<md-divider></md-divider>
-
-					<md-list-item data-ng-click="$root.irda && showLogs()" title="Show console">
-						<div flex>Show logs</div>
-						<div flex><i class="fas fa-lg fa-2x fa-quote-right"></i></div>
+					<md-subheader data-ng-if="$root.irda">Network</md-subheader>
+					<md-list-item data-ng-if="$root.irda" class="block centerText">
+						<i class="fas fa-lg fa-network-wired"></i>
+						&nbsp;&nbsp; {{dashboard.runningData.network.value.local}}
 					</md-list-item>
-					<md-divider></md-divider>
-					<md-list-item data-ng-click="reloadUI()" title="Reload UI">
-						<div flex>Reload UI</div>
-						<div flex><i class="fas fa-lg fa-2x fa-redo"></i></div>
+					<md-list-item data-ng-if="$root.irda" class="block centerText">
+						<i class="fas fa-lg fa-globe-europe"></i>
+						&nbsp;&nbsp; {{dashboard.runningData.network.value.public}}
 					</md-list-item>
-					<md-divider></md-divider>
 					<div class="lastUpdate centerText opacity-half">Last update: {{ dashboard.runningData.update.value }}</div>
 				</md-list>
-				<!-- </div> -->
 			</div>
 		</md-sidenav>
 

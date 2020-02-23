@@ -14,6 +14,9 @@ ul {
 .hidden {
 	visibility: hidden;
 }
+.block {
+	display: block;
+}
 .inline {
 	display: inline;
 }
@@ -23,6 +26,12 @@ ul {
 }
 .centerText {
 	text-align: center;
+}
+.alignLeft {
+	text-align: left;
+}
+.alignRight {
+	text-align: right;
 }
 .opacity-half {
 	opacity: 0.5;
@@ -356,7 +365,7 @@ md-sidenav md-toolbar .tools {
 	background-color: #495f69 !important;
 }
 .md-sidenav-right .adminBtn i[class*='fa-'] {
-	font-size: 8vw;
+	font-size: 7vw;
 }
 .md-sidenav-right .adminBtn i[class*='fa-sign'] {
 	margin-right: 0.5em;

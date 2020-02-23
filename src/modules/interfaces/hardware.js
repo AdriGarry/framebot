@@ -51,7 +51,7 @@ Core.flux.interface.hardware.subscribe({
 });
 
 setImmediate(() => {
-	Promise.all([retreiveLastModifiedDate(PATHS), countSoftwareLines(), getDiskSpace()])
+	Promise.all([retreiveLastModifiedDate(PATHS), countSoftwareLines(), getDiskSpace(), getIps()])
 		.then(() => {
 			runtime(true);
 		})
@@ -270,6 +270,14 @@ function getDiskSpace(callback) {
 				Core.error('getDiskSpace error', err);
 				reject(err);
 			});
+	});
+}
+
+function getIps() {
+	let ip = { local: Utils.getLocalIp() };
+	Utils.getPublicIp().then(data => {
+		ip.public = data;
+		Core.run('network', ip);
 	});
 }
 

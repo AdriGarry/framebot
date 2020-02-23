@@ -39,6 +39,7 @@
 		"rfxcom": false,
 		"radiator": false,
 		"screen": null,
+		"network": {},
 		"cpu": {
 			"usage": null,
 			"temp": null

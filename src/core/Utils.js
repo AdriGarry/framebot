@@ -222,8 +222,7 @@ function getLocalIp() {
 				localIp += ifname + ':' + alias + ' ' + iface.address;
 			} else {
 				// this interface has only one ipv4 adress
-				// console.log(ifname, iface.address);
-				localIp += ifname + ' ' + iface.address;
+				localIp = iface.address;
 			}
 			++alias;
 		});
@@ -235,7 +234,7 @@ function getPublicIp() {
 	return new Promise((resolve, reject) => {
 		execCmd('curl icanhazip.com')
 			.then(data => {
-				resolve(data);
+				resolve(data.trim());
 			})
 			.catch(err => {
 				log.warn("Can't retreive public IP " + err);

@@ -115,6 +115,7 @@ function attachDefaultRoutes(ui) {
 				value: Core.conf('alarms'),
 				active: true
 			},
+			network: { value: Core.run('network') },
 			update: {
 				value: Core.run('stats.update')
 			},
