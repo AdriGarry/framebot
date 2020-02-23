@@ -1,5 +1,5 @@
 {
-	"name": "Odi",
+	"name": "Tok",
 	"botBirthday": "August 9, 2015 00:00:00",
 	"birthdays": ["17/04", "13/12", "31/07"],
 	"url": {
@@ -14,7 +14,7 @@
 			"base": ["button", "cron", "server", "watcher"]
 		},
 		"services": {
-			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord", "radiator"],
+			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord", "radiator", "task"],
 			"full": ["mood", "interaction", "weather", "timer", "music", "party", "video", "max", "maya"]
 		}
 	},

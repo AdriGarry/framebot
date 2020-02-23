@@ -80,10 +80,14 @@ function whiteButtonAction(duration) {
 }
 
 function blueButtonAction(duration) {
-	if (Core.run('etat')) {
-		Core.do('service|music|radio', 'fip');
+	if (Core.isAwake()) {
+		if (Core.run('etat')) {
+			Core.do('service|music|radio', 'fip');
+		} else {
+			Core.do('service|music|playlist', 'jukebox');
+		}
 	} else {
-		Core.do('service|music|playlist', 'jukebox');
+		Core.do('service|task|goToSleep');
 	}
 }
 

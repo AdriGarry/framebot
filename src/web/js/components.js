@@ -984,6 +984,7 @@ app.component('system', {
 		var tileParams = {
 			label: 'System',
 			actionList: [
+				{ label: 'goToSleep', icon: 'fas fa-bed', url: '/flux/service/task/goToSleep' },
 				{ label: 'Light', icon: 'far fa-sun', url: '/flux/interface/hardware/light', value: 120 },
 				{ label: 'Shutdown', icon: 'fas fa-power-off', url: '/flux/interface/hardware/shutdown' },
 				{ label: 'Reboot', icon: 'fas fa-sync', url: '/flux/interface/hardware/reboot' }

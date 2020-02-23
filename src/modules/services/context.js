@@ -108,6 +108,7 @@ function resetCore() {
 
 const EXIT_LOG_ARRAY = ['bye!', 'see ya!', 'hope to see u soon!'];
 function processExit() {
+	Core.do('service|tasks|beforeRestart');
 	log.info('buttonStats:', Core.run().buttonStats);
 	log.info('fluxCount:', Core.run('stats.fluxCount'));
 	log.info('exit program,', EXIT_LOG_ARRAY[Utils.rdm(3)]);
