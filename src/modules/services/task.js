@@ -20,11 +20,27 @@ Core.flux.service.task.subscribe({
 	}
 });
 
+setImmediate(() => {
+	if (!Core.isAwake()) {
+		// goToSleep 2 hours after sleep mode
+		Utils.delay(120 * 60).then(goToSleep);
+	}
+});
+
 function goToSleep() {
-	log.test('goToSleep');
+	log.info('goToSleep');
+
+	// light
+	Core.do('interface|hardware|light', 5 * 60);
+
+	// stop plugA & plugB
+	Core.do('interface|rfxcom|send', { device: 'plugA', continu: false });
+	Core.do('interface|rfxcom|send', { device: 'plugB', continu: false });
+
+	// TODO radiator off ?
 }
 
 function beforeRestart() {
-	log.test('beforeRestart');
+	log.info('beforeRestart');
 	Core.do('interface|rfxcom|send', { device: 'plugB', value: true });
 }
