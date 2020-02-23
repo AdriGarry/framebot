@@ -53,8 +53,9 @@ function animals() {
 
 function bonneNuit() {
 	Core.do([
-		{ id: 'interface|tts|speak', data: { voice: 'google', msg: 'Bonne nuit Maya' } },
-		{ id: 'interface|tts|speak', data: 'Oui, fais de beaux raives !' }
+		{ id: 'interface|tts|speak', data: { msg: 'Bonne nuit ma ya' } },
+		{ id: 'interface|tts|speak', data: { voice: 'google', msg: 'Oui, fais de beaux raives !' } },
+		{ id: 'interface|tts|speak', data: { voice: 'pico', msg: 'Et à demain!' } }
 	]);
 }
 
