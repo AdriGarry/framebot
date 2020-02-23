@@ -33,7 +33,10 @@ function keepOnline() {
 	log.info('keepOnline');
 	keepOnlineRecursive();
 }
+
+// TODO replace by setInterval() ? or not if increment timeout before next connection
 function keepOnlineRecursive() {
+	// TODO replace by setInterval() ? or not if increment timeout before next connection
 	Utils.testConnection().catch(() => {
 		connectIfAvailable();
 	});
