@@ -13,7 +13,7 @@ Available modes: ready, sleep, test
 - Audio record from UI
 - Alarm (weekday & weekend)
 - Time/Timer
-- Radiator management
+- Radiator & power plugs management
 - Playlist (jukebox, low...)
 - Web radio (FIP, radio Bam)
 - Exclamations
@@ -22,7 +22,7 @@ Available modes: ready, sleep, test
 
 ### Additional functionalities:
 
-- Expressive functionalities: child and birthday song, bad boy...
+- Expressive functionalities: child and birthday song, crazy (bad boy mode)...
 - Ambiance sounds (cicadas)
 - Logger & cleaner
 - Hardware monitoring (CPU, diskspace, temperature)
@@ -30,8 +30,8 @@ Available modes: ready, sleep, test
 ## Usage
 
 - Go to _core_ directory
-- Execute `sh core.sh $botName` to add `core` as command and launch core with _botName_ configuration given as first param
-- To launch, execute `core $botName [params]`
+- First time, execute `sh core.sh $botName` to add `core` as command and launch core with _botName_ configuration given as first param
+- Then, to launch execute `core $botName [params]`
 - To stop, execute `core stop`
 
 ## Internal
@@ -77,8 +77,6 @@ A flux is an Object with 3 properties:
 
 - [data]: any type
 
-- [conf]: `{delay:_number_, loop:_number_, log:_string_}`
-
 - [conf]: `{delay, loop, log}`
 
   - [delay]: _number_ delay to fire flux in seconds
@@ -86,45 +84,5 @@ A flux is an Object with 3 properties:
   - [loop]: _number_ times to loop flux
 
   - [log]: _string_ log level where the flux will be logged
-
-### Modules
-
-#### Controllers
-
-- button
-- cron
-- server
-- watcher
-
-#### Interfaces
-
-- arduino
-- hardware
-- hdmi
-- led
-- rfxcom
-- sound
-- tts
-
-#### Services
-
-- alarm
-- audio record
-- buttonAction
-- context
-- interaction
-- _logTail_
-- max
-- maya
-- mood
-- music
-- party
-- radiator
-- sms
-- time
-- timer
-- video
-- voicemail
-- weather
 
 .

@@ -25,8 +25,13 @@ Core.flux.service.task.subscribe({
 
 setImmediate(() => {
 	if (!Core.isAwake()) {
-		// goToSleep 2 hours after sleep mode
-		Utils.delay(120 * 60).then(goToSleep);
+		if (Core.conf('alarms').weekDay && Core.conf('alarms').weekEnd) {
+			// goToSleep 2 hours after sleep mode, if any alarm scheduled
+			Utils.delay(120 * 60).then(goToSleep);
+			log.info('Alarm(s) scheduled, go to sleep task scheduled in 2 hours');
+		} else {
+			log.warn('No alarm scheduled, should not switch off internet box');
+		}
 	}
 });
 
