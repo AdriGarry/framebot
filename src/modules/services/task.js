@@ -14,10 +14,10 @@ Core.flux.service.task.subscribe({
 			beforeRestart();
 		} else if (flux.id == 'goToSleep') {
 			goToSleep();
-		} else if (flux.id == 'certbot') {
-			renewCertbot();
 		} else if (flux.id == 'internetBoxOff') {
 			internetBoxOffStrategy();
+		} else if (flux.id == 'certbot') {
+			renewCertbot();
 		} else Core.error('unmapped flux in Task service', flux, false);
 	},
 	error: err => {
@@ -74,7 +74,6 @@ function internetBoxOffStrategy() {
 	);
 	Core.do('controller|cron|start', INTERNET_BOX_STRATEGY_CRON);
 	let isOnline = true;
-	// TODO externalize the code bellow in separate module to get the internet?
 	setInterval(() => {
 		Utils.testConnection()
 			.then(() => {

@@ -27,7 +27,7 @@ Core.flux.interface.rfxcom.subscribe({
 });
 
 const DEVICE = new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
-const DEVICE_LIST = Core.descriptor.rfxcom;
+const DEVICE_LIST = Core.descriptor.rfxcomDevices;
 
 log.debug('Rfxcom gateway initializing...');
 rfxtrx.initialise(function() {
