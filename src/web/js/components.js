@@ -340,9 +340,9 @@ app.component('jukebox', {
 		var tileParams = {
 			label: 'Music',
 			actionList: [
-				{ label: 'Low', icon: 'fab fa-servicestack', url: '/flux/service/music/playlist', value: 'low' },
+				{ label: 'Low', icon: 'fas fa-kiwi-bird', url: '/flux/service/music/playlist', value: 'low' },
 				{ label: 'Jukebox', icon: 'fas fa-compact-disc', url: '/flux/service/music/playlist' },
-				{ label: 'Radio BAM', icon: 'fas fa-kiwi-bird', url: '/flux/service/music/radio', value: 'bam' },
+				{ label: 'Radio BAM', icon: 'fab fa-suse', url: '/flux/service/music/radio', value: 'bam' },
 				{ label: 'FIP Radio', icon: 'fas fa-globe-europe', url: '/flux/service/music/radio', value: 'fip' }
 			]
 		};
