@@ -12,7 +12,10 @@ module.exports = {};
 
 Core.flux.interface.rfxcom.subscribe({
 	next: flux => {
-		if (flux.id == 'send') {
+		if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === false) {
+			sendStatus(flux.value);
+			Core.do('service|task|internetBoxOff');
+		} else if (flux.id == 'send') {
 			sendStatus(flux.value);
 		} else {
 			Core.error('unmapped flux in Rfxcom interface', flux, false);
@@ -39,13 +42,13 @@ rfxtrx.initialise(function() {
 	});
 
 	rfxtrx.on('disconnect', function(evt) {
-		log.info('Rfxcom disconnected!', Buffer.from(evt).toString('hex'));
+		log.warn('Rfxcom disconnected!', Buffer.from(evt).toString('hex'));
 	});
 });
 
 function sendStatus(args) {
 	if (!Core.run('rfxcom')) {
-		Core.do('interface|tts|speak', { lg: 'en', msg: 'rfxcom' });
+		Core.do('interface|tts|speak', { lg: 'en', msg: 'rfxcom not initialized' });
 		Core.error('rfxcom gateway not initialized!', null, false);
 		return;
 	}

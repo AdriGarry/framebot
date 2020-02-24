@@ -16,6 +16,8 @@ Core.flux.service.task.subscribe({
 			goToSleep();
 		} else if (flux.id == 'certbot') {
 			renewCertbot();
+		} else if (flux.id == 'internetBoxOff') {
+			internetBoxOffStrategy();
 		} else Core.error('unmapped flux in Task service', flux, false);
 	},
 	error: err => {
@@ -37,16 +39,17 @@ setImmediate(() => {
 
 const GO_TO_SLEEP_DELAY = 5 * 60;
 function goToSleep() {
-	log.info('goToSleep');
+	log.info(`goToSleep in ${GO_TO_SLEEP_DELAY / 60} min`);
 
 	// light
 	Core.do('interface|hardware|light', GO_TO_SLEEP_DELAY);
 
-	// stop plugA & plugB
-	Core.do('interface|rfxcom|send', { device: 'plugA', continu: false });
-	Core.do('interface|rfxcom|send', { device: 'plugB', continu: false });
+	// plugA & plugB off
+	Core.do('interface|rfxcom|send', { device: 'plugA', value: false });
+	Core.do('interface|rfxcom|send', { device: 'plugB', value: false });
 
-	// TODO radiator off ?
+	// radiator off
+	Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
 
 	if (Core.isAwake()) {
 		Core.do('service|context|sleep', null, { delay: GO_TO_SLEEP_DELAY });
@@ -56,6 +59,39 @@ function goToSleep() {
 function beforeRestart() {
 	log.info('beforeRestart');
 	Core.do('interface|rfxcom|send', { device: 'plugB', value: true });
+}
+
+const INTERNET_BOX_STRATEGY_CRON = [
+	{ cron: '0 55 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: true } } },
+	{ cron: '0 10 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: false } } }
+];
+
+/** Function to get connected from 0 to 10 min of each hour */
+function internetBoxOffStrategy() {
+	log.info(
+		'setting up internetBoxOffStrategy...',
+		`[${INTERNET_BOX_STRATEGY_CRON[0].cron} -> ${INTERNET_BOX_STRATEGY_CRON[1].cron}]`
+	);
+	Core.do('controller|cron|start', INTERNET_BOX_STRATEGY_CRON);
+	let isOnline = true;
+	// TODO externalize the code bellow in separate module to get the internet?
+	setInterval(() => {
+		Utils.testConnection()
+			.then(() => {
+				if (!isOnline) {
+					log.info();
+					log.info("I'm back on the internet!");
+				}
+				isOnline = true;
+			})
+			.catch(() => {
+				if (isOnline) {
+					log.warn();
+					log.warn("I've just lost my internet connection!");
+				}
+				isOnline = false;
+			});
+	}, 30 * 1000);
 }
 
 function renewCertbot() {
