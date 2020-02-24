@@ -1,8 +1,8 @@
 {
 	"name": "core",
-	"version": "7.1.3",
+	"version": "7.1.4",
 	"private": true,
-	"description": "Core program to autorun and interact!",
+	"description": "Core program to autorun, manage stuff and interact",
 	"main": "core.sh",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"

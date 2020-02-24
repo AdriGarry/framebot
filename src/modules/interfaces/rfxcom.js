@@ -24,7 +24,7 @@ Core.flux.interface.rfxcom.subscribe({
 });
 
 const DEVICE = new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
-const DEVICE_LIST = Utils.arrayToObject(Core.descriptor.rfxcom, 'name');
+const DEVICE_LIST = Core.descriptor.rfxcom;
 
 log.debug('Rfxcom gateway initializing...');
 rfxtrx.initialise(function() {
@@ -52,7 +52,7 @@ function sendStatus(args) {
 	log.debug('sendStatus', args);
 	let deviceName = args.device,
 		value = args.value;
-	if (!DEVICE_LIST.hasOwnProperty(deviceName)) log.error('Unreconized device:', deviceName);
+	if (!DEVICE_LIST.hasOwnProperty(deviceName)) log.error('Unknown device:', deviceName);
 	else {
 		if (value) DEVICE.switchOn(DEVICE_LIST[deviceName].id);
 		else DEVICE.switchOff(DEVICE_LIST[deviceName].id);

@@ -35,7 +35,7 @@ const RADIATOR_JOB = {
 	ON: new CronJob('35 0 * * * *', function() {
 		radiatorOrder('on');
 	}),
-	AUTO: new CronJobList(Core.descriptor.radiator.cron)
+	AUTO: new CronJobList(Core.descriptor.rfxcom.radiator.cron)
 };
 
 function setupRadiatorMode() {
