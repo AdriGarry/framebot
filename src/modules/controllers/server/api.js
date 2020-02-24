@@ -93,8 +93,7 @@ function attachDefaultRoutes(ui) {
 				active: Core.run('audioRecord') > 0 ? true : false
 			},
 			music: {
-				value: Core.run('music'),
-				active: false
+				value: Core.run('music')
 			},
 			timer: {
 				value: Core.run('timer'),

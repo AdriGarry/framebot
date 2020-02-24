@@ -327,8 +327,8 @@ app.component('exclamation', {
 	}
 });
 
-/** Jukebox component */
-app.component('jukebox', {
+/** Music component */
+app.component('music', {
 	bindings: {
 		data: '<',
 		access: '<',
@@ -348,6 +348,20 @@ app.component('jukebox', {
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
+
+		ctrl.getIconClass = function() {
+			if (ctrl.data.value === 'jukebox') {
+				return 'fas fa-compact-disc';
+			} else if (ctrl.data.value === 'fip') {
+				return 'fas fa-globe-europe';
+			} else if (ctrl.data.value === 'bam') {
+				return 'fab fa-suse';
+			} else if (ctrl.data.value === 'low') {
+				return 'fas fa-kiwi-bird';
+			} else {
+				return 'fas fa-music';
+			}
+		};
 	}
 });
 
