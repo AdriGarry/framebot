@@ -30,17 +30,22 @@ setImmediate(() => {
 	}
 });
 
+const GO_TO_SLEEP_DELAY = 5 * 60;
 function goToSleep() {
 	log.info('goToSleep');
 
 	// light
-	Core.do('interface|hardware|light', 5 * 60);
+	Core.do('interface|hardware|light', GO_TO_SLEEP_DELAY);
 
 	// stop plugA & plugB
 	Core.do('interface|rfxcom|send', { device: 'plugA', continu: false });
 	Core.do('interface|rfxcom|send', { device: 'plugB', continu: false });
 
 	// TODO radiator off ?
+
+	if (Core.isAwake()) {
+		Core.do('service|context|sleep', null, { delay: GO_TO_SLEEP_DELAY });
+	}
 }
 
 function beforeRestart() {
