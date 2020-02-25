@@ -3,12 +3,13 @@
 
 const { spawn, exec } = require('child_process');
 
+const TTS = require(__dirname + '/tts/TTS.js');
+
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js'),
 	voices = require(Core._MODULES + 'interfaces/tts/voices.js'),
-	RandomBox = require('randombox').RandomBox,
-	TTS = require(__dirname + '/tts/TTS.js');
+	RandomBox = require('randombox').RandomBox;
 
 const VOICE_LIST = Object.keys(voices);
 const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
