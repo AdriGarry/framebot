@@ -7,7 +7,7 @@ const TTS = require(__dirname + '/tts/TTS.js');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._API + 'Logger.js'))(__filename),
-	Utils = require(Core._API + 'Utils.js'),
+	{ Utils } = require(Core._API + 'api.js'),
 	voices = require(Core._MODULES + 'interfaces/tts/voices.js'),
 	RandomBox = require('randombox').RandomBox;
 

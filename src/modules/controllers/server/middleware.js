@@ -3,8 +3,8 @@
 const fs = require('fs');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
-	Utils = require(_PATH + 'src/api/Utils.js');
+	log = new (require(Core._API + 'Logger.js'))(__filename),
+	{ Utils } = require(Core._API + 'api.js');
 
 const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';
 const NO_SOUND_URL = ['/dashboard', '/log'];
