@@ -7,7 +7,7 @@ const CronJob = require('cron').CronJob;
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js'),
-	CronJobList = require(Core._CORE + 'CronJobList.js');
+	CronJobList = require(Core._API + 'CronJobList.js');
 
 module.exports = {};
 

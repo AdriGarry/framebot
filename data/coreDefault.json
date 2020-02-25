@@ -1,6 +1,7 @@
 {
 	"paths": {
 		"_SRC": "src/",
+		"_API": "src/api/",
 		"_CORE": "src/core/",
 		"_MODULES": "src/modules/",
 		"_SHELL": "src/shell/",
