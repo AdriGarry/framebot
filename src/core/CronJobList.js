@@ -4,44 +4,57 @@
 
 const CronJob = require('cron').CronJob;
 
-const Core = require(_PATH + 'src/core/Core.js').Core;
+const Core = require(_PATH + 'src/core/Core.js').Core,
+	log = new (require(Core._CORE + 'Logger.js'))(__filename);
 
-module.exports = CronJobList;
+class CronJobList {
+	constructor(jobList, id) {
+		this.id = id || 'noCronJobListId';
+		this.jobList = buildJobList(jobList);
+		this.crons = chainCrons(jobList);
+	}
 
-function CronJobList(jobList, id) {
-	this.id = id;
-	this.jobList = setJobList(jobList);
-
-	this.start = function() {
+	start() {
+		log.info(`Starting job list ${this.id} ${this.crons}`);
 		this.jobList.forEach(job => {
 			job.start();
 		});
-	};
+	}
 
-	this.stop = function() {
+	stop() {
+		log.info(`Stopping job list ${this.id} ${this.crons}`);
 		this.jobList.forEach(job => {
 			job.stop();
 		});
-	};
+	}
 
-	this.nextDate = function() {
+	nextDate() {
 		let nextDate;
 		this.jobList.forEach(job => {
 			let date = new Date(job.nextDate()).toLocaleString();
 			if (!nextDate || nextDate > date) nextDate = date;
 		});
 		return nextDate;
-	};
-
-	function setJobList(jobList) {
-		let jobs = [];
-		jobList.forEach(job => {
-			jobs.push(
-				new CronJob(job.cron, function() {
-					Core.do(job.flux);
-				})
-			);
-		});
-		return jobs;
 	}
+}
+module.exports = CronJobList;
+
+function buildJobList(jobList) {
+	let jobs = [];
+	jobList.forEach(job => {
+		jobs.push(
+			new CronJob(job.cron, () => {
+				Core.do(job.flux);
+			})
+		);
+	});
+	return jobs;
+}
+
+function chainCrons(jobList) {
+	let crons = '';
+	jobList.forEach(job => {
+		crons += '[' + job.cron + '] ';
+	});
+	return crons;
 }
