@@ -85,7 +85,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		});
 	}
 
-	const Flux = require(Core._CORE + 'Flux.js').init(descriptor.modules),
+	const Flux = require(Core._API + 'Flux.js').init(descriptor.modules),
 		ModuleLoader = require(Core._CORE + 'ModuleLoader.js'); //.init(descriptor.modules)
 	Core.flux = Flux;
 	Core.do = Flux.next;
