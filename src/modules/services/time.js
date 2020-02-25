@@ -32,9 +32,9 @@ Core.flux.service.time.subscribe({
 /** Function TTS time now */
 function now() {
 	log.debug('time.now()');
-	var date = new Date();
-	var hour = date.getHours();
-	var min = date.getMinutes();
+	let date = new Date();
+	let hour = date.getHours();
+	let min = date.getMinutes();
 	Core.do('interface|tts|speak', {
 		lg: 'fr',
 		msg: 'Il est ' + hour + ' heure ' + (min > 0 ? min : '')

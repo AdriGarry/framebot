@@ -51,7 +51,7 @@ setImmediate(() => {
 function activitySignal() {
 	let mode = Core.isAwake() ? 1 : 0;
 
-	setInterval(function () {
+	setInterval(function() {
 		Led.nose.writeSync(mode);
 	}, 900);
 }
@@ -65,19 +65,19 @@ function activitySignal() {
  */
 function blink(config) {
 	try {
-		var etat = 1,
+		let etat = 1,
 			loop;
 		if (config.hasOwnProperty('leds')) {
-			setTimeout(function () {
+			setTimeout(function() {
 				for (let led in config.leds) {
 					Led[config.leds[led]].writeSync(0);
 				}
 			}, config.speed * config.loop * 2 + 50);
 			for (loop = config.loop * 2; loop > 0; loop--) {
 				setTimeout(
-					function (leds) {
+					function(leds) {
 						for (let i in leds) {
-							var led = leds[i];
+							let led = leds[i];
 							Led[led].writeSync(etat);
 						}
 						etat = 1 - etat;
@@ -100,7 +100,7 @@ function blink(config) {
 function toggle(config) {
 	// log.info('toogle:', config);
 	// if (['nose', 'eye', 'satellite', 'belly'].indexOf(config.led) > -1) {
-	for (var led in config.leds) {
+	for (let led in config.leds) {
 		Led[config.leds[led]].writeSync(config.value ? 1 : 0);
 	}
 	if (Object.keys(Led).indexOf(config.led) > -1) {
@@ -114,12 +114,12 @@ function altLeds(args) {
 	// args : {speed, duration}
 	clearInterval(timer);
 	let etat = 1;
-	timer = setInterval(function () {
+	timer = setInterval(function() {
 		Led.eye.writeSync(etat);
 		etat = 1 - etat;
 		Led.belly.writeSync(etat);
 	}, args.speed);
-	setTimeout(function () {
+	setTimeout(function() {
 		clearInterval(timer);
 		Led.eye.writeSync(0);
 		Led.belly.writeSync(0);

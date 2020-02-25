@@ -160,7 +160,7 @@ function cpuAverage() {
 		totalTick = 0,
 		cpus = os.cpus();
 	//Loop through CPU cores
-	for (var i = 0, len = cpus.length; i < len; i++) {
+	for (let i = 0, len = cpus.length; i < len; i++) {
 		let cpu = cpus[i]; // Select CPU core
 		//Total up the time in the cores tick
 		for (let type in cpu.times) {

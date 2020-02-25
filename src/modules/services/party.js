@@ -38,11 +38,11 @@ function start() {
 }
 
 function firePartyActionAndRandom() {
-	var nextActionTimeout = Utils.random(2, 10) * 30;
+	let nextActionTimeout = Utils.random(2, 10) * 30;
 	log.debug('firePartyActionAndRandom(). next action=', nextActionTimeout);
 	setTimeout(function() {
 		log.info('firing next party action...');
-		var rdmAction = Utils.random(7);
+		let rdmAction = Utils.random(7);
 		switch (rdmAction) {
 			case 0:
 				pirate();
@@ -63,12 +63,12 @@ function firePartyActionAndRandom() {
 
 function pirate(mode) {
 	log.info('pirate(mode)', mode);
-	var tts;
+	let tts;
 	if (mode == 'full') {
-		var msg1 = { msg: 'Pirate un appelle pirate 2 !' };
-		var msg2 = { voice: 'google', msg: 'Pourquoi pirate 2 ?' };
-		var msg3 = { msg: 'Combien sinon ?' };
-		var msg4 = { voice: 'google', msg: 'Pirate ' + Utils.random(3, 7) };
+		let msg1 = { msg: 'Pirate un appelle pirate 2 !' };
+		let msg2 = { voice: 'google', msg: 'Pourquoi pirate 2 ?' };
+		let msg3 = { msg: 'Combien sinon ?' };
+		let msg4 = { voice: 'google', msg: 'Pirate ' + Utils.random(3, 7) };
 		tts = [msg1, msg2, msg3, msg4];
 	} else {
 		tts = { msg: 'Pirate ' + Utils.random(1, 3) + ' appelle pirate ' + Utils.random(4, 6) + ' !' };

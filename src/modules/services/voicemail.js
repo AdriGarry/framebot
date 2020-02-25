@@ -64,7 +64,7 @@ function addVoicemailMessage(tts) {
 	} else if (typeof tts === 'string') {
 		addVoicemailMessage({ msg: tts });
 	} else if (Array.isArray(tts)) {
-		for (var i = 0; i < tts.length; i++) {
+		for (let i = 0; i < tts.length; i++) {
 			addVoicemailMessage(tts[i]);
 		}
 	} else {

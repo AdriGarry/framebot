@@ -34,7 +34,7 @@ function java(interval) {
 	Core.run('mood', 'java');
 	log.INFO('JAVA mode !');
 	Core.do('interface|tts|speak', 'On va faire la java !');
-	for (var i = 0; i < 20; i++) {
+	for (let i = 0; i < 20; i++) {
 		// Core.do('interface|tts|speak', Utils.randomItem(Core.ttsMessages.random));
 		Core.do('interface|tts|speak', ttsRandomBox.next());
 	}

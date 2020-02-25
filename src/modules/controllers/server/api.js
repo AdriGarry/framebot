@@ -182,7 +182,7 @@ function attachDefaultRoutes(ui) {
 
 	/** ==> POST SECTION */
 
-	var audioRecordStorage = multer.diskStorage({
+	let audioRecordStorage = multer.diskStorage({
 		destination: function(req, file, callback) {
 			if (!fs.existsSync(Core._UPLOAD)) {
 				fs.mkdirSync(Core._UPLOAD);
@@ -193,7 +193,7 @@ function attachDefaultRoutes(ui) {
 			callback(null, file.fieldname + '_' + new Date().toISOString() + '.wav');
 		}
 	});
-	var audioRecordUpload = multer({ storage: audioRecordStorage }).single('audioRecord');
+	let audioRecordUpload = multer({ storage: audioRecordStorage }).single('audioRecord');
 
 	ui.post('/audio', audioRecordUpload, function(req, res) {
 		log.info('Audio received!');
@@ -221,7 +221,7 @@ function attachDefaultRoutes(ui) {
 
 	var granted = false;
 	ui.post('/grant', function(req, res) {
-		var pattern = req.headers.pwd;
+		let pattern = req.headers.pwd;
 		if (pattern && admin.checkPassword(pattern)) {
 			granted = true;
 			log.info('>> Admin granted !');

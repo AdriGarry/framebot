@@ -73,16 +73,16 @@ function startCore(exitCode) {
 
 	checkUp();
 
-	new Gpio(14, 'out').writeSync(1); //var eye =
+	new Gpio(14, 'out').writeSync(1); //let eye =
 
-	var coreProgramWithParams = [SRC_PATH + 'index.js', NAME];
+	let coreProgramWithParams = [SRC_PATH + 'index.js', NAME];
 	if (exitCode) {
 		coreProgramWithParams.push('sleep');
 	}
-	for (var i = 0; i < argv.length; i++) {
+	for (let i = 0; i < argv.length; i++) {
 		coreProgramWithParams.push(argv[i]);
 	}
-	var Core = spawn('node', coreProgramWithParams);
+	let Core = spawn('node', coreProgramWithParams);
 
 	Core.stdout.on('data', function(data) {
 		process.stdout.write(data);
@@ -159,7 +159,7 @@ function mute() {
 }
 
 Array.prototype.remove = function() {
-	var what,
+	let what,
 		a = arguments,
 		L = a.length,
 		ax;

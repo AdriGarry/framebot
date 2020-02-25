@@ -43,7 +43,7 @@ app.controller('UIController', function(
 
 	/** Function to refresh Dashboard **/
 	$scope.readyToRefresh = true;
-	var failedRefreshs = 0;
+	let failedRefreshs = 0;
 	$scope.connexionLost = false;
 	$scope.refreshDashboard = function() {
 		if ($scope.dashboard.autoRefresh && $scope.readyToRefresh) {
@@ -74,7 +74,7 @@ app.controller('UIController', function(
 	$scope.refreshDashboard();
 
 	function setOdiState(data) {
-		var odiState = {};
+		let odiState = {};
 		if (data) {
 			odiState = {
 				value: data.mode.value.mode || 'unavailable',
@@ -177,7 +177,7 @@ app.controller('UIController', function(
 	};
 
 	/** Function to show fab buttons for 5 seconds */
-	var timeout;
+	let timeout;
 	$scope.showFabButtons = function() {
 		if (timeout) {
 			$timeout.cancel(timeout);
@@ -209,7 +209,7 @@ app.controller('UIController', function(
 	// };
 
 	$scope.toggleDebugMode = function() {
-		var cmd = {
+		let cmd = {
 			label: '!Debug',
 			url: '/toggleDebug'
 		};
@@ -263,7 +263,7 @@ app.controller('UIController', function(
 			}
 		});
 	};
-	var param = $location.$$absUrl.split('?')[1];
+	let param = $location.$$absUrl.split('?')[1];
 	if (param) $scope.requireGrantAccess(param);
 
 	/** Loading until app bootstrapped */

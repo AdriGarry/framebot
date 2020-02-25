@@ -78,16 +78,16 @@ app.filter('formatNumber', function() {
 /** Filter to display time left for timer **/
 app.filter('formatTime', function($filter) {
 	return function(sec) {
-		var m = Math.trunc(sec / 60);
-		var s = $filter('formatNumber')(sec % 60, 2);
+		let m = Math.trunc(sec / 60);
+		let s = $filter('formatNumber')(sec % 60, 2);
 		return m + ':' + s;
 	};
 });
 
 app.filter('markdown', function($sce) {
-	var converter = new Showdown.converter();
+	let converter = new Showdown.converter();
 	return function(value) {
-		var html = converter.makeHtml(value || '');
+		let html = converter.makeHtml(value || '');
 		return $sce.trustAsHtml(html);
 	};
 });

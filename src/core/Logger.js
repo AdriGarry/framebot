@@ -160,7 +160,7 @@ module.exports = class Logger {
 			console.log('');
 			delete args[0];
 		}
-		for (var i in args) {
+		for (let i in args) {
 			if (typeof args[i] == 'object') {
 				log = log + util.format(util.inspect(args[i]) + ' ');
 			} else {

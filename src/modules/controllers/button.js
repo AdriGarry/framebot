@@ -59,7 +59,7 @@ function getPushTime(button) {
 	LED_FLAG.writeSync(1);
 	let startPushTime = new Date();
 	while (button.readSync() == 1) {
-		var time = Math.round((new Date() - startPushTime) / 100) / 10;
+		let time = Math.round((new Date() - startPushTime) / 100) / 10;
 		if (time % 1 == 0) LED_FLAG.writeSync(0);
 		else LED_FLAG.writeSync(1);
 	}

@@ -68,8 +68,8 @@ const RANDOM_ACTIONS = [
 
 /** Building randomActionList from RANDOM_ACTIONS */
 var randomActionList = [];
-for (var i = 0; i < RANDOM_ACTIONS.length; i++) {
-	var loop = RANDOM_ACTIONS[i].weight;
+for (let i = 0; i < RANDOM_ACTIONS.length; i++) {
+	let loop = RANDOM_ACTIONS[i].weight;
 	while (loop) {
 		randomActionList.push(RANDOM_ACTIONS[i]);
 		loop--;
@@ -89,7 +89,7 @@ fs.readdir(Core._MP3 + 'exclamation_russia', (err, files) => {
 
 /** Function random action (exclamation, random TTS, time, day, weather...) */
 function randomAction() {
-	var action = actionRandomBox.next();
+	let action = actionRandomBox.next();
 	try {
 		log.info('randomAction:', action.id, '[' + action.weight + ']');
 		Core.do(action.id, action.data);
@@ -151,7 +151,10 @@ const BALUCHON_MSG = [
 		{ voice: 'espeak', msg: 'Je crois quil faut lancer lopairation baluchon' },
 		{ voice: 'pico', msg: 'Sans oublier la gamelle' }
 	],
-	[{ voice: 'pico', msg: 'il faut lancer loperation baluchon !' }, { voice: 'pico', msg: "Et aussi la gamelle d'eau" }]
+	[
+		{ voice: 'pico', msg: 'il faut lancer loperation baluchon !' },
+		{ voice: 'pico', msg: "Et aussi la gamelle d'eau" }
+	]
 ];
 function baluchonTTS() {
 	let tts = Utils.randomItem(BALUCHON_MSG);

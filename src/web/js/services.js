@@ -8,7 +8,7 @@ app.service('UIService', [
 	'CONSTANTS',
 	'Tile',
 	function($rootScope, $http, $mdToast, CONSTANTS, Tile) {
-		var ctrl = this;
+		let ctrl = this;
 		$rootScope.position = false;
 		/** Function to update dashboard from Odi **/
 		ctrl.refreshDashboard = function(callback) {
@@ -106,7 +106,7 @@ app.service('UIService', [
 					console.error(res);
 				}
 			);
-			/*var params = '';
+			/*let params = '';
 		if(cmd.paramKey != '' && cmd.paramValue != ''){
 			params = '?' + cmd.paramKey + '=' + cmd.paramValue;
 		}
@@ -156,8 +156,8 @@ app.service('UIService', [
 		};
 
 		/** Function to update logs **/
-		var logSize = 150;
-		var logIncrement = 50;
+		let logSize = 150;
+		let logIncrement = 50;
 		ctrl.updateLogs = function(callback) {
 			$http({
 				headers: {
@@ -209,16 +209,16 @@ app.service('audioService', [
 	'$http',
 	'UIService',
 	function($rootScope, $http, UIService) {
-		var ctrl = this;
+		let ctrl = this;
 		ctrl.recording = false;
 		ctrl.recorderAvailable = false;
 
 		//webkitURL is deprecated but nevertheless
-		var gumStream; //stream from getUserMedia()
-		var rec; //Recorder.js object
-		var input; //MediaStreamAudioSourceNode we'll be recording
-		var AudioContext = window.AudioContext || window.webkitAudioContext;
-		var audioContext = new AudioContext();
+		let gumStream; //stream from getUserMedia()
+		let rec; //Recorder.js object
+		let input; //MediaStreamAudioSourceNode we'll be recording
+		let AudioContext = window.AudioContext || window.webkitAudioContext;
+		let audioContext = new AudioContext();
 
 		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 			ctrl.recorderAvailable = true;

@@ -5,8 +5,8 @@ app.component('tts', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function($window, DefaultTile, UIService) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Text To Speech',
 			actionList: [],
 			expanded: false //collapsed
@@ -60,7 +60,7 @@ app.component('tts', {
 			},
 			cleanText: function() {
 				console.log('cleanText');
-				var message = ctrl.tts.msg || '';
+				let message = ctrl.tts.msg || '';
 				message = message
 					.replace(/[àáâãäå]/g, 'a')
 					.replace(/[ç]/g, 'c')
@@ -96,8 +96,8 @@ app.component('mode', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Mode',
 			actionList: [
 				{
@@ -123,8 +123,8 @@ app.component('options', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Options',
 			actionList: [
 				{ label: '!Trace', icon: 'far fa-dot-circle', url: '/toggleTrace' },
@@ -151,8 +151,8 @@ app.component('runtime', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Runtime',
 			actionList: [
 				// { label: 'Errors', icon: 'fab fa-sith', url: 'https://odi.adrigarry.com/errors' },
@@ -259,8 +259,8 @@ app.component('voicemail', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Voicemail',
 			actionList: [
 				{ label: 'Clear', icon: 'far fa-trash-alt', url: '/flux/service/voicemail/clear' },
@@ -282,8 +282,8 @@ app.component('hardware', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Hardware',
 			//disableOnSleep: true,
 			actionList: [
@@ -313,8 +313,8 @@ app.component('exclamation', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Exclamation',
 			actionList: [
 				{ label: 'Exclamation', icon: 'fas fa-bullhorn', url: '/flux/service/interaction/exclamation' },
@@ -336,8 +336,8 @@ app.component('music', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Music',
 			actionList: [
 				{ label: 'Low', icon: 'fas fa-kiwi-bird', url: '/flux/service/music/playlist', value: 'low' },
@@ -374,8 +374,8 @@ app.component('audioRecorder', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile, $rootScope, UIService) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Audio recorder',
 			actionList: [
 				{ label: 'Clear', icon: 'fas fa-trash', url: '/flux/service/audioRecord/clear' },
@@ -426,7 +426,7 @@ app.component('audioRecorder', {
 			UIService,
 			audioService
 		) {
-			var ctrl = $scope;
+			let ctrl = $scope;
 			ctrl.recording = false;
 			ctrl.waitRecording = false;
 
@@ -483,8 +483,8 @@ app.component('timer', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile, $rootScope, UIService) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Timer',
 			actionList: [
 				{ label: 'Stop timer', icon: 'fas fa-stop', url: '/flux/service/timer/stop' },
@@ -541,8 +541,8 @@ app.component('time', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Time',
 			// actionList:[{url: '/time'}]
 			actionList: [
@@ -565,8 +565,8 @@ app.component('weather', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Weather',
 			actionList: [
 				{ label: 'Official weather', icon: 'fas fa-cloud-sun', url: '/flux/service/weather/report' },
@@ -588,8 +588,8 @@ app.component('maya', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Maya',
 			actionList: [
 				{ label: 'Animals', icon: 'fas fa-cat', url: '/flux/service/maya/animals' },
@@ -612,8 +612,8 @@ app.component('idea', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Idea',
 			actionList: [
 				{ label: 'Total lines', icon: 'far fa-file-code', url: '/flux/interface/hardware/totalLinesTTS' },
@@ -646,8 +646,8 @@ app.component('stories', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Stories',
 			actionList: [
 				{ label: 'Naheulbeuk', icon: 'fab fa-fort-awesome', url: '/flux/service/music/story', value: 'naheulbeuk' },
@@ -668,8 +668,8 @@ app.component('badBoy', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile, $rootScope, UIService) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Bad boy',
 			actionList: [
 				{ label: 'Java', icon: 'fas fa-grin-squint-tears', url: '/flux/service/mood/java' },
@@ -719,8 +719,8 @@ app.component('party', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Party',
 			actionList: [
 				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/flux/service/party/birthdaySong' },
@@ -743,8 +743,8 @@ app.component('russia', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Russia',
 			actionList: [
 				{ label: 'Civil Horn', icon: 'fas fa-bullhorn', url: '/flux/service/interaction/civilHorn' },
@@ -766,8 +766,8 @@ app.component('videos', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Video',
 			actionList: [
 				{ label: 'Hdmi off', icon: 'fas fa-stop', url: '/flux/interface/hdmi/off' },
@@ -788,8 +788,8 @@ app.component('max', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Max',
 			actionList: [
 				{ label: 'RDM Led', icon: 'far fa-sun', url: '/flux/service/max/blinkRdmLed' },
@@ -813,8 +813,8 @@ app.component('radiator', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile, $rootScope, UIService) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Radiator',
 			actionList: [
 				{
@@ -898,8 +898,8 @@ app.component('powerPlug', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile, $rootScope) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Power plug',
 			actionList: [
 				{ label: 'plug A', icon: 'fas fa-plug', value: { device: 'plugA', continu: true } },
@@ -950,8 +950,8 @@ app.component('arduino', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Arduino',
 			actionList: [
 				{ label: 'Sleep', icon: 'far fa-stop-circle', url: '/flux/interface/arduino/disconnect' },
@@ -970,8 +970,8 @@ app.component('tasks', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'Tasks',
 			actionList: [
 				{ label: 'Renew Certbot', icon: 'fas fa-tools', url: '/flux/service/task/certbot' },
@@ -990,8 +990,8 @@ app.component('history', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'History',
 			actionList: [
 				{ label: 'Trash uploads', icon: 'fas fa-microphone', url: '/audio/trash' },
@@ -1014,8 +1014,8 @@ app.component('system', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'System',
 			actionList: [
 				{ label: 'Light', icon: 'far fa-sun', url: '/flux/interface/hardware/light', value: 120 },
@@ -1034,8 +1034,8 @@ app.component('about', {
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function(DefaultTile) {
-		var ctrl = this;
-		var tileParams = {
+		let ctrl = this;
+		let tileParams = {
 			label: 'About',
 			actionList: [{ url: 'https://odi.adrigarry.com/about' }]
 		};

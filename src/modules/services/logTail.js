@@ -23,7 +23,7 @@ setImmediate(() => {
 });
 
 function spawnVim(file, cb) {
-	var vim = spawn('vim', [file]);
+	let vim = spawn('vim', [file]);
 
 	function indata(c) {
 		vim.stdin.write(c);
