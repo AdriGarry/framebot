@@ -8,7 +8,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	Utils = require(Core._CORE + 'Utils.js'),
 	voices = require(Core._MODULES + 'interfaces/tts/voices.js'),
 	RandomBox = require('randombox').RandomBox,
-	TTS = require(__dirname + '/tts/ttsClass.js');
+	TTS = require(__dirname + '/tts/TTS.js');
 
 const VOICE_LIST = Object.keys(voices);
 const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
