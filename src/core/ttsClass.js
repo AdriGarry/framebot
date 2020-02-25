@@ -40,5 +40,9 @@ class TTS {
 		this.msg = this.msg.replace('%20', '');
 		return this.msg;
 	}
+
+	toString() {
+		return 'play TTS [' + this.voice + ', ' + this.lg + '] "' + this.msg + '"';
+	}
 }
 module.exports = TTS;

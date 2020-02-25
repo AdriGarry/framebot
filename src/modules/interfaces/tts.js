@@ -7,7 +7,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
 	Utils = require(Core._CORE + 'Utils.js'),
 	voices = require(Core._MODULES + 'interfaces/tts/voices.js'),
-	RandomBox = require('randombox').RandomBox;
+	RandomBox = require('randombox').RandomBox,
+	TTS = require(_PATH + 'src/core/ttsClass.js');
 
 const VOICE_LIST = Object.keys(voices);
 const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
@@ -37,7 +38,6 @@ var onAir = false,
 
 /** Function to add TTS message in queue and proceed */
 function speak(tts) {
-	// log.debug(tts);
 	if (Array.isArray(tts)) {
 		log.info('TTS array object... processing');
 		tts.forEach(function(message) {
@@ -46,13 +46,12 @@ function speak(tts) {
 			}
 		});
 	} else if (typeof tts === 'string') {
-		ttsQueue.push({ msg: tts });
+		ttsQueue.push(new TTS(tts));
 	} else if (!tts || !Object.keys(tts).length > 0 || tts.msg.toUpperCase().indexOf('RANDOM') > -1) {
-		// OR UNDEFINED !!
 		randomTTS();
 	} else {
 		if (tts.hasOwnProperty('msg')) {
-			ttsQueue.push(tts);
+			ttsQueue.push(new TTS(tts.msg, tts.lg, tts.voice));
 			log.debug('new TTS [' + (tts.voice || '') + ', ' + (tts.lg || '') + '] "' + tts.msg + '"');
 		} else log.debug(console.error('newTTS() Wrong TTS object...', tts));
 	}
@@ -83,6 +82,28 @@ function proceedQueue() {
 	}, 500);
 }
 
+/** Function to play TTS message (espeak / google translate) */
+function playTTS(tts) {
+	Core.do('service|max|blinkRdmLed');
+	// TODO test if internet connexion?
+
+	log.info(tts.toString());
+	tts.setMsgReplaced();
+	voices[tts.voice](tts);
+
+	let blinkDuration = tts.getMsg().length / 2 + 2,
+		speed = Utils.random(50, 150);
+	Core.do('interface|led|blink', { leds: ['eye'], speed: speed, loop: blinkDuration }, { log: 'trace' });
+
+	lastTtsMsg = tts;
+}
+
+/** Function last TTS message */
+function lastTTS() {
+	log.info('LastTTS ->', lastTtsMsg);
+	speak(lastTtsMsg);
+}
+
 /** Function to launch random TTS */
 const TTS_RANDOMBOX = new RandomBox(Core.ttsMessages.random);
 function randomTTS() {
@@ -91,42 +112,7 @@ function randomTTS() {
 	speak(rdmTTS);
 }
 
-/** Function to play TTS message (espeak / google translate) */
-function playTTS(tts) {
-	Core.do('service|max|blinkRdmLed');
-	// TODO test if internet connexion?
-	if (!tts.hasOwnProperty('voice') || !VOICE_LIST.indexOf(tts.voice) == -1) {
-		log.debug('No valid voice, fallback on espeak');
-		tts.voice = 'espeak';
-	}
-	if (!tts.hasOwnProperty('lg') || !LG_LIST.indexOf(tts.lg) == -1) {
-		log.debug('No valid language, fallback on Fr');
-		tts.lg = 'fr';
-	}
-
-	//if (tts.voice === 'espeak') tts.voice = Utils.randomItem(['espeak', 'mbrolaFr1', 'mbrolaFr4']);
-
-	log.info('play TTS [' + tts.voice + ', ' + tts.lg + '] "' + tts.msg + '"');
-	tts.msg = tts.msg.replace('%20', '');
-
-	voices[tts.voice](tts);
-
-	Core.do(
-		'interface|led|blink',
-		{ leds: ['eye'], speed: Utils.random(50, 150), loop: tts.msg.length / 2 + 2 },
-		{ log: 'trace' }
-	);
-
-	lastTtsMsg = tts;
-}
-
 /** Function to clear TTS Queue */
 function clearTTSQueue() {
 	ttsQueue = [];
-}
-
-/** Function last TTS message */
-function lastTTS() {
-	log.info('LastTTS ->', lastTtsMsg);
-	speak(lastTtsMsg);
 }
