@@ -49,12 +49,12 @@ function goToSleep() {
 	// light
 	Core.do('interface|hardware|light', GO_TO_SLEEP_DELAY);
 
-	// plugA & plugB off
-	Core.do('interface|rfxcom|send', { device: 'plugA', value: false });
-	Core.do('interface|rfxcom|send', { device: 'plugB', value: false });
-
 	// radiator off
 	Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
+
+	// plugA & plugB off
+	Core.do('interface|rfxcom|send', { device: 'plugA', value: false }, { delay: 60 });
+	Core.do('interface|rfxcom|send', { device: 'plugB', value: false }, { delay: 60 });
 
 	if (Core.isAwake()) {
 		Core.do('service|context|sleep', null, { delay: GO_TO_SLEEP_DELAY });
@@ -77,8 +77,6 @@ function internetBoxOffStrategy() {
 		'setting up internetBoxOffStrategy...',
 		`[${INTERNET_BOX_STRATEGY_CRON[0].cron} -> ${INTERNET_BOX_STRATEGY_CRON[1].cron}]`
 	);
-
-	Core.do('interface|rfxcom|send', { device: 'plugB', value: true }); // TODO?
 
 	// TODO to CronJobList ?
 	Core.do('controller|cron|start', INTERNET_BOX_STRATEGY_CRON);
