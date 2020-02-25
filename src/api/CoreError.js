@@ -3,7 +3,7 @@
 'use strict';
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(_PATH + 'src/core/Logger.js'))(__filename),
+	log = new (require(_PATH + 'src/api/Logger.js'))(__filename),
 	Utils = require(_PATH + 'src/api/Utils.js');
 
 module.exports = class CoreError extends Error {

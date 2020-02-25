@@ -5,7 +5,7 @@
 const { spawn } = require('child_process');
 const fs = require('fs');
 
-const log = new (require(_PATH + 'src/core/Logger.js'))(__filename),
+const log = new (require(_PATH + 'src/api/Logger.js'))(__filename),
 	Utils = require(_PATH + 'src/api/Utils.js'),
 	Lock = require(_PATH + 'src/core/Lock.js'),
 	CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
