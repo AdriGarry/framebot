@@ -59,6 +59,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		forcedParamsLog += 'sleep ';
 	}
 	if (forcedParams.debug) {
+		log.level('debug');
 		forcedParamsLog += 'debug ';
 	}
 	if (forcedParams.test) {
