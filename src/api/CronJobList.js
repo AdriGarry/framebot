@@ -8,21 +8,22 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename);
 
 class CronJobList {
-	constructor(jobList, id) {
-		this.id = id || 'noCronJobListId';
+	constructor(jobList, id, cronDisplay) {
+		this.id = id || '#';
 		this.jobList = buildJobList(jobList);
-		this.crons = chainCrons(jobList);
+		this.length = jobList.length;
+		this.crons = cronDisplay ? chainCrons(jobList) : '';
 	}
 
 	start() {
-		log.info(`Starting job list ${this.id} ${this.crons}`);
+		log.info(`Starting ${this.toString()}`);
 		this.jobList.forEach(job => {
 			job.start();
 		});
 	}
 
 	stop() {
-		log.info(`Stopping job list ${this.id} ${this.crons}`);
+		log.info(`Stopping ${this.toString()}`);
 		this.jobList.forEach(job => {
 			job.stop();
 		});
@@ -35,6 +36,10 @@ class CronJobList {
 			if (!nextDate || nextDate > date) nextDate = date;
 		});
 		return nextDate;
+	}
+
+	toString() {
+		return `CronJobList ${this.id}[${this.length}] ${this.crons}`;
 	}
 }
 module.exports = CronJobList;

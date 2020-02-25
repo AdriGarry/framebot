@@ -6,7 +6,8 @@ const { spawn } = require('child_process');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(Core._CORE + 'Utils.js');
+	Utils = require(Core._CORE + 'Utils.js'),
+	CronJobList = require(Core._API + 'CronJobList.js');
 
 Core.flux.service.task.subscribe({
 	next: flux => {
@@ -73,13 +74,10 @@ const INTERNET_BOX_STRATEGY_CRON = [
 
 /** Function to get connected from 0 to 10 min of each hour */
 function internetBoxOffStrategy() {
-	log.info(
-		'setting up internetBoxOffStrategy...',
-		`[${INTERNET_BOX_STRATEGY_CRON[0].cron} -> ${INTERNET_BOX_STRATEGY_CRON[1].cron}]`
-	);
+	let internetBoxStrategyCrons = new CronJobList(INTERNET_BOX_STRATEGY_CRON, 'internetBoxOffStrategy', true);
+	log.info('setting up internetBoxOffStrategy...');
+	internetBoxStrategyCrons.start();
 
-	// TODO to CronJobList ?
-	Core.do('controller|cron|start', INTERNET_BOX_STRATEGY_CRON);
 	let isOnline = true;
 	setInterval(() => {
 		Utils.testConnection()

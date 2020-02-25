@@ -11,7 +11,7 @@
 			"full": ["tts"]
 		},
 		"controllers": {
-			"base": ["button", "cron", "server", "watcher"]
+			"base": ["button", "server", "watcher"]
 		},
 		"services": {
 			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord", "radiator", "task"],
@@ -32,26 +32,26 @@
 		"radiator": "auto"
 	},
 	"runtime": {},
-	"rfxcom": [
-		{ "name": "plugA", "id": "0x01F4BF8E/1" },
-		{ "name": "plugB", "id": "0x01F4BF8E/2" },
-		{ "name": "plugC", "id": "0x01F4BF8E/3" },
-		{ "name": "radiator", "id": "0x01F4BF8E/4" }
-	],
-	"radiator": {
-		"cron": [
-			{
-				"cron": "35 0 5-7,17-21 * * 1,4,5",
-				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
-			},
-			{
-				"cron": "35 0 5-21 * * 2,3",
-				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
-			},
-			{
-				"cron": "35 0 6-22 * * 0,6",
-				"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
-			}
-		]
+	"rfxcomDevices": {
+		"plugA": { "id": "0x01F4BF8E/1" },
+		"plugB": { "id": "0x01F4BF8E/2" },
+		"plugC": { "id": "0x01F4BF8E/3" },
+		"radiator": {
+			"id": "0x01F4BF8E/4",
+			"cron": [
+				{
+					"cron": "35 0 5-7,17-21 * * 1,4,5",
+					"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
+				},
+				{
+					"cron": "35 0 5-21 * * 2,3",
+					"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
+				},
+				{
+					"cron": "35 0 6-22 * * 0,6",
+					"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
+				}
+			]
+		}
 	}
 }

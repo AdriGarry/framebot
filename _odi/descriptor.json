@@ -11,7 +11,7 @@
 			"full": ["tts"]
 		},
 		"controllers": {
-			"base": ["button", "cron", "server", "watcher"]
+			"base": ["button", "server", "watcher"]
 		},
 		"services": {
 			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord", "radiator", "task"],
