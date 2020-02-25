@@ -6,7 +6,7 @@ const util = require('util'),
 	Rx = require('rxjs');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(_PATH + 'src/core/Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+	log = new (require(_PATH + 'src/api/Logger.js'))(__filename.match(/(\w*).js/g)[0]),
 	Utils = require(_PATH + 'src/api/Utils.js');
 
 const LOG_LEVELS = ['info', 'debug', 'trace'];

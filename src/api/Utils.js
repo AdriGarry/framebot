@@ -9,7 +9,7 @@ const { exec } = require('child_process'),
 	dns = require('dns');
 
 // Utils static factory (should not require Core.js or Flux.js)
-const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
+const log = new (require(_PATH + 'src/api/Logger.js'))(__filename);
 
 module.exports = {
 	//array
