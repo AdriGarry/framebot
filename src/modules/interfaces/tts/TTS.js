@@ -2,7 +2,7 @@
 'use strict';
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._CORE + 'Logger.js'))(__filename);
+	log = new (require(Core._API + 'Logger.js'))(__filename);
 
 const FALLBACK_LANGUAGE = 'fr',
 	FALLBACK_VOICE = 'espeak';

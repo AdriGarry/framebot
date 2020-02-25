@@ -5,8 +5,8 @@
 const { spawn } = require('child_process');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(_PATH + 'src/core/Utils.js');
+	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Utils = require(_PATH + 'src/api/Utils.js');
 
 module.exports = {
 	cron: {

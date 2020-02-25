@@ -5,7 +5,7 @@ const SerialPort = require('serialport'),
 	Readline = SerialPort.parsers.Readline;
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._CORE + 'Logger.js'))(__filename);
+	log = new (require(Core._API + 'Logger.js'))(__filename);
 
 const ARDUINO = { address: '/dev/ttyACM0', baudRate: 115200 };
 var arduino;
