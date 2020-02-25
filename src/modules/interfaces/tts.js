@@ -6,8 +6,8 @@ const { spawn, exec } = require('child_process');
 const TTS = require(__dirname + '/tts/TTS.js');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(Core._CORE + 'Utils.js'),
+	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Utils = require(Core._API + 'Utils.js'),
 	voices = require(Core._MODULES + 'interfaces/tts/voices.js'),
 	RandomBox = require('randombox').RandomBox;
 

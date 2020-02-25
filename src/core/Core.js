@@ -6,10 +6,10 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 
 const log = new (require(_PATH + 'src/core/Logger.js'))(__filename),
-	Utils = require(_PATH + 'src/core/Utils.js'),
+	Utils = require(_PATH + 'src/api/Utils.js'),
 	Lock = require(_PATH + 'src/core/Lock.js'),
 	CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
-// const CoreError = require(_PATH + 'src/core/CoreError.js');
+// const CoreError = require(_PATH + 'src/api/CoreError.js');
 
 var Core = {},
 	CoreError;
@@ -107,7 +107,7 @@ function isAwake() {
 
 function error(message, data, stackTrace) {
 	if (!CoreError) {
-		CoreError = require(_PATH + 'src/core/CoreError.js');
+		CoreError = require(_PATH + 'src/api/CoreError.js');
 	}
 	new CoreError(message, data, stackTrace);
 }

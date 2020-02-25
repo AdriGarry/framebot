@@ -23,10 +23,10 @@ var Core = require(_PATH + 'src/core/Core.js').initializeContext(
 	startTime
 );
 
-const log = new (require(Core._CORE + 'Logger.js'))(__filename, Core.conf('mode'));
+const log = new (require(Core._API + 'Logger.js'))(__filename, Core.conf('mode'));
 log.debug('argv:', argv);
 
-const Utils = require(Core._CORE + 'Utils.js');
+const Utils = require(Core._API + 'Utils.js');
 log.info(' -->  ' + Core.Name + ' ready [' + Utils.executionTime(Core.startTime) + 'ms]');
 
 ////////  TEST section  ////////

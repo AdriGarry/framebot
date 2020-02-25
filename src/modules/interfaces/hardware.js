@@ -7,8 +7,8 @@ const fs = require('fs'),
 	os = require('os');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(_PATH + 'src/core/Utils.js');
+	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Utils = require(_PATH + 'src/api/Utils.js');
 
 const PATHS = [Core._SRC],
 	BYTE_TO_MO = 1048576;
