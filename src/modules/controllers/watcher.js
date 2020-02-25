@@ -6,7 +6,7 @@ const fs = require('fs');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._API + 'Logger.js'))(__filename),
-	Utils = require(_PATH + 'src/api/Utils.js');
+	{ Utils } = require(Core._API + 'api.js');
 
 module.exports = {};
 
