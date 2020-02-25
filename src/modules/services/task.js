@@ -28,16 +28,21 @@ Core.flux.service.task.subscribe({
 setImmediate(() => {
 	if (!Core.isAwake()) {
 		if (Core.conf('alarms').weekDay && Core.conf('alarms').weekEnd) {
-			// goToSleep 2 hours after sleep mode, if any alarm scheduled
+			// if any alarm scheduled, goToSleep 2 hours after sleep mode
 			Utils.delay(120 * 60).then(goToSleep);
 			log.info('Alarm(s) scheduled, go to sleep task scheduled in 2 hours');
 		} else {
 			log.warn('No alarm scheduled, should not switch off internet box');
 		}
 	}
+	Utils.testConnection().catch(() => {
+		log.warn('No internet connection => internetBoxOffStrategy...');
+		internetBoxOffStrategy();
+	});
 });
 
 const GO_TO_SLEEP_DELAY = 5 * 60;
+
 function goToSleep() {
 	log.info(`goToSleep in ${GO_TO_SLEEP_DELAY / 60} min`);
 
@@ -72,6 +77,10 @@ function internetBoxOffStrategy() {
 		'setting up internetBoxOffStrategy...',
 		`[${INTERNET_BOX_STRATEGY_CRON[0].cron} -> ${INTERNET_BOX_STRATEGY_CRON[1].cron}]`
 	);
+
+	Core.do('interface|rfxcom|send', { device: 'plugB', value: true }); // TODO?
+
+	// TODO to CronJobList ?
 	Core.do('controller|cron|start', INTERNET_BOX_STRATEGY_CRON);
 	let isOnline = true;
 	setInterval(() => {
