@@ -1,6 +1,5 @@
 {
 	"random": [
-		"Moi, je suis une entiter, mais je nai pas dame",
 		"Je suis dubitatif !",
 		"Tout est sous controle !",
 		"Rien de nouveau sous le soleil !",
@@ -20,8 +19,6 @@
 		"Et bien, ce n'est pas sa qui va faire avancer le chmilblik!",
 		"La nuit derniaire, j'ai raiver que je pouvais bouger !",
 		"La nuit derniaire, j'ai fais des raives plutot etranges !",
-		"La nuit derniaire, je crois que Boutss a fait un petit tour",
-		"Ne bouges plus, et dis Taira octet",
 		"Ne bouges plus, et dis Taira octet",
 		"Hai, detends toi de la carte maire un peu",
 		"Hai, detends toi de la carte maire un peu",
@@ -35,15 +32,10 @@
 		],
 		[{ "msg": "Si tu me cherche, tu vas me trouver" }, { "msg": "C'est moi qui te le dit !" }],
 		[{ "voice": "google", "msg": "Quelle singulariter" }, { "msg": "Eh ho, doucement" }],
-		[{ "voice": "google", "msg": "Si tu vas faire des courses..." }, { "msg": "N'oublie pas d'acheter des biaires !" }],
 		[{ "voice": "google", "msg": "Sait toi Boutss ?" }, { "msg": "Oui, je crois qu'une boulette est passer par la" }],
 		[
 			{ "msg": "Imagine un peu si je pouvais bouger, sa serait super cool !" },
 			{ "voice": "google", "msg": "Oh oui, sa serait top !" }
-		],
-		[
-			{ "msg": "Et, j'en connais une bien bonne" },
-			{ "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !" }
 		],
 		[
 			{ "msg": "Et, j'en connais une bien bonne" },
@@ -67,6 +59,7 @@
 			{ "msg": "Et, tu pourrais quand maime me dire bonjour" },
 			{ "voice": "google", "msg": "Oui, c'est la moindre des choses !" }
 		],
+		"Et, faudrait pas lancer une lessive ?",
 		"Et, faudrait pas lancer une lessive ?",
 		{ "voice": "espeak", "msg": "Pense a vairifier le compost" },
 		{ "voice": "google", "msg": "Pense a vairifier le compost" },
