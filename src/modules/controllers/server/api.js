@@ -21,8 +21,17 @@ module.exports = {
 	attachRoutes: attachRoutes
 };
 
-let IP = { local: Utils.getLocalIp() };
-Utils.getPublicIp().then(data => (IP.public = data));
+let IP = { local: null, public: null };
+setImmediate(() => {
+	Utils.testConnection()
+		.then(() => {
+			IP.local = Utils.getLocalIp();
+			Utils.getPublicIp().then(data => (IP.public = data));
+		})
+		.catch(() => {
+			log.warn("No internet connection, can't retreive ip addresses!");
+		});
+});
 
 function attachRoutes(ui, modulesApi) {
 	uiHttp = ui;
