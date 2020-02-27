@@ -266,8 +266,8 @@ function postOdi(url, data) {
 /** Function to test internet connection */
 function testConnection() {
 	return new Promise((resolve, reject) => {
-		dns.resolve('www.google.com', function(err) {
-			if (err) {
+		dns.lookup('google.com', function(err) {
+			if (err && err.code == 'ENOTFOUND') {
 				reject();
 			} else {
 				log.debug("I'm online, connected on the internet!");
