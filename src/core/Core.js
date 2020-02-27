@@ -19,6 +19,7 @@ module.exports = {
 	Core: Core
 };
 
+// TODO to class ?
 function _setUpCoreObject(Core, descriptor, startTime) {
 	Core.Name = descriptor.name;
 	Core.name = descriptor.name.toLowerCase();
