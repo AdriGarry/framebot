@@ -11,10 +11,20 @@
 			"full": ["tts"]
 		},
 		"controllers": {
-			"base": ["button", "cron", "server", "watcher"]
+			"base": ["button", "server", "watcher"]
 		},
 		"services": {
-			"base": ["context", "buttonAction", "time", "alarm", "voicemail", "audioRecord", "radiator", "task"],
+			"base": [
+				"context",
+				"buttonAction",
+				"internetBox",
+				"time",
+				"alarm",
+				"voicemail",
+				"audioRecord",
+				"radiator",
+				"task"
+			],
 			"full": ["mood", "interaction", "weather", "timer", "music", "party", "video", "max", "maya"]
 		}
 	},

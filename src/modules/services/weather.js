@@ -6,9 +6,10 @@ const fs = require('fs'),
 	OAuth = require('oauth');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(Core._CORE + 'Utils.js'),
-	WEATHER_CREDENTIALS = require(Core._SECURITY + 'credentials.json').weather;
+	log = new (require(Core._API + 'Logger.js'))(__filename),
+	{ Utils } = require(Core._API + 'api.js');
+
+const WEATHER_CREDENTIALS = require(Core._SECURITY + 'credentials.json').weather;
 
 module.exports = {};
 

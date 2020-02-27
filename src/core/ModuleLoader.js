@@ -3,7 +3,8 @@
 'use strict';
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(_PATH + 'src/core/Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+	log = new (require(_PATH + 'src/api/Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+	CronJobList = require(Core._API + 'CronJobList.js');
 
 var ModuleLoader = {
 	loadModules: loadModules,
@@ -34,10 +35,10 @@ function _requireModules(moduleType, moduleArray) {
 	return modulesLoadedList;
 }
 
-function setupCron(modules) {
-	log.info('setting up cron...');
+function setupCron() {
 	let cronList = _organizeCron();
-	Core.do('controller|cron|start', cronList, { delay: 0.1, log: 'trace' });
+	let moduleCrons = new CronJobList(cronList, 'from modules');
+	moduleCrons.start();
 }
 
 function _organizeCron() {

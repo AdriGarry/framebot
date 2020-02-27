@@ -2,8 +2,8 @@
 'use strict';
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(_PATH + 'src/core/Utils.js');
+	log = new (require(Core._API + 'Logger.js'))(__filename),
+	{ Utils } = require(Core._API + 'api.js');
 
 module.exports = {
 	cron: {
@@ -104,7 +104,7 @@ const EXIT_LOG_ARRAY = ['bye!', 'see ya!', 'hope to see u soon!'];
 function processExit() {
 	Core.do('service|task|beforeRestart');
 	log.info('buttonStats:', Core.run().buttonStats);
-	log.info('fluxCount:', Core.run('stats.fluxCount'));
+	log.info('fluxCount:', Core.run('stats.fluxCount'), '\n');
 	log.INFO('exit program,', EXIT_LOG_ARRAY[Utils.rdm(3)]);
 	setTimeout(() => {
 		process.exit();

@@ -3,7 +3,7 @@
 
 const fs = require('fs');
 
-const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
+const log = new (require(_PATH + 'src/api/Logger.js'))(__filename);
 
 /** accessor: object([id, value]) */
 function Lock(obj, file) {

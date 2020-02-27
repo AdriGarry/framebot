@@ -5,8 +5,8 @@
 const { spawn } = require('child_process');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(Core._CORE + 'Utils.js');
+	log = new (require(Core._API + 'Logger.js'))(__filename),
+	{ Utils } = require(Core._API + 'api.js');
 
 Core.flux.service.task.subscribe({
 	next: flux => {
@@ -14,8 +14,10 @@ Core.flux.service.task.subscribe({
 			beforeRestart();
 		} else if (flux.id == 'goToSleep') {
 			goToSleep();
-		} else if (flux.id == 'internetBoxOff') {
-			internetBoxOffStrategy();
+		} else if (flux.id == 'internetBoxStrategy') {
+			internetBoxStrategy();
+		} else if (flux.id == 'internetBoxStrategyOff') {
+			internetBoxStrategyOff();
 		} else if (flux.id == 'certbot') {
 			renewCertbot();
 		} else Core.error('unmapped flux in Task service', flux, false);
@@ -23,22 +25,6 @@ Core.flux.service.task.subscribe({
 	error: err => {
 		Core.error('Flux error', err);
 	}
-});
-
-setImmediate(() => {
-	if (!Core.isAwake()) {
-		if (Core.conf('alarms').weekDay && Core.conf('alarms').weekEnd) {
-			// if any alarm scheduled, goToSleep 2 hours after sleep mode
-			Utils.delay(120 * 60).then(goToSleep);
-			log.info('Alarm(s) scheduled, go to sleep task scheduled in 2 hours');
-		} else {
-			log.warn('No alarm scheduled, should not switch off internet box');
-		}
-	}
-	Utils.testConnection().catch(() => {
-		log.warn('No internet connection => internetBoxOffStrategy...');
-		internetBoxOffStrategy();
-	});
 });
 
 const GO_TO_SLEEP_DELAY = 5 * 60;
@@ -53,6 +39,7 @@ function goToSleep() {
 	Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
 
 	// plugA & plugB off
+	Core.do('interface|led|blink', { leds: ['belly', 'eye'], speed: 200, loop: 5 }, { delay: 50 });
 	Core.do('interface|rfxcom|send', { device: 'plugA', value: false }, { delay: 60 });
 	Core.do('interface|rfxcom|send', { device: 'plugB', value: false }, { delay: 60 });
 
@@ -64,40 +51,6 @@ function goToSleep() {
 function beforeRestart() {
 	log.info('beforeRestart');
 	Core.do('interface|rfxcom|send', { device: 'plugB', value: true });
-}
-
-const INTERNET_BOX_STRATEGY_CRON = [
-	{ cron: '0 55 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: true } } },
-	{ cron: '0 10 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: false } } }
-];
-
-/** Function to get connected from 0 to 10 min of each hour */
-function internetBoxOffStrategy() {
-	log.info(
-		'setting up internetBoxOffStrategy...',
-		`[${INTERNET_BOX_STRATEGY_CRON[0].cron} -> ${INTERNET_BOX_STRATEGY_CRON[1].cron}]`
-	);
-
-	// TODO to CronJobList ?
-	Core.do('controller|cron|start', INTERNET_BOX_STRATEGY_CRON);
-	let isOnline = true;
-	setInterval(() => {
-		Utils.testConnection()
-			.then(() => {
-				if (!isOnline) {
-					log.info();
-					log.info("I'm back on the internet!");
-				}
-				isOnline = true;
-			})
-			.catch(() => {
-				if (isOnline) {
-					log.warn();
-					log.warn("I've just lost my internet connection!");
-				}
-				isOnline = false;
-			});
-	}, 30 * 1000);
 }
 
 function renewCertbot() {

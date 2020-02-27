@@ -9,7 +9,7 @@ const { exec } = require('child_process'),
 	dns = require('dns');
 
 // Utils static factory (should not require Core.js or Flux.js)
-const log = new (require(_PATH + 'src/core/Logger.js'))(__filename);
+const log = new (require(_PATH + 'src/api/Logger.js'))(__filename);
 
 module.exports = {
 	//array
@@ -266,8 +266,8 @@ function postOdi(url, data) {
 /** Function to test internet connection */
 function testConnection() {
 	return new Promise((resolve, reject) => {
-		dns.resolve('www.google.com', function(err) {
-			if (err) {
+		dns.lookup('google.com', function(err) {
+			if (err && err.code == 'ENOTFOUND') {
 				reject();
 			} else {
 				log.debug("I'm online, connected on the internet!");

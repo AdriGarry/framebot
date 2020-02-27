@@ -5,9 +5,8 @@
 const CronJob = require('cron').CronJob;
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(Core._CORE + 'Utils.js'),
-	CronJobList = require(Core._CORE + 'CronJobList.js');
+	log = new (require(Core._API + 'Logger.js'))(__filename),
+	{ Utils, CronJobList } = require(Core._API + 'api.js');
 
 module.exports = {};
 
@@ -35,7 +34,7 @@ const RADIATOR_JOB = {
 	ON: new CronJob('35 0 * * * *', function() {
 		radiatorOrder('on');
 	}),
-	AUTO: new CronJobList(Core.descriptor.rfxcomDevices.radiator.cron)
+	AUTO: new CronJobList(Core.descriptor.rfxcomDevices.radiator.cron, 'radiator-auto', true)
 };
 
 function setupRadiatorMode() {

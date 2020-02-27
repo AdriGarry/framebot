@@ -2,8 +2,8 @@
 'use strict';
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(_PATH + 'src/core/Utils.js');
+	log = new (require(Core._API + 'Logger.js'))(__filename),
+	{ Utils } = require(Core._API + 'api.js');
 
 const rfxcom = require('rfxcom'),
 	rfxtrx = new rfxcom.RfxCom('/dev/ttyUSB0', { debug: Core.conf('log') == 'info' ? false : true });
@@ -11,10 +11,14 @@ const rfxcom = require('rfxcom'),
 module.exports = {};
 
 Core.flux.interface.rfxcom.subscribe({
+	// TODO Create a parser (receive...)
 	next: flux => {
 		if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === false) {
 			sendStatus(flux.value);
-			Core.do('service|task|internetBoxOff');
+			Core.do('service|internetBox|strategy');
+		} else if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === true) {
+			sendStatus(flux.value);
+			Core.do('service|internetBox|strategyOff');
 		} else if (flux.id == 'send') {
 			sendStatus(flux.value);
 		} else {
@@ -33,8 +37,6 @@ log.debug('Rfxcom gateway initializing...');
 rfxtrx.initialise(function() {
 	Core.run('rfxcom', true);
 	log.info('Rfxcom gateway ready', '[' + Utils.executionTime(Core.startTime) + 'ms]');
-
-	Core.do('interface|rfxcom|send', { device: 'plugB', value: true });
 
 	rfxtrx.on('receive', function(evt) {
 		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });

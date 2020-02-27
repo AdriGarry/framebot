@@ -7,8 +7,8 @@ const fs = require('fs'),
 	os = require('os');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._CORE + 'Logger.js'))(__filename),
-	Utils = require(_PATH + 'src/core/Utils.js');
+	log = new (require(Core._API + 'Logger.js'))(__filename),
+	{ Utils, CronJobList } = require(Core._API + 'api.js');
 
 const PATHS = [Core._SRC],
 	BYTE_TO_MO = 1048576;
@@ -82,7 +82,7 @@ function reboot() {
 	}
 	console.log('\n\n_/!\\__REBOOTING RASPBERRY PI !!\n');
 	setTimeout(function() {
-		spawn('systemctl reboot');
+		spawn('reboot');
 	}, 2000);
 }
 
@@ -95,7 +95,7 @@ function shutdown() {
 	}
 	setTimeout(function() {
 		console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!\n");
-		spawn('systemctl poweroff');
+		spawn('halt');
 	}, 2000);
 }
 
