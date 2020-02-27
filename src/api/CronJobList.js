@@ -7,7 +7,7 @@ const CronJob = require('cron').CronJob;
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._API + 'Logger.js'))(__filename);
 
-class CronJobList {
+module.exports = class CronJobList {
 	constructor(jobList, id, cronDisplay) {
 		this.id = id || '#';
 		this.jobList = buildJobList(jobList);
@@ -41,8 +41,7 @@ class CronJobList {
 	toString() {
 		return `CronJobList ${this.id}[${this.length}] ${this.crons}`;
 	}
-}
-module.exports = CronJobList;
+};
 
 function buildJobList(jobList) {
 	let jobs = [];
