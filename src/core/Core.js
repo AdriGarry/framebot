@@ -93,7 +93,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
 	ModuleLoader.loadModules(descriptor.modules);
-	log.info('all modules subscribed [' + Utils.executionTime(Core.startTime) + 'ms]');
+	log.info('all modules loaded [' + Utils.executionTime(Core.startTime) + 'ms]');
 
 	Core.do('controller|server|start', null, { log: 'trace' });
 	ModuleLoader.setupCron();

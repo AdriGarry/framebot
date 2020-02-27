@@ -8,7 +8,7 @@ const { exec } = require('child_process'),
 	request = require('request'),
 	dns = require('dns');
 
-// Utils static factory (should not require Core.js or Flux.js)
+// Utils static factory (should not require Core.js or Flux.js) // only API ?
 const log = new (require(_PATH + 'src/api/Logger.js'))(__filename);
 
 module.exports = {
