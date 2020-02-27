@@ -14,8 +14,10 @@ Core.flux.service.task.subscribe({
 			beforeRestart();
 		} else if (flux.id == 'goToSleep') {
 			goToSleep();
-		} else if (flux.id == 'internetBoxOff') {
-			internetBoxOffStrategy();
+		} else if (flux.id == 'internetBoxStrategy') {
+			internetBoxStrategy();
+		} else if (flux.id == 'internetBoxStrategyOff') {
+			internetBoxStrategyOff();
 		} else if (flux.id == 'certbot') {
 			renewCertbot();
 		} else Core.error('unmapped flux in Task service', flux, false);
@@ -25,23 +27,14 @@ Core.flux.service.task.subscribe({
 	}
 });
 
-setImmediate(() => {
-	if (!Core.isAwake()) {
-		if (Core.conf('alarms').weekDay && Core.conf('alarms').weekEnd) {
-			// if any alarm scheduled, goToSleep 2 hours after sleep mode
-			Utils.delay(120 * 60).then(goToSleep);
-			log.info('Alarm(s) scheduled, go to sleep task scheduled in 2 hours');
-		} else {
-			log.warn('No alarm scheduled, should not switch off internet box');
-		}
-	}
-	Utils.testConnection().catch(() => {
-		log.warn('No internet connection => internetBoxOffStrategy...');
-		internetBoxOffStrategy();
-	});
-});
+const GO_TO_SLEEP_DELAY = 5 * 60,
+	INTERNET_BOX_STRATEGY_CRON = [
+		{ cron: '0 55 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: true } } },
+		{ cron: '0 10 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: false } } }
+	],
+	internetBoxStrategyCrons = new CronJobList(INTERNET_BOX_STRATEGY_CRON, 'internetBoxOffStrategy', true);
 
-const GO_TO_SLEEP_DELAY = 5 * 60;
+var internetTestInterval = null;
 
 function goToSleep() {
 	log.info(`goToSleep in ${GO_TO_SLEEP_DELAY / 60} min`);
@@ -53,6 +46,7 @@ function goToSleep() {
 	Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
 
 	// plugA & plugB off
+	Core.do('interface|led|blink', { leds: ['belly', 'eye'], speed: 200, loop: 5 }, { delay: 50 });
 	Core.do('interface|rfxcom|send', { device: 'plugA', value: false }, { delay: 60 });
 	Core.do('interface|rfxcom|send', { device: 'plugB', value: false }, { delay: 60 });
 
@@ -66,19 +60,13 @@ function beforeRestart() {
 	Core.do('interface|rfxcom|send', { device: 'plugB', value: true });
 }
 
-const INTERNET_BOX_STRATEGY_CRON = [
-	{ cron: '0 55 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: true } } },
-	{ cron: '0 10 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: false } } }
-];
-
 /** Function to get connected from 0 to 10 min of each hour */
-function internetBoxOffStrategy() {
-	let internetBoxStrategyCrons = new CronJobList(INTERNET_BOX_STRATEGY_CRON, 'internetBoxOffStrategy', true);
-	log.info('setting up internetBoxOffStrategy...');
+function internetBoxStrategy() {
+	log.info('Starting internet box strategy...');
 	internetBoxStrategyCrons.start();
 
 	let isOnline = true;
-	setInterval(() => {
+	internetTestInterval = setInterval(() => {
 		Utils.testConnection()
 			.then(() => {
 				if (!isOnline) {
@@ -90,11 +78,21 @@ function internetBoxOffStrategy() {
 			.catch(() => {
 				if (isOnline) {
 					log.warn();
-					log.warn("I've just lost my internet connection!");
+					log.warn("I've lost my internet connection!");
 				}
 				isOnline = false;
 			});
-	}, 30 * 1000);
+	}, 10 * 1000);
+}
+
+function internetBoxStrategyOff() {
+	// TODO problem: parse receive from rfxcom instead of flux filter
+	log.test('internetBoxStrategyOff', internetBoxStrategyCrons.nextDate());
+	if (false) {
+		log.info('Stopping internet box strategy');
+		internetBoxStrategyCrons.stop();
+		clearInterval(internetTestInterval);
+	}
 }
 
 function renewCertbot() {

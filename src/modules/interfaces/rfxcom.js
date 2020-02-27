@@ -14,7 +14,10 @@ Core.flux.interface.rfxcom.subscribe({
 	next: flux => {
 		if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === false) {
 			sendStatus(flux.value);
-			Core.do('service|task|internetBoxOff');
+			Core.do('service|task|internetBoxStrategy');
+		} else if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === true) {
+			sendStatus(flux.value);
+			Core.do('service|task|internetBoxStrategyOff');
 		} else if (flux.id == 'send') {
 			sendStatus(flux.value);
 		} else {
@@ -33,8 +36,6 @@ log.debug('Rfxcom gateway initializing...');
 rfxtrx.initialise(function() {
 	Core.run('rfxcom', true);
 	log.info('Rfxcom gateway ready', '[' + Utils.executionTime(Core.startTime) + 'ms]');
-
-	Core.do('interface|rfxcom|send', { device: 'plugB', value: true });
 
 	rfxtrx.on('receive', function(evt) {
 		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
