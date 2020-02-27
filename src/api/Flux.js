@@ -7,7 +7,7 @@ const util = require('util'),
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(_PATH + 'src/api/Logger.js'))(__filename.match(/(\w*).js/g)[0]),
-	Utils = require(_PATH + 'src/api/Utils.js');
+	{ Utils } = require(Core._API + 'api.js');
 
 const LOG_LEVELS = ['info', 'debug', 'trace'];
 
