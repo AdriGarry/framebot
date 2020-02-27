@@ -11,13 +11,14 @@ const rfxcom = require('rfxcom'),
 module.exports = {};
 
 Core.flux.interface.rfxcom.subscribe({
+	// TODO Create a parser (receive...)
 	next: flux => {
 		if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === false) {
 			sendStatus(flux.value);
-			Core.do('service|task|internetBoxStrategy');
+			Core.do('service|internetBox|strategy');
 		} else if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === true) {
 			sendStatus(flux.value);
-			Core.do('service|task|internetBoxStrategyOff');
+			Core.do('service|internetBox|strategyOff');
 		} else if (flux.id == 'send') {
 			sendStatus(flux.value);
 		} else {
