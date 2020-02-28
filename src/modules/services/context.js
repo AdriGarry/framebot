@@ -28,7 +28,8 @@ module.exports = {
 	}
 };
 
-Core.flux.service.context.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().context.subscribe({
 	next: flux => {
 		if (flux.id == 'restart') {
 			restartCore(flux.value);

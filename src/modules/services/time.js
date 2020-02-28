@@ -14,7 +14,8 @@ module.exports = {
 	}
 };
 
-Core.flux.service.time.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().time.subscribe({
 	next: flux => {
 		if (flux.id == 'now') {
 			now();

@@ -8,7 +8,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {};
 
-Core.flux.service.max.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().max.subscribe({
 	next: flux => {
 		if (flux.id == 'parse') {
 			parseDataFromMax(flux.value);

@@ -7,7 +7,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 // const BTN_PUSH_MIN = 0.4;
 
-Core.flux.controller.button.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.controller().button.subscribe({
 	next: flux => {
 		buttonHandler(flux);
 	},

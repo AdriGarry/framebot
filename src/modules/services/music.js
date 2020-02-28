@@ -15,7 +15,8 @@ module.exports = {
 	}
 };
 
-Core.flux.service.music.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().music.subscribe({
 	next: flux => {
 		if (flux.id == 'playlist') {
 			playlist(flux.value);

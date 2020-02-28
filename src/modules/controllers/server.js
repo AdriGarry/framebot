@@ -27,7 +27,8 @@ const HTTP_SERVER_PORT = 3210,
 		cert: fs.readFileSync(Core._SECURITY + 'cert.pem')
 	};
 
-Core.flux.controller.server.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.controller().server.subscribe({
 	next: flux => {
 		if (flux.id == 'start') {
 			startUIServer();

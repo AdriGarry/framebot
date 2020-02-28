@@ -16,7 +16,8 @@ const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
 
 module.exports = {};
 
-Core.flux.interface.tts.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.interface().tts.subscribe({
 	next: flux => {
 		if (flux.id == 'speak') {
 			speak(flux.value);

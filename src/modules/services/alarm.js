@@ -13,7 +13,8 @@ module.exports = {
 	}
 };
 
-Core.flux.service.alarm.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().alarm.subscribe({
 	next: flux => {
 		if (flux.id == 'set') {
 			setAlarm(flux.value);

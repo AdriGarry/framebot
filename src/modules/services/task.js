@@ -8,7 +8,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._API + 'Logger.js'))(__filename),
 	{ Utils } = require(Core._API + 'api.js');
 
-Core.flux.service.task.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().task.subscribe({
 	next: flux => {
 		if (flux.id == 'beforeRestart') {
 			beforeRestart();

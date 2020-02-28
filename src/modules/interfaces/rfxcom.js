@@ -10,7 +10,8 @@ const rfxcom = require('rfxcom'),
 
 module.exports = {};
 
-Core.flux.interface.rfxcom.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.interface().rfxcom.subscribe({
 	// TODO Create a parser (receive...)
 	next: flux => {
 		if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === false) {

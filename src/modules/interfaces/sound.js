@@ -16,7 +16,8 @@ module.exports = {
 	}
 };
 
-Core.flux.interface.sound.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.interface().sound.subscribe({
 	next: flux => {
 		if (flux.id == 'mute') {
 			mute(flux.value);

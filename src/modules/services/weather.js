@@ -13,7 +13,8 @@ const WEATHER_CREDENTIALS = require(Core._SECURITY + 'credentials.json').weather
 
 module.exports = {};
 
-Core.flux.service.weather.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().weather.subscribe({
 	next: flux => {
 		if (flux.id == 'report') {
 			reportTTS();

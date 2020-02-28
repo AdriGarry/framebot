@@ -8,7 +8,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {};
 
-Core.flux.service.party.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().party.subscribe({
 	next: flux => {
 		if (flux.id == 'start') {
 			start();

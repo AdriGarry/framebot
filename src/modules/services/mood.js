@@ -6,7 +6,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	{ Utils } = require(Core._API + 'api.js'),
 	RandomBox = require('randombox').RandomBox;
 
-Core.flux.service.mood.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().mood.subscribe({
 	next: flux => {
 		if (flux.id == 'expressive') {
 			expressive(flux.value);

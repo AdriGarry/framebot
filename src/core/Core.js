@@ -86,10 +86,14 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		});
 	}
 
-	const Flux = require('../api/Flux.js').init(descriptor.modules),
-		ModuleLoader = require('./ModuleLoader.js'); //.init(descriptor.modules)
+	const Observers = require('./Observers.js');
+	Observers.init(descriptor.modules);
+
+	const Flux = require('../api/Flux.js'),
+		ModuleLoader = require('./ModuleLoader.js');
 
 	Core.flux = Flux;
+	log.test(Flux);
 	Core.do = Flux.next;
 	Core.do('service|context|update', confUpdate, { delay: 0.2, log: 'debug' });
 

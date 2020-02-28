@@ -8,7 +8,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {};
 
-Core.flux.interface.hdmi.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.interface().hdmi.subscribe({
 	next: flux => {
 		if (flux.id == 'on') {
 			screenOn();

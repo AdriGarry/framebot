@@ -5,7 +5,8 @@
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._API + 'Logger.js'))(__filename);
 
-Core.flux.service.timer.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().timer.subscribe({
 	next: flux => {
 		if (flux.id == 'increase') {
 			setTimer(flux.value);

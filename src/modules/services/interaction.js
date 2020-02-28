@@ -22,7 +22,8 @@ module.exports = {
 	}
 };
 
-Core.flux.service.interaction.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().interaction.subscribe({
 	next: flux => {
 		if (flux.id == 'random') {
 			randomAction();

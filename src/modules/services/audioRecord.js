@@ -10,7 +10,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {};
 
-Core.flux.service.audioRecord.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().audioRecord.subscribe({
 	next: flux => {
 		if (flux.id == 'new') {
 			addRecord(flux.value);

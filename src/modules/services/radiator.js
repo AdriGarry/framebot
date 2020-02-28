@@ -10,7 +10,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {};
 
-Core.flux.service.radiator.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().radiator.subscribe({
 	next: flux => {
 		if (flux.id == 'toggle') {
 			toggleRadiator(flux.value);

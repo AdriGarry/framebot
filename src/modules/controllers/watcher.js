@@ -10,7 +10,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {};
 
-Core.flux.controller.watcher.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.controller().watcher.subscribe({
 	next: flux => {
 		if (flux.id == 'start') {
 			startWatch();

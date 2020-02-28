@@ -9,7 +9,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 const SMS_CREDENTIALS = require(Core._SECURITY + 'credentials.json').sms;
 
-Core.flux.service.sms.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().sms.subscribe({
 	next: flux => {
 		if (flux.id == 'send') {
 			sendSMS(flux.value);

@@ -8,7 +8,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {};
 
-Core.flux.service.maya.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().maya.subscribe({
 	next: flux => {
 		if (flux.id == 'comptine') {
 			comptine(); // Deprecated... to delete ?

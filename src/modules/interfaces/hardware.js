@@ -23,7 +23,8 @@ module.exports = {
 	}
 };
 
-Core.flux.interface.hardware.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.interface().hardware.subscribe({
 	next: flux => {
 		if (flux.id == 'reboot') {
 			reboot();

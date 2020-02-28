@@ -9,7 +9,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {};
 
-Core.flux.service.video.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().video.subscribe({
 	next: flux => {
 		if (flux.id == 'loop') {
 			loop();

@@ -12,7 +12,8 @@ var arduino;
 
 module.exports = {};
 
-Core.flux.interface.arduino.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.interface().arduino.subscribe({
 	next: flux => {
 		if (flux.id == 'connect') {
 			connect();

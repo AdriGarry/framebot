@@ -6,7 +6,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 	log = new (require(Core._API + 'Logger.js'))(__filename),
 	{ Utils, CronJobList } = require(Core._API + 'api.js');
 
-Core.flux.service.internetBox.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().internetBox.subscribe({
 	next: flux => {
 		if (flux.id == 'strategy') {
 			internetBoxStrategy();

@@ -9,7 +9,8 @@ const Core = require(_PATH + 'src/core/Core.js').Core,
 
 module.exports = {};
 
-Core.flux.service.voicemail.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.service().voicemail.subscribe({
 	next: flux => {
 		if (flux.id == 'new') {
 			addVoicemailMessage(flux.value);

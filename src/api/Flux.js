@@ -5,37 +5,27 @@
 const util = require('util'),
 	Rx = require('rxjs');
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(_PATH + 'src/api/Logger.js'))(__filename.match(/(\w*).js/g)[0]),
-	{ Utils } = require(Core._API + 'api.js');
+const Core = require('../core/Core.js').Core,
+	Observers = require('../core/Observers.js');
+const log = new (require('./Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+	{ Utils } = require('./api.js');
 
 const LOG_LEVELS = ['info', 'debug', 'trace'];
 
-var ready = false;
-
 var Flux = {
-	init: initObservers,
+	// init: initObservers,
 	next: next
 };
 
-module.exports = Flux;
+module.exports = class Flux {
+	constructor() {
+		//
+	}
 
-function initObservers(observers) {
-	log.debug('initializing observers...');
-	Object.keys(observers).forEach((key, index) => {
-		let proto = key.substring(0, key.length - 1);
-		Flux[proto] = {};
-		Object.keys(observers[key]).forEach((key2, index2) => {
-			let tmp = observers[key][key2];
-			tmp.forEach(index => {
-				Flux[proto][index] = new Rx.Subject();
-			});
-		});
-	});
-	ready = true;
-	log.info('Observers attached, flux manager ready');
-	return Flux;
-}
+	static next(id, data, conf) {
+		next(id, data, conf);
+	}
+};
 
 const FLUX_REGEX = new RegExp(/(?<type>\w+)\|(?<subject>\w+)\|(?<id>\w+)/);
 
@@ -61,7 +51,7 @@ function FluxObject(idFrom, data, conf) {
 		if (this.error) {
 			Core.error('Flux error: ' + this.error, this);
 			return false;
-		} else if (!Object.keys(Flux).includes(this.type) || !Object.keys(Flux[this.type]).includes(this.subject)) {
+		} else if (!Observers.modules().includes(this.type) || !Observers[this.type]().hasOwnProperty(this.subject)) {
 			log.warn('Invalid Flux id: ' + this.type, this.subject);
 			return false;
 		}
@@ -81,7 +71,7 @@ function FluxObject(idFrom, data, conf) {
 
 	this.fire = () => {
 		log[this.log]('> Flux', this.toString());
-		Flux[this.type][this.subject].next({
+		Observers[this.type]()[this.subject].next({
 			id: this.id,
 			value: this.value
 		});
@@ -97,7 +87,7 @@ function FluxObject(idFrom, data, conf) {
 }
 
 function next(id, data, conf) {
-	if (!ready) {
+	if (!Observers.isReady()) {
 		log.error('Flux manager not yet ready');
 		return;
 	}

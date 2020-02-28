@@ -24,7 +24,8 @@ module.exports = {
 	}
 };
 
-Core.flux.interface.led.subscribe({
+const Observers = require(Core._CORE + 'Observers.js');
+Observers.interface().led.subscribe({
 	next: flux => {
 		if (flux.id == 'activitySignal') {
 			activitySignal();
