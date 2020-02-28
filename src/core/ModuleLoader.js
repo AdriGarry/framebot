@@ -2,25 +2,24 @@
 
 'use strict';
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(_PATH + 'src/api/Logger.js'))(__filename.match(/(\w*).js/g)[0]),
-	CronJobList = require(Core._API + 'CronJobList.js');
-
-var ModuleLoader = {
-	loadModules: loadModules,
-	setupCron: setupCron
-};
+const Core = require('./Core.js').Core;
+const log = new (require('../api/Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+	CronJobList = require('../api/CronJobList.js');
 
 module.exports = class ModuleLoader {
-	loadModules(modules) {
-		Object.keys(modules).forEach(moduleType => {
-			let modulesLoaded = _requireModules(moduleType, modules[moduleType].base);
-			if (Core.isAwake() && modules[moduleType].hasOwnProperty('full')) {
-				modulesLoaded += ', ' + _requireModules(moduleType, modules[moduleType].full);
+	constructor(modules) {
+		this.modules = modules;
+		this.loadedModules;
+	}
+
+	load() {
+		Object.keys(this.modules).forEach(moduleType => {
+			let modulesLoaded = _requireModules(moduleType, this.modules[moduleType].base);
+			if (Core.isAwake() && this.modules[moduleType].hasOwnProperty('full')) {
+				modulesLoaded += ', ' + _requireModules(moduleType, this.modules[moduleType].full);
 			}
 			log.info(moduleType, 'loaded [' + modulesLoaded + ']');
 		});
-		return ModuleLoader;
 	}
 
 	setupCron() {
