@@ -14,7 +14,10 @@ const http = require('http'),
 	bodyParser = require('body-parser');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 const middleware = require(Core._MODULES + 'controllers/server/middleware.js'),
@@ -27,7 +30,7 @@ const HTTP_SERVER_PORT = 3210,
 		cert: fs.readFileSync(Core._SECURITY + 'cert.pem')
 	};
 
-Core.flux.controller.server.subscribe({
+Observers.controller().server.subscribe({
 	next: flux => {
 		if (flux.id == 'start') {
 			startUIServer();
@@ -86,7 +89,7 @@ function startHttpsServer() {
 
 	httpsServer = https.createServer(CREDENTIALS, uiHttps).listen(HTTPS_SERVER_PORT, () => {
 		log.info('API https server started [' + Utils.executionTime(Core.startTime) + 'ms]');
-		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
+		new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 	});
 }
 

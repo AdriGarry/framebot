@@ -5,14 +5,17 @@ const SerialPort = require('serialport'),
 	Readline = SerialPort.parsers.Readline;
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename);
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js');
 
 const ARDUINO = { address: '/dev/ttyACM0', baudRate: 115200 };
 var arduino;
 
 module.exports = {};
 
-Core.flux.interface.arduino.subscribe({
+Observers.interface().arduino.subscribe({
 	next: flux => {
 		if (flux.id == 'connect') {
 			connect();
@@ -45,27 +48,27 @@ function connect() {
 			Core.error('Error opening arduino port: ', err.message, false);
 			// TODO Scheduler to retry connect...?
 			if (!Core.run('alarm') && Core.run('etat') == 'high') {
-				Core.do('interface|tts|speak', { lg: 'en', msg: 'Max is not available' });
+				new Flux('interface|tts|speak', { lg: 'en', msg: 'Max is not available' });
 			}
 			Core.run('max', false);
 		} else {
 			log.info('arduino serial channel opened');
 			Core.run('max', true);
 			// if (Core.isAwake() && !Core.run('alarm') && Core.run('etat') == 'high')
-			// 	Core.do('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
+			// 	new Flux('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
 
 			var feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
 			feedback.on('data', function(data) {
 				log.debug(data);
-				Core.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
-				Core.do('service|max|parse', data.trim(), { log: 'trace' });
+				new Flux('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
+				new Flux('service|max|parse', data.trim(), { log: 'trace' });
 			});
 
 			arduino.on('close', function(data) {
 				data = String(data);
 				if (data.indexOf('bad file descriptor') >= 0) {
 					Core.error('Max is disconnected', data, false);
-					Core.do('interface|tts|speak', { lg: 'en', msg: "I've just lost my connexion with Max!" });
+					new Flux('interface|tts|speak', { lg: 'en', msg: "I've just lost my connexion with Max!" });
 				}
 				Core.run('max', false);
 				log.info('arduino serial channel disconnected!');

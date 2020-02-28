@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
-	{ Utils } = require(Core._API + 'api.js');
+const Core = require('./../core/Core').Core;
+
+const log = new (require('./../api/Logger'))(__filename.match(/(\w*).js/g)[0]),
+	Flux = require('./../api/Flux'),
+	Utils = require('./../api/Utils');
 
 const testSequences = ['interfaceTest', 'serviceTest'];
 
@@ -24,7 +26,7 @@ function launchTests() {
 		.catch(err => {
 			log.error('Error(s) in test sequences:', err);
 			log.info('Core.errors:' + Core.errors.length);
-			// Core.do('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
+			// new Flux('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
 		});
 }
 
@@ -33,8 +35,8 @@ function allTestSuceedFeedback(data) {
 	log.info('-------------------------');
 	log.INFO('>> All tests succeeded !!');
 	log.info('-------------------------');
-	Core.do('service|sms|send', 'ALL TEST SUCCEED !!');
+	new Flux('service|sms|send', 'ALL TEST SUCCEED !!');
 	let testTTS = Utils.rdm() ? 'Je suis Ok !' : { lg: 'en', msg: 'all tests succeeded!' };
-	Core.do('interface|tts|speak', testTTS);
-	Core.do('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
+	new Flux('interface|tts|speak', testTTS);
+	new Flux('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
 }

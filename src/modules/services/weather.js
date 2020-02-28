@@ -6,14 +6,17 @@ const fs = require('fs'),
 	OAuth = require('oauth');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 const WEATHER_CREDENTIALS = require(Core._SECURITY + 'credentials.json').weather;
 
 module.exports = {};
 
-Core.flux.service.weather.subscribe({
+Observers.service().weather.subscribe({
 	next: flux => {
 		if (flux.id == 'report') {
 			reportTTS();
@@ -62,7 +65,7 @@ function reportTTS() {
 					' kilometre heure de vent'
 			};
 			log.debug('weatherSpeech', weatherSpeech);
-			Core.do('interface|tts|speak', weatherSpeech);
+			new Flux('interface|tts|speak', weatherSpeech);
 		})
 		.catch(err => {
 			Core.error('Error weather', err);
@@ -75,7 +78,7 @@ function alternativeReportTTS() {
 	fetchWeatherData()
 		.then(weatherReport => {
 			log.debug('weatherReport', weatherReport);
-			Core.do('interface|tts|speak', getAlternativeWeatherReport(weatherReport));
+			new Flux('interface|tts|speak', getAlternativeWeatherReport(weatherReport));
 		})
 		.catch(err => {
 			Core.error('Error weather', err);
@@ -102,7 +105,7 @@ var weatherReport;
 
 function astronomyTTS() {
 	if (!weatherReport) {
-		Core.do('interface|tts|speak', [
+		new Flux('interface|tts|speak', [
 			{ msg: "Aujourd'hui, le soleil se laive a lest" },
 			{ msg: 'Et se couche a louest' }
 		]);
@@ -112,10 +115,10 @@ function astronomyTTS() {
 			weatherReport.sunrise.getHours() +
 			' heure ' +
 			weatherReport.sunrise.getMinutes();
-		Core.do('interface|tts|speak', ttsSunrise);
+		new Flux('interface|tts|speak', ttsSunrise);
 		let ttsSunset =
 			'Et il se couchera a ' + weatherReport.sunset.getHours() + ' heure ' + weatherReport.sunset.getMinutes();
-		Core.do('interface|tts|speak', ttsSunset);
+		new Flux('interface|tts|speak', ttsSunset);
 	}
 }
 

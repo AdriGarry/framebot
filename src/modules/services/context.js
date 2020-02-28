@@ -2,7 +2,10 @@
 'use strict';
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 module.exports = {
@@ -28,7 +31,7 @@ module.exports = {
 	}
 };
 
-Core.flux.service.context.subscribe({
+Observers.service().context.subscribe({
 	next: flux => {
 		if (flux.id == 'restart') {
 			restartCore(flux.value);
@@ -57,11 +60,11 @@ function restartCore(mode) {
 	if (typeof mode !== 'string') mode = 'ready';
 	if (Core.run('timer')) {
 		let timerRemaining = 'Minuterie ' + Core.run('timer') + ' secondes';
-		Core.do('interface|tts|speak', timerRemaining);
+		new Flux('interface|tts|speak', timerRemaining);
 		log.INFO(timerRemaining);
 	}
 	setTimeout(() => {
-		Core.do('service|context|updateRestart', { mode: mode });
+		new Flux('service|context|updateRestart', { mode: mode });
 	}, 100);
 }
 
@@ -69,10 +72,10 @@ function restartCore(mode) {
 function goToSleep() {
 	if (Core.isAwake()) {
 		let sleepTTS = Utils.randomItem(Core.ttsMessages.goToSleep);
-		Core.do('interface|tts|speak', sleepTTS);
+		new Flux('interface|tts|speak', sleepTTS);
 		log.info('AutoLifeCycle go to sleep !');
 		setTimeout(function() {
-			Core.do('service|context|restart', 'sleep');
+			new Flux('service|context|restart', 'sleep');
 		}, sleepTTS.msg.length * 150);
 	}
 }
@@ -94,7 +97,7 @@ function updateConf(newConf, restart) {
 
 /** Function to reset Core (/tmp/ directory) */
 function resetCore() {
-	Core.do('interface|sound|reset');
+	new Flux('interface|sound|reset');
 	Utils.deleteFolderRecursive(Core._TMP);
 	log.INFO('reset conf and restart');
 	processExit();
@@ -102,7 +105,7 @@ function resetCore() {
 
 const EXIT_LOG_ARRAY = ['bye!', 'see ya!', 'hope to see u soon!'];
 function processExit() {
-	Core.do('service|task|beforeRestart');
+	new Flux('service|task|beforeRestart');
 	log.info('buttonStats:', Core.run().buttonStats);
 	log.info('fluxCount:', Core.run('stats.fluxCount'), '\n');
 	log.INFO('exit program,', EXIT_LOG_ARRAY[Utils.rdm(3)]);

@@ -5,12 +5,15 @@
 const fs = require('fs');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 module.exports = {};
 
-Core.flux.controller.watcher.subscribe({
+Observers.controller().watcher.subscribe({
 	next: flux => {
 		if (flux.id == 'start') {
 			startWatch();
@@ -27,7 +30,7 @@ Core.flux.controller.watcher.subscribe({
 
 setImmediate(() => {
 	if (Core.conf('watcher')) {
-		Core.do('controller|watcher|start');
+		new Flux('controller|watcher|start');
 	}
 });
 
@@ -97,5 +100,5 @@ function waitForUpdateEnd(action) {
 
 function relaunch() {
 	log.INFO('>> relaunching...');
-	Core.do('service|context|restart', Core.conf('mode'));
+	new Flux('service|context|restart', Core.conf('mode'));
 }

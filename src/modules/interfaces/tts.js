@@ -6,9 +6,13 @@ const { spawn, exec } = require('child_process');
 const TTS = require(__dirname + '/tts/TTS.js');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
-	{ Utils } = require(Core._API + 'api.js'),
-	voices = require(Core._MODULES + 'interfaces/tts/voices.js'),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
+	{ Utils } = require(Core._API + 'api.js');
+
+const voices = require(Core._MODULES + 'interfaces/tts/voices.js'),
 	RandomBox = require('randombox').RandomBox;
 
 const VOICE_LIST = Object.keys(voices);
@@ -16,7 +20,7 @@ const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
 
 module.exports = {};
 
-Core.flux.interface.tts.subscribe({
+Observers.interface().tts.subscribe({
 	next: flux => {
 		if (flux.id == 'speak') {
 			speak(flux.value);
@@ -85,7 +89,7 @@ function proceedQueue() {
 
 /** Function to play TTS message (espeak / google translate) */
 function playTTS(tts) {
-	Core.do('service|max|blinkRdmLed');
+	new Flux('service|max|blinkRdmLed');
 	// TODO test if internet connexion?
 
 	log.info(tts.toString());
@@ -94,7 +98,7 @@ function playTTS(tts) {
 
 	let blinkDuration = tts.getMsg().length / 2 + 2,
 		speed = Utils.random(50, 150);
-	Core.do('interface|led|blink', { leds: ['eye'], speed: speed, loop: blinkDuration }, { log: 'trace' });
+	new Flux('interface|led|blink', { leds: ['eye'], speed: speed, loop: blinkDuration }, { log: 'trace' });
 
 	lastTtsMsg = tts;
 }

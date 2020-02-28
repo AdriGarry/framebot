@@ -4,7 +4,9 @@
 const Gpio = require('onoff').Gpio;
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename);
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename);
 
 var Led = {};
 
@@ -24,7 +26,7 @@ module.exports = {
 	}
 };
 
-Core.flux.interface.led.subscribe({
+Observers.interface().led.subscribe({
 	next: flux => {
 		if (flux.id == 'activitySignal') {
 			activitySignal();

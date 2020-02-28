@@ -5,11 +5,13 @@
 const request = require('request');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename);
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename);
 
 const SMS_CREDENTIALS = require(Core._SECURITY + 'credentials.json').sms;
 
-Core.flux.service.sms.subscribe({
+Observers.service().sms.subscribe({
 	next: flux => {
 		if (flux.id == 'send') {
 			sendSMS(flux.value);

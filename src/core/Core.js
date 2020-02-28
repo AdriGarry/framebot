@@ -5,9 +5,10 @@
 const { spawn } = require('child_process');
 const fs = require('fs');
 
+const Lock = require(_PATH + 'src/core/Lock.js');
+
 const log = new (require(_PATH + 'src/api/Logger.js'))(__filename),
 	Utils = require(_PATH + 'src/api/Utils.js'),
-	Lock = require(_PATH + 'src/core/Lock.js'),
 	CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 // const CoreError = require(_PATH + 'src/api/CoreError.js');
 
@@ -34,7 +35,6 @@ function _setUpCoreObject(Core, descriptor, startTime) {
 	Core.run = new Lock(CORE_DEFAULT.runtime);
 	Core.isAwake = isAwake;
 	Core.descriptor = descriptor;
-	Core.default = CORE_DEFAULT;
 	Core.error = error;
 	// Core.Error = CoreError;
 	Core.errors = [];
@@ -86,18 +86,23 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		});
 	}
 
-	const Flux = require(Core._API + 'Flux.js').init(descriptor.modules),
-		ModuleLoader = require(Core._CORE + 'ModuleLoader.js'); //.init(descriptor.modules)
+	const Observers = require('./Observers.js');
+	Observers.init(descriptor.modules);
+
+	const Flux = require('../api/Flux.js'),
+		ModuleLoader = require('./ModuleLoader.js');
+
 	Core.flux = Flux;
 	Core.do = Flux.next;
-	Core.do('service|context|update', confUpdate, { delay: 0.2, log: 'debug' });
+	new Flux('service|context|update', confUpdate, { delay: 0.2, log: 'debug' });
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
-	ModuleLoader.loadModules(descriptor.modules);
+	let moduleLoader = new ModuleLoader(descriptor.modules);
+	moduleLoader.load();
 	log.info('all modules loaded [' + Utils.executionTime(Core.startTime) + 'ms]');
 
-	Core.do('controller|server|start', null, { log: 'trace' });
-	ModuleLoader.setupCron();
+	new Flux('controller|server|start', null, { log: 'trace' });
+	moduleLoader.setupCron();
 	Object.seal(Core);
 	return Core;
 }

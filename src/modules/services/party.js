@@ -3,12 +3,15 @@
 // Module Party
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 module.exports = {};
 
-Core.flux.service.party.subscribe({
+Observers.service().party.subscribe({
 	next: flux => {
 		if (flux.id == 'start') {
 			start();
@@ -27,12 +30,12 @@ Core.flux.service.party.subscribe({
 
 function birthdaySong() {
 	log.info('birthday song...');
-	Core.do('interface|sound|play', { mp3: 'system/birthday.mp3' });
+	new Flux('interface|sound|play', { mp3: 'system/birthday.mp3' });
 }
 
 function start() {
 	log.INFO("Let's start the party !!  <|:-)");
-	Core.do('interface|tts|speak', { voice: 'google', lg: 'en', msg: "Let's start the party" });
+	new Flux('interface|tts|speak', { voice: 'google', lg: 'en', msg: "Let's start the party" });
 	Core.run('mood', 'party');
 	firePartyActionAndRandom();
 }
@@ -51,7 +54,7 @@ function firePartyActionAndRandom() {
 				pirate('full');
 				break;
 			case (2, 3, 4):
-				Core.do('interface|tts|random');
+				new Flux('interface|tts|random');
 				break;
 			default:
 				partyTTS();
@@ -73,12 +76,12 @@ function pirate(mode) {
 	} else {
 		tts = { msg: 'Pirate ' + Utils.random(1, 3) + ' appelle pirate ' + Utils.random(4, 6) + ' !' };
 	}
-	Core.do('interface|tts|speak', tts);
+	new Flux('interface|tts|speak', tts);
 }
 
 function partyTTS() {
 	log.debug('partyTTS()');
-	Core.do('interface|tts|speak', getNewRdmPartyTTS());
+	new Flux('interface|tts|speak', getNewRdmPartyTTS());
 }
 
 /** Function to select a different TTS each time */

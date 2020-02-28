@@ -5,12 +5,15 @@
 const CronJob = require('cron').CronJob;
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils, CronJobList } = require(Core._API + 'api.js');
 
 module.exports = {};
 
-Core.flux.service.radiator.subscribe({
+Observers.service().radiator.subscribe({
 	next: flux => {
 		if (flux.id == 'toggle') {
 			toggleRadiator(flux.value);
@@ -80,7 +83,7 @@ function radiatorOrder(mode) {
 	}
 	Core.run('radiator', mode);
 	log.info('radiatorOrder', mode);
-	Core.do('interface|rfxcom|send', { device: 'radiator', value: mode == 'on' ? false : true });
+	new Flux('interface|rfxcom|send', { device: 'radiator', value: mode == 'on' ? false : true });
 }
 
 function toggleRadiator(mode) {

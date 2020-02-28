@@ -4,7 +4,10 @@
 const { spawn, exec } = require('child_process');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 module.exports = {
@@ -16,7 +19,7 @@ module.exports = {
 	}
 };
 
-Core.flux.interface.sound.subscribe({
+Observers.interface().sound.subscribe({
 	next: flux => {
 		if (flux.id == 'mute') {
 			mute(flux.value);
@@ -122,7 +125,7 @@ function mute(args) {
 	if (!args) args = {};
 	if (args.hasOwnProperty('delay') && Number(args.delay)) {
 		muteTimer = setTimeout(function() {
-			Core.do('interface|sound|play', { mp3: 'system/autoMute.mp3' });
+			new Flux('interface|sound|play', { mp3: 'system/autoMute.mp3' });
 			setTimeout(function() {
 				muteAll(args.message || null);
 			}, 1600);
@@ -135,17 +138,17 @@ function mute(args) {
 /** Function to stop all sounds & leds */
 function muteAll(message) {
 	if (Core.run('max')) {
-		Core.do('interface|arduino|disconnect', null, { log: 'trace' });
-		Core.do('interface|arduino|connect', null, { log: 'trace' });
+		new Flux('interface|arduino|disconnect', null, { log: 'trace' });
+		new Flux('interface|arduino|connect', null, { log: 'trace' });
 	}
 	writeAllMPlayerInstances('q');
-	Core.do('service|music|stop', null, { log: 'trace' });
-	Core.do('interface|tts|clearTTSQueue', null, { log: 'trace' });
+	new Flux('service|music|stop', null, { log: 'trace' });
+	new Flux('interface|tts|clearTTSQueue', null, { log: 'trace' });
 	exec('sudo killall omxplayer.bin');
 	exec('sudo killall espeak');
 	log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
-	Core.do('interface|led|clearLeds', null, { log: 'trace' });
-	Core.do('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { log: 'trace' });
+	new Flux('interface|led|clearLeds', null, { log: 'trace' });
+	new Flux('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { log: 'trace' });
 	Core.run('music', false);
 }
 
@@ -195,19 +198,19 @@ function getVolumeInstructions(newVolume) {
 
 function additionalVolumeSetup() {
 	if (Core.run('volume') > 50) {
-		Core.do('interface|arduino|connect');
+		new Flux('interface|arduino|connect');
 	} else {
 		if (Core.run('max')) {
-			Core.do('interface|arduino|disconnect');
+			new Flux('interface|arduino|disconnect');
 		}
 	}
 }
 
 function ledFlag() {
-	// Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
-	Core.do('interface|led|blink', { leds: ['eye'], speed: 100, loop: 3 }, { log: 'trace' });
+	// new Flux('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
+	new Flux('interface|led|blink', { leds: ['eye'], speed: 100, loop: 3 }, { log: 'trace' });
 	return setInterval(function() {
-		Core.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
+		new Flux('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
 	}, 10 * 1000);
 }
 

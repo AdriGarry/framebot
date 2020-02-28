@@ -3,15 +3,17 @@
 
 const assert = require('assert');
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
-	Utils = require(Core._API + 'Utils.js');
+const Core = require('./../core/Core').Core;
+
+const log = new (require('./../api/Logger'))(__filename.match(/(\w*).js/g)[0]),
+	Flux = require('./../api/Flux'),
+	Utils = require('./../api/Utils');
 
 log.info('Flux test sequence...');
 
 module.exports.runTest = function(succeedTest) {
 	return new Promise((resolve, reject) => {
-		Core.do('service|max|blinkAllLed', null, { delay: 2, loop: 3 });
+		new Flux('service|max|blinkAllLed', null, { delay: 2, loop: 3 });
 
 		Utils.delay(2)
 			.then(() => Utils.postOdi(Core.url.ODI + 'flux/service/time/now'))
@@ -24,17 +26,17 @@ module.exports.runTest = function(succeedTest) {
 				reject(err);
 			});
 
-		Core.do('service|weather|astronomy', null, { delay: 3 });
+		new Flux('service|weather|astronomy', null, { delay: 3 });
 
 		assert.equal(Core.run('timer'), 0);
-		Core.do('service|timer|increase');
+		new Flux('service|timer|increase');
 		setImmediate(() => {
 			assert.ok(Core.run('timer'));
 		});
 
-		Core.do('service|max|playOneMelody');
+		new Flux('service|max|playOneMelody');
 
-		// Core.do('service|voicemail|new', {msg: 'are you there ?'}, 8);
+		// new Flux('service|voicemail|new', {msg: 'are you there ?'}, 8);
 		// var rdmTTS = Core.ttsMessages.random[Utils.random(Core.ttsMessages.random.length)];
 		let rdmTTS = Utils.randomItem(Core.ttsMessages.random);
 		while (Array.isArray(rdmTTS)) {
@@ -42,13 +44,13 @@ module.exports.runTest = function(succeedTest) {
 		}
 		// var rdmTTS = Utils.randomItem(Core.ttsMessages.random);
 		log.DEBUG(rdmTTS);
-		Core.do('service|voicemail|new', rdmTTS, { delay: 8 });
-		Core.do('service|voicemail|check', null, { delay: 11 });
-		Core.do('service|voicemail|clear', null, { delay: 30 });
+		new Flux('service|voicemail|new', rdmTTS, { delay: 8 });
+		new Flux('service|voicemail|check', null, { delay: 11 });
+		new Flux('service|voicemail|clear', null, { delay: 30 });
 
-		Core.do('service|max|hornRdm');
+		new Flux('service|max|hornRdm');
 
-		Core.do('service|weather|report', 'random', { delay: 16 });
+		new Flux('service|weather|report', 'random', { delay: 16 });
 
 		setTimeout(() => {
 			assert.equal(Core.run('voicemail'), 0);

@@ -3,10 +3,13 @@
 'use strict';
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils, CronJobList } = require(Core._API + 'api.js');
 
-Core.flux.service.internetBox.subscribe({
+Observers.service().internetBox.subscribe({
 	next: flux => {
 		if (flux.id == 'strategy') {
 			internetBoxStrategy();

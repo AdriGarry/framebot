@@ -2,14 +2,16 @@
 
 // Api sub-module (server)
 
-const { spawn, exec } = require('child_process');
 const fs = require('fs'),
 	multer = require('multer');
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
-	{ Utils } = require(Core._API + 'api.js'),
-	admin = require(Core._SECURITY + 'admin.js').init(Core._SECURITY);
+const Core = require(_PATH + 'src/core/Core.js').Core;
+
+const log = new (require(Core._API + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+	Flux = require(Core._API + 'Flux.js'),
+	{ Utils } = require(Core._API + 'api.js');
+
+const admin = require(Core._SECURITY + 'admin.js').init(Core._SECURITY);
 
 const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';
 const FILE_ERROR_HISTORY = Core._LOG + Core.name + '_errorHistory.json';
@@ -47,7 +49,7 @@ function attachFluxRoutes(ui) {
 	ui.post('/flux/:type/:subject/:id', function(req, res) {
 		let value = req.body;
 		if (typeof value === 'object' && value.hasOwnProperty('_wrapper')) value = value._wrapper;
-		Core.do(req.params.type + '|' + req.params.subject + '|' + req.params.id, value);
+		new Flux(req.params.type + '|' + req.params.subject + '|' + req.params.id, value);
 		res.end();
 	});
 	return ui;
@@ -66,7 +68,7 @@ function attachUnmappedRouteHandler(ui, mode) {
 function attachDefaultRoutes(ui) {
 	/** DASHBOARD SECTION */
 	ui.get('/dashboard', function(req, res) {
-		Core.do('interface|hardware|runtime');
+		new Flux('interface|hardware|runtime');
 		let etatBtn = Core.run('etat');
 		let cpuTemp = Core.run('cpu.temp');
 		let cpuUsage = Core.run('cpu.usage');
@@ -159,7 +161,7 @@ function attachDefaultRoutes(ui) {
 	});
 
 	ui.get('/runtime', function(req, res) {
-		Core.do('interface|hardware|runtime', true);
+		new Flux('interface|hardware|runtime', true);
 		setTimeout(() => {
 			res.end(JSON.stringify(Core.run()));
 		}, 500);
@@ -207,7 +209,7 @@ function attachDefaultRoutes(ui) {
 	ui.post('/audio', audioRecordUpload, function(req, res) {
 		log.info('Audio received!');
 		log.debug(req.file);
-		Core.do('service|audioRecord|new', req.file.path, { delay: 1 });
+		new Flux('service|audioRecord|new', req.file.path, { delay: 1 });
 		res.end();
 	});
 
@@ -222,7 +224,7 @@ function attachDefaultRoutes(ui) {
 		log.info('UI > Toggle trace');
 		let newLogLevel = log.level() == 'trace' ? 'info' : 'trace';
 		log.level(newLogLevel);
-		Core.do('service|context|update', {
+		new Flux('service|context|update', {
 			log: newLogLevel
 		});
 		res.end();
@@ -237,7 +239,7 @@ function attachDefaultRoutes(ui) {
 			log.info('ip:', IP.local, typeof IP.public === 'string' ? '/ ' + IP.public.trim() : '');
 		} else {
 			Core.error('>> User NOT granted /!\\', pattern, false);
-			Core.do('interface|tts|speak', { lg: 'en', msg: 'User NOT granted' }, { delay: 0.5 });
+			new Flux('interface|tts|speak', { lg: 'en', msg: 'User NOT granted' }, { delay: 0.5 });
 		}
 		res.send(granted);
 		if (granted) granted = false;
@@ -247,13 +249,13 @@ function attachDefaultRoutes(ui) {
 		let params = req.query;
 		if (params.voice && params.lg && params.msg) {
 			if (!Core.isAwake() || params.hasOwnProperty('voicemail')) {
-				Core.do('service|voicemail|new', {
+				new Flux('service|voicemail|new', {
 					voice: params.voice,
 					lg: params.lg,
 					msg: params.msg
 				});
 			} else {
-				Core.do('interface|tts|speak', {
+				new Flux('interface|tts|speak', {
 					voice: params.voice,
 					lg: params.lg,
 					msg: params.msg
@@ -262,7 +264,7 @@ function attachDefaultRoutes(ui) {
 			params.timestamp = Utils.logTime('D/M h:m:s', new Date());
 			Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
 		} else {
-			Core.do('interface|tts|random');
+			new Flux('interface|tts|random');
 		}
 		res.end();
 	});

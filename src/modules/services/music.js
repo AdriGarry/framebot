@@ -5,8 +5,11 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
-	{ Utils } = require(Core._API + 'api.js'),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger'))(__filename),
+	Flux = require(Core._API + 'Flux'),
+	Utils = require('../../api/Utils'),
 	RandomBox = require('randombox').RandomBox;
 
 module.exports = {
@@ -15,7 +18,7 @@ module.exports = {
 	}
 };
 
-Core.flux.service.music.subscribe({
+Observers.service().music.subscribe({
 	next: flux => {
 		if (flux.id == 'playlist') {
 			playlist(flux.value);
@@ -54,14 +57,14 @@ Object.keys(PLAYLIST).forEach(id => {
 
 /** Function playlist (repeat for one hour) */
 function playlist(playlistId) {
-	Core.do('interface|sound|mute', null, { log: 'trace' });
+	new Flux('interface|sound|mute', null, { log: 'trace' });
 	if (typeof playlistId !== 'string' || !Utils.searchStringInArray(playlistId, Object.keys(PLAYLIST))) {
 		log.info("Playlist id '" + playlistId + "' not reconized, fallback to default playlist.");
 		playlistId = 'jukebox';
 	}
 	log.info(`Playlist ${playlistId} in loop mode !`);
 	Core.run('music', playlistId);
-	Core.do('interface|sound|mute', { message: 'Auto mute jukebox!', delay: AUTO_MUTE_TIMEOUT });
+	new Flux('interface|sound|mute', { message: 'Auto mute jukebox!', delay: AUTO_MUTE_TIMEOUT });
 	setTimeout(() => {
 		repeatSong(PLAYLIST[playlistId]);
 	}, 1000);
@@ -72,7 +75,7 @@ function repeatSong(playlist) {
 	log.info('Playlist ' + playlist.id + ' next song:', song);
 	Utils.getDuration(playlist.path + song)
 		.then(data => {
-			Core.do('interface|sound|play', { mp3: playlist.path + song, duration: data });
+			new Flux('interface|sound|play', { mp3: playlist.path + song, duration: data });
 			playlist.timeout = setTimeout(function() {
 				// log.INFO('Next song !!!', 'duration=' + data);
 				repeatSong(playlist);
@@ -91,7 +94,7 @@ function playRadio(radioId) {
 				log.info('Already playing radio', Core.run('music'));
 				return;
 			}
-			Core.do('interface|sound|mute', null, { log: 'trace' });
+			new Flux('interface|sound|mute', null, { log: 'trace' });
 			let radio;
 			if (radioId && RADIO_LIST.hasOwnProperty(radioId)) {
 				radio = RADIO_LIST[radioId];
@@ -100,11 +103,11 @@ function playRadio(radioId) {
 				radio = RADIO_LIST.fip;
 			}
 			log.info('Play radio ' + radio.id);
-			Core.do('interface|tts|speak', radio.id + ' radio');
+			new Flux('interface|tts|speak', radio.id + ' radio');
 
-			Core.do('interface|sound|play', { url: radio.url }, { delay: 2 });
+			new Flux('interface|sound|play', { url: radio.url }, { delay: 2 });
 			Core.run('music', radio.id);
-			Core.do('interface|sound|mute', { message: 'Auto Mute radio!', delay: AUTO_MUTE_TIMEOUT });
+			new Flux('interface|sound|mute', { message: 'Auto Mute radio!', delay: AUTO_MUTE_TIMEOUT });
 		})
 		.catch(() => {
 			log.info('No internet connexion, falling back to jukebox');
@@ -130,10 +133,10 @@ const STORIES = ['stories/Donjon-De-Naheulbeuk.mp3', 'stories/Aventuriers-Du-Sur
 function playStory(story) {
 	let storyToPlay = Utils.searchStringInArray(story, STORIES);
 	if (storyToPlay) {
-		Core.do('interface|tts|speak', { lg: 'en', msg: 'story' });
+		new Flux('interface|tts|speak', { lg: 'en', msg: 'story' });
 		Core.run('music', 'story');
-		Core.do('interface|sound|playRandom', { mp3: storyToPlay });
+		new Flux('interface|sound|playRandom', { mp3: storyToPlay });
 	} else {
-		Core.do('interface|tts|speak', { lg: 'en', msg: 'error story' });
+		new Flux('interface|tts|speak', { lg: 'en', msg: 'error story' });
 	}
 }

@@ -4,12 +4,15 @@
 const fs = require('fs');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 module.exports = {};
 
-Core.flux.service.voicemail.subscribe({
+Observers.service().voicemail.subscribe({
 	next: flux => {
 		if (flux.id == 'new') {
 			addVoicemailMessage(flux.value);
@@ -81,8 +84,8 @@ function checkVoicemail(withTTSResult) {
 			if (data) {
 				let messages = JSON.parse(data);
 				log.debug(messages);
-				Core.do('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Messages' });
-				Core.do('interface|tts|speak', messages);
+				new Flux('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Messages' });
+				new Flux('interface|tts|speak', messages);
 				clearVoicemailLater();
 			} else {
 				log.debug(NO_VOICEMAIL);
@@ -100,7 +103,7 @@ function updateVoicemailMessage() {
 		messages = JSON.parse(messages);
 		Core.run('voicemail', messages.length);
 		if (Core.run('voicemail') > 0) {
-			Core.do('interface|led|blink', { leds: ['belly'], speed: 200, loop: 1 }, { log: 'trace' });
+			new Flux('interface|led|blink', { leds: ['belly'], speed: 200, loop: 1 }, { log: 'trace' });
 		}
 	} catch (e) {
 		Core.run('voicemail', 0);
@@ -129,7 +132,7 @@ function clearVoicemail() {
 			else Core.error('Error while deleting voicemail file', err);
 		} else {
 			updateVoicemailMessage();
-			Core.do('interface|tts|speak', { lg: 'en', msg: 'Voicemail Cleared' });
+			new Flux('interface|tts|speak', { lg: 'en', msg: 'Voicemail Cleared' });
 		}
 	});
 }
