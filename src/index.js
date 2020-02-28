@@ -37,3 +37,14 @@ if (Core.conf('mode') === 'test') {
 		require(Core._SRC + 'test/tests.js').launch();
 	}, 1000);
 }
+
+//import Cat from './Cat.js';
+const Cat = require('./Cat.js');
+
+let cat1 = new Cat('Bouts', 'black');
+let cat2 = new Cat('Bagayou', 'orange');
+cat1.meow();
+cat2.meow();
+
+cat1.sleep(3);
+cat2.sleep(5);
