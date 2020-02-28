@@ -1,18 +1,15 @@
 #!/usr/bin/env node
 'use strict';
 
-const { spawn, exec } = require('child_process');
+const Core = require('./../../core/Core').Core,
+	Observers = require('./../../core/Observers');
 
-const TTS = require(__dirname + '/tts/TTS.js');
+const log = new (require('./../../api/Logger'))(__filename),
+	Flux = require('./../../api/Flux'),
+	Utils = require('./../../api/Utils');
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	Observers = require(Core._CORE + 'Observers.js');
-
-const log = new (require(Core._API + 'Logger.js'))(__filename),
-	Flux = require(Core._API + 'Flux.js'),
-	{ Utils } = require(Core._API + 'api.js');
-
-const voices = require(Core._MODULES + 'interfaces/tts/voices.js'),
+const voices = require('./tts/voices'),
+	TTS = require('./tts/TTS'),
 	RandomBox = require('randombox').RandomBox;
 
 const VOICE_LIST = Object.keys(voices);

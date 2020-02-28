@@ -3,10 +3,10 @@
 
 const Gpio = require('onoff').Gpio;
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	Observers = require(Core._CORE + 'Observers.js');
+const Core = require('./../../core/Core').Core,
+	Observers = require('./../../core/Observers');
 
-const log = new (require(Core._API + 'Logger.js'))(__filename);
+const log = new (require('./../../api/Logger'))(__filename);
 
 var Led = {};
 

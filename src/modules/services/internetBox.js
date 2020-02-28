@@ -2,12 +2,12 @@
 
 'use strict';
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	Observers = require(Core._CORE + 'Observers.js');
+const Core = require('./../../core/Core').Core,
+	Observers = require('./../../core/Observers');
 
-const log = new (require(Core._API + 'Logger.js'))(__filename),
-	Flux = require(Core._API + 'Flux.js'),
-	{ Utils, CronJobList } = require(Core._API + 'api.js');
+const log = new (require('./../../api/Logger'))(__filename),
+	Utils = require('./../../api/Utils'),
+	CronJobList = require('./../../api/CronJobList');
 
 Observers.service().internetBox.subscribe({
 	next: flux => {
