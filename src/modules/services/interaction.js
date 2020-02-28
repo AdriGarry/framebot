@@ -7,7 +7,10 @@ const fs = require('fs'),
 	request = require('request');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js'),
 	RandomBox = require('randombox').RandomBox;
 
@@ -22,7 +25,6 @@ module.exports = {
 	}
 };
 
-const Observers = require(Core._CORE + 'Observers.js');
 Observers.service().interaction.subscribe({
 	next: flux => {
 		if (flux.id == 'random') {
@@ -93,7 +95,7 @@ function randomAction() {
 	let action = actionRandomBox.next();
 	try {
 		log.info('randomAction:', action.id, '[' + action.weight + ']');
-		Core.do(action.id, action.data);
+		new Flux(action.id, action.data);
 	} catch (err) {
 		Core.error('ACTION TO DEBUG =>', typeof action, action);
 	}
@@ -101,41 +103,41 @@ function randomAction() {
 
 function exclamation() {
 	log.info('Exclamation');
-	Core.do('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { log: 'trace' });
+	new Flux('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { log: 'trace' });
 	let exclamation = exclamationRandomBox.next();
-	Core.do('interface|sound|play', {
+	new Flux('interface|sound|play', {
 		mp3: 'exclamation/' + exclamation
 	});
 }
 
 function civilHorn() {
 	log.info('Civil Horn');
-	Core.do('interface|led|blink', { leds: ['eye', 'belly'], speed: 90, loop: 50 }, { log: 'trace' });
-	Core.do('interface|arduino|connect');
-	Core.do('interface|sound|play', {
+	new Flux('interface|led|blink', { leds: ['eye', 'belly'], speed: 90, loop: 50 }, { log: 'trace' });
+	new Flux('interface|arduino|connect');
+	new Flux('interface|sound|play', {
 		mp3: 'civilHorn.mp3'
 	});
-	Core.do('service|max|hornSiren', null, { delay: 3.2 });
+	new Flux('service|max|hornSiren', null, { delay: 3.2 });
 }
 
 function russia() {
 	log.info('Russia !');
 	let russiaExclamation = russiaExclamationRandomBox.next();
-	Core.do('interface|sound|play', {
+	new Flux('interface|sound|play', {
 		mp3: 'exclamation_russia/' + russiaExclamation
 	});
 }
 
 function russiaHymn() {
 	log.info('Russia Hymn!');
-	Core.do('interface|sound|play', {
+	new Flux('interface|sound|play', {
 		mp3: 'playlists/jukebox/HymneSovietique.mp3'
 	});
 }
 
 function uneHeure() {
 	log.info('Il est 1 heure et tout va bien !');
-	Core.do('interface|sound|play', {
+	new Flux('interface|sound|play', {
 		mp3: 'system/uneHeure.mp3'
 	});
 }
@@ -143,7 +145,7 @@ function uneHeure() {
 function demo() {
 	log.INFO('Starting Demo !');
 	Core.ttsMessages.demo.forEach(tts => {
-		Core.do('interface|tts|speak', tts);
+		new Flux('interface|tts|speak', tts);
 	});
 }
 
@@ -160,7 +162,7 @@ const BALUCHON_MSG = [
 function baluchonTTS() {
 	let tts = Utils.randomItem(BALUCHON_MSG);
 	log.debug('baluchonTTS', tts);
-	Core.do('interface|tts|speak', tts);
+	new Flux('interface|tts|speak', tts);
 }
 
 const GO_TO_WORK_TTS = [
@@ -171,11 +173,11 @@ const GO_TO_WORK_TTS = [
 ];
 function goToWorkTTSQueue() {
 	log.debug('goToWorkTTSQueue...');
-	Core.do('service|interaction|goToWorkTTS', null, { delay: 2 * 60, loop: 5 });
+	new Flux('service|interaction|goToWorkTTS', null, { delay: 2 * 60, loop: 5 });
 }
 
 function goToWorkTTS() {
 	let tts = Utils.randomItem(GO_TO_WORK_TTS);
 	log.debug('goToWorkTTS', tts);
-	Core.do('interface|tts|speak', tts);
+	new Flux('interface|tts|speak', tts);
 }

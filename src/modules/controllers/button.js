@@ -3,8 +3,10 @@
 
 const Gpio = require('onoff').Gpio;
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+const Core = require(_PATH + 'src/core/Core.js').Core;
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 var Button = {},
@@ -32,7 +34,7 @@ function watchButton(button) {
 	button.watch((err, value) => {
 		if (err) Core.error('Button error', err);
 		let buttonData = getButtonData(button);
-		Core.do('controller|button|' + button.id, buttonData);
+		new Flux('controller|button|' + button.id, buttonData);
 	});
 }
 
@@ -40,7 +42,7 @@ function getEdgeButtonValue(button) {
 	if (button.edge == 'both') {
 		setTimeout(() => {
 			let buttonData = getButtonData(button);
-			Core.do('controller|button|' + button.id, buttonData);
+			new Flux('controller|button|' + button.id, buttonData);
 		}, 100);
 	}
 }

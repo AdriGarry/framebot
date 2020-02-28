@@ -2,8 +2,7 @@
 
 'use strict';
 
-const util = require('util'),
-	Rx = require('rxjs');
+const util = require('util');
 
 const Core = require('../core/Core.js').Core,
 	Observers = require('../core/Observers.js');
@@ -59,11 +58,6 @@ module.exports = class Flux {
 
 		Core.run('stats.fluxCount', Core.run('stats.fluxCount') + 1);
 		this.fire();
-	}
-
-	// Deprecated: static function to remove
-	static next(id, data, conf) {
-		new Flux(id, data, conf);
 	}
 
 	isValid() {

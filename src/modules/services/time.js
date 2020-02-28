@@ -2,10 +2,11 @@
 
 'use strict';
 
-const { spawn } = require('child_process');
-
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 module.exports = {
@@ -14,7 +15,6 @@ module.exports = {
 	}
 };
 
-const Observers = require(Core._CORE + 'Observers.js');
 Observers.service().time.subscribe({
 	next: flux => {
 		if (flux.id == 'now') {
@@ -36,7 +36,7 @@ function now() {
 	let date = new Date();
 	let hour = date.getHours();
 	let min = date.getMinutes();
-	Core.do('interface|tts|speak', {
+	new Flux('interface|tts|speak', {
 		lg: 'fr',
 		msg: 'Il est ' + hour + ' heure ' + (min > 0 ? min : '')
 	});
@@ -62,7 +62,7 @@ function today() {
 	}
 
 	log.debug('time.today()' + annonceDate);
-	Core.do('interface|tts|speak', annonceDate);
+	new Flux('interface|tts|speak', annonceDate);
 }
 
 function getSeason() {
@@ -92,5 +92,5 @@ function ttsAge() {
 	let birthDay = rdm[Utils.random(rdm.length)];
 	birthDay += "j'ai " + years + ' ans et ' + mouths + ' mois !';
 	log.info("ttsAge() '" + birthDay + "'");
-	Core.do('interface|tts|speak', { lg: 'fr', msg: birthDay });
+	new Flux('interface|tts|speak', { lg: 'fr', msg: birthDay });
 }

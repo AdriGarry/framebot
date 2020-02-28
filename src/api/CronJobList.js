@@ -4,12 +4,15 @@
 
 const CronJob = require('cron').CronJob;
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require('./Logger.js'))(__filename);
+const log = new (require('./Logger.js'))(__filename);
+
+let Flux;
+
+const DEFAULT_ID = '#';
 
 module.exports = class CronJobList {
 	constructor(jobList, id, cronDisplay) {
-		this.id = id || '#';
+		this.id = id || DEFAULT_ID;
 		this.jobList = buildJobList(jobList);
 		this.length = jobList.length;
 		this.crons = cronDisplay ? chainCrons(jobList) : '';
@@ -44,11 +47,12 @@ module.exports = class CronJobList {
 };
 
 function buildJobList(jobList) {
+	if (!Flux) Flux = require('./Flux.js');
 	let jobs = [];
 	jobList.forEach(job => {
 		jobs.push(
 			new CronJob(job.cron, () => {
-				Core.do(job.flux);
+				new Flux(job.flux);
 			})
 		);
 	});

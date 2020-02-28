@@ -7,8 +7,11 @@ const fs = require('fs'),
 	os = require('os');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
-	{ Utils, CronJobList } = require(Core._API + 'api.js');
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
+	{ Utils } = require(Core._API + 'api.js');
 
 const PATHS = [Core._SRC],
 	BYTE_TO_MO = 1048576;
@@ -23,7 +26,6 @@ module.exports = {
 	}
 };
 
-const Observers = require(Core._CORE + 'Observers.js');
 Observers.interface().hardware.subscribe({
 	next: flux => {
 		if (flux.id == 'reboot') {
@@ -77,9 +79,9 @@ function runtime(shouldLogRuntime) {
 /** Function to reboot RPI */
 function reboot() {
 	if (Core.isAwake()) {
-		Core.do('interface|sound|mute');
-		Core.do('interface|tts|speak', { msg: 'Je redaimarre' });
-		Core.do('interface|arduino|write', 'playHornOff', { delay: 2 });
+		new Flux('interface|sound|mute');
+		new Flux('interface|tts|speak', { msg: 'Je redaimarre' });
+		new Flux('interface|arduino|write', 'playHornOff', { delay: 2 });
 	}
 	console.log('\n\n_/!\\__REBOOTING RASPBERRY PI !!\n');
 	setTimeout(function() {
@@ -90,9 +92,9 @@ function reboot() {
 /** Function to shutdown RPI */
 function shutdown() {
 	if (Core.isAwake()) {
-		Core.do('interface|sound|mute');
-		Core.do('interface|tts|speak', { msg: 'Arret system' });
-		Core.do('interface|arduino|write', 'playHornOff', { delay: 2 });
+		new Flux('interface|sound|mute');
+		new Flux('interface|tts|speak', { msg: 'Arret system' });
+		new Flux('interface|arduino|write', 'playHornOff', { delay: 2 });
 	}
 	setTimeout(function() {
 		console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!\n");
@@ -106,12 +108,12 @@ function light(duration) {
 	log.info('light [duration=' + duration + 's]');
 	if (isNaN(duration)) Core.error('light error: duration arg is not a number!', duration, false);
 	let loop = (duration - 2) / 2;
-	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 });
-	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'trace', delay: 2, loop: loop });
+	new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 });
+	new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'trace', delay: 2, loop: loop });
 
-	Core.do('interface|led|blink', { leds: LIGTH_LEDS, speed: 200, loop: 8 }, { delay: duration - 2 });
+	new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 200, loop: 8 }, { delay: duration - 2 });
 
-	Core.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: duration });
+	new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: duration });
 }
 
 /** Function to tts cpu stats */
@@ -119,11 +121,11 @@ function cpuStatsTTS() {
 	retreiveCpuTemp()
 		.then(retreiveCpuUsage)
 		.then(() => {
-			Core.do('interface|tts|speak', {
+			new Flux('interface|tts|speak', {
 				lg: 'fr',
 				msg: 'Mon  ' + Utils.randomItem(['processeur', 'CPU', 'calculateur']) + ' est a ' + Core.run('cpu.temp')
 			});
-			Core.do('interface|tts|speak', {
+			new Flux('interface|tts|speak', {
 				lg: 'fr',
 				msg: Utils.rdm()
 					? 'Et il tourne a ' + Core.run('cpu.usage') + (Utils.rdm() ? '' : ' de sa capacitai')
@@ -183,7 +185,7 @@ var startMeasure = cpuAverage();
 function soulTTS() {
 	let size = Math.round(Core.run('memory.odi'));
 	let ttsMsg = size + ' maiga octet, sait le poids de mon ame ' + (Utils.rdm() ? '' : 'en ce moment');
-	Core.do('interface|tts|speak', ttsMsg);
+	new Flux('interface|tts|speak', ttsMsg);
 }
 
 /** Function to get memory usage stats (Core + system) */
@@ -246,7 +248,7 @@ function diskSpaceTTS() {
 		: Utils.rdm()
 		? "J'utilise " + diskSpace + " pour cent d'espace de stockage"
 		: 'Mon espace disque est utiliser a ' + diskSpace + ' pour cent';
-	Core.do('interface|tts|speak', ttsMsg);
+	new Flux('interface|tts|speak', ttsMsg);
 }
 
 /** Function to retreive disk space on /dev/root */
@@ -263,7 +265,7 @@ function getDiskSpace(callback) {
 					// log.warn('Warning: disk space almost full: ' + Core.run('stats.diskSpace') + '%');
 					let logMessage = 'Warning: disk space almost full: ' + Core.run('stats.diskSpace') + '%';
 					log.warn(logMessage);
-					Core.do('service|sms|send', logMessage);
+					new Flux('service|sms|send', logMessage);
 				}
 				resolve(diskSpace[0]);
 			})
@@ -285,7 +287,7 @@ function getIps() {
 /** Function to TTS program's program total lines */
 function totalLinesTTS() {
 	let ttsMsg = 'Mon programme est composer de ' + Core.run('stats.totalLines') + ' lignes de code';
-	Core.do('interface|tts|speak', ttsMsg);
+	new Flux('interface|tts|speak', ttsMsg);
 }
 
 const TOTAL_LINES_REGEX = new RegExp(/(?<totalLines>\d*) total/);

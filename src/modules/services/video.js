@@ -4,12 +4,14 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 module.exports = {};
 
-const Observers = require(Core._CORE + 'Observers.js');
 Observers.service().video.subscribe({
 	next: flux => {
 		if (flux.id == 'loop') {
@@ -41,7 +43,7 @@ var loopStart;
 function loop() {
 	log.info('starting diapo loop...');
 	if (!Core.run('hdmi')) {
-		Core.do('interface|hdmi|on');
+		new Flux('interface|hdmi|on');
 	}
 	Core.run('screen', true);
 	loopStart = new Date();

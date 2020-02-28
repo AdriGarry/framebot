@@ -3,7 +3,10 @@
 'use strict';
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 module.exports = {
@@ -13,7 +16,6 @@ module.exports = {
 	}
 };
 
-const Observers = require(Core._CORE + 'Observers.js');
 Observers.service().alarm.subscribe({
 	next: flux => {
 		if (flux.id == 'set') {
@@ -35,8 +37,8 @@ setImmediate(() => {
 
 /** Function to disable all alarms */
 function disableAllAlarms() {
-	Core.do('interface|tts|speak', 'Annulation de toutes les alarmes');
-	Core.do('service|context|updateRestart', { alarms: { weekDay: null, weekEnd: null } }, { delay: 4 });
+	new Flux('interface|tts|speak', 'Annulation de toutes les alarmes');
+	new Flux('service|context|updateRestart', { alarms: { weekDay: null, weekEnd: null } }, { delay: 4 });
 }
 
 /** Function to set custom alarm */
@@ -55,8 +57,8 @@ function setAlarm(alarm) {
 	});
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
 	let alarmTTS = 'Alarme ' + alarmMode + ' ' + alarm.h + ' heure ' + (alarm.m ? alarm.m : '');
-	Core.do('interface|tts|speak', alarmTTS);
-	Core.do('service|context|updateRestart', { alarms: newAlarms }, { delay: 3 });
+	new Flux('interface|tts|speak', alarmTTS);
+	new Flux('service|context|updateRestart', { alarms: newAlarms }, { delay: 3 });
 }
 
 /** Function to test if alarm now */
@@ -75,7 +77,7 @@ function isAlarm() {
 			Core.run('alarm', true);
 			if (!Core.isAwake()) {
 				log.INFO('wake up !!');
-				Core.do('service|context|restart');
+				new Flux('service|context|restart');
 			} else {
 				setImmediate(() => {
 					doAlarm();
@@ -99,7 +101,7 @@ function doAlarm() {
 function alarmPart1() {
 	return new Promise((resolve, reject) => {
 		log.info('Morning Sea...');
-		Core.do('interface|sound|play', { mp3: 'system/morningSea.mp3' });
+		new Flux('interface|sound|play', { mp3: 'system/morningSea.mp3' });
 		Utils.getDuration(Core._MP3 + 'system/morningSea.mp3')
 			.then(data => {
 				log.debug('seaDuration', data);
@@ -117,10 +119,10 @@ function alarmPart1() {
 function alarmPart2() {
 	return new Promise((resolve, reject) => {
 		log.info('cocorico !!');
-		Core.do('interface|arduino|write', 'playHornDoUp');
-		Core.do('interface|sound|play', { mp3: 'system/cocorico.mp3' });
+		new Flux('interface|arduino|write', 'playHornDoUp');
+		new Flux('interface|sound|play', { mp3: 'system/cocorico.mp3' });
 		if (isBirthday()) {
-			Core.do('service|party|birthdaySong');
+			new Flux('service|party|birthdaySong');
 			setTimeout(function() {
 				resolve();
 			}, 53 * 1000);
@@ -133,37 +135,37 @@ function alarmPart2() {
 /** Function alarm part 3 */
 function alarmPart3() {
 	let delay = 3;
-	Core.do('service|max|hornRdm');
-	Core.do('service|time|today', null, { delay: delay });
+	new Flux('service|max|hornRdm');
+	new Flux('service|time|today', null, { delay: delay });
 
 	delay += 3;
-	Core.do('service|time|now', null, { delay: delay });
+	new Flux('service|time|now', null, { delay: delay });
 
 	delay += 2;
-	Core.do('service|weather|report', null, { delay: delay });
+	new Flux('service|weather|report', null, { delay: delay });
 
 	delay += 5;
-	Core.do('service|weather|astronomy', null, { delay: delay });
+	new Flux('service|weather|astronomy', null, { delay: delay });
 
 	delay += 15;
-	Core.do('service|voicemail|check', null, { delay: delay });
+	new Flux('service|voicemail|check', null, { delay: delay });
 
 	delay += Core.run('voicemail') * 10;
-	Core.do('service|audioRecord|check', null, { delay: delay });
+	new Flux('service|audioRecord|check', null, { delay: delay });
 
 	delay += Core.run('audioRecord') * 10;
-	Core.do('service|music|radio', 'fip', { delay: delay });
+	new Flux('service|music|radio', 'fip', { delay: delay });
 
-	Core.do('service|max|playOneMelody', null, { delay: 8 * 60, loop: 8 });
-	Core.do('service|max|hornRdm', null, { delay: 12 * 60, loop: 6 });
+	new Flux('service|max|playOneMelody', null, { delay: 8 * 60, loop: 8 });
+	new Flux('service|max|hornRdm', null, { delay: 12 * 60, loop: 6 });
 
 	if (!Utils.isWeekend()) {
-		Core.do('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 120 });
+		new Flux('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 120 });
 	}
 
-	Core.do('service|interaction|baluchon', null, { delay: Utils.random(15, 25) * 60, loop: 3 });
+	new Flux('service|interaction|baluchon', null, { delay: Utils.random(15, 25) * 60, loop: 3 });
 	if (!Utils.isWeekend()) {
-		Core.do('service|interaction|goToWorkQueue', null, { delay: 70 * 60 });
+		new Flux('service|interaction|goToWorkQueue', null, { delay: 70 * 60 });
 	}
 
 	setTimeout(() => {

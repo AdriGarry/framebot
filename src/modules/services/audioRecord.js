@@ -5,12 +5,14 @@
 const fs = require('fs');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 module.exports = {};
 
-const Observers = require(Core._CORE + 'Observers.js');
 Observers.service().audioRecord.subscribe({
 	next: flux => {
 		if (flux.id == 'new') {
@@ -54,7 +56,7 @@ var lastRecordPath = null,
 
 function addRecord(path) {
 	log.debug('addRecord', path);
-	Core.do('interface|tts|speak', RECORD_TTS, { log: 'trace' });
+	new Flux('interface|tts|speak', RECORD_TTS, { log: 'trace' });
 	Utils.execCmd('lame --scale 3 ' + path + ' ' + path + 'UP')
 		.then(data => {
 			//TODO -V3 to encode as mp3
@@ -62,7 +64,7 @@ function addRecord(path) {
 				lastRecordPath = path;
 				recordListPath.push(path);
 				Core.run('audioRecord', recordListPath.length);
-				Core.do('interface|sound|play', { mp3: path }, { log: 'trace', delay: 0.2 });
+				new Flux('interface|sound|play', { mp3: path }, { log: 'trace', delay: 0.2 });
 				Utils.appendJsonFile(RECORD_FILE, path);
 			});
 		})
@@ -98,7 +100,7 @@ function updateRecord() {
 		recordListPath = records;
 		Core.run('audioRecord', records.length);
 		if (Core.run('audioRecord') > 0) {
-			Core.do('interface|led|blink', { leds: ['belly'], speed: 200, loop: 2 }, { log: 'trace' });
+			new Flux('interface|led|blink', { leds: ['belly'], speed: 200, loop: 2 }, { log: 'trace' });
 		}
 	} catch (e) {
 		Core.run('audioRecord', 0);
@@ -108,19 +110,19 @@ function updateRecord() {
 function playLastRecord() {
 	log.debug('playLastRecord');
 	if (!lastRecordPath) {
-		Core.do('interface|tts|speak', NO_RECORD_TTS);
+		new Flux('interface|tts|speak', NO_RECORD_TTS);
 		return;
 	}
-	Core.do('interface|sound|play', { mp3: lastRecordPath /*, volume: Core.run('volume') * 3*/ }, { log: 'trace' });
+	new Flux('interface|sound|play', { mp3: lastRecordPath /*, volume: Core.run('volume') * 3*/ }, { log: 'trace' });
 }
 
 function playAllRecords() {
 	log.info('playAllRecords', recordListPath.length);
 	if (!recordListPath.length) {
-		Core.do('interface|tts|speak', NO_RECORD_TTS);
+		new Flux('interface|tts|speak', NO_RECORD_TTS);
 		return;
 	}
-	Core.do('interface|tts|speak', RECORD_TTS);
+	new Flux('interface|tts|speak', RECORD_TTS);
 	let delay = 1,
 		previousRecordDuration;
 	recordListPath.forEach(recordPath => {
@@ -130,7 +132,7 @@ function playAllRecords() {
 					delay = delay + previousRecordDuration + 2;
 				}
 				previousRecordDuration = data;
-				Core.do('interface|sound|play', { mp3: recordPath /*, volume: Core.run('volume') * 3*/ }, { delay: delay });
+				new Flux('interface|sound|play', { mp3: recordPath /*, volume: Core.run('volume') * 3*/ }, { delay: delay });
 			})
 			.catch(err => {
 				Core.error('playAllRecords error', err);
@@ -159,7 +161,7 @@ function clearRecords(noLog) {
 		} else {
 			lastRecordPath = null;
 			recordListPath = [];
-			if (!noLog) Core.do('interface|tts|speak', { lg: 'en', msg: 'records cleared' });
+			if (!noLog) new Flux('interface|tts|speak', { lg: 'en', msg: 'records cleared' });
 		}
 	});
 }
@@ -168,5 +170,5 @@ function trashAllRecords() {
 	log.info('trashRecords');
 	clearRecords(true);
 	Utils.deleteFolderRecursive(Core._UPLOAD);
-	Core.do('interface|tts|speak', { lg: 'en', msg: 'all records deleted' });
+	new Flux('interface|tts|speak', { lg: 'en', msg: 'all records deleted' });
 }

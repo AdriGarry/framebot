@@ -3,12 +3,14 @@
 'use strict';
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 module.exports = {};
 
-const Observers = require(Core._CORE + 'Observers.js');
 Observers.service().maya.subscribe({
 	next: flux => {
 		if (flux.id == 'comptine') {
@@ -35,9 +37,9 @@ function comptine() {
 		Core.error("Can't play comptine:", songPath);
 		return;
 	}
-	Core.do('interface|sound|mute', null, { log: 'trace' });
+	new Flux('interface|sound|mute', null, { log: 'trace' });
 	Core.run('music', 'comptines');
-	Core.do('interface|sound|playRandom', { mp3: songPath }, { delay: 0.5 });
+	new Flux('interface|sound|playRandom', { mp3: songPath }, { delay: 0.5 });
 }
 
 const ANIMALS_SOUNDS = 'maya/animalsSounds.mp3';
@@ -47,13 +49,13 @@ function animals() {
 		Core.error("Can't play animals:", songPath);
 		return;
 	}
-	Core.do('interface|sound|mute', null, { log: 'trace' });
+	new Flux('interface|sound|mute', null, { log: 'trace' });
 	Core.run('music', 'animals');
-	Core.do('interface|sound|play', { mp3: songPath }, { delay: 0.5 });
+	new Flux('interface|sound|play', { mp3: songPath }, { delay: 0.5 });
 }
 
 function bonneNuit() {
-	Core.do([
+	new Flux([
 		{ id: 'interface|tts|speak', data: { msg: 'Bonne nuit ma ya' } },
 		{ id: 'interface|tts|speak', data: { voice: 'google', msg: 'Oui, fais de beaux raives !' } },
 		{ id: 'interface|tts|speak', data: { voice: 'pico', msg: 'Et à demain!' } }
@@ -61,5 +63,5 @@ function bonneNuit() {
 }
 
 function lePetitVer() {
-	Core.do({ id: 'interface|sound|play', data: { mp3: 'maya/songs/lePetitVer.mp3' } });
+	new Flux({ id: 'interface|sound|play', data: { mp3: 'maya/songs/lePetitVer.mp3' } });
 }

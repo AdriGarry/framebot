@@ -24,7 +24,7 @@ function launchTests() {
 		.catch(err => {
 			log.error('Error(s) in test sequences:', err);
 			log.info('Core.errors:' + Core.errors.length);
-			// Core.do('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
+			// new Flux('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
 		});
 }
 
@@ -33,8 +33,8 @@ function allTestSuceedFeedback(data) {
 	log.info('-------------------------');
 	log.INFO('>> All tests succeeded !!');
 	log.info('-------------------------');
-	Core.do('service|sms|send', 'ALL TEST SUCCEED !!');
+	new Flux('service|sms|send', 'ALL TEST SUCCEED !!');
 	let testTTS = Utils.rdm() ? 'Je suis Ok !' : { lg: 'en', msg: 'all tests succeeded!' };
-	Core.do('interface|tts|speak', testTTS);
-	Core.do('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
+	new Flux('interface|tts|speak', testTTS);
+	new Flux('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
 }

@@ -2,8 +2,10 @@
 
 const fs = require('fs');
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+const Core = require(_PATH + 'src/core/Core.js').Core;
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
 const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';
@@ -20,7 +22,7 @@ module.exports = {
 };
 
 var securityMiddleware = function(req, res, next) {
-	Core.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
+	new Flux('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
 
 	let requestData = getRequestData(req);
 
@@ -43,7 +45,7 @@ var securityMiddleware = function(req, res, next) {
 		// Not allowed requests
 		if (canTTSBadRequest && Core.isAwake()) {
 			canTTSBadRequest = false;
-			Core.do('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });
+			new Flux('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });
 			setTimeout(() => {
 				canTTSBadRequest = true;
 			}, BAD_REQUEST_TIMEOUT);
@@ -54,7 +56,7 @@ var securityMiddleware = function(req, res, next) {
 	}
 
 	log.info(requestData.ui + ' ' + decodeURI(req.url), requestData.log);
-	if (!Utils.searchStringInArray(req.url, NO_SOUND_URL)) Core.do('interface|sound|UI', null, { log: 'trace' });
+	if (!Utils.searchStringInArray(req.url, NO_SOUND_URL)) new Flux('interface|sound|UI', null, { log: 'trace' });
 	res.header('Content-Type', ' text/plain; charset=utf-8');
 	res.statusCode = 200;
 	next();
@@ -114,10 +116,10 @@ function rejectUnauthorizedRequest(res) {
 }
 
 function closingServerTemporary(breakDuration) {
-	Core.do('controller|server|closeUIServer', breakDuration);
+	new Flux('controller|server|closeUIServer', breakDuration);
 	setTimeout(function() {
 		log.INFO('restarting UI server...');
 		badRequestCount = 0;
-		Core.do('controller|server|startUIServer');
+		new Flux('controller|server|startUIServer');
 	}, breakDuration);
 }

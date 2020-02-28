@@ -5,10 +5,12 @@
 const { spawn } = require('child_process');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
-const Observers = require(Core._CORE + 'Observers.js');
 Observers.service().task.subscribe({
 	next: flux => {
 		if (flux.id == 'beforeRestart') {
@@ -34,24 +36,24 @@ function goToSleep() {
 	log.info(`goToSleep in ${GO_TO_SLEEP_DELAY / 60} min`);
 
 	// light
-	Core.do('interface|hardware|light', GO_TO_SLEEP_DELAY);
+	new Flux('interface|hardware|light', GO_TO_SLEEP_DELAY);
 
 	// radiator off
-	Core.do('interface|rfxcom|send', { device: 'radiator', value: true });
+	new Flux('interface|rfxcom|send', { device: 'radiator', value: true });
 
 	// plugA & plugB off
-	Core.do('interface|led|blink', { leds: ['belly', 'eye'], speed: 200, loop: 5 }, { delay: 50 });
-	Core.do('interface|rfxcom|send', { device: 'plugA', value: false }, { delay: 60 });
-	Core.do('interface|rfxcom|send', { device: 'plugB', value: false }, { delay: 60 });
+	new Flux('interface|led|blink', { leds: ['belly', 'eye'], speed: 200, loop: 5 }, { delay: 50 });
+	new Flux('interface|rfxcom|send', { device: 'plugA', value: false }, { delay: 60 });
+	new Flux('interface|rfxcom|send', { device: 'plugB', value: false }, { delay: 60 });
 
 	if (Core.isAwake()) {
-		Core.do('service|context|sleep', null, { delay: GO_TO_SLEEP_DELAY });
+		new Flux('service|context|sleep', null, { delay: GO_TO_SLEEP_DELAY });
 	}
 }
 
 function beforeRestart() {
 	log.info('beforeRestart');
-	Core.do('interface|rfxcom|send', { device: 'plugB', value: true });
+	new Flux('interface|rfxcom|send', { device: 'plugB', value: true });
 }
 
 function renewCertbot() {

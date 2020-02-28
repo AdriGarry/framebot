@@ -4,11 +4,13 @@
 const { spawn } = require('child_process');
 
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename);
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js');
 
 module.exports = {};
 
-const Observers = require(Core._CORE + 'Observers.js');
 Observers.interface().hdmi.subscribe({
 	next: flux => {
 		if (flux.id == 'on') {
@@ -41,7 +43,7 @@ function screenOn() {
 /** Function to turn screen off */
 function screenOff() {
 	spawn('/opt/vc/bin/tvservice', ['-o']);
-	Core.do('service|video|stopLoop');
+	new Flux('service|video|stopLoop');
 	Core.run('hdmi', false);
 	log.info('Hdmi off');
 }

@@ -1,25 +1,28 @@
 #!/usr/bin/env node
 'use strict';
 
+const rfxcom = require('rfxcom');
+
 const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename),
+	Observers = require(Core._CORE + 'Observers.js');
+
+const log = new (require(Core._API + 'Logger.js'))(__filename),
+	Flux = require(Core._API + 'Flux.js'),
 	{ Utils } = require(Core._API + 'api.js');
 
-const rfxcom = require('rfxcom'),
-	rfxtrx = new rfxcom.RfxCom('/dev/ttyUSB0', { debug: Core.conf('log') == 'info' ? false : true });
+const rfxtrx = new rfxcom.RfxCom('/dev/ttyUSB0', { debug: Core.conf('log') == 'info' ? false : true });
 
 module.exports = {};
 
-const Observers = require(Core._CORE + 'Observers.js');
 Observers.interface().rfxcom.subscribe({
 	// TODO Create a parser (receive...)
 	next: flux => {
 		if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === false) {
 			sendStatus(flux.value);
-			Core.do('service|internetBox|strategy');
+			new Flux('service|internetBox|strategy');
 		} else if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === true) {
 			sendStatus(flux.value);
-			Core.do('service|internetBox|strategyOff');
+			new Flux('service|internetBox|strategyOff');
 		} else if (flux.id == 'send') {
 			sendStatus(flux.value);
 		} else {
@@ -40,7 +43,7 @@ rfxtrx.initialise(function() {
 	log.info('Rfxcom gateway ready', '[' + Utils.executionTime(Core.startTime) + 'ms]');
 
 	rfxtrx.on('receive', function(evt) {
-		Core.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
+		new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 		log.info('Rfxcom_receive:', Buffer.from(evt).toString('hex'));
 	});
 
@@ -51,7 +54,7 @@ rfxtrx.initialise(function() {
 
 function sendStatus(args) {
 	if (!Core.run('rfxcom')) {
-		Core.do('interface|tts|speak', { lg: 'en', msg: 'rfxcom not initialized' });
+		new Flux('interface|tts|speak', { lg: 'en', msg: 'rfxcom not initialized' });
 		log.warn('rfxcom gateway not initialized!', null, false);
 		return;
 	}
