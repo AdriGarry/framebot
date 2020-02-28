@@ -6,6 +6,7 @@ const startTime = new Date();
 console.log('\u2022');
 
 const argv = process.argv;
+console.log('argv', argv);
 const name = process.argv[2];
 const forcedParams = {
 	debug: argv.includes('debug') ? true : false,
@@ -30,7 +31,7 @@ const Utils = require(Core._API + 'Utils.js');
 log.info(' -->  ' + Core.Name + ' ready [' + Utils.executionTime(Core.startTime) + 'ms]');
 
 ////////  TEST section  ////////
-if (Core.conf('mode') == 'test') {
+if (Core.conf('mode') === 'test') {
 	setTimeout(function() {
 		Core.do('interface|tts|speak', { lg: 'en', msg: 'test sequence' });
 		require(Core._SRC + 'test/tests.js').launch();
