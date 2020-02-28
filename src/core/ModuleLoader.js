@@ -11,20 +11,26 @@ var ModuleLoader = {
 	setupCron: setupCron
 };
 
-module.exports = ModuleLoader;
+module.exports = class ModuleLoader {
+	loadModules(modules) {
+		Object.keys(modules).forEach(moduleType => {
+			let modulesLoaded = _requireModules(moduleType, modules[moduleType].base);
+			if (Core.isAwake() && modules[moduleType].hasOwnProperty('full')) {
+				modulesLoaded += ', ' + _requireModules(moduleType, modules[moduleType].full);
+			}
+			log.info(moduleType, 'loaded [' + modulesLoaded + ']');
+		});
+		return ModuleLoader;
+	}
+
+	setupCron() {
+		let cronList = _organizeCron();
+		let moduleCrons = new CronJobList(cronList, 'from modules');
+		moduleCrons.start();
+	}
+};
 
 var loadedModules = {};
-
-function loadModules(modules) {
-	Object.keys(modules).forEach(moduleType => {
-		let modulesLoaded = _requireModules(moduleType, modules[moduleType].base);
-		if (Core.isAwake() && modules[moduleType].hasOwnProperty('full')) {
-			modulesLoaded += ', ' + _requireModules(moduleType, modules[moduleType].full);
-		}
-		log.info(moduleType, 'loaded [' + modulesLoaded + ']');
-	});
-	return ModuleLoader;
-}
 
 function _requireModules(moduleType, moduleArray) {
 	let modulesLoadedList = '';
@@ -33,12 +39,6 @@ function _requireModules(moduleType, moduleArray) {
 	}
 	modulesLoadedList += moduleArray.join(', ');
 	return modulesLoadedList;
-}
-
-function setupCron() {
-	let cronList = _organizeCron();
-	let moduleCrons = new CronJobList(cronList, 'from modules');
-	moduleCrons.start();
 }
 
 function _organizeCron() {
