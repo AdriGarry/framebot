@@ -93,7 +93,6 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		ModuleLoader = require('./ModuleLoader.js');
 
 	Core.flux = Flux;
-	log.test(Flux);
 	Core.do = Flux.next;
 	Core.do('service|context|update', confUpdate, { delay: 0.2, log: 'debug' });
 
