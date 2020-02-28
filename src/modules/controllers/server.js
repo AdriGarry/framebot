@@ -13,12 +13,12 @@ const http = require('http'),
 	compression = require('compression'),
 	bodyParser = require('body-parser');
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	Observers = require(Core._CORE + 'Observers.js');
+const Core = require('./../../core/Core').Core,
+	Observers = require('./../../core/Observers');
 
-const log = new (require(Core._API + 'Logger.js'))(__filename),
-	Flux = require(Core._API + 'Flux.js'),
-	{ Utils } = require(Core._API + 'api.js');
+const log = new (require('./../../api/Logger'))(__filename),
+	Flux = require('./../../api/Flux'),
+	Utils = require('./../../api/Utils');
 
 const middleware = require(Core._MODULES + 'controllers/server/middleware.js'),
 	api = require(Core._MODULES + 'controllers/server/api.js');

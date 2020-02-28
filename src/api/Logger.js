@@ -15,7 +15,7 @@ var logLevel = LEVEL.INFO;
 
 module.exports = class Logger {
 	constructor(filename, modeCore) {
-		Utils = require(_PATH + 'src/api/Utils.js');
+		Utils = require('./Utils');
 		if (modeCore && modeCore == 'sleep') {
 			timestamp = TIMESTAMP_PATTERN.SLEEP;
 		} else {

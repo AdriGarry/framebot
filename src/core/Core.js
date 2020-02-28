@@ -5,10 +5,10 @@
 const { spawn } = require('child_process');
 const fs = require('fs');
 
-const Lock = require(_PATH + 'src/core/Lock.js');
+const Lock = require('./Lock');
 
-const log = new (require(_PATH + 'src/api/Logger.js'))(__filename),
-	Utils = require(_PATH + 'src/api/Utils.js'),
+const log = new (require('./../api/Logger'))(__filename),
+	Utils = require('./../api/Utils'),
 	CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 // const CoreError = require(_PATH + 'src/api/CoreError.js');
 

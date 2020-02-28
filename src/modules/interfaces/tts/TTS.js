@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const Core = require(_PATH + 'src/core/Core.js').Core;
-
-const log = new (require(Core._API + 'Logger.js'))(__filename);
+const log = new (require('./../../../api/Logger'))(__filename);
 
 const FALLBACK_LANGUAGE = 'fr',
 	FALLBACK_VOICE = 'espeak';

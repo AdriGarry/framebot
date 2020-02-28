@@ -2,11 +2,11 @@
 
 const fs = require('fs');
 
-const Core = require(_PATH + 'src/core/Core.js').Core;
+const Core = require('./../../../core/Core').Core;
 
-const log = new (require(Core._API + 'Logger.js'))(__filename),
-	Flux = require(Core._API + 'Flux.js'),
-	{ Utils } = require(Core._API + 'api.js');
+const log = new (require('./../../../api/Logger'))(__filename),
+	Flux = require('./../../../api/Flux'),
+	Utils = require('./../../../api/Utils');
 
 const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';
 const NO_SOUND_URL = ['/dashboard', '/log'];

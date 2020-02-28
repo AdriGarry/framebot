@@ -3,12 +3,12 @@
 
 const fs = require('fs');
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	Observers = require(Core._CORE + 'Observers.js');
+const Core = require('./../../core/Core').Core,
+	Observers = require('./../../core/Observers');
 
-const log = new (require(Core._API + 'Logger.js'))(__filename),
-	Flux = require(Core._API + 'Flux.js'),
-	{ Utils } = require(Core._API + 'api.js');
+const log = new (require('./../../api/Logger'))(__filename),
+	Flux = require('./../../api/Flux'),
+	Utils = require('./../../api/Utils');
 
 module.exports = {};
 
