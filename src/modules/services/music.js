@@ -7,9 +7,9 @@ const fs = require('fs');
 const Core = require(_PATH + 'src/core/Core.js').Core,
 	Observers = require(Core._CORE + 'Observers.js');
 
-const log = new (require(Core._API + 'Logger.js'))(__filename),
-	Flux = require(Core._API + 'Flux.js'),
-	{ Utils } = require(Core._API + 'api.js'),
+const log = new (require(Core._API + 'Logger'))(__filename),
+	Flux = require(Core._API + 'Flux'),
+	Utils = require('../../api/Utils'),
 	RandomBox = require('randombox').RandomBox;
 
 module.exports = {

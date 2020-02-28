@@ -7,7 +7,7 @@ const Core = require(_PATH + 'src/core/Core.js').Core;
 
 const log = new (require(Core._API + 'Logger.js'))(__filename),
 	Flux = require(Core._API + 'Flux.js'),
-	{ Utils } = require(Core._API + 'api.js');
+	Utils = require('../../api/Utils');
 
 var Button = {},
 	LED_FLAG;

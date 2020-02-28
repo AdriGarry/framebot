@@ -3,8 +3,10 @@
 
 const assert = require('assert');
 
-const Core = require(_PATH + 'src/core/Core.js').Core,
-	log = new (require(Core._API + 'Logger.js'))(__filename.match(/(\w*).js/g)[0]);
+const Core = require('./../core/Core').Core;
+
+const log = new (require('./../api/Logger'))(__filename.match(/(\w*).js/g)[0]),
+	Flux = require('./../api/Flux');
 
 log.info('Module test sequence...');
 

@@ -17,34 +17,26 @@ const forcedParams = {
 global._PATH = __dirname.match(/\/.*\//g)[0];
 
 const descriptor = require(_PATH + '_' + name + '/descriptor.json');
-var Core = require(_PATH + 'src/core/Core.js').initializeContext(
+
+const Core = require('./core/Core').initializeContext(
 	__filename.match(/\/.*\//g)[0],
 	descriptor,
 	forcedParams,
 	startTime
 );
 
-const log = new (require(Core._API + 'Logger.js'))(__filename, Core.conf('mode'));
+const Flux = require('./api/Flux');
+
+const log = new (require('./api/Logger'))(__filename, Core.conf('mode'));
 log.debug('argv:', argv);
 
-const Utils = require(Core._API + 'Utils.js');
+const Utils = require('./api/Utils');
 log.info(' -->  ' + Core.Name + ' ready [' + Utils.executionTime(Core.startTime) + 'ms]');
 
 ////////  TEST section  ////////
 if (Core.conf('mode') === 'test') {
 	setTimeout(function() {
 		new Flux('interface|tts|speak', { lg: 'en', msg: 'test sequence' });
-		require(Core._SRC + 'test/tests.js').launch();
+		require('./test/tests').launch();
 	}, 1000);
 }
-
-//import Cat from './Cat.js';
-const Cat = require('./Cat.js');
-
-let cat1 = new Cat('Bouts', 'black');
-let cat2 = new Cat('Bagayou', 'orange');
-cat1.meow();
-cat2.meow();
-
-cat1.sleep(3);
-cat2.sleep(5);

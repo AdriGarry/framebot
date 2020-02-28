@@ -8,7 +8,7 @@ const Core = require('../core/Core.js').Core,
 	Observers = require('../core/Observers.js');
 
 const log = new (require('./Logger.js'))(__filename.match(/(\w*).js/g)[0]),
-	{ Utils } = require('./api.js');
+	Utils = require('./Utils');
 
 const LOG_LEVELS = ['info', 'debug', 'trace'],
 	FLUX_REGEX = new RegExp(/(?<type>\w+)\|(?<subject>\w+)\|(?<id>\w+)/);
