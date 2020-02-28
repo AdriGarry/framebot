@@ -25,26 +25,24 @@ const INTERNET_BOX_STRATEGY_CRON = [
 	],
 	internetBoxStrategyCrons = new CronJobList(INTERNET_BOX_STRATEGY_CRON, 'internetBoxOffStrategy', true);
 
-var internetTestInterval = null,
-	isOnline = true;
-
-internetTestInterval = setInterval(() => {
-	Utils.testConnection()
-		.then(() => {
-			if (!isOnline) {
-				log.info();
-				log.info("I'm back on the internet!");
-			}
-			isOnline = true;
-		})
-		.catch(() => {
-			if (isOnline) {
-				log.warn();
-				log.warn("I've lost my internet connection!");
-			}
-			isOnline = false;
-		});
-}, 10 * 1000);
+var isOnline = true,
+	internetTestInterval = setInterval(() => {
+		Utils.testConnection()
+			.then(() => {
+				if (!isOnline) {
+					log.info();
+					log.info("I'm back on the internet!");
+				}
+				isOnline = true;
+			})
+			.catch(() => {
+				if (isOnline) {
+					log.warn();
+					log.warn("I've lost my internet connection!");
+				}
+				isOnline = false;
+			});
+	}, 10 * 1000);
 
 /** Function to get connected from 0 to 10 min of each hour */
 function internetBoxStrategy() {
