@@ -27,15 +27,6 @@ Available modes: ready, sleep, test
 - Logger & cleaner
 - Hardware monitoring (CPU, diskspace, temperature)
 
-## Usage
-
-- Go to _core_ directory
-- First time, execute `sh core.sh $botName` to add `core` as command and launch core with _botName_ configuration given as first param
-- Then, to launch execute `core $botName [params]`
-- To stop, execute `core stop`
-
-## Internal
-
 ### Input
 
 - Buttons (GPIO)
@@ -50,7 +41,29 @@ Available modes: ready, sleep, test
 - Screen (HDMI)
 - Rfxcom
 
+## Installation / Usage
+
+- Go to _core_ directory
+- First time, execute `sh core.sh $botName` to add `core` as command and launch core with _botName_ configuration given as first param
+- Then, to launch execute `core $botName [params]`
+- To stop, execute `core stop`
+
+## Framework
+
+### API
+
+- CoreError
+- CronJobList
+- Flux
+- Logger
+- Observers
+- Utils
+
 ### Core engine
+
+- Core
+- Lock
+- ModuleLoader
 
 #### Core.conf
 

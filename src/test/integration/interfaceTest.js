@@ -10,11 +10,8 @@ const log = new (require('../../api/Logger'))(__filename.match(/(\w*).js/g)[0]),
 
 log.info('Module test sequence...');
 
-// const testTTSList = [{lg: 'en', msg: 'Test' },	{lg: 'fr', msg: 'Test' }];
-
 module.exports.runTest = function(succeedTest) {
 	return new Promise((resolve, reject) => {
-		// new Flux('interface|tts|speak', testTTSList[Utils.random(testTTSList.length)]);
 		// new Flux('interface|led|toggle', { leds: ['eye', 'belly', 'satellite'], value: 0 });
 		// new Flux('interface|led|blink', { leds: ['belly'], speed: 600, loop: 100 }, { delay: 3 });
 

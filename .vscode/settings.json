@@ -1,6 +1,6 @@
 {
 	"files.eol": "\n",
-	"git.enableSmartCommit": true,
+	"git.enableSmartCommit": false,
 	"git.confirmSync": false,
 	"window.zoomLevel": 0,
 	"editor.tabSize": 3,

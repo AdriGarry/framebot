@@ -115,11 +115,11 @@ module.exports = class Logger {
 	}
 };
 
-function _timeoutToInfoLevel(__instance, delay) {
-	__instance[logLevel]('back to info in', delay, 'min');
+function _timeoutToInfoLevel(_instance, delay) {
+	_instance[logLevel]('back to info in', delay, 'min');
 	clearTimeout(cancelTimeout);
 	cancelTimeout = setTimeout(() => {
-		__instance.level() != LEVEL.INFO && __instance.level(LEVEL.INFO);
+		_instance.level() != LEVEL.INFO && _instance.level(LEVEL.INFO);
 		Core.conf('log', LEVEL.INFO);
 	}, delay * 60 * 1000);
 }
@@ -146,7 +146,7 @@ function _formatLog(args) {
 	if (typeof args === 'string') {
 		return args;
 	}
-	var log = '';
+	let log = '';
 	if (args[0] == '\n') {
 		console.log('');
 		delete args[0];
