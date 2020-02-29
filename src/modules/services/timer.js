@@ -2,11 +2,11 @@
 
 'use strict';
 
-const Core = require('./../../core/Core').Core,
-	Observers = require('./../../core/Observers');
+const Core = require('./../../core/Core').Core;
 
 const log = new (require('./../../api/Logger'))(__filename),
-	Flux = require('./../../api/Flux');
+	Flux = require('./../../api/Flux'),
+	Observers = require('./../../api/Observers');
 
 const FLUX_PARSE_OPTIONS = [
 	{ id: 'increase', fn: setTimer },
