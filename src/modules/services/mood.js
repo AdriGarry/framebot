@@ -10,23 +10,16 @@ const log = new (require('./../../api/Logger'))(__filename),
 
 const RandomBox = require('randombox').RandomBox;
 
-Observers.service().mood.subscribe({
-	next: flux => {
-		if (flux.id == 'expressive') {
-			expressive(flux.value);
-		} else if (flux.id == 'badBoy') {
-			badBoy(flux.value);
-		} else if (flux.id == 'java') {
-			java(flux.value);
-		} else Core.error('unmapped flux in Mood service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'expressive', fn: expressive },
+	{ id: 'badBoy', fn: badBoy },
+	{ id: 'java', fn: java }
+];
+
+Observers.attachFluxParseOptions('service', 'mood', FLUX_PARSE_OPTIONS);
 
 function expressive(args) {
-	console.log('expressive(args)');
+	log.test('expressive(args)', args);
 }
 
 // const MAX_JAVA = ['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm'];

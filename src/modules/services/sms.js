@@ -11,16 +11,8 @@ const log = new (require('./../../api/Logger'))(__filename);
 
 const SMS_CREDENTIALS = require(Core._SECURITY + 'credentials.json').sms;
 
-Observers.service().sms.subscribe({
-	next: flux => {
-		if (flux.id == 'send') {
-			sendSMS(flux.value);
-		} else Core.error('unmapped flux in SMS service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [{ id: 'send', fn: sendSMS }];
+Observers.attachFluxParseOptions('service', 'sms', FLUX_PARSE_OPTIONS);
 
 function sendSMS(message) {
 	request.post(

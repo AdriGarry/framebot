@@ -11,24 +11,14 @@ const log = new (require('./../../api/Logger'))(__filename),
 
 module.exports = {};
 
-Observers.service().video.subscribe({
-	next: flux => {
-		if (flux.id == 'loop') {
-			loop();
-		} else if (flux.id == 'stopLoop') {
-			stopLoop();
-		} else if (flux.id == 'photo') {
-			displayOnePhoto();
-		} else if (flux.id == 'video') {
-			playOneVideo();
-			// } else if (flux.id == 'logTail') {
-			// 	logTail();
-		} else Core.error('unmapped flux in Video service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'loop', fn: loop },
+	{ id: 'stopLoop', fn: stopLoop },
+	{ id: 'photo', fn: displayOnePhoto },
+	{ id: 'video', fn: playOneVideo }
+];
+
+Observers.attachFluxParseOptions('service', 'video', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
 	if (Core.run('etat') == 'high') {

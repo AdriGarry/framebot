@@ -17,22 +17,14 @@ const LG_LIST = ['fr', 'en', 'ru', 'es', 'it', 'de'];
 
 module.exports = {};
 
-Observers.interface().tts.subscribe({
-	next: flux => {
-		if (flux.id == 'speak') {
-			speak(flux.value);
-		} else if (flux.id == 'lastTTS') {
-			lastTTS();
-		} else if (flux.id == 'random') {
-			speak();
-		} else if (flux.id == 'clearTTSQueue') {
-			clearTTSQueue();
-		} else Core.error('unmapped flux in TTS module', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'speak', fn: speak },
+	{ id: 'lastTTS', fn: lastTTS },
+	{ id: 'random', fn: speak },
+	{ id: 'clearTTSQueue', fn: clearTTSQueue }
+];
+
+Observers.attachFluxParseOptions('interface', 'tts', FLUX_PARSE_OPTIONS);
 
 var onAir = false,
 	ttsQueue = [],

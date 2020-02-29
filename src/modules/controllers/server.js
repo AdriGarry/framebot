@@ -20,8 +20,15 @@ const log = new (require('./../../api/Logger'))(__filename),
 	Flux = require('./../../api/Flux'),
 	Utils = require('./../../api/Utils');
 
-const middleware = require(Core._MODULES + 'controllers/server/middleware.js'),
-	api = require(Core._MODULES + 'controllers/server/api.js');
+const middleware = require('./server/middleware'),
+	api = require('./server/api');
+
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'start', fn: startUIServer },
+	{ id: 'closeUIServer', fn: closeUIServer }
+];
+
+Observers.attachFluxParseOptions('controller', 'server', FLUX_PARSE_OPTIONS);
 
 const HTTP_SERVER_PORT = 3210,
 	HTTPS_SERVER_PORT = 4321,
@@ -29,19 +36,6 @@ const HTTP_SERVER_PORT = 3210,
 		key: fs.readFileSync(Core._SECURITY + 'key.pem'),
 		cert: fs.readFileSync(Core._SECURITY + 'cert.pem')
 	};
-
-Observers.controller().server.subscribe({
-	next: flux => {
-		if (flux.id == 'start') {
-			startUIServer();
-		} else if (flux.id == 'closeUIServer') {
-			closeUIServer(flux.value);
-		} else Core.error('unmapped flux in Server controller', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
 
 function startUIServer() {
 	startHttpServer();

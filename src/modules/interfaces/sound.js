@@ -19,32 +19,17 @@ module.exports = {
 	}
 };
 
-Observers.interface().sound.subscribe({
-	next: flux => {
-		if (flux.id == 'mute') {
-			mute(flux.value);
-		} else if (Core.isAwake()) {
-			if (flux.id == 'volume') {
-				setVolume(flux.value);
-			} else if (flux.id == 'play') {
-				playSound(flux.value);
-			} else if (flux.id == 'playRandom') {
-				playSoundRandomPosition(flux.value);
-			} else if (flux.id == 'error') {
-				playSound({ mp3: 'system/ressort.mp3', noLog: true, noLed: true });
-			} else if (flux.id == 'UI') {
-				playSound({ mp3: 'system/UIrequestSound.mp3', noLog: true, noLed: true });
-			} else if (flux.id == 'reset') {
-				resetSound();
-			} else {
-				Core.error('unmapped flux in Sound module', flux, false);
-			}
-		}
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'mute', fn: mute },
+	{ id: 'volume', fn: setVolume, condition: { isAwake: true } },
+	{ id: 'play', fn: playSound, condition: { isAwake: true } },
+	{ id: 'playRandom', fn: playSoundRandomPosition, condition: { isAwake: true } },
+	{ id: 'error', fn: playErrorSound, condition: { isAwake: true } },
+	{ id: 'UI', fn: playUISound, condition: { isAwake: true } },
+	{ id: 'reset', fn: resetSound, condition: { isAwake: true } }
+];
+
+Observers.attachFluxParseOptions('interface', 'sound', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
 	resetSound();
@@ -212,6 +197,14 @@ function ledFlag() {
 	return setInterval(function() {
 		new Flux('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
 	}, 10 * 1000);
+}
+
+function playErrorSound() {
+	playSound({ mp3: 'system/ressort.mp3', noLog: true, noLed: true });
+}
+
+function playUISound() {
+	playSound({ mp3: 'system/UIrequestSound.mp3', noLog: true, noLed: true });
 }
 
 /** Function to reset sound */

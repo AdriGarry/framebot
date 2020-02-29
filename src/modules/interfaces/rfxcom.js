@@ -34,6 +34,16 @@ Observers.interface().rfxcom.subscribe({
 	}
 });
 
+// const FLUX_PARSE_OPTIONS = [
+// 	{ id: 'activitySignal', fn: activitySignal },
+// 	{ id: 'toggle', fn: toggle },
+// 	{ id: 'blink', fn: blink },
+// 	{ id: 'altLeds', fn: altLeds },
+// 	{ id: 'clearLeds', fn: clearLeds }
+// ];
+
+// Observers.attachFluxParseOptions('interface', 'rfxcom', FLUX_PARSE_OPTIONS);
+
 const DEVICE = new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
 const DEVICE_LIST = Core.descriptor.rfxcomDevices;
 

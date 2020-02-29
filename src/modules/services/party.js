@@ -11,22 +11,14 @@ const log = new (require('./../../api/Logger'))(__filename),
 
 module.exports = {};
 
-Observers.service().party.subscribe({
-	next: flux => {
-		if (flux.id == 'start') {
-			start();
-		} else if (flux.id == 'birthdaySong') {
-			birthdaySong();
-		} else if (flux.id == 'tts') {
-			partyTTS();
-		} else if (flux.id == 'pirate') {
-			pirate(flux.value);
-		} else Core.error('unmapped flux in Party service', flux);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'start', fn: start },
+	{ id: 'birthdaySong', fn: birthdaySong },
+	{ id: 'tts', fn: partyTTS },
+	{ id: 'pirate', fn: pirate }
+];
+
+Observers.attachFluxParseOptions('service', 'party', FLUX_PARSE_OPTIONS);
 
 function birthdaySong() {
 	log.info('birthday song...');

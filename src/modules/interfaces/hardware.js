@@ -26,32 +26,19 @@ module.exports = {
 	}
 };
 
-Observers.interface().hardware.subscribe({
-	next: flux => {
-		if (flux.id == 'reboot') {
-			reboot();
-		} else if (flux.id == 'shutdown') {
-			shutdown();
-		} else if (flux.id == 'light') {
-			light(flux.value);
-		} else if (flux.id == 'runtime') {
-			runtime(flux.value);
-		} else if (flux.id == 'cpuTTS') {
-			cpuStatsTTS();
-		} else if (flux.id == 'soulTTS') {
-			soulTTS();
-		} else if (flux.id == 'diskSpaceTTS') {
-			diskSpaceTTS();
-		} else if (flux.id == 'totalLinesTTS') {
-			totalLinesTTS();
-		} else if (flux.id == 'archiveLog') {
-			archiveLogs();
-		} else Core.error('unmapped flux in Hardware interface', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'reboot', fn: reboot },
+	{ id: 'shutdown', fn: shutdown },
+	{ id: 'light', fn: light },
+	{ id: 'runtime', fn: runtime },
+	{ id: 'cpuTTS', fn: cpuStatsTTS },
+	{ id: 'soulTTS', fn: soulTTS },
+	{ id: 'diskSpaceTTS', fn: diskSpaceTTS },
+	{ id: 'totalLinesTTS', fn: totalLinesTTS },
+	{ id: 'archiveLogs', fn: archiveLogs }
+];
+
+Observers.attachFluxParseOptions('interface', 'hardware', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
 	Promise.all([retreiveLastModifiedDate(PATHS), countSoftwareLines(), getDiskSpace(), getIps()])

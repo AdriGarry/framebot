@@ -24,6 +24,13 @@ Observers.interface().hdmi.subscribe({
 	}
 });
 
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'on', fn: screenOn },
+	{ id: 'off', fn: screenOff }
+];
+
+Observers.attachFluxParseOptions('interface', 'hdmi', FLUX_PARSE_OPTIONS);
+
 setImmediate(() => {
 	if (!Core.isAwake() || !Core.run('hdmi')) {
 		screenOff();

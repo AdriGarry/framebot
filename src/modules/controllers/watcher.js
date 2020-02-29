@@ -13,20 +13,13 @@ const log = new (require('./../../api/Logger'))(__filename),
 
 module.exports = {};
 
-Observers.controller().watcher.subscribe({
-	next: flux => {
-		if (flux.id == 'start') {
-			startWatch();
-		} else if (flux.id == 'stop') {
-			stopWatch();
-		} else if (flux.id == 'toggle') {
-			toggleWatch();
-		} else Core.error('unmapped flux in Watcher controller', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'start', fn: startWatch },
+	{ id: 'stop', fn: stopWatch },
+	{ id: 'toggle', fn: toggleWatch }
+];
+
+Observers.attachFluxParseOptions('controller', 'watcher', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
 	if (Core.conf('watcher')) {
@@ -54,7 +47,7 @@ function toggleWatch() {
 }
 
 function startWatch() {
-	log.info('starting watchers on', PATHS_TO_WATCH);
+	log.info('Starting watchers on', PATHS_TO_WATCH);
 	PATHS_TO_WATCH.forEach(path => {
 		watchers.push(addWatcher(path, relaunch));
 	});
@@ -62,7 +55,7 @@ function startWatch() {
 }
 
 function stopWatch() {
-	log.info('watchers stop', PATHS_TO_WATCH);
+	log.info('Stopping watchers', PATHS_TO_WATCH);
 	watchers.forEach(watcher => {
 		removeWatcher(watcher);
 	});

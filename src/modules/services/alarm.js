@@ -16,20 +16,13 @@ module.exports = {
 	}
 };
 
-Observers.service().alarm.subscribe({
-	next: flux => {
-		if (flux.id == 'set') {
-			setAlarm(flux.value);
-		} else if (flux.id == 'off') {
-			disableAllAlarms();
-		} else if (flux.id == 'isAlarm') {
-			isAlarm();
-		} else Core.error('unmapped flux in Alarm service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'set', fn: setAlarm },
+	{ id: 'off', fn: disableAllAlarms },
+	{ id: 'isAlarm', fn: isAlarm }
+];
+
+Observers.attachFluxParseOptions('service', 'alarm', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
 	isAlarm();

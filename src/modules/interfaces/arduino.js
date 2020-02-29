@@ -15,22 +15,13 @@ var arduino;
 
 module.exports = {};
 
-Observers.interface().arduino.subscribe({
-	next: flux => {
-		if (flux.id == 'connect') {
-			connect();
-		} else if (flux.id == 'write') {
-			write(flux.value);
-		} else if (flux.id == 'disconnect') {
-			disconnect();
-		} else {
-			Core.error('unmapped flux in Arduino interface', flux, false);
-		}
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'connect', fn: connect },
+	{ id: 'write', fn: write },
+	{ id: 'disconnect', fn: disconnect }
+];
+
+Observers.attachFluxParseOptions('interface', 'arduino', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
 	if (Core.run('volume') > 50) {

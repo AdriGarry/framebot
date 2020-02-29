@@ -2,8 +2,10 @@
 
 'use strict';
 
-const Core = require('./../core/Core').Core,
-	log = new (require('./Logger'))(__filename),
+const Core = require('./../core/Core').Core;
+
+const log = new (require('./Logger'))(__filename),
+	Flux = require('./Flux'),
 	Utils = require('./Utils');
 
 module.exports = class CoreError extends Error {

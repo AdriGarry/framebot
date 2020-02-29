@@ -12,30 +12,18 @@ const RandomBox = require('randombox').RandomBox;
 
 module.exports = {};
 
-Observers.service().max.subscribe({
-	next: flux => {
-		if (flux.id == 'parse') {
-			parseDataFromMax(flux.value);
-		} else if (flux.id == 'blinkAllLed') {
-			blinkAllLed();
-		} else if (flux.id == 'blinkRdmLed') {
-			blinkRdmLed();
-		} else if (flux.id == 'playOneMelody') {
-			playOneMelody();
-		} else if (flux.id == 'playRdmMelody') {
-			playRdmMelody();
-		} else if (flux.id == 'hornRdm') {
-			hornRdm();
-		} else if (flux.id == 'hornSiren') {
-			hornSiren();
-		} else if (flux.id == 'turn') {
-			turnNose();
-		} else Core.error('unmapped flux in Max service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'parse', fn: parseDataFromMax },
+	{ id: 'blinkAllLed', fn: blinkAllLed },
+	{ id: 'blinkRdmLed', fn: blinkRdmLed },
+	{ id: 'playOneMelody', fn: playOneMelody },
+	{ id: 'playRdmMelody', fn: playRdmMelody },
+	{ id: 'hornRdm', fn: hornRdm },
+	{ id: 'hornSiren', fn: hornSiren },
+	{ id: 'turn', fn: turnNose }
+];
+
+Observers.attachFluxParseOptions('service', 'max', FLUX_PARSE_OPTIONS);
 
 const HORNS = [
 	'playHornWarning',

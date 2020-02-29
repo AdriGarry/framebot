@@ -229,7 +229,7 @@ module.exports = class Utils {
 	static getDuration(soundFile, callback) {
 		log.debug('getDuration:', soundFile);
 		return new Promise((resolve, reject) => {
-			execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH')
+			Utils.execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH')
 				.then(data => {
 					try {
 						if (data == '') {

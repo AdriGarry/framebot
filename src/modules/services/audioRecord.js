@@ -13,25 +13,15 @@ const log = new (require('./../../api/Logger'))(__filename),
 
 module.exports = {};
 
-Observers.service().audioRecord.subscribe({
-	next: flux => {
-		if (flux.id == 'new') {
-			addRecord(flux.value);
-			// TODO tous les flux suivants, les filtrer si mode veille (ou passer par un switch/case ?)
-		} else if (flux.id == 'check') {
-			checkRecord();
-		} else if (flux.id == 'last') {
-			playLastRecord();
-		} else if (flux.id == 'clear') {
-			clearRecords();
-		} else if (flux.id == 'trash') {
-			trashAllRecords();
-		} else Core.error('unmapped flux in Audio Record service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'new', fn: addRecord },
+	{ id: 'check', fn: checkRecord },
+	{ id: 'last', fn: playLastRecord },
+	{ id: 'clear', fn: clearRecords },
+	{ id: 'trash', fn: trashAllRecords }
+];
+
+Observers.attachFluxParseOptions('service', 'audioRecord', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
 	updateRecord();
