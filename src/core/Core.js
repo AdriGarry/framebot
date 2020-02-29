@@ -20,7 +20,7 @@ module.exports = {
 	Core: Core
 };
 
-// TODO to class ?
+// TODO to class => singleton or static ?
 function _setUpCoreObject(Core, descriptor, startTime) {
 	Core.Name = descriptor.name;
 	Core.name = descriptor.name.toLowerCase();
@@ -86,7 +86,7 @@ function initializeContext(path, descriptor, forcedParams, startTime) {
 		});
 	}
 
-	const Observers = require('./Observers.js');
+	const Observers = require('./../api/Observers');
 	Observers.init(descriptor.modules);
 
 	const Flux = require('../api/Flux.js'),

@@ -2,12 +2,12 @@
 
 'use strict';
 
-const Core = require('./../../core/Core').Core,
-	Observers = require('./../../core/Observers');
+const Core = require('./../../core/Core').Core;
 
 const log = new (require('./../../api/Logger'))(__filename),
 	Flux = require('./../../api/Flux'),
-	Utils = require('./../../api/Utils');
+	Utils = require('./../../api/Utils'),
+	Observers = require('./../../api/Observers');
 
 module.exports = {};
 
