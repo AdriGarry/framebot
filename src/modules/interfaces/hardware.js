@@ -170,7 +170,7 @@ var startMeasure = cpuAverage();
 
 /** Function to get memory usage stats (Core + system) */
 function soulTTS() {
-	let size = Math.round(Core.run('memory.odi'));
+	let size = Math.round(Core.run('memory.frameBot'));
 	let ttsMsg = size + ' maiga octet, sait le poids de mon ame ' + (Utils.rdm() ? '' : 'en ce moment');
 	new Flux('interface|tts|speak', ttsMsg);
 }
@@ -180,7 +180,7 @@ function retreiveMemoryUsage() {
 	return new Promise((resolve, reject) => {
 		let usedByCore = process.memoryUsage();
 		usedByCore = (usedByCore.rss / BYTE_TO_MO).toFixed(1);
-		Core.run('memory.odi', usedByCore);
+		Core.run('memory.frameBot', usedByCore);
 		let totalMem = (os.totalmem() / BYTE_TO_MO).toFixed(0);
 		let freeMem = (os.freemem() / BYTE_TO_MO).toFixed(0);
 		let usedMem = (totalMem - freeMem).toFixed(0);
@@ -211,7 +211,7 @@ function loadAverage() {
 /** Function to update last modified date & time of Program's files */
 function retreiveLastModifiedDate(paths) {
 	return new Promise((resolve, reject) => {
-		// typeof paths => Array
+		// TODO? typeof paths => Array
 		paths = paths.join(' ');
 		Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
 			.then(data => {

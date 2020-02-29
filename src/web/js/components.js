@@ -546,7 +546,7 @@ app.component('time', {
 			label: 'Time',
 			// actionList:[{url: '/time'}]
 			actionList: [
-				{ label: "Odi's age", icon: 'fas fa-birthday-cake', url: '/flux/service/time/age' },
+				{ label: 'Bot age', icon: 'fas fa-birthday-cake', url: '/flux/service/time/age' },
 				{ label: 'Today', icon: 'fas fa-calendar-alt', url: '/flux/service/time/today' },
 				{ label: 'Time', icon: 'far fa-clock', url: '/flux/service/time/now' }
 			]
