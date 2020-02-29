@@ -32,7 +32,8 @@ const FLUX_PARSE_OPTIONS = [
 	{ id: 'goToWorkQueue', fn: goToWorkTTSQueue },
 	{ id: 'baluchon', fn: baluchonTTS },
 	{ id: 'uneHeure', fn: uneHeure },
-	{ id: 'russia', fn: russiaHymn },
+	{ id: 'russia', fn: russia },
+	{ id: 'russiaHymn', fn: russiaHymn },
 	{ id: 'civilHorn', fn: civilHorn }
 ];
 
