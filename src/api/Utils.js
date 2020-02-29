@@ -187,9 +187,8 @@ module.exports = class Utils {
 		return new Promise((resolve, reject) => {
 			dns.lookup('google.com', function(err) {
 				if (err && err.code == 'ENOTFOUND') {
-					reject();
+					reject(err);
 				} else {
-					log.debug("I'm online, connected on the internet!");
 					resolve();
 				}
 			});
@@ -387,7 +386,7 @@ module.exports = class Utils {
 	}
 };
 
-const FILE_NOT_FOUND_EXCEPT = ['/home/odi/core/tmp/voicemail.json', '/home/odi/core/tmp/record.json'],
+const FILE_NOT_FOUND_EXCEPT = ['/home/odi/frameBot/tmp/voicemail.json', '/home/odi/frameBot/tmp/record.json'],
 	dateTimeDefaultPattern = 'D/M h:m:s';
 
 function _fileNotExists(err) {

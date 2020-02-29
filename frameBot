@@ -4,16 +4,16 @@ _PATH=`pwd`
 echo _PATH: $_PATH
 
 
-updateCoreScript(){
-	sudo cp $_PATH/core /usr/bin/
+updateFrameBotScript(){
+	sudo cp $_PATH/frameBot /usr/bin/
 	
-	sudo cp $_PATH/data/coreStartup.service /etc/systemd/system/coreStartup.service
-	sudo chmod 664 /etc/systemd/system/coreStartup.service
+	sudo cp $_PATH/data/frameBot.service /etc/systemd/system/frameBot.service
+	sudo chmod 664 /etc/systemd/system/frameBot.service
 	sudo systemctl daemon-reload
-	sudo systemctl enable coreStartup.service
+	sudo systemctl enable frameBot.service
 
-	echo "updateCoreScript: core command & service updated!\n"
-	# sudo chmod +x "$_PATH"/core.sh
+	echo "frameBot: frameBot command & service updated!\n"
+	# sudo chmod +x "$_PATH"/frameBot.sh
 }
 
 exitIfNoArgs(){
@@ -27,14 +27,14 @@ exitIfNoArgs(){
 ifStop(){
 	if [ $1 = "stop" ]; then
 		sudo killall node
-		echo "\nCORE STOPPED."
+		echo "\nframeBot STOPPED."
 		exit 0
 	fi
 }
 
 ifReset(){
 	if [ $1 = "reset" ]; then
-		echo "\nCORE RESETED !"
+		echo "\nframeBot RESETED !"
 		sudo rm -r -f $_PATH/tmp
 		exit 0
 	fi
@@ -49,7 +49,7 @@ ifCerbot(){
 }
 
 
-updateCoreScript $*
+updateFrameBotScript $*
 
 exitIfNoArgs $*
 
@@ -73,5 +73,5 @@ fi
 
 echo "\nStarting Wrapper... [$*]" | sudo tee -a "$_PATH/log/$_NAME.log"
 
-# sudo python /home/odi/core/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/core/log/buttons.py.log &
+# sudo python /home/odi/frameBot/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/frameBot/log/buttons.py.log &
 sudo node "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" &

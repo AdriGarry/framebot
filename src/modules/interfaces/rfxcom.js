@@ -33,7 +33,6 @@ function rfxcomHandler(flux) {
 const DEVICE = new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
 const DEVICE_LIST = Core.descriptor.rfxcomDevices;
 
-log.debug('Rfxcom gateway initializing...');
 rfxtrx.initialise(function() {
 	Core.run('rfxcom', true);
 	log.info('Rfxcom gateway ready', '[' + Utils.executionTime(Core.startTime) + 'ms]');

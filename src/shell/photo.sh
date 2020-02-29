@@ -3,7 +3,7 @@
 while true
 do
 	rdm=$(shuf -i 2-6 -n 1 )
-	path=$(sudo find /home/odi/core/media/photo -maxdepth 1 -type f | shuf | head -1)
+	path=$(sudo find /home/odi/frameBot/media/photo -maxdepth 1 -type f | shuf | head -1)
 	echo $rdm $path
 	sudo fbi -T 2 $path
 	sleep $rdm

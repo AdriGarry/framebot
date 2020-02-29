@@ -1,11 +1,11 @@
  [Unit]
- Description=Core service
+ Description=frameBot service
  After=multi-user.target
 
  [Service]
  Type=simple
  KillMode=process
- ExecStart=/bin/sh /home/odi/core/core odi
+ ExecStart=/bin/sh /home/odi/frameBot/frameBot odi
 
  [Install]
  WantedBy=multi-user.target

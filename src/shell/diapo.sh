@@ -4,7 +4,7 @@
 sudo /opt/vc/bin/tvservice -p
 
 display1Photo () {
-	path=$(sudo find /home/odi/core/media/photo -maxdepth 1 -type f | shuf | head -1)
+	path=$(sudo find /home/odi/frameBot/media/photo -maxdepth 1 -type f | shuf | head -1)
 	echo $rdm diapoPhoto: $path
 	rdm=$(shuf -i 5-9 -n 1)
 	echo $rdm sec
@@ -15,7 +15,7 @@ display1Photo () {
 }
 
 play1Video () {
-	path=$(sudo find /home/odi/core/media/video/rdm -maxdepth 1 -type f | shuf | head -1)
+	path=$(sudo find /home/odi/frameBot/media/video/rdm -maxdepth 1 -type f | shuf | head -1)
 	echo $rdm playVideo: $path
 
 	playTimeDecimal=$(mplayer -identify -ao null -vo null -frames 0 $path | grep ^ID_LENGTH= | cut -d = -f 2)

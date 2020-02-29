@@ -28,7 +28,6 @@ const Core = require('./core/Core').initializeContext(
 const Flux = require('./api/Flux');
 
 const log = new (require('./api/Logger'))(__filename, Core.conf('mode'));
-log.debug('argv:', argv);
 
 const Utils = require('./api/Utils');
 log.info(' -->  ' + Core.Name + ' ready [' + Utils.executionTime(Core.startTime) + 'ms]');
