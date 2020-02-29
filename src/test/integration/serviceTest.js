@@ -3,11 +3,11 @@
 
 const assert = require('assert');
 
-const Core = require('./../core/Core').Core;
+const Core = require('../../core/Core').Core;
 
-const log = new (require('./../api/Logger'))(__filename.match(/(\w*).js/g)[0]),
-	Flux = require('./../api/Flux'),
-	Utils = require('./../api/Utils');
+const log = new (require('../../api/Logger'))(__filename.match(/(\w*).js/g)[0]),
+	Flux = require('../../api/Flux'),
+	Utils = require('../../api/Utils');
 
 log.info('Flux test sequence...');
 

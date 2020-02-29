@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 
-const Core = require('./../core/Core').Core;
+const Core = require('../../core/Core').Core;
 
-const log = new (require('./../api/Logger'))(__filename.match(/(\w*).js/g)[0]),
-	Flux = require('./../api/Flux'),
-	Utils = require('./../api/Utils');
+const log = new (require('../../api/Logger'))(__filename.match(/(\w*).js/g)[0]),
+	Flux = require('../../api/Flux'),
+	Utils = require('../../api/Utils');
 
 const testSequences = ['interfaceTest', 'serviceTest'];
 

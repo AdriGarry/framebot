@@ -92,7 +92,7 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
 	});
 
 	mplayerProcess.on('close', err => {
-		// if (err) Core.error('mplayerProcess.on(close', err);
+		// if (err) Core.error('mplayerProcess.on(close', err); // TODO
 		// else
 		if (!noLog) {
 			let playTime = Utils.formatDuration(Math.round(Utils.executionTime(startPlayTime) / 100) / 10);

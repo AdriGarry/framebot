@@ -36,7 +36,7 @@ log.info(' -->  ' + Core.Name + ' ready [' + Utils.executionTime(Core.startTime)
 ////////  TEST section  ////////
 if (Core.conf('mode') === 'test') {
 	setTimeout(function() {
-		new Flux('interface|tts|speak', { lg: 'en', msg: 'test sequence' });
-		require('./test/tests').launch();
+		new Flux('interface|tts|speak', { lg: 'en', msg: 'Integration tests sequence' });
+		require('./test/integration/tests').launch();
 	}, 1000);
 }
