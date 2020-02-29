@@ -6,12 +6,12 @@ const { exec, spawn } = require('child_process');
 const fs = require('fs'),
 	os = require('os');
 
-const Core = require('./../../core/Core').Core,
-	Observers = require('./../../core/Observers');
+const Core = require('./../../core/Core').Core;
 
 const log = new (require('./../../api/Logger'))(__filename),
 	Flux = require('./../../api/Flux'),
-	Utils = require('./../../api/Utils');
+	Utils = require('./../../api/Utils'),
+	Observers = require('./../../api/Observers');
 
 const PATHS = [Core._SRC],
 	BYTE_TO_MO = 1048576;

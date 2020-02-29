@@ -4,11 +4,11 @@
 const SerialPort = require('serialport'),
 	Readline = SerialPort.parsers.Readline;
 
-const Core = require('./../../core/Core').Core,
-	Observers = require('./../../core/Observers');
+const Core = require('./../../core/Core').Core;
 
 const log = new (require('./../../api/Logger'))(__filename),
-	Flux = require('./../../api/Flux');
+	Flux = require('./../../api/Flux'),
+	Observers = require('./../../api/Observers');
 
 const ARDUINO = { address: '/dev/ttyACM0', baudRate: 115200 };
 var arduino;
