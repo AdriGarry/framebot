@@ -24,34 +24,20 @@ module.exports = {
 	}
 };
 
-Observers.service().interaction.subscribe({
-	next: flux => {
-		if (flux.id == 'random') {
-			randomAction();
-		} else if (flux.id == 'exclamation') {
-			exclamation();
-		} else if (flux.id == 'demo') {
-			demo();
-		} else if (flux.id == 'goToWorkTTS') {
-			goToWorkTTS();
-		} else if (flux.id == 'goToWorkQueue') {
-			goToWorkTTSQueue();
-		} else if (flux.id == 'baluchon') {
-			baluchonTTS();
-		} else if (flux.id == 'uneHeure') {
-			uneHeure();
-		} else if (flux.id == 'russia') {
-			russia();
-		} else if (flux.id == 'russiaHymn') {
-			russiaHymn();
-		} else if (flux.id == 'civilHorn') {
-			civilHorn();
-		} else Core.error('unmapped flux in Interfaction module', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'random', fn: randomAction },
+	{ id: 'exclamation', fn: exclamation },
+	{ id: 'demo', fn: demo },
+	{ id: 'goToWorkTTS', fn: goToWorkTTS },
+	{ id: 'goToWorkQueue', fn: goToWorkTTSQueue },
+	{ id: 'baluchon', fn: baluchonTTS },
+	{ id: 'uneHeure', fn: uneHeure },
+	{ id: 'russia', fn: russia },
+	{ id: 'russiaHymn', fn: russiaHymn },
+	{ id: 'civilHorn', fn: civilHorn }
+];
+
+Observers.attachFluxParseOptions('service', 'interaction', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {});
 

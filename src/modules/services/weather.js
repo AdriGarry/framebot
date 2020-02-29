@@ -16,26 +16,14 @@ const WEATHER_CREDENTIALS = require(Core._SECURITY + 'credentials.json').weather
 
 module.exports = {};
 
-Observers.service().weather.subscribe({
-	next: flux => {
-		if (flux.id == 'report') {
-			reportTTS();
-		} else if (flux.id == 'alternative') {
-			alternativeReportTTS();
-		} else if (flux.id == 'random') {
-			if (Utils.rdm()) {
-				reportTTS();
-			} else {
-				alternativeReportTTS();
-			}
-		} else if (flux.id == 'astronomy') {
-			astronomyTTS();
-		} else Core.error('unmapped flux in Weather module', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'report', fn: reportTTS },
+	{ id: 'alternative', fn: alternativeReportTTS },
+	{ id: 'random', fn: randomTTS },
+	{ id: 'astronomy', fn: astronomyTTS }
+];
+
+Observers.attachFluxParseOptions('service', 'weather', FLUX_PARSE_OPTIONS);
 
 const WEATHER_SERVICE_URL = 'https://weather-ydn-yql.media.yahoo.com/forecastrss?location=marseille,fr&u=c&format=json';
 
@@ -46,6 +34,14 @@ fs.readFile(Core._DATA + 'weatherStatus-fr.json', function(err, data) {
 	}
 	WEATHER_STATUS_LIST = JSON.parse(data);
 });
+
+function randomTTS() {
+	if (Utils.rdm()) {
+		reportTTS();
+	} else {
+		alternativeReportTTS();
+	}
+}
 
 /** Official weather function */
 function reportTTS() {

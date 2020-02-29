@@ -8,18 +8,12 @@ const Core = require('./../../core/Core').Core,
 const log = new (require('./../../api/Logger'))(__filename),
 	Flux = require('./../../api/Flux');
 
-Observers.service().timer.subscribe({
-	next: flux => {
-		if (flux.id == 'increase') {
-			setTimer(flux.value);
-		} else if (flux.id == 'stop') {
-			stopTimer();
-		} else Core.error('unmapped flux in Timer service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'increase', fn: setTimer },
+	{ id: 'stop', fn: stopTimer }
+];
+
+Observers.attachFluxParseOptions('service', 'timer', FLUX_PARSE_OPTIONS);
 
 var secInterval;
 

@@ -9,24 +9,13 @@ const log = new (require('./../../api/Logger'))(__filename),
 	Flux = require('./../../api/Flux'),
 	Utils = require('./../../api/Utils');
 
-Observers.service().task.subscribe({
-	next: flux => {
-		if (flux.id == 'beforeRestart') {
-			beforeRestart();
-		} else if (flux.id == 'goToSleep') {
-			goToSleep();
-		} else if (flux.id == 'internetBoxStrategy') {
-			internetBoxStrategy();
-		} else if (flux.id == 'internetBoxStrategyOff') {
-			internetBoxStrategyOff();
-		} else if (flux.id == 'certbot') {
-			renewCertbot();
-		} else Core.error('unmapped flux in Task service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'beforeRestart', fn: beforeRestart },
+	{ id: 'goToSleep', fn: goToSleep },
+	{ id: 'certbot', fn: renewCertbot }
+];
+
+Observers.attachFluxParseOptions('service', 'task', FLUX_PARSE_OPTIONS);
 
 const GO_TO_SLEEP_DELAY = 5 * 60;
 

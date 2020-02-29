@@ -10,14 +10,7 @@ const log = new (require('./../../api/Logger'))(__filename),
 
 // const BTN_PUSH_MIN = 0.4;
 
-Observers.controller().button.subscribe({
-	next: flux => {
-		buttonHandler(flux);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+Observers.attachFluxParser('service', 'buttonAction', buttonHandler);
 
 function buttonHandler(flux) {
 	if (flux.id == 'ok') {

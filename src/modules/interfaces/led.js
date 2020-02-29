@@ -26,24 +26,15 @@ module.exports = {
 	}
 };
 
-Observers.interface().led.subscribe({
-	next: flux => {
-		if (flux.id == 'activitySignal') {
-			activitySignal();
-		} else if (flux.id == 'toggle') {
-			toggle(flux.value);
-		} else if (flux.id == 'blink') {
-			blink(flux.value);
-		} else if (flux.id == 'altLeds') {
-			altLeds(flux.value);
-		} else if (flux.id == 'clearLeds') {
-			clearLeds();
-		} else Core.error('unmapped flux in Led interface', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'activitySignal', fn: activitySignal },
+	{ id: 'toggle', fn: toggle },
+	{ id: 'blink', fn: blink },
+	{ id: 'altLeds', fn: altLeds },
+	{ id: 'clearLeds', fn: clearLeds }
+];
+
+Observers.attachFluxParseOptions('interface', 'led', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
 	activitySignal();

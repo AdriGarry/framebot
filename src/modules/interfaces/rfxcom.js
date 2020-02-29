@@ -14,25 +14,21 @@ const rfxtrx = new rfxcom.RfxCom('/dev/ttyUSB0', { debug: Core.conf('log') == 'i
 
 module.exports = {};
 
-Observers.interface().rfxcom.subscribe({
-	// TODO Create a parser (receive...)
-	next: flux => {
-		if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === false) {
-			sendStatus(flux.value);
-			new Flux('service|internetBox|strategy');
-		} else if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === true) {
-			sendStatus(flux.value);
-			new Flux('service|internetBox|strategyOff');
-		} else if (flux.id == 'send') {
-			sendStatus(flux.value);
-		} else {
-			Core.error('unmapped flux in Rfxcom interface', flux, false);
-		}
-	},
-	error: err => {
-		Core.error('Flux error', err);
+Observers.attachFluxParser('interface', 'rfxcom', rfxcomHandler);
+
+function rfxcomHandler(flux) {
+	if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === false) {
+		sendStatus(flux.value);
+		new Flux('service|internetBox|strategy');
+	} else if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === true) {
+		sendStatus(flux.value);
+		new Flux('service|internetBox|strategyOff');
+	} else if (flux.id == 'send') {
+		sendStatus(flux.value);
+	} else {
+		Core.error('unmapped flux in Rfxcom interface', flux, false);
 	}
-});
+}
 
 const DEVICE = new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
 const DEVICE_LIST = Core.descriptor.rfxcomDevices;

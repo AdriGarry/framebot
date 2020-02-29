@@ -11,18 +11,12 @@ const log = new (require('./../../api/Logger'))(__filename),
 
 module.exports = {};
 
-Observers.interface().hdmi.subscribe({
-	next: flux => {
-		if (flux.id == 'on') {
-			screenOn();
-		} else if (flux.id == 'off') {
-			screenOff();
-		} else Core.error('unmapped flux in Hdmi interface', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'on', fn: screenOn },
+	{ id: 'off', fn: screenOff }
+];
+
+Observers.attachFluxParseOptions('interface', 'hdmi', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
 	if (!Core.isAwake() || !Core.run('hdmi')) {

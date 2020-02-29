@@ -18,22 +18,14 @@ module.exports = {
 	}
 };
 
-Observers.service().music.subscribe({
-	next: flux => {
-		if (flux.id == 'playlist') {
-			playlist(flux.value);
-		} else if (flux.id == 'radio') {
-			playRadio(flux.value);
-		} else if (flux.id == 'story') {
-			playStory(flux.value);
-		} else if (flux.id == 'stop') {
-			stop();
-		} else Core.error('unmapped flux in Music service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'playlist', fn: playlist },
+	{ id: 'radio', fn: playRadio },
+	{ id: 'story', fn: playStory },
+	{ id: 'stop', fn: stop }
+];
+
+Observers.attachFluxParseOptions('service', 'music', FLUX_PARSE_OPTIONS);
 
 const AUTO_MUTE_TIMEOUT = 60 * 60;
 

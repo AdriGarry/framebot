@@ -12,20 +12,13 @@ const log = new (require('./../../api/Logger'))(__filename),
 
 module.exports = {};
 
-Observers.service().voicemail.subscribe({
-	next: flux => {
-		if (flux.id == 'new') {
-			addVoicemailMessage(flux.value);
-		} else if (flux.id == 'check') {
-			checkVoicemail(flux.value);
-		} else if (flux.id == 'clear') {
-			clearVoicemail();
-		} else Core.error('unmapped flux in Voicemail service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'new', fn: addVoicemailMessage },
+	{ id: 'check', fn: checkVoicemail },
+	{ id: 'clear', fn: clearVoicemail }
+];
+
+Observers.attachFluxParseOptions('service', 'voicemail', FLUX_PARSE_OPTIONS);
 
 const NO_VOICEMAIL = 'No voicemail message',
 	FILE_VOICEMAIL = Core._TMP + 'voicemail.json',

@@ -9,18 +9,12 @@ const log = new (require('./../../api/Logger'))(__filename),
 	Utils = require('./../../api/Utils'),
 	CronJobList = require('./../../api/CronJobList');
 
-Observers.service().internetBox.subscribe({
-	next: flux => {
-		if (flux.id == 'strategy') {
-			internetBoxStrategy();
-		} else if (flux.id == 'strategyOff') {
-			internetBoxStrategyOff();
-		} else Core.error('unmapped flux in InternetBox service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'strategy', fn: internetBoxStrategy },
+	{ id: 'strategyOff', fn: internetBoxStrategyOff }
+];
+
+Observers.attachFluxParseOptions('service', 'internetBox', FLUX_PARSE_OPTIONS);
 
 const INTERNET_BOX_STRATEGY_CRON = [
 		{ cron: '0 55 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: true } } },
@@ -56,7 +50,7 @@ function internetBoxStrategy() {
 function internetBoxStrategyOff() {
 	// TODO problem: parse receive from rfxcom instead of flux filter
 	// TODO test internetBoxStrategyCrons.nextDate value in more than 15 min ?
-	log.test('internetBoxStrategyOff', internetBoxStrategyCrons.nextDate());
+	log.info('internetBoxStrategyOff', internetBoxStrategyCrons.nextDate());
 	if (false) {
 		log.info('Stopping internet box strategy');
 		internetBoxStrategyCrons.stop();

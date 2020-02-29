@@ -2,8 +2,9 @@
 
 'use strict';
 
-const util = require('util'),
-	Rx = require('rxjs');
+const Rx = require('rxjs');
+
+const Core = require('./Core.js').Core;
 
 const log = new (require('../api/Logger.js'))(__filename.match(/(\w*).js/g)[0]);
 
@@ -30,6 +31,30 @@ module.exports = class Observers {
 		ready = true;
 		log.info('Observers attached, flux manager ready');
 		return ObserversObjects;
+	}
+
+	static attachFluxParseOptions(type, subject, fluxParseOptions) {
+		log.trace('attachFluxParseOptions', type, subject, fluxParseOptions);
+		Observers[type]()[subject].subscribe({
+			next: flux => {
+				let found = fluxParseOptions.find(option => option.id === flux.id);
+				if (found) {
+					if (found.condition && found.condition.hasOwnProperty('isAwake')) {
+						if (found.condition.isAwake === Core.isAwake()) return found.fn(flux.value);
+					} else return found.fn(flux.value);
+					//log.debug(`Flux ${type}|${subject}|${flux.id} rejected due to not respected condition:`, found.condition);
+				} else Core.error(`unmapped flux in ${subject} ${type}`, flux);
+			},
+			error: err => Core.error('Flux error', err)
+		});
+	}
+
+	static attachFluxParser(type, subject, fluxParser) {
+		log.trace('attachFluxParser', type, subject);
+		Observers[type]()[subject].subscribe({
+			next: flux => fluxParser(flux),
+			error: err => Core.error('Flux error', err)
+		});
 	}
 
 	static isReady() {

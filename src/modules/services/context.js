@@ -31,28 +31,25 @@ module.exports = {
 	}
 };
 
-Observers.service().context.subscribe({
-	next: flux => {
-		if (flux.id == 'restart') {
-			restartCore(flux.value);
-		} else if (flux.id == 'sleep') {
-			restartCore('sleep');
-		} else if (flux.id == 'sleepForever') {
-			updateConf({ mode: 'sleep', alarms: { weekDay: null, weekEnd: null } }, true);
-		} else if (flux.id == 'goToSleep') {
-			goToSleep();
-		} else if (flux.id == 'update') {
-			updateConf(flux.value, false);
-		} else if (flux.id == 'updateRestart') {
-			updateConf(flux.value, true);
-		} else if (flux.id == 'reset') {
-			resetCore();
-		} else Core.error('unmapped flux in Context service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+Observers.attachFluxParser('service', 'context', contextHandler);
+
+function contextHandler(flux) {
+	if (flux.id == 'restart') {
+		restartCore(flux.value);
+	} else if (flux.id == 'sleep') {
+		restartCore('sleep');
+	} else if (flux.id == 'sleepForever') {
+		updateConf({ mode: 'sleep', alarms: { weekDay: null, weekEnd: null } }, true);
+	} else if (flux.id == 'goToSleep') {
+		goToSleep();
+	} else if (flux.id == 'update') {
+		updateConf(flux.value, false);
+	} else if (flux.id == 'updateRestart') {
+		updateConf(flux.value, true);
+	} else if (flux.id == 'reset') {
+		resetCore();
+	} else Core.error('unmapped flux in Context service', flux, false);
+}
 
 /** Function to restart/sleep Core */
 function restartCore(mode) {

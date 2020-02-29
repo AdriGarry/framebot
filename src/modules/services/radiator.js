@@ -14,18 +14,12 @@ const log = new (require('./../../api/Logger'))(__filename),
 
 module.exports = {};
 
-Observers.service().radiator.subscribe({
-	next: flux => {
-		if (flux.id == 'toggle') {
-			toggleRadiator(flux.value);
-		} else if (flux.id == 'timeout') {
-			setRadiatorTimeout(flux.value);
-		} else Core.error('unmapped flux in Radiator service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'toggle', fn: toggleRadiator },
+	{ id: 'timeout', fn: setRadiatorTimeout }
+];
+
+Observers.attachFluxParseOptions('service', 'radiator', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
 	Utils.delay(10).then(setupRadiatorMode);

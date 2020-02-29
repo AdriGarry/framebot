@@ -15,20 +15,13 @@ module.exports = {
 	}
 };
 
-Observers.service().time.subscribe({
-	next: flux => {
-		if (flux.id == 'now') {
-			now();
-		} else if (flux.id == 'today') {
-			today();
-		} else if (flux.id == 'age') {
-			ttsAge();
-		} else Core.error('unmapped flux in Time service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'now', fn: now },
+	{ id: 'today', fn: today },
+	{ id: 'age', fn: ttsAge }
+];
+
+Observers.attachFluxParseOptions('service', 'time', FLUX_PARSE_OPTIONS);
 
 /** Function TTS time now */
 function now() {

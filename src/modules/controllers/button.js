@@ -34,7 +34,7 @@ function watchButton(button) {
 	button.watch((err, value) => {
 		if (err) Core.error('Button error', err);
 		let buttonData = getButtonData(button);
-		new Flux('controller|button|' + button.id, buttonData);
+		new Flux('service|buttonAction|' + button.id, buttonData);
 	});
 }
 
@@ -42,7 +42,7 @@ function getEdgeButtonValue(button) {
 	if (button.edge == 'both') {
 		setTimeout(() => {
 			let buttonData = getButtonData(button);
-			new Flux('controller|button|' + button.id, buttonData);
+			new Flux('service|buttonAction|' + button.id, buttonData);
 		}, 100);
 	}
 }

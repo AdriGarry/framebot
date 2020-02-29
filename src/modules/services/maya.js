@@ -11,23 +11,14 @@ const log = new (require('./../../api/Logger'))(__filename),
 
 module.exports = {};
 
-Observers.service().maya.subscribe({
-	next: flux => {
-		if (flux.id == 'comptine') {
-			comptine(); // Deprecated... to delete ?
-			// } else if (flux.id == '') {
-		} else if (flux.id == 'bonneNuit') {
-			bonneNuit();
-		} else if (flux.id == 'animals') {
-			animals();
-		} else if (flux.id == 'lePetitVer') {
-			lePetitVer();
-		} else Core.error('unmapped flux in Maya service', flux, false);
-	},
-	error: err => {
-		Core.error('Flux error', err);
-	}
-});
+const FLUX_PARSE_OPTIONS = [
+	{ id: 'comptine', fn: comptine }, // TODO Deprecated? to delete?
+	{ id: 'bonneNuit', fn: bonneNuit },
+	{ id: 'animals', fn: animals },
+	{ id: 'lePetitVer', fn: lePetitVer }
+];
+
+Observers.attachFluxParseOptions('service', 'maya', FLUX_PARSE_OPTIONS);
 
 const COMPTINE = 'maya/songs/comptines.mp3';
 function comptine() {
