@@ -8,9 +8,10 @@ updateFrameBotScript(){
 	sudo cp $_PATH/frameBot /usr/bin/
 	
 	sudo cp $_PATH/data/frameBot.service /etc/systemd/system/frameBot.service
-	sudo chmod 664 /etc/systemd/system/frameBot.service
+	sudo chmod 744 /etc/systemd/system/frameBot.service
 	sudo systemctl daemon-reload
 	sudo systemctl enable frameBot.service
+	sudo systemctl start frameBot.service
 
 	echo "frameBot: frameBot command & service updated!\n"
 	# sudo chmod +x "$_PATH"/frameBot.sh
