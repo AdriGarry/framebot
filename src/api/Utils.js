@@ -386,7 +386,7 @@ module.exports = class Utils {
 	}
 };
 
-const FILE_NOT_FOUND_EXCEPT = ['/home/odi/frameBot/tmp/voicemail.json', '/home/odi/frameBot/tmp/record.json'],
+const FILE_NOT_FOUND_EXCEPT = ['/home/odi/framebot/tmp/voicemail.json', '/home/odi/framebot/tmp/record.json'],
 	dateTimeDefaultPattern = 'D/M h:m:s';
 
 function _fileNotExists(err) {

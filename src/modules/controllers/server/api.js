@@ -115,7 +115,7 @@ function attachDefaultRoutes(ui) {
 					usage: cpuUsage,
 					temp: cpuTemp,
 					memory: {
-						frameBot: Core.run('memory.frameBot'),
+						framebot: Core.run('memory.framebot'),
 						system: Core.run('memory.system')
 					}
 				},

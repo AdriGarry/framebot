@@ -170,7 +170,7 @@ var startMeasure = cpuAverage();
 
 /** Function to get memory usage stats (Core + system) */
 function soulTTS() {
-	let size = Math.round(Core.run('memory.frameBot'));
+	let size = Math.round(Core.run('memory.framebot'));
 	let ttsMsg = size + ' maiga octet, sait le poids de mon ame ' + (Utils.rdm() ? '' : 'en ce moment');
 	new Flux('interface|tts|speak', ttsMsg);
 }
@@ -180,7 +180,7 @@ function retreiveMemoryUsage() {
 	return new Promise((resolve, reject) => {
 		let usedByCore = process.memoryUsage();
 		usedByCore = (usedByCore.rss / BYTE_TO_MO).toFixed(1);
-		Core.run('memory.frameBot', usedByCore);
+		Core.run('memory.framebot', usedByCore);
 		let totalMem = (os.totalmem() / BYTE_TO_MO).toFixed(0);
 		let freeMem = (os.freemem() / BYTE_TO_MO).toFixed(0);
 		let usedMem = (totalMem - freeMem).toFixed(0);
@@ -288,7 +288,7 @@ function countSoftwareLines() {
 			totalLines = 0;
 		EXTENSIONS.forEach(function(extension) {
 			let command = 'find ' + PATHS.join(' ') + ' -regex ".+.' + extension + '" -print | grep -v lib | xargs wc -l';
-			//find /home/odi/frameBot/src/ /home/odi/frameBot/data/ /home/odi/frameBot/conf/ -regex ".+.css" -print | grep -v lib | xargs wc -l
+			//find /home/odi/framebot/src/ /home/odi/framebot/data/ /home/odi/framebot/conf/ -regex ".+.css" -print | grep -v lib | xargs wc -l
 			Utils.execCmd(command, 'noLog')
 				.then(data => {
 					let matchObj = TOTAL_LINES_REGEX.exec(data);
