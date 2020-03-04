@@ -4,9 +4,11 @@
 
 const Core = require('./../../core/Core').Core;
 
-const log = new (require('./../../api/Logger'))(__filename),
+const Logger = require('./../../api/Logger'),
 	Flux = require('./../../api/Flux'),
 	Observers = require('./../../api/Observers');
+
+const log = new Logger(__filename);
 
 const FLUX_PARSE_OPTIONS = [
 	{ id: 'increase', fn: setTimer },

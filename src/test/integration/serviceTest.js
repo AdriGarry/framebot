@@ -5,7 +5,7 @@ const assert = require('assert');
 
 const Core = require('../../core/Core').Core;
 
-const log = new (require('../../api/Logger'))(__filename.match(/(\w*).js/g)[0]),
+const log = new (require('../../api/Logger'))(__filename),
 	Flux = require('../../api/Flux'),
 	Utils = require('../../api/Utils');
 

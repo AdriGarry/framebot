@@ -6,9 +6,11 @@ const util = require('util');
 
 const Core = require('../core/Core.js').Core;
 
-const log = new (require('./Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+const logger = require('./Logger.js'),
 	Utils = require('./Utils'),
 	Observers = require('./Observers');
+
+const log = new logger(__filename);
 
 const LOG_LEVELS = ['info', 'debug', 'trace'],
 	FLUX_REGEX = new RegExp(/(?<type>\w+)\|(?<subject>\w+)\|(?<id>\w+)/);

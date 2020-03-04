@@ -4,9 +4,11 @@ const fs = require('fs');
 
 const Core = require('./../../../core/Core').Core;
 
-const log = new (require('./../../../api/Logger'))(__filename),
+const Logger = require('./../../../api/Logger'),
 	Flux = require('./../../../api/Flux'),
 	Utils = require('./../../../api/Utils');
+
+const log = new Logger(__filename);
 
 const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';
 const NO_SOUND_URL = ['/dashboard', '/log'];

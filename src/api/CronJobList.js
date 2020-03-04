@@ -4,7 +4,9 @@
 
 const CronJob = require('cron').CronJob;
 
-const log = new (require('./Logger.js'))(__filename);
+const logger = require('./Logger.js');
+
+const log = new logger(__filename);
 
 let Flux;
 

@@ -7,10 +7,12 @@ const fs = require('fs'),
 
 const Core = require('./../../core/Core').Core;
 
-const log = new (require('./../../api/Logger'))(__filename),
+const Logger = require('./../../api/Logger'),
 	Flux = require('./../../api/Flux'),
 	Utils = require('./../../api/Utils'),
 	Observers = require('./../../api/Observers');
+
+const log = new Logger(__filename);
 
 const WEATHER_CREDENTIALS = require(Core._SECURITY + 'credentials.json').weather;
 
