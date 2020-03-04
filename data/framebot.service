@@ -1,0 +1,14 @@
+[Unit]
+Description=framebot service
+After=network.target
+
+[Service]
+Type=simple
+User=odi
+KillMode=process
+Restart=always
+WorkingDirectory=/home/odi/framebot
+ExecStart=/bin/sh framebot odi
+
+[Install]
+WantedBy=multi-user.target

@@ -1,6 +1,6 @@
-# frameBot
+# framebot
 
-Based on NodeJS, running on a Raspberry Pi, this is **frameBot** program, to autorun, manage stuff and interact.
+Based on NodeJS, running on a Raspberry Pi, this is **framebot** program, to autorun, manage stuff and interact.
 
 It's a kind of framework, to run js modules, with a flux manager, logger, tools...
 
@@ -43,10 +43,10 @@ Available modes: ready, sleep, test
 
 ## Installation / Usage
 
-- Go to _frameBot_ directory
-- First time, execute `sh frameBot` to add `frameBot` as command and launch frameBot with _botName_ configuration given as first param
-- Then, to launch execute `frameBot $botName [params]`
-- To stop, execute `frameBot stop`
+- Go to _framebot_ directory
+- First time, execute `sh framebot` to add `framebot` as command and launch framebot with _botName_ configuration given as first param
+- Then, to launch execute `framebot $botName [params]`
+- To stop, execute `framebot stop`
 
 ## Framework
 

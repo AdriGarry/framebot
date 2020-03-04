@@ -5,15 +5,16 @@ echo _PATH: $_PATH
 
 
 updateFrameBotScript(){
-	sudo cp $_PATH/frameBot /usr/bin/
+	sudo cp $_PATH/framebot /usr/bin/
 	
-	sudo cp $_PATH/data/frameBot.service /etc/systemd/system/frameBot.service
-	sudo chmod 664 /etc/systemd/system/frameBot.service
+	sudo cp $_PATH/data/framebot.service /etc/systemd/system/framebot.service
+	sudo chmod 744 /etc/systemd/system/framebot.service
 	sudo systemctl daemon-reload
-	sudo systemctl enable frameBot.service
+	sudo systemctl enable framebot.service
+	sudo systemctl start framebot.service
 
-	echo "frameBot: frameBot command & service updated!\n"
-	# sudo chmod +x "$_PATH"/frameBot.sh
+	echo "framebot: framebot command & service updated!\n"
+	# sudo chmod +x "$_PATH"/framebot.sh
 }
 
 exitIfNoArgs(){
@@ -27,14 +28,14 @@ exitIfNoArgs(){
 ifStop(){
 	if [ $1 = "stop" ]; then
 		sudo killall node
-		echo "\nframeBot STOPPED."
+		echo "\nframebot STOPPED."
 		exit 0
 	fi
 }
 
 ifReset(){
 	if [ $1 = "reset" ]; then
-		echo "\nframeBot RESETED !"
+		echo "\nframebot RESETED !"
 		sudo rm -r -f $_PATH/tmp
 		exit 0
 	fi
@@ -73,5 +74,5 @@ fi
 
 echo "\nStarting Wrapper... [$*]" | sudo tee -a "$_PATH/log/$_NAME.log"
 
-# sudo python /home/odi/frameBot/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/frameBot/log/buttons.py.log &
+# sudo python /home/odi/framebot/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/framebot/log/buttons.py.log &
 sudo node "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" &

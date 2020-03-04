@@ -2,14 +2,14 @@
 	"name": "core",
 	"version": "7.2.3",
 	"private": true,
-	"description": "Core program to autorun, manage stuff and interact",
-	"main": "core.sh",
+	"description": "framebot program to autorun, manage stuff and interact",
+	"main": "framebot",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/AdriGarry/Core"
+		"url": "https://github.com/AdriGarry/framebot"
 	},
 	"author": "Adri Garry",
 	"dependencies": {
