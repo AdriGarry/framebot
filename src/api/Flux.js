@@ -6,7 +6,7 @@ const util = require('util');
 
 const Core = require('../core/Core.js').Core;
 
-const log = new (require('./Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+const log = new (require('./Logger.js'))(__filename),
 	Utils = require('./Utils'),
 	Observers = require('./Observers');
 

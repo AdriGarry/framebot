@@ -3,7 +3,7 @@
 'use strict';
 
 const Core = require('./Core.js').Core;
-const log = new (require('../api/Logger.js'))(__filename.match(/(\w*).js/g)[0]),
+const log = new (require('../api/Logger.js'))(__filename),
 	CronJobList = require('../api/CronJobList.js');
 
 module.exports = class ModuleLoader {
