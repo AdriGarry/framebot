@@ -17,7 +17,7 @@ function launchTests() {
 	log.info('-----------------------------');
 	let promiseList = [];
 	testSequences.forEach(testSequence => {
-		promiseList.push(require(Core._SRC + 'test/' + testSequence + '.js').runTest());
+		promiseList.push(require('./' + testSequence + '.js').runTest());
 	});
 	Promise.all(promiseList)
 		.then(data => {
