@@ -5,9 +5,11 @@ const Gpio = require('onoff').Gpio;
 
 const Core = require('./../../core/Core').Core;
 
-const log = new (require('./../../api/Logger'))(__filename),
+const Logger = require('./../../api/Logger'),
 	Flux = require('./../../api/Flux'),
 	Utils = require('../../api/Utils');
+
+const log = new Logger(__filename);
 
 var Button = {},
 	LED_FLAG;

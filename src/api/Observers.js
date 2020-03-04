@@ -6,7 +6,9 @@ const Rx = require('rxjs');
 
 const Core = require('../core/Core.js').Core;
 
-const log = new (require('./Logger.js'))(__filename);
+const logger = require('./Logger.js');
+
+const log = new logger(__filename);
 
 var ready = false,
 	modulesTypes = [],

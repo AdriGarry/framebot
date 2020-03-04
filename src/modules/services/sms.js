@@ -6,8 +6,10 @@ const request = require('request');
 
 const Core = require('./../../core/Core').Core;
 
-const log = new (require('./../../api/Logger'))(__filename),
+const Logger = require('./../../api/Logger'),
 	Observers = require('./../../api/Observers');
+
+const log = new Logger(__filename);
 
 const SMS_CREDENTIALS = require(Core._SECURITY + 'credentials.json').sms;
 

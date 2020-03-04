@@ -7,10 +7,12 @@ const fs = require('fs');
 
 const Lock = require('./Lock');
 
-const log = new (require('./../api/Logger'))(__filename),
+const logger = require('./../api/Logger'),
 	Utils = require('./../api/Utils'),
 	CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
 // const CoreError = require(_PATH + 'src/api/CoreError.js');
+
+const log = new logger(__filename);
 
 var Core = {},
 	CoreError;

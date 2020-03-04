@@ -3,7 +3,9 @@
 
 const fs = require('fs');
 
-const log = new (require('./../api/Logger'))(__filename);
+const Logger = require('./../api/Logger');
+
+const log = new Logger(__filename);
 
 /** accessor: object([id, value]) */
 function Lock(obj, file) {

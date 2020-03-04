@@ -4,9 +4,11 @@
 
 const Core = require('./../core/Core').Core;
 
-const log = new (require('./Logger'))(__filename),
+const logger = require('./Logger'),
 	Flux = require('./Flux'),
 	Utils = require('./Utils');
+
+const log = new logger(__filename);
 
 module.exports = class CoreError extends Error {
 	constructor(message, data, displayStack) {

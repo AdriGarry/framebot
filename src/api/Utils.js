@@ -8,7 +8,9 @@ const { exec } = require('child_process'),
 	request = require('request'),
 	dns = require('dns');
 
-const log = new (require('./Logger'))(__filename);
+const logger = require('./Logger');
+
+const log = new logger(__filename);
 
 module.exports = class Utils {
 	/**

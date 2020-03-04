@@ -15,10 +15,12 @@ const http = require('http'),
 
 const Core = require('./../../core/Core').Core;
 
-const log = new (require('./../../api/Logger'))(__filename),
+const Logger = require('./../../api/Logger'),
 	Flux = require('./../../api/Flux'),
 	Utils = require('./../../api/Utils'),
 	Observers = require('./../../api/Observers');
+
+const log = new Logger(__filename);
 
 const middleware = require('./server/middleware'),
 	api = require('./server/api');

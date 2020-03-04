@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 'use strict';
 
-const log = new (require('./../../../api/Logger'))(__filename);
+const Logger = require('./../../../api/Logger');
+
+const log = new Logger(__filename);
 
 const FALLBACK_LANGUAGE = 'fr',
 	FALLBACK_VOICE = 'espeak';
 
-class TTS {
+module.exports = class TTS {
 	constructor(message, language, voice) {
 		this.msg = message;
 		if (language) {
@@ -43,5 +45,4 @@ class TTS {
 	toString() {
 		return 'play TTS [' + this.voice + ', ' + this.lg + '] "' + this.msg + '"';
 	}
-}
-module.exports = TTS;
+};

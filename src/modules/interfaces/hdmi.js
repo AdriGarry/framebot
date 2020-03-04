@@ -5,9 +5,11 @@ const { spawn } = require('child_process');
 
 const Core = require('./../../core/Core').Core;
 
-const log = new (require('./../../api/Logger'))(__filename),
+const Logger = require('./../../api/Logger'),
 	Flux = require('./../../api/Flux'),
 	Observers = require('./../../api/Observers');
+
+const log = new Logger(__filename);
 
 module.exports = {};
 
