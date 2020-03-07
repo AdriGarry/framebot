@@ -18,12 +18,7 @@ global._PATH = __dirname.match(/\/.*\//g)[0];
 
 const descriptor = require(_PATH + '_' + name + '/descriptor.json');
 
-const Core = require('./core/Core').initializeContext(
-	__filename.match(/\/.*\//g)[0],
-	descriptor,
-	forcedParams,
-	startTime
-);
+const Core = require('./core/Core').initializeContext(descriptor, forcedParams, startTime);
 
 const Flux = require('./api/Flux');
 

@@ -45,7 +45,7 @@ function _setUpCoreObject(Core, descriptor, startTime) {
 	return Core;
 }
 
-function initializeContext(path, descriptor, forcedParams, startTime) {
+function initializeContext(descriptor, forcedParams, startTime) {
 	Core = _setUpCoreObject(Core, descriptor, startTime);
 
 	let packageJson = require(_PATH + 'package.json');
