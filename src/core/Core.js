@@ -9,7 +9,7 @@ const Lock = require('./Lock');
 
 const logger = require('./../api/Logger'),
 	Utils = require('./../api/Utils'),
-	CORE_DEFAULT = require(_PATH + 'data/coreDefault.json');
+	CORE_DEFAULT = require(_PATH + 'data/framebotDefault.json');
 // const CoreError = require(_PATH + 'src/api/CoreError.js');
 
 const log = new logger(__filename);
