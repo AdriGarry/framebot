@@ -5,7 +5,7 @@ echo _PATH: $_PATH
 
 
 updateFrameBotScript(){
-	sudo cp $_PATH/framebot /usr/bin/
+	sudo cp $_PATH/framebot /bin/
 	
 	sudo cp $_PATH/data/framebot.service /etc/systemd/system/framebot.service
 	sudo chmod 744 /etc/systemd/system/framebot.service
