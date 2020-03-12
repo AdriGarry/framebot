@@ -3,10 +3,7 @@ Description=framebot service
 After=network.target
 
 [Service]
-Type=simple
-User=odi
-KillMode=process
-Restart=always
+User=root
 WorkingDirectory=/home/odi/framebot
 ExecStart=/bin/sh framebot odi
 
