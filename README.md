@@ -10,22 +10,23 @@ Available modes: ready, sleep, test
 
 - Voice synthesizer (TTS)
 - Voicemail
-- Audio record from UI
+- Audio record from web user interface
 - Alarm (weekday & weekend)
-- Time/Timer
+- Time/Calendar
+- Timer
 - Radiator & power plugs management
 - Playlist (jukebox, low...)
 - Web radio (FIP, radio Bam)
-- Exclamations
-- Interactions with an Arduino (Max...)
 - Weather report
+- Exclamations, sounds...
+- Interactions with an Arduino (another robot: Max...)
 
 ### Additional functionalities:
 
 - Expressive functionalities: child and birthday song, crazy (bad boy mode)...
 - Ambiance sounds (cicadas)
 - Logger & cleaner
-- Hardware monitoring (CPU, diskspace, temperature)
+- Hardware monitoring (CPU, memory, diskspace, temperature)
 
 ### Input
 
