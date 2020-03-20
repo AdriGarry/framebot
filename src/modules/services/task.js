@@ -33,7 +33,7 @@ function goToSleep() {
 	// plugA & plugB off
 	new Flux('interface|led|blink', { leds: ['belly', 'eye'], speed: 200, loop: 5 }, { delay: 50 });
 	new Flux('interface|rfxcom|send', { device: 'plugA', value: false }, { delay: 60 });
-	new Flux('interface|rfxcom|send', { device: 'plugB', value: false }, { delay: 60 });
+	// new Flux('interface|rfxcom|send', { device: 'plugB', value: false }, { delay: 60 });
 
 	if (Core.isAwake()) {
 		new Flux('service|context|sleep', null, { delay: GO_TO_SLEEP_DELAY });
