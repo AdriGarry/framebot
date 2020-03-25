@@ -22,7 +22,8 @@ module.exports = {
 			{ cron: '0 */25 9-16 1-5 * *', flux: { id: 'service|interaction|homeWork' } },
 			//{ cron: '0 0 12 * * 0', flux: { id: 'service|interaction|civilHorn' } },
 			{ cron: '13 0 1,13 * * *', flux: { id: 'service|interaction|uneHeure' } },
-			{ cron: '13 13,25,40,51 17-21 * * *', flux: { id: 'service|interaction|random' } }
+			{ cron: '13 13,25,40,51 17-21 * * *', flux: { id: 'service|interaction|random' } },
+			{ cron: '0 20 12,13,18,19,20,21 * * *', flux: { id: 'service|interaction|confinement' } }
 		]
 	}
 };
@@ -38,7 +39,8 @@ const FLUX_PARSE_OPTIONS = [
 	{ id: 'uneHeure', fn: uneHeure },
 	{ id: 'russia', fn: russia },
 	{ id: 'russiaHymn', fn: russiaHymn },
-	{ id: 'civilHorn', fn: civilHorn }
+	{ id: 'civilHorn', fn: civilHorn },
+	{ id: 'confinement', fn: confinement }
 ];
 
 Observers.attachFluxParseOptions('service', 'interaction', FLUX_PARSE_OPTIONS);
@@ -174,4 +176,19 @@ function goToWorkTTS() {
 function homeWork() {
 	log.test('HOMEWORK...');
 	new Flux('interface|tts|speak', 'Alors, comment ça va au travail ce matin ?');
+}
+
+const CONFINEMENT_TTS = new RandomBox([
+	'Alors, comment sa se passe le confinement ?',
+	['Alors, comment sa se passe le confinement ?', 'Moi perso sa va!'],
+	'Est ce que vous commencez pas a en avoir marre ?',
+	'Moi, je commence a paiter un cable !',
+	'Comment sa va aujoudhui ?',
+	'Je vais essayer de vous faire passer une bonne journer'
+]);
+
+// lockdown ?
+function confinement() {
+	let tts = CONFINEMENT_TTS.next();
+	new Flux('interface|tts|speak', tts);
 }
