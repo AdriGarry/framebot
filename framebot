@@ -62,10 +62,12 @@ ifCerbot $*
 
 clear
 
- _NAME=$1
+_NAME=$1
 
+echo "test"
+echo $_NAME > /home/odi/framebot/toto
 
-# Test if log directory exists
+# Create log directory if not exists
 if [ ! -d "$_PATH"/log ];
 then
 	mkdir "$_PATH"/log
