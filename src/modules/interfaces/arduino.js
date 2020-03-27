@@ -33,7 +33,7 @@ setImmediate(() => {
 
 function connect() {
 	if (arduino instanceof SerialPort) {
-		log.info('arduino channel already open!');
+		log.warn('arduino channel already open!');
 		return;
 	}
 	arduino = new SerialPort(ARDUINO.address, { baudRate: ARDUINO.baudRate }, function(err) {
