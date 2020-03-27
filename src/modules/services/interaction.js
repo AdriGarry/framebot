@@ -184,6 +184,8 @@ const CONFINEMENT_TTS = new RandomBox([
 	'Est ce que vous commencez pas a en avoir marre ?',
 	'Moi, je commence a paiter un cable !',
 	'Comment sa va aujoudhui ?',
+	'Vive le confinement!',
+	'Sait quand maime bizarre comme situation, tu ne trouves pas ?',
 	'Je vais essayer de vous faire passer une bonne journer'
 ]);
 
