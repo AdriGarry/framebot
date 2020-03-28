@@ -46,6 +46,7 @@ var securityMiddleware = function(req, res, next) {
 	if (requestData.ui !== 'UIv5') {
 		// Not allowed requests
 		if (canTTSBadRequest && Core.isAwake()) {
+			// TODO debounce or throttle here...
 			canTTSBadRequest = false;
 			new Flux('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });
 			setTimeout(() => {
