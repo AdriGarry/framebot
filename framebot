@@ -27,6 +27,7 @@ exitIfNoArgs(){
 
 ifStop(){
 	if [ $1 = "stop" ]; then
+		#sudo service framebot stop
 		sudo killall node
 		echo "\nframebot STOPPED."
 		exit 0
@@ -64,9 +65,6 @@ clear
 
 _NAME=$1
 
-echo "test"
-echo $_NAME > /home/odi/framebot/toto
-
 # Create log directory if not exists
 if [ ! -d "$_PATH"/log ];
 then
@@ -77,4 +75,4 @@ fi
 echo "\nStarting Wrapper... [$*]" | sudo tee -a "$_PATH/log/$_NAME.log"
 
 # sudo python /home/odi/framebot/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/framebot/log/buttons.py.log &
-sudo node "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" &
+sudo node "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" 
