@@ -15,15 +15,13 @@ const NO_SOUND_URL = ['/dashboard', '/log'];
 const BAD_REQUEST_TIMEOUT = 5000;
 const BAD_REQUEST_CP_LIMIT = 5;
 
-var canTTSBadRequest = true;
-
 module.exports = {
-	security: function() {
+	security: function () {
 		return securityMiddleware;
 	}
 };
 
-var securityMiddleware = function(req, res, next) {
+var securityMiddleware = function (req, res, next) {
 	new Flux('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
 
 	let requestData = getRequestData(req);
@@ -43,15 +41,10 @@ var securityMiddleware = function(req, res, next) {
 		logNotLocalRequest(requestData);
 	}
 
+	// Not allowed requests
 	if (requestData.ui !== 'UIv5') {
-		// Not allowed requests
-		if (canTTSBadRequest && Core.isAwake()) {
-			canTTSBadRequest = false;
-			new Flux('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });
-			setTimeout(() => {
-				canTTSBadRequest = true;
-			}, BAD_REQUEST_TIMEOUT);
-		}
+		if (Core.isAwake()) throttleBadRequestTTS();
+
 		Core.error('Bad request', '401 ' + req.url + ' ' + requestData.log, false);
 		rejectUnauthorizedRequest(res);
 		return;
@@ -63,6 +56,12 @@ var securityMiddleware = function(req, res, next) {
 	res.statusCode = 200;
 	next();
 };
+
+var throttleBadRequestTTS = Utils.throttle(badRequestTTS, BAD_REQUEST_TIMEOUT, true, false, this);
+
+function badRequestTTS() {
+	new Flux('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });
+}
 
 function getRequestData(req) {
 	let position,
@@ -103,7 +102,7 @@ function formatPosition(requestData) {
 
 function logNotLocalRequest(requestData) {
 	let requestToLog = Utils.logTime('D/M h:m:s ') + requestData.url + requestData.log + '\r\n';
-	fs.appendFile(FILE_REQUEST_HISTORY, requestToLog, function(err) {
+	fs.appendFile(FILE_REQUEST_HISTORY, requestToLog, function (err) {
 		if (err) return Core.error(err);
 	});
 }
@@ -119,7 +118,7 @@ function rejectUnauthorizedRequest(res) {
 
 function closingServerTemporary(breakDuration) {
 	new Flux('controller|server|closeUIServer', breakDuration);
-	setTimeout(function() {
+	setTimeout(function () {
 		log.INFO('restarting UI server...');
 		badRequestCount = 0;
 		new Flux('controller|server|startUIServer');
