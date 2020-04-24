@@ -34,6 +34,13 @@ ifStop(){
 	fi
 }
 
+ifLogtail(){
+	if [ $1 = "log" ]; then
+	tail -f /log/odi.log
+	fi
+	exit 0
+}
+
 ifReset(){
 	if [ $1 = "reset" ]; then
 		echo "\nframebot RESETED !"
@@ -56,6 +63,8 @@ updateFrameBotScript
 exitIfNoArgs $*
 
 ifStop $*
+
+ifLogtail $*
 
 ifReset $*
 
