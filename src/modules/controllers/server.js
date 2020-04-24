@@ -23,7 +23,8 @@ const Logger = require('./../../api/Logger'),
 const log = new Logger(__filename);
 
 const middleware = require('./server/middleware'),
-	api = require('./server/api');
+	api = require('./server/api'),
+	webSocket = require('./server/webSocket');
 
 const FLUX_PARSE_OPTIONS = [
 	{ id: 'start', fn: startUIServer },
@@ -85,6 +86,7 @@ function startHttpsServer() {
 
 	httpsServer = https.createServer(CREDENTIALS, uiHttps).listen(HTTPS_SERVER_PORT, () => {
 		log.info('API https server started [' + Utils.executionTime(Core.startTime) + 'ms]');
+		webSocket.init(httpsServer);
 		new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 	});
 }
