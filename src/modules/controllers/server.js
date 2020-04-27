@@ -51,7 +51,6 @@ var httpServer, httpsServer;
 function startHttpServer() {
 	ui = express();
 	httpServer = http.Server(ui);
-	httpServer = webSocket.init(httpServer);
 	ui.get('*', (req, res) => {
 		if (req.isSocket) return res.redirect('wss://' + req.headers.host + req.url);
 		log.debug('Redirecting http to https');
