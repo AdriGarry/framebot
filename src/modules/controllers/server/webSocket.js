@@ -1,14 +1,11 @@
 #!/usr/bin/env node
 
-const { spawn } = require('child_process'),
-   fs = require('fs'),
-   http = require('http'),
-   WebSocket = require('ws');
+const WebSocket = require('ws'),
+   Tail = require('tail').Tail;
 
 const Core = require('../../../core/Core').Core;
 
-const Logger = require('../../../api/Logger'),
-   Utils = require('../../../api/Utils');
+const Logger = require('../../../api/Logger');
 
 const log = new Logger(__filename);
 
@@ -16,44 +13,39 @@ module.exports = {
    init: init
 };
 
-const LOG_FILE = Core._LOG + Core.name + '/' + Core.name + '.log';
+const LOG_FILE = Core._LOG + Core.name + '.log';
 
 function init(server) {
-   log.test('init webSocket')
    const ws = new WebSocket.Server({ server });
-   ws.on('connection', function (client) {
-      log.test('Web socket client connected');
 
-      client.on('message', function incoming(message) {
-         log.test('WS received:', message);
-      });
+   logTailWebSocket(ws);
 
-
-      client.send('logTail', 'logs...');
-
-      let logTail = fs.watch(LOG_FILE);
-
-      logTail.stdout.on('data', function (logs) {
-         log.test(logs.toString('utf-8'))
-         client.send({ topic: 'logTail', data: logs.toString('utf-8') })
-      });
-
-      // let logTail = spawn('tail', ['-f', LOG_FILE]);
-
-      // logTail.stdout.on('data', function (logs) {
-      //    log.test(logs.toString('utf-8'))
-      //    client.send({ topic: 'logTail', data: logs.toString('utf-8') })
-      // });
-
-      // log.test(data.toString('utf-8'))
-
-
-      // client.send('titi');
-      // //client.send({ filename: LOG_FILE });
-
-   });
-   //server.listen(433);
    log.info('Web socket ready for connection...');
    return server;
+}
+
+function logTailWebSocket(ws) {
+   ws.on('connection', function (client) {
+      log.info('logTail web socket client connected');
+
+      client.on('message', function incoming(message) {
+         log.info('WS received:', message);
+      });
+
+      let tail = new Tail(LOG_FILE);
+
+      tail.on("line", function (data) {
+         client.send(JSON.stringify({ topic: 'logTail', data: data }));
+      });
+
+      tail.on("error", function (error) {
+         log.test('log tail ERROR: ', error);
+      });
+
+   });
+
+   ws.on('close', function close() {
+      log.test('logTail web socket disconnected');
+   });
 }
 
