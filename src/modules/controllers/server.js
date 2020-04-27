@@ -50,16 +50,17 @@ var httpServer, httpsServer;
 
 function startHttpServer() {
 	ui = express();
-	httpServer = http.createServer(ui);
+	httpServer = http.Server(ui);
+	httpServer = webSocket.init(httpServer);
 	ui.get('*', (req, res) => {
 		if (req.isSocket) return res.redirect('wss://' + req.headers.host + req.url);
 		log.debug('Redirecting http to https');
 		return res.redirect('https://' + req.headers.host + req.url);
-	}).listen(HTTP_SERVER_PORT);
+	});
+	httpServer.listen(HTTP_SERVER_PORT);
 }
 
 function startHttpsServer() {
-	// ui = express();
 	uiHttps = express();
 	// CORS
 	// ui.use(function(request, response, next) {
@@ -84,9 +85,10 @@ function startHttpsServer() {
 
 	api.attachRoutes(uiHttps);
 
-	httpsServer = https.createServer(CREDENTIALS, uiHttps).listen(HTTPS_SERVER_PORT, () => {
+	httpsServer = https.Server(CREDENTIALS, uiHttps);
+	httpsServer = webSocket.init(httpsServer);
+	httpsServer.listen(HTTPS_SERVER_PORT, () => {
 		log.info('API https server started [' + Utils.executionTime(Core.startTime) + 'ms]');
-		webSocket.init(httpsServer);
 		new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 	});
 }

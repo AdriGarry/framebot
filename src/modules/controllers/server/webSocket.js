@@ -3,7 +3,7 @@
 const { spawn } = require('child_process'),
    fs = require('fs'),
    http = require('http'),
-   socketIo = require('socket.io');
+   WebSocket = require('ws');
 
 const Core = require('../../../core/Core').Core;
 
@@ -19,16 +19,41 @@ module.exports = {
 const LOG_FILE = Core._LOG + Core.name + '/' + Core.name + '.log';
 
 function init(server) {
-   let io = socketIo.listen(server);
-   io.on('connection', function (client) {
+   log.test('init webSocket')
+   const ws = new WebSocket.Server({ server });
+   ws.on('connection', function (client) {
       log.test('Web socket client connected');
-      let tail = spawn("tail", ["-f", LOG_FILE]);
-      client.send({ filename: LOG_FILE });
 
-      tail.stdout.on("data", function (data) {
-         log.test(data.toString('utf-8'))
-         client.send({ tail: data.toString('utf-8') })
+      client.on('message', function incoming(message) {
+         log.test('WS received:', message);
       });
+
+
+      client.send('logTail', 'logs...');
+
+      let logTail = fs.watch(LOG_FILE);
+
+      logTail.stdout.on('data', function (logs) {
+         log.test(logs.toString('utf-8'))
+         client.send({ topic: 'logTail', data: logs.toString('utf-8') })
+      });
+
+      // let logTail = spawn('tail', ['-f', LOG_FILE]);
+
+      // logTail.stdout.on('data', function (logs) {
+      //    log.test(logs.toString('utf-8'))
+      //    client.send({ topic: 'logTail', data: logs.toString('utf-8') })
+      // });
+
+      // log.test(data.toString('utf-8'))
+
+
+      // client.send('titi');
+      // //client.send({ filename: LOG_FILE });
+
    });
+   //server.listen(433);
    log.info('Web socket ready for connection...');
+   return server;
 }
+

@@ -17,7 +17,7 @@ app.constant('CONSTANTS', {
 	// GEOLOCATION_SERVICE_URL: `https://www.google.com/maps/?q=${0},${1}` // https://www.google.com/maps/?q=-15.623037,18.388672
 });
 
-app.config(function($mdThemingProvider) {
+app.config(function ($mdThemingProvider) {
 	$mdThemingProvider
 		.theme('default')
 		.primaryPalette('teal')
@@ -27,9 +27,9 @@ app.config(function($mdThemingProvider) {
 /** Directive to watch scroll event 
 	- restart autoRefresh
 	- showFabButtons **/
-app.directive('scroll', function($window) {
-	return function(scope, element, attrs) {
-		angular.element($window).bind('scroll', function() {
+app.directive('scroll', function ($window) {
+	return function (scope, element, attrs) {
+		angular.element($window).bind('scroll', function () {
 			scope.refreshDashboard();
 			scope.showFabButtons();
 		});
@@ -37,25 +37,25 @@ app.directive('scroll', function($window) {
 });
 
 /** Filter to format logs (link on ip address, & on geolocation) **/
-app.filter('formatLog', function(CONSTANTS) {
+app.filter('formatLog', function (CONSTANTS) {
 	function buildGeolocationUrlService(lat = '', lng = '') {
 		return `https://www.google.com/maps/?q=${lat},${lng}`;
 	}
 	console.log(`https://www.google.com/maps/?q=${0},${1}`);
 
-	return function(logLine, fullLog) {
+	return function (logLine, fullLog) {
 		if (!fullLog) {
 			logLine = logLine.replace(CONSTANTS.DATE_REGEX, '');
 			logLine = logLine.replace(CONSTANTS.MILLISEC_REGEX, ' |');
 			logLine = logLine.replace(CONSTANTS.LOG_LEVEL_REGEX, '|');
 			logLine = logLine.replace(CONSTANTS.FILE_REGEX, '|');
 		}
-		logLine = logLine.replace(CONSTANTS.IP_REGEX, function(match, ip) {
+		logLine = logLine.replace(CONSTANTS.IP_REGEX, function (match, ip) {
 			return (
 				'[<a href="' + CONSTANTS.IP_LOCATION_SERVICE_URL + ip + '" title="Localize IP" target="_blank">' + ip + '</a>_'
 			);
 		});
-		logLine = logLine.replace(CONSTANTS.GEOLOCATION_REGEX, function(match, lat, lng) {
+		logLine = logLine.replace(CONSTANTS.GEOLOCATION_REGEX, function (match, lat, lng) {
 			return (
 				'<a href="' +
 				buildGeolocationUrlService(lat, lng) +
@@ -69,24 +69,24 @@ app.filter('formatLog', function(CONSTANTS) {
 });
 
 /** Filter to display number < 10 on 2 characters **/
-app.filter('formatNumber', function() {
-	return function(value, length) {
+app.filter('formatNumber', function () {
+	return function (value, length) {
 		return (1e5 + '' + value).slice(-length);
 	};
 });
 
 /** Filter to display time left for timer **/
-app.filter('formatTime', function($filter) {
-	return function(sec) {
+app.filter('formatTime', function ($filter) {
+	return function (sec) {
 		let m = Math.trunc(sec / 60);
 		let s = $filter('formatNumber')(sec % 60, 2);
 		return m + ':' + s;
 	};
 });
 
-app.filter('markdown', function($sce) {
+app.filter('markdown', function ($sce) {
 	let converter = new Showdown.converter();
-	return function(value) {
+	return function (value) {
 		let html = converter.makeHtml(value || '');
 		return $sce.trustAsHtml(html);
 	};
