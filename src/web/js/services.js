@@ -7,11 +7,11 @@ app.service('UIService', [
 	'$mdToast',
 	'CONSTANTS',
 	'Tile',
-	function($rootScope, $http, $mdToast, CONSTANTS, Tile) {
+	function ($rootScope, $http, $mdToast, CONSTANTS, Tile) {
 		let ctrl = this;
 		$rootScope.position = false;
 		/** Function to update dashboard from Odi **/
-		ctrl.refreshDashboard = function(callback) {
+		ctrl.refreshDashboard = function (callback) {
 			// console.log('refreshDashboard()');
 			$http({
 				headers: {
@@ -34,7 +34,7 @@ app.service('UIService', [
 		};
 
 		/** Function to pop down toast */
-		ctrl.showToast = function(label) {
+		ctrl.showToast = function (label) {
 			$mdToast.show(
 				$mdToast
 					.simple()
@@ -44,7 +44,7 @@ app.service('UIService', [
 			);
 		};
 		/** Function to pop down error toast */
-		ctrl.showErrorToast = function(label) {
+		ctrl.showErrorToast = function (label) {
 			$mdToast.show(
 				$mdToast
 					.simple()
@@ -56,7 +56,7 @@ app.service('UIService', [
 		};
 
 		/** Function to retreive file from Odi */
-		ctrl.getRequest = function(url, callback) {
+		ctrl.getRequest = function (url, callback) {
 			console.log('refreshDashboard()');
 			$http({
 				headers: {
@@ -76,7 +76,7 @@ app.service('UIService', [
 		};
 
 		/** Function to send command to Odi **/
-		ctrl.sendCommand = function(cmd, callback) {
+		ctrl.sendCommand = function (cmd, callback) {
 			// console.log('UIService.sendCommand()', cmd);
 			let uri = cmd.url;
 			let value = cmd.value;
@@ -127,7 +127,7 @@ app.service('UIService', [
 		};
 
 		/** Function to send TTS **/
-		ctrl.sendTTS = function(tts, callback) {
+		ctrl.sendTTS = function (tts, callback) {
 			$http({
 				headers: {
 					'User-Interface': 'UIv5'
@@ -156,9 +156,9 @@ app.service('UIService', [
 		};
 
 		/** Function to update logs **/
-		let logSize = 150;
+		let logSize = 45;
 		let logIncrement = 50;
-		ctrl.updateLogs = function(callback) {
+		ctrl.updateLogs = function (callback) {
 			$http({
 				headers: {
 					'User-Interface': 'UIv5',
@@ -180,18 +180,18 @@ app.service('UIService', [
 		};
 
 		navigator.geolocation.watchPosition(
-			function(position) {
+			function (position) {
 				// console.log('Geolocation acquired', position);
 				$rootScope.position = JSON.stringify({
 					latitude: position.coords.latitude,
 					longitude: position.coords.longitude
 				});
 			},
-			function(error) {
+			function (error) {
 				if (error.code == error.PERMISSION_DENIED) {
 					console.log('Geolocation not acquired!');
 					// accept anyway if browser not compatible?
-					setTimeout(function() {
+					setTimeout(function () {
 						if (navigator.geolocation) {
 							console.log('Geolocation retrying...');
 							navigator.geolocation.getCurrentPosition(maPosition);
@@ -208,7 +208,7 @@ app.service('audioService', [
 	'$rootScope',
 	'$http',
 	'UIService',
-	function($rootScope, $http, UIService) {
+	function ($rootScope, $http, UIService) {
 		let ctrl = this;
 		ctrl.recording = false;
 		ctrl.recorderAvailable = false;
@@ -227,7 +227,7 @@ app.service('audioService', [
 			UIService.showErrorToast('getUserMedia not supported on your browser!');
 		}
 
-		ctrl.startRecord = function(callback) {
+		ctrl.startRecord = function (callback) {
 			navigator.mediaDevices
 				.getUserMedia({ audio: true })
 				.then(stream => {
@@ -242,7 +242,7 @@ app.service('audioService', [
 				});
 		};
 
-		ctrl.stopRecord = function(callback) {
+		ctrl.stopRecord = function (callback) {
 			if (ctrl.recording) {
 				rec.stop();
 				gumStream.getAudioTracks()[0].stop(); //stop microphone access
@@ -260,7 +260,7 @@ app.service('audioService', [
 			}
 		};
 
-		ctrl.cancelRecord = function(callback) {
+		ctrl.cancelRecord = function (callback) {
 			if (rec && rec.recording) {
 				rec.stop();
 				gumStream.getAudioTracks()[0].stop(); //stop microphone access

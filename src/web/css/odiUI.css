@@ -316,6 +316,25 @@ md-button.md-fab.ng-slide.active {
 .logs ul li a:hover {
 	color: #fff;
 }
+.logs .logTailFlag{
+	margin-top:-20px;
+	margin-bottom:-20px;
+}
+.logs .blink {
+	animation: blink-animation 1s steps(5, start) infinite;
+	-webkit-animation: blink-animation 1s steps(5, start) infinite;
+ }
+ @keyframes blink-animation {
+	to {
+	  visibility: hidden;
+	}
+ }
+ @-webkit-keyframes blink-animation {
+	to {
+	  visibility: hidden;
+	}
+ }
+
 /*md-sidenav md-toolbar*/
 .tools {
 	width: 100%;
@@ -808,12 +827,22 @@ body>.loading i{
 		right: 1.5em;
 	}
 
+	.md-sidenav-left {
+		width: 100%;
+		max-width: 100%;
+	}
+
 	.logs ul {
 		font-size: 0.75em;
 		line-height: 0.95em;
 		font-stretch: condensed;
 		/*word-break: break-all;
 		white-space: pre;*/
+	}
+
+	.tools button {
+		margin-left: 2%;
+		margin-right: 2%;
 	}
 
 	.md-sidenav-right {

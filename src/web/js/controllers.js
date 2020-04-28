@@ -19,10 +19,10 @@ app.controller('UIController', function (
 	$scope.pauseUI = false;
 	$rootScope.irda = false;
 	$scope.menuOpen = false;
-	$scope.logTail = false;
 
-	$scope.logData;
-	$scope.log = { fullLine: true };
+	$scope.log = { tail: false, fullLine: true, loading: false, isFirst: true };
+	const WS_ODI_URL = 'wss://odi.adrigarry.com/';
+	let logTailWebSocket;
 
 	$scope.volumeChange = function () {
 		let command = {
@@ -129,15 +129,49 @@ app.controller('UIController', function (
 	/** Function to show logs */
 	$scope.showLogs = function () {
 		$mdSidenav('menu').close();
-		$scope.logData = undefined;
 		$timeout(function () {
 			$mdSidenav('logs')
 				.toggle()
 				.then(function () {
-					$scope.refreshLog();
+					//logTailWebSocket();
+					//$scope.refreshLog();
 				});
 		}, 200);
-		$scope.logTail();
+	};
+
+	$scope.toggleLogTail = function () {
+		if ($scope.log.tail) {
+			$scope.closeLogTailWebSocket();
+		} else {
+			$scope.openLogTailWebSocket();
+		}
+	}
+
+	$scope.openLogTailWebSocket = function () {
+		// $scope.refreshLog();
+		console.log($scope.log.data)
+		if (!$scope.log.data) {
+			UIService.updateLogs(function (logs) {
+				$scope.log.data = logs.split('\n');
+			});
+		}
+		logTailWebSocket = new WebSocket(WS_ODI_URL);
+		logTailWebSocket.onopen = function () {
+			console.log('log tail socket open');
+			$scope.log.tail = true;
+		};
+		logTailWebSocket.onmessage = function (event) {
+			let wsData = JSON.parse(event.data);
+			if (Array.isArray($scope.log.data)) $scope.log.data.push(wsData.data)
+		}
+		logTailWebSocket.onclose = function () {
+			console.log('logTail web socket closed!');
+			$scope.log.tail = false;
+		}
+	};
+
+	$scope.closeLogTailWebSocket = function () {
+		if (logTailWebSocket) logTailWebSocket.close();
 	};
 
 	/** Function to show logs */
@@ -166,22 +200,11 @@ app.controller('UIController', function (
 
 	/** Function to refresh logs */
 	$scope.refreshLog = function () {
+		$scope.log.loading = true;
 		UIService.updateLogs(function (logs) {
-			$scope.logData = logs.split('\n');
+			$scope.log.loading = false;
+			$scope.log.data = logs.split('\n');
 		});
-	};
-
-	$scope.logTail = function () {
-		const WS_ODI_URL = 'wss://odi.adrigarry.com/';
-		let ws = new WebSocket(WS_ODI_URL);
-		ws.onopen = function () {
-			console.log('socket open');
-			ws.send("Voici un texte que le serveur attend de recevoir dès que possible !");
-		};
-		ws.onmessage = function (event) {
-			console.log(event);
-			console.log(data);
-		}
 	};
 
 	/** Function to action for header & fab buttons */
@@ -272,6 +295,7 @@ app.controller('UIController', function (
 		UIService.sendCommand({ url: '/grant', data: param }, function (data) {
 			$rootScope.irda = data;
 			if ($rootScope.irda) {
+				$scope.openLogTailWebSocket();
 				// UIService.showToast('Access granted !');
 			} else {
 				// UIService.showErrorToast('Not granted !');
