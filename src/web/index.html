@@ -124,7 +124,8 @@
 		<!-- data-ng-disabled="dashboard.refreshing" -->
 	</md-toolbar>
 
-	<md-sidenav data-ng-if="$root.position" class="md-sidenav-left" data-md-component-id="logs" data-md-whiteframe="4">
+	<md-sidenav data-ng-if="$root.position" class="md-sidenav-left" data-ng-class="{'fullScreen': log.fullScreen}"
+		data-md-component-id="logs" data-md-whiteframe="4">
 		<div class="logs" data-ng-dblclick="refreshLog()">
 			<i class="debugLog fas fa-circle" data-ng-if="dashboard.odiState.debug && !dashboard.odiState.trace"
 				title="Debug mode"></i>
@@ -146,15 +147,18 @@
 				data-ng-click="log.fullLine = !log.fullLine" title="Full line" aria-label="Full line">
 				<i class="fas fa-2x" data-ng-class="log.fullLine ? 'fa-align-left' : 'fa-align-justify'"></i>
 			</md-button>
-			<!-- <md-button class="md-fab" data-ng-class="log.tail ? 'md-primary' : 'md-warn'" data-ng-click="toggleLogTail()"
+			<md-button class="md-fab" data-ng-class="log.tail ? 'md-primary' : 'md-warn'" data-ng-click="toggleLogTail()"
 				title="Log tail" aria-label="Log tail">
 				<i class="fas fa-2x" data-ng-class="log.tail ? 'fa-link' : 'fa-unlink'"></i>
-			</md-button> -->
-			<md-button class="md-fab md-warn" data-ng-click="hideLogs()" title="Hide Logs" aria-label="Hide Logs">
+			</md-button>
+			<md-button class="md-fab md-primary" data-ng-class="{'md-warn':log.fullScreen}"
+				data-ng-click="log.fullScreen = !log.fullScreen" title="FullScreen" aria-label="FullScreen">
+				<i class="fas fa-2x" data-ng-class="log.fullScreen ? 'fa-compress-arrows-alt' : 'fa-arrows-alt'"></i>
+			</md-button>
+			<md-button class="md-fab md-warn" data-ng-show="log.fullScreen" data-ng-click="hideLogs()" title="Hide Logs"
+				aria-label="Hide Logs">
 				<i class="fas fa-2x fa-arrow-left"></i>
 			</md-button>
-			<md-switch class="switch md-primary" aria-label="Log tail" title="Log tail" tabindex="0" type="checkbox"
-				role="checkbox" data-ng-model="logTail"></md-switch>
 		</div>
 	</md-sidenav>
 

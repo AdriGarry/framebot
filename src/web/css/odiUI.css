@@ -280,6 +280,10 @@ md-sidenav > div {
 	color: #fff;
 	overflow: auto;
 }
+.md-sidenav-left.fullScreen {
+	width: 100%;
+	max-width: 100%;
+}
 
 .logs i.debugLog {
 	position: absolute;
@@ -825,11 +829,6 @@ body>.loading i{
 
 	button.muteButton {
 		right: 1.5em;
-	}
-
-	.md-sidenav-left {
-		width: 100%;
-		max-width: 100%;
 	}
 
 	.logs ul {
