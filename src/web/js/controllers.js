@@ -20,7 +20,7 @@ app.controller('UIController', function (
 	$rootScope.irda = false;
 	$scope.menuOpen = false;
 
-	$scope.log = { tail: false, fullLine: true, fullScreen: false, loading: false, isFirst: true };
+	$scope.log = { tail: false, wordwrap: false, details: false, fullScreen: false, loading: false, isFirst: true };
 	const WS_ODI_URL = 'wss://odi.adrigarry.com/';
 	let logTailWebSocket;
 

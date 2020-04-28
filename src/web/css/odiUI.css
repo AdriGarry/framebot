@@ -303,7 +303,7 @@ md-button.md-fab.ng-slide.active {
 	word-break: break-all;
 	white-space: pre-wrap;
 }
-.logs ul.fullLine {
+.logs ul.wordwrap {
 	white-space: pre;
 }
 

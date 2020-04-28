@@ -130,28 +130,28 @@
 			<i class="debugLog fas fa-circle" data-ng-if="dashboard.odiState.debug && !dashboard.odiState.trace"
 				title="Debug mode"></i>
 			<i class="debugLog far fa-dot-circle" data-ng-if="dashboard.odiState.trace" title="Trace mode"></i>
-			<ul data-ng-hide="log.loading" data-ng-class="log.fullLine ? 'fullLine' : ''">
+			<ul data-ng-hide="log.loading" data-ng-class="log.wordwrap ? '' : 'wordwrap'">
 				<li data-ng-repeat="logLine in log.data track by $index"
-					data-ng-bind-html="toHtml(logLine | formatLog:log.mode)"></li>
+					data-ng-bind-html="toHtml(logLine | formatLog:log.details)"></li>
 				<li class="blink logTailFlag" data-ng-show="log.tail">.</li>
 				<a id="bottomLogs"></a>
 			</ul>
 			<md-progress-circular md-diameter="150" data-ng-show="log.loading"></md-progress-circular>
 		</div>
 		<div class="tools">
-			<md-button class="md-fab" data-ng-class="log.mode ? 'md-primary' : 'md-warn'"
-				data-ng-click="log.mode = !log.mode" title="Toggle log mode" aria-label="Toggle log mode">
-				<i class="fas fa-2x" data-ng-class="log.mode ? 'fa-th' : 'fa-th-large'"></i>
+			<md-button class="md-fab" data-ng-class="log.details ? 'md-warn' : 'md-primary'"
+				data-ng-click="log.details = !log.details" title="Log details" aria-label="Log details">
+				<i class="fas fa-2x" data-ng-class="log.details ? 'fa-th' : 'fa-th-large'"></i>
 			</md-button>
-			<md-button class="md-fab" data-ng-class="log.fullLine ? 'md-primary' : 'md-warn'"
-				data-ng-click="log.fullLine = !log.fullLine" title="Full line" aria-label="Full line">
-				<i class="fas fa-2x" data-ng-class="log.fullLine ? 'fa-align-left' : 'fa-align-justify'"></i>
+			<md-button class="md-fab" data-ng-class="log.wordwrap ? 'md-warn' : 'md-primary'"
+				data-ng-click="log.wordwrap = !log.wordwrap" title="Wordwrap" aria-label="Wordwrap">
+				<i class="fas fa-2x" data-ng-class="log.wordwrap ? 'fa-align-left' : 'fa-align-justify'"></i>
 			</md-button>
 			<md-button class="md-fab" data-ng-class="log.tail ? 'md-primary' : 'md-warn'" data-ng-click="toggleLogTail()"
 				title="Log tail" aria-label="Log tail">
 				<i class="fas fa-2x" data-ng-class="log.tail ? 'fa-link' : 'fa-unlink'"></i>
 			</md-button>
-			<md-button class="md-fab md-primary" data-ng-class="{'md-warn':log.fullScreen}"
+			<md-button class="md-fab" data-ng-class="log.fullScreen ? 'md-warn' : 'md-primary'"
 				data-ng-click="log.fullScreen = !log.fullScreen" title="FullScreen" aria-label="FullScreen">
 				<i class="fas fa-2x" data-ng-class="log.fullScreen ? 'fa-compress-arrows-alt' : 'fa-arrows-alt'"></i>
 			</md-button>
