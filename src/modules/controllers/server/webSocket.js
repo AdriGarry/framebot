@@ -39,13 +39,13 @@ function logTailWebSocket(ws) {
       });
 
       tail.on("error", function (error) {
-         log.test('log tail ERROR: ', error);
+         Core.error('log tail ERROR: ', error);
       });
 
    });
 
    ws.on('close', function close() {
-      log.test('logTail web socket disconnected');
+      log.warn('logTail web socket disconnected');
    });
 }
 
