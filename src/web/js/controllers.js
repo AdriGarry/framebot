@@ -158,7 +158,8 @@ app.controller('UIController', function (
 		};
 		logTailWebSocket.onmessage = function (event) {
 			let wsData = JSON.parse(event.data);
-			if (Array.isArray($scope.log.data)) $scope.log.data.push(wsData.data)
+			if (Array.isArray($scope.log.data)) $scope.log.data.push(wsData.data);
+			$scope.$apply();
 		}
 		logTailWebSocket.onclose = function () {
 			console.log('logTail web socket closed!');
