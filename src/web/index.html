@@ -1,423 +1,290 @@
 <!DOCTYPE html>
 <html data-ng-app="odiUI">
-	<head>
-		<!-- Global Site Tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-7475813-7"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag('js', new Date());
 
-			gtag('config', 'UA-7475813-7');
-		</script>
+<head>
+	<!-- Global Site Tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-7475813-7"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
 
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>OdiUI</title>
-		<meta name="description" content="Odi's UI to interact !" />
-		<meta name="author" content="Adri Garry" />
-		<meta name="robots" content="noindex,nofollow" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		gtag('config', 'UA-7475813-7');
+	</script>
 
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" />
-		<link rel="stylesheet" href="css/lib/angular-material.min.css" media="all" />
-		<link rel="stylesheet" href="css/lib/mdPickers.min.css" media="all" />
-		<link rel="stylesheet" href="css/odiUI.css" media="all" />
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>OdiUI</title>
+	<meta name="description" content="Odi's UI to interact !" />
+	<meta name="author" content="Adri Garry" />
+	<meta name="robots" content="noindex,nofollow" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-		<script src="js/lib/Recorder.js"></script>
-		<script src="js/lib/angular.min.js"></script>
-		<script src="js/lib/angular-material.min.js"></script>
-		<script src="js/lib/angular-animate.min.js"></script>
-		<script src="js/lib/angular-aria.min.js"></script>
-		<script src="js/lib/moment.min.js"></script>
-		<script src="js/lib/showdown.min.js"></script>
-		<script src="js/lib/mdPickers.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" />
+	<link rel="stylesheet" href="css/lib/angular-material.min.css" media="all" />
+	<link rel="stylesheet" href="css/lib/mdPickers.min.css" media="all" />
+	<link rel="stylesheet" href="css/odiUI.css" media="all" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" />
 
-		<script src="js/app.js"></script>
-		<script src="js/controllers.js"></script>
-		<script src="js/services.js"></script>
-		<script src="js/models.js"></script>
-		<script src="js/components.js"></script>
-		<script src="js/Tile.js"></script>
+	<script src="js/lib/Recorder.js"></script>
+	<script src="js/lib/angular.min.js"></script>
+	<script src="js/lib/angular-material.min.js"></script>
+	<script src="js/lib/angular-animate.min.js"></script>
+	<script src="js/lib/angular-aria.min.js"></script>
+	<script src="js/lib/moment.min.js"></script>
+	<script src="js/lib/showdown.min.js"></script>
+	<script src="js/lib/mdPickers.min.js"></script>
 
-		<link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192" />
-		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
-		<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
-		<link rel="manifest" href="/manifest.json" />
-		<meta name="apple-mobile-web-app-title" content="Odi UI" />
-		<meta name="application-name" content="Odi UI" />
-		<meta name="theme-color" content="#2c3e50" />
-	</head>
+	<script src="js/app.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="js/services.js"></script>
+	<script src="js/models.js"></script>
+	<script src="js/components.js"></script>
+	<script src="js/Tile.js"></script>
 
-	<body data-ng-controller="UIController" data-ng-mousemove="showFabButtons()" data-scroll>
-		<md-content
-			flex
-			layout-padding
-			data-ng-if="!$root.position && !$root.irda"
-			style="width:80%;margin:0 auto;color:#607D8B;"
-		>
-			<div style="text-align:center;">
-				<i class=" fas fa-robot fa-spin" style="margin:15vh 0 20px;font-size:15vmax;color:#607D8B;"></i>
-			</div>
-			<md-list style="max-width:500px;margin:0 auto;">
-				<md-list-item class="md-3-line">
-					<!-- <i class="md-avatar"></i> -->
-					<div class="md-list-item-text"><h2 style="text-align:center;">Accept location or leave Odi.</h2></div>
-					<md-divider md-inset ng-if="!$last "></md-divider>
-				</md-list-item>
-				<md-list-item class="md-3-line">
-					<i class="md-avatar fas fa-3x fa-info"></i>
-					<div class="md-list-item-text">
-						<h3>About</h3>
-						<p>This is a personal tool. To use Odi's UI, you have to accept geolocation on your browser.</p>
-					</div>
-					<md-divider md-inset ng-if="!$last "></md-divider>
-				</md-list-item>
-				<md-list-item class="md-3-line">
-					<i class="md-avatar fas fa-3x fa-user-secret"></i>
-					<div class="md-list-item-text">
-						<h3>Privacy</h3>
-						<p>All sent data are anonymous.</p>
-					</div>
-					<md-divider md-inset ng-if="!$last "></md-divider>
-				</md-list-item>
-				<md-list-item class="md-3-line">
-					<i class="md-avatar fas fa-3x fa-question"></i>
-					<div class="md-list-item-text">
-						<h3>Why ?</h3>
-						<p>IP/location will only be used to locate injurious messages sent to the robot.</p>
-					</div>
-					<md-divider md-inset ng-if="!$last "></md-divider>
-				</md-list-item>
-			</md-list>
-		</md-content>
+	<link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192" />
+	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+	<link rel="manifest" href="/manifest.json" />
+	<meta name="apple-mobile-web-app-title" content="Odi UI" />
+	<meta name="application-name" content="Odi UI" />
+	<meta name="theme-color" content="#2c3e50" />
+</head>
 
-		<md-toolbar
-			data-ng-if="$root.position || $root.irda"
-			class="toolbar"
-			data-ng-class="dashboard.loading ? 'md-warn' : ''"
-		>
-			<div class="md-toolbar-tools">
-				<img
-					src="img/odi.jpg"
-					alt="Odi's face"
-					data-ng-hide="connexionLost"
-					class="odiFace ng-slide-slow infiniteSwingHover"
-					data-ng-class="dashboard.odiState.sleep ? 'sleep' : ''"
-					data-ng-click="reloadUI()"
-					title="Reload UI"
-				/>
-				<img
-					src="img/snow.gif"
-					alt="Connexion lost"
-					data-ng-class="connexionLost ? 'visible' : 'hidden'"
-					class="odiFace connexionLost"
-					title="Odi is not responding..."
-				/>
-				<!-- data-ng-click="reloadUI()" -->
-				<h1
-					class="ng-slide-fast"
-					data-ng-dblclick="$root.irda && action({label: 'Restart Odi', url: '/flux/service/context/restart'})"
-					title="{{ $root.irda ? 'Restart Odi\'s Core' : 'Hey, I\'m Odi !' }}"
-				>
-					Odi UI
-					<!-- Restart Odi's Core -->
-					<sup
-						class="version"
-						title="version {{ dashboard.runningData.config.version }} [{{ dashboard.runningData.config.update }}]"
-						>{{ dashboard.runningData.config.version }}&nbsp;</sup
-					>
-				</h1>
-				<span flex></span>
-				<i class="fas fa-eye fa-lg" data-ng-if="dashboard.odiState.watcher" title="Watcher On"></i>&nbsp;
-				<i
-					class="debug fas fa-circle"
-					data-ng-if="dashboard.odiState.debug && !dashboard.odiState.trace"
-					title="Debug mode"
-				></i
-				>&nbsp; <i class="debug far fa-dot-circle" data-ng-if="dashboard.odiState.trace" title="Trace mode"></i>&nbsp;
-
-				<md-button class="md-icon-button" data-ng-click="toggleMenu()" title="Menu" aria-label="Menu">
-					<i data-ng-class="{'fa-rotate-90':menuOpen}" class="fas fa-2x fa-lg fa-bars ng-slide"></i>&nbsp;
-				</md-button>
-			</div>
-			<md-progress-linear md-mode="query" data-ng-show="dashboard.refreshing"></md-progress-linear>
-			<!-- data-ng-disabled="dashboard.refreshing" -->
-		</md-toolbar>
-
-		<md-sidenav data-ng-if="$root.position" class="md-sidenav-left" data-md-component-id="logs" data-md-whiteframe="4">
-			<div class="logs" data-ng-dblclick="refreshLog()">
-				<i
-					class="debugLog fas fa-circle"
-					data-ng-if="dashboard.odiState.debug && !dashboard.odiState.trace"
-					title="Debug mode"
-				></i>
-				<i class="debugLog far fa-dot-circle" data-ng-if="dashboard.odiState.trace" title="Trace mode"></i>
-				<ul data-ng-class="log.fullLine ? 'fullLine' : ''">
-					<li
-						data-ng-repeat="logLine in logData track by $index"
-						data-ng-bind-html="toHtml(logLine | formatLog:log.mode)"
-					></li>
-					<a id="bottomLogs"></a>
-				</ul>
-				<md-progress-circular md-diameter="150" data-ng-hide="logData"></md-progress-circular>
-			</div>
-			<div class="tools">
-				<md-button
-					class="md-fab"
-					data-ng-class="log.mode ? 'md-primary' : 'md-warn'"
-					data-ng-click="log.mode = !log.mode"
-					title="Toggle log mode"
-					aria-label="Toggle log mode"
-				>
-					<i class="fas fa-2x" data-ng-class="log.mode ? 'fa-th' : 'fa-th-large'"></i>
-				</md-button>
-				<md-button
-					class="md-fab"
-					data-ng-class="log.fullLine ? 'md-primary' : 'md-warn'"
-					data-ng-click="log.fullLine = !log.fullLine"
-					title="Full line"
-					aria-label="Full line"
-				>
-					<i class="fas fa-2x" data-ng-class="log.fullLine ? 'fa-align-left' : 'fa-align-justify'"></i>
-				</md-button>
-				<md-button class="md-fab md-warn" data-ng-click="hideLogs()" title="Hide Logs" aria-label="Hide Logs">
-					<i class="fas fa-2x fa-arrow-left"></i>
-				</md-button>
-			</div>
-		</md-sidenav>
-
-		<md-sidenav data-ng-if="$root.position" class="md-sidenav-right" data-md-component-id="menu" data-md-whiteframe="1">
-			<div layout="row" class="menu">
-				<md-list flex>
-					<md-list-item>
-						<md-button
-							data-ng-click="toggleGrant($event)"
-							data-ng-class="{admin:$root.irda}"
-							class="adminBtn center"
-							title="{{ $root.irda ? 'Log out' : 'Log in' }}"
-							aria-label="{{ $root.irda ? 'Log out' : 'Log in' }}"
-						>
-							<i data-ng-class="$root.irda" class="fas fa-sign-in-alt"></i>
-							<i data-ng-if="!$root.irda" class="fas fa-user"></i>
-							<i data-ng-if="$root.irda" class="fas fa-user-secret"></i>
-							<i data-ng-class="$root.irda" class="fas fa-sign-out-alt"></i>
-						</md-button>
-					</md-list-item>
-					<md-divider></md-divider>
-
-					<md-list-item>
-						<div flex>Auto refresh (scroll)</div>
-						<div flex>
-							<md-switch
-								class="switch md-primary"
-								aria-label="Dashboard auto refresh"
-								title="Dashboard auto refresh"
-								tabindex="0"
-								type="checkbox"
-								role="checkbox"
-								data-ng-model="dashboard.autoRefresh"
-							></md-switch>
-						</div>
-					</md-list-item>
-					<md-divider></md-divider>
-
-					<md-subheader>Volume&nbsp;&nbsp; <i>{{ master }}</i> </md-subheader>
-					<md-list-item title="Volume">
-						<md-slider-container ng-disabled="!$root.irda">
-							<md-slider
-								flex
-								data-ng-model="dashboard.runningData.volume.value"
-								data-ng-change="volumeChange()"
-								data-md-discrete
-								md-horizontal
-								data-step="10"
-								data-min="0"
-								data-max="100"
-								class="md-primary"
-								data-ng-readonly="!$root.irda"
-								title="Volume"
-								aria-label="Volume"
-							></md-slider> </md-slider-container
-						>&nbsp;{{ dashboard.runningData.volume.value }}
-					</md-list-item>
-					<md-divider></md-divider>
-					<md-subheader data-ng-if="$root.irda">Network</md-subheader>
-					<md-list-item data-ng-if="$root.irda" class="block centerText">
-						<i class="fas fa-lg fa-network-wired"></i>
-						&nbsp;&nbsp; {{dashboard.runningData.network.value.local}}
-					</md-list-item>
-					<md-list-item data-ng-if="$root.irda" class="block centerText">
-						<i class="fas fa-lg fa-globe-europe"></i>
-						&nbsp;&nbsp; {{dashboard.runningData.network.value.public}}
-					</md-list-item>
-					<div class="lastUpdate centerText opacity-half">Last update: {{ dashboard.runningData.update.value }}</div>
-				</md-list>
-			</div>
-		</md-sidenav>
-
-		<div data-layout-align="top center" data-ng-if="$root.position || $root.irda">
-			<md-content data-flex data-layout-padding>
-				<div
-					data-layout="row"
-					data-layout-padding
-					data-layout-align="space-around"
-					data-layout-wrap
-					class="dashboard ng-slide"
-				>
-					<!-- <div layout="row" layout-wrap> -->
-					<tts data="dashboard.runningData.mode" data-access="$root.irda" flex="100"></tts>
-					<mode data="dashboard.runningData.mode" data-access="$root.irda" flex="33"></mode>
-					<options
-						data="dashboard.runningData"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></options>
-					<runtime data="dashboard.runningData.errors" data-access="$root.irda" flex="33"></runtime>
-					<alarms data="dashboard.runningData.alarms" data-access="$root.irda" flex="33"></alarms>
-					<radiator data="dashboard.runningData" data-access="$root.irda" flex="33"></radiator>
-					<audio-recorder data="dashboard.runningData.audioRecord" data-access="true" flex="33"></audio-recorder>
-					<voicemail
-						data="dashboard.runningData.voicemail"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></voicemail>
-					<music
-						data="dashboard.runningData.music"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></music>
-					<timer
-						data="dashboard.runningData.timer"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></timer>
-					<hardware
-						data="dashboard.runningData.hardware"
-						data-access="$root.irda"
-						flex="100"
-						data-odi-state="dashboard.odiState"
-					></hardware>
-					<time
-						data="dashboard.runningData.time"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></time>
-					<exclamation
-						data="dashboard.runningData.exclamation"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></exclamation>
-					<weather
-						data="dashboard.runningData.weather"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></weather>
-					<bad-boy
-						data="dashboard.runningData.ideas"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></bad-boy>
-					<party
-						data="dashboard.runningData.party"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></party>
-					<maya
-						data="dashboard.runningData.weather"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></maya>
-					<russia
-						data="dashboard.runningData.russia"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></russia>
-					<stories
-						data="dashboard.runningData.stories"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></stories>
-					<max
-						data="dashboard.runningData.arduino"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></max>
-					<idea
-						data="dashboard.runningData.ideas"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></idea>
-					<arduino
-						data="dashboard.runningData.arduino"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></arduino>
-					<videos
-						data="dashboard.runningData.video"
-						data-access="$root.irda"
-						flex="33"
-						data-odi-state="dashboard.odiState"
-					></videos>
-					<power-plug data="dashboard.runningData" data-access="$root.irda" flex="33"></power-plug>
-					<tasks data="dashboard.runningData" data-access="$root.irda" flex="33"></tasks>
-					<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
-					<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
-					<about data="dashboard.runningData.about" data-access="true" flex="66"></about>
-				</div>
-
-				<md-button
-					data-ng-click="showLogs()"
-					data-ng-show="$root.irda"
-					data-ng-class="[{'active':fabButtonsVisible}]"
-					class="md-fab md-primary logButton ng-slide"
-					title="Logs"
-					aria-label="Logs"
-				>
-					<i class="fas fa-2x fa-quote-right"></i>
-				</md-button>
-				<md-button
-					data-ng-click="showErrors()"
-					data-ng-show="$root.irda"
-					data-ng-class="[{'active':fabButtonsVisible && dashboard.runningData.errors.length > 0}]"
-					class="md-fab md-mini md-warn errorButton ng-slide"
-					title="Logs"
-					aria-label="Logs"
-				>
-					<i class="fas fa-2x fa-exclamation"></i>
-				</md-button>
-				<!-- // -> TENTER d'enlever les class md-hue-2 -->
-				<md-button
-					data-ng-click="action({label: 'Mute', url: '/flux/interface/sound/mute'})"
-					data-ng-class="[{'active':fabButtonsVisible}]"
-					class="md-fab md-primary muteButton ng-slide"
-					title="Mute Odi"
-					aria-label="Mute Odi"
-				>
-					<i class="fas fa-lg fa-bell-slash"></i>
-				</md-button>
-			</md-content>
+<body data-ng-controller="UIController" data-ng-mousemove="showFabButtons()" data-scroll>
+	<md-content flex layout-padding data-ng-if="!$root.position && !$root.irda"
+		style="width:80%;margin:0 auto;color:#607D8B;">
+		<div style="text-align:center;">
+			<i class=" fas fa-robot fa-spin" style="margin:15vh 0 20px;font-size:15vmax;color:#607D8B;"></i>
 		</div>
+		<md-list style="max-width:500px;margin:0 auto;">
+			<md-list-item class="md-3-line">
+				<!-- <i class="md-avatar"></i> -->
+				<div class="md-list-item-text">
+					<h2 style="text-align:center;">Accept location or leave Odi.</h2>
+				</div>
+				<md-divider md-inset ng-if="!$last "></md-divider>
+			</md-list-item>
+			<md-list-item class="md-3-line">
+				<i class="md-avatar fas fa-3x fa-info"></i>
+				<div class="md-list-item-text">
+					<h3>About</h3>
+					<p>This is a personal tool. To use Odi's UI, you have to accept geolocation on your browser.</p>
+				</div>
+				<md-divider md-inset ng-if="!$last "></md-divider>
+			</md-list-item>
+			<md-list-item class="md-3-line">
+				<i class="md-avatar fas fa-3x fa-user-secret"></i>
+				<div class="md-list-item-text">
+					<h3>Privacy</h3>
+					<p>All sent data are anonymous.</p>
+				</div>
+				<md-divider md-inset ng-if="!$last "></md-divider>
+			</md-list-item>
+			<md-list-item class="md-3-line">
+				<i class="md-avatar fas fa-3x fa-question"></i>
+				<div class="md-list-item-text">
+					<h3>Why ?</h3>
+					<p>IP/location will only be used to locate injurious messages sent to the robot.</p>
+				</div>
+				<md-divider md-inset ng-if="!$last "></md-divider>
+			</md-list-item>
+		</md-list>
+	</md-content>
 
-		<footer data-ng-hide="loading">
-			<p><a href="http://adrigarry.com" target="_blank" title="Adrien Garry">adrigarry.com</a></p>
-		</footer>
-	</body>
+	<md-toolbar data-ng-if="$root.position || $root.irda" class="toolbar"
+		data-ng-class="dashboard.loading ? 'md-warn' : ''">
+		<div class="md-toolbar-tools">
+			<img src="img/odi.jpg" alt="Odi's face" data-ng-hide="connexionLost"
+				class="odiFace ng-slide-slow infiniteSwingHover" data-ng-class="dashboard.odiState.sleep ? 'sleep' : ''"
+				data-ng-click="reloadUI()" title="Reload UI" />
+			<img src="img/snow.gif" alt="Connexion lost" data-ng-class="connexionLost ? 'visible' : 'hidden'"
+				class="odiFace connexionLost" title="Odi is not responding..." />
+			<!-- data-ng-click="reloadUI()" -->
+			<h1 class="ng-slide-fast"
+				data-ng-dblclick="$root.irda && action({label: 'Restart Odi', url: '/flux/service/context/restart'})"
+				title="{{ $root.irda ? 'Restart Odi\'s Core' : 'Hey, I\'m Odi !' }}">
+				Odi UI
+				<!-- Restart Odi's Core -->
+				<sup class="version"
+					title="version {{ dashboard.runningData.config.version }} [{{ dashboard.runningData.config.update }}]">{{ dashboard.runningData.config.version }}&nbsp;</sup>
+			</h1>
+			<span flex></span>
+			<i class="fas fa-eye fa-lg" data-ng-if="dashboard.odiState.watcher" title="Watcher On"></i>&nbsp;
+			<i class="debug fas fa-circle" data-ng-if="dashboard.odiState.debug && !dashboard.odiState.trace"
+				title="Debug mode"></i>&nbsp; <i class="debug far fa-dot-circle" data-ng-if="dashboard.odiState.trace"
+				title="Trace mode"></i>&nbsp;
+
+			<md-button class="md-icon-button" data-ng-click="toggleMenu()" title="Menu" aria-label="Menu">
+				<i data-ng-class="{'fa-rotate-90':menuOpen}" class="fas fa-2x fa-lg fa-bars ng-slide"></i>&nbsp;
+			</md-button>
+		</div>
+		<md-progress-linear md-mode="query" data-ng-show="dashboard.refreshing"></md-progress-linear>
+		<!-- data-ng-disabled="dashboard.refreshing" -->
+	</md-toolbar>
+
+	<md-sidenav data-ng-if="$root.position" class="md-sidenav-left" data-ng-class="{'fullScreen': log.fullScreen}"
+		data-md-component-id="logs" id="logs" data-md-whiteframe="4">
+		<div class="logs" data-ng-class="{'loading' : log.loading}" data-ng-dblclick="refreshLog()">
+			<i class="debugLog fas fa-circle" data-ng-if="dashboard.odiState.debug && !dashboard.odiState.trace"
+				title="Debug mode"></i>
+			<i class="debugLog far fa-dot-circle" data-ng-if="dashboard.odiState.trace" title="Trace mode"></i>
+
+			<div class="center">
+				<md-progress-circular md-diameter="150" data-ng-show="log.loading"></md-progress-circular>
+			</div>
+			<ul data-ng-class="log.wordwrap ? '' : 'wordwrap'">
+				<li data-ng-repeat="logLine in log.data track by $index"
+					data-ng-bind-html="toHtml(logLine | formatLog:log.details)"></li>
+				<li class="blink logTailFlag" data-ng-show="log.tail">.</li>
+				<a id="bottomLogs"></a>
+			</ul>
+		</div>
+		<div class="tools">
+			<md-button class="md-fab" data-ng-class="log.wordwrap ? 'md-warn' : 'md-primary'"
+				data-ng-click="log.wordwrap = !log.wordwrap" title="Wordwrap" aria-label="Wordwrap">
+				<i class="fas fa-2x" data-ng-class="log.wordwrap ? 'fa-align-left' : 'fa-align-justify'"></i>
+			</md-button>
+			<md-button class="md-fab" data-ng-class="log.details ? 'md-warn' : 'md-primary'"
+				data-ng-click="log.details = !log.details" title="Log details" aria-label="Log details">
+				<i class="fas fa-2x" data-ng-class="log.details ? 'fa-th' : 'fa-th-large'"></i>
+			</md-button>
+			<md-button class="md-fab" data-ng-class="log.tail ? 'md-primary' : 'md-warn'" data-ng-click="toggleLogTail()"
+				title="Log tail" aria-label="Log tail">
+				<i class="fas fa-2x" data-ng-class="log.tail ? 'fa-link' : 'fa-unlink'"></i>
+			</md-button>
+			<md-button class="md-fab" data-ng-class="log.fullScreen ? 'md-warn' : 'md-primary'"
+				data-ng-click="log.fullScreen = !log.fullScreen" title="FullScreen" aria-label="FullScreen">
+				<i class="fas fa-2x" data-ng-class="log.fullScreen ? 'fa-compress-arrows-alt' : 'fa-arrows-alt'"></i>
+			</md-button>
+			<md-button class="md-fab md-warn" data-ng-show="log.fullScreen" data-ng-click="hideLogs()" title="Hide Logs"
+				aria-label="Hide Logs">
+				<i class="fas fa-2x fa-arrow-left"></i>
+			</md-button>
+		</div>
+	</md-sidenav>
+
+	<md-sidenav data-ng-if="$root.position" class="md-sidenav-right" data-md-component-id="menu" data-md-whiteframe="1">
+		<div layout="row" class="menu">
+			<md-list flex>
+				<md-list-item>
+					<md-button data-ng-click="toggleGrant($event)" data-ng-class="{admin:$root.irda}" class="adminBtn center"
+						title="{{ $root.irda ? 'Log out' : 'Log in' }}" aria-label="{{ $root.irda ? 'Log out' : 'Log in' }}">
+						<i data-ng-class="$root.irda" class="fas fa-sign-in-alt"></i>
+						<i data-ng-if="!$root.irda" class="fas fa-user"></i>
+						<i data-ng-if="$root.irda" class="fas fa-user-secret"></i>
+						<i data-ng-class="$root.irda" class="fas fa-sign-out-alt"></i>
+					</md-button>
+				</md-list-item>
+				<md-divider></md-divider>
+
+				<md-list-item>
+					<div flex>Auto refresh (scroll)</div>
+					<div flex>
+						<md-switch class="switch md-primary" aria-label="Dashboard auto refresh"
+							title="Dashboard auto refresh" tabindex="0" type="checkbox" role="checkbox"
+							data-ng-model="dashboard.autoRefresh"></md-switch>
+					</div>
+				</md-list-item>
+				<md-divider></md-divider>
+
+				<md-subheader>Volume&nbsp;&nbsp; <i>{{ master }}</i> </md-subheader>
+				<md-list-item title="Volume">
+					<md-slider-container ng-disabled="!$root.irda">
+						<md-slider flex data-ng-model="dashboard.runningData.volume.value" data-ng-change="volumeChange()"
+							data-md-discrete md-horizontal data-step="10" data-min="0" data-max="100" class="md-primary"
+							data-ng-readonly="!$root.irda" title="Volume" aria-label="Volume"></md-slider>
+					</md-slider-container>&nbsp;{{ dashboard.runningData.volume.value }}
+				</md-list-item>
+				<md-divider></md-divider>
+				<md-subheader data-ng-if="$root.irda">Network</md-subheader>
+				<md-list-item data-ng-if="$root.irda" class="block centerText">
+					<i class="fas fa-lg fa-network-wired"></i>
+					&nbsp;&nbsp; {{dashboard.runningData.network.value.local}}
+				</md-list-item>
+				<md-list-item data-ng-if="$root.irda" class="block centerText">
+					<i class="fas fa-lg fa-globe-europe"></i>
+					&nbsp;&nbsp; {{dashboard.runningData.network.value.public}}
+				</md-list-item>
+				<div class="lastUpdate centerText opacity-half">Last update: {{ dashboard.runningData.update.value }}</div>
+			</md-list>
+		</div>
+	</md-sidenav>
+
+	<div data-layout-align="top center" data-ng-if="$root.position || $root.irda">
+		<md-content data-flex data-layout-padding>
+			<div data-layout="row" data-layout-padding data-layout-align="space-around" data-layout-wrap
+				class="dashboard ng-slide">
+				<!-- <div layout="row" layout-wrap> -->
+				<tts data="dashboard.runningData.mode" data-access="$root.irda" flex="100"></tts>
+				<mode data="dashboard.runningData.mode" data-access="$root.irda" flex="33"></mode>
+				<options data="dashboard.runningData" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></options>
+				<runtime data="dashboard.runningData.errors" data-access="$root.irda" flex="33"></runtime>
+				<alarms data="dashboard.runningData.alarms" data-access="$root.irda" flex="33"></alarms>
+				<radiator data="dashboard.runningData" data-access="$root.irda" flex="33"></radiator>
+				<audio-recorder data="dashboard.runningData.audioRecord" data-access="true" flex="33"></audio-recorder>
+				<voicemail data="dashboard.runningData.voicemail" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></voicemail>
+				<music data="dashboard.runningData.music" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></music>
+				<timer data="dashboard.runningData.timer" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></timer>
+				<hardware data="dashboard.runningData.hardware" data-access="$root.irda" flex="100"
+					data-odi-state="dashboard.odiState"></hardware>
+				<time data="dashboard.runningData.time" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></time>
+				<exclamation data="dashboard.runningData.exclamation" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></exclamation>
+				<weather data="dashboard.runningData.weather" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></weather>
+				<bad-boy data="dashboard.runningData.ideas" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></bad-boy>
+				<party data="dashboard.runningData.party" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></party>
+				<maya data="dashboard.runningData.weather" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></maya>
+				<russia data="dashboard.runningData.russia" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></russia>
+				<stories data="dashboard.runningData.stories" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></stories>
+				<max data="dashboard.runningData.arduino" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></max>
+				<idea data="dashboard.runningData.ideas" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></idea>
+				<arduino data="dashboard.runningData.arduino" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></arduino>
+				<videos data="dashboard.runningData.video" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></videos>
+				<power-plug data="dashboard.runningData" data-access="$root.irda" flex="33"></power-plug>
+				<tasks data="dashboard.runningData" data-access="$root.irda" flex="33"></tasks>
+				<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
+				<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
+				<about data="dashboard.runningData.about" data-access="true" flex="66"></about>
+			</div>
+
+			<md-button data-ng-click="showLogs()" data-ng-show="$root.irda" data-ng-class="[{'active':fabButtonsVisible}]"
+				class="md-fab md-primary logButton ng-slide" title="Logs" aria-label="Logs">
+				<i class="fas fa-2x fa-quote-right"></i>
+			</md-button>
+			<md-button data-ng-click="showErrors()" data-ng-show="$root.irda"
+				data-ng-class="[{'active':fabButtonsVisible && dashboard.runningData.errors.length > 0}]"
+				class="md-fab md-mini md-warn errorButton ng-slide" title="Logs" aria-label="Logs">
+				<i class="fas fa-2x fa-exclamation"></i>
+			</md-button>
+			<!-- // -> TENTER d'enlever les class md-hue-2 -->
+			<md-button data-ng-click="action({label: 'Mute', url: '/flux/interface/sound/mute'})"
+				data-ng-class="[{'active':fabButtonsVisible}]" class="md-fab md-primary muteButton ng-slide"
+				title="Mute Odi" aria-label="Mute Odi">
+				<i class="fas fa-lg fa-bell-slash"></i>
+			</md-button>
+		</md-content>
+	</div>
+
+	<footer data-ng-hide="loading">
+		<p><a href="http://adrigarry.com" target="_blank" title="Adrien Garry">adrigarry.com</a></p>
+	</footer>
+</body>
+
 </html>

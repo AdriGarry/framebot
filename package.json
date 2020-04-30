@@ -1,6 +1,6 @@
 {
 	"name": "core",
-	"version": "7.2.7",
+	"version": "7.3.0",
 	"private": true,
 	"description": "framebot program to autorun, manage stuff and interact",
 	"main": "framebot",
@@ -26,6 +26,9 @@
 		"rfxcom": "2.1.1",
 		"rxjs": "5.5.2",
 		"serialport": "8.0.6",
-		"traceback": "0.3.1"
+		"socket.io": "2.3.0",
+		"tail": "2.0.3",
+		"traceback": "0.3.1",
+		"ws": "7.2.5"
 	}
 }

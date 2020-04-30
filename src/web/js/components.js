@@ -4,7 +4,7 @@ app.component('tts', {
 		data: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function($window, DefaultTile, UIService) {
+	controller: function ($window, DefaultTile, UIService) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Text To Speech',
@@ -15,7 +15,7 @@ app.component('tts', {
 		ctrl.tile = new DefaultTile(tileParams, true);
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function($event) {
+		ctrl.tile.click = function ($event) {
 			if (!ctrl.tile.expanded) {
 				ctrl.toggleTileHeight();
 				focusOnTtsInput();
@@ -23,11 +23,11 @@ app.component('tts', {
 			return false;
 		};
 
-		ctrl.cssClass = function() {
+		ctrl.cssClass = function () {
 			return (ctrl.tile.expanded ? 'expanded' : '') + ' ' + ctrl.tile.id;
 		};
 
-		ctrl.toggleTileHeight = function() {
+		ctrl.toggleTileHeight = function () {
 			ctrl.tile.expanded = !ctrl.tile.expanded;
 		};
 
@@ -58,7 +58,7 @@ app.component('tts', {
 					{ code: 'pico', label: 'Pico' }
 				]
 			},
-			cleanText: function() {
+			cleanText: function () {
 				console.log('cleanText');
 				let message = ctrl.tts.msg || '';
 				message = message
@@ -71,10 +71,10 @@ app.component('tts', {
 				//message = message.replace(/[<>]/g,''); // Others characters
 				ctrl.tts.msg = message;
 			},
-			submit: function() {
+			submit: function () {
 				console.log('submit', ctrl.tts);
 				if (ctrl.tts.msg != '') {
-					UIService.sendTTS(ctrl.tts, function(callback) {
+					UIService.sendTTS(ctrl.tts, function (callback) {
 						if (callback.status == 200) {
 							ctrl.tts.msg = '';
 							ctrl.tts.error = ''; // Reinit TTS
@@ -95,7 +95,7 @@ app.component('mode', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Mode',
@@ -122,7 +122,7 @@ app.component('options', {
 		// odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Options',
@@ -150,7 +150,7 @@ app.component('runtime', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Runtime',
@@ -172,7 +172,7 @@ app.component('alarms', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile, $rootScope, UIService, $mdpTimePicker) {
+	controller: function (DefaultTile, $rootScope, UIService, $mdpTimePicker) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Alarms',
@@ -185,12 +185,12 @@ app.component('alarms', {
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
 
-		ctrl.$onChanges = function(changes) {
+		ctrl.$onChanges = function (changes) {
 			updateNextAlarm();
 		};
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function() {
+		ctrl.tile.click = function () {
 			if (!$rootScope.irda) {
 				UIService.showErrorToast('Unauthorized action.');
 			} else {
@@ -198,12 +198,12 @@ app.component('alarms', {
 			}
 		};
 
-		let showTimePicker = function(ev) {
+		let showTimePicker = function (ev) {
 			// A déplacer dans Tile.js ?
 			$mdpTimePicker(new Date(), {
 				targetEvent: ev,
 				autoSwitch: true
-			}).then(function(selectedDate) {
+			}).then(function (selectedDate) {
 				ctrl.newAlarm.value = {
 					when: ctrl.newAlarm.label,
 					h: selectedDate.getHours(),
@@ -215,7 +215,7 @@ app.component('alarms', {
 			});
 		};
 
-		let specificActions = function(button) {
+		let specificActions = function (button) {
 			if (button.url !== '/flux/service/alarm/off') {
 				ctrl.newAlarm = button;
 				showTimePicker();
@@ -225,7 +225,7 @@ app.component('alarms', {
 		};
 
 		const DAYS = { weekDay: [1, 2, 3, 4, 5], weekEnd: [6, 0] };
-		let updateNextAlarm = function() {
+		let updateNextAlarm = function () {
 			let ALARMS = ctrl.data.value;
 			if (ALARMS.weekDay || ALARMS.weekEnd) {
 				let now = new Date(),
@@ -244,7 +244,7 @@ app.component('alarms', {
 			} else ctrl.nextAlarm = false;
 		};
 
-		let _incrementDay = function(date, time) {
+		let _incrementDay = function (date, time) {
 			return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, time.h, time.m);
 		};
 	}
@@ -258,7 +258,7 @@ app.component('voicemail', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Voicemail',
@@ -281,7 +281,7 @@ app.component('hardware', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Hardware',
@@ -296,7 +296,7 @@ app.component('hardware', {
 		ctrl.odiState = ctrl.odiState;
 
 		const MEMORY_REGEX = /([\d]+)\/([\d]+)/;
-		ctrl.getMemoryPerCent = function() {
+		ctrl.getMemoryPerCent = function () {
 			let memory = ctrl.data.value.memory.system;
 			let regexResult = memory.match(MEMORY_REGEX);
 			return ((regexResult[1] / regexResult[2]) * 100).toFixed(0);
@@ -312,7 +312,7 @@ app.component('exclamation', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Exclamation',
@@ -336,7 +336,7 @@ app.component('music', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Music',
@@ -350,7 +350,7 @@ app.component('music', {
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
 
-		ctrl.getIconClass = function() {
+		ctrl.getIconClass = function () {
 			if (ctrl.data.value === 'jukebox') {
 				return 'fas fa-compact-disc';
 			} else if (ctrl.data.value === 'fip') {
@@ -374,7 +374,7 @@ app.component('audioRecorder', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile, $rootScope, UIService) {
+	controller: function (DefaultTile, $rootScope, UIService) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Audio recorder',
@@ -388,11 +388,11 @@ app.component('audioRecorder', {
 		ctrl.odiState = ctrl.odiState;
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function() {
+		ctrl.tile.click = function () {
 			ctrl.tile.openCustomBottomSheet(bottomSheetController, bottomSheetTemplate, this.actionList, bottomSheetCatch);
 		};
 
-		let bottomSheetCatch = function(audioService) {
+		let bottomSheetCatch = function (audioService) {
 			audioService.cancelRecord();
 		};
 
@@ -418,7 +418,7 @@ app.component('audioRecorder', {
 			</div>
 		</md-bottom-sheet>`;
 
-		let bottomSheetController = function(
+		let bottomSheetController = function (
 			$rootScope,
 			$scope,
 			$timeout,
@@ -431,13 +431,13 @@ app.component('audioRecorder', {
 			ctrl.recording = false;
 			ctrl.waitRecording = false;
 
-			ctrl.action = function(cmd) {
+			ctrl.action = function (cmd) {
 				UIService.sendCommand(cmd, () => {
 					$mdBottomSheet.hide(cmd);
 				});
 			};
 
-			ctrl.toggleRecord = function() {
+			ctrl.toggleRecord = function () {
 				if (!ctrl.recording) {
 					ctrl.waitRecording = true;
 					audioService.startRecord(isRecording => {
@@ -483,7 +483,7 @@ app.component('timer', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile, $rootScope, UIService) {
+	controller: function (DefaultTile, $rootScope, UIService) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Timer',
@@ -504,7 +504,7 @@ app.component('timer', {
 		ctrl.odiState = ctrl.odiState;
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function() {
+		ctrl.tile.click = function () {
 			if (!$rootScope.irda) {
 				UIService.showErrorToast('Unauthorized action.');
 			} else {
@@ -512,7 +512,7 @@ app.component('timer', {
 			}
 		};
 
-		let specificActions = function(button) {
+		let specificActions = function (button) {
 			if (button.label.indexOf('Manual') != -1) {
 				let slider = {
 					label: 'Manual timer',
@@ -541,7 +541,7 @@ app.component('time', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Time',
@@ -565,7 +565,7 @@ app.component('weather', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Weather',
@@ -588,7 +588,7 @@ app.component('maya', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Maya',
@@ -612,7 +612,7 @@ app.component('idea', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Idea',
@@ -646,7 +646,7 @@ app.component('stories', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Stories',
@@ -668,7 +668,7 @@ app.component('badBoy', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile, $rootScope, UIService) {
+	controller: function (DefaultTile, $rootScope, UIService) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Bad boy',
@@ -682,7 +682,7 @@ app.component('badBoy', {
 		ctrl.odiState = ctrl.odiState;
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function() {
+		ctrl.tile.click = function () {
 			if (!$rootScope.irda) {
 				UIService.showErrorToast('Unauthorized action.');
 			} else {
@@ -690,7 +690,7 @@ app.component('badBoy', {
 			}
 		};
 
-		let specificActions = function(button) {
+		let specificActions = function (button) {
 			if (button.label.toUpperCase().indexOf('BADBOY MODE') != -1) {
 				let slider = {
 					label: 'Bad boy interval',
@@ -719,7 +719,7 @@ app.component('party', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Party',
@@ -743,7 +743,7 @@ app.component('russia', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Russia',
@@ -766,7 +766,7 @@ app.component('videos', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Video',
@@ -788,7 +788,7 @@ app.component('max', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Max',
@@ -813,7 +813,7 @@ app.component('radiator', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile, $rootScope, UIService) {
+	controller: function (DefaultTile, $rootScope, UIService) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Radiator',
@@ -848,14 +848,14 @@ app.component('radiator', {
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 
-		ctrl.isTimeout = function() {
+		ctrl.isTimeout = function () {
 			let obj = ctrl.data.config.radiator;
 			return typeof obj === 'object';
 			//return !isNaN(ctrl.data.config.radiator);
 		};
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function() {
+		ctrl.tile.click = function () {
 			if (!$rootScope.irda) {
 				UIService.showErrorToast('Unauthorized action.');
 			} else {
@@ -863,7 +863,7 @@ app.component('radiator', {
 			}
 		};
 
-		let specificActions = function(button) {
+		let specificActions = function (button) {
 			if (button.label.toUpperCase().indexOf('TIMEOUT') != -1) {
 				let slider = {
 					label: button.label,
@@ -883,7 +883,7 @@ app.component('radiator', {
 			}
 		};
 
-		let specificEndAction = function(button) {
+		let specificEndAction = function (button) {
 			button.value = { mode: button.label.toUpperCase().indexOf('ON') > -1 ? 'on' : 'off', timeout: button.value };
 			ctrl.tile.action(button);
 		};
@@ -898,7 +898,7 @@ app.component('powerPlug', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile, $rootScope) {
+	controller: function (DefaultTile, $rootScope) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Power plug',
@@ -912,7 +912,7 @@ app.component('powerPlug', {
 		ctrl.odiState = ctrl.odiState;
 
 		/** Overwrite tile action */
-		ctrl.tile.click = function() {
+		ctrl.tile.click = function () {
 			if (!$rootScope.irda) {
 				UIService.showErrorToast('Unauthorized action.');
 			} else {
@@ -921,7 +921,7 @@ app.component('powerPlug', {
 		};
 
 		const PLUG_FLUX_URL = '/flux/interface/rfxcom/send';
-		let specificPlugActions = function(action) {
+		let specificPlugActions = function (action) {
 			let actionList = [
 				{
 					label: action.label + ' on',
@@ -950,7 +950,7 @@ app.component('arduino', {
 		odiState: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Arduino',
@@ -970,7 +970,7 @@ app.component('tasks', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Tasks',
@@ -990,7 +990,7 @@ app.component('history', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'History',
@@ -1014,7 +1014,7 @@ app.component('system', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'System',
@@ -1034,7 +1034,7 @@ app.component('about', {
 		data: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function(DefaultTile) {
+	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'About',
