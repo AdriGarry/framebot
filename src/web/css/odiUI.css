@@ -69,9 +69,12 @@ md-checkbox:not([disabled]).md-warn.md-checked .md-icon:hover {
 	/*background-color:#1B2631!important;*/
 }
 
-.logs md-progress-circular {
-	margin: 30% auto 20%;
-	/*zoom:2;*/
+#logs .center {
+	position: absolute;
+	width: 100%;
+}
+#logs .center md-progress-circular {
+	margin: 20% auto;
 }
 md-progress-circular path {
 	stroke: #90a4ae;
@@ -284,6 +287,9 @@ md-sidenav > div {
 	width: 100%;
 	max-width: 100%;
 }
+.logs.loading {
+	cursor: wait;
+}
 
 .logs i.debugLog {
 	position: absolute;
@@ -345,9 +351,6 @@ md-button.md-fab.ng-slide.active {
 	height: 70px;
 	background-color: #2c3e50 !important;
 	text-align: center;
-}
-
-md-sidenav md-toolbar .tools {
 }
 
 .tools button {

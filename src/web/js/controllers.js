@@ -143,17 +143,13 @@ app.controller('UIController', function (
 		if ($scope.log.tail) {
 			$scope.closeLogTailWebSocket();
 		} else {
-			$scope.openLogTailWebSocket();
+			$scope.openLogTailWebSocket(true);
 		}
 	}
 
-	$scope.openLogTailWebSocket = function () {
-		// $scope.refreshLog();
-		console.log($scope.log.data)
-		if (!$scope.log.data) {
-			UIService.updateLogs(function (logs) {
-				$scope.log.data = logs.split('\n');
-			});
+	$scope.openLogTailWebSocket = function (retreiveLogHistory) {
+		if (retreiveLogHistory || !$scope.log.data) {
+			$scope.refreshLog();
 		}
 		logTailWebSocket = new WebSocket(WS_ODI_URL);
 		logTailWebSocket.onopen = function () {
@@ -295,7 +291,7 @@ app.controller('UIController', function (
 		UIService.sendCommand({ url: '/grant', data: param }, function (data) {
 			$rootScope.irda = data;
 			if ($rootScope.irda) {
-				$scope.openLogTailWebSocket();
+				$scope.openLogTailWebSocket(true);
 				// UIService.showToast('Access granted !');
 			} else {
 				// UIService.showErrorToast('Not granted !');

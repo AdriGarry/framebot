@@ -125,18 +125,21 @@
 	</md-toolbar>
 
 	<md-sidenav data-ng-if="$root.position" class="md-sidenav-left" data-ng-class="{'fullScreen': log.fullScreen}"
-		data-md-component-id="logs" data-md-whiteframe="4">
-		<div class="logs" data-ng-dblclick="refreshLog()">
+		data-md-component-id="logs" id="logs" data-md-whiteframe="4">
+		<div class="logs" data-ng-class="{'loading' : log.loading}" data-ng-dblclick="refreshLog()">
 			<i class="debugLog fas fa-circle" data-ng-if="dashboard.odiState.debug && !dashboard.odiState.trace"
 				title="Debug mode"></i>
 			<i class="debugLog far fa-dot-circle" data-ng-if="dashboard.odiState.trace" title="Trace mode"></i>
-			<ul data-ng-hide="log.loading" data-ng-class="log.wordwrap ? '' : 'wordwrap'">
+
+			<div class="center">
+				<md-progress-circular md-diameter="150" data-ng-show="log.loading"></md-progress-circular>
+			</div>
+			<ul data-ng-class="log.wordwrap ? '' : 'wordwrap'">
 				<li data-ng-repeat="logLine in log.data track by $index"
 					data-ng-bind-html="toHtml(logLine | formatLog:log.details)"></li>
 				<li class="blink logTailFlag" data-ng-show="log.tail">.</li>
 				<a id="bottomLogs"></a>
 			</ul>
-			<md-progress-circular md-diameter="150" data-ng-show="log.loading"></md-progress-circular>
 		</div>
 		<div class="tools">
 			<md-button class="md-fab" data-ng-class="log.wordwrap ? 'md-warn' : 'md-primary'"
