@@ -83,7 +83,7 @@ This object is isolated, with access methods.
 #### Flux manager
 
 A flux manager, based on RxJS, can send or schedule (delay, repeat) orders.
-The _Core.do() (Flux.next())_ function accepts flux object (full or detailled), or list of fluxs.
+_new Flux()_ function accepts flux object (full or detailled), or list of fluxs.
 
 A flux is an Object with 3 properties:
 
@@ -98,5 +98,10 @@ A flux is an Object with 3 properties:
   - [loop]: _number_ times to loop flux
 
   - [log]: _string_ log level where the flux will be logged
+
+
+## User interface
+
+Provided user interface with flux orders and log (log tail with websocket)
 
 .
