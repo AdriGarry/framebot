@@ -50,8 +50,8 @@ function initializeContext(descriptor, forcedParams, startTime) {
 
 	let packageJson = require(_PATH + 'package.json');
 	let confUpdate = {
-			startTime: Utils.logTime('h:m (D/M)')
-		},
+		startTime: Utils.logTime('h:m (D/M)')
+	},
 		forcedParamsLog = '';
 	if (Core.conf('version') !== packageJson.version) {
 		confUpdate.version = packageJson.version;
@@ -94,8 +94,6 @@ function initializeContext(descriptor, forcedParams, startTime) {
 	const Flux = require('../api/Flux.js'),
 		ModuleLoader = require('./ModuleLoader.js');
 
-	Core.flux = Flux;
-	Core.do = Flux.next;
 	new Flux('service|context|update', confUpdate, { delay: 0.2, log: 'debug' });
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
