@@ -42,6 +42,7 @@ function _setUpCoreObject(Core, descriptor, startTime) {
 	Core.errors = [];
 	Core.gpio = require(Core._CONF + 'gpio.json');
 	Core.ttsMessages = require(Core._CONF + 'ttsMessages.json');
+	Core.data = new Lock({}, null, true);
 	return Core;
 }
 
