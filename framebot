@@ -5,21 +5,24 @@ echo _PATH: $_PATH
 
 
 updateFrameBotScript(){
-	sudo cp $_PATH/framebot /bin/ && \
-	
-	sudo cp $_PATH/data/framebot.service /etc/systemd/system && \
-	sudo chmod 744 /etc/systemd/system/framebot.service && \
-	sudo systemctl daemon-reload && \
-	sudo systemctl enable framebot.service && \
-	sudo systemctl start framebot.service
+	# if [ -z "$2" ]; then
+		if [ -z "$2" ] || [ $2 != "--noUpdate" ]; then
+			sudo cp $_PATH/framebot /bin/ && \
+			
+			sudo cp $_PATH/data/framebot.service /etc/systemd/system && \
+			sudo chmod 744 /etc/systemd/system/framebot.service && \
+			sudo systemctl daemon-reload && \
+			sudo systemctl enable framebot.service && \
+			sudo systemctl start framebot.service
 
-	echo "framebot: framebot command & service updated!\n"
-	# sudo chmod +x "$_PATH"/framebot.sh
+			echo "framebot: framebot command & service updated!\n"
+			# sudo chmod +x "$_PATH"/framebot.sh
+		fi
+	# fi
 }
 
 exitIfNoArgs(){
-	if [ $# -eq 0 ]
-	then
+	if [ $# -eq 0 ];then
 		echo "No arguments supplied, exiting."
 		exit 0
 	fi
@@ -58,7 +61,7 @@ ifCerbot(){
 }
 
 
-updateFrameBotScript
+updateFrameBotScript $*
 
 exitIfNoArgs $*
 
@@ -75,8 +78,7 @@ clear
 _NAME=$1
 
 # Create log directory if not exists
-if [ ! -d "$_PATH"/log ];
-then
+if [ ! -d "$_PATH"/log ]; then
 	mkdir "$_PATH"/log
 	echo "log directory created"
 fi

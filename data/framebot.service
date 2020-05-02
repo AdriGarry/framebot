@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=root
 WorkingDirectory=/home/odi/framebot
-ExecStart=/bin/framebot odi
+ExecStart=/bin/framebot odi --noUpdate
 RestartSec=5min 5s
 
 [Install]
