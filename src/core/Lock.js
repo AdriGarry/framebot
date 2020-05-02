@@ -8,15 +8,16 @@ const Logger = require('./../api/Logger');
 const log = new Logger(__filename);
 
 /** accessor: object([id, value]) */
-function Lock(obj, file) {
+function Lock(obj, file, open) {
 	let self = this;
 	self._obj = obj;
+	self._open = open;
 	if (file) {
 		self.file = file;
 	} else {
 		self.file = false;
 	}
-	// Object.seal(self);
+	if (!self._open) Object.seal(self);
 	return _accessors;
 
 	function _accessors(id, newValue) {
@@ -41,21 +42,23 @@ function Lock(obj, file) {
 	function _setter(id, newValue) {
 		if (self.file) {
 			log.debug('Updating: ' + id + '=' + newValue);
-			_setValue(self._obj, id, newValue);
+			_setValue(self._obj, id, newValue, self._open);
 			fs.writeFileSync(self.file, JSON.stringify(self._obj, null, 1));
 		} else {
-			_setValue(self._obj, id, newValue);
+			_setValue(self._obj, id, newValue, self._open);
 		}
 	}
 
-	function _setValue(object, id, newValue) {
+	function _setValue(object, id, newValue, _open) {
 		let id2;
 		if (id.indexOf('.') > -1) {
 			let keys = id.split('.');
 			id = keys[0];
 			id2 = keys[1];
 		}
-		if (object.hasOwnProperty(id)) {
+		if (object.hasOwnProperty(id) || _open) {
+			// if (typeof object[id] === 'object' && typeof toto === 'object') {
+			// 	object[id].push(newValue);
 			if (Array.isArray(object[id])) {
 				object[id].push(newValue);
 			} else {
@@ -63,7 +66,7 @@ function Lock(obj, file) {
 				else object[id] = newValue;
 			}
 		} else {
-			log.error('setValue ERROR:', id);
+			log.error("ERROR can not set value for unknow property", id);
 		}
 	}
 }
