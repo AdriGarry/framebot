@@ -48,7 +48,7 @@ function attachRoutes(ui, modulesApi) {
 }
 
 function attachFluxRoutes(ui) {
-	ui.post('/flux/:type/:subject/:id', function(req, res) {
+	ui.post('/flux/:type/:subject/:id', function (req, res) {
 		let value = req.body;
 		if (typeof value === 'object' && value.hasOwnProperty('_wrapper')) value = value._wrapper;
 		new Flux(req.params.type + '|' + req.params.subject + '|' + req.params.id, value);
@@ -59,7 +59,7 @@ function attachFluxRoutes(ui) {
 
 function attachUnmappedRouteHandler(ui, mode) {
 	let errorMsg = Core.isAwake() ? 'Error UI > not mapped:' : 'Sleep mode, not allowed to interact';
-	ui.post('/*', function(req, res) {
+	ui.post('/*', function (req, res) {
 		Core.error(errorMsg, req.url, false);
 		res.writeHead(401);
 		res.end();
@@ -69,7 +69,7 @@ function attachUnmappedRouteHandler(ui, mode) {
 
 function attachDefaultRoutes(ui) {
 	/** DASHBOARD SECTION */
-	ui.get('/dashboard', function(req, res) {
+	ui.get('/dashboard', function (req, res) {
 		new Flux('interface|hardware|runtime');
 		let etatBtn = Core.run('etat');
 		let cpuTemp = Core.run('cpu.temp');
@@ -83,8 +83,8 @@ function attachDefaultRoutes(ui) {
 						Core.conf('log') == 'trace'
 							? 'Trace'
 							: Core.conf('log') == 'debug'
-							? 'Debug'
-							: Utils.firstLetterUpper(Core.conf('mode')),
+								? 'Debug'
+								: Utils.firstLetterUpper(Core.conf('mode')),
 					param: Core.conf('startTime'),
 					switch: etatBtn == 'high' ? true : false
 				}
@@ -139,13 +139,14 @@ function attachDefaultRoutes(ui) {
 			},
 			watcher: {
 				value: Core.conf('watcher')
-			}
+			},
+			playlist: Core.data('')
 		};
 		res.end(JSON.stringify(dashboard));
 	});
 
 	/** ==> GET SECTION */
-	ui.get('/log', function(req, res) {
+	ui.get('/log', function (req, res) {
 		let logSize = 100;
 		let params = req.query;
 		if (params.hasOwnProperty('logSize') && !isNaN(params.logSize)) {
@@ -157,72 +158,72 @@ function attachDefaultRoutes(ui) {
 	});
 
 	// '/file/:filename'
-	ui.get('/config.json', function(req, res) {
+	ui.get('/config.json', function (req, res) {
 		log.table(Core.conf(), 'CONFIG');
 		res.end(JSON.stringify(Core.conf()));
 	});
 
-	ui.get('/runtime', function(req, res) {
+	ui.get('/runtime', function (req, res) {
 		new Flux('interface|hardware|runtime', true);
 		setTimeout(() => {
 			res.end(JSON.stringify(Core.run()));
 		}, 500);
 	});
 
-	ui.get('/errors', function(req, res) {
+	ui.get('/errors', function (req, res) {
 		res.end(JSON.stringify(Core.errors));
 	});
 
-	ui.get('/errorHistory', function(req, res) {
+	ui.get('/errorHistory', function (req, res) {
 		res.end(fs.readFileSync(FILE_ERROR_HISTORY, 'utf8').toString());
 	});
 
-	ui.get('/requestHistory', function(req, res) {
+	ui.get('/requestHistory', function (req, res) {
 		res.end(fs.readFileSync(FILE_REQUEST_HISTORY, 'utf8').toString());
 	});
 
-	ui.get('/ttsUIHistory', function(req, res) {
+	ui.get('/ttsUIHistory', function (req, res) {
 		res.end(fs.readFileSync(FILE_TTS_UI_HISTORY, 'utf8').toString());
 	});
 
-	ui.get('/voicemailHistory', function(req, res) {
+	ui.get('/voicemailHistory', function (req, res) {
 		res.end(fs.readFileSync(FILE_VOICEMAIL_HISTORY, 'utf8').toString());
 	});
 
-	ui.get('/about', function(req, res) {
+	ui.get('/about', function (req, res) {
 		res.end(fs.readFileSync(_PATH + 'README.md', 'utf8').toString());
 	});
 
 	/** ==> POST SECTION */
 
 	let audioRecordStorage = multer.diskStorage({
-		destination: function(req, file, callback) {
+		destination: function (req, file, callback) {
 			if (!fs.existsSync(Core._UPLOAD)) {
 				fs.mkdirSync(Core._UPLOAD);
 			}
 			callback(null, Core._UPLOAD);
 		},
-		filename: function(req, file, callback) {
+		filename: function (req, file, callback) {
 			callback(null, file.fieldname + '_' + new Date().toISOString() + '.wav');
 		}
 	});
 	let audioRecordUpload = multer({ storage: audioRecordStorage }).single('audioRecord');
 
-	ui.post('/audio', audioRecordUpload, function(req, res) {
+	ui.post('/audio', audioRecordUpload, function (req, res) {
 		log.info('Audio received!');
 		log.debug(req.file);
 		new Flux('service|audioRecord|new', req.file.path, { delay: 1 });
 		res.end();
 	});
 
-	ui.post('/toggleDebug', function(req, res) {
+	ui.post('/toggleDebug', function (req, res) {
 		log.info('UI > Toggle debug');
 		let newLogLevel = log.level() == 'debug' ? 'info' : 'debug';
 		log.level(newLogLevel);
 		res.end();
 	});
 
-	ui.post('/toggleTrace', function(req, res) {
+	ui.post('/toggleTrace', function (req, res) {
 		log.info('UI > Toggle trace');
 		let newLogLevel = log.level() == 'trace' ? 'info' : 'trace';
 		log.level(newLogLevel);
@@ -233,7 +234,7 @@ function attachDefaultRoutes(ui) {
 	});
 
 	var granted = false;
-	ui.post('/grant', function(req, res) {
+	ui.post('/grant', function (req, res) {
 		let pattern = req.headers.pwd;
 		if (pattern && admin.checkPassword(pattern)) {
 			granted = true;
@@ -247,7 +248,7 @@ function attachDefaultRoutes(ui) {
 		if (granted) granted = false;
 	});
 
-	ui.post('/tts', function(req, res) {
+	ui.post('/tts', function (req, res) {
 		let params = req.query;
 		if (params.voice && params.lg && params.msg) {
 			if (!Core.isAwake() || params.hasOwnProperty('voicemail')) {

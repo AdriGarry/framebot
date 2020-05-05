@@ -45,6 +45,7 @@ var PLAYLIST = {
 Object.keys(PLAYLIST).forEach(id => {
 	fs.readdir(PLAYLIST[id].path, (err, files) => {
 		if (err) Core.error("Can't retrieve " + id + ' songs', err);
+		Core.data(PLAYLIST[id].id, files);
 		PLAYLIST[id].randomBox = new RandomBox(files);
 	});
 });
@@ -70,7 +71,7 @@ function repeatSong(playlist) {
 	Utils.getDuration(playlist.path + song)
 		.then(data => {
 			new Flux('interface|sound|play', { mp3: playlist.path + song, duration: data });
-			playlist.timeout = setTimeout(function() {
+			playlist.timeout = setTimeout(function () {
 				// log.INFO('Next song !!!', 'duration=' + data);
 				repeatSong(playlist);
 			}, data * 1000);
