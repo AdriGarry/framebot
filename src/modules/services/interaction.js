@@ -19,7 +19,6 @@ module.exports = {
 	cron: {
 		full: [
 			{ cron: '0 19 19 * * *', flux: { id: 'service|interaction|baluchon' } },
-			{ cron: '0 */25 9-16 1-5 * *', flux: { id: 'service|interaction|homeWork' } },
 			//{ cron: '0 0 12 * * 0', flux: { id: 'service|interaction|civilHorn' } },
 			{ cron: '13 0 1,13 * * *', flux: { id: 'service|interaction|uneHeure' } },
 			{ cron: '13 13,25,40,51 17-21 * * *', flux: { id: 'service|interaction|random' } }
@@ -33,7 +32,6 @@ const FLUX_PARSE_OPTIONS = [
 	{ id: 'demo', fn: demo },
 	{ id: 'goToWorkTTS', fn: goToWorkTTS },
 	{ id: 'goToWorkQueue', fn: goToWorkTTSQueue },
-	{ id: 'homeWork', fn: homeWork },
 	{ id: 'baluchon', fn: baluchonTTS },
 	{ id: 'uneHeure', fn: uneHeure },
 	{ id: 'russia', fn: russia },
@@ -171,7 +169,3 @@ function goToWorkTTS() {
 	new Flux('interface|tts|speak', tts);
 }
 
-function homeWork() {
-	log.test('HOMEWORK...');
-	new Flux('interface|tts|speak', 'Alors, comment ça va au travail ce matin ?');
-}
