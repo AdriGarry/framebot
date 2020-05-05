@@ -8,14 +8,14 @@ const Logger = require('./../api/Logger');
 const log = new Logger(__filename);
 
 /** accessor: object([id, value]) */
-function Lock(obj, file, open) {
+function Lock(obj, filePath, open) {
 	let self = this;
 	self._obj = obj;
 	self._open = open;
-	if (file) {
-		self.file = file;
+	if (filePath) {
+		self.filePath = filePath;
 	} else {
-		self.file = false;
+		self.filePath = false;
 	}
 	if (!self._open) Object.seal(self);
 	return _accessors;
@@ -40,10 +40,10 @@ function Lock(obj, file, open) {
 	}
 
 	function _setter(id, newValue) {
-		if (self.file) {
+		if (self.filePath) {
 			log.debug('Updating: ' + id + '=' + newValue);
 			_setValue(self._obj, id, newValue, self._open);
-			fs.writeFileSync(self.file, JSON.stringify(self._obj, null, 1));
+			fs.writeFileSync(self.filePath, JSON.stringify(self._obj, null, 1));
 		} else {
 			_setValue(self._obj, id, newValue, self._open);
 		}
