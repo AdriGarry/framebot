@@ -5,7 +5,7 @@ const { exec } = require('child_process'),
 	fs = require('fs'),
 	fsPromises = fs.promises,
 	os = require('os'),
-	request = require('request'),
+	http = require('http'),
 	dns = require('dns');
 
 const logger = require('./Logger');
@@ -56,7 +56,7 @@ module.exports = class Utils {
 
 	static deleteFolderRecursive(path) {
 		if (fs.existsSync(path)) {
-			fs.readdirSync(path).forEach(function(file, index) {
+			fs.readdirSync(path).forEach(function (file, index) {
 				let curPath = path + '/' + file;
 				if (fs.lstatSync(curPath).isDirectory()) {
 					// recurse
@@ -130,9 +130,9 @@ module.exports = class Utils {
 	static getLocalIp() {
 		let ifaces = os.networkInterfaces(),
 			localIp = '';
-		Object.keys(ifaces).forEach(function(ifname) {
+		Object.keys(ifaces).forEach(function (ifname) {
 			let alias = 0;
-			ifaces[ifname].forEach(function(iface) {
+			ifaces[ifname].forEach(function (iface) {
 				if ('IPv4' !== iface.family || iface.internal !== false) {
 					// skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
 					return;
@@ -163,10 +163,31 @@ module.exports = class Utils {
 				});
 		});
 	}
-
 	static postOdi(url, data) {
 		return new Promise((resolve, reject) => {
-			request.post(
+			// TODO parse url param with regex to extract host + path variables
+			let options = {
+				host: url,
+				//path: "/oss/v1/buckets",
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'User-Interface': 'UIv5'
+				},
+				json: true,
+				data: data
+			};
+			http.request(options, (res) => {
+				let responseString = "";
+				res.on("data", (data) => {
+					responseString += data; // save all the data from response
+				});
+				res.on("end", () => {
+					log.test(responseString); // print to console when response ends
+					resolve(body);
+				});
+			})
+			/*request.post(
 				{
 					url: url,
 					headers: {
@@ -180,14 +201,14 @@ module.exports = class Utils {
 					if (err) reject(err);
 					resolve(body);
 				}
-			);
+			);*/
 		});
 	}
 
 	/** Function to test internet connection */
 	static testConnection() {
 		return new Promise((resolve, reject) => {
-			dns.lookup('google.com', function(err) {
+			dns.lookup('google.com', function (err) {
 				if (err && err.code == 'ENOTFOUND') {
 					reject(err);
 				} else {
@@ -214,10 +235,10 @@ module.exports = class Utils {
 	static debounce(func, wait, immediate, context) {
 		let result;
 		let timeout = null;
-		return function() {
+		return function () {
 			let ctx = context || this,
 				args = arguments;
-			let later = function() {
+			let later = function () {
 				timeout = null;
 				if (!immediate) result = func.apply(ctx, args);
 			};
@@ -234,12 +255,12 @@ module.exports = class Utils {
 		let ctx, args, result;
 		let timeout = null;
 		let previous = 0;
-		let later = function() {
+		let later = function () {
 			previous = new Date();
 			timeout = null;
 			result = func.apply(ctx, args);
 		};
-		return function() {
+		return function () {
 			let now = new Date();
 			if (!previous && !leading) previous = now;
 			let remaining = wait - (now - previous);
@@ -476,18 +497,18 @@ function _appendFileData(data, obj) {
 }
 
 /** Function to repeat/concat a string */
-String.prototype.repeat = function(num) {
+String.prototype.repeat = function (num) {
 	if (Number(num)) return new Array(Math.abs(num) + 1).join(this);
 	return '';
 };
 
 /** Function to remove quotes in a string */
-String.prototype.unQuote = function() {
+String.prototype.unQuote = function () {
 	return this.replace(/'|"/gm, '');
 };
 
 // Returns the ISO week of the date.
-Date.prototype.getWeek = function() {
+Date.prototype.getWeek = function () {
 	let date = new Date(this.getTime());
 	date.setHours(0, 0, 0, 0);
 	// Thursday in current week decides the year.
