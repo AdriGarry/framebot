@@ -11,9 +11,10 @@ const Logger = require('./../../api/Logger'),
 	Utils = require('./../../api/Utils'),
 	Observers = require('./../../api/Observers');
 
-const log = new Logger(__filename);
-
 const RandomBox = require('randombox').RandomBox;
+const CALENDAR = require(Core._DATA + 'calendar-fr.json');
+
+const log = new Logger(__filename);
 
 module.exports = {
 	cron: {
@@ -33,6 +34,7 @@ const FLUX_PARSE_OPTIONS = [
 	{ id: 'goToWorkTTS', fn: goToWorkTTS },
 	{ id: 'goToWorkQueue', fn: goToWorkTTSQueue },
 	{ id: 'baluchon', fn: baluchonTTS },
+	{ id: 'weekDayTTS', fn: weekDayTTS },
 	{ id: 'uneHeure', fn: uneHeure },
 	{ id: 'russia', fn: russia },
 	{ id: 'russiaHymn', fn: russiaHymn },
@@ -48,6 +50,7 @@ const RANDOM_ACTIONS = [
 	{ id: 'service|interaction|exclamation', weight: 4 },
 	{ id: 'service|time|now', weight: 1 },
 	{ id: 'service|time|today', weight: 1 },
+	{ id: 'service|interaction|weekDayTTS', weight: 2 },
 	{ id: 'service|weather|random', weight: 3 },
 	{ id: 'service|weather|astronomy', weight: 3 },
 	{ id: 'interface|hardware|cpuTTS', weight: 1 },
@@ -150,6 +153,14 @@ function baluchonTTS() {
 	let tts = Utils.randomItem(BALUCHON_MSG);
 	log.debug('baluchonTTS', tts);
 	new Flux('interface|tts|speak', tts);
+}
+
+function weekDayTTS() {
+	let TTS_1 = "Si aujourdh'ui on est ";
+	let TTS_2 = "Alors, demain on sera ";
+	let dayOfWeek = new Date().getDay();
+	new Flux('interface|tts|speak', TTS_1 + CALENDAR.days[dayOfWeek]);
+	new Flux('interface|tts|speak', TTS_2 + CALENDAR.days[dayOfWeek + 1]);
 }
 
 const GO_TO_WORK_TTS = [
