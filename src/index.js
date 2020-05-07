@@ -22,14 +22,16 @@ const Core = require('./core/Core').initializeContext(descriptor, forcedParams, 
 
 const Flux = require('./api/Flux');
 
-const log = new (require('./api/Logger'))(__filename, Core.conf('mode'));
+const logger = require('./api/Logger');
+
+const log = new logger(__filename, Core.conf('mode'));
 
 const Utils = require('./api/Utils');
 log.info(' -->  ' + Core.Name + ' ready [' + Utils.executionTime(Core.startTime) + 'ms]');
 
 ////////  TEST section  ////////
 if (Core.conf('mode') === 'test') {
-	setTimeout(function() {
+	setTimeout(function () {
 		new Flux('interface|tts|speak', { lg: 'en', msg: 'Integration tests sequence' });
 		const integrationTests = require('./test/integration/tests');
 		integrationTests.launch();
