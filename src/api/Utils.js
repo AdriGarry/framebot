@@ -6,11 +6,14 @@ const { exec } = require('child_process'),
 	fsPromises = fs.promises,
 	os = require('os'),
 	http = require('http'),
+	https = require('https'),
 	dns = require('dns');
 
 const logger = require('./Logger');
 
 const log = new logger(__filename);
+
+const URL_REGEX = new RegExp(/(http|https):\/\/(?<host>[\w.]*)(?<path>\/.*)/);
 
 module.exports = class Utils {
 	/**
@@ -163,12 +166,19 @@ module.exports = class Utils {
 				});
 		});
 	}
+
+
 	static postOdi(url, data) {
 		return new Promise((resolve, reject) => {
+			let matchObj = URL_REGEX.exec(url);
+			let host = matchObj.groups.host;
+			let path = matchObj.groups.path;
+			log.test('host:', host);
+			log.test('path:', path);
 			// TODO parse url param with regex to extract host + path variables
 			let options = {
-				host: url,
-				//path: "/oss/v1/buckets",
+				host: host,
+				path: path,
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -177,16 +187,20 @@ module.exports = class Utils {
 				json: true,
 				data: data
 			};
-			http.request(options, (res) => {
-				let responseString = "";
-				res.on("data", (data) => {
+			let req = https.request(options, (res) => {
+				let responseString = '';
+				res.on('data', (data) => {
 					responseString += data; // save all the data from response
 				});
-				res.on("end", () => {
+				res.on('end', () => {
 					log.test(responseString); // print to console when response ends
-					resolve(body);
+					resolve(responseString);
 				});
-			})
+			});
+
+			req.on('error', err => {
+				log.error('request error', err);
+			});
 			/*request.post(
 				{
 					url: url,

@@ -29,9 +29,13 @@ log.info(' -->  ' + Core.Name + ' ready [' + Utils.executionTime(Core.startTime)
 
 ////////  TEST section  ////////
 if (Core.conf('mode') === 'test') {
-	setTimeout(function() {
+	setTimeout(function () {
 		new Flux('interface|tts|speak', { lg: 'en', msg: 'Integration tests sequence' });
 		const integrationTests = require('./test/integration/tests');
 		integrationTests.launch();
 	}, 1000);
 }
+
+Utils.delay(5)
+	.then(() => Utils.postOdi(Core.url.ODI + 'flux/service/time/now').then(data => { log.test(data) }));
+
