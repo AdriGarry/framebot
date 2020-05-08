@@ -73,7 +73,7 @@ function initializeContext(descriptor, forcedParams, startTime) {
 	if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
 	console.log('\n' + fs.readFileSync(Core._CONF + 'logo.txt', 'utf8').toString());
-	log.table(Core.conf(), 'CONFIG');
+	// log.table(Core.conf(), 'CONFIG'); // deprecated
 	if (Core.isAwake()) {
 		spawn('mplayer', ['-volume', 50, Core._MP3 + 'system/startup.mp3']);
 	}
