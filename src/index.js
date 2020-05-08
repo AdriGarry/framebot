@@ -29,6 +29,10 @@ const log = new logger(__filename, Core.conf('mode'));
 const Utils = require('./api/Utils');
 log.info(' -->  ' + Core.Name + ' ready [' + Utils.executionTime(Core.startTime) + 'ms]');
 
+Utils.delay(2).then(() => {
+	log.table(Object.keys(Core.data()), 'DATA');
+})
+
 ////////  TEST section  ////////
 if (Core.conf('mode') === 'test') {
 	setTimeout(function () {
