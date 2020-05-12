@@ -28,28 +28,28 @@ var isOnline = true,
 	internetTestInterval = setInterval(() => {
 		Utils.testConnection()
 			.then(onlineCallback)
-			.catch(notConnectedCallback)
-		// .catch(() => {
-		// 	log.warn();
-		// 	log.warn('testConnection failed one time, retrying...')
-		// 	Utils.testConnection()
-		// 		.then(onlineCallback)
-		// 		.catch(notConnectedCallback);
-		// });
-	}, 2 * 1000);
+			.catch(() => {
+				log.warn('testConnection failed, retrying...')
+				Utils.testConnection()
+					.then(log.info("I'm still online!"))
+					.catch(notConnectedCallback);
+			});
+	}, 10 * 1000);
 
 function onlineCallback() {
 	if (!isOnline) {
 		log.info();
 		log.info("I'm back on the internet!");
+		Utils.getPublicIp().then(ip => Core.run('network.public', ip));
 	}
 	isOnline = true;
 }
 
-function notConnectedCallback() {
+function notConnectedCallback(err) {
 	if (isOnline) {
 		log.warn();
 		log.warn("I've lost my internet connection!");
+		Core.run('network.public', 'offline');
 	}
 	isOnline = false;
 }
