@@ -49,7 +49,7 @@ function renewCertbot() {
 	log.INFO('renew Certbot certificate');
 	// TODO y'a un truc car il faut intervenir dans le script
 	// TODO use https://www.npmjs.com/package/greenlock
-	Utils.execCmd('core certbot')
+	Utils.execCmd('sudo framebot certbot') // TODO sudo useless ?
 		.then(data => {
 			log.info('core certificate successfully', data);
 			resolve(lastDate[0]);
