@@ -41,5 +41,3 @@ if (Core.conf('mode') === 'test') {
 		integrationTests.launch();
 	}, 1000);
 }
-Utils.delay(5)
-	.then(() => Utils.postOdi(Core.url.ODI + 'flux/service/time/now').then(data => { log.test(data) }));
