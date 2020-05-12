@@ -21,10 +21,10 @@ Observers.attachFluxParser('interface', 'rfxcom', rfxcomHandler);
 function rfxcomHandler(flux) {
 	if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === false) {
 		sendStatus(flux.value);
-		new Flux('service|internetBox|strategy');
+		new Flux('service|internetNetwork|strategy');
 	} else if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === true) {
 		sendStatus(flux.value);
-		new Flux('service|internetBox|strategyOff');
+		new Flux('service|internetNetwork|strategyOff');
 	} else if (flux.id == 'send') {
 		sendStatus(flux.value);
 	} else {
@@ -35,16 +35,16 @@ function rfxcomHandler(flux) {
 const DEVICE = new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
 const DEVICE_LIST = Core.descriptor.rfxcomDevices;
 
-rfxtrx.initialise(function() {
+rfxtrx.initialise(function () {
 	Core.run('rfxcom', true);
 	log.info('Rfxcom gateway ready', '[' + Utils.executionTime(Core.startTime) + 'ms]');
 
-	rfxtrx.on('receive', function(evt) {
+	rfxtrx.on('receive', function (evt) {
 		new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 		log.info('Rfxcom_receive:', Buffer.from(evt).toString('hex'));
 	});
 
-	rfxtrx.on('disconnect', function(evt) {
+	rfxtrx.on('disconnect', function (evt) {
 		log.warn('Rfxcom disconnected!', Buffer.from(evt).toString('hex'));
 	});
 });
