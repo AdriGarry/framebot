@@ -133,7 +133,7 @@ module.exports = class Utils {
 		return new Promise((resolve, reject) => {
 			dns.lookup('adrigarry.com', function (err) {
 				if (err && err.code == 'ENOTFOUND') {
-					log.test(Utils.executionTime(execTime) + 'ms');
+					log.debug('test connexion failed in', Utils.executionTime(execTime) + 'ms');
 					reject(err);
 				} else {
 					resolve();
