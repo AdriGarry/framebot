@@ -158,6 +158,12 @@ function attachDefaultRoutes(ui) {
 		}, 500);
 	});
 
+	ui.get('/data', function (req, res) {
+		setTimeout(() => {
+			res.end(JSON.stringify(Core.data()));
+		}, 500);
+	});
+
 	ui.get('/errors', function (req, res) {
 		res.end(JSON.stringify(Core.errors));
 	});

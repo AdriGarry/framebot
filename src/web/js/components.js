@@ -156,6 +156,7 @@ app.component('runtime', {
 			label: 'Runtime',
 			actionList: [
 				// { label: 'Errors', icon: 'fab fa-sith', url: 'https://odi.adrigarry.com/errors' },
+				{ label: 'Data', icon: 'fas fa-database', url: 'https://odi.adrigarry.com/data' },
 				{ label: 'Config', icon: 'fab fa-whmcs', url: 'https://odi.adrigarry.com/config.json' },
 				{ label: 'Runtime', icon: 'fab fa-buffer', url: 'https://odi.adrigarry.com/runtime' }
 			]
