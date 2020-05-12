@@ -36,6 +36,7 @@ function _setUpCoreObject(Core, descriptor, startTime) {
 	Core.conf = new Lock(require(Core._TMP + 'conf.json'), Core._TMP + 'conf.json');
 	Core.run = new Lock(CORE_DEFAULT.runtime);
 	Core.isAwake = isAwake;
+	Core.isOnline = isOnline;
 	Core.descriptor = descriptor;
 	Core.error = error;
 	// Core.Error = CoreError;
@@ -109,12 +110,16 @@ function initializeContext(descriptor, forcedParams, startTime) {
 }
 
 function isAwake() {
-	return Core.conf('mode') != 'sleep';
+	return Core.conf('mode') !== 'sleep';
+}
+
+function isOnline() {
+	return Core.run('network.public') !== 'offline';
 }
 
 function error(message, data, stackTrace) {
 	if (!CoreError) {
 		CoreError = require(_PATH + 'src/api/CoreError.js');
 	}
-	new CoreError(message, data, stackTrace);
+	new CoreError(message, data, stackTrace); // TODO throw real error, but bad requests will show stack trace...
 }

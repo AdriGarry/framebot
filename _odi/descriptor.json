@@ -1,23 +1,40 @@
 {
 	"name": "Odi",
 	"botBirthday": "August 9, 2015 00:00:00",
-	"birthdays": ["17/04", "13/12", "31/07"],
+	"birthdays": [
+		"17/04",
+		"13/12",
+		"31/07"
+	],
 	"url": {
 		"ODI": "https://odi.adrigarry.com/"
 	},
 	"modules": {
 		"interfaces": {
-			"base": ["led", "sound", "hardware", "arduino", "hdmi", "rfxcom"],
-			"full": ["tts"]
+			"base": [
+				"led",
+				"sound",
+				"hardware",
+				"arduino",
+				"hdmi",
+				"rfxcom"
+			],
+			"full": [
+				"tts"
+			]
 		},
 		"controllers": {
-			"base": ["button", "server", "watcher"]
+			"base": [
+				"button",
+				"server",
+				"watcher"
+			]
 		},
 		"services": {
 			"base": [
 				"context",
 				"buttonAction",
-				"internetBox",
+				"internetNetwork",
 				"time",
 				"alarm",
 				"voicemail",
@@ -25,7 +42,17 @@
 				"radiator",
 				"task"
 			],
-			"full": ["mood", "interaction", "weather", "timer", "music", "party", "video", "max", "maya"]
+			"full": [
+				"mood",
+				"interaction",
+				"weather",
+				"timer",
+				"music",
+				"party",
+				"video",
+				"max",
+				"maya"
+			]
 		}
 	},
 	"conf": {
@@ -43,23 +70,47 @@
 	},
 	"runtime": {},
 	"rfxcomDevices": {
-		"plugA": { "id": "0x01F4BF8E/1" },
-		"plugB": { "id": "0x01F4BF8E/2" },
-		"plugC": { "id": "0x01F4BF8E/3" },
+		"plugA": {
+			"id": "0x01F4BF8E/1"
+		},
+		"plugB": {
+			"id": "0x01F4BF8E/2"
+		},
+		"plugC": {
+			"id": "0x01F4BF8E/3"
+		},
 		"radiator": {
 			"id": "0x01F4BF8E/4",
 			"cron": [
 				{
 					"cron": "35 0 5-7,17-21 * * 1,4,5",
-					"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
+					"flux": {
+						"id": "interface|rfxcom|send",
+						"data": {
+							"device": "radiator",
+							"value": false
+						}
+					}
 				},
 				{
 					"cron": "35 0 5-21 * * 2,3",
-					"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
+					"flux": {
+						"id": "interface|rfxcom|send",
+						"data": {
+							"device": "radiator",
+							"value": false
+						}
+					}
 				},
 				{
 					"cron": "35 0 6-22 * * 0,6",
-					"flux": { "id": "interface|rfxcom|send", "data": { "device": "radiator", "value": false } }
+					"flux": {
+						"id": "interface|rfxcom|send",
+						"data": {
+							"device": "radiator",
+							"value": false
+						}
+					}
 				}
 			]
 		}

@@ -127,6 +127,21 @@ module.exports = class Utils {
 		}, {});
 	}
 
+	/** Function to test internet connection */
+	static testConnection() {
+		let execTime = new Date();
+		return new Promise((resolve, reject) => {
+			dns.lookup('adrigarry.com', function (err) {
+				if (err && err.code == 'ENOTFOUND') {
+					log.debug('test connexion failed in', Utils.executionTime(execTime) + 'ms');
+					reject(err);
+				} else {
+					resolve();
+				}
+			});
+		});
+	}
+
 	static getLocalIp() {
 		let ifaces = os.networkInterfaces(),
 			localIp = '';
@@ -181,19 +196,6 @@ module.exports = class Utils {
 					resolve(body);
 				}
 			);
-		});
-	}
-
-	/** Function to test internet connection */
-	static testConnection() {
-		return new Promise((resolve, reject) => {
-			dns.lookup('google.com', function (err) {
-				if (err && err.code == 'ENOTFOUND') {
-					reject(err);
-				} else {
-					resolve();
-				}
-			});
 		});
 	}
 
