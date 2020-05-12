@@ -5,7 +5,7 @@ const { exec } = require('child_process'),
 	fs = require('fs'),
 	fsPromises = fs.promises,
 	os = require('os'),
-	request = require('request'),
+	request = require('postman-request'),
 	dns = require('dns');
 
 const logger = require('./Logger');
