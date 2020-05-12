@@ -6,12 +6,13 @@ echo _PATH: $_PATH
 
 updateFrameBotScript(){
 	sudo cp $_PATH/framebot /bin/ && \
+	sudo cp $_PATH/framebot /bin/frb && \
 	
 	sudo cp $_PATH/data/framebot.service /etc/systemd/system && \
 	sudo chmod 744 /etc/systemd/system/framebot.service && \
 	sudo systemctl daemon-reload && \
 	sudo systemctl enable framebot.service && \
-	sudo systemctl start framebot.service
+	#sudo systemctl start framebot.service
 
 	echo "framebot: framebot command & service updated!\n"
 	# sudo chmod +x "$_PATH"/framebot.sh
@@ -36,9 +37,9 @@ ifStop(){
 
 ifLogtail(){
 	if [ $1 = "log" ]; then
-	tail -f /log/odi.log
+		tail -f /log/odi.log
+		exit 0
 	fi
-	exit 0
 }
 
 ifReset(){
@@ -73,6 +74,7 @@ ifCerbot $*
 clear
 
 _NAME=$1
+
 
 # Create log directory if not exists
 if [ ! -d "$_PATH"/log ];
