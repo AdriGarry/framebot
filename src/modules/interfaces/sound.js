@@ -94,8 +94,7 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
 	});
 
 	mplayerProcess.on('close', err => {
-		// if (err) Core.error('mplayerProcess.on(close', err); // TODO
-		// else
+		if (err) Core.error('mplayerProcess.onClose error', err);
 		if (!noLog) {
 			let playTime = Utils.formatDuration(Math.round(Utils.executionTime(startPlayTime) / 100) / 10);
 			log.info('play_end ' + soundTitle + ' time=' + playTime);
@@ -111,9 +110,9 @@ function mute(args) {
 	clearTimeout(muteTimer);
 	if (!args) args = {};
 	if (args.hasOwnProperty('delay') && Number(args.delay)) {
-		muteTimer = setTimeout(function() {
+		muteTimer = setTimeout(function () {
 			new Flux('interface|sound|play', { mp3: 'system/autoMute.mp3' });
-			setTimeout(function() {
+			setTimeout(function () {
 				muteAll(args.message || null);
 			}, 1600);
 		}, Number(args.delay) * 1000);
@@ -140,7 +139,6 @@ function muteAll(message) {
 }
 
 function setVolume(volume) {
-	log.info('setVolume', volume);
 	if (typeof volume === 'object' && volume.hasOwnProperty('value')) volume = volume.value;
 	if (!isNaN(volume)) {
 		let volumeUpdate = getVolumeInstructions(parseInt(volume));
@@ -196,7 +194,7 @@ function additionalVolumeSetup() {
 function ledFlag() {
 	// new Flux('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
 	new Flux('interface|led|blink', { leds: ['eye'], speed: 100, loop: 3 }, { log: 'trace' });
-	return setInterval(function() {
+	return setInterval(function () {
 		new Flux('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
 	}, 10 * 1000);
 }
