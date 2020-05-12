@@ -83,31 +83,29 @@ function repeatSong(playlist) {
 
 /** Function to play radio */
 function playRadio(radioId) {
-	Utils.testConnection()
-		.then(() => {
-			if (Core.run('music') && Core.run('music') === radioId) {
-				log.info('Already playing radio', Core.run('music'));
-				return;
-			}
-			new Flux('interface|sound|mute', null, { log: 'trace' });
-			let radio;
-			if (radioId && RADIO_LIST.hasOwnProperty(radioId)) {
-				radio = RADIO_LIST[radioId];
-			} else {
-				log.info("Radio id '" + radioId + "' not reconized, fallback to default radio.");
-				radio = RADIO_LIST.fip;
-			}
-			log.info('Play radio ' + radio.id);
-			new Flux('interface|tts|speak', radio.id + ' radio');
+	if (Core.isOnline()) {
+		if (Core.run('music') && Core.run('music') === radioId) {
+			log.info('Already playing radio', Core.run('music'));
+			return;
+		}
+		new Flux('interface|sound|mute', null, { log: 'trace' });
+		let radio;
+		if (radioId && RADIO_LIST.hasOwnProperty(radioId)) {
+			radio = RADIO_LIST[radioId];
+		} else {
+			log.info("Radio id '" + radioId + "' not reconized, fallback to default radio.");
+			radio = RADIO_LIST.fip;
+		}
+		log.info('Play radio ' + radio.id);
+		new Flux('interface|tts|speak', radio.id + ' radio');
 
-			new Flux('interface|sound|play', { url: radio.url }, { delay: 2 });
-			Core.run('music', radio.id);
-			new Flux('interface|sound|mute', { message: 'Auto Mute radio!', delay: AUTO_MUTE_TIMEOUT });
-		})
-		.catch(() => {
-			log.info('No internet connexion, falling back to jukebox');
-			playlist();
-		});
+		new Flux('interface|sound|play', { url: radio.url }, { delay: 2 });
+		Core.run('music', radio.id);
+		new Flux('interface|sound|mute', { message: 'Auto Mute radio!', delay: AUTO_MUTE_TIMEOUT });
+	} else {
+		log.info('No internet connexion, falling back to jukebox');
+		playlist();
+	}
 }
 
 /** Function to stop music timeout */
