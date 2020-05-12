@@ -25,18 +25,6 @@ module.exports = {
 	attachRoutes: attachRoutes
 };
 
-let IP = { local: null, public: null };
-setImmediate(() => {
-	Utils.testConnection()
-		.then(() => {
-			IP.local = Utils.getLocalIp();
-			Utils.getPublicIp().then(data => (IP.public = data));
-		})
-		.catch(() => {
-			log.warn("No internet connection, can't retreive ip addresses!");
-		});
-});
-
 function attachRoutes(ui, modulesApi) {
 	uiHttp = ui;
 
@@ -239,7 +227,8 @@ function attachDefaultRoutes(ui) {
 		if (pattern && admin.checkPassword(pattern)) {
 			granted = true;
 			log.info('>> Admin granted !');
-			log.info('ip:', IP.local, typeof IP.public === 'string' ? '/ ' + IP.public.trim() : '');
+			let ip = Core.run('network');
+			log.info('ip:', ip.local, typeof ip.public === 'string' ? '/ ' + ip.public.trim() : '');
 		} else {
 			Core.error('>> User NOT granted /!\\', pattern, false);
 			new Flux('interface|tts|speak', { lg: 'en', msg: 'User NOT granted' }, { delay: 0.5 });
