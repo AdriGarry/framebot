@@ -1,13 +1,6 @@
 <md-dialog class="modal">
 	<md-dialog-content class="md-dialog-content">
-		<h2 class="md-title">{{modal.label}}</h2>
-
-		<!--<ul>
-			<li data-ng-repeat="(key, value) in modal.data track by $index">
-				<span class="key" data-ng-show="!isNumber(key)">{{key}}</span> {{value}}
-			</li>
-		</ul>-->
-
+		<h2 class="md-title">{{modal.from.label}}</h2>
 		<pre data-ng-hide="modal.from.label == 'About'">{{modal.data | json:4}}</pre>
 		<div data-ng-if="modal.from.label == 'About'" data-ng-bind-html="modal.raw | markdown" class="markdown"></div>
 

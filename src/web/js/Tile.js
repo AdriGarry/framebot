@@ -1,5 +1,5 @@
 /** DefaultTile object **/
-app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UIService, audioService) {
+app.factory('DefaultTile', function ($rootScope, $mdDialog, $mdBottomSheet, UIService, audioService) {
 	// Tile constructor function
 	function Tile(tile) {
 		// this.id = (tile.label.split(' ')[0].toLowerCase()) || ''; // setting tile id from first label word
@@ -41,11 +41,12 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 	function action(button) {
 		if (button.url.indexOf('https://') > -1) {
 			//$window.open(button.url);
-			UIService.getRequest(button.url, function(data) {
+			UIService.getRequest(button.url, function (data) {
 				$mdDialog.show({
 					controller: DialogController,
 					templateUrl: 'templates/dialog.html',
 					locals: {
+						label: button.label,
 						data: data,
 						from: button
 					},
@@ -55,7 +56,7 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 				});
 			});
 		} else if (button.label && button.url) {
-			UIService.sendCommand(button, function(data) {
+			UIService.sendCommand(button, function (data) {
 				//$scope.showToast(button.label);
 			});
 		}
@@ -70,7 +71,7 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 				controller: 'BottomSheetController',
 				clickOutsideToClose: true
 			})
-			.then(function(button) {
+			.then(function (button) {
 				if (specificAction) {
 					specificAction(button);
 				} else {
@@ -88,7 +89,7 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 				controller: 'BottomSheetController',
 				clickOutsideToClose: true
 			})
-			.then(function(button) {
+			.then(function (button) {
 				if (specificAction) {
 					specificAction(button);
 				} else {
@@ -106,10 +107,10 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 				controller: bottomSheetController,
 				clickOutsideToClose: true
 			})
-			.then(function(button) {
+			.then(function (button) {
 				//
 			})
-			.catch(function() {
+			.catch(function () {
 				console.log('You hit escape or clicked the backdrop to close.');
 				catchFunction(audioService);
 			});
@@ -117,9 +118,9 @@ app.factory('DefaultTile', function($rootScope, $mdDialog, $mdBottomSheet, UISer
 	return Tile;
 });
 
-app.controller('BottomSheetController', function($scope, $mdBottomSheet) {
+app.controller('BottomSheetController', function ($scope, $mdBottomSheet) {
 	/** Function on click on bottom sheet **/
-	$scope.bottomSheetAction = function(button) {
+	$scope.bottomSheetAction = function (button) {
 		$mdBottomSheet.hide(button);
 	};
 });
