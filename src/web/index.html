@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-ng-app="odiUI">
+<html lang="en" data-ng-app="odiUI">
 
 <head>
 	<!-- Global Site Tag (gtag.js) - Google Analytics -->
@@ -60,7 +60,6 @@
 		</div>
 		<md-list style="max-width:500px;margin:0 auto;">
 			<md-list-item class="md-3-line">
-				<!-- <i class="md-avatar"></i> -->
 				<div class="md-list-item-text">
 					<h2 style="text-align:center;">Accept location or leave Odi.</h2>
 				</div>
@@ -101,7 +100,6 @@
 				data-ng-click="reloadUI()" title="Reload UI" />
 			<img src="img/snow.gif" alt="Connexion lost" data-ng-class="connexionLost ? 'visible' : 'hidden'"
 				class="odiFace connexionLost" title="Odi is not responding..." />
-			<!-- data-ng-click="reloadUI()" -->
 			<h1 class="ng-slide-fast"
 				data-ng-dblclick="$root.irda && action({label: 'Restart Odi', url: '/flux/service/context/restart'})"
 				title="{{ $root.irda ? 'Restart Odi\'s Core' : 'Hey, I\'m Odi !' }}">
@@ -121,7 +119,6 @@
 			</md-button>
 		</div>
 		<md-progress-linear md-mode="query" data-ng-show="dashboard.refreshing"></md-progress-linear>
-		<!-- data-ng-disabled="dashboard.refreshing" -->
 	</md-toolbar>
 
 	<md-sidenav data-ng-if="$root.position" class="md-sidenav-left" data-ng-class="{'fullScreen': log.fullScreen}"
@@ -216,7 +213,6 @@
 		<md-content data-flex data-layout-padding>
 			<div data-layout="row" data-layout-padding data-layout-align="space-around" data-layout-wrap
 				class="dashboard ng-slide">
-				<!-- <div layout="row" layout-wrap> -->
 				<tts data="dashboard.runningData.mode" data-access="$root.irda" flex="100"></tts>
 				<mode data="dashboard.runningData.mode" data-access="$root.irda" flex="33"></mode>
 				<options data="dashboard.runningData" data-access="$root.irda" flex="33"
