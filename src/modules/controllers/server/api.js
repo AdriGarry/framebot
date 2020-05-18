@@ -229,7 +229,7 @@ function attachDefaultRoutes(ui) {
 
 	var granted = false;
 	ui.post('/grant', function (req, res) {
-		let pattern = req.headers.pwd;
+		let pattern = req.headers.pwd.split('#')[0]; // get security pattern without anchor character
 		if (pattern && admin.checkPassword(pattern)) {
 			granted = true;
 			log.info('>> Admin granted !');
