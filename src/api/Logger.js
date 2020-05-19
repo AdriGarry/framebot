@@ -92,9 +92,9 @@ module.exports = class Logger {
 		}
 		let table = '┌' + '─'.repeat(tableSize.col1 + tableSize.col2 + 5) + '┐\n' + logArrayTitle;
 
-		Object.keys(datas).forEach(function(key, index) {
+		Object.keys(datas).forEach(function (key, index) {
 			let data = datas[key];
-			Object.keys(data).forEach(function(key2, index2) {
+			Object.keys(data).forEach(function (key2, index2) {
 				let data2 = data[key2];
 				if (index2 == 0) {
 					table +=
@@ -219,5 +219,6 @@ function _calculateTableSize(datas) {
 			return el;
 		})
 	);
+	if (tableSize.col1 == '-Infinity' || tableSize.col2 == '-Infinity') tableSize = { col1: 2, col2: 2 };
 	return tableSize;
 }
