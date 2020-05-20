@@ -29,7 +29,7 @@ var isOnline = true,
 		Utils.testConnection()
 			.then(onlineCallback)
 			.catch(() => {
-				log.warn('testConnection failed, retrying...')
+				log.info('testConnection failed, retrying...')
 				Utils.testConnection()
 					.then(log.info("I'm still online!"))
 					.catch(notConnectedCallback);
