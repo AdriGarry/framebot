@@ -39,6 +39,7 @@
 		"hdmi": null,
 		"rfxcom": false,
 		"radiator": false,
+		"mosquito": false,
 		"screen": null,
 		"network": {},
 		"cpu": {
