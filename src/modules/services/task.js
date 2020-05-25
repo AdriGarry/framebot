@@ -30,8 +30,9 @@ function goToSleep() {
 	// radiator off
 	new Flux('interface|rfxcom|send', { device: 'radiator', value: true });
 
-	// plugA & plugB off
 	new Flux('interface|led|blink', { leds: ['belly', 'eye'], speed: 200, loop: 5 }, { delay: 50 });
+
+	// plugA & plugB off
 	new Flux('interface|rfxcom|send', { device: 'plugA', value: false }, { delay: 60 });
 	// new Flux('interface|rfxcom|send', { device: 'plugB', value: false }, { delay: 60 });
 
