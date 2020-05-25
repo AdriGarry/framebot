@@ -164,6 +164,9 @@ app.controller('UIController', function (
 		logTailWebSocket.onclose = function () {
 			console.log('logTail web socket closed!');
 			$scope.log.tail = false;
+			$timeout(() => {
+				$scope.openLogTailWebSocket(true);
+			}, 10000);
 		}
 	};
 
