@@ -41,3 +41,6 @@ if (Core.conf('mode') === 'test') {
 		integrationTests.launch();
 	}, 1000);
 }
+
+
+// new Flux('interface|sound|play', { mp3: 'system/modemDialup.mp3' });

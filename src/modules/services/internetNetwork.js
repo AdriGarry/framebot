@@ -40,6 +40,7 @@ function onlineCallback() {
 	if (!isOnline) {
 		log.info();
 		log.info("I'm back on the internet!");
+		// new Flux('interface|sound|play', { mp3: 'system/modemDialup.mp3' });
 		Utils.getPublicIp().then(ip => Core.run('network.public', ip));
 	}
 	isOnline = true;
