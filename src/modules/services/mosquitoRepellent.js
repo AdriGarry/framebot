@@ -16,6 +16,8 @@ const log = new Logger(__filename);
 
 module.exports = {};
 
+const TIMEOUT = { 'ON': 2, 'OFF': 8 };
+
 setImmediate(() => {
 	Utils.delay(10).then(initMosquitoRepellentMode);
 });
@@ -32,8 +34,8 @@ function initMosquitoRepellentMode() {
 
 function togglePlug(mode, timeout) {
 	log.debug('togglePlug', mode, timeout);
-	if (!timeout || mode) timeout = 2;
-	else timeout = 5;
+	if (!timeout || mode) timeout = TIMEOUT.ON;
+	else timeout = TIMEOUT.OFF;
 	log.info('toggle mosquito repellent plug', mode ? 'on' : 'off', 'for ' + timeout + ' min');
 	plugOrder(mode);
 	Utils.delay(timeout * 60).then(() => {
@@ -42,9 +44,9 @@ function togglePlug(mode, timeout) {
 }
 
 function plugOrder(mode) {
-	if (typeof variable !== 'boolean') mode = false;
+	if (typeof mode !== 'boolean') mode = false;
 	log.debug('mosquito repellent', mode);
 	Core.run('mosquito', mode);
-	new Flux('interface|rfxcom|send', { device: 'plugC', value: !mode });
+	new Flux('interface|rfxcom|send', { device: 'plugC', value: mode });
 }
 
