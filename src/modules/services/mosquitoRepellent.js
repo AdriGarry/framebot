@@ -16,7 +16,7 @@ const log = new Logger(__filename);
 
 module.exports = {};
 
-const TIMEOUT = { 'ON': 2, 'OFF': 8 };
+const TIMEOUT = { 'ON': 1, 'OFF': 4 };
 
 setImmediate(() => {
 	Utils.delay(10).then(initMosquitoRepellentMode);
@@ -25,7 +25,7 @@ setImmediate(() => {
 function initMosquitoRepellentMode() {
 	let today = new Date();
 	if (today.getMonth() < 4 || today.getMonth() > 9) {
-		log.debug('not in mosquito season!');
+		log.info('not in mosquito season!');
 		return;
 	}
 	log.info('init mosquito repellent mode [' + Utils.executionTime(Core.startTime) + 'ms]');
