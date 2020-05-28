@@ -977,6 +977,7 @@ app.component('tasks', {
 			label: 'Tasks',
 			actionList: [
 				{ label: 'Renew Certbot', icon: 'fas fa-tools', url: '/flux/service/task/certbot' },
+				{ label: 'Mosquito', icon: 'fas fa-spider', url: '/flux/service/mosquitoRepellent/toggle' },
 				{ label: 'goToSleep', icon: 'fas fa-bed', url: '/flux/service/task/goToSleep' }
 			]
 		};
