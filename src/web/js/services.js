@@ -155,9 +155,15 @@ app.service('UIService', [
 			);
 		};
 
+
+		let logSize, logIncrement;
+		ctrl.resetlogCounter = function () {
+			logSize = 50;
+			logIncrement = 20;
+		};
+		ctrl.resetlogCounter();
+
 		/** Function to update logs **/
-		let logSize = 50;
-		let logIncrement = 20;
 		ctrl.updateLogs = function (callback) {
 			$http({
 				headers: {

@@ -139,6 +139,11 @@ app.controller('UIController', function (
 		}, 200);
 	};
 
+	$scope.clearLogs = function () {
+		$scope.log.data = $scope.log.data.slice(-1 * 5); // keep 5 last lines
+		UIService.resetlogCounter();
+	};
+
 	$scope.toggleLogTail = function () {
 		if ($scope.log.tail) {
 			$scope.closeLogTailWebSocket();

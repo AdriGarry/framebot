@@ -353,6 +353,13 @@ md-button.md-fab.ng-slide.active {
 	text-align: center;
 }
 
+.clearLogsButton{
+	position: absolute;
+	padding-top:4px;
+	right: 5%;
+	background-color: #607d8b!important;
+}
+
 .tools button {
 	margin-left: 5%;
 	margin-right: 5%;

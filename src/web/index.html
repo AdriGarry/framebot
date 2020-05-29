@@ -127,6 +127,10 @@
 			<i class="debugLog fas fa-circle" data-ng-if="dashboard.odiState.debug && !dashboard.odiState.trace"
 				title="Debug mode"></i>
 			<i class="debugLog far fa-dot-circle" data-ng-if="dashboard.odiState.trace" title="Trace mode"></i>
+			<md-button class="md-fab md-background clearLogsButton" data-ng-click="clearLogs()" title="Clear logs"
+				aria-label="Clear logs">
+				<i class="fas fa-lg fa-2x fa-trash-alt"></i>
+			</md-button>
 
 			<div class="center">
 				<md-progress-circular md-diameter="150" data-ng-show="log.loading"></md-progress-circular>
