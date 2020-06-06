@@ -140,7 +140,7 @@ app.controller('UIController', function (
 	};
 
 	$scope.clearLogs = function () {
-		$scope.log.data = $scope.log.data.slice(-1 * 5); // keep 5 last lines
+		$scope.log.data = $scope.log.data.slice(-5); // keep 5 last lines
 		UIService.resetlogCounter();
 	};
 
