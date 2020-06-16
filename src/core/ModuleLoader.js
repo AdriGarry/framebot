@@ -11,7 +11,6 @@ const log = new Logger(__filename);
 module.exports = class ModuleLoader {
 	constructor(modules) {
 		this.modules = modules;
-		this.loadedModules;
 	}
 
 	load() {
