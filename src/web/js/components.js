@@ -998,7 +998,7 @@ app.component('history', {
 			label: 'History',
 			actionList: [
 				{ label: 'Trash uploads', icon: 'fas fa-microphone', url: '/audio/trash' },
-				{ label: 'Archive logs', icon: 'fas fa-file-archive', url: '/flux/interface/hardware/archiveLog' },
+				{ label: 'Archive logs', icon: 'fas fa-file-archive', url: '/flux/interface/hardware/archiveLogs' },
 				{ label: 'TTS', icon: 'far fa-comment-alt', url: 'https://odi.adrigarry.com/ttsUIHistory' },
 				{ label: 'Voicemail', icon: 'far fa-envelope', url: 'https://odi.adrigarry.com/voicemailHistory' },
 				{ label: 'Request', icon: 'fas fa-exchange-alt', url: 'https://odi.adrigarry.com/requestHistory' },
