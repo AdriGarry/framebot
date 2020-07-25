@@ -95,22 +95,42 @@ app.component('mode', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function (DefaultTile) {
+	controller: function (DefaultTile, $rootScope) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Mode',
 			actionList: [
-				{
-					label: 'Sleep forever',
-					icon: 'fas fa-moon',
-					url: '/flux/service/context/sleepForever'
-				},
+				{ label: 'Mood', icon: 'far fa-grin-alt', value: { continu: true } },
 				{ label: 'Sleep', icon: 'far fa-moon', url: '/flux/service/context/sleep' },
 				{ label: 'Reset', icon: 'fas fa-retweet', url: '/flux/service/context/reset' },
 				{ label: 'Restart', icon: 'fas fa-bolt', url: '/flux/service/context/restart' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
+
+		/** Overwrite tile action */
+		ctrl.tile.click = function () {
+			if (!$rootScope.irda) {
+				UIService.showErrorToast('Unauthorized action.');
+			} else {
+				ctrl.tile.openBottomSheet(this.actionList, specificMoodActions);
+			}
+		};
+
+		const PLUG_FLUX_URL = '/flux/service/mood/set';
+		let specificMoodActions = function (action) {
+			let actionList = [
+				{ label: '0', icon: 'fas fa-volume-mute', url: PLUG_FLUX_URL, value: 0 },
+				{ label: '1', icon: 'far fa-meh-blank', url: PLUG_FLUX_URL, value: 1 },
+				{ label: '2', icon: 'far fa-grin-beam', url: PLUG_FLUX_URL, value: 2 },
+				{ label: '3', icon: 'far fa-grin-squint', url: PLUG_FLUX_URL, value: 3 },
+				{ label: '4', icon: 'far fa-grin-tongue-wink', url: PLUG_FLUX_URL, value: 4 },
+				{ label: '5', icon: 'far fa-grin-squint-tears', url: PLUG_FLUX_URL, value: 5 }
+			];
+
+			ctrl.tile.openBottomSheet(actionList, ctrl.tile.action);
+		};
+
 	}
 });
 
@@ -178,6 +198,7 @@ app.component('alarms', {
 		let tileParams = {
 			label: 'Alarms',
 			actionList: [
+				{ label: 'Sleep forever', icon: 'fas fa-moon', url: '/flux/service/context/sleepForever' },
 				{ label: 'Disable all', icon: 'fas fa-ban', url: '/flux/service/alarm/off' },
 				{ label: 'weekDay', icon: 'far fa-frown', url: '/flux/service/alarm/set' },
 				{ label: 'weekEnd', icon: 'far fa-smile', url: '/flux/service/alarm/set' }
