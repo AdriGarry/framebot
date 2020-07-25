@@ -34,7 +34,6 @@ function birthdaySong() {
 function start() {
 	log.INFO("Let's start the party !!  <|:-)");
 	new Flux('interface|tts|speak', { voice: 'google', lg: 'en', msg: "Let's start the party" });
-	Core.run('mood', 'party');
 	firePartyActionAndRandom();
 }
 
@@ -105,7 +104,6 @@ var maxJavaRandomBox = new RandomBox(['service|max|playOneMelody', 'service|max|
 var ttsRandomBox = new RandomBox(Core.ttsMessages.random);
 /** Function to start bad boy mode */
 function java(interval) {
-	Core.run('mood', 'java');
 	log.INFO('JAVA mode !');
 	new Flux('interface|tts|speak', 'On va faire la java !');
 	for (let i = 0; i < 20; i++) {
@@ -123,7 +121,6 @@ function java(interval) {
 /** Function to start bad boy mode */
 function badBoy(interval) {
 	if (typeof interval === 'number') {
-		Core.run('mood', 'badBoy');
 		log.info('Bad Boy mode !! [' + interval + ']');
 		new Flux('interface|tts|speak', { lg: 'en', msg: 'Baad boy !' });
 		var loop = 0;

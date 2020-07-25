@@ -151,7 +151,6 @@ function setVolume(volume) {
 		}
 		Core.run('volume', volume);
 		log.info('Volume level =', volume + '%');
-		additionalVolumeSetup();
 	} else {
 		Core.error('volume argument not a numeric value', volume);
 	}
@@ -179,16 +178,6 @@ function getVolumeInstructions(newVolume) {
 	let gap = Math.abs(indexNewVolume - indexActualVolume);
 	log.debug({ increase: increase, gap: gap });
 	return { increase: increase, gap: gap };
-}
-
-function additionalVolumeSetup() {
-	if (Core.run('volume') > 50) {
-		new Flux('interface|arduino|connect');
-	} else {
-		if (Core.run('max')) {
-			new Flux('interface|arduino|disconnect');
-		}
-	}
 }
 
 function ledFlag() {

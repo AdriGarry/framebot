@@ -26,7 +26,7 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('interface', 'arduino', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-	if (Core.run('volume') > 50) {
+	if (Core.run('mood') >= 3) {
 		connect();
 	}
 });
@@ -36,7 +36,7 @@ function connect() {
 		log.warn('arduino channel already open!');
 		return;
 	}
-	arduino = new SerialPort(ARDUINO.address, { baudRate: ARDUINO.baudRate }, function(err) {
+	arduino = new SerialPort(ARDUINO.address, { baudRate: ARDUINO.baudRate }, function (err) {
 		if (err) {
 			Core.error('Error opening arduino port: ', err.message, false);
 			// TODO Scheduler to retry connect...?
@@ -51,13 +51,13 @@ function connect() {
 			// 	new Flux('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
 
 			var feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
-			feedback.on('data', function(data) {
+			feedback.on('data', function (data) {
 				log.debug(data);
 				new Flux('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
 				new Flux('service|max|parse', data.trim(), { log: 'trace' });
 			});
 
-			arduino.on('close', function(data) {
+			arduino.on('close', function (data) {
 				data = String(data);
 				if (data.indexOf('bad file descriptor') >= 0) {
 					Core.error('Max is disconnected', data, false);
@@ -87,7 +87,7 @@ function write(msg) {
 		log.info('Max not available!');
 		return;
 	}
-	arduino.write(msg + '\n', function(err, data) {
+	arduino.write(msg + '\n', function (err, data) {
 		if (err) {
 			Core.error('Error while writing to arduino', err);
 		}

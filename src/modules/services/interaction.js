@@ -94,9 +94,9 @@ function randomAction() {
 function exclamation() {
 	log.info('Exclamation');
 	new Flux('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { log: 'trace' });
-	let exclamation = exclamationRandomBox.next();
+	let newtExclamation = exclamationRandomBox.next();
 	new Flux('interface|sound|play', {
-		mp3: 'exclamation/' + exclamation
+		mp3: 'exclamation/' + newtExclamation
 	});
 }
 
@@ -179,4 +179,3 @@ function goToWorkTTS() {
 	log.debug('goToWorkTTS', tts);
 	new Flux('interface|tts|speak', tts);
 }
-
