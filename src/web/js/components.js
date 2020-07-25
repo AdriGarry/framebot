@@ -121,12 +121,12 @@ app.component('mode', {
 		let specificMoodActions = function (action) {
 			if (action.label === 'Mood') {
 				let actionList = [
-					{ label: '0', icon: 'fas fa-volume-mute', url: PLUG_FLUX_URL, value: 0 },
-					{ label: '1', icon: 'far fa-meh-blank', url: PLUG_FLUX_URL, value: 1 },
-					{ label: '2', icon: 'far fa-grin-beam', url: PLUG_FLUX_URL, value: 2 },
-					{ label: '3', icon: 'far fa-grin-squint', url: PLUG_FLUX_URL, value: 3 },
-					{ label: '4', icon: 'far fa-grin-tongue-wink', url: PLUG_FLUX_URL, value: 4 },
-					{ label: '5', icon: 'far fa-grin-squint-tears', url: PLUG_FLUX_URL, value: 5 }
+					{ label: 'Mood 0', icon: 'fas fa-volume-mute', url: PLUG_FLUX_URL, value: 0 },
+					{ label: 'Mood 1', icon: 'far fa-meh-blank', url: PLUG_FLUX_URL, value: 1 },
+					{ label: 'Mood 2', icon: 'far fa-grin-beam', url: PLUG_FLUX_URL, value: 2 },
+					{ label: 'Mood 3', icon: 'far fa-grin-squint', url: PLUG_FLUX_URL, value: 3 },
+					{ label: 'Mood 4', icon: 'far fa-grin-tongue-wink', url: PLUG_FLUX_URL, value: 4 },
+					{ label: 'Mood 5', icon: 'far fa-grin-squint-tears', url: PLUG_FLUX_URL, value: 5 }
 				];
 				ctrl.tile.openBottomSheet(actionList, ctrl.tile.action);
 			} else {
