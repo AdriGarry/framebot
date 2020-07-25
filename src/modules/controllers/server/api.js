@@ -74,7 +74,8 @@ function attachDefaultRoutes(ui) {
 								? 'Debug'
 								: Utils.firstLetterUpper(Core.conf('mode')),
 					param: Core.conf('startTime'),
-					switch: etatBtn == 'high' ? true : false
+					switch: etatBtn == 'high' ? true : false,
+					mood: Core.run('mood')
 				}
 			},
 			switch: {

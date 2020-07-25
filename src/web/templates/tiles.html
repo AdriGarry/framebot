@@ -1,11 +1,12 @@
-<div flex="1" data-ng-click="$ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep" data-ng-class="$ctrl.cssClass()"
- title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label" class="tile md-button md-raised ng-slide-fast">
+<div flex="1" data-ng-click="$ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep"
+	data-ng-class="$ctrl.cssClass()" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label"
+	class="tile md-button md-raised ng-slide-fast">
 	<!--{'expanded':$ctrl.tile.expanded, {{$ctrl.tile.id}}: true}-->
 	<!--data-md-ink-ripple="{{$ctrl.tile.expanded}}"-->
 	<!--data-md-no-ink="$ctrl.tile.expanded" OU md-ink-ripple...-->
 	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fas fa-2x fa-ellipsis-h adminFlag"></i>
-	<i data-ng-if="$ctrl.tile.expanded" data-ng-click="$ctrl.toggleTileHeight();$event.stopPropagation()" class="fas fa-2x fa-times adminFlag closeBtn"
-	 title="Reduce"></i>
+	<i data-ng-if="$ctrl.tile.expanded" data-ng-click="$ctrl.toggleTileHeight();$event.stopPropagation()"
+		class="fas fa-2x fa-times adminFlag closeBtn" title="Reduce"></i>
 
 	<span data-ng-if="0" class="debugObject">{{$ctrl.tile}}</span>
 	<span data-ng-if="0" class="debugObject">{{$ctrl.data.value}}</span>
@@ -17,8 +18,8 @@
 				<md-input-container flex="30">
 					<label>Voice</label>
 					<md-select name="type" data-ng-model="$ctrl.tts.voice">
-						<md-option data-ng-repeat="voice in $ctrl.tts.conf.voiceList track by $index" data-ng-value="voice.code"
-						 data-ng-checked="voice.code == espeak">
+						<md-option data-ng-repeat="voice in $ctrl.tts.conf.voiceList track by $index"
+							data-ng-value="voice.code" data-ng-checked="voice.code == espeak">
 							{{voice.label}}
 						</md-option>
 					</md-select>
@@ -26,14 +27,15 @@
 
 				<div flex></div>
 				<label flex="10" class="pointer text-center desktopZoom">
-					<i class="fa-2x" data-ng-class="!$ctrl.tts.voicemail ? 'far fa-envelope' : 'fas fa-envelope'" data-ng-click="$ctrl.tts.voicemail = !$ctrl.tts.voicemail"></i>
+					<i class="fa-2x" data-ng-class="!$ctrl.tts.voicemail ? 'far fa-envelope' : 'fas fa-envelope'"
+						data-ng-click="$ctrl.tts.voicemail = !$ctrl.tts.voicemail"></i>
 				</label>
 				<div flex></div>
 				<md-input-container flex="30">
 					<label>Language</label>
 					<md-select name="type" data-ng-model="$ctrl.tts.lg">
-						<md-option data-ng-repeat="language in $ctrl.tts.conf.languageList track by $index" data-ng-value="language.code"
-						 data-ng-checked="language.code == fr">
+						<md-option data-ng-repeat="language in $ctrl.tts.conf.languageList track by $index"
+							data-ng-value="language.code" data-ng-checked="language.code == fr">
 							{{language.label}}
 						</md-option>
 					</md-select>
@@ -48,8 +50,8 @@
 						<span data-ng-show="$ctrl.tts.voicemail">Voicemail message</span>
 						<span data-ng-hide="$ctrl.tts.voicemail">Message</span>
 					</label>
-					<input type="text" id="ttsMsg" name="ttsMsg" maxlength="200" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()"
-					 data-ng-trim="false" autocomplete="off">
+					<input type="text" id="ttsMsg" name="ttsMsg" maxlength="200" data-ng-model="$ctrl.tts.msg"
+						data-ng-change="$ctrl.tts.cleanText()" data-ng-trim="false" autocomplete="off">
 					<!--required-->
 					<!--autocomplete="off"-->
 					<!-- <textarea type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" autocomplete="off"></textarea> -->
@@ -59,9 +61,11 @@
 					</datalist>-->
 				</md-input-container>
 				<md-input-container flex="25" class="md-block centerText ng-slide">
-					<md-button type="submit" class="md-raised md-primary" title="Send the message !" data-ng-disabled="!$ctrl.tile.expanded">
+					<md-button type="submit" class="md-raised md-primary" title="Send the message !"
+						data-ng-disabled="!$ctrl.tile.expanded">
 						<span class="desktopOnlyInline">&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;</span>
-						<i class="fas fa-lg" data-ng-class="$ctrl.tts.voicemail ? 'far fa-envelope' : 'far fa-paper-plane'"></i>&nbsp;&nbsp;
+						<i class="fas fa-lg"
+							data-ng-class="$ctrl.tts.voicemail ? 'far fa-envelope' : 'far fa-paper-plane'"></i>&nbsp;&nbsp;
 					</md-button>
 				</md-input-container>
 			</div>
@@ -69,21 +73,27 @@
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Mode">
-		<i class="fas fa-rotate-270 fa-2x switch" data-ng-class="$ctrl.data.value.switch ? 'fas fa-toggle-on' : 'fas fa-toggle-off'"></i>
+		<i class="fas fa-rotate-270 fa-2x switch"
+			data-ng-class="$ctrl.data.value.switch ? 'fas fa-toggle-on' : 'fas fa-toggle-off'"></i>
 		<div class="main">
 			<i class="mainInfo far fa-moon" data-ng-show="$ctrl.data.value.mode == 'Sleep'"></i>
-			<div data-ng-hide="$ctrl.data.value.mode == 'Sleep'">{{$ctrl.data.value.mode}}</div>
-			<div class="param" data-ng-show="!$ctrl.data.value.debug" data-ng-class="$ctrl.data.value.mode =='Sleep'? 'paramSleep' : ''">{{$ctrl.data.value.param}}</div>
-			<div class="param" data-ng-show="$ctrl.data.value.debug" title="Timeout to abort debug">{{$ctrl.data.value.debug}}min</div>
+			<div data-ng-hide="$ctrl.data.value.mode == 'Sleep'">
+				{{$ctrl.data.value.mode}}<small><small><sup>[{{$ctrl.data.value.mood}}]</sup></small></small></div>
+			<div class="param" data-ng-show="!$ctrl.data.value.debug"
+				data-ng-class="$ctrl.data.value.mode =='Sleep'? 'paramSleep' : ''">{{$ctrl.data.value.param}}</div>
+			<div class="param" data-ng-show="$ctrl.data.value.debug" title="Timeout to abort debug">
+				{{$ctrl.data.value.debug}}min</div>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Options">
 		<div class="main">
-				<i class="far fa-dot-circle" data-ng-show="$ctrl.data.trace.value"></i>
-				<i class="fas fa-circle" data-ng-show="$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
-				<i class="fas fa-eye" data-ng-show="$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
-				<i class="fas fa-cogs" data-ng-show="!$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
+			<i class="far fa-dot-circle" data-ng-show="$ctrl.data.trace.value"></i>
+			<i class="fas fa-circle" data-ng-show="$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
+			<i class="fas fa-eye"
+				data-ng-show="$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
+			<i class="fas fa-cogs"
+				data-ng-show="!$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
 		</div>
 	</div>
 
@@ -99,7 +109,8 @@
 		<div class="main ">
 			<i class="far fa-bell" data-ng-if="$ctrl.nextAlarm"></i>
 			<i class="far fa-bell-slash" data-ng-if="!$ctrl.nextAlarm"></i>
-			<span data-ng-show="$ctrl.data.value && $ctrl.nextAlarm">{{$ctrl.nextAlarm.h}}:{{$ctrl.nextAlarm.m | formatNumber:2}}
+			<span
+				data-ng-show="$ctrl.data.value && $ctrl.nextAlarm">{{$ctrl.nextAlarm.h}}:{{$ctrl.nextAlarm.m | formatNumber:2}}
 			</span>
 		</div>
 	</div>
@@ -250,8 +261,10 @@
 	<div class="tileContent" data-ng-switch-when="Radiator">
 		<div class="main">
 			<i class="fas fa-thermometer-half" data-ng-if="$ctrl.data.config.radiator == 'auto'"></i>
-			<i class="fas fa-thermometer-full" data-ng-if="$ctrl.data.config.radiator == 'on' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='on'"></i>
-			<i class="fas fa-thermometer-quarter" data-ng-if="$ctrl.data.config.radiator == 'off' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='off'"></i>
+			<i class="fas fa-thermometer-full"
+				data-ng-if="$ctrl.data.config.radiator == 'on' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='on'"></i>
+			<i class="fas fa-thermometer-quarter"
+				data-ng-if="$ctrl.data.config.radiator == 'off' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='off'"></i>
 			<small>
 				<span data-ng-if="!$ctrl.isTimeout()">{{$ctrl.data.config.radiator}}</span>
 				<span data-ng-if="$ctrl.isTimeout()">{{$ctrl.data.config.radiator.timeout}}<small>min</small></span></small>
