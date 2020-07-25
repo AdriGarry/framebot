@@ -95,7 +95,7 @@ app.component('mode', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function (DefaultTile, $rootScope) {
+	controller: function (DefaultTile, $rootScope, UIService) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Mode',
@@ -119,18 +119,20 @@ app.component('mode', {
 
 		const PLUG_FLUX_URL = '/flux/service/mood/set';
 		let specificMoodActions = function (action) {
-			let actionList = [
-				{ label: '0', icon: 'fas fa-volume-mute', url: PLUG_FLUX_URL, value: 0 },
-				{ label: '1', icon: 'far fa-meh-blank', url: PLUG_FLUX_URL, value: 1 },
-				{ label: '2', icon: 'far fa-grin-beam', url: PLUG_FLUX_URL, value: 2 },
-				{ label: '3', icon: 'far fa-grin-squint', url: PLUG_FLUX_URL, value: 3 },
-				{ label: '4', icon: 'far fa-grin-tongue-wink', url: PLUG_FLUX_URL, value: 4 },
-				{ label: '5', icon: 'far fa-grin-squint-tears', url: PLUG_FLUX_URL, value: 5 }
-			];
-
-			ctrl.tile.openBottomSheet(actionList, ctrl.tile.action);
+			if (action.label === 'Mood') {
+				let actionList = [
+					{ label: '0', icon: 'fas fa-volume-mute', url: PLUG_FLUX_URL, value: 0 },
+					{ label: '1', icon: 'far fa-meh-blank', url: PLUG_FLUX_URL, value: 1 },
+					{ label: '2', icon: 'far fa-grin-beam', url: PLUG_FLUX_URL, value: 2 },
+					{ label: '3', icon: 'far fa-grin-squint', url: PLUG_FLUX_URL, value: 3 },
+					{ label: '4', icon: 'far fa-grin-tongue-wink', url: PLUG_FLUX_URL, value: 4 },
+					{ label: '5', icon: 'far fa-grin-squint-tears', url: PLUG_FLUX_URL, value: 5 }
+				];
+				ctrl.tile.openBottomSheet(actionList, ctrl.tile.action);
+			} else {
+				ctrl.tile.action(action);
+			}
 		};
-
 	}
 });
 
