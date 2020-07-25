@@ -45,7 +45,7 @@ function okButtonAction(duration) {
 			if (Utils.rdm()) {
 				new Flux('service|party|tts');
 			} else {
-				new Flux('service|mood|badBoy');
+				new Flux('service|party|badBoy');
 			}
 		} else {
 			new Flux('service|interaction|random');

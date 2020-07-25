@@ -10,6 +10,16 @@ const Logger = require('./../../api/Logger'),
 
 const log = new Logger(__filename);
 
+module.exports = {
+	cron: {
+		full: [
+			{ cron: '10 0 17 * * *', flux: { id: 'service|mood|set', data: 3 } },
+			{ cron: '10 0 21 * * *', flux: { id: 'service|mood|set', data: 2 } },
+			{ cron: '10 0 23 * * *', flux: { id: 'service|mood|set', data: 1 } }
+		]
+	}
+};
+
 
 const FLUX_PARSE_OPTIONS = [
 	{ id: 'set', fn: setMoodLevel, condition: { isAwake: true } },
@@ -19,32 +29,34 @@ Observers.attachFluxParseOptions('service', 'mood', FLUX_PARSE_OPTIONS);
 
 const MOOD_LEVELS = {
 	0: { volume: 0 },  // muted
-	1: { volume: 30 }, // system tts (including timer, and others human triggered functions)
-	2: { volume: 50 }, // information tts (weather, hour, today...)
-	3: { volume: 60 }, // max + interactive tts + exclamation sounds
+	1: { volume: 30 }, // system tts: clock, and others human triggered functions (timer...)
+	2: { volume: 50 },
+	3: { volume: 60 }, // max + interaction
 	4: { volume: 80 }, // screen/diapo
-	5: { volume: 100 } // party mode + pirate ?
+	5: { volume: 100 } // party mode + pirate
 };
 
-var moodLevelId = Core.run('mood');
-
 setImmediate(() => {
-	setMoodLevel(moodLevelId);
+	setMoodLevel(Core.run('mood'));
 });
 
 function setMoodLevel(newMoodLevelId) {
+	Core.run('mood', newMoodLevelId);
 	log.info('Mood level set to', newMoodLevelId);
-	moodLevelId = newMoodLevelId;
-	new Flux('interface|sound|volume', MOOD_LEVELS[moodLevelId].volume);
-	additionalMoodSetup();
+	new Flux('interface|sound|volume', MOOD_LEVELS[newMoodLevelId].volume);
+	additionalMoodSetup(newMoodLevelId);
 }
 
-function additionalMoodSetup() {
+function additionalMoodSetup(moodLevelId) {
 	// Max
 	if (moodLevelId >= 3) {
 		new Flux('interface|arduino|connect');
 	} else if (Core.run('max')) {
 		new Flux('interface|arduino|disconnect');
+	}
+	// Interaction
+	if (moodLevelId >= 3) {
+		scheduleFluxWhileMoodLevel(3, 20, { id: 'service|interaction|random' });
 	}
 
 	// HDMI (video loop)
@@ -53,4 +65,18 @@ function additionalMoodSetup() {
 	} else if (Core.run('screen')) {
 		new Flux('interface|hdmi|off');
 	}
+
+	// Party
+	if (moodLevelId === 5) {
+		new Flux('service|party|start');
+		scheduleFluxWhileMoodLevel(5, 5, { id: 'service|party|pirate' });
+	}
+}
+
+function scheduleFluxWhileMoodLevel(moodLevelLimit, minutesInterval, flux) {
+	new Flux(flux.id, flux.data);
+	let interval = setInterval(() => {
+		if (Core.run('mood') >= moodLevelLimit) new Flux(flux.id, flux.data);
+		else clearInterval(interval);
+	}, minutesInterval * 60 * 1000);
 }

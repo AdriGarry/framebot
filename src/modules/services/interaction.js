@@ -22,7 +22,6 @@ module.exports = {
 			{ cron: '0 19 19 * * *', flux: { id: 'service|interaction|baluchon' } },
 			//{ cron: '0 0 12 * * 0', flux: { id: 'service|interaction|civilHorn' } },
 			{ cron: '13 0 1,13 * * *', flux: { id: 'service|interaction|uneHeure' } },
-			{ cron: '13 13,25,40,51 17-21 * * *', flux: { id: 'service|interaction|random' } }
 		]
 	}
 };
@@ -48,10 +47,10 @@ setImmediate(() => { });
 const RANDOM_ACTIONS = [
 	{ id: 'interface|tts|speak', weight: 7 },
 	{ id: 'service|interaction|exclamation', weight: 4 },
-	{ id: 'service|time|now', weight: 1 },
+	{ id: 'service|time|now', weight: 2 },
 	{ id: 'service|time|today', weight: 1 },
 	{ id: 'service|interaction|weekDayTTS', weight: 2 },
-	{ id: 'service|weather|random', weight: 3 },
+	{ id: 'service|weather|random', weight: 4 },
 	{ id: 'service|weather|astronomy', weight: 3 },
 	{ id: 'interface|hardware|cpuTTS', weight: 1 },
 	{ id: 'service|time|age', weight: 1 },
@@ -87,7 +86,7 @@ function randomAction() {
 		log.info('randomAction:', action.id, '[' + action.weight + ']');
 		new Flux(action.id, action.data);
 	} catch (err) {
-		Core.error('ACTION TO DEBUG =>', typeof action, action);
+		Core.error('ACTION TO DEBUG =>', typeof action, action); // TODO
 	}
 }
 
