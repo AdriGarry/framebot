@@ -59,8 +59,8 @@
 			{ "msg": "Et, tu pourrais quand maime me dire bonjour" },
 			{ "voice": "google", "msg": "Oui, c'est la moindre des choses !" }
 		],
-		"Et, faudrait pas lancer une lessive ?",
-		"Et, faudrait pas lancer une lessive ?",
+		"Eh, faudrait pas lancer une lessive ?",
+		"Eh, faudrait pas lancer une lessive ?",
 		{ "voice": "espeak", "msg": "Pense a vairifier le compost" },
 		{ "voice": "google", "msg": "Pense a vairifier le compost" },
 		{ "voice": "espeak", "msg": "Arrose le basilic!" },

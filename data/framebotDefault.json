@@ -29,8 +29,8 @@
 	"runtime": {
 		"etat": null,
 		"volume": null,
+		"mood": 2,
 		"max": null,
-		"mood": [],
 		"music": false,
 		"alarm": false,
 		"timer": 0,

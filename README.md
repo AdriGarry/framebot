@@ -6,7 +6,9 @@ It's a kind of framework, to run js modules, with a flux manager, logger, tools.
 
 Available modes: ready, sleep, test
 
-## Main functionalities:
+## Functionalities:
+
+### Main functionalities:
 
 - Voice synthesizer (TTS)
 - Voicemail
@@ -41,6 +43,18 @@ Available modes: ready, sleep, test
 - Arduino (USB)
 - Screen (HDMI)
 - Rfxcom
+
+### Mood
+
+Mood level, from 0 to 5 is an indice to set expressive level of the bot.
+
+- 0: muted [volume = 0]
+- 1: system tts: clock, and others human triggered functions (timer...) [volume = 30]
+- 2: [volume = 50]
+- 3: max + interaction [volume = 60]
+- 4: screen (diapo) [volume = 80]
+- 5: party mode + pirate [volume = 100]
+
 
 ## Installation / Usage
 

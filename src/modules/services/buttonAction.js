@@ -41,11 +41,11 @@ function okButtonAction(duration) {
 			new Flux('service|audioRecord|check');
 		} else if (Core.run('music')) {
 			new Flux('service|music|playlist', Core.run('music')); // TODO fix this incorrect flux
-		} else if (Core.run('mood').indexOf('party') > -1) {
+		} else if (Core.run('mood') === 5) {
 			if (Utils.rdm()) {
 				new Flux('service|party|tts');
 			} else {
-				new Flux('service|mood|badBoy');
+				new Flux('service|party|badBoy');
 			}
 		} else {
 			new Flux('service|interaction|random');
@@ -89,29 +89,6 @@ function etatButtonAction(value) {
 	Core.run('etat', value ? 'high' : 'low');
 	log.info('Etat button value:', Core.run('etat'));
 	new Flux('interface|led|toggle', { leds: ['satellite'], value: value }, { log: 'trace' });
-	let newVolume = Core.isAwake() ? (value ? 100 : 50) : 0;
-	new Flux('interface|sound|volume', newVolume, { log: 'debug' });
-	if (Core.run('screen')) {
-		new Flux('interface|hdmi|off');
-	}
-	etatInteraction(value);
-}
-
-var instance = false,
-	intervalEtat;
-const INTERVAL_DELAY = (Core.conf('watcher') ? 60 : 5 * 60) * 1000; //3 * 60 * 1000;
-function etatInteraction(value) {
-	if (1 === value) {
-		if (!instance) {
-			instance = true;
-			intervalEtat = setInterval(function() {
-				log.info('Etat btn Up => random action');
-				new Flux('service|interaction|random');
-			}, INTERVAL_DELAY);
-			new Flux('service|video|loop');
-		}
-	} else {
-		instance = false;
-		clearInterval(intervalEtat);
-	}
+	let newMoodId = Core.isAwake() ? (value ? 4 : 2) : 0;
+	new Flux('service|mood|set', newMoodId, { log: 'debug' });
 }
