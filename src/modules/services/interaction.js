@@ -159,7 +159,7 @@ function weekDayTTS() {
 	let TTS_2 = "Alors, demain on sera ";
 	let dayOfWeek = new Date().getDay();
 	new Flux('interface|tts|speak', TTS_1 + CALENDAR.days[dayOfWeek]);
-	new Flux('interface|tts|speak', TTS_2 + CALENDAR.days[dayOfWeek + 1]);
+	new Flux('interface|tts|speak', TTS_2 + ((CALENDAR.days[dayOfWeek + 1]) || CALENDAR.days[0]));
 }
 
 const GO_TO_WORK_TTS = [
