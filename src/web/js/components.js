@@ -674,9 +674,9 @@ app.component('badBoy', {
 		let tileParams = {
 			label: 'Bad boy',
 			actionList: [
-				{ label: 'Java', icon: 'fas fa-grin-squint-tears', url: '/flux/service/mood/java' },
-				{ label: 'BadBoy Mode', icon: 'fas fa-hand-middle-finger', url: '/flux/service/mood/badBoy', continu: true },
-				{ label: 'BadBoy TTS', icon: 'fas fa-hand-middle-finger', url: '/flux/service/mood/badBoy' }
+				{ label: 'Java', icon: 'fas fa-grin-squint-tears', url: '/flux/service/party/java' },
+				{ label: 'BadBoy Mode', icon: 'fas fa-hand-middle-finger', url: '/flux/service/party/badBoy', continu: true },
+				{ label: 'BadBoy TTS', icon: 'fas fa-hand-middle-finger', url: '/flux/service/party/badBoy' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -695,7 +695,7 @@ app.component('badBoy', {
 			if (button.label.toUpperCase().indexOf('BADBOY MODE') != -1) {
 				let slider = {
 					label: 'Bad boy interval',
-					url: '/flux/service/mood/badBoy',
+					url: '/flux/service/party/badBoy',
 					legend: 'min',
 					min: 10,
 					max: 300,

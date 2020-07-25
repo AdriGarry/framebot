@@ -9,6 +9,8 @@ const Logger = require('./../../api/Logger'),
 	Utils = require('./../../api/Utils'),
 	Observers = require('./../../api/Observers');
 
+const RandomBox = require('randombox').RandomBox;
+
 const log = new Logger(__filename);
 
 module.exports = {};
@@ -17,7 +19,9 @@ const FLUX_PARSE_OPTIONS = [
 	{ id: 'start', fn: start },
 	{ id: 'birthdaySong', fn: birthdaySong },
 	{ id: 'tts', fn: partyTTS },
-	{ id: 'pirate', fn: pirate }
+	{ id: 'pirate', fn: pirate },
+	{ id: 'badBoy', fn: badBoy },
+	{ id: 'java', fn: java }
 ];
 
 Observers.attachFluxParseOptions('service', 'party', FLUX_PARSE_OPTIONS);
@@ -37,7 +41,7 @@ function start() {
 function firePartyActionAndRandom() {
 	let nextActionTimeout = Utils.random(2, 10) * 30;
 	log.debug('firePartyActionAndRandom(). next action=', nextActionTimeout);
-	setTimeout(function() {
+	setTimeout(function () {
 		log.info('firing next party action...');
 		let rdmAction = Utils.random(7);
 		switch (rdmAction) {
@@ -93,4 +97,66 @@ function getNewRdmPartyTTS() {
 	}
 	lastRdmNb.push(rdmNb);
 	return Core.ttsMessages.party[rdmNb];
+}
+
+// const MAX_JAVA = ['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm'];
+var maxJavaRandomBox = new RandomBox(['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm']);
+
+var ttsRandomBox = new RandomBox(Core.ttsMessages.random);
+/** Function to start bad boy mode */
+function java(interval) {
+	Core.run('mood', 'java');
+	log.INFO('JAVA mode !');
+	new Flux('interface|tts|speak', 'On va faire la java !');
+	for (let i = 0; i < 20; i++) {
+		// new Flux('interface|tts|speak', Utils.randomItem(Core.ttsMessages.random));
+		new Flux('interface|tts|speak', ttsRandomBox.next());
+	}
+
+	setInterval(() => {
+		let maxAction = maxJavaRandomBox.next();
+		new Flux(maxAction);
+		new Flux('service|interaction|exclamation');
+	}, 3000);
+}
+
+/** Function to start bad boy mode */
+function badBoy(interval) {
+	if (typeof interval === 'number') {
+		Core.run('mood', 'badBoy');
+		log.info('Bad Boy mode !! [' + interval + ']');
+		new Flux('interface|tts|speak', { lg: 'en', msg: 'Baad boy !' });
+		var loop = 0;
+		setInterval(function () {
+			loop++;
+			if (loop >= interval) {
+				badBoyTTS();
+				loop = 0;
+			}
+		}, 1000);
+	} else {
+		badBoyTTS();
+	}
+}
+
+function badBoyTTS() {
+	new Flux('interface|tts|speak', getNewRdmBadBoyTTS());
+	setTimeout(function () {
+		new Flux('interface|tts|speak', getNewRdmBadBoyTTS());
+	}, 1000);
+}
+
+/** Function to select a different TTS each time */
+const BAD_BOY_TTS_LENGTH = Core.ttsMessages.badBoy.length;
+var rdmNb,
+	lastRdmNb = [],
+	rdmTTS = '';
+function getNewRdmBadBoyTTS() {
+	do {
+		rdmNb = Utils.random(BAD_BOY_TTS_LENGTH);
+		rdmTTS = Core.ttsMessages.badBoy[rdmNb];
+		if (lastRdmNb.length >= BAD_BOY_TTS_LENGTH) lastRdmNb.shift();
+	} while (lastRdmNb.indexOf(rdmNb) != -1);
+	lastRdmNb.push(rdmNb);
+	return rdmTTS;
 }
