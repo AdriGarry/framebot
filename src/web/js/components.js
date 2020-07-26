@@ -367,7 +367,7 @@ app.component('music', {
 			actionList: [
 				{ label: 'Low', icon: 'fas fa-kiwi-bird', url: '/flux/service/music/playlist', value: 'low' },
 				{ label: 'Jukebox', icon: 'fas fa-compact-disc', url: '/flux/service/music/playlist' },
-				{ label: 'Radio BAM', icon: 'fab fa-suse', url: '/flux/service/music/radio', value: 'bam' },
+				{ label: 'Radio BAM', icon: 'fas fa-broadcast-tower', url: '/flux/service/music/radio', value: 'bam' },
 				{ label: 'FIP Radio', icon: 'fas fa-globe-europe', url: '/flux/service/music/radio', value: 'fip' }
 			]
 		};
