@@ -179,8 +179,8 @@ app.service('UIService', [
 					callback(res.data);
 				},
 				function errorCallback(res) {
-					console.error(res);
-					callback(res);
+					console.error('Can\'t retrieve logs', res);
+					callback();
 				}
 			);
 		};

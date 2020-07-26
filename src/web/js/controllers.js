@@ -207,8 +207,10 @@ app.controller('UIController', function (
 	$scope.refreshLog = function () {
 		$scope.log.loading = true;
 		UIService.updateLogs(function (logs) {
-			$scope.log.loading = false;
-			$scope.log.data = logs.split('\n');
+			if (logs) {
+				$scope.log.loading = false;
+				$scope.log.data = logs.split('\n');
+			}
 		});
 	};
 
