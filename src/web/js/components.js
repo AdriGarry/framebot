@@ -202,8 +202,8 @@ app.component('alarms', {
 			actionList: [
 				{ label: 'Sleep forever', icon: 'fas fa-moon', url: '/flux/service/context/sleepForever' },
 				{ label: 'Disable all', icon: 'fas fa-ban', url: '/flux/service/alarm/off' },
-				{ label: 'weekDay', icon: 'far fa-frown', url: '/flux/service/alarm/set' },
-				{ label: 'weekEnd', icon: 'far fa-smile', url: '/flux/service/alarm/set' }
+				{ label: 'weekDay', icon: 'far fa-frown', url: '/flux/service/alarm/set', continu: true },
+				{ label: 'weekEnd', icon: 'far fa-smile', url: '/flux/service/alarm/set', continu: true }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -240,11 +240,11 @@ app.component('alarms', {
 		};
 
 		let specificActions = function (button) {
-			if (button.url !== '/flux/service/alarm/off') {
+			if (button.label !== 'Disable all' && button.label !== 'Sleep forever') {
 				ctrl.newAlarm = button;
 				showTimePicker();
 			} else {
-				UIService.sendCommand(button);
+				ctrl.tile.action(button);
 			}
 		};
 
