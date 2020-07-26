@@ -61,14 +61,13 @@
 							<span class="item-title">
 								<span
 									data-ng-class="{'fas fa-music': option.type==='song', 'fas fa-italic':option.type==='text'}"></span>
-								<span>{{option.label}} {{option.type}}</span>
+								<span>{{option.label}}</span>
 							</span>
 							<!--<span class="item-metadata">
 								<small>Play song</small>
 							</span>-->
 						</md-item-template>
-					</md-autocomplete>{{$ctrl.selectedOption}}
-					<!-- {{$ctrl.songList}} -->
+					</md-autocomplete>$ctrl.selectedOption: {{$ctrl.selectedOption}}
 
 				</md-input-container>
 				<md-input-container flex="25" class="md-block centerText ng-slide">

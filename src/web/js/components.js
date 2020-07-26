@@ -37,7 +37,9 @@ app.component('tts', {
 		};
 
 		function focusOnTtsInput() {
-			$window.document.getElementById('inputText').focus(); // Setting to focus on tts message input
+			let autocompleteElement = $window.document.getElementById('inputText');
+			let autocompleteInputElement = autocompleteElement.getElementsByTagName('input')[0];
+			if (autocompleteInputElement) autocompleteInputElement.focus();
 		}
 
 		ctrl.tts = {
@@ -116,8 +118,13 @@ app.component('tts', {
 					url: '/flux/interface/sound/play',
 					value: { mp3: option.value }
 				});
-
+				resetAutocomplete();
 			}
+		};
+
+		function resetAutocomplete() {
+			ctrl.textInput = null;
+			ctrl.selectedOption = null;
 		}
 
 		// Create filter function for a query string
