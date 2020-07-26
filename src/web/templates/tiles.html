@@ -53,25 +53,26 @@
 						data-ng-change="$ctrl.tts.cleanText()" data-ng-trim="false" autocomplete="off"> -->
 
 					<md-autocomplete flex id="inputText" md-input-name="inputText" md-no-cache="$ctrl.noCache"
-						md-selected-item="$ctrl.selectedItem" md-search-text="$ctrl.textInput"
-						md-items="item in $ctrl.querySearch($ctrl.textInput)" md-item-text="item.display"
-						md-escape-options="clear" md-require-match="" md-floating-label="Message or search"
-						input-aria-describedby="favoriteStateDescription" md-menu-class="autocomplete-custom-template">
+						md-selected-item="$ctrl.selectedOption" md-search-text="$ctrl.textInput"
+						md-items="option in $ctrl.querySearch($ctrl.textInput)" md-item-text="option.label"
+						md-selected-item-change="$ctrl.selectedOptionChange(option)" md-escape-options="clear"
+						md-floating-label="Message or search" md-menu-class="autocomplete-custom-template">
 						<md-item-template>
 							<span class="item-title">
-								<span class="fas fa-music"></span>
-								<span>{{item}}</span>
+								<span
+									data-ng-class="{'fas fa-music': option.type==='song', 'fas fa-italic':option.type==='text'}"></span>
+								<span>{{option.label}} {{option.type}}</span>
 							</span>
 							<!--<span class="item-metadata">
 								<small>Play song</small>
 							</span>-->
 						</md-item-template>
-					</md-autocomplete>
+					</md-autocomplete>{{$ctrl.selectedOption}}
 					<!-- {{$ctrl.songList}} -->
 
 				</md-input-container>
 				<md-input-container flex="25" class="md-block centerText ng-slide">
-					<md-button type="submit" class="md-raised md-primary" title="Send the message !"
+					<md-button type="submit" class="md-raised md-primary" title="Send message"
 						data-ng-disabled="!$ctrl.tile.expanded">
 						<span class="desktopOnlyInline">&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;</span>
 						<i class="fas fa-lg"

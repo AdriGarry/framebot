@@ -2,7 +2,7 @@
 app.component('tts', {
 	bindings: {
 		data: '<',
-		songList: '<'
+		playlists: '<'
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function ($window, DefaultTile, UIService) {
@@ -15,6 +15,10 @@ app.component('tts', {
 		ctrl.access = true;
 		ctrl.tile = new DefaultTile(tileParams, true);
 
+		ctrl.$onChanges = function (changes) {
+			ctrl.options = buildTextInputOptions();
+		};
+
 		/** Overwrite tile action */
 		ctrl.tile.click = function ($event) {
 			if (!ctrl.tile.expanded) {
@@ -23,25 +27,6 @@ app.component('tts', {
 			}
 			return false;
 		};
-
-
-		// list of `state` value/display objects
-		ctrl.selectedItem = null;
-		ctrl.textInput = null;
-
-		ctrl.querySearch = function (input) {
-			let results = input ? ctrl.songList.filter(createFilterFor(input)) : ctrl.songList;
-			return results;
-		}
-
-		// Create filter function for a query string
-		function createFilterFor(input) {
-			let lowercaseInput = input.toLowerCase();
-			return function filterFn(item) {
-				return (item.toLowerCase().indexOf(lowercaseInput) === 0);
-			};
-		}
-
 
 		ctrl.cssClass = function () {
 			return (ctrl.tile.expanded ? 'expanded' : '') + ' ' + ctrl.tile.id;
@@ -78,7 +63,7 @@ app.component('tts', {
 					{ code: 'pico', label: 'Pico' }
 				]
 			},
-			cleanText: function () {
+			cleanText() {
 				console.log('cleanText');
 				let message = ctrl.tts.msg || '';
 				message = message
@@ -91,7 +76,7 @@ app.component('tts', {
 				//message = message.replace(/[<>]/g,''); // Others characters
 				ctrl.tts.msg = message;
 			},
-			submit: function () {
+			submit() {
 				console.log('submit', ctrl.tts);
 				if (ctrl.tts.msg != '') {
 					UIService.sendTTS(ctrl.tts, function (callback) {
@@ -105,6 +90,44 @@ app.component('tts', {
 				}
 			}
 		};
+
+		function buildTextInputOptions() {
+			let options = [];
+			angular.forEach(ctrl.playlists, (playlist, playListId) => {
+				angular.forEach(playlist, (song) => {
+					options.push({ label: song, type: 'song', value: 'playlists/' + playListId + '/' + song });
+				})
+			});
+			return options;
+		}
+
+		ctrl.querySearch = function (input) {
+			let matchingOptions = input ? ctrl.options.filter(createFilterFor(input)) : ctrl.options;
+			let blankOption = { label: input, type: 'text' };
+			return matchingOptions.concat(blankOption);
+		};
+
+		ctrl.selectedOptionChange = function (option) {
+			console.log('selectedOptionChange', option);
+			if (option && option.type === 'song') {
+				ctrl.tile.action({ label: 'Mute', url: '/flux/interface/sound/mute' });
+				ctrl.tile.action({
+					label: 'Play ' + option.label,
+					url: '/flux/interface/sound/play',
+					value: { mp3: option.value }
+				});
+
+			}
+		}
+
+		// Create filter function for a query string
+		function createFilterFor(input) {
+			let lowercaseInput = input.toLowerCase();
+			return function filterFn(option) {
+				return (option.label.toLowerCase().indexOf(lowercaseInput) > -1);
+			};
+		}
+
 	}
 });
 
