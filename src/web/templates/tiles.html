@@ -42,23 +42,33 @@
 				</md-input-container>
 				<div flex></div>
 			</div>
-			<div layout="row" class="ttsMsg ng-slide">
+			<div layout="row" class="inputText ng-slide">
 				<div flex="5"></div>
 				<md-input-container flex="70" class="md-block ng-slide">
-					<!-- <label>Message</label> -->
-					<label>
+					<!-- <label>
 						<span data-ng-show="$ctrl.tts.voicemail">Voicemail message</span>
 						<span data-ng-hide="$ctrl.tts.voicemail">Message</span>
-					</label>
-					<input type="text" id="ttsMsg" name="ttsMsg" maxlength="200" data-ng-model="$ctrl.tts.msg"
-						data-ng-change="$ctrl.tts.cleanText()" data-ng-trim="false" autocomplete="off">
-					<!--required-->
-					<!--autocomplete="off"-->
-					<!-- <textarea type="search" name="ttsMsg" list="examples" data-ng-model="$ctrl.tts.msg" data-ng-change="$ctrl.tts.cleanText()" autocomplete="off"></textarea> -->
-					<!--<datalist id="examples">
-						<option value="Hey, je suis Odi !">
-						<option value="J'arrive !">
-					</datalist>-->
+					</label> -->
+					<!-- <input type="text" id="ttsMsg" name="ttsMsg" maxlength="200" data-ng-model="$ctrl.tts.msg"
+						data-ng-change="$ctrl.tts.cleanText()" data-ng-trim="false" autocomplete="off"> -->
+
+					<md-autocomplete flex id="inputText" md-input-name="inputText" md-no-cache="$ctrl.noCache"
+						md-selected-item="$ctrl.selectedItem" md-search-text="$ctrl.textInput"
+						md-items="item in $ctrl.querySearch($ctrl.textInput)" md-item-text="item.display"
+						md-escape-options="clear" md-require-match="" md-floating-label="Message or search"
+						input-aria-describedby="favoriteStateDescription" md-menu-class="autocomplete-custom-template">
+						<md-item-template>
+							<span class="item-title">
+								<span class="fas fa-music"></span>
+								<span>{{item}}</span>
+							</span>
+							<!--<span class="item-metadata">
+								<small>Play song</small>
+							</span>-->
+						</md-item-template>
+					</md-autocomplete>
+					<!-- {{$ctrl.songList}} -->
+
 				</md-input-container>
 				<md-input-container flex="25" class="md-block centerText ng-slide">
 					<md-button type="submit" class="md-raised md-primary" title="Send the message !"

@@ -1,7 +1,8 @@
 /** TTS component */
 app.component('tts', {
 	bindings: {
-		data: '<'
+		data: '<',
+		songList: '<'
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function ($window, DefaultTile, UIService) {
@@ -23,6 +24,25 @@ app.component('tts', {
 			return false;
 		};
 
+
+		// list of `state` value/display objects
+		ctrl.selectedItem = null;
+		ctrl.textInput = null;
+
+		ctrl.querySearch = function (input) {
+			let results = input ? ctrl.songList.filter(createFilterFor(input)) : ctrl.songList;
+			return results;
+		}
+
+		// Create filter function for a query string
+		function createFilterFor(input) {
+			let lowercaseInput = input.toLowerCase();
+			return function filterFn(item) {
+				return (item.toLowerCase().indexOf(lowercaseInput) === 0);
+			};
+		}
+
+
 		ctrl.cssClass = function () {
 			return (ctrl.tile.expanded ? 'expanded' : '') + ' ' + ctrl.tile.id;
 		};
@@ -32,7 +52,7 @@ app.component('tts', {
 		};
 
 		function focusOnTtsInput() {
-			$window.document.getElementById('ttsMsg').focus(); // Setting to focus on tts message input
+			$window.document.getElementById('inputText').focus(); // Setting to focus on tts message input
 		}
 
 		ctrl.tts = {

@@ -74,6 +74,13 @@ app.controller('UIController', function (
 	};
 	$scope.refreshDashboard();
 
+	$scope.songList = [];
+	UIService.getRequest('https://odi.adrigarry.com/data', function (data) {
+		if (data) {
+			$scope.songList = $scope.songList.concat(data.jukebox || [], data.low || [], data.comptines || []);
+		}
+	});
+
 	function setOdiState(data) {
 		let odiState = {};
 		if (data) {
