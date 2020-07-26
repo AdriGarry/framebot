@@ -15,11 +15,11 @@
 				"led",
 				"sound",
 				"hardware",
-				"arduino",
-				"hdmi",
 				"rfxcom"
 			],
 			"full": [
+				"arduino",
+				"hdmi",
 				"tts"
 			]
 		},
