@@ -42,13 +42,29 @@ var PLAYLIST = {
 	comptines: { id: 'comptines', path: Core._MP3 + 'playlists/comptines/' }
 };
 
+let playlists = {}, promises = [];
 Object.keys(PLAYLIST).forEach(id => {
-	fs.readdir(PLAYLIST[id].path, (err, files) => {
-		if (err) Core.error("Can't retrieve " + id + ' songs', err);
-		Core.data(PLAYLIST[id].id, files);
-		PLAYLIST[id].randomBox = new RandomBox(files);
+	let promise = new Promise((resolve, reject) => {
+		fs.readdir(PLAYLIST[id].path, (err, files) => {
+			if (err) {
+				Core.error("Can't retrieve " + id + ' songs', err);
+				reject();
+			}
+			playlists[PLAYLIST[id].id] = files;
+			PLAYLIST[id].randomBox = new RandomBox(files);
+			resolve();
+		});
 	});
+	promises.push(promise);
 });
+
+Promise.all(promises).then(() => {
+	Core.data('playlists', playlists);
+});
+
+
+
+
 
 /** Function playlist (repeat for one hour) */
 function playlist(playlistId) {
@@ -123,6 +139,7 @@ function stop() {
 
 /** Function to play a story */
 const STORIES = ['stories/Donjon-De-Naheulbeuk.mp3', 'stories/Aventuriers-Du-Survivaure.mp3'];
+Core.data('stories', STORIES);
 function playStory(story) {
 	let storyToPlay = Utils.searchStringInArray(story, STORIES);
 	if (storyToPlay) {

@@ -2,7 +2,7 @@
 app.component('tts', {
 	bindings: {
 		data: '<',
-		playlists: '<'
+		coreData: '<'
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function ($window, DefaultTile, UIService) {
@@ -10,13 +10,13 @@ app.component('tts', {
 		let tileParams = {
 			label: 'Text To Speech',
 			actionList: [],
-			expanded: false //collapsed
+			expanded: false
 		};
 		ctrl.access = true;
 		ctrl.tile = new DefaultTile(tileParams, true);
 
 		ctrl.$onChanges = function (changes) {
-			ctrl.options = buildTextInputOptions();
+			if (changes.coreData && ctrl.coreData) ctrl.options = buildTextInputOptions(ctrl.coreData);
 		};
 
 		/** Overwrite tile action */
@@ -79,7 +79,7 @@ app.component('tts', {
 			// 	ctrl.tts.msg = message;
 			// },
 			submit() {
-				console.log('submit', ctrl.tts);
+				console.log('[deprecated?] submit', ctrl.tts);
 				if (ctrl.tts.msg != '') {
 					UIService.sendTTS(ctrl.tts, function (callback) {
 						if (callback.status == 200) {
@@ -93,12 +93,15 @@ app.component('tts', {
 			}
 		};
 
-		function buildTextInputOptions() {
+		function buildTextInputOptions(coreData) {
 			let options = [];
-			angular.forEach(ctrl.playlists, (playlist, playListId) => {
+			angular.forEach(coreData.playlists, (playlist, playListId) => {
 				angular.forEach(playlist, (song) => {
 					options.push({ label: song.slice(0, -4), type: 'song', value: 'playlists/' + playListId + '/' + song, icon: 'fas fa-music' });
 				})
+			});
+			angular.forEach(coreData.stories, (story) => {
+				options.push({ label: story.slice(8, -4), type: 'story', value: story, icon: 'fas fa-book' });
 			});
 			return options;
 		}
@@ -113,13 +116,12 @@ app.component('tts', {
 			});
 			let ttsOption = { label: input, type: 'tts', icon: 'far fa-comment-dots' };
 			let voicemailOption = { label: input, type: 'voicemail', icon: 'far fa-envelope' };
-			let blankTextOption = { label: input, type: 'text', icon: 'fas fa-italic' };
+			let blankTextOption = { label: input, type: 'text', icon: 'fas fa-i-cursor' };
 			let clearInputOption = { label: 'Clear "' + input + '"', type: 'clear', icon: 'fas fa-backspace' };
 			return matchingOptions.concat(ttsOption, voicemailOption, blankTextOption, clearInputOption);
 		};
 
 		ctrl.selectedOptionChange = function (option) {
-			console.log('selectedOptionChange', option);
 			if (option) {
 				ctrl.tts.msg = ctrl.textInput;
 				if (option.type === 'song') {
@@ -129,6 +131,14 @@ app.component('tts', {
 						url: '/flux/interface/sound/play',
 						value: { mp3: option.value }
 					});
+					resetAutocomplete();
+				} else if (option.type === 'story') {
+					ctrl.tile.action({ label: 'Mute', url: '/flux/interface/sound/mute' });
+					if (option.label.indexOf('Survivaure') > -1) {
+						ctrl.tile.action({ label: option.label, url: '/flux/service/music/story', value: 'survivaure' });
+					} else if (option.label.indexOf('Naheulbeuk') > -1) {
+						ctrl.tile.action({ label: option.label, url: '/flux/service/music/story', value: 'naheulbeuk' });
+					}
 					resetAutocomplete();
 				} else if (option.type === 'tts') {
 					ctrl.tts.submit();

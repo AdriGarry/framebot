@@ -75,10 +75,8 @@ app.controller('UIController', function (
 	$scope.refreshDashboard();
 
 	$scope.playlists = {};
-	UIService.getRequest('https://odi.adrigarry.com/data', function (playlists) {
-		if (playlists) {
-			$scope.playlists = playlists;
-		}
+	UIService.getRequest('https://odi.adrigarry.com/data', function (data) {
+		if (data) $scope.CoreData = data;
 	});
 
 	function setOdiState(data) {
