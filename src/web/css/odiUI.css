@@ -705,7 +705,9 @@ md-input-container + label {
  }
 .autocomplete-custom-template .item-title, .autocomplete-custom-template .item-metadata{
 	display: block;
-	/*line-height: 2;*/
+}
+.autocomplete-custom-template .item-title .item-icon{
+	margin-right: 5px;
 }
 
 /* ------------------------------ MODE ------------------------------- */
