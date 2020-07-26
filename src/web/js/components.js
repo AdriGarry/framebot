@@ -65,19 +65,19 @@ app.component('tts', {
 					{ code: 'pico', label: 'Pico' }
 				]
 			},
-			cleanText() {
-				console.log('cleanText');
-				let message = ctrl.tts.msg || '';
-				message = message
-					.replace(/[àáâãäå]/g, 'a')
-					.replace(/[ç]/g, 'c')
-					.replace(/[èéêë]/g, 'e')
-					.replace(/[îï]/g, 'i')
-					.replace(/[ôóö]/g, 'o')
-					.replace(/[ûüù]/g, 'u');
-				//message = message.replace(/[<>]/g,''); // Others characters
-				ctrl.tts.msg = message;
-			},
+			// cleanText() {
+			// 	console.log('cleanText');
+			// 	let message = ctrl.tts.msg || '';
+			// 	message = message
+			// 		.replace(/[àáâãäå]/g, 'a')
+			// 		.replace(/[ç]/g, 'c')
+			// 		.replace(/[èéêë]/g, 'e')
+			// 		.replace(/[îï]/g, 'i')
+			// 		.replace(/[ôóö]/g, 'o')
+			// 		.replace(/[ûüù]/g, 'u');
+			// 	//message = message.replace(/[<>]/g,''); // Others characters
+			// 	ctrl.tts.msg = message;
+			// },
 			submit() {
 				console.log('submit', ctrl.tts);
 				if (ctrl.tts.msg != '') {
@@ -97,41 +97,72 @@ app.component('tts', {
 			let options = [];
 			angular.forEach(ctrl.playlists, (playlist, playListId) => {
 				angular.forEach(playlist, (song) => {
-					options.push({ label: song, type: 'song', value: 'playlists/' + playListId + '/' + song });
+					options.push({ label: song.slice(0, -4), type: 'song', value: 'playlists/' + playListId + '/' + song, icon: 'fas fa-music' });
 				})
 			});
 			return options;
 		}
 
-		ctrl.querySearch = function (input) {
-			let matchingOptions = input ? ctrl.options.filter(createFilterFor(input)) : ctrl.options;
-			let blankOption = { label: input, type: 'text' };
-			return matchingOptions.concat(blankOption);
+		ctrl.getMatchingOptions = function (input) {
+			let matchingOptions = input ? ctrl.options.filter(createStrictFilterFor(input)) : ctrl.options;
+			let othersMatchingOptions = input ? ctrl.options.filter(createFilterFor(input)) : [];
+			angular.forEach(othersMatchingOptions, (option) => {
+				if (!matchingOptions.includes(option)) {
+					matchingOptions.push(option);
+				}
+			});
+			let ttsOption = { label: input, type: 'tts', icon: 'far fa-comment-dots' };
+			let voicemailOption = { label: input, type: 'voicemail', icon: 'far fa-envelope' };
+			let blankTextOption = { label: input, type: 'text', icon: 'fas fa-italic' };
+			let clearInputOption = { label: 'Clear "' + input + '"', type: 'clear', icon: 'fas fa-backspace' };
+			return matchingOptions.concat(ttsOption, voicemailOption, blankTextOption, clearInputOption);
 		};
 
 		ctrl.selectedOptionChange = function (option) {
 			console.log('selectedOptionChange', option);
-			if (option && option.type === 'song') {
-				ctrl.tile.action({ label: 'Mute', url: '/flux/interface/sound/mute' });
-				ctrl.tile.action({
-					label: 'Play ' + option.label,
-					url: '/flux/interface/sound/play',
-					value: { mp3: option.value }
-				});
-				resetAutocomplete();
+			if (option) {
+				ctrl.tts.msg = ctrl.textInput;
+				if (option.type === 'song') {
+					ctrl.tile.action({ label: 'Mute', url: '/flux/interface/sound/mute' });
+					ctrl.tile.action({
+						label: 'Play ' + option.label,
+						url: '/flux/interface/sound/play',
+						value: { mp3: option.value }
+					});
+					resetAutocomplete();
+				} else if (option.type === 'tts') {
+					ctrl.tts.submit();
+					resetAutocomplete();
+				} else if (option.type === 'voicemail') {
+					ctrl.tts.voicemail = true;
+					ctrl.tts.submit();
+					ctrl.tts.voicemail = false;
+					resetAutocomplete();
+				} else if (option.type === 'clear') {
+					resetAutocomplete();
+				}
 			}
 		};
+
+		ctrl.onFocus = function () {
+			console.log('onFocus');
+			//inputText
+		}
 
 		function resetAutocomplete() {
 			ctrl.textInput = null;
 			ctrl.selectedOption = null;
 		}
 
-		// Create filter function for a query string
-		function createFilterFor(input) {
-			let lowercaseInput = input.toLowerCase();
+		// Create filters function for a query string
+		function createStrictFilterFor(input) {
 			return function filterFn(option) {
-				return (option.label.toLowerCase().indexOf(lowercaseInput) > -1);
+				return (option.label.toLowerCase().indexOf(input.toLowerCase()) === 0);
+			};
+		}
+		function createFilterFor(input) {
+			return function filterFn(option) {
+				return (option.label.toLowerCase().indexOf(input.toLowerCase()) > -1);
 			};
 		}
 
@@ -393,7 +424,7 @@ app.component('exclamation', {
 			actionList: [
 				{ label: 'HomeWork', icon: 'fas fa-briefcase', url: '/flux/service/interaction/homeWork' },
 				{ label: 'Exclamation', icon: 'fas fa-bullhorn', url: '/flux/service/interaction/exclamation' },
-				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/flux/interface/tts/random' },
+				{ label: 'TTS', icon: 'far fa-comment-dots', url: '/flux/interface/tts/random' },
 				{ label: 'Last TTS', icon: 'fas fa-undo', url: '/flux/interface/tts/lastTTS' }
 			]
 		};
@@ -801,7 +832,7 @@ app.component('party', {
 				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/flux/service/party/birthdaySong' },
 				{ label: 'Party mode', icon: 'far fa-grin-tongue', url: '/flux/service/party/start' },
 				{ label: 'Pirate', icon: 'fas fa-beer', url: '/flux/service/party/pirate' },
-				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/flux/service/party/tts' }
+				{ label: 'TTS', icon: 'far fa-comment-dots', url: '/flux/service/party/tts' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -1072,7 +1103,7 @@ app.component('history', {
 			actionList: [
 				{ label: 'Trash uploads', icon: 'fas fa-microphone', url: '/audio/trash' },
 				{ label: 'Archive logs', icon: 'fas fa-file-archive', url: '/flux/interface/hardware/archiveLogs' },
-				{ label: 'TTS', icon: 'far fa-comment-alt', url: 'https://odi.adrigarry.com/ttsUIHistory' },
+				{ label: 'TTS', icon: 'far fa-comment-dots', url: 'https://odi.adrigarry.com/ttsUIHistory' },
 				{ label: 'Voicemail', icon: 'far fa-envelope', url: 'https://odi.adrigarry.com/voicemailHistory' },
 				{ label: 'Request', icon: 'fas fa-exchange-alt', url: 'https://odi.adrigarry.com/requestHistory' },
 				{ label: 'Errors', icon: 'fab fa-sith', url: 'https://odi.adrigarry.com/errorHistory' }
