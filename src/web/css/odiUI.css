@@ -230,7 +230,7 @@ md-toast .md-toast-content span {
 }
 md-toast.md-default-theme .md-toast-content,
 md-toast .md-toast-content {
-	background-color: #0097a8; /*#ff6333;*/
+	background-color: #0097a8;
 }
 md-toast.error .md-toast-content,
 md-toast.error .md-toast-content {
@@ -304,7 +304,7 @@ md-button.md-fab.ng-slide.active {
 .logs ul {
 	font-family: 'Courier New', Helvetica, sans-serif;
 	font-size: 0.85em;
-	line-height: 1em; /*0.95em*/
+	line-height: 1em;
 	font-stretch: condensed;
 	word-break: break-all;
 	white-space: pre-wrap;
@@ -446,7 +446,7 @@ md-content {
 
 /*.dashboardOLD, */
 div[data-ng-include] {
-	max-width: 1000px; /*1000px*/
+	max-width: 1000px;
 	margin: 0 auto;
 	background-color: #fff;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
@@ -474,7 +474,6 @@ div[data-ng-include] {
 	height: 18vw;
 	max-height: 220px;
 	bottom: 0;
-	/*margin-top:10px;*/
 	padding: 0;
 	font-weight: 400;
 	text-transform: none;
@@ -637,7 +636,7 @@ i.adminFlag {
 
 /* ------------------------------ TTS ------------------------------- */
 
-.dashboard [flex].tile.tts > * {
+.dashboard [flex].tile.tts > *:not(.closeBtn) {
 	line-height: 2em;
 }
 .dashboard [flex].tile.tts.expanded {
@@ -645,39 +644,6 @@ i.adminFlag {
 }
 .dashboard [flex].tile.tts .layout-row {
 	margin-top: 4em;
-}
-.voiceSwitch {
-	margin-top: 0;
-}
-md-switch.voiceSwitch,
-md-checkbox {
-	background-color: transparent !important;
-}
-.voiceSwitch .md-container .md-bar {
-	background-color: rgba(244, 66, 53, 0.5) !important;
-}
-.voiceSwitch .md-container .md-thumb {
-	background-color: #f44235 !important;
-	color: #f44235 !important;
-}
-.voiceSwitch.md-primary .md-container .md-bar {
-	background-color: rgba(64, 81, 181, 0.5) !important;
-}
-.voiceSwitch.md-primary .md-container .md-thumb {
-	background-color: rgba(64, 81, 181, 1) !important;
-	color: rgba(64, 81, 181, 1) !important;
-}
-
-.voiceSwitch span {
-	margin-left: 3em;
-	word-wrap: break-word;
-}
-.voiceSwitch span > span {
-	margin-left: 0;
-}
-.voiceSwitch span:first-child {
-	/*float:left;
-	margin-left:-10em;*/
 }
 
 md-input-container {
@@ -748,7 +714,6 @@ md-bottom-sheet .md-subheader {
 }
 md-bottom-sheet button.md-button {
 	margin: 0 5%;
-	/*padding-top:1em;*/
 }
 
 /* ------------------------------ FOOTER ------------------------------- */
@@ -968,14 +933,3 @@ body>.loading i{
 		left: auto;
 	}
 }
-
-/*.dashboard{
-	flex-wrap:wrap;
-}
-
-.flex{
-	-webkit-box-flex: 1;
-	-webkit-flex: 1 1 50%;
-	flex: 1 1 50%;
-	box-sizing: border-box;
-}*/

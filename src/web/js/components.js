@@ -114,7 +114,7 @@ app.component('tts', {
 					matchingOptions.push(option);
 				}
 			});
-			let ttsOption = { label: input, type: 'tts', icon: 'far fa-comment-dots' };
+			let ttsOption = ctrl.data.value.mode === 'Sleep' ? [] : { label: input, type: 'tts', icon: 'far fa-comment-dots' };
 			let voicemailOption = { label: input, type: 'voicemail', icon: 'far fa-envelope' };
 			let clearInputOption = { label: 'Clear "' + input + '"', type: 'clear', icon: 'fas fa-backspace' };
 			let rawTextOption = { label: input, type: 'text', icon: 'fas fa-i-cursor' };
