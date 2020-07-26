@@ -693,6 +693,9 @@ md-input-container + label {
 	margin-left: 1em;
 }
 
+md-input-container:not(.md-input-has-value) input:not(:focus){
+	color:#496069;
+}
 .autocomplete-custom-template .md-autocomplete-suggestion {
 	border-bottom: 1px solid #ccc;
 	height: auto;
@@ -703,7 +706,7 @@ md-input-container + label {
  .autocomplete-custom-template .md-autocomplete-suggestion:last-child {
 	border-bottom-width: 0;
  }
-.autocomplete-custom-template .item-title, .autocomplete-custom-template .item-metadata{
+.autocomplete-custom-template .item-title{
 	display: block;
 }
 .autocomplete-custom-template .item-title .item-icon{
@@ -791,9 +794,6 @@ body>.loading i{
 	.desktopOnly {
 		display: block;
 	}
-	.desktopOnlyInline {
-		display: inline;
-	}
 
 	md-toast.md-right {
 		right: 5%;
@@ -801,10 +801,6 @@ body>.loading i{
 	/*img + h1*/
 	.toolbar h1 {
 		margin-left: 5em;
-	}
-	.desktopZoom {
-		color: rgba(0, 0, 0, 0.6);
-		zoom: 1.5;
 	}
 
 	.dashboard {
@@ -826,19 +822,10 @@ body>.loading i{
 	.desktopOnly {
 		display: none;
 	}
-	.desktopOnlyInline {
-		display: none;
-	}
 
 	.toolbar h1 {
 		margin-left: 3.6em; /*4em*/
 	}
-	/*md-input-container{
-		margin:0;
-	}
-	md-input-container button{
-		zoom:80%;
-	}*/
 
 	img.odiFace {
 		width: 4em;

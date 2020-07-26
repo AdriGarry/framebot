@@ -1,9 +1,6 @@
 <div flex="1" data-ng-click="$ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep"
 	data-ng-class="$ctrl.cssClass()" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label"
 	class="tile md-button md-raised ng-slide-fast">
-	<!--{'expanded':$ctrl.tile.expanded, {{$ctrl.tile.id}}: true}-->
-	<!--data-md-ink-ripple="{{$ctrl.tile.expanded}}"-->
-	<!--data-md-no-ink="$ctrl.tile.expanded" OU md-ink-ripple...-->
 	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fas fa-2x fa-ellipsis-h adminFlag"></i>
 	<i data-ng-if="$ctrl.tile.expanded" data-ng-click="$ctrl.toggleTileHeight();$event.stopPropagation()"
 		class="fas fa-2x fa-times adminFlag closeBtn" title="Reduce"></i>
@@ -13,7 +10,6 @@
 
 	<div class="tileContent" data-ng-switch-when="Text To Speech">
 		<form class="mainContent ttsForm">
-			<!--data-ng-submit="$ctrl.tts.submit()"-->
 			<div layout="row" data-ng-show="$ctrl.tile.expanded">
 				<div flex></div>
 				<md-input-container flex="30">
@@ -25,12 +21,6 @@
 						</md-option>
 					</md-select>
 				</md-input-container>
-
-				<div flex></div>
-				<label flex="10" class="pointer text-center desktopZoom">
-					<i class="fa-2x" data-ng-class="!$ctrl.tts.voicemail ? 'far fa-envelope' : 'fas fa-envelope'"
-						data-ng-click="$ctrl.tts.voicemail = !$ctrl.tts.voicemail"></i>
-				</label>
 				<div flex></div>
 				<md-input-container flex="30">
 					<label>Language</label>
@@ -46,14 +36,6 @@
 			<div layout="row" class="inputText ng-slide">
 				<div flex="5"></div>
 				<md-input-container flex="90" class="md-block ng-slide">
-					<!-- <md-input-container flex="70" class="md-block ng-slide"></md-input-container> -->
-					<!-- <label>
-						<span data-ng-show="$ctrl.tts.voicemail">Voicemail message</span>
-						<span data-ng-hide="$ctrl.tts.voicemail">Message</span>
-					</label> -->
-					<!-- <input type="text" id="ttsMsg" name="ttsMsg" maxlength="200" data-ng-model="$ctrl.tts.msg"
-						data-ng-change="$ctrl.tts.cleanText()" data-ng-trim="false" autocomplete="off"> -->
-
 					<md-autocomplete flex id="inputText" md-input-name="inputText" md-no-cache="$ctrl.noCache"
 						md-selected-item="$ctrl.selectedOption" md-search-text="$ctrl.textInput"
 						md-items="option in $ctrl.getMatchingOptions($ctrl.textInput)" md-item-text="option.label"
@@ -65,21 +47,9 @@
 								<span class="item-icon centerText fa-lg" data-ng-class="option.icon"></span>
 								<span>{{option.label}}</span>
 							</span>
-							<!--<span class="item-metadata">
-								<small>Play song</small>
-							</span>-->
 						</md-item-template>
 					</md-autocomplete>
-
 				</md-input-container>
-				<!-- <md-input-container flex="25" class="md-block centerText ng-slide">
-					<md-button type="submit" class="md-raised md-primary" title="Send message"
-						data-ng-disabled="!$ctrl.tile.expanded">
-						<span class="desktopOnlyInline">&nbsp;&nbsp;SEND&nbsp;&nbsp;&nbsp;</span>
-						<i class="fas fa-lg"
-							data-ng-class="$ctrl.tts.voicemail ? 'far fa-envelope' : 'far fa-paper-plane'"></i>&nbsp;&nbsp;
-					</md-button>
-				</md-input-container> -->
 			</div>
 		</form>
 	</div>

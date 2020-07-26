@@ -116,9 +116,9 @@ app.component('tts', {
 			});
 			let ttsOption = { label: input, type: 'tts', icon: 'far fa-comment-dots' };
 			let voicemailOption = { label: input, type: 'voicemail', icon: 'far fa-envelope' };
-			let blankTextOption = { label: input, type: 'text', icon: 'fas fa-i-cursor' };
 			let clearInputOption = { label: 'Clear "' + input + '"', type: 'clear', icon: 'fas fa-backspace' };
-			return matchingOptions.concat(ttsOption, voicemailOption, blankTextOption, clearInputOption);
+			let rawTextOption = { label: input, type: 'text', icon: 'fas fa-i-cursor' };
+			return matchingOptions.concat(ttsOption, voicemailOption, clearInputOption, rawTextOption);
 		};
 
 		ctrl.selectedOptionChange = function (option) {
