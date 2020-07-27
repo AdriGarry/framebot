@@ -74,6 +74,10 @@ app.controller('UIController', function (
 	};
 	$scope.refreshDashboard();
 
+	UIService.getRequest('https://odi.adrigarry.com/data', function (data) {
+		if (data) $scope.CoreData = data;
+	});
+
 	function setOdiState(data) {
 		let odiState = {};
 		if (data) {

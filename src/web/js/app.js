@@ -41,8 +41,6 @@ app.filter('formatLog', function (CONSTANTS) {
 	function buildGeolocationUrlService(lat = '', lng = '') {
 		return `https://www.google.com/maps/?q=${lat},${lng}`;
 	}
-	console.log(`https://www.google.com/maps/?q=${0},${1}`);
-
 	return function (logLine, fullLog) {
 		if (!fullLog) {
 			logLine = logLine.replace(CONSTANTS.DATE_REGEX, '');

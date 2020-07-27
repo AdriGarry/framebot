@@ -57,7 +57,6 @@ app.service('UIService', [
 
 		/** Function to retreive file from Odi */
 		ctrl.getRequest = function (url, callback) {
-			console.log('refreshDashboard()');
 			$http({
 				headers: {
 					'User-Interface': 'UIv5',

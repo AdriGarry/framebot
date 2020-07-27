@@ -1,18 +1,23 @@
 /** TTS component */
 app.component('tts', {
 	bindings: {
-		data: '<'
+		data: '<',
+		coreData: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function ($window, DefaultTile, UIService) {
+	controller: function ($window, DefaultTile, UIService, $timeout) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Text To Speech',
 			actionList: [],
-			expanded: false //collapsed
+			expanded: false
 		};
 		ctrl.access = true;
 		ctrl.tile = new DefaultTile(tileParams, true);
+
+		ctrl.$onChanges = function (changes) {
+			if (changes.coreData && ctrl.coreData) ctrl.options = buildTextInputOptions(ctrl.coreData);
+		};
 
 		/** Overwrite tile action */
 		ctrl.tile.click = function ($event) {
@@ -32,7 +37,9 @@ app.component('tts', {
 		};
 
 		function focusOnTtsInput() {
-			$window.document.getElementById('ttsMsg').focus(); // Setting to focus on tts message input
+			let autocompleteElement = $window.document.getElementById('textInput');
+			let autocompleteInputElement = autocompleteElement.getElementsByTagName('input')[0];
+			if (autocompleteInputElement) autocompleteInputElement.focus();
 		}
 
 		ctrl.tts = {
@@ -58,21 +65,21 @@ app.component('tts', {
 					{ code: 'pico', label: 'Pico' }
 				]
 			},
-			cleanText: function () {
-				console.log('cleanText');
-				let message = ctrl.tts.msg || '';
-				message = message
-					.replace(/[àáâãäå]/g, 'a')
-					.replace(/[ç]/g, 'c')
-					.replace(/[èéêë]/g, 'e')
-					.replace(/[îï]/g, 'i')
-					.replace(/[ôóö]/g, 'o')
-					.replace(/[ûüù]/g, 'u');
-				//message = message.replace(/[<>]/g,''); // Others characters
-				ctrl.tts.msg = message;
-			},
-			submit: function () {
-				console.log('submit', ctrl.tts);
+			// cleanText() {
+			// 	console.log('cleanText');
+			// 	let message = ctrl.tts.msg || '';
+			// 	message = message
+			// 		.replace(/[àáâãäå]/g, 'a')
+			// 		.replace(/[ç]/g, 'c')
+			// 		.replace(/[èéêë]/g, 'e')
+			// 		.replace(/[îï]/g, 'i')
+			// 		.replace(/[ôóö]/g, 'o')
+			// 		.replace(/[ûüù]/g, 'u');
+			// 	//message = message.replace(/[<>]/g,''); // Others characters
+			// 	ctrl.tts.msg = message;
+			// },
+			submit() {
+				console.log('[deprecated?] submit', ctrl.tts);
 				if (ctrl.tts.msg != '') {
 					UIService.sendTTS(ctrl.tts, function (callback) {
 						if (callback.status == 200) {
@@ -85,6 +92,93 @@ app.component('tts', {
 				}
 			}
 		};
+
+		function buildTextInputOptions(coreData) {
+			let options = [];
+			angular.forEach(coreData.playlists, (playlist, playListId) => {
+				angular.forEach(playlist, (song) => {
+					options.push({ label: song.slice(0, -4), type: 'song', value: 'playlists/' + playListId + '/' + song, icon: 'fas fa-music' });
+				})
+			});
+			angular.forEach(coreData.stories, (story) => {
+				options.push({ label: story.slice(8, -4), type: 'story', value: story, icon: 'fas fa-book' });
+			});
+			return options;
+		}
+
+		ctrl.getMatchingOptions = function (input) {
+			let matchingOptions = input ? ctrl.options.filter(createStrictFilterFor(input)) : ctrl.options;
+			let othersMatchingOptions = input ? ctrl.options.filter(createFilterFor(input)) : [];
+			angular.forEach(othersMatchingOptions, (option) => {
+				if (!matchingOptions.includes(option)) {
+					matchingOptions.push(option);
+				}
+			});
+			let ttsOption = ctrl.data.value.mode === 'Sleep' ? [] : { label: input, type: 'tts', icon: 'far fa-comment-dots' };
+			let voicemailOption = { label: input, type: 'voicemail', icon: 'far fa-envelope' };
+			let clearInputOption = { label: 'Clear "' + input + '"', type: 'clear', icon: 'fas fa-backspace' };
+			let rawTextOption = { label: input, type: 'text', icon: 'fas fa-i-cursor' };
+			return matchingOptions.concat(ttsOption, voicemailOption, clearInputOption, rawTextOption);
+		};
+
+		ctrl.selectedOptionChange = function (option) {
+			if (option) {
+				ctrl.tts.msg = ctrl.textInput;
+				if (option.type === 'song') {
+					ctrl.tile.action({ label: 'Mute', url: '/flux/interface/sound/mute' });
+					ctrl.tile.action({
+						label: 'Play ' + option.label,
+						url: '/flux/interface/sound/play',
+						value: { mp3: option.value }
+					});
+					resetAutocomplete();
+				} else if (option.type === 'story') {
+					ctrl.tile.action({ label: 'Mute', url: '/flux/interface/sound/mute' });
+					if (option.label.indexOf('Survivaure') > -1) {
+						ctrl.tile.action({ label: option.label, url: '/flux/service/music/story', value: 'survivaure' });
+					} else if (option.label.indexOf('Naheulbeuk') > -1) {
+						ctrl.tile.action({ label: option.label, url: '/flux/service/music/story', value: 'naheulbeuk' });
+					}
+					resetAutocomplete();
+				} else if (option.type === 'tts') {
+					ctrl.tts.submit();
+					resetAutocomplete();
+				} else if (option.type === 'voicemail') {
+					ctrl.tts.voicemail = true;
+					ctrl.tts.submit();
+					ctrl.tts.voicemail = false;
+					resetAutocomplete();
+				} else if (option.type === 'clear') {
+					resetAutocomplete();
+				}
+			}
+		};
+
+		ctrl.onFocus = function () {
+			let textInputOriginalValue = ctrl.textInput;
+			ctrl.textInput = angular.copy(ctrl.textInput.slice(0, -1));
+			$timeout(() => {
+				ctrl.selectedOption = null;
+				ctrl.textInput = angular.copy(textInputOriginalValue);
+			}, 100);
+		}
+
+		function resetAutocomplete() {
+			ctrl.textInput = null;
+			ctrl.selectedOption = null;
+		}
+
+		function createStrictFilterFor(input) {
+			return function filterFn(option) {
+				return (option.label.toLowerCase().indexOf(input.toLowerCase()) === 0);
+			};
+		}
+		function createFilterFor(input) {
+			return function filterFn(option) {
+				return (option.label.toLowerCase().indexOf(input.toLowerCase()) > -1);
+			};
+		}
+
 	}
 });
 
@@ -343,7 +437,7 @@ app.component('exclamation', {
 			actionList: [
 				{ label: 'HomeWork', icon: 'fas fa-briefcase', url: '/flux/service/interaction/homeWork' },
 				{ label: 'Exclamation', icon: 'fas fa-bullhorn', url: '/flux/service/interaction/exclamation' },
-				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/flux/interface/tts/random' },
+				{ label: 'TTS', icon: 'far fa-comment-dots', url: '/flux/interface/tts/random' },
 				{ label: 'Last TTS', icon: 'fas fa-undo', url: '/flux/interface/tts/lastTTS' }
 			]
 		};
@@ -751,7 +845,7 @@ app.component('party', {
 				{ label: 'Birthday song', icon: 'fas fa-birthday-cake', url: '/flux/service/party/birthdaySong' },
 				{ label: 'Party mode', icon: 'far fa-grin-tongue', url: '/flux/service/party/start' },
 				{ label: 'Pirate', icon: 'fas fa-beer', url: '/flux/service/party/pirate' },
-				{ label: 'TTS', icon: 'far fa-comment-alt', url: '/flux/service/party/tts' }
+				{ label: 'TTS', icon: 'far fa-comment-dots', url: '/flux/service/party/tts' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -1022,7 +1116,7 @@ app.component('history', {
 			actionList: [
 				{ label: 'Trash uploads', icon: 'fas fa-microphone', url: '/audio/trash' },
 				{ label: 'Archive logs', icon: 'fas fa-file-archive', url: '/flux/interface/hardware/archiveLogs' },
-				{ label: 'TTS', icon: 'far fa-comment-alt', url: 'https://odi.adrigarry.com/ttsUIHistory' },
+				{ label: 'TTS', icon: 'far fa-comment-dots', url: 'https://odi.adrigarry.com/ttsUIHistory' },
 				{ label: 'Voicemail', icon: 'far fa-envelope', url: 'https://odi.adrigarry.com/voicemailHistory' },
 				{ label: 'Request', icon: 'fas fa-exchange-alt', url: 'https://odi.adrigarry.com/requestHistory' },
 				{ label: 'Errors', icon: 'fab fa-sith', url: 'https://odi.adrigarry.com/errorHistory' }
