@@ -22,7 +22,7 @@ module.exports = {
 	cron: {
 		base: [
 			{ cron: '*/30 * * * * *', flux: { id: 'interface|hardware|runtime', conf: { log: 'trace' } } },
-			{ cron: '0 2 0 * * 1', flux: { id: 'interface|hardware|archiveLog' } }
+			{ cron: '0 2 0 * * 1', flux: { id: 'interface|hardware|archiveLogs' } }
 		]
 		//full: [{ cron: '30 13 13 * * 0', flux: { id: 'interface|hardware|reboot', conf: { delay: 3 } } }]
 	}
