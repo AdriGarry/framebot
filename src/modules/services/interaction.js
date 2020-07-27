@@ -86,7 +86,9 @@ function randomAction() {
 		log.info('randomAction:', action.id, '[' + action.weight + ']');
 		new Flux(action.id, action.data);
 	} catch (err) {
-		Core.error('ACTION TO DEBUG =>', typeof action, action); // TODO
+		log.test('action', action);
+		log.test('err', err);
+		Core.error('ACTION TO DEBUG =>', { action: action, err: err }); // TODO
 	}
 }
 
