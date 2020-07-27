@@ -41,8 +41,8 @@ setImmediate(() => {
 });
 
 function setMoodLevel(newMoodLevelId) {
+	log.info('Setting mood level to', newMoodLevelId);
 	Core.run('mood', newMoodLevelId);
-	log.info('Mood level set to', newMoodLevelId);
 	new Flux('interface|sound|volume', MOOD_LEVELS[newMoodLevelId].volume);
 	additionalMoodSetup(newMoodLevelId);
 }

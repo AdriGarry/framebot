@@ -27,9 +27,11 @@ Core.gpio.buttons.forEach(button => {
 	Core.run('buttonStats.' + button.id, 0);
 });
 
-Object.keys(Button).forEach(id => {
-	watchButton(Button[id]);
-	getEdgeButtonValue(Button[id]);
+setImmediate(() => {
+	Object.keys(Button).forEach(id => {
+		watchButton(Button[id]);
+		getEdgeButtonValue(Button[id]);
+	});
 });
 
 function watchButton(button) {

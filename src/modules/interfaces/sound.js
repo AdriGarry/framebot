@@ -28,13 +28,13 @@ const FLUX_PARSE_OPTIONS = [
 	{ id: 'playRandom', fn: playSoundRandomPosition, condition: { isAwake: true } },
 	{ id: 'error', fn: playErrorSound, condition: { isAwake: true } },
 	{ id: 'UI', fn: playUISound, condition: { isAwake: true } },
-	{ id: 'reset', fn: resetSound, condition: { isAwake: true } }
+	{ id: 'reset', fn: resetSoundOutput, condition: { isAwake: true } }
 ];
 
 Observers.attachFluxParseOptions('interface', 'sound', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-	resetSound();
+	resetSoundOutput();
 });
 
 const VOLUME_LEVELS = Array.from({ length: 11 }, (v, k) => k * 10); // 0 to 100, step: 10
@@ -196,25 +196,14 @@ function playUISound() {
 	playSound({ mp3: 'system/UIrequestSound.mp3', noLog: true, noLed: true });
 }
 
-/** Function to reset sound */
-function resetSound() {
-	log.info('resetSound [amixer set PCM 100%]');
+/** Function to reset sound output */
+function resetSoundOutput() {
+	log.info('Reset sound output [amixer set PCM 100%]');
 	Utils.execCmd('amixer set PCM 100%')
 		.then(data => {
 			log.debug(data);
 		})
 		.catch(err => {
-			Core.error('resetSound error', err);
+			Core.error('Reset sound output error', err);
 		});
-	getEtatButton();
-}
-
-function getEtatButton() {
-	if (Core.run('etat') == null) {
-		setTimeout(() => {
-			return getEtatButton();
-		}, 2000);
-	} else {
-		setVolume(Core.isAwake() ? (Core.run('etat') == 'high' ? 100 : 50) : 0);
-	}
 }
