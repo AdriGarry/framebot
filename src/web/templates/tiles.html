@@ -59,7 +59,8 @@
 		<div class="main">
 			<i class="mainInfo far fa-moon" data-ng-show="$ctrl.data.value.mode == 'Sleep'"></i>
 			<div data-ng-hide="$ctrl.data.value.mode == 'Sleep'">
-				{{$ctrl.data.value.mode}}<small><small><sup>[{{$ctrl.data.value.mood}}]</sup></small></small></div>
+				{{$ctrl.data.value.mode}}<small class="opacity70"><sup>{{$ctrl.data.value.mood}}</sup></small>
+			</div>
 			<div class="param" data-ng-show="!$ctrl.data.value.debug"
 				data-ng-class="$ctrl.data.value.mode =='Sleep'? 'paramSleep' : ''">{{$ctrl.data.value.param}}</div>
 			<div class="param" data-ng-show="$ctrl.data.value.debug" title="Timeout to abort debug">

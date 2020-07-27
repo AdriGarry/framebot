@@ -33,8 +33,11 @@ ul {
 .alignRight {
 	text-align: right;
 }
-.opacity-half {
+.opacity50 {
 	opacity: 0.5;
+}
+.opacity70 {
+	opacity: 0.70;
 }
 /*.opacityHalf{opacity:0.5;}*/
 
