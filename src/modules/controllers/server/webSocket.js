@@ -17,9 +17,7 @@ const LOG_FILE = Core._LOG + Core.name + '.log';
 
 function init(server) {
    const ws = new WebSocket.Server({ server });
-
    logTailWebSocket(ws);
-
    log.info('Web socket ready for connection...');
    return server;
 }

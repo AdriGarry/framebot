@@ -85,9 +85,9 @@ function startHttpsServer() {
 	api.attachRoutes(uiHttps);
 
 	httpsServer = https.Server(CREDENTIALS, uiHttps);
-	httpsServer = webSocket.init(httpsServer);
 	httpsServer.listen(HTTPS_SERVER_PORT, () => {
-		log.info('API https server started [' + Utils.executionTime(Core.startTime) + 'ms]');
+		log.info('Https server started [' + Utils.executionTime(Core.startTime) + 'ms]');
+		httpsServer = webSocket.init(httpsServer);
 		new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 	});
 }
