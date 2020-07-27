@@ -48,19 +48,15 @@ function setMoodLevel(newMoodLevelId) {
 }
 
 function additionalMoodSetup(moodLevelId) {
-	// Max
-	if (moodLevelId >= 3) {
+	if (moodLevelId >= 3) { // Max + interaction
 		new Flux('interface|arduino|connect');
+		new Flux('interface|tts|speak', { lg: 'en', msg: 'Mood level ' + moodLevelId });
+		scheduleFluxWhileMoodLevel(3, 20, { id: 'service|interaction|random' });
 	} else if (Core.run('max')) {
 		new Flux('interface|arduino|disconnect');
 	}
-	// Interaction
-	if (moodLevelId >= 3) {
-		scheduleFluxWhileMoodLevel(3, 20, { id: 'service|interaction|random' });
-	}
 
-	// HDMI (video loop)
-	if (moodLevelId >= 4) {
+	if (moodLevelId >= 4) { // HDMI (video loop)
 		new Flux('interface|video|loop');
 	} else if (Core.run('screen')) {
 		new Flux('interface|hdmi|off');
