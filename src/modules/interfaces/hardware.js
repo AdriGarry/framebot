@@ -218,7 +218,7 @@ function retreiveLastModifiedDate(paths) {
 		Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
 			.then(data => {
 				let lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
-				log.debug('getLastModifiedDate()', lastDate[0]);
+				log.debug('getLastModifiedDate:', lastDate[0]);
 				Core.run('stats.update', lastDate[0]);
 				resolve(lastDate[0]);
 			})
@@ -299,7 +299,7 @@ function countSoftwareLines() {
 					lines[extension] = parseInt(t);
 					typesNb--;
 					if (!typesNb) {
-						log.debug('countSoftwareLines()', totalLines);
+						log.debug('countSoftwareLines:', totalLines);
 						log.debug('stats.totalLines:', lines);
 						Core.run('stats.totalLines', totalLines);
 						resolve(totalLines);

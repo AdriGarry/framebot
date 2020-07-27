@@ -157,7 +157,7 @@ function setVolume(volume) {
 }
 
 function writeAllMPlayerInstances(sign) {
-	log.debug('mplayerInstances.write:', sign);
+	log.trace('mplayerInstances.write:', sign);
 	Object.keys(mplayerInstances).forEach(key => {
 		mplayerInstances[key].stdin.write(sign);
 	});
