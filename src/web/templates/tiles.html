@@ -33,14 +33,13 @@
 				</md-input-container>
 				<div flex></div>
 			</div>
-			<div layout="row" class="inputText ng-slide">
+			<div layout="row" class="textInput ng-slide">
 				<div flex="5"></div>
 				<md-input-container flex="90" class="md-block ng-slide">
-					<md-autocomplete flex id="inputText" md-input-name="inputText" md-no-cache="$ctrl.noCache"
-						md-selected-item="$ctrl.selectedOption" md-search-text="$ctrl.textInput"
-						md-items="option in $ctrl.getMatchingOptions($ctrl.textInput)" md-item-text="option.label"
-						md-selected-item-change="$ctrl.selectedOptionChange(option)" md-escape-options="clear"
-						md-floating-label="Message or search" md-menu-class="autocomplete-custom-template"
+					<md-autocomplete flex id="textInput" md-no-cache="$ctrl.noCache" md-selected-item="$ctrl.selectedOption"
+						md-search-text="$ctrl.textInput" md-items="option in $ctrl.getMatchingOptions($ctrl.textInput)"
+						md-item-text="option.label" md-selected-item-change="$ctrl.selectedOptionChange(option)"
+						md-escape-options="clear" md-floating-label="Message / Search" md-menu-class="autocomplete"
 						data-ng-focus="$ctrl.onFocus()">
 						<md-item-template>
 							<span class="item-title">

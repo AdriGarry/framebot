@@ -5,7 +5,7 @@ app.component('tts', {
 		coreData: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function ($window, DefaultTile, UIService) {
+	controller: function ($window, DefaultTile, UIService, $timeout) {
 		let ctrl = this;
 		let tileParams = {
 			label: 'Text To Speech',
@@ -37,7 +37,7 @@ app.component('tts', {
 		};
 
 		function focusOnTtsInput() {
-			let autocompleteElement = $window.document.getElementById('inputText');
+			let autocompleteElement = $window.document.getElementById('textInput');
 			let autocompleteInputElement = autocompleteElement.getElementsByTagName('input')[0];
 			if (autocompleteInputElement) autocompleteInputElement.focus();
 		}
@@ -155,8 +155,14 @@ app.component('tts', {
 		};
 
 		ctrl.onFocus = function () {
-			console.log('onFocus');
-			//inputText
+			// alert('onFocus!'); // TODO remove this line!
+			ctrl.selectedOption = null;
+			let tmp = ctrl.textInput;
+			ctrl.textInput = angular.copy(ctrl.textInput.slice(0, -1));
+			$timeout(() => {
+				ctrl.selectedOption = null;
+				ctrl.textInput = angular.copy(tmp);
+			}, 100);
 		}
 
 		function resetAutocomplete() {

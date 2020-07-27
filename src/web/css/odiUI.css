@@ -662,21 +662,12 @@ md-input-container + label {
 md-input-container:not(.md-input-has-value) input:not(:focus){
 	color:#496069;
 }
-.autocomplete-custom-template .md-autocomplete-suggestion {
-	border-bottom: 1px solid #ccc;
-	height: auto;
-	padding-top: 8px;
-	padding-bottom: 8px;
-	white-space: normal;
- }
- .autocomplete-custom-template .md-autocomplete-suggestion:last-child {
-	border-bottom-width: 0;
- }
-.autocomplete-custom-template .item-title{
+
+.autocomplete .item-title{
 	display: block;
 }
-.autocomplete-custom-template .item-title .item-icon{
-	width: 25px;
+.autocomplete .item-title .item-icon{
+	width: 30px;
 	color:#496069;
 }
 
