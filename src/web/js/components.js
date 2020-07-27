@@ -155,13 +155,11 @@ app.component('tts', {
 		};
 
 		ctrl.onFocus = function () {
-			// alert('onFocus!'); // TODO remove this line!
-			ctrl.selectedOption = null;
-			let tmp = ctrl.textInput;
+			let textInputOriginalValue = ctrl.textInput;
 			ctrl.textInput = angular.copy(ctrl.textInput.slice(0, -1));
 			$timeout(() => {
 				ctrl.selectedOption = null;
-				ctrl.textInput = angular.copy(tmp);
+				ctrl.textInput = angular.copy(textInputOriginalValue);
 			}, 100);
 		}
 
@@ -170,7 +168,6 @@ app.component('tts', {
 			ctrl.selectedOption = null;
 		}
 
-		// Create filters function for a query string
 		function createStrictFilterFor(input) {
 			return function filterFn(option) {
 				return (option.label.toLowerCase().indexOf(input.toLowerCase()) === 0);
