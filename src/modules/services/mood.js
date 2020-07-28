@@ -62,10 +62,9 @@ function additionalMoodSetup(moodLevelId) {
 		new Flux('interface|hdmi|off');
 	}
 
-	// Party
-	if (moodLevelId === 5) {
+	if (moodLevelId === 5) { // Party
 		new Flux('service|party|start');
-		scheduleFluxWhileMoodLevel(5, 5, { id: 'service|party|pirate' });
+		scheduleFluxWhileMoodLevel(5, 10, { id: 'service|party|pirate' });
 	}
 }
 

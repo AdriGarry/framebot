@@ -40,7 +40,7 @@ function okButtonAction(duration) {
 		} else if (Core.run('audioRecord')) {
 			new Flux('service|audioRecord|check');
 		} else if (Core.run('music')) {
-			new Flux('service|music|playlist', Core.run('music')); // TODO fix this incorrect flux
+			new Flux('service|music|playlist', Core.run('music'));
 		} else if (Core.run('mood') === 5) {
 			if (Utils.rdm()) {
 				new Flux('service|party|tts');

@@ -80,15 +80,22 @@ fs.readdir(Core._MP3 + 'exclamation_russia', (err, files) => {
 });
 
 /** Function random action (exclamation, random TTS, time, day, weather...) */
+let lastAction;
 function randomAction() {
-	let action = actionRandomBox.next();
+	let nextAction;
+	do {
+		nextAction = actionRandomBox.next();
+	} while (nextAction === lastAction);
+	lastAction = nextAction;
 	try {
-		log.info('randomAction:', action.id, '[' + action.weight + ']');
-		new Flux(action.id, action.data);
+		log.info('randomAction:', nextAction.id, '[' + nextAction.weight + ']');
+		new Flux(nextAction.id, nextAction.data);
 	} catch (err) {
-		log.test('action', action);
+		new Flux('interface|sound|volume', 50);
+		new Flux('interface|tts|speak', 'sa i est, je suis tomber sur le fameux bug!');
+		log.test('nextAction', nextAction);
 		log.test('err', err);
-		Core.error('ACTION TO DEBUG =>', { action: action, err: err }); // TODO
+		Core.error('ACTION TO DEBUG =>', { nextAction: nextAction, err: err }); // TODO
 	}
 }
 
