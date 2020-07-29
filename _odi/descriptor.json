@@ -41,12 +41,12 @@
 				"audioRecord",
 				"radiator",
 				"mosquitoRepellent",
+				"weather",
 				"task"
 			],
 			"full": [
 				"mood",
 				"interaction",
-				"weather",
 				"timer",
 				"music",
 				"party",
