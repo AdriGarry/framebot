@@ -50,7 +50,7 @@ function setMoodLevel(newMoodLevelId) {
 function additionalMoodSetup(moodLevelId) {
 	if (moodLevelId >= 3) { // Max + interaction
 		new Flux('interface|arduino|connect');
-		new Flux('interface|tts|speak', { lg: 'en', msg: 'Mood level ' + moodLevelId });
+		new Flux('interface|tts|speak', { lg: 'en', 'voice': 'google', msg: 'Mood level ' + moodLevelId });
 		scheduleFluxWhileMoodLevel(3, 20, { id: 'service|interaction|random' });
 	} else if (Core.run('max')) {
 		new Flux('interface|arduino|disconnect');
