@@ -24,24 +24,25 @@ const INTERNET_BOX_STRATEGY_CRON = [
 ],
 	internetBoxStrategyCrons = new CronJobList(INTERNET_BOX_STRATEGY_CRON, 'internetBoxOffStrategy', true);
 
-var isOnline = true,
+var isOnline, isRetrying = false,
 	internetTestInterval = setInterval(() => {
 		Utils.testConnection()
 			.then(onlineCallback)
 			.catch(() => {
-				log.info('testConnection failed, retrying...')
+				isRetrying = true;
+				log.info('Internet connection test failed, retrying...')
 				Utils.testConnection()
-					.then(log.info("I'm still online!"))
+					.then(onlineCallback)
 					.catch(notConnectedCallback);
 			});
 	}, 10 * 1000);
 
 function onlineCallback() {
-	if (!isOnline) {
-		log.info();
-		log.info("I'm back on the internet!");
+	if (!isOnline || isRetrying) {
+		log.info("I'm on the internet!");
 		Utils.getPublicIp().then(ip => Core.run('network.public', ip));
 	}
+	isRetrying = false;
 	isOnline = true;
 }
 
