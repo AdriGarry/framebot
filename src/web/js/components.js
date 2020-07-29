@@ -252,32 +252,71 @@ app.component('options', {
 					url: '/flux/service/context/updateRestart',
 					value: { mode: 'test' }
 				},
-				{ label: 'Demo', icon: 'fas fa-play', url: '/flux/service/interaction/demo' }
-			]
-		};
-		ctrl.tile = new DefaultTile(tileParams);
-	}
-});
-
-/** Runtime component */
-app.component('runtime', {
-	bindings: {
-		data: '<',
-		access: '<'
-	},
-	templateUrl: 'templates/tiles.html',
-	controller: function (DefaultTile) {
-		let ctrl = this;
-		let tileParams = {
-			label: 'Runtime',
-			actionList: [
-				// { label: 'Errors', icon: 'fab fa-sith', url: 'https://odi.adrigarry.com/errors' },
+				{ label: 'Demo', icon: 'fas fa-play', url: '/flux/service/interaction/demo' },
 				{ label: 'Data', icon: 'fas fa-database', url: 'https://odi.adrigarry.com/data' },
 				{ label: 'Config', icon: 'fab fa-whmcs', url: 'https://odi.adrigarry.com/config.json' },
 				{ label: 'Runtime', icon: 'fab fa-buffer', url: 'https://odi.adrigarry.com/runtime' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
+	}
+});
+
+/** Volume component */
+app.component('volume', {
+	bindings: {
+		data: '<',
+		access: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function ($rootScope, DefaultTile) {
+		let ctrl = this;
+		let tileParams = {
+			label: 'Volume',
+			actionList: []
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
+
+		ctrl.getVolumeIcon = function () {
+			let fontAwesomeIcon = 'fa-volume-';
+			fontAwesomeIcon += ctrl.data.volume ? '' : '';
+			switch (ctrl.data.volume.value) {
+				case 10: case 20: case 30:
+					fontAwesomeIcon += 'off';
+					break;
+				case 40: case 50: case 60:
+					fontAwesomeIcon += 'down';
+					break;
+				case 70: case 80: case 90: case 100:
+					fontAwesomeIcon += 'up';
+					break;
+				default:
+					fontAwesomeIcon += 'mute';
+					break;
+			}
+			return fontAwesomeIcon;
+		};
+
+		/** Overwrite tile action */
+		ctrl.tile.click = function () {
+			if (!$rootScope.irda) {
+				UIService.showErrorToast('Unauthorized action.');
+			} else {
+				let slider = {
+					label: 'Volume',
+					url: '/flux/interface/sound/volume',
+					legend: '%',
+					min: 0,
+					max: 100,
+					step: 10,
+					value: ctrl.data.volume.value,
+					action: null,
+					formatTime: false
+				};
+				ctrl.tile.openSliderBottomSheet(slider);
+			}
+		};
 	}
 });
 

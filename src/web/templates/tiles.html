@@ -79,11 +79,11 @@
 		</div>
 	</div>
 
-	<div class="tileContent" data-ng-switch-when="Runtime">
+	<div class="tileContent" data-ng-switch-when="Volume">
 		<div class="main">
-			<i data-ng-show="!$ctrl.data.length" class="fab fa-buffer"></i>
-			<i data-ng-show="$ctrl.data.length" class="fab fa-sith"></i>
-			<span data-ng-show="$ctrl.data.length">{{$ctrl.data.length}}</span>
+			<i class="fas fa-lg" data-ng-class="$ctrl.getVolumeIcon()"></i>
+			<span data-ng-show="$ctrl.data.volume.value">{{$ctrl.data.volume.value}}<small
+					class="opacity70">%</small></span>
 		</div>
 	</div>
 
