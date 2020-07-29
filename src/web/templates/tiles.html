@@ -188,7 +188,10 @@
 
 	<div class="tileContent" data-ng-switch-when="Weather">
 		<div class="main">
-			<i class="fas fa-cloud-sun"></i>
+			<i data-ng-class="$ctrl.data.value.icon"></i>
+			<span
+				data-ng-show="$ctrl.data.value.temperature">{{$ctrl.data.value.temperature}}<sup><small>°C</small></sup></span>
+			<span data-ng-hide="$ctrl.data.value.temperature">-</span>
 		</div>
 	</div>
 

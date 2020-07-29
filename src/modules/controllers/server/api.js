@@ -116,6 +116,7 @@ function attachDefaultRoutes(ui) {
 				value: Core.conf('alarms'),
 				active: true
 			},
+			weather: { value: Core.run('weather') },
 			network: { value: Core.run('network') },
 			update: {
 				value: Core.run('stats.update')
