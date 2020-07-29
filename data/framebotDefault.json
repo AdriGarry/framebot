@@ -41,6 +41,7 @@
 		"radiator": false,
 		"mosquito": false,
 		"screen": null,
+		"weather": {},
 		"network": {},
 		"cpu": {
 			"usage": null,

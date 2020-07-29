@@ -30,11 +30,16 @@ Observers.attachFluxParseOptions('service', 'weather', FLUX_PARSE_OPTIONS);
 const WEATHER_SERVICE_URL = 'https://weather-ydn-yql.media.yahoo.com/forecastrss?location=marseille,fr&u=c&format=json';
 
 var WEATHER_STATUS_LIST;
-fs.readFile(Core._DATA + 'weatherStatus-fr.json', function(err, data) {
+fs.readFile(Core._DATA + 'weatherStatus.json', function (err, data) {
 	if (err && err.code === 'ENOENT') {
 		log.debug(Core.error('No file : ' + filePath));
 	}
 	WEATHER_STATUS_LIST = JSON.parse(data);
+
+	fetchWeatherData();
+	setInterval(() => {
+		fetchWeatherData(); // retreive weather data each 60 min
+	}, 60 * 60 * 1000);
 });
 
 function randomTTS() {
@@ -49,13 +54,13 @@ function randomTTS() {
 function reportTTS() {
 	log.info('Weather report...');
 	fetchWeatherData()
-		.then(weatherReport => {
+		.then(() => {
 			let weatherSpeech = {
 				voice: 'google',
 				lg: 'fr',
 				msg:
 					'Meteo Marseille : le temps est ' +
-					weatherReport.status +
+					weatherReport.status.label +
 					', il fait ' +
 					weatherReport.temperature +
 					' degres avec ' +
@@ -74,7 +79,7 @@ function reportTTS() {
 function alternativeReportTTS() {
 	log.info('Alternative weather report...');
 	fetchWeatherData()
-		.then(weatherReport => {
+		.then(() => {
 			log.debug('weatherReport', weatherReport);
 			new Flux('interface|tts|speak', getAlternativeWeatherReport(weatherReport));
 		})
@@ -123,7 +128,7 @@ function astronomyTTS() {
 function fetchWeatherData() {
 	log.debug('fetchWeatherData()');
 	return new Promise((resolve, reject) => {
-		REQUEST.get(WEATHER_SERVICE_URL, null, null, function(err, data, result) {
+		REQUEST.get(WEATHER_SERVICE_URL, null, null, function (err, data, result) {
 			if (err) {
 				// Core.error("Weather request > Can't retreive weather informations. response.statusCode", err);
 				reject(err);
@@ -146,6 +151,7 @@ function fetchWeatherData() {
 					);
 					weatherReport.sunset = new Date(DAY_FOR_ASTRONOMY + weatherReport.data.current_observation.astronomy.sunset);
 
+					Core.run('weather', weatherReport.status);
 					resolve(weatherReport);
 				} catch (err) {
 					log.error("Can't parse weather data");
@@ -182,13 +188,13 @@ function getAlternativeWeatherReport(weatherReport) {
 						'Oui, et ' + (isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) + ' kilometre heure de vent'
 				},
 				{
-					msg: 'Un temps plutot ' + weatherReport.status
+					msg: 'Un temps plutot ' + weatherReport.status.label
 				}
 			];
 			break;
 		case 2:
 			weatherSpeech = [
-				{ msg: 'Hey, il fait un temp ' + weatherReport.status },
+				{ msg: 'Hey, il fait un temp ' + weatherReport.status.label },
 				{
 					voice: 'google',
 					msg: 'Oui, il fais ' + weatherReport.temperature + ' degrer'
