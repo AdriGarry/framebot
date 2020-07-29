@@ -188,7 +188,7 @@
 
 	<div class="tileContent" data-ng-switch-when="Weather">
 		<div class="main">
-			<i class="fas fa-cloud-sun"></i>
+			<i data-ng-class="$ctrl.data.value.icon"></i>
 		</div>
 	</div>
 
