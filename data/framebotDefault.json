@@ -45,7 +45,7 @@
 		"network": {},
 		"cpu": {
 			"usage": null,
-			"temp": null
+			"temperature": null
 		},
 		"memory": {
 			"framebot": null,

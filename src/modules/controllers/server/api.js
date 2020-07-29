@@ -60,7 +60,7 @@ function attachDefaultRoutes(ui) {
 	ui.get('/dashboard', function (req, res) {
 		new Flux('interface|hardware|runtime');
 		let etatBtn = Core.run('etat');
-		let cpuTemp = Core.run('cpu.temp');
+		let cpuTemperature = Core.run('cpu.temperature');
 		let cpuUsage = Core.run('cpu.usage');
 		let dashboard = {
 			config: Core.conf(),
@@ -104,13 +104,13 @@ function attachDefaultRoutes(ui) {
 			hardware: {
 				value: {
 					usage: cpuUsage,
-					temp: cpuTemp,
+					temperature: cpuTemperature,
 					memory: {
 						framebot: Core.run('memory.framebot'),
 						system: Core.run('memory.system')
 					}
 				},
-				active: cpuTemp > 55 || cpuUsage >= 20 ? true : false
+				active: cpuTemperature > 55 || cpuUsage >= 20 ? true : false
 			},
 			alarms: {
 				value: Core.conf('alarms'),

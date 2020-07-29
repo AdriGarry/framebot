@@ -54,7 +54,7 @@ setImmediate(() => {
 
 function runtime(shouldLogRuntime) {
 	let execTime = new Date();
-	Promise.all([retreiveCpuTemp(), retreiveCpuUsage(), retreiveMemoryUsage(), loadAverage()])
+	Promise.all([retreiveCpuTemperature(), retreiveCpuUsage(), retreiveMemoryUsage(), loadAverage()])
 		.then(() => {
 			if (shouldLogRuntime) {
 				log.table(Core.run(), 'RUNTIME' + ' '.repeat(5) + Utils.executionTime(execTime) + 'ms');
@@ -107,12 +107,12 @@ function light(duration) {
 
 /** Function to tts cpu stats */
 function cpuStatsTTS() {
-	retreiveCpuTemp()
+	retreiveCpuTemperature()
 		.then(retreiveCpuUsage)
 		.then(() => {
 			new Flux('interface|tts|speak', {
 				lg: 'fr',
-				msg: 'Mon  ' + Utils.randomItem(['processeur', 'CPU', 'calculateur']) + ' est a ' + Core.run('cpu.temp')
+				msg: 'Mon  ' + Utils.randomItem(['processeur', 'CPU', 'calculateur']) + ' est a ' + Core.run('cpu.temperature')
 			});
 			new Flux('interface|tts|speak', {
 				lg: 'fr',
@@ -123,11 +123,11 @@ function cpuStatsTTS() {
 		});
 }
 
-function retreiveCpuTemp() {
+function retreiveCpuTemperature() {
 	return new Promise((resolve, reject) => {
 		let temperature = fs.readFileSync('/sys/class/thermal/thermal_zone0/temp');
 		temperature = (temperature / 1000).toPrecision(2);
-		Core.run('cpu.temp', temperature + '°');
+		Core.run('cpu.temperature', temperature + '°');
 		resolve(temperature);
 	});
 }
