@@ -101,37 +101,33 @@
 		<div class="main">
 			<i class="fab fa-empire"></i>
 			<span>
-				<span>{{$ctrl.data.value.usage | limitTo:$ctrl.data.value.usage.length-1}}
-					<sup>
-						<small>%</small>
+				<span>{{$ctrl.data.value.usage | limitTo:$ctrl.data.value.usage.length-1}}<sup
+						class="opacity70"><small>%</small>
 					</sup>
 				</span>&nbsp;&nbsp;
 				<i class="fas fa-thermometer-half"></i>
-				<span>{{$ctrl.data.value.temp | limitTo:$ctrl.data.value.temp.length-1}}
-					<sup>
-						<small>°C</small>
+				<span>{{$ctrl.data.value.temp | limitTo:$ctrl.data.value.temp.length-1}}<sup
+						class="opacity70"><small>°C</small>
 					</sup>
 				</span>&nbsp;&nbsp;&nbsp;&nbsp;
 				<i class="fas fa-microchip"></i>
 				<table style="display:inline-block;vertical-align:middle;">
 					<tr>
 						<td style="line-height:2.5vw;">
-							<span>{{$ctrl.data.value.memory.framebot | limitTo: $ctrl.data.value.memory.framebot.length-2}}
-								<small>
-									<small>Mo</small>
+							<span>{{$ctrl.data.value.memory.framebot | limitTo: $ctrl.data.value.memory.framebot.length-2}}<small
+									class="opacity70"><small>Mo</small>
 								</small>
 						</td>
 					</tr>
 					<tr>
 						<td style="line-height:2.5vw;">
 							<small>
-								<small>&nbsp;&nbsp;{{$ctrl.data.value.memory.system | limitTo: $ctrl.data.value.memory.system.length-4}}
-									<small>
-										<small>Mo _</small>
+								<small>&nbsp;&nbsp;{{$ctrl.data.value.memory.system | limitTo: $ctrl.data.value.memory.system.length-4}}<small
+										class="opacity70"><small>Mo _</small>
 									</small>
 								</small>
 								<small>{{$ctrl.getMemoryPerCent()}}
-									<sup>%</sup>
+									<sup class="opacity70">%</sup>
 								</small>
 							</small>
 						</td>
@@ -189,8 +185,8 @@
 	<div class="tileContent" data-ng-switch-when="Weather">
 		<div class="main">
 			<i data-ng-class="$ctrl.data.value.icon"></i>
-			<span
-				data-ng-show="$ctrl.data.value.temperature">{{$ctrl.data.value.temperature}}<sup><small>°C</small></sup></span>
+			<span data-ng-show="$ctrl.data.value.temperature">{{$ctrl.data.value.temperature}}<sup
+					class="opacity70"><small>°C</small></sup></span>
 			<span data-ng-hide="$ctrl.data.value.temperature">-</span>
 		</div>
 	</div>
