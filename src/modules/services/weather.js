@@ -151,7 +151,9 @@ function fetchWeatherData() {
 					);
 					weatherReport.sunset = new Date(DAY_FOR_ASTRONOMY + weatherReport.data.current_observation.astronomy.sunset);
 
-					Core.run('weather', weatherReport.status);
+					let weatherData = weatherReport.status;
+					weatherData.temperature = weatherReport.temperature;
+					Core.run('weather', weatherData);
 					resolve(weatherReport);
 				} catch (err) {
 					log.error("Can't parse weather data");
