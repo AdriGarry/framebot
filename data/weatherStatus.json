@@ -1,0 +1,197 @@
+{
+	"0": {
+		"label-fr": "apocalyptique",
+		"icon": "fa"
+	},
+	"1": {
+		"label-fr": "dorage tropical",
+		"icon": "fa"
+	},
+	"2": {
+		"label-fr": "douragan",
+		"icon": "fa"
+	},
+	"3": {
+		"label-fr": "tres orageux",
+		"icon": "fa"
+	},
+	"4": {
+		"label-fr": "orageux",
+		"icon": "fa"
+	},
+	"5": {
+		"label-fr": "pluvieux",
+		"icon": "fa"
+	},
+	"6": {
+		"label-fr": "pluvieux",
+		"icon": "fa"
+	},
+	"7": {
+		"label-fr": "neigeux",
+		"icon": "fa"
+	},
+	"8": {
+		"label-fr": "verglasset",
+		"icon": "fa"
+	},
+	"9": {
+		"label-fr": "brumeux",
+		"icon": "fa"
+	},
+	"10": {
+		"label-fr": "verglasset",
+		"icon": "fa"
+	},
+	"11": {
+		"label-fr": "pluvieux",
+		"icon": "fa"
+	},
+	"12": {
+		"label-fr": "pluvieux",
+		"icon": "fa"
+	},
+	"13": {
+		"label-fr": "neigeux",
+		"icon": "fa"
+	},
+	"14": {
+		"label-fr": "legerement pluvieux",
+		"icon": "fa"
+	},
+	"15": {
+		"label-fr": "poudreux",
+		"icon": "fa"
+	},
+	"16": {
+		"label-fr": "neigeux",
+		"icon": "fa"
+	},
+	"17": {
+		"label-fr": "de grele",
+		"icon": "fa"
+	},
+	"18": {
+		"label-fr": "neigeux",
+		"icon": "fa"
+	},
+	"19": {
+		"label-fr": "poussiereux",
+		"icon": "fa"
+	},
+	"20": {
+		"label-fr": "brumeux",
+		"icon": "fa"
+	},
+	"21": {
+		"label-fr": "brumeux",
+		"icon": "fa"
+	},
+	"22": {
+		"label-fr": "brumeux",
+		"icon": "fa"
+	},
+	"23": {
+		"label-fr": "de tempaite",
+		"icon": "fa"
+	},
+	"24": {
+		"label-fr": "hivernal",
+		"icon": "fa"
+	},
+	"25": {
+		"label-fr": "froid",
+		"icon": "fa"
+	},
+	"26": {
+		"label-fr": "nuageux",
+		"icon": "fa"
+	},
+	"27": {
+		"label-fr": "couvert",
+		"icon": "fa"
+	},
+	"28": {
+		"label-fr": "couvert",
+		"icon": "fa"
+	},
+	"29": {
+		"label-fr": "partiellement couvert",
+		"icon": "fa"
+	},
+	"30": {
+		"label-fr": "partiellement couvert",
+		"icon": "fa"
+	},
+	"31": {
+		"label-fr": "degagez",
+		"icon": "fa"
+	},
+	"32": {
+		"label-fr": "ensoleiller",
+		"icon": "fa"
+	},
+	"33": {
+		"label-fr": "calme",
+		"icon": "fa"
+	},
+	"34": {
+		"label-fr": "sympa",
+		"icon": "fa"
+	},
+	"35": {
+		"label-fr": "de grele",
+		"icon": "fa"
+	},
+	"36": {
+		"label-fr": "chaud",
+		"icon": "fa"
+	},
+	"37": {
+		"label-fr": "orageux",
+		"icon": "fa"
+	},
+	"38": {
+		"label-fr": "orageux",
+		"icon": "fa"
+	},
+	"39": {
+		"label-fr": "orageux",
+		"icon": "fa"
+	},
+	"40": {
+		"label-fr": "pluvieux",
+		"icon": "fa"
+	},
+	"41": {
+		"label-fr": "tres neigeux",
+		"icon": "fa"
+	},
+	"42": {
+		"label-fr": "neigeux",
+		"icon": "fa"
+	},
+	"43": {
+		"label-fr": "tres neigeux",
+		"icon": "fa"
+	},
+	"44": {
+		"label-fr": "partiellement couvert",
+		"icon": "fa"
+	},
+	"45": {
+		"label-fr": "orageux",
+		"icon": "fa"
+	},
+	"46": {
+		"label-fr": "pluvieux et neigeux",
+		"icon": "fa"
+	},
+	"47": {
+		"label-fr": "orageux",
+		"icon": "fa"
+	},
+	"48": {
+		"label-fr": "non dispo"
+	}
+}
