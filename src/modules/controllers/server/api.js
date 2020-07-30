@@ -130,7 +130,7 @@ function attachDefaultRoutes(ui) {
 			watcher: {
 				value: Core.conf('watcher')
 			},
-			playlist: Core.data('')
+			playlist: Core.data()
 		};
 		res.end(JSON.stringify(dashboard));
 	});

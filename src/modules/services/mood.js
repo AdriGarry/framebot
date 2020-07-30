@@ -58,7 +58,7 @@ function additionalMoodSetup(moodLevelId) {
 
 	if (moodLevelId >= 4) { // HDMI (video loop)
 		new Flux('interface|video|loop');
-		scheduleFluxWhileMoodLevel(3, 23, { id: 'service|interaction|random' });
+		scheduleFluxWhileMoodLevel(4, 23, { id: 'service|interaction|random' });
 	} else if (Core.run('screen')) {
 		new Flux('interface|hdmi|off');
 	}
