@@ -16,7 +16,7 @@ app.component('tts', {
 		ctrl.tile = new DefaultTile(tileParams, true);
 
 		ctrl.$onChanges = function (changes) {
-			if (changes.coreData && ctrl.coreData) ctrl.options = buildTextInputOptions(ctrl.coreData);
+			if (changes.coreData && ctrl.coreData) ctrl.options = initTextInputOptions(ctrl.coreData);
 		};
 
 		/** Overwrite tile action */
@@ -93,7 +93,7 @@ app.component('tts', {
 			}
 		};
 
-		function buildTextInputOptions(coreData) {
+		function initTextInputOptions(coreData) {
 			let options = [];
 			angular.forEach(coreData.playlists, (playlist, playListId) => {
 				angular.forEach(playlist, (song) => {

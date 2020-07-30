@@ -187,7 +187,7 @@
 			<i data-ng-class="$ctrl.data.value.icon"></i>
 			<span data-ng-show="$ctrl.data.value.temperature">{{$ctrl.data.value.temperature}}<sup
 					class="opacity70"><small>°C</small></sup></span>
-			<span data-ng-hide="$ctrl.data.value.temperature">-</span>
+			<span class="fas fa-window-minimize" data-ng-hide="$ctrl.data.value.temperature"></span>
 		</div>
 	</div>
 
@@ -248,7 +248,8 @@
 				data-ng-if="$ctrl.data.config.radiator == 'off' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='off'"></i>
 			<small>
 				<span data-ng-if="!$ctrl.isTimeout()">{{$ctrl.data.config.radiator}}</span>
-				<span data-ng-if="$ctrl.isTimeout()">{{$ctrl.data.config.radiator.timeout}}<small>min</small></span></small>
+				<span data-ng-if="$ctrl.isTimeout()">{{$ctrl.data.config.radiator.timeout}}<small
+						class="opacity70">min</small></span></small>
 		</div>
 	</div>
 
