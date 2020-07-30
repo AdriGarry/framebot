@@ -1,5 +1,8 @@
 {
+	"manifest_version": "0.2",
 	"name": "Odi UI",
+	"description": "Odi's UI to control & interact!",
+	"author": "Adri Garry",
 	"icons": [
 		{
 			"src": "\/android-chrome-192x192.png",
@@ -7,6 +10,6 @@
 			"type": "image\/png"
 		}
 	],
-	"theme_color": "#2c3e50",
+	"theme_color": "#607d8b",
 	"display": "standalone"
 }
