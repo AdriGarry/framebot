@@ -58,6 +58,7 @@ function additionalMoodSetup(moodLevelId) {
 
 	if (moodLevelId >= 4) { // HDMI (video loop)
 		new Flux('interface|video|loop');
+		scheduleFluxWhileMoodLevel(3, 23, { id: 'service|interaction|random' });
 	} else if (Core.run('screen')) {
 		new Flux('interface|hdmi|off');
 	}
@@ -69,6 +70,7 @@ function additionalMoodSetup(moodLevelId) {
 }
 
 function scheduleFluxWhileMoodLevel(moodLevelLimit, minutesInterval, flux) {
+	log.info(`Scheduling flux '${flux.id}', at mood level limit ${moodLevelLimit}, each ${minutesInterval} minutes`);
 	new Flux(flux.id, flux.data);
 	let interval = setInterval(() => {
 		if (Core.run('mood') >= moodLevelLimit) new Flux(flux.id, flux.data);
