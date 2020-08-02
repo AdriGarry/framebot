@@ -35,6 +35,12 @@ function rfxcomHandler(flux) {
 const DEVICE = new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
 const DEVICE_LIST = Core.descriptor.rfxcomDevices;
 
+var powerPlugStatus = {};
+Object.keys(DEVICE_LIST).forEach((key) => {
+	powerPlugStatus[key] = { status: 'unknow' };
+});
+Core.run('powerPlug', powerPlugStatus)
+
 rfxtrx.initialise(function () {
 	Core.run('rfxcom', true);
 	log.info('Rfxcom gateway ready', '[' + Utils.executionTime(Core.startTime) + 'ms]');
@@ -62,5 +68,6 @@ function sendStatus(args) {
 	else {
 		if (value) DEVICE.switchOn(DEVICE_LIST[deviceName].id);
 		else DEVICE.switchOff(DEVICE_LIST[deviceName].id);
+		Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' })
 	}
 }

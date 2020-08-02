@@ -33,6 +33,9 @@ ul {
 .alignRight {
 	text-align: right;
 }
+.opacity20 {
+	opacity: 0.2;
+}
 .opacity50 {
 	opacity: 0.5;
 }
@@ -535,6 +538,10 @@ div[data-ng-include] {
 [flex] > .tile > .tileContent .main .fab*/
 [flex] > .tile > .tileContent .main [class*='fa-'] {
 	font-size: 1.6em;
+}
+
+[flex] > .tile > .tileContent .main [class*='fa-'] + [class*='fa-'] {
+	margin-left: 0.1em;
 }
 
 [flex] footer {

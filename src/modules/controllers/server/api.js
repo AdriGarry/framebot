@@ -117,6 +117,7 @@ function attachDefaultRoutes(ui) {
 				active: true
 			},
 			weather: { value: Core.run('weather') },
+			powerPlug: { value: Core.run('powerPlug') },
 			network: { value: Core.run('network') },
 			update: {
 				value: Core.run('stats.update')

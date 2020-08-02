@@ -70,12 +70,12 @@
 
 	<div class="tileContent" data-ng-switch-when="Options">
 		<div class="main">
-			<i class="far fa-dot-circle" data-ng-show="$ctrl.data.trace.value"></i>
-			<i class="fas fa-circle" data-ng-show="$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
+			<i class="far fa-dot-circle" data-ng-if="$ctrl.data.trace.value"></i>
+			<i class="fas fa-circle" data-ng-if="$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
 			<i class="fas fa-eye"
-				data-ng-show="$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
+				data-ng-if="$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
 			<i class="fas fa-cogs"
-				data-ng-show="!$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
+				data-ng-if="!$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
 		</div>
 	</div>
 
@@ -161,6 +161,14 @@
 		<div class="main">
 			<i class="fas fa-microphone"></i>
 			<sub data-ng-show="$ctrl.data.value" class="fa-2x">&nbsp;{{$ctrl.data.value}}</sub>
+		</div>
+	</div>
+
+	<div class="tileContent" data-ng-switch-when="Power plug">
+		<div class="main">
+			<i class="fas" data-ng-class="$ctrl.getPlugStatus('plugA')"></i>
+			<i class="fas" data-ng-class="$ctrl.getPlugStatus('plugB')"></i>
+			<i class="fas" data-ng-class="$ctrl.getPlugStatus('plugC')"></i>
 		</div>
 	</div>
 
@@ -250,12 +258,6 @@
 				<span data-ng-if="!$ctrl.isTimeout()">{{$ctrl.data.config.radiator}}</span>
 				<span data-ng-if="$ctrl.isTimeout()">{{$ctrl.data.config.radiator.timeout}}<small
 						class="opacity70">min</small></span></small>
-		</div>
-	</div>
-
-	<div class="tileContent" data-ng-switch-when="Power plug">
-		<div class="main">
-			<i class="fas fa-plug"></i>
 		</div>
 	</div>
 

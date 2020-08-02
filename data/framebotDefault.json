@@ -40,6 +40,7 @@
 		"rfxcom": false,
 		"radiator": false,
 		"mosquito": false,
+		"powerPlug": {},
 		"screen": null,
 		"weather": {},
 		"network": {},
