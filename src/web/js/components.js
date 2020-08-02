@@ -928,8 +928,8 @@ app.component('videos', {
 		let tileParams = {
 			label: 'Video',
 			actionList: [
-				{ label: 'Hdmi off', icon: 'fas fa-stop', url: '/flux/interface/hdmi/off' },
-				{ label: 'Hdmi on', icon: 'fas fa-play', url: '/flux/interface/hdmi/on' },
+				{ label: 'Off', icon: 'fas fa-toggle-off', url: '/flux/interface/hdmi/off' },
+				{ label: 'On', icon: 'fas fa-toggle-on', url: '/flux/interface/hdmi/on' },
 				{ label: 'Loop', icon: 'fas fa-film', url: '/flux/service/video/loop' }
 			]
 		};
@@ -1119,8 +1119,8 @@ app.component('arduino', {
 		let tileParams = {
 			label: 'Arduino',
 			actionList: [
-				{ label: 'Sleep', icon: 'far fa-stop-circle', url: '/flux/interface/arduino/disconnect' },
-				{ label: 'Connect', icon: 'fas fa-exchange-alt', url: '/flux/interface/arduino/connect' }
+				{ label: 'Off', icon: 'fas fa-toggle-off', url: '/flux/interface/arduino/disconnect' },
+				{ label: 'On', icon: 'fas fa-toggle-on', url: '/flux/interface/arduino/connect' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
@@ -1140,8 +1140,8 @@ app.component('rfxcom', {
 		let tileParams = {
 			label: 'Rfxcom',
 			actionList: [
-				{ label: 'Lock', icon: 'fas fa-lock', url: '/flux/interface/rfxcom/toggleLock', value: false },
-				{ label: 'Unlock', icon: 'fas fa-lock-open', url: '/flux/interface/rfxcom/toggleLock', value: true }
+				{ label: 'Off', icon: 'fas fa-toggle-off', url: '/flux/interface/rfxcom/toggleLock', value: false },
+				{ label: 'On', icon: 'fas fa-toggle-on', url: '/flux/interface/rfxcom/toggleLock', value: true }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
