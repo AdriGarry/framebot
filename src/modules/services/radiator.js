@@ -27,24 +27,24 @@ setImmediate(() => {
 	Utils.delay(10).then(setupRadiatorMode);
 });
 
+const RADIATOR_MONTHS = [0, 1, 2, 3, 9, 10, 11];
 const RADIATOR_JOB = {
-	OFF: new CronJob('30 0 * * * *', function() {
+	OFF: new CronJob('30 0 * * * *', function () {
 		radiatorOrder('off');
 	}),
-	ON: new CronJob('35 0 * * * *', function() {
+	ON: new CronJob('35 0 * * * *', function () {
 		radiatorOrder('on');
 	}),
 	AUTO: new CronJobList(Core.descriptor.rfxcomDevices.radiator.cron, 'radiator-auto', true)
 };
 
 function setupRadiatorMode() {
+	if (!isRadiatorSeason()) {
+		Core.conf('radiator', 'off');
+		return;
+	}
 	let radiatorMode = Core.conf('radiator');
-	log.info(
-		'setupRadiatorMode',
-		radiatorMode,
-		!isNaN(radiatorMode) ? '[timeout]' : '',
-		'[' + Utils.executionTime(Core.startTime) + 'ms]'
-	);
+	log.info('setupRadiatorMode', radiatorMode, !isNaN(radiatorMode) ? '[timeout]' : '');
 
 	RADIATOR_JOB.OFF.start();
 
@@ -135,4 +135,10 @@ function endRadiatorTimeout() {
 
 	radiatorOrder(radiatorTimeoutMode == 'on' ? 'off' : 'on'); // invert mode
 	log.info('radiator timeout, back to off before auto mode...');
+}
+
+function isRadiatorSeason() {
+	let currentMonth = new Date().getMonth();
+	if (RADIATOR_MONTHS.includes(currentMonth)) return true;
+	return false;
 }
