@@ -70,12 +70,12 @@
 
 	<div class="tileContent" data-ng-switch-when="Options">
 		<div class="main">
-			<i class="far fa-dot-circle" data-ng-show="$ctrl.data.trace.value"></i>
-			<i class="fas fa-circle" data-ng-show="$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
+			<i class="far fa-dot-circle" data-ng-if="$ctrl.data.trace.value"></i>
+			<i class="fas fa-circle" data-ng-if="$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
 			<i class="fas fa-eye"
-				data-ng-show="$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
+				data-ng-if="$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
 			<i class="fas fa-cogs"
-				data-ng-show="!$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
+				data-ng-if="!$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
 		</div>
 	</div>
 
