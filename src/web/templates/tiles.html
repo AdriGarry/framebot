@@ -164,6 +164,14 @@
 		</div>
 	</div>
 
+	<div class="tileContent" data-ng-switch-when="Power plug">
+		<div class="main">
+			<i class="fas" data-ng-class="$ctrl.getPlugStatus('plugA')"></i>
+			<i class="fas" data-ng-class="$ctrl.getPlugStatus('plugB')"></i>
+			<i class="fas" data-ng-class="$ctrl.getPlugStatus('plugC')"></i>
+		</div>
+	</div>
+
 	<div class="tileContent" data-ng-switch-when="Exclamation">
 		<div class="main">
 			<i class="far fa-comment-dots"></i>
@@ -250,12 +258,6 @@
 				<span data-ng-if="!$ctrl.isTimeout()">{{$ctrl.data.config.radiator}}</span>
 				<span data-ng-if="$ctrl.isTimeout()">{{$ctrl.data.config.radiator.timeout}}<small
 						class="opacity70">min</small></span></small>
-		</div>
-	</div>
-
-	<div class="tileContent" data-ng-switch-when="Power plug">
-		<div class="main">
-			<i class="fas fa-plug"></i>
 		</div>
 	</div>
 

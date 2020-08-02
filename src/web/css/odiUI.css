@@ -33,6 +33,9 @@ ul {
 .alignRight {
 	text-align: right;
 }
+.opacity20 {
+	opacity: 0.2;
+}
 .opacity50 {
 	opacity: 0.5;
 }
