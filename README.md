@@ -49,7 +49,7 @@ Available modes: ready, sleep, test
 Mood level, from 0 to 5 is an indice to set expressive level of the bot.
 
 - 0: muted [volume = 0]
-- 1: system tts: clock, and others human triggered functions (timer...) [volume = 30]
+- 1: system TTS: clock, and others human triggered functions (timer...) [volume = 30]
 - 2: [volume = 50]
 - 3: max + interaction [volume = 60]
 - 4: screen (diapo) [volume = 80]
@@ -116,6 +116,6 @@ A flux is an Object with 3 properties:
 
 ## User interface
 
-Provided user interface with flux orders and log (log tail with websocket)
+Provided user interface with flux orders and log (log tail with websocket).
 
 .
