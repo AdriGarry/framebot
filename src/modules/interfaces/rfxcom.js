@@ -48,6 +48,7 @@ rfxtrx.initialise(function () {
 	rfxtrx.on('receive', function (evt) {
 		new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
 		log.info('Rfxcom_receive:', Buffer.from(evt).toString('hex'));
+		parseReceivedSignal();
 	});
 
 	rfxtrx.on('disconnect', function (evt) {
@@ -71,3 +72,8 @@ function sendStatus(args) {
 		Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' })
 	}
 }
+
+function parseReceivedSignal(evt) {
+	let receivedSignal = Buffer.from(evt).toString('hex');
+	log.test('--> Received signal:', receivedSignal);
+} 
