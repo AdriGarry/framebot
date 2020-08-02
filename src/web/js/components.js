@@ -1145,6 +1145,7 @@ app.component('rfxcom', {
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
+		ctrl.odiState = ctrl.odiState;
 	}
 });
 
