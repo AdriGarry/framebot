@@ -47,7 +47,7 @@ rfxtrx.initialise(function () {
 
 	rfxtrx.on('receive', function (evt) {
 		new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
-		log.info('Rfxcom_receive:', Buffer.from(evt).toString('hex'));
+		parseReceivedSignal(evt);
 	});
 
 	rfxtrx.on('disconnect', function (evt) {
@@ -68,6 +68,25 @@ function sendStatus(args) {
 	else {
 		if (value) DEVICE.switchOn(DEVICE_LIST[deviceName].id);
 		else DEVICE.switchOff(DEVICE_LIST[deviceName].id);
-		Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' })
+		Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
 	}
 }
+
+const PLUG_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/01f4bf8e0(?<plugId>.)(?<positiveValue>010f60)?/);
+
+function parseReceivedSignal(evt) {
+	let receivedSignal = Buffer.from(evt).toString('hex');
+	log.info('Rfxcom_receive:', receivedSignal);
+
+	let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(receivedSignal);
+	if (matchPlug) {
+		let plugId = matchPlug.groups.plugId;
+		let value = matchPlug.groups.positiveValue;
+		log.debug('parseReceivedSignal', plugId, value);
+		let deviceName;
+		Object.keys(DEVICE_LIST).forEach(device => {
+			if (DEVICE_LIST[device].id.substr(DEVICE_LIST[device].id.length - 1) == plugId) deviceName = device;
+		});
+		Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
+	}
+} 
