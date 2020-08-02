@@ -1068,20 +1068,11 @@ app.component('powerPlug', {
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
 
-		ctrl.$onChanges = function (changes) {
-			if (changes.data && ctrl.data) ctrl.powerPlugsStatus = ctrl.data.value; console.log(ctrl.powerPlugsStatus.value);
-
-		};
-
 		ctrl.getPlugStatus = function (plugId) {
-			let plugStatus = ctrl.powerPlugsStatus[plugId].status;
-			if (plugStatus === 'on') {
-				return 'fa-plug'
-			} else if (plugStatus === 'off') {
-				return 'fa-plug opacity50'
-			} else {
-				return 'fa-question opacity20'
-			}
+			let plugStatus = ctrl.data.value[plugId].status;
+			if (plugStatus === 'on') return 'fa-plug';
+			else if (plugStatus === 'off') return 'fa-plug opacity50';
+			else return 'fa-question opacity20';
 		};
 
 		/** Overwrite tile action */
