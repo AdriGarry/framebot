@@ -1127,6 +1127,27 @@ app.component('arduino', {
 	}
 });
 
+/** Rfxcom component */
+app.component('rfxcom', {
+	bindings: {
+		data: '<',
+		access: '<',
+		odiState: '<'
+	},
+	templateUrl: 'templates/tiles.html',
+	controller: function (DefaultTile) {
+		let ctrl = this;
+		let tileParams = {
+			label: 'Rfxcom',
+			actionList: [
+				{ label: 'Lock', icon: 'fas fa-lock', url: '/flux/interface/rfxcom/toggleLock', value: false },
+				{ label: 'Unlock', icon: 'fas fa-lock-open', url: '/flux/interface/rfxcom/toggleLock', value: true }
+			]
+		};
+		ctrl.tile = new DefaultTile(tileParams);
+	}
+});
+
 /** Tasks component */
 app.component('tasks', {
 	bindings: {

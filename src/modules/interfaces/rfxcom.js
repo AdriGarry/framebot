@@ -27,6 +27,8 @@ function rfxcomHandler(flux) {
 		new Flux('service|internetNetwork|strategyOff');
 	} else if (flux.id == 'send') {
 		sendStatus(flux.value);
+	} else if (flux.id == 'toggleLock') {
+		toggleLock(flux.value);
 	} else {
 		Core.error('unmapped flux in Rfxcom interface', flux, false);
 	}
@@ -57,8 +59,8 @@ rfxtrx.initialise(function () {
 
 function sendStatus(args) {
 	if (!Core.run('rfxcom')) {
-		new Flux('interface|tts|speak', { lg: 'en', msg: 'rfxcom not initialized' });
-		log.warn('rfxcom gateway not initialized!', null, false);
+		new Flux('interface|tts|speak', { lg: 'en', msg: 'rfxcom not available' });
+		log.warn('rfxcom gateway not available!');
 		return;
 	}
 	log.debug('sendStatus', args);
@@ -89,4 +91,15 @@ function parseReceivedSignal(evt) {
 		});
 		Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
 	}
-} 
+}
+
+function toggleLock(lockValue) {
+	if (lockValue) {
+		if (Core.run('rfxcom')) log.info('Rfccom gateway already available');
+		else log.info('Rfccom gateway unlocked!');
+	} else {
+		if (Core.run('rfxcom')) log.info('Rfccom gateway locked!');
+		else log.info('Rfccom gateway already locked');
+	}
+	Core.run('rfxcom', lockValue);
+}
