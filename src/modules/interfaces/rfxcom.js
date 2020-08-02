@@ -39,10 +39,10 @@ var powerPlugStatus = {};
 Object.keys(DEVICE_LIST).forEach((key) => {
 	powerPlugStatus[key] = { status: 'unknow' };
 });
+Core.run('powerPlug', powerPlugStatus)
 
 rfxtrx.initialise(function () {
 	Core.run('rfxcom', true);
-	Core.run('powerPlug', powerPlugStatus)
 	log.info('Rfxcom gateway ready', '[' + Utils.executionTime(Core.startTime) + 'ms]');
 
 	rfxtrx.on('receive', function (evt) {
