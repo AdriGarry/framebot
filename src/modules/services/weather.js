@@ -28,6 +28,7 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('service', 'weather', FLUX_PARSE_OPTIONS);
 
 const WEATHER_SERVICE_URL = 'https://weather-ydn-yql.media.yahoo.com/forecastrss?location=marseille,fr&u=c&format=json';
+const FETCH_WEATHER_DATA_DELAY = Core.isAwake() ? 60 : 300;
 
 var WEATHER_STATUS_LIST;
 fs.readFile(Core._DATA + 'weatherStatus.json', function (err, data) {
@@ -38,8 +39,8 @@ fs.readFile(Core._DATA + 'weatherStatus.json', function (err, data) {
 
 	fetchWeatherData();
 	setInterval(() => {
-		fetchWeatherData(); // retreive weather data each 60 min
-	}, 60 * 60 * 1000);
+		fetchWeatherData();
+	}, FETCH_WEATHER_DATA_DELAY * 60 * 1000);
 });
 
 function randomTTS() {
@@ -143,7 +144,8 @@ function fetchWeatherData() {
 					// 	},
 					// }
 					log.debug(weatherReport.data.current_observation.astronomy);
-					weatherReport.status = WEATHER_STATUS_LIST[weatherReport.data.current_observation.condition.code];
+					weatherReport.code = weatherReport.data.current_observation.condition.code;
+					weatherReport.status = WEATHER_STATUS_LIST[weatherReport.code];
 					weatherReport.temperature = weatherReport.data.current_observation.condition.temperature;
 					weatherReport.wind = weatherReport.data.current_observation.wind.speed;
 					weatherReport.sunrise = new Date(
@@ -153,11 +155,12 @@ function fetchWeatherData() {
 
 					let weatherData = weatherReport.status;
 					weatherData.temperature = weatherReport.temperature;
+					weatherData.code = weatherReport.code;
 					Core.run('weather', weatherData);
 					resolve(weatherReport);
-				} catch (err) {
+				} catch (error) {
 					log.error("Can't parse weather data");
-					reject(err);
+					reject(error);
 				}
 			}
 		});
