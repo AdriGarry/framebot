@@ -19,6 +19,7 @@ const WEATHER_CREDENTIALS = require(Core._SECURITY + 'credentials.json').weather
 module.exports = {};
 
 const FLUX_PARSE_OPTIONS = [
+	{ id: 'refresh', fn: fetchWeatherData },
 	{ id: 'report', fn: reportTTS },
 	{ id: 'alternative', fn: alternativeReportTTS },
 	{ id: 'random', fn: randomTTS },

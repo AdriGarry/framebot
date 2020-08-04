@@ -49,7 +49,7 @@ rfxtrx.initialise(function () {
 
 	rfxtrx.on('receive', function (evt) {
 		new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
-		parseReceivedSignal(evt);
+		parseReceivedSignal(Buffer.from(evt).toString('hex'));
 	});
 
 	rfxtrx.on('disconnect', function (evt) {
@@ -76,8 +76,7 @@ function sendStatus(args) {
 
 const PLUG_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/01f4bf8e0(?<plugId>.)(?<positiveValue>010f60)?/);
 
-function parseReceivedSignal(evt) {
-	let receivedSignal = Buffer.from(evt).toString('hex');
+function parseReceivedSignal(receivedSignal) {
 	log.info('Rfxcom_receive:', receivedSignal);
 
 	let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(receivedSignal);
