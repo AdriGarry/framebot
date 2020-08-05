@@ -31,3 +31,6 @@ sudo apt-get install mbrola mbrola-fr1 mbrola-fr4
 
 # test it !
 espeak -s 125 -v mb/mb-fr1 'installation terminé. On peux maintenant utiliser espeak !'
+
+# intall ffmpeg (youtube)
+sudo apt-get update && sudo apt-get install ffmpeg
