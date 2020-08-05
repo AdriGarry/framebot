@@ -8,6 +8,9 @@ sudo chown -R odi /root
 sudo chown -R odi /dev/ttyUSB0
 echo "odi user granted to needed repositories"
 
+# install mplayer
+sudo apt-get install mplayer
+
 # install espeak
 sudo apt-get install espeak
 
@@ -28,6 +31,8 @@ wget http://steinerdatenbank.de/software/mbrola3.0.1h_armhf.deb
 sudo dpkg -i mbrola3.0.1h_armhf.deb
 sudo apt-get install mbrola mbrola-fr1 mbrola-fr4
 
+# reset volume
+sudo amixer set PCM 100%
 
 # test it !
-espeak -s 125 -v mb/mb-fr1 'installation terminé. On peux maintenant utiliser espeak !'
+espeak -s 125 -v mb/mb-fr1 'installation terminée.'
