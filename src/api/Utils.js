@@ -488,7 +488,7 @@ String.prototype.unQuote = function () {
 	return this.replace(/'|"/gm, '');
 };
 
-// Returns the ISO week of the date.
+// Returns the ISO week of the date. // TODO move to Utils.getWeek() (search for occurence)
 Date.prototype.getWeek = function () {
 	let date = new Date(this.getTime());
 	date.setHours(0, 0, 0, 0);
