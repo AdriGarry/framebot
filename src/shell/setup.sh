@@ -6,10 +6,14 @@
 # RENAME AS install.sh #
 ########################
 
-
+echo "OS release informations:"
+cat /etc/os-release
 
 # Setup script
+echo
 echo "setup..."
+
+cd /home/odi/framebot/tmp
 
 # create odi user
 # operation performed by hand
@@ -61,6 +65,9 @@ sudo apt-get -y install fbi
 sudo chown -R odi /root
 sudo chown -R odi /dev/ttyUSB0
 echo "odi user granted to needed repositories"
+
+cd /home/odi/framebot
+sudo npm install
 
 # test it !
 espeak -s 125 -v mb/mb-fr1 'installation terminée.'
