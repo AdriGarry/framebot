@@ -6,7 +6,10 @@ echo _PATH: $_PATH
 
 updateFrameBotScript(){
 	sudo cp $_PATH/framebot /bin/ && \
+	sudo chmod 755 /bin/framebot
+
 	sudo cp $_PATH/framebot /bin/frb && \
+	sudo chmod 755 /bin/frb
 	
 	sudo cp $_PATH/data/framebot.service /etc/systemd/system && \
 	sudo chmod 744 /etc/systemd/system/framebot.service && \
