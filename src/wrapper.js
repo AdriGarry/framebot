@@ -53,7 +53,7 @@ function wrapper(code) {
 		persistentWatch: true,
 		debounceTimeout: 500
 	});
-	okButton.watch(function(err, value) {
+	okButton.watch(function (err, value) {
 		console.log('\n\nOk Button pushed, restarting Core');
 		restartCoreFromWrapper(code);
 	});
@@ -84,15 +84,15 @@ function startCore(exitCode) {
 	}
 	let Core = spawn('node', coreProgramWithParams);
 
-	Core.stdout.on('data', function(data) {
+	Core.stdout.on('data', function (data) {
 		process.stdout.write(data);
 	});
 
-	Core.stderr.on('data', function(data) {
+	Core.stderr.on('data', function (data) {
 		process.stdout.write(data);
 	});
 
-	Core.on('exit', function(code) {
+	Core.on('exit', function (code) {
 		mute();
 		console.log('\n>> Core restarting... [code:' + code + ']');
 		argv.remove('test'); // Removing test param before relaunching
@@ -155,10 +155,11 @@ function reInitConf() {
 
 function mute() {
 	exec('sudo killall omxplayer.bin');
+	// TODO add mplayer ?! (should do it!)
 	exec('sudo killall espeak');
 }
 
-Array.prototype.remove = function() {
+Array.prototype.remove = function () {
 	let what,
 		a = arguments,
 		L = a.length,
