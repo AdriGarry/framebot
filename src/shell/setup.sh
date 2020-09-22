@@ -1,48 +1,54 @@
 #!/bin/sh
 
 
-
-########################
-# RENAME AS install.sh #
-########################
+#########################
+# RENAME AS install.sh? #
+#########################
+# Setup script
+echo
+echo "setup script..."
 
 echo "OS release informations:"
 cat /etc/os-release
 
-# Setup script
-echo
-echo "setup..."
 
-cd /home/odi/framebot/tmp
-
-# create odi user
-# operation performed by hand
+# Create odi user
+# Operation to be handled performed
 #sudo adduser odi
 #sudo adduser odi sudo
 #sudo adduser odi audio
+#sudo adduser odi gpio
+#su odi
+
+#sudo mkdir /home/odi/framebot
+# TODO: add git clone last tag
+# Il restera toujours les répertoires /security /media absents !
+
+#sudo mkdir /home/odi/framebot/tmp
+cd /home/odi/framebot/tmp
 
 # Run the following command to fix the $HOME directory permissions for the current $USER:
 # sudo chown -R $USER:$USER $HOME/
 
-#install npm & nodejs
+# Install npm & nodejs
 curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
 sudo apt install nodejs
 
-# install mplayer & sound tools
+# Install mplayer & sound tools
 # sudo apt-get install -y mplayer
-sudo apt-get install -y mplayer alsa-base alsa-utils pulseaudio mpg123
+sudo apt-get install -y mplayer alsa-base alsa-utils alsa-tools pulseaudio mpg123
 
-# set audio output to headphones
+# Set audio output to headphones
 amixer cset numid=3 1
 
-# reset volume
-sudo amixer set PCM 100%
-# amixer sset 'Master' 100%
+# Reset volume
+# sudo amixer set PCM 100%
+amixer sset 'Master' 100%
 
-# install espeak
+# Install espeak
 sudo apt-get install -y espeak
 
-# install voices for mbrola
+# Install voices for mbrola
 wget http://tcts.fpms.ac.be/synthesis/mbrola/dba/fr1/fr1-990204.zip
 sudo unzip fr1-990204.zip -d /opt/mbrola
 sudo mkdir -p /usr/share/mbrola/voices/
@@ -58,16 +64,16 @@ sudo dpkg -i mbrola3.0.1h_armhf.deb
 sudo apt-get install -y mbrola mbrola-fr1 mbrola-fr4
 
 
-# install fbi (framebuffer imageviewer: diapo)
+# Install fbi (framebuffer imageviewer: diapo)
 sudo apt-get -y install fbi
 
-# give odi user's access to needed repositories
+# Give odi user's access to needed repositories
 sudo chown -R odi /root
 sudo chown -R odi /dev/ttyUSB0
 echo "odi user granted to needed repositories"
 
-cd /home/odi/framebot
-sudo npm install
+#cd /home/odi/framebot
+#sudo npm install
 
-# test it !
+# Test it !
 espeak -s 125 -v mb/mb-fr1 'installation terminée.'
