@@ -6,7 +6,7 @@ After=network.target
 User=root
 WorkingDirectory=/home/odi/framebot
 ExecStart=/bin/framebot odi
-RestartSec=90s
+RestartSec=60s
 
 [Install]
 WantedBy=multi-user.target
