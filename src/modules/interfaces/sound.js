@@ -90,7 +90,7 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
 	if (!noLed) mplayerProcess.ledFlag = ledFlag();
 
 	mplayerProcess.stderr.on('data', err => {
-		log.trace(`stderr: ${err}`);
+		log.error('mplayer error for ' + soundTitle || sound, Buffer.from(err).toString());
 	});
 
 	mplayerProcess.on('close', err => {
@@ -199,7 +199,8 @@ function playUISound() {
 /** Function to reset sound output */
 function resetSoundOutput() {
 	log.info('Reset sound output [amixer set PCM 100%]');
-	Utils.execCmd('amixer set PCM 100%')
+	// Utils.execCmd('amixer set PCM 100%')
+	Utils.execCmd("amixer sset 'Master' 100%")
 		.then(data => {
 			log.debug(data);
 		})
