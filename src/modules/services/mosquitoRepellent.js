@@ -29,8 +29,10 @@ setImmediate(() => {
 	Utils.delay(10).then(initMosquitoRepellentMode);
 });
 
+const MOSQUITO_MONTHS = [4, 5, 6, 7, 8, 9];
+
 function initMosquitoRepellentMode() {
-	let today = new Date();
+	let today = new Date(); // TODO harmonize with radiator!
 	if (today.getMonth() < 4 || today.getMonth() > 9) {
 		log.info('not in mosquito season!');
 		return;
@@ -70,3 +72,8 @@ function plugOrder(mode) {
 	new Flux('interface|rfxcom|send', { device: 'plugC', value: mode });
 }
 
+function isMosquitoSeason() {
+	let currentMonth = new Date().getMonth();
+	if (MOSQUITO_MONTHS.includes(currentMonth)) return true;
+	return false;
+}
