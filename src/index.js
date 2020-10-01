@@ -41,3 +41,14 @@ if (Core.conf('mode') === 'test') {
 		integrationTests.launch();
 	}, 1000);
 }
+
+
+// TTS to test
+
+// const { spawn } = require('child_process');
+
+// let mplayerProcess = spawn('mplayer', ['-ao', 'alsa', '-volstep', 10, '-volume', 60, 'media/mp3/system/beBack.mp3']);
+
+// mplayerProcess.stderr.on('data', err => {
+// 	log.test(`stderr: ${err}`);
+// });
