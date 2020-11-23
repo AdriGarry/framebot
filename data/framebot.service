@@ -3,7 +3,7 @@ Description=framebot service
 After=network.target
 
 [Service]
-User=root
+User=odi
 WorkingDirectory=/home/odi/framebot
 ExecStart=/bin/framebot odi
 RestartSec=60s
