@@ -33,6 +33,7 @@ exitIfNoArgs(){
 	if [ $# -eq 0 ]
 	then
 		echo "No arguments supplied, exiting."
+		echo "Try 'update' or <botname> [<options>]"
 		exit 0
 	fi
 }
@@ -80,10 +81,9 @@ ifCerbot(){
 	fi
 }
 
+exitIfNoArgs $*
 
 ifUpdateFramebotCommand $*
-
-exitIfNoArgs $*
 
 ifStop $*
 
