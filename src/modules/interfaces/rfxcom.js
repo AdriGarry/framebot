@@ -19,13 +19,13 @@ module.exports = {};
 Observers.attachFluxParser('interface', 'rfxcom', rfxcomHandler);
 
 function rfxcomHandler(flux) {
-	if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === false) {
+	/*if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === false) {
 		sendStatus(flux.value);
 		new Flux('service|internetNetwork|strategy');
 	} else if (flux.id == 'send' && flux.value.device === 'plugB' && flux.value.value === true) {
 		sendStatus(flux.value);
 		new Flux('service|internetNetwork|strategyOff');
-	} else if (flux.id == 'send') {
+	} else*/ if (flux.id == 'send') {
 		sendStatus(flux.value);
 	} else if (flux.id == 'toggleLock') {
 		toggleLock(flux.value);
