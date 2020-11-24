@@ -29,12 +29,12 @@ setImmediate(() => {
 	Utils.delay(10).then(initMosquitoRepellentMode);
 });
 
-const MOSQUITO_MONTHS = [4, 5, 6, 7, 8, 9];
+const MOSQUITO_MONTHS = [4, 5, 6, 7, 8];
 
 function initMosquitoRepellentMode() {
 	let today = new Date(); // TODO harmonize with radiator!
 	if (today.getMonth() < 4 || today.getMonth() > 9) {
-		log.info('not in mosquito season!');
+		log.debug('not in mosquito season!');
 		return;
 	}
 	log.info('init mosquito repellent mode [' + Utils.executionTime(Core.startTime) + 'ms]');
