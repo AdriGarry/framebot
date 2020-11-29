@@ -1,9 +1,6 @@
 #!/bin/sh
 
 
-#########################
-# RENAME AS install.sh? #
-#########################
 # Setup script
 echo
 echo "setup script..."
@@ -14,10 +11,10 @@ cat /etc/os-release
 
 # Create odi user
 # Operation to be handled performed
-#sudo adduser odi
-#sudo adduser odi sudo
-#sudo adduser odi audio
-#sudo adduser odi gpio
+# sudo adduser odi
+# sudo adduser odi sudo
+# sudo adduser odi audio
+# sudo adduser odi gpio
 #su odi
 
 #sudo mkdir /home/odi/framebot
@@ -67,13 +64,39 @@ sudo apt-get install -y mbrola mbrola-fr1 mbrola-fr4
 # Install fbi (framebuffer imageviewer: diapo)
 sudo apt-get -y install fbi
 
+# DEPRECATED
 # Give odi user's access to needed repositories
-sudo chown -R odi /root
-sudo chown -R odi /dev/ttyUSB0
-echo "odi user granted to needed repositories"
+#sudo chown -R odi /root
+#sudo chown -R odi /dev/ttyUSB0
+#echo "odi user granted to needed repositories"
 
-#cd /home/odi/framebot
-#sudo npm install
+# DEPRECATED
+# gpio export _pin_ in/out
+# gpio export _pin_ in/out
+# gpio export _pin_ in/out
+# gpio export _pin_ in/out
+# gpio export _pin_ in/out
+# gpio export _pin_ in/out
+# gpio export _pin_ in/out
+# gpio export _pin_ in/out
+# gpio export _pin_ in/out
+# gpio export _pin_ in/out
 
-# Test it !
+# Test
 espeak -s 125 -v mb/mb-fr1 'installation terminée.'
+
+exit 0
+
+#################
+## After npm i ##
+#################
+
+# TODO put these lines in /etc/rc.local file (before 'exit 0')
+sudo adduser odi audio
+sudo adduser odi gpio
+
+# gpio access
+sudo chmod -R 777 /sys/class/gpio
+
+# rfxcom gateway access
+sudo chmod -R 777 /dev/ttyUSB0
