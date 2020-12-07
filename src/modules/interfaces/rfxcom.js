@@ -76,7 +76,7 @@ function sendStatus(args) {
 
 const PLUG_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/01f4bf8e0(?<plugId>.)(?<positiveValue>010f60)?/);
 
-function parseReceivedSignal(receivedSignal) {
+function parseReceivedSignal(receivedSignal) { // TODO Not working, check regex...
 	log.info('Rfxcom_receive:', receivedSignal);
 
 	let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(receivedSignal);

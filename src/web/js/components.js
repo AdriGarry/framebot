@@ -993,13 +993,13 @@ app.component('radiator', {
 				{
 					label: 'Radiator on',
 					icon: 'fas fa-toggle-on',
-					url: '/flux/service/radiator/toggle',
+					url: '/flux/service/radiator/manual',
 					value: 'on'
 				},
 				{
 					label: 'Radiator off',
 					icon: 'fas fa-toggle-off',
-					url: '/flux/service/radiator/toggle',
+					url: '/flux/service/radiator/manual',
 					value: 'off'
 				}
 			]

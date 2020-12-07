@@ -17,7 +17,8 @@ const log = new Logger(__filename);
 module.exports = {};
 
 const FLUX_PARSE_OPTIONS = [
-	{ id: 'toggle', fn: toggleRadiator },
+	{ id: 'toggle', fn: radiatorOrder },
+	{ id: 'manual', fn: toggleManualRadiator },
 	{ id: 'timeout', fn: setRadiatorTimeout }
 ];
 
@@ -60,7 +61,7 @@ function setupRadiatorMode() {
 	} else if (radiatorMode == 'off') {
 		radiatorOrder('off');
 	} else {
-		Core.error('Unrecognized radiator:', radiatorMode);
+		Core.error('Unrecognized radiator mode:', radiatorMode);
 	}
 }
 
@@ -83,8 +84,8 @@ function radiatorOrder(mode) {
 	new Flux('interface|rfxcom|send', { device: 'radiator', value: mode == 'on' ? false : true });
 }
 
-function toggleRadiator(mode) {
-	log.info('toggleRadiator', mode);
+function toggleManualRadiator(mode) {
+	log.info('toggleManualRadiator', mode);
 	RADIATOR_JOB.AUTO.stop();
 	RADIATOR_JOB.ON.stop();
 	RADIATOR_JOB.OFF.stop();
