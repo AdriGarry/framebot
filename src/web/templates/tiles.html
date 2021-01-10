@@ -91,8 +91,8 @@
 		<div class="main ">
 			<i class="far fa-bell" data-ng-if="$ctrl.nextAlarm"></i>
 			<i class="far fa-bell-slash" data-ng-if="!$ctrl.nextAlarm"></i>
-			<span
-				data-ng-show="$ctrl.data.value && $ctrl.nextAlarm">{{$ctrl.nextAlarm.h}}:{{$ctrl.nextAlarm.m | formatNumber:2}}
+			<span data-ng-show="$ctrl.data.value && $ctrl.nextAlarm">{{$ctrl.nextAlarm.h}}:{{$ctrl.nextAlarm.m |
+				formatNumber:2}}
 			</span>
 		</div>
 	</div>
@@ -114,16 +114,16 @@
 				<table style="display:inline-block;vertical-align:middle;">
 					<tr>
 						<td style="line-height:2.5vw;">
-							<span>{{$ctrl.data.value.memory.framebot | limitTo: $ctrl.data.value.memory.framebot.length-2}}<small
-									class="opacity70"><small>Mo</small>
+							<span>{{$ctrl.data.value.memory.framebot | limitTo:
+								$ctrl.data.value.memory.framebot.length-2}}<small class="opacity70"><small>Mo</small>
 								</small>
 						</td>
 					</tr>
 					<tr>
 						<td style="line-height:2.5vw;">
 							<small>
-								<small>&nbsp;&nbsp;{{$ctrl.data.value.memory.system | limitTo: $ctrl.data.value.memory.system.length-4}}<small
-										class="opacity70"><small>Mo _</small>
+								<small>&nbsp;&nbsp;{{$ctrl.data.value.memory.system | limitTo:
+									$ctrl.data.value.memory.system.length-4}}<small class="opacity70"><small>Mo _</small>
 									</small>
 								</small>
 								<small>{{$ctrl.getMemoryPerCent()}}
@@ -254,7 +254,7 @@
 			<i class="fas fa-thermometer-half" data-ng-if="$ctrl.data.config.radiator == 'auto'"></i>
 			<i class="fas fa-thermometer-full"
 				data-ng-if="$ctrl.data.config.radiator == 'on' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='on'"></i>
-			<i class="fas fa-thermometer-quarter"
+			<i class="fas fa-thermometer-empty"
 				data-ng-if="$ctrl.data.config.radiator == 'off' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='off'"></i>
 			<small>
 				<span data-ng-if="!$ctrl.isTimeout()">{{$ctrl.data.config.radiator}}</span>
