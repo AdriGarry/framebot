@@ -4,28 +4,28 @@ _PATH=`pwd`
 echo _PATH: $_PATH
 
 updateFrameBotScript(){
+	sudo cp $_PATH/framebot /bin/ && \
 	# sudo cp $_PATH/framebot /bin/ && \
-	cp $_PATH/framebot /bin/ && \
+	sudo chmod 755 /bin/framebot
 	# sudo chmod 755 /bin/framebot
-	chmod 755 /bin/framebot
 
-	# sudo cp $_PATH/framebot /bin/frb && \
-	cp $_PATH/framebot /bin/frb && \
-	# sudo chmod 755 /bin/frb
-	chmod 755 /bin/frb
+	sudo cp $_PATH/framebot /bin/frb && \
+	# cp $_PATH/framebot /bin/frb && \
+	sudo chmod 755 /bin/frb
+	# chmod 755 /bin/frb
 	
-	# sudo cp $_PATH/data/framebot.service /etc/systemd/system && \
-	cp $_PATH/data/framebot.service /etc/systemd/system && \
-	# sudo chmod 744 /etc/systemd/system/framebot.service && \
-	chmod 744 /etc/systemd/system/framebot.service && \
-	# sudo systemctl daemon-reload && \
-	systemctl daemon-reload && \
-	# sudo systemctl enable framebot.service && \
-	systemctl enable framebot.service && \
-	#sudo systemctl start framebot.service
+	sudo cp $_PATH/data/framebot.service /etc/systemd/system && \
+	# cp $_PATH/data/framebot.service /etc/systemd/system && \
+	sudo chmod 744 /etc/systemd/system/framebot.service && \
+	# chmod 744 /etc/systemd/system/framebot.service && \
+	sudo systemctl daemon-reload && \
+	# systemctl daemon-reload && \
+	sudo systemctl enable framebot.service && \
+	# systemctl enable framebot.service && \
+	sudo systemctl start framebot.service
 
 	echo "framebot: framebot command & service updated!\n"
-	# sudo chmod +x "$_PATH"/framebot.sh
+	sudo chmod +x "$_PATH"/framebot
 }
 
 exitIfNoArgs(){
@@ -39,9 +39,9 @@ exitIfNoArgs(){
 
 ifStop(){
 	if [ $1 = "stop" ]; then
-		#sudo service framebot stop
-		# sudo killall node
-		killall node
+		sudo service framebot stop
+		sudo killall node
+		# killall node
 		echo "\nframebot STOPPED."
 		exit 0
 	fi
@@ -65,8 +65,8 @@ ifLogtail(){
 ifReset(){
 	if [ $1 = "reset" ]; then
 		echo "\nframebot RESETED !"
-		# sudo rm -r -f $_PATH/tmp
-		rm -r -f $_PATH/tmp
+		sudo rm -r -f $_PATH/tmp
+		# rm -r -f $_PATH/tmp
 		exit 0
 	fi
 }
@@ -74,8 +74,8 @@ ifReset(){
 ifCerbot(){
 	if [ $1 = "certbot" ]; then
 		echo "\nCERTBOT..."
-		# sudo sh $_PATH/src/shell/certbot.sh
-		sh $_PATH/src/shell/certbot.sh
+		sudo sh $_PATH/src/shell/certbot.sh
+		# sh $_PATH/src/shell/certbot.sh
 		exit 0
 	fi
 }
@@ -104,9 +104,9 @@ then
 	echo "log directory created"
 fi
 
-# echo "\nStarting Wrapper... [$*]" | sudo tee -a "$_PATH/log/$_NAME.log"
-echo "\nStarting Wrapper... [$*]" | tee -a "$_PATH/log/$_NAME.log"
+echo "\nStarting Wrapper... [$*]" | sudo tee -a "$_PATH/log/$_NAME.log"
+# echo "\nStarting Wrapper... [$*]" | tee -a "$_PATH/log/$_NAME.log"
 
 # sudo python /home/odi/framebot/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/framebot/log/buttons.py.log &
-# sudo node "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" 
-node "$_PATH"/src/wrapper.js $* 2>&1 | tee -a "$_PATH/log/$_NAME.log" 
+sudo node "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" 
+# node "$_PATH"/src/wrapper.js $* 2>&1 | tee -a "$_PATH/log/$_NAME.log" 
