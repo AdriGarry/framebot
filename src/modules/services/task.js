@@ -43,7 +43,7 @@ function goToSleep() {
 
 function beforeRestart() {
 	log.info('beforeRestart');
-	new Flux('interface|rfxcom|send', { device: 'plugB', value: true });
+	//new Flux('interface|rfxcom|send', { device: 'plugB', value: true });
 }
 
 function renewCertbot() {
