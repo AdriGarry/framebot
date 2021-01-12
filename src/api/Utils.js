@@ -76,7 +76,7 @@ module.exports = class Utils {
 		fsPromises
 			.readFile(filePath)
 			.catch(_fileNotExists)
-			.then(data => _appendFileData(data, obj))
+			.then(data => _appendFileData(data, obj, filePath))
 			.then(data => fsPromises.writeFile(filePath, data))
 			.then(() => log.debug('file ' + filePath + ' updated in', Utils.executionTime(startTime) + 'ms'))
 			.catch(err => log.error('Utils.appendArrayInJsonFile', err));
@@ -451,15 +451,15 @@ function _fileNotExists(err) {
 	});
 }
 
-function _appendFileData(data, obj) {
+function _appendFileData(data, obj, filePath) {
 	return new Promise((resolve, reject) => {
 		try {
 			let fileData;
 			try {
 				fileData = JSON.parse(data);
 			} catch (err) {
-				log.info(data);
-				log.error('appendFileData: error while JSON.parse(data)', err);
+				log.warn(data);
+				log.warn('Invalid content for file' + filePath + '. Reinitializing file with an empty array');
 			}
 			if (!Array.isArray(fileData)) fileData = [fileData];
 
