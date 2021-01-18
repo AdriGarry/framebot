@@ -113,7 +113,7 @@ function playRadio(radioId) {
 			radio = RADIO_LIST.fip;
 		}
 		log.info('Play radio ' + radio.id);
-		new Flux('interface|tts|speak', radio.id + ' radio');
+		// new Flux('interface|tts|speak', radio.id + ' radio');
 
 		new Flux('interface|sound|play', { url: radio.url }, { delay: 2 });
 		Core.run('music', radio.id);
