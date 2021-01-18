@@ -3,12 +3,12 @@
 
 const { spawn, exec } = require('child_process');
 
-const Core = require('./../../core/Core').Core;
+const Core = require('../../core/Core').Core;
 
-const Logger = require('./../../api/Logger'),
-	Flux = require('./../../api/Flux'),
-	Utils = require('./../../api/Utils'),
-	Observers = require('./../../api/Observers');
+const Logger = require('../../api/Logger'),
+	Flux = require('../../api/Flux'),
+	Utils = require('../../api/Utils'),
+	Observers = require('../../api/Observers');
 
 const log = new Logger(__filename);
 
@@ -38,7 +38,7 @@ setImmediate(() => {
 });
 
 const VOLUME_LEVELS = Array.from({ length: 11 }, (v, k) => k * 10); // 0 to 100, step: 10
-var playerInstances = {},
+var mplayerInstances = {},
 	muteTimer;
 
 function playSound(arg) {
@@ -66,8 +66,7 @@ function playSound(arg) {
 	if (!arg.noLog) log.info('play', soundTitle, volLog, positionLog, durationLog);
 
 	let position = arg.position || 0;
-	// let volume = arg.volume || Core.run('volume');
-	let volume = arg.volume || -602;
+	let volume = arg.volume || Core.run('volume');
 	doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
 }
 
@@ -86,24 +85,24 @@ function playSoundRandomPosition(arg) {
 
 function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
 	let startPlayTime = new Date();
-	let playerProcess = spawn('omxplayer', ['--vol', volume, '--pos', position || 0, sound]);
+	let mplayerProcess = spawn('mplayer', ['-volstep', 10, '-volume', volume, '-ss', position || 0, sound]);
 
-	if (!noLed) playerProcess.ledFlag = ledFlag();
+	if (!noLed) mplayerProcess.ledFlag = ledFlag();
 
-	playerProcess.stderr.on('data', err => { // TODO useless ?
-		log.error('player error for ' + soundTitle || sound, Buffer.from(err).toString());
+	mplayerProcess.stderr.on('data', err => {
+		log.error('mplayer error for ' + soundTitle || sound, Buffer.from(err).toString());
 	});
 
-	playerProcess.on('close', err => {
-		if (err) log.error('player.onClose ' + soundTitle + ' error', err);
+	mplayerProcess.on('close', err => {
+		if (err) Core.error('mplayer.onClose ' + soundTitle + ' error', err);
 		if (!noLog) {
 			let playTime = Utils.formatDuration(Math.round(Utils.executionTime(startPlayTime) / 100) / 10);
 			log.info('play_end ' + soundTitle + ' time=' + playTime);
 		}
-		clearInterval(playerProcess.ledFlag);
-		delete playerInstances[sound];
+		clearInterval(mplayerProcess.ledFlag);
+		delete mplayerInstances[sound];
 	});
-	playerInstances[sound] = playerProcess;
+	mplayerInstances[sound] = mplayerProcess;
 }
 
 /** Function to mute */
@@ -128,7 +127,7 @@ function muteAll(message) {
 		new Flux('interface|arduino|disconnect', null, { log: 'trace' });
 		new Flux('interface|arduino|connect', null, { log: 'trace' });
 	}
-	writeAllPlayerInstances('q');
+	writeAllMPlayerInstances('q');
 	new Flux('service|music|stop', null, { log: 'trace' });
 	new Flux('interface|tts|clearTTSQueue', null, { log: 'trace' });
 	exec('sudo killall omxplayer.bin');
@@ -145,9 +144,9 @@ function setVolume(volume) {
 		let volumeUpdate = getVolumeInstructions(parseInt(volume));
 		if (!volumeUpdate) return;
 
-		let sign = volumeUpdate.increase ? '+' : '-';
+		let sign = volumeUpdate.increase ? '*' : '/';
 		while (volumeUpdate.gap) {
-			writeAllPlayerInstances(sign);
+			writeAllMPlayerInstances(sign);
 			volumeUpdate.gap--;
 		}
 		Core.run('volume', volume);
@@ -157,10 +156,10 @@ function setVolume(volume) {
 	}
 }
 
-function writeAllPlayerInstances(sign) {
-	log.trace('playerInstances.write:', sign);
-	Object.keys(playerInstances).forEach(key => {
-		playerInstances[key].stdin.write(sign);
+function writeAllMPlayerInstances(sign) {
+	log.trace('mplayerInstances.write:', sign);
+	Object.keys(mplayerInstances).forEach(key => {
+		mplayerInstances[key].stdin.write(sign);
 	});
 }
 function getVolumeInstructions(newVolume) {
@@ -182,7 +181,7 @@ function getVolumeInstructions(newVolume) {
 }
 
 function ledFlag() {
-	// TODO clear interval on sound end
+	// new Flux('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
 	new Flux('interface|led|blink', { leds: ['eye'], speed: 100, loop: 3 }, { log: 'trace' });
 	return setInterval(function () {
 		new Flux('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
@@ -190,7 +189,7 @@ function ledFlag() {
 }
 
 function playErrorSound() {
-	playSound({ mp3: 'system/ressort.mp3', volume: -1800, noLog: true, noLed: true });
+	playSound({ mp3: 'system/ressort.mp3', noLog: true, noLed: true });
 }
 
 function playUISound() {
@@ -200,9 +199,8 @@ function playUISound() {
 /** Function to reset sound output */
 function resetSoundOutput() {
 	log.info('Reset sound output [amixer set PCM 100%]');
-	//Utils.execCmd('amixer set PCM 100%')
-	Utils.execCmd('amixer cset numid=2 1')
-		//Utils.execCmd("amixer sset 'Master' 100%")
+	// Utils.execCmd('amixer set PCM 100%')
+	Utils.execCmd("amixer sset 'Master' 100%")
 		.then(data => {
 			log.debug(data);
 		})

@@ -76,7 +76,7 @@ function initializeContext(descriptor, forcedParams, startTime) {
 	console.log('\n' + fs.readFileSync(Core._CONF + 'logo.txt', 'utf8').toString());
 	// log.table(Core.conf(), 'CONFIG'); // deprecated
 	if (Core.isAwake()) {
-		spawn('mplayer', ['-volume', 50, Core._MP3 + 'system/startup.mp3']);
+		spawn('omxplayer', ['--vol', -602, Core._MP3 + 'system/startup.mp3']);
 	}
 	log.info('Core context initializing...');
 
