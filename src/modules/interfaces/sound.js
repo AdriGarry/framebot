@@ -181,7 +181,7 @@ function getVolumeInstructions(newVolume) {
 }
 
 function ledFlag() {
-	// new Flux('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
+	// TODO clear interval on sound end
 	new Flux('interface|led|blink', { leds: ['eye'], speed: 100, loop: 3 }, { log: 'trace' });
 	return setInterval(function () {
 		new Flux('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
