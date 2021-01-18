@@ -11,13 +11,13 @@ const Logger = require('./../../api/Logger'),
 const log = new Logger(__filename);
 
 module.exports = {
-	cron: {
-		full: [
-			{ cron: '10 0 17 * * *', flux: { id: 'service|mood|set', data: 3 } },
-			{ cron: '10 0 21 * * *', flux: { id: 'service|mood|set', data: 2 } },
-			{ cron: '0 59 22 * * *', flux: { id: 'service|mood|set', data: 1 } }
-		]
-	}
+	// cron: {
+	// 	full: [
+	// 		{ cron: '10 0 17 * * *', flux: { id: 'service|mood|set', data: 3 } },
+	// 		{ cron: '10 0 21 * * *', flux: { id: 'service|mood|set', data: 2 } },
+	// 		{ cron: '0 59 22 * * *', flux: { id: 'service|mood|set', data: 1 } }
+	// 	]
+	// }
 };
 
 
