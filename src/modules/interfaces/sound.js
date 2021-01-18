@@ -66,7 +66,8 @@ function playSound(arg) {
 	if (!arg.noLog) log.info('play', soundTitle, volLog, positionLog, durationLog);
 
 	let position = arg.position || 0;
-	let volume = arg.volume || Core.run('volume');
+	// let volume = arg.volume || Core.run('volume');
+	let volume = arg.volume || -602;
 	doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
 }
 
@@ -85,7 +86,7 @@ function playSoundRandomPosition(arg) {
 
 function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
 	let startPlayTime = new Date();
-	let playerProcess = spawn('omxplayer', ['--vol', -602, '--pos', position || 0, sound]);
+	let playerProcess = spawn('omxplayer', ['--vol', volume, '--pos', position || 0, sound]);
 
 	if (!noLed) playerProcess.ledFlag = ledFlag();
 
@@ -189,7 +190,7 @@ function ledFlag() {
 }
 
 function playErrorSound() {
-	playSound({ mp3: 'system/ressort.mp3', noLog: true, noLed: true });
+	playSound({ mp3: 'system/ressort.mp3', volume: -1800, noLog: true, noLed: true });
 }
 
 function playUISound() {
