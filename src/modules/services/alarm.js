@@ -39,7 +39,7 @@ function disableAllAlarms() {
 /** Function to set custom alarm */
 function setAlarm(alarm) {
 	let newAlarms = {};
-	Object.keys(Core.conf('alarms')).forEach(function(key, index) {
+	Object.keys(Core.conf('alarms')).forEach(function (key, index) {
 		if (key == alarm.when) {
 			newAlarms[key] = {
 				h: alarm.h,
@@ -100,7 +100,7 @@ function alarmPart1() {
 		Utils.getDuration(Core._MP3 + 'system/morningSea.mp3')
 			.then(data => {
 				log.debug('seaDuration', data);
-				setTimeout(function() {
+				setTimeout(function () {
 					resolve();
 				}, data * 1000);
 			})
@@ -118,7 +118,7 @@ function alarmPart2() {
 		new Flux('interface|sound|play', { mp3: 'system/cocorico.mp3' });
 		if (isBirthday()) {
 			new Flux('service|party|birthdaySong');
-			setTimeout(function() {
+			setTimeout(function () {
 				resolve();
 			}, 53 * 1000);
 		} else {
@@ -159,6 +159,7 @@ function alarmPart3() {
 	}
 
 	new Flux('service|interaction|baluchon', null, { delay: Utils.random(15, 25) * 60, loop: 3 });
+	return; // Disable go to work TTS
 	if (!Utils.isWeekend()) {
 		new Flux('service|interaction|goToWorkQueue', null, { delay: 70 * 60 });
 	}
