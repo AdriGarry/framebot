@@ -308,7 +308,7 @@ md-button.md-fab.ng-slide.active {
 	bottom: 2em;
 }
 .logs ul {
-	font-family: 'Courier New', Helvetica, sans-serif;
+	font-family: 'Courier New', monospace;
 	font-size: 0.85em;
 	line-height: 1em;
 	font-stretch: condensed;
