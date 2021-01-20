@@ -67,7 +67,7 @@ function playSound(arg) {
 
 	let position = arg.position || 0;
 	// let volume = arg.volume || Core.run('volume');
-	let volume = arg.volume || -602;
+	let volume = arg.volume ? percentToMillibels(arg.volume) : percentToMillibels(Core.run('volume'));
 	doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
 }
 
@@ -163,6 +163,13 @@ function writeAllPlayerInstances(sign) {
 		playerInstances[key].stdin.write(sign);
 	});
 }
+
+function percentToMillibels(percent) {
+	let attenuation = 1.0 / 1024.0 + percent / 100.0 * 1023.0 / 1024.0;
+	let db = 6 * Math.log10(attenuation) / Math.log10(2);
+	return db * 100;
+}
+
 function getVolumeInstructions(newVolume) {
 	let actualVolume = parseInt(Core.run('volume'));
 	let indexNewVolume = VOLUME_LEVELS.indexOf(newVolume);
@@ -190,7 +197,7 @@ function ledFlag() {
 }
 
 function playErrorSound() {
-	playSound({ mp3: 'system/ressort.mp3', volume: -1800, noLog: true, noLed: true });
+	playSound({ mp3: 'system/ressort.mp3', volume: 20, noLog: true, noLed: true });
 }
 
 function playUISound() {
