@@ -12,22 +12,18 @@
 	"modules": {
 		"interfaces": {
 			"base": [
+				"button",
 				"led",
-				"sound",
 				"hardware",
-				"rfxcom"
+				"rfxcom",
+				"server",
+				"sound",
+				"watcher"
 			],
 			"full": [
 				"arduino",
 				"hdmi",
 				"tts"
-			]
-		},
-		"controllers": {
-			"base": [
-				"button",
-				"server",
-				"watcher"
 			]
 		},
 		"services": {
