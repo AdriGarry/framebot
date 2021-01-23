@@ -103,7 +103,7 @@ function initializeContext(descriptor, forcedParams, startTime) {
 	moduleLoader.load();
 	log.info('all modules loaded [' + Utils.executionTime(Core.startTime) + 'ms]');
 
-	new Flux('controller|server|start', null, { log: 'trace' });
+	new Flux('interface|server|start', null, { log: 'trace' });
 	moduleLoader.setupCron();
 	Object.seal(Core);
 	return Core;

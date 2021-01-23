@@ -245,7 +245,7 @@ app.component('options', {
 			actionList: [
 				{ label: '!Trace', icon: 'far fa-dot-circle', url: '/toggleTrace' },
 				{ label: '!Debug', icon: 'fas fa-circle', url: '/toggleDebug' },
-				{ label: 'Watcher', icon: 'fas fa-eye', url: '/flux/controller/watcher/toggle' },
+				{ label: 'Watcher', icon: 'fas fa-eye', url: '/flux/interface/watcher/toggle' },
 				{
 					label: 'Test',
 					icon: 'far fa-caret-square-right',

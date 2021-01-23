@@ -21,11 +21,11 @@ const FLUX_PARSE_OPTIONS = [
 	{ id: 'toggle', fn: toggleWatch }
 ];
 
-Observers.attachFluxParseOptions('controller', 'watcher', FLUX_PARSE_OPTIONS);
+Observers.attachFluxParseOptions('interface', 'watcher', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
 	if (Core.conf('watcher')) {
-		new Flux('controller|watcher|start');
+		new Flux('interface|watcher|start');
 	}
 });
 
@@ -35,7 +35,6 @@ const SEC_TO_RESTART = 3,
 		Core._SRC,
 		Core._CORE,
 		Core._API,
-		Core._MODULES + 'controllers/',
 		Core._MODULES + 'interfaces/',
 		Core._MODULES + 'services/',
 		Core._SRC + 'test/',
