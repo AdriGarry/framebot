@@ -136,7 +136,7 @@ function russiaHymn() {
 function uneHeure() {
 	log.info('Il est 1 heure et tout va bien !');
 	new Flux('interface|sound|play', {
-		mp3: 'system/uneHeure.mp3'
+		mp3: 'system/uneHeure.mp3', volume: 40
 	});
 }
 
