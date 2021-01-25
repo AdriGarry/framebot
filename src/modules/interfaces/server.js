@@ -31,7 +31,7 @@ const FLUX_PARSE_OPTIONS = [
 	{ id: 'closeUIServer', fn: closeUIServer }
 ];
 
-Observers.attachFluxParseOptions('controller', 'server', FLUX_PARSE_OPTIONS);
+Observers.attachFluxParseOptions('interface', 'server', FLUX_PARSE_OPTIONS);
 
 const HTTP_SERVER_PORT = 3210,
 	HTTPS_SERVER_PORT = 4321,

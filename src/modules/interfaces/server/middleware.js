@@ -117,10 +117,10 @@ function rejectUnauthorizedRequest(res) {
 }
 
 function closingServerTemporary(breakDuration) {
-	new Flux('controller|server|closeUIServer', breakDuration);
+	new Flux('interface|server|closeUIServer', breakDuration);
 	setTimeout(function () {
 		log.INFO('restarting UI server...');
 		badRequestCount = 0;
-		new Flux('controller|server|startUIServer');
+		new Flux('interface|server|startUIServer');
 	}, breakDuration);
 }

@@ -12,7 +12,7 @@ const log = new logger(__filename);
 
 var ready = false,
 	modulesTypes = [],
-	ObserversObjects = { controller: {}, interface: {}, service: {} };
+	ObserversObjects = { interface: {}, service: {} };
 
 module.exports = class Observers {
 	static init(observers) {
@@ -65,10 +65,6 @@ module.exports = class Observers {
 
 	static modules() {
 		return modulesTypes;
-	}
-
-	static controller() {
-		return ObserversObjects.controller;
 	}
 
 	static interface() {
