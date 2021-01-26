@@ -42,7 +42,7 @@ function espeakMbrolaFr4(tts) {
 
 function google(tts) {
 	let lg = tts.lg;
-	let msg = tts.msg.replace(' ', '%20');;
+	let msg = encodeURI(tts.msg);
 	let url = `http://translate.google.com/translate_tts?tl=${lg}&client=tw-ob&q=${msg}`;
 	new Flux('interface|sound|play', { url: url, volume: Core.run('volume') * 3, noLog: true }, { log: 'trace' });
 }
