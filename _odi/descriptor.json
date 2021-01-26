@@ -103,5 +103,6 @@
 			]
 		}
 	},
-	"fallbackVoice": "google"
+	"fallbackVoice": "google",
+	"forcedVoice": "google"
 }
