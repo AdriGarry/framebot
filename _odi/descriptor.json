@@ -102,5 +102,7 @@
 				}
 			]
 		}
-	}
+	},
+	"fallbackVoice": "google",
+	"forcedVoice": "google"
 }

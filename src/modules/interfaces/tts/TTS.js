@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 'use strict';
 
+const Core = require('./../../../core/Core').Core;
+
 const Logger = require('./../../../api/Logger');
 
 const log = new Logger(__filename);
 
 const FALLBACK_LANGUAGE = 'fr',
-	FALLBACK_VOICE = 'espeak';
+	FALLBACK_VOICE = Core.descriptor.fallbackVoice,
+	FORCED_VOICE = Core.descriptor.forcedVoice;
+log.test('FALLBACK_VOICE', FALLBACK_VOICE);
 
 module.exports = class TTS {
 	constructor(message, language, voice) {
@@ -17,7 +21,7 @@ module.exports = class TTS {
 			log.debug('No valid language, fallback on Fr');
 			this.lg = FALLBACK_LANGUAGE;
 		}
-		if (voice) {
+		if (voice && !FORCED_VOICE) {
 			this.voice = voice;
 		} else {
 			log.debug('No valid voice, fallback on espeak');
