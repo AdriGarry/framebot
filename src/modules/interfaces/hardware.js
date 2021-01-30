@@ -16,7 +16,8 @@ const Logger = require('./../../api/Logger'),
 const log = new Logger(__filename);
 
 const PATHS = [Core._SRC],
-	BYTE_TO_MO = 1048576;
+	BYTE_TO_MO = 1048576,
+	DELAY_BEFORE_HALT = 3000;
 
 module.exports = {
 	cron: {
@@ -75,7 +76,7 @@ function reboot() {
 	console.log('\n\n_/!\\__REBOOTING RASPBERRY PI !!\n');
 	setTimeout(function () {
 		spawn('reboot');
-	}, 2000);
+	}, DELAY_BEFORE_HALT);
 }
 
 /** Function to shutdown RPI */
@@ -88,7 +89,7 @@ function shutdown() {
 	setTimeout(function () {
 		console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!\n");
 		spawn('halt');
-	}, 2000);
+	}, DELAY_BEFORE_HALT);
 }
 
 const LIGTH_LEDS = ['eye', 'belly'];
