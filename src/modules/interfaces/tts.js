@@ -36,7 +36,7 @@ var onAir = false,
 function speak(tts) {
 	if (Array.isArray(tts)) {
 		log.info('TTS array object... processing');
-		tts.forEach(function(message) {
+		tts.forEach(function (message) {
 			if (typeof message === 'string' || message.hasOwnProperty('msg')) {
 				speak(message);
 			}
@@ -60,14 +60,14 @@ var queueInterval,
 	timeout = 0;
 function proceedQueue() {
 	log.debug('Start processing TTS queue...');
-	queueInterval = setInterval(function() {
+	queueInterval = setInterval(function () {
 		if (!onAir && ttsQueue.length > 0) {
 			onAir = true;
 			currentTTS = ttsQueue.shift();
 			playTTS(currentTTS);
-			if (currentTTS.voice === 'google') timeout = currentTTS.msg.length * 90 + 1500;
+			if (currentTTS.voice === 'google') timeout = currentTTS.msg.length * 120 + 2000; //* 90 + 1500;
 			else timeout = currentTTS.msg.length * 80 + 1500;
-			setTimeout(function() {
+			setTimeout(function () {
 				onAir = false;
 			}, timeout);
 			if (ttsQueue.length === 0) {
