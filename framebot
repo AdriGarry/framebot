@@ -39,7 +39,7 @@ exitIfNoArgs(){
 
 ifStop(){
 	if [ $1 = "stop" ]; then
-		sudo service framebot stop
+		sudo systemctl stop framebot.service
 		sudo killall node
 		# killall node
 		echo "\nframebot STOPPED."
