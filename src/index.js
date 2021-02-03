@@ -30,6 +30,8 @@ const Utils = require('./api/Utils');
 log.info(' -->  ' + Core.Name + ' ready [' + Utils.executionTime(Core.startTime) + 'ms]');
 
 Utils.delay(2).then(() => {
+	let constObject = { startTime: "23:51", version: "7.7.3", totalLines: 11601, update: "2021-01-26 01:32", stories: ['Donjon de Naheubauk', 'Aventurier du Survivaure'], playlists: ['jukebow', 'low', 'comptines'] };
+	log.table(constObject, 'CONST');
 	log.table(Object.keys(Core.data()), 'DATA');
 })
 
