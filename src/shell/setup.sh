@@ -33,7 +33,7 @@ sudo apt install nodejs
 
 # Install mplayer & sound tools
 # sudo apt-get install -y mplayer
-sudo apt-get install -y omxplayer alsa-base alsa-utils alsa-tools pulseaudio mpg123
+sudo apt-get install -y omxplayer alsa-base alsa-utils alsa-tools pulseaudio mpg123 lame
 
 # Set audio output to headphones
 amixer cset numid=3 1
