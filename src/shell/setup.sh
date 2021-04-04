@@ -28,7 +28,7 @@ cd /home/odi/framebot/tmp
 # sudo chown -R $USER:$USER $HOME/
 
 # Install npm & nodejs
-curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
+curl -sL https://deb.nodesource.com/setup_tls.x | sudo bash -
 sudo apt install nodejs
 
 # Install mplayer & sound tools
