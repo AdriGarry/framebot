@@ -85,7 +85,7 @@ function isAlarm() {
 /** Function alarm part 1 */
 function doAlarm() {
 	alarmPart1()
-		.then(alarmPart2)
+		// .then(alarmPart2)
 		.then(alarmPart3)
 		.catch(err => {
 			Core.error('Alarm error', err);

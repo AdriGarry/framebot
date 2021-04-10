@@ -13,8 +13,7 @@ const log = new Logger(__filename);
 module.exports = {
 	cron: {
 		full: [
-			{ cron: '5 0 0 * * 1-5', flux: { id: 'service|context|goToSleep' } },
-			{ cron: '5 0 2 * * 0,6', flux: { id: 'service|context|goToSleep' } },
+			{ cron: '5 0 0 * * *', flux: { id: 'service|context|goToSleep' } },
 			{
 				cron: '13 13 13 * * 1-6',
 				flux: [
@@ -73,7 +72,7 @@ function goToSleep() {
 		let sleepTTS = Utils.randomItem(Core.ttsMessages.goToSleep);
 		new Flux('interface|tts|speak', sleepTTS);
 		log.info('AutoLifeCycle go to sleep !');
-		setTimeout(function() {
+		setTimeout(function () {
 			new Flux('service|context|restart', 'sleep');
 		}, sleepTTS.msg.length * 150);
 	}

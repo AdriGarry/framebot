@@ -27,13 +27,17 @@ cd /home/odi/framebot/tmp
 # Run the following command to fix the $HOME directory permissions for the current $USER:
 # sudo chown -R $USER:$USER $HOME/
 
+# Uninstall npm & nodejs
+sudo apt-get remove -y nodejs
+sudo apt-get remove -y npm
+
 # Install npm & nodejs
-curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
-sudo apt install nodejs
+curl -sL https://deb.nodesource.com/setup_tls.x | sudo bash -
+sudo apt-get install -y nodejs
 
 # Install mplayer & sound tools
 # sudo apt-get install -y mplayer
-sudo apt-get install -y omxplayer alsa-base alsa-utils alsa-tools pulseaudio mpg123
+sudo apt-get install -y omxplayer alsa-base alsa-utils alsa-tools pulseaudio mpg123 lame
 
 # Set audio output to headphones
 amixer cset numid=3 1
@@ -63,6 +67,9 @@ sudo apt-get install -y mbrola mbrola-fr1 mbrola-fr4
 
 # Install fbi (framebuffer imageviewer: diapo)
 sudo apt-get -y install fbi
+
+# Install fail2ban
+sudo apt-get -y install fail2ban
 
 # DEPRECATED
 # Give odi user's access to needed repositories

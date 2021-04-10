@@ -149,7 +149,7 @@ function demo() {
 
 const BALUCHON_MSG = [
 	[
-		{ voice: 'espeak', msg: 'Je crois quil faut lancer lopairation baluchon' },
+		{ voice: 'espeak', msg: 'Je crois quil faut lancer loperation baluchon' },
 		{ voice: 'pico', msg: 'Sans oublier la gamelle' }
 	],
 	[
