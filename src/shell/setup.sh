@@ -28,12 +28,12 @@ cd /home/odi/framebot/tmp
 # sudo chown -R $USER:$USER $HOME/
 
 # Uninstall npm & nodejs
-sudo apt-get remove nodejs
-sudo apt-get remove npm
+sudo apt-get remove -y nodejs
+sudo apt-get remove -y npm
 
 # Install npm & nodejs
 curl -sL https://deb.nodesource.com/setup_tls.x | sudo bash -
-sudo apt install nodejs
+sudo apt-get install -y nodejs
 
 # Install mplayer & sound tools
 # sudo apt-get install -y mplayer
@@ -67,6 +67,9 @@ sudo apt-get install -y mbrola mbrola-fr1 mbrola-fr4
 
 # Install fbi (framebuffer imageviewer: diapo)
 sudo apt-get -y install fbi
+
+# Install fail2ban
+sudo apt-get -y install fail2ban
 
 # DEPRECATED
 # Give odi user's access to needed repositories
