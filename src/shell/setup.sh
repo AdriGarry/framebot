@@ -27,6 +27,10 @@ cd /home/odi/framebot/tmp
 # Run the following command to fix the $HOME directory permissions for the current $USER:
 # sudo chown -R $USER:$USER $HOME/
 
+# Uninstall npm & nodejs
+sudo apt-get remove nodejs
+sudo apt-get remove npm
+
 # Install npm & nodejs
 curl -sL https://deb.nodesource.com/setup_tls.x | sudo bash -
 sudo apt install nodejs
