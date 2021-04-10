@@ -32,7 +32,7 @@ function _setUpCoreObject(Core, descriptor, startTime) {
 		Core[path] = _PATH + CORE_DEFAULT.paths[path];
 	}
 	Core.url = descriptor.url;
-	Core._CONF = _PATH + '_' + descriptor.name.toLowerCase() + '/';
+	Core._CONF = _PATH + 'bots/' + descriptor.name.toLowerCase() + '/';
 	Core.conf = new Lock(require(Core._TMP + 'conf.json'), Core._TMP + 'conf.json');
 	Core.run = new Lock(CORE_DEFAULT.runtime);
 	Core.isAwake = isAwake;

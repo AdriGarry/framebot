@@ -6,7 +6,7 @@ console.log('argv', process.argv);
 var argv = process.argv.splice(2);
 const NAME = argv[0];
 
-const { spawn, exec } = require('child_process');
+const { spawn, spawnSync, exec, execSync } = require('child_process');
 
 const fs = require('fs'),
 	path = require('path'),
@@ -68,6 +68,7 @@ function restartCoreFromWrapper(code) {
 
 /** Function to start up Core */
 function startCore(exitCode) {
+	console.log(Buffer.from(execSync('cat /proc/cpuinfo | grep Model')).toString().trim());
 	console.log('nodejs.version=' + process.version);
 	mute();
 
@@ -103,7 +104,7 @@ function startCore(exitCode) {
 
 function checkUp() {
 	console.log('checkUp...');
-	descriptor = JSON.parse(fs.readFileSync(_PATH + '_' + NAME + '/descriptor.json'));
+	descriptor = JSON.parse(fs.readFileSync(_PATH + 'bots/' + NAME + '/descriptor.json'));
 	if (!fs.existsSync(_PATH + 'tmp')) {
 		fs.mkdirSync(path.join(_PATH, 'tmp')); //, parseInt('0777', 8)
 		fs.chmodSync(path.join(_PATH, 'tmp'), parseInt('0777', 8)); //, parseInt('0777', 8)
