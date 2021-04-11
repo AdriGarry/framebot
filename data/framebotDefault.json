@@ -62,9 +62,9 @@
 			"diskSpace": null,
 			"totalLines": null,
 			"update": null,
-			"fluxCount": 0
-		},
-		"buttonStats": {}
+			"fluxCount": 0,
+			"buttons": {}
+		}
 	},
 	"cron": {
 		"base": [],

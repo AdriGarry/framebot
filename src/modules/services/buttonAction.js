@@ -29,7 +29,9 @@ function buttonHandler(flux) {
 		log.error('Unkown button', flux);
 		return;
 	}
-	Core.run('buttonStats.' + flux.id, Core.run('buttonStats.' + flux.id) + 1);
+	let buttonStats = Core.run('stats.buttons');
+	buttonStats[flux.id] = buttonStats[flux.id] + 1;
+	Core.run('stats.buttons', buttonStats);
 }
 
 function okButtonAction(duration) {

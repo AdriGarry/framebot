@@ -19,13 +19,15 @@ Core.gpio.leds.forEach(led => {
 });
 if (!LED_FLAG) Core.error('LED_FLAG not initialized!');
 
+let buttonsForStats = {}
 Core.gpio.buttons.forEach(button => {
 	Button[button.id] = new Gpio(button.pin, button.direction, button.edge, button.options);
 	Button[button.id]['id'] = button.id;
 	Button[button.id]['name'] = Utils.capitalizeFirstLetter(button.id);
 	Button[button.id]['edge'] = button.edge;
-	Core.run('buttonStats.' + button.id, 0);
+	buttonsForStats[button.id] = 0;
 });
+Core.run('stats.buttons', buttonsForStats)
 
 setImmediate(() => {
 	Object.keys(Button).forEach(id => {
