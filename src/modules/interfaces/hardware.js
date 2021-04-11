@@ -200,8 +200,8 @@ function loadAverage() {
 			.then(data => {
 				let matchObj = LOAD_AVERAGE_REGEX.exec(data);
 				let loadAverage = matchObj && matchObj.groups.loadAverage ? matchObj.groups.loadAverage : 0;
-				log.trace('uptime', loadAverage);
-				Core.run('memory.loadAverage', loadAverage);
+				log.trace('uptime:', loadAverage);
+				Core.run('cpu.loadAverage', loadAverage);
 				resolve(loadAverage);
 			})
 			.catch(err => {
