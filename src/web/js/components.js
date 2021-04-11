@@ -243,9 +243,8 @@ app.component('options', {
 		let tileParams = {
 			label: 'Options',
 			actionList: [
-				{ label: '!Trace', icon: 'far fa-dot-circle', url: '/toggleTrace' },
-				{ label: '!Debug', icon: 'fas fa-circle', url: '/toggleDebug' },
-				{ label: 'Watcher', icon: 'fas fa-eye', url: '/flux/interface/watcher/toggle' },
+				{ label: 'Log', icon: 'fas fa-code', continu: true },
+				{ label: '!Watcher', icon: 'fas fa-eye', url: '/flux/interface/watcher/toggle' },
 				{
 					label: 'Test',
 					icon: 'far fa-caret-square-right',
@@ -253,12 +252,32 @@ app.component('options', {
 					value: { mode: 'test' }
 				},
 				{ label: 'Demo', icon: 'fas fa-play', url: '/flux/service/interaction/demo' },
-				{ label: 'Const', icon: 'fas fa-hockey-puck', url: 'https://odi.adrigarry.com/const' },
-				{ label: 'Config', icon: 'fab fa-whmcs', url: 'https://odi.adrigarry.com/config.json' },
-				{ label: 'Runtime', icon: 'fab fa-buffer', url: 'https://odi.adrigarry.com/runtime' }
+				{ label: 'Core', icon: 'fas fa-sitemap', continu: true },
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
+
+		let logActionList = [
+			{ label: '!Trace', icon: 'far fa-dot-circle', url: '/toggleTrace' },
+			{ label: '!Debug', icon: 'fas fa-circle', url: '/toggleDebug' },],
+			coreActionList = [
+				{ label: 'Const', icon: 'fas fa-hockey-puck', url: 'https://odi.adrigarry.com/const' },
+				{ label: 'Config', icon: 'fab fa-whmcs', url: 'https://odi.adrigarry.com/config.json' },
+				{ label: 'Runtime', icon: 'fab fa-buffer', url: 'https://odi.adrigarry.com/runtime' }];
+
+		/** Overwrite tile action */
+		ctrl.tile.click = function () {
+			ctrl.tile.openBottomSheet(this.actionList, specificActions);
+		};
+
+		let specificActions = function (button) {
+			console.log('button', button)
+			if (button.label == 'Log') {
+				ctrl.tile.openBottomSheet(logActionList);
+			} else {
+				ctrl.tile.openBottomSheet(coreActionList);
+			}
+		};
 	}
 });
 
