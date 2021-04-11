@@ -73,7 +73,7 @@ function attachDefaultRoutes(ui) {
 							: Core.conf('log') == 'debug'
 								? 'Debug'
 								: Utils.firstLetterUpper(Core.conf('mode')),
-					param: Core.conf('startTime'),
+					param: Core.const('startTime'),
 					switch: etatBtn == 'high' ? true : false,
 					mood: Core.run('mood')
 				}
@@ -133,8 +133,7 @@ function attachDefaultRoutes(ui) {
 			},
 			watcher: {
 				value: Core.conf('watcher')
-			},
-			playlist: Core.data()
+			}
 		};
 		res.end(JSON.stringify(dashboard));
 	});
@@ -164,10 +163,8 @@ function attachDefaultRoutes(ui) {
 		}, 500);
 	});
 
-	ui.get('/data', function (req, res) {
-		setTimeout(() => {
-			res.end(JSON.stringify(Core.data()));
-		}, 500);
+	ui.get('/const', function (req, res) {
+		res.end(JSON.stringify(Core.const()));
 	});
 
 	ui.get('/errors', function (req, res) {

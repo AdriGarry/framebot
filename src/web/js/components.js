@@ -2,7 +2,7 @@
 app.component('tts', {
 	bindings: {
 		data: '<',
-		coreData: '<'
+		coreConst: '<'
 	},
 	templateUrl: 'templates/tiles.html',
 	controller: function ($window, DefaultTile, UIService, $timeout) {
@@ -16,7 +16,7 @@ app.component('tts', {
 		ctrl.tile = new DefaultTile(tileParams, true);
 
 		ctrl.$onChanges = function (changes) {
-			if (changes.coreData && ctrl.coreData) ctrl.options = initTextInputOptions(ctrl.coreData);
+			if (changes.coreConst && ctrl.coreConst) ctrl.options = initTextInputOptions(ctrl.coreConst);
 		};
 
 		/** Overwrite tile action */
@@ -93,14 +93,14 @@ app.component('tts', {
 			}
 		};
 
-		function initTextInputOptions(coreData) {
+		function initTextInputOptions(coreConst) {
 			let options = [];
-			angular.forEach(coreData.playlists, (playlist, playListId) => {
+			angular.forEach(coreConst.playlists, (playlist, playListId) => {
 				angular.forEach(playlist, (song) => {
 					options.push({ label: song.slice(0, -4), type: 'song', value: 'playlists/' + playListId + '/' + song, icon: 'fas fa-music' });
 				})
 			});
-			angular.forEach(coreData.stories, (story) => {
+			angular.forEach(coreConst.stories, (story) => {
 				options.push({ label: story.slice(8, -4), type: 'story', value: story, icon: 'fas fa-book' });
 			});
 			return options;
@@ -253,7 +253,7 @@ app.component('options', {
 					value: { mode: 'test' }
 				},
 				{ label: 'Demo', icon: 'fas fa-play', url: '/flux/service/interaction/demo' },
-				{ label: 'Data', icon: 'fas fa-database', url: 'https://odi.adrigarry.com/data' },
+				{ label: 'Const', icon: 'fas fa-hockey-puck', url: 'https://odi.adrigarry.com/const' },
 				{ label: 'Config', icon: 'fab fa-whmcs', url: 'https://odi.adrigarry.com/config.json' },
 				{ label: 'Runtime', icon: 'fab fa-buffer', url: 'https://odi.adrigarry.com/runtime' }
 			]

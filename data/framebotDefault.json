@@ -20,11 +20,17 @@
 		"mode": "ready",
 		"log": "info",
 		"watcher": false,
-		"startTime": ".",
 		"alarms": ".",
 		"radiator": ".",
-		"version": ".",
 		"flux": []
+	},
+	"const": {
+		"startTime": ".",
+		"version": ".",
+		"update": null,
+		"totalLines": 0,
+		"stories": {},
+		"playlists": {}
 	},
 	"runtime": {
 		"etat": null,

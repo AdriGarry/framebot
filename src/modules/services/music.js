@@ -59,7 +59,7 @@ Object.keys(PLAYLIST).forEach(id => {
 });
 
 Promise.all(promises).then(() => {
-	Core.data('playlists', playlists);
+	Core.const('playlists', playlists);
 });
 
 
@@ -139,7 +139,7 @@ function stop() {
 
 /** Function to play a story */
 const STORIES = ['stories/Donjon-De-Naheulbeuk.mp3', 'stories/Aventuriers-Du-Survivaure.mp3'];
-Core.data('stories', STORIES);
+Core.const('stories', STORIES);
 function playStory(story) {
 	let storyToPlay = Utils.searchStringInArray(story, STORIES);
 	if (storyToPlay) {

@@ -31,7 +31,7 @@ function screenOn() {
 	spawn('/opt/vc/bin/tvservice', ['-p']);
 	log.info('Hdmi on');
 	Core.run('hdmi', true);
-	setTimeout(function() {
+	setTimeout(function () {
 		screenOff();
 	}, 30 * 60 * 1000);
 }
@@ -39,7 +39,7 @@ function screenOn() {
 /** Function to turn screen off */
 function screenOff() {
 	spawn('/opt/vc/bin/tvservice', ['-o']);
-	new Flux('service|video|stopLoop');
+	new Flux('service|video|stopLoop', null, { log: 'debug' });
 	Core.run('hdmi', false);
 	log.info('Hdmi off');
 }

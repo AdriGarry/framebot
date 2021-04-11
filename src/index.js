@@ -16,6 +16,9 @@ const forcedParams = {
 
 global._PATH = __dirname.match(/\/.*\//g)[0];
 
+const fs = require('fs');
+console.log('\n' + fs.readFileSync('./bots/' + argv[2] + '/logo.txt', 'utf8').toString());
+
 const descriptor = require(_PATH + 'bots/' + name + '/descriptor.json');
 
 const Core = require('./core/Core').initializeContext(descriptor, forcedParams, startTime);
@@ -30,9 +33,7 @@ const Utils = require('./api/Utils');
 log.info(' -->  ' + Core.Name + ' ready [' + Utils.executionTime(Core.startTime) + 'ms]');
 
 Utils.delay(2).then(() => {
-	let constObject = { startTime: "23:51", version: "7.7.3", totalLines: 11601, update: "2021-01-26 01:32", stories: ['Donjon de Naheubauk', 'Aventurier du Survivaure'], playlists: ['jukebow', 'low', 'comptines'] };
-	log.table(constObject, 'CONST');
-	log.table(Object.keys(Core.data()), 'DATA');
+	log.table(Core.const(), 'CONST');
 })
 
 ////////  TEST section  ////////

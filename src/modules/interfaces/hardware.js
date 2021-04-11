@@ -220,7 +220,7 @@ function retreiveLastModifiedDate(paths) {
 			.then(data => {
 				let lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
 				log.debug('getLastModifiedDate:', lastDate[0]);
-				Core.run('stats.update', lastDate[0]);
+				Core.const('update', lastDate[0]);
 				resolve(lastDate[0]);
 			})
 			.catch(err => {
@@ -301,8 +301,7 @@ function countSoftwareLines() {
 					typesNb--;
 					if (!typesNb) {
 						log.debug('countSoftwareLines:', totalLines);
-						log.debug('stats.totalLines:', lines);
-						Core.run('stats.totalLines', totalLines);
+						Core.const('totalLines', totalLines);
 						resolve(totalLines);
 					}
 				})
