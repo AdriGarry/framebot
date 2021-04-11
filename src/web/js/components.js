@@ -738,8 +738,8 @@ app.component('weather', {
 	}
 });
 
-/** Maya component */
-app.component('maya', {
+/** Childs component */
+app.component('childs', {
 	bindings: {
 		data: '<',
 		access: '<',
@@ -749,12 +749,10 @@ app.component('maya', {
 	controller: function (DefaultTile) {
 		let ctrl = this;
 		let tileParams = {
-			label: 'Maya',
+			label: 'Childs',
 			actionList: [
-				{ label: 'Animals', icon: 'fas fa-cat', url: '/flux/service/maya/animals' },
-				{ label: 'Bonne nuit', icon: 'fas fa-moon', url: '/flux/service/maya/bonneNuit' },
-				{ label: 'Playlist Maya', icon: 'fas fa-music', url: '/flux/service/maya/playlist' },
-				{ label: 'Comptines', icon: 'fas fa-music', url: '/flux/service/music/playlist', value: 'comptines' }
+				{ label: 'Bonne nuit', icon: 'fas fa-moon', url: '/flux/service/childs/bonneNuit' },
+				{ label: 'Playlist childs', icon: 'fas fa-music', url: '/flux/service/music/playlist', value: 'childs' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);

@@ -36,10 +36,10 @@ const RADIO_LIST = {
 	bam: { id: 'bam', url: 'http://176.175.17.23:8001/;?type=http&nocache=33' }
 };
 
-var PLAYLIST = {
+let PLAYLIST = {
 	jukebox: { id: 'jukebox', path: Core._MP3 + 'playlists/jukebox/' },
 	low: { id: 'low', path: Core._MP3 + 'playlists/low/' },
-	comptines: { id: 'comptines', path: Core._MP3 + 'playlists/comptines/' }
+	childs: { id: 'childs', path: Core._MP3 + 'playlists/childs/' }
 };
 
 let playlists = {}, promises = [];
