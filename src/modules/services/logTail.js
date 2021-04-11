@@ -11,9 +11,9 @@ module.exports = {};
 //var filename = '/tmp/somefile.txt';
 
 setImmediate(() => {
-	spawnVim(LOG_PATH + 'Odi.log', function(code) {
+	spawnVim(LOG_PATH + 'odi.log', function (code) {
 		if (code == 0) {
-			fs.readFile(LOG_PATH + 'Odi.log', function(err, data) {
+			fs.readFile(LOG_PATH + 'odi.log', function (err, data) {
 				if (!err) {
 					console.log(data.toString());
 				}
@@ -37,7 +37,7 @@ function spawnVim(file, cb) {
 	vim.stdout.on('data', outdata);
 	tty.setRawMode(true);
 
-	vim.on('exit', function(code) {
+	vim.on('exit', function (code) {
 		tty.setRawMode(false);
 		process.stdin.pause();
 		process.stdin.removeListener('data', indata);

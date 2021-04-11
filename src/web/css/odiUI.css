@@ -910,7 +910,7 @@ body>.loading i{
 
 	/*.dashboard > [flex] > .tile:not(.tts) .tileContent{*/
 	[flex] > .tile > .tileContent .main {
-		font-size: 4vw;
+		font-size: 3.5vw;
 	}
 	.dashboard > [flex] > .tile:not(.tts) > .tileContent {
 		line-height: 11vw;
