@@ -25,7 +25,6 @@ module.exports = {
 			{ cron: '*/30 * * * * *', flux: { id: 'interface|hardware|runtime', conf: { log: 'trace' } } },
 			{ cron: '0 2 0 * * 1', flux: { id: 'interface|hardware|archiveLogs' } }
 		]
-		//full: [{ cron: '30 13 13 * * 0', flux: { id: 'interface|hardware|reboot', conf: { delay: 3 } } }]
 	}
 };
 
@@ -169,7 +168,7 @@ function cpuAverage() {
 	};
 }
 //Grab first CPU Measure
-var startMeasure = cpuAverage();
+let startMeasure = cpuAverage();
 
 /** Function to get memory usage stats (Core + system) */
 function soulTTS() {
@@ -232,17 +231,19 @@ function retreiveLastModifiedDate(paths) {
 
 /** Function to tts disk space */
 function diskSpaceTTS() {
-	let diskSpace = parseInt(Core.run('stats.diskSpace'));
-	let ttsMsg = Utils.rdm()
-		? 'Il me reste ' + (100 - diskSpace) + " pour cent d'espace disque disponible"
-		: Utils.rdm()
-			? "J'utilise " + diskSpace + " pour cent d'espace de stockage"
-			: 'Mon espace disque est utiliser a ' + diskSpace + ' pour cent';
-	new Flux('interface|tts|speak', ttsMsg);
+	getDiskSpace().then(() => {
+		let diskSpace = parseInt(Core.run('stats.diskSpace'));
+		let ttsMsg = Utils.rdm()
+			? 'Il me reste ' + (100 - diskSpace) + " pour cent d'espace disque disponible"
+			: Utils.rdm()
+				? "J'utilise " + diskSpace + " pour cent d'espace de stockage"
+				: 'Mon espace disque est utiliser a ' + diskSpace + ' pour cent';
+		new Flux('interface|tts|speak', ttsMsg);
+	});
 }
 
 /** Function to retreive disk space on /dev/root */
-function getDiskSpace(callback) {
+function getDiskSpace() {
 	return new Promise((resolve, reject) => {
 		Utils.execCmd('df -h')
 			.then(data => {
@@ -252,7 +253,6 @@ function getDiskSpace(callback) {
 				Core.run('stats.diskSpace', diskSpace[0]);
 
 				if (parseInt(diskSpace) >= 80) {
-					// log.warn('Warning: disk space almost full: ' + Core.run('stats.diskSpace') + '%');
 					let logMessage = 'Warning: disk space almost full: ' + Core.run('stats.diskSpace') + '%';
 					log.warn(logMessage);
 					new Flux('service|sms|send', logMessage);
