@@ -101,8 +101,9 @@ function alarmPart1() {
 			.then(data => {
 				log.debug('seaDuration', data);
 				setTimeout(function () {
+					new Flux('interface|sound|mute');
 					resolve();
-				}, data * 1000);
+				}, data * 1000 / 2); //data * 1000
 			})
 			.catch(err => {
 				reject(err);
