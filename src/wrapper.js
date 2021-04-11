@@ -68,8 +68,8 @@ function restartCoreFromWrapper(code) {
 
 /** Function to start up Core */
 function startCore(exitCode) {
-	console.log(Buffer.from(execSync('cat /proc/cpuinfo | grep Model')).toString().trim());
-	console.log('nodejs.version=' + process.version);
+	console.log(Buffer.from(execSync('cat /sys/firmware/devicetree/base/model;echo')).toString().trim());
+	console.log('nodejs version:', process.version);
 	mute();
 
 	checkUp();
