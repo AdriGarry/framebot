@@ -36,11 +36,18 @@ app.controller('UIController', function (
 	$scope.dashboard = {
 		odiState: setOdiState(),
 		run: null,
+		const: null,
 		// odiState: {},
 		autoRefresh: true,
 		loading: false,
 		runningData: null
 	};
+
+	UIService.getRequest(CONSTANTS.URL_ODI + '/const', (data) => {
+		if (data) {
+			$scope.dashboard.const = data;
+		}
+	});
 
 	/** Function to refresh Dashboard **/
 	$scope.readyToRefresh = true;
@@ -74,10 +81,6 @@ app.controller('UIController', function (
 	};
 	$scope.refreshDashboard();
 
-	UIService.getRequest('https://odi.adrigarry.com/data', function (data) {
-		if (data) $scope.CoreData = data;
-	});
-
 	function setOdiState(data) {
 		let odiState = {};
 		if (data) {
@@ -96,7 +99,6 @@ app.controller('UIController', function (
 				sleep: false
 			};
 		}
-		console.log('setOdiState()', odiState);
 		return odiState;
 	}
 

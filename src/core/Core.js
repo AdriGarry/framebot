@@ -35,6 +35,7 @@ function _setUpCoreObject(Core, descriptor, startTime) {
 	Core._CONF = _PATH + 'bots/' + descriptor.name.toLowerCase() + '/';
 	Core.conf = new Lock(require(Core._TMP + 'conf.json'), Core._TMP + 'conf.json');
 	Core.run = new Lock(CORE_DEFAULT.runtime);
+	Core.const = new Lock(CORE_DEFAULT.const, null, true);
 	Core.isAwake = isAwake;
 	Core.isOnline = isOnline;
 	Core.descriptor = descriptor;
@@ -43,21 +44,20 @@ function _setUpCoreObject(Core, descriptor, startTime) {
 	Core.errors = [];
 	Core.gpio = require(Core._CONF + 'gpio.json');
 	Core.ttsMessages = require(Core._CONF + 'ttsMessages.json');
-	Core.data = new Lock({}, null, true);
 	return Core;
 }
 
 function initializeContext(descriptor, forcedParams, startTime) {
+	log.info('Core context initializing...');
 	Core = _setUpCoreObject(Core, descriptor, startTime);
 
-	let packageJson = require(_PATH + 'package.json');
-	let confUpdate = {
-		startTime: Utils.logTime('h:m (D/M)')
-	},
-		forcedParamsLog = '';
-	if (Core.conf('version') !== packageJson.version) {
-		confUpdate.version = packageJson.version;
-	}
+	let confUpdate = {},
+		forcedParamsLog = '',
+		packageJson = require(_PATH + 'package.json');
+
+	Core.const('startTime', Utils.logTime('h:m (D/M)'));
+	Core.const('version', packageJson.version);
+
 	if (forcedParams.sleep) {
 		Core.conf('mode', 'sleep');
 		confUpdate.mode = 'sleep';
@@ -73,12 +73,10 @@ function initializeContext(descriptor, forcedParams, startTime) {
 	}
 	if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
-	console.log('\n' + fs.readFileSync(Core._CONF + 'logo.txt', 'utf8').toString());
 	// log.table(Core.conf(), 'CONFIG'); // deprecated
 	if (Core.isAwake()) {
 		spawn('omxplayer', ['--vol', -602, Core._MP3 + 'system/startup.mp3']);
 	}
-	log.info('Core context initializing...');
 
 	if (Core.conf('log') != 'info') log.level(Core.conf('log'));
 
@@ -96,7 +94,7 @@ function initializeContext(descriptor, forcedParams, startTime) {
 	const Flux = require('../api/Flux.js'),
 		ModuleLoader = require('./ModuleLoader.js');
 
-	new Flux('service|context|update', confUpdate, { delay: 0.2, log: 'debug' });
+	new Flux('service|context|update', confUpdate, { delay: 0.1, log: 'debug' });
 
 	log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
 	let moduleLoader = new ModuleLoader(descriptor.modules);

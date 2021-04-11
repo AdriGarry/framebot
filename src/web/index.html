@@ -105,8 +105,8 @@
 				title="{{ $root.irda ? 'Restart Odi\'s Core' : 'Hey, I\'m Odi !' }}">
 				Odi UI
 				<!-- Restart Odi's Core -->
-				<sup class="version"
-					title="version {{ dashboard.runningData.config.version }} [{{ dashboard.runningData.config.update }}]">{{ dashboard.runningData.config.version }}&nbsp;</sup>
+				<sup class="version" title="version {{ dashboard.const.version }} [{{ dashboard.const.update }}]">{{
+					dashboard.const.version }}&nbsp;</sup>
 			</h1>
 			<span flex></span>
 			<i class="fas fa-eye fa-lg" data-ng-if="dashboard.odiState.watcher" title="Watcher On"></i>&nbsp;
@@ -208,7 +208,7 @@
 					<i class="fas fa-lg fa-globe-europe"></i>
 					&nbsp;&nbsp; {{dashboard.runningData.network.value.public}}
 				</md-list-item>
-				<div class="lastUpdate centerText opacity50">Last update: {{ dashboard.runningData.update.value }}</div>
+				<div class="lastUpdate centerText opacity50">Last update: {{ dashboard.const.update }}</div>
 			</md-list>
 		</div>
 	</md-sidenav>
@@ -217,7 +217,9 @@
 		<md-content data-flex data-layout-padding>
 			<div data-layout="row" data-layout-padding data-layout-align="space-around" data-layout-wrap
 				class="dashboard ng-slide">
-				<tts data="dashboard.runningData.mode" data-core-data="CoreData" data-access="$root.irda" flex="100"></tts>
+				<tts data="dashboard.runningData.mode" data-core-const="dashboard.const" data-access="$root.irda"
+					flex="100">
+				</tts>
 				<mode data="dashboard.runningData.mode" data-access="$root.irda" flex="33"></mode>
 				<options data="dashboard.runningData" data-access="$root.irda" flex="33"
 					data-odi-state="dashboard.odiState"></options>

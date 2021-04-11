@@ -166,7 +166,7 @@ function _formatObjectToTable(obj, updatedEntries) {
 	Object.keys(obj).forEach((key, index) => {
 		let updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
 		let data = obj[key];
-		if (data == false || data == null || data == 0) return;
+		if (data == false || data == null || data === 0) return;
 		if (typeof data == 'object' && !Array.isArray(data)) {
 			Object.keys(data).forEach((key2, index2) => {
 				let data2 = data[key2];
@@ -179,6 +179,8 @@ function _formatObjectToTable(obj, updatedEntries) {
 					}
 				}
 			});
+		} else if (Array.isArray(data)) {
+			datas[(updated ? '*' : '') + key] = data;
 		} else {
 			datas[(updated ? '*' : '') + key] = [String(data)];
 		}
@@ -187,8 +189,10 @@ function _formatObjectToTable(obj, updatedEntries) {
 }
 
 function _getDataOrObject(data) {
-	if (typeof data == 'object' && !Array.isArray(data)) {
+	if (typeof data === 'object' && !Array.isArray(data)) {
 		return util.inspect(data);
+	} else if (typeof data === 'object' && data.length > 2) {
+		return data.length;
 	} else {
 		return data;
 	}
