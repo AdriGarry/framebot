@@ -192,7 +192,7 @@ function _getDataOrObject(data) {
 	if (typeof data === 'object' && !Array.isArray(data)) {
 		return util.inspect(data);
 	} else if (typeof data === 'object' && data.length > 2) {
-		return data.length;
+		return data.length + ' items';
 	} else {
 		return data;
 	}
