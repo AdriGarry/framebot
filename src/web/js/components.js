@@ -272,10 +272,12 @@ app.component('options', {
 
 		let specificActions = function (button) {
 			console.log('button', button)
-			if (button.label == 'Log') {
+			if (button.label === 'Log') {
 				ctrl.tile.openBottomSheet(logActionList);
-			} else {
+			} else if (button.label === 'Core') {
 				ctrl.tile.openBottomSheet(coreActionList);
+			} else {
+				ctrl.tile.action(button)
 			}
 		};
 	}
