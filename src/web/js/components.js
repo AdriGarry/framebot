@@ -194,7 +194,7 @@ app.component('mode', {
 		let tileParams = {
 			label: 'Mode',
 			actionList: [
-				{ label: 'Mood', icon: 'far fa-grin-alt', value: { continu: true } },
+				{ label: 'Mood', icon: 'far fa-grin-alt', continu: true },
 				{ label: 'Sleep', icon: 'far fa-moon', url: '/flux/service/context/sleep' },
 				{ label: 'Reset', icon: 'fas fa-retweet', url: '/flux/service/context/reset' },
 				{ label: 'Restart', icon: 'fas fa-bolt', url: '/flux/service/context/restart' }
@@ -257,7 +257,7 @@ app.component('options', {
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 
-		let logActionList = [
+		const logActionList = [
 			{ label: '!Trace', icon: 'far fa-dot-circle', url: '/toggleTrace' },
 			{ label: '!Debug', icon: 'fas fa-circle', url: '/toggleDebug' },],
 			coreActionList = [
@@ -270,7 +270,7 @@ app.component('options', {
 			ctrl.tile.openBottomSheet(this.actionList, specificActions);
 		};
 
-		let specificActions = function (button) {
+		const specificActions = function (button) {
 			console.log('button', button)
 			if (button.label === 'Log') {
 				ctrl.tile.openBottomSheet(logActionList);
