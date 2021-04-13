@@ -495,7 +495,6 @@ app.component('exclamation', {
 		const tileParams = {
 			label: 'Exclamation',
 			actionList: [
-				{ label: 'HomeWork', icon: 'fas fa-briefcase', url: '/flux/service/interaction/homeWork' },
 				{ label: 'Exclamation', icon: 'fas fa-bullhorn', url: '/flux/service/interaction/exclamation' },
 				{ label: 'TTS', icon: 'far fa-comment-dots', url: '/flux/interface/tts/random' },
 				{ label: 'Last TTS', icon: 'fas fa-undo', url: '/flux/interface/tts/lastTTS' }
