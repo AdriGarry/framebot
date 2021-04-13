@@ -8,7 +8,7 @@ app.service('UIService', [
 	'CONSTANTS',
 	'Tile',
 	function ($rootScope, $http, $mdToast, CONSTANTS, Tile) {
-		let ctrl = this;
+		const ctrl = this;
 		$rootScope.position = false;
 		/** Function to update dashboard from Odi **/
 		ctrl.refreshDashboard = function (callback) {
@@ -214,7 +214,7 @@ app.service('audioService', [
 	'$http',
 	'UIService',
 	function ($rootScope, $http, UIService) {
-		let ctrl = this;
+		const ctrl = this;
 		ctrl.recording = false;
 		ctrl.recorderAvailable = false;
 
