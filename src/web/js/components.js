@@ -557,7 +557,7 @@ app.component('audioRecorder', {
 		let tileParams = {
 			label: 'Audio recorder',
 			actionList: [
-				{ label: 'Clear', icon: 'fas fa-trash', url: '/flux/service/audioRecord/clear' },
+				{ label: 'Clear', icon: 'far fa-trash-alt', url: '/flux/service/audioRecord/clear' },
 				{ label: 'All', icon: 'fas fa-play', url: '/flux/service/audioRecord/check' },
 				{ label: 'Last', icon: 'fas fa-undo', url: '/flux/service/audioRecord/last' }
 			]
