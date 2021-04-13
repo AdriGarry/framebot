@@ -534,7 +534,7 @@ app.component('music', {
 			} else if (ctrl.data.value === 'fip') {
 				return 'fas fa-globe-europe';
 			} else if (ctrl.data.value === 'bam') {
-				return 'fab fa-suse';
+				return 'fas fa-broadcast-tower';
 			} else if (ctrl.data.value === 'low') {
 				return 'fas fa-kiwi-bird';
 			} else {
