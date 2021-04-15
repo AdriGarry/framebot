@@ -24,8 +24,6 @@ module.exports = {
 
 // TODO to class => singleton or static ?
 function _setUpCoreObject(Core, descriptor, startTime) {
-	Core.Name = descriptor.name;
-	Core.name = descriptor.name.toLowerCase();
 	Core.startTime = startTime;
 	for (let path in CORE_DEFAULT.paths) {
 		// Setting _PATHS
@@ -36,6 +34,7 @@ function _setUpCoreObject(Core, descriptor, startTime) {
 	Core.conf = new Lock(require(Core._TMP + 'conf.json'), Core._TMP + 'conf.json');
 	Core.run = new Lock(CORE_DEFAULT.runtime);
 	Core.const = new Lock(CORE_DEFAULT.const, null, true);
+	Core.const('name', descriptor.name.trim().toLowerCase());
 	Core.isAwake = isAwake;
 	Core.isOnline = isOnline;
 	Core.descriptor = descriptor;

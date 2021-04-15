@@ -24,7 +24,7 @@ Observers.attachFluxParseOptions('service', 'voicemail', FLUX_PARSE_OPTIONS);
 
 const NO_VOICEMAIL = 'No voicemail message',
 	FILE_VOICEMAIL = Core._TMP + 'voicemail.json',
-	FILE_VOICEMAIL_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json',
+	FILE_VOICEMAIL_HISTORY = Core._LOG + Core.const('name') + '_voicemailHistory.json',
 	HOURS_TO_CLEAR_VOICEMAIL = 6;
 
 var clearVoicemailDelay;
@@ -36,7 +36,7 @@ setImmediate(() => {
 		checkVoicemail();
 	}
 });
-setInterval(function() {
+setInterval(function () {
 	updateVoicemailMessage();
 }, 10000);
 
@@ -47,7 +47,7 @@ function addVoicemailMessage(tts) {
 		tts.timestamp = Utils.logTime('D/M h:m:s', new Date());
 		Utils.appendJsonFile(FILE_VOICEMAIL, tts);
 		Utils.appendJsonFile(FILE_VOICEMAIL_HISTORY, tts);
-		setTimeout(function() {
+		setTimeout(function () {
 			updateVoicemailMessage();
 		}, 1000);
 		// try {
@@ -112,7 +112,7 @@ function clearVoicemailLater() {
 		clearTimeout(clearVoicemailDelay);
 		clearVoicemailDelay = null;
 	}
-	clearVoicemailDelay = setTimeout(function() {
+	clearVoicemailDelay = setTimeout(function () {
 		clearVoicemail();
 	}, HOURS_TO_CLEAR_VOICEMAIL * 60 * 60 * 1000);
 	log.info('Voicemail will be cleared in ' + HOURS_TO_CLEAR_VOICEMAIL + ' hours');
@@ -121,7 +121,7 @@ function clearVoicemailLater() {
 /** Function to clear all voicemail messages */
 function clearVoicemail() {
 	log.info('clearVoicemail');
-	fs.unlink(FILE_VOICEMAIL, function(err) {
+	fs.unlink(FILE_VOICEMAIL, function (err) {
 		if (err) {
 			if (err.code === 'ENOENT') log.info('clearVoicemail: No message to delete!');
 			else Core.error('Error while deleting voicemail file', err);

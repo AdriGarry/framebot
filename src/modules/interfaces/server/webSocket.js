@@ -13,7 +13,7 @@ module.exports = {
    init: init
 };
 
-const LOG_FILE = Core._LOG + Core.name + '.log';
+const LOG_FILE = Core._LOG + Core.const('name') + '.log';
 
 function init(server) {
    const ws = new WebSocket.Server({ server });

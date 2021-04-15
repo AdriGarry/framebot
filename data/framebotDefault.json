@@ -17,6 +17,7 @@
 		"_TMP": "tmp/"
 	},
 	"conf": {
+		"name": ".",
 		"mode": "ready",
 		"log": "info",
 		"watcher": false,

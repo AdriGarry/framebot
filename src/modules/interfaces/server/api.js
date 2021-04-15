@@ -15,10 +15,10 @@ const log = new Logger(__filename);
 
 const admin = require(Core._SECURITY + 'admin.js').init(Core._SECURITY);
 
-const FILE_REQUEST_HISTORY = Core._LOG + Core.name + '_requestHistory.log';
-const FILE_ERROR_HISTORY = Core._LOG + Core.name + '_errorHistory.json';
-const FILE_TTS_UI_HISTORY = Core._LOG + Core.name + '_ttsUIHistory.json';
-const FILE_VOICEMAIL_HISTORY = Core._LOG + Core.name + '_voicemailHistory.json';
+const FILE_REQUEST_HISTORY = Core._LOG + Core.const('name') + '_requestHistory.log';
+const FILE_ERROR_HISTORY = Core._LOG + Core.const('name') + '_errorHistory.json';
+const FILE_TTS_UI_HISTORY = Core._LOG + Core.const('name') + '_ttsUIHistory.json';
+const FILE_VOICEMAIL_HISTORY = Core._LOG + Core.const('name') + '_voicemailHistory.json';
 
 var uiHttp;
 module.exports = {
@@ -273,9 +273,10 @@ function attachDefaultRoutes(ui) {
 	return ui;
 }
 
+const LOG_FILE_PATH = Core._LOG + Core.const('name') + '.log';
 function prepareLogs(lines) {
 	return new Promise((resolve, reject) => {
-		fs.readFile(Core._LOG + Core.name + '.log', 'UTF-8', (err, logs) => {
+		fs.readFile(LOG_FILE_PATH, 'UTF-8', (err, logs) => {
 			if (err) reject(err);
 			logs = logs
 				.toString()

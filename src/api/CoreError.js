@@ -50,7 +50,7 @@ module.exports = class CoreError extends Error {
 			data: this.data,
 			time: this.time
 		};
-		Utils.appendJsonFile(Core._LOG + Core.name + '_errorHistory.json', logError);
+		Utils.appendJsonFile(Core._LOG + Core.const('name') + '_errorHistory.json', logError);
 		Core.errors.push(logError);
 	}
 };

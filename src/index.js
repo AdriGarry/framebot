@@ -30,7 +30,8 @@ const logger = require('./api/Logger');
 const log = new logger(__filename, Core.conf('mode'));
 
 const Utils = require('./api/Utils');
-log.info(' -->  ' + Core.Name + ' ready [' + Utils.executionTime(Core.startTime) + 'ms]');
+const botName = Core.const('name').charAt(0).toUpperCase() + Core.const('name').slice(1);
+log.info(' -->  ' + botName + ' ready [' + Utils.executionTime(Core.startTime) + 'ms]');
 
 Utils.delay(2).then(() => {
 	log.table(Core.const(), 'CONST');
