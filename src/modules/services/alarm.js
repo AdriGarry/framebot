@@ -85,7 +85,7 @@ function isAlarm() {
 /** Function alarm part 1 */
 function doAlarm() {
 	alarmPart1()
-		// .then(alarmPart2)
+		.then(alarmPart2)
 		.then(alarmPart3)
 		.catch(err => {
 			Core.error('Alarm error', err);
@@ -116,7 +116,7 @@ function alarmPart2() {
 	return new Promise((resolve, reject) => {
 		log.info('cocorico !!');
 		new Flux('interface|arduino|write', 'playHornDoUp');
-		new Flux('interface|sound|play', { mp3: 'system/cocorico.mp3' });
+		new Flux('interface|sound|play', { mp3: 'system/cocorico.mp3', volume: 30 });
 		if (isBirthday()) {
 			new Flux('service|party|birthdaySong');
 			setTimeout(function () {
