@@ -30,8 +30,6 @@ const FLUX_PARSE_OPTIONS = [
 	{ id: 'random', fn: randomAction },
 	{ id: 'exclamation', fn: exclamation },
 	{ id: 'demo', fn: demo },
-	{ id: 'goToWorkTTS', fn: goToWorkTTS },
-	{ id: 'goToWorkQueue', fn: goToWorkTTSQueue },
 	{ id: 'baluchon', fn: baluchonTTS },
 	{ id: 'weekDayTTS', fn: weekDayTTS },
 	{ id: 'uneHeure', fn: uneHeure },
@@ -169,21 +167,4 @@ function weekDayTTS() {
 	let dayOfWeek = new Date().getDay();
 	new Flux('interface|tts|speak', TTS_1 + CALENDAR.days[dayOfWeek]);
 	new Flux('interface|tts|speak', TTS_2 + ((CALENDAR.days[dayOfWeek + 1]) || CALENDAR.days[0]));
-}
-
-const GO_TO_WORK_TTS = [
-	{ msg: 'Allez, bonne journée !' },
-	{ msg: 'Allez, a ce soir !' },
-	{ msg: 'Go go go, allez au boulot' },
-	{ msg: 'Allez allez, Maitro boulot dodo' }
-];
-function goToWorkTTSQueue() {
-	log.debug('goToWorkTTSQueue...');
-	new Flux('service|interaction|goToWorkTTS', null, { delay: 2 * 60, loop: 5 });
-}
-
-function goToWorkTTS() {
-	let tts = Utils.randomItem(GO_TO_WORK_TTS);
-	log.debug('goToWorkTTS', tts);
-	new Flux('interface|tts|speak', tts);
 }

@@ -33,7 +33,7 @@ setImmediate(() => {
 /** Function to disable all alarms */
 function disableAllAlarms() {
 	new Flux('interface|tts|speak', 'Annulation de toutes les alarmes');
-	new Flux('service|context|updateRestart', { alarms: { weekDay: null, weekEnd: null } }, { delay: 4 });
+	new Flux('service|context|update', { alarms: { weekDay: null, weekEnd: null } }, { delay: 4 });
 }
 
 /** Function to set custom alarm */
@@ -53,7 +53,7 @@ function setAlarm(alarm) {
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
 	let alarmTTS = 'Alarme ' + alarmMode + ' ' + alarm.h + ' heure ' + (alarm.m ? alarm.m : '');
 	new Flux('interface|tts|speak', alarmTTS);
-	new Flux('service|context|updateRestart', { alarms: newAlarms }, { delay: 3 });
+	new Flux('service|context|update', { alarms: newAlarms }, { delay: 3 });
 }
 
 /** Function to test if alarm now */
@@ -75,7 +75,7 @@ function isAlarm() {
 				new Flux('service|context|restart');
 			} else {
 				setImmediate(() => {
-					doAlarm();
+					startAlarmSequence();
 				});
 			}
 		}
@@ -83,7 +83,7 @@ function isAlarm() {
 }
 
 /** Function alarm part 1 */
-function doAlarm() {
+function startAlarmSequence() {
 	alarmPart1()
 		.then(alarmPart2)
 		.then(alarmPart3)
@@ -160,10 +160,6 @@ function alarmPart3() {
 	}
 
 	new Flux('service|interaction|baluchon', null, { delay: Utils.random(15, 25) * 60, loop: 3 });
-	return; // Disable go to work TTS
-	if (!Utils.isWeekend()) {
-		new Flux('service|interaction|goToWorkQueue', null, { delay: 70 * 60 });
-	}
 
 	setTimeout(() => {
 		Core.run('alarm', false);
