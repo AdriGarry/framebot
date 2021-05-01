@@ -158,7 +158,7 @@ app.service('UIService', [
 		let logSize, logIncrement;
 		ctrl.resetlogCounter = function () {
 			logSize = 50;
-			logIncrement = 25;
+			logIncrement = 50;
 		};
 		ctrl.resetlogCounter();
 
