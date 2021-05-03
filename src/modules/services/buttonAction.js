@@ -58,13 +58,13 @@ function okButtonAction(duration) {
 }
 function cancelButtonAction(duration) {
 	new Flux('interface|sound|mute');
-	if (duration < 3) {
+	if (duration >= 1 && duration < 3) {
 		new Flux('service|context|restart');
 	} else if (duration >= 3 && duration < 6) {
 		new Flux('service|context|restart', 'sleep');
 	} else if (duration > 6) {
 		new Flux('interface|hardware|reboot', null, { delay: 3 });
-	} else Core.error('Button->else', flux);
+	}
 }
 
 function whiteButtonAction(duration) {
