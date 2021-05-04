@@ -28,7 +28,7 @@ setImmediate(() => {
 	Utils.delay(10).then(setupRadiatorMode);
 });
 
-const RADIATOR_MONTHS = [0, 1, 2, 3, 9, 10, 11];
+const RADIATOR_MONTHS = [0, 1, 2, 3, 4, 9, 10, 11];
 const RADIATOR_JOB = {
 	OFF: new CronJob('30 0 * * * *', function () {
 		radiatorOrder('off');
