@@ -48,15 +48,12 @@ function beforeRestart() {
 
 function renewCertbot() {
 	log.INFO('renew Certbot certificate');
-	// TODO y'a un truc car il faut intervenir dans le script
 	// TODO use https://www.npmjs.com/package/greenlock
 	Utils.execCmd('sudo framebot certbot') // TODO sudo useless ?
 		.then(data => {
-			log.info('core certificate successfully', data);
-			resolve(lastDate[0]);
+			log.info('Certbot certificate successfully renewed', data);
 		})
 		.catch(err => {
-			Core.error('retreiveLastModifiedDate error', err);
-			reject(err);
+			Core.error('Error renewing Certbot certificate', err);
 		});
 }
