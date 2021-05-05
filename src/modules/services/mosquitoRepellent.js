@@ -30,8 +30,7 @@ setImmediate(() => {
 const MOSQUITO_MONTHS = [4, 5, 6, 7, 8];
 
 function initMosquitoRepellentMode() {
-	let today = new Date(); // TODO harmonize with radiator!
-	if (today.getMonth() < 4 || today.getMonth() > 9) {
+	if (!isMosquitoSeason()) {
 		log.debug('not in mosquito season!');
 		return;
 	}
@@ -72,6 +71,5 @@ function plugOrder(mode) {
 
 function isMosquitoSeason() {
 	let currentMonth = new Date().getMonth();
-	if (MOSQUITO_MONTHS.includes(currentMonth)) return true;
-	return false;
+	return MOSQUITO_MONTHS.includes(currentMonth);
 }
