@@ -1003,7 +1003,7 @@ app.component('radiator', {
 				},
 				{
 					label: 'Off Timeout',
-					icon: 'fas fa-clock',
+					icon: 'far fa-clock',
 					url: '/flux/service/radiator/timeout',
 					value: { mode: 'off' },
 					continu: true
