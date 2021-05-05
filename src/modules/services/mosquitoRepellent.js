@@ -2,8 +2,6 @@
 
 'use strict';
 
-const CronJob = require('cron').CronJob;
-
 const Core = require('../../core/Core').Core;
 
 const Logger = require('../../api/Logger'),
@@ -37,7 +35,7 @@ function initMosquitoRepellentMode() {
 		log.debug('not in mosquito season!');
 		return;
 	}
-	log.info('init mosquito repellent mode [' + Utils.executionTime(Core.startTime) + 'ms]');
+	log.info('Init mosquito repellent mode [' + Utils.executionTime(Core.startTime) + 'ms]');
 	repellentMode = true;
 	togglePlug(true);
 }
