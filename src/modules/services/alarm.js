@@ -13,7 +13,7 @@ const log = new Logger(__filename);
 
 module.exports = {
 	cron: {
-		base: [{ cron: '1 * * * * *', flux: { id: 'service|alarm|isAlarm', conf: { log: 'trace' } } }],
+		base: [{ cron: '1 * * * * *', flux: { id: 'service|alarm|isAlarm', conf: { log: 'debug' } } }],
 		full: []
 	}
 };
@@ -53,7 +53,8 @@ function setAlarm(alarm) {
 	let alarmMode = alarm.when == 'weekDay' ? 'semaine' : 'weekend';
 	let alarmTTS = 'Alarme ' + alarmMode + ' ' + alarm.h + ' heure ' + (alarm.m ? alarm.m : '');
 	new Flux('interface|tts|speak', alarmTTS);
-	new Flux('service|context|update', { alarms: newAlarms }, { delay: 3 });
+	new Flux('service|context|update', { alarms: newAlarms });
+	new Flux('service|alarm|isAlarm');
 }
 
 /** Function to test if alarm now */
@@ -71,7 +72,7 @@ function isAlarm() {
 			log.info('alarm time...', alarms[alarmType].h + ':' + alarms[alarmType].m);
 			Core.run('alarm', true);
 			if (!Core.isAwake()) {
-				log.INFO('wake up !!');
+				log.INFO('ALARM NOW!');
 				new Flux('service|context|restart');
 			} else {
 				setImmediate(() => {
@@ -82,11 +83,11 @@ function isAlarm() {
 	}
 }
 
-/** Function alarm part 1 */
 function startAlarmSequence() {
 	alarmPart1()
 		.then(alarmPart2)
 		.then(alarmPart3)
+		.then(() => Core.run('alarm', false))
 		.catch(err => {
 			Core.error('Alarm error', err);
 		});
@@ -130,40 +131,42 @@ function alarmPart2() {
 
 /** Function alarm part 3 */
 function alarmPart3() {
-	let delay = 3;
-	new Flux('service|max|hornRdm');
-	new Flux('service|time|today', null, { delay: delay });
+	return new Promise((resolve, reject) => {
+		let delay = 3;
+		new Flux('service|max|hornRdm');
+		new Flux('service|time|today', null, { delay: delay });
 
-	delay += 3;
-	new Flux('service|time|now', null, { delay: delay });
+		delay += 3;
+		new Flux('service|time|now', null, { delay: delay });
 
-	delay += 2;
-	new Flux('service|weather|report', null, { delay: delay });
+		delay += 5;
+		new Flux('service|weather|report', null, { delay: delay });
 
-	delay += 5;
-	new Flux('service|weather|astronomy', null, { delay: delay });
+		delay += 5;
+		new Flux('service|weather|astronomy', null, { delay: delay });
 
-	delay += 15;
-	new Flux('service|voicemail|check', null, { delay: delay });
+		delay += 15;
+		new Flux('service|voicemail|check', null, { delay: delay });
 
-	delay += Core.run('voicemail') * 10;
-	new Flux('service|audioRecord|check', null, { delay: delay });
+		delay += Core.run('voicemail') * 100; // TODO ?
+		new Flux('service|audioRecord|check', null, { delay: delay });
 
-	delay += Core.run('audioRecord') * 10;
-	new Flux('service|music|radio', 'fip', { delay: delay });
+		delay += Core.run('audioRecord') * 100; // TODO ?
+		new Flux('service|music|radio', 'fip', { delay: delay });
 
-	new Flux('service|max|playOneMelody', null, { delay: 8 * 60, loop: 8 });
-	new Flux('service|max|hornRdm', null, { delay: 12 * 60, loop: 6 });
+		new Flux('service|max|playOneMelody', null, { delay: 8 * 60, loop: 8 });
+		new Flux('service|max|hornRdm', null, { delay: 12 * 60, loop: 6 });
 
-	if (!Utils.isWeekend()) {
-		new Flux('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 120 });
-	}
+		if (!Utils.isWeekend()) {
+			new Flux('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 120 });
+		}
 
-	new Flux('service|interaction|baluchon', null, { delay: Utils.random(15, 25) * 60, loop: 3 });
+		new Flux('service|interaction|baluchon', null, { delay: Utils.random(15, 25) * 60, loop: 3 });
 
-	setTimeout(() => {
-		Core.run('alarm', false);
-	}, delay * 1000);
+		setTimeout(() => {
+			resolve();
+		}, (delay + 10) * 1000);
+	});
 }
 
 function isBirthday() {
