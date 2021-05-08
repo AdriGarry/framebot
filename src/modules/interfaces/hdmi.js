@@ -5,9 +5,7 @@ const { spawn } = require('child_process');
 
 const Core = require('./../../core/Core').Core;
 
-const Logger = require('./../../api/Logger'),
-	Flux = require('./../../api/Flux'),
-	Observers = require('./../../api/Observers');
+const { Flux, Logger, Observers } = require('./../../api');
 
 const log = new Logger(__filename);
 

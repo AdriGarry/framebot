@@ -4,9 +4,7 @@
 
 const Core = require('./../../core/Core').Core;
 
-const Logger = require('./../../api/Logger'),
-	Flux = require('./../../api/Flux'),
-	Observers = require('./../../api/Observers');
+const { Flux, Logger, Observers } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -41,7 +39,7 @@ function setTimer(minutes) {
 
 function startTimer() {
 	let etat = 1;
-	secInterval = setInterval(function() {
+	secInterval = setInterval(function () {
 		new Flux('interface|led|toggle', { leds: ['belly'], value: etat }, { log: 'trace' });
 		etat = 1 - etat;
 		if (Core.run('timer') < 10) {
