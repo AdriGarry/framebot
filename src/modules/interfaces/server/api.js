@@ -7,9 +7,7 @@ const fs = require('fs'),
 
 const Core = require('./../../../core/Core').Core;
 
-const Logger = require('./../../../api/Logger'),
-	Flux = require('./../../../api/Flux'),
-	Utils = require('./../../../api/Utils');
+const { Flux, Logger, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 

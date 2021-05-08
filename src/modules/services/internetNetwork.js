@@ -4,10 +4,7 @@
 
 const Core = require('../../core/Core').Core;
 
-const Logger = require('../../api/Logger'),
-	Utils = require('../../api/Utils'),
-	CronJobList = require('../../api/CronJobList'),
-	Observers = require('../../api/Observers');
+const { CronJobList, Logger, Observers, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 

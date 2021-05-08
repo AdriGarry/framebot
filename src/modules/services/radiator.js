@@ -6,11 +6,7 @@ const CronJob = require('cron').CronJob;
 
 const Core = require('./../../core/Core').Core;
 
-const Logger = require('./../../api/Logger'),
-	Flux = require('./../../api/Flux'),
-	Utils = require('./../../api/Utils'),
-	CronJobList = require('./../../api/CronJobList'),
-	Observers = require('./../../api/Observers');
+const { CronJobList, Flux, Logger, Observers, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 

@@ -6,10 +6,7 @@ const fs = require('fs');
 
 const Core = require('./../../core/Core').Core;
 
-const Logger = require('./../../api/Logger'),
-	Flux = require('./../../api/Flux'),
-	Utils = require('./../../api/Utils'),
-	Observers = require('./../../api/Observers');
+const { Flux, Logger, Observers, Utils } = require('./../../api');
 
 const RandomBox = require('randombox').RandomBox;
 const CALENDAR = require(Core._DATA + 'calendar-fr.json');
