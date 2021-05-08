@@ -3,7 +3,7 @@
 
 const Core = require('./../../../core/Core').Core;
 
-const { Logger } = require('./../../api');
+const { Logger } = require('./../../../api');
 
 const log = new Logger(__filename);
 
