@@ -43,6 +43,7 @@ var securityMiddleware = function (req, res, next) {
 	if (requestData.ui !== 'UIv5') {
 		if (Core.isAwake()) throttleBadRequestTTS();
 
+		Core.run('stats.badRequestCount', Core.run('stats.badRequestCount') + 1);
 		Core.error('Bad request', '401 ' + req.url + ' ' + requestData.log, false);
 		rejectUnauthorizedRequest(res);
 		return;

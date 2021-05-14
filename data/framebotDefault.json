@@ -64,8 +64,9 @@
 			"diskSpace": null,
 			"totalLines": null,
 			"update": null,
+			"buttons": {},
 			"fluxCount": 0,
-			"buttons": {}
+			"badRequestCount": 0
 		}
 	},
 	"cron": {
