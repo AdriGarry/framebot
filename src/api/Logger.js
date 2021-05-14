@@ -169,7 +169,7 @@ function _formatObjectToTable(obj, updatedEntries) {
 		if (data == false || data == null || data === 0) return;
 		if (typeof data == 'object' && !Array.isArray(data)) {
 			if (Object.prototype.toString.call(data) === "[object Date]") {
-				datas['' + key] = [String(data.toString())];
+				datas['' + key] = [String(data.toString().substring(0, 24))];
 			} else {
 				Object.keys(data).forEach((key2, index2) => {
 					let data2 = data[key2];
