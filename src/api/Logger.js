@@ -168,17 +168,21 @@ function _formatObjectToTable(obj, updatedEntries) {
 		let data = obj[key];
 		if (data == false || data == null || data === 0) return;
 		if (typeof data == 'object' && !Array.isArray(data)) {
-			Object.keys(data).forEach((key2, index2) => {
-				let data2 = data[key2];
-				if (data2) {
-					// not logging null entries
-					if (index2 == 0) {
-						datas[(updated ? '*' : '') + key] = [String(key2 + ': ' + _getDataOrObject(data2))];
-					} else if (Array.isArray(datas[(updated ? '*' : '') + key])) {
-						datas[(updated ? '*' : '') + key].push(String(key2 + ': ' + _getDataOrObject(data2)));
+			if (Object.prototype.toString.call(data) === "[object Date]") {
+				datas['' + key] = [String(data.toString())];
+			} else {
+				Object.keys(data).forEach((key2, index2) => {
+					let data2 = data[key2];
+					if (data2) {
+						// not logging null entries
+						if (index2 == 0) {
+							datas[(updated ? '*' : '') + key] = [String(key2 + ': ' + _getDataOrObject(data2))];
+						} else if (Array.isArray(datas[(updated ? '*' : '') + key])) {
+							datas[(updated ? '*' : '') + key].push(String(key2 + ': ' + _getDataOrObject(data2)));
+						}
 					}
-				}
-			});
+				});
+			}
 		} else if (Array.isArray(data)) {
 			datas[(updated ? '*' : '') + key] = data;
 		} else {

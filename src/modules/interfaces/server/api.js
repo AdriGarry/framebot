@@ -71,7 +71,7 @@ function attachDefaultRoutes(ui) {
 							: Core.conf('log') == 'debug'
 								? 'Debug'
 								: Utils.firstLetterUpper(Core.conf('mode')),
-					param: Core.const('startTime'),
+					param: Utils.logTime('h:m (D/M)', Core.const('startDateTime')),
 					switch: etatBtn == 'high' ? true : false,
 					mood: Core.run('mood')
 				}
