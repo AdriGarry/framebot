@@ -35,6 +35,7 @@ function _setUpCoreObject(Core, descriptor, startTime) {
 	Core.run = new Lock(CORE_DEFAULT.runtime);
 	Core.const = new Lock(CORE_DEFAULT.const, null, true);
 	Core.const('name', descriptor.name.trim().toLowerCase());
+	Core.const('startDateTime', startTime);
 	Core.isAwake = isAwake;
 	Core.isOnline = isOnline;
 	Core.descriptor = descriptor;
@@ -54,7 +55,6 @@ function initializeContext(descriptor, forcedParams, startTime) {
 		forcedParamsLog = '',
 		packageJson = require(_PATH + 'package.json');
 
-	Core.const('startTime', Utils.logTime('h:m (D/M)'));
 	Core.const('version', packageJson.version);
 
 	if (forcedParams.sleep) {
