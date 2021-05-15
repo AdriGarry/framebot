@@ -30,7 +30,7 @@ module.exports = class Logger {
 			logLevel = newLogLevel;
 			Core = require(_PATH + 'src/core/Core.js').Core;
 			Core.conf('log', logLevel);
-			this.INFO('--> Logger level set to:', logLevel);
+			this.INFO('Logger level set to:', logLevel);
 			if (newLogLevel == LEVEL.DEBUG || newLogLevel == LEVEL.TRACE) {
 				_timeoutToInfoLevel(this, TIMEOUT_MIN);
 			}
