@@ -25,10 +25,10 @@
 		"flux": []
 	},
 	"const": {
-		"name": ".",
-		"version": ".",
-		"startDateTime": ".",
-		"update": null,
+		"name": null,
+		"version": null,
+		"startDateTime": null,
+		"updateDateTime": null,
 		"totalLines": 0,
 		"stories": {},
 		"playlists": {}
