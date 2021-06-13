@@ -1175,17 +1175,46 @@ app.component('tasks', {
 		access: '<'
 	},
 	templateUrl: 'templates/tiles.html',
-	controller: function (DefaultTile) {
+	controller: function ($rootScope, DefaultTile) {
 		const ctrl = this;
 		const tileParams = {
 			label: 'Tasks',
 			actionList: [
 				{ label: 'Renew Certbot', icon: 'fas fa-tools', url: '/flux/service/task/certbot' },
-				{ label: 'Mosquito', icon: 'fas fa-spider', url: '/flux/service/mosquitoRepellent/toggle' },
+				{ label: 'Mosquito', icon: 'fas fa-spider', url: '/flux/service/mosquitoRepellent/toggle', continu: true },
 				{ label: 'goToSleep', icon: 'fas fa-bed', url: '/flux/service/task/goToSleep' }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
+
+		let specificActions = function (button) {
+			if (button.label === 'Mosquito') {
+				let slider = {
+					label: 'Mosquito Repellent Interval',
+					url: '/flux/service/mosquitoRepellent/update',
+					legend: 'min/10',
+					min: 0,
+					max: 10,
+					step: 1,
+					value: ctrl.data.mosquitoRepellent.value,
+					action: null,
+					//formatTime: false
+				};
+				ctrl.tile.openSliderBottomSheet(slider);
+			} else {
+				ctrl.tile.action(button);
+			}
+		};
+
+		/** Overwrite tile action */
+		ctrl.tile.click = function () {
+			if (!$rootScope.irda) {
+				UIService.showErrorToast('Unauthorized action.');
+			} else {
+				ctrl.tile.openBottomSheet(this.actionList, specificActions);
+			}
+		};
+
 	}
 });
 
