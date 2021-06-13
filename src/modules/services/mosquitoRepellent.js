@@ -10,13 +10,12 @@ const log = new Logger(__filename);
 
 module.exports = {};
 
-const TIMEOUT = { 'ON': 1, 'OFF': 4 };
+const TEN_MINUTES = 10;
 
 var repellentMode = false, repellentTimeout;
 
-const FLUX_PARSE_OPTIONS = [
-	{ id: 'toggle', fn: toggleMosquitoRepellentMode }
-];
+const FLUX_PARSE_OPTIONS = [{ id: 'update', fn: updatetRepellentTimeout },
+{ id: 'toggle', fn: toggleMosquitoRepellentMode }];
 
 Observers.attachFluxParseOptions('service', 'mosquitoRepellent', FLUX_PARSE_OPTIONS);
 
@@ -33,36 +32,44 @@ function initMosquitoRepellentMode() {
 	}
 	log.info('Init mosquito repellent mode [' + Utils.executionTime(Core.startTime) + 'ms]');
 	repellentMode = true;
-	togglePlug(true);
+	autoTogglePlugTimeout(true);
+}
+
+function updatetRepellentTimeout(newTimeout) {
+	Core.run('mosquitoRepellent', newTimeout);
+	log.info('Mosquito repellent  timeout set to', newTimeout, 'min');
+	if (repellentMode) {
+		toggleMosquitoRepellentMode(); // stop
+	}
+	if (newTimeout) {
+		toggleMosquitoRepellentMode(); // restart
+	}
 }
 
 function toggleMosquitoRepellentMode() {
 	if (repellentMode) {
-		log.info('Aborting mosquito repellent mode');
+		log.info('Stopping mosquito repellent mode');
 		clearTimeout(repellentTimeout);
 		plugOrder(false);
 	} else {
 		log.info('Starting mosquito repellent mode');
-		togglePlug(true);
+		autoTogglePlugTimeout(true);
 	}
 	repellentMode = !repellentMode;
 }
 
-function togglePlug(mode, timeout) {
-	log.debug('togglePlug', mode, timeout);
-	if (!timeout || mode) timeout = TIMEOUT.ON;
-	else timeout = TIMEOUT.OFF;
+function autoTogglePlugTimeout(mode) {
+	let timeout = mode ? Core.run('mosquitoRepellent') : TEN_MINUTES - Core.run('mosquitoRepellent');
 	log.info('toggle mosquito repellent plug', mode ? 'on' : 'off', 'for ' + timeout + ' min');
 	plugOrder(mode);
 	repellentTimeout = setTimeout(() => {
-		return togglePlug(!mode, timeout)
+		return autoTogglePlugTimeout(!mode)
 	}, timeout * 60 * 1000);
 }
 
 function plugOrder(mode) {
 	if (typeof mode !== 'boolean') mode = false;
 	log.debug('mosquito repellent', mode);
-	Core.run('mosquito', mode);
 	new Flux('interface|rfxcom|send', { device: 'plugC', value: mode });
 }
 

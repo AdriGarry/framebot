@@ -48,6 +48,7 @@
 		"radiator": false,
 		"mosquito": false,
 		"powerPlug": {},
+		"mosquitoRepellent": 2,
 		"screen": null,
 		"weather": {},
 		"network": {},
