@@ -74,7 +74,7 @@ function playlist(playlistId) {
 	Core.run('music', playlistId);
 	new Flux('interface|sound|mute', { message: 'Auto mute jukebox!', delay: AUTO_MUTE_TIMEOUT });
 	setTimeout(() => {
-		repeatSong(PLAYLIST[playlistId]);
+		repeatSong(PLAYLIST[playlistId]); // TODO rename as nextSong ?
 	}, 1000);
 }
 
