@@ -1190,7 +1190,7 @@ app.component('tasks', {
 		let specificActions = function (button) {
 			if (button.label === 'Mosquito') {
 				let slider = {
-					label: 'Mosquito Repellent Interval',
+					label: 'Interval',
 					url: '/flux/service/mosquitoRepellent/update',
 					legend: 'min/10',
 					min: 0,
