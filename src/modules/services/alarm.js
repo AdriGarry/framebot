@@ -167,7 +167,7 @@ function alarmPart3() {
 }
 
 function isBirthday() {
-	log.info('isBirthday');
+	log.debug('isBirthday');
 	let today = {
 		date: new Date()
 	};
