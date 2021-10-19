@@ -68,6 +68,9 @@ sudo apt-get install -y mbrola mbrola-fr1 mbrola-fr4
 # Install fbi (framebuffer imageviewer: diapo)
 sudo apt-get -y install fbi
 
+# Install Certbot
+sudo apt install -y certbot
+
 # Install fail2ban
 sudo apt-get -y install fail2ban
 
