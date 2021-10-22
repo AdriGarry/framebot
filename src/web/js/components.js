@@ -995,6 +995,18 @@ app.component('radiator', {
 			label: 'Radiator',
 			actionList: [
 				{
+					label: 'Radiator on',
+					icon: 'fas fa-toggle-on',
+					url: '/flux/service/radiator/manual',
+					value: 'on'
+				},
+				{
+					label: 'Radiator off',
+					icon: 'fas fa-toggle-off',
+					url: '/flux/service/radiator/manual',
+					value: 'off'
+				},
+				{
 					label: 'On Timeout',
 					icon: 'fas fa-clock',
 					url: '/flux/service/radiator/timeout',
@@ -1007,18 +1019,6 @@ app.component('radiator', {
 					url: '/flux/service/radiator/timeout',
 					value: { mode: 'off' },
 					continu: true
-				},
-				{
-					label: 'Radiator on',
-					icon: 'fas fa-toggle-on',
-					url: '/flux/service/radiator/manual',
-					value: 'on'
-				},
-				{
-					label: 'Radiator off',
-					icon: 'fas fa-toggle-off',
-					url: '/flux/service/radiator/manual',
-					value: 'off'
 				}
 			]
 		};
@@ -1040,7 +1040,7 @@ app.component('radiator', {
 		};
 
 		let specificActions = function (button) {
-			if (button.label.toUpperCase().indexOf('TIMEOUT') != -1) {
+			if (button.label.toUpperCase().indexOf('TIMEOUT') > -1) {
 				let slider = {
 					label: button.label,
 					url: '/flux/service/radiator/timeout',
@@ -1103,24 +1103,62 @@ app.component('powerPlug', {
 			}
 		};
 
-		const PLUG_FLUX_URL = '/flux/interface/rfxcom/send';
 		let specificPlugActions = function (action) {
 			let actionList = [
 				{
 					label: action.label + ' on',
 					icon: 'fas fa-toggle-on',
-					url: PLUG_FLUX_URL,
-					value: { device: action.value.device, value: true }
+					url: '/flux/service/powerPlug/toggle',
+					value: { plug: action.value.device, mode: true }
 				},
 				{
 					label: action.label + ' off',
 					icon: 'fas fa-toggle-off',
-					url: PLUG_FLUX_URL,
-					value: { device: action.value.device, value: false }
+					url: '/flux/service/powerPlug/toggle',
+					value: { plug: action.value.device, mode: false }
+				},
+				{
+					label: action.label + ' on timeout',
+					icon: 'fas fa-clock',
+					url: '/flux/service/powerPlug/timeout',
+					value: { plug: action.value.device, mode: true },
+					continu: true
+				},
+				{
+					label: action.label + ' off timeout',
+					icon: 'far fa-clock',
+					url: '/flux/service/powerPlug/timeout',
+					value: { plug: action.value.device, mode: false },
+					continu: true
 				}
 			];
+			ctrl.tile.openBottomSheet(actionList, specificActions);
+		};
 
-			ctrl.tile.openBottomSheet(actionList, ctrl.tile.action);
+		let specificActions = function (button) {
+			if (button.label.toUpperCase().indexOf('TIMEOUT') > -1) {
+				let slider = {
+					label: button.label,
+					url: button.url,
+					legend: 'h',
+					min: 1,
+					max: 120,
+					step: 1,
+					value: 10,
+					action: null,
+					formatTime: true,
+					data: button.value,
+					plug: button.value.plug
+				};
+				ctrl.tile.openSliderBottomSheet(slider, specificEndAction);
+			} else {
+				ctrl.tile.action(button);
+			}
+		};
+
+		let specificEndAction = function (button) {
+			button.value = { mode: button.label.toUpperCase().indexOf('ON') > -1 ? 'on' : 'off', timeout: button.value, plug: button.plug };
+			ctrl.tile.action(button);
 		};
 	}
 });

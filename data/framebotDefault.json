@@ -22,7 +22,8 @@
 		"watcher": false,
 		"alarms": ".",
 		"radiator": ".",
-		"flux": []
+		"flux": [],
+		"powerPlug": {}
 	},
 	"const": {
 		"name": null,
