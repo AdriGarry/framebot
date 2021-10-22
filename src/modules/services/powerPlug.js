@@ -25,11 +25,10 @@ var PLUG_TIMEOUTS = {};
 function setupPlugTimeoutAtStartup() {
 	let existingPowerPlugValues = Core.conf('powerPlug');
 	if (existingPowerPlugValues && typeof existingPowerPlugValues === 'object' && Object.keys(existingPowerPlugValues).length > 0) {
-		log.test('setupPlugTimeoutAtStartup');
+		log.info('setupPlugTimeoutAtStartup');
 		Object.keys(existingPowerPlugValues).forEach(plugId => {
 			let plugTimeoutData = existingPowerPlugValues[plugId];
-			log.test(plugId, plugTimeoutData);
-			plugTimeoutData[plug] = plugId;
+			plugTimeoutData['plug'] = plugId;
 			setPlugTimeout(plugTimeoutData);
 		});
 	}
@@ -38,12 +37,11 @@ function setupPlugTimeoutAtStartup() {
 function togglePlug(arg) {
 	log.info('togglePlug', arg);
 	removePlugTimeoutFromConf(arg.plug);
-	// TODO toggle plug... but not persisted!
 	plugOrder(arg.plug, arg.mode);
 }
 
 function removePlugTimeoutFromConf(plugId) {
-	log.test('removePlugTimeoutFromConf')
+	log.debug('removePlugTimeoutFromConf')
 	let powerPlugToUpdate = Core.conf('powerPlug');
 	delete powerPlugToUpdate[plugId];
 	Core.conf('powerPlug', powerPlugToUpdate);
@@ -57,9 +55,7 @@ function setPlugTimeout(arg) {
 	let powerPlugToUpdate = Core.conf('powerPlug');
 	powerPlugToUpdate[arg.plug] = { mode: arg.mode, timeout: arg.timeout };
 	Core.conf('powerPlug', powerPlugToUpdate);
-	// if (arg.hasOwnProperty('plug')) delete arg.plug;
 	decrementPlugTimeout(arg.plug);
-	log.test(Core.conf('powerPlug'));
 }
 
 function decrementPlugTimeout(plugId) {
@@ -72,7 +68,6 @@ function decrementPlugTimeout(plugId) {
 	PLUG_TIMEOUTS[plugId] = setTimeout(() => {
 		arg.timeout = --arg.timeout;
 		Core.conf('powerPlug.' + plugId, arg);
-		log.test(Core.conf('powerPlug'));
 		decrementPlugTimeout(plugId);
 	}, 60 * 1000);
 }
@@ -88,10 +83,9 @@ function endPlugTimeout(plugId) {
 }
 
 function plugOrder(plugId, mode) {
-	log.info('plugOrder', plugId, mode);
-	mode = getBooleanValue(mode);
-	log.test('plugOrder', plugId, mode);
-	new Flux('interface|rfxcom|send', { device: plugId, value: mode });
+	let booleanMode = getBooleanValue(mode);
+	log.info('plugOrder', plugId, mode, '=>', booleanMode);
+	new Flux('interface|rfxcom|send', { device: plugId, value: booleanMode });
 }
 
 
