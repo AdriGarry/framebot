@@ -14,13 +14,13 @@ const TEN_MINUTES = 10;
 
 var repellentMode = false, repellentTimeout;
 
-const FLUX_PARSE_OPTIONS = [{ id: 'update', fn: updatetRepellentTimeout },
+const FLUX_PARSE_OPTIONS = [{ id: 'update', fn: updateRepellentTimeout },
 { id: 'toggle', fn: toggleMosquitoRepellentMode }];
 
 Observers.attachFluxParseOptions('service', 'mosquitoRepellent', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-	Utils.delay(10).then(initMosquitoRepellentMode);
+	// Utils.delay(10).then(initMosquitoRepellentMode);
 });
 
 const MOSQUITO_MONTHS = [4, 5, 6, 7, 8];
@@ -35,7 +35,7 @@ function initMosquitoRepellentMode() {
 	autoTogglePlugTimeout(true);
 }
 
-function updatetRepellentTimeout(newTimeout) {
+function updateRepellentTimeout(newTimeout) {
 	Core.run('mosquitoRepellent', newTimeout);
 	log.info('Mosquito repellent  timeout set to', newTimeout, 'min');
 	if (repellentMode) {

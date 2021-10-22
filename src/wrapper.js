@@ -150,8 +150,8 @@ function checkConfValidity() {
 }
 
 function reInitConf() {
-	fs.writeFileSync(_PATH + 'tmp/conf.json', JSON.stringify(CORE_DEFAULT.conf), 'utf-8');
 	console.log('> CONF reset');
+	fs.writeFileSync(_PATH + 'tmp/conf.json', JSON.stringify(CORE_DEFAULT.conf), 'utf-8');
 }
 
 function mute() {
