@@ -16,7 +16,6 @@ const log = new Logger(__filename);
 module.exports = {
 	cron: {
 		full: [
-			{ cron: '0 19 19 * * *', flux: { id: 'service|interaction|baluchon' } },
 			//{ cron: '0 0 12 * * 0', flux: { id: 'service|interaction|civilHorn' } },
 			{ cron: '13 0 1,13 * * *', flux: { id: 'service|interaction|uneHeure' } },
 		]
@@ -27,7 +26,6 @@ const FLUX_PARSE_OPTIONS = [
 	{ id: 'random', fn: randomAction },
 	{ id: 'exclamation', fn: exclamation },
 	{ id: 'demo', fn: demo },
-	{ id: 'baluchon', fn: baluchonTTS },
 	{ id: 'weekDayTTS', fn: weekDayTTS },
 	{ id: 'uneHeure', fn: uneHeure },
 	{ id: 'russia', fn: russia },
@@ -140,22 +138,6 @@ function demo() {
 	Core.ttsMessages.demo.forEach(tts => {
 		new Flux('interface|tts|speak', tts);
 	});
-}
-
-const BALUCHON_MSG = [
-	[
-		{ voice: 'espeak', msg: 'Je crois quil faut lancer loperation baluchon' },
-		{ voice: 'pico', msg: 'Sans oublier la gamelle' }
-	],
-	[
-		{ voice: 'pico', msg: 'il faut lancer loperation baluchon !' },
-		{ voice: 'pico', msg: "Et aussi la gamelle d'eau" }
-	]
-];
-function baluchonTTS() {
-	let tts = Utils.randomItem(BALUCHON_MSG);
-	log.debug('baluchonTTS', tts);
-	new Flux('interface|tts|speak', tts);
 }
 
 function weekDayTTS() {

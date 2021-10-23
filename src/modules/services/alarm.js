@@ -158,8 +158,6 @@ function alarmPart3() {
 			new Flux('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 120 });
 		}
 
-		new Flux('service|interaction|baluchon', null, { delay: Utils.random(15, 25) * 60, loop: 3 });
-
 		setTimeout(() => {
 			resolve();
 		}, (delay + 10) * 1000);
