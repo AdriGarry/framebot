@@ -125,13 +125,14 @@ function decrementRadiatorTimeout() {
 
 function endRadiatorTimeout() {
 	let radiatorTimeoutMode = Core.conf('radiator').mode;
-	Core.conf('radiator', 'auto');
 	clearTimeout(radiatorTimeout);
+	Core.conf('radiator', 'auto');
 	RADIATOR_JOB.AUTO.start();
 	RADIATOR_JOB.OFF.start();
 
-	radiatorOrder(radiatorTimeoutMode == 'on' ? 'off' : 'on'); // invert mode
-	log.info('radiator timeout, back to off before auto mode...');
+	let newRadiatorTimeoutMode = radiatorTimeoutMode == 'on' ? 'off' : 'on'; // invert mode
+	radiatorOrder(newRadiatorTimeoutMode);
+	log.info('radiator timeout, back to' + newRadiatorTimeoutMode + 'before auto mode...');
 }
 
 function isRadiatorSeason() {
