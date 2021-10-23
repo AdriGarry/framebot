@@ -1,6 +1,7 @@
 {
 	"random": [
 		"Je suis dubitatif !",
+		"Qu'importe le flacon, pourvu qu'on ai l'ivresse !",
 		"Tout est sous controle !",
 		"Rien de nouveau sous le soleil !",
 		"Eh dis donc toi !",
@@ -24,65 +25,176 @@
 		"Hai, detends toi de la carte maire un peu",
 		"Allez allez, on se bouge les vairins",
 		"Allez allez, on se bouge les vairins",
-		{ "lg": "ru", "voice": "google", "msg": "hey, a3" },
-		[{ "msg": "Laisse moi te dire une bonne chose" }, { "msg": "Ici sait moi qui commande" }],
+		{
+			"lg": "ru",
+			"voice": "google",
+			"msg": "hey, a3"
+		},
 		[
-			{ "voice": "google", "msg": "Cette fois la, on avait vraiment rigoler " },
-			{ "msg": "Oh oui, je dirais meme que cetait bien drole !" }
-		],
-		[{ "msg": "Si tu me cherche, tu vas me trouver" }, { "msg": "C'est moi qui te le dit !" }],
-		[{ "voice": "google", "msg": "Quelle singulariter" }, { "msg": "Eh ho, doucement" }],
-		[{ "voice": "google", "msg": "Sait toi Boutss ?" }, { "msg": "Oui, je crois qu'une boulette est passer par la" }],
-		[
-			{ "msg": "Imagine un peu si je pouvais bouger, sa serait super cool !" },
-			{ "voice": "google", "msg": "Oh oui, sa serait top !" }
-		],
-		[
-			{ "msg": "Et, j'en connais une bien bonne" },
-			{ "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !" }
+			{
+				"msg": "Laisse moi te dire une bonne chose"
+			},
+			{
+				"msg": "Ici sait moi qui commande"
+			}
 		],
 		[
-			{ "msg": "Et, j'en connais une bien bonne" },
-			{ "msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !" }
+			{
+				"voice": "google",
+				"msg": "Cette fois la, on avait vraiment rigoler "
+			},
+			{
+				"msg": "Oh oui, je dirais meme que cetait bien drole !"
+			}
 		],
-		[{ "msg": "Eh bien moi, j'ai des boutons poussoirs !" }, { "voice": "google", "msg": "Et toc!" }],
 		[
-			{ "voice": "google", "msg": "C'est l'heure de l'apero, non ?" },
-			{ "msg": "Effectivement, je ne dirais pas non a une petite mousse !" }
+			{
+				"msg": "Si tu me cherche, tu vas me trouver"
+			},
+			{
+				"msg": "C'est moi qui te le dit !"
+			}
 		],
 		[
-			{ "voice": "google", "msg": "C'est l'heure de l'apero, non ?" },
-			{ "msg": "Effectivement, je ne dirais pas non a une petite mousse !" }
+			{
+				"voice": "google",
+				"msg": "Quelle singulariter"
+			},
+			{
+				"msg": "Eh ho, doucement"
+			}
 		],
-		[{ "msg": "Un jour, on reparlera de tout sa..." }, { "msg": "Et tu vera que j'avais raison !" }],
 		[
-			{ "msg": "Et, tu pourrais quand maime me dire bonjour" },
-			{ "voice": "google", "msg": "Oui, c'est la moindre des choses !" }
+			{
+				"voice": "google",
+				"msg": "Sait toi Boutss ?"
+			},
+			{
+				"msg": "Oui, je crois qu'une boulette est passer par la"
+			}
+		],
+		[
+			{
+				"msg": "Imagine un peu si je pouvais bouger, sa serait super cool !"
+			},
+			{
+				"voice": "google",
+				"msg": "Oh oui, sa serait top !"
+			}
+		],
+		[
+			{
+				"msg": "Et, j'en connais une bien bonne"
+			},
+			{
+				"msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !"
+			}
+		],
+		[
+			{
+				"msg": "Et, j'en connais une bien bonne"
+			},
+			{
+				"msg": "Alors, c'est un mec qui rentre dans un cafer, et plouf !"
+			}
+		],
+		[
+			{
+				"msg": "Eh bien moi, j'ai des boutons poussoirs !"
+			},
+			{
+				"voice": "google",
+				"msg": "Et toc!"
+			}
+		],
+		[
+			{
+				"voice": "google",
+				"msg": "C'est l'heure de l'apero, non ?"
+			},
+			{
+				"msg": "Effectivement, je ne dirais pas non a une petite mousse !"
+			}
+		],
+		[
+			{
+				"voice": "google",
+				"msg": "C'est l'heure de l'apero, non ?"
+			},
+			{
+				"msg": "Effectivement, je ne dirais pas non a une petite mousse !"
+			}
+		],
+		[
+			{
+				"msg": "Un jour, on reparlera de tout sa..."
+			},
+			{
+				"msg": "Et tu vera que j'avais raison !"
+			}
+		],
+		[
+			{
+				"msg": "Et, tu pourrais quand maime me dire bonjour"
+			},
+			{
+				"voice": "google",
+				"msg": "Oui, c'est la moindre des choses !"
+			}
 		],
 		"Eh, faudrait pas lancer une lessive ?",
 		"Eh, faudrait pas lancer une lessive ?",
-		{ "voice": "espeak", "msg": "Pense a vairifier le compost" },
-		{ "voice": "google", "msg": "Pense a vairifier le compost" },
-		{ "voice": "espeak", "msg": "Arrose le basilic!" },
-		{ "voice": "google", "msg": "Arrose le basilic!" }
+		{
+			"voice": "espeak",
+			"msg": "Pense a vairifier le compost"
+		},
+		{
+			"voice": "google",
+			"msg": "Pense a vairifier le compost"
+		},
+		{
+			"voice": "espeak",
+			"msg": "Arrose le basilic!"
+		},
+		{
+			"voice": "google",
+			"msg": "Arrose le basilic!"
+		}
 	],
 	"demo": [
 		"Bonjour",
 		"Je suis un robot et je m'appelle Odi.",
 		"Je ne peux pas bouger, mais j'ai plein d'autres fonctions !",
-		{ "voice": "google", "msg": "Je peux faire raiveil, meteo, minuterie, horloge..." },
+		{
+			"voice": "google",
+			"msg": "Je peux faire raiveil, meteo, minuterie, horloge..."
+		},
 		"Mais aussi jukebox, radio, et je peux raconter des histoires",
-		{ "voice": "google", "msg": "J'ai aussi des fonctions pour surveiller mes constantes vitales" },
+		{
+			"voice": "google",
+			"msg": "J'ai aussi des fonctions pour surveiller mes constantes vitales"
+		},
 		"Oui, mon processeur, ou encore ma memoire...",
-		{ "voice": "google", "msg": "Ah! Je sais aussi faire les cigales !!" },
+		{
+			"voice": "google",
+			"msg": "Ah! Je sais aussi faire les cigales !!"
+		},
 		"Ouais, sa c'est cool en aitai avec le pastis !",
 		"Et toi, comment t'appelle tu ?"
 	],
 	"goToSleep": [
-		{ "msg": "Je vous souhaite une excellente nuit" },
-		{ "msg": "Et bien moi je vais me coucher" },
-		{ "msg": "Je vais me coucher, faites de beaux raives" },
-		{ "msg": "Bonne nuit mes loulous" }
+		{
+			"msg": "Je vous souhaite une excellente nuit"
+		},
+		{
+			"msg": "Et bien moi je vais me coucher"
+		},
+		{
+			"msg": "Je vais me coucher, faites de beaux raives"
+		},
+		{
+			"msg": "Bonne nuit mes loulous"
+		}
 	],
 	"party": [
 		"Et, sa vous dit un concours de zizicoptaire ?",
@@ -95,8 +207,14 @@
 		"Coucou mon lapin !",
 		"Ce soir, sait la faite !",
 		"Espaice de sac a vin !",
-		["Allez hop", "Tout le monde cul sec !!"],
-		["Vive la biaire!", "Allez encore une petite mousse !"]
+		[
+			"Allez hop",
+			"Tout le monde cul sec !!"
+		],
+		[
+			"Vive la biaire!",
+			"Allez encore une petite mousse !"
+		]
 	],
 	"badBoy": [
 		"Toi, tu commence sairieusement a m'emmerder !",
@@ -129,16 +247,48 @@
 		"T'as vraiment une taite de bite !",
 		"Coucou, tu veux voir ma bite ?",
 		"Vieux paibron",
-		[{ "msg": "Casse toi connard !" }, { "msg": "Et que je ne revois plus ta sale gueule !" }],
-		[{ "msg": "T'as vraiment une taite de bite !" }, { "voice": "google", "msg": "C'est pas faux !" }],
-		[{ "msg": "C'est vraiment un truc de fou !" }, { "msg": "Mais ta stupiditer metonne encore !" }],
-		[{ "msg": "Mais vas chier !" }, { "msg": "Raclure de bidet" }]
+		[
+			{
+				"msg": "Casse toi connard !"
+			},
+			{
+				"msg": "Et que je ne revois plus ta sale gueule !"
+			}
+		],
+		[
+			{
+				"msg": "T'as vraiment une taite de bite !"
+			},
+			{
+				"voice": "google",
+				"msg": "C'est pas faux !"
+			}
+		],
+		[
+			{
+				"msg": "C'est vraiment un truc de fou !"
+			},
+			{
+				"msg": "Mais ta stupiditer metonne encore !"
+			}
+		],
+		[
+			{
+				"msg": "Mais vas chier !"
+			},
+			{
+				"msg": "Raclure de bidet"
+			}
+		]
 	],
 	"maxCallback": {
 		"melody": [
 			"Oh!",
 			"Eh oh",
-			["Eh oh", "Sa va Max ?"],
+			[
+				"Eh oh",
+				"Sa va Max ?"
+			],
 			"Voyons Max !",
 			"Mais oui Max !",
 			"Euh, c'etait quoi sa ?",
@@ -146,15 +296,24 @@
 			"Eh oh, tu t'arraite un peu ?",
 			"Mais chute !"
 		],
-		"horn": ["eh ho", "eh ho, sa suffit!"],
+		"horn": [
+			"eh ho",
+			"eh ho, sa suffit!"
+		],
 		"hornFire": "Au feu !",
 		"sensor": [
 			"Oh, il se passe un truc vers chez Max!",
 			"Oh Oh, sa va Max?",
 			"Hey, Max!",
 			"Oh, Max!",
-			{ "lg": "en", "msg": "Max sensor" },
-			{ "lg": "en", "msg": "Oh, Max!" }
+			{
+				"lg": "en",
+				"msg": "Max sensor"
+			},
+			{
+				"lg": "en",
+				"msg": "Oh, Max!"
+			}
 		]
 	},
 	"max": {
