@@ -94,7 +94,6 @@ function fetchWeatherData() {
 			} else {
 				try {
 					weatherReport = {};
-					log.test(result[0].current)
 					weatherReport.data = result[0].current;
 					weatherReport.code = weatherReport.data.skycode;
 					weatherReport.status = WEATHER_STATUS_LIST[weatherReport.code];
