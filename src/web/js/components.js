@@ -748,7 +748,6 @@ app.component('weather', {
 			label: 'Weather',
 			actionList: [
 				{ label: 'Refresh report', icon: 'fas fa-sync', url: '/flux/service/weather/refresh' },
-				{ label: 'Astronomy', icon: 'far fa-sun', url: '/flux/service/weather/astronomy' },
 				{ label: 'Official weather', icon: 'fas fa-cloud-sun', url: '/flux/service/weather/report' },
 				{ label: 'Alternative weather', icon: 'fas fa-cloud-sun-rain', url: '/flux/service/weather/alternative' }
 			]

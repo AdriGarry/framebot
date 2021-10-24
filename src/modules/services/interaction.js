@@ -44,7 +44,6 @@ const RANDOM_ACTIONS = [
 	{ id: 'service|time|today', weight: 1 },
 	{ id: 'service|interaction|weekDayTTS', weight: 2 },
 	{ id: 'service|weather|random', weight: 4 },
-	{ id: 'service|weather|astronomy', weight: 3 },
 	{ id: 'interface|hardware|cpuTTS', weight: 1 },
 	{ id: 'service|time|age', weight: 1 },
 	{ id: 'service|max|playOneMelody', weight: 5 },

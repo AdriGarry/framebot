@@ -139,9 +139,6 @@ function alarmPart3() {
 		delay += 5;
 		new Flux('service|weather|report', null, { delay: delay });
 
-		delay += 5;
-		new Flux('service|weather|astronomy', null, { delay: delay });
-
 		delay += 15;
 		new Flux('service|voicemail|check', null, { delay: delay });
 
