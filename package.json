@@ -5,7 +5,7 @@
 	"description": "Framebot program to autorun, interact & manage stuff...",
 	"main": "framebot",
 	"scripts": {
-		"test": "mocha ./test/unit/index.test.js"
+		"test": "mocha ./src/test/unit/index.test.js -w ./src/api"
 	},
 	"repository": {
 		"type": "git",
