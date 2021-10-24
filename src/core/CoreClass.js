@@ -37,6 +37,7 @@ module.exports = class Core {
       this.errors = [];
       this.gpio = require(Core._CONF + 'gpio.json');
       this.ttsMessages = require(Core._CONF + 'ttsMessages.json');
+      // TODO call init method ?
    }
 
    isAwake() {
