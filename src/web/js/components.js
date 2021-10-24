@@ -1079,16 +1079,16 @@ app.component('powerPlug', {
 		const tileParams = {
 			label: 'Power plug',
 			actionList: [
-				{ label: 'plug A', icon: 'fas fa-plug', value: { device: 'plugA', continu: true } },
-				{ label: 'plug B', icon: 'fas fa-plug', value: { device: 'plugB', continu: true } },
-				{ label: 'plug C', icon: 'fas fa-plug', value: { device: 'plugC', continu: true } }
+				{ label: 'Plug A', icon: 'fas fa-plug', value: { device: 'plugA', continu: true } },
+				{ label: 'Plug B', icon: 'fas fa-plug', value: { device: 'plugB', continu: true } },
+				{ label: 'Plug C', icon: 'fas fa-plug', value: { device: 'plugC', continu: true } }
 			]
 		};
 		ctrl.tile = new DefaultTile(tileParams);
 		ctrl.odiState = ctrl.odiState;
 
 		ctrl.getPlugStatus = function (plugId) {
-			let plugStatus = ctrl.data.value[plugId].status;
+			let plugStatus = ctrl.data.powerPlug.value[plugId].status;
 			if (plugStatus === 'on') return 'fa-plug';
 			else if (plugStatus === 'off') return 'fa-plug opacity50';
 			else return 'fa-question opacity20';
@@ -1106,26 +1106,26 @@ app.component('powerPlug', {
 		let specificPlugActions = function (action) {
 			let actionList = [
 				{
-					label: action.label + ' on',
+					label: action.label + ' ON',
 					icon: 'fas fa-toggle-on',
 					url: '/flux/service/powerPlug/toggle',
 					value: { plug: action.value.device, mode: true }
 				},
 				{
-					label: action.label + ' off',
+					label: action.label + ' OFF',
 					icon: 'fas fa-toggle-off',
 					url: '/flux/service/powerPlug/toggle',
 					value: { plug: action.value.device, mode: false }
 				},
 				{
-					label: action.label + ' on timeout',
+					label: action.label + ' ON timeout',
 					icon: 'fas fa-clock',
 					url: '/flux/service/powerPlug/timeout',
 					value: { plug: action.value.device, mode: true },
 					continu: true
 				},
 				{
-					label: action.label + ' off timeout',
+					label: action.label + ' OFF timeout',
 					icon: 'far fa-clock',
 					url: '/flux/service/powerPlug/timeout',
 					value: { plug: action.value.device, mode: false },
@@ -1140,13 +1140,12 @@ app.component('powerPlug', {
 				let slider = {
 					label: button.label,
 					url: button.url,
-					legend: 'h',
+					legend: 'min',
 					min: 1,
 					max: 120,
 					step: 1,
 					value: 10,
 					action: null,
-					formatTime: true,
 					data: button.value,
 					plug: button.value.plug
 				};
