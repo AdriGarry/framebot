@@ -3,7 +3,7 @@
 'use strict';
 
 const fs = require('fs'),
-	OAuth = require('oauth');
+	weather = require('weather-js');
 
 const Core = require('./../../core/Core').Core;
 
@@ -11,21 +11,17 @@ const { Flux, Logger, Observers, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
-const WEATHER_CREDENTIALS = require(Core._SECURITY + 'credentials.json').weather;
-
 module.exports = {};
 
 const FLUX_PARSE_OPTIONS = [
 	{ id: 'refresh', fn: fetchWeatherData },
 	{ id: 'report', fn: reportTTS },
 	{ id: 'alternative', fn: alternativeReportTTS },
-	{ id: 'random', fn: randomTTS },
-	{ id: 'astronomy', fn: astronomyTTS }
+	{ id: 'random', fn: randomTTS }
 ];
 
 Observers.attachFluxParseOptions('service', 'weather', FLUX_PARSE_OPTIONS);
 
-const WEATHER_SERVICE_URL = 'https://weather-ydn-yql.media.yahoo.com/forecastrss?location=marseille,fr&u=c&format=json';
 const FETCH_WEATHER_DATA_DELAY = Core.isAwake() ? 60 : 300;
 
 var WEATHER_STATUS_LIST;
@@ -87,69 +83,23 @@ function alternativeReportTTS() {
 		});
 }
 
-/** Function to retreive weather info */
-const REQUEST = new OAuth.OAuth(
-	null,
-	null,
-	WEATHER_CREDENTIALS.consumerKey,
-	WEATHER_CREDENTIALS.consumerSecret,
-	'1.0',
-	null,
-	'HMAC-SHA1',
-	null,
-	{
-		'Yahoo-App-Id': WEATHER_CREDENTIALS['Yahoo-App-Id']
-	}
-);
-
-const DAY_FOR_ASTRONOMY = 'December 17, 1995 ';
 var weatherReport;
 
-function astronomyTTS() {
-	if (!weatherReport) {
-		new Flux('interface|tts|speak', [
-			{ msg: "Aujourd'hui, le soleil se laive a lest" },
-			{ msg: 'Et se couche a louest' }
-		]);
-	} else {
-		let ttsSunrise =
-			"Aujourd'hui, le soleil se laive a " +
-			weatherReport.sunrise.getHours() +
-			' heure ' +
-			weatherReport.sunrise.getMinutes();
-		new Flux('interface|tts|speak', ttsSunrise);
-		let ttsSunset =
-			'Et il se couchera a ' + weatherReport.sunset.getHours() + ' heure ' + weatherReport.sunset.getMinutes();
-		new Flux('interface|tts|speak', ttsSunset);
-	}
-}
-
 function fetchWeatherData() {
-	log.debug('fetchWeatherData()');
 	return new Promise((resolve, reject) => {
-		REQUEST.get(WEATHER_SERVICE_URL, null, null, function (err, data, result) {
+		weather.find({ search: '13001', degreeType: 'C' }, function (err, result) {
 			if (err) {
-				// Core.error("Weather request > Can't retreive weather informations. response.statusCode", err);
+				Core.error("Weather request > Can't retreive weather informations. response.statusCode", err);
 				reject(err);
 			} else {
 				try {
-					weatherReport = {}; //weatherData, weatherStatus, weatherTemp, wind, weatherSpeech... add astronomy!
-					weatherReport.data = JSON.parse(data);
-					// "current_observation":{
-					// 	"astronomy":{
-					// 		"sunrise":"8:00 am",
-					// 		"sunset":"5:42 pm"
-					// 	},
-					// }
-					log.debug(weatherReport.data.current_observation.astronomy);
-					weatherReport.code = weatherReport.data.current_observation.condition.code;
+					weatherReport = {};
+					log.test(result[0].current)
+					weatherReport.data = result[0].current;
+					weatherReport.code = weatherReport.data.skycode;
 					weatherReport.status = WEATHER_STATUS_LIST[weatherReport.code];
-					weatherReport.temperature = weatherReport.data.current_observation.condition.temperature;
-					weatherReport.wind = weatherReport.data.current_observation.wind.speed;
-					weatherReport.sunrise = new Date(
-						DAY_FOR_ASTRONOMY + weatherReport.data.current_observation.astronomy.sunrise
-					);
-					weatherReport.sunset = new Date(DAY_FOR_ASTRONOMY + weatherReport.data.current_observation.astronomy.sunset);
+					weatherReport.temperature = weatherReport.data.temperature;
+					weatherReport.wind = weatherReport.data.windspeed;
 
 					let weatherData = weatherReport.status;
 					weatherData.temperature = weatherReport.temperature;
