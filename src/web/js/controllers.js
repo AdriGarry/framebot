@@ -24,15 +24,6 @@ app.controller('UIController', function (
 	const WS_ODI_URL = 'wss://odi.adrigarry.com/';
 	let logTailWebSocket;
 
-	$scope.volumeChange = function () {
-		let command = {
-			label: 'Volume ' + $scope.dashboard.runningData.volume.value + '%',
-			url: '/flux/interface/sound/volume',
-			value: { value: $scope.dashboard.runningData.volume.value }
-		};
-		UIService.sendCommand(command, () => { });
-	};
-
 	$scope.dashboard = {
 		odiState: setOdiState(),
 		run: null,
