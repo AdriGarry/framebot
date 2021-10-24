@@ -62,7 +62,7 @@ function proceedQueue() {
 			onAir = true;
 			currentTTS = ttsQueue.shift();
 			playTTS(currentTTS);
-			if (currentTTS.voice === 'google') timeout = currentTTS.msg.length * 120 + 2000; //* 90 + 1500;
+			if (currentTTS.voice === 'google') timeout = currentTTS.msg.length * 150 + 2000; //* 90 + 1500;
 			else timeout = currentTTS.msg.length * 80 + 1500;
 			setTimeout(function () {
 				onAir = false;
