@@ -11,7 +11,7 @@ const log = new (require('../../api/Logger'))(__filename),
 
 log.info('Flux test sequence...');
 
-module.exports.runTest = function(succeedTest) {
+module.exports.runTest = function (succeedTest) {
 	return new Promise((resolve, reject) => {
 		new Flux('service|max|blinkAllLed', null, { delay: 2, loop: 3 });
 
@@ -25,8 +25,6 @@ module.exports.runTest = function(succeedTest) {
 				Core.error('Fail while postOdi all service test request', err);
 				reject(err);
 			});
-
-		new Flux('service|weather|astronomy', null, { delay: 3 });
 
 		assert.equal(Core.run('timer'), 0);
 		new Flux('service|timer|increase');
