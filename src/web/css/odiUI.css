@@ -33,6 +33,9 @@ ul {
 .alignRight {
 	text-align: right;
 }
+.floatRight{
+	float: right;
+}
 .opacity20 {
 	opacity: 0.2;
 }
@@ -416,6 +419,10 @@ md-button.md-fab.ng-slide.active {
 .md-sidenav-right .adminBtn:not(.admin):hover i.fa-sign-in-alt,
 .md-sidenav-right .adminBtn.admin:hover i.fa-sign-out-alt {
 	visibility: visible;
+}
+
+.md-sidenav-right table tr:nth-child(even){
+	color: #fff8;
 }
 
 .menu md-slider.md-default-theme.md-primary .md-thumb:after,

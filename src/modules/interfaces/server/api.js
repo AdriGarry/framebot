@@ -62,6 +62,7 @@ function attachDefaultRoutes(ui) {
 		let cpuUsage = Core.run('cpu.usage');
 		let dashboard = {
 			config: Core.conf(),
+			run: Core.run(),
 			errors: Core.errors,
 			mode: {
 				value: {
