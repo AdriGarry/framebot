@@ -5,9 +5,16 @@ const assert = require('assert');
 
 const Utils = require('./../../api/Utils');
 
-console.log(Object.getOwnPropertyNames(Utils))
-
 describe('Utils', () => {
+   describe('Utils.codePosition', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
    describe('Utils.repeatString', () => {
       it('should return given string concatenated x times', () => {
          const given = 'abc',
@@ -40,48 +47,274 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.toto', () => {
-      xit('toto... TODO', () => {
+   describe('Utils.formatStringLength', () => {
+      xit('TODO...', () => {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
          // assert.strictEqual(expected, result);
-         // console.log(expected, result);
       });
    });
+
+   describe('Utils.deleteFolderRecursive', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.appendJsonFile', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.directoryContent', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.getJsonFileContent', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.searchStringInArray', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.arrayToObject', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.testConnection', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.getLocalIp', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.getPublicIp', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.postOdi', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.execCmd', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.debounce', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.throttle', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.getAbsolutePath', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.getDuration', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.firstLetterUpper', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.executionTime', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.addPatternBefore', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.formatDuration', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.numberWithDot', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.perCent', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.rdm', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.randomItem', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.delay', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.delayMs', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.logTime', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.capitalizeFirstLetter', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.getNextDateObject', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.isWeekend', () => {
+      xit('TODO...', () => {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
 });
-
-
-// codePosition
-// repeatString
-// formatStringLength
-// deleteFolderRecursive
-// appendJsonFile
-// directoryContent
-// getJsonFileContent
-// searchStringInArray
-// arrayToObject
-// testConnection
-// getLocalIp
-// getPublicIp
-// postOdi
-// execCmd
-// debounce
-// throttle
-// getAbsolutePath
-// getDuration
-// firstLetterUpper
-// executionTime
-// addPatternBefore
-// formatDuration
-// numberWithDot
-// perCent
-// rdm
-// random
-// randomItem
-// delay
-// delayMs
-// logTime
-// capitalizeFirstLetter
-// getNextDateObject
-// isWeekend
