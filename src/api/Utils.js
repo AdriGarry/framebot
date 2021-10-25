@@ -334,13 +334,13 @@ module.exports = class Utils {
 		return duration + 's';
 	}
 
-	static numberWithDot(number) {
-		return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-	}
+	// static numberWithDot(number) {
+	// 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+	// }
 
-	static perCent(value, total, precision) {
-		return ((value / total) * 100).toFixed(precision | 2);
-	}
+	// static perCent(value, total, precision) {
+	// 	return ((value / total) * 100).toFixed(precision | 2);
+	// }
 
 	static rdm(arg1, arg2) {
 		return Utils.random(arg1, arg2);
@@ -383,16 +383,16 @@ module.exports = class Utils {
 	/** Function to return date time. Pattern: 'YDT' */
 	static logTime(param, date) {
 		if (typeof date === 'undefined') date = new Date();
-		let D = date.getDate();
-		let M = date.getMonth() + 1;
-		let Y = date.getFullYear();
-		let h = date.getHours();
-		let m = date.getMinutes();
-		let s = date.getSeconds();
-		let x = date.getMilliseconds();
+		const D = date.getDate();
+		const M = date.getMonth() + 1;
+		const Y = date.getFullYear();
+		const h = date.getHours();
+		const m = date.getMinutes();
+		const s = date.getSeconds();
+		const x = date.getMilliseconds();
 		let now = '';
 
-		if (typeof param === 'undefined') param = dateTimeDefaultPattern;
+		if (typeof param === 'undefined') param = DATE_TIMEDEFAULT_PATTERN;
 		for (let i = 0; i < param.length; i++) {
 			switch (param[i]) {
 				case 'Y':
@@ -423,10 +423,6 @@ module.exports = class Utils {
 		return now;
 	}
 
-	static capitalizeFirstLetter(string) {
-		return string.charAt(0).toUpperCase() + string.slice(1);
-	}
-
 	/**  Function to return next object with date from array of objects with date property **/
 	static getNextDateObject(datesObjectArray) {
 		let nextDateObject;
@@ -444,7 +440,7 @@ module.exports = class Utils {
 };
 
 const FILE_NOT_FOUND_EXCEPT = ['/home/odi/framebot/tmp/voicemail.json', '/home/odi/framebot/tmp/record.json'],
-	dateTimeDefaultPattern = 'D/M h:m:s';
+	DATE_TIMEDEFAULT_PATTERN = 'D/M h:m:s';
 
 function _fileNotExists(err) {
 	return new Promise((resolve, reject) => {

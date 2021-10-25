@@ -47,15 +47,6 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.formatStringLength', () => {
-      xit('TODO...', () => {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
    describe('Utils.deleteFolderRecursive', () => {
       xit('TODO...', () => {
          // const given = 'abcdefghijklmno',
@@ -192,11 +183,11 @@ describe('Utils', () => {
    });
 
    describe('Utils.firstLetterUpper', () => {
-      xit('TODO...', () => {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+      it('should return string with first letter uppercase', () => {
+         const given = 'abc',
+            expected = 'Abc';
+         const result = Utils.firstLetterUpper(given);
+         assert.strictEqual(expected, result);
       });
    });
 
@@ -282,20 +273,19 @@ describe('Utils', () => {
    });
 
    describe('Utils.logTime', () => {
-      xit('TODO...', () => {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+      it('should return date formated as pattern', () => {
+         const givenDate = new Date('1999-12-31'),
+            expected = '1999-12-31 01:00:00,000';
+         const result = Utils.logTime('Y-M-D h:m:s,x', givenDate);
+         assert.strictEqual(expected, result);
       });
-   });
 
-   describe('Utils.capitalizeFirstLetter', () => {
-      xit('TODO...', () => {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+      it('should return date formated with default pattern', () => {
+         const givenDate = new Date('1999-12-31'),
+            expected = '31/12 01:00:00';
+         let undefinedVariable;
+         const result = Utils.logTime(undefinedVariable, givenDate);
+         assert.strictEqual(expected, result);
       });
    });
 
@@ -309,11 +299,16 @@ describe('Utils', () => {
    });
 
    describe('Utils.isWeekend', () => {
-      xit('TODO...', () => {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+      it('should return true if weekend', () => {
+         const givenDate = new Date('2000-01-01');
+         const result = Utils.isWeekend(givenDate);
+         assert.ok(result);
+      });
+
+      it('should return false if not weekend', () => {
+         const givenDate = new Date('1999-12-31');
+         const result = Utils.isWeekend(givenDate);
+         assert.ok(!result);
       });
    });
 

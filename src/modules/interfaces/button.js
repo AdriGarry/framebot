@@ -21,7 +21,7 @@ let buttonsForStats = {}
 Core.gpio.buttons.forEach(button => {
 	Button[button.id] = new Gpio(button.pin, button.direction, button.edge, button.options);
 	Button[button.id]['id'] = button.id;
-	Button[button.id]['name'] = Utils.capitalizeFirstLetter(button.id);
+	Button[button.id]['name'] = Utils.firstLetterUpper(button.id);
 	Button[button.id]['edge'] = button.edge;
 	buttonsForStats[button.id] = 0;
 });
