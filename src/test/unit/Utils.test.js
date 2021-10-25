@@ -274,15 +274,15 @@ describe('Utils', function () {
 
    describe('Utils.logTime', function () {
       it('should return date formated as pattern', function () {
-         const givenDate = new Date('1999-12-31'),
-            expected = '1999-12-31 01:00:00,000';
+         const givenDate = new Date('1999-12-31T00:00:00'),
+            expected = '1999-12-31 00:00:00,000';
          const result = Utils.logTime('Y-M-D h:m:s,x', givenDate);
          assert.strictEqual(expected, result);
       });
 
       it('should return date formated with default pattern', function () {
-         const givenDate = new Date('1999-12-31'),
-            expected = '31/12 01:00:00';
+         const givenDate = new Date('1999-12-31T00:00:00'),
+            expected = '31/12 00:00:00';
          let undefinedVariable;
          const result = Utils.logTime(undefinedVariable, givenDate);
          assert.strictEqual(expected, result);
