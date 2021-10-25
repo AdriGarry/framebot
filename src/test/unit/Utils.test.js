@@ -84,20 +84,22 @@ describe('Utils', function () {
    });
 
    describe('Utils.searchStringInArray', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+      it('should return searched string is present', function () {
+         const givenArray = ['abc', 'def', 'hij'],
+            expected = 'def';
+         const result = Utils.searchStringInArray('def', givenArray);
+         assert.strictEqual(expected, result);
+      });
+
+      it('should return false if searched string is not present', function () {
+         const givenArray = ['abc', 'def', 'hij'];
+         const result = Utils.searchStringInArray('xyz', givenArray);
+         assert.ok(!result);
       });
    });
 
-   describe('Utils.arrayToObject', function () { //123
+   describe('Utils.arrayToObject', function () {
       xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
       });
    });
 
@@ -200,21 +202,19 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.addPatternBefore', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
    describe('Utils.formatDuration', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+      it('should return time in sec if <= 120', function () {
+         const given = 90,
+            expected = '90s';
+         const result = Utils.formatDuration(given);
+         assert.strictEqual(expected, result);
+      });
+
+      it('should return time in min & sec if > 120', function () {
+         const given = 180,
+            expected = '3m0s';
+         const result = Utils.formatDuration(given);
+         assert.strictEqual(expected, result);
       });
    });
 

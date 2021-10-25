@@ -121,12 +121,12 @@ module.exports = class Utils {
 		return false;
 	}
 
-	static arrayToObject(array, property) {
-		return array.reduce((obj, item) => {
-			obj[item[property]] = item;
-			return obj;
-		}, {});
-	}
+	// static arrayToObject(array, property) {
+	// 	return array.reduce((obj, item) => {
+	// 		obj[item[property]] = item;
+	// 		return obj;
+	// 	}, {});
+	// }
 
 	/** Function to test internet connection */
 	static testConnection() {
@@ -313,18 +313,18 @@ module.exports = class Utils {
 	/** Function to calculate execution time of something */
 	static executionTime(startTime, formatResultPattern) {
 		let elapsedTime = new Date() - startTime;
-		if (formatResultPattern) {
-			return addPatternBefore(elapsedTime, formatResultPattern);
-		}
+		// if (formatResultPattern) {
+		// 	return addPatternBefore(elapsedTime, formatResultPattern);
+		// }
 		return elapsedTime;
 	}
 
-	static addPatternBefore(time, pattern) {
-		if (typeof pattern == 'string') {
-			return pattern.charAt(0).repeat(pattern.length - time.toString().length) + time;
-		}
-		return time;
-	}
+	// static addPatternBefore(time, pattern) {
+	// 	if (typeof pattern == 'string') {
+	// 		return pattern.charAt(0).repeat(pattern.length - time.toString().length) + time;
+	// 	}
+	// 	return time;
+	// }
 
 	static formatDuration(duration) {
 		duration = parseInt(duration);
