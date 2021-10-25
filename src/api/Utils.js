@@ -40,6 +40,7 @@ module.exports = class Utils {
 	}
 
 	static formatStringLength(string, expectedLength, before) {
+		// TODO move to Logger
 		let stringLength = string.length,
 			stringFormated;
 		if (stringLength >= expectedLength) {
