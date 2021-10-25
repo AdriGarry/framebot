@@ -5,9 +5,9 @@ const assert = require('assert');
 
 const Utils = require('./../../api/Utils');
 
-describe('Utils', () => {
-   describe('Utils.codePosition', () => {
-      xit('TODO...', () => {
+describe('Utils', function () {
+   describe('Utils.codePosition', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -15,8 +15,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.repeatString', () => {
-      it('should return given string concatenated x times', () => {
+   describe('Utils.repeatString', function () {
+      it('should return given string concatenated x times', function () {
          const given = 'abc',
             expected = 'abcabcabc';
          const result = Utils.repeatString(given, 3);
@@ -24,22 +24,22 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.formatStringLength', () => {
-      it('should add space at the end of string to math expected length', () => {
+   describe('Utils.formatStringLength', function () {
+      it('should add space at the end of string to math expected length', function () {
          const given = 'abcde',
             expected = 'abcde  ';
          const result = Utils.formatStringLength(given, 7);
          assert.strictEqual(result, expected);
       });
 
-      it('should add space at the begening of string to math expected length', () => {
+      it('should add space at the begening of string to math expected length', function () {
          const given = 'abcde',
             expected = '  abcde';
          const result = Utils.formatStringLength(given, 7, true);
          assert.strictEqual(result, expected);
       });
 
-      it('should truncate string to math expected length', () => {
+      it('should truncate string to math expected length', function () {
          const given = 'abcdefg',
             expected = 'abcde';
          const result = Utils.formatStringLength(given, 5);
@@ -47,8 +47,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.deleteFolderRecursive', () => {
-      xit('TODO...', () => {
+   describe('Utils.deleteFolderRecursive', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -56,8 +56,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.appendJsonFile', () => {
-      xit('TODO...', () => {
+   describe('Utils.appendJsonFile', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -65,8 +65,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.directoryContent', () => {
-      xit('TODO...', () => {
+   describe('Utils.directoryContent', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -74,8 +74,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.getJsonFileContent', () => {
-      xit('TODO...', () => {
+   describe('Utils.getJsonFileContent', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -83,8 +83,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.searchStringInArray', () => {
-      xit('TODO...', () => {
+   describe('Utils.searchStringInArray', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -92,8 +92,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.arrayToObject', () => {
-      xit('TODO...', () => {
+   describe('Utils.arrayToObject', function () { //123
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -101,8 +101,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.testConnection', () => {
-      xit('TODO...', () => {
+   describe('Utils.testConnection', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -110,8 +110,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.getLocalIp', () => {
-      xit('TODO...', () => {
+   describe('Utils.getLocalIp', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -119,8 +119,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.getPublicIp', () => {
-      xit('TODO...', () => {
+   describe('Utils.getPublicIp', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -128,8 +128,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.postOdi', () => {
-      xit('TODO...', () => {
+   describe('Utils.postOdi', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -137,8 +137,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.execCmd', () => {
-      xit('TODO...', () => {
+   describe('Utils.execCmd', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -146,8 +146,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.debounce', () => {
-      xit('TODO...', () => {
+   describe('Utils.debounce', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -155,8 +155,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.throttle', () => {
-      xit('TODO...', () => {
+   describe('Utils.throttle', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -164,8 +164,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.getAbsolutePath', () => {
-      xit('TODO...', () => {
+   describe('Utils.getAbsolutePath', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -173,8 +173,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.getDuration', () => {
-      xit('TODO...', () => {
+   describe('Utils.getDuration', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -182,8 +182,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.firstLetterUpper', () => {
-      it('should return string with first letter uppercase', () => {
+   describe('Utils.firstLetterUpper', function () {
+      it('should return string with first letter uppercase', function () {
          const given = 'abc',
             expected = 'Abc';
          const result = Utils.firstLetterUpper(given);
@@ -191,8 +191,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.executionTime', () => {
-      xit('TODO...', () => {
+   describe('Utils.executionTime', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -200,8 +200,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.addPatternBefore', () => {
-      xit('TODO...', () => {
+   describe('Utils.addPatternBefore', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -209,8 +209,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.formatDuration', () => {
-      xit('TODO...', () => {
+   describe('Utils.formatDuration', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -218,8 +218,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.numberWithDot', () => {
-      xit('TODO...', () => {
+   describe('Utils.numberWithDot', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -227,8 +227,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.perCent', () => {
-      xit('TODO...', () => {
+   describe('Utils.perCent', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -236,8 +236,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.rdm', () => {
-      xit('TODO...', () => {
+   describe('Utils.rdm', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -245,8 +245,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.randomItem', () => {
-      xit('TODO...', () => {
+   describe('Utils.randomItem', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -254,8 +254,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.delay', () => {
-      xit('TODO...', () => {
+   describe('Utils.delay', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -263,8 +263,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.delayMs', () => {
-      xit('TODO...', () => {
+   describe('Utils.delayMs', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -272,15 +272,15 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.logTime', () => {
-      it('should return date formated as pattern', () => {
+   describe('Utils.logTime', function () {
+      it('should return date formated as pattern', function () {
          const givenDate = new Date('1999-12-31'),
             expected = '1999-12-31 01:00:00,000';
          const result = Utils.logTime('Y-M-D h:m:s,x', givenDate);
          assert.strictEqual(expected, result);
       });
 
-      it('should return date formated with default pattern', () => {
+      it('should return date formated with default pattern', function () {
          const givenDate = new Date('1999-12-31'),
             expected = '31/12 01:00:00';
          let undefinedVariable;
@@ -289,8 +289,8 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.getNextDateObject', () => {
-      xit('TODO...', () => {
+   describe('Utils.getNextDateObject', function () {
+      xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);
@@ -298,14 +298,14 @@ describe('Utils', () => {
       });
    });
 
-   describe('Utils.isWeekend', () => {
-      it('should return true if weekend', () => {
+   describe('Utils.isWeekend', function () {
+      it('should return true if weekend', function () {
          const givenDate = new Date('2000-01-01');
          const result = Utils.isWeekend(givenDate);
          assert.ok(result);
       });
 
-      it('should return false if not weekend', () => {
+      it('should return false if not weekend', function () {
          const givenDate = new Date('1999-12-31');
          const result = Utils.isWeekend(givenDate);
          assert.ok(!result);

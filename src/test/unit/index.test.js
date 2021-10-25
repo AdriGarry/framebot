@@ -8,8 +8,8 @@ const fs = require('fs'),
 global._PATH = "./../../"; // Hack to set global _PATH constant
 const UNIT_TEST_INDEX_FILENAME = __filename.split(/[\\/]/).pop();
 
-describe('Unit test sequence with Mocha', () => {
-   it('Loading all tests...', () => {
+describe('Unit test sequence with Mocha', function () {
+   it('Loading all tests...', function () {
       loadUnitTestFiles();
    });
 });
