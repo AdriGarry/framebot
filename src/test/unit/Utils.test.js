@@ -9,11 +9,11 @@ console.log(Object.getOwnPropertyNames(Utils))
 
 describe('Utils', () => {
    describe('Utils.repeatString', () => {
-      it('should return given string concatenated X times', () => {
+      it('should return given string concatenated x times', () => {
          const given = 'abc',
             expected = 'abcabcabc';
          const result = Utils.repeatString(given, 3);
-         assert.equal(expected, result);
+         assert.strictEqual(expected, result);
       });
    });
 
@@ -50,3 +50,38 @@ describe('Utils', () => {
       });
    });
 });
+
+
+// codePosition
+// repeatString
+// formatStringLength
+// deleteFolderRecursive
+// appendJsonFile
+// directoryContent
+// getJsonFileContent
+// searchStringInArray
+// arrayToObject
+// testConnection
+// getLocalIp
+// getPublicIp
+// postOdi
+// execCmd
+// debounce
+// throttle
+// getAbsolutePath
+// getDuration
+// firstLetterUpper
+// executionTime
+// addPatternBefore
+// formatDuration
+// numberWithDot
+// perCent
+// rdm
+// random
+// randomItem
+// delay
+// delayMs
+// logTime
+// capitalizeFirstLetter
+// getNextDateObject
+// isWeekend
