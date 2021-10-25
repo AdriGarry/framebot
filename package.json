@@ -1,11 +1,11 @@
 {
 	"name": "framebot",
-	"version": "7.8.22",
+	"version": "7.9.0",
 	"private": true,
 	"description": "Framebot program to autorun, interact & manage stuff...",
 	"main": "framebot",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "mocha ./src/test/unit/index.test.js -w ./src/api"
 	},
 	"repository": {
 		"type": "git",
@@ -31,5 +31,8 @@
 		"traceback": "0.3.1",
 		"weather-js": "2.0.0",
 		"ws": "7.4.6"
+	},
+	"devDependencies": {
+		"mocha": "^9.1.3"
 	}
 }
