@@ -98,10 +98,10 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.arrayToObject', function () {
-      xit('TODO...', function () {
-      });
-   });
+   // describe('Utils.arrayToObject', function () {
+   //    xit('TODO...', function () {
+   //    });
+   // });
 
    describe('Utils.testConnection', function () {
       xit('TODO...', function () {
@@ -113,11 +113,10 @@ describe('Utils', function () {
    });
 
    describe('Utils.getLocalIp', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+      it('should return an ip including 192.168', function () {
+         const expectedPartString = '192.168';
+         const result = Utils.getLocalIp();
+         assert.ok(result.indexOf(expectedPartString) > -1);
       });
    });
 
@@ -218,23 +217,23 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.numberWithDot', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
+   // describe('Utils.numberWithDot', function () {
+   //    xit('TODO...', function () {
+   //       // const given = 'abcdefghijklmno',
+   //       //    expected = 'abcdefg';
+   //       // const result = Utils.formatStringLength(given, 7);
+   //       // assert.strictEqual(expected, result);
+   //    });
+   // });
 
-   describe('Utils.perCent', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
+   // describe('Utils.perCent', function () {
+   //    xit('TODO...', function () {
+   //       // const given = 'abcdefghijklmno',
+   //       //    expected = 'abcdefg';
+   //       // const result = Utils.formatStringLength(given, 7);
+   //       // assert.strictEqual(expected, result);
+   //    });
+   // });
 
    describe('Utils.rdm', function () {
       xit('TODO...', function () {
