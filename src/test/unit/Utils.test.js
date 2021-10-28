@@ -21,6 +21,7 @@ describe('Utils', function () {
             expected = 'abcabcabc';
          const result = Utils.repeatString(given, 3);
          assert.strictEqual(expected, result);
+         assert.ok(false);
       });
    });
 
