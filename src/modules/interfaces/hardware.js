@@ -312,8 +312,8 @@ function countSoftwareLines() {
 /** Function to clean and archive logs each week */
 function archiveLogs() {
 	log.info('Clean log files  /!\\');
-	let date = new Date();
-	let weekNb = date.getWeek();
+	let today = new Date();
+	let weekNb = Utils.getWeek(today);
 	if (!fs.existsSync(Core._LOG + 'old')) {
 		fs.mkdirSync(Core._LOG + 'old');
 	}
