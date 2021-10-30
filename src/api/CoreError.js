@@ -6,6 +6,7 @@ const Core = require('./../core/Core').Core;
 
 const logger = require('./Logger'),
 	Flux = require('./Flux'),
+	Files = require('./Files'),
 	Utils = require('./Utils');
 
 const log = new logger(__filename);
@@ -50,7 +51,7 @@ module.exports = class CoreError extends Error {
 			data: this.data,
 			time: this.time
 		};
-		Utils.appendJsonFile(Core._LOG + Core.const('name') + '_errorHistory.json', logError);
+		Files.appendJsonFile(Core._LOG + Core.const('name') + '_errorHistory.json', logError);
 		Core.errors.push(logError);
 	}
 };

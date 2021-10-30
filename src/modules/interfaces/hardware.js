@@ -40,7 +40,7 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('interface', 'hardware', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-	Promise.all([retreiveLastModifiedDate(PATHS), countSoftwareLines(), getDiskSpace(), getIps()])
+	Promise.all([retreiveLastModifiedDate(PATHS), countSoftwareLines(), getDiskSpace()])
 		.then(() => {
 			runtime(true);
 		})
@@ -262,14 +262,6 @@ function getDiskSpace() {
 	});
 }
 
-function getIps() {
-	let ip = { local: Utils.getLocalIp() };
-	Utils.getPublicIp().then(data => {
-		ip.public = data;
-		Core.run('network', ip);
-	});
-}
-
 /** Function to TTS program's program total lines */
 function totalLinesTTS() {
 	let ttsMsg = 'Mon programme est composer de ' + Core.run('stats.totalLines') + ' lignes de code';
@@ -312,8 +304,8 @@ function countSoftwareLines() {
 /** Function to clean and archive logs each week */
 function archiveLogs() {
 	log.info('Clean log files  /!\\');
-	let date = new Date();
-	let weekNb = date.getWeek();
+	let today = new Date();
+	let weekNb = Utils.getWeek(today);
 	if (!fs.existsSync(Core._LOG + 'old')) {
 		fs.mkdirSync(Core._LOG + 'old');
 	}

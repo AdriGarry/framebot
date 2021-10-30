@@ -6,7 +6,7 @@ const fs = require('fs');
 
 const Core = require('./../../core/Core').Core;
 
-const { Flux, Logger, Observers, Utils } = require('./../../api');
+const { Flux, Logger, Observers, Files, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -54,7 +54,7 @@ function addRecord(path) {
 				recordListPath.push(path);
 				Core.run('audioRecord', recordListPath.length);
 				new Flux('interface|sound|play', { mp3: path }, { log: 'trace', delay: 0.2 });
-				Utils.appendJsonFile(RECORD_FILE, path);
+				Files.appendJsonFile(RECORD_FILE, path);
 			});
 		})
 		.catch(err => {
@@ -64,7 +64,7 @@ function addRecord(path) {
 
 function checkRecord() {
 	log.debug('Checking record...');
-	Utils.getJsonFileContent(RECORD_FILE)
+	Files.getJsonFileContent(RECORD_FILE)
 		.then(data => {
 			if (data) {
 				// JSON.parse(data);
@@ -115,7 +115,7 @@ function playAllRecords() {
 	let delay = 1,
 		previousRecordDuration;
 	recordListPath.forEach(recordPath => {
-		Utils.getDuration(recordPath)
+		Files.getDuration(recordPath)
 			.then(data => {
 				if (previousRecordDuration) {
 					delay = delay + previousRecordDuration + 2;
@@ -158,6 +158,6 @@ function clearRecords(noLog) {
 function trashAllRecords() {
 	log.info('trashRecords');
 	clearRecords(true);
-	Utils.deleteFolderRecursive(Core._UPLOAD);
+	Files.deleteFolderRecursive(Core._UPLOAD);
 	new Flux('interface|tts|speak', { lg: 'en', msg: 'all records deleted' });
 }

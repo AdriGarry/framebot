@@ -6,14 +6,6 @@ const assert = require('assert');
 const Utils = require('./../../api/Utils');
 
 describe('Utils', function () {
-   describe('Utils.codePosition', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
 
    describe('Utils.repeatString', function () {
       it('should return given string concatenated x times', function () {
@@ -47,42 +39,6 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.deleteFolderRecursive', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
-   describe('Utils.appendJsonFile', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
-   describe('Utils.directoryContent', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
-   describe('Utils.getJsonFileContent', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
    describe('Utils.searchStringInArray', function () {
       it('should return searched string is present', function () {
          const givenArray = ['abc', 'def', 'hij'],
@@ -95,46 +51,6 @@ describe('Utils', function () {
          const givenArray = ['abc', 'def', 'hij'];
          const result = Utils.searchStringInArray('xyz', givenArray);
          assert.ok(!result);
-      });
-   });
-
-   // describe('Utils.arrayToObject', function () {
-   //    xit('TODO...', function () {
-   //    });
-   // });
-
-   describe('Utils.testConnection', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
-   describe('Utils.getLocalIp', function () {
-      xit('should return an ip including 192.168', function () {
-         const expectedPartString = '192.168';
-         const result = Utils.getLocalIp();
-         assert.ok(result.indexOf(expectedPartString) > -1);
-      });
-   });
-
-   describe('Utils.getPublicIp', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
-   describe('Utils.postOdi', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
       });
    });
 
@@ -165,24 +81,6 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.getAbsolutePath', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
-   describe('Utils.getDuration', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
    describe('Utils.firstLetterUpper', function () {
       it('should return string with first letter uppercase', function () {
          const given = 'abc',
@@ -192,12 +90,22 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.executionTime', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+   describe('Utils.executionTime: should return execution time from given Date in millisec', function () {
+      it('should return 10ms as elapsed time since given date initialization', function (done) {
+         let startTime = new Date();
+         setTimeout(function () {
+            let result = Utils.executionTime(startTime)
+            if (result >= 10) done()
+            else done('executionTime is greater than expected :' + result);
+         }, 10);
+      });
+      it('should return 500ms as elapsed time since given date initialization', function (done) {
+         let startTime = new Date();
+         setTimeout(function () {
+            let result = Utils.executionTime(startTime)
+            if (result >= 500) done()
+            else done('executionTime is greater than expected :' + result);
+         }, 500);
       });
    });
 
@@ -216,24 +124,6 @@ describe('Utils', function () {
          assert.strictEqual(expected, result);
       });
    });
-
-   // describe('Utils.numberWithDot', function () {
-   //    xit('TODO...', function () {
-   //       // const given = 'abcdefghijklmno',
-   //       //    expected = 'abcdefg';
-   //       // const result = Utils.formatStringLength(given, 7);
-   //       // assert.strictEqual(expected, result);
-   //    });
-   // });
-
-   // describe('Utils.perCent', function () {
-   //    xit('TODO...', function () {
-   //       // const given = 'abcdefghijklmno',
-   //       //    expected = 'abcdefg';
-   //       // const result = Utils.formatStringLength(given, 7);
-   //       // assert.strictEqual(expected, result);
-   //    });
-   // });
 
    describe('Utils.rdm', function () {
       xit('TODO...', function () {
@@ -254,20 +144,36 @@ describe('Utils', function () {
    });
 
    describe('Utils.delay', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+      it('should wait 0.3s before trigger callback', function (done) {
+         let given = true;
+         let result = false;
+         Utils.delay(0.3).then(function () {
+            result = given;
+         });
+         setTimeout(() => {
+            assert.ok(!result)
+         }, 200);
+         setTimeout(() => {
+            assert.ok(result)
+            done();
+         }, 300);
       });
    });
 
    describe('Utils.delayMs', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+      it('should wait 50ms before trigger callback', function (done) {
+         let given = true;
+         let result = false;
+         Utils.delayMs(50).then(function () {
+            result = given;
+         });
+         setTimeout(() => {
+            assert.ok(!result)
+         }, 10);
+         setTimeout(() => {
+            assert.ok(result)
+            done();
+         }, 50);
       });
    });
 
@@ -289,11 +195,28 @@ describe('Utils', function () {
    });
 
    describe('Utils.getNextDateObject', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+      it('should return the nearest date bewteen today and tomorrow', function () {
+         let tomorrow = new Date();
+         tomorrow.setDate(tomorrow.getDate() + 1);
+         let datesToCompare = [
+            { id: 'today', date: new Date() },
+            { id: 'tomorrow', date: tomorrow }
+         ];
+         let nextDate = Utils.getNextDateObject(datesToCompare);
+         assert.strictEqual('today', nextDate.id);
+      });
+      it('should return the nearest hour bewteen next hour and next 2 hours', function () {
+         let now = new Date(),
+            oneHourLater = new Date(),
+            twoHoursLater = new Date();
+         oneHourLater.setHours(now.getHours() + 1);
+         twoHoursLater.setHours(now.getHours() + 2);
+         let datesToCompare = [
+            { id: 'oneHourLater', date: oneHourLater },
+            { id: 'twoHoursLater', date: twoHoursLater }
+         ];
+         let nextDate = Utils.getNextDateObject(datesToCompare);
+         assert.strictEqual('oneHourLater', nextDate.id);
       });
    });
 
@@ -308,6 +231,14 @@ describe('Utils', function () {
          const givenDate = new Date('1999-12-31');
          const result = Utils.isWeekend(givenDate);
          assert.ok(!result);
+      });
+   });
+
+   describe('Utils.getWeek', function () {
+      it('should return week number of given date', function () {
+         const givenDate = new Date('2000-01-01');
+         const result = Utils.getWeek(givenDate);
+         assert.strictEqual(1, result);
       });
    });
 

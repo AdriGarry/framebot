@@ -2,32 +2,17 @@
 'use strict';
 
 const { exec } = require('child_process'),
-	fs = require('fs'),
-	fsPromises = fs.promises,
-	os = require('os'),
-	request = require('postman-request'),
-	dns = require('dns');
+	os = require('os');
 
 const logger = require('./Logger');
 
 const log = new logger(__filename);
 
+const DATE_TIMEDEFAULT_PATTERN = 'D/M h:m:s';
+const MILLISEC_IN_DAY = 86400000;
 module.exports = class Utils {
-	/**
-	 * Function to retreive code position (file & line) at runtime
-	 * @param {*} steps
-	 */
-	static codePosition(steps) {
-		let stack = new Error().stack;
-		// console.log(stack);
-		let data = stack.match(/([a-zA-Z]+.js:\d+)/gm);
-		if (isNaN(steps)) steps = 0;
-		if (Array.isArray(data) && data[steps]) {
-			let result = data[steps].split(':');
-			return { file: result[0], line: result[1] };
-		}
-		return '';
-	}
+
+
 
 	/**
 	 * Repeats a string.
@@ -55,62 +40,6 @@ module.exports = class Utils {
 		return stringFormated;
 	}
 
-	static deleteFolderRecursive(path) {
-		if (fs.existsSync(path)) {
-			fs.readdirSync(path).forEach(function (file, index) {
-				let curPath = path + '/' + file;
-				if (fs.lstatSync(curPath).isDirectory()) {
-					// recurse
-					deleteFolderRecursive(curPath);
-				} else {
-					// delete file
-					fs.unlinkSync(curPath);
-				}
-			});
-			fs.rmdirSync(path);
-		}
-	}
-
-	/** Function to append an array in JSON file */
-	static appendJsonFile(filePath, obj) {
-		let startTime = new Date();
-		fsPromises
-			.readFile(filePath)
-			.catch(_fileNotExists)
-			.then(data => _appendFileData(data, obj, filePath))
-			.then(data => fsPromises.writeFile(filePath, data))
-			.then(() => log.debug('file ' + filePath + ' updated in', Utils.executionTime(startTime) + 'ms'))
-			.catch(err => log.error('Utils.appendArrayInJsonFile', err));
-	}
-
-	/** Get name of files in directory. Return a Promise  */
-	static directoryContent(path) {
-		return new Promise((resolve, reject) => {
-			fs.readdir(path, (err, files) => {
-				if (err) {
-					reject(err);
-				} else {
-					resolve(files);
-				}
-			});
-		});
-	}
-
-	/** Function getJsonFileContent. Return a Promise */
-	static getJsonFileContent(filePath) {
-		log.debug('getJsonFileContent() ', filePath);
-		return new Promise((resolve, reject) => {
-			fs.readFile(filePath, (err, data) => {
-				if (err && err.code === 'ENOENT' && !Utils.searchStringInArray(filePath, FILE_NOT_FOUND_EXCEPT)) {
-					log.error('No file: ' + filePath);
-					reject(err);
-				} else {
-					resolve(data);
-				}
-			});
-		});
-	}
-
 	/** Function to return true if one of string of stringArray is found in string param */
 	static searchStringInArray(string, stringArray) {
 		for (let i = 0; i < stringArray.length; i++) {
@@ -119,85 +48,6 @@ module.exports = class Utils {
 			}
 		}
 		return false;
-	}
-
-	// static arrayToObject(array, property) {
-	// 	return array.reduce((obj, item) => {
-	// 		obj[item[property]] = item;
-	// 		return obj;
-	// 	}, {});
-	// }
-
-	/** Function to test internet connection */
-	static testConnection() {
-		let execTime = new Date();
-		return new Promise((resolve, reject) => {
-			dns.lookup('adrigarry.com', function (err) {
-				if (err && err.code == 'ENOTFOUND') {
-					log.debug('test connexion failed in', Utils.executionTime(execTime) + 'ms');
-					reject(err);
-				} else {
-					resolve();
-				}
-			});
-		});
-	}
-
-	static getLocalIp() {
-		let ifaces = os.networkInterfaces(),
-			localIp = '';
-		Object.keys(ifaces).forEach(function (ifname) {
-			let alias = 0;
-			ifaces[ifname].forEach(function (iface) {
-				if ('IPv4' !== iface.family || iface.internal !== false) {
-					// skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
-					return;
-				}
-				if (alias >= 1) {
-					// this single interface has multiple ipv4 addresses
-					// console.log(ifname + ':' + alias, iface.address);
-					localIp += ifname + ':' + alias + ' ' + iface.address;
-				} else {
-					// this interface has only one ipv4 adress
-					localIp = iface.address;
-				}
-				++alias;
-			});
-		});
-		return localIp;
-	}
-
-	static getPublicIp() {
-		return new Promise((resolve, reject) => {
-			Utils.execCmd('curl icanhazip.com')
-				.then(data => {
-					resolve(data.trim());
-				})
-				.catch(err => {
-					log.warn("Can't retreive public IP " + err);
-					reject(err);
-				});
-		});
-	}
-
-	static postOdi(url, data) {
-		return new Promise((resolve, reject) => {
-			request.post(
-				{
-					url: url,
-					headers: {
-						'Content-Type': 'application/json',
-						'User-Interface': 'UIv5'
-					},
-					json: true,
-					data: data
-				},
-				(err, httpResponse, body) => {
-					if (err) reject(err);
-					resolve(body);
-				}
-			);
-		});
 	}
 
 	/** Function to execute a shell command. Return a Promise */
@@ -265,47 +115,6 @@ module.exports = class Utils {
 		};
 	}
 
-	static getAbsolutePath(path, prefix) {
-		if (typeof path !== 'string') {
-			log.error('Path must be a string: ' + typeof path, path);
-			return false;
-		}
-		if (path.indexOf('/home') === -1) {
-			path = prefix + path;
-		}
-		if (!fs.existsSync(path)) {
-			log.error('Wrong file path', path);
-			return false;
-		}
-		return path;
-	}
-
-	/** Function to retreive audio or video file duration. Return a Promise */
-	static getDuration(soundFile, callback) {
-		log.debug('getDuration:', soundFile);
-		return new Promise((resolve, reject) => {
-			// TODO change mplayer...
-			Utils.execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH')
-				.then(data => {
-					try {
-						if (data == '') {
-							getDuration(soundFile, callback);
-						}
-						let duration = data.split('=')[1].trim();
-						resolve(parseInt(duration));
-					} catch (err) {
-						// Don't log error because the method will call itself until OK !
-						// console.error('getDuration error:', err);
-						reject(err);
-					}
-				})
-				.catch(err => {
-					log.error('getDuration error', err);
-					reject(err);
-				});
-		});
-	}
-
 	static firstLetterUpper(string) {
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	}
@@ -334,14 +143,6 @@ module.exports = class Utils {
 		return duration + 's';
 	}
 
-	// static numberWithDot(number) {
-	// 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-	// }
-
-	// static perCent(value, total, precision) {
-	// 	return ((value / total) * 100).toFixed(precision | 2);
-	// }
-
 	static rdm(arg1, arg2) {
 		return Utils.random(arg1, arg2);
 	}
@@ -363,6 +164,8 @@ module.exports = class Utils {
 		let randomIndex = Utils.random(length); // length - 1
 		return array[randomIndex];
 	}
+
+
 
 	static delay(sec) {
 		return new Promise(resolve => {
@@ -437,43 +240,13 @@ module.exports = class Utils {
 		let day = date.getDay();
 		return day === 6 || day === 0;
 	}
+
+	static getWeek(givenDate) {
+		let date = givenDate instanceof Date ? new Date(givenDate) : new Date();
+		let onejan = new Date(date.getFullYear(), 0, 1);
+		return Math.ceil((((new Date(date.getFullYear(), date.getMonth(), date.getDate()) - onejan) / MILLISEC_IN_DAY) + onejan.getDay() + 1) / 7);
+	}
 };
-
-const FILE_NOT_FOUND_EXCEPT = ['/home/odi/framebot/tmp/voicemail.json', '/home/odi/framebot/tmp/record.json'],
-	DATE_TIMEDEFAULT_PATTERN = 'D/M h:m:s';
-
-function _fileNotExists(err) {
-	return new Promise((resolve, reject) => {
-		if (err.code == 'ENOENT') resolve('[]');
-		else reject(err);
-	});
-}
-
-function _appendFileData(data, obj, filePath) {
-	return new Promise((resolve, reject) => {
-		try {
-			let fileData;
-			try {
-				fileData = JSON.parse(data);
-			} catch (err) {
-				log.warn(data);
-				log.warn('Invalid content for file' + filePath + '. Reinitializing file with an empty array');
-			}
-			if (!Array.isArray(fileData)) fileData = [fileData];
-
-			fileData.push(obj);
-
-			let jsonData = JSON.stringify(fileData, null, 2)
-				.replace(/\\/g, '')
-				.replace(/\"{/g, '{')
-				.replace(/\}"/g, '}');
-
-			resolve(jsonData);
-		} catch (err) {
-			reject(err);
-		}
-	});
-}
 
 /** Function to repeat/concat a string */
 String.prototype.repeat = function (num) {
@@ -486,14 +259,4 @@ String.prototype.unQuote = function () {
 	return this.replace(/'|"/gm, '');
 };
 
-// Returns the ISO week of the date. // TODO move to Utils.getWeek() (search for occurence)
-Date.prototype.getWeek = function () {
-	let date = new Date(this.getTime());
-	date.setHours(0, 0, 0, 0);
-	// Thursday in current week decides the year.
-	date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
-	// January 4 is always in week 1.
-	let week1 = new Date(date.getFullYear(), 0, 4);
-	// Adjust to Thursday in week 1 and count number of weeks from date to week1.
-	return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7);
-};
+
