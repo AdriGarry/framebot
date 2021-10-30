@@ -7,7 +7,7 @@ name: Auto tag
 on:
   workflow_dispatch:
   repository_dispatch:
-    types: [trigger-workflow-2]
+    types: [Auto-tag]
 
 jobs:
   auto-tag-test-yml:
