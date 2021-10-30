@@ -6,6 +6,7 @@ name: Run unit tests
 #       - '*'
 
 on:
+  workflow_dispatch:
   repository_dispatch:
     types: [trigger-workflow-1]
 
