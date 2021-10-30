@@ -1,12 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const { exec } = require('child_process'),
-	fs = require('fs'),
-	fsPromises = fs.promises,
-	os = require('os'),
-	request = require('postman-request'),
-	dns = require('dns');
+const { exec } = require('child_process');
 
 const logger = require('./Logger');
 

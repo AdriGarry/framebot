@@ -3,10 +3,7 @@
 
 const { exec } = require('child_process'),
    fs = require('fs'),
-   fsPromises = fs.promises,
-   os = require('os'),
-   request = require('postman-request'),
-   dns = require('dns');
+   fsPromises = fs.promises;
 
 const Utils = require('./Utils');
 
