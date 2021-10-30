@@ -18,6 +18,7 @@ jobs:
         token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
         repository: ${{ github.repository }}
         event-type: trigger-workflow-1
+        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
       
     - name: Auto-tag
       if: success()
@@ -26,3 +27,4 @@ jobs:
         token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
         repository: ${{ github.repository }}
         event-type: trigger-workflow-2
+        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
