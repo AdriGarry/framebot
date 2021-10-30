@@ -5,7 +5,7 @@ const { spawn, exec } = require('child_process');
 
 const Core = require('./../../core/Core').Core;
 
-const { Flux, Logger, Observers, Utils } = require('./../../api');
+const { Flux, Logger, Observers, Files, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -47,7 +47,7 @@ function playSound(arg) {
 		} catch (err) {
 			soundTitle = arg.mp3;
 		}
-		sound = Utils.getAbsolutePath(arg.mp3, Core._MP3);
+		sound = Files.getAbsolutePath(arg.mp3, Core._MP3);
 		if (!sound) return;
 	} else if (arg.url) {
 		soundTitle = arg.url;
@@ -69,7 +69,7 @@ function playSound(arg) {
 }
 
 function playSoundRandomPosition(arg) {
-	let sound = Utils.getAbsolutePath(arg.mp3, Core._MP3);
+	let sound = Files.getAbsolutePath(arg.mp3, Core._MP3);
 	if (!sound) return;
 	Utils.getDuration(sound)
 		.then(data => {

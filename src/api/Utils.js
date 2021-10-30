@@ -194,21 +194,6 @@ module.exports = class Utils {
 		};
 	}
 
-	static getAbsolutePath(path, prefix) {
-		if (typeof path !== 'string') {
-			log.error('Path must be a string: ' + typeof path, path);
-			return false;
-		}
-		if (path.indexOf('/home') === -1) {
-			path = prefix + path;
-		}
-		if (!fs.existsSync(path)) {
-			log.error('Wrong file path', path);
-			return false;
-		}
-		return path;
-	}
-
 	/** Function to retreive audio or video file duration. Return a Promise */
 	static getDuration(soundFile, callback) {
 		log.debug('getDuration:', soundFile);

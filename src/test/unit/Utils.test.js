@@ -121,15 +121,6 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.getAbsolutePath', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
    describe('Utils.getDuration', function () {
       xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
