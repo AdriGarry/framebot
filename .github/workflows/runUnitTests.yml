@@ -1,12 +1,16 @@
 name: Run unit tests
 
+# on:
+#   push:
+#     branches:
+#       - '*'
+
 on:
-  push:
-    branches:
-      - '*'
+  repository_dispatch:
+    types: [trigger-workflow-2]
 
 jobs:
-  test:
+  Unit-tests:
       runs-on: ubuntu-latest
       steps:
           - uses: actions/checkout@v1
