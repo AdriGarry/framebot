@@ -14,7 +14,7 @@ jobs:
     steps:
     - name: CI starting
       run: |
-        echo CI-starting
+        echo CI-starting ${{ github.repository }}
 
   unit-test:
     needs: [CI-start]
