@@ -16,6 +16,7 @@ jobs:
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
+        repository: ${{ github.repository }}
         event-type: trigger-workflow-1
       
     - name: Auto-tag
@@ -23,4 +24,5 @@ jobs:
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
+        repository: ${{ github.repository }}
         event-type: trigger-workflow-2
