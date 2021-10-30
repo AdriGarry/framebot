@@ -64,7 +64,7 @@ function addRecord(path) {
 
 function checkRecord() {
 	log.debug('Checking record...');
-	Utils.getJsonFileContent(RECORD_FILE)
+	Files.getJsonFileContent(RECORD_FILE)
 		.then(data => {
 			if (data) {
 				// JSON.parse(data);

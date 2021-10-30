@@ -39,15 +39,6 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.getJsonFileContent', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
    describe('Utils.searchStringInArray', function () {
       it('should return searched string is present', function () {
          const givenArray = ['abc', 'def', 'hij'],

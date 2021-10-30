@@ -26,6 +26,21 @@ module.exports = class Utils {
          .catch(err => log.error('Utils.appendArrayInJsonFile', err));
    }
 
+   /** Function getJsonFileContent. Return a Promise */
+   static getJsonFileContent(filePath) {
+      log.debug('getJsonFileContent() ', filePath);
+      return new Promise((resolve, reject) => {
+         fs.readFile(filePath, (err, data) => {
+            if (err && err.code === 'ENOENT' && !Utils.searchStringInArray(filePath, FILE_NOT_FOUND_EXCEPT)) {
+               log.error('No file: ' + filePath);
+               reject(err);
+            } else {
+               resolve(data);
+            }
+         });
+      });
+   }
+
    /** Get name of files in directory. Return a Promise  */
    static directoryContent(path) {
       return new Promise((resolve, reject) => {

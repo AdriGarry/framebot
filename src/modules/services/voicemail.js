@@ -71,7 +71,7 @@ function addVoicemailMessage(tts) {
 /** Function to check voicemail, and play */
 function checkVoicemail(withTTSResult) {
 	log.debug('Checking voicemail...');
-	Utils.getJsonFileContent(FILE_VOICEMAIL)
+	Files.getJsonFileContent(FILE_VOICEMAIL)
 		.then(data => {
 			if (data) {
 				let messages = JSON.parse(data);

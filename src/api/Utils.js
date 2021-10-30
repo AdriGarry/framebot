@@ -40,21 +40,6 @@ module.exports = class Utils {
 		return stringFormated;
 	}
 
-	/** Function getJsonFileContent. Return a Promise */
-	static getJsonFileContent(filePath) {
-		log.debug('getJsonFileContent() ', filePath);
-		return new Promise((resolve, reject) => {
-			fs.readFile(filePath, (err, data) => {
-				if (err && err.code === 'ENOENT' && !Utils.searchStringInArray(filePath, FILE_NOT_FOUND_EXCEPT)) {
-					log.error('No file: ' + filePath);
-					reject(err);
-				} else {
-					resolve(data);
-				}
-			});
-		});
-	}
-
 	/** Function to return true if one of string of stringArray is found in string param */
 	static searchStringInArray(string, stringArray) {
 		for (let i = 0; i < stringArray.length; i++) {
