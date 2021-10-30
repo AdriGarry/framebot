@@ -54,15 +54,6 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.testConnection', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
    describe('Utils.execCmd', function () {
       xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
