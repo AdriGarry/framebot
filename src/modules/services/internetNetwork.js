@@ -23,12 +23,12 @@ const INTERNET_BOX_STRATEGY_CRON = [
 
 var isOnline, isRetrying = false,
 	internetTestInterval = setInterval(() => {
-		Utils.testConnection()
+		testConnection()
 			.then(onlineCallback)
 			.catch(() => {
 				isRetrying = true;
 				log.info('Internet connection test failed, retrying...')
-				Utils.testConnection()
+				testConnection()
 					.then(onlineCallback)
 					.catch(notConnectedCallback);
 			});
@@ -67,4 +67,19 @@ function internetBoxStrategyOff() {
 		internetBoxStrategyCrons.stop();
 		clearInterval(internetTestInterval);
 	}
+}
+
+/** Function to test internet connection */
+function testConnection() {
+	let execTime = new Date();
+	return new Promise((resolve, reject) => {
+		dns.lookup('adrigarry.com', function (err) {
+			if (err && err.code == 'ENOTFOUND') {
+				log.debug('test connexion failed in', Utils.executionTime(execTime) + 'ms');
+				reject(err);
+			} else {
+				resolve();
+			}
+		});
+	});
 }

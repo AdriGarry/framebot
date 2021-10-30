@@ -15,17 +15,6 @@ module.exports.runTest = function (succeedTest) {
 	return new Promise((resolve, reject) => {
 		new Flux('service|max|blinkAllLed', null, { delay: 2, loop: 3 });
 
-		Utils.delay(2)
-			.then(() => Utils.postOdi(Core.url.ODI + 'flux/service/time/now'))
-			.then(() => Utils.postOdi(Core.url.ODI + 'flux/service/time/today'))
-			.then(() => {
-				log.INFO('All test successfully sent !');
-			})
-			.catch(err => {
-				Core.error('Fail while postOdi all service test request', err);
-				reject(err);
-			});
-
 		assert.equal(Core.run('timer'), 0);
 		new Flux('service|timer|increase');
 		setImmediate(() => {

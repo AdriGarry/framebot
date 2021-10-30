@@ -63,32 +63,6 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.getLocalIp', function () {
-      xit('should return an ip including 192.168', function () {
-         const expectedPartString = '192.168';
-         const result = Utils.getLocalIp();
-         assert.ok(result.indexOf(expectedPartString) > -1);
-      });
-   });
-
-   describe('Utils.getPublicIp', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
-   describe('Utils.postOdi', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
    describe('Utils.execCmd', function () {
       xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
