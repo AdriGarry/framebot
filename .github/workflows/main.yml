@@ -12,6 +12,10 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
+    - name: just echo a message 0
+      run: |
+        echo Hello there, CI script...
+
     - name: Run-unit-tests-11
       uses: peter-evans/repository-dispatch@v1
       with:
@@ -21,7 +25,7 @@ jobs:
         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
       
     - name: Auto-tag-11
-      if: failure()
+      if: success()
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
