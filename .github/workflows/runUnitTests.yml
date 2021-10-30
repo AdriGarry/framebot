@@ -1,33 +1,31 @@
-name: Run unit tests
+# name: Unit tests
+
+# # on:
+# #   push:
+# #     branches:
+# #       - '*'
 
 # on:
-#   push:
-#     branches:
-#       - '*'
+#   workflow_dispatch:
 
-on:
-  workflow_dispatch:
-  repository_dispatch:
-    types: [Unit-tests]
-
-jobs:
-  Unit-tests-yml:
-    runs-on: ubuntu-latest
-    steps:
-    - name: just echo a message 1
-      run: |
-        echo Hello there, running unit tests!
+# jobs:
+#   Unit-tests-yml:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: just echo a message 1
+#       run: |
+#         echo Hello there, running unit tests!
         
-    - uses: actions/checkout@v2
-      with:
-        ref: ${{ github.event.client_payload.sha }}
+#     - uses: actions/checkout@v2
+#       with:
+#         ref: ${{ github.event.client_payload.sha }}
           
-    - uses: actions/checkout@v2
-    - name: 'Install Node'
-      uses: actions/setup-node@v1
-    - name: Install mocha
-      run: npm install -g mocha
-    - name: Install dependencies
-      run: npm install 
-    - name: "Run Test"
-      run: mocha ./src/test/unit/index.test.js
+#     - uses: actions/checkout@v2
+#     - name: 'Install Node'
+#       uses: actions/setup-node@v1
+#     - name: Install mocha
+#       run: npm install -g mocha
+#     - name: Install dependencies
+#       run: npm install 
+#     - name: "Run Test"
+#       run: mocha ./src/test/unit/index.test.js
