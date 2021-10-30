@@ -23,7 +23,7 @@ jobs:
     - name: Check out repository-11
       uses: actions/checkout@v2
     - name: Run-unit-tests-11
-      uses: ./.github/runUnitTests@master
+      uses: ./.github/actions/runUnitTests@master
 
 #       uses: peter-evans/repository-dispatch@v1
 #       with:
