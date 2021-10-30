@@ -6,7 +6,7 @@ const fs = require('fs');
 
 const Core = require('./../../core/Core').Core;
 
-const { Flux, Logger, Observers, Utils } = require('./../../api');
+const { Flux, Logger, Observers, Files, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -158,6 +158,6 @@ function clearRecords(noLog) {
 function trashAllRecords() {
 	log.info('trashRecords');
 	clearRecords(true);
-	Utils.deleteFolderRecursive(Core._UPLOAD);
+	Files.deleteFolderRecursive(Core._UPLOAD);
 	new Flux('interface|tts|speak', { lg: 'en', msg: 'all records deleted' });
 }

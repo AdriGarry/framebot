@@ -3,7 +3,7 @@
 
 const Core = require('./../../core/Core').Core;
 
-const { Flux, Logger, Observers, Utils } = require('./../../api');
+const { Flux, Logger, Observers, Files, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -92,7 +92,7 @@ function updateConf(newConf, restart) {
 /** Function to reset Core (/tmp/ directory) */
 function resetCore() {
 	new Flux('interface|sound|reset');
-	Utils.deleteFolderRecursive(Core._TMP);
+	Files.deleteFolderRecursive(Core._TMP);
 	log.INFO('reset conf and restart');
 	processExit();
 }

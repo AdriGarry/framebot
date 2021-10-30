@@ -4,5 +4,6 @@ module.exports = {
    Flux: require('./Flux'),
    Logger: require('./Logger'),
    Observers: require('./Observers'),
+   Files: require('./Files'),
    Utils: require('./Utils')
 }
