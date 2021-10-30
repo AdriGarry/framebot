@@ -40,7 +40,7 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('interface', 'hardware', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-	Promise.all([retreiveLastModifiedDate(PATHS), countSoftwareLines(), getDiskSpace(), getIps()])
+	Promise.all([retreiveLastModifiedDate(PATHS), countSoftwareLines(), getDiskSpace()])
 		.then(() => {
 			runtime(true);
 		})
@@ -257,51 +257,6 @@ function getDiskSpace() {
 			})
 			.catch(err => {
 				Core.error('getDiskSpace error', err);
-				reject(err);
-			});
-	});
-}
-
-function getIps() {
-	let ip = { local: getLocalIp() };
-	getPublicIp().then(data => {
-		ip.public = data;
-		Core.run('network', ip);
-	});
-}
-
-function getLocalIp() {
-	let ifaces = os.networkInterfaces(),
-		localIp = '';
-	Object.keys(ifaces).forEach(function (ifname) {
-		let alias = 0;
-		ifaces[ifname].forEach(function (iface) {
-			if ('IPv4' !== iface.family || iface.internal !== false) {
-				// skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
-				return;
-			}
-			if (alias >= 1) {
-				// this single interface has multiple ipv4 addresses
-				// console.log(ifname + ':' + alias, iface.address);
-				localIp += ifname + ':' + alias + ' ' + iface.address;
-			} else {
-				// this interface has only one ipv4 adress
-				localIp = iface.address;
-			}
-			++alias;
-		});
-	});
-	return localIp;
-}
-
-function getPublicIp() {
-	return new Promise((resolve, reject) => {
-		Utils.execCmd('curl icanhazip.com')
-			.then(data => {
-				resolve(data.trim());
-			})
-			.catch(err => {
-				log.warn("Can't retreive public IP " + err);
 				reject(err);
 			});
 	});

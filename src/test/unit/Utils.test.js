@@ -152,8 +152,27 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.delayMs', function () {
+   describe('Utils.getLocalIp', function () {
       xit('TODO...', function () {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.getPublicIp', function () {
+      xit('TODO...', function () {
+         // const given = 'abcdefghijklmno',
+         //    expected = 'abcdefg';
+         // const result = Utils.formatStringLength(given, 7);
+         // assert.strictEqual(expected, result);
+      });
+   });
+
+   describe('Utils.delayMs', function () {
+      it('TODO...', function (done) {
+
          // const given = 'abcdefghijklmno',
          //    expected = 'abcdefg';
          // const result = Utils.formatStringLength(given, 7);

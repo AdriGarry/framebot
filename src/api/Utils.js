@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
-const { exec } = require('child_process');
+const { exec } = require('child_process'),
+	os = require('os');
 
 const logger = require('./Logger');
 
@@ -10,6 +11,8 @@ const log = new logger(__filename);
 const DATE_TIMEDEFAULT_PATTERN = 'D/M h:m:s';
 const MILLISEC_IN_DAY = 86400000;
 module.exports = class Utils {
+
+
 
 	/**
 	 * Repeats a string.

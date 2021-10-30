@@ -2,6 +2,9 @@
 
 'use strict';
 
+const dns = require('dns'),
+	os = require('os');
+
 const Core = require('../../core/Core').Core;
 
 const { CronJobList, Logger, Observers, Utils } = require('./../../api');
@@ -21,23 +24,26 @@ const INTERNET_BOX_STRATEGY_CRON = [
 ],
 	internetBoxStrategyCrons = new CronJobList(INTERNET_BOX_STRATEGY_CRON, 'internetBoxOffStrategy', true);
 
-var isOnline, isRetrying = false,
-	internetTestInterval = setInterval(() => {
-		testConnection()
-			.then(onlineCallback)
-			.catch(() => {
-				isRetrying = true;
-				log.info('Internet connection test failed, retrying...')
-				testConnection()
-					.then(onlineCallback)
-					.catch(notConnectedCallback);
-			});
-	}, 10 * 1000);
+var isOnline, isRetrying = false;
+
+var internetTestInterval = setInterval(() => {
+	testConnection()
+		.then(onlineCallback)
+		.catch(() => {
+			isRetrying = true;
+			log.info('Internet connection test failed, retrying...')
+			testConnection()
+				.then(onlineCallback)
+				.catch(notConnectedCallback);
+		});
+}, 10 * 1000);
+
+Core.run('network.local', getLocalIp())
 
 function onlineCallback() {
 	if (!isOnline || isRetrying) {
 		log.info("I'm on the internet!");
-		Utils.getPublicIp().then(ip => Core.run('network.public', ip));
+		getPublicIp().then(ip => Core.run('network.public', ip));
 	}
 	isRetrying = false;
 	isOnline = true;
@@ -81,5 +87,42 @@ function testConnection() {
 				resolve();
 			}
 		});
+	});
+}
+
+function getLocalIp() {
+	let ifaces = os.networkInterfaces(),
+		localIp = '';
+	Object.keys(ifaces).forEach(function (ifname) {
+		let alias = 0;
+		ifaces[ifname].forEach(function (iface) {
+			if ('IPv4' !== iface.family || iface.internal !== false) {
+				// skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+				return;
+			}
+			if (alias >= 1) {
+				// this single interface has multiple ipv4 addresses
+				// console.log(ifname + ':' + alias, iface.address);
+				localIp += ifname + ':' + alias + ' ' + iface.address;
+			} else {
+				// this interface has only one ipv4 adress
+				localIp = iface.address;
+			}
+			++alias;
+		});
+	});
+	return localIp;
+}
+
+function getPublicIp() {
+	return new Promise((resolve, reject) => {
+		Utils.execCmd('curl icanhazip.com')
+			.then(data => {
+				resolve(data.trim());
+			})
+			.catch(err => {
+				log.warn("Can't retreive public IP " + err);
+				reject(err);
+			});
 	});
 }
