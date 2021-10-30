@@ -227,11 +227,28 @@ describe('Utils', function () {
    });
 
    describe('Utils.getNextDateObject', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+      it('should return the nearest date bewteen today and tomorrow', function () {
+         let tomorrow = new Date();
+         tomorrow.setDate(tomorrow.getDate() + 1);
+         let datesToCompare = [
+            { id: 'today', date: new Date() },
+            { id: 'tomorrow', date: tomorrow }
+         ];
+         let nextDate = Utils.getNextDateObject(datesToCompare);
+         assert.strictEqual('today', nextDate.id);
+      });
+      it('should return the nearest hour bewteen next hour and next 2 hours', function () {
+         let now = new Date(),
+            oneHourLater = new Date(),
+            twoHoursLater = new Date();
+         oneHourLater.setHours(now.getHours() + 1);
+         twoHoursLater.setHours(now.getHours() + 2);
+         let datesToCompare = [
+            { id: 'oneHourLater', date: oneHourLater },
+            { id: 'twoHoursLater', date: twoHoursLater }
+         ];
+         let nextDate = Utils.getNextDateObject(datesToCompare);
+         assert.strictEqual('oneHourLater', nextDate.id);
       });
    });
 
@@ -252,7 +269,6 @@ describe('Utils', function () {
    describe('Utils.getWeek', function () {
       it('should return week number of given date', function () {
          const givenDate = new Date('2000-01-01');
-         console.log(givenDate, typeof givenDate, givenDate instanceof Date)
          const result = Utils.getWeek(givenDate);
          assert.strictEqual(1, result);
       });
