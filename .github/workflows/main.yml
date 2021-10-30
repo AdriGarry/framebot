@@ -20,8 +20,8 @@ jobs:
         event-type: trigger-workflow-1
         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
       
-    - name: Auto-tag
-      if: success()
+    - name: Auto-tag-11
+      if: failure()
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
