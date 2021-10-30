@@ -39,15 +39,6 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.directoryContent', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
    describe('Utils.getJsonFileContent', function () {
       xit('TODO...', function () {
          // const given = 'abcdefghijklmno',

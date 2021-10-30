@@ -26,6 +26,19 @@ module.exports = class Utils {
          .catch(err => log.error('Utils.appendArrayInJsonFile', err));
    }
 
+   /** Get name of files in directory. Return a Promise  */
+   static directoryContent(path) {
+      return new Promise((resolve, reject) => {
+         fs.readdir(path, (err, files) => {
+            if (err) {
+               reject(err);
+            } else {
+               resolve(files);
+            }
+         });
+      });
+   }
+
    static deleteFolderRecursive(path) {
       if (fs.existsSync(path)) {
          fs.readdirSync(path).forEach(function (file, index) {
