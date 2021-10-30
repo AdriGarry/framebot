@@ -9,13 +9,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  CI:
+  CI1:
     runs-on: ubuntu-latest
     steps:
     - name: just echo a message 0
       run: |
         echo Hello there, CI script...
 
+  CI2:
+    runs-on: ubuntu-latest
+    steps:
     - name: Run-unit-tests-11
       uses: peter-evans/repository-dispatch@v1
       with:
@@ -23,7 +26,10 @@ jobs:
         repository: ${{ github.repository }}
         event-type: trigger-workflow-1
         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
-      
+
+  CI3:
+    runs-on: ubuntu-latest
+    steps:
     - name: Auto-tag-11
       if: success()
       uses: peter-evans/repository-dispatch@v1
