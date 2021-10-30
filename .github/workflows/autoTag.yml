@@ -4,8 +4,8 @@ name: Auto tag
 #   push:
 #     branches:
 #       - master
-
 on:
+  workflow_dispatch:
   repository_dispatch:
     types: [trigger-workflow-2]
 
