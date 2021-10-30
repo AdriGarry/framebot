@@ -9,41 +9,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  CI-start:
-    runs-on: ubuntu-latest
-    steps:
-    - name: CI starting
-      run: |
-        echo CI-starting ${{ github.repository }}
-
   unit-test:
-    needs: [CI-start]
     runs-on: ubuntu-latest
     steps:
-    - name: Check out repository-11
-      uses: actions/checkout@v2
-    - name: Run-unit-tests-11
-      uses: ./.github/actions/runUnitTests@master
-
-#       uses: peter-evans/repository-dispatch@v1
-#       with:
-#         token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
-#         repository: ${{ github.repository }}
-#         event-type: Unit-tests
-#         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+    - uses: actions/checkout@v2
+    - name: 'Install Node'
+      uses: actions/setup-node@v1
+    - name: Install mocha
+      run: npm install -g mocha
+    - name: Install dependencies
+      run: npm install 
+    - name: "Run Test"
+      run: mocha ./src/test/unit/index.test.js
 
   auto-tag:
     needs: [unit-test]
     runs-on: ubuntu-latest
     steps:
-    - name: Auto-tag-11
-      if: success()
-      uses: peter-evans/repository-dispatch@v1
+    - name: Auto tag version
+    - uses: actions/checkout@v2
+    - uses: butlerlogic/action-autotag@stable
       with:
-        token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
-        repository: ${{ github.repository }}
-        event-type: Auto-tag
-        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+        GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+        tag_prefix: 'v'
 
   CI-success:
     needs: [auto-tag]
