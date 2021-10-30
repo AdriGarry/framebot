@@ -52,13 +52,6 @@ module.exports = class Utils {
 		return false;
 	}
 
-	// static arrayToObject(array, property) {
-	// 	return array.reduce((obj, item) => {
-	// 		obj[item[property]] = item;
-	// 		return obj;
-	// 	}, {});
-	// }
-
 	/** Function to test internet connection */
 	static testConnection() {
 		let execTime = new Date();

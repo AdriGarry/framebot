@@ -54,11 +54,6 @@ describe('Utils', function () {
       });
    });
 
-   // describe('Utils.arrayToObject', function () {
-   //    xit('TODO...', function () {
-   //    });
-   // });
-
    describe('Utils.testConnection', function () {
       xit('TODO...', function () {
          // const given = 'abcdefghijklmno',
