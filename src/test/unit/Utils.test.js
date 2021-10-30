@@ -125,12 +125,22 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.executionTime', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+   describe('Utils.executionTime: should return execution time from given Date in millisec', function () {
+      it('should return 10ms as elapsed time since given date initialization', function (done) {
+         let startTime = new Date();
+         setTimeout(function () {
+            let result = Utils.executionTime(startTime)
+            if (result >= 10) done()
+            else done('executionTime is greater than expected :' + result);
+         }, 10);
+      });
+      it('should return 500ms as elapsed time since given date initialization', function (done) {
+         let startTime = new Date();
+         setTimeout(function () {
+            let result = Utils.executionTime(startTime)
+            if (result >= 500) done()
+            else done('executionTime is greater than expected :' + result);
+         }, 500);
       });
    });
 
