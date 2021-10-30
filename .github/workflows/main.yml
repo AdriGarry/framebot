@@ -5,17 +5,20 @@ on:
   push:
     branches: [ '*' ]
 
-jobs:
-  Run-unit-tests:
-    uses: trigger-workflow-1
-    with:
-      event-type: toto  
-      
-  Auto-tag:
-    if: success()
-    uses: trigger-workflow-2
-    with:
-      event-type: toto
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run-unit-tests-11
+      uses: framebot/repository-dispatch@v1
+      with:
+          event-type: trigger-workflow-1
+      
+    - name: Auto-tag
+      if: success()
+      uses: peter-evans/repository-dispatch@v1
+      with:
+          event-type: trigger-workflow-2
