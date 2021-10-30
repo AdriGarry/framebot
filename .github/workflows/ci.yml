@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.client_payload.sha }}
+          
+    - uses: actions/checkout@v2
     - name: 'Install Node'
       uses: actions/setup-node@v1
     - name: Install mocha
@@ -21,6 +25,16 @@ jobs:
       run: npm install 
     - name: "Run Test"
       run: mocha ./src/test/unit/index.test.js
+      
+#     - uses: actions/checkout@v2
+#     - name: 'Install Node'
+#       uses: actions/setup-node@v1
+#     - name: Install mocha
+#       run: npm install -g mocha
+#     - name: Install dependencies
+#       run: npm install 
+#     - name: "Run Test"
+#       run: mocha ./src/test/unit/index.test.js
 
   auto-tag:
     needs: [unit-test]
