@@ -10,10 +10,12 @@ on:
     types: [trigger-workflow-2]
 
 jobs:
-  auto-tag-test:
+  auto-tag-test-yml:
     runs-on: ubuntu-latest
     steps:
-      - name: echo toto
+    - name: just echo a message 2
+      run: |
+        echo Hello there, this job should create a git tag!
 
 # jobs:
 #   build:
