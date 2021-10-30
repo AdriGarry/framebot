@@ -15,10 +15,12 @@ jobs:
     - name: Run-unit-tests-11
       uses: peter-evans/repository-dispatch@v1
       with:
-          event-type: trigger-workflow-1
+        token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
+        event-type: trigger-workflow-1
       
     - name: Auto-tag
       if: success()
       uses: peter-evans/repository-dispatch@v1
       with:
-          event-type: trigger-workflow-2
+        token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
+        event-type: trigger-workflow-2
