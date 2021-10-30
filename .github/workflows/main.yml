@@ -21,7 +21,7 @@ jobs:
       with:
         token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
         repository: ${{ github.repository }}
-        event-type: trigger-workflow-1
+        event-type: Unit-tests
         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
 
     - name: Auto-tag-11
@@ -30,5 +30,5 @@ jobs:
       with:
         token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
         repository: ${{ github.repository }}
-        event-type: trigger-workflow-2
+        event-type: Auto-tag
         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
