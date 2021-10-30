@@ -121,15 +121,6 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.getDuration', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
-
    describe('Utils.firstLetterUpper', function () {
       it('should return string with first letter uppercase', function () {
          const given = 'abc',

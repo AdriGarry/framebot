@@ -14,21 +14,6 @@ const log = new logger(__filename);
 
 module.exports = class Utils {
 
-   static getAbsolutePath(path, prefix) {
-      if (typeof path !== 'string') {
-         log.error('Path must be a string: ' + typeof path, path);
-         return false;
-      }
-      if (path.indexOf('/home') === -1) {
-         path = prefix + path;
-      }
-      if (!fs.existsSync(path)) {
-         log.error('Wrong file path', path);
-         return false;
-      }
-      return path;
-   }
-
    /** Function to append an array in JSON file */
    static appendJsonFile(filePath, obj) {
       let startTime = new Date();
@@ -85,4 +70,43 @@ module.exports = class Utils {
       }
    }
 
+   static getAbsolutePath(path, prefix) {
+      if (typeof path !== 'string') {
+         log.error('Path must be a string: ' + typeof path, path);
+         return false;
+      }
+      if (path.indexOf('/home') === -1) {
+         path = prefix + path;
+      }
+      if (!fs.existsSync(path)) {
+         log.error('Wrong file path', path);
+         return false;
+      }
+      return path;
+   }
+
+   /** Function to retreive audio or video file duration. Return a Promise */
+   static getDuration(soundFile, callback) {
+      log.debug('getDuration:', soundFile);
+      return new Promise((resolve, reject) => {
+         // TODO change mplayer...
+         Utils.execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH')
+            .then(data => {
+               try {
+                  if (data == '') {
+                     getDuration(soundFile, callback);
+                  }
+                  let duration = data.split('=')[1].trim();
+                  resolve(parseInt(duration));
+               } catch (err) {
+                  // Don't log error because the method will call itself until OK !
+                  reject(err);
+               }
+            })
+            .catch(err => {
+               log.error('getDuration error', err);
+               reject(err);
+            });
+      });
+   }
 }

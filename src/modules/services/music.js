@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const Core = require('./../../core/Core').Core;
 
-const { Flux, Logger, Observers, Utils } = require('./../../api');
+const { Flux, Logger, Observers, Files, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -81,7 +81,7 @@ function playlist(playlistId) {
 function repeatSong(playlist) {
 	let song = playlist.randomBox.next();
 	log.info('Playlist ' + playlist.id + ' next song:', song);
-	Utils.getDuration(playlist.path + song)
+	Files.getDuration(playlist.path + song)
 		.then(data => {
 			new Flux('interface|sound|play', { mp3: playlist.path + song, duration: data });
 			playlist.timeout = setTimeout(function () {

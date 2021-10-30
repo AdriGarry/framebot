@@ -194,32 +194,6 @@ module.exports = class Utils {
 		};
 	}
 
-	/** Function to retreive audio or video file duration. Return a Promise */
-	static getDuration(soundFile, callback) {
-		log.debug('getDuration:', soundFile);
-		return new Promise((resolve, reject) => {
-			// TODO change mplayer...
-			Utils.execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH')
-				.then(data => {
-					try {
-						if (data == '') {
-							getDuration(soundFile, callback);
-						}
-						let duration = data.split('=')[1].trim();
-						resolve(parseInt(duration));
-					} catch (err) {
-						// Don't log error because the method will call itself until OK !
-						// console.error('getDuration error:', err);
-						reject(err);
-					}
-				})
-				.catch(err => {
-					log.error('getDuration error', err);
-					reject(err);
-				});
-		});
-	}
-
 	static firstLetterUpper(string) {
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	}

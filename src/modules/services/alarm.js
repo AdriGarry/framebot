@@ -4,7 +4,7 @@
 
 const Core = require('./../../core/Core').Core;
 
-const { Flux, Logger, Observers, Utils } = require('./../../api');
+const { Flux, Logger, Observers, Files, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -95,7 +95,7 @@ function alarmPart1() {
 	return new Promise((resolve, reject) => {
 		log.info('Morning Sea...');
 		new Flux('interface|sound|play', { mp3: 'system/morningSea.mp3' });
-		Utils.getDuration(Core._MP3 + 'system/morningSea.mp3')
+		Files.getDuration(Core._MP3 + 'system/morningSea.mp3')
 			.then(data => {
 				log.debug('seaDuration', data);
 				setTimeout(function () {

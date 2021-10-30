@@ -71,7 +71,7 @@ function playSound(arg) {
 function playSoundRandomPosition(arg) {
 	let sound = Files.getAbsolutePath(arg.mp3, Core._MP3);
 	if (!sound) return;
-	Utils.getDuration(sound)
+	Files.getDuration(sound)
 		.then(data => {
 			arg.position = Utils.random(1, Math.floor((data / 100) * 50)); // Position up to 50% of sound duration
 			playSound(arg);

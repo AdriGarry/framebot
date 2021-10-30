@@ -115,7 +115,7 @@ function playAllRecords() {
 	let delay = 1,
 		previousRecordDuration;
 	recordListPath.forEach(recordPath => {
-		Utils.getDuration(recordPath)
+		Files.getDuration(recordPath)
 			.then(data => {
 				if (previousRecordDuration) {
 					delay = delay + previousRecordDuration + 2;
