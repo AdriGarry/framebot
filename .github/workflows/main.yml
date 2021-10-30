@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Run-unit-tests-11
-      uses: framebot/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v1
       with:
           event-type: trigger-workflow-1
       
