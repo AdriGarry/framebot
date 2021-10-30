@@ -1,9 +1,19 @@
-# name: Auto tag
+name: Auto tag
 
 # on:
 #   push:
 #     branches:
 #       - master
+
+on:
+  repository_dispatch:
+    types: [trigger-workflow-2]
+
+jobs:
+  auto-tag-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo toto
 
 # jobs:
 #   build:
