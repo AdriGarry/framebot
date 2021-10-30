@@ -6,14 +6,6 @@ const assert = require('assert');
 const Utils = require('./../../api/Utils');
 
 describe('Utils', function () {
-   describe('Utils.codePosition', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
-      });
-   });
 
    describe('Utils.repeatString', function () {
       it('should return given string concatenated x times', function () {

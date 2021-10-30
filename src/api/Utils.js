@@ -13,21 +13,6 @@ const logger = require('./Logger');
 const log = new logger(__filename);
 
 module.exports = class Utils {
-	/**
-	 * Function to retreive code position (file & line) at runtime
-	 * @param {*} steps
-	 */
-	static codePosition(steps) {
-		let stack = new Error().stack;
-		// console.log(stack);
-		let data = stack.match(/([a-zA-Z]+.js:\d+)/gm);
-		if (isNaN(steps)) steps = 0;
-		if (Array.isArray(data) && data[steps]) {
-			let result = data[steps].split(':');
-			return { file: result[0], line: result[1] };
-		}
-		return '';
-	}
 
 	/**
 	 * Repeats a string.
