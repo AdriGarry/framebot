@@ -145,14 +145,6 @@ module.exports = class Utils {
 		return duration + 's';
 	}
 
-	// static numberWithDot(number) {
-	// 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-	// }
-
-	// static perCent(value, total, precision) {
-	// 	return ((value / total) * 100).toFixed(precision | 2);
-	// }
-
 	static rdm(arg1, arg2) {
 		return Utils.random(arg1, arg2);
 	}
