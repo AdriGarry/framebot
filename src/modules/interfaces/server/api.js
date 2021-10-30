@@ -7,7 +7,7 @@ const fs = require('fs'),
 
 const Core = require('./../../../core/Core').Core;
 
-const { Flux, Logger, Utils } = require('./../../../api');
+const { Flux, Logger, Files, Utils } = require('./../../../api');
 
 const log = new Logger(__filename);
 
@@ -263,7 +263,7 @@ function attachDefaultRoutes(ui) {
 				});
 			}
 			params.timestamp = Utils.logTime('D/M h:m:s', new Date());
-			Utils.appendJsonFile(FILE_TTS_UI_HISTORY, params);
+			Files.appendJsonFile(FILE_TTS_UI_HISTORY, params);
 		} else {
 			new Flux('interface|tts|random');
 		}

@@ -14,6 +14,18 @@ const log = new logger(__filename);
 
 module.exports = class Utils {
 
+   /** Function to append an array in JSON file */
+   static appendJsonFile(filePath, obj) {
+      let startTime = new Date();
+      fsPromises
+         .readFile(filePath)
+         .catch(_fileNotExists)
+         .then(data => _appendFileData(data, obj, filePath))
+         .then(data => fsPromises.writeFile(filePath, data))
+         .then(() => log.debug('file ' + filePath + ' updated in', Utils.executionTime(startTime) + 'ms'))
+         .catch(err => log.error('Utils.appendArrayInJsonFile', err));
+   }
+
    static deleteFolderRecursive(path) {
       if (fs.existsSync(path)) {
          fs.readdirSync(path).forEach(function (file, index) {

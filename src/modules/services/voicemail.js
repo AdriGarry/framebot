@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const Core = require('./../../core/Core').Core;
 
-const { Flux, Logger, Observers, Utils } = require('./../../api');
+const { Flux, Logger, Observers, Files, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -42,8 +42,8 @@ function addVoicemailMessage(tts) {
 	log.info('New voicemail message :', tts);
 	if (typeof tts === 'object' && tts.hasOwnProperty('msg') && typeof tts.msg === 'string') {
 		tts.timestamp = Utils.logTime('D/M h:m:s', new Date());
-		Utils.appendJsonFile(FILE_VOICEMAIL, tts);
-		Utils.appendJsonFile(FILE_VOICEMAIL_HISTORY, tts);
+		Files.appendJsonFile(FILE_VOICEMAIL, tts);
+		Files.appendJsonFile(FILE_VOICEMAIL_HISTORY, tts);
 		setTimeout(function () {
 			updateVoicemailMessage();
 		}, 1000);

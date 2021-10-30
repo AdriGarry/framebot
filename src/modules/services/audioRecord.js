@@ -54,7 +54,7 @@ function addRecord(path) {
 				recordListPath.push(path);
 				Core.run('audioRecord', recordListPath.length);
 				new Flux('interface|sound|play', { mp3: path }, { log: 'trace', delay: 0.2 });
-				Utils.appendJsonFile(RECORD_FILE, path);
+				Files.appendJsonFile(RECORD_FILE, path);
 			});
 		})
 		.catch(err => {

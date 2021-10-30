@@ -40,18 +40,6 @@ module.exports = class Utils {
 		return stringFormated;
 	}
 
-	/** Function to append an array in JSON file */
-	static appendJsonFile(filePath, obj) {
-		let startTime = new Date();
-		fsPromises
-			.readFile(filePath)
-			.catch(_fileNotExists)
-			.then(data => _appendFileData(data, obj, filePath))
-			.then(data => fsPromises.writeFile(filePath, data))
-			.then(() => log.debug('file ' + filePath + ' updated in', Utils.executionTime(startTime) + 'ms'))
-			.catch(err => log.error('Utils.appendArrayInJsonFile', err));
-	}
-
 	/** Get name of files in directory. Return a Promise  */
 	static directoryContent(path) {
 		return new Promise((resolve, reject) => {
