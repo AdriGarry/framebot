@@ -27,9 +27,10 @@ jobs:
     needs: [unit-test]
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
     - name: Auto tag version
-    - uses: actions/checkout@v2
-    - uses: butlerlogic/action-autotag@stable
+      uses: butlerlogic/action-autotag@stable
       with:
         GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         tag_prefix: 'v'
