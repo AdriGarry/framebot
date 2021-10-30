@@ -18,15 +18,16 @@ jobs:
 
   unit-test:
     needs: [CI-start]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Run-unit-tests-11
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
-        repository: ${{ github.repository }}
-        event-type: Unit-tests
-        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+    uses: ${{ github.repository }}/Unit tests
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Run-unit-tests-11
+#       uses: peter-evans/repository-dispatch@v1
+#       with:
+#         token: ${{ secrets.FRAMEBOT_CI_TOKEN }}
+#         repository: ${{ github.repository }}
+#         event-type: Unit-tests
+#         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
 
   auto-tag:
     needs: [unit-test]
