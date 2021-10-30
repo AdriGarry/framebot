@@ -133,7 +133,7 @@ function _formatLogLevel(logLevel) {
 }
 
 function _formatLogPosition() {
-	let codePosition = codePosition(4);
+	let codePosition = getCodePosition(4);
 	let file = Utils.formatStringLength(
 		codePosition.file,
 		FILE_POSITION_LENGTH - codePosition.line.toString().length - 1,
@@ -232,7 +232,7 @@ function _calculateTableSize(datas) {
 }
 
 /** Function to retreive code position (file & line) at runtime */
-function codePosition(steps) {
+function getCodePosition(steps) {
 	let stack = new Error().stack;
 	let data = stack.match(/([a-zA-Z]+.js:\d+)/gm);
 	if (isNaN(steps)) steps = 0;

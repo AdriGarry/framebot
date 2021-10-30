@@ -8,11 +8,13 @@ const { exec } = require('child_process'),
    request = require('postman-request'),
    dns = require('dns');
 
+const Utils = require('./Utils');
+
 const logger = require('./Logger');
 
 const log = new logger(__filename);
 
-module.exports = class Utils {
+module.exports = class Files {
 
    /** Function to append an array in JSON file */
    static appendJsonFile(filePath, obj) {
@@ -109,4 +111,39 @@ module.exports = class Utils {
             });
       });
    }
+}
+
+const FILE_NOT_FOUND_EXCEPT = ['/home/odi/framebot/tmp/voicemail.json', '/home/odi/framebot/tmp/record.json'];
+
+function _fileNotExists(err) {
+   return new Promise((resolve, reject) => {
+      if (err.code == 'ENOENT') resolve('[]');
+      else reject(err);
+   });
+}
+
+function _appendFileData(data, obj, filePath) {
+   return new Promise((resolve, reject) => {
+      try {
+         let fileData;
+         try {
+            fileData = JSON.parse(data);
+         } catch (err) {
+            log.warn(data);
+            log.warn('Invalid content for file' + filePath + '. Reinitializing file with an empty array');
+         }
+         if (!Array.isArray(fileData)) fileData = [fileData];
+
+         fileData.push(obj);
+
+         let jsonData = JSON.stringify(fileData, null, 2)
+            .replace(/\\/g, '')
+            .replace(/\"{/g, '{')
+            .replace(/\}"/g, '}');
+
+         resolve(jsonData);
+      } catch (err) {
+         reject(err);
+      }
+   });
 }
