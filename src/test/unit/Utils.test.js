@@ -156,7 +156,7 @@ describe('Utils', function () {
          setTimeout(() => {
             assert.ok(result)
             done();
-         }, 300);
+         }, 301);
       });
    });
 
@@ -173,7 +173,7 @@ describe('Utils', function () {
          setTimeout(() => {
             assert.ok(result)
             done();
-         }, 50);
+         }, 51);
       });
    });
 
