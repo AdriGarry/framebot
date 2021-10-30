@@ -21,6 +21,7 @@ describe('Utils', function () {
             expected = 'abcabcabc';
          const result = Utils.repeatString(given, 3);
          assert.strictEqual(expected, result);
+         assert.ok(false);
       });
    });
 
@@ -113,7 +114,7 @@ describe('Utils', function () {
    });
 
    describe('Utils.getLocalIp', function () {
-      it('should return an ip including 192.168', function () {
+      xit('should return an ip including 192.168', function () {
          const expectedPartString = '192.168';
          const result = Utils.getLocalIp();
          assert.ok(result.indexOf(expectedPartString) > -1);
