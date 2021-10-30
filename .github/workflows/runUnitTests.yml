@@ -7,7 +7,7 @@ name: Run unit tests
 
 on:
   repository_dispatch:
-    types: [trigger-workflow-2]
+    types: [trigger-workflow-1]
 
 jobs:
   Unit-tests:
