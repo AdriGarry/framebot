@@ -13,7 +13,7 @@ const RandomBox = require('randombox').RandomBox;
 
 module.exports = {
 	cron: {
-		full: [{ cron: '0 15 18 * * 1-5', flux: { id: 'service|music|radio' } }]
+		// full: [{ cron: '0 15 18 * * 1-5', flux: { id: 'service|music|radio' } }]
 	}
 };
 
