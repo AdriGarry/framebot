@@ -249,4 +249,13 @@ describe('Utils', function () {
       });
    });
 
+   describe('Utils.getWeek', function () {
+      it('should return week number of given date', function () {
+         const givenDate = new Date('2000-01-01');
+         console.log(givenDate, typeof givenDate, givenDate instanceof Date)
+         const result = Utils.getWeek(givenDate);
+         assert.strictEqual(1, result);
+      });
+   });
+
 });

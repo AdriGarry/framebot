@@ -12,6 +12,8 @@ const logger = require('./Logger');
 
 const log = new logger(__filename);
 
+const DATE_TIMEDEFAULT_PATTERN = 'D/M h:m:s';
+const MILLISEC_IN_DAY = 86400000;
 module.exports = class Utils {
 
 	/**
@@ -252,6 +254,8 @@ module.exports = class Utils {
 		return array[randomIndex];
 	}
 
+
+
 	static delay(sec) {
 		return new Promise(resolve => {
 			setTimeout(() => {
@@ -326,19 +330,12 @@ module.exports = class Utils {
 		return day === 6 || day === 0;
 	}
 
-	static getWeek(date) {
-		if (!date) date = new Date();
-		date.setHours(0, 0, 0, 0);
-		// Thursday in current week decides the year.
-		date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
-		// January 4 is always in week 1.
-		let week1 = new Date(date.getFullYear(), 0, 4);
-		// Adjust to Thursday in week 1 and count number of weeks from date to week1.
-		return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7);
+	static getWeek(givenDate) {
+		let date = givenDate instanceof Date ? new Date(givenDate) : new Date();
+		let onejan = new Date(date.getFullYear(), 0, 1);
+		return Math.ceil((((new Date(date.getFullYear(), date.getMonth(), date.getDate()) - onejan) / MILLISEC_IN_DAY) + onejan.getDay() + 1) / 7);
 	}
 };
-
-const DATE_TIMEDEFAULT_PATTERN = 'D/M h:m:s';
 
 /** Function to repeat/concat a string */
 String.prototype.repeat = function (num) {
