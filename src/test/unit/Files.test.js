@@ -10,18 +10,19 @@ const Files = require('../../api/Files');
 
 const UNIT_TEST_PATH = './src/test/unit/';
 const UNIT_TEST_RESOURCES_PATH = './src/test/unit/resources/';
+const UNIT_TEST_RESOURCES_TEMP_PATH = './src/test/unit/resources/temp/';
 
 describe('Files', function () {
 
    describe('Files.appendJsonFile: add object to array in json file', function () {
       it('should append json file', function (done) {
          const expected = [{ id: 'simpleObject', data: {} }];
-         fs.mkdir(UNIT_TEST_RESOURCES_PATH + 'test', () => {
-            fs.writeFile(UNIT_TEST_RESOURCES_PATH + 'test/simpleArrayToAppend.json', '[]', (err) => {
+         fs.mkdir(UNIT_TEST_RESOURCES_TEMP_PATH, () => {
+            fs.writeFile(UNIT_TEST_RESOURCES_TEMP_PATH + 'simpleArrayToAppend.json', '[]', (err) => {
                if (err) throw err;
-               Files.appendJsonFile(UNIT_TEST_RESOURCES_PATH + 'test/simpleArrayToAppend.json', { id: 'simpleObject', data: {} })
+               Files.appendJsonFile(UNIT_TEST_RESOURCES_TEMP_PATH + 'simpleArrayToAppend.json', { id: 'simpleObject', data: {} })
                   .then(() => {
-                     fs.readFile(UNIT_TEST_RESOURCES_PATH + 'test/simpleArrayToAppend.json', (err, data) => {
+                     fs.readFile(UNIT_TEST_RESOURCES_TEMP_PATH + 'simpleArrayToAppend.json', (err, data) => {
                         assert.deepStrictEqual(JSON.parse(data), expected);
                         done();
                      });
@@ -66,10 +67,10 @@ describe('Files', function () {
       });
    });
 
-
-   describe('Files.deleteFolderRecursive: ...', function () {
-      xit('TODO', function () {
-         //
+   describe('Files.deleteFolderRecursive: delete folder recursively', function () {
+      it("should delete 'test' folder recursively", function () {
+         Files.deleteFolderRecursive(UNIT_TEST_RESOURCES_TEMP_PATH);
+         assert.ok(!fs.existsSync(UNIT_TEST_RESOURCES_TEMP_PATH));
       });
    });
 
