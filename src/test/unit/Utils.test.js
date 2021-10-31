@@ -99,6 +99,7 @@ describe('Utils', function () {
             else done('executionTime is greater than expected :' + result);
          }, 10);
       });
+
       it('should return 500ms as elapsed time since given date initialization', function (done) {
          let startTime = new Date();
          setTimeout(function () {
@@ -205,6 +206,7 @@ describe('Utils', function () {
          let nextDate = Utils.getNextDateObject(datesToCompare);
          assert.strictEqual('today', nextDate.id);
       });
+
       it('should return the nearest hour bewteen next hour and next 2 hours', function () {
          let now = new Date(),
             oneHourLater = new Date(),
