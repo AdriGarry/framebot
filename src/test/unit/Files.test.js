@@ -74,8 +74,10 @@ describe('Files', function () {
    });
 
    describe('Files.getAbsolutePath: ...', function () {
-      xit('TODO', function () {
-         //
+      it('should return absolute path', function () {
+         let expected = './src/wrapper.js';
+         let result = Files.getAbsolutePath('wrapper.js', './src/');
+         assert.strictEqual(expected, result);
       });
    });
 
