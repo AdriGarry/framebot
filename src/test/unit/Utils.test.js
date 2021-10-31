@@ -126,12 +126,23 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.rdm', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+   describe('Utils.random: return a number between 0 and given number (excluded)', function () {
+      it('should return a number between 0 and 1', function () {
+         let given = 10;
+         while (given) {
+            let result = Utils.random();
+            if (result > 1 && result < 0) assert.fail();
+            given--;
+         }
+      });
+
+      it('should return a number between 0 and 5', function () {
+         let given = 20;
+         while (given) {
+            let result = Utils.random(6);
+            if (result > 3 && result < 0) assert.fail();
+            given--;
+         }
       });
    });
 
