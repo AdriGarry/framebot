@@ -16,13 +16,18 @@ module.exports = class Files {
    /** Function to append an array in JSON file */
    static appendJsonFile(filePath, obj) {
       let startTime = new Date();
-      fsPromises
-         .readFile(filePath)
-         .catch(_fileNotExists)
-         .then(data => _appendFileData(data, obj, filePath))
-         .then(data => fsPromises.writeFile(filePath, data))
-         .then(() => log.debug('file ' + filePath + ' updated in', Utils.executionTime(startTime) + 'ms'))
-         .catch(err => log.error('Utils.appendArrayInJsonFile', err));
+      return new Promise((resolve, reject) => {
+         fsPromises
+            .readFile(filePath)
+            .catch(_fileNotExists)
+            .then(data => _appendFileData(data, obj, filePath))
+            .then(data => fsPromises.writeFile(filePath, data))
+            .then(() => {
+               log.debug('file ' + filePath + ' updated in', Utils.executionTime(startTime) + 'ms')
+               resolve();
+            })
+            .catch(err => log.error('Utils.appendArrayInJsonFile', err));
+      });
    }
 
    /** Function getJsonFileContent. Return a Promise */
