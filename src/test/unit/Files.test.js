@@ -32,7 +32,7 @@ describe('Files', function () {
       });
    });
 
-   describe('Files.getJsonFileContent: ...', function () {
+   describe('Files.getJsonFileContent: read json file and return a promise with content parsed', function () {
       it('should return json object from simpleObject.json', function (done) {
          const expected = { id: 'simpleObject', data: {} };
          Files.getJsonFileContent(UNIT_TEST_RESOURCES_PATH + 'simpleObject.json')
@@ -74,7 +74,7 @@ describe('Files', function () {
       });
    });
 
-   describe('Files.getAbsolutePath: ...', function () {
+   describe('Files.getAbsolutePath: return absolute path or prefixed', function () {
       it('should return absolute path', function () {
          let expected = './src/wrapper.js';
          let result = Files.getAbsolutePath('wrapper.js', './src/');

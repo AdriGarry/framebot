@@ -15,7 +15,7 @@ module.exports.runTest = function (succeedTest) {
 	return new Promise((resolve, reject) => {
 		new Flux('service|max|blinkAllLed', null, { delay: 2, loop: 3 });
 
-		assert.equal(Core.run('timer'), 0);
+		assert.strictEqual(Core.run('timer'), 0);
 		new Flux('service|timer|increase');
 		setImmediate(() => {
 			assert.ok(Core.run('timer'));
@@ -40,8 +40,8 @@ module.exports.runTest = function (succeedTest) {
 		new Flux('service|weather|report', 'random', { delay: 16 });
 
 		setTimeout(() => {
-			assert.equal(Core.run('voicemail'), 0);
-			assert.equal(Core.errors.length, 0);
+			assert.strictEqual(Core.run('voicemail'), 0);
+			assert.strictEqual(Core.errors.length, 0);
 			if (Core.errors.length > 0) reject('serviceTest');
 			resolve('serviceTest');
 		}, 55 * 1000);

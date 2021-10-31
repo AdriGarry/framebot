@@ -7,8 +7,8 @@ const Utils = require('./../../api/Utils');
 
 describe('Utils', function () {
 
-   describe('Utils.repeatString', function () {
-      it('should return given string concatenated x times', function () {
+   describe('Utils.repeatString: return given string concatenated x times', function () {
+      it("should 'abc' get concatenated 3 times", function () {
          const given = 'abc',
             expected = 'abcabcabc';
          const result = Utils.repeatString(given, 3);
@@ -16,7 +16,7 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.formatStringLength', function () {
+   describe('Utils.formatStringLength: return string with length matching with given limit', function () {
       it('should add space at the end of string to math expected length', function () {
          const given = 'abcde',
             expected = 'abcde  ';
@@ -39,7 +39,7 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.searchStringInArray', function () {
+   describe('Utils.searchStringInArray: return matching string in given array', function () {
       it('should return searched string is present', function () {
          const givenArray = ['abc', 'def', 'hij'],
             expected = 'def';
@@ -54,34 +54,29 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.execCmd', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+   describe('Utils.execCmd: execute given command and return a promise', function () {
+      it("should 'uptime' command return string including 'load average'", function () {
+         Utils.execCmd('uptime')
+            .then(data => {
+               if (data.indexOf('load average') > -1) {
+                  assert.ok();
+               }
+               assert.fail();
+            });
       });
    });
 
    describe('Utils.debounce', function () {
       xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
       });
    });
 
    describe('Utils.throttle', function () {
       xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
       });
    });
 
-   describe('Utils.firstLetterUpper', function () {
+   describe('Utils.firstLetterUpper: return given string with first letter capitalized', function () {
       it('should return string with first letter uppercase', function () {
          const given = 'abc',
             expected = 'Abc';
@@ -110,7 +105,7 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.formatDuration', function () {
+   describe('Utils.formatDuration: return sec or min', function () {
       it('should return time in sec if <= 120', function () {
          const given = 90,
             expected = '90s';
@@ -128,34 +123,40 @@ describe('Utils', function () {
 
    describe('Utils.random: return a number between 0 and given number (excluded)', function () {
       it('should return a number between 0 and 1', function () {
-         let given = 10;
-         while (given) {
+         let loop = 10;
+         while (loop) {
             let result = Utils.random();
             if (result > 1 && result < 0) assert.fail();
-            given--;
+            loop--;
          }
       });
 
       it('should return a number between 0 and 5', function () {
-         let given = 20;
-         while (given) {
+         let loop = 20;
+         while (loop) {
             let result = Utils.random(6);
             if (result > 3 && result < 0) assert.fail();
-            given--;
+            loop--;
          }
       });
    });
 
-   describe('Utils.randomItem', function () {
-      xit('TODO...', function () {
-         // const given = 'abcdefghijklmno',
-         //    expected = 'abcdefg';
-         // const result = Utils.formatStringLength(given, 7);
-         // assert.strictEqual(expected, result);
+   describe('Utils.randomItem: return an object randomly from given array', function () {
+      it('should return one of the items of the array', function () {
+         let given = ['abc', 'def', 'ghi'],
+            loop = 10;
+
+         while (loop) {
+            let result = Utils.randomItem(given);
+            if (!given.includes(result)) {
+               assert.fail();
+            }
+            loop--;
+         }
       });
    });
 
-   describe('Utils.delay', function () {
+   describe('Utils.delay: return a promise resolved after given delay (sec)', function () {
       it('should wait 0.3s before trigger callback', function (done) {
          let given = true;
          let result = false;
@@ -172,7 +173,7 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.delayMs', function () {
+   describe('Utils.delayMs: return a promise resolved after given delay (ms)', function () {
       it('should wait 50ms before trigger callback', function (done) {
          let given = true;
          let result = false;
@@ -189,7 +190,7 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.logTime', function () {
+   describe('Utils.logTime: return date/time formated as given pattern', function () {
       it('should return date formated as pattern', function () {
          const givenDate = new Date('1999-12-31T00:00:00'),
             expected = '1999-12-31 00:00:00,000';
@@ -206,7 +207,7 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.getNextDateObject', function () {
+   describe('Utils.getNextDateObject: return nearest date from now', function () {
       it('should return the nearest date bewteen today and tomorrow', function () {
          let tomorrow = new Date();
          tomorrow.setDate(tomorrow.getDate() + 1);
@@ -233,7 +234,7 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.isWeekend', function () {
+   describe('Utils.isWeekend: return true if today is weekend, false otherwise', function () {
       it('should return true if weekend', function () {
          const givenDate = new Date('2000-01-01');
          const result = Utils.isWeekend(givenDate);
@@ -247,7 +248,7 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.getWeek', function () {
+   describe('Utils.getWeek: return number of week', function () {
       it('should return week number of given date', function () {
          const givenDate = new Date('2000-01-01');
          const result = Utils.getWeek(givenDate);
