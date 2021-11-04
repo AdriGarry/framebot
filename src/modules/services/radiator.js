@@ -111,7 +111,7 @@ function setRadiatorTimeout(arg) {
 
 function decrementRadiatorTimeout() {
 	let arg = Core.conf('radiator');
-	log.info('decrementRadiatorTimeout', arg);
+	log.info('decrement radiator timeout', arg);
 	if (!arg.timeout) {
 		endRadiatorTimeout();
 		return;
