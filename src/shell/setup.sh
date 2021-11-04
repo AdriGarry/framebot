@@ -10,7 +10,7 @@ cat /etc/os-release
 
 
 # Create odi user
-# Operation to be handled performed
+# Operation to be handled performed, or test if odi user already exists
 # sudo adduser odi
 # sudo adduser odi sudo
 # sudo adduser odi audio
@@ -64,6 +64,8 @@ wget http://steinerdatenbank.de/software/mbrola3.0.1h_armhf.deb
 sudo dpkg -i mbrola3.0.1h_armhf.deb
 sudo apt-get install -y mbrola mbrola-fr1 mbrola-fr4
 
+# Install pico2wave
+sudo apt-get install -y libttspico-utils
 
 # Install fbi (framebuffer imageviewer: diapo)
 sudo apt-get -y install fbi
