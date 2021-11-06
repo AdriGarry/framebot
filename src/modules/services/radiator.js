@@ -76,7 +76,7 @@ function radiatorOrder(mode) {
 		mode = 'off';
 	}
 	Core.run('radiator', mode);
-	log.info('radiatorOrder', mode);
+	log.info('radiator order:', mode);
 	new Flux('interface|rfxcom|send', { device: 'radiator', value: mode == 'on' ? false : true });
 }
 
