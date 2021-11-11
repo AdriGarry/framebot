@@ -24,14 +24,13 @@ const descriptor = require(_PATH + 'bots/' + name + '/descriptor.json');
 const Core = require('./core/Core').initializeContext(descriptor, forcedParams, startTime);
 
 const Flux = require('./api/Flux');
+const Logger = require('./api/Logger');
 
-const logger = require('./api/Logger');
-
-const log = new logger(__filename, Core.conf('mode'));
+const log = new Logger(__filename, Core.conf('mode'));
 
 const Utils = require('./api/Utils');
 const botName = Core.const('name').charAt(0).toUpperCase() + Core.const('name').slice(1);
-log.info(' -->  ' + botName + ' ready [' + Utils.executionTime(Core.startTime) + 'ms]');
+log.info(' -->  ' + botName + ' is ready! [' + Utils.executionTime(Core.startTime) + 'ms]');
 
 Utils.delay(2).then(() => {
 	log.table(Core.const(), 'CONST');
