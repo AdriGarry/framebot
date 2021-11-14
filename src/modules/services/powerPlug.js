@@ -20,7 +20,7 @@ setImmediate(() => {
 	Utils.delay(10).then(setupPlugTimeoutAtStartup);
 });
 
-var PLUG_TIMEOUTS = {};
+let PLUG_TIMEOUTS = {};
 
 function setupPlugTimeoutAtStartup() {
 	let existingPowerPlugValues = Core.conf('powerPlug');
@@ -88,10 +88,8 @@ function plugOrder(plugId, mode) {
 	new Flux('interface|rfxcom|send', { device: plugId, value: booleanMode });
 }
 
-
 function getBooleanValue(mode) {
 	if (typeof mode === 'boolean') return mode;
 	if (mode === 'on') return true;
 	else return false;
 }
-

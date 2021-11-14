@@ -303,7 +303,7 @@ function countSoftwareLines() {
 
 /** Function to clean and archive logs each week */
 function archiveLogs() {
-	log.info('Clean log files  /!\\');
+	log.info('Cleaning log files');
 	let today = new Date();
 	let weekNb = Utils.getWeek(today);
 	if (!fs.existsSync(Core._LOG + 'old')) {
