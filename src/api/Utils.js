@@ -12,7 +12,39 @@ const DATE_TIMEDEFAULT_PATTERN = 'D/M h:m:s';
 const MILLISEC_IN_DAY = 86400000;
 module.exports = class Utils {
 
+	static formatDuration(duration) {
+		duration = parseInt(duration);
+		if (duration > 120) {
+			return Math.round(duration / 60) + 'm' + (duration % 60) + 's';
+		}
+		return duration + 's';
+	}
 
+	static rdm(arg1, arg2) {
+		return Utils.random(arg1, arg2);
+	}
+
+	static random(arg1, arg2) {
+		let min, max;
+		if (arg2) {
+			min = arg1;
+			max = arg2;
+		} else {
+			min = 0;
+			max = arg1 || 2;
+		}
+		return Math.floor(Math.random() * (max - min) + min);
+	}
+
+	static randomItem(array) {
+		let length = array.length;
+		let randomIndex = Utils.random(length); // length - 1
+		return array[randomIndex];
+	}
+
+	static firstLetterUpper(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
 
 	/**
 	 * Repeats a string.
@@ -115,10 +147,6 @@ module.exports = class Utils {
 		};
 	}
 
-	static firstLetterUpper(string) {
-		return string.charAt(0).toUpperCase() + string.slice(1);
-	}
-
 	/** Function to calculate execution time of something */
 	static executionTime(startTime, formatResultPattern) {
 		let elapsedTime = new Date() - startTime;
@@ -127,45 +155,6 @@ module.exports = class Utils {
 		// }
 		return elapsedTime;
 	}
-
-	// static addPatternBefore(time, pattern) {
-	// 	if (typeof pattern == 'string') {
-	// 		return pattern.charAt(0).repeat(pattern.length - time.toString().length) + time;
-	// 	}
-	// 	return time;
-	// }
-
-	static formatDuration(duration) {
-		duration = parseInt(duration);
-		if (duration > 120) {
-			return Math.round(duration / 60) + 'm' + (duration % 60) + 's';
-		}
-		return duration + 's';
-	}
-
-	static rdm(arg1, arg2) {
-		return Utils.random(arg1, arg2);
-	}
-
-	static random(arg1, arg2) {
-		let min, max;
-		if (arg2) {
-			min = arg1;
-			max = arg2;
-		} else {
-			min = 0;
-			max = arg1 || 2;
-		}
-		return Math.floor(Math.random() * (max - min) + min);
-	}
-
-	static randomItem(array) {
-		let length = array.length;
-		let randomIndex = Utils.random(length); // length - 1
-		return array[randomIndex];
-	}
-
-
 
 	static delay(sec) {
 		return new Promise(resolve => {
