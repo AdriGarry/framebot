@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const Core = require('./../../../core/Core').Core;
 
-const { Flux, Logger, Utils } = require('./../../../api');
+const { Flux, Logger, Utils, Scheduler } = require('./../../../api');
 
 const log = new Logger(__filename);
 
@@ -56,7 +56,7 @@ var securityMiddleware = function (req, res, next) {
 	next();
 };
 
-var throttleBadRequestTTS = Utils.throttle(badRequestTTS, BAD_REQUEST_TIMEOUT, true, false, this);
+var throttleBadRequestTTS = Scheduler.throttle(badRequestTTS, BAD_REQUEST_TIMEOUT, true, false, this);
 
 function badRequestTTS() {
 	new Flux('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });
