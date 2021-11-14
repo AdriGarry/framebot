@@ -59,3 +59,8 @@ function testSound() {
 		log.test(`stderr: ${err}`);
 	});
 }
+
+const TestClass = require('./modules/services/TestModuleClass');
+
+let testClass = new TestClass('mode');
+testClass.onInit();
