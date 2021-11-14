@@ -24,6 +24,8 @@ const INTERNET_BOX_STRATEGY_CRON = [
 ],
 	internetBoxStrategyCrons = new CronJobList(INTERNET_BOX_STRATEGY_CRON, 'internetBoxOffStrategy', true);
 
+	const DELAY_BEFORE_RETRY = 60 * 1000;
+
 var isOnline, isRetrying = false;
 
 var internetTestInterval = setInterval(() => {
@@ -36,7 +38,7 @@ var internetTestInterval = setInterval(() => {
 				.then(onlineCallback)
 				.catch(notConnectedCallback);
 		});
-}, 10 * 1000);
+}, DELAY_BEFORE_RETRY);
 
 Core.run('network.local', getLocalIp())
 
