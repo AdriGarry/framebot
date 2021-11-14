@@ -66,16 +66,6 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.debounce', function () {
-      xit('TODO...', function () {
-      });
-   });
-
-   describe('Utils.throttle', function () {
-      xit('TODO...', function () {
-      });
-   });
-
    describe('Utils.firstLetterUpper: return given string with first letter capitalized', function () {
       it('should return string with first letter uppercase', function () {
          const given = 'abc',
