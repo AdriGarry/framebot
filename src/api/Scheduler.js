@@ -6,15 +6,16 @@ const logger = require('./Logger');
 const log = new logger(__filename);
 
 module.exports = class Scheduler {
-
-   static TIMEOUTS = {};
+   constructor(){
+      this.timeouts = {};
+   }
  
    static decrement(id, minutesToTimeout, endCallback, decrementCallback){
       if(!minutesToTimeout){
-         clearTimeout(this.TIMEOUTS[id]);
+         clearTimeout(this.timeouts[id]);
          endCallback();
       }
-      this.TIMEOUTS[id] = setTimeout(()=>{
+      this.timeouts[id] = setTimeout(()=>{
          if(decrementCallback){
             decrementCallback();
          }
@@ -23,6 +24,7 @@ module.exports = class Scheduler {
    }
 
    static debounce(func, wait, immediate, context) {
+      log.trace('debounce', func, wait, immediate, context);
 		let result;
 		let timeout = null;
 		return function () {
@@ -42,6 +44,7 @@ module.exports = class Scheduler {
 	}
 
 	static throttle(func, wait, leading, trailing, context) {
+      log.trace('throttle', func, wait, leading, trailing, context)
 		let ctx, args, result;
 		let timeout = null;
 		let previous = 0;
