@@ -117,8 +117,6 @@ function checkUp() {
 		console.log('> LOG directory created');
 	}
 
-	console.log(argv);
-
 	if (argv.indexOf('reset') > -1) {
 		reInitConf();
 	} else {
