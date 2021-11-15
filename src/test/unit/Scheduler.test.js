@@ -8,17 +8,20 @@ const Scheduler = require('./../../api/Utils');
 describe('Scheduler', function () {
 
    describe('Scheduler.decrement', function () {
-      xit('TODO...', function () {
+      it('TODO...', function () {
+         assert.fail();
       });
    });
 
    describe('Scheduler.debounce', function () {
-      xit('TODO...', function () {
+      it('TODO...', function () {
+         assert.fail();
       });
    });
 
    describe('Scheduler.throttle', function () {
-      xit('TODO...', function () {
+      it('TODO...', function () {
+         assert.fail();
       });
    });
 
