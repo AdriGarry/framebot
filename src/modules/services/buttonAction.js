@@ -56,7 +56,7 @@ function okButtonAction(duration) {
 function cancelButtonAction(duration) {
 	new Flux('interface|sound|mute');
 	if (duration >= 1 && duration < 3) {
-		new Flux('service|context|restart');
+		new Flux('service|context|restart', Core.conf('mode'));
 	} else if (duration >= 3 && duration < 6) {
 		new Flux('service|context|restart', 'sleep');
 	} else if (duration > 6) {
