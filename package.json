@@ -1,6 +1,6 @@
 {
 	"name": "framebot",
-	"version": "7.9.6",
+	"version": "7.9.7",
 	"private": true,
 	"description": "Framebot program to autorun, interact & manage stuff...",
 	"main": "framebot",
@@ -21,7 +21,6 @@
 		"oauth": "0.9.15",
 		"onoff": "6.0.2",
 		"pi-utils": "0.1.7",
-		"postman-request": "^2.88.1-postman.30",
 		"randombox": "*",
 		"rfxcom": "2.4.0",
 		"rxjs": "6.6.7",
