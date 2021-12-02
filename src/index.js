@@ -28,11 +28,13 @@ const Logger = require('./api/Logger');
 
 const log = new Logger(__filename, Core.conf('mode'));
 
-const Utils = require('./api/Utils');
+const Utils = require('./api/Utils'),
+	Scheduler = require('./api/Scheduler');
+
 const botName = Core.const('name').charAt(0).toUpperCase() + Core.const('name').slice(1);
 log.info(' -->  ' + botName + ' is ready! [' + Utils.executionTime(Core.startTime) + 'ms]');
 
-Utils.delay(2).then(() => {
+Scheduler.delay(2).then(() => {
 	log.table(Core.const(), 'CONST');
 })
 
