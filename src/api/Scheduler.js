@@ -7,18 +7,23 @@ const log = new logger(__filename);
 
 module.exports = class Scheduler {
  
-   static decrement(id, minutesToTimeout, endCallback, decrementCallback){
-      if(!minutesToTimeout){
+	static decrement(id, delayToTimeout, endCallback, stepDelay = 60*1000, decrementCallback){
+		delayToTimeout = delayToTimeout * stepDelay;
+		Scheduler.decrementRecursive(id, delayToTimeout, endCallback, stepDelay, decrementCallback);
+	}
+
+	static decrementRecursive(id, delayToTimeout, endCallback, stepDelay = 60*1000, decrementCallback){
+		if(delayToTimeout <= 0){
          clearTimeout(timeouts[id]);
-         endCallback();
+			return endCallback();
       }
       timeouts[id] = setTimeout(()=>{
          if(decrementCallback){
             decrementCallback();
          }
-         decrement(id, minutesToTimeout--, endCallback, decrementCallback)
-      }, minutesToTimeout*60);
-   }
+         Scheduler.decrementRecursive(id, delayToTimeout - stepDelay, endCallback, stepDelay, decrementCallback);
+      }, stepDelay);
+	}
 
    static debounce(func, wait, immediate, context) {
       log.trace('debounce', func, wait, immediate, context);
