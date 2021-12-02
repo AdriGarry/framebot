@@ -7,6 +7,22 @@ const log = new logger(__filename);
 
 module.exports = class Scheduler {
  
+	static delay(sec) {
+		return new Promise(resolve => {
+			setTimeout(() => {
+				resolve();
+			}, sec * 1000);
+		});
+	}
+
+	static delayMs(ms) {
+		return new Promise(resolve => {
+			setTimeout(() => {
+				resolve();
+			}, ms);
+		});
+	}
+	
 	static decrement(id, delayToTimeout, endCallback, stepDelay = 60*1000, decrementCallback){
 		delayToTimeout = delayToTimeout * stepDelay;
 		Scheduler.decrementRecursive(id, delayToTimeout, endCallback, stepDelay, decrementCallback);

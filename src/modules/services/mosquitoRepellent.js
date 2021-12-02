@@ -4,7 +4,7 @@
 
 const Core = require('../../core/Core').Core;
 
-const { Flux, Logger, Observers, Utils } = require('./../../api');
+const { Flux, Logger, Observers, Scheduler, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -20,7 +20,7 @@ const FLUX_PARSE_OPTIONS = [{ id: 'update', fn: updateRepellentTimeout },
 Observers.attachFluxParseOptions('service', 'mosquitoRepellent', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-	// Utils.delay(10).then(initMosquitoRepellentMode);
+	// Scheduler.delay(10).then(initMosquitoRepellentMode);
 });
 
 const MOSQUITO_MONTHS = [4, 5, 6, 7, 8];
