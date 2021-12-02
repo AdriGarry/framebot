@@ -6,7 +6,7 @@ const CronJob = require('cron').CronJob;
 
 const Core = require('./../../core/Core').Core;
 
-const { CronJobList, Flux, Logger, Observers, Utils } = require('./../../api');
+const { CronJobList, Flux, Logger, Observers, Scheduler, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -21,7 +21,7 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('service', 'radiator', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-	Utils.delay(10).then(setupRadiatorMode);
+	Scheduler.delay(10).then(setupRadiatorMode);
 });
 
 const RADIATOR_MONTHS = [0, 1, 2, 3, 9, 10, 11];

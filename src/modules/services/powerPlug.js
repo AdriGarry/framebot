@@ -4,7 +4,7 @@
 
 const Core = require('../../core/Core').Core;
 
-const { Flux, Logger, Observers, Utils } = require('../../api');
+const { Flux, Logger, Observers, Scheduler, Utils } = require('../../api');
 
 const log = new Logger(__filename);
 
@@ -17,7 +17,7 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('service', 'powerPlug', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-	Utils.delay(10).then(setupPlugTimeoutAtStartup);
+	Scheduler.delay(10).then(setupPlugTimeoutAtStartup);
 });
 
 var PLUG_TIMEOUTS = {};

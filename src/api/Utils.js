@@ -105,22 +105,6 @@ module.exports = class Utils {
 		return elapsedTime;
 	}
 
-	static delay(sec) {
-		return new Promise(resolve => {
-			setTimeout(() => {
-				resolve();
-			}, sec * 1000);
-		});
-	}
-
-	static delayMs(ms) {
-		return new Promise(resolve => {
-			setTimeout(() => {
-				resolve();
-			}, ms);
-		});
-	}
-
 	/** Function to return date time. Pattern: 'YDT' */
 	static logTime(param, date) {
 		if (typeof date === 'undefined') date = new Date();
