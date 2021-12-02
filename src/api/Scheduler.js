@@ -6,16 +6,13 @@ const logger = require('./Logger');
 const log = new logger(__filename);
 
 module.exports = class Scheduler {
-   constructor(){
-      this.timeouts = {};
-   }
  
    static decrement(id, minutesToTimeout, endCallback, decrementCallback){
       if(!minutesToTimeout){
-         clearTimeout(this.timeouts[id]);
+         clearTimeout(timeouts[id]);
          endCallback();
       }
-      this.timeouts[id] = setTimeout(()=>{
+      timeouts[id] = setTimeout(()=>{
          if(decrementCallback){
             decrementCallback();
          }
@@ -77,3 +74,5 @@ module.exports = class Scheduler {
 	}
 
 }
+
+let timeouts = {};

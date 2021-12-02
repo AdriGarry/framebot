@@ -3,7 +3,7 @@
 
 const assert = require('assert');
 
-const Scheduler = require('./../../api/Utils');
+const Scheduler = require('./../../api/Scheduler');
 
 describe('Scheduler', function () {
 
