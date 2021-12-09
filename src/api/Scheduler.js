@@ -23,22 +23,25 @@ module.exports = class Scheduler {
 		});
 	}
 	
-	static decrement(id, delayToTimeout, endCallback, stepDelay = 60*1000, decrementCallback){
+	static decrement(id, delayToTimeout, endCallback, stepDelay = 60, decrementCallback){
+		log.debug('starting decrement', id, 'stepsToTimeout='+delayToTimeout/stepDelay, 'delayToTimeout='+delayToTimeout, 'stepDelay='+stepDelay);
 		delayToTimeout = delayToTimeout * stepDelay;
 		Scheduler.decrementRecursive(id, delayToTimeout, endCallback, stepDelay, decrementCallback);
 	}
 
-	static decrementRecursive(id, delayToTimeout, endCallback, stepDelay = 60*1000, decrementCallback){
+	static decrementRecursive(id, delayToTimeout, endCallback, stepDelay, decrementCallback){
+		log.debug('decrement', id, 'stepsToTimeout='+delayToTimeout/stepDelay, 'delayToTimeout='+delayToTimeout, 'stepDelay='+stepDelay);
 		if(delayToTimeout <= 0){
-         clearTimeout(timeouts[id]);
-			return endCallback();
+			clearTimeout(timeouts[id]);
+			log.info('end decrement', id);
+			return endCallback(id);
       }
       timeouts[id] = setTimeout(()=>{
          if(decrementCallback){
-            decrementCallback();
+            decrementCallback(id);
          }
          Scheduler.decrementRecursive(id, delayToTimeout - stepDelay, endCallback, stepDelay, decrementCallback);
-      }, stepDelay);
+      }, stepDelay*1000);
 	}
 
    static debounce(func, wait, immediate, context) {

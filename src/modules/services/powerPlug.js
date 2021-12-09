@@ -11,7 +11,7 @@ const log = new Logger(__filename);
 module.exports = {};
 
 const FLUX_PARSE_OPTIONS = [
-	{ id: 'toggle', fn: togglePlug },
+	{ id: 'toggle', fn: togglePlugManual },
 	{ id: 'timeout', fn: setPlugTimeout }];
 
 Observers.attachFluxParseOptions('service', 'powerPlug', FLUX_PARSE_OPTIONS);
@@ -25,7 +25,7 @@ var PLUG_TIMEOUTS = {};
 function setupPlugTimeoutAtStartup() {
 	let existingPowerPlugValues = Core.conf('powerPlug');
 	if (existingPowerPlugValues && typeof existingPowerPlugValues === 'object' && Object.keys(existingPowerPlugValues).length > 0) {
-		log.info('setupPlugTimeoutAtStartup');
+		log.info('setting plug timeout at startup...');
 		Object.keys(existingPowerPlugValues).forEach(plugId => {
 			let plugTimeoutData = existingPowerPlugValues[plugId];
 			plugTimeoutData['plug'] = plugId;
@@ -34,7 +34,7 @@ function setupPlugTimeoutAtStartup() {
 	}
 }
 
-function togglePlug(arg) {
+function togglePlugManual(arg) {
 	log.info('togglePlug', arg);
 	removePlugTimeoutFromConf(arg.plug);
 	plugOrder(arg.plug, arg.mode);
@@ -55,28 +55,19 @@ function setPlugTimeout(arg) {
 	let powerPlugToUpdate = Core.conf('powerPlug');
 	powerPlugToUpdate[arg.plug] = { mode: arg.mode, timeout: arg.timeout };
 	Core.conf('powerPlug', powerPlugToUpdate);
-	decrementPlugTimeout(arg.plug);
+	Scheduler.decrement(arg.plug, arg.timeout, endPlugTimeout, 60, decrementPlugTimeout);
 }
 
 function decrementPlugTimeout(plugId) {
 	let arg = Core.conf('powerPlug.' + plugId);
+	arg.timeout = --arg.timeout;
 	log.info('decrementPlugTimeout', arg, plugId);
-	if (!arg.timeout) {
-		endPlugTimeout(plugId);
-		return;
-	}
-	PLUG_TIMEOUTS[plugId] = setTimeout(() => {
-		arg.timeout = --arg.timeout;
-		Core.conf('powerPlug.' + plugId, arg);
-		decrementPlugTimeout(plugId);
-	}, 60 * 1000);
+	Core.conf('powerPlug.' + plugId, arg);
 }
 
 function endPlugTimeout(plugId) {
 	let plugTimeoutMode = Core.conf('powerPlug.' + plugId).mode;
-	clearTimeout(PLUG_TIMEOUTS[plugId]);
 	removePlugTimeoutFromConf(plugId);
-
 	let newPlugTimeoutMode = plugTimeoutMode == 'on' ? 'off' : 'on'; // invert mode
 	plugOrder(plugId, newPlugTimeoutMode);
 	log.info(plugId, 'timeout, back to', newPlugTimeoutMode);
