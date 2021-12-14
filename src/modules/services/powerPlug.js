@@ -36,6 +36,7 @@ function setupPlugTimeoutAtStartup() {
 
 function togglePlugManual(arg) {
 	log.info('togglePlug', arg);
+	Scheduler.stopDecrement(arg.plug);
 	removePlugTimeoutFromConf(arg.plug);
 	plugOrder(arg.plug, arg.mode);
 }
