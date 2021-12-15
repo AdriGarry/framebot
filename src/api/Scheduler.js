@@ -24,33 +24,42 @@ module.exports = class Scheduler {
 	}
 	
 	static decrement(id, delayToTimeout, endCallback, stepDelay = 60, decrementCallback){
+		Scheduler.clearDecrementTimeout(id);
 		log.info('starting decrement', id, 'stepsToTimeout='+delayToTimeout/stepDelay, 'delayToTimeout='+delayToTimeout, 'stepDelay='+stepDelay);
 		delayToTimeout = delayToTimeout * stepDelay;
 		Scheduler.decrementRecursive(id, delayToTimeout, endCallback, stepDelay, decrementCallback);
 	}
 
 	static stopDecrement(id, endCallback){
-		log.info('endind decrement', id);
-		clearTimeout(timeouts[id]);
+		if(!DECREMENT_TIMEOUTS.has(id)){
+			log.warn('No active decrement for ID:', id);
+			return;
+		}
+		log.info('ending decrement', id);
+		Scheduler.clearDecrementTimeout(id);
 		if(endCallback){
 			endCallback(id);
 		}
 	}
 
+	static clearDecrementTimeout(id){
+		clearTimeout(DECREMENT_TIMEOUTS.get(id));
+		DECREMENT_TIMEOUTS.delete(id);
+	}
+
 	static decrementRecursive(id, delayToTimeout, endCallback, stepDelay, decrementCallback){
 		log.info('decrement', id, 'stepsToTimeout='+delayToTimeout/stepDelay, 'delayToTimeout='+delayToTimeout, 'stepDelay='+stepDelay);
 		if(delayToTimeout <= 0){
-			clearTimeout(timeouts[id]);
-			log.info('End decrement', id);// pourquoi ce log n'apparait pas ?
-			log.test('End decrement, pourquoi ce log n\'apparait pas ?', id);// pourquoi ce log n'apparait pas ?
+			Scheduler.clearDecrementTimeout(id);
+			log.info('End decrement', id);
 			return endCallback(id);
       }
-      timeouts[id] = setTimeout(()=>{
+      DECREMENT_TIMEOUTS.set(id, setTimeout(()=>{
          if(decrementCallback){
             decrementCallback(id);
          }
          Scheduler.decrementRecursive(id, delayToTimeout - stepDelay, endCallback, stepDelay, decrementCallback);
-      }, stepDelay*1000);
+      }, stepDelay*1000));
 	}
 
    static debounce(func, wait, immediate, context) {
@@ -108,4 +117,4 @@ module.exports = class Scheduler {
 
 }
 
-let timeouts = {};
+let DECREMENT_TIMEOUTS = new Map();

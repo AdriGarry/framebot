@@ -85,7 +85,7 @@ function toggleManualRadiator(mode) {
 	RADIATOR_JOB.AUTO.stop();
 	RADIATOR_JOB.ON.stop();
 	RADIATOR_JOB.OFF.stop();
-	clearTimeout(radiatorTimeout);
+	Scheduler.stopDecrement('radiator');
 	Core.conf('radiator', mode);
 	if (mode == 'on') {
 		RADIATOR_JOB.ON.start();
@@ -96,36 +96,24 @@ function toggleManualRadiator(mode) {
 	}
 }
 
-let radiatorTimeout;
-
 function setRadiatorTimeout(arg) {
 	log.info('setRadiatorTimeout', arg);
-	clearTimeout(radiatorTimeout);
 	Core.conf('radiator', arg);
 	RADIATOR_JOB.AUTO.stop();
 	RADIATOR_JOB.ON.stop();
 	RADIATOR_JOB.OFF.stop();
 	radiatorOrder(arg.mode);
-	decrementRadiatorTimeout();
+	Scheduler.decrement('radiator', arg.timeout, endRadiatorTimeout, 60, decrementRadiatorTimeout);
 }
 
 function decrementRadiatorTimeout() {
 	let arg = Core.conf('radiator');
-	log.info('decrement radiator timeout', arg);
-	if (!arg.timeout) {
-		endRadiatorTimeout();
-		return;
-	}
-	radiatorTimeout = setTimeout(() => {
-		arg.timeout = --arg.timeout;
-		Core.conf('radiator', arg);
-		decrementRadiatorTimeout();
-	}, 60 * 1000);
+	arg.timeout = --arg.timeout;
+	Core.conf('radiator', arg);
 }
 
 function endRadiatorTimeout() {
 	let radiatorTimeoutMode = Core.conf('radiator').mode;
-	clearTimeout(radiatorTimeout);
 	Core.conf('radiator', 'auto');
 	RADIATOR_JOB.AUTO.start();
 	RADIATOR_JOB.OFF.start();

@@ -62,7 +62,6 @@ function setPlugTimeout(arg) {
 function decrementPlugTimeout(plugId) {
 	let arg = Core.conf('powerPlug.' + plugId);
 	arg.timeout = --arg.timeout;
-	log.info('decrementPlugTimeout', arg, plugId);
 	Core.conf('powerPlug.' + plugId, arg);
 }
 

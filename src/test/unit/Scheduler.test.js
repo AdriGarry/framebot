@@ -50,7 +50,13 @@ describe('Scheduler', function () {
          let endCallback = function() {
             assert.strictEqual(20, givenIncrement);
          };
-         Scheduler.decrement('decrement test', 20, endCallback, 10, decrementCallback);
+         Scheduler.decrement('test', 20, endCallback, 10, decrementCallback);
+      });
+   });
+
+   describe('Scheduler.stopDecrement', function () {
+      it('should not throw error on decrement without active decrement for specified ID', function () {
+         Scheduler.stopDecrement('randomId');
       });
    });
 
