@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const Core = require('./../../core/Core').Core;
-
-const { Flux, Logger, Observers, Files, Utils } = require('./../../api');
+const { Core, Flux, Logger, Observers, Files, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -12,17 +10,10 @@ module.exports = {
 		full: [
 			{ cron: '5 0 0 * * *', flux: { id: 'service|context|goToSleep' } },
 			{
-				cron: '13 13 13 * * 1-6',
+				cron: '13 13 13 * * *',
 				flux: [
 					{ id: 'interface|tts|speak', data: { lg: 'en', msg: 'Auto restart' } },
 					{ id: 'service|context|restart', conf: { delay: 3 } }
-				]
-			},
-			{
-				cron: '13 13 13 * * 0',
-				flux: [
-					{ id: 'interface|tts|speak', data: { lg: 'en', msg: 'Reset config' } },
-					{ id: 'service|context|reset', conf: { delay: 3 } }
 				]
 			}
 		]

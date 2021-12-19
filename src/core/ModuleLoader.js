@@ -2,7 +2,7 @@
 
 'use strict';
 
-const Core = require('./Core.js').Core;
+const Core = require('./Core.js').api;
 const Logger = require('../api/Logger.js'),
 	CronJobList = require('../api/CronJobList.js');
 

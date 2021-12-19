@@ -51,7 +51,7 @@ describe('Files', function () {
       it('should return number of files in ' + UNIT_TEST_PATH, function (done) {
          Files.directoryContent(UNIT_TEST_PATH)
             .then(files => {
-               assert.ok(4 === files.length);
+               assert.ok(5 === files.length);
                done();
             });
       });

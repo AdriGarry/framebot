@@ -2,30 +2,28 @@
 
 'use strict';
 
-const Core = require('../../core/Core').Core;
-
-const { Flux, Logger, Observers, Utils } = require('../../api');
+const { Core, Flux, Logger, Observers, Scheduler, Utils } = require('../../api');
 
 const log = new Logger(__filename);
 
 module.exports = {};
 
 const FLUX_PARSE_OPTIONS = [
-	{ id: 'toggle', fn: togglePlug },
+	{ id: 'toggle', fn: togglePlugManual },
 	{ id: 'timeout', fn: setPlugTimeout }];
 
 Observers.attachFluxParseOptions('service', 'powerPlug', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-	Utils.delay(10).then(setupPlugTimeoutAtStartup);
+	Scheduler.delay(10).then(setupPlugTimeoutAtStartup);
 });
 
-var PLUG_TIMEOUTS = {};
+let PLUG_TIMEOUTS = {};
 
 function setupPlugTimeoutAtStartup() {
 	let existingPowerPlugValues = Core.conf('powerPlug');
 	if (existingPowerPlugValues && typeof existingPowerPlugValues === 'object' && Object.keys(existingPowerPlugValues).length > 0) {
-		log.info('setupPlugTimeoutAtStartup');
+		log.info('setting plug timeout at startup...');
 		Object.keys(existingPowerPlugValues).forEach(plugId => {
 			let plugTimeoutData = existingPowerPlugValues[plugId];
 			plugTimeoutData['plug'] = plugId;
@@ -34,8 +32,9 @@ function setupPlugTimeoutAtStartup() {
 	}
 }
 
-function togglePlug(arg) {
+function togglePlugManual(arg) {
 	log.info('togglePlug', arg);
+	Scheduler.stopDecrement(arg.plug);
 	removePlugTimeoutFromConf(arg.plug);
 	plugOrder(arg.plug, arg.mode);
 }
@@ -55,28 +54,18 @@ function setPlugTimeout(arg) {
 	let powerPlugToUpdate = Core.conf('powerPlug');
 	powerPlugToUpdate[arg.plug] = { mode: arg.mode, timeout: arg.timeout };
 	Core.conf('powerPlug', powerPlugToUpdate);
-	decrementPlugTimeout(arg.plug);
+	Scheduler.decrement(arg.plug, arg.timeout, endPlugTimeout, 60, decrementPlugTimeout);
 }
 
 function decrementPlugTimeout(plugId) {
 	let arg = Core.conf('powerPlug.' + plugId);
-	log.info('decrementPlugTimeout', arg, plugId);
-	if (!arg.timeout) {
-		endPlugTimeout(plugId);
-		return;
-	}
-	PLUG_TIMEOUTS[plugId] = setTimeout(() => {
-		arg.timeout = --arg.timeout;
-		Core.conf('powerPlug.' + plugId, arg);
-		decrementPlugTimeout(plugId);
-	}, 60 * 1000);
+	arg.timeout = --arg.timeout;
+	Core.conf('powerPlug.' + plugId, arg);
 }
 
 function endPlugTimeout(plugId) {
 	let plugTimeoutMode = Core.conf('powerPlug.' + plugId).mode;
-	clearTimeout(PLUG_TIMEOUTS[plugId]);
 	removePlugTimeoutFromConf(plugId);
-
 	let newPlugTimeoutMode = plugTimeoutMode == 'on' ? 'off' : 'on'; // invert mode
 	plugOrder(plugId, newPlugTimeoutMode);
 	log.info(plugId, 'timeout, back to', newPlugTimeoutMode);
@@ -88,10 +77,8 @@ function plugOrder(plugId, mode) {
 	new Flux('interface|rfxcom|send', { device: plugId, value: booleanMode });
 }
 
-
 function getBooleanValue(mode) {
 	if (typeof mode === 'boolean') return mode;
 	if (mode === 'on') return true;
 	else return false;
 }
-

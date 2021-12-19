@@ -2,7 +2,7 @@
 
 'use strict';
 
-const Core = require('./../core/Core').Core;
+const Core = require('./../core/Core').api;
 
 const logger = require('./Logger'),
 	Flux = require('./Flux'),

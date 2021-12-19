@@ -5,9 +5,7 @@
 const fs = require('fs'),
 	weather = require('weather-js');
 
-const Core = require('./../../core/Core').Core;
-
-const { Flux, Logger, Observers, Utils } = require('./../../api');
+const { Core, Flux, Logger, Observers, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 

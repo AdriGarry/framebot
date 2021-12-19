@@ -3,9 +3,7 @@
 
 const Gpio = require('onoff').Gpio;
 
-const Core = require('./../../core/Core').Core;
-
-const { Flux, Logger, Utils } = require('./../../api');
+const { Core, Flux, Logger, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
