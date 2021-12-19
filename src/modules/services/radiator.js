@@ -6,7 +6,7 @@ const CronJob = require('cron').CronJob;
 
 const Core = require('./../../core/Core').Core;
 
-const { CronJobList, Flux, Logger, Observers, Utils } = require('./../../api');
+const { CronJobList, Flux, Logger, Observers, Scheduler, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -21,7 +21,7 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('service', 'radiator', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-	Utils.delay(10).then(setupRadiatorMode);
+	Scheduler.delay(10).then(setupRadiatorMode);
 });
 
 const RADIATOR_MONTHS = [0, 1, 2, 3, 9, 10, 11];
@@ -85,7 +85,7 @@ function toggleManualRadiator(mode) {
 	RADIATOR_JOB.AUTO.stop();
 	RADIATOR_JOB.ON.stop();
 	RADIATOR_JOB.OFF.stop();
-	clearTimeout(radiatorTimeout);
+	Scheduler.stopDecrement('radiator');
 	Core.conf('radiator', mode);
 	if (mode == 'on') {
 		RADIATOR_JOB.ON.start();
@@ -96,43 +96,31 @@ function toggleManualRadiator(mode) {
 	}
 }
 
-let radiatorTimeout;
-
 function setRadiatorTimeout(arg) {
 	log.info('setRadiatorTimeout', arg);
-	clearTimeout(radiatorTimeout);
 	Core.conf('radiator', arg);
 	RADIATOR_JOB.AUTO.stop();
 	RADIATOR_JOB.ON.stop();
 	RADIATOR_JOB.OFF.stop();
 	radiatorOrder(arg.mode);
-	decrementRadiatorTimeout();
+	Scheduler.decrement('radiator', arg.timeout, endRadiatorTimeout, 60, decrementRadiatorTimeout);
 }
 
 function decrementRadiatorTimeout() {
 	let arg = Core.conf('radiator');
-	log.info('decrement radiator timeout', arg);
-	if (!arg.timeout) {
-		endRadiatorTimeout();
-		return;
-	}
-	radiatorTimeout = setTimeout(() => {
-		arg.timeout = --arg.timeout;
-		Core.conf('radiator', arg);
-		decrementRadiatorTimeout();
-	}, 60 * 1000);
+	arg.timeout = --arg.timeout;
+	Core.conf('radiator', arg);
 }
 
 function endRadiatorTimeout() {
 	let radiatorTimeoutMode = Core.conf('radiator').mode;
-	clearTimeout(radiatorTimeout);
 	Core.conf('radiator', 'auto');
 	RADIATOR_JOB.AUTO.start();
 	RADIATOR_JOB.OFF.start();
 
 	let newRadiatorTimeoutMode = radiatorTimeoutMode == 'on' ? 'off' : 'on'; // invert mode
 	radiatorOrder(newRadiatorTimeoutMode);
-	log.info('radiator timeout, back to' + newRadiatorTimeoutMode + 'before auto mode...');
+	log.info('radiator timeout, back to', newRadiatorTimeoutMode, 'before auto mode...');
 }
 
 function isRadiatorSeason() {

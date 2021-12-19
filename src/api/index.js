@@ -1,9 +1,10 @@
 module.exports = {
    CoreError: require('./CoreError'),
    CronJobList: require('./CronJobList'),
+   Files: require('./Files'),
    Flux: require('./Flux'),
    Logger: require('./Logger'),
    Observers: require('./Observers'),
-   Files: require('./Files'),
+   Scheduler:require('./Scheduler'),
    Utils: require('./Utils')
 }

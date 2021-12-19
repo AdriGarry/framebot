@@ -66,16 +66,6 @@ describe('Utils', function () {
       });
    });
 
-   describe('Utils.debounce', function () {
-      xit('TODO...', function () {
-      });
-   });
-
-   describe('Utils.throttle', function () {
-      xit('TODO...', function () {
-      });
-   });
-
    describe('Utils.firstLetterUpper: return given string with first letter capitalized', function () {
       it('should return string with first letter uppercase', function () {
          const given = 'abc',
@@ -153,40 +143,6 @@ describe('Utils', function () {
             }
             loop--;
          }
-      });
-   });
-
-   describe('Utils.delay: return a promise resolved after given delay (sec)', function () {
-      it('should wait 0.3s before trigger callback', function (done) {
-         let given = true;
-         let result = false;
-         Utils.delay(0.3).then(function () {
-            result = given;
-         });
-         setTimeout(() => {
-            assert.ok(!result)
-         }, 200);
-         setTimeout(() => {
-            assert.ok(result)
-            done();
-         }, 301);
-      });
-   });
-
-   describe('Utils.delayMs: return a promise resolved after given delay (ms)', function () {
-      it('should wait 50ms before trigger callback', function (done) {
-         let given = true;
-         let result = false;
-         Utils.delayMs(50).then(function () {
-            result = given;
-         });
-         setTimeout(() => {
-            assert.ok(!result)
-         }, 10);
-         setTimeout(() => {
-            assert.ok(result)
-            done();
-         }, 51);
       });
    });
 
