@@ -1,4 +1,5 @@
 module.exports = {
+   Core: require('./../core/Core').api,
    CoreError: require('./CoreError'),
    CronJobList: require('./CronJobList'),
    Files: require('./Files'),

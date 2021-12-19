@@ -4,9 +4,7 @@
 
 const CronJob = require('cron').CronJob;
 
-const Core = require('./../../core/Core').Core;
-
-const { CronJobList, Flux, Logger, Observers, Scheduler, Utils } = require('./../../api');
+const { Core, CronJobList, Flux, Logger, Observers, Scheduler, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 

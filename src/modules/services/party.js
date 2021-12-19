@@ -2,9 +2,7 @@
 
 // Module Party
 
-const Core = require('./../../core/Core').Core;
-
-const { Flux, Logger, Observers, Utils } = require('./../../api');
+const { Core, Flux, Logger, Observers, Utils } = require('./../../api');
 
 const RandomBox = require('randombox').RandomBox;
 

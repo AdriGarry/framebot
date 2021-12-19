@@ -3,9 +3,9 @@
 
 const Gpio = require('onoff').Gpio;
 
-const Core = require('./../../core/Core').Core;
-
 const Observers = require('./../../api/Observers');
+
+const { Core } = require('./../../api');
 
 var Led = {};
 
