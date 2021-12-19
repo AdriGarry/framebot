@@ -1,106 +1,81 @@
 {
-	"name": "Tok",
-	"botBirthday": "August 9, 2015 00:00:00",
-	"birthdays": [
-		"17/04",
-		"13/12",
-		"31/07"
-	],
-	"url": {
-		"ODI": "https://odi.adrigarry.com/"
-	},
-	"modules": {
-		"interfaces": {
-			"base": [
-				"button",
-				"led",
-				"hardware",
-				"rfxcom",
-				"server",
-				"sound",
-				"watcher"
-			],
-			"full": [
-				"arduino",
-				"hdmi",
-				"tts"
-			]
-		},
-		"services": {
-			"base": [
-				"context",
-				"buttonAction",
-				"internetNetwork",
-				"time",
-				"alarm",
-				"voicemail",
-				"audioRecord",
-				"radiator",
-				"mosquitoRepellent",
-				"weather",
-				"task"
-			],
-			"full": [
-				"mood",
-				"interaction",
-				"timer",
-				"music",
-				"party",
-				"video",
-				"max",
-				"childs"
-			]
-		}
-	},
-	"conf": {
-		"alarms": {
-			"weekDay": {
-				"h": 8,
-				"m": 25
-			},
-			"weekEnd": {
-				"h": 11,
-				"m": 0
-			}
-		},
-		"radiator": "auto"
-	},
-	"runtime": {},
-	"rfxcomDevices": {
-		"plugA": {
-			"id": "0x01F4BF8E/1"
-		},
-		"plugB": {
-			"id": "0x01F4BF8E/2"
-		},
-		"plugC": {
-			"id": "0x01F4BF8E/3"
-		},
-		"radiator": {
-			"id": "0x01F4BF8E/4",
-			"cron": [
-				{
-					"cron": "35 0 5-7,17-21 * * 1,4,5",
-					"flux": {
-						"id": "service|radiator|toggle",
-						"data": "on"
-					}
-				},
-				{
-					"cron": "35 0 5-21 * * 2,3",
-					"flux": {
-						"id": "service|radiator|toggle",
-						"data": "on"
-					}
-				},
-				{
-					"cron": "35 0 6-22 * * 0,6",
-					"flux": {
-						"id": "service|radiator|toggle",
-						"data": "on"
-					}
-				}
-			]
-		}
-	}
+  "name": "Tok",
+  "botBirthday": "August 9, 2015 00:00:00",
+  "birthdays": ["17/04", "13/12", "31/07"],
+  "url": {
+    "ODI": "https://odi.adrigarry.com/"
+  },
+  "modules": {
+    "interfaces": {
+      "base": ["button", "led", "hardware", "rfxcom", "server", "sound", "watcher"],
+      "full": ["arduino", "hdmi", "tts"]
+    },
+    "services": {
+      "base": [
+        "context",
+        "buttonAction",
+        "internetNetwork",
+        "time",
+        "alarm",
+        "voicemail",
+        "audioRecord",
+        "radiator",
+        "mosquitoRepellent",
+        "weather",
+        "task"
+      ],
+      "full": ["mood", "interaction", "timer", "music", "party", "video", "max", "childs"]
+    }
+  },
+  "conf": {
+    "alarms": {
+      "weekDay": {
+        "h": 8,
+        "m": 25
+      },
+      "weekEnd": {
+        "h": 11,
+        "m": 0
+      }
+    },
+    "radiator": "auto"
+  },
+  "runtime": {},
+  "rfxcomDevices": {
+    "plugA": {
+      "id": "0x01F4BF8E/1"
+    },
+    "plugB": {
+      "id": "0x01F4BF8E/2"
+    },
+    "plugC": {
+      "id": "0x01F4BF8E/3"
+    },
+    "radiator": {
+      "id": "0x01F4BF8E/4",
+      "cron": [
+        {
+          "cron": "35 0 5-7,17-21 * * 1,4,5",
+          "flux": {
+            "id": "service|radiator|toggle",
+            "data": "on"
+          }
+        },
+        {
+          "cron": "35 0 5-21 * * 2,3",
+          "flux": {
+            "id": "service|radiator|toggle",
+            "data": "on"
+          }
+        },
+        {
+          "cron": "35 0 6-22 * * 0,6",
+          "flux": {
+            "id": "service|radiator|toggle",
+            "data": "on"
+          }
+        }
+      ]
+    }
+  }
 }

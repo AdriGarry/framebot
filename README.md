@@ -55,7 +55,6 @@ Mood level, from 0 to 5 is an indice to set expressive level of the bot.
 - 4: screen (diapo) [volume = 80]
 - 5: party mode + pirate [volume = 100]
 
-
 ## Installation / Usage
 
 - Go to _framebot_ directory
@@ -112,7 +111,6 @@ A flux is an Object with 3 properties:
   - [loop]: _number_ times to loop flux
 
   - [log]: _string_ log level where the flux will be logged
-
 
 ## User interface
 

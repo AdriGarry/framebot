@@ -9,9 +9,9 @@ const argv = process.argv;
 console.log('argv', argv);
 const name = process.argv[2];
 const forcedParams = {
-	debug: argv.includes('debug') ? true : false,
-	sleep: argv.includes('sleep') ? true : false,
-	test: argv.includes('test') ? true : false
+  debug: argv.includes('debug') ? true : false,
+  sleep: argv.includes('sleep') ? true : false,
+  test: argv.includes('test') ? true : false
 };
 
 global._PATH = __dirname.match(/\/.*\//g)[0];
@@ -29,36 +29,35 @@ const Logger = require('./api/Logger');
 const log = new Logger(__filename, Core.conf('mode'));
 
 const Utils = require('./api/Utils'),
-	Scheduler = require('./api/Scheduler');
+  Scheduler = require('./api/Scheduler');
 
 const botName = Core.const('name').charAt(0).toUpperCase() + Core.const('name').slice(1);
 const framebotVersion = Core.const('version');
 log.info('-->  ' + botName + ' is ready! version=' + framebotVersion + ' [' + Utils.executionTime(Core.startTime) + 'ms]');
 
 Scheduler.delay(2).then(() => {
-	log.table(Core.const(), 'CONST');
-})
+  log.table(Core.const(), 'CONST');
+});
 
 ////////  TEST section  ////////
 if (Core.conf('mode') === 'test') {
-	setTimeout(function () {
-		new Flux('interface|tts|speak', { lg: 'en', msg: 'Integration tests sequence' });
-		const integrationTests = require('./test/integration/tests');
-		integrationTests.launch();
-	}, 1000);
+  setTimeout(function () {
+    new Flux('interface|tts|speak', { lg: 'en', msg: 'Integration tests sequence' });
+    const integrationTests = require('./test/integration/tests');
+    integrationTests.launch();
+  }, 1000);
 }
-
 
 // TTS to test
 //setTimeout(testSound, 3000);
 
 function testSound() {
-	const { spawn } = require('child_process');
+  const { spawn } = require('child_process');
 
-	log.test('testSound...');
-	let mplayerProcess = spawn('mplayer', ['-ao', 'alsa', '-volstep', 10, '-volume', 60, 'media/mp3/system/beBack.mp3']);
+  log.test('testSound...');
+  let mplayerProcess = spawn('mplayer', ['-ao', 'alsa', '-volstep', 10, '-volume', 60, 'media/mp3/system/beBack.mp3']);
 
-	mplayerProcess.stderr.on('data', err => {
-		log.test(`stderr: ${err}`);
-	});
+  mplayerProcess.stderr.on('data', err => {
+    log.test(`stderr: ${err}`);
+  });
 }
