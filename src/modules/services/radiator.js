@@ -120,7 +120,7 @@ function endRadiatorTimeout() {
 
 	let newRadiatorTimeoutMode = radiatorTimeoutMode == 'on' ? 'off' : 'on'; // invert mode
 	radiatorOrder(newRadiatorTimeoutMode);
-	log.info('radiator timeout, back to' + newRadiatorTimeoutMode + 'before auto mode...');
+	log.info('radiator timeout, back to', newRadiatorTimeoutMode, 'before auto mode...');
 }
 
 function isRadiatorSeason() {

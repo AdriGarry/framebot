@@ -32,7 +32,7 @@ module.exports = class Scheduler {
 
 	static stopDecrement(id, endCallback){
 		if(!DECREMENT_TIMEOUTS.has(id)){
-			log.warn('No active decrement for ID:', id);
+			log.info('No active decrement for ID:', id);
 			return;
 		}
 		log.info('ending decrement', id);
