@@ -1,11 +1,11 @@
 {
-  "bracketSpacing": false,
+  "bracketSpacing": true,
   "singleQuote": true,
   "semicolons": true,
   "trailingComma": "none",
   "arrowParens": "avoid",
   "useTabs": false,
   "htmlWhitespaceSensitivity": "css",
-  "printWidth": 130,
+  "printWidth": 150,
   "bracketSameLine": false
 }
