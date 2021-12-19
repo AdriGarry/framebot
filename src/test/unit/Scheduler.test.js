@@ -48,9 +48,9 @@ describe('Scheduler', function () {
             givenIncrement++;
          };
          let endCallback = function() {
-            assert.strictEqual(20, givenIncrement);
+            assert.strictEqual(3, givenIncrement);
          };
-         Scheduler.decrement('test', 20, endCallback, 10, decrementCallback);
+         Scheduler.decrement('test', 3, endCallback, 1, decrementCallback);
       });
    });
 
