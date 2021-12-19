@@ -6,7 +6,7 @@
   "main": "framebot",
   "scripts": {
     "test": "mocha ./src/test/unit/index.test.js -w ./src/api",
-    "pretty": "prettier --write \"./**/*.{js,jsx,json}\""
+    "pretty": "npx prettier --write ./"
   },
   "repository": {
     "type": "git",
