@@ -19,7 +19,7 @@ var Core = {},
 
 module.exports = {
 	initializeContext: initializeContext,
-	Core: Core
+	api: Core
 };
 
 // TODO to class => singleton or static ?

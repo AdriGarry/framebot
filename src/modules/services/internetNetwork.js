@@ -5,9 +5,7 @@
 const dns = require('dns'),
 	os = require('os');
 
-const Core = require('../../core/Core').Core;
-
-const { CronJobList, Logger, Observers, Utils } = require('./../../api');
+const { Core, CronJobList, Logger, Observers, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -24,6 +22,8 @@ const INTERNET_BOX_STRATEGY_CRON = [
 ],
 	internetBoxStrategyCrons = new CronJobList(INTERNET_BOX_STRATEGY_CRON, 'internetBoxOffStrategy', true);
 
+	const DELAY_BEFORE_RETRY = 60 * 1000;
+
 var isOnline, isRetrying = false;
 
 var internetTestInterval = setInterval(() => {
@@ -36,7 +36,7 @@ var internetTestInterval = setInterval(() => {
 				.then(onlineCallback)
 				.catch(notConnectedCallback);
 		});
-}, 10 * 1000);
+}, DELAY_BEFORE_RETRY);
 
 Core.run('network.local', getLocalIp())
 

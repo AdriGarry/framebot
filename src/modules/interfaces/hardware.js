@@ -6,9 +6,7 @@ const { exec, spawn } = require('child_process');
 const fs = require('fs'),
 	os = require('os');
 
-const Core = require('./../../core/Core').Core;
-
-const { Flux, Logger, Observers, Utils } = require('./../../api');
+const { Core, Flux, Logger, Observers, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -303,7 +301,7 @@ function countSoftwareLines() {
 
 /** Function to clean and archive logs each week */
 function archiveLogs() {
-	log.info('Clean log files  /!\\');
+	log.info('Cleaning log files');
 	let today = new Date();
 	let weekNb = Utils.getWeek(today);
 	if (!fs.existsSync(Core._LOG + 'old')) {

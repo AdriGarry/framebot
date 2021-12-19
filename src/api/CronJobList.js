@@ -44,7 +44,7 @@ module.exports = class CronJobList {
 	}
 
 	toString() {
-		return `CronJobList ${this.id}[${this.length}] ${this.crons}`;
+		return `CronJobList ${this.id} [${this.length}] ${this.crons}`;
 	}
 };
 

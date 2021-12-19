@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const Core = require('./../../../core/Core').Core;
-
-const { Logger } = require('./../../../api');
+const { Core, Logger } = require('./../../../api');
 
 const log = new Logger(__filename);
 
