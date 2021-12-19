@@ -2,9 +2,7 @@
 
 'use strict';
 
-const Core = require('./../../core/Core').Core;
-
-const { Flux, Logger, Observers, Scheduler } = require('./../../api');
+const { Core, Flux, Logger, Observers, Scheduler } = require('./../../api');
 
 const log = new Logger(__filename);
 

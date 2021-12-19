@@ -4,7 +4,7 @@
 
 const Rx = require('rxjs');
 
-const Core = require('../core/Core.js').Core;
+const Core = require('../core/Core.js').api;
 
 const logger = require('./Logger.js');
 

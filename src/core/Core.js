@@ -19,7 +19,6 @@ var Core = {},
 
 module.exports = {
 	initializeContext: initializeContext,
-	Core: Core,
 	api: Core
 };
 

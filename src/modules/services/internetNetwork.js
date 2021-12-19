@@ -5,9 +5,7 @@
 const dns = require('dns'),
 	os = require('os');
 
-const Core = require('../../core/Core').Core;
-
-const { CronJobList, Logger, Observers, Utils } = require('./../../api');
+const { Core, CronJobList, Logger, Observers, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 

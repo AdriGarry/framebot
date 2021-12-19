@@ -4,9 +4,7 @@
 
 const request = require('request');
 
-const Core = require('./../../core/Core').Core;
-
-const { Logger, Observers } = require('./../../api');
+const { Core, Logger, Observers } = require('./../../api');
 
 const log = new Logger(__filename);
 

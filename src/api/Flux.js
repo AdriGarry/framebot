@@ -4,7 +4,7 @@
 
 const util = require('util');
 
-const Core = require('../core/Core.js').Core;
+const Core = require('../core/Core.js').api;
 
 const logger = require('./Logger.js'),
 	Utils = require('./Utils'),
