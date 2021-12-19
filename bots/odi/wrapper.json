@@ -1,12 +1,12 @@
 {
-	"fallbackButton": {
-		"id": "ok",
-		"pin": 20,
-		"direction": "in",
-		"edge": "rising",
-		"options": {
-			"persistentWatch": true,
-			"debounceTimeout": 500
-		}
-	}
+  "fallbackButton": {
+    "id": "ok",
+    "pin": 20,
+    "direction": "in",
+    "edge": "rising",
+    "options": {
+      "persistentWatch": true,
+      "debounceTimeout": 500
+    }
+  }
 }

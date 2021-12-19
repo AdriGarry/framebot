@@ -6,210 +6,207 @@ const assert = require('assert');
 const Utils = require('./../../api/Utils');
 
 describe('Utils', function () {
+  describe('Utils.repeatString: return given string concatenated x times', function () {
+    it("should 'abc' get concatenated 3 times", function () {
+      const given = 'abc',
+        expected = 'abcabcabc';
+      const result = Utils.repeatString(given, 3);
+      assert.strictEqual(expected, result);
+    });
+  });
 
-   describe('Utils.repeatString: return given string concatenated x times', function () {
-      it("should 'abc' get concatenated 3 times", function () {
-         const given = 'abc',
-            expected = 'abcabcabc';
-         const result = Utils.repeatString(given, 3);
-         assert.strictEqual(expected, result);
+  describe('Utils.formatStringLength: return string with length matching with given limit', function () {
+    it('should add space at the end of string to math expected length', function () {
+      const given = 'abcde',
+        expected = 'abcde  ';
+      const result = Utils.formatStringLength(given, 7);
+      assert.strictEqual(result, expected);
+    });
+
+    it('should add space at the begening of string to math expected length', function () {
+      const given = 'abcde',
+        expected = '  abcde';
+      const result = Utils.formatStringLength(given, 7, true);
+      assert.strictEqual(result, expected);
+    });
+
+    it('should truncate string to math expected length', function () {
+      const given = 'abcdefg',
+        expected = 'abcde';
+      const result = Utils.formatStringLength(given, 5);
+      assert.strictEqual(result, expected);
+    });
+  });
+
+  describe('Utils.searchStringInArray: return matching string in given array', function () {
+    it('should return searched string is present', function () {
+      const givenArray = ['abc', 'def', 'hij'],
+        expected = 'def';
+      const result = Utils.searchStringInArray('def', givenArray);
+      assert.strictEqual(expected, result);
+    });
+
+    it('should return false if searched string is not present', function () {
+      const givenArray = ['abc', 'def', 'hij'];
+      const result = Utils.searchStringInArray('xyz', givenArray);
+      assert.ok(!result);
+    });
+  });
+
+  describe('Utils.execCmd: execute given command and return a promise', function () {
+    it("should 'uptime' command return string including 'load average'", function () {
+      Utils.execCmd('uptime').then(data => {
+        if (data.indexOf('load average') > -1) {
+          assert.ok();
+        }
+        assert.fail();
       });
-   });
+    });
+  });
 
-   describe('Utils.formatStringLength: return string with length matching with given limit', function () {
-      it('should add space at the end of string to math expected length', function () {
-         const given = 'abcde',
-            expected = 'abcde  ';
-         const result = Utils.formatStringLength(given, 7);
-         assert.strictEqual(result, expected);
-      });
+  describe('Utils.firstLetterUpper: return given string with first letter capitalized', function () {
+    it('should return string with first letter uppercase', function () {
+      const given = 'abc',
+        expected = 'Abc';
+      const result = Utils.firstLetterUpper(given);
+      assert.strictEqual(expected, result);
+    });
+  });
 
-      it('should add space at the begening of string to math expected length', function () {
-         const given = 'abcde',
-            expected = '  abcde';
-         const result = Utils.formatStringLength(given, 7, true);
-         assert.strictEqual(result, expected);
-      });
+  describe('Utils.executionTime: should return execution time from given Date in millisec', function () {
+    it('should return 10ms as elapsed time since given date initialization', function (done) {
+      let startTime = new Date();
+      setTimeout(function () {
+        let result = Utils.executionTime(startTime);
+        if (result >= 10) done();
+        else done('executionTime is greater than expected :' + result);
+      }, 10);
+    });
 
-      it('should truncate string to math expected length', function () {
-         const given = 'abcdefg',
-            expected = 'abcde';
-         const result = Utils.formatStringLength(given, 5);
-         assert.strictEqual(result, expected);
-      });
-   });
+    it('should return 500ms as elapsed time since given date initialization', function (done) {
+      let startTime = new Date();
+      setTimeout(function () {
+        let result = Utils.executionTime(startTime);
+        if (result >= 500) done();
+        else done('executionTime is greater than expected :' + result);
+      }, 500);
+    });
+  });
 
-   describe('Utils.searchStringInArray: return matching string in given array', function () {
-      it('should return searched string is present', function () {
-         const givenArray = ['abc', 'def', 'hij'],
-            expected = 'def';
-         const result = Utils.searchStringInArray('def', givenArray);
-         assert.strictEqual(expected, result);
-      });
+  describe('Utils.formatDuration: return sec or min', function () {
+    it('should return time in sec if <= 120', function () {
+      const given = 90,
+        expected = '90s';
+      const result = Utils.formatDuration(given);
+      assert.strictEqual(expected, result);
+    });
 
-      it('should return false if searched string is not present', function () {
-         const givenArray = ['abc', 'def', 'hij'];
-         const result = Utils.searchStringInArray('xyz', givenArray);
-         assert.ok(!result);
-      });
-   });
+    it('should return time in min & sec if > 120', function () {
+      const given = 180,
+        expected = '3m0s';
+      const result = Utils.formatDuration(given);
+      assert.strictEqual(expected, result);
+    });
+  });
 
-   describe('Utils.execCmd: execute given command and return a promise', function () {
-      it("should 'uptime' command return string including 'load average'", function () {
-         Utils.execCmd('uptime')
-            .then(data => {
-               if (data.indexOf('load average') > -1) {
-                  assert.ok();
-               }
-               assert.fail();
-            });
-      });
-   });
+  describe('Utils.random: return a number between 0 and given number (excluded)', function () {
+    it('should return a number between 0 and 1', function () {
+      let loop = 10;
+      while (loop) {
+        let result = Utils.random();
+        if (result > 1 && result < 0) assert.fail();
+        loop--;
+      }
+    });
 
-   describe('Utils.firstLetterUpper: return given string with first letter capitalized', function () {
-      it('should return string with first letter uppercase', function () {
-         const given = 'abc',
-            expected = 'Abc';
-         const result = Utils.firstLetterUpper(given);
-         assert.strictEqual(expected, result);
-      });
-   });
+    it('should return a number between 0 and 5', function () {
+      let loop = 20;
+      while (loop) {
+        let result = Utils.random(6);
+        if (result > 3 && result < 0) assert.fail();
+        loop--;
+      }
+    });
+  });
 
-   describe('Utils.executionTime: should return execution time from given Date in millisec', function () {
-      it('should return 10ms as elapsed time since given date initialization', function (done) {
-         let startTime = new Date();
-         setTimeout(function () {
-            let result = Utils.executionTime(startTime)
-            if (result >= 10) done()
-            else done('executionTime is greater than expected :' + result);
-         }, 10);
-      });
+  describe('Utils.randomItem: return an object randomly from given array', function () {
+    it('should return one of the items of the array', function () {
+      let given = ['abc', 'def', 'ghi'],
+        loop = 10;
 
-      it('should return 500ms as elapsed time since given date initialization', function (done) {
-         let startTime = new Date();
-         setTimeout(function () {
-            let result = Utils.executionTime(startTime)
-            if (result >= 500) done()
-            else done('executionTime is greater than expected :' + result);
-         }, 500);
-      });
-   });
+      while (loop) {
+        let result = Utils.randomItem(given);
+        if (!given.includes(result)) {
+          assert.fail();
+        }
+        loop--;
+      }
+    });
+  });
 
-   describe('Utils.formatDuration: return sec or min', function () {
-      it('should return time in sec if <= 120', function () {
-         const given = 90,
-            expected = '90s';
-         const result = Utils.formatDuration(given);
-         assert.strictEqual(expected, result);
-      });
+  describe('Utils.logTime: return date/time formated as given pattern', function () {
+    it('should return date formated as pattern', function () {
+      const givenDate = new Date('1999-12-31T00:00:00'),
+        expected = '1999-12-31 00:00:00,000';
+      const result = Utils.logTime('Y-M-D h:m:s,x', givenDate);
+      assert.strictEqual(expected, result);
+    });
 
-      it('should return time in min & sec if > 120', function () {
-         const given = 180,
-            expected = '3m0s';
-         const result = Utils.formatDuration(given);
-         assert.strictEqual(expected, result);
-      });
-   });
+    it('should return date formated with default pattern', function () {
+      const givenDate = new Date('1999-12-31T00:00:00'),
+        expected = '31/12 00:00:00';
+      let undefinedVariable;
+      const result = Utils.logTime(undefinedVariable, givenDate);
+      assert.strictEqual(expected, result);
+    });
+  });
 
-   describe('Utils.random: return a number between 0 and given number (excluded)', function () {
-      it('should return a number between 0 and 1', function () {
-         let loop = 10;
-         while (loop) {
-            let result = Utils.random();
-            if (result > 1 && result < 0) assert.fail();
-            loop--;
-         }
-      });
+  describe('Utils.getNextDateObject: return nearest date from now', function () {
+    it('should return the nearest date bewteen today and tomorrow', function () {
+      let tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      let datesToCompare = [
+        { id: 'today', date: new Date() },
+        { id: 'tomorrow', date: tomorrow }
+      ];
+      let nextDate = Utils.getNextDateObject(datesToCompare);
+      assert.strictEqual('today', nextDate.id);
+    });
 
-      it('should return a number between 0 and 5', function () {
-         let loop = 20;
-         while (loop) {
-            let result = Utils.random(6);
-            if (result > 3 && result < 0) assert.fail();
-            loop--;
-         }
-      });
-   });
+    it('should return the nearest hour bewteen next hour and next 2 hours', function () {
+      let now = new Date(),
+        oneHourLater = new Date(),
+        twoHoursLater = new Date();
+      oneHourLater.setHours(now.getHours() + 1);
+      twoHoursLater.setHours(now.getHours() + 2);
+      let datesToCompare = [
+        { id: 'oneHourLater', date: oneHourLater },
+        { id: 'twoHoursLater', date: twoHoursLater }
+      ];
+      let nextDate = Utils.getNextDateObject(datesToCompare);
+      assert.strictEqual('oneHourLater', nextDate.id);
+    });
+  });
 
-   describe('Utils.randomItem: return an object randomly from given array', function () {
-      it('should return one of the items of the array', function () {
-         let given = ['abc', 'def', 'ghi'],
-            loop = 10;
+  describe('Utils.isWeekend: return true if today is weekend, false otherwise', function () {
+    it('should return true if weekend', function () {
+      const givenDate = new Date('2000-01-01');
+      const result = Utils.isWeekend(givenDate);
+      assert.ok(result);
+    });
 
-         while (loop) {
-            let result = Utils.randomItem(given);
-            if (!given.includes(result)) {
-               assert.fail();
-            }
-            loop--;
-         }
-      });
-   });
+    it('should return false if not weekend', function () {
+      const givenDate = new Date('1999-12-31');
+      const result = Utils.isWeekend(givenDate);
+      assert.ok(!result);
+    });
+  });
 
-   describe('Utils.logTime: return date/time formated as given pattern', function () {
-      it('should return date formated as pattern', function () {
-         const givenDate = new Date('1999-12-31T00:00:00'),
-            expected = '1999-12-31 00:00:00,000';
-         const result = Utils.logTime('Y-M-D h:m:s,x', givenDate);
-         assert.strictEqual(expected, result);
-      });
-
-      it('should return date formated with default pattern', function () {
-         const givenDate = new Date('1999-12-31T00:00:00'),
-            expected = '31/12 00:00:00';
-         let undefinedVariable;
-         const result = Utils.logTime(undefinedVariable, givenDate);
-         assert.strictEqual(expected, result);
-      });
-   });
-
-   describe('Utils.getNextDateObject: return nearest date from now', function () {
-      it('should return the nearest date bewteen today and tomorrow', function () {
-         let tomorrow = new Date();
-         tomorrow.setDate(tomorrow.getDate() + 1);
-         let datesToCompare = [
-            { id: 'today', date: new Date() },
-            { id: 'tomorrow', date: tomorrow }
-         ];
-         let nextDate = Utils.getNextDateObject(datesToCompare);
-         assert.strictEqual('today', nextDate.id);
-      });
-
-      it('should return the nearest hour bewteen next hour and next 2 hours', function () {
-         let now = new Date(),
-            oneHourLater = new Date(),
-            twoHoursLater = new Date();
-         oneHourLater.setHours(now.getHours() + 1);
-         twoHoursLater.setHours(now.getHours() + 2);
-         let datesToCompare = [
-            { id: 'oneHourLater', date: oneHourLater },
-            { id: 'twoHoursLater', date: twoHoursLater }
-         ];
-         let nextDate = Utils.getNextDateObject(datesToCompare);
-         assert.strictEqual('oneHourLater', nextDate.id);
-      });
-   });
-
-   describe('Utils.isWeekend: return true if today is weekend, false otherwise', function () {
-      it('should return true if weekend', function () {
-         const givenDate = new Date('2000-01-01');
-         const result = Utils.isWeekend(givenDate);
-         assert.ok(result);
-      });
-
-      it('should return false if not weekend', function () {
-         const givenDate = new Date('1999-12-31');
-         const result = Utils.isWeekend(givenDate);
-         assert.ok(!result);
-      });
-   });
-
-   describe('Utils.getWeek: return number of week', function () {
-      it('should return week number of given date', function () {
-         const givenDate = new Date('2000-01-01');
-         const result = Utils.getWeek(givenDate);
-         assert.strictEqual(1, result);
-      });
-   });
-
+  describe('Utils.getWeek: return number of week', function () {
+    it('should return week number of given date', function () {
+      const givenDate = new Date('2000-01-01');
+      const result = Utils.getWeek(givenDate);
+      assert.strictEqual(1, result);
+    });
+  });
 });

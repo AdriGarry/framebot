@@ -1,78 +1,78 @@
 {
-	"paths": {
-		"_SRC": "src/",
-		"_API": "src/api/",
-		"_CORE": "src/core/",
-		"_MODULES": "src/modules/",
-		"_SHELL": "src/shell/",
-		"_WEB": "src/web/",
-		"_SECURITY": "security/",
-		"_DATA": "data/",
-		"_CONF": null,
-		"_UPLOAD": "upload/",
-		"_MP3": "media/mp3/",
-		"_VIDEO": "media/video/",
-		"_PHOTO": "media/photo/",
-		"_LOG": "log/",
-		"_TMP": "tmp/"
-	},
-	"conf": {
-		"mode": "ready",
-		"log": "info",
-		"watcher": false,
-		"alarms": ".",
-		"radiator": ".",
-		"flux": [],
-		"powerPlug": {}
-	},
-	"const": {
-		"name": null,
-		"version": null,
-		"startDateTime": null,
-		"updateDateTime": null,
-		"totalLines": 0,
-		"stories": {},
-		"playlists": {}
-	},
-	"runtime": {
-		"etat": null,
-		"volume": null,
-		"mood": 1,
-		"max": null,
-		"music": false,
-		"alarm": false,
-		"timer": 0,
-		"voicemail": 0,
-		"audioRecord": 0,
-		"hdmi": null,
-		"rfxcom": false,
-		"radiator": false,
-		"mosquito": false,
-		"powerPlug": {},
-		"mosquitoRepellent": 2,
-		"screen": null,
-		"weather": {},
-		"network": {},
-		"cpu": {
-			"usage": null,
-			"temperature": null,
-			"loadAverage": null
-		},
-		"memory": {
-			"framebot": null,
-			"system": null
-		},
-		"stats": {
-			"diskSpace": null,
-			"totalLines": null,
-			"update": null,
-			"buttons": {},
-			"fluxCount": 0,
-			"badRequestCount": 0
-		}
-	},
-	"cron": {
-		"base": [],
-		"full": []
-	}
+  "paths": {
+    "_SRC": "src/",
+    "_API": "src/api/",
+    "_CORE": "src/core/",
+    "_MODULES": "src/modules/",
+    "_SHELL": "src/shell/",
+    "_WEB": "src/web/",
+    "_SECURITY": "security/",
+    "_DATA": "data/",
+    "_CONF": null,
+    "_UPLOAD": "upload/",
+    "_MP3": "media/mp3/",
+    "_VIDEO": "media/video/",
+    "_PHOTO": "media/photo/",
+    "_LOG": "log/",
+    "_TMP": "tmp/"
+  },
+  "conf": {
+    "mode": "ready",
+    "log": "info",
+    "watcher": false,
+    "alarms": ".",
+    "radiator": ".",
+    "flux": [],
+    "powerPlug": {}
+  },
+  "const": {
+    "name": null,
+    "version": null,
+    "startDateTime": null,
+    "updateDateTime": null,
+    "totalLines": 0,
+    "stories": {},
+    "playlists": {}
+  },
+  "runtime": {
+    "etat": null,
+    "volume": null,
+    "mood": 1,
+    "max": null,
+    "music": false,
+    "alarm": false,
+    "timer": 0,
+    "voicemail": 0,
+    "audioRecord": 0,
+    "hdmi": null,
+    "rfxcom": false,
+    "radiator": false,
+    "mosquito": false,
+    "powerPlug": {},
+    "mosquitoRepellent": 2,
+    "screen": null,
+    "weather": {},
+    "network": {},
+    "cpu": {
+      "usage": null,
+      "temperature": null,
+      "loadAverage": null
+    },
+    "memory": {
+      "framebot": null,
+      "system": null
+    },
+    "stats": {
+      "diskSpace": null,
+      "totalLines": null,
+      "update": null,
+      "buttons": {},
+      "fluxCount": 0,
+      "badRequestCount": 0
+    }
+  },
+  "cron": {
+    "base": [],
+    "full": []
+  }
 }
