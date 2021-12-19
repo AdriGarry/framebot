@@ -21,9 +21,9 @@ function setTimer(minutes) {
 	} else {
 		minutes = 60;
 	}
-	Scheduler.stopDecrement('timer');
-	Scheduler.decrement('timer', minutes, endTimerTimeout, 1, decrementTimerTimeout);
 	Core.run('timer', Core.run('timer') + minutes);
+	Scheduler.stopDecrement('timer');
+	Scheduler.decrement('timer', Core.run('timer'), endTimerTimeout, 1, decrementTimerTimeout);
 	let min = Math.floor(Core.run('timer') / 60);
 	let sec = Core.run('timer') % 60;
 	let ttsMsg =
@@ -36,7 +36,8 @@ function setTimer(minutes) {
 
 function decrementTimerTimeout() {
 	toggleBellyLed();
-	if (Core.run('timer') < 10) {
+	let remainingTime = Core.run('timer');
+	if (remainingTime < 10) {
 		new Flux(
 			'interface|sound|play',
 			{ mp3: 'system/timerAlmostEnd.mp3', noLog: true, noLed: true },
@@ -45,9 +46,10 @@ function decrementTimerTimeout() {
 	} else {
 		new Flux('interface|sound|play', { mp3: 'system/timer.mp3', noLog: true, noLed: true }, { log: 'trace' });
 	}
-	Core.run('timer', Core.run('timer') - 1);
-	if (Core.run('timer') % 120 == 0 && Core.run('timer') / 60 > 0) {
-		new Flux('interface|tts|speak', Core.run('timer') / 60 + ' minutes et compte a rebours');
+	remainingTime = remainingTime - 1;
+	Core.run('timer', remainingTime);
+	if (remainingTime / 60 > 0 && remainingTime % 60 == 0) {
+		new Flux('interface|tts|speak', remainingTime / 60 + ' minutes et compte a rebours');
 	}
 }
 
