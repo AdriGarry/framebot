@@ -36,7 +36,7 @@ module.exports = class Observers {
 	}
 
 	static attachFluxParseOptions(type, subject, fluxParseOptions) {
-		log.trace('attachFluxParseOptions', type, subject, fluxParseOptions);
+		log.trace('attachFluxParseOptions', type, subject);
 		Observers[type]()[subject].subscribe({
 			next: flux => {
 				let found = fluxParseOptions.find(option => option.id === flux.id);
