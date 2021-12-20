@@ -1,5 +1,7 @@
 # framebot
 
+[![Version](https://img.shields.io/github/package-json/v/adrigarry/framebot)](https://github.com/AdriGarry/framebot/tags)
+
 Based on NodeJS, running on a Raspberry Pi, this is **framebot** program, to autorun, manage stuff and interact.
 
 It's a kind of framework, to run js modules, with a flux manager, logger, tools...
