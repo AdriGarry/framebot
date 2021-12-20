@@ -32,5 +32,3 @@ jobs:
       uses: actions/checkout@v2
     - name: Auto tag version
       uses: butlerlogic/action-autotag@stable
-      with:
-        GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
