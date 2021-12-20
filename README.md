@@ -1,4 +1,4 @@
-# framebot
+# Framebot
 
 [![Version](https://img.shields.io/github/package-json/v/adrigarry/framebot)](https://github.com/AdriGarry/framebot/tags)
 [![Total lines](https://img.shields.io/tokei/lines/github/adrigarry/framebot)]()
@@ -7,15 +7,15 @@
 [![Last commit](https://img.shields.io/github/last-commit/adrigarry/framebot)]()
 [![Build status](https://img.shields.io/github/workflow/status/adrigarry/framebot/CI)](https://github.com/AdriGarry/framebot/actions)
 
-Based on NodeJS, running on a Raspberry Pi, this is **framebot** program, to autorun, manage stuff and interact.
+**Framebot** is a NodeJS framework to autorun, automation & interaction.
 
-It's a kind of framework, to run js modules, with a flux manager, and an API (logger, tools...).
+This is a homemade Raspberry Pi program, to run JS modules, with an API (logger, tools...).
 
 Available modes: ready, sleep, test.
 
-## Functionalities:
+## Functionalities
 
-### Main functionalities:
+### Main
 
 - Voice synthesizer (TTS)
 - Voicemail
@@ -25,14 +25,14 @@ Available modes: ready, sleep, test.
 - Timer
 - Radiator & power plugs management
 - Playlist (jukebox, low...)
-- Web radio (FIP, radio Bam)
+- Web radio (FIP, Bam radio)
 - Weather report
 - Exclamations, sounds...
 - Interactions with an Arduino (another robot: Max...)
 
-### Additional functionalities:
+### Additional
 
-- Expressive functionalities: child and birthday song, crazy (bad boy mode)...
+- Expressive functionalities: child and birthday song, crazy...
 - Ambiance sounds (cicadas)
 - Logger & cleaner
 - Hardware monitoring (CPU, memory, diskspace, temperature)
@@ -66,18 +66,21 @@ Mood level, from 0 to 5 is an indice to set expressive level of the bot.
 
 - Go to _framebot_ directory
 - First time, execute `sh framebot` to add `framebot` as command and launch framebot with _botName_ configuration given as first param
-- Then, to launch execute `framebot $botName [params]`
+- Then, to launch execute `framebot $botName [params] [&]`
 - To stop, execute `framebot stop`
 
 ## Framework
 
 ### API
 
+- Core API
 - CoreError
 - CronJobList
+- Files
 - Flux
 - Logger
 - Observers
+- Scheduler
 - Utils
 
 ### Core engine
@@ -99,6 +102,14 @@ This object is file persisted and has a default version to reset.
 The Core.run holds runtime informations: _etat, volume, max, mood, music, alarms, timer, voicemail, cpu, memory, stats_.
 
 This object is isolated, with access methods.
+
+#### Core.const
+
+The Core.const holds non-modifiable informations: _version, startDateTime, uptdateTime, totalLines_...
+
+This object is isolated, with access methods.
+
+This object's entries are not updatable.
 
 #### Flux manager
 
@@ -123,4 +134,4 @@ A flux is an Object with 3 properties:
 
 Provided user interface with flux orders and log (log tail with websocket).
 
-.
+:robot:
