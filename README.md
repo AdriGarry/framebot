@@ -9,9 +9,9 @@
 
 Based on NodeJS, running on a Raspberry Pi, this is **framebot** program, to autorun, manage stuff and interact.
 
-It's a kind of framework, to run js modules, with a flux manager, logger, tools...
+It's a kind of framework, to run js modules, with a flux manager, and an API (logger, tools...).
 
-Available modes: ready, sleep, test
+Available modes: ready, sleep, test.
 
 ## Functionalities:
 
