@@ -3,9 +3,9 @@
 [![Version](https://img.shields.io/github/package-json/v/adrigarry/framebot)](https://github.com/AdriGarry/framebot/tags)
 [![Total lines](https://img.shields.io/tokei/lines/github/adrigarry/framebot)]()
 [![Code size](https://img.shields.io/github/languages/code-size/adrigarry/framebot)]()
-[![Build status](https://img.shields.io/github/workflow/status/adrigarry/framebot/CI)](https://github.com/AdriGarry/framebot/actions)
 [![Commit](https://img.shields.io/github/commit-activity/w/adrigarry/framebot)]()
-[![Licence](https://img.shields.io/github/license/adrigarry/framebot)]()
+[![Last commit](https://img.shields.io/github/last-commit/adrigarry/framebot)]()
+[![Build status](https://img.shields.io/github/workflow/status/adrigarry/framebot/CI)](https://github.com/AdriGarry/framebot/actions)
 
 Based on NodeJS, running on a Raspberry Pi, this is **framebot** program, to autorun, manage stuff and interact.
 
