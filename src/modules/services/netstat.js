@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 'use strict';
 
-const { Core, Flux, Logger, Observers, Utils } = require('../../api');
+const { Core, Logger, Observers, Utils } = require('../../api');
 
 const log = new Logger(__filename);
 
-module.exports = {};
+module.exports = {
+  cron: {
+    base: [{ cron: '20 */20 * * * *', flux: { id: 'service|netstat|all' } }]
+  }
+};
 
-const FLUX_PARSE_OPTIONS = [
-  { id: 'ssh', fn: showSshConnections },
-  { id: 'all', fn: showConnections }
-];
+const FLUX_PARSE_OPTIONS = [{ id: 'all', fn: showConnections }];
 
 Observers.attachFluxParseOptions('service', 'netstat', FLUX_PARSE_OPTIONS);
 
@@ -19,10 +20,6 @@ const LOCAL_CONNECTIONS_PATTERNS_REGEX = new RegExp(/192\.168.*|serv.*|locale.*/
 setImmediate(() => {
   showConnections();
 });
-
-function showSshConnections() {
-  showConnections(22);
-}
 
 function showConnections(port = '*') {
   Utils.execCmd(getNetstatCommand(port))
@@ -41,6 +38,7 @@ function logNetstatResult(result, port) {
   }
 
   log.table(output, 'Netstat: ' + port);
+
   for (const line in output) {
     if (isNotLocalConnection(line)) {
       log.warn(`${output[line]} external connection(s) [${line}]`);
