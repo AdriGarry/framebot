@@ -5,15 +5,7 @@ const { Core, Flux, Logger, Observers } = require('./../../api');
 
 const log = new Logger(__filename);
 
-module.exports = {
-  // cron: {
-  // 	full: [
-  // 		{ cron: '10 0 17 * * *', flux: { id: 'service|mood|set', data: 3 } },
-  // 		{ cron: '10 0 21 * * *', flux: { id: 'service|mood|set', data: 2 } },
-  // 		{ cron: '0 59 22 * * *', flux: { id: 'service|mood|set', data: 1 } }
-  // 	]
-  // }
-};
+module.exports = {};
 
 const FLUX_PARSE_OPTIONS = [{ id: 'set', fn: setMoodLevel, condition: { isAwake: true } }];
 
@@ -25,7 +17,7 @@ const MOOD_LEVELS = {
   2: { volume: 50 },
   3: { volume: 60 }, // max + interaction
   4: { volume: 80 }, // screen/diapo
-  5: { volume: 100 } // party mode + pirate
+  5: { volume: 90 } // party mode + pirate
 };
 
 setImmediate(() => {
