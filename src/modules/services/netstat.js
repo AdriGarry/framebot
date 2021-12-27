@@ -14,6 +14,8 @@ const FLUX_PARSE_OPTIONS = [
 
 Observers.attachFluxParseOptions('service', 'netstat', FLUX_PARSE_OPTIONS);
 
+const LOCAL_CONNECTIONS_PATTERNS_REGEX = new RegExp(/192\.168.*|serv.*|locale.*/);
+
 setImmediate(() => {
   showConnections();
 });
@@ -39,6 +41,15 @@ function logNetstatResult(result, port) {
   }
 
   log.table(output, 'Netstat: ' + port);
+  for (const line in output) {
+    if (isNotLocalConnection(line)) {
+      log.warn(`${output[line]} external connection(s) [${line}]`);
+    }
+  }
+
+  function isNotLocalConnection(line) {
+    return !line.match(LOCAL_CONNECTIONS_PATTERNS_REGEX);
+  }
 }
 
 function getNetstatCommand(port) {
