@@ -108,5 +108,9 @@ echo "\nStarting Wrapper... [$*]" | sudo tee -a "$_PATH/log/$_NAME.log"
 # echo "\nStarting Wrapper... [$*]" | tee -a "$_PATH/log/$_NAME.log"
 
 # sudo python /home/odi/framebot/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/framebot/log/buttons.py.log &
-sudo node "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" 
+
+# TODO attention, car on risque de perdre les paramètres passés via CLI (faire des recherches sur npm start)
+#sudo node "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" 
+sudo npm start $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" 
+
 # node "$_PATH"/src/wrapper.js $* 2>&1 | tee -a "$_PATH/log/$_NAME.log" 

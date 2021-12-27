@@ -20,6 +20,7 @@ const fs = require('fs');
 console.log('\n' + fs.readFileSync('./bots/' + argv[2] + '/logo.txt', 'utf8').toString());
 
 const descriptor = require(_PATH + 'bots/' + name + '/descriptor.json');
+console.log('--> process.env.npm_package_version:', process.env.npm_package_version);
 
 const Core = require('./core/Core').initializeContext(descriptor, forcedParams, startTime);
 

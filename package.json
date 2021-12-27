@@ -1,10 +1,11 @@
 {
   "name": "framebot",
-  "version": "7.10.4",
+  "version": "7.10.5",
   "private": true,
   "description": "Framebot program to autorun, interact & manage stuff...",
   "main": "framebot",
   "scripts": {
+    "start":"node ./src/wrapper.js",
     "test": "mocha ./src/test/unit/index.test.js -w ./src/api",
     "pretty": "npx prettier --write ./"
   },
