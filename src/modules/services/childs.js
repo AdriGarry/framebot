@@ -14,9 +14,8 @@ Observers.attachFluxParseOptions('service', 'childs', FLUX_PARSE_OPTIONS);
 
 function bonneNuit() {
   new Flux([
-    { id: 'interface|tts|speak', data: { msg: 'Bonne nuit ma ya' } },
-    { id: 'interface|tts|speak', data: { voice: 'google', msg: 'Oui, fais de beaux raives !' } },
-    { id: 'interface|tts|speak', data: { voice: 'pico', msg: 'Et à demain!' } }
+    { id: 'interface|tts|speak', data: { msg: 'Bonne nuit mes Lou lou te' } },
+    { id: 'interface|tts|speak', data: { voice: 'google', msg: 'Et, faites de beaux raives !' } }
   ]);
 }
 
