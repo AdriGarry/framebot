@@ -474,7 +474,8 @@ app.component('hardware', {
       actionList: [
         { label: 'Disk Space', icon: 'fas fa-3x fa-chart-pie', url: '/flux/interface/hardware/diskSpaceTTS' },
         { label: 'CPU', icon: 'fab fa-3x fa-empire', url: '/flux/interface/hardware/cpuTTS' },
-        { label: 'Memory', icon: 'fas fa-3x fa-microchip', url: '/flux/interface/hardware/soulTTS' }
+        { label: 'Memory', icon: 'fas fa-3x fa-microchip', url: '/flux/interface/hardware/soulTTS' },
+        { label: 'Netstat', icon: 'fas fa-3x fa-network-wired', url: '/flux/service/netstat/all', value: '*' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
