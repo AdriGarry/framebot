@@ -7,16 +7,7 @@ const log = new Logger(__filename);
 
 module.exports = {
   cron: {
-    full: [
-      { cron: '5 0 0 * * *', flux: { id: 'service|context|goToSleep' } },
-      {
-        cron: '13 13 13 * * *',
-        flux: [
-          { id: 'interface|tts|speak', data: { lg: 'en', msg: 'Auto restart' } },
-          { id: 'service|context|restart', conf: { delay: 3 } }
-        ]
-      }
-    ]
+    full: [{ cron: '5 0 0 * * *', flux: { id: 'service|context|goToSleep' } }]
   }
 };
 
@@ -36,7 +27,7 @@ function contextHandler(flux) {
   } else if (flux.id == 'updateRestart') {
     updateConf(flux.value, true);
   } else if (flux.id == 'reset') {
-    resetCore();
+    resetConf();
   } else Core.error('unmapped flux in Context service', flux, false);
 }
 
@@ -80,8 +71,8 @@ function updateConf(newConf, restart) {
   }
 }
 
-/** Function to reset Core (/tmp/ directory) */
-function resetCore() {
+/** Function to reset conf (& /tmp directory) */
+function resetConf() {
   new Flux('interface|sound|reset');
   Files.deleteFolderRecursive(Core._TMP);
   log.INFO('reset conf and restart');
