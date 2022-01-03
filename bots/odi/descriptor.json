@@ -57,14 +57,14 @@
       "id": "0x01F4BF8E/4",
       "cron": [
         {
-          "cron": "35 0 5-7,17-21 * * 1,4,5",
+          "cron": "35 0 5-7,17-21 * * 1,2,4,5",
           "flux": {
             "id": "service|radiator|toggle",
             "data": "on"
           }
         },
         {
-          "cron": "35 0 5-21 * * 2,3",
+          "cron": "35 0 5-21 * * 3",
           "flux": {
             "id": "service|radiator|toggle",
             "data": "on"
