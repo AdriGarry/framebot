@@ -87,9 +87,9 @@ function parseReceivedSignal(receivedSignal) {
     Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
   }
 
-  //  ON: 0008c8970a000060
-  // OFF: 0008c8970a010f60
-  if (receivedSignal.indexOf('0008c8970a000060') > -1) {
+  //  ON: 0008c8970a010f60
+  // OFF: 0008c8970a000060
+  if (receivedSignal.indexOf('0008c8970a010f60') > -1) {
     log.test('Motion detected!');
     Scheduler.debounce(new Flux('interface|hardware|light', 10), 60, true);
   }
