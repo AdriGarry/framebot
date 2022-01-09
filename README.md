@@ -5,7 +5,6 @@
 ![Top language](https://img.shields.io/github/languages/top/adrigarry/framebot)
 ![Total lines](https://img.shields.io/tokei/lines/github/adrigarry/framebot)
 ![Code size](https://img.shields.io/github/languages/code-size/adrigarry/framebot)
-![Repo size](https://img.shields.io/github/repo-size/adrigarry/framebot)
 
 [![Pull request](https://img.shields.io/github/issues-pr/adrigarry/framebot)](https://github.com/AdriGarry/framebot/pulls)
 [![Commit](https://img.shields.io/github/commit-activity/w/adrigarry/framebot)](https://github.com/AdriGarry/framebot/commits/master)
