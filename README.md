@@ -11,7 +11,7 @@
 [![Last commit](https://img.shields.io/github/last-commit/adrigarry/framebot)](https://github.com/AdriGarry/framebot/commits/master)
 [![Build status](https://img.shields.io/github/workflow/status/adrigarry/framebot/CI)](https://github.com/AdriGarry/framebot/actions)
 
-**Framebot** is a NodeJS framework to autorun, automation & interaction.
+**Framebot** is a NodeJS framework to automation & interaction.
 
 This is a homemade Raspberry Pi program, to run JS modules, with an API (logger, tools...).
 
