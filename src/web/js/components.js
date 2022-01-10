@@ -150,6 +150,9 @@ app.component('tts', {
           resetAutocomplete();
         } else if (option.type === 'clear') {
           resetAutocomplete();
+        } else {
+          navigator.clipboard.writeText(ctrl.tts.msg);
+          UIService.showToast("'" + ctrl.textInput + "' copied");
         }
       }
     };
