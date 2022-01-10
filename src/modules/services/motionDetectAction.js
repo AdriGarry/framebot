@@ -22,17 +22,33 @@ function motionDetect() {
   }
 }
 
-function motionDetectAwake() {
-  new Flux('interface|sound|play', { mp3: 'system/sonar.mp3' });
-}
-
-function motionDetectSleep() {
-  // Scheduler.debounce(new Flux('interface|hardware|light', 10), 60, true);
-  new Flux('interface|hardware|light', 3);
-}
-
 function motionDetectTimeout() {
   log.info('Motion detect timeout');
 
-  //new Flux('interface|led|altLeds', { speed: 30, duration: 1.5 }); //, { log: 'trace' }
+  if (Core.isAwake()) {
+  } else {
+  }
+}
+
+function motionDetectAwake() {
+  let moodLevel = Core.run('mood');
+  if (moodLevel >= 2) moodLevel2();
+  if (moodLevel >= 3) moodLevel3();
+  if (moodLevel >= 4) moodLevel4();
+  if (moodLevel >= 5) moodLevel5();
+
+  function moodLevel2() {
+    new Flux('interface|sound|play', { mp3: 'system/sonar.mp3' });
+  }
+
+  function moodLevel3() {
+    new Flux('service|interaction|random');
+  }
+
+  function moodLevel4() {}
+  function moodLevel5() {}
+}
+
+function motionDetectSleep() {
+  new Flux('interface|hardware|light', 10);
 }
