@@ -53,9 +53,8 @@ module.exports = class Flux {
 
     if (!this.isValid()) return;
 
-    if (this.delay && Number(this.delay)) {
-      this.schedule();
-      return;
+    if (this.delay) {
+      return this.schedule();
     }
 
     Core.run('stats.fluxCount', Core.run('stats.fluxCount') + 1);
@@ -81,7 +80,7 @@ module.exports = class Flux {
       if (i == this.loop) {
         clearInterval(interval);
       }
-    }, Number(this.delay) * 1000);
+    }, this.delay * 1000);
   }
 
   fire() {
