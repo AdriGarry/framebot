@@ -45,7 +45,9 @@ function motionDetectAwake() {
     new Flux('service|interaction|random');
   }
 
-  function moodLevel4() {}
+  function moodLevel4() {
+    new Flux('service|interaction|random', null, { delay: 10 });
+  }
   function moodLevel5() {}
 }
 
