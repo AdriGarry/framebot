@@ -86,9 +86,9 @@ function parseReceivedSignal(receivedSignal) {
     });
     Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
   } else if (receivedSignal.indexOf('0008c8970a010f60') > -1) {
-    new Flux('service|motionDetectAction|on');
+    new Flux('service|motionDetectAction|detect');
   } else if (receivedSignal.indexOf('0008c8970a000060') > -1) {
-    new Flux('service|motionDetectAction|off');
+    new Flux('service|motionDetectAction|timeout');
   }
 }
 
