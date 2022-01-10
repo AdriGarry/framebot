@@ -7,7 +7,7 @@ const log = new Logger(__filename);
 
 module.exports = {
   cron: {
-    base: [{ cron: '20 */20 * * * *', flux: { id: 'service|netstat|all' } }]
+    base: [{ cron: '20 5 * * * *', flux: { id: 'service|netstat|all' } }]
   }
 };
 
