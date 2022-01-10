@@ -85,13 +85,10 @@ function parseReceivedSignal(receivedSignal) {
       if (DEVICE_LIST[device].id.substr(DEVICE_LIST[device].id.length - 1) == plugId) deviceName = device;
     });
     Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
-  }
-
-  //  ON: 0008c8970a010f60
-  // OFF: 0008c8970a000060
-  if (receivedSignal.indexOf('0008c8970a010f60') > -1) {
-    log.test('Motion detected!');
-    Scheduler.debounce(new Flux('interface|hardware|light', 10), 60, true);
+  } else if (receivedSignal.indexOf('0008c8970a010f60') > -1) {
+    new Flux('service|motionDetectAction|on');
+  } else if (receivedSignal.indexOf('0008c8970a000060') > -1) {
+    new Flux('service|motionDetectAction|off');
   }
 }
 
