@@ -15,7 +15,8 @@ Observers.attachFluxParseOptions('service', 'motionDetectAction', FLUX_PARSE_OPT
 let LAST = { DETECTION: null, TIMEOUT: null };
 
 function motionDetect() {
-  log.info('Motion detected');
+  let lastDetectionInSec = (LAST.DETECTION - new Date()) / 1000;
+  log.info('Motion detected', '[last motion detected', lastDetectionInSec + 's ago]');
   LAST.DETECTION = new Date();
   LAST.TIMEOUT = null;
 
@@ -27,8 +28,9 @@ function motionDetect() {
 }
 
 function motionDetectTimeout() {
-  log.info('Motion detect timeout');
   LAST.TIMEOUT = new Date();
+  let motionDuration = (LAST.DETECTION - LAST.TIMEOUT) / 1000;
+  log.info('Motion timeout', '[duration:', motionDuration + 's]');
 
   if (Core.isAwake()) {
   } else {
