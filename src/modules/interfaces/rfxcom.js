@@ -77,19 +77,23 @@ function parseReceivedSignal(receivedSignal) {
 
   let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(receivedSignal);
   if (matchPlug) {
-    let plugId = matchPlug.groups.plugId;
-    let value = matchPlug.groups.positiveValue;
-    log.debug('parseReceivedSignal', plugId, value);
-    let deviceName;
-    Object.keys(DEVICE_LIST).forEach(device => {
-      if (DEVICE_LIST[device].id.substr(DEVICE_LIST[device].id.length - 1) == plugId) deviceName = device;
-    });
-    Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
+    updateStatusForPlug(matchPlug);
   } else if (receivedSignal.indexOf('0008c8970a010f60') > -1) {
     new Flux('service|motionDetectAction|detect');
   } else if (receivedSignal.indexOf('0008c8970a000060') > -1) {
     new Flux('service|motionDetectAction|timeout');
   }
+}
+
+function updateStatusForPlug(matchPlug) {
+  let plugId = matchPlug.groups.plugId;
+  let value = matchPlug.groups.positiveValue;
+  log.debug('parseReceivedSignal', plugId, value);
+  let deviceName;
+  Object.keys(DEVICE_LIST).forEach(device => {
+    if (DEVICE_LIST[device].id.substr(DEVICE_LIST[device].id.length - 1) == plugId) deviceName = device;
+  });
+  Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
 }
 
 function toggleLock(lockValue) {
