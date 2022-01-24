@@ -44,6 +44,11 @@ rfxtrx.initialise(function () {
 
   rfxtrx.on('receive', function (evt) {
     new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
+    log.test(Buffer.from(evt));
+    // log.test(Buffer.from(evt).values().forEach(console.log));
+    // for (x of Buffer.from(evt).values()) {
+    //   console.log(x);
+    // }
     parseReceivedSignal(Buffer.from(evt).toString('hex'));
   });
 
