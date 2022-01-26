@@ -1,6 +1,6 @@
 {
   "name": "framebot",
-  "version": "7.10.12",
+  "version": "7.10.13",
   "private": true,
   "description": "Framebot program to autorun, interact & manage stuff...",
   "main": "framebot",
@@ -34,7 +34,7 @@
     "ws": "7.4.6"
   },
   "devDependencies": {
-    "mocha": "^9.1.3",
+    "mocha": "^9.2.0",
     "prettier": "^2.4.1"
   }
 }
