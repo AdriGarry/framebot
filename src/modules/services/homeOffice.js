@@ -19,6 +19,11 @@ function startHomeOffice() {
   log.info('startHomeoffice');
   // TODO Test isAwake ...
   setupHomeOffice();
+  Scheduler.decrement('resetHomOffice', 6, resetHomOffice, 60 * 60);
+}
+
+function resetHomOffice() {
+  log.info('Reset home office functions... TODO !');
 }
 
 function setupHomeOffice() {
