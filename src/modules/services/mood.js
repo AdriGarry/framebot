@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const { Core, Flux, Logger, Observers } = require('./../../api');
+const { Core, Flux, Logger, Observers, Scheduler } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -20,15 +20,23 @@ const MOOD_LEVELS = {
   5: { volume: 90 } // party mode + pirate
 };
 
+const DEFAULT_MOOD_LEVEL = Core.run('mood');
+
 setImmediate(() => {
-  setMoodLevel(Core.run('mood'));
+  setMoodLevel(DEFAULT_MOOD_LEVEL);
 });
 
 function setMoodLevel(newMoodLevelId) {
   log.info('Setting mood level to', newMoodLevelId);
   Core.run('mood', newMoodLevelId);
   new Flux('interface|sound|volume', MOOD_LEVELS[newMoodLevelId].volume);
+  Scheduler.decrement('moodReset', 6, backToDefaultMoodLevel, 60 * 60);
   additionalMoodSetup(newMoodLevelId);
+}
+
+function backToDefaultMoodLevel() {
+  log.info('Back to default mood level:', DEFAULT_MOOD_LEVEL);
+  setMoodLevel(DEFAULT_MOOD_LEVEL);
 }
 
 function additionalMoodSetup(moodLevelId) {
