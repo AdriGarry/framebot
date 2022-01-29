@@ -30,7 +30,7 @@ function setMoodLevel(newMoodLevelId) {
   log.info('Setting mood level to', newMoodLevelId);
   Core.run('mood', newMoodLevelId);
   new Flux('interface|sound|volume', MOOD_LEVELS[newMoodLevelId].volume);
-  Scheduler.decrement('moodReset', 6, backToDefaultMoodLevel, 60 * 60);
+  Scheduler.delay(6 * 60 * 60).then(backToDefaultMoodLevel);
   additionalMoodSetup(newMoodLevelId);
 }
 
