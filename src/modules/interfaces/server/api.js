@@ -54,7 +54,7 @@ function attachUnmappedRouteHandler(ui, mode) {
 function attachDefaultRoutes(ui) {
   /** DASHBOARD SECTION */
   ui.get('/dashboard', function (req, res) {
-    new Flux('interface|hardware|runtime');
+    new Flux('interface|hardware|runtime', false, { log: 'debug' });
     let etatBtn = Core.run('etat');
     let cpuTemperature = Core.run('cpu.temperature');
     let cpuUsage = Core.run('cpu.usage');
