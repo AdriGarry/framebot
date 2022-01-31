@@ -131,7 +131,7 @@ function _appendFileData(data, obj, filePath) {
         fileData = JSON.parse(data);
       } catch (err) {
         log.warn(data);
-        log.warn('Invalid content for file' + filePath + '. Reinitializing file with an empty array');
+        log.warn('Invalid content for file ' + filePath + '. Reinitializing file with an empty array.');
       }
       if (!Array.isArray(fileData)) fileData = [fileData];
 

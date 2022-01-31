@@ -59,6 +59,17 @@ describe('Scheduler', function () {
     });
   });
 
+  describe('Scheduler.getDecrementLog', function () {
+    it('should return decrement item informations for logging', function () {
+      const id = 'decrementTest',
+        delayToTimeout = 120,
+        stepDelay = 60;
+      const result = Scheduler.getDecrementLog(id, delayToTimeout, stepDelay);
+      const expected = id + ' [stepsToTimeout=' + delayToTimeout / stepDelay + ', stepDelay=' + stepDelay + ', delayToTimeout=' + delayToTimeout + ']';
+      assert.strictEqual(expected, result);
+    });
+  });
+
   describe('Scheduler.debounce', function () {
     xit('TODO...', function () {
       assert.fail();
