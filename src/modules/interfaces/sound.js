@@ -92,7 +92,7 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
     if (err) log.error('player.onClose ' + soundTitle + ' error', err);
     if (!noLog) {
       let playTime = Utils.formatDuration(Math.round(Utils.executionTime(startPlayTime) / 100) / 10);
-      log.info('play_end ' + soundTitle + ' time=' + playTime);
+      log.info('play_end ' + soundTitle + ' [duration:', playTime + ']');
     }
     clearInterval(playerProcess.ledFlag);
     delete playerInstances[sound];

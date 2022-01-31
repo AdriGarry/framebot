@@ -86,6 +86,8 @@ function etatButtonAction(value) {
   Core.run('etat', value ? 'high' : 'low');
   log.info('Etat button value:', Core.run('etat'));
   new Flux('interface|led|toggle', { leds: ['satellite'], value: value }, { log: 'trace' });
+  // TODO mettre le mood level à 2 ? Mais attention à faire avant le volume !
+  // new Flux('service|mood|set', 2);
   let newVolume = Core.isAwake() ? (value ? 90 : 50) : 0;
-  new Flux('interface|sound|volume', newVolume, { log: 'debug' });
+  new Flux('interface|sound|volume', newVolume, { /*delay: 1,*/ log: 'debug' });
 }

@@ -1221,6 +1221,7 @@ app.component('tasks', {
       actionList: [
         { label: 'Renew Certbot', icon: 'fas fa-tools', url: '/flux/service/task/certbot' },
         { label: 'Mosquito', icon: 'fas fa-spider', url: '/flux/service/mosquitoRepellent/toggle', continu: true },
+        { label: 'HomeOffice', icon: 'fas fa-laptop-code', url: '/flux/service/homeOffice/start' },
         { label: 'goToSleep', icon: 'fas fa-bed', url: '/flux/service/task/goToSleep' }
       ]
     };
