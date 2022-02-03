@@ -45,7 +45,12 @@ function setupRadiatorMode() {
 
   if (radiatorMode == 'auto') {
     RADIATOR_JOB.AUTO.start();
-    //onOrOffUntilNextOrder();
+    //radiatorOrder(onOrOffUntilNextOrder());
+    log.test();
+    log.test('onOrOffUntilNextOrder:', onOrOffUntilNextOrder());
+
+    // log.test('next AUTO dates:', new Date(RADIATOR_JOB.AUTO.nextDates()).toLocaleString());
+    // log.test('next OFF dates:', new Date(RADIATOR_JOB.OFF.nextDates()).toLocaleString());
   } else if (typeof radiatorMode === 'object') {
     setRadiatorTimeout(radiatorMode);
   } else if (radiatorMode == 'on') {
@@ -60,13 +65,13 @@ function setupRadiatorMode() {
 }
 
 function onOrOffUntilNextOrder() {
-  let datesToCompare = [
-    { mode: 'off', date: new Date(RADIATOR_JOB.OFF.nextDate()).toLocaleString() },
-    { mode: 'on', date: new Date(RADIATOR_JOB.AUTO.nextDate()).toLocaleString() }
-  ];
-  let nextDate = Utils.getNextDateObject(datesToCompare);
-  log.info('onOrOffUntilNextOrder', nextDate);
-  radiatorOrder(nextDate.mode);
+  log.test(typeof RADIATOR_JOB.AUTO.nextDates());
+  log.test(typeof new Date(RADIATOR_JOB.AUTO.nextDates()));
+  let nextAutoOrderDateTime = new Date(RADIATOR_JOB.AUTO.nextDates());
+  let secondsRemainingToNextOnOrder = Utils.getSecondesDifferenceFromNow(nextAutoOrderDateTime);
+  let order = secondsRemainingToNextOnOrder > 3600 ? 'off' : 'on';
+  log.info('onOrOffUntilNextOrder', order, '(' + secondsRemainingToNextOnOrder + ')');
+  return order;
 }
 
 function radiatorOrder(mode) {
@@ -112,13 +117,19 @@ function decrementRadiatorTimeout() {
 
 function endRadiatorTimeout() {
   let radiatorTimeoutMode = Core.conf('radiator').mode;
+  setRadiatorModeToAuto();
+
+  // TODO determinate newRadiatorMode from cron https://www.npmjs.com/package/cron#api
+  // if next AUTO is less than one hour, then ON, OFF otherwise
+  let newRadiatorMode = radiatorTimeoutMode == 'on' ? 'off' : 'on'; // invert mode
+  radiatorOrder(newRadiatorMode);
+  log.info('radiator timeout, back to', newRadiatorMode, 'before auto mode...');
+}
+
+function setRadiatorModeToAuto() {
   Core.conf('radiator', 'auto');
   RADIATOR_JOB.AUTO.start();
   RADIATOR_JOB.OFF.start();
-
-  let newRadiatorTimeoutMode = radiatorTimeoutMode == 'on' ? 'off' : 'on'; // invert mode
-  radiatorOrder(newRadiatorTimeoutMode);
-  log.info('radiator timeout, back to', newRadiatorTimeoutMode, 'before auto mode...');
 }
 
 function isRadiatorSeason() {
