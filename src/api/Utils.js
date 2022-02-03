@@ -2,7 +2,8 @@
 'use strict';
 
 const { exec } = require('child_process'),
-  os = require('os');
+  os = require('os'),
+  util = require('util');
 
 const logger = require('./Logger');
 
@@ -152,13 +153,15 @@ module.exports = class Utils {
     return now;
   }
 
-  /**  Function to return next object with date from array of objects with date property **/
-  static getNextDateObject(datesObjectArray) {
-    let nextDateObject;
-    datesObjectArray.forEach(obj => {
-      if (!nextDateObject || (nextDateObject && nextDateObject.date > obj.date)) nextDateObject = obj;
-    });
-    return nextDateObject;
+  /** Function to return seconds difference from now */
+  static getSecondesDifferenceFromNow(givenDate) {
+    log.test(givenDate, typeof givenDate);
+    if (util.types.isDate(givenDate)) {
+      log.error('Given date is not a valid Date instance', givenDate, typeof givenDate);
+    }
+    let diff = Math.abs(new Date() - givenDate);
+    let seconds = Math.floor(diff / 1000);
+    return seconds;
   }
 
   static isWeekend(date) {
