@@ -20,7 +20,12 @@ Observers.attachFluxParseOptions('service', 'homeOffice', FLUX_PARSE_OPTIONS);
 const HOME_OFFICE_MOOD_LEVEL = 3;
 
 function startHomeOffice() {
+  if (Core.run('homeOffice')) {
+    log.info('Homeoffice already activated');
+    return;
+  }
   log.info('Starting Homeoffice');
+  Core.run('homeOffice', true);
   setupHomeOffice();
   new CronJob('* 16 17 * * *', function () {
     stopHomeOffice();
@@ -29,6 +34,7 @@ function startHomeOffice() {
 
 function stopHomeOffice() {
   log.info('Stopping home office');
+  Core.run('homeOffice', false);
   new Flux('interface|tts|speak', { lg: 'en', msg: 'Stopping home office and restarting...' });
   new Flux('service|powerPlug|toggle', { plug: 'plugA', mode: false });
   new Flux('service|context|restart', null, { delay: 5 });
