@@ -20,6 +20,12 @@ const FLUX_PARSE_OPTIONS = [
 
 Observers.attachFluxParseOptions('service', 'audioRecord', FLUX_PARSE_OPTIONS);
 
+const RECORD_FILE = Core._TMP + 'record.json',
+  NO_RECORD = 'No record',
+  RECORD_TTS = { lg: 'en', msg: 'record' },
+  NO_RECORD_TTS = { lg: 'en', msg: "I don't have any record" },
+  HOURS_TO_CLEAR_RECORDS = 12;
+
 setImmediate(() => {
   updateRecord();
   log.info('Audio record flag initialized');
@@ -30,12 +36,6 @@ setImmediate(() => {
 setInterval(function () {
   updateRecord();
 }, 10000);
-
-const RECORD_FILE = Core._TMP + 'record.json',
-  NO_RECORD = 'No record',
-  RECORD_TTS = { lg: 'en', msg: 'record' },
-  NO_RECORD_TTS = { lg: 'en', msg: "I don't have any record" },
-  HOURS_TO_CLEAR_RECORDS = 6;
 
 var lastRecordPath = null,
   recordListPath = [],
@@ -68,7 +68,6 @@ function checkRecord() {
         // JSON.parse(data);
         updateRecord();
         playAllRecords();
-        clearAudioRecordLater();
       } else {
         log.debug(NO_RECORD);
       }
@@ -101,6 +100,7 @@ function playLastRecord() {
     return;
   }
   new Flux('interface|sound|play', { mp3: lastRecordPath /*, volume: Core.run('volume') * 3*/ }, { log: 'trace' });
+  clearAudioRecordLater();
 }
 
 function playAllRecords() {
@@ -125,6 +125,7 @@ function playAllRecords() {
         Core.error('playAllRecords error', err);
       });
   });
+  clearAudioRecordLater();
 }
 
 /** Function to schedule voicemail deletion */
