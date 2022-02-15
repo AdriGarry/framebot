@@ -15,7 +15,7 @@ Observers.attachFluxParseOptions('service', 'motionDetectAction', FLUX_PARSE_OPT
 let LAST = { DETECTION: null, TIMEOUT: null };
 
 function motionDetect() {
-  let lastDetectionInSec = (LAST.DETECTION - new Date()) / 1000;
+  let lastDetectionInSec = (new Date().getTime() - LAST.DETECTION.getTime()) / 1000;
   log.info('Motion detected', '[last motion detected', lastDetectionInSec + 's ago]');
   LAST.DETECTION = new Date();
   LAST.TIMEOUT = null;
@@ -29,11 +29,13 @@ function motionDetect() {
 
 function motionDetectTimeout() {
   LAST.TIMEOUT = new Date();
-  let motionDuration = (LAST.DETECTION - LAST.TIMEOUT) / 1000;
+  let motionDuration = (LAST.TIMEOUT.getTime() - LAST.DETECTION.getTime()) / 1000;
   log.info('Motion timeout', '[duration:', motionDuration + 's]');
 
   if (Core.isAwake()) {
+    motionDetectTimeoutAwake(motionDuration);
   } else {
+    motionDetectTimeoutSleep();
   }
 }
 
@@ -47,17 +49,26 @@ function motionDetectAwake() {
   function moodLevel2() {
     new Flux('interface|sound|play', { mp3: 'system/sonar.mp3' });
   }
-
   function moodLevel3() {
     new Flux('service|interaction|random');
   }
-
   function moodLevel4() {
     new Flux('service|interaction|random', null, { delay: 10 });
   }
   function moodLevel5() {}
 }
 
+function motionDetectTimeoutAwake(motionDuration) {
+  log.info('motionDetectTimeoutAwake');
+  new Flux('interface|tts|speak', { msg: 'timeout', lg: 'en' });
+  //new Flux('interface|tts|speak', { msg: 'timeout ' + motionDuration + ' sec', lg: 'en' });
+}
+
 function motionDetectSleep() {
+  log.info('motionDetectSleep');
   new Flux('interface|hardware|light', 10);
+}
+
+function motionDetectTimeoutSleep() {
+  log.info('motionDetectTimeoutSleep');
 }

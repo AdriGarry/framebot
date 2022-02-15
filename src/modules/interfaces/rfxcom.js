@@ -44,12 +44,7 @@ rfxtrx.initialise(function () {
 
   rfxtrx.on('receive', function (evt) {
     new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
-    log.test(Buffer.from(evt));
-    // log.test(Buffer.from(evt).values().forEach(console.log));
-    // for (x of Buffer.from(evt).values()) {
-    //   console.log(x);
-    // }
-    parseReceivedSignal(Buffer.from(evt).toString('hex'));
+    parseReceivedSignal(evt);
   });
 
   rfxtrx.on('disconnect', function (evt) {
@@ -78,15 +73,21 @@ const PLUG_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/01f4bf8e0(?<plugId>.)(?<pos
 
 function parseReceivedSignal(receivedSignal) {
   // TODO Not working, check regex...
-  log.info('Rfxcom receive:', receivedSignal);
+  let parsedReceivedSignal = Buffer.from(receivedSignal).toString('hex');
+  log.info('Rfxcom receive:', parsedReceivedSignal);
+  log.test(receivedSignal);
+  // log.test(Buffer.from(receivedSignal));
+  // log.test(Buffer.from(receivedSignal).toString());
 
-  let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(receivedSignal);
+  let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(parsedReceivedSignal);
   if (matchPlug) {
     updateStatusForPlug(matchPlug);
-  } else if (receivedSignal.indexOf('0008c8970a010f60') > -1) {
+  } else if (parsedReceivedSignal.indexOf('0008c8970a010f60') > -1) {
     new Flux('service|motionDetectAction|detect');
-  } else if (receivedSignal.indexOf('0008c8970a000060') > -1) {
+  } else if (parsedReceivedSignal.indexOf('0008c8970a000060') > -1) {
     new Flux('service|motionDetectAction|timeout');
+  } else {
+    log.warn('Unreconized received signal:', parsedReceivedSignal, receivedSignal);
   }
 }
 

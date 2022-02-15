@@ -37,7 +37,7 @@
   "runtime": {
     "etat": null,
     "volume": null,
-    "mood": 1,
+    "mood": 2,
     "max": null,
     "music": false,
     "alarm": false,
