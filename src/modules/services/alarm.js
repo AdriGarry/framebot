@@ -112,7 +112,7 @@ function alarmPart2() {
   return new Promise((resolve, reject) => {
     log.info('cocorico !!');
     new Flux('interface|arduino|write', 'playHornDoUp');
-    new Flux('interface|sound|play', { mp3: 'system/cocorico.mp3', volume: 30 });
+    new Flux('interface|sound|play', { mp3: 'system/cocorico.mp3', volume: 10 });
     if (isBirthday()) {
       new Flux('service|party|birthdaySong');
       setTimeout(function () {
