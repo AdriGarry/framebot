@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const { Core, Flux, Logger, Observers, Scheduler, Utils } = require('./../../api');
+const { Core, Flux, Logger, Observers } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -15,6 +15,9 @@ Observers.attachFluxParseOptions('service', 'motionDetectAction', FLUX_PARSE_OPT
 let LAST = { DETECTION: null, TIMEOUT: null };
 
 function motionDetect() {
+  if (!LAST.DETECTION) {
+    LAST.DETECTION = new Date();
+  }
   let lastDetectionInSec = (new Date().getTime() - LAST.DETECTION.getTime()) / 1000;
   log.info('Motion detected', '[last motion detected', lastDetectionInSec + 's ago]');
   LAST.DETECTION = new Date();
@@ -29,6 +32,7 @@ function motionDetect() {
 
 function motionDetectTimeout() {
   LAST.TIMEOUT = new Date();
+  if (!LAST.DETECTION) LAST.DETECTION = new Date();
   let motionDuration = (LAST.TIMEOUT.getTime() - LAST.DETECTION.getTime()) / 1000;
   log.info('Motion timeout', '[duration:', motionDuration + 's]');
 

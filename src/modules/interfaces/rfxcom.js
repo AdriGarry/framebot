@@ -75,16 +75,13 @@ function parseReceivedSignal(receivedSignal) {
   // TODO Not working, check regex...
   let parsedReceivedSignal = Buffer.from(receivedSignal).toString('hex');
   log.info('Rfxcom receive:', parsedReceivedSignal);
-  log.test(receivedSignal);
-  // log.test(Buffer.from(receivedSignal));
-  // log.test(Buffer.from(receivedSignal).toString());
 
   let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(parsedReceivedSignal);
   if (matchPlug) {
     updateStatusForPlug(matchPlug);
-  } else if (parsedReceivedSignal.indexOf('0008c8970a010f60') > -1) {
+  } else if (parsedReceivedSignal.indexOf('0008c8970a010f') > -1) {
     new Flux('service|motionDetectAction|detect');
-  } else if (parsedReceivedSignal.indexOf('0008c8970a000060') > -1) {
+  } else if (parsedReceivedSignal.indexOf('0008c8970a0000') > -1) {
     new Flux('service|motionDetectAction|timeout');
   } else {
     log.warn('Unreconized received signal:', parsedReceivedSignal, receivedSignal);
