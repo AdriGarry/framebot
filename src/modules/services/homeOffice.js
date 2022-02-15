@@ -60,6 +60,11 @@ function setInteractions() {
   // Clockwork ~each 13min
   new Flux('service|time|now', null, { delay: 13 * 60, loop: 30 });
 
+  new CronJob('* 5 16 * * *', function () {
+    new Flux('interface|tts|speak', 'Et un brin de toilette ?');
+    new Flux('interface|tts|speak', 'Sans oublier les dents !');
+  });
+
   // Russia ~each 50min
   new Flux('service|interaction|russia', null, { delay: 50 * 60, loop: 10 });
 
