@@ -40,6 +40,7 @@ Core.run('powerPlug', powerPlugStatus);
 
 rfxtrx.initialise(function () {
   Core.run('rfxcom', true);
+  new Flux('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
   log.info('Rfxcom gateway ready', '[' + Utils.executionTime(Core.startTime) + 'ms]');
 
   rfxtrx.on('receive', function (evt) {
