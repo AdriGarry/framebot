@@ -18,7 +18,7 @@ function motionDetect() {
   if (!LAST.DETECTION) {
     LAST.DETECTION = new Date();
   }
-  let lastDetectionInSec = (new Date().getTime() - LAST.DETECTION.getTime()) / 1000;
+  let lastDetectionInSec = Math.round((new Date().getTime() - LAST.DETECTION.getTime()) / 1000);
   log.info('Motion detected', '[last motion detected', lastDetectionInSec + 's ago]');
   LAST.DETECTION = new Date();
   LAST.TIMEOUT = null;
@@ -33,7 +33,7 @@ function motionDetect() {
 function motionDetectTimeout() {
   LAST.TIMEOUT = new Date();
   if (!LAST.DETECTION) LAST.DETECTION = new Date();
-  let motionDuration = (LAST.TIMEOUT.getTime() - LAST.DETECTION.getTime()) / 1000;
+  let motionDuration = Math.round((LAST.TIMEOUT.getTime() - LAST.DETECTION.getTime()) / 1000);
   log.info('Motion timeout', '[duration:', motionDuration + 's]');
 
   if (Core.isAwake()) {
@@ -51,7 +51,7 @@ function motionDetectAwake() {
   if (moodLevel >= 5) moodLevel5();
 
   function moodLevel2() {
-    new Flux('interface|sound|play', { mp3: 'system/sonar.mp3' });
+    new Flux('interface|sound|motionDetect');
   }
   function moodLevel3() {
     new Flux('service|interaction|random');
@@ -63,9 +63,7 @@ function motionDetectAwake() {
 }
 
 function motionDetectTimeoutAwake(motionDuration) {
-  log.info('motionDetectTimeoutAwake');
-  new Flux('interface|tts|speak', { msg: 'timeout', lg: 'en' });
-  //new Flux('interface|tts|speak', { msg: 'timeout ' + motionDuration + ' sec', lg: 'en' });
+  new Flux('interface|tts|speak', 'timeout ' + motionDuration + ' sec');
 }
 
 function motionDetectSleep() {
@@ -74,5 +72,5 @@ function motionDetectSleep() {
 }
 
 function motionDetectTimeoutSleep() {
-  log.info('motionDetectTimeoutSleep');
+  log.info('motionDetectTimeoutSleep, nothing implemented.');
 }
