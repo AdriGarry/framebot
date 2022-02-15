@@ -23,6 +23,7 @@ const FLUX_PARSE_OPTIONS = [
   { id: 'playRandom', fn: playSoundRandomPosition, condition: { isAwake: true } },
   { id: 'error', fn: playErrorSound, condition: { isAwake: true } },
   { id: 'UI', fn: playUISound, condition: { isAwake: true } },
+  { id: 'motionDetect', fn: playMotionDetectSound, condition: { isAwake: true } },
   { id: 'reset', fn: resetSoundOutput, condition: { isAwake: true } }
 ];
 
@@ -196,6 +197,10 @@ function playErrorSound() {
 
 function playUISound() {
   playSound({ mp3: 'system/UIrequestSound.mp3', noLog: true, noLed: true });
+}
+
+function playMotionDetectSound() {
+  playSound({ mp3: 'system/sonar.mp3', noLog: true, noLed: true });
 }
 
 /** Function to reset sound output */
