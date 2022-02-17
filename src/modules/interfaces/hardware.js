@@ -28,7 +28,7 @@ const FLUX_PARSE_OPTIONS = [
   { id: 'shutdown', fn: shutdown },
   { id: 'light', fn: light },
   { id: 'lightOn', fn: lightOn },
-  { id: 'lightOff', fn: lightOff },
+  { id: 'lightOff', fn: blinkLightThenOff },
   { id: 'runtime', fn: runtime },
   { id: 'cpuTTS', fn: cpuStatsTTS },
   { id: 'soulTTS', fn: soulTTS },
@@ -89,7 +89,6 @@ function shutdown() {
 }
 
 const LIGTH_LEDS = ['eye', 'belly'];
-/** Function to use belly led as light */
 function light(duration) {
   log.info('light [duration=' + duration + 's]');
   if (isNaN(duration)) Core.error('light error: duration arg is not a number!', duration, false);
@@ -104,13 +103,13 @@ function light(duration) {
 
 function lightOn() {
   log.info('light On');
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 });
+  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'TRACE' });
 }
 
-function lightOff() {
+function blinkLightThenOff() {
   log.info('light Off');
-  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 200, loop: 8 });
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 2 });
+  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 150, loop: 4 }, { log: 'TRACE' });
+  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 0.7 }, { log: 'TRACE' });
 }
 
 /** Function to tts cpu stats */
