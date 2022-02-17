@@ -27,6 +27,8 @@ const FLUX_PARSE_OPTIONS = [
   { id: 'reboot', fn: reboot },
   { id: 'shutdown', fn: shutdown },
   { id: 'light', fn: light },
+  { id: 'lightOn', fn: lightOn },
+  { id: 'lightOff', fn: lightOff },
   { id: 'runtime', fn: runtime },
   { id: 'cpuTTS', fn: cpuStatsTTS },
   { id: 'soulTTS', fn: soulTTS },
@@ -98,6 +100,17 @@ function light(duration) {
   new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 200, loop: 8 }, { delay: duration - 2 });
 
   new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: duration });
+}
+
+function lightOn() {
+  log.info('light On');
+  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 });
+}
+
+function lightOff() {
+  log.info('light Off');
+  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 200, loop: 8 });
+  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 2 });
 }
 
 /** Function to tts cpu stats */
