@@ -79,6 +79,11 @@ function isAlarm() {
 }
 
 function startAlarmSequence() {
+  if (Core.run('etat') === 'low') {
+    log.info('Escaping alarm sequence...');
+    return;
+  }
+
   alarmPart1()
     .then(alarmPart2)
     .then(alarmPart3)
