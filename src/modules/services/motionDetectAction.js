@@ -24,9 +24,9 @@ function motionDetect() {
   LAST.TIMEOUT = null;
 
   if (Core.isAwake()) {
-    motionDetectAwake();
+    detectAwake(lastDetectionInSec);
   } else {
-    motionDetectSleep();
+    detectSleep(lastDetectionInSec);
   }
 }
 
@@ -37,13 +37,15 @@ function motionDetectTimeout() {
   log.info('Motion timeout', '[duration:', motionDuration + 's]');
 
   if (Core.isAwake()) {
-    motionDetectTimeoutAwake(motionDuration);
+    detectTimeoutAwake(motionDuration);
   } else {
-    motionDetectTimeoutSleep();
+    detectTimeoutSleep(motionDuration);
   }
 }
 
-function motionDetectAwake() {
+function detectAwake(lastDetectionInSec) {
+  new Flux('interface|hardware|blinkLightOff');
+
   let moodLevel = Core.run('mood');
   if (moodLevel >= 2) moodLevel2();
   if (moodLevel >= 3) moodLevel3();
@@ -51,10 +53,16 @@ function motionDetectAwake() {
   if (moodLevel >= 5) moodLevel5();
 
   function moodLevel2() {
-    new Flux('interface|sound|motionDetect');
+    let shouldReact = lastDetectionInSec > 60 ? true : false;
+    if (shouldReact) {
+      new Flux('interface|sound|motionDetect');
+    }
   }
   function moodLevel3() {
-    new Flux('service|interaction|random');
+    let shouldReact = lastDetectionInSec > 90 ? true : false;
+    if (shouldReact) {
+      new Flux('service|interaction|random');
+    }
   }
   function moodLevel4() {
     new Flux('service|interaction|random', null, { delay: 10 });
@@ -62,15 +70,25 @@ function motionDetectAwake() {
   function moodLevel5() {}
 }
 
-function motionDetectTimeoutAwake(motionDuration) {
-  new Flux('interface|tts|speak', 'timeout ' + motionDuration + ' sec');
+function detectTimeoutAwake(motionDuration) {
+  new Flux('interface|hardware|blinkLightOff', null, { delay: 1 });
+
+  let moodLevel = Core.run('mood');
+  if (moodLevel >= 2) moodLevel2(motionDuration);
+
+  function moodLevel2(motionDuration) {
+    if (motionDuration) new Flux('interface|tts|speak', motionDuration.toString());
+  }
 }
 
-function motionDetectSleep() {
-  log.info('motionDetectSleep');
-  new Flux('interface|hardware|light', 10);
+function detectSleep(lastDetectionInSec) {
+  let shouldReact = lastDetectionInSec > 60 ? true : false;
+  log.test('detectSleep. lastDetectionInSec:', lastDetectionInSec);
+  if (shouldReact) {
+    new Flux('interface|hardware|lightOn');
+  }
 }
 
-function motionDetectTimeoutSleep() {
-  log.info('motionDetectTimeoutSleep, nothing implemented.');
+function detectTimeoutSleep(motionDuration) {
+  new Flux('interface|hardware|blinkLightOff', null, { delay: 1 });
 }
