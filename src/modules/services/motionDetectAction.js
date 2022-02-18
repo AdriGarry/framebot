@@ -23,10 +23,13 @@ function motionDetect() {
   LAST.DETECTION = new Date();
   LAST.TIMEOUT = null;
 
-  if (Core.isAwake()) {
-    detectAwake(lastDetectionInSec);
-  } else {
-    detectSleep(lastDetectionInSec);
+  let shouldReact = lastDetectionInSec > 60 ? true : false;
+  if (shouldReact) {
+    if (Core.isAwake()) {
+      detectAwake(lastDetectionInSec);
+    } else {
+      detectSleep(lastDetectionInSec);
+    }
   }
 }
 
@@ -36,6 +39,8 @@ function motionDetectTimeout() {
   let motionDuration = Math.round((LAST.TIMEOUT.getTime() - LAST.DETECTION.getTime()) / 1000);
   log.info('Motion timeout', '[duration:', motionDuration + 's]');
 
+  new Flux('interface|hardware|blinkLightOff', null, { delay: 1, log: 'TRACE' });
+
   if (Core.isAwake()) {
     detectTimeoutAwake(motionDuration);
   } else {
@@ -44,51 +49,38 @@ function motionDetectTimeout() {
 }
 
 function detectAwake(lastDetectionInSec) {
-  new Flux('interface|hardware|blinkLightOff');
-
+  new Flux('interface|hardware|blinkLightOff', null, { log: 'TRACE' });
   let moodLevel = Core.run('mood');
-  if (moodLevel >= 2) moodLevel2();
-  if (moodLevel >= 3) moodLevel3();
-  if (moodLevel >= 4) moodLevel4();
-  if (moodLevel >= 5) moodLevel5();
 
-  function moodLevel2() {
-    let shouldReact = lastDetectionInSec > 60 ? true : false;
-    if (shouldReact) {
-      new Flux('interface|sound|motionDetect');
-    }
+  if (moodLevel >= 2) {
+    new Flux('interface|sound|motionDetect', null, { log: 'TRACE' });
+    new Flux('interface|tts|speak', lastDetectionInSec.toString());
   }
-  function moodLevel3() {
+
+  if (moodLevel >= 3) {
     let shouldReact = lastDetectionInSec > 90 ? true : false;
     if (shouldReact) {
       new Flux('service|interaction|random');
     }
   }
-  function moodLevel4() {
+
+  if (moodLevel >= 4) {
     new Flux('service|interaction|random', null, { delay: 10 });
   }
-  function moodLevel5() {}
 }
 
 function detectTimeoutAwake(motionDuration) {
-  new Flux('interface|hardware|blinkLightOff', null, { delay: 1 });
-
   let moodLevel = Core.run('mood');
-  if (moodLevel >= 2) moodLevel2(motionDuration);
 
-  function moodLevel2(motionDuration) {
-    if (motionDuration) new Flux('interface|tts|speak', motionDuration.toString());
+  if (moodLevel >= 2) {
+    // if (motionDuration) new Flux('interface|tts|speak', motionDuration.toString(), { log: 'TRACE' });
+    //if (motionDuration) new Flux('interface|tts|speak', { msg: 'dot', lg: 'en' }, { log: 'TRACE' });
   }
 }
 
 function detectSleep(lastDetectionInSec) {
-  let shouldReact = lastDetectionInSec > 60 ? true : false;
   log.test('detectSleep. lastDetectionInSec:', lastDetectionInSec);
-  if (shouldReact) {
-    new Flux('interface|hardware|lightOn');
-  }
+  new Flux('interface|hardware|lightOn', null, { log: 'TRACE' });
 }
 
-function detectTimeoutSleep(motionDuration) {
-  new Flux('interface|hardware|blinkLightOff', null, { delay: 1 });
-}
+function detectTimeoutSleep(motionDuration) {}
