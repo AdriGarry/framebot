@@ -108,17 +108,14 @@ function lightOn() {
 }
 
 function motionDetectLight() {
-  log.info('motionDetectLight');
   new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'TRACE' });
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 1, log: 'TRACE' });
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { delay: 1.1, log: 'TRACE' });
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 1.3, log: 'TRACE' });
+  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 120, loop: 2 }, { delay: 1, log: 'TRACE' });
+  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 1.4, log: 'TRACE' });
 }
 
 function blinkLightThenOff() {
-  log.info('blinkLightThenOff');
-  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 130, loop: 3 }, { log: 'TRACE' });
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 0.4, log: 'TRACE' });
+  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 120, loop: 2 }, { log: 'TRACE' });
+  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 0.3, log: 'TRACE' });
 }
 
 /** Function to tts cpu stats */
