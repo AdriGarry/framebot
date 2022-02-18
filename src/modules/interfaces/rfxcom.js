@@ -3,7 +3,7 @@
 
 const rfxcom = require('rfxcom');
 
-const { Core, Flux, Logger, Observers, Utils } = require('./../../api');
+const { Core, Flux, Logger, Observers, Scheduler, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -45,7 +45,7 @@ rfxtrx.initialise(function () {
 
   rfxtrx.on('receive', function (evt) {
     new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
-    parseReceivedSignal(Buffer.from(evt).toString('hex'));
+    parseReceivedSignal(evt);
   });
 
   rfxtrx.on('disconnect', function (evt) {
@@ -71,22 +71,35 @@ function sendStatus(args) {
 }
 
 const PLUG_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/01f4bf8e0(?<plugId>.)(?<positiveValue>010f60)?/);
+const MOTION_DETECT_SIGNAL = '0008c8970a010f',
+  MOTION_DETECT_TIMEOUT_SIGNAL = '0008c8970a0000';
 
 function parseReceivedSignal(receivedSignal) {
   // TODO Not working, check regex...
-  log.info('Rfxcom receive:', receivedSignal);
+  let parsedReceivedSignal = Buffer.from(receivedSignal).toString('hex');
+  log.debug('Rfxcom receive:', parsedReceivedSignal);
 
-  let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(receivedSignal);
+  let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(parsedReceivedSignal);
   if (matchPlug) {
-    let plugId = matchPlug.groups.plugId;
-    let value = matchPlug.groups.positiveValue;
-    log.debug('parseReceivedSignal', plugId, value);
-    let deviceName;
-    Object.keys(DEVICE_LIST).forEach(device => {
-      if (DEVICE_LIST[device].id.substr(DEVICE_LIST[device].id.length - 1) == plugId) deviceName = device;
-    });
-    Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
+    updateStatusForPlug(matchPlug);
+  } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_SIGNAL) > -1) {
+    new Flux('service|motionDetect|detect');
+  } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_TIMEOUT_SIGNAL) > -1) {
+    new Flux('service|motionDetect|timeout');
+  } else {
+    log.warn('Unreconized rfxcom signal:', parsedReceivedSignal, receivedSignal);
   }
+}
+
+function updateStatusForPlug(matchPlug) {
+  let plugId = matchPlug.groups.plugId;
+  let value = matchPlug.groups.positiveValue;
+  log.debug('parseReceivedSignal', plugId, value);
+  let deviceName;
+  Object.keys(DEVICE_LIST).forEach(device => {
+    if (DEVICE_LIST[device].id.substr(DEVICE_LIST[device].id.length - 1) == plugId) deviceName = device;
+  });
+  Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
 }
 
 function toggleLock(lockValue) {
