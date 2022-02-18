@@ -14,6 +14,7 @@ Observers.attachFluxParseOptions('service', 'motionDetect', FLUX_PARSE_OPTIONS);
 
 const MOTION_DETECT_MINIMUM_SEC_TIMEOUT = 120;
 let LAST = { DETECTION: null, END: null };
+let plugATimeout;
 
 function motionDetect() {
   let lastDetectionInSec = getLastDetectionInSec();
@@ -30,6 +31,8 @@ function motionDetect() {
       }
     }
   }
+  clearTimeout(plugATimeout);
+  new Flux('interface|rfxcom|send', { device: 'plugA', value: true });
   LAST.DETECTION = new Date();
   LAST.END = null;
 }
@@ -50,6 +53,9 @@ function motionDetectEnd() {
         detectEndSleep(motionDuration);
       }
     }
+    plugATimeout = setTimeout(() => {
+      new Flux('interface|rfxcom|send', { device: 'plugA', value: false });
+    }, 60 * 1000);
   }
 }
 
