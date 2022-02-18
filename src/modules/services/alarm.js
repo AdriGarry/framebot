@@ -65,7 +65,6 @@ function isAlarm() {
   if (alarms[alarmType]) {
     if (h == alarms[alarmType].h && m == alarms[alarmType].m) {
       log.info('alarm time...', alarms[alarmType].h + ':' + alarms[alarmType].m);
-      Core.run('alarm', true);
       if (!Core.isAwake()) {
         log.INFO('ALARM NOW!');
         new Flux('service|context|restart');
@@ -80,10 +79,11 @@ function isAlarm() {
 
 function startAlarmSequence() {
   if (Core.run('etat') === 'low') {
-    log.info('Escaping alarm sequence...');
+    log.info('Escaping alarm sequence.');
     return;
   }
 
+  Core.run('alarm', true);
   alarmPart1()
     .then(alarmPart2)
     .then(alarmPart3)
