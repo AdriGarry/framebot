@@ -10,21 +10,20 @@ const FLUX_PARSE_OPTIONS = [
   { id: 'timeout', fn: motionDetectTimeout }
 ];
 
-Observers.attachFluxParseOptions('service', 'motionDetectAction', FLUX_PARSE_OPTIONS);
+Observers.attachFluxParseOptions('service', 'motionDetect', FLUX_PARSE_OPTIONS);
 
+const MOTION_DETECT_MINIMUM_SEC_TIMEOUT = 120;
 let LAST = { DETECTION: null, TIMEOUT: null };
 
 function motionDetect() {
-  if (!LAST.DETECTION) {
-    LAST.DETECTION = new Date();
-  }
-  let lastDetectionInSec = Math.round((new Date().getTime() - LAST.DETECTION.getTime()) / 1000);
-  log.info('Motion detected', '[last motion detected', lastDetectionInSec + 's ago]');
+  new Flux('interface|hardware|motionDetectLight', null, { log: 'TRACE' });
+
   LAST.DETECTION = new Date();
   LAST.TIMEOUT = null;
+  let lastDetectionInSec = getLastDetectionInSec();
+  log.info('Motion detected', '[last motion detected', lastDetectionInSec + 's ago]');
 
-  let shouldReact = lastDetectionInSec > 60 ? true : false;
-  if (shouldReact) {
+  if (shouldReact()) {
     if (Core.isAwake()) {
       detectAwake(lastDetectionInSec);
     } else {
@@ -34,18 +33,31 @@ function motionDetect() {
 }
 
 function motionDetectTimeout() {
+  new Flux('interface|hardware|blinkLightOff', null, { delay: 1, log: 'TRACE' });
+
   LAST.TIMEOUT = new Date();
   if (!LAST.DETECTION) LAST.DETECTION = new Date();
   let motionDuration = Math.round((LAST.TIMEOUT.getTime() - LAST.DETECTION.getTime()) / 1000);
   log.info('Motion timeout', '[duration:', motionDuration + 's]');
 
-  new Flux('interface|hardware|blinkLightOff', null, { delay: 1, log: 'TRACE' });
-
-  if (Core.isAwake()) {
-    detectTimeoutAwake(motionDuration);
-  } else {
-    detectTimeoutSleep(motionDuration);
+  if (shouldReact()) {
+    if (Core.isAwake()) {
+      detectTimeoutAwake(motionDuration);
+    } else {
+      detectTimeoutSleep(motionDuration);
+    }
   }
+}
+
+function shouldReact() {
+  return getLastDetectionInSec() > MOTION_DETECT_MINIMUM_SEC_TIMEOUT;
+}
+
+function getLastDetectionInSec() {
+  if (!LAST.DETECTION) {
+    LAST.DETECTION = new Date();
+  }
+  return Math.round((new Date().getTime() - LAST.DETECTION.getTime()) / 1000);
 }
 
 function detectAwake(lastDetectionInSec) {
@@ -54,11 +66,11 @@ function detectAwake(lastDetectionInSec) {
 
   if (moodLevel >= 2) {
     new Flux('interface|sound|motionDetect', null, { log: 'TRACE' });
-    new Flux('interface|tts|speak', lastDetectionInSec.toString());
+    // new Flux('interface|tts|speak', lastDetectionInSec.toString());
   }
 
   if (moodLevel >= 3) {
-    let shouldReact = lastDetectionInSec > 90 ? true : false;
+    let shouldReact = lastDetectionInSec > 300 ? true : false;
     if (shouldReact) {
       new Flux('service|interaction|random');
     }
@@ -74,7 +86,6 @@ function detectTimeoutAwake(motionDuration) {
 
   if (moodLevel >= 2) {
     // if (motionDuration) new Flux('interface|tts|speak', motionDuration.toString(), { log: 'TRACE' });
-    //if (motionDuration) new Flux('interface|tts|speak', { msg: 'dot', lg: 'en' }, { log: 'TRACE' });
   }
 }
 
