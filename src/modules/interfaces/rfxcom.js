@@ -82,9 +82,9 @@ function parseReceivedSignal(receivedSignal) {
   if (matchPlug) {
     updateStatusForPlug(matchPlug);
   } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_SIGNAL) > -1) {
-    new Flux('service|motionDetectAction|detect');
+    new Flux('service|motionDetect|detect');
   } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_TIMEOUT_SIGNAL) > -1) {
-    new Flux('service|motionDetectAction|timeout');
+    new Flux('service|motionDetect|timeout');
   } else {
     log.warn('Unreconized rfxcom signal:', parsedReceivedSignal, receivedSignal);
   }
