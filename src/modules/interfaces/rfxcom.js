@@ -72,7 +72,7 @@ function sendStatus(args) {
 
 const PLUG_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/01f4bf8e0(?<plugId>.)(?<positiveValue>010f60)?/);
 const MOTION_DETECT_SIGNAL = '0008c8970a010f',
-  MOTION_DETECT_TIMEOUT_SIGNAL = '0008c8970a0000';
+  MOTION_DETECT_END_SIGNAL = '0008c8970a0000';
 
 function parseReceivedSignal(receivedSignal) {
   // TODO Not working, check regex...
@@ -84,8 +84,8 @@ function parseReceivedSignal(receivedSignal) {
     updateStatusForPlug(matchPlug);
   } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_SIGNAL) > -1) {
     new Flux('service|motionDetect|detect');
-  } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_TIMEOUT_SIGNAL) > -1) {
-    new Flux('service|motionDetect|timeout');
+  } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_END_SIGNAL) > -1) {
+    new Flux('service|motionDetect|end');
   } else {
     log.warn('Unreconized rfxcom signal:', parsedReceivedSignal, receivedSignal);
   }
