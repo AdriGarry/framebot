@@ -28,6 +28,7 @@ const FLUX_PARSE_OPTIONS = [
   { id: 'shutdown', fn: shutdown },
   { id: 'light', fn: light },
   { id: 'lightOn', fn: lightOn },
+  { id: 'motionDetectLight', fn: motionDetectLight },
   { id: 'blinkLightOff', fn: blinkLightThenOff },
   { id: 'runtime', fn: runtime },
   { id: 'cpuTTS', fn: cpuStatsTTS },
@@ -104,6 +105,14 @@ function light(duration) {
 function lightOn() {
   log.info('light On');
   new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'TRACE' });
+}
+
+function motionDetectLight() {
+  log.info('motionDetectLight');
+  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'TRACE' });
+  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 2, log: 'TRACE' });
+  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { delay: 2.1, log: 'TRACE' });
+  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 2.3, log: 'TRACE' });
 }
 
 function blinkLightThenOff() {
