@@ -109,12 +109,12 @@ function lightOn() {
 
 function motionDetectLight() {
   new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'TRACE' });
-  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 120, loop: 2 }, { delay: 1, log: 'TRACE' });
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 1.4, log: 'TRACE' });
+  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 150, loop: 3 }, { delay: 1, log: 'TRACE' });
+  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 1.3, log: 'TRACE' });
 }
 
 function blinkLightThenOff() {
-  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 120, loop: 2 }, { log: 'TRACE' });
+  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 150, loop: 2 }, { log: 'TRACE' });
   new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 0.3, log: 'TRACE' });
 }
 
