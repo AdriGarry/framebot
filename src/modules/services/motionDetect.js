@@ -12,7 +12,7 @@ const FLUX_PARSE_OPTIONS = [
 
 Observers.attachFluxParseOptions('service', 'motionDetect', FLUX_PARSE_OPTIONS);
 
-const MOTION_DETECT_MINIMUM_SEC_TIMEOUT = 120;
+const MOTION_DETECT_MINIMUM_SEC_TIMEOUT = { 0: Number.MAX_SAFE_INTEGER, 1: 300, 2: 120, 3: 60, 4: 30, 5: 10 };
 let LAST = { DETECTION: null, END: null };
 
 function motionDetect() {
@@ -54,12 +54,14 @@ function motionDetectEnd() {
 }
 
 function shouldReact() {
-  return getLastDetectionInSec() > MOTION_DETECT_MINIMUM_SEC_TIMEOUT;
+  let moodLevel = Core.run('mood');
+  if (moodLevel === 0) return;
+  return getLastDetectionInSec() > MOTION_DETECT_MINIMUM_SEC_TIMEOUT[moodLevel];
 }
 
 function getLastDetectionInSec() {
   if (!LAST.DETECTION) {
-    return MOTION_DETECT_MINIMUM_SEC_TIMEOUT + 1;
+    return MOTION_DETECT_MINIMUM_SEC_TIMEOUT[Core.run('mood')] + 1;
   }
   return Math.round((new Date().getTime() - LAST.DETECTION.getTime()) / 1000);
 }
