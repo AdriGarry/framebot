@@ -64,9 +64,8 @@ function isAlarm() {
 
   if (alarms[alarmType]) {
     if (h == alarms[alarmType].h && m == alarms[alarmType].m) {
-      log.info('alarm time...', alarms[alarmType].h + ':' + alarms[alarmType].m);
+      log.info('Alarm time...', alarms[alarmType].h + ':' + alarms[alarmType].m);
       if (!Core.isAwake()) {
-        log.INFO('ALARM NOW!');
         new Flux('service|context|restart');
       } else {
         setImmediate(() => {
