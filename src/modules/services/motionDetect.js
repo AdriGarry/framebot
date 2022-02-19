@@ -93,7 +93,7 @@ function detectEndAwake(motionDuration) {
 
 function detectSleep(lastDetectionInSec) {
   log.test('detectSleep. lastDetectionInSec:', lastDetectionInSec);
-  new Flux('interface|hardware|lightOn', null, { log: 'TRACE' });
+  new Flux('interface|hardware|lightOn', null, { delay: 2, log: 'TRACE' });
 }
 
 function detectEndSleep(motionDuration) {}
