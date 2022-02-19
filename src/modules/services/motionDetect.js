@@ -13,7 +13,7 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('service', 'motionDetect', FLUX_PARSE_OPTIONS);
 
 const MOTION_DETECT_MINIMUM_SEC_TIMEOUT = { 0: Number.MAX_SAFE_INTEGER, 1: 300, 2: 120, 3: 60, 4: 30, 5: 10 };
-let LAST = { DETECTION: null, END: null };
+let lastDetection = null;
 
 function motionDetect() {
   let lastDetectionInSec = getLastDetectionInSec();
@@ -30,14 +30,12 @@ function motionDetect() {
       }
     }
   }
-  LAST.DETECTION = new Date();
-  LAST.END = null;
+  lastDetection = new Date();
 }
 
 function motionDetectEnd() {
-  LAST.END = new Date();
-  if (!LAST.DETECTION) LAST.DETECTION = new Date();
-  let motionDuration = Math.round((LAST.END.getTime() - LAST.DETECTION.getTime()) / 1000);
+  if (!lastDetection) lastDetection = new Date();
+  let motionDuration = Math.round((new Date() - lastDetection.getTime()) / 1000);
   log.info('Motion end', '[duration:', motionDuration + 's]');
 
   if (Core.run('mood') > 0) {
@@ -60,10 +58,10 @@ function shouldReact() {
 }
 
 function getLastDetectionInSec() {
-  if (!LAST.DETECTION) {
+  if (!lastDetection) {
     return MOTION_DETECT_MINIMUM_SEC_TIMEOUT[Core.run('mood')] + 1;
   }
-  return Math.round((new Date().getTime() - LAST.DETECTION.getTime()) / 1000);
+  return Math.round((new Date().getTime() - lastDetection.getTime()) / 1000);
 }
 
 function detectAwake(lastDetectionInSec) {
