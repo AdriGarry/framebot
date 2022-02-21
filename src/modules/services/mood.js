@@ -20,7 +20,8 @@ const MOOD_LEVELS = {
   5: { volume: 90 } // party mode + pirate
 };
 
-const DEFAULT_MOOD_LEVEL = Core.run('mood');
+const DEFAULT_MOOD_LEVEL = Core.run('mood'),
+  HOURS_BACK_TO_DEFAULT_LEVEL = 6;
 
 setImmediate(() => {
   setMoodLevel(DEFAULT_MOOD_LEVEL);
@@ -30,8 +31,13 @@ function setMoodLevel(newMoodLevelId) {
   log.info('Setting mood level to', newMoodLevelId);
   Core.run('mood', newMoodLevelId);
   new Flux('interface|sound|volume', MOOD_LEVELS[newMoodLevelId].volume);
-  Scheduler.delay(6 * 60 * 60).then(backToDefaultMoodLevel);
+  if (newMoodLevelId > DEFAULT_MOOD_LEVEL) schedulingBackToDefaultMoodLevel();
   additionalMoodSetup(newMoodLevelId);
+}
+
+function schedulingBackToDefaultMoodLevel() {
+  log.info('Scheduling back to default mood level (' + DEFAULT_MOOD_LEVEL + ') in ' + HOURS_BACK_TO_DEFAULT_LEVEL + ' hours');
+  Scheduler.delay(HOURS_BACK_TO_DEFAULT_LEVEL * 60 * 60).then(backToDefaultMoodLevel);
 }
 
 function backToDefaultMoodLevel() {
