@@ -80,7 +80,11 @@ function playSoundRandomPosition(arg) {
 
 function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
   let startPlayTime = new Date();
-  let playerProcess = spawn('omxplayer', ['--vol', volume, '--pos', position || 0, sound]);
+
+  let defaultVolume = Core.run('volume');
+  let volumeForPlay = volume > defaultVolume ? defaultVolume : volume;
+
+  let playerProcess = spawn('omxplayer', ['--vol', volumeForPlay, '--pos', position || 0, sound]);
 
   if (!noLed) playerProcess.ledFlag = ledFlag();
 
