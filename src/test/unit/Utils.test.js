@@ -11,7 +11,7 @@ describe('Utils', function () {
       const given = 'abc',
         expected = 'abcabcabc';
       const result = Utils.repeatString(given, 3);
-      assert.strictEqual(expected, result);
+      assert.strictEqual(result, expected);
     });
   });
 
@@ -23,10 +23,24 @@ describe('Utils', function () {
       assert.strictEqual(result, expected);
     });
 
+    it('should add dot characters at the end of string to math expected length', function () {
+      const given = 'abcde',
+        expected = 'abcde...';
+      const result = Utils.formatStringLength(given, 8, false, '.');
+      assert.strictEqual(result, expected);
+    });
+
     it('should add space at the begening of string to math expected length', function () {
       const given = 'abcde',
         expected = '  abcde';
       const result = Utils.formatStringLength(given, 7, true);
+      assert.strictEqual(result, expected);
+    });
+
+    it('should add underscore character at the begening of string to math expected length', function () {
+      const given = 'abcde',
+        expected = '__abcde';
+      const result = Utils.formatStringLength(given, 7, true, '_');
       assert.strictEqual(result, expected);
     });
 
@@ -43,7 +57,7 @@ describe('Utils', function () {
       const givenArray = ['abc', 'def', 'hij'],
         expected = 'def';
       const result = Utils.searchStringInArray('def', givenArray);
-      assert.strictEqual(expected, result);
+      assert.strictEqual(result, expected);
     });
 
     it('should return false if searched string is not present', function () {
@@ -69,7 +83,7 @@ describe('Utils', function () {
       const given = 'abc',
         expected = 'Abc';
       const result = Utils.firstLetterUpper(given);
-      assert.strictEqual(expected, result);
+      assert.strictEqual(result, expected);
     });
   });
 
@@ -94,18 +108,39 @@ describe('Utils', function () {
   });
 
   describe('Utils.formatDuration: return sec or min', function () {
-    it('should return time in sec if <= 120', function () {
-      const given = 90,
-        expected = '90s';
+    it('should return time in sec if <= 60', function () {
+      const given = 59,
+        expected = '59s';
       const result = Utils.formatDuration(given);
-      assert.strictEqual(expected, result);
+      assert.strictEqual(result, expected);
+    });
+
+    it('should return time in min & sec if > 60', function () {
+      const given = 60,
+        expected = '1m00s';
+      const result = Utils.formatDuration(given);
+      assert.strictEqual(result, expected);
     });
 
     it('should return time in min & sec if > 120', function () {
       const given = 180,
-        expected = '3m0s';
+        expected = '3m00s';
       const result = Utils.formatDuration(given);
-      assert.strictEqual(expected, result);
+      assert.strictEqual(result, expected);
+    });
+
+    it('should return time in hours min & sec if > one hour', function () {
+      const given = 1.5 * 60 * 60 + 20,
+        expected = '1h30m20s';
+      const result = Utils.formatDuration(given);
+      assert.strictEqual(result, expected);
+    });
+
+    it('should return time in hours min & sec if > one hour', function () {
+      const given = 12 * 60 * 60,
+        expected = '12h00m00s';
+      const result = Utils.formatDuration(given);
+      assert.strictEqual(result, expected);
     });
   });
 
@@ -149,7 +184,7 @@ describe('Utils', function () {
       const givenDate = new Date('1999-12-31T00:00:00'),
         expected = '1999-12-31 00:00:00,000';
       const result = Utils.logTime('Y-M-D h:m:s,x', givenDate);
-      assert.strictEqual(expected, result);
+      assert.strictEqual(result, expected);
     });
 
     it('should return date formated with default pattern', function () {
@@ -157,7 +192,7 @@ describe('Utils', function () {
         expected = '31/12 00:00:00';
       let undefinedVariable;
       const result = Utils.logTime(undefinedVariable, givenDate);
-      assert.strictEqual(expected, result);
+      assert.strictEqual(result, expected);
     });
   });
 

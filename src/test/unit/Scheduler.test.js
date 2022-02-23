@@ -66,7 +66,7 @@ describe('Scheduler', function () {
         stepDelay = 60;
       const result = Scheduler.getDecrementLog(id, delayToTimeout, stepDelay);
       const expected = id + ' [stepsToTimeout=' + delayToTimeout / stepDelay + ', stepDelay=' + stepDelay + ', delayToTimeout=' + delayToTimeout + ']';
-      assert.strictEqual(expected, result);
+      assert.strictEqual(result, expected);
     });
   });
 

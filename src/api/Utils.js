@@ -13,8 +13,17 @@ const MILLISEC_IN_DAY = 86400000;
 module.exports = class Utils {
   static formatDuration(duration) {
     duration = parseInt(duration);
-    if (duration > 120) {
-      return Math.round(duration / 60) + 'm' + (duration % 60) + 's';
+    if (duration >= 60 * 60) {
+      return (
+        Math.floor(duration / (60 * 60)) +
+        'h' +
+        Utils.formatStringLength(Math.floor((duration % (60 * 60)) / 60).toString(), 2, true, '0') +
+        'm' +
+        Utils.formatStringLength((duration % 60).toString(), 2, true, '0') +
+        's'
+      );
+    } else if (duration >= 60) {
+      return Math.floor(duration / 60) + 'm' + Utils.formatStringLength((duration % 60).toString(), 2, true, '0') + 's';
     }
     return duration + 's';
   }
@@ -55,17 +64,17 @@ module.exports = class Utils {
     return Array(times + 1).join(string);
   }
 
-  static formatStringLength(string, expectedLength, before) {
-    // TODO move to Logger
+  static formatStringLength(string, expectedLength, before, characterToFill) {
+    characterToFill = characterToFill || ' ';
     let stringLength = string.length,
       stringFormated;
     if (stringLength >= expectedLength) {
       stringFormated = string.substring(0, expectedLength);
     } else {
       if (before) {
-        stringFormated = Utils.repeatString(' ', expectedLength - stringLength) + string;
+        stringFormated = Utils.repeatString(characterToFill, expectedLength - stringLength) + string;
       } else {
-        stringFormated = string + Utils.repeatString(' ', expectedLength - stringLength);
+        stringFormated = string + Utils.repeatString(characterToFill, expectedLength - stringLength);
       }
     }
     return stringFormated;
