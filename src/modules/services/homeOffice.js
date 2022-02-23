@@ -29,7 +29,7 @@ function startHomeOffice() {
   setupHomeOffice();
   new CronJob('* 16 17 * * *', function () {
     stopHomeOffice();
-  });
+  }).start();
 }
 
 function stopHomeOffice() {
@@ -63,7 +63,7 @@ function setInteractions() {
   new CronJob('* 5 16 * * *', function () {
     new Flux('interface|tts|speak', 'Et un brin de toilette ?');
     new Flux('interface|tts|speak', 'Sans oublier les dents !');
-  });
+  }).start();
 
   // Russia ~each 50min
   new Flux('service|interaction|russia', null, { delay: 50 * 60, loop: 10 });
@@ -72,15 +72,15 @@ function setInteractions() {
   new CronJob('* 15 17 * * *', function () {
     new Flux('service|max|playHornSiren');
     new Flux('interface|tts|speak', 'Go chercher les Louloutes!', { delay: 5 });
-  });
+  }).start();
 }
 
 function setQuietModeDuringLunchTime() {
   new CronJob('* 15 12 * * *', function () {
     new Flux('interface|tts|speak', { lg: 'en', msg: 'Quiet mode until 2pm...' });
     new Flux('service|mood|set', 0, { delay: 5 });
-  });
+  }).start();
   new CronJob('* 0 14 * * *', function () {
     new Flux('service|mood|set', HOME_OFFICE_MOOD_LEVEL);
-  });
+  }).start();
 }
