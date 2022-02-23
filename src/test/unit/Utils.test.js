@@ -23,10 +23,24 @@ describe('Utils', function () {
       assert.strictEqual(result, expected);
     });
 
+    it('should add dot characters at the end of string to math expected length', function () {
+      const given = 'abcde',
+        expected = 'abcde...';
+      const result = Utils.formatStringLength(given, 8, false, '.');
+      assert.strictEqual(result, expected);
+    });
+
     it('should add space at the begening of string to math expected length', function () {
       const given = 'abcde',
         expected = '  abcde';
       const result = Utils.formatStringLength(given, 7, true);
+      assert.strictEqual(result, expected);
+    });
+
+    it('should add underscore character at the begening of string to math expected length', function () {
+      const given = 'abcde',
+        expected = '__abcde';
+      const result = Utils.formatStringLength(given, 7, true, '_');
       assert.strictEqual(result, expected);
     });
 
@@ -94,16 +108,37 @@ describe('Utils', function () {
   });
 
   describe('Utils.formatDuration: return sec or min', function () {
-    it('should return time in sec if <= 120', function () {
-      const given = 90,
-        expected = '90s';
+    it('should return time in sec if <= 60', function () {
+      const given = 59,
+        expected = '59s';
+      const result = Utils.formatDuration(given);
+      assert.strictEqual(expected, result);
+    });
+
+    it('should return time in min & sec if > 60', function () {
+      const given = 60,
+        expected = '1m00s';
       const result = Utils.formatDuration(given);
       assert.strictEqual(expected, result);
     });
 
     it('should return time in min & sec if > 120', function () {
       const given = 180,
-        expected = '3m0s';
+        expected = '3m00s';
+      const result = Utils.formatDuration(given);
+      assert.strictEqual(expected, result);
+    });
+
+    it('should return time in hours min & sec if > one hour', function () {
+      const given = 1.5 * 60 * 60 + 20,
+        expected = '1h30m20s';
+      const result = Utils.formatDuration(given);
+      assert.strictEqual(expected, result);
+    });
+
+    it('should return time in hours min & sec if > one hour', function () {
+      const given = 12 * 60 * 60,
+        expected = '12h00m00s';
       const result = Utils.formatDuration(given);
       assert.strictEqual(expected, result);
     });
