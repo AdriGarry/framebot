@@ -73,7 +73,7 @@ describe('Files', function () {
     it('should return absolute path', function () {
       let expected = './src/wrapper.js';
       let result = Files.getAbsolutePath('wrapper.js', './src/');
-      assert.strictEqual(expected, result);
+      assert.strictEqual(result, expected);
     });
   });
 
