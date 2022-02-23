@@ -76,6 +76,9 @@ sudo apt install -y certbot
 # Install fail2ban
 sudo apt-get -y install fail2ban
 
+# Install network-manager
+sudo apt-get install -y network-manager
+
 # DEPRECATED
 # Give odi user's access to needed repositories
 #sudo chown -R odi /root
