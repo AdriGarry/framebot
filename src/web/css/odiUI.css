@@ -592,6 +592,21 @@ div[data-ng-include] {
   vertical-align: middle;
 }
 
+[flex] > .tile .main .badge {
+  margin-top: -30px;
+  margin-left: -40px;
+  float: right;
+  position: absolute;
+}
+
+[flex] > .tile .main .badge sup {
+  background-color: #496069;
+  color: #fff;
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-size: 0.6em;
+}
+
 /*.dashboard > * > .tile > i.adminFlag{*/
 i.adminFlag {
   position: absolute;
@@ -866,7 +881,15 @@ body>.loading i{
   [flex] > button > .tileContent .main [class*='fa-'] {
     font-size: 1.85em;
   }
+  [flex] > .tile .main .badge {
+    margin-top: -10px;
+    margin-left: -10px;
+  }
 
+  [flex] > .tile .main .badge sup {
+    padding: 2px 5px;
+    font-size: 0.7em;
+  }
   .dashboard [flex].tile.tts .layout-row {
     margin-top: 1em;
   }

@@ -166,9 +166,18 @@
 
 	<div class="tileContent" data-ng-switch-when="Power plug">
 		<div class="main">
-			<i class="fas" data-ng-class="$ctrl.getPlugStatus('plugA')"></i>
-			<i class="fas" data-ng-class="$ctrl.getPlugStatus('plugB')"></i>
-			<i class="fas" data-ng-class="$ctrl.getPlugStatus('plugC')"></i>
+			<i class="fas" data-ng-class="$ctrl.plugs['plugA'].cssClass"></i>
+			<small class="badge opacity70" data-ng-if="$ctrl.plugs['plugA'].timeout">
+				<sup class="ng-binding">{{$ctrl.plugs['plugA'].timeout}}</sup>
+			</small>
+			<i class="fas" data-ng-class="$ctrl.plugs['plugB'].cssClass"></i>
+			<small class="badge opacity70" data-ng-if="$ctrl.plugs['plugB'].timeout">
+				<sup class="ng-binding">{{$ctrl.plugs['plugB'].timeout}}</sup>
+			</small>			
+			<i class="fas" data-ng-class="$ctrl.plugs['plugC'].cssClass"></i>
+			<small class="badge opacity70" data-ng-if="$ctrl.plugs['plugC'].timeout">
+				<sup class="ng-binding">{{$ctrl.plugs['plugC'].timeout}}</sup>
+			</small>
 		</div>
 	</div>
 

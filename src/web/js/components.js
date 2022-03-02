@@ -1088,13 +1088,44 @@ app.component('powerPlug', {
     };
     ctrl.tile = new DefaultTile(tileParams);
     ctrl.odiState = ctrl.odiState;
+    ctrl.plugs = {};
 
-    ctrl.getPlugStatus = function (plugId) {
-      let plugStatus = ctrl.data.powerPlug.value[plugId].status;
-      if (plugStatus === 'on') return 'fa-plug';
-      else if (plugStatus === 'off') return 'fa-plug opacity50';
-      else return 'fa-question opacity20';
+    ctrl.$onChanges = function () {
+      updatePlugAllStatus();
     };
+
+    function updatePlugAllStatus() {
+      for (let plug in tileParams.actionList) {
+        updatePlugStatus(tileParams.actionList[plug].value.device);
+      }
+    }
+
+    function updatePlugStatus(plugId) {
+      let mode = getMode(plugId);
+      let cssClass = getPlugClass(mode);
+      let timeout = getPlugTimeoutIfExists(plugId);
+      ctrl.plugs[plugId] = { cssClass: cssClass, mode: mode, timeout: timeout };
+    }
+
+    function getMode(plugId) {
+      return ctrl.data.powerPlug.value[plugId].status;
+    }
+
+    function getPlugClass(mode) {
+      if (mode === 'on') return 'fa-plug';
+      else if (mode === 'off') return 'fa-plug opacity50';
+      else return 'fa-question opacity20';
+    }
+
+    function getPlugTimeoutIfExists(plugId) {
+      if (ctrl.data.config.powerPlug[plugId]) {
+        let plugTimeout = ctrl.data.config.powerPlug[plugId].timeout;
+        if (plugTimeout) {
+          return plugTimeout;
+        }
+      }
+      return false;
+    }
 
     /** Overwrite tile action */
     ctrl.tile.click = function () {
