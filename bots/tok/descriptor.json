@@ -19,6 +19,7 @@
         "alarm",
         "voicemail",
         "audioRecord",
+        "motionDetect",
         "radiator",
         "homeOffice",
         "mosquitoRepellent",
@@ -34,10 +35,10 @@
     "alarms": {
       "weekDay": {
         "h": 8,
-        "m": 20
+        "m": 0
       },
       "weekEnd": {
-        "h": 11,
+        "h": 10,
         "m": 0
       }
     },
