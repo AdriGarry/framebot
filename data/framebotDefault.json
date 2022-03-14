@@ -64,7 +64,6 @@
     },
     "stats": {
       "diskSpace": null,
-      "totalLines": null,
       "update": null,
       "buttons": {},
       "fluxCount": 0,
