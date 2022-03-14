@@ -66,7 +66,7 @@ function setInteractions() {
   }).start();
 
   // Russia ~each 50min
-  new Flux('service|interaction|russia', null, { delay: 50 * 60, loop: 10 });
+  new Flux('service|interaction|russia', null, { delay: 90 * 60, loop: 5 });
 
   // Go pickup Louloutes
   new CronJob('0 15 17 * * *', function () {
