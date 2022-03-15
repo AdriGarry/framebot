@@ -79,6 +79,7 @@ function isAlarm() {
 function startAlarmSequence() {
   if (Core.run('etat') === 'low') {
     log.info('Escaping alarm sequence.');
+    new Flux('service|time|now');
     return;
   }
 
