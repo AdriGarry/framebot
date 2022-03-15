@@ -280,7 +280,7 @@ function getDiskSpace() {
 
 /** Function to TTS program's program total lines */
 function totalLinesTTS() {
-  let ttsMsg = 'Mon programme est composer de ' + Core.run('stats.totalLines') + ' lignes de code';
+  let ttsMsg = 'Mon programme est composer de ' + Core.const('totalLines') + ' lignes de code';
   new Flux('interface|tts|speak', ttsMsg);
 }
 

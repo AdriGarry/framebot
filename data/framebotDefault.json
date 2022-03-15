@@ -63,7 +63,6 @@
     },
     "stats": {
       "diskSpace": null,
-      "update": null,
       "buttons": {},
       "fluxCount": 0,
       "badRequestCount": 0

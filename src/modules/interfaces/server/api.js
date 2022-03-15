@@ -116,7 +116,7 @@ function attachDefaultRoutes(ui) {
       video: { value: Core.run('hdmi') },
       network: { value: Core.run('network') },
       update: {
-        value: Core.run('stats.update')
+        value: Core.const('updateDateTime')
       },
       debug: {
         value: Core.conf('log') == 'debug' ? 'debug' : ''
