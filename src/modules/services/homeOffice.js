@@ -27,7 +27,8 @@ function startHomeOffice() {
   log.info('Starting Homeoffice');
   Core.run('homeOffice', true);
   setupHomeOffice();
-  new CronJob('0 16 17 * * *', function () {
+  new CronJob('0 17 17 * * *', function () {
+    new Flux('interface|tts|speak', 'Ciao');
     stopHomeOffice();
   }).start();
 }
@@ -41,10 +42,10 @@ function stopHomeOffice() {
 }
 
 function setupHomeOffice() {
-  log.info('setupHomeOffice');
+  log.info('Setting up home office...');
 
-  // Desktop plug ON ~after 10 sec
-  new Flux('service|powerPlug|toggle', { plug: 'plugA', mode: true }, { delay: 10 });
+  // Desktop plug ON
+  new Flux('service|powerPlug|toggle', { plug: 'plugA', mode: true });
 
   // Radiator ON for 6 hours
   new Flux('service|radiator|timeout', { mode: 'on', timeout: 6 * 60 });
@@ -57,19 +58,33 @@ function setInteractions() {
   // Mood
   new Flux('service|mood|set', HOME_OFFICE_MOOD_LEVEL);
 
-  // Clockwork ~each 13min
-  new Flux('service|time|now', null, { delay: 13 * 60, loop: 30 });
+  // Daily meeting
+  new CronJob('0 30 9 * * *', function () {
+    new Flux('interface|tts|speak', 'Daily avec les collègues dans 5 minutes');
+    new Flux('interface|tts|speak', 'Daily avec les collègues dans 4 minutes', { delay: 60 });
+    new Flux('interface|tts|speak', 'Daily avec les collègues dans 3 minutes', { delay: 2 * 60 });
+    new Flux('interface|tts|speak', 'Daily avec les collègues dans 2 minutes', { delay: 3 * 60 });
+    new Flux('interface|tts|speak', 'Daily avec les collègues dans 1 minute', { delay: 4 * 60 });
+    new Flux('interface|tts|speak', 'Daily avec les collègues dans 30 secondes', { delay: 4 * 60 + 30 });
+    new Flux('interface|tts|speak', "C'est l'heure du daily avec les collègues !", { delay: 5 * 60 });
+  }).start();
+
+  // Clockwork ~each 16min
+  new Flux('service|time|now', null, { delay: 16 * 60, loop: 30 });
+
+  // Random TTS ~each 13min
+  new Flux('interface|tts|speak', null, { delay: 13 * 60, loop: 20 });
+
+  // Exclamations ~each 19min
+  new Flux('service|interaction|exclamation', null, { delay: 19 * 60, loop: 20 });
 
   new CronJob('0 5 16 * * *', function () {
     new Flux('interface|tts|speak', 'Et un brin de toilette ?');
     new Flux('interface|tts|speak', 'Sans oublier les dents !');
   }).start();
 
-  // Russia ~each 50min
-  new Flux('service|interaction|russia', null, { delay: 90 * 60, loop: 5 });
-
   // Go pickup Louloutes
-  new CronJob('0 15 17 * * *', function () {
+  new CronJob('0,30 15,16 17 * * *', function () {
     new Flux('service|max|playHornSiren');
     new Flux('interface|tts|speak', 'Go chercher les Louloutes!', { delay: 5 });
   }).start();
@@ -80,7 +95,7 @@ function setQuietModeDuringLunchTime() {
     new Flux('interface|tts|speak', { lg: 'en', msg: 'Quiet mode until 2pm...' });
     new Flux('service|mood|set', 0, { delay: 5 });
   }).start();
-  new CronJob('0 0 14 * * *', function () {
+  new CronJob('55 59 13 * * *', function () {
     new Flux('service|mood|set', HOME_OFFICE_MOOD_LEVEL);
   }).start();
 }
