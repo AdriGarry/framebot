@@ -13,6 +13,7 @@ module.exports = {};
 const FLUX_PARSE_OPTIONS = [
   { id: 'toggle', fn: radiatorOrder },
   { id: 'manual', fn: toggleManualRadiator },
+  { id: 'auto', fn: setRadiatorAuto },
   { id: 'timeout', fn: setRadiatorTimeout }
 ];
 
@@ -92,6 +93,13 @@ function toggleManualRadiator(mode) {
     RADIATOR_JOB.OFF.start();
     radiatorOrder('off');
   }
+}
+
+function setRadiatorAuto() {
+  log.info('setRadiatorAuto');
+  Core.conf('radiator', 'auto');
+  // TODO determine radiator status from next order...
+  // TODO link to/merge with endRadiatorTimeout!
 }
 
 function setRadiatorTimeout(arg) {
