@@ -5,7 +5,7 @@
 const dns = require('dns'),
   os = require('os');
 
-const { Core, CronJobList, Logger, Observers, Utils } = require('./../../api');
+const { Core, CronJobList, Logger, Observers, Utils } = require('../../api');
 
 const log = new Logger(__filename);
 
@@ -14,7 +14,7 @@ const FLUX_PARSE_OPTIONS = [
   { id: 'strategyOff', fn: internetBoxStrategyOff }
 ];
 
-Observers.attachFluxParseOptions('service', 'internetNetwork', FLUX_PARSE_OPTIONS);
+Observers.attachFluxParseOptions('service', 'network', FLUX_PARSE_OPTIONS);
 
 const INTERNET_BOX_STRATEGY_CRON = [
     { cron: '0 55 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: true } } },

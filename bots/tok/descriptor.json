@@ -14,7 +14,7 @@
       "base": [
         "context",
         "buttonAction",
-        "internetNetwork",
+        "network",
         "time",
         "alarm",
         "voicemail",
