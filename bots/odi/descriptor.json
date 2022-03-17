@@ -14,7 +14,7 @@
       "base": [
         "context",
         "buttonAction",
-        "internetNetwork",
+        "network",
         "time",
         "alarm",
         "voicemail",
@@ -23,7 +23,6 @@
         "radiator",
         "homeOffice",
         "mosquitoRepellent",
-        "netstat",
         "powerPlug",
         "weather",
         "task"
