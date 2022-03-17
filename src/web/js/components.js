@@ -997,6 +997,11 @@ app.component('radiator', {
       label: 'Radiator',
       actionList: [
         {
+          label: 'Radiator auto',
+          icon: 'fab fa-adn',
+          url: '/flux/service/radiator/auto'
+        },
+        {
           label: 'Radiator on',
           icon: 'fas fa-toggle-on',
           url: '/flux/service/radiator/manual',
