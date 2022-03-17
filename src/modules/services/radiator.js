@@ -98,8 +98,10 @@ function toggleManualRadiator(mode) {
 function setRadiatorAuto() {
   log.info('setRadiatorAuto');
   Core.conf('radiator', 'auto');
-  // TODO determine radiator status from next order...
+  // TODO
+  log.test('TODO determine radiator status from next order...');
   // TODO link to/merge with endRadiatorTimeout!
+  log.test('TODO link to/merge with endRadiatorTimeout!');
 }
 
 function setRadiatorTimeout(arg) {
