@@ -38,7 +38,18 @@ var isOnline,
 
 setImmediate(() => {
   logNetstat();
+  Core.run('network.local', getLocalIp());
 });
+
+var internetTestInterval = setInterval(() => {
+  testConnection()
+    .then(onlineCallback)
+    .catch(() => {
+      isRetrying = true;
+      log.info('Internet connection test failed, retrying...');
+      testConnection().then(onlineCallback).catch(notConnectedCallback);
+    });
+}, DELAY_BEFORE_RETRY);
 
 function logNetstat(port = '*') {
   Utils.execCmd(getNetstatCommand(port))
@@ -72,18 +83,6 @@ function logNetstatResult(result, port) {
 function getNetstatCommand(port) {
   return `netstat -tn 2>/dev/null | grep :${port} | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr | head`;
 }
-
-var internetTestInterval = setInterval(() => {
-  testConnection()
-    .then(onlineCallback)
-    .catch(() => {
-      isRetrying = true;
-      log.info('Internet connection test failed, retrying...');
-      testConnection().then(onlineCallback).catch(notConnectedCallback);
-    });
-}, DELAY_BEFORE_RETRY);
-
-Core.run('network.local', getLocalIp());
 
 function onlineCallback() {
   if (!isOnline || isRetrying) {
