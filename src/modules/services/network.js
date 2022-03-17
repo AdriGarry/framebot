@@ -9,12 +9,21 @@ const { Core, CronJobList, Logger, Observers, Utils } = require('../../api');
 
 const log = new Logger(__filename);
 
+module.exports = {
+  cron: {
+    base: [{ cron: '20 5 * * * *', flux: { id: 'service|netstat|all' } }]
+  }
+};
+
 const FLUX_PARSE_OPTIONS = [
   { id: 'strategy', fn: internetBoxStrategy },
-  { id: 'strategyOff', fn: internetBoxStrategyOff }
+  { id: 'strategyOff', fn: internetBoxStrategyOff },
+  { id: 'netstat', fn: logNetstat }
 ];
 
 Observers.attachFluxParseOptions('service', 'network', FLUX_PARSE_OPTIONS);
+
+const LOCAL_CONNECTIONS_PATTERNS_REGEX = new RegExp(/192\.168.*|serv.*|locale.*/);
 
 const INTERNET_BOX_STRATEGY_CRON = [
     { cron: '0 55 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: true } } },
@@ -26,6 +35,43 @@ const DELAY_BEFORE_RETRY = 60 * 1000;
 
 var isOnline,
   isRetrying = false;
+
+setImmediate(() => {
+  logNetstat();
+});
+
+function logNetstat(port = '*') {
+  Utils.execCmd(getNetstatCommand(port))
+    .then(data => {
+      logNetstatResult(data, port);
+    })
+    .catch(err => Core.error('logNetstat Error', err));
+}
+
+function logNetstatResult(result, port) {
+  let lines = result.trim().split('\n');
+  let output = {};
+  for (const line of lines) {
+    const splitted = line.trim().split(' ');
+    output[splitted[1]] = splitted[0];
+  }
+
+  log.table(output, 'Netstat: ' + port);
+
+  for (const line in output) {
+    if (isNotLocalConnection(line)) {
+      log.warn(`${output[line]} external connection(s) [${line}]`);
+    }
+  }
+
+  function isNotLocalConnection(line) {
+    return !line.match(LOCAL_CONNECTIONS_PATTERNS_REGEX);
+  }
+}
+
+function getNetstatCommand(port) {
+  return `netstat -tn 2>/dev/null | grep :${port} | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr | head`;
+}
 
 var internetTestInterval = setInterval(() => {
   testConnection()
