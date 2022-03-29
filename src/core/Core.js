@@ -72,7 +72,6 @@ function initializeContext(descriptor, forcedParams, startTime) {
   }
   if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
-  // log.table(Core.conf(), 'CONFIG'); // deprecated
   if (Core.isAwake()) {
     spawn('omxplayer', ['--vol', -602, Core._MP3 + 'system/startup.mp3']);
   }

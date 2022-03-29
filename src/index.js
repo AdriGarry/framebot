@@ -33,7 +33,7 @@ const Utils = require('./api/Utils'),
 
 const botName = Core.const('name').charAt(0).toUpperCase() + Core.const('name').slice(1);
 const framebotVersion = Core.const('version');
-log.info('-->  ' + botName + ' is ready! [v' + framebotVersion + '] [' + Utils.executionTime(Core.startTime) + 'ms]');
+log.info('--> ' + botName + ' is ready in version ' + framebotVersion + '! [' + Utils.executionTime(Core.startTime) + 'ms]');
 
 Scheduler.delay(2).then(() => {
   log.table(Core.const(), 'CONST');
