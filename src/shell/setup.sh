@@ -34,6 +34,7 @@ sudo apt-get remove -y npm
 # Install npm & nodejs
 curl -sL https://deb.nodesource.com/setup_tls.x | sudo bash -
 sudo apt-get install -y nodejs
+sudo apt-get install -y npm
 
 # Install mplayer & sound tools
 # sudo apt-get install -y mplayer
