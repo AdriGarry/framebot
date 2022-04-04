@@ -29,16 +29,20 @@ cd /home/odi/framebot/tmp
 
 # Uninstall npm & nodejs
 sudo apt-get remove -y nodejs
-sudo apt-get remove -y npm
+# sudo apt-get remove -y npm
 
 # Install npm & nodejs
-curl -sL https://deb.nodesource.com/setup_tls.x | sudo bash -
-sudo apt-get install -y nodejs
-sudo apt-get install -y npm
+# curl -sL https://deb.nodesource.com/setup_lts.x | sudo bash -
+# sudo apt-get install -y nodejs
+# sudo apt-get install -y npm
+wget https://nodejs.org/dist/v10.24.1/node-v10.24.1-linux-armv7l.tar.gz 
+tar -xvf node-v10.24.1-linux-armv7l.tar.gz 
+cd node-v10.24.1-linux-armv7l
+sudo cp -R * /usr/local/
 
 # Install mplayer & sound tools
 # sudo apt-get install -y mplayer
-sudo apt-get install -y omxplayer alsa-base alsa-utils alsa-tools pulseaudio mpg123 lame
+sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg123 lame
 
 # Set audio output to headphones
 amixer cset numid=3 1
@@ -96,7 +100,7 @@ sudo apt-get -y install fail2ban
 # gpio export _pin_ in/out
 
 # Test
-espeak -s 125 -v mb/mb-fr1 'installation terminée.'
+espeak -s 125 -v mb/mb-fr1 'Installation terminée.'
 
 exit 0
 
