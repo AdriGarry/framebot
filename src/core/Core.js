@@ -2,8 +2,7 @@
 
 'use strict';
 
-const { spawn } = require('child_process');
-const fs = require('fs');
+const PlayerController = require('vlc-player-controller');
 
 const Lock = require('./Lock');
 
@@ -73,7 +72,7 @@ function initializeContext(descriptor, forcedParams, startTime) {
   if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
   if (Core.isAwake()) {
-    spawn('omxplayer', ['--vol', -602, Core._MP3 + 'system/startup.mp3']);
+    new PlayerController({ app: 'cvlc', args: ['--gain=0.6', '--no-video', '--play-and-exit'], media: Core._MP3 + 'system/startup.mp3' }).launch();
   }
 
   if (Core.conf('log') != 'info') log.level(Core.conf('log'));
