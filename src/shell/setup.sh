@@ -42,7 +42,11 @@ sudo cp -R * /usr/local/
 
 # Install mplayer & sound tools
 # sudo apt-get install -y mplayer
-sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg123 lame
+# sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg123 lame
+
+# Install vlc & configure
+sudo apt-get install -y vlc
+sudo sed -i 's/geteuid/getppid/' /usr/bin/vlc
 
 # Set audio output to headphones
 amixer cset numid=3 1
