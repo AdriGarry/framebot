@@ -81,6 +81,7 @@ function resetConf() {
 
 function processExit() {
   new Flux('service|task|beforeRestart');
+  new Flux('interface|sound|mute');
   log.info('buttonStats:', Core.run('stats.buttons'));
   log.info('fluxCount:', Core.run('stats.fluxCount'));
   log.info('badRequestCount:', Core.run('stats.badRequestCount'), '\n');
