@@ -18,7 +18,8 @@ Observers.attachFluxParseOptions('interface', 'hdmi', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
   if (!Core.isAwake() || !Core.run('hdmi')) {
-    screenOff();
+    log.test('Do not switch screen OFF, for debugging...');
+    //screenOff();
   }
 });
 
