@@ -3,6 +3,8 @@
 
 const { spawn, exec } = require('child_process');
 
+const PlayerController = require('vlc-player-controller');
+
 const { Core, Flux, Logger, Observers, Files, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
@@ -33,7 +35,6 @@ setImmediate(() => {
   resetSoundOutput();
 });
 
-const VOLUME_LEVELS = Array.from({ length: 11 }, (v, k) => k * 10); // 0 to 100, step: 10
 var playerInstances = {},
   muteTimer;
 
@@ -60,8 +61,7 @@ function playSound(arg) {
   if (!arg.noLog) log.info('play', soundTitle, volLog, positionLog, durationLog);
 
   let position = arg.position || 0;
-  // let volume = arg.volume || Core.run('volume');
-  let volume = arg.volume ? percentToMillibels(arg.volume) : percentToMillibels(Core.run('volume'));
+  let volume = arg.volume || Core.run('volume');
   doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
 }
 
@@ -79,30 +79,45 @@ function playSoundRandomPosition(arg) {
 }
 
 function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
-  let startPlayTime = new Date();
-
   let defaultVolume = Core.run('volume');
-  let volumeForPlay = volume > defaultVolume ? defaultVolume : volume;
+  let volumeForPlay = volume && volume < defaultVolume ? volume : defaultVolume;
 
-  let playerProcess = spawn('omxplayer', ['--vol', volumeForPlay, '--pos', position || 0, sound]);
+  let volumeForVlc = volumeForPlay / 100;
+  log.test('volumeForPlay:', volumeForPlay, ', volumeForVlc:', volumeForVlc);
 
-  if (!noLed) playerProcess.ledFlag = ledFlag();
-
-  playerProcess.stderr.on('data', err => {
-    // TODO useless ?
-    log.error('player error for ' + soundTitle || sound, Buffer.from(err).toString());
+  let startPlayTime = new Date();
+  var player = new PlayerController({
+    app: 'cvlc', // Media player name to use (mpv/vlc)
+    args: ['--gain=' + volumeForVlc, '--no-video', '--play-and-exit'], // Player command line args (array of strings)
+    // , '--play-and-exit'
+    cwd: null, // Current working dir for media player spawn
+    media: sound, // Media to load on player launch (required)
+    // httpPort: 9280,
+    // httpPass: null,
+    detached: false // Spawn player as detached process
   });
 
-  playerProcess.on('close', err => {
-    if (err) log.error('player.onClose ' + soundTitle + ' error', err);
+  if (!noLed) player.ledFlag = ledFlag();
+
+  player.on('playback', data => {
+    if (data.name === 'volume') log.test(data);
+  });
+
+  player.on('app-exit', code => {
     if (!noLog) {
       let playTime = Utils.formatDuration(Math.round(Utils.executionTime(startPlayTime) / 100) / 10);
-      log.info('play_end ' + soundTitle + ' [duration:', playTime + ']');
+      log.info('play_end ' + soundTitle + ' [duration:', playTime + ']', '[code:', code + ']');
     }
-    clearInterval(playerProcess.ledFlag);
+    clearInterval(player.ledFlag);
     delete playerInstances[sound];
+    //player.quit();
   });
-  playerInstances[sound] = playerProcess;
+
+  playerInstances[sound] = player;
+
+  player.launch(err => {
+    if (err) return log.error('VLC error:', err.message);
+  });
 }
 
 /** Function to mute */
@@ -127,7 +142,9 @@ function muteAll(message) {
     new Flux('interface|arduino|disconnect', null, { log: 'trace' });
     new Flux('interface|arduino|connect', null, { log: 'trace' });
   }
-  writeAllPlayerInstances('q');
+  Object.keys(playerInstances).forEach(key => {
+    playerInstances[key].quit();
+  });
   new Flux('service|music|stop', null, { log: 'trace' });
   new Flux('interface|tts|clearTTSQueue', null, { log: 'trace' });
   exec('sudo killall omxplayer.bin');
@@ -141,50 +158,14 @@ function muteAll(message) {
 function setVolume(volume) {
   if (typeof volume === 'object' && volume.hasOwnProperty('value')) volume = volume.value;
   if (!isNaN(volume)) {
-    let volumeUpdate = getVolumeInstructions(parseInt(volume));
-    if (!volumeUpdate) return;
-
-    let sign = volumeUpdate.increase ? '+' : '-';
-    while (volumeUpdate.gap) {
-      writeAllPlayerInstances(sign);
-      volumeUpdate.gap--;
-    }
+    Object.keys(playerInstances).forEach(key => {
+      playerInstances[key].setVolume(volume);
+    });
     Core.run('volume', volume);
     log.info('Volume level =', volume + '%');
   } else {
-    Core.error('volume argument not a numeric value', volume);
+    Core.error('Volume argument not a numeric value', volume);
   }
-}
-
-function writeAllPlayerInstances(sign) {
-  log.trace('playerInstances.write:', sign);
-  Object.keys(playerInstances).forEach(key => {
-    playerInstances[key].stdin.write(sign);
-  });
-}
-
-function percentToMillibels(percent) {
-  let attenuation = 1.0 / 1024.0 + ((percent / 100.0) * 1023.0) / 1024.0;
-  let db = (6 * Math.log10(attenuation)) / Math.log10(2);
-  return db * 100;
-}
-
-function getVolumeInstructions(newVolume) {
-  let actualVolume = parseInt(Core.run('volume'));
-  let indexNewVolume = VOLUME_LEVELS.indexOf(newVolume);
-  if (actualVolume === newVolume) {
-    log.debug('same volume as configured');
-    return;
-  }
-  if (indexNewVolume < 0 || indexNewVolume > 100) {
-    Core.error('Invalid volume value', 'volume value=' + newVolume, false);
-  }
-  let increase = newVolume > actualVolume;
-  let indexActualVolume = VOLUME_LEVELS.indexOf(actualVolume);
-
-  let gap = Math.abs(indexNewVolume - indexActualVolume);
-  log.debug({ increase: increase, gap: gap });
-  return { increase: increase, gap: gap };
 }
 
 function ledFlag() {
