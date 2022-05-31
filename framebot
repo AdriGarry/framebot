@@ -31,7 +31,7 @@ updateFrameBotScript(){
 exitIfNoArgs(){
 	if [ $# -eq 0 ]
 	then
-		echo "No arguments supplied, exiting."
+		echo "framebot error: no arguments supplied, exiting."
 		echo "Try 'update' or <botname> [<options>]"
 		exit 0
 	fi
@@ -101,7 +101,7 @@ _NAME=$1
 if [ ! -d "$_PATH"/log ];
 then
 	mkdir "$_PATH"/log
-	echo "log directory created"
+	echo "framebot: log directory created"
 fi
 
 echo "\nStarting Wrapper... [$*]" | sudo tee -a "$_PATH/log/$_NAME.log"
