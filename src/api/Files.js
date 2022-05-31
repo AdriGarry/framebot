@@ -63,7 +63,7 @@ module.exports = class Files {
         let curPath = path + '/' + file;
         if (fs.lstatSync(curPath).isDirectory()) {
           // recurse
-          deleteFolderRecursive(curPath);
+          Files.deleteFolderRecursive(curPath);
         } else {
           // delete file
           fs.unlinkSync(curPath);
