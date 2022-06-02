@@ -47,8 +47,8 @@ function setupHomeOffice() {
   // Desktop plug ON
   new Flux('service|powerPlug|toggle', { plug: 'plugA', mode: true });
 
-  // Radiator ON for 6 hours
-  new Flux('service|radiator|timeout', { mode: 'on', timeout: 6 * 60 });
+  // Radiator ON for 6 hours if not disabled
+  if (Core.conf('radiator') !== 'off') new Flux('service|radiator|timeout', { mode: 'on', timeout: 6 * 60 });
 
   setQuietModeDuringLunchTime();
   setInteractions();
