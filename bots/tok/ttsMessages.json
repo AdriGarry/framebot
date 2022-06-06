@@ -63,15 +63,6 @@
     ],
     [
       {
-        "voice": "google",
-        "msg": "Sait toi Boutss ?"
-      },
-      {
-        "msg": "Oui, je crois qu'une boulette est passer par la"
-      }
-    ],
-    [
-      {
         "msg": "Imagine un peu si je pouvais bouger, sa serait super cool !"
       },
       {
@@ -255,7 +246,6 @@
     "sensor": [
       "Oh, il se passe un truc vers chez Max!",
       "Oh Oh, sa va Max?",
-      "Hey, Max!",
       "Oh, Max!",
       {
         "lg": "en",
