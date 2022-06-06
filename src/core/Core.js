@@ -71,20 +71,6 @@ function initializeContext(descriptor, forcedParams, startTime) {
   }
   if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
-  if (Core.isAwake()) {
-    let soundToPlay = Core._MP3 + 'system/startup.mp3';
-
-    new PlayerController({
-      app: 'cvlc', // Media player name to use (mpv/vlc)
-      args: ['--gain=1.0', '--no-video', '--play-and-exit'], // Player command line args (array of strings)
-      cwd: null, // Current working dir for media player spawn
-      media: soundToPlay, // Media to load on player launch (required)
-      httpPort: 9280, // HTTP port for local communication (vlc only)
-      httpPass: null, // HTTP login password (vlc only, defaults to player name)
-      detached: false // Spawn player as detached process
-    }).launch();
-  }
-
   if (Core.conf('log') != 'info') log.level(Core.conf('log'));
 
   if (descriptor.conf && typeof descriptor.conf == 'object') {
