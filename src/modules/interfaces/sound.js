@@ -5,7 +5,7 @@ const { spawn, exec } = require('child_process');
 
 const PlayerController = require('vlc-player-controller');
 
-const { Core, Flux, Logger, Observers, Files, Utils } = require('./../../api');
+const { Core, Flux, Logger, Observers, Files, Scheduler, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -33,6 +33,7 @@ Observers.attachFluxParseOptions('interface', 'sound', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
   resetSoundOutput();
+  if (Core.isAwake()) Scheduler.delayMs(1).then(playStartUpSound);
 });
 
 var playerInstances = {},
@@ -83,24 +84,29 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
   let volumeForPlay = volume && volume < defaultVolume ? volume : defaultVolume;
 
   let volumeForVlc = volumeForPlay / 100;
-  log.test('volumeForPlay:', volumeForPlay, ', volumeForVlc:', volumeForVlc);
+  if (!noLog) log.test('volumeForPlay:', volumeForPlay, ', volumeForVlc:', volumeForVlc, 'Is this deprecated? to clean?');
 
   let startPlayTime = new Date();
   var player = new PlayerController({
     app: 'cvlc', // Media player name to use (mpv/vlc)
-    args: ['--gain=' + volumeForVlc, '--no-video', '--play-and-exit'], // Player command line args (array of strings)
-    // , '--play-and-exit'
-    cwd: null, // Current working dir for media player spawn
+    args: ['--gain=' + volumeForVlc, '--no-video', '--play-and-exit'],
+    // TODO --gain deprecated? Check: https://apple.stackexchange.com/questions/386999/vlc-command-line-volume-control
     media: sound, // Media to load on player launch (required)
-    // httpPort: 9280,
-    // httpPass: null,
+    httpPort: 9280,
+    httpPass: null,
     detached: false // Spawn player as detached process
   });
 
   if (!noLed) player.ledFlag = ledFlag();
 
   player.on('playback', data => {
-    if (data.name === 'volume') log.test(data);
+    if (data.name === 'volume') {
+      log.test('VLC playback:', data);
+      if (data.value * 100 !== Core.run('volume')) {
+        log.test(`Synchronising VLC volume with default volume (${defaultVolume})`);
+        player.setVolume(defaultVolume);
+      }
+    }
   });
 
   player.on('app-exit', code => {
@@ -174,6 +180,10 @@ function ledFlag() {
   return setInterval(function () {
     new Flux('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
   }, 10 * 1000);
+}
+
+function playStartUpSound() {
+  playSound({ mp3: 'system/startup.mp3', noLog: true, noLed: true });
 }
 
 function playErrorSound() {
