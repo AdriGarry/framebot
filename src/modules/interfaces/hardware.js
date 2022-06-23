@@ -108,9 +108,10 @@ function lightOn() {
 }
 
 function motionDetectLight() {
+  // TODO move to motionDetect service, ou bien créer un light service ?
   new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'TRACE' });
-  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 150, loop: 3 }, { delay: 1, log: 'TRACE' });
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 1.3, log: 'TRACE' });
+  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 150, loop: 2 }, { delay: 1, log: 'TRACE' });
+  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 1, log: 'TRACE' });
 }
 
 function blinkLightThenOff() {
