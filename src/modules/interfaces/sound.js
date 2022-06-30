@@ -64,8 +64,8 @@ function playSound(arg) {
   let position = arg.position || 0;
   let volume = arg.volume || Core.run('volume');
 
-  let wavFile = sound.match(/\/.+.mp3/gm)[0].substr(1);
-  if (wavFile) {
+  let isWavFile = sound.endsWith('.wav');
+  if (isWavFile) {
     exec(`ffmpeg -i ${sound} ${Core._TMP + sound.mp3}`, (err, stdout, stderr) => {
       doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
     });
@@ -91,6 +91,9 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
   let defaultVolume = Core.run('volume');
   let volumeForPlay = volume > defaultVolume ? defaultVolume : volume;
 
+  // TODO or use spawn?
+  //  - to ajust volume while playing
+  //  - to let sound be killed by mute()
   let playerProcess = mpg321()
     .file(sound)
     .gain(volumeForPlay)
