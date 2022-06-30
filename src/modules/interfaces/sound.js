@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
-const { spawn, exec } = require('child_process');
+const { exec } = require('child_process'),
+  mpg321 = require('mpg321');
 
 const { Core, Flux, Logger, Observers, Files, Utils } = require('./../../api');
 
@@ -38,6 +39,7 @@ var playerInstances = {},
   muteTimer;
 
 function playSound(arg) {
+  // TODO manage not .mp3 files (such as .wav...)
   log.debug('playSound(arg)', arg);
   let soundTitle, sound;
   if (arg.mp3) {
@@ -60,9 +62,14 @@ function playSound(arg) {
   if (!arg.noLog) log.info('play', soundTitle, volLog, positionLog, durationLog);
 
   let position = arg.position || 0;
-  // let volume = arg.volume || Core.run('volume');
-  let volume = arg.volume ? percentToMillibels(arg.volume) : percentToMillibels(Core.run('volume'));
-  doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
+  let volume = arg.volume || Core.run('volume');
+
+  let wavFile = sound.match(/\/.+.mp3/gm)[0].substr(1);
+  if (wavFile) {
+    exec(`ffmpeg -i ${sound} ${Core._TMP + sound.mp3}`, (err, stdout, stderr) => {
+      doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
+    });
+  } else doPlay(Core._TMP + sound.mp3, volume, position, soundTitle, arg.noLog, arg.noLed);
 }
 
 function playSoundRandomPosition(arg) {
@@ -84,24 +91,30 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
   let defaultVolume = Core.run('volume');
   let volumeForPlay = volume > defaultVolume ? defaultVolume : volume;
 
-  let playerProcess = spawn('omxplayer', ['--vol', volumeForPlay, '--pos', position || 0, sound]);
+  let playerProcess = mpg321()
+    .file(sound)
+    .gain(volumeForPlay)
+    .skip(position || 0)
+    .basicKeys()
+    // .outputdevice('alsa')
+    .quiet()
+    .exec();
 
   if (!noLed) playerProcess.ledFlag = ledFlag();
 
   playerProcess.stderr.on('data', err => {
-    // TODO useless ?
     log.error('player error for ' + soundTitle || sound, Buffer.from(err).toString());
   });
 
-  playerProcess.on('close', err => {
-    if (err) log.error('player.onClose ' + soundTitle + ' error', err);
-    if (!noLog) {
-      let playTime = Utils.formatDuration(Math.round(Utils.executionTime(startPlayTime) / 100) / 10);
-      log.info('play_end ' + soundTitle + ' [duration:', playTime + ']');
-    }
-    clearInterval(playerProcess.ledFlag);
-    delete playerInstances[sound];
-  });
+  // playerProcess.on('close', err => {
+  //   if (err) log.error('player.onClose ' + soundTitle + ' error', err);
+  //   if (!noLog) {
+  //     let playTime = Utils.formatDuration(Math.round(Utils.executionTime(startPlayTime) / 100) / 10);
+  //     log.info('play_end ' + soundTitle + ' [duration:', playTime + ']');
+  //   }
+  //   clearInterval(playerProcess.ledFlag);
+  //   delete playerInstances[sound];
+  // });
   playerInstances[sound] = playerProcess;
 }
 
@@ -127,10 +140,10 @@ function muteAll(message) {
     new Flux('interface|arduino|disconnect', null, { log: 'trace' });
     new Flux('interface|arduino|connect', null, { log: 'trace' });
   }
-  writeAllPlayerInstances('q');
+  // writeAllPlayerInstances('q'); // TODO to reactivate
   new Flux('service|music|stop', null, { log: 'trace' });
   new Flux('interface|tts|clearTTSQueue', null, { log: 'trace' });
-  exec('sudo killall omxplayer.bin');
+  exec('sudo killall mpg321');
   exec('sudo killall espeak');
   log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
   new Flux('interface|led|clearLeds', null, { log: 'trace' });
@@ -141,16 +154,20 @@ function muteAll(message) {
 function setVolume(volume) {
   if (typeof volume === 'object' && volume.hasOwnProperty('value')) volume = volume.value;
   if (!isNaN(volume)) {
+    Core.run('volume', volume);
+    log.info('Volume level =', volume + '%');
+
+    // writeAllPlayerInstances(volume); // TODO to reactivate
+    return;
+
     let volumeUpdate = getVolumeInstructions(parseInt(volume));
     if (!volumeUpdate) return;
 
-    let sign = volumeUpdate.increase ? '+' : '-';
+    let sign = volumeUpdate.increase ? '*' : '/';
     while (volumeUpdate.gap) {
-      writeAllPlayerInstances(sign);
+      writeAllPlayerInstances(sign); // TODO to reactivate
       volumeUpdate.gap--;
     }
-    Core.run('volume', volume);
-    log.info('Volume level =', volume + '%');
   } else {
     Core.error('volume argument not a numeric value', volume);
   }
@@ -159,14 +176,10 @@ function setVolume(volume) {
 function writeAllPlayerInstances(sign) {
   log.trace('playerInstances.write:', sign);
   Object.keys(playerInstances).forEach(key => {
-    playerInstances[key].stdin.write(sign);
+    log.test(playerInstances[key]);
+    // playerInstances[key].stdin.write(sign);
+    if (playerInstances[key]) playerInstances[key].gain(sign);
   });
-}
-
-function percentToMillibels(percent) {
-  let attenuation = 1.0 / 1024.0 + ((percent / 100.0) * 1023.0) / 1024.0;
-  let db = (6 * Math.log10(attenuation)) / Math.log10(2);
-  return db * 100;
 }
 
 function getVolumeInstructions(newVolume) {
