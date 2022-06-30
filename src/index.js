@@ -51,13 +51,30 @@ if (Core.conf('mode') === 'test') {
 // TTS to test
 //setTimeout(testSound, 3000);
 
-function testSound() {
-  const { spawn } = require('child_process');
+function testSoundMpg321() {
+  var { spawn, spawn } = require('child_process');
 
-  log.test('testSound...');
-  let mplayerProcess = spawn('mplayer', ['-ao', 'alsa', '-volstep', 10, '-volume', 60, 'media/mp3/system/beBack.mp3']);
+  log.test('testSound mpg321...');
+  let mplayerProcess = spawn('mpg321', ['--gain', '20', 'media/mp3/system/beBack.mp3']);
 
+  mplayerProcess.stdout.on('data', err => {
+    log.test(`stderr: ${err}`);
+  });
   mplayerProcess.stderr.on('data', err => {
     log.test(`stderr: ${err}`);
   });
 }
+
+function testSoundMpg321_2() {
+  var mpg321 = require('mpg321');
+
+  var proc = mpg321()
+    .loop(1) // 0 = infinity loop
+    .gain(30)
+    .file('media/mp3/system/beBack.mp3')
+    .exec();
+}
+
+// TODO check: https://www.npmjs.com/package/mpg321
+
+// testSoundMpg321_2();
