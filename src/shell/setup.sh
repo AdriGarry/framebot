@@ -40,9 +40,8 @@ tar -xvf node-v10.24.1-linux-armv7l.tar.gz
 cd node-v10.24.1-linux-armv7l
 sudo cp -R * /usr/local/
 
-# Install mplayer & sound tools
-# sudo apt-get install -y mplayer
-sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg123 lame
+# Install sound tools & player
+sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg321 lame
 
 # Set audio output to headphones
 amixer cset numid=3 1
