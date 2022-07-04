@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const { exec } = require('child_process'),
-  mpg321 = require('mpg321');
+const { spawn, exec } = require('child_process');
 
 const { Core, Flux, Logger, Observers, Files, Utils } = require('./../../api');
 
@@ -43,6 +42,7 @@ function playSound(arg) {
   log.debug('playSound(arg)', arg);
   let soundTitle, sound;
   if (arg.mp3) {
+    // TODO replace .mp3 with .file
     try {
       soundTitle = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
     } catch (err) {
@@ -66,10 +66,13 @@ function playSound(arg) {
 
   let isWavFile = sound.endsWith('.wav');
   if (isWavFile) {
-    exec(`ffmpeg -i ${sound} ${Core._TMP + sound.mp3}`, (err, stdout, stderr) => {
-      doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
+    soundTitle = arg.mp3.match(/\/.+.wav/gm)[0].substr(1);
+    log.test('soundTitle:', soundTitle);
+    log.test('wav file, converting...', sound, Core._TMP + 'soundTitle.mp3');
+    exec(`ffmpeg -i ${sound} ${Core._TMP + soundTitle + '.mp3'}`, (err, stdout, stderr) => {
+      doPlay(Core._TMP + soundTitle + '.mp3', volume, position, soundTitle, arg.noLog, arg.noLed);
     });
-  } else doPlay(Core._TMP + sound.mp3, volume, position, soundTitle, arg.noLog, arg.noLed);
+  } else doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
 }
 
 function playSoundRandomPosition(arg) {
@@ -91,33 +94,23 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
   let defaultVolume = Core.run('volume');
   let volumeForPlay = volume > defaultVolume ? defaultVolume : volume;
 
-  // TODO or use spawn?
-  //  - to ajust volume while playing
-  //  - to let sound be killed by mute()
-  let playerProcess = mpg321()
-    .file(sound)
-    .gain(volumeForPlay)
-    .skip(position || 0)
-    .basicKeys()
-    // .outputdevice('alsa')
-    .quiet()
-    .exec();
+  let playerProcess = spawn('mpg321', ['-g', volume, '-k', 0, '-K', '-q', sound]);
 
   if (!noLed) playerProcess.ledFlag = ledFlag();
 
   playerProcess.stderr.on('data', err => {
-    log.error('player error for ' + soundTitle || sound, Buffer.from(err).toString());
+    if (err && !err.indexOf('Inappropriate ioctl for device')) log.error('player error for ' + soundTitle || sound, Buffer.from(err).toString());
   });
 
-  // playerProcess.on('close', err => {
-  //   if (err) log.error('player.onClose ' + soundTitle + ' error', err);
-  //   if (!noLog) {
-  //     let playTime = Utils.formatDuration(Math.round(Utils.executionTime(startPlayTime) / 100) / 10);
-  //     log.info('play_end ' + soundTitle + ' [duration:', playTime + ']');
-  //   }
-  //   clearInterval(playerProcess.ledFlag);
-  //   delete playerInstances[sound];
-  // });
+  playerProcess.on('close', err => {
+    if (err) log.error('player.onClose ' + soundTitle + ' error', err);
+    if (!noLog) {
+      let playTime = Utils.formatDuration(Math.round(Utils.executionTime(startPlayTime) / 100) / 10);
+      log.info('play_end ' + soundTitle + ' [duration:', playTime + ']');
+    }
+    clearInterval(playerProcess.ledFlag);
+    delete playerInstances[sound];
+  });
   playerInstances[sound] = playerProcess;
 }
 
@@ -157,20 +150,16 @@ function muteAll(message) {
 function setVolume(volume) {
   if (typeof volume === 'object' && volume.hasOwnProperty('value')) volume = volume.value;
   if (!isNaN(volume)) {
-    Core.run('volume', volume);
-    log.info('Volume level =', volume + '%');
-
-    // writeAllPlayerInstances(volume); // TODO to reactivate
-    return;
-
     let volumeUpdate = getVolumeInstructions(parseInt(volume));
     if (!volumeUpdate) return;
 
     let sign = volumeUpdate.increase ? '*' : '/';
     while (volumeUpdate.gap) {
-      writeAllPlayerInstances(sign); // TODO to reactivate
+      writeAllPlayerInstances(sign);
       volumeUpdate.gap--;
     }
+    Core.run('volume', volume);
+    log.info('Volume level =', volume + '%');
   } else {
     Core.error('volume argument not a numeric value', volume);
   }
@@ -179,9 +168,7 @@ function setVolume(volume) {
 function writeAllPlayerInstances(sign) {
   log.trace('playerInstances.write:', sign);
   Object.keys(playerInstances).forEach(key => {
-    log.test(playerInstances[key]);
-    // playerInstances[key].stdin.write(sign);
-    if (playerInstances[key]) playerInstances[key].gain(sign);
+    playerInstances[key].stdin.write(sign);
   });
 }
 
@@ -199,7 +186,7 @@ function getVolumeInstructions(newVolume) {
   let indexActualVolume = VOLUME_LEVELS.indexOf(actualVolume);
 
   let gap = Math.abs(indexNewVolume - indexActualVolume);
-  log.debug({ increase: increase, gap: gap });
+  gap = gap * 3; // Needed because of mpg321 volume step (3)
   return { increase: increase, gap: gap };
 }
 
@@ -212,7 +199,7 @@ function ledFlag() {
 }
 
 function playErrorSound() {
-  playSound({ mp3: 'system/ressort.mp3', volume: 20, noLog: true, noLed: true });
+  playSound({ mp3: 'system/ressort.mp3', volume: 10, noLog: true, noLed: true });
 }
 
 function playUISound() {
