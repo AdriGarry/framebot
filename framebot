@@ -41,6 +41,7 @@ ifStop(){
 	if [ $1 = "stop" ]; then
 		sudo systemctl stop framebot.service
 		sudo killall node
+		sudo killall mpg321
 		# killall node
 		echo "\nframebot STOPPED."
 		exit 0
