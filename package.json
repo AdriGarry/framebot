@@ -1,6 +1,6 @@
 {
   "name": "framebot",
-  "version": "7.11.12",
+  "version": "7.11.13",
   "private": true,
   "description": "Framebot program to autorun, interact & manage stuff...",
   "main": "framebot",
@@ -22,7 +22,6 @@
     "multer": "^1.4.5-lts.1",
     "oauth": "0.9.15",
     "onoff": "6.0.2",
-    "pi-utils": "0.1.7",
     "randombox": "*",
     "rfxcom": "2.4.0",
     "rxjs": "6.6.7",
