@@ -2,8 +2,8 @@
 
 'use strict';
 
-const fs = require('fs');
-const mpg321 = require('mpg321');
+const fs = require('fs'),
+  { spawn } = require('child_process');
 
 const Lock = require('./Lock');
 
@@ -73,10 +73,7 @@ function initializeContext(descriptor, forcedParams, startTime) {
   if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
   if (Core.isAwake()) {
-    mpg321()
-      .gain(40)
-      .file(Core._MP3 + 'system/startup.mp3')
-      .exec();
+    spawn('mpg321', ['-g', 40, Core._MP3 + 'system/startup.mp3']);
   }
 
   if (Core.conf('log') != 'info') log.level(Core.conf('log'));
