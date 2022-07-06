@@ -41,7 +41,7 @@ cd node-v10.24.1-linux-armv7l
 sudo cp -R * /usr/local/
 
 # Install sound tools & player
-sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg321 lame
+sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg321 lame ffmpeg
 
 # Set audio output to headphones
 amixer cset numid=3 1
