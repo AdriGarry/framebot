@@ -94,7 +94,9 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
   let defaultVolume = Core.run('volume');
   let volumeForPlay = volume > defaultVolume ? defaultVolume : volume;
 
-  let playerProcess = spawn('mpg321', ['-g', volume, '-k', 0, '-K', '-q', sound]);
+  position = position || 0; // TODO Skipping frames instead of seconds...
+
+  let playerProcess = spawn('mpg321', ['-g', volume, '-k', position, '-K', '-q', sound]);
 
   if (!noLed) playerProcess.ledFlag = ledFlag();
 
