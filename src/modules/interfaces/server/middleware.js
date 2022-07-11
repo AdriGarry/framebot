@@ -57,7 +57,7 @@ var securityMiddleware = function (req, res, next) {
 var throttleBadRequestTTS = Scheduler.throttle(badRequestTTS, BAD_REQUEST_TIMEOUT, true, false, this);
 
 function badRequestTTS() {
-  new Flux('interface|tts|speak', { voice: 'espeak', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });
+  new Flux('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });
 }
 
 function getRequestData(req) {
