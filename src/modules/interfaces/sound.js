@@ -44,7 +44,7 @@ function playSound(arg) {
   if (arg.mp3) {
     // TODO replace .mp3 with .file
     try {
-      soundTitle = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
+      soundTitle = Files.getFilename(arg.mp3);
     } catch (err) {
       soundTitle = arg.mp3;
     }
@@ -66,11 +66,10 @@ function playSound(arg) {
 
   let isWavFile = sound.endsWith('.wav');
   if (isWavFile) {
-    soundTitle = arg.mp3.match(/\/.+.wav/gm)[0].substr(1);
-    log.test('soundTitle:', soundTitle);
-    log.test('wav file, converting...', sound, Core._TMP + 'soundTitle.mp3');
-    exec(`ffmpeg -i ${sound} ${Core._TMP + soundTitle + '.mp3'}`, (err, stdout, stderr) => {
-      doPlay(Core._TMP + soundTitle + '.mp3', volume, position, soundTitle, arg.noLog, arg.noLed);
+    soundTitle = Files.getFilename(arg.mp3);
+    let convertedSoundPath = Core._TMP + soundTitle + '.mp3';
+    exec(`ffmpeg -y -i ${sound} ${convertedSoundPath}`, (err, stdout, stderr) => {
+      doPlay(convertedSoundPath, volume, position, soundTitle, arg.noLog, arg.noLed);
     });
   } else doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
 }
