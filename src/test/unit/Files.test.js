@@ -77,6 +77,14 @@ describe('Files', function () {
     });
   });
 
+  describe('Files.getFilename: return filename with extension from path', function () {
+    it('should return filename with extension from path', function () {
+      let expected = 'wrapper.js';
+      let result = Files.getFilename('./framebot/src/wrapper.js');
+      assert.strictEqual(result, expected);
+    });
+  });
+
   describe('Files.getDuration: ...', function () {
     xit('TODO', function () {
       //
