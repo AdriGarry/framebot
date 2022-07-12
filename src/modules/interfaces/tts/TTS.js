@@ -19,7 +19,6 @@ module.exports = class TTS {
       log.debug('No valid language, fallback on', FALLBACK_LANGUAGE);
       this.lg = FALLBACK_LANGUAGE;
     }
-    log.test('FORCED_VOICE', FORCED_VOICE);
     if (FORCED_VOICE) {
       log.debug('Use forced voice:', FORCED_VOICE);
       this.voice = FORCED_VOICE;
