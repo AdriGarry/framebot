@@ -97,7 +97,7 @@ function startAlarmSequence() {
 function alarmPart1() {
   return new Promise((resolve, reject) => {
     log.info('Morning Sea...');
-    new Flux('interface|sound|play', { mp3: 'system/morningSea.mp3' });
+    new Flux('interface|sound|play', { file: 'system/morningSea.mp3' });
     Files.getDuration(Core._MP3 + 'system/morningSea.mp3')
       .then(data => {
         log.debug('seaDuration', data);
@@ -117,7 +117,7 @@ function alarmPart2() {
   return new Promise((resolve, reject) => {
     log.info('cocorico !!');
     new Flux('interface|arduino|write', 'playHornDoUp');
-    new Flux('interface|sound|play', { mp3: 'system/cocorico.mp3', volume: 10 });
+    new Flux('interface|sound|play', { file: 'system/cocorico.mp3', volume: 10 });
     if (isBirthday()) {
       new Flux('service|party|birthdaySong');
       setTimeout(function () {

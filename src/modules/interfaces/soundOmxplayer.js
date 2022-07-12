@@ -40,13 +40,13 @@ var playerInstances = {},
 function playSound(arg) {
   log.debug('playSound(arg)', arg);
   let soundTitle, sound;
-  if (arg.mp3) {
+  if (arg.file) {
     try {
-      soundTitle = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
+      soundTitle = arg.file.match(/\/.+.mp3/gm)[0].substr(1);
     } catch (err) {
-      soundTitle = arg.mp3;
+      soundTitle = arg.file;
     }
-    sound = Files.getAbsolutePath(arg.mp3, Core._MP3);
+    sound = Files.getAbsolutePath(arg.file, Core._MP3);
     if (!sound) return;
   } else if (arg.url) {
     soundTitle = arg.url;
@@ -66,7 +66,7 @@ function playSound(arg) {
 }
 
 function playSoundRandomPosition(arg) {
-  let sound = Files.getAbsolutePath(arg.mp3, Core._MP3);
+  let sound = Files.getAbsolutePath(arg.file, Core._MP3);
   if (!sound) return;
   Files.getDuration(sound)
     .then(data => {
@@ -111,7 +111,7 @@ function mute(args) {
   if (!args) args = {};
   if (args.hasOwnProperty('delay') && Number(args.delay)) {
     muteTimer = setTimeout(function () {
-      new Flux('interface|sound|play', { mp3: 'system/autoMute.mp3' });
+      new Flux('interface|sound|play', { file: 'system/autoMute.mp3' });
       setTimeout(function () {
         muteAll(args.message || null);
       }, 1600);
@@ -196,15 +196,15 @@ function ledFlag() {
 }
 
 function playErrorSound() {
-  playSound({ mp3: 'system/ressort.mp3', volume: 20, noLog: true, noLed: true });
+  playSound({ file: 'system/ressort.mp3', volume: 20, noLog: true, noLed: true });
 }
 
 function playUISound() {
-  playSound({ mp3: 'system/UIrequestSound.mp3', noLog: true, noLed: true });
+  playSound({ file: 'system/UIrequestSound.mp3', noLog: true, noLed: true });
 }
 
 function playMotionDetectSound() {
-  playSound({ mp3: 'system/sonar.mp3', noLog: true, noLed: true });
+  playSound({ file: 'system/sonar.mp3', noLog: true, noLed: true });
 }
 
 /** Function to reset sound output */

@@ -38,17 +38,15 @@ var playerInstances = {},
   muteTimer;
 
 function playSound(arg) {
-  // TODO manage not .mp3 files (such as .wav...)
   log.debug('playSound(arg)', arg);
   let soundTitle, sound;
-  if (arg.mp3) {
-    // TODO replace .mp3 with .file
+  if (arg.file) {
     try {
-      soundTitle = Files.getFilename(arg.mp3);
+      soundTitle = Files.getFilename(arg.file);
     } catch (err) {
-      soundTitle = arg.mp3;
+      soundTitle = arg.file;
     }
-    sound = Files.getAbsolutePath(arg.mp3, Core._MP3);
+    sound = Files.getAbsolutePath(arg.file, Core._MP3);
     if (!sound) return;
   } else if (arg.url) {
     soundTitle = arg.url;
@@ -66,7 +64,7 @@ function playSound(arg) {
 
   let isWavFile = sound.endsWith('.wav');
   if (isWavFile) {
-    soundTitle = Files.getFilename(arg.mp3);
+    soundTitle = Files.getFilename(arg.file);
     let convertedSoundPath = Core._TMP + soundTitle + '.mp3';
     exec(`ffmpeg -y -i ${sound} ${convertedSoundPath}`, (err, stdout, stderr) => {
       doPlay(convertedSoundPath, volume, position, soundTitle, arg.noLog, arg.noLed);
@@ -75,7 +73,7 @@ function playSound(arg) {
 }
 
 function playSoundRandomPosition(arg) {
-  let sound = Files.getAbsolutePath(arg.mp3, Core._MP3);
+  let sound = Files.getAbsolutePath(arg.file, Core._MP3);
   if (!sound) return;
   Files.getDuration(sound)
     .then(data => {
@@ -121,7 +119,7 @@ function mute(args) {
   if (!args) args = {};
   if (args.hasOwnProperty('delay') && Number(args.delay)) {
     muteTimer = setTimeout(function () {
-      new Flux('interface|sound|play', { mp3: 'system/autoMute.mp3' });
+      new Flux('interface|sound|play', { file: 'system/autoMute.mp3' });
       setTimeout(function () {
         muteAll(args.message || null);
       }, 1600);
@@ -200,15 +198,15 @@ function ledFlag() {
 }
 
 function playErrorSound() {
-  playSound({ mp3: 'system/ressort.mp3', volume: 10, noLog: true, noLed: true });
+  playSound({ file: 'system/ressort.mp3', volume: 10, noLog: true, noLed: true });
 }
 
 function playUISound() {
-  playSound({ mp3: 'system/UIrequestSound.mp3', noLog: true, noLed: true });
+  playSound({ file: 'system/UIrequestSound.mp3', noLog: true, noLed: true });
 }
 
 function playMotionDetectSound() {
-  playSound({ mp3: 'system/sonar.mp3', noLog: true, noLed: true });
+  playSound({ file: 'system/sonar.mp3', noLog: true, noLed: true });
 }
 
 /** Function to reset sound output */

@@ -51,6 +51,6 @@ function pico(tts) {
     if (err) Core.error(err);
     if (stderr) Core.error(stderr);
     log.info(stdout);
-    new Flux('interface|sound|play', { mp3: Core._TMP + 'picoTTS.wav', volume: volume, noLog: false });
+    new Flux('interface|sound|play', { file: Core._TMP + 'picoTTS.wav', volume: volume, noLog: false });
   });
 }

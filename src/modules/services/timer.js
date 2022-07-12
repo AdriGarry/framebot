@@ -35,9 +35,9 @@ function decrementTimerTimeout() {
   toggleBellyLed();
   let remainingTime = Core.run('timer');
   if (remainingTime < 10) {
-    new Flux('interface|sound|play', { mp3: 'system/timerAlmostEnd.mp3', noLog: true, noLed: true }, { log: 'trace' });
+    new Flux('interface|sound|play', { file: 'system/timerAlmostEnd.mp3', noLog: true, noLed: true }, { log: 'trace' });
   } else {
-    new Flux('interface|sound|play', { mp3: 'system/timer.mp3', noLog: true, noLed: true }, { log: 'trace' });
+    new Flux('interface|sound|play', { file: 'system/timer.mp3', noLog: true, noLed: true }, { log: 'trace' });
   }
   remainingTime = remainingTime - 1;
   Core.run('timer', remainingTime);
@@ -56,7 +56,7 @@ function toggleBellyLed() {
 function endTimerTimeout() {
   log.info('End Timer !');
   Core.run('timer', 0);
-  new Flux('interface|sound|play', { mp3: 'system/timerEnd.mp3', noLog: true });
+  new Flux('interface|sound|play', { file: 'system/timerEnd.mp3', noLog: true });
   new Flux('interface|led|blink', { leds: ['belly', 'eye'], speed: 90, loop: 12 });
   new Flux('interface|tts|speak', 'Les raviolis sont cuits !');
   new Flux('interface|led|toggle', { leds: ['belly'], value: 0 }, { delay: 1 });

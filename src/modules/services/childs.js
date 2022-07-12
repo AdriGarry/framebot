@@ -20,5 +20,5 @@ function bonneNuit() {
 }
 
 function playlistChilds() {
-  new Flux({ id: 'interface|sound|play', data: { mp3: 'childs/playlist.mp3' } });
+  new Flux({ id: 'interface|sound|play', data: { file: 'childs/playlist.mp3' } });
 }
