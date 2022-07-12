@@ -54,10 +54,6 @@ function playSound(arg) {
   } else {
     Core.error('No source sound arg', arg);
   }
-  let durationLog = arg.duration ? 'duration=' + (Math.floor(arg.duration / 60) + 'm' + Math.round(arg.duration % 60)) : '';
-  let volLog = arg.volume ? 'vol=' + arg.volume : '';
-  let positionLog = arg.position ? 'pos=' + Utils.formatDuration(arg.position) : '';
-  if (!arg.noLog) log.info('play', soundTitle, volLog, positionLog, durationLog);
 
   let position = arg.position || 0;
   let volume = arg.volume || Core.run('volume');
@@ -87,6 +83,12 @@ function playSoundRandomPosition(arg) {
 
 function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
   let startPlayTime = new Date();
+
+  // TODO re-use for play_end log...!
+  // let durationLog = arg.duration ? 'duration=' + (Math.floor(arg.duration / 60) + 'm' + Math.round(arg.duration % 60)) : '';
+  let volLog = volume ? 'vol=' + volume : '';
+  let positionLog = position ? 'pos=' + Utils.formatDuration(position) : '';
+  if (!noLog) log.info('play', soundTitle, volLog, positionLog);
 
   let defaultVolume = Core.run('volume');
   let volumeForPlay = volume > defaultVolume ? defaultVolume : volume;
@@ -135,7 +137,6 @@ function muteAll(message) {
     new Flux('interface|arduino|disconnect', null, { log: 'trace' });
     new Flux('interface|arduino|connect', null, { log: 'trace' });
   }
-  // writeAllPlayerInstances('q'); // TODO to reactivate
   new Flux('service|music|stop', null, { log: 'trace' });
   new Flux('interface|tts|clearTTSQueue', null, { log: 'trace' });
   exec('sudo killall mpg321');
