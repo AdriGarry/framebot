@@ -13,7 +13,7 @@
 
 **Framebot** is a NodeJS framework to automation & interaction.
 
-This is a homemade Raspberry Pi program, to run JS modules, with an API (logger, tools...).
+Based on a rolling release development approach, this is a homemade Raspberry Pi program, to run JavaScript modules, with an API (logger, tools...).
 
 Available modes: ready, sleep, test.
 
