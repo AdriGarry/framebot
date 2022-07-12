@@ -8,7 +8,7 @@ const log = new Logger(__filename);
 const FALLBACK_LANGUAGE = 'fr',
   FALLBACK_VOICE = Core.descriptor.fallbackVoice,
   FORCED_VOICE = Core.descriptor.forcedVoice;
-log.info('FALLBACK_VOICE:', FALLBACK_VOICE, '/ FORCED_VOICE:', FORCED_VOICE);
+log.info('FALLBACK_VOICE:', FALLBACK_VOICE, FORCED_VOICE ? '/ FORCED_VOICE: ' + FORCED_VOICE : '');
 
 module.exports = class TTS {
   constructor(message, language, voice) {
