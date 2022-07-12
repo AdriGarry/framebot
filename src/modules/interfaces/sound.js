@@ -142,7 +142,7 @@ function muteAll(message) {
   new Flux('interface|tts|clearTTSQueue', null, { log: 'trace' });
   exec('sudo killall mpg321');
   exec('sudo killall espeak');
-  log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
+  log.info('>> MUTE', message ? '"' + message + '"' : '');
   new Flux('interface|led|clearLeds', null, { log: 'trace' });
   new Flux('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { log: 'trace' });
   Core.run('music', false);
