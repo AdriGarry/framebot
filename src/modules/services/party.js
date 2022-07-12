@@ -23,7 +23,7 @@ Observers.attachFluxParseOptions('service', 'party', FLUX_PARSE_OPTIONS);
 
 function birthdaySong() {
   log.info('birthday song...');
-  new Flux('interface|sound|play', { mp3: 'system/birthday.mp3' });
+  new Flux('interface|sound|play', { file: 'system/birthday.mp3' });
 }
 
 function start() {

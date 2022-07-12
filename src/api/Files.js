@@ -11,6 +11,8 @@ const logger = require('./Logger');
 
 const log = new logger(__filename);
 
+const FILENAME_REGEX = new RegExp(/\/(.+\/)*(?<filename>.+\.(?<extension>.+))/);
+
 module.exports = class Files {
   /** Function to append an array in JSON file */
   static appendJsonFile(filePath, obj) {
@@ -86,6 +88,16 @@ module.exports = class Files {
       return false;
     }
     return path;
+  }
+
+  static getFilename(path) {
+    if (typeof path !== 'string') {
+      log.error('Path must be a string: ' + typeof path, path);
+      return false;
+    }
+    let matchObj = FILENAME_REGEX.exec(path);
+    let filename = matchObj.groups.filename;
+    return filename;
   }
 
   /** Function to retreive audio or video file duration. Return a Promise */

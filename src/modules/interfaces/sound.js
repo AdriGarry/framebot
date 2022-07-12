@@ -40,13 +40,13 @@ var playerInstances = {},
 function playSound(arg) {
   log.debug('playSound(arg)', arg);
   let soundTitle, sound;
-  if (arg.mp3) {
+  if (arg.file) {
     try {
-      soundTitle = arg.mp3.match(/\/.+.mp3/gm)[0].substr(1);
+      soundTitle = Files.getFilename(arg.file);
     } catch (err) {
-      soundTitle = arg.mp3;
+      soundTitle = arg.file;
     }
-    sound = Files.getAbsolutePath(arg.mp3, Core._MP3);
+    sound = Files.getAbsolutePath(arg.file, Core._MP3);
     if (!sound) return;
   } else if (arg.url) {
     soundTitle = arg.url;
@@ -54,19 +54,22 @@ function playSound(arg) {
   } else {
     Core.error('No source sound arg', arg);
   }
-  let durationLog = arg.duration ? 'duration=' + (Math.floor(arg.duration / 60) + 'm' + Math.round(arg.duration % 60)) : '';
-  let volLog = arg.volume ? 'vol=' + arg.volume : '';
-  let positionLog = arg.position ? 'pos=' + Utils.formatDuration(arg.position) : '';
-  if (!arg.noLog) log.info('play', soundTitle, volLog, positionLog, durationLog);
 
   let position = arg.position || 0;
-  // let volume = arg.volume || Core.run('volume');
-  let volume = arg.volume ? percentToMillibels(arg.volume) : percentToMillibels(Core.run('volume'));
-  doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
+  let volume = arg.volume || Core.run('volume');
+
+  let isWavFile = sound.endsWith('.wav');
+  if (isWavFile) {
+    soundTitle = Files.getFilename(arg.file);
+    let convertedSoundPath = Core._TMP + soundTitle + '.mp3';
+    exec(`ffmpeg -y -i ${sound} ${convertedSoundPath}`, (err, stdout, stderr) => {
+      doPlay(convertedSoundPath, volume, position, soundTitle, arg.noLog, arg.noLed);
+    });
+  } else doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
 }
 
 function playSoundRandomPosition(arg) {
-  let sound = Files.getAbsolutePath(arg.mp3, Core._MP3);
+  let sound = Files.getAbsolutePath(arg.file, Core._MP3);
   if (!sound) return;
   Files.getDuration(sound)
     .then(data => {
@@ -81,16 +84,23 @@ function playSoundRandomPosition(arg) {
 function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
   let startPlayTime = new Date();
 
+  // TODO re-use for play_end log...!
+  // let durationLog = arg.duration ? 'duration=' + (Math.floor(arg.duration / 60) + 'm' + Math.round(arg.duration % 60)) : '';
+  let volLog = volume ? 'vol=' + volume : '';
+  let positionLog = position ? 'pos=' + Utils.formatDuration(position) : '';
+  if (!noLog) log.info('play', soundTitle, volLog, positionLog);
+
   let defaultVolume = Core.run('volume');
   let volumeForPlay = volume > defaultVolume ? defaultVolume : volume;
 
-  let playerProcess = spawn('omxplayer', ['--vol', volumeForPlay, '--pos', position || 0, sound]);
+  position = position || 0; // TODO Skipping frames instead of seconds...
+
+  let playerProcess = spawn('mpg321', ['-g', volume, '-k', position, '-K', '-q', sound]);
 
   if (!noLed) playerProcess.ledFlag = ledFlag();
 
   playerProcess.stderr.on('data', err => {
-    // TODO useless ?
-    log.error('player error for ' + soundTitle || sound, Buffer.from(err).toString());
+    if (err && !err.indexOf('Inappropriate ioctl for device')) log.error('player error for ' + soundTitle || sound, Buffer.from(err).toString());
   });
 
   playerProcess.on('close', err => {
@@ -111,7 +121,7 @@ function mute(args) {
   if (!args) args = {};
   if (args.hasOwnProperty('delay') && Number(args.delay)) {
     muteTimer = setTimeout(function () {
-      new Flux('interface|sound|play', { mp3: 'system/autoMute.mp3' });
+      new Flux('interface|sound|play', { file: 'system/autoMute.mp3' });
       setTimeout(function () {
         muteAll(args.message || null);
       }, 1600);
@@ -127,12 +137,11 @@ function muteAll(message) {
     new Flux('interface|arduino|disconnect', null, { log: 'trace' });
     new Flux('interface|arduino|connect', null, { log: 'trace' });
   }
-  writeAllPlayerInstances('q');
   new Flux('service|music|stop', null, { log: 'trace' });
   new Flux('interface|tts|clearTTSQueue', null, { log: 'trace' });
-  exec('sudo killall omxplayer.bin');
+  exec('sudo killall mpg321');
   exec('sudo killall espeak');
-  log.info('>> MUTE  -.-', message ? '"' + message + '"' : '');
+  log.info('>> MUTE', message ? '"' + message + '"' : '');
   new Flux('interface|led|clearLeds', null, { log: 'trace' });
   new Flux('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { log: 'trace' });
   Core.run('music', false);
@@ -144,7 +153,7 @@ function setVolume(volume) {
     let volumeUpdate = getVolumeInstructions(parseInt(volume));
     if (!volumeUpdate) return;
 
-    let sign = volumeUpdate.increase ? '+' : '-';
+    let sign = volumeUpdate.increase ? '*' : '/';
     while (volumeUpdate.gap) {
       writeAllPlayerInstances(sign);
       volumeUpdate.gap--;
@@ -163,12 +172,6 @@ function writeAllPlayerInstances(sign) {
   });
 }
 
-function percentToMillibels(percent) {
-  let attenuation = 1.0 / 1024.0 + ((percent / 100.0) * 1023.0) / 1024.0;
-  let db = (6 * Math.log10(attenuation)) / Math.log10(2);
-  return db * 100;
-}
-
 function getVolumeInstructions(newVolume) {
   let actualVolume = parseInt(Core.run('volume'));
   let indexNewVolume = VOLUME_LEVELS.indexOf(newVolume);
@@ -183,7 +186,7 @@ function getVolumeInstructions(newVolume) {
   let indexActualVolume = VOLUME_LEVELS.indexOf(actualVolume);
 
   let gap = Math.abs(indexNewVolume - indexActualVolume);
-  log.debug({ increase: increase, gap: gap });
+  gap = gap * 3; // Needed because of mpg321 volume step (3)
   return { increase: increase, gap: gap };
 }
 
@@ -196,15 +199,15 @@ function ledFlag() {
 }
 
 function playErrorSound() {
-  playSound({ mp3: 'system/ressort.mp3', volume: 20, noLog: true, noLed: true });
+  playSound({ file: 'system/ressort.mp3', volume: 10, noLog: true, noLed: true });
 }
 
 function playUISound() {
-  playSound({ mp3: 'system/UIrequestSound.mp3', noLog: true, noLed: true });
+  playSound({ file: 'system/UIrequestSound.mp3', noLog: true, noLed: true });
 }
 
 function playMotionDetectSound() {
-  playSound({ mp3: 'system/sonar.mp3', noLog: true, noLed: true });
+  playSound({ file: 'system/sonar.mp3', noLog: true, noLed: true });
 }
 
 /** Function to reset sound output */

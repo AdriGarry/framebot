@@ -8,7 +8,7 @@ const log = new Logger(__filename);
 const FALLBACK_LANGUAGE = 'fr',
   FALLBACK_VOICE = Core.descriptor.fallbackVoice,
   FORCED_VOICE = Core.descriptor.forcedVoice;
-log.info('FALLBACK_VOICE:', FALLBACK_VOICE, '/ FORCED_VOICE:', FORCED_VOICE);
+log.info('FALLBACK_VOICE:', FALLBACK_VOICE, FORCED_VOICE ? '/ FORCED_VOICE: ' + FORCED_VOICE : '');
 
 module.exports = class TTS {
   constructor(message, language, voice) {
@@ -16,15 +16,19 @@ module.exports = class TTS {
     if (language) {
       this.lg = language;
     } else {
-      log.debug('No valid language, fallback on Fr');
+      log.debug('No valid language, fallback on', FALLBACK_LANGUAGE);
       this.lg = FALLBACK_LANGUAGE;
     }
-    if (voice && !FORCED_VOICE) {
-      // TODO check this code
-      this.voice = voice;
+    if (FORCED_VOICE) {
+      log.debug('Use forced voice:', FORCED_VOICE);
+      this.voice = FORCED_VOICE;
     } else {
-      log.debug('No valid voice, fallback on espeak');
-      this.voice = FALLBACK_VOICE;
+      if (voice) {
+        this.voice = voice;
+      } else {
+        log.debug('No valid voice, fallback on', FALLBACK_LANGUAGE);
+        this.voice = FALLBACK_VOICE;
+      }
     }
   }
 

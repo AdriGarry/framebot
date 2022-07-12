@@ -2,8 +2,8 @@
 
 'use strict';
 
-const { spawn } = require('child_process');
-const fs = require('fs');
+const fs = require('fs'),
+  { spawn } = require('child_process');
 
 const Lock = require('./Lock');
 
@@ -73,7 +73,7 @@ function initializeContext(descriptor, forcedParams, startTime) {
   if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
   if (Core.isAwake()) {
-    spawn('omxplayer', ['--vol', -602, Core._MP3 + 'system/startup.mp3']);
+    spawn('mpg321', ['-g', 40, Core._MP3 + 'system/startup.mp3']);
   }
 
   if (Core.conf('log') != 'info') log.level(Core.conf('log'));

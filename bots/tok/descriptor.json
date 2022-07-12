@@ -82,5 +82,5 @@
     }
   },
   "fallbackVoice": "google",
-  "forcedVoice": "google"
+  "forcedVoice": null
 }

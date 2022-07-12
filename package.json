@@ -1,6 +1,6 @@
 {
   "name": "framebot",
-  "version": "7.11.14",
+  "version": "7.12.0",
   "private": true,
   "description": "Framebot program to autorun, interact & manage stuff...",
   "main": "framebot",

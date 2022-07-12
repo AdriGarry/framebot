@@ -40,9 +40,8 @@ tar -xvf node-v10.24.1-linux-armv7l.tar.gz
 cd node-v10.24.1-linux-armv7l
 sudo cp -R * /usr/local/
 
-# Install mplayer & sound tools
-# sudo apt-get install -y mplayer
-sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg123 lame
+# Install sound tools & player
+sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg321 lame ffmpeg
 
 # Set audio output to headphones
 amixer cset numid=3 1
@@ -55,10 +54,10 @@ amixer sset 'Master' 100%
 sudo apt-get install -y espeak
 
 # Install voices for mbrola
-wget http://tcts.fpms.ac.be/synthesis/mbrola/dba/fr1/fr1-990204.zip
-sudo unzip fr1-990204.zip -d /opt/mbrola
-sudo mkdir -p /usr/share/mbrola/voices/
-sudo cp -r /opt/mbrola/fr1/* /usr/share/mbrola/voices/
+# wget http://tcts.fpms.ac.be/synthesis/mbrola/dba/fr1/fr1-990204.zip
+# sudo unzip fr1-990204.zip -d /opt/mbrola
+# sudo mkdir -p /usr/share/mbrola/voices/
+# sudo cp -r /opt/mbrola/fr1/* /usr/share/mbrola/voices/
 
 # wget http://tcts.fpms.ac.be/synthesis/mbrola/bin/raspberri_pi/mbrola.tgz
 # tar xvzf mbrola.tgz 

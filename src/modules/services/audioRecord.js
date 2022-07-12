@@ -51,7 +51,7 @@ function addRecord(path) {
         lastRecordPath = path;
         recordListPath.push(path);
         Core.run('audioRecord', recordListPath.length);
-        new Flux('interface|sound|play', { mp3: path }, { log: 'trace', delay: 0.2 });
+        new Flux('interface|sound|play', { file: path }, { log: 'trace', delay: 0.2 });
         Files.appendJsonFile(RECORD_FILE, path);
       });
     })
@@ -99,7 +99,7 @@ function playLastRecord() {
     new Flux('interface|tts|speak', NO_RECORD_TTS);
     return;
   }
-  new Flux('interface|sound|play', { mp3: lastRecordPath /*, volume: Core.run('volume') * 3*/ }, { log: 'trace' });
+  new Flux('interface|sound|play', { file: lastRecordPath }, { log: 'trace' });
   clearAudioRecordLater();
 }
 
@@ -119,7 +119,7 @@ function playAllRecords() {
           delay = delay + previousRecordDuration + 2;
         }
         previousRecordDuration = data;
-        new Flux('interface|sound|play', { mp3: recordPath /*, volume: Core.run('volume') * 3*/ }, { delay: delay });
+        new Flux('interface|sound|play', { file: recordPath }, { delay: delay });
       })
       .catch(err => {
         Core.error('playAllRecords error', err);

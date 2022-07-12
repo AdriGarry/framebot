@@ -77,12 +77,12 @@ function repeatSong(playlist) {
   let song = playlist.randomBox.next();
   log.info('Playlist ' + playlist.id + ' next song:', song);
   Files.getDuration(playlist.path + song)
-    .then(data => {
-      new Flux('interface|sound|play', { mp3: playlist.path + song, duration: data });
+    .then(durationInSeconds => {
+      new Flux('interface|sound|play', { file: playlist.path + song });
       playlist.timeout = setTimeout(function () {
         // log.INFO('Next song !!!', 'duration=' + data);
         repeatSong(playlist);
-      }, data * 1000);
+      }, durationInSeconds * 1000);
     })
     .catch(err => {
       Core.error('repeatSong error', err);
@@ -137,7 +137,7 @@ function playStory(story) {
   if (storyToPlay) {
     new Flux('interface|tts|speak', { lg: 'en', msg: 'story' });
     Core.run('music', 'story');
-    new Flux('interface|sound|playRandom', { mp3: storyToPlay });
+    new Flux('interface|sound|playRandom', { file: storyToPlay });
   } else {
     new Flux('interface|tts|speak', { lg: 'en', msg: 'error story' });
   }

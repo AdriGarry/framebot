@@ -129,7 +129,7 @@ app.component('tts', {
           ctrl.tile.action({
             label: 'Play ' + option.label,
             url: '/flux/interface/sound/play',
-            value: { mp3: option.value }
+            value: { file: option.value }
           });
           resetAutocomplete();
         } else if (option.type === 'story') {
@@ -800,7 +800,7 @@ app.component('idea', {
           label: 'Cigales',
           icon: 'fas fa-bug',
           url: '/flux/interface/sound/play',
-          value: { mp3: 'system/cigales.mp3' }
+          value: { file: 'system/cigales.mp3' }
         },
         {
           label: 'Idea',

@@ -94,7 +94,7 @@ function exclamation() {
   new Flux('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { log: 'trace' });
   let newtExclamation = exclamationRandomBox.next();
   new Flux('interface|sound|play', {
-    mp3: 'exclamation/' + newtExclamation
+    file: 'exclamation/' + newtExclamation
   });
 }
 
@@ -103,7 +103,7 @@ function civilHorn() {
   new Flux('interface|led|blink', { leds: ['eye', 'belly'], speed: 90, loop: 50 }, { log: 'trace' });
   new Flux('interface|arduino|connect');
   new Flux('interface|sound|play', {
-    mp3: 'civilHorn.mp3'
+    file: 'civilHorn.mp3'
   });
   new Flux('service|max|hornSiren', null, { delay: 3.2 });
 }
@@ -112,21 +112,21 @@ function russia() {
   log.info('Russia !');
   let russiaExclamation = russiaExclamationRandomBox.next();
   new Flux('interface|sound|play', {
-    mp3: 'exclamation_russia/' + russiaExclamation
+    file: 'exclamation_russia/' + russiaExclamation
   });
 }
 
 function russiaHymn() {
   log.info('Russia Hymn!');
   new Flux('interface|sound|play', {
-    mp3: 'playlists/jukebox/HymneSovietique.mp3'
+    file: 'playlists/jukebox/HymneSovietique.mp3'
   });
 }
 
 function uneHeure() {
   log.info('Il est 1 heure et tout va bien !');
   new Flux('interface|sound|play', {
-    mp3: 'system/uneHeure.mp3',
+    file: 'system/uneHeure.mp3',
     volume: 40
   });
 }
