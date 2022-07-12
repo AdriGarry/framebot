@@ -16,15 +16,20 @@ module.exports = class TTS {
     if (language) {
       this.lg = language;
     } else {
-      log.debug('No valid language, fallback on Fr');
+      log.debug('No valid language, fallback on', FALLBACK_LANGUAGE);
       this.lg = FALLBACK_LANGUAGE;
     }
-    if (voice && !FORCED_VOICE) {
-      // TODO check this code
-      this.voice = voice;
+    log.test('FORCED_VOICE', FORCED_VOICE);
+    if (FORCED_VOICE) {
+      log.debug('Use forced voice:', FORCED_VOICE);
+      this.voice = FORCED_VOICE;
     } else {
-      log.debug('No valid voice, fallback on espeak');
-      this.voice = FALLBACK_VOICE;
+      if (voice) {
+        this.voice = voice;
+      } else {
+        log.debug('No valid voice, fallback on', FALLBACK_LANGUAGE);
+        this.voice = FALLBACK_VOICE;
+      }
     }
   }
 

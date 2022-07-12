@@ -81,5 +81,6 @@
       ]
     }
   },
-  "fallbackVoice": "espeak"
+  "fallbackVoice": "espeak",
+  "forcedVoice": null
 }
