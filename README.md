@@ -137,5 +137,3 @@ A flux is an Object with 3 properties:
 ## User interface
 
 Provided user interface with flux orders and log (log tail with websocket).
-
-:robot:
