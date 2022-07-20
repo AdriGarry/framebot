@@ -28,7 +28,7 @@ const AUTO_MUTE_TIMEOUT = 60 * 60;
 
 const RADIO_LIST = {
   fip: { id: 'fip', url: 'http://icecast.radiofrance.fr/fip-midfi.mp3' },
-  bam: { id: 'bam', url: 'http://176.175.17.23:8001/;?type=http&nocache=33' }
+  bam: { id: 'bam', url: 'http://176.175.17.23:8001/;?type=http&nocache=33' } // TODO fix Bam radio url
 };
 
 let PLAYLIST = {

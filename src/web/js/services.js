@@ -16,7 +16,7 @@ app.service('UIService', [
       $http({
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'http://adrigarry.com',
+          'Access-Control-Allow-Origin': 'https://adrigarry.com',
           'User-Interface': 'UIv5',
           'User-Position': $rootScope.position
         },
