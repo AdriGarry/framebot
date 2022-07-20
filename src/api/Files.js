@@ -11,7 +11,7 @@ const logger = require('./Logger');
 
 const log = new logger(__filename);
 
-const FILENAME_REGEX = new RegExp(/\/(.+\/)*(?<filename>.+\.(?<extension>.+))/);
+const FILENAME_REGEX = new RegExp(/\/(.+\/)*(?<filename>.+\.(.+))/);
 
 module.exports = class Files {
   /** Function to append an array in JSON file */
