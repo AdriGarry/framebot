@@ -115,7 +115,7 @@ function closingServerTemporary(breakDuration) {
   new Flux('interface|server|closeUIServer', breakDuration);
   setTimeout(function () {
     log.INFO('restarting UI server...');
-    badRequestCount = 0;
+    // badRequestCount = 0;
     new Flux('interface|server|startUIServer');
   }, breakDuration);
 }
