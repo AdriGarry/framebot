@@ -16,7 +16,7 @@ const FILE_ERROR_HISTORY = Core._LOG + Core.const('name') + '_errorHistory.json'
 const FILE_TTS_UI_HISTORY = Core._LOG + Core.const('name') + '_ttsUIHistory.json';
 const FILE_VOICEMAIL_HISTORY = Core._LOG + Core.const('name') + '_voicemailHistory.json';
 
-var uiHttp;
+let uiHttp;
 module.exports = {
   attachRoutes: attachRoutes
 };
@@ -223,7 +223,7 @@ function attachDefaultRoutes(ui) {
     res.end();
   });
 
-  var granted = false;
+  let granted = false;
   ui.post('/grant', function (req, res) {
     let pattern = req.headers.pwd.split('#')[0]; // get security pattern without anchor character
     if (pattern && admin.checkPassword(pattern)) {

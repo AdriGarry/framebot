@@ -36,7 +36,7 @@ const SEC_TO_RESTART = 3,
     Core._DATA,
     Core._CONF
   ];
-var watchers = [];
+let watchers = [];
 
 function toggleWatch() {
   if (Core.conf('watcher')) stopWatch();
@@ -59,7 +59,7 @@ function stopWatch() {
   Core.conf('watcher', false);
 }
 
-var timer;
+let timer;
 
 function addWatcher(path, action) {
   let watcher = fs.watch(path, { recursive: true }, (eventType, filename) => {
@@ -79,7 +79,7 @@ function removeWatcher(watcher) {
   watcher.close();
 }
 
-var watchTimeout;
+let watchTimeout;
 function waitForUpdateEnd(action) {
   log.debug('waiting for update end (' + SEC_TO_RESTART + 's)...');
   clearTimeout(watchTimeout);

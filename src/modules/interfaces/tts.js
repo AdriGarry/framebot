@@ -23,7 +23,7 @@ const FLUX_PARSE_OPTIONS = [
 
 Observers.attachFluxParseOptions('interface', 'tts', FLUX_PARSE_OPTIONS);
 
-var onAir = false,
+let onAir = false,
   ttsQueue = [],
   lastTtsMsg = { voice: 'espeak', lg: 'en', msg: '.undefined' };
 
@@ -50,7 +50,7 @@ function speak(tts) {
 }
 
 /** Function to proceed TTS queue */
-var queueInterval,
+let queueInterval,
   currentTTS,
   timeout = 0;
 function proceedQueue() {

@@ -9,9 +9,9 @@ const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' },
   FILE_POSITION_LENGTH = 12,
   TIMESTAMP_PATTERN = { NORMAL: 'D/M h:m:s,x', SLEEP: 'D/M_h:m:s,x' };
 
-var Utils, Core, timestamp, cancelTimeout;
+let Utils, Core, timestamp, cancelTimeout;
 
-var logLevel = LEVEL.INFO;
+let logLevel = LEVEL.INFO;
 
 module.exports = class Logger {
   constructor(filename, modeCore) {

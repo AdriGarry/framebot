@@ -22,7 +22,7 @@ Observers.attachFluxParseOptions('service', 'weather', FLUX_PARSE_OPTIONS);
 
 const FETCH_WEATHER_DATA_DELAY = Core.isAwake() ? 60 : 300;
 
-var WEATHER_STATUS_LIST;
+let WEATHER_STATUS_LIST;
 fs.readFile(Core._DATA + 'weatherStatus.json', function (err, data) {
   if (err && err.code === 'ENOENT') {
     log.debug(Core.error('No file : ' + filePath));
@@ -81,7 +81,7 @@ function alternativeReportTTS() {
     });
 }
 
-var weatherReport;
+let weatherReport;
 
 function fetchWeatherData() {
   return new Promise((resolve, reject) => {

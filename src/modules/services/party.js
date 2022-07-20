@@ -78,25 +78,24 @@ function partyTTS() {
 
 /** Function to select a different TTS each time */
 const PARTY_TTS_LENGTH = Core.ttsMessages.party.length;
-var rdmNb,
-  lastRdmNb = [],
-  rdmTTS = '';
+let rdmNbParty,
+  lastRdmNbParty = [];
 function getNewRdmPartyTTS() {
   if (lastRdmNb.length == PARTY_TTS_LENGTH) {
-    lastRdmNb = [];
+    lastRdmNbParty = [];
   }
-  rdmNb = Utils.random(PARTY_TTS_LENGTH);
-  if (lastRdmNb.indexOf(rdmNb) > -1) {
+  rdmNbParty = Utils.random(PARTY_TTS_LENGTH);
+  if (lastRdmNbParty.indexOf(rdmNbParty) > -1) {
     return getNewRdmPartyTTS();
   }
-  lastRdmNb.push(rdmNb);
-  return Core.ttsMessages.party[rdmNb];
+  lastRdmNbParty.push(rdmNbParty);
+  return Core.ttsMessages.party[rdmNbParty];
 }
 
 // const MAX_JAVA = ['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm'];
-var maxJavaRandomBox = new RandomBox(['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm']);
+let maxJavaRandomBox = new RandomBox(['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm']);
 
-var ttsRandomBox = new RandomBox(Core.ttsMessages.random);
+let ttsRandomBox = new RandomBox(Core.ttsMessages.random);
 /** Function to start bad boy mode */
 function java(interval) {
   log.INFO('JAVA mode !');
@@ -118,7 +117,7 @@ function badBoy(interval) {
   if (typeof interval === 'number') {
     log.info('Bad Boy mode !! [' + interval + ']');
     new Flux('interface|tts|speak', { lg: 'en', msg: 'Baad boy !' });
-    var loop = 0;
+    let loop = 0;
     setInterval(function () {
       loop++;
       if (loop >= interval) {
@@ -140,15 +139,15 @@ function badBoyTTS() {
 
 /** Function to select a different TTS each time */
 const BAD_BOY_TTS_LENGTH = Core.ttsMessages.badBoy.length;
-var rdmNb,
-  lastRdmNb = [],
-  rdmTTS = '';
+let rdmNbBadBoy,
+  lastRdmNbBadBoy = [],
+  rdmTTSBadBoy = '';
 function getNewRdmBadBoyTTS() {
   do {
-    rdmNb = Utils.random(BAD_BOY_TTS_LENGTH);
-    rdmTTS = Core.ttsMessages.badBoy[rdmNb];
-    if (lastRdmNb.length >= BAD_BOY_TTS_LENGTH) lastRdmNb.shift();
-  } while (lastRdmNb.indexOf(rdmNb) != -1);
-  lastRdmNb.push(rdmNb);
-  return rdmTTS;
+    rdmNbBadBoy = Utils.random(BAD_BOY_TTS_LENGTH);
+    rdmTTSBadBoy = Core.ttsMessages.badBoy[rdmNbBadBoy];
+    if (lastRdmNbBadBoy.length >= BAD_BOY_TTS_LENGTH) lastRdmNbBadBoy.shift();
+  } while (lastRdmNbBadBoy.indexOf(rdmNbBadBoy) != -1);
+  lastRdmNbBadBoy.push(rdmNbBadBoy);
+  return rdmTTSBadBoy;
 }

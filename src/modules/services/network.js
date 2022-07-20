@@ -33,7 +33,7 @@ const INTERNET_BOX_STRATEGY_CRON = [
 
 const DELAY_BEFORE_RETRY = 60 * 1000;
 
-var isOnline,
+let isOnline,
   isRetrying = false;
 
 setImmediate(() => {
@@ -41,7 +41,7 @@ setImmediate(() => {
   Core.run('network.local', getLocalIp());
 });
 
-var internetTestInterval = setInterval(() => {
+let internetTestInterval = setInterval(() => {
   testConnection()
     .then(onlineCallback)
     .catch(() => {

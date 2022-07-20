@@ -10,7 +10,7 @@ const logger = require('./Logger.js');
 
 const log = new logger(__filename);
 
-var ready = false,
+let ready = false,
   modulesTypes = [],
   ObserversObjects = { interface: {}, service: {} };
 

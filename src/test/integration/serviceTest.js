@@ -24,12 +24,12 @@ module.exports.runTest = function (succeedTest) {
     new Flux('service|max|playOneMelody');
 
     // new Flux('service|voicemail|new', {msg: 'are you there ?'}, 8);
-    // var rdmTTS = Core.ttsMessages.random[Utils.random(Core.ttsMessages.random.length)];
+    // let rdmTTS = Core.ttsMessages.random[Utils.random(Core.ttsMessages.random.length)];
     let rdmTTS = Utils.randomItem(Core.ttsMessages.random);
     while (Array.isArray(rdmTTS)) {
       rdmTTS = Utils.randomItem(Core.ttsMessages.random); // Avoid conversation in voicemail.json
     }
-    // var rdmTTS = Utils.randomItem(Core.ttsMessages.random);
+    // let rdmTTS = Utils.randomItem(Core.ttsMessages.random);
     log.DEBUG(rdmTTS);
     new Flux('service|voicemail|new', rdmTTS, { delay: 8 });
     new Flux('service|voicemail|check', null, { delay: 11 });

@@ -22,7 +22,7 @@ const NO_VOICEMAIL = 'No voicemail message',
   FILE_VOICEMAIL_HISTORY = Core._LOG + Core.const('name') + '_voicemailHistory.json',
   HOURS_TO_CLEAR_VOICEMAIL = 6;
 
-var clearVoicemailDelay;
+let clearVoicemailDelay;
 
 setImmediate(() => {
   updateVoicemailMessage();

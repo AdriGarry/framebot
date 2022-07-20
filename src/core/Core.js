@@ -14,7 +14,7 @@ const logger = require('./../api/Logger'),
 
 const log = new logger(__filename);
 
-var Core = {},
+let Core = {},
   CoreError;
 
 module.exports = {
