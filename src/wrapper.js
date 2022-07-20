@@ -3,7 +3,7 @@
 
 /** Params detection */
 console.log('argv', process.argv);
-var argv = process.argv.splice(2);
+let argv = process.argv.splice(2);
 const NAME = argv[0];
 
 const { spawn, spawnSync, exec, execSync } = require('child_process');
