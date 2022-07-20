@@ -96,8 +96,7 @@ module.exports = class Files {
       return false;
     }
     let matchObj = FILENAME_REGEX.exec(path);
-    let filename = matchObj.groups.filename;
-    return filename;
+    return matchObj.groups.filename;
   }
 
   /** Function to retreive audio or video file duration. Return a Promise */
