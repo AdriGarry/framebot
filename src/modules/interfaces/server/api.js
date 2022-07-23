@@ -194,6 +194,9 @@ function attachDefaultRoutes(ui) {
     },
     filename: function (req, file, callback) {
       callback(null, file.fieldname + '_' + new Date().toISOString() + '.wav');
+    },
+    limits: {
+      fileSize: 8000000
     }
   });
   let audioRecordUpload = multer({ storage: audioRecordStorage }).single('audioRecord');
