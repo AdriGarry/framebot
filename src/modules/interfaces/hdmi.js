@@ -16,13 +16,6 @@ const FLUX_PARSE_OPTIONS = [
 
 Observers.attachFluxParseOptions('interface', 'hdmi', FLUX_PARSE_OPTIONS);
 
-setImmediate(() => {
-  if (!Core.isAwake() || !Core.run('hdmi')) {
-    log.test('Do not switch screen OFF, for debugging...');
-    //screenOff();
-  }
-});
-
 /** Function to turn screen on (for 30 minutes) */
 function screenOn() {
   spawn('/opt/vc/bin/tvservice', ['-p']);
