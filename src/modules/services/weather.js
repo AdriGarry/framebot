@@ -87,7 +87,7 @@ function fetchWeatherData() {
   return new Promise((resolve, reject) => {
     weather.find({ search: '13001', degreeType: 'C' }, function (err, result) {
       if (err) {
-        log.error("Weather request > Can't retreive weather informations.");
+        log.error("Weather request > Can't retreive weather informations.", err.code);
         reject(err);
       } else {
         try {
