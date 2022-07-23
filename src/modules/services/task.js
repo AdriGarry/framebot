@@ -20,7 +20,7 @@ function goToSleep() {
   log.info(`goToSleep in ${GO_TO_SLEEP_DELAY / 60} min`);
 
   // light
-  new Flux('interface|hardware|light', GO_TO_SLEEP_DELAY);
+  new Flux('service|light|on', GO_TO_SLEEP_DELAY);
 
   // radiator off
   new Flux('interface|rfxcom|send', { device: 'radiator', value: true });
