@@ -98,6 +98,7 @@ module.exports = class Utils {
           log.error('execCmd', err, stderr);
           reject(err);
         } else {
+          log.test(stdout);
           resolve(stdout);
         }
       });

@@ -12,6 +12,7 @@ const logger = require('./Logger');
 const log = new logger(__filename);
 
 const FILENAME_REGEX = new RegExp(/\/(.+\/)*(?<filename>.+\.(.+))/);
+const DURATION_REGEX = new RegExp(/\[(?<min>\d+):(?<sec>\d+)\]/);
 
 module.exports = class Files {
   /** Function to append an array in JSON file */
@@ -104,23 +105,41 @@ module.exports = class Files {
     log.debug('getDuration:', soundFile);
     return new Promise((resolve, reject) => {
       // TODO change mplayer...
-      Utils.execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH')
-        .then(data => {
-          try {
-            if (data == '') {
-              getDuration(soundFile, callback);
-            }
-            let duration = data.split('=')[1].trim();
-            resolve(parseInt(duration));
-          } catch (err) {
-            // Don't log error because the method will call itself until OK !
-            reject(err);
-          }
-        })
-        .catch(err => {
-          log.error('getDuration error', err);
+      exec('mpg321 -t' + soundFile, { shell: true }, (err, stdout, stderr) => {
+        if (err) {
+          log.error('execCmd', err, stderr);
           reject(err);
-        });
+        } else {
+          log.test(stdout);
+          // log.test('getDuration', data);
+          // let matchObj = DURATION_REGEX.exec(data.toString());
+          // log.test('getDuration', matchObj);
+          resolve(stdout);
+        }
+      });
+
+      // Utils.execCmd('mpg321 -t' + soundFile)
+      //   .then(data => {
+      //     log.test('getDuration', data);
+      //     try {
+      //       // if (data == '') {
+      //       //   getDuration(soundFile, callback);
+      //       // }
+      //       // let duration = data.split('=')[1].trim();
+      //       // resolve(parseInt(duration));
+      //       log.test('getDuration', data);
+      //       let matchObj = DURATION_REGEX.exec(data.toString());
+      //       log.test('getDuration', matchObj);
+      //       resolve(data);
+      //     } catch (err) {
+      //       // Don't log error because the method will call itself until OK !
+      //       reject(err);
+      //     }
+      //   })
+      //   .catch(err => {
+      //     log.error('getDuration error', err);
+      //     reject(err);
+      //   });
     });
   }
 };
