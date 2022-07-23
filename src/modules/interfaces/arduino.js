@@ -61,10 +61,6 @@ function connect() {
         }
         Core.run('max', false);
         log.info('arduino serial channel disconnected!');
-        // setTimeout(() => {
-        // 	log.info('Trying to connect to Max...');
-        // 	connect();
-        // }, 5000);
       });
     }
   });
@@ -72,7 +68,11 @@ function connect() {
 
 function disconnect() {
   log.debug('Max serial channel disconnection...');
-  if (arduino instanceof SerialPort) arduino.close();
+  try {
+    if (arduino instanceof SerialPort) arduino.close();
+  } catch (error) {
+    Core.error('Error disconnecting Max', error);
+  }
   arduino = null;
 }
 
