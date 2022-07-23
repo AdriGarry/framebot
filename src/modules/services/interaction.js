@@ -33,8 +33,6 @@ const FLUX_PARSE_OPTIONS = [
 
 Observers.attachFluxParseOptions('service', 'interaction', FLUX_PARSE_OPTIONS);
 
-setImmediate(() => {});
-
 const RANDOM_ACTIONS = [
   { id: 'interface|tts|speak', weight: 7 },
   { id: 'service|interaction|exclamation', weight: 4 },
