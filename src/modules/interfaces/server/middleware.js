@@ -77,7 +77,7 @@ function getRequestData(req) {
     }
   } catch (err) {
     log.debug('position not retrieved!', position);
-    // log.debug(err);
+    log.debug(err);
   }
 
   requestData.ui = req.headers['user-interface'];
@@ -90,9 +90,9 @@ function formatIp(requestData) {
 }
 
 function formatPosition(requestData) {
-  let log = requestData.isLocalIp ? '' : '_';
-  log += requestData.position ? 'lat:' + requestData.position.latitude + '|lon:' + requestData.position.longitude : 'noPos';
-  return log;
+  let formatedPosition = requestData.isLocalIp ? '' : '_';
+  formatedPosition += requestData.position ? 'lat:' + requestData.position.latitude + '|lon:' + requestData.position.longitude : 'noPos';
+  return formatedPosition;
 }
 
 function logNotLocalRequest(requestData) {
@@ -105,17 +105,12 @@ function logNotLocalRequest(requestData) {
 function rejectUnauthorizedRequest(res) {
   res.status(401); // Unauthorized
   res.end();
-  // badRequestCount++;
-  // if (badRequestCount >= BAD_REQUEST_CP_LIMIT) {
-  // 	closingServerTemporary(5000);
-  // }
 }
 
 function closingServerTemporary(breakDuration) {
   new Flux('interface|server|closeUIServer', breakDuration);
   setTimeout(function () {
     log.INFO('restarting UI server...');
-    // badRequestCount = 0;
     new Flux('interface|server|startUIServer');
   }, breakDuration);
 }
