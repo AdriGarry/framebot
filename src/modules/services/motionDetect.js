@@ -20,7 +20,7 @@ function motionDetect() {
   log.info('Motion detected', '[last motion detected', Utils.formatDuration(lastDetectionInSec) + ' ago]');
 
   if (Core.run('mood') > 0) {
-    new Flux('interface|hardware|motionDetectLight', null, { log: 'TRACE' });
+    new Flux('service|light|motionDetect', null, { log: 'TRACE' });
 
     if (shouldReact()) {
       if (Core.isAwake()) {
@@ -39,7 +39,7 @@ function motionDetectEnd() {
   log.info('Motion end', '[duration:', Utils.formatDuration(motionDuration) + ']');
 
   if (Core.run('mood') > 0) {
-    new Flux('interface|hardware|blinkLightOff', null, { log: 'TRACE' });
+    new Flux('service|light|blinkOff', null, { log: 'TRACE' });
 
     if (shouldReact()) {
       if (Core.isAwake()) {
@@ -96,7 +96,7 @@ function detectSleep(lastDetectionInSec) {
   log.test('currentHour', currentHour);
   if (currentHour >= 22 || currentHour <= 6) {
     log.test('Condition currentHour >= 22 || currentHour <= 6 VALIDATED!');
-    new Flux('interface|hardware|lightOn', null, { delay: 2, log: 'TRACE' });
+    new Flux('service|light|on', null, { delay: 2, log: 'TRACE' });
   }
 }
 

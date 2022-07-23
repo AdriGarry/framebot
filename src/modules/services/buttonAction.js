@@ -66,7 +66,7 @@ function whiteButtonAction(duration) {
   if (Core.isAwake()) {
     new Flux('service|timer|increase', Math.round(duration));
   } else {
-    new Flux('interface|hardware|light', duration * 60);
+    new Flux('service|light|on', duration * 60);
   }
 }
 
