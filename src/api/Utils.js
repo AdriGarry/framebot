@@ -105,12 +105,8 @@ module.exports = class Utils {
   }
 
   /** Function to calculate execution time of something */
-  static executionTime(startTime, formatResultPattern) {
-    let elapsedTime = new Date() - startTime;
-    // if (formatResultPattern) {
-    // 	return addPatternBefore(elapsedTime, formatResultPattern);
-    // }
-    return elapsedTime;
+  static executionTime(startTime) {
+    return new Date() - startTime;
   }
 
   /** Function to return date time. Pattern: 'YDT' */
@@ -182,9 +178,4 @@ module.exports = class Utils {
 String.prototype.repeat = function (num) {
   if (Number(num) && num > 0) return new Array(Math.abs(num) + 1).join(this);
   return '';
-};
-
-/** Function to remove quotes in a string */
-String.prototype.unQuote = function () {
-  return this.replace(/'|"/gm, '');
 };
