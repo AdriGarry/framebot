@@ -62,7 +62,7 @@ function playSound(arg) {
   if (isWavFile) {
     soundTitle = Files.getFilename(arg.file);
     let convertedSoundPath = Core._TMP + soundTitle + '.mp3';
-    exec(`ffmpeg -y -i ${sound} ${convertedSoundPath}`, (err, stdout, stderr) => {
+    exec(`/usr/bin/ffmpeg -y -i ${sound} ${convertedSoundPath}`, (err, stdout, stderr) => {
       doPlay(convertedSoundPath, volume, position, soundTitle, arg.noLog, arg.noLed);
     });
   } else doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);
