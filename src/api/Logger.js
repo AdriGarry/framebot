@@ -90,11 +90,11 @@ module.exports = class Logger {
     }
     let table = '┌' + '─'.repeat(tableSize.col1 + tableSize.col2 + 5) + '┐\n' + logArrayTitle;
 
-    Object.keys(datas).forEach(function (key, index) {
+    Object.keys(datas).forEach(function (key) {
       let data = datas[key];
-      Object.keys(data).forEach(function (key2, index2) {
+      Object.keys(data).forEach(function (key2, index) {
         let data2 = data[key2];
-        if (index2 == 0) {
+        if (index == 0) {
           table += '│ ' + key + ' '.repeat(tableSize.col1 - key.length) + ' │ ' + data2 + ' '.repeat(tableSize.col2 - data2.length) + ' │\n';
         } else {
           table += '│ ' + ' '.repeat(tableSize.col1) + ' │ ' + data2 + ' '.repeat(tableSize.col2 - data2.length) + ' │\n';
@@ -114,12 +114,12 @@ function _timeoutToInfoLevel(_instance, delay) {
   }, delay * 60 * 1000);
 }
 
-function _formatLogPrefix(logLevel, sufix) {
-  return Utils.logTime(timestamp) + _formatLogLevel(logLevel) + _formatLogPosition() + ' |' + (sufix ? sufix : '');
+function _formatLogPrefix(logLevelArg, sufix) {
+  return Utils.logTime(timestamp) + _formatLogLevel(logLevelArg) + _formatLogPosition() + ' |' + (sufix ? sufix : '');
 }
 
-function _formatLogLevel(logLevel) {
-  return ' | ' + Utils.formatStringLength(logLevel, LOG_LEVEL_LENGTH) + ' | ';
+function _formatLogLevel(logLevelArg) {
+  return ' | ' + Utils.formatStringLength(logLevelArg, LOG_LEVEL_LENGTH) + ' | ';
 }
 
 function _formatLogPosition() {
@@ -149,7 +149,7 @@ function _formatLog(args) {
 
 function _formatObjectToTable(obj, updatedEntries) {
   let datas = {};
-  Object.keys(obj).forEach((key, index) => {
+  Object.keys(obj).forEach(key => {
     let updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
     let data = obj[key];
     if (data == false || data == null || data === 0) return;
@@ -157,11 +157,11 @@ function _formatObjectToTable(obj, updatedEntries) {
       if (Object.prototype.toString.call(data) === '[object Date]') {
         datas['' + key] = [String(data.toString().substring(0, 24))];
       } else {
-        Object.keys(data).forEach((key2, index2) => {
+        Object.keys(data).forEach((key2, index) => {
           let data2 = data[key2];
           if (data2) {
             // not logging null entries
-            if (index2 == 0) {
+            if (index == 0) {
               datas[(updated ? '*' : '') + key] = [String(key2 + ': ' + _getDataOrObject(data2))];
             } else if (Array.isArray(datas[(updated ? '*' : '') + key])) {
               datas[(updated ? '*' : '') + key].push(String(key2 + ': ' + _getDataOrObject(data2)));
@@ -226,5 +226,5 @@ function getCodePosition(steps) {
     let result = data[steps].split(':');
     return { file: result[0], line: result[1] };
   }
-  return '';
+  return { file: '', line: '' };
 }
