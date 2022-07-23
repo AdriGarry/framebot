@@ -1028,7 +1028,6 @@ app.component('radiator', {
     ctrl.isTimeout = function () {
       let obj = ctrl.data.config.radiator;
       return typeof obj === 'object';
-      //return !isNaN(ctrl.data.config.radiator);
     };
 
     /** Overwrite tile action */
