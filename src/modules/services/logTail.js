@@ -8,8 +8,6 @@ const fs = require('fs'),
 
 module.exports = {};
 
-//let filename = '/tmp/somefile.txt';
-
 setImmediate(() => {
   spawnVim(LOG_PATH + 'odi.log', function (code) {
     if (code == 0) {
