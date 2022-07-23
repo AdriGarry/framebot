@@ -112,7 +112,7 @@ function fetchWeatherData() {
   });
 }
 
-function getAlternativeWeatherReport(weatherReport) {
+function getAlternativeWeatherReport(weatherReportData) {
   let weatherSpeech = Utils.rdm()
     ? [
         {
@@ -120,22 +120,22 @@ function getAlternativeWeatherReport(weatherReport) {
           lg: 'fr',
           msg:
             "Aujourd'hui a Marseille, il fait " +
-            weatherReport.temperature +
+            weatherReportData.temperature +
             ' degrer avec ' +
-            (isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) +
+            (isNaN(weatherReportData.wind) ? '0' : Math.round(weatherReportData.wind)) +
             ' kilometre heure de vent'
         }
       ]
     : [
         {
           voice: 'google',
-          msg: "Aujourd'hui a Marseille, il fait " + weatherReport.temperature + ' degrer'
+          msg: "Aujourd'hui a Marseille, il fait " + weatherReportData.temperature + ' degrer'
         },
         {
-          msg: 'Oui, et ' + (isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) + ' kilometre heure de vent'
+          msg: 'Oui, et ' + (isNaN(weatherReportData.wind) ? '0' : Math.round(weatherReportData.wind)) + ' kilometre heure de vent'
         },
         {
-          msg: 'Un temps plutot ' + weatherReport.status.label
+          msg: 'Un temps plutot ' + weatherReportData.status.label
         }
       ];
   return weatherSpeech;
