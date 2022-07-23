@@ -102,6 +102,8 @@ module.exports = class Files {
 
   /** Function to retreive audio or video file duration. Return a Promise */
   static getDuration(soundFile, callback) {
+    // TODO check https://www.npmjs.com/package/get-audio-duration
+
     log.debug('getDuration:', soundFile);
     return new Promise((resolve, reject) => {
       // TODO change mplayer...
