@@ -49,7 +49,7 @@ const RANDOM_ACTIONS = [
 ];
 
 /** Building randomActionList from RANDOM_ACTIONS */
-var randomActionList = [];
+let randomActionList = [];
 for (let i = 0; i < RANDOM_ACTIONS.length; i++) {
   let loop = RANDOM_ACTIONS[i].weight;
   while (loop) {
@@ -58,7 +58,7 @@ for (let i = 0; i < RANDOM_ACTIONS.length; i++) {
   }
 }
 
-var actionRandomBox = new RandomBox(randomActionList),
+let actionRandomBox = new RandomBox(randomActionList),
   exclamationRandomBox,
   russiaExclamationRandomBox;
 

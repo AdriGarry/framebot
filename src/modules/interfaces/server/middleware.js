@@ -17,7 +17,7 @@ module.exports = {
   }
 };
 
-var securityMiddleware = function (req, res, next) {
+let securityMiddleware = function (req, res, next) {
   new Flux('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
 
   let requestData = getRequestData(req);
@@ -54,7 +54,7 @@ var securityMiddleware = function (req, res, next) {
   next();
 };
 
-var throttleBadRequestTTS = Scheduler.throttle(badRequestTTS, BAD_REQUEST_TTS_THROTTLE, true, false, this);
+let throttleBadRequestTTS = Scheduler.throttle(badRequestTTS, BAD_REQUEST_TTS_THROTTLE, true, false, this);
 
 function badRequestTTS() {
   new Flux('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });

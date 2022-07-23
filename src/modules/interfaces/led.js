@@ -7,7 +7,7 @@ const Observers = require('./../../api/Observers');
 
 const { Core } = require('./../../api');
 
-var Led = {};
+let Led = {};
 
 Core.gpio.leds.forEach(led => {
   Led[led.id] = new Gpio(led.pin, led.direction);
@@ -100,7 +100,7 @@ function toggle(config) {
 }
 
 /** Function to start inverted blink (Eye/Belly) */
-var timer;
+let timer;
 function altLeds(args) {
   // args : {speed, duration}
   clearInterval(timer);

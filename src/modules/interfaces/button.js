@@ -7,7 +7,7 @@ const { Core, Flux, Logger, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
-var Button = {},
+let Button = {},
   LED_FLAG;
 
 Core.gpio.leds.forEach(led => {
