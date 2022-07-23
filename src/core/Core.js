@@ -70,7 +70,7 @@ function initializeContext(descriptor, forcedParams, startTime) {
   if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
   if (Core.isAwake()) {
-    spawn('mpg321', ['-g', 40, Core._MP3 + 'system/startup.mp3']);
+    spawn('/usr/bin/mpg321', ['-g', 40, Core._MP3 + 'system/startup.mp3']);
   }
 
   if (Core.conf('log') != 'info') log.level(Core.conf('log'));

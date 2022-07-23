@@ -90,7 +90,7 @@ function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
 
   position = position || 0; // TODO Skipping frames instead of seconds...
 
-  let playerProcess = spawn('mpg321', ['-g', volume, '-k', position, '-K', '-q', sound]);
+  let playerProcess = spawn('/usr/bin/mpg321', ['-g', volume, '-k', position, '-K', '-q', sound]);
 
   if (!noLed) playerProcess.ledFlag = ledFlag();
 
