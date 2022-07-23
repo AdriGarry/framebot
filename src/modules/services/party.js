@@ -45,7 +45,9 @@ function firePartyActionAndRandom() {
       case 1:
         pirate('full');
         break;
-      case (2, 3, 4):
+      case 2:
+      case 3:
+      case 4:
         new Flux('interface|tts|random');
         break;
       default:
@@ -92,7 +94,6 @@ function getNewRdmPartyTTS() {
   return Core.ttsMessages.party[rdmNbParty];
 }
 
-// const MAX_JAVA = ['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm'];
 let maxJavaRandomBox = new RandomBox(['service|max|playOneMelody', 'service|max|playRdmMelody', 'service|max|hornRdm']);
 
 let ttsRandomBox = new RandomBox(Core.ttsMessages.random);
@@ -101,7 +102,6 @@ function java(interval) {
   log.INFO('JAVA mode !');
   new Flux('interface|tts|speak', 'On va faire la java !');
   for (let i = 0; i < 20; i++) {
-    // new Flux('interface|tts|speak', Utils.randomItem(Core.ttsMessages.random));
     new Flux('interface|tts|speak', ttsRandomBox.next());
   }
 

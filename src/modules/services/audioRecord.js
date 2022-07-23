@@ -45,8 +45,7 @@ function addRecord(path) {
   log.debug('addRecord', path);
   new Flux('interface|tts|speak', RECORD_TTS, { log: 'trace' });
   Utils.execCmd('lame --scale 3 ' + path + ' ' + path + 'UP')
-    .then(data => {
-      //TODO -V3 to encode as mp3
+    .then(() => {
       fs.rename(path + 'UP', path, () => {
         lastRecordPath = path;
         recordListPath.push(path);

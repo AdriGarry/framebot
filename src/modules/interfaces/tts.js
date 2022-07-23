@@ -76,8 +76,6 @@ function proceedQueue() {
 /** Function to play TTS message (espeak / google translate) */
 function playTTS(tts) {
   new Flux('service|max|blinkRdmLed');
-  // TODO test if internet connexion?
-
   log.info(tts.toString());
   tts.setMsgReplaced();
   voices[tts.voice](tts);

@@ -2,7 +2,6 @@
 app.factory('DefaultTile', function ($rootScope, $mdDialog, $mdBottomSheet, UIService, audioService) {
   // Tile constructor function
   function Tile(tile) {
-    // this.id = (tile.label.split(' ')[0].toLowerCase()) || ''; // setting tile id from first label word
     this.id = tile.label.split(' ')[0].toLowerCase() == 'text' ? 'tts' : ''; // setting tile id from first label word
     this.label = tile.label || '';
     this.expanded = tile.expanded || false;
@@ -40,7 +39,6 @@ app.factory('DefaultTile', function ($rootScope, $mdDialog, $mdBottomSheet, UISe
   /** Function to send action **/
   function action(button) {
     if (button.url.indexOf('https://') > -1) {
-      //$window.open(button.url);
       UIService.getRequest(button.url, function (data) {
         $mdDialog.show({
           controller: DialogController,

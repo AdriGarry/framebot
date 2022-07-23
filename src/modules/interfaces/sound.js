@@ -84,18 +84,13 @@ function playSoundRandomPosition(arg) {
 function doPlay(sound, volume, position, soundTitle, noLog, noLed) {
   let startPlayTime = new Date();
 
-  // TODO re-use for play_end log...!
-  // let durationLog = arg.duration ? 'duration=' + (Math.floor(arg.duration / 60) + 'm' + Math.round(arg.duration % 60)) : '';
   let volLog = volume ? 'vol=' + volume : '';
   let positionLog = position ? 'pos=' + Utils.formatDuration(position) : '';
   if (!noLog) log.info('play', soundTitle, volLog, positionLog);
 
-  let defaultVolume = Core.run('volume');
-  let volumeForPlay = volume > defaultVolume ? defaultVolume : volume;
-
   position = position || 0; // TODO Skipping frames instead of seconds...
 
-  let playerProcess = spawn('mpg321', ['-g', volume, '-k', position, '-K', '-q', sound]);
+  let playerProcess = spawn('/usr/bin/mpg321', ['-g', volume, '-k', position, '-K', '-q', sound]);
 
   if (!noLed) playerProcess.ledFlag = ledFlag();
 
@@ -191,7 +186,6 @@ function getVolumeInstructions(newVolume) {
 }
 
 function ledFlag() {
-  // TODO clear interval on sound end
   new Flux('interface|led|blink', { leds: ['eye'], speed: 100, loop: 3 }, { log: 'trace' });
   return setInterval(function () {
     new Flux('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });

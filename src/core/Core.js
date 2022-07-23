@@ -10,7 +10,6 @@ const Lock = require('./Lock');
 const logger = require('./../api/Logger'),
   Utils = require('./../api/Utils'),
   CORE_DEFAULT = require(_PATH + 'data/framebotDefault.json');
-// const CoreError = require(_PATH + 'src/api/CoreError.js');
 
 const log = new logger(__filename);
 
@@ -22,8 +21,7 @@ module.exports = {
   api: Core
 };
 
-// TODO to class => singleton or static ?
-function _setUpCoreObject(Core, descriptor, startTime) {
+function _setUpCoreObject(descriptor, startTime) {
   Core.startTime = startTime;
   for (let path in CORE_DEFAULT.paths) {
     // Setting _PATHS
@@ -40,7 +38,6 @@ function _setUpCoreObject(Core, descriptor, startTime) {
   Core.isOnline = isOnline;
   Core.descriptor = descriptor;
   Core.error = error;
-  // Core.Error = CoreError;
   Core.errors = [];
   Core.gpio = require(Core._CONF + 'gpio.json');
   Core.ttsMessages = require(Core._CONF + 'ttsMessages.json');
@@ -49,7 +46,7 @@ function _setUpCoreObject(Core, descriptor, startTime) {
 
 function initializeContext(descriptor, forcedParams, startTime) {
   log.info('Core context initializing...');
-  Core = _setUpCoreObject(Core, descriptor, startTime);
+  Core = _setUpCoreObject(descriptor, startTime);
 
   let confUpdate = {},
     forcedParamsLog = '',
@@ -73,7 +70,7 @@ function initializeContext(descriptor, forcedParams, startTime) {
   if (forcedParamsLog != '') console.log('forced', forcedParamsLog);
 
   if (Core.isAwake()) {
-    spawn('mpg321', ['-g', 40, Core._MP3 + 'system/startup.mp3']);
+    spawn('/usr/bin/mpg321', ['-g', 40, Core._MP3 + 'system/startup.mp3']);
   }
 
   if (Core.conf('log') != 'info') log.level(Core.conf('log'));

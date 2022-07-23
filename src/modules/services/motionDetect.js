@@ -68,12 +68,11 @@ function detectAwake(lastDetectionInSec) {
   let moodLevel = Core.run('mood');
   if (moodLevel >= 2) {
     new Flux('interface|sound|motionDetect', null, { log: 'TRACE' });
-    // new Flux('interface|tts|speak', lastDetectionInSec.toString());
   }
 
   if (moodLevel >= 3) {
-    let shouldReact = lastDetectionInSec > 300 ? true : false;
-    if (shouldReact) {
+    let shouldReact2 = lastDetectionInSec > 300 ? true : false;
+    if (shouldReact2) {
       new Flux('service|interaction|random');
     }
   }
