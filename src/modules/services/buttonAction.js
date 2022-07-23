@@ -31,21 +31,24 @@ function buttonHandler(flux) {
 
 function okButtonAction(duration) {
   if (Core.isAwake()) {
-    new Flux('interface|rfxcom|send', { device: 'plugA', value: true });
-    if (Core.run('voicemail')) {
-      new Flux('service|voicemail|check');
-    } else if (Core.run('audioRecord')) {
-      new Flux('service|audioRecord|check');
-    } else if (Core.run('music')) {
-      new Flux('service|music|playlist', Core.run('music'));
-    } else if (Core.run('mood') === 5) {
-      if (Utils.rdm()) {
-        new Flux('service|party|tts');
-      } else {
-        new Flux('service|party|badBoy');
-      }
+    if (duration > 3) {
+      new Flux('interface|rfxcom|send', { device: 'plugA', value: true });
     } else {
-      new Flux('service|interaction|random');
+      if (Core.run('voicemail')) {
+        new Flux('service|voicemail|check');
+      } else if (Core.run('audioRecord')) {
+        new Flux('service|audioRecord|check');
+      } else if (Core.run('music')) {
+        new Flux('service|music|playlist', Core.run('music'));
+      } else if (Core.run('mood') === 5) {
+        if (Utils.rdm()) {
+          new Flux('service|party|tts');
+        } else {
+          new Flux('service|party|badBoy');
+        }
+      } else {
+        new Flux('service|interaction|random');
+      }
     }
   } else {
     new Flux('service|context|restart');
