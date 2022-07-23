@@ -113,7 +113,7 @@ function fetchWeatherData() {
 }
 
 function getAlternativeWeatherReport(weatherReportData) {
-  let weatherSpeech = Utils.rdm()
+  return Utils.rdm()
     ? [
         {
           voice: 'google',
@@ -138,5 +138,4 @@ function getAlternativeWeatherReport(weatherReportData) {
           msg: 'Un temps plutot ' + weatherReportData.status.label
         }
       ];
-  return weatherSpeech;
 }
