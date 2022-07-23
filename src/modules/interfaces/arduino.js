@@ -9,7 +9,7 @@ const { Core, Flux, Logger, Observers } = require('./../../api');
 const log = new Logger(__filename);
 
 const ARDUINO = { address: '/dev/ttyACM0', baudRate: 115200 };
-var arduino;
+let arduino;
 
 module.exports = {};
 
@@ -46,7 +46,7 @@ function connect() {
       // if (Core.isAwake() && !Core.run('alarm') && Core.run('etat') == 'high')
       // 	new Flux('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
 
-      var feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
+      let feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
       feedback.on('data', function (data) {
         log.debug(data);
         new Flux('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });

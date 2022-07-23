@@ -24,7 +24,7 @@ setImmediate(() => {
 });
 
 const LOOP_TIMEOUT = 30 * 60;
-var loopStart;
+let loopStart;
 
 function loop() {
   log.info('starting diapo loop...');

@@ -66,7 +66,7 @@ function turnNose() {
   new Flux('interface|arduino|write', 'turnNose');
 }
 
-var hornRandomBox = new RandomBox(HORNS);
+let hornRandomBox = new RandomBox(HORNS);
 function hornRdm() {
   let horn = hornRandomBox.next();
   log.debug('hornRdm', horn);

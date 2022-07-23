@@ -37,7 +37,7 @@ setInterval(function () {
   updateRecord();
 }, 10000);
 
-var lastRecordPath = null,
+let lastRecordPath = null,
   recordListPath = [],
   clearAudioRecordDelay;
 

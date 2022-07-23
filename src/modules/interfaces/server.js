@@ -40,8 +40,8 @@ function startUIServer() {
   startHttpsServer();
 }
 
-var ui, uiHttps;
-var httpServer, httpsServer;
+let ui, uiHttps;
+let httpServer, httpsServer;
 
 function startHttpServer() {
   ui = express();

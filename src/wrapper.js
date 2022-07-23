@@ -3,7 +3,7 @@
 
 /** Params detection */
 console.log('argv', process.argv);
-var argv = process.argv.splice(2);
+let argv = process.argv.splice(2);
 const NAME = argv[0];
 
 const { spawn, spawnSync, exec, execSync } = require('child_process');
@@ -19,11 +19,11 @@ const INTERVALS = [5, 5, 10, 30, 60, 90, 180, 300, 600, 900];
 const CORE_DEFAULT = require(_PATH + 'data/framebotDefault.json');
 const wrapperTitle = '\n┌──────────────┐\n│  > Wrapper   │\n└──────────────┘';
 
-var descriptor;
+let descriptor;
 
 wrapper();
 
-var i = 0,
+let i = 0,
   interval,
   timeout,
   okButton;

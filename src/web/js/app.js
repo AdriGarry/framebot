@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('odiUI', ['ngMaterial', 'mdPickers' /*'pr.longpress'*/]);
+let app = angular.module('odiUI', ['ngMaterial', 'mdPickers' /*'pr.longpress'*/]);
 
 app.constant('CONSTANTS', {
   URL_ODI: 'https://odi.adrigarry.com',

@@ -10,7 +10,7 @@ module.exports = {};
 
 const TEN_MINUTES = 10;
 
-var repellentMode = false,
+let repellentMode = false,
   repellentTimeout;
 
 const FLUX_PARSE_OPTIONS = [

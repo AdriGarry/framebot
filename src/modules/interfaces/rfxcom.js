@@ -32,7 +32,7 @@ function rfxcomHandler(flux) {
 const DEVICE = new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
 const DEVICE_LIST = Core.descriptor.rfxcomDevices;
 
-var powerPlugStatus = {};
+let powerPlugStatus = {};
 Object.keys(DEVICE_LIST).forEach(key => {
   powerPlugStatus[key] = { status: 'unknow' };
 });

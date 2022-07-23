@@ -34,7 +34,7 @@ setImmediate(() => {
 });
 
 const VOLUME_LEVELS = Array.from({ length: 11 }, (v, k) => k * 10); // 0 to 100, step: 10
-var playerInstances = {},
+let playerInstances = {},
   muteTimer;
 
 function playSound(arg) {
@@ -62,7 +62,7 @@ function playSound(arg) {
   if (isWavFile) {
     soundTitle = Files.getFilename(arg.file);
     let convertedSoundPath = Core._TMP + soundTitle + '.mp3';
-    exec(`ffmpeg -y -i ${sound} ${convertedSoundPath}`, (err, stdout, stderr) => {
+    exec(`/usr/bin/ffmpeg -y -i ${sound} ${convertedSoundPath}`, (err, stdout, stderr) => {
       doPlay(convertedSoundPath, volume, position, soundTitle, arg.noLog, arg.noLed);
     });
   } else doPlay(sound, volume, position, soundTitle, arg.noLog, arg.noLed);

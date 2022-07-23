@@ -30,7 +30,7 @@ module.exports = class ModuleLoader {
   }
 };
 
-var loadedModules = {};
+let loadedModules = {};
 
 function _requireModules(moduleType, moduleArray) {
   let modulesLoadedList = '';
