@@ -45,7 +45,9 @@ function firePartyActionAndRandom() {
       case 1:
         pirate('full');
         break;
-      case (2, 3, 4):
+      case 2:
+      case 3:
+      case 4:
         new Flux('interface|tts|random');
         break;
       default:
