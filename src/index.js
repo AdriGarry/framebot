@@ -29,6 +29,7 @@ const Logger = require('./api/Logger');
 const log = new Logger(__filename, Core.conf('mode'));
 
 const Utils = require('./api/Utils'),
+  Files = require('./api/Files'),
   Scheduler = require('./api/Scheduler');
 
 const botName = Core.const('name').charAt(0).toUpperCase() + Core.const('name').slice(1);

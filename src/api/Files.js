@@ -12,6 +12,7 @@ const logger = require('./Logger');
 const log = new logger(__filename);
 
 const FILENAME_REGEX = new RegExp(/\/(.+\/)*(?<filename>.+\.(.+))/);
+const DURATION_REGEX = new RegExp(/Duration: (?<h>\d{2}):(?<m>\d{2}):(?<s>\d{2})/);
 
 module.exports = class Files {
   /** Function to append an array in JSON file */
@@ -100,27 +101,22 @@ module.exports = class Files {
   }
 
   /** Function to retreive audio or video file duration. Return a Promise */
-  static getDuration(soundFile, callback) {
-    log.debug('getDuration:', soundFile);
+  static getDuration(soundFile) {
     return new Promise((resolve, reject) => {
-      // TODO change mplayer...
-      Utils.execCmd('mplayer -ao null -identify -frames 0 ' + soundFile + ' 2>&1 | grep ID_LENGTH')
-        .then(data => {
-          try {
-            if (data == '') {
-              getDuration(soundFile, callback);
-            }
-            let duration = data.split('=')[1].trim();
-            resolve(parseInt(duration));
-          } catch (err) {
-            // Don't log error because the method will call itself until OK !
-            reject(err);
-          }
-        })
-        .catch(err => {
-          log.error('getDuration error', err);
-          reject(err);
-        });
+      let durationInSec = 0;
+      Utils.execCmd(`/usr/bin/ffprobe ${soundFile} 2>&1 | grep -i "Duration"`).then(data => {
+        try {
+          let matchObj = DURATION_REGEX.exec(data);
+          durationInSec += +matchObj.groups.s || 0;
+          durationInSec += (+matchObj.groups.m || 0) * 60;
+          durationInSec += (+matchObj.groups.h || 0) * 60 * 60;
+          log.debug(`getDuration for file ${soundFile}: ${durationInSec} sec`);
+          resolve(durationInSec);
+        } catch (err) {
+          log.error('getDuration error', error);
+        }
+        reject(durationInSec);
+      });
     });
   }
 };
