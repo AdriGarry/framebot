@@ -70,9 +70,9 @@ function displayOnePhoto() {
         let randomTimeout = Utils.rdm(5, 10);
         let photoName = Utils.randomItem(files);
         log.info('displayOnePhoto:', photoName);
-        spawn('fbi', ['-a', '-T', 2, Core._PHOTO + photoName]);
+        spawn('/usr/bin/fbi', ['-a', '-T', 2, Core._PHOTO + photoName]);
         setTimeout(() => {
-          spawn('killall', ['fbi']); // fbi running in background
+          spawn('/usr/bin/killall', ['fbi']); // fbi running in background
           resolve();
         }, randomTimeout * 1000);
       })
@@ -89,7 +89,7 @@ function playOneVideo() {
       .then(files => {
         let videoName = Utils.randomItem(files);
         log.info('playOneVideo:', videoName);
-        let videoInstance = spawn('omxplayer', [
+        let videoInstance = spawn('/usr/bin/omxplayer', [
           '-o',
           'hdmi',
           '--vol',
