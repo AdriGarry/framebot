@@ -5,23 +5,19 @@
 const nmap = require('node-nmap');
 nmap.nmapLocation = 'nmap';
 
-const { Core, Flux, Logger, Observers, Scheduler, Utils } = require('../../api');
+const { Core, CronJobList, Flux, Logger, Observers, Scheduler, Utils } = require('../../api');
 
 const log = new Logger(__filename);
 
-module.exports = {
-  cron: {
-    base: [{ cron: '*/10 * * * * *', flux: { id: 'service|nmap|scan' } }]
-  }
-};
-
-const FLUX_PARSE_OPTIONS = [{ id: 'scan', fn: scan }];
+const FLUX_PARSE_OPTIONS = [
+  { id: 'scan', fn: scan },
+  { id: 'scanLoop', fn: scanLoop },
+  { id: 'stopScanLoop', fn: stopScanLoop }
+];
 
 Observers.attachFluxParseOptions('service', 'nmap', FLUX_PARSE_OPTIONS);
 
-// setImmediate(() => {
-//   Scheduler.delay(2).then(scan());
-// });
+const NMAP_JOB = new CronJobList([{ cron: '*/10 * * * * *', flux: { id: 'service|nmap|scan' } }], 'nmap', true);
 
 let hostsList = {},
   isScanning = false;
@@ -29,9 +25,10 @@ let hostsList = {},
 function scan() {
   if (isScanning) return;
 
-  log.info('Nmap scan...'); // TODO debug level
+  log.info('Nmap scan...');
   const quickscan = new nmap.QuickScan('192.168.1.0/24'); // Accepts array or comma separated string of NMAP acceptable hosts
   isScanning = true;
+
   quickscan.on('complete', hosts => {
     isScanning = false;
     parseSuppliedHosts(hosts);
@@ -63,4 +60,14 @@ function parseSuppliedHosts(hosts) {
     log.test('New device(s) on network:', Object.keys(newDetectedHostsList));
     new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New device detected!' });
   }
+}
+
+function scanLoop() {
+  log.info('Starting scanLoop...');
+  NMAP_JOB.start();
+}
+
+function stopScanLoop() {
+  log.info('ScanLoop stopped.');
+  NMAP_JOB.stop();
 }
