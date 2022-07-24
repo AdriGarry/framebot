@@ -78,6 +78,8 @@ function playTTS(tts) {
   new Flux('service|max|blinkRdmLed');
   log.info(tts.toString());
   tts.setMsgReplaced();
+
+  if (!voices.hasOwnProperty(tts.voice)) return log.error('TTS error: Unsupported voice:', tts.voice);
   voices[tts.voice](tts);
 
   let blinkDuration = tts.getMsg().length / 2 + 2,
