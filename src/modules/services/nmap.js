@@ -29,7 +29,7 @@ let hostsList = {},
 function scan() {
   if (isScanning) return;
 
-  log.info('scanning network...');
+  log.info('Nmap scan...'); // TODO debug level
   const quickscan = new nmap.QuickScan('192.168.1.0/24'); // Accepts array or comma separated string of NMAP acceptable hosts
   isScanning = true;
   quickscan.on('complete', hosts => {
@@ -46,18 +46,21 @@ function scan() {
 }
 
 function parseSuppliedHosts(hosts) {
-  log.info('parseSuppliedHosts', hosts.length);
-  let oldHostsList = hostsList;
+  let oldHostsList = hostsList,
+    newDetectedHostsList = {};
   hostsList = {};
 
   hosts.forEach(host => {
+    if (!oldHostsList.hasOwnProperty(host.hostname)) {
+      newDetectedHostsList[host.hostname] = host.ip;
+    }
     hostsList[host.hostname] = host.ip;
   });
 
   log.table(hostsList, `Hosts ${hosts.length}`);
 
-  if (Object.keys(oldHostsList).length > 0 && Object.keys(hostsList).length > Object.keys(oldHostsList).length) {
-    log.test('New device detected on network');
-    new Flux('interface|tts|speak', { lg: 'en', msg: 'New device detected!' });
+  if (Object.keys(oldHostsList).length > 0 && Object.keys(newDetectedHostsList).length) {
+    log.test('New device(s) on network:', Object.keys(newDetectedHostsList));
+    new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New device detected!' });
   }
 }
