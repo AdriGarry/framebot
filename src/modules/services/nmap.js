@@ -64,10 +64,12 @@ function parseSuppliedHosts(hosts) {
 
 function scanLoop() {
   log.info('Starting scanLoop...');
+  Core.run('nmap', true);
   NMAP_JOB.start();
 }
 
 function stopScanLoop() {
-  log.info('ScanLoop stopped.');
   NMAP_JOB.stop();
+  Core.run('nmap', false);
+  log.info('ScanLoop stopped.');
 }

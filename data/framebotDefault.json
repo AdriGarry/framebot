@@ -51,6 +51,7 @@
     "mosquitoRepellent": 2,
     "screen": null,
     "weather": {},
+    "nmap": false,
     "network": {},
     "cpu": {
       "usage": null,
