@@ -47,9 +47,17 @@ function scan() {
 
 function parseSuppliedHosts(hosts) {
   log.info('parseSuppliedHosts', hosts.length);
+  let oldHostsList = hostsList;
   hostsList = {};
+
   hosts.forEach(host => {
     hostsList[host.hostname] = host.ip;
   });
+
   log.table(hostsList, `Hosts ${hosts.length}`);
+
+  if (Object.keys(oldHostsList).length > 0 && Object.keys(hostsList).length > Object.keys(oldHostsList).length) {
+    log.test('New device detected on network');
+    new Flux('interface|tts|speak', { lg: 'en', msg: 'New device detected!' });
+  }
 }
