@@ -103,19 +103,19 @@ module.exports = class Files {
   /** Function to retreive audio or video file duration. Return a Promise */
   static getDuration(soundFile) {
     return new Promise((resolve, reject) => {
-      let durationObj = { h: 0, m: 0, s: 0 };
+      let durationInSec = 0;
       Utils.execCmd(`/usr/bin/ffprobe ${soundFile} 2>&1 | grep -i "Duration"`).then(data => {
         try {
           let matchObj = DURATION_REGEX.exec(data);
-          durationObj.h = +matchObj.groups.h || 0;
-          durationObj.m = +matchObj.groups.m || 0;
-          durationObj.s = +matchObj.groups.s || 0;
-          log.test(`getDuration for file ${soundFile}: ${durationObj}`);
-          resolve(durationObj);
+          durationInSec += +matchObj.groups.s || 0;
+          durationInSec += (+matchObj.groups.m || 0) * 60;
+          durationInSec += (+matchObj.groups.h || 0) * 60 * 60;
+          log.debug(`getDuration for file ${soundFile}: ${durationInSec} sec`);
+          resolve(durationInSec);
         } catch (err) {
           log.error('getDuration error', error);
         }
-        reject(durationObj);
+        reject(durationInSec);
       });
     });
   }

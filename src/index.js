@@ -48,7 +48,3 @@ if (Core.conf('mode') === 'test') {
     integrationTests.launch();
   }, 1000);
 }
-
-Files.getDuration(Core._MP3 + 'system/beBack.mp3').then(data => log.test(data));
-Files.getDuration(Core._MP3 + 'system/morningSea.mp3').then(data => log.test(data));
-Files.getDuration(Core._MP3 + 'system/sonar.mp3').then(data => log.test(data));
