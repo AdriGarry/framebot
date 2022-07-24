@@ -1336,7 +1336,7 @@ app.component('system', {
   }
 });
 
-/** System nmap */
+/** Nmap component */
 app.component('nmap', {
   bindings: {
     data: '<',
