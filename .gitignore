@@ -50,7 +50,7 @@ Temporary Items
 *.wav
 *.ogg
 *.log
-*.properties
+#*.properties
 .json
 *_.*
 #*old*
