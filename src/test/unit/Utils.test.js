@@ -196,30 +196,12 @@ describe('Utils', function () {
     });
   });
 
-  describe('Utils.getNextDateObject: return nearest date from now', function () {
-    it('should return the nearest date bewteen today and tomorrow', function () {
-      let tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      let datesToCompare = [
-        { id: 'today', date: new Date() },
-        { id: 'tomorrow', date: tomorrow }
-      ];
-      let nextDate = Utils.getNextDateObject(datesToCompare);
-      assert.strictEqual('today', nextDate.id);
-    });
-
-    it('should return the nearest hour bewteen next hour and next 2 hours', function () {
-      let now = new Date(),
-        oneHourLater = new Date(),
-        twoHoursLater = new Date();
-      oneHourLater.setHours(now.getHours() + 1);
-      twoHoursLater.setHours(now.getHours() + 2);
-      let datesToCompare = [
-        { id: 'oneHourLater', date: oneHourLater },
-        { id: 'twoHoursLater', date: twoHoursLater }
-      ];
-      let nextDate = Utils.getNextDateObject(datesToCompare);
-      assert.strictEqual('oneHourLater', nextDate.id);
+  describe('Utils.getSecondesDifferenceFromNow: return seconds difference from now', function () {
+    it('should return 3600 seconds', function () {
+      let now = new Date();
+      let nowPlusOneHour = now.setHours(now.getHours() + 1);
+      let result = Utils.getSecondesDifferenceFromNow(nowPlusOneHour);
+      assert.strictEqual(3600, result);
     });
   });
 

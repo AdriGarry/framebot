@@ -34,10 +34,10 @@ module.exports = class CronJobList {
     });
   }
 
-  nextDate() {
+  nextDates() {
     let nextDate;
     this.jobList.forEach(job => {
-      let date = new Date(job.nextDate()).toLocaleString();
+      let date = new Date(job.nextDates());
       if (!nextDate || nextDate > date) nextDate = date;
     });
     return nextDate;
