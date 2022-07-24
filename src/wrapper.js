@@ -68,7 +68,7 @@ function restartCoreFromWrapper(code) {
 
 /** Function to start up Core */
 function startCore(exitCode) {
-  console.log(Buffer.from(execSync('cat /sys/firmware/devicetree/base/model;echo')).toString().trim());
+  console.log(Buffer.from(execSync('/usr/bin/cat /sys/firmware/devicetree/base/model;echo')).toString().trim());
   console.log('nodejs version:', process.version);
   mute();
 
@@ -83,7 +83,7 @@ function startCore(exitCode) {
   for (let i = 0; i < argv.length; i++) {
     coreProgramWithParams.push(argv[i]);
   }
-  let Core = spawn('node', coreProgramWithParams);
+  let Core = spawn('/usr/local/bin/node', coreProgramWithParams);
 
   Core.stdout.on('data', function (data) {
     process.stdout.write(data);
@@ -153,9 +153,8 @@ function reInitConf() {
 }
 
 function mute() {
-  exec('sudo killall omxplayer.bin');
-  // TODO add mplayer ?! (should do it!)
-  exec('sudo killall espeak');
+  exec('/usr/bin/sudo /usr/bin/killall mpg321');
+  exec('/usr/bin/sudo /usr/bin/killall espeak');
 }
 
 Array.prototype.remove = function () {

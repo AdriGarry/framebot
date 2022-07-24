@@ -134,8 +134,8 @@ function muteAll(message) {
   }
   new Flux('service|music|stop', null, { log: 'trace' });
   new Flux('interface|tts|clearTTSQueue', null, { log: 'trace' });
-  exec('sudo killall mpg321');
-  exec('sudo killall espeak');
+  exec('/usr/bin/sudo /usr/bin/killall mpg321');
+  exec('/usr/bin/sudo /usr/bin/killall espeak');
   log.info('>> MUTE', message ? '"' + message + '"' : '');
   new Flux('interface|led|clearLeds', null, { log: 'trace' });
   new Flux('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { log: 'trace' });
@@ -207,9 +207,7 @@ function playMotionDetectSound() {
 /** Function to reset sound output */
 function resetSoundOutput() {
   log.info('Reset sound output [amixer set PCM 100%]');
-  //Utils.execCmd('amixer set PCM 100%')
-  Utils.execCmd('amixer cset numid=2 1')
-    //Utils.execCmd("amixer sset 'Master' 100%")
+  Utils.execCmd('/usr/bin/amixer cset numid=2 1')
     .then(data => {
       log.debug(data);
     })

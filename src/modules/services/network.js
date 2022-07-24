@@ -81,7 +81,7 @@ function logNetstatResult(result, port) {
 }
 
 function getNetstatCommand(port) {
-  return `netstat -tn 2>/dev/null | grep :${port} | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr | head`;
+  return `/usr/bin/netstat -tn 2>/dev/null | grep :${port} | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr | head`;
 }
 
 function onlineCallback() {
@@ -160,7 +160,7 @@ function getLocalIp() {
 
 function getPublicIp() {
   return new Promise((resolve, reject) => {
-    Utils.execCmd('curl icanhazip.com')
+    Utils.execCmd('/usr/bin/curl icanhazip.com')
       .then(data => {
         resolve(data.trim());
       })

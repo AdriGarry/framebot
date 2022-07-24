@@ -40,7 +40,7 @@ function beforeRestart() {
 function renewCertbot() {
   log.INFO('renew Certbot certificate');
   // TODO use https://www.npmjs.com/package/greenlock
-  Utils.execCmd('sudo framebot certbot') // TODO sudo useless ?
+  Utils.execCmd('/usr/bin/sudo /usr/bin/framebot certbot') // TODO sudo useless ?
     .then(data => {
       log.info('Certbot certificate successfully renewed', data);
     })
