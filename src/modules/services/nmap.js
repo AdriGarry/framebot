@@ -23,7 +23,8 @@ Observers.attachFluxParseOptions('service', 'nmap', FLUX_PARSE_OPTIONS);
 //   Scheduler.delay(2).then(scan());
 // });
 
-let isScanning = false;
+let hostsList = {},
+  isScanning = false;
 
 function scan() {
   if (isScanning) return;
@@ -46,5 +47,9 @@ function scan() {
 
 function parseSuppliedHosts(hosts) {
   log.info('parseSuppliedHosts', hosts.length);
-  log.test(hosts);
+  hostsList = {};
+  hosts.forEach(host => {
+    hostsList[host.hostname] = host.ip;
+  });
+  log.table(hostsList, `Hosts ${hosts.length}`);
 }
