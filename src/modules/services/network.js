@@ -160,7 +160,7 @@ function getLocalIp() {
 
 function getPublicIp() {
   return new Promise((resolve, reject) => {
-    Utils.execCmd('/usr/bin/curl icanhazip.com')
+    Utils.execCmd('/usr/bin/curl icanhazip.com', true)
       .then(data => {
         resolve(data.trim());
       })
