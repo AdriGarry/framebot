@@ -80,6 +80,9 @@ sudo apt install -y certbot
 # Install fail2ban
 sudo apt-get -y install fail2ban
 
+# Install sound tools & player
+sudo apt-get -y install nmap
+
 # DEPRECATED
 # Give odi user's access to needed repositories
 #sudo chown -R odi /root
