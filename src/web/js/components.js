@@ -1336,6 +1336,27 @@ app.component('system', {
   }
 });
 
+/** Nmap component */
+app.component('nmap', {
+  bindings: {
+    data: '<',
+    access: '<'
+  },
+  templateUrl: 'templates/tiles.html',
+  controller: function (DefaultTile) {
+    const ctrl = this;
+    const tileParams = {
+      label: 'Nmap',
+      actionList: [
+        { label: 'Scan', icon: 'fas fa-broadcast-tower', url: '/flux/service/nmap/scan' },
+        { label: 'Loop', icon: 'fas fa-sync', url: '/flux/service/nmap/scanLoop' },
+        { label: 'Stop', icon: 'fas fa-stop', url: '/flux/service/nmap/stopScanLoop' }
+      ]
+    };
+    ctrl.tile = new DefaultTile(tileParams);
+  }
+});
+
 /** About component */
 app.component('about', {
   bindings: {
