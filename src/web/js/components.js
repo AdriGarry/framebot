@@ -1327,7 +1327,7 @@ app.component('system', {
     const tileParams = {
       label: 'System',
       actionList: [
-        { label: 'Light', icon: 'far fa-sun', url: '/flux/interface/hardware/light', value: 120 },
+        { label: 'Light', icon: 'far fa-sun', url: '/flux/service/light/on', value: 120 },
         { label: 'Shutdown', icon: 'fas fa-power-off', url: '/flux/interface/hardware/shutdown' },
         { label: 'Reboot', icon: 'fas fa-sync', url: '/flux/interface/hardware/reboot' }
       ]
