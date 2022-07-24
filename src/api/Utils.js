@@ -159,8 +159,7 @@ module.exports = class Utils {
       log.error('Given date is not a valid Date instance', givenDate, typeof givenDate);
     }
     let diff = Math.abs(new Date() - givenDate);
-    let seconds = Math.floor(diff / 1000);
-    return seconds;
+    return Math.floor(diff / 1000);
   }
 
   static isWeekend(date) {
