@@ -45,7 +45,6 @@ function setupRadiatorMode() {
   RADIATOR_JOB.OFF.start();
 
   if (radiatorMode == 'auto') {
-    RADIATOR_JOB.AUTO.start();
     setRadiatorModeToAuto();
   } else if (typeof radiatorMode === 'object') {
     setRadiatorTimeout(radiatorMode);
@@ -61,12 +60,10 @@ function setupRadiatorMode() {
 }
 
 function onOrOffUntilNextOrder() {
-  log.test('onOrOffUntilNextOrder', typeof RADIATOR_JOB.AUTO.nextDates());
-  log.test('onOrOffUntilNextOrder', typeof new Date(RADIATOR_JOB.AUTO.nextDates()));
   let nextAutoOrderDateTime = new Date(RADIATOR_JOB.AUTO.nextDates());
   let secondsRemainingToNextOnOrder = Utils.getSecondesDifferenceFromNow(nextAutoOrderDateTime);
   let order = secondsRemainingToNextOnOrder > 3600 ? 'off' : 'on';
-  log.info('onOrOffUntilNextOrder', order, '(' + secondsRemainingToNextOnOrder + ')');
+  log.info('onOrOffUntilNextOrder:', order, '(' + Math.floor(secondsRemainingToNextOnOrder / 60) + 'm ' + (secondsRemainingToNextOnOrder % 60) + 's)');
   return order;
 }
 
@@ -124,7 +121,6 @@ function endRadiatorTimeout() {
 }
 
 function isRadiatorSeason() {
-  return true; // TODO remove this mock before merge
   let currentMonth = new Date().getMonth();
   if (RADIATOR_MONTHS.includes(currentMonth)) return true;
   return false;
