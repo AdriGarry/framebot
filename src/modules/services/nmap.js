@@ -17,7 +17,8 @@ const FLUX_PARSE_OPTIONS = [
 
 Observers.attachFluxParseOptions('service', 'nmap', FLUX_PARSE_OPTIONS);
 
-const NMAP_JOB = new CronJobList([{ cron: '*/10 * * * * *', flux: { id: 'service|nmap|scan' } }], 'nmap', true);
+const LOCAL_NETWORK_RANGE = '192.168.1.0/24',
+  NMAP_JOB = new CronJobList([{ cron: '*/10 * * * * *', flux: { id: 'service|nmap|scan' } }], 'nmap', true);
 
 let hostsList = {},
   isScanning = false;
@@ -26,7 +27,7 @@ function scan() {
   if (isScanning) return;
 
   log.info('Nmap scan...');
-  const quickscan = new nmap.QuickScan('192.168.1.0/24'); // Accepts array or comma separated string of NMAP acceptable hosts
+  const quickscan = new nmap.QuickScan(LOCAL_NETWORK_RANGE); // Accepts array or comma separated string of NMAP acceptable hosts
   isScanning = true;
 
   quickscan.on('complete', hosts => {
