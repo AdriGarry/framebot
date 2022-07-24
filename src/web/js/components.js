@@ -1020,6 +1020,11 @@ app.component('radiator', {
           url: '/flux/service/radiator/timeout',
           value: { mode: 'off' },
           continu: true
+        },
+        {
+          label: 'Auto',
+          icon: 'fab fa-adn',
+          url: '/flux/service/radiator/auto'
         }
       ]
     };
