@@ -170,7 +170,7 @@ let LOAD_AVERAGE_REGEX = new RegExp(/load average: (?<loadAverage>.+)/);
 /** Function to get load average (uptime) */
 function loadAverage() {
   return new Promise((resolve, reject) => {
-    Utils.execCmd('uptime')
+    Utils.execCmd('/usr/bin/uptime')
       .then(data => {
         let matchObj = LOAD_AVERAGE_REGEX.exec(data);
         let loadAverageValue = matchObj && matchObj.groups.loadAverage ? matchObj.groups.loadAverage : -1;
@@ -189,7 +189,7 @@ function loadAverage() {
 function retreiveLastModifiedDate(paths) {
   return new Promise((resolve, reject) => {
     paths = paths.join(' ');
-    Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
+    Utils.execCmd('/usr/bin/find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
       .then(data => {
         let lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
         Core.const('updateDateTime', new Date(lastDate[0]));
@@ -214,7 +214,7 @@ function diskSpaceTTS() {
 /** Function to retreive disk space on /dev/root */
 function getDiskSpace() {
   return new Promise((resolve, reject) => {
-    Utils.execCmd('df -h')
+    Utils.execCmd('/usr/bin/df -h')
       .then(data => {
         let diskSpace = data.match(/\/dev\/root.*[%]/gm);
         diskSpace = diskSpace[0].match(/[\d]*%/g);

@@ -69,7 +69,7 @@ describe('Utils', function () {
 
   describe('Utils.execCmd: execute given command and return a promise', function () {
     it("should 'uptime' command return string including 'load average'", function () {
-      Utils.execCmd('uptime').then(data => {
+      Utils.execCmd('/usr/bin/uptime').then(data => {
         if (data.indexOf('load average') > -1) {
           assert.ok();
         }

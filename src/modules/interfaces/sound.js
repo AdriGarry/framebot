@@ -207,9 +207,7 @@ function playMotionDetectSound() {
 /** Function to reset sound output */
 function resetSoundOutput() {
   log.info('Reset sound output [amixer set PCM 100%]');
-  //Utils.execCmd('amixer set PCM 100%')
-  Utils.execCmd('amixer cset numid=2 1')
-    //Utils.execCmd("amixer sset 'Master' 100%")
+  Utils.execCmd('/usr/bin/amixer cset numid=2 1')
     .then(data => {
       log.debug(data);
     })

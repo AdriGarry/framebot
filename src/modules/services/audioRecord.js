@@ -44,7 +44,7 @@ let lastRecordPath = null,
 function addRecord(path) {
   log.debug('addRecord', path);
   new Flux('interface|tts|speak', RECORD_TTS, { log: 'trace' });
-  Utils.execCmd('lame --scale 3 ' + path + ' ' + path + 'UP')
+  Utils.execCmd('/usr/bin/lame --scale 3 ' + path + ' ' + path + 'UP')
     .then(() => {
       fs.rename(path + 'UP', path, () => {
         lastRecordPath = path;
