@@ -134,8 +134,8 @@ function muteAll(message) {
   }
   new Flux('service|music|stop', null, { log: 'trace' });
   new Flux('interface|tts|clearTTSQueue', null, { log: 'trace' });
-  exec('sudo /usr/bin/killall mpg321');
-  exec('sudo /usr/bin/killall espeak');
+  exec('/usr/bin/sudo /usr/bin/killall mpg321');
+  exec('/usr/bin/sudo /usr/bin/killall espeak');
   log.info('>> MUTE', message ? '"' + message + '"' : '');
   new Flux('interface|led|clearLeds', null, { log: 'trace' });
   new Flux('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { log: 'trace' });
