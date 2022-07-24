@@ -153,8 +153,8 @@ function reInitConf() {
 }
 
 function mute() {
-  exec('sudo /usr/bin/killall mpg321');
-  exec('sudo /usr/bin/killall espeak');
+  exec('/usr/bin/sudo /usr/bin/killall mpg321');
+  exec('/usr/bin/sudo /usr/bin/killall espeak');
 }
 
 Array.prototype.remove = function () {
