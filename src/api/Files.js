@@ -12,7 +12,7 @@ const logger = require('./Logger');
 const log = new logger(__filename);
 
 const FILENAME_REGEX = new RegExp(/\/(.+\/)*(?<filename>.+\.(.+))/);
-const DURATION_REGEX = new RegExp(/\[(?<min>\d+):(?<sec>\d+)\]/);
+const DURATION_REGEX = new RegExp(/Duration: (?<h>\d{2}):(?<m>\d{2}):(?<s>\d{2})/);
 
 module.exports = class Files {
   /** Function to append an array in JSON file */
@@ -101,47 +101,22 @@ module.exports = class Files {
   }
 
   /** Function to retreive audio or video file duration. Return a Promise */
-  static getDuration(soundFile, callback) {
-    // TODO check https://www.npmjs.com/package/get-audio-duration
-
-    log.debug('getDuration:', soundFile);
+  static getDuration(soundFile) {
     return new Promise((resolve, reject) => {
-      // TODO change mplayer...
-      exec('mpg321 -t' + soundFile, { shell: true }, (err, stdout, stderr) => {
-        if (err) {
-          log.error('execCmd', err, stderr);
-          reject(err);
-        } else {
-          log.test(stdout);
-          // log.test('getDuration', data);
-          // let matchObj = DURATION_REGEX.exec(data.toString());
-          // log.test('getDuration', matchObj);
-          resolve(stdout);
+      let durationObj = { h: 0, m: 0, s: 0 };
+      Utils.execCmd(`/usr/bin/ffprobe ${soundFile} 2>&1 | grep -i "Duration"`).then(data => {
+        try {
+          let matchObj = DURATION_REGEX.exec(data);
+          durationObj.h = +matchObj.groups.h || 0;
+          durationObj.m = +matchObj.groups.m || 0;
+          durationObj.s = +matchObj.groups.s || 0;
+          log.test(`getDuration for file ${soundFile}: ${durationObj}`);
+          resolve(durationObj);
+        } catch (err) {
+          log.error('getDuration error', error);
         }
+        reject(durationObj);
       });
-
-      // Utils.execCmd('mpg321 -t' + soundFile)
-      //   .then(data => {
-      //     log.test('getDuration', data);
-      //     try {
-      //       // if (data == '') {
-      //       //   getDuration(soundFile, callback);
-      //       // }
-      //       // let duration = data.split('=')[1].trim();
-      //       // resolve(parseInt(duration));
-      //       log.test('getDuration', data);
-      //       let matchObj = DURATION_REGEX.exec(data.toString());
-      //       log.test('getDuration', matchObj);
-      //       resolve(data);
-      //     } catch (err) {
-      //       // Don't log error because the method will call itself until OK !
-      //       reject(err);
-      //     }
-      //   })
-      //   .catch(err => {
-      //     log.error('getDuration error', err);
-      //     reject(err);
-      //   });
     });
   }
 };

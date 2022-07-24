@@ -29,6 +29,7 @@ const Logger = require('./api/Logger');
 const log = new Logger(__filename, Core.conf('mode'));
 
 const Utils = require('./api/Utils'),
+  Files = require('./api/Files'),
   Scheduler = require('./api/Scheduler');
 
 const botName = Core.const('name').charAt(0).toUpperCase() + Core.const('name').slice(1);
@@ -47,3 +48,7 @@ if (Core.conf('mode') === 'test') {
     integrationTests.launch();
   }, 1000);
 }
+
+Files.getDuration(Core._MP3 + 'system/beBack.mp3').then(data => log.test(data));
+Files.getDuration(Core._MP3 + 'system/morningSea.mp3').then(data => log.test(data));
+Files.getDuration(Core._MP3 + 'system/sonar.mp3').then(data => log.test(data));
