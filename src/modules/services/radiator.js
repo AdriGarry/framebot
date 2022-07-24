@@ -13,6 +13,7 @@ module.exports = {};
 const FLUX_PARSE_OPTIONS = [
   { id: 'toggle', fn: radiatorOrder },
   { id: 'manual', fn: toggleManualRadiator },
+  { id: 'auto', fn: setRadiatorModeToAuto },
   { id: 'timeout', fn: setRadiatorTimeout }
 ];
 
@@ -45,12 +46,7 @@ function setupRadiatorMode() {
 
   if (radiatorMode == 'auto') {
     RADIATOR_JOB.AUTO.start();
-    //radiatorOrder(onOrOffUntilNextOrder());
-    log.test();
-    log.test('onOrOffUntilNextOrder:', onOrOffUntilNextOrder());
-
-    // log.test('next AUTO dates:', new Date(RADIATOR_JOB.AUTO.nextDates()).toLocaleString());
-    // log.test('next OFF dates:', new Date(RADIATOR_JOB.OFF.nextDates()).toLocaleString());
+    setRadiatorModeToAuto();
   } else if (typeof radiatorMode === 'object') {
     setRadiatorTimeout(radiatorMode);
   } else if (radiatorMode == 'on') {
@@ -65,13 +61,20 @@ function setupRadiatorMode() {
 }
 
 function onOrOffUntilNextOrder() {
-  log.test(typeof RADIATOR_JOB.AUTO.nextDates());
-  log.test(typeof new Date(RADIATOR_JOB.AUTO.nextDates()));
+  log.test('onOrOffUntilNextOrder', typeof RADIATOR_JOB.AUTO.nextDates());
+  log.test('onOrOffUntilNextOrder', typeof new Date(RADIATOR_JOB.AUTO.nextDates()));
   let nextAutoOrderDateTime = new Date(RADIATOR_JOB.AUTO.nextDates());
   let secondsRemainingToNextOnOrder = Utils.getSecondesDifferenceFromNow(nextAutoOrderDateTime);
   let order = secondsRemainingToNextOnOrder > 3600 ? 'off' : 'on';
   log.info('onOrOffUntilNextOrder', order, '(' + secondsRemainingToNextOnOrder + ')');
   return order;
+}
+
+function setRadiatorModeToAuto() {
+  log.info('setRadiatorModeToAuto');
+  Core.conf('radiator', 'auto');
+  RADIATOR_JOB.AUTO.start();
+  radiatorOrder(onOrOffUntilNextOrder());
 }
 
 function radiatorOrder(mode) {
@@ -116,23 +119,12 @@ function decrementRadiatorTimeout() {
 }
 
 function endRadiatorTimeout() {
-  let radiatorTimeoutMode = Core.conf('radiator').mode;
+  log.info('radiator timeout, back to auto mode...');
   setRadiatorModeToAuto();
-
-  // TODO determinate newRadiatorMode from cron https://www.npmjs.com/package/cron#api
-  // if next AUTO is less than one hour, then ON, OFF otherwise
-  let newRadiatorMode = radiatorTimeoutMode == 'on' ? 'off' : 'on'; // invert mode
-  radiatorOrder(newRadiatorMode);
-  log.info('radiator timeout, back to', newRadiatorMode, 'before auto mode...');
-}
-
-function setRadiatorModeToAuto() {
-  Core.conf('radiator', 'auto');
-  RADIATOR_JOB.AUTO.start();
-  RADIATOR_JOB.OFF.start();
 }
 
 function isRadiatorSeason() {
+  return true; // TODO remove this mock before merge
   let currentMonth = new Date().getMonth();
   if (RADIATOR_MONTHS.includes(currentMonth)) return true;
   return false;
