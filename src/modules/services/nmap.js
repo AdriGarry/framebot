@@ -17,6 +17,10 @@ const FLUX_PARSE_OPTIONS = [
 
 Observers.attachFluxParseOptions('service', 'nmap', FLUX_PARSE_OPTIONS);
 
+setImmediate(() => {
+  Scheduler.delay(2).then(scan());
+});
+
 const LOCAL_NETWORK_RANGE = '192.168.1.0/24',
   NMAP_JOB = new CronJobList([{ cron: '*/10 * * * * *', flux: { id: 'service|nmap|scan' } }], 'nmap', true);
 
@@ -55,7 +59,7 @@ function parseSuppliedHosts(hosts) {
     hostsList[host.hostname] = host.ip;
   });
 
-  log.table(hostsList, `Hosts ${hosts.length}`);
+  log.table(hostsList, `${hosts.length} Hosts`);
 
   if (Object.keys(oldHostsList).length > 0 && Object.keys(newDetectedHostsList).length) {
     log.test('New device(s) on network:', Object.keys(newDetectedHostsList));
