@@ -155,8 +155,7 @@ module.exports = class Utils {
 
   /** Function to return seconds difference from now */
   static getSecondesDifferenceFromNow(givenDate) {
-    log.test(givenDate, typeof givenDate);
-    if (util.types.isDate(givenDate)) {
+    if (!util.types.isDate(givenDate)) {
       log.error('Given date is not a valid Date instance', givenDate, typeof givenDate);
     }
     let diff = Math.abs(new Date() - givenDate);
