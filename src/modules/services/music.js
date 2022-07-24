@@ -69,23 +69,22 @@ function playlist(playlistId) {
   Core.run('music', playlistId);
   new Flux('interface|sound|mute', { message: 'Auto mute jukebox!', delay: AUTO_MUTE_TIMEOUT });
   setTimeout(() => {
-    repeatSong(PLAYLIST[playlistId]); // TODO rename as nextSong ?
+    nextSong(PLAYLIST[playlistId]);
   }, 1000);
 }
 
-function repeatSong(playlist) {
-  let song = playlist.randomBox.next();
-  log.info('Playlist ' + playlist.id + ' next song:', song);
-  Files.getDuration(playlist.path + song)
+function nextSong(playlistObj) {
+  let song = playlistObj.randomBox.next();
+  log.info('Playlist ' + playlistObj.id + ' next song:', song);
+  Files.getDuration(playlistObj.path + song)
     .then(durationInSeconds => {
-      new Flux('interface|sound|play', { file: playlist.path + song });
-      playlist.timeout = setTimeout(function () {
-        // log.INFO('Next song !!!', 'duration=' + data);
-        repeatSong(playlist);
+      new Flux('interface|sound|play', { file: playlistObj.path + song });
+      playlistObj.timeout = setTimeout(function () {
+        nextSong(playlistObj);
       }, durationInSeconds * 1000);
     })
     .catch(err => {
-      Core.error('repeatSong error', err);
+      Core.error('nextSong error', err);
     });
 }
 
@@ -105,7 +104,7 @@ function playRadio(radioId) {
       radio = RADIO_LIST.fip;
     }
     log.info('Play radio ' + radio.id);
-    // new Flux('interface|tts|speak', radio.id + ' radio');
+    new Flux('interface|tts|speak', radio.id);
 
     new Flux('interface|sound|play', { url: radio.url }, { delay: 2 });
     Core.run('music', radio.id);

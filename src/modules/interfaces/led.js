@@ -89,8 +89,6 @@ function blink(config) {
  *		value : true/false
  } */
 function toggle(config) {
-  // log.info('toogle:', config);
-  // if (['nose', 'eye', 'satellite', 'belly'].indexOf(config.led) > -1) {
   for (let led in config.leds) {
     Led[config.leds[led]].writeSync(config.value ? 1 : 0);
   }

@@ -56,16 +56,6 @@ function startHttpServer() {
 
 function startHttpsServer() {
   uiHttps = express();
-  // CORS
-  // ui.use(function(request, response, next) {
-  // 	response.header('Access-Control-Allow-Origin', '*');
-  // 	response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  // 	next();
-  // });
-  // ui.options('/*', function(request, response, next) {
-  // 	response.header('Access-Control-Allow-Methods', 'GET, POST'); //'GET, PUT, POST, DELETE, OPTIONS'
-  // 	response.send();
-  // });
 
   uiHttps.use(compression()); // Compression web
   uiHttps.use(express.static(Core._WEB)); // For static files

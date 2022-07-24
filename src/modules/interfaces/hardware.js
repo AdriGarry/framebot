@@ -10,7 +10,7 @@ const { Core, Flux, Logger, Observers, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
-const PATHS = [Core._SRC],
+const PATHS = [Core._SRC, Core._DATA],
   BYTE_TO_MO = 1048576,
   DELAY_BEFORE_HALT = 3000;
 
@@ -26,10 +26,6 @@ module.exports = {
 const FLUX_PARSE_OPTIONS = [
   { id: 'reboot', fn: reboot },
   { id: 'shutdown', fn: shutdown },
-  { id: 'light', fn: light },
-  { id: 'lightOn', fn: lightOn },
-  { id: 'motionDetectLight', fn: motionDetectLight },
-  { id: 'blinkLightOff', fn: blinkLightThenOff },
   { id: 'runtime', fn: runtime },
   { id: 'cpuTTS', fn: cpuStatsTTS },
   { id: 'soulTTS', fn: soulTTS },
@@ -89,36 +85,6 @@ function shutdown() {
   }, DELAY_BEFORE_HALT);
 }
 
-const LIGTH_LEDS = ['eye', 'belly'];
-function light(duration) {
-  log.info('light [duration=' + duration + 's]');
-  if (isNaN(duration)) Core.error('light error: duration arg is not a number!', duration, false);
-  let loop = (duration - 2) / 2;
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 });
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'trace', delay: 2, loop: loop });
-
-  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 200, loop: 8 }, { delay: duration - 2 });
-
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: duration });
-}
-
-function lightOn() {
-  log.info('light On');
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'TRACE' });
-}
-
-function motionDetectLight() {
-  // TODO créer un light service ?
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'TRACE' });
-  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 150, loop: 2 }, { delay: 1, log: 'TRACE' });
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 1, log: 'TRACE' });
-}
-
-function blinkLightThenOff() {
-  new Flux('interface|led|blink', { leds: LIGTH_LEDS, speed: 150, loop: 2 }, { log: 'TRACE' });
-  new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: 0.3, log: 'TRACE' });
-}
-
 /** Function to tts cpu stats */
 function cpuStatsTTS() {
   retreiveCpuTemperature()
@@ -126,14 +92,9 @@ function cpuStatsTTS() {
     .then(() => {
       new Flux('interface|tts|speak', {
         lg: 'fr',
-        msg: 'Mon  ' + Utils.randomItem(['processeur', 'CPU', 'calculateur']) + ' est a ' + Core.run('cpu.temperature')
+        msg: 'Mon ' + Utils.randomItem(['processeur', 'CPU']) + ' est a ' + Core.run('cpu.temperature')
       });
-      new Flux('interface|tts|speak', {
-        lg: 'fr',
-        msg: Utils.rdm()
-          ? 'Et il tourne a ' + Core.run('cpu.usage') + (Utils.rdm() ? '' : ' de sa capacitai')
-          : 'Pour ' + Core.run('cpu.usage') + (Utils.rdm() ? ' de raiflexion' : " d'utilisation")
-      });
+      new Flux('interface|tts|speak', { lg: 'fr', msg: 'Et il tourne a ' + Core.run('cpu.usage') });
     });
 }
 
@@ -212,10 +173,10 @@ function loadAverage() {
     Utils.execCmd('uptime')
       .then(data => {
         let matchObj = LOAD_AVERAGE_REGEX.exec(data);
-        let loadAverage = matchObj && matchObj.groups.loadAverage ? matchObj.groups.loadAverage : 0;
-        log.trace('uptime:', loadAverage);
-        Core.run('cpu.loadAverage', loadAverage);
-        resolve(loadAverage);
+        let loadAverageValue = matchObj && matchObj.groups.loadAverage ? matchObj.groups.loadAverage : -1;
+        log.trace('uptime:', loadAverageValue);
+        Core.run('cpu.loadAverage', loadAverageValue);
+        resolve(loadAverageValue);
       })
       .catch(err => {
         Core.error('loadAverage error', err);
@@ -227,7 +188,6 @@ function loadAverage() {
 /** Function to update last modified date & time of Program's files */
 function retreiveLastModifiedDate(paths) {
   return new Promise((resolve, reject) => {
-    // TODO? typeof paths => Array
     paths = paths.join(' ');
     Utils.execCmd('find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
       .then(data => {
@@ -246,11 +206,7 @@ function retreiveLastModifiedDate(paths) {
 function diskSpaceTTS() {
   getDiskSpace().then(() => {
     let diskSpace = parseInt(Core.run('stats.diskSpace'));
-    let ttsMsg = Utils.rdm()
-      ? 'Il me reste ' + (100 - diskSpace) + " pour cent d'espace disque disponible"
-      : Utils.rdm()
-      ? "J'utilise " + diskSpace + " pour cent d'espace de stockage"
-      : 'Mon espace disque est utiliser a ' + diskSpace + ' pour cent';
+    let ttsMsg = Utils.rdm() ? "J'utilise " + diskSpace + '% de mon espace de stockage' : 'Mon disque est utiliser a ' + diskSpace + '%';
     new Flux('interface|tts|speak', ttsMsg);
   });
 }
@@ -290,7 +246,6 @@ const TOTAL_LINES_REGEX = new RegExp(/(?<totalLines>\d*) total/);
 function countSoftwareLines() {
   return new Promise((resolve, reject) => {
     const EXTENSIONS = ['js', 'json', 'properties', 'sh', 'py', 'html', 'css'];
-    const PATHS = [Core._SRC, Core._DATA, Core._CONF];
     let typesNb = EXTENSIONS.length;
     let lines = {},
       totalLines = 0;

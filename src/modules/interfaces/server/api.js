@@ -21,10 +21,9 @@ module.exports = {
   attachRoutes: attachRoutes
 };
 
-function attachRoutes(ui, modulesApi) {
+function attachRoutes(ui) {
   uiHttp = ui;
 
-  // TODO attachUiRoute(uiHttp);
   attachDefaultRoutes(uiHttp);
   attachFluxRoutes(uiHttp);
   attachUnmappedRouteHandler(uiHttp);
@@ -41,7 +40,7 @@ function attachFluxRoutes(ui) {
   return ui;
 }
 
-function attachUnmappedRouteHandler(ui, mode) {
+function attachUnmappedRouteHandler(ui) {
   let errorMsg = Core.isAwake() ? 'Error UI > not mapped:' : 'Sleep mode, not allowed to interact';
   ui.post('/*', function (req, res) {
     Core.error(errorMsg, req.url, false);
@@ -64,7 +63,7 @@ function attachDefaultRoutes(ui) {
       errors: Core.errors,
       mode: {
         value: {
-          mode: Core.conf('log') == 'trace' ? 'Trace' : Core.conf('log') == 'debug' ? 'Debug' : Utils.firstLetterUpper(Core.conf('mode')),
+          mode: Core.conf('log') == 'trace' ? 'Trace' : Utils.firstLetterUpper(Core.conf('mode')),
           param: Utils.logTime('h:m (D/M)', Core.const('startDateTime')),
           switch: etatBtn == 'high' ? true : false,
           mood: Core.run('mood')
@@ -195,6 +194,9 @@ function attachDefaultRoutes(ui) {
     },
     filename: function (req, file, callback) {
       callback(null, file.fieldname + '_' + new Date().toISOString() + '.wav');
+    },
+    limits: {
+      fileSize: 8000000
     }
   });
   let audioRecordUpload = multer({ storage: audioRecordStorage }).single('audioRecord');

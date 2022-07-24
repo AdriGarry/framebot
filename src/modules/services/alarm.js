@@ -145,10 +145,10 @@ function alarmPart3() {
     delay += 15;
     new Flux('service|voicemail|check', null, { delay: delay });
 
-    delay += Core.run('voicemail') * 100; // TODO ?
+    delay += Core.run('voicemail') * 100;
     new Flux('service|audioRecord|check', null, { delay: delay });
 
-    delay += Core.run('audioRecord') * 100; // TODO ?
+    delay += Core.run('audioRecord') * 100;
     new Flux('service|music|radio', 'fip', { delay: delay });
 
     new Flux('service|max|playOneMelody', null, { delay: 8 * 60, loop: 8 });

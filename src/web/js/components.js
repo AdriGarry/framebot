@@ -1020,6 +1020,11 @@ app.component('radiator', {
           url: '/flux/service/radiator/timeout',
           value: { mode: 'off' },
           continu: true
+        },
+        {
+          label: 'Auto',
+          icon: 'fab fa-adn',
+          url: '/flux/service/radiator/auto'
         }
       ]
     };
@@ -1298,7 +1303,7 @@ app.component('history', {
     const tileParams = {
       label: 'History',
       actionList: [
-        { label: 'Trash uploads', icon: 'fas fa-microphone', url: '/audio/trash' },
+        { label: 'Trash uploads', icon: 'fas fa-microphone', url: '/flux/service/audioRecord/trash' },
         { label: 'Archive logs', icon: 'fas fa-file-archive', url: '/flux/interface/hardware/archiveLogs' },
         { label: 'TTS', icon: 'far fa-comment-dots', url: 'https://odi.adrigarry.com/ttsUIHistory' },
         { label: 'Voicemail', icon: 'far fa-envelope', url: 'https://odi.adrigarry.com/voicemailHistory' },

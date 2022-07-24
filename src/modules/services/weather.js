@@ -87,7 +87,7 @@ function fetchWeatherData() {
   return new Promise((resolve, reject) => {
     weather.find({ search: '13001', degreeType: 'C' }, function (err, result) {
       if (err) {
-        log.error("Weather request > Can't retreive weather informations.", err);
+        log.error("Weather request > Can't retreive weather informations.", err.code);
         reject(err);
       } else {
         try {
@@ -112,47 +112,30 @@ function fetchWeatherData() {
   });
 }
 
-function getAlternativeWeatherReport(weatherReport) {
-  let weatherSpeech;
-  switch (Utils.random(3)) {
-    case 0:
-      weatherSpeech = {
-        voice: 'google',
-        lg: 'fr',
-        msg:
-          "Aujourd'hui a Marseille, il fait " +
-          weatherReport.temperature +
-          ' degrer avec ' +
-          (isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) +
-          ' kilometre heure de vent'
-      };
-      break;
-    case 1:
-      weatherSpeech = [
+function getAlternativeWeatherReport(weatherReportData) {
+  return Utils.rdm()
+    ? [
         {
           voice: 'google',
-          msg: "Aujourd'hui a Marseille, il fait " + weatherReport.temperature + ' degrer'
-        },
-        {
-          msg: 'Oui, et ' + (isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) + ' kilometre heure de vent'
-        },
-        {
-          msg: 'Un temps plutot ' + weatherReport.status.label
+          lg: 'fr',
+          msg:
+            "Aujourd'hui a Marseille, il fait " +
+            weatherReportData.temperature +
+            ' degrer avec ' +
+            (isNaN(weatherReportData.wind) ? '0' : Math.round(weatherReportData.wind)) +
+            ' kilometre heure de vent'
         }
-      ];
-      break;
-    case 2:
-      weatherSpeech = [
-        { msg: 'Hey, il fait un temp ' + weatherReport.status.label },
+      ]
+    : [
         {
           voice: 'google',
-          msg: 'Oui, il fais ' + weatherReport.temperature + ' degrer'
+          msg: "Aujourd'hui a Marseille, il fait " + weatherReportData.temperature + ' degrer'
         },
         {
-          msg: 'Oui, et ' + (isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) + ' kilometre heure de vent'
+          msg: 'Oui, et ' + (isNaN(weatherReportData.wind) ? '0' : Math.round(weatherReportData.wind)) + ' kilometre heure de vent'
+        },
+        {
+          msg: 'Un temps plutot ' + weatherReportData.status.label
         }
       ];
-      break;
-  }
-  return weatherSpeech;
 }

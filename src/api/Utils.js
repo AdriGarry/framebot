@@ -2,7 +2,8 @@
 'use strict';
 
 const { exec } = require('child_process'),
-  os = require('os');
+  os = require('os'),
+  util = require('util');
 
 const logger = require('./Logger');
 
@@ -105,12 +106,8 @@ module.exports = class Utils {
   }
 
   /** Function to calculate execution time of something */
-  static executionTime(startTime, formatResultPattern) {
-    let elapsedTime = new Date() - startTime;
-    // if (formatResultPattern) {
-    // 	return addPatternBefore(elapsedTime, formatResultPattern);
-    // }
-    return elapsedTime;
+  static executionTime(startTime) {
+    return new Date() - startTime;
   }
 
   /** Function to return date time. Pattern: 'YDT' */
@@ -156,13 +153,13 @@ module.exports = class Utils {
     return now;
   }
 
-  /**  Function to return next object with date from array of objects with date property **/
-  static getNextDateObject(datesObjectArray) {
-    let nextDateObject;
-    datesObjectArray.forEach(obj => {
-      if (!nextDateObject || (nextDateObject && nextDateObject.date > obj.date)) nextDateObject = obj;
-    });
-    return nextDateObject;
+  /** Function to return seconds difference from now */
+  static getSecondesDifferenceFromNow(givenDate) {
+    if (!util.types.isDate(givenDate)) {
+      log.error('Given date is not a valid Date instance', givenDate, typeof givenDate);
+    }
+    let diff = Math.abs(new Date() - givenDate);
+    return Math.floor(diff / 1000);
   }
 
   static isWeekend(date) {
@@ -182,9 +179,4 @@ module.exports = class Utils {
 String.prototype.repeat = function (num) {
   if (Number(num) && num > 0) return new Array(Math.abs(num) + 1).join(this);
   return '';
-};
-
-/** Function to remove quotes in a string */
-String.prototype.unQuote = function () {
-  return this.replace(/'|"/gm, '');
 };

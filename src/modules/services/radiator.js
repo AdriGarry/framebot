@@ -13,6 +13,7 @@ module.exports = {};
 const FLUX_PARSE_OPTIONS = [
   { id: 'toggle', fn: radiatorOrder },
   { id: 'manual', fn: toggleManualRadiator },
+  { id: 'auto', fn: setRadiatorModeToAuto },
   { id: 'timeout', fn: setRadiatorTimeout }
 ];
 
@@ -44,8 +45,7 @@ function setupRadiatorMode() {
   RADIATOR_JOB.OFF.start();
 
   if (radiatorMode == 'auto') {
-    RADIATOR_JOB.AUTO.start();
-    //onOrOffUntilNextOrder();
+    setRadiatorModeToAuto();
   } else if (typeof radiatorMode === 'object') {
     setRadiatorTimeout(radiatorMode);
   } else if (radiatorMode == 'on') {
@@ -60,13 +60,18 @@ function setupRadiatorMode() {
 }
 
 function onOrOffUntilNextOrder() {
-  let datesToCompare = [
-    { mode: 'off', date: new Date(RADIATOR_JOB.OFF.nextDate()).toLocaleString() },
-    { mode: 'on', date: new Date(RADIATOR_JOB.AUTO.nextDate()).toLocaleString() }
-  ];
-  let nextDate = Utils.getNextDateObject(datesToCompare);
-  log.info('onOrOffUntilNextOrder', nextDate);
-  radiatorOrder(nextDate.mode);
+  let nextAutoOrderDateTime = new Date(RADIATOR_JOB.AUTO.nextDates());
+  let secondsRemainingToNextOnOrder = Utils.getSecondesDifferenceFromNow(nextAutoOrderDateTime);
+  let order = secondsRemainingToNextOnOrder > 3600 ? 'off' : 'on';
+  log.info('onOrOffUntilNextOrder:', order, '(' + Math.floor(secondsRemainingToNextOnOrder / 60) + 'm ' + (secondsRemainingToNextOnOrder % 60) + 's)');
+  return order;
+}
+
+function setRadiatorModeToAuto() {
+  log.info('setRadiatorModeToAuto');
+  Core.conf('radiator', 'auto');
+  RADIATOR_JOB.AUTO.start();
+  radiatorOrder(onOrOffUntilNextOrder());
 }
 
 function radiatorOrder(mode) {
@@ -111,14 +116,8 @@ function decrementRadiatorTimeout() {
 }
 
 function endRadiatorTimeout() {
-  let radiatorTimeoutMode = Core.conf('radiator').mode;
-  Core.conf('radiator', 'auto');
-  RADIATOR_JOB.AUTO.start();
-  RADIATOR_JOB.OFF.start();
-
-  let newRadiatorTimeoutMode = radiatorTimeoutMode == 'on' ? 'off' : 'on'; // invert mode
-  radiatorOrder(newRadiatorTimeoutMode);
-  log.info('radiator timeout, back to', newRadiatorTimeoutMode, 'before auto mode...');
+  log.info('radiator timeout, back to auto mode...');
+  setRadiatorModeToAuto();
 }
 
 function isRadiatorSeason() {

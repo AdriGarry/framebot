@@ -12,9 +12,6 @@ log.info('Module test sequence...');
 
 module.exports.runTest = function (succeedTest) {
   return new Promise((resolve, reject) => {
-    // new Flux('interface|led|toggle', { leds: ['eye', 'belly', 'satellite'], value: 0 });
-    // new Flux('interface|led|blink', { leds: ['belly'], speed: 600, loop: 100 }, { delay: 3 });
-
     assert.ok(Core.conf());
     assert.strictEqual(Core.conf('mode'), 'test');
     assert.ok(Core.isAwake());
