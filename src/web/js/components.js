@@ -945,9 +945,9 @@ app.component('videos', {
     const tileParams = {
       label: 'Video',
       actionList: [
-        { label: 'Off', icon: 'fas fa-toggle-off', url: '/flux/interface/hdmi/off' },
+        { label: 'Loop', icon: 'fas fa-film', url: '/flux/service/video/loop' },
         { label: 'On', icon: 'fas fa-toggle-on', url: '/flux/interface/hdmi/on' },
-        { label: 'Loop', icon: 'fas fa-film', url: '/flux/service/video/loop' }
+        { label: 'Off', icon: 'fas fa-toggle-off', url: '/flux/interface/hdmi/off' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
