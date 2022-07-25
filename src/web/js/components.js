@@ -1211,8 +1211,8 @@ app.component('arduino', {
     const tileParams = {
       label: 'Arduino',
       actionList: [
-        { label: 'Off', icon: 'fas fa-toggle-off', url: '/flux/interface/arduino/disconnect' },
-        { label: 'On', icon: 'fas fa-toggle-on', url: '/flux/interface/arduino/connect' }
+        { label: 'On', icon: 'fas fa-toggle-on', url: '/flux/interface/arduino/connect' },
+        { label: 'Off', icon: 'fas fa-toggle-off', url: '/flux/interface/arduino/disconnect' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
@@ -1232,8 +1232,8 @@ app.component('rfxcom', {
     const tileParams = {
       label: 'Rfxcom',
       actionList: [
-        { label: 'Off', icon: 'fas fa-toggle-off', url: '/flux/interface/rfxcom/toggleLock', value: false },
-        { label: 'On', icon: 'fas fa-toggle-on', url: '/flux/interface/rfxcom/toggleLock', value: true }
+        { label: 'On', icon: 'fas fa-toggle-on', url: '/flux/interface/rfxcom/toggleLock', value: true },
+        { label: 'Off', icon: 'fas fa-toggle-off', url: '/flux/interface/rfxcom/toggleLock', value: false }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
