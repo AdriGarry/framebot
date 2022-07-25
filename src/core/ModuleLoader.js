@@ -34,8 +34,8 @@ let loadedModules = {};
 
 function _requireModules(moduleType, moduleArray) {
   let modulesLoadedList = '';
-  for (let i = 0; i < moduleArray.length; i++) {
-    loadedModules[moduleArray[i]] = require(Core._MODULES + moduleType + '/' + moduleArray[i] + '.js');
+  for (const moduleToLoad of moduleArray) {
+    loadedModules[moduleToLoad] = require(Core._MODULES + moduleType + '/' + moduleToLoad + '.js');
   }
   modulesLoadedList += moduleArray.join(', ');
   return modulesLoadedList;
