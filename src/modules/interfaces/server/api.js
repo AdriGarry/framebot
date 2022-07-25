@@ -199,7 +199,7 @@ function attachDefaultRoutes(ui) {
       fileSize: 8000000
     }
   });
-  let audioRecordUpload = multer({ storage: audioRecordStorage }).single('audioRecord');
+  let audioRecordUpload = multer({ storage: audioRecordStorage, limits: { fileSize: 8000000 } }).single('audioRecord');
 
   ui.post('/audio', audioRecordUpload, function (req, res) {
     log.info('Audio received!');
