@@ -83,7 +83,7 @@ function startCore(exitCode) {
   for (let i = 0; i < argv.length; i++) {
     coreProgramWithParams.push(argv[i]);
   }
-  let Core = spawn('/usr/local/bin/node', coreProgramWithParams);
+  let Core = spawn('/usr/bin/node', coreProgramWithParams);
 
   Core.stdout.on('data', function (data) {
     process.stdout.write(data);

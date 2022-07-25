@@ -32,13 +32,14 @@ sudo apt-get remove -y nodejs
 # sudo apt-get remove -y npm
 
 # Install npm & nodejs
-# curl -sL https://deb.nodesource.com/setup_lts.x | sudo bash -
-# sudo apt-get install -y nodejs
+curl -sL https://deb.nodesource.com/setup_lts.x | sudo bash -
+sudo apt-get install -y nodejs
 # sudo apt-get install -y npm
-wget https://nodejs.org/dist/v10.24.1/node-v10.24.1-linux-armv7l.tar.gz 
-tar -xvf node-v10.24.1-linux-armv7l.tar.gz 
-cd node-v10.24.1-linux-armv7l
-sudo cp -R * /usr/local/
+
+#wget https://nodejs.org/dist/v10.24.1/node-v10.24.1-linux-armv7l.tar.gz 
+#tar -xvf node-v10.24.1-linux-armv7l.tar.gz 
+#cd node-v10.24.1-linux-armv7l
+#sudo cp -R * /usr/local/
 
 # Install sound tools & player
 sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg321 lame ffmpeg
@@ -103,6 +104,9 @@ sudo apt-get -y install nmap
 
 # Test
 espeak -s 125 -v mb/mb-fr1 'Installation terminée.'
+
+node -v
+npm -v
 
 exit 0
 
