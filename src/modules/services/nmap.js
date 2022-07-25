@@ -66,13 +66,13 @@ function parseSuppliedHosts(hosts) {
   if (Object.keys(oldHostsList).length > 0 && Object.keys(newDetectedHostsList).length) {
     // TODO move all code bellow to a new function...
     let newDetectedHosts = Object.keys(newDetectedHostsList); // TODO use this list to determine next actions...
-    log.info('New host(s) on network:', Object.keys(newDetectedHostsList));
-    new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New host: ' + Object.keys(newDetectedHostsList).join(', ') });
+    log.info('New host(s) on network:', newDetectedHosts);
+    new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New host: ' + newDetectedHosts.join(', ') });
     // TODO do not play this generic TTS if known host, only for unknown devices...
     let firstKnownHost = getFirstKnownHost(newDetectedHostsList);
     log.test('firstKnownHost:', firstKnownHost); // TODO remove this
     if (firstKnownHost === KNOWN_HOSTS.ADRI) {
-      new Flux('interface|tts|speak', { msg: 'Oh! Salut Adri!' });
+      new Flux('interface|tts|speak', { msg: 'Oh! Salut Adri!' }).do();
     }
   }
 }
