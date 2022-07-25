@@ -47,10 +47,12 @@ function pico(tts) {
   let language = tts.lg == 'en' ? 'en-US' : 'fr-FR';
   let volume = Core.run('volume') * 2.5; // 175-300
   let command = 'pico2wave -l ' + language + ' -w ' + Core._TMP + 'picoTTS.wav "' + tts.msg + '"';
-  exec(command, (err, stdout, stderr) => {
-    if (err) Core.error(err);
-    if (stderr) Core.error(stderr);
-    log.info(stdout);
-    new Flux('interface|sound|play', { file: Core._TMP + 'picoTTS.wav', volume: volume, noLog: false });
-  });
+  Utils.execCmd(command)
+    .then(stdout => {
+      log.info(stdout);
+      new Flux('interface|sound|play', { file: Core._TMP + 'picoTTS.wav', volume: volume, noLog: false });
+    })
+    .catch(err => {
+      Core.error(err);
+    });
 }
