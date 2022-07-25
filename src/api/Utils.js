@@ -3,7 +3,8 @@
 
 const { exec } = require('child_process'),
   os = require('os'),
-  util = require('util');
+  util = require('util'),
+  crypto = require('crypto');
 
 const logger = require('./Logger');
 
@@ -42,7 +43,7 @@ module.exports = class Utils {
       min = 0;
       max = arg1 || 2;
     }
-    return Math.floor(Math.random() * (max - min) + min);
+    return crypto.randomInt(min, max);
   }
 
   static randomItem(array) {
