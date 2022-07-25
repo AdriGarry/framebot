@@ -29,9 +29,13 @@ fs.readFile(Core._DATA + 'weatherStatus.json', function (err, data) {
   }
   WEATHER_STATUS_LIST = JSON.parse(data);
 
-  fetchWeatherData();
+  fetchWeatherData().catch(err => {
+    Core.error('Error weather', err);
+  });
   setInterval(() => {
-    fetchWeatherData();
+    fetchWeatherData().catch(err => {
+      Core.error('Error weather', err);
+    });
   }, FETCH_WEATHER_DATA_DELAY * 60 * 1000);
 });
 
