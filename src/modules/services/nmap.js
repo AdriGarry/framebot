@@ -65,6 +65,7 @@ function parseSuppliedHosts(hosts) {
 
   if (Object.keys(oldHostsList).length > 0 && Object.keys(newDetectedHostsList).length) {
     // TODO move all code bellow to a new function...
+    let newDetectedHosts = Object.keys(newDetectedHostsList); // TODO use this list to determine next actions...
     log.info('New host(s) on network:', Object.keys(newDetectedHostsList));
     new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New host: ' + Object.keys(newDetectedHostsList).join(', ') });
     // TODO do not play this generic TTS if known host, only for unknown devices...
@@ -94,6 +95,10 @@ function scanLoop() {
   log.info('Starting scanLoop...');
   Core.run('nmap', true);
   NMAP_JOB.start();
+  setTimeout(() => {
+    log.info('Scan loop timeout!');
+    stopScanLoop();
+  }, 2 * 60 * 60 * 1000);
 }
 
 function stopScanLoop() {
