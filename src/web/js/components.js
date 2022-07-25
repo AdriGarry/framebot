@@ -530,7 +530,6 @@ app.component('music', {
       actionList: [
         { label: 'Low', icon: 'fas fa-kiwi-bird', url: '/flux/service/music/playlist', value: 'low' },
         { label: 'Jukebox', icon: 'fas fa-compact-disc', url: '/flux/service/music/playlist' },
-        { label: 'Radio BAM', icon: 'fas fa-broadcast-tower', url: '/flux/service/music/radio', value: 'bam' },
         { label: 'FIP Radio', icon: 'fas fa-globe-europe', url: '/flux/service/music/radio', value: 'fip' }
       ]
     };
@@ -542,8 +541,6 @@ app.component('music', {
         return 'fas fa-compact-disc';
       } else if (ctrl.data.value === 'fip') {
         return 'fas fa-globe-europe';
-      } else if (ctrl.data.value === 'bam') {
-        return 'fas fa-broadcast-tower';
       } else if (ctrl.data.value === 'low') {
         return 'fas fa-kiwi-bird';
       } else {

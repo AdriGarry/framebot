@@ -29,7 +29,7 @@ Available modes: ready, sleep, test.
 - Timer
 - Radiator & power plugs management
 - Playlist (jukebox, low...)
-- Web radio (FIP, Bam radio)
+- Web radio (FIP)
 - Weather report
 - Exclamations, sounds...
 - Interactions with an Arduino (another robot: Max...)
