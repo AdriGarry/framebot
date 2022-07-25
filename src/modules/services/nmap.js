@@ -72,7 +72,7 @@ function parseSuppliedHosts(hosts) {
     let firstKnownHost = getFirstKnownHost(newDetectedHostsList);
     log.test('firstKnownHost:', firstKnownHost); // TODO remove this
     if (firstKnownHost === KNOWN_HOSTS.ADRI) {
-      new Flux('interface|tts|speak', { msg: 'Oh! Salut Adri!' }).do();
+      new Flux('interface|tts|speak', { msg: 'Oh! Salut Adri!' });
     }
   }
 }

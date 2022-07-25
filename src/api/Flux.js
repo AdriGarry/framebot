@@ -61,8 +61,6 @@ module.exports = class Flux {
     this.fire();
   }
 
-  do() {}
-
   isValid() {
     if (this.error) {
       Core.error(this.error, this);
