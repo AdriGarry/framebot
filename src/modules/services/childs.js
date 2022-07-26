@@ -2,23 +2,26 @@
 
 'use strict';
 
-const { Core, Flux, Logger, Observers } = require('./../../api');
+const { Core, Flux, Logger, Observers, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
 module.exports = {};
 
-const FLUX_PARSE_OPTIONS = [{ id: 'bonneNuit', fn: bonneNuit }];
+const FLUX_PARSE_OPTIONS = [
+  { id: 'bonneNuit', fn: bonneNuit },
+  { id: 'interact', fn: childInteract }
+];
 
 Observers.attachFluxParseOptions('service', 'childs', FLUX_PARSE_OPTIONS);
 
 function bonneNuit() {
-  new Flux([
-    { id: 'interface|tts|speak', data: { msg: 'Bonne nuit mes Lou lou te' } },
-    { id: 'interface|tts|speak', data: { voice: 'google', msg: 'Et, faites de beaux raives !' } }
-  ]);
+  new Flux([{ id: 'interface|tts|speak', data: { voice: 'google', msg: 'Bonne nuit mes Louloutes. Et, faites de beaux raives !' } }]);
 }
 
-function playlistChilds() {
-  new Flux({ id: 'interface|sound|play', data: { file: 'childs/playlist.mp3' } });
+function childInteract(name) {
+  log.info(`${name}...`);
+  new Flux('interface|tts|speak', `Coucou ma ${name} !`);
+  new Flux('interface|tts|speak', Utils.rdm() ? "C'est moi Odi..." : "Oui, c'est moi le robot...");
+  new Flux('interface|tts|speak', Utils.rdm() ? "Et si on s'amusait ensembles ?" : 'Veux tu écouter une chanson avec moi ?');
 }
