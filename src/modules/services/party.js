@@ -116,7 +116,7 @@ function java(interval) {
 function badBoy(interval) {
   if (typeof interval === 'number') {
     log.info('Bad Boy mode !! [' + interval + ']');
-    new Flux('interface|tts|speak', { lg: 'en', msg: 'Baad boy !' });
+    new Flux('interface|tts|speak', { lg: 'en', msg: 'Bad boy !' });
     let loop = 0;
     setInterval(function () {
       loop++;
