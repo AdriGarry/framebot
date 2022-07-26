@@ -62,7 +62,7 @@ function stopWatch() {
 let timer;
 
 function addWatcher(path, action) {
-  return fs.watch(path, { recursive: true }, (eventType, filename) => {
+  return fs.watch(path, { recursive: false }, (eventType, filename) => {
     if (eventType) {
       if (!timer) {
         timer = new Date();
