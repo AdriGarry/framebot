@@ -769,9 +769,9 @@ app.component('childs', {
     const tileParams = {
       label: 'Childs',
       actionList: [
-        { label: 'Bonne nuit', icon: 'fas fa-moon', url: '/flux/service/childs/bonneNuit' },
         { label: 'Yayou', icon: 'fas fa-child', url: '/flux/service/childs/interact', value: 'Yayou' },
         { label: 'Zazou', icon: 'fas fa-baby', url: '/flux/service/childs/interact', value: 'Zazou' },
+        { label: 'Bonne nuit', icon: 'fas fa-moon', url: '/flux/service/childs/bonneNuit' },
         { label: 'Playlist childs', icon: 'fas fa-music', url: '/flux/service/music/playlist', value: 'childs' }
       ]
     };
