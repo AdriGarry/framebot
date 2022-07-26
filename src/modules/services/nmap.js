@@ -21,10 +21,20 @@ setImmediate(() => {
   Scheduler.delay(2).then(scan());
 });
 
-const LOCAL_NETWORK_RANGE = '192.168.1.0/24',
-  NMAP_JOB = new CronJobList([{ cron: '*/10 * * * * *', flux: { id: 'service|nmap|scan' } }], 'nmap', true);
+const SCAN_CRON = '*/10 * * * * *',
+  KNOWN_HOSTS = {
+    ADRI: 'Pixel-3a',
+    ADRI_PC: 'adri-pc',
+    BBOX: 'bbox.lan',
+    CAM: 'TODO',
+    CAM_PC: 'TODO',
+    ODI: 'raspberrypi',
+    OLD_ANDROID: 'android-38594d3ba13a4305',
+    NULL: 'null'
+  }; //TODO move to descriptor ?
 
-const KNOWN_HOSTS = { ADRI: 'Pixel-3a', CAMILLE: 'TODO', ADRI_PC: 'adri-pc', ODI: 'raspberrypi', BBOX: 'bbox.lan', OLD_ANDROID: 'android-38594d3ba13a4305' }; //TODO move to descriptor ?
+const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
+  NMAP_JOB = new CronJobList([{ cron: SCAN_CRON, flux: { id: 'service|nmap|scan' } }], 'nmap', true);
 
 let hostsList = {},
   isScanning = false;
@@ -32,24 +42,23 @@ let hostsList = {},
 function scan() {
   if (isScanning) return log.info('Already scanning...');
 
-  log.info('Nmap scan...');
-  const quickscan = new nmap.QuickScan(LOCAL_NETWORK_RANGE); // Accepts array or comma separated string of NMAP acceptable hosts
+  let quickScan = new nmap.QuickScan(LOCAL_NETWORK_RANGE); // Accepts array or comma separated string of NMAP acceptable hosts
+  quickScan.on('complete', hosts => {
+    isScanning = false;
+    parseFoundHosts(hosts);
+  });
+
+  quickScan.on('error', error => {
+    isScanning = false;
+    log.error('Nmap error:', error);
+  });
+
   isScanning = true;
-
-  quickscan.on('complete', hosts => {
-    isScanning = false;
-    parseSuppliedHosts(hosts);
-  });
-
-  quickscan.on('error', error => {
-    isScanning = false;
-    log.error('Nmap scan error', error);
-  });
-
-  quickscan.startScan();
+  log.info('Nmap scan...');
+  quickScan.startScan();
 }
 
-function parseSuppliedHosts(hosts) {
+function parseFoundHosts(hosts) {
   let oldHostsList = hostsList,
     newDetectedHostsList = {};
   hostsList = {};
@@ -63,32 +72,35 @@ function parseSuppliedHosts(hosts) {
 
   log.table(hostsList, `${hosts.length} Hosts`);
 
-  if (Object.keys(oldHostsList).length > 0 && Object.keys(newDetectedHostsList).length) {
-    // TODO move all code bellow to a new function...
-    let newDetectedHosts = Object.keys(newDetectedHostsList); // TODO use this list to determine next actions...
+  let newDetectedHosts = Object.keys(newDetectedHostsList);
+  if (Object.keys(oldHostsList).length > 0 && newDetectedHosts.length) {
     log.info('New host(s) on network:', newDetectedHosts);
-    new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New host: ' + newDetectedHosts.join(', ') });
-    // TODO do not play this generic TTS if known host, only for unknown devices...
-    let firstKnownHost = getFirstKnownHost(newDetectedHostsList);
-    log.test('firstKnownHost:', firstKnownHost); // TODO remove this
-    if (firstKnownHost === KNOWN_HOSTS.ADRI) {
-      new Flux('interface|tts|speak', { msg: 'Oh! Salut Adri!' });
-    }
+    newHostReaction(newDetectedHosts);
   }
 }
 
-function getFirstKnownHost(newDetectedHostsList) {
-  let matchingHost = null;
-  Object.keys(newDetectedHostsList).forEach(key => {
-    Object.keys(KNOWN_HOSTS).forEach(key2 => {
-      if (key === KNOWN_HOSTS[key2]) {
-        matchingHost = KNOWN_HOSTS[key2];
-        return;
-      }
-      if (matchingHost) return;
-    });
+function newHostReaction(newDetectedHosts) {
+  let unknownHosts = [];
+  newDetectedHosts.forEach(host => {
+    switch (host) {
+      case KNOWN_HOSTS.ADRI:
+        new Flux('interface|tts|speak', { msg: 'Oh! Salut Adri!' });
+        break;
+      case KNOWN_HOSTS.ADRI_PC:
+      // case KNOWN_HOSTS.CAM:
+      // case KNOWN_HOSTS.CAM_PC:
+      case KNOWN_HOSTS.BBOX:
+      case KNOWN_HOSTS.ODI:
+      case KNOWN_HOSTS.OLD_ANDROID:
+      case KNOWN_HOSTS.NULL:
+        log.info('New known host:', host);
+        break;
+      default:
+        unknownHosts.push(host);
+        break;
+    }
   });
-  return matchingHost;
+  if (unknownHosts.length > 0) new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown host: ' + unknownHosts.join(', ') });
 }
 
 function scanLoop() {
