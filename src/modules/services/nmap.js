@@ -25,6 +25,7 @@ const SCAN_CRON = '*/10 * * * * *',
   KNOWN_HOSTS = {
     ADRI: 'Pixel-3a',
     ADRI_PC: 'adri-pc',
+    ADRI_PC_WORK: 'ENOVACOM-AGAR2-001',
     BBOX: 'bbox.lan',
     CAM: 'TODO',
     CAM_PC: 'TODO',
