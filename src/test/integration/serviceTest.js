@@ -23,6 +23,8 @@ module.exports.runTest = function (succeedTest) {
 
     new Flux('service|max|playOneMelody');
 
+    new Flux('service|nmap|scan');
+
     // new Flux('service|voicemail|new', {msg: 'are you there ?'}, 8);
     // let rdmTTS = Core.ttsMessages.random[Utils.random(Core.ttsMessages.random.length)];
     let rdmTTS = Utils.randomItem(Core.ttsMessages.random);
