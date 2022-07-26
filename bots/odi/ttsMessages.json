@@ -175,26 +175,19 @@
     ["Vive la biaire!", "Allez encore une petite mousse !"]
   ],
   "badBoy": [
-    "Toi, tu commence sairieusement a m'emmerder !",
     "Tu commences à me courir sur le haricot !",
     "Non mais t'as vu ta gueule ?",
     "Je, tan, cule, tu m'entends je t'encule",
     "Mais tu vas fermer ta gueule, oui ?",
     "Oh putain de bordel de merde !",
     "Oh putain de bordel de merde !",
-    "Oh putain de bordel de merde !",
     "Mais t'es con ou quoi ??",
     "Vas te faire foutre !",
     "Alors toi, tu en tiens une bonne couche !",
-    "Toi, je t'emmerde bien comme il faut",
     "Eh connard !",
     "Tu pues comme une vieille chaussette !",
-    "Oh la la, mais quel craitain !",
     "Eh, vas donc te faire escagafier !",
-    "T'es qu'un paillot !",
     "Pauvre couillon !",
-    "Vieille estrasse !",
-    "Vas voir ailleurs si j'y suis !",
     "Mais quel enculé celui la !",
     "Espaice de gros con !!",
     "Quand on mettra les cons sur orbite, t'auras pas fini de tourner",
@@ -202,7 +195,6 @@
     "Tu es une belle petite enflure !",
     "Avec toi, la connerie humaine est sans limite !",
     "Ne commence pas a m'emboucaner",
-    "T'as vraiment une taite de bite !",
     "Coucou, tu veux voir ma bite ?",
     "Vieux paibron",
     [
@@ -224,14 +216,6 @@
     ],
     [
       {
-        "msg": "C'est vraiment un truc de fou !"
-      },
-      {
-        "msg": "Mais ta stupiditer metonne encore !"
-      }
-    ],
-    [
-      {
         "msg": "Mais vas chier !"
       },
       {
@@ -240,7 +224,7 @@
     ]
   ],
   "maxCallback": {
-    "melody": ["Oh!", "Eh oh", ["Eh oh", "Sa va Max ?"], "Voyons Max !", "Mais oui Max !", "Euh, c'etait quoi sa ?", "Mais c'est pas fini, oui ?"],
+    "melody": ["Oh!", "Eh oh", ["Eh oh", "Sa va Max ?"], "Euh, c'etait quoi sa ?", "Mais c'est pas fini, oui ?", "Coulos coulos!"],
     "horn": ["eh ho", "eh ho, sa suffit!"],
     "hornFire": "Au feu !",
     "sensor": [
