@@ -1346,8 +1346,8 @@ app.component('nmap', {
       label: 'Nmap',
       actionList: [
         { label: 'Scan', icon: 'fas fa-broadcast-tower', url: '/flux/service/nmap/scan' },
-        { label: 'Loop', icon: 'fas fa-sync', url: '/flux/service/nmap/scanLoop' },
-        { label: 'Stop', icon: 'fas fa-stop', url: '/flux/service/nmap/stopScanLoop' }
+        { label: 'Loop', icon: 'fas fa-sync', url: '/flux/service/nmap/continuous' },
+        { label: 'Stop', icon: 'fas fa-stop', url: '/flux/service/nmap/stopContinuous' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);

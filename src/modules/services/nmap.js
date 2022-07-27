@@ -11,14 +11,14 @@ const log = new Logger(__filename);
 
 const FLUX_PARSE_OPTIONS = [
   { id: 'scan', fn: scan },
-  { id: 'scanLoop', fn: continuousScan },
-  { id: 'stopScanLoop', fn: stopContinuousScan }
+  { id: 'continuous', fn: continuousScan },
+  { id: 'stopContinuous', fn: stopContinuousScan }
 ];
 
 Observers.attachFluxParseOptions('service', 'nmap', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-  Scheduler.delay(3).then(scan());
+  Scheduler.delay(3).then(continuousScan());
 });
 
 const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
@@ -43,6 +43,7 @@ function scan() {
   quickScan.on('complete', hosts => {
     parseFoundHosts(hosts);
     if (isContinuousScan) scan();
+    else log.table(hosts, `${hosts.length} Hosts`);
   });
 
   quickScan.on('error', error => {
@@ -50,7 +51,7 @@ function scan() {
     if (isContinuousScan) scan();
   });
 
-  log.info('Nmap scan...');
+  log.debug('Nmap scan...');
   quickScan.startScan();
 }
 
@@ -66,12 +67,11 @@ function parseFoundHosts(hosts) {
     hostsList[host.hostname] = host.ip;
   });
 
-  log.table(hostsList, `${hosts.length} Hosts`);
-
   let newDetectedHosts = Object.keys(newDetectedHostsList);
-  if (Object.keys(oldHostsList).length > 0 && newDetectedHosts.length) {
+  if (Object.keys(newDetectedHosts).length && Object.keys(oldHostsList).length) {
     log.info('New host(s) on network:', newDetectedHosts);
     newHostReaction(newDetectedHosts);
+    log.table(hostsList, `${Object.keys(hostsList).length} Hosts`);
   }
 }
 
@@ -89,18 +89,20 @@ function newHostReaction(newDetectedHosts) {
       case KNOWN_HOSTS.ODI:
       case KNOWN_HOSTS.OLD_ANDROID:
       case KNOWN_HOSTS.NULL:
-        log.info('New known host:', host);
         break;
       default:
         unknownHosts.push(host);
         break;
     }
   });
-  if (unknownHosts.length > 0) new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown host: ' + unknownHosts.join(', ') });
+  if (unknownHosts.length > 0) {
+    log.warn('Unknown host detected:', newDetectedHosts);
+    new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown device: ' + unknownHosts.join(', ') });
+  }
 }
 
 function continuousScan() {
-  log.info('Starting continuous scan...');
+  log.info('Starting continuous scan for 1 hour...');
   Core.run('nmap', true);
   isContinuousScan = true;
   setTimeout(() => {
