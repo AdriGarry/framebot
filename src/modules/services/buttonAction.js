@@ -93,4 +93,5 @@ function etatButtonAction(value) {
   // new Flux('service|mood|set', 2);
   let newVolume = Core.isAwake() ? (value ? 90 : 50) : 0;
   new Flux('interface|sound|volume', newVolume, { /*delay: 1,*/ log: 'debug' });
+  // TODO ajouter les activation/désactivation du coutinuous nmap scan en fonction de l'état du bouton
 }

@@ -18,7 +18,9 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('service', 'nmap', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-  Scheduler.delay(3).then(continuousScan());
+  Scheduler.delay(3).then(() => {
+    if (Core.run('etat') === 'high') continuousScan();
+  });
 });
 
 const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
