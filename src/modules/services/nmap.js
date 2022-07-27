@@ -5,49 +5,57 @@
 const nmap = require('node-nmap');
 nmap.nmapLocation = 'nmap';
 
-const { Core, CronJobList, Flux, Logger, Observers, Scheduler, Utils } = require('../../api');
+const { Core, Flux, Logger, Observers, Scheduler, Utils } = require('../../api');
 
 const log = new Logger(__filename);
 
 const FLUX_PARSE_OPTIONS = [
   { id: 'scan', fn: scan },
-  { id: 'scanLoop', fn: scanLoop },
-  { id: 'stopScanLoop', fn: stopScanLoop }
+  { id: 'continuous', fn: continuousScan },
+  { id: 'stopContinuous', fn: stopContinuousScan }
 ];
 
 Observers.attachFluxParseOptions('service', 'nmap', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-  Scheduler.delay(2).then(scan());
+  Scheduler.delay(3).then(continuousScan());
 });
 
-const LOCAL_NETWORK_RANGE = '192.168.1.0/24',
-  NMAP_JOB = new CronJobList([{ cron: '*/10 * * * * *', flux: { id: 'service|nmap|scan' } }], 'nmap', true);
+const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
+  KNOWN_HOSTS = {
+    ADRI: 'Pixel-3a',
+    ADRI_PC: 'adri-pc',
+    ADRI_PC_WORK: 'ENOVACOM-AGAR2-001',
+    BBOX: 'bbox.lan',
+    CAM: 'TODO',
+    CAM_PC: 'TODO',
+    ODI: 'raspberrypi',
+    OLD_ANDROID: 'android-38594d3ba13a4305',
+    NULL: 'null'
+  }; //TODO move to descriptor ?
 
+let quickScan;
 let hostsList = {},
-  isScanning = false;
+  isContinuousScan = false;
 
 function scan() {
-  if (isScanning) return;
-
-  log.info('Nmap scan...');
-  const quickscan = new nmap.QuickScan(LOCAL_NETWORK_RANGE); // Accepts array or comma separated string of NMAP acceptable hosts
-  isScanning = true;
-
-  quickscan.on('complete', hosts => {
-    isScanning = false;
-    parseSuppliedHosts(hosts);
+  quickScan = new nmap.QuickScan(LOCAL_NETWORK_RANGE);
+  quickScan.on('complete', hosts => {
+    parseFoundHosts(hosts);
+    if (isContinuousScan) scan();
+    else log.table(hosts, `${hosts.length} Hosts`);
   });
 
-  quickscan.on('error', error => {
-    isScanning = false;
-    log.error('Nmap scan error', error);
+  quickScan.on('error', error => {
+    log.error('Nmap error:', error);
+    if (isContinuousScan) scan();
   });
 
-  quickscan.startScan();
+  log.debug('Nmap scan...');
+  quickScan.startScan();
 }
 
-function parseSuppliedHosts(hosts) {
+function parseFoundHosts(hosts) {
   let oldHostsList = hostsList,
     newDetectedHostsList = {};
   hostsList = {};
@@ -59,22 +67,53 @@ function parseSuppliedHosts(hosts) {
     hostsList[host.hostname] = host.ip;
   });
 
-  log.table(hostsList, `${hosts.length} Hosts`);
-
-  if (Object.keys(oldHostsList).length > 0 && Object.keys(newDetectedHostsList).length) {
-    log.test('New device(s) on network:', Object.keys(newDetectedHostsList));
-    new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New device detected!' });
+  let newDetectedHosts = Object.keys(newDetectedHostsList);
+  if (Object.keys(newDetectedHosts).length && Object.keys(oldHostsList).length) {
+    log.info('New host(s) on network:', newDetectedHosts);
+    newHostReaction(newDetectedHosts);
+    log.table(hostsList, `${Object.keys(hostsList).length} Hosts`);
   }
 }
 
-function scanLoop() {
-  log.info('Starting scanLoop...');
-  Core.run('nmap', true);
-  NMAP_JOB.start();
+function newHostReaction(newDetectedHosts) {
+  let unknownHosts = [];
+  newDetectedHosts.forEach(host => {
+    switch (host) {
+      case KNOWN_HOSTS.ADRI:
+        new Flux('interface|tts|speak', { msg: 'Oh! Salut Adri!' });
+        break;
+      case KNOWN_HOSTS.ADRI_PC:
+      // case KNOWN_HOSTS.CAM:
+      // case KNOWN_HOSTS.CAM_PC:
+      case KNOWN_HOSTS.BBOX:
+      case KNOWN_HOSTS.ODI:
+      case KNOWN_HOSTS.OLD_ANDROID:
+      case KNOWN_HOSTS.NULL:
+        break;
+      default:
+        unknownHosts.push(host);
+        break;
+    }
+  });
+  if (unknownHosts.length > 0) {
+    log.warn('Unknown host detected:', newDetectedHosts);
+    new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown device: ' + unknownHosts.join(', ') });
+  }
 }
 
-function stopScanLoop() {
-  NMAP_JOB.stop();
+function continuousScan() {
+  log.info('Starting continuous scan for 1 hour...');
+  Core.run('nmap', true);
+  isContinuousScan = true;
+  setTimeout(() => {
+    log.info('Continuous scan timeout!');
+    stopContinuousScan();
+  }, 60 * 60 * 1000);
+  scan();
+}
+
+function stopContinuousScan() {
+  log.info('Stopping continuous scan...');
   Core.run('nmap', false);
-  log.info('ScanLoop stopped.');
+  isContinuousScan = false;
 }
