@@ -3,6 +3,15 @@
 _PATH=`pwd`
 echo _PATH: $_PATH
 
+exitIfNoArgs(){
+	if [ $# -eq 0 ]
+	then
+		echo "framebot error: no arguments supplied, exiting."
+		echo "Try 'update' or <botname> [<options>]"
+		exit 0
+	fi
+}
+
 updateFrameBotScript(){
 	sudo cp $_PATH/framebot /bin/ && \
 	# sudo cp $_PATH/framebot /bin/ && \
@@ -28,11 +37,12 @@ updateFrameBotScript(){
 	sudo chmod +x "$_PATH"/framebot
 }
 
-exitIfNoArgs(){
-	if [ $# -eq 0 ]
-	then
-		echo "framebot error: no arguments supplied, exiting."
-		echo "Try 'update' or <botname> [<options>]"
+ifSetup(){
+	if [ $1 = "setup" ]; then
+		sudo frb stop
+		sudo sh "$_PATH"/src/shell/setup.sh
+		echo "\nframebot setup completed."
+		sudo frb update
 		exit 0
 	fi
 }
@@ -83,6 +93,8 @@ ifCerbot(){
 exitIfNoArgs $*
 
 ifUpdateFramebotCommand $*
+
+ifSetup $*
 
 ifStop $*
 
