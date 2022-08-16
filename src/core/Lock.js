@@ -57,8 +57,6 @@ function Lock(obj, filePath, open) {
       id2 = keys[1];
     }
     if (object.hasOwnProperty(id) || _open) {
-      // if (typeof object[id] === 'object' && typeof toto === 'object') {
-      // 	object[id].push(newValue);
       if (Array.isArray(object[id])) {
         object[id].push(newValue);
       } else {
