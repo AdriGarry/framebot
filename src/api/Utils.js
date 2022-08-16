@@ -180,6 +180,6 @@ module.exports = class Utils {
 
 /** Function to repeat/concat a string */
 String.prototype.repeat = function (num) {
-  if (Number(num) && num > 0) return new Array(Math.abs(num) + 1).join(this);
+  if (Number(num) && num > 0) return new Array(Math.abs(num) + 1).join(this.toString());
   return '';
 };
