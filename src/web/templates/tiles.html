@@ -1,9 +1,9 @@
 <div flex="1" data-ng-click="$ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep"
 	data-ng-class="$ctrl.cssClass()" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label"
 	class="tile md-button md-raised ng-slide-fast">
-	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fas fa-2x fa-ellipsis-h adminFlag"></i>
+	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fa-solid fa-2x fa-ellipsis-h adminFlag"></i>
 	<i data-ng-if="$ctrl.tile.expanded" data-ng-click="$ctrl.toggleTileHeight();$event.stopPropagation()"
-		class="fas fa-2x fa-times adminFlag closeBtn" title="Reduce"></i>
+		class="fa-solid fa-2x fa-times adminFlag closeBtn" title="Reduce"></i>
 
 	<span data-ng-if="0" class="debugObject">{{$ctrl.tile}}</span>
 	<span data-ng-if="0" class="debugObject">{{$ctrl.data.value}}</span>
@@ -54,10 +54,10 @@
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Mode">
-		<i class="fas fa-rotate-270 fa-2x switch"
-			data-ng-class="$ctrl.data.value.switch ? 'fas fa-toggle-on' : 'fas fa-toggle-off'"></i>
+		<i class="fa-solid fa-rotate-270 fa-2x switch"
+			data-ng-class="$ctrl.data.value.switch ? 'fa-solid fa-toggle-on' : 'fa-solid fa-toggle-off'"></i>
 		<div class="main">
-			<i class="mainInfo far fa-moon" data-ng-show="$ctrl.data.value.mode == 'Sleep'"></i>
+			<i class="mainInfo fa-regular fa-moon" data-ng-show="$ctrl.data.value.mode == 'Sleep'"></i>
 			<div data-ng-hide="$ctrl.data.value.mode == 'Sleep'">
 				&nbsp;{{$ctrl.data.value.mode}}<small class="opacity70"><sup>{{$ctrl.data.value.mood}}</sup></small>
 			</div>
@@ -70,18 +70,18 @@
 
 	<div class="tileContent" data-ng-switch-when="Options">
 		<div class="main">
-			<i class="far fa-dot-circle" data-ng-if="$ctrl.data.trace.value"></i>
-			<i class="fas fa-circle" data-ng-if="$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
-			<i class="fas fa-eye"
+			<i class="fa-regular fa-dot-circle" data-ng-if="$ctrl.data.trace.value"></i>
+			<i class="fa-solid fa-circle" data-ng-if="$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
+			<i class="fa-solid fa-eye"
 				data-ng-if="$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
-			<i class="fas fa-cogs"
+			<i class="fa-solid fa-cogs"
 				data-ng-if="!$ctrl.data.watcher.value && !$ctrl.data.debug.value && !$ctrl.data.trace.value"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Volume">
 		<div class="main">
-			<i class="fas fa-lg" data-ng-class="$ctrl.getVolumeIcon()"></i>
+			<i class="fa-solid fa-lg" data-ng-class="$ctrl.getVolumeIcon()"></i>
 			<span data-ng-show="$ctrl.data.volume.value">{{$ctrl.data.volume.value}}<small
 					class="opacity70">%</small></span>
 		</div>
@@ -89,8 +89,8 @@
 
 	<div class="tileContent" data-ng-switch-when="Alarms">
 		<div class="main ">
-			<i class="far fa-bell" data-ng-if="$ctrl.nextAlarm"></i>
-			<i class="far fa-bell-slash" data-ng-if="!$ctrl.nextAlarm"></i>
+			<i class="fa-regular fa-bell" data-ng-if="$ctrl.nextAlarm"></i>
+			<i class="fa-regular fa-bell-slash" data-ng-if="!$ctrl.nextAlarm"></i>
 			<span data-ng-show="$ctrl.data.value && $ctrl.nextAlarm">{{$ctrl.nextAlarm.h}}:{{$ctrl.nextAlarm.m |
 				formatNumber:2}}
 			</span>
@@ -99,18 +99,18 @@
 
 	<div class="tileContent" data-ng-switch-when="Hardware">
 		<div class="main">
-			<i class="fab fa-empire"></i>
+			<i class="fa-brands fa-empire"></i>
 			<span>
 				<span>{{$ctrl.data.value.usage | limitTo:$ctrl.data.value.usage.length-1}}<sup
 						class="opacity70"><small>%</small>
 					</sup>
 				</span>&nbsp;&nbsp;
-				<i class="fas fa-thermometer-half"></i>
+				<i class="fa-solid fa-thermometer-half"></i>
 				<span>{{$ctrl.data.value.temperature | limitTo:$ctrl.data.value.temperature.length-1}}<sup
 						class="opacity70"><small>°C</small>
 					</sup>
 				</span>&nbsp;&nbsp;&nbsp;&nbsp;
-				<i class="fas fa-microchip"></i>
+				<i class="fa-solid fa-microchip"></i>
 				<table style="display:inline-block;vertical-align:middle;">
 					<tr>
 						<td style="line-height:2.5vw;">
@@ -138,7 +138,7 @@
 
 	<div class="tileContent" data-ng-switch-when="Voicemail">
 		<div class="main">
-			<i class="fa-envelope" data-ng-class="$ctrl.data.value ? 'fas' : 'far'"></i>
+			<i class="fa-envelope" data-ng-class="$ctrl.data.value ? 'fa-solid' : 'fa-regular'"></i>
 			<sub data-ng-show="$ctrl.data.value" class="fa-2x">&nbsp;{{$ctrl.data.value}}</sub>
 		</div>
 	</div>
@@ -151,30 +151,30 @@
 
 	<div class="tileContent" data-ng-switch-when="Timer">
 		<div class="main">
-			<i data-ng-hide="$ctrl.data.value" class="far fa-hourglass"></i>
-			<i data-ng-show="$ctrl.data.value" class="fas fa-hourglass-half"></i>
+			<i data-ng-hide="$ctrl.data.value" class="fa-regular fa-hourglass"></i>
+			<i data-ng-show="$ctrl.data.value" class="fa-solid fa-hourglass-half"></i>
 			<span data-ng-show="$ctrl.data.value">{{$ctrl.data.value | formatTime}}</span>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Audio recorder">
 		<div class="main">
-			<i class="fas fa-microphone"></i>
+			<i class="fa-solid fa-microphone"></i>
 			<sub data-ng-show="$ctrl.data.value" class="fa-2x">&nbsp;{{$ctrl.data.value}}</sub>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Power plug">
 		<div class="main">
-			<i class="fas" data-ng-class="$ctrl.plugs['plugA'].cssClass"></i>
+			<i class="fa-solid" data-ng-class="$ctrl.plugs['plugA'].cssClass"></i>
 			<small class="badge opacity70" data-ng-if="$ctrl.plugs['plugA'].timeout">
 				<sup class="ng-binding">{{$ctrl.plugs['plugA'].timeout}}</sup>
 			</small>
-			<i class="fas" data-ng-class="$ctrl.plugs['plugB'].cssClass"></i>
+			<i class="fa-solid" data-ng-class="$ctrl.plugs['plugB'].cssClass"></i>
 			<small class="badge opacity70" data-ng-if="$ctrl.plugs['plugB'].timeout">
 				<sup class="ng-binding">{{$ctrl.plugs['plugB'].timeout}}</sup>
 			</small>			
-			<i class="fas" data-ng-class="$ctrl.plugs['plugC'].cssClass"></i>
+			<i class="fa-solid" data-ng-class="$ctrl.plugs['plugC'].cssClass"></i>
 			<small class="badge opacity70" data-ng-if="$ctrl.plugs['plugC'].timeout">
 				<sup class="ng-binding">{{$ctrl.plugs['plugC'].timeout}}</sup>
 			</small>
@@ -183,19 +183,19 @@
 
 	<div class="tileContent" data-ng-switch-when="Exclamation">
 		<div class="main">
-			<i class="far fa-comment-dots"></i>
+			<i class="fa-regular fa-comment-dots"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Date">
 		<div class="main">
-			<i class="fas fa-calendar"></i>
+			<i class="fa-solid fa-calendar"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Time">
 		<div class="main">
-			<i class="far fa-clock"></i>
+			<i class="fa-regular fa-clock"></i>
 		</div>
 	</div>
 
@@ -204,66 +204,66 @@
 			<i data-ng-class="$ctrl.data.value.icon"></i>
 			<span data-ng-show="$ctrl.data.value.temperature">{{$ctrl.data.value.temperature}}<sup
 					class="opacity70"><small>°C</small></sup></span>
-			<span class="fas fa-window-minimize" data-ng-hide="$ctrl.data.value.temperature"></span>
+			<span class="fa-solid fa-window-minimize" data-ng-hide="$ctrl.data.value.temperature"></span>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Childs">
 		<div class="main">
-			<i class="fas fa-child"></i>
+			<i class="fa-solid fa-child"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Party">
 		<div class="main">
-			<i class="fas fa-cocktail"></i>
+			<i class="fa-solid fa-cocktail"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Russia">
 		<div class="main">
-			<i class="fas fa-star"></i>
+			<i class="fa-solid fa-star"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Idea">
 		<div class="main">
-			<i class="far fa-lightbulb"></i>
+			<i class="fa-regular fa-lightbulb"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Stories">
 		<div class="main">
-			<i class="fas fa-book"></i>
+			<i class="fa-solid fa-book"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Bad boy">
 		<div class="main">
-			<i class="fas fa-bomb"></i>
+			<i class="fa-solid fa-bomb"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Video">
-		<i class="fas fa-rotate-270 fa-2x switch"
-			data-ng-class="$ctrl.data.value ? 'fas fa-toggle-on' : 'fas fa-toggle-off'"></i>
+		<i class="fa-solid fa-rotate-270 fa-2x switch"
+			data-ng-class="$ctrl.data.value ? 'fa-solid fa-toggle-on' : 'fa-solid fa-toggle-off'"></i>
 		<div class="main">
-			<i class="fas fa-desktop"></i>
+			<i class="fa-solid fa-desktop"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Max">
 		<div class="main">
-			<i class="fas fa-bezier-curve"></i>
+			<i class="fa-solid fa-bezier-curve"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Radiator">
 		<div class="main">
-			<i class="fas fa-thermometer-half" data-ng-if="$ctrl.data.config.radiator == 'auto'"></i>
-			<i class="fas fa-thermometer-full"
+			<i class="fa-solid fa-thermometer-half" data-ng-if="$ctrl.data.config.radiator == 'auto'"></i>
+			<i class="fa-solid fa-thermometer-full"
 				data-ng-if="$ctrl.data.config.radiator == 'on' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='on'"></i>
-			<i class="fas fa-thermometer-empty"
+			<i class="fa-solid fa-thermometer-empty"
 				data-ng-if="$ctrl.data.config.radiator == 'off' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='off'"></i>
 			<small>
 				<span data-ng-if="!$ctrl.isTimeout()">{{$ctrl.data.config.radiator}}</span>
@@ -274,49 +274,49 @@
 
 	<div class="tileContent" data-ng-switch-when="Tasks">
 		<div class="main">
-			<i class="fas fa-check-double"></i>
+			<i class="fa-solid fa-check-double"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Arduino">
-		<i class="fas fa-rotate-270 fa-2x switch"
-			data-ng-class="$ctrl.data.value ? 'fas fa-toggle-on' : 'fas fa-toggle-off'"></i>
+		<i class="fa-solid fa-rotate-270 fa-2x switch"
+			data-ng-class="$ctrl.data.value ? 'fa-solid fa-toggle-on' : 'fa-solid fa-toggle-off'"></i>
 		<div class="main">
-			<i class="fab fa-usb"></i>
+			<i class="fa-brands fa-usb"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Rfxcom">
-		<i class="fas fa-rotate-270 fa-2x switch"
-			data-ng-class="$ctrl.data.value ? 'fas fa-toggle-on' : 'fas fa-toggle-off'"></i>
+		<i class="fa-solid fa-rotate-270 fa-2x switch"
+			data-ng-class="$ctrl.data.value ? 'fa-solid fa-toggle-on' : 'fa-solid fa-toggle-off'"></i>
 		<div class="main">
-			<i class="fas fa-satellite-dish"></i>
+			<i class="fa-solid fa-satellite-dish"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="History">
 		<div class="main">
-			<i class="far fa-file-alt"></i>
+			<i class="fa-regular fa-file-alt"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="System">
 		<div class="main">
-			<i class="fas fa-power-off"></i>
+			<i class="fa-solid fa-power-off"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Nmap">
-		<i class="fas fa-rotate-270 fa-2x switch"
-			data-ng-class="$ctrl.data.run.nmap ? 'fas fa-toggle-on' : 'fas fa-toggle-off'"></i>
+		<i class="fa-solid fa-rotate-270 fa-2x switch"
+			data-ng-class="$ctrl.data.run.nmap ? 'fa-solid fa-toggle-on' : 'fa-solid fa-toggle-off'"></i>
 		<div class="main">
-			<i class="fas fa-broadcast-tower"></i>
+			<i class="fa-solid fa-broadcast-tower"></i>
 		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="About">
 		<div class="main">
-			<i class="fas fa-info"></i>
+			<i class="fa-solid fa-info"></i>
 		</div>
 	</div>
 
