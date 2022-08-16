@@ -60,9 +60,10 @@ function badRequestTTS() {
   new Flux('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });
 }
 
+// Return a requestData object { ip, isLocalIp, position, log }
 function getRequestData(req) {
   let position,
-    requestData = {}; // { ip, isLocalIp, position, log }
+    requestData = {};
 
   requestData.url = req.url;
   requestData.ip = req.connection.remoteAddress;
