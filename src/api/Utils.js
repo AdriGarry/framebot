@@ -84,9 +84,9 @@ module.exports = class Utils {
 
   /** Function to return true if one of string of stringArray is found in string param */
   static searchStringInArray(string, stringArray) {
-    for (let i = 0; i < stringArray.length; i++) {
-      if (stringArray[i].toLowerCase().indexOf(string.toLowerCase()) > -1) {
-        return stringArray[i];
+    for (const element of stringArray) {
+      if (element.toLowerCase().indexOf(string.toLowerCase()) > -1) {
+        return element;
       }
     }
     return false;
