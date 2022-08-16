@@ -1,195 +1,195 @@
 {
   "0": {
     "label": "apocalyptique",
-    "icon": "fas fa-meteor"
+    "icon": "fa-solid fa-meteor"
   },
   "1": {
     "label": "dorage tropical",
-    "icon": "fas fa-bolt"
+    "icon": "fa-solid fa-bolt"
   },
   "2": {
     "label": "douragan",
-    "icon": "fas fa-bolt"
+    "icon": "fa-solid fa-bolt"
   },
   "3": {
     "label": "tres orageux",
-    "icon": "fas fa-bolt"
+    "icon": "fa-solid fa-bolt"
   },
   "4": {
     "label": "orageux",
-    "icon": "fas fa-bolt"
+    "icon": "fa-solid fa-bolt"
   },
   "5": {
     "label": "pluvieux",
-    "icon": "fas fa-cloud-rain"
+    "icon": "fa-solid fa-cloud-rain"
   },
   "6": {
     "label": "pluvieux",
-    "icon": "fas fa-cloud-rain"
+    "icon": "fa-solid fa-cloud-rain"
   },
   "7": {
     "label": "neigeux",
-    "icon": "far fa-snowflake"
+    "icon": "fa-regular fa-snowflake"
   },
   "8": {
     "label": "verglasset",
-    "icon": "far fa-snowflake"
+    "icon": "fa-regular fa-snowflake"
   },
   "9": {
     "label": "brumeux",
-    "icon": "fas fa-smog"
+    "icon": "fa-solid fa-smog"
   },
   "10": {
     "label": "verglasset",
-    "icon": "far fa-snowflake"
+    "icon": "fa-regular fa-snowflake"
   },
   "11": {
     "label": "pluvieux",
-    "icon": "fas fa-cloud-showers-heavy"
+    "icon": "fa-solid fa-cloud-showers-heavy"
   },
   "12": {
     "label": "pluvieux",
-    "icon": "fas fa-cloud-showers-heavy"
+    "icon": "fa-solid fa-cloud-showers-heavy"
   },
   "13": {
     "label": "neigeux",
-    "icon": "far fa-snowflake"
+    "icon": "fa-regular fa-snowflake"
   },
   "14": {
     "label": "legerement pluvieux",
-    "icon": "fas fa-cloud-rain"
+    "icon": "fa-solid fa-cloud-rain"
   },
   "15": {
     "label": "poudreux",
-    "icon": "far fa-snowflake"
+    "icon": "fa-regular fa-snowflake"
   },
   "16": {
     "label": "neigeux",
-    "icon": "far fa-snowflake"
+    "icon": "fa-regular fa-snowflake"
   },
   "17": {
     "label": "de grele",
-    "icon": "fas fa-cloud-meatball"
+    "icon": "fa-solid fa-cloud-meatball"
   },
   "18": {
     "label": "neigeux",
-    "icon": "far fa-snowflake"
+    "icon": "fa-regular fa-snowflake"
   },
   "19": {
     "label": "poussiereux",
-    "icon": "fas fa-smog"
+    "icon": "fa-solid fa-smog"
   },
   "20": {
     "label": "brumeux",
-    "icon": "fas fa-smog"
+    "icon": "fa-solid fa-smog"
   },
   "21": {
     "label": "brumeux",
-    "icon": "fas fa-smog"
+    "icon": "fa-solid fa-smog"
   },
   "22": {
     "label": "brumeux",
-    "icon": "fas fa-smog"
+    "icon": "fa-solid fa-smog"
   },
   "23": {
     "label": "de tempaite",
-    "icon": "fas fa-cloud-showers-heavy"
+    "icon": "fa-solid fa-cloud-showers-heavy"
   },
   "24": {
     "label": "hivernal",
-    "icon": "fas fa-temperature-low"
+    "icon": "fa-solid fa-temperature-low"
   },
   "25": {
     "label": "froid",
-    "icon": "fas fa-temperature-low"
+    "icon": "fa-solid fa-temperature-low"
   },
   "26": {
     "label": "nuageux",
-    "icon": "fas fa-cloud"
+    "icon": "fa-solid fa-cloud"
   },
   "27": {
     "label": "couvert",
-    "icon": "fas fa-cloud"
+    "icon": "fa-solid fa-cloud"
   },
   "28": {
     "label": "couvert",
-    "icon": "fas fa-cloud"
+    "icon": "fa-solid fa-cloud"
   },
   "29": {
     "label": "partiellement couvert",
-    "icon": "fas fa-cloud-sun"
+    "icon": "fa-solid fa-cloud-sun"
   },
   "30": {
     "label": "partiellement couvert",
-    "icon": "fas fa-cloud-sun"
+    "icon": "fa-solid fa-cloud-sun"
   },
   "31": {
     "label": "ensoleiller",
-    "icon": "far fa-sun"
+    "icon": "fa-regular fa-sun"
   },
   "32": {
     "label": "ensoleiller",
-    "icon": "far fa-sun"
+    "icon": "fa-regular fa-sun"
   },
   "33": {
     "label": "calme",
-    "icon": "far fa-sun"
+    "icon": "fa-regular fa-sun"
   },
   "34": {
     "label": "sympa",
-    "icon": "far fa-sun"
+    "icon": "fa-regular fa-sun"
   },
   "35": {
     "label": "de grele",
-    "icon": "fas fa-cloud-meatball"
+    "icon": "fa-solid fa-cloud-meatball"
   },
   "36": {
     "label": "chaud",
-    "icon": "far fa-sun"
+    "icon": "fa-regular fa-sun"
   },
   "37": {
     "label": "orageux",
-    "icon": "fas fa-bolt"
+    "icon": "fa-solid fa-bolt"
   },
   "38": {
     "label": "orageux",
-    "icon": "fas fa-bolt"
+    "icon": "fa-solid fa-bolt"
   },
   "39": {
     "label": "orageux",
-    "icon": "fas fa-bolt"
+    "icon": "fa-solid fa-bolt"
   },
   "40": {
     "label": "pluvieux",
-    "icon": "fas fa-cloud-showers-heavy"
+    "icon": "fa-solid fa-cloud-showers-heavy"
   },
   "41": {
     "label": "tres neigeux",
-    "icon": "far fa-snowflake"
+    "icon": "fa-regular fa-snowflake"
   },
   "42": {
     "label": "neigeux",
-    "icon": "far fa-snowflake"
+    "icon": "fa-regular fa-snowflake"
   },
   "43": {
     "label": "tres neigeux",
-    "icon": "far fa-snowflake"
+    "icon": "fa-regular fa-snowflake"
   },
   "44": {
     "label": "partiellement couvert",
-    "icon": "fas fa-cloud-sun"
+    "icon": "fa-solid fa-cloud-sun"
   },
   "45": {
     "label": "orageux",
-    "icon": "fas fa-bolt"
+    "icon": "fa-solid fa-bolt"
   },
   "46": {
     "label": "pluvieux et neigeux",
-    "icon": "fas fa-cloud-showers-heavy"
+    "icon": "fa-solid fa-cloud-showers-heavy"
   },
   "47": {
     "label": "orageux",
-    "icon": "fas fa-bolt"
+    "icon": "fa-solid fa-bolt"
   },
   "48": {
     "label": "non dispo"
