@@ -63,20 +63,22 @@ module.exports = class Utils {
    * @return {String} repeated string
    */
   static repeatString(string, times) {
+    if (isNaN(times)) times = 0;
     return Array(times + 1).join(string);
   }
 
-  static formatStringLength(string, expectedLength, before, characterToFill) {
+  static formatStringLength(input, expectedLength, isBefore, characterToFill) {
     characterToFill = characterToFill || ' ';
-    let stringLength = string.length,
+    let inputString = input.toString();
+    let stringLength = inputString.length,
       stringFormated;
     if (stringLength >= expectedLength) {
-      stringFormated = string.substring(0, expectedLength);
+      stringFormated = inputString.substring(0, expectedLength);
     } else {
-      if (before) {
-        stringFormated = Utils.repeatString(characterToFill, expectedLength - stringLength) + string;
+      if (isBefore) {
+        stringFormated = Utils.repeatString(characterToFill, expectedLength - stringLength) + inputString;
       } else {
-        stringFormated = string + Utils.repeatString(characterToFill, expectedLength - stringLength);
+        stringFormated = inputString + Utils.repeatString(characterToFill, expectedLength - stringLength);
       }
     }
     return stringFormated;
@@ -124,8 +126,8 @@ module.exports = class Utils {
     let now = '';
 
     if (typeof param === 'undefined') param = DATE_TIMEDEFAULT_PATTERN;
-    for (let i = 0; i < param.length; i++) {
-      switch (param[i]) {
+    for (const element of param) {
+      switch (element) {
         case 'Y':
           now += Y;
           break;
@@ -145,10 +147,10 @@ module.exports = class Utils {
           now += (s < 10 ? '0' : '') + s;
           break;
         case 'x':
-          now += (x < 100 ? (x < 10 ? '00' : '0') : '') + x;
+          now += Utils.formatStringLength(x, 3, true, '0');
           break;
         default:
-          now += param[i];
+          now += element;
       }
     }
     return now;
