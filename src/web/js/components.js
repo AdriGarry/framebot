@@ -769,7 +769,7 @@ app.component('childs', {
     const tileParams = {
       label: 'Childs',
       actionList: [
-        { label: 'Yayou', icon: 'fa-solid fa-child', url: '/flux/service/childs/interact', value: 'Yayou' },
+        { label: 'Yayou', icon: 'fa-solid fa-child-reaching', url: '/flux/service/childs/interact', value: 'Yayou' },
         { label: 'Zazou', icon: 'fa-solid fa-baby', url: '/flux/service/childs/interact', value: 'Zazou' },
         { label: 'Bonne nuit', icon: 'fa-solid fa-moon', url: '/flux/service/childs/bonneNuit' },
         { label: 'Playlist childs', icon: 'fa-solid fa-music', url: '/flux/service/music/playlist', value: 'childs' }
