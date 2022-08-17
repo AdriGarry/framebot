@@ -3,38 +3,39 @@
 
 const fs = require('fs');
 
-const { Core, Flux, Logger, Observers } = require('../../api');
+const { Core, Flux, Logger, Observers, Scheduler } = require('../../api');
 
 const log = new Logger(__filename);
 
 module.exports = {};
 
 const FLUX_PARSE_OPTIONS = [
-  { id: 'play', fn: playAllAudioRecordOrVoicemail },
+  { id: 'play', fn: playAllAudioRecordOrVoicemailIfAny },
   { id: 'last', fn: playLastAudioRecordOrVoicemailOrTTS },
   { id: 'clear', fn: clearVoicemailAndRecords }
 ];
 
 Observers.attachFluxParseOptions('service', 'message', FLUX_PARSE_OPTIONS);
 
-setImmediate(() => {});
+setImmediate(() => {
+  if (!Core.run('alarm')) {
+    Scheduler.delay(2).then(() => playAllAudioRecordOrVoicemailIfAny());
+  }
+});
 
-/** Function to play all audioRecord or voicemail */
-function playAllAudioRecordOrVoicemail() {
-  log.info('playAll');
-  new Flux('service|voicemail|check');
-  new Flux('service|audioRecord|last');
+function playAllAudioRecordOrVoicemailIfAny() {
+  log.debug('playAllAudioRecordOrVoicemail');
+  new Flux('service|audioRecord|check');
+  new Flux('service|voicemail|check', null, { delay: Core.run('voicemail') * 10 });
 }
 
-/** Function to play last audioRecord or voicemail or last TTS */
 function playLastAudioRecordOrVoicemailOrTTS() {
   log.info('playLastAudioRecordOrMessageOrTTS');
-
-  new Flux('service|voicemail|check');
-  new Flux('service|audioRecord|last');
+  if (Core.run('audioRecord')) new Flux('service|audioRecord|last');
+  else if (Core.run('voicemail')) new Flux('service|voicemail|check');
+  else new Flux('interface|tts|lastTTS');
 }
 
-/** Function to clear all audioRecord and voicemail */
 function clearVoicemailAndRecords() {
   new Flux('service|voicemail|clear');
   new Flux('service|audioRecord|clear');
