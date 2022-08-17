@@ -133,7 +133,7 @@ function _formatLog(args) {
     return args;
   }
   let log = '';
-  if (args[0] == '\n') {
+  if (args[0] === '\n') {
     console.log('');
     delete args[0];
   }
