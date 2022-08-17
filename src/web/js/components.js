@@ -1138,11 +1138,11 @@ app.component('powerPlug', {
       if (!$rootScope.irda) {
         UIService.showErrorToast('Unauthorized action.');
       } else {
-        ctrl.tile.openBottomSheet(this.actionList, specificplug1ctions);
+        ctrl.tile.openBottomSheet(this.actionList, specificplugActions);
       }
     };
 
-    let specificplug1ctions = function (action) {
+    let specificplugActions = function (action) {
       let actionList = [
         {
           label: action.label + ' ON',
@@ -1181,7 +1181,7 @@ app.component('powerPlug', {
           url: button.url,
           legend: 'min',
           min: 1,
-          max: 120,
+          max: 90,
           step: 1,
           value: 10,
           action: null,
