@@ -50,7 +50,7 @@ function motionDetectEnd() {
     }
   }
 }
-
+/* If mood > 0, then return true if elapsed time is upper than last detection, otherwise null */
 function shouldReact() {
   let moodLevel = Core.run('mood');
   if (moodLevel === 0) return;
