@@ -14,13 +14,7 @@ module.exports = {};
 Observers.attachFluxParser('interface', 'rfxcom', rfxcomHandler);
 
 function rfxcomHandler(flux) {
-  /*if (flux.id == 'send' && flux.value.device === 'plug2' && flux.value.value === false) {
-		sendStatus(flux.value);
-		new Flux('service|internetNetwork|strategy');
-	} else if (flux.id == 'send' && flux.value.device === 'plug2' && flux.value.value === true) {
-		sendStatus(flux.value);
-		new Flux('service|internetNetwork|strategyOff');
-	} else*/ if (flux.id == 'send') {
+  if (flux.id == 'send') {
     sendStatus(flux.value);
   } else if (flux.id == 'toggleLock') {
     toggleLock(flux.value);
@@ -70,22 +64,17 @@ function sendStatus(args) {
   }
 }
 
-const PLUG_GROUP1_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/01f4bf8e0(?<plugId>.)(?<positiveValue>010f60)?/);
-const PLUG_GROUP2_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/036d50020(?<plugId>.)(?<positiveValue>010f[56]0)?/);
+const PLUG_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/0b\S{6}(?<plugId>\S{10})(?<positiveValue>010f[56]0)?/);
 const MOTION_DETECT_SIGNAL = '0008c8970a010f',
   MOTION_DETECT_END_SIGNAL = '0008c8970a0000';
 
 function parseReceivedSignal(receivedSignal) {
-  // TODO Not working, check regex...
   let parsedReceivedSignal = Buffer.from(receivedSignal).toString('hex');
-  log.debug('Rfxcom receive:', parsedReceivedSignal);
+  log.debug('Rfxcom receive:', parsedReceivedSignal, receivedSignal);
 
-  let matchPlugGroup1 = PLUG_GROUP1_STATUS_REMOTE_COMMAND_REGEX.exec(parsedReceivedSignal);
-  let matchPlugGroup2 = PLUG_GROUP2_STATUS_REMOTE_COMMAND_REGEX.exec(parsedReceivedSignal);
-  if (matchPlugGroup1) {
-    updateStatusForPlug(matchPlugGroup1);
-  } else if (matchPlugGroup2) {
-    updateStatusForPlug(matchPlugGroup2);
+  let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(parsedReceivedSignal);
+  if (matchPlug) {
+    updateStatusForPlug(matchPlug); // TODO mode to powerPlug service
   } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_SIGNAL) > -1) {
     new Flux('service|motionDetect|detect');
   } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_END_SIGNAL) > -1) {
@@ -98,10 +87,10 @@ function parseReceivedSignal(receivedSignal) {
 function updateStatusForPlug(matchPlug) {
   let plugId = matchPlug.groups.plugId;
   let value = matchPlug.groups.positiveValue;
-  log.debug('parseReceivedSignal', plugId, value);
+  log.debug('parsing plug received signal:', plugId);
   let deviceName;
   Object.keys(DEVICE_LIST).forEach(device => {
-    if (DEVICE_LIST[device].id.substr(DEVICE_LIST[device].id.length - 1) == plugId) deviceName = device;
+    if (plugId.toUpperCase() === DEVICE_LIST[device].id) deviceName = device;
   });
   Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
 }
