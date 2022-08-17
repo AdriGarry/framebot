@@ -96,7 +96,7 @@ function detectSleep(lastDetectionInSec) {
   log.test('currentHour', currentHour);
   if (currentHour >= 22 || currentHour <= 6) {
     log.test('Condition currentHour >= 22 || currentHour <= 6 VALIDATED!');
-    new Flux('service|light|on', null, { delay: 2, log: 'TRACE' });
+    new Flux('service|light|on', 120, { delay: 2, log: 'TRACE' });
   }
 }
 

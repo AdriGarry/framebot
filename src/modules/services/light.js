@@ -19,7 +19,7 @@ function lightOn(duration) {
   log.info('light On', duration ? '[duration=' + duration + 's]' : '');
   new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'TRACE' });
   if (duration) {
-    new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: duration, log: 'TRACE' });
+    new Flux('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: duration });
   }
 }
 
