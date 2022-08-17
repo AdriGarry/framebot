@@ -241,7 +241,6 @@ md-toast.md-default-theme .md-toast-content,
 md-toast .md-toast-content {
   background-color: #0097a8;
 }
-md-toast.error .md-toast-content,
 md-toast.error .md-toast-content {
   background-color: rgb(244, 81, 30);
 }
@@ -570,9 +569,6 @@ div[data-ng-include] {
   word-wrap: break-word;
 }
 
-.dashboard [flex] > button {
-  /*background:rgba(73, 96, 105, 0.05)!important;*/
-}
 [flex] > .tile[disabled] {
   opacity: 0.5;
 }
@@ -864,16 +860,11 @@ body>.loading i{
     line-height: 13px;
   }
 
-  .dashboard [flex] > button {
-    line-height: 13px;
-  }
   .dashboard [flex] > button i.adminFlag.closeBtn {
     font-size: 5em;
   }
   [flex] > button > .tileContent .main {
     line-height: 100%;
-  }
-  [flex] > button > .tileContent .main {
     margin-top: -10px;
   }
   [flex] > button > .tileContent .main [class*='fa-'] {
