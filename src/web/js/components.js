@@ -437,26 +437,115 @@ app.component('alarms', {
   }
 });
 
-/** Voicemail component */
-app.component('voicemail', {
+/** Message component */
+app.component('message', {
   bindings: {
     data: '<',
     access: '<',
     odiState: '<'
   },
   templateUrl: 'templates/tiles.html',
-  controller: function (DefaultTile) {
+  controller: function (DefaultTile, $rootScope, UIService) {
     const ctrl = this;
     const tileParams = {
-      label: 'Voicemail',
+      label: 'Message',
       actionList: [
-        { label: 'Clear', icon: 'fa-regular fa-trash-alt', url: '/flux/service/voicemail/clear' },
-        { label: 'Play', icon: 'fa-solid fa-play', url: '/flux/service/voicemail/check' }
+        { label: 'Clear', icon: 'fa-regular fa-trash-alt', url: '/flux/service/message/clear' },
+        { label: 'Play', icon: 'fa-solid fa-play', url: '/flux/service/message/play' },
+        { label: 'Last', icon: 'fa-solid fa-undo', url: '/flux/service/message/last' }
       ]
     };
-
     ctrl.tile = new DefaultTile(tileParams);
     ctrl.odiState = ctrl.odiState;
+
+    ctrl.getIconClass = function () {
+      if (ctrl.data.audioRecord.value && ctrl.data.voicemail.value) {
+        return 'fa-solid fa-comment-dots';
+      } else if (ctrl.data.audioRecord.value) {
+        return 'fa-solid fa-microphone';
+      } else if (ctrl.data.voicemail.value) {
+        return 'fa-solid fa-envelope';
+      }
+      return 'fa-regular fa-comment-dots';
+    };
+
+    /** Overwrite tile action */
+    ctrl.tile.click = function () {
+      ctrl.tile.openCustomBottomSheet(bottomSheetController, bottomSheetTemplate, this.actionList, bottomSheetCatch);
+    };
+
+    let bottomSheetCatch = function (audioService) {
+      audioService.cancelRecord();
+    };
+
+    const bottomSheetTemplate = `
+		<md-bottom-sheet class="md-grid" layout="column">
+			<md-subheader data-ng-cloak>
+				<span data-ng-show="!recording">Message</span>
+				<span data-ng-show="recording">Speak now... <i>-{{countDown}}s</i></span>
+			</md-subheader>
+			<div data-ng-cloak>
+				<span data-ng-if="$root.irda">
+					<md-button data-ng-repeat="button in bottomSheetButtonList track by $index" data-ng-click="action(button)" class="md-grid-item-content">
+						<i class="{{button.icon}} fa-2x"></i>
+						<div class="md-grid-text">{{button.label}}</div>
+					</md-button>
+				</span>
+				<md-button class="md-raised md-grid-item-content" data-ng-class="recording?'md-warn':'md-primary'" data-ng-click="toggleRecord()" title="ToggleRecord">
+					<br>
+					<i class="fa-solid fa-2x {{waitRecording?'fa-circle-notch fa-spin':'fa-microphone'}}"></i>
+					<br>{{recording ? 'Send':'Start'}}
+				</md-button>
+				<br>
+			</div>
+		</md-bottom-sheet>`;
+
+    let bottomSheetController = function ($rootScope, $scope, $timeout, $interval, $mdBottomSheet, UIService, audioService) {
+      let ctrl = $scope;
+      ctrl.recording = false;
+      ctrl.waitRecording = false;
+
+      ctrl.action = function (cmd) {
+        UIService.sendCommand(cmd, () => {
+          $mdBottomSheet.hide(cmd);
+        });
+      };
+
+      ctrl.toggleRecord = function () {
+        if (!ctrl.recording) {
+          ctrl.waitRecording = true;
+          audioService.startRecord(isRecording => {
+            $timeout(() => {
+              ctrl.waitRecording = false;
+              ctrl.recording = isRecording;
+              startCountDown();
+            }, 1000);
+          });
+        } else {
+          ctrl.waitRecording = true;
+          $timeout(() => {
+            audioService.stopRecord(isRecording => {
+              ctrl.waitRecording = false;
+              ctrl.recording = isRecording;
+              ctrl.countDown = 0;
+            });
+          }, 1000);
+        }
+      };
+
+      function startCountDown() {
+        ctrl.countDown = $rootScope.irda ? 30 : 10;
+        ctrl.countDownInterval = $interval(() => {
+          ctrl.countDown--;
+          if (!ctrl.countDown || !ctrl.recording) {
+            $interval.cancel(ctrl.countDownInterval);
+            if (ctrl.recording) {
+              ctrl.toggleRecord();
+            }
+          }
+        }, 1000);
+      }
+    };
   }
 });
 
@@ -545,107 +634,6 @@ app.component('music', {
         return 'fa-solid fa-kiwi-bird';
       } else {
         return 'fa-solid fa-music';
-      }
-    };
-  }
-});
-
-/** Audio recorder component */
-app.component('audioRecorder', {
-  bindings: {
-    data: '<',
-    access: '<',
-    odiState: '<'
-  },
-  templateUrl: 'templates/tiles.html',
-  controller: function (DefaultTile, $rootScope, UIService) {
-    const ctrl = this;
-    const tileParams = {
-      label: 'Audio recorder',
-      actionList: [
-        { label: 'Clear', icon: 'fa-regular fa-trash-alt', url: '/flux/service/audioRecord/clear' },
-        { label: 'All', icon: 'fa-solid fa-play', url: '/flux/service/audioRecord/check' },
-        { label: 'Last', icon: 'fa-solid fa-undo', url: '/flux/service/audioRecord/last' }
-      ]
-    };
-    ctrl.tile = new DefaultTile(tileParams);
-    ctrl.odiState = ctrl.odiState;
-
-    /** Overwrite tile action */
-    ctrl.tile.click = function () {
-      ctrl.tile.openCustomBottomSheet(bottomSheetController, bottomSheetTemplate, this.actionList, bottomSheetCatch);
-    };
-
-    let bottomSheetCatch = function (audioService) {
-      audioService.cancelRecord();
-    };
-
-    const bottomSheetTemplate = `
-		<md-bottom-sheet class="md-grid" layout="column">
-			<md-subheader data-ng-cloak>
-				<span data-ng-show="!recording">Audio recorder</span>
-				<span data-ng-show="recording">Speak now... <i>-{{countDown}}s</i></span>
-			</md-subheader>
-			<div data-ng-cloak>
-				<span data-ng-if="$root.irda">
-					<md-button data-ng-repeat="button in bottomSheetButtonList track by $index" data-ng-click="action(button)" class="md-grid-item-content">
-						<i class="{{button.icon}} fa-2x"></i>
-						<div class="md-grid-text">{{button.label}}</div>
-					</md-button>
-				</span>
-				<md-button class="md-raised md-grid-item-content" data-ng-class="recording?'md-warn':'md-primary'" data-ng-click="toggleRecord()" title="ToggleRecord">
-					<br>
-					<i class="fa-solid fa-2x {{waitRecording?'fa-circle-notch fa-spin':'fa-microphone'}}"></i>
-					<br>{{recording ? 'Send':'Start'}}
-				</md-button>
-				<br>
-			</div>
-		</md-bottom-sheet>`;
-
-    let bottomSheetController = function ($rootScope, $scope, $timeout, $interval, $mdBottomSheet, UIService, audioService) {
-      let ctrl = $scope;
-      ctrl.recording = false;
-      ctrl.waitRecording = false;
-
-      ctrl.action = function (cmd) {
-        UIService.sendCommand(cmd, () => {
-          $mdBottomSheet.hide(cmd);
-        });
-      };
-
-      ctrl.toggleRecord = function () {
-        if (!ctrl.recording) {
-          ctrl.waitRecording = true;
-          audioService.startRecord(isRecording => {
-            $timeout(() => {
-              ctrl.waitRecording = false;
-              ctrl.recording = isRecording;
-              startCountDown();
-            }, 1000);
-          });
-        } else {
-          ctrl.waitRecording = true;
-          $timeout(() => {
-            audioService.stopRecord(isRecording => {
-              ctrl.waitRecording = false;
-              ctrl.recording = isRecording;
-              ctrl.countDown = 0;
-            });
-          }, 1000);
-        }
-      };
-
-      function startCountDown() {
-        ctrl.countDown = $rootScope.irda ? 30 : 10;
-        ctrl.countDownInterval = $interval(() => {
-          ctrl.countDown--;
-          if (!ctrl.countDown || !ctrl.recording) {
-            $interval.cancel(ctrl.countDownInterval);
-            if (ctrl.recording) {
-              ctrl.toggleRecord();
-            }
-          }
-        }, 1000);
       }
     };
   }
