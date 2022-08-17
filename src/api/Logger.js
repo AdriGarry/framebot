@@ -152,7 +152,7 @@ function _formatObjectToTable(obj, updatedEntries) {
   Object.keys(obj).forEach(key => {
     let updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
     let data = obj[key];
-    if (data == false || data == null || data === 0) return;
+    if (!data || data == null || data === 0) return;
     if (typeof data == 'object' && !Array.isArray(data)) {
       if (Object.prototype.toString.call(data) === '[object Date]') {
         datas['' + key] = [String(data.toString().substring(0, 24))];

@@ -35,12 +35,6 @@ const HORNS = [
   'playHornDown'
 ];
 
-// let delay = 10;
-// HORNS.forEach(item => {
-// 	new Flux('interface|arduino|write', item, {delay:delay});
-// 	delay = delay + 10;
-// });
-
 function blinkAllLed() {
   log.debug('blinkAllLed');
   new Flux('interface|arduino|write', 'blinkAllLed');

@@ -43,8 +43,6 @@ function connect() {
     } else {
       log.info('arduino serial channel opened');
       Core.run('max', true);
-      // if (Core.isAwake() && !Core.run('alarm') && Core.run('etat') == 'high')
-      // 	new Flux('interface|tts|speak', { lg: 'en', msg: 'Max Contact!' });
 
       let feedback = arduino.pipe(new Readline({ delimiter: '\r\n' }));
       feedback.on('data', function (data) {

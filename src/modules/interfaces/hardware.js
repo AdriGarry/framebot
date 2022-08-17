@@ -191,7 +191,7 @@ function retreiveLastModifiedDate(paths) {
     paths = paths.join(' ');
     Utils.execCmd('/usr/bin/find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
       .then(data => {
-        let lastDate = data.match(/[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}/g);
+        let lastDate = data.match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}/g);
         Core.const('updateDateTime', new Date(lastDate[0]));
         resolve(lastDate[0]);
       })
@@ -216,8 +216,8 @@ function getDiskSpace() {
   return new Promise((resolve, reject) => {
     Utils.execCmd('/usr/bin/df -h')
       .then(data => {
-        let diskSpace = data.match(/\/dev\/root.*[%]/gm);
-        diskSpace = diskSpace[0].match(/[\d]*%/g);
+        let diskSpace = data.match(/\/dev\/root.*%/gm);
+        diskSpace = diskSpace[0].match(/\d*%/g);
         log.debug('Disk space:', diskSpace[0]);
         Core.run('stats.diskSpace', diskSpace[0]);
 

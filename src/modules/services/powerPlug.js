@@ -80,6 +80,5 @@ function plugOrder(plugId, mode) {
 
 function getBooleanValue(mode) {
   if (typeof mode === 'boolean') return mode;
-  if (mode === 'on') return true;
-  else return false;
+  return mode === 'on';
 }

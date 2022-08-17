@@ -171,8 +171,8 @@ function isBirthday() {
   };
   today.day = today.date.getDate();
   today.month = today.date.getMonth() + 1;
-  for (let i = 0; i < Core.descriptor.birthdays.length; i++) {
-    let splited = Core.descriptor.birthdays[i].split('/');
+  for (const element of Core.descriptor.birthdays) {
+    let splited = element.split('/');
     if (today.day == splited[0] && today.month == splited[1]) {
       return true;
     }

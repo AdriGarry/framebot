@@ -48,10 +48,10 @@ const RANDOM_ACTIONS = [
 
 /** Building randomActionList from RANDOM_ACTIONS */
 let randomActionList = [];
-for (let i = 0; i < RANDOM_ACTIONS.length; i++) {
-  let loop = RANDOM_ACTIONS[i].weight;
+for (const element of RANDOM_ACTIONS) {
+  let loop = element.weight;
   while (loop) {
-    randomActionList.push(RANDOM_ACTIONS[i]);
+    randomActionList.push(element);
     loop--;
   }
 }

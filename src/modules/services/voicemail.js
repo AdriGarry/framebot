@@ -45,20 +45,11 @@ function addVoicemailMessage(tts) {
     setTimeout(function () {
       updateVoicemailMessage();
     }, 1000);
-    // try {
-    // 	console.log(tts.msg);
-    // 	let newTTS = JSON.parse(tts.msg);
-    // 	console.log(newTTS);
-    // 	addVoicemailMessage(newTTS);
-    // 	return;
-    // } catch (err) {
-    // 	log.INFO('--->this is not a real error', err, tts);
-    // }
   } else if (typeof tts === 'string') {
     addVoicemailMessage({ msg: tts });
   } else if (Array.isArray(tts)) {
-    for (let i = 0; i < tts.length; i++) {
-      addVoicemailMessage(tts[i]);
+    for (const element of tts) {
+      addVoicemailMessage(element);
     }
   } else {
     Core.error("Wrong tts, can't save voicemail", tts);

@@ -483,7 +483,7 @@ app.component('hardware', {
     ctrl.tile = new DefaultTile(tileParams);
     ctrl.odiState = ctrl.odiState;
 
-    const MEMORY_REGEX = /([\d]+)\/([\d]+)/;
+    const MEMORY_REGEX = /(\d+)\/(\d+)/;
     ctrl.getMemoryPerCent = function () {
       let memory = ctrl.data.value.memory.system;
       let regexResult = memory.match(MEMORY_REGEX);

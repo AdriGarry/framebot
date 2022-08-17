@@ -80,8 +80,8 @@ function startCore(exitCode) {
   if (exitCode) {
     coreProgramWithParams.push('sleep');
   }
-  for (let i = 0; i < argv.length; i++) {
-    coreProgramWithParams.push(argv[i]);
+  for (const element of argv) {
+    coreProgramWithParams.push(element);
   }
   let Core = spawn('/usr/bin/node', coreProgramWithParams);
 
