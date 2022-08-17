@@ -27,7 +27,6 @@ const FLUX_PARSE_OPTIONS = [
   { id: 'weekDayTTS', fn: weekDayTTS },
   { id: 'uneHeure', fn: uneHeure },
   { id: 'russia', fn: russia },
-  { id: 'russiaHymn', fn: russiaHymn },
   { id: 'civilHorn', fn: civilHorn }
 ];
 
@@ -111,13 +110,6 @@ function russia() {
   let russiaExclamation = russiaExclamationRandomBox.next();
   new Flux('interface|sound|play', {
     file: 'exclamation_russia/' + russiaExclamation
-  });
-}
-
-function russiaHymn() {
-  log.info('Russia Hymn!');
-  new Flux('interface|sound|play', {
-    file: 'playlists/jukebox/HymneSovietique.mp3'
   });
 }
 

@@ -449,6 +449,8 @@ app.component('message', {
     const tileParams = {
       label: 'Message',
       actionList: [
+        { label: 'Exclamation', icon: 'fa-solid fa-bullhorn', url: '/flux/service/interaction/exclamation' },
+        { label: 'Random', icon: 'fa-regular fa-comment-dots', url: '/flux/interface/tts/random' },
         { label: 'Clear', icon: 'fa-regular fa-trash-alt', url: '/flux/service/message/clear' },
         { label: 'Play', icon: 'fa-solid fa-play', url: '/flux/service/message/play' },
         { label: 'Last', icon: 'fa-solid fa-undo', url: '/flux/service/message/last' }
@@ -577,29 +579,6 @@ app.component('hardware', {
       let regexResult = memory.match(MEMORY_REGEX);
       return ((regexResult[1] / regexResult[2]) * 100).toFixed(0);
     };
-  }
-});
-
-/** Exclamation component */
-app.component('exclamation', {
-  bindings: {
-    data: '<',
-    access: '<',
-    odiState: '<'
-  },
-  templateUrl: 'templates/tiles.html',
-  controller: function (DefaultTile) {
-    const ctrl = this;
-    const tileParams = {
-      label: 'Exclamation',
-      actionList: [
-        { label: 'Exclamation', icon: 'fa-solid fa-bullhorn', url: '/flux/service/interaction/exclamation' },
-        { label: 'TTS', icon: 'fa-regular fa-comment-dots', url: '/flux/interface/tts/random' },
-        { label: 'Last TTS', icon: 'fa-solid fa-undo', url: '/flux/interface/tts/lastTTS' }
-      ]
-    };
-    ctrl.tile = new DefaultTile(tileParams);
-    ctrl.odiState = ctrl.odiState;
   }
 });
 
@@ -793,6 +772,8 @@ app.component('idea', {
           url: '/flux/interface/tts/speak',
           value: { lg: 'en', msg: "I've got an idea !" }
         },
+        { label: 'Civil Horn', icon: 'fa-solid fa-bullhorn', url: '/flux/service/interaction/civilHorn' },
+        { label: 'Subway / Street', icon: 'fa-solid fa-subway', url: '/flux/service/interaction/russia' },
         { label: 'Test', icon: 'fa-solid fa-flag-checkered', url: '/test' }
       ]
     };
@@ -891,29 +872,6 @@ app.component('party', {
         { label: 'Party mode', icon: 'fa-regular fa-grin-tongue', url: '/flux/service/party/start' },
         { label: 'Pirate', icon: 'fa-solid fa-beer', url: '/flux/service/party/pirate' },
         { label: 'TTS', icon: 'fa-regular fa-comment-dots', url: '/flux/service/party/tts' }
-      ]
-    };
-    ctrl.tile = new DefaultTile(tileParams);
-    ctrl.odiState = ctrl.odiState;
-  }
-});
-
-/** Russia component */
-app.component('russia', {
-  bindings: {
-    data: '<',
-    access: '<',
-    odiState: '<'
-  },
-  templateUrl: 'templates/tiles.html',
-  controller: function (DefaultTile) {
-    const ctrl = this;
-    const tileParams = {
-      label: 'Russia',
-      actionList: [
-        { label: 'Civil Horn', icon: 'fa-solid fa-bullhorn', url: '/flux/service/interaction/civilHorn' },
-        { label: 'Subway / Street', icon: 'fa-solid fa-subway', url: '/flux/service/interaction/russia' },
-        { label: 'Hymn', icon: 'fa-solid fa-star', url: '/flux/service/interaction/russiaHymn' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
