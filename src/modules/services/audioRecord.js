@@ -29,9 +29,6 @@ const RECORD_FILE = Core._TMP + 'record.json',
 setImmediate(() => {
   updateRecord();
   log.info('Audio record flag initialized');
-  if (!Core.run('alarm')) {
-    checkRecord();
-  }
 });
 setInterval(function () {
   updateRecord();

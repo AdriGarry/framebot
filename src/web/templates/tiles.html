@@ -136,10 +136,12 @@
 		</div>
 	</div>
 
-	<div class="tileContent" data-ng-switch-when="Voicemail">
+	<div class="tileContent" data-ng-switch-when="Message">
 		<div class="main">
-			<i class="fa-envelope" data-ng-class="$ctrl.data.value ? 'fa-solid' : 'fa-regular'"></i>
-			<sub data-ng-show="$ctrl.data.value" class="fa-2x">&nbsp;{{$ctrl.data.value}}</sub>
+			<i data-ng-class="$ctrl.getIconClass()"></i>&nbsp;
+			<small class="badge opacity70" data-ng-if="$ctrl.data.voicemail.value || $ctrl.data.audioRecord.value">
+				<sup class="ng-binding">{{$ctrl.data.audioRecord.value + $ctrl.data.voicemail.value}}</sup>
+			</small>
 		</div>
 	</div>
 
@@ -154,13 +156,6 @@
 			<i data-ng-hide="$ctrl.data.value" class="fa-regular fa-hourglass"></i>
 			<i data-ng-show="$ctrl.data.value" class="fa-solid fa-hourglass-half"></i>
 			<span data-ng-show="$ctrl.data.value">{{$ctrl.data.value | formatTime}}</span>
-		</div>
-	</div>
-
-	<div class="tileContent" data-ng-switch-when="Audio recorder">
-		<div class="main">
-			<i class="fa-solid fa-microphone"></i>
-			<sub data-ng-show="$ctrl.data.value" class="fa-2x">&nbsp;{{$ctrl.data.value}}</sub>
 		</div>
 	</div>
 

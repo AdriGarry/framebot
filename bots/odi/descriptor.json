@@ -17,6 +17,7 @@
         "network",
         "time",
         "alarm",
+        "message",
         "voicemail",
         "audioRecord",
         "light",

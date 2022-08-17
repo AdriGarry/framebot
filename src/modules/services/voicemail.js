@@ -27,9 +27,6 @@ let clearVoicemailDelay;
 setImmediate(() => {
   updateVoicemailMessage();
   log.info('Voicemail flag initialized');
-  if (!Core.run('alarm')) {
-    checkVoicemail();
-  }
 });
 setInterval(function () {
   updateVoicemailMessage();

@@ -17,9 +17,12 @@
         "network",
         "time",
         "alarm",
+        "message",
         "voicemail",
         "audioRecord",
+        "light",
         "motionDetect",
+        "nmap",
         "radiator",
         "homeOffice",
         "mosquitoRepellent",
@@ -33,7 +36,7 @@
   "conf": {
     "alarms": {
       "weekDay": {
-        "h": 8,
+        "h": 7,
         "m": 0
       },
       "weekEnd": {
@@ -46,13 +49,32 @@
   "runtime": {},
   "rfxcomDevices": {
     "plug1": {
-      "id": "0x01F4BF8E/1"
+      "id": "1",
+      "family": "01F4BF8E"
     },
     "plug2": {
-      "id": "0x01F4BF8E/2"
+      "id": "2",
+      "family": "01F4BF8E"
     },
     "plug3": {
-      "id": "0x01F4BF8E/3"
+      "id": "3",
+      "family": "01F4BF8E"
+    },
+    "plug11": {
+      "id": "1",
+      "family": "036D5002"
+    },
+    "plug12": {
+      "id": "5",
+      "family": "036D5002"
+    },
+    "plug13": {
+      "id": "D",
+      "family": "036D5002"
+    },
+    "plug14": {
+      "id": "3",
+      "family": "036D5002"
     },
     "radiator": {
       "id": "0x01F4BF8E/4",
@@ -81,6 +103,6 @@
       ]
     }
   },
-  "fallbackVoice": "google",
+  "fallbackVoice": "espeak",
   "forcedVoice": null
 }
