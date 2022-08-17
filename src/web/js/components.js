@@ -441,8 +441,7 @@ app.component('alarms', {
 app.component('message', {
   bindings: {
     data: '<',
-    access: '<',
-    odiState: '<'
+    access: '<'
   },
   templateUrl: 'templates/tiles.html',
   controller: function (DefaultTile, $rootScope, UIService) {
