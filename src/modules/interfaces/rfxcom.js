@@ -70,7 +70,8 @@ function sendStatus(args) {
   }
 }
 
-const PLUG_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/01f4bf8e0(?<plugId>.)(?<positiveValue>010f60)?/);
+const PLUG_GROUP1_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/01f4bf8e0(?<plugId>.)(?<positiveValue>010f60)?/);
+const PLUG_GROUP2_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/036d50020(?<plugId>.)(?<positiveValue>010f[56]0)?/);
 const MOTION_DETECT_SIGNAL = '0008c8970a010f',
   MOTION_DETECT_END_SIGNAL = '0008c8970a0000';
 
@@ -79,9 +80,12 @@ function parseReceivedSignal(receivedSignal) {
   let parsedReceivedSignal = Buffer.from(receivedSignal).toString('hex');
   log.debug('Rfxcom receive:', parsedReceivedSignal);
 
-  let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(parsedReceivedSignal);
-  if (matchPlug) {
-    updateStatusForPlug(matchPlug);
+  let matchPlugGroup1 = PLUG_GROUP1_STATUS_REMOTE_COMMAND_REGEX.exec(parsedReceivedSignal);
+  let matchPlugGroup2 = PLUG_GROUP2_STATUS_REMOTE_COMMAND_REGEX.exec(parsedReceivedSignal);
+  if (matchPlugGroup1) {
+    updateStatusForPlug(matchPlugGroup1);
+  } else if (matchPlugGroup2) {
+    updateStatusForPlug(matchPlugGroup2);
   } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_SIGNAL) > -1) {
     new Flux('service|motionDetect|detect');
   } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_END_SIGNAL) > -1) {
