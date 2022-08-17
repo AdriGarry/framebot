@@ -12,7 +12,6 @@ app.service('UIService', [
     $rootScope.position = false;
     /** Function to update dashboard from Odi **/
     ctrl.refreshDashboard = function (callback) {
-      // console.log('refreshDashboard()');
       $http({
         headers: {
           'Content-Type': 'application/json',
@@ -92,24 +91,6 @@ app.service('UIService', [
           console.error(res);
         }
       );
-      /*let params = '';
-		if(cmd.paramKey != '' && cmd.paramValue != ''){
-			params = '?' + cmd.paramKey + '=' + cmd.paramValue;
-		}
-		$http({
-			method: 'POST',
-			url: 'https://odi.adrigarry.com' + cmd.url + params
-		}).then(function successCallback(res){
-			// console.log(res);
-			// console.log(cmd.url + params);
-			// callback(res);
-		}, function errorCallback(res){
-			console.error(res);
-			// callback(res);
-		});*/
-      /*if(cmd.refreshActivity){
-			// $scope.refreshActivity();
-		}*/
     };
 
     /** Function to send TTS **/
