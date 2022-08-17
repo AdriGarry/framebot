@@ -1083,9 +1083,9 @@ app.component('powerPlug', {
     const tileParams = {
       label: 'Power plug',
       actionList: [
-        { label: 'Plug A', icon: 'fa-solid fa-plug', value: { device: 'plugA', continu: true } },
-        { label: 'Plug B', icon: 'fa-solid fa-plug', value: { device: 'plugB', continu: true } },
-        { label: 'Plug C', icon: 'fa-solid fa-plug', value: { device: 'plugC', continu: true } }
+        { label: 'Plug 1', icon: 'fa-solid fa-plug', value: { device: 'plug1', continu: true } },
+        { label: 'Plug 2', icon: 'fa-solid fa-plug', value: { device: 'plug2', continu: true } },
+        { label: 'Plug 3', icon: 'fa-solid fa-plug', value: { device: 'plug3', continu: true } }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
@@ -1093,10 +1093,10 @@ app.component('powerPlug', {
     ctrl.plugs = {};
 
     ctrl.$onChanges = function () {
-      updatePlugAllStatus();
+      updateplug1llStatus();
     };
 
-    function updatePlugAllStatus() {
+    function updateplug1llStatus() {
       for (let plug in tileParams.actionList) {
         updatePlugStatus(tileParams.actionList[plug].value.device);
       }
@@ -1104,7 +1104,7 @@ app.component('powerPlug', {
 
     function updatePlugStatus(plugId) {
       let mode = getMode(plugId);
-      let cssClass = getPlugClass(mode);
+      let cssClass = getplug3lass(mode);
       let timeout = getPlugTimeoutIfExists(plugId);
       ctrl.plugs[plugId] = { cssClass: cssClass, mode: mode, timeout: timeout };
     }
@@ -1113,7 +1113,7 @@ app.component('powerPlug', {
       return ctrl.data.powerPlug.value[plugId].status;
     }
 
-    function getPlugClass(mode) {
+    function getplug3lass(mode) {
       if (mode === 'on') return 'fa-plug';
       else if (mode === 'off') return 'fa-plug opacity50';
       else return 'fa-question opacity20';
@@ -1134,11 +1134,11 @@ app.component('powerPlug', {
       if (!$rootScope.irda) {
         UIService.showErrorToast('Unauthorized action.');
       } else {
-        ctrl.tile.openBottomSheet(this.actionList, specificPlugActions);
+        ctrl.tile.openBottomSheet(this.actionList, specificplug1ctions);
       }
     };
 
-    let specificPlugActions = function (action) {
+    let specificplug1ctions = function (action) {
       let actionList = [
         {
           label: action.label + ' ON',

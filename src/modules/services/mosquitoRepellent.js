@@ -71,7 +71,7 @@ function autoTogglePlugTimeout(mode) {
 function plugOrder(mode) {
   if (typeof mode !== 'boolean') mode = false;
   log.debug('mosquito repellent', mode);
-  new Flux('interface|rfxcom|send', { device: 'plugC', value: mode });
+  new Flux('interface|rfxcom|send', { device: 'plug3', value: mode });
 }
 
 function isMosquitoSeason() {

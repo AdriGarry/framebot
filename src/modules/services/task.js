@@ -26,7 +26,7 @@ function goToSleep() {
   new Flux('interface|rfxcom|send', { device: 'radiator', value: true });
 
   // plug off
-  new Flux('interface|rfxcom|send', { device: 'plugA', value: false }, { delay: 180 });
+  new Flux('interface|rfxcom|send', { device: 'plug1', value: false }, { delay: 180 });
 
   if (Core.isAwake()) {
     new Flux('service|context|sleep', null, { delay: GO_TO_SLEEP_DELAY });

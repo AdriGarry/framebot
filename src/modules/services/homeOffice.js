@@ -37,7 +37,7 @@ function stopHomeOffice() {
   log.info('Stopping home office');
   Core.run('homeOffice', false);
   new Flux('interface|tts|speak', { lg: 'en', msg: 'Stopping home office and restarting...' });
-  new Flux('service|powerPlug|toggle', { plug: 'plugA', mode: false });
+  new Flux('service|powerPlug|toggle', { plug: 'plug1', mode: false });
   new Flux('service|context|restart', null, { delay: 5 });
 }
 
@@ -45,7 +45,7 @@ function setupHomeOffice() {
   log.info('Setting up home office...');
 
   // Desktop plug ON
-  new Flux('service|powerPlug|toggle', { plug: 'plugA', mode: true });
+  new Flux('service|powerPlug|toggle', { plug: 'plug1', mode: true });
 
   // Radiator ON for 6 hours if not disabled
   if (Core.conf('radiator') !== 'off') new Flux('service|radiator|timeout', { mode: 'on', timeout: 6 * 60 });
