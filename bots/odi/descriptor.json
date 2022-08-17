@@ -47,14 +47,33 @@
   },
   "runtime": {},
   "rfxcomDevices": {
-    "plugA": {
-      "id": "0x01F4BF8E/1"
+    "plug1": {
+      "id": "1",
+      "family": "01F4BF8E"
     },
-    "plugB": {
-      "id": "0x01F4BF8E/2"
+    "plug2": {
+      "id": "2",
+      "family": "01F4BF8E"
     },
-    "plugC": {
-      "id": "0x01F4BF8E/3"
+    "plug3": {
+      "id": "3",
+      "family": "01F4BF8E"
+    },
+    "plug11": {
+      "id": "1",
+      "family": "036D5002"
+    },
+    "plug12": {
+      "id": "5",
+      "family": "036D5002"
+    },
+    "plug13": {
+      "id": "D",
+      "family": "036D5002"
+    },
+    "plug14": {
+      "id": "3",
+      "family": "036D5002"
     },
     "radiator": {
       "id": "0x01F4BF8E/4",

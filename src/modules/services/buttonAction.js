@@ -32,9 +32,9 @@ function buttonHandler(flux) {
 function okButtonAction(duration) {
   if (Core.isAwake()) {
     if (duration > 3) {
-      new Flux('interface|rfxcom|send', { device: 'plugA', value: true });
+      new Flux('interface|rfxcom|send', { device: 'plug1', value: true });
     } else {
-      new Flux('service|powerPlug|timeout', { plug: 'plugC', mode: true, timeout: 60 });
+      new Flux('service|powerPlug|timeout', { plug: 'plug3', mode: true, timeout: 60 });
       return;
       if (Core.run('voicemail')) {
         new Flux('service|voicemail|check');

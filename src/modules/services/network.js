@@ -26,8 +26,8 @@ Observers.attachFluxParseOptions('service', 'network', FLUX_PARSE_OPTIONS);
 const LOCAL_CONNECTIONS_PATTERNS_REGEX = new RegExp(/192\.168.*|serv.*|locale.*/);
 
 const INTERNET_BOX_STRATEGY_CRON = [
-    { cron: '0 55 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: true } } },
-    { cron: '0 10 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plugB', value: false } } }
+    { cron: '0 55 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plug2', value: true } } },
+    { cron: '0 10 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plug2', value: false } } }
   ],
   internetBoxStrategyCrons = new CronJobList(INTERNET_BOX_STRATEGY_CRON, 'internetBoxOffStrategy', true);
 
