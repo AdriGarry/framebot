@@ -58,13 +58,13 @@ function sendStatus(args) {
     value = args.value;
   if (!DEVICE_LIST.hasOwnProperty(deviceName)) log.error('Unknown device:', deviceName);
   else {
-    if (value) DEVICE.switchOn(DEVICE_LIST[deviceName].id);
-    else DEVICE.switchOff(DEVICE_LIST[deviceName].id);
+    if (value) DEVICE.switchOn(`0x${DEVICE_LIST[deviceName].family}/${DEVICE_LIST[deviceName].id}`);
+    else DEVICE.switchOff(`0x${DEVICE_LIST[deviceName].family}/${DEVICE_LIST[deviceName].id}`);
     Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
   }
 }
 
-const PLUG_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/0b\S{6}(?<plugId>\S{10})(?<positiveValue>010f[56]0)?/);
+const PLUG_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/0b\S{6}(?<plugFamily>\S{8})\S(?<plugId>\S{1})(?<positiveValue>010f[56]0)?/);
 const MOTION_DETECT_SIGNAL = '0008c8970a010f',
   MOTION_DETECT_END_SIGNAL = '0008c8970a0000';
 
@@ -74,7 +74,7 @@ function parseReceivedSignal(receivedSignal) {
 
   let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(parsedReceivedSignal);
   if (matchPlug) {
-    updateStatusForPlug(matchPlug); // TODO mode to powerPlug service
+    updateStatusForPlug(matchPlug);
   } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_SIGNAL) > -1) {
     new Flux('service|motionDetect|detect');
   } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_END_SIGNAL) > -1) {
@@ -84,15 +84,24 @@ function parseReceivedSignal(receivedSignal) {
   }
 }
 
+// TODO mode to powerPlug service
 function updateStatusForPlug(matchPlug) {
+  let plugFamily = matchPlug.groups.plugFamily;
   let plugId = matchPlug.groups.plugId;
   let value = matchPlug.groups.positiveValue;
   log.debug('parsing plug received signal:', plugId);
-  let deviceName;
-  Object.keys(DEVICE_LIST).forEach(device => {
-    if (plugId.toUpperCase() === DEVICE_LIST[device].id) deviceName = device;
-  });
-  Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
+  let deviceName = getDevice(plugFamily, plugId);
+  if (deviceName) Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
+  else log.error('Unknow device: ' + deviceName, { plugFamily, plugId });
+}
+
+function getDevice(plugFamily, plugId) {
+  for (const device in DEVICE_LIST) {
+    if (plugFamily.toUpperCase() === DEVICE_LIST[device].family && plugId.toUpperCase() === DEVICE_LIST[device].id) {
+      return device;
+    }
+  }
+  return null;
 }
 
 function toggleLock(lockValue) {
