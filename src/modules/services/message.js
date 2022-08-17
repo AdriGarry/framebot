@@ -26,7 +26,7 @@ setImmediate(() => {
 function playAllAudioRecordOrVoicemailIfAny() {
   log.debug('playAllAudioRecordOrVoicemail');
   new Flux('service|audioRecord|check');
-  new Flux('service|voicemail|check', null, { delay: Core.run('voicemail') * 10 });
+  new Flux('service|voicemail|check', null, { delay: Core.run('audioRecord') * 15 });
 }
 
 function playLastAudioRecordOrVoicemailOrTTS() {
