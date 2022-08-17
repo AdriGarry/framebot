@@ -122,6 +122,5 @@ function endRadiatorTimeout() {
 
 function isRadiatorSeason() {
   let currentMonth = new Date().getMonth();
-  if (RADIATOR_MONTHS.includes(currentMonth)) return true;
-  return false;
+  return RADIATOR_MONTHS.includes(currentMonth);
 }
