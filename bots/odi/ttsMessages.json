@@ -224,7 +224,7 @@
     ]
   ],
   "maxCallback": {
-    "melody": ["Oh!", "Eh oh", ["Eh oh", "Sa va Max ?"], "Euh, c'etait quoi sa ?", "Mais c'est pas fini, oui ?", "Coulos coulos!"],
+    "melody": ["Oh!", "Eh oh", ["Eh oh", "Sa va Max ?"], "Euh, c'etait quoi sa ?", "Mais c'est pas fini, oui ?", "Couloss couloss!"],
     "horn": ["eh ho", "eh ho, sa suffit!"],
     "hornFire": "Au feu !",
     "sensor": [
