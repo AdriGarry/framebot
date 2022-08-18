@@ -722,6 +722,8 @@ app.component('childs', {
     const tileParams = {
       label: 'Childs',
       actionList: [
+        { label: 'Naheulbeuk', icon: 'fa-brands fa-fort-awesome', url: '/flux/service/music/story', value: 'naheulbeuk' },
+        { label: 'Survivaure', icon: 'fa-solid fa-space-shuttle', url: '/flux/service/music/story', value: 'survivaure' },
         { label: 'Yayou', icon: 'fa-solid fa-child-reaching', url: '/flux/service/childs/interact', value: 'Yayou' },
         { label: 'Zazou', icon: 'fa-solid fa-baby', url: '/flux/service/childs/interact', value: 'Zazou' },
         { label: 'Bonne nuit', icon: 'fa-solid fa-moon', url: '/flux/service/childs/bonneNuit' },
@@ -762,28 +764,6 @@ app.component('idea', {
         { label: 'Civil Horn', icon: 'fa-solid fa-bullhorn', url: '/flux/service/interaction/civilHorn' },
         { label: 'Subway / Street', icon: 'fa-solid fa-subway', url: '/flux/service/interaction/russia' },
         { label: 'Test', icon: 'fa-solid fa-flag-checkered', url: '/test' }
-      ]
-    };
-    ctrl.tile = new DefaultTile(tileParams);
-    ctrl.odiState = ctrl.odiState;
-  }
-});
-
-/** Stories component */
-app.component('stories', {
-  bindings: {
-    data: '<',
-    access: '<',
-    odiState: '<'
-  },
-  templateUrl: 'templates/tiles.html',
-  controller: function (DefaultTile) {
-    const ctrl = this;
-    const tileParams = {
-      label: 'Stories',
-      actionList: [
-        { label: 'Naheulbeuk', icon: 'fa-brands fa-fort-awesome', url: '/flux/service/music/story', value: 'naheulbeuk' },
-        { label: 'Survivaure', icon: 'fa-solid fa-space-shuttle', url: '/flux/service/music/story', value: 'survivaure' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
