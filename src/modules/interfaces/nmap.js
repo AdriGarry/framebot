@@ -12,16 +12,10 @@ const log = new Logger(__filename);
 const FLUX_PARSE_OPTIONS = [
   { id: 'scan', fn: scan },
   { id: 'continuous', fn: continuousScan },
-  { id: 'stopContinuous', fn: stopContinuousScan }
+  { id: 'stop', fn: stopContinuousScan }
 ];
 
-Observers.attachFluxParseOptions('service', 'nmap', FLUX_PARSE_OPTIONS);
-
-setImmediate(() => {
-  Scheduler.delay(3).then(() => {
-    if (Core.run('etat') === 'high') continuousScan();
-  });
-});
+Observers.attachFluxParseOptions('interface', 'nmap', FLUX_PARSE_OPTIONS);
 
 const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
   KNOWN_HOSTS = {
@@ -115,7 +109,7 @@ function continuousScan() {
 }
 
 function stopContinuousScan() {
-  log.info('Stopping continuous scan...');
+  log.debug('Stopping continuous scan...');
   Core.run('nmap', false);
   isContinuousScan = false;
 }

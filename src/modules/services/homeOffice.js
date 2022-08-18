@@ -13,11 +13,17 @@ module.exports = {
   }
 };
 
-const FLUX_PARSE_OPTIONS = [{ id: 'start', fn: startHomeOffice }];
+const FLUX_PARSE_OPTIONS = [{ id: 'start', fn: startHomeOffice }],
+  HOME_OFFICE_MOOD_LEVEL = 3;
 
 Observers.attachFluxParseOptions('service', 'homeOffice', FLUX_PARSE_OPTIONS);
 
-const HOME_OFFICE_MOOD_LEVEL = 3;
+setImmediate(() => {
+  if (new Date().getHours() >= 8) {
+    startHomeOffice();
+    // TODO remove this after dev session...
+  }
+});
 
 function startHomeOffice() {
   if (Core.run('homeOffice')) {

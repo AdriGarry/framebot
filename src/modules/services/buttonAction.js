@@ -91,9 +91,13 @@ function etatButtonAction(value) {
   Core.run('etat', value ? 'high' : 'low');
   log.info('Etat button:', Core.run('etat'));
   new Flux('interface|led|toggle', { leds: ['satellite'], value: value }, { log: 'trace' });
+
   // TODO mettre le mood level à 2 ? Mais attention à faire avant le volume !
   // new Flux('service|mood|set', 2);
+
   let newVolume = Core.isAwake() ? (value ? 90 : 50) : 0;
   new Flux('interface|sound|volume', newVolume, { /*delay: 1,*/ log: 'debug' });
-  // TODO ajouter les activation/désactivation du coutinuous nmap scan en fonction de l'état du bouton
+
+  if (value) new Flux('interface|nmap|continuous');
+  else new Flux('interface|nmap|stop');
 }

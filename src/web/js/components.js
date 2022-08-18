@@ -65,19 +65,6 @@ app.component('tts', {
           { code: 'pico', label: 'Pico' }
         ]
       },
-      // cleanText() {
-      // 	console.log('cleanText');
-      // 	let message = ctrl.tts.msg || '';
-      // 	message = message
-      // 		.replace(/[àáâãäå]/g, 'a')
-      // 		.replace(/[ç]/g, 'c')
-      // 		.replace(/[èéêë]/g, 'e')
-      // 		.replace(/[îï]/g, 'i')
-      // 		.replace(/[ôóö]/g, 'o')
-      // 		.replace(/[ûüù]/g, 'u');
-      // 	//message = message.replace(/[<>]/g,''); // Others characters
-      // 	ctrl.tts.msg = message;
-      // },
       submit() {
         console.log('[deprecated?] submit', ctrl.tts);
         if (ctrl.tts.msg != '') {
@@ -1298,7 +1285,7 @@ app.component('nmap', {
       actionList: [
         { label: 'Scan', icon: 'fa-solid fa-broadcast-tower', url: '/flux/service/nmap/scan' },
         { label: 'Loop', icon: 'fa-solid fa-sync', url: '/flux/service/nmap/continuous' },
-        { label: 'Stop', icon: 'fa-solid fa-stop', url: '/flux/service/nmap/stopContinuous' }
+        { label: 'Stop', icon: 'fa-solid fa-stop', url: '/flux/service/nmap/stop' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
