@@ -1,7 +1,6 @@
 <div flex="1" data-ng-click="$ctrl.tile.click($event)" data-ng-disabled="$ctrl.odiState.sleep"
 	data-ng-class="$ctrl.cssClass()" title="{{$ctrl.tile.label}}" data-ng-switch="$ctrl.tile.label"
 	class="tile md-button md-raised ng-slide-fast">
-	<i data-ng-if="$ctrl.tile.actionList.length > 1" class="fa-solid fa-2x fa-ellipsis-h adminFlag"></i>
 	<i data-ng-if="$ctrl.tile.expanded" data-ng-click="$ctrl.toggleTileHeight();$event.stopPropagation()"
 		class="fa-solid fa-2x fa-times adminFlag closeBtn" title="Reduce"></i>
 
