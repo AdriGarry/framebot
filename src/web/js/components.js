@@ -1020,11 +1020,12 @@ app.component('powerPlug', {
 
     function updatePlugStatus(plugId) {
       let mode = getMode(plugId);
-      let cssClass = mode === 'on' ? '' : 'opacity50';
+      let cssClass = mode === 'on' ? '' : mode === 'unknow' ? 'opacity20' : 'opacity50';
       let timeout = getPlugTimeoutIfExists(plugId);
-      let info = timeout ? timeout : mode === 'unknow' ? '?' : null;
-      let badgeOpacity = timeout ? 'opacity70' : 'opacity20';
-      ctrl.plugs[plugId] = { cssClass: cssClass, info: info, badgeOpacity: badgeOpacity };
+      let unknowMode = mode === 'unknow';
+      let info = unknowMode || timeout;
+      let badgeOpacity = timeout ? 'opacity70' : 'opacity50';
+      ctrl.plugs[plugId] = { cssClass: cssClass, info: info, timeout: timeout, badgeOpacity: badgeOpacity, unknowMode: unknowMode };
     }
 
     function getMode(plugId) {

@@ -592,7 +592,7 @@ div[data-ng-include] {
 
 [flex] > .tile .main .badge {
   margin-top: -30px;
-  margin-left: -40px;
+  margin-left: -50px;
   float: right;
   position: absolute;
 }
