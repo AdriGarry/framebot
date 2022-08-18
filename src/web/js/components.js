@@ -552,8 +552,8 @@ app.component('hardware', {
       //disableOnSleep: true,
       actionList: [
         { label: 'Disk Space', icon: 'fa-solid fa-3x fa-chart-pie', url: '/flux/interface/hardware/diskSpaceTTS' },
-        { label: 'CPU', icon: 'fa-brands fa-3x fa-empire', url: '/flux/interface/hardware/cpuTTS' },
-        { label: 'Memory', icon: 'fa-solid fa-3x fa-microchip', url: '/flux/interface/hardware/soulTTS' },
+        { label: 'CPU', icon: 'fa-solid fa-3x fa-microchip', url: '/flux/interface/hardware/cpuTTS' },
+        { label: 'Memory', icon: 'fa-solid fa-3x fa-memory', url: '/flux/interface/hardware/soulTTS' },
         { label: 'Netstat', icon: 'fa-solid fa-3x fa-network-wired', url: '/flux/service/network/netstat' }
       ]
     };
@@ -677,7 +677,7 @@ app.component('time', {
       // actionList:[{url: '/time'}]
       actionList: [
         { label: 'Bot age', icon: 'fa-solid fa-birthday-cake', url: '/flux/service/time/age' },
-        { label: 'Today', icon: 'fa-solid fa-calendar-alt', url: '/flux/service/time/today' },
+        { label: 'Today', icon: 'fa-solid fa-calendar-day', url: '/flux/service/time/today' },
         { label: 'Time', icon: 'fa-regular fa-clock', url: '/flux/service/time/now' }
       ]
     };
@@ -749,18 +749,7 @@ app.component('idea', {
       label: 'Idea',
       actionList: [
         { label: 'Total lines', icon: 'fa-regular fa-file-code', url: '/flux/interface/hardware/totalLinesTTS' },
-        {
-          label: 'Cigales',
-          icon: 'fa-solid fa-bug',
-          url: '/flux/interface/sound/play',
-          value: { file: 'system/cigales.mp3' }
-        },
-        {
-          label: 'Idea',
-          icon: 'fa-regular fa-lightbulb',
-          url: '/flux/interface/tts/speak',
-          value: { lg: 'en', msg: "I've got an idea !" }
-        },
+        { label: 'Idea', icon: 'fa-regular fa-lightbulb', url: '/flux/interface/tts/speak', value: { lg: 'en', msg: "I've got an idea !" } },
         { label: 'Civil Horn', icon: 'fa-solid fa-bullhorn', url: '/flux/service/interaction/civilHorn' },
         { label: 'Subway / Street', icon: 'fa-solid fa-subway', url: '/flux/service/interaction/russia' },
         { label: 'Test', icon: 'fa-solid fa-flag-checkered', url: '/test' }
@@ -835,6 +824,7 @@ app.component('party', {
     const tileParams = {
       label: 'Party',
       actionList: [
+        { label: 'Cigales', icon: 'fa-solid fa-bug', url: '/flux/interface/sound/play', value: { file: 'system/cigales.mp3' } },
         { label: 'Birthday song', icon: 'fa-solid fa-birthday-cake', url: '/flux/service/party/birthdaySong' },
         { label: 'Party mode', icon: 'fa-regular fa-grin-tongue', url: '/flux/service/party/start' },
         { label: 'Pirate', icon: 'fa-solid fa-beer', url: '/flux/service/party/pirate' },
