@@ -109,7 +109,7 @@
 				<span>{{$ctrl.data.value.temperature | limitTo:$ctrl.data.value.temperature.length-1}}<sup
 						class="opacity70"><small>°C</small>
 					</sup>
-				</span>&nbsp;&nbsp;&nbsp;&nbsp;
+				</span>&nbsp;&nbsp;&nbsp;
 				<i class="fa-solid fa-memory"></i>
 				<table style="display:inline-block;vertical-align:middle;">
 					<tr>
@@ -122,8 +122,7 @@
 					<tr>
 						<td style="line-height:2.5vw;">
 							<small>
-								<small>&nbsp;&nbsp;{{$ctrl.data.value.memory.system | limitTo:
-									$ctrl.data.value.memory.system.length-4}}<small class="opacity70"><small>Mo <i class="opacity70 fa-solid fa-wave-square"></i></small>
+								<small>{{$ctrl.data.value.memory.system | limitTo:$ctrl.data.value.memory.system.length-4}}<small class="opacity70"><small>Mo&nbsp;</small>
 									</small>
 								</small>
 								<small>{{$ctrl.getMemoryPerCent()}}
