@@ -91,7 +91,7 @@ function setInteractions() {
 
   // Go pickup Louloutes
   new CronJob('0,30 15,16 17 * * *', function () {
-    new Flux('service|max|playHornSiren');
+    new Flux('service|max|hornSiren');
     new Flux('interface|tts|speak', 'Go chercher les Louloutes!', { delay: 5 });
   }).start();
 }
