@@ -133,6 +133,7 @@ Core.const('stories', STORIES);
 function playStory(story) {
   let storyToPlay = Utils.searchStringInArray(story, STORIES);
   if (storyToPlay) {
+    new Flux('interface|sound|mute');
     new Flux('interface|tts|speak', { lg: 'en', msg: 'story' });
     Core.run('music', 'story');
     new Flux('interface|sound|playRandom', { file: storyToPlay });
