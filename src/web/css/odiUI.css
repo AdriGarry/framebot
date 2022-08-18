@@ -544,6 +544,10 @@ div[data-ng-include] {
   font-size: 1.6em;
 }
 
+[flex] > .tile > .tileContent .main [class*='fa-'].fa-sm {
+  font-size: 1.2em;
+}
+
 [flex] > .tile > .tileContent .main [class*='fa-'] + [class*='fa-'] {
   margin-left: 0.1em;
 }
@@ -935,12 +939,11 @@ body>.loading i{
     line-height: 11vw;
   }
 
-  /** Ca fout peut etre la merde...? */
-  /*[flex] > button > .tileContent .main{
-		font-size:3.5em;
-	}*/
   [flex] > .tile > .tileContent .main [class*='fa-'] {
     font-size: 1.2em;
+  }
+  [flex] > .tile > .tileContent .main [class*='fa-'].fa-sm {
+    font-size: 1em;
   }
 }
 

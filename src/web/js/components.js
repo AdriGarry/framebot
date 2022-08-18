@@ -995,11 +995,11 @@ app.component('powerPlug', {
     const tileParams = {
       label: 'Power plug',
       actionList: [
-        { label: 'Plug 1', icon: 'fa-solid fa-plug', value: { device: 'plug1', continu: true } },
-        { label: 'Plug 2', icon: 'fa-solid fa-plug', value: { device: 'plug2', continu: true } },
-        { label: 'Plug 3', icon: 'fa-solid fa-plug', value: { device: 'plug3', continu: true } },
-        { label: 'Plug 11', icon: 'fa-solid fa-plug', value: { device: 'plug11', continu: true } },
-        { label: 'Plug 12', icon: 'fa-solid fa-plug', value: { device: 'plug12', continu: true } },
+        { label: 'Plug 1', icon: 'fa-solid fa-computer', value: { device: 'plug1', continu: true } },
+        { label: 'Plug 2', icon: 'fa-solid fa-fan', value: { device: 'plug2', continu: true } },
+        { label: 'Plug 3', icon: 'fa-solid fa-campground', value: { device: 'plug3', continu: true } },
+        { label: 'Plug 11', icon: 'fa-solid fa-radio', value: { device: 'plug11', continu: true } },
+        { label: 'Plug 12', icon: 'fa-solid fa-laptop-code', value: { device: 'plug12', continu: true } },
         { label: 'Plug 13', icon: 'fa-solid fa-plug', value: { device: 'plug13', continu: true } },
         { label: 'Plug 14', icon: 'fa-solid fa-plug', value: { device: 'plug14', continu: true } }
       ]
@@ -1020,7 +1020,7 @@ app.component('powerPlug', {
 
     function updatePlugStatus(plugId) {
       let mode = getMode(plugId);
-      let cssClass = getplug3lass(mode);
+      let cssClass = getplugClass(mode);
       let timeout = getPlugTimeoutIfExists(plugId);
       ctrl.plugs[plugId] = { cssClass: cssClass, mode: mode, timeout: timeout };
     }
@@ -1029,7 +1029,7 @@ app.component('powerPlug', {
       return ctrl.data.powerPlug.value[plugId].status;
     }
 
-    function getplug3lass(mode) {
+    function getplugClass(mode) {
       if (mode === 'on') return 'fa-plug';
       else if (mode === 'off') return 'fa-plug opacity50';
       else return 'fa-question opacity20';
