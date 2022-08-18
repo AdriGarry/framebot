@@ -1009,10 +1009,10 @@ app.component('powerPlug', {
     ctrl.plugs = {};
 
     ctrl.$onChanges = function () {
-      updateplug1llStatus();
+      updateAllPlugsStatus();
     };
 
-    function updateplug1llStatus() {
+    function updateAllPlugsStatus() {
       for (let plug in tileParams.actionList) {
         updatePlugStatus(tileParams.actionList[plug].value.device);
       }
@@ -1020,19 +1020,15 @@ app.component('powerPlug', {
 
     function updatePlugStatus(plugId) {
       let mode = getMode(plugId);
-      let cssClass = getplugClass(mode);
+      let cssClass = mode === 'on' ? '' : 'opacity50';
       let timeout = getPlugTimeoutIfExists(plugId);
-      ctrl.plugs[plugId] = { cssClass: cssClass, mode: mode, timeout: timeout };
+      let info = timeout ? timeout : mode === 'unknow' ? '?' : null;
+      let badgeOpacity = timeout ? 'opacity70' : 'opacity20';
+      ctrl.plugs[plugId] = { cssClass: cssClass, info: info, badgeOpacity: badgeOpacity };
     }
 
     function getMode(plugId) {
       return ctrl.data.powerPlug.value[plugId].status;
-    }
-
-    function getplugClass(mode) {
-      if (mode === 'on') return 'fa-plug';
-      else if (mode === 'off') return 'fa-plug opacity50';
-      else return 'fa-question opacity20';
     }
 
     function getPlugTimeoutIfExists(plugId) {
