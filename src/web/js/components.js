@@ -1263,9 +1263,9 @@ app.component('nmap', {
     const tileParams = {
       label: 'Nmap',
       actionList: [
-        { label: 'Scan', icon: 'fa-solid fa-broadcast-tower', url: '/flux/service/nmap/scan' },
-        { label: 'Loop', icon: 'fa-solid fa-sync', url: '/flux/service/nmap/continuous' },
-        { label: 'Stop', icon: 'fa-solid fa-stop', url: '/flux/service/nmap/stop' }
+        { label: 'Scan', icon: 'fa-solid fa-broadcast-tower', url: '/flux/interface/nmap/scan' },
+        { label: 'Loop', icon: 'fa-solid fa-sync', url: '/flux/interface/nmap/continuous' },
+        { label: 'Stop', icon: 'fa-solid fa-stop', url: '/flux/interface/nmap/stop' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
