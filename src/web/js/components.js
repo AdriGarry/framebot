@@ -995,11 +995,11 @@ app.component('powerPlug', {
     const tileParams = {
       label: 'Power plug',
       actionList: [
-        { label: 'Plug 1', icon: 'fa-solid fa-plug', value: { device: 'plug1', continu: true } },
-        { label: 'Plug 2', icon: 'fa-solid fa-plug', value: { device: 'plug2', continu: true } },
-        { label: 'Plug 3', icon: 'fa-solid fa-plug', value: { device: 'plug3', continu: true } },
-        { label: 'Plug 11', icon: 'fa-solid fa-plug', value: { device: 'plug11', continu: true } },
-        { label: 'Plug 12', icon: 'fa-solid fa-plug', value: { device: 'plug12', continu: true } },
+        { label: 'Plug 1', icon: 'fa-solid fa-computer', value: { device: 'plug1', continu: true } },
+        { label: 'Plug 2', icon: 'fa-solid fa-fan', value: { device: 'plug2', continu: true } },
+        { label: 'Plug 3', icon: 'fa-solid fa-campground', value: { device: 'plug3', continu: true } },
+        { label: 'Plug 11', icon: 'fa-solid fa-radio', value: { device: 'plug11', continu: true } },
+        { label: 'Plug 12', icon: 'fa-solid fa-laptop-code', value: { device: 'plug12', continu: true } },
         { label: 'Plug 13', icon: 'fa-solid fa-plug', value: { device: 'plug13', continu: true } },
         { label: 'Plug 14', icon: 'fa-solid fa-plug', value: { device: 'plug14', continu: true } }
       ]
@@ -1009,10 +1009,10 @@ app.component('powerPlug', {
     ctrl.plugs = {};
 
     ctrl.$onChanges = function () {
-      updateplug1llStatus();
+      updateAllPlugsStatus();
     };
 
-    function updateplug1llStatus() {
+    function updateAllPlugsStatus() {
       for (let plug in tileParams.actionList) {
         updatePlugStatus(tileParams.actionList[plug].value.device);
       }
@@ -1020,19 +1020,16 @@ app.component('powerPlug', {
 
     function updatePlugStatus(plugId) {
       let mode = getMode(plugId);
-      let cssClass = getplug3lass(mode);
+      let cssClass = mode === 'on' ? '' : mode === 'unknow' ? 'opacity20' : 'opacity50';
       let timeout = getPlugTimeoutIfExists(plugId);
-      ctrl.plugs[plugId] = { cssClass: cssClass, mode: mode, timeout: timeout };
+      let unknowMode = mode === 'unknow';
+      let info = unknowMode || timeout;
+      let badgeOpacity = timeout ? 'opacity70' : 'opacity50';
+      ctrl.plugs[plugId] = { cssClass: cssClass, info: info, timeout: timeout, badgeOpacity: badgeOpacity, unknowMode: unknowMode };
     }
 
     function getMode(plugId) {
       return ctrl.data.powerPlug.value[plugId].status;
-    }
-
-    function getplug3lass(mode) {
-      if (mode === 'on') return 'fa-plug';
-      else if (mode === 'off') return 'fa-plug opacity50';
-      else return 'fa-question opacity20';
     }
 
     function getPlugTimeoutIfExists(plugId) {
