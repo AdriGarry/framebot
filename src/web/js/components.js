@@ -551,9 +551,9 @@ app.component('hardware', {
       label: 'Hardware',
       //disableOnSleep: true,
       actionList: [
-        { label: 'Disk Space', icon: 'fa-solid fa-3x fa-chart-pie', url: '/flux/interface/hardware/diskSpaceTTS' },
         { label: 'CPU', icon: 'fa-solid fa-3x fa-microchip', url: '/flux/interface/hardware/cpuTTS' },
         { label: 'Memory', icon: 'fa-solid fa-3x fa-memory', url: '/flux/interface/hardware/soulTTS' },
+        { label: 'Disk Space', icon: 'fa-solid fa-3x fa-chart-pie', url: '/flux/interface/hardware/diskSpaceTTS' },
         { label: 'Netstat', icon: 'fa-solid fa-3x fa-network-wired', url: '/flux/service/network/netstat' }
       ]
     };
