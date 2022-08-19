@@ -61,11 +61,14 @@
     },
     "plug11": {
       "id": "1",
-      "family": "036D5002"
+      "family": "036D5002",
+      "cron": "0 30 7 * * 1,2,4,5",
+      "defaultMode": "off"
     },
     "plug12": {
       "id": "5",
-      "family": "036D5002"
+      "family": "036D5002",
+      "defaultMode": "off"
     },
     "plug13": {
       "id": "D",
