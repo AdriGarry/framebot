@@ -23,10 +23,6 @@ const MOOD_LEVELS = {
 const DEFAULT_MOOD_LEVEL = Core.run('mood'),
   HOURS_BACK_TO_DEFAULT_LEVEL = 6;
 
-setImmediate(() => {
-  setMoodLevel(DEFAULT_MOOD_LEVEL);
-});
-
 function setMoodLevel(newMoodLevelId) {
   log.info('Setting mood level to', newMoodLevelId);
   Core.run('mood', newMoodLevelId);
@@ -46,11 +42,12 @@ function backToDefaultMoodLevel() {
 }
 
 function additionalMoodSetup(moodLevelId) {
+  if (moodLevelId >= 2) new Flux('interface|tts|speak', { lg: 'en', voice: 'google', msg: 'Mood level ' + moodLevelId });
+
   if (moodLevelId >= 3) {
     // Max + interaction
     new Flux('interface|arduino|connect');
-    new Flux('interface|tts|speak', { lg: 'en', voice: 'google', msg: 'Mood level ' + moodLevelId });
-    scheduleFluxWhileMoodLevel(3, 20, { id: 'service|interaction|random' });
+    scheduleFluxWhileMoodLevel(3, 13, { id: 'service|interaction|random' });
   } else if (Core.run('max')) {
     new Flux('interface|arduino|disconnect');
   }
@@ -58,7 +55,7 @@ function additionalMoodSetup(moodLevelId) {
   if (moodLevelId >= 4) {
     // HDMI (video loop)
     new Flux('interface|video|loop');
-    scheduleFluxWhileMoodLevel(4, 23, { id: 'service|interaction|random' });
+    scheduleFluxWhileMoodLevel(4, 9, { id: 'service|interaction|random' });
   } else if (Core.run('screen')) {
     new Flux('interface|hdmi|off');
   }
@@ -66,7 +63,7 @@ function additionalMoodSetup(moodLevelId) {
   if (moodLevelId === 5) {
     // Party
     new Flux('service|party|start');
-    scheduleFluxWhileMoodLevel(5, 10, { id: 'service|party|pirate' });
+    scheduleFluxWhileMoodLevel(5, 7, { id: 'service|party|pirate' });
   }
 }
 
