@@ -18,13 +18,6 @@ const FLUX_PARSE_OPTIONS = [{ id: 'start', fn: startHomeOffice }],
 
 Observers.attachFluxParseOptions('service', 'homeOffice', FLUX_PARSE_OPTIONS);
 
-setImmediate(() => {
-  if (new Date().getHours() >= 8) {
-    startHomeOffice();
-    // TODO remove this after dev session...
-  }
-});
-
 function startHomeOffice() {
   if (Core.run('homeOffice')) {
     log.info('Homeoffice already activated');
