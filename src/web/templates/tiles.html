@@ -99,38 +99,42 @@
 	<div class="tileContent" data-ng-switch-when="Hardware">
 		<div class="main">
 			<i class="fa-solid fa-microchip"></i>
-			<span>
-				<span>{{$ctrl.data.value.usage | limitTo:$ctrl.data.value.usage.length-1}}<sup
-						class="opacity70"><small>%</small>
-					</sup>
-				</span>&nbsp;&nbsp;
-				<i class="fa-solid fa-thermometer-half"></i>
-				<span>{{$ctrl.data.value.temperature | limitTo:$ctrl.data.value.temperature.length-1}}<sup
-						class="opacity70"><small>°C</small>
-					</sup>
-				</span>&nbsp;&nbsp;&nbsp;
-				<i class="fa-solid fa-memory"></i>
-				<table style="display:inline-block;vertical-align:middle;">
-					<tr>
-						<td style="line-height:2.5vw;">
-							<span>{{$ctrl.data.value.memory.framebot | limitTo:
-								$ctrl.data.value.memory.framebot.length-2}}<small class="opacity70"><small>Mo</small>
-								</small>
-						</td>
-					</tr>
-					<tr>
-						<td style="line-height:2.5vw;">
-							<small>
-								<small>{{$ctrl.data.value.memory.system | limitTo:$ctrl.data.value.memory.system.length-4}}<small class="opacity70"><small>Mo&nbsp;</small>
-									</small>
-								</small>
-								<small>{{$ctrl.getMemoryPerCent()}}
-									<sup class="opacity70">%</sup>
+			<span>{{$ctrl.data.value.usage | limitTo:$ctrl.data.value.usage.length-1}}<sup
+					class="opacity70"><small>%</small>
+				</sup>
+			</span>
+			<i class="fa-solid fa-thermometer-half"></i>
+			<span>{{$ctrl.data.value.temperature | limitTo:$ctrl.data.value.temperature.length-1}}<sup
+					class="opacity70"><small>°C</small>
+				</sup>
+			</span>&nbsp;
+			<i class="fa-solid fa-memory"></i>
+			<table style="display:inline-block;vertical-align:middle;">
+				<tr>
+					<td style="line-height:2.5vw;">
+						<span>{{$ctrl.data.value.memory.framebot | limitTo:
+							$ctrl.data.value.memory.framebot.length-2}}<small class="opacity70"><small>Mo</small>
+							</small>
+					</td>
+				</tr>
+				<tr>
+					<td style="line-height:2.5vw;">
+						<small>
+							<small>{{$ctrl.data.value.memory.system | limitTo:$ctrl.data.value.memory.system.length-4}}<small class="opacity70"><small>Mo&nbsp;</small>
 								</small>
 							</small>
-						</td>
-					</tr>
-				</table>
+							<small>{{$ctrl.getMemoryPerCent()}}
+								<sup class="opacity70">%</sup>
+							</small>
+						</small>
+					</td>
+				</tr>
+			</table>
+			<i class="fa-solid fa-chart-pie"></i>
+			<span>{{$ctrl.data.value.diskSpace | limitTo:$ctrl.data.value.diskSpace.length-1}}<sup
+					class="opacity70"><small>%</small>
+				</sup>
+			</span>
 		</div>
 	</div>
 

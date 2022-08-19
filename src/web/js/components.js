@@ -1080,7 +1080,7 @@ app.component('powerPlug', {
           url: button.url,
           legend: 'min',
           min: 1,
-          max: 90,
+          max: 120,
           step: 1,
           value: 10,
           action: null,

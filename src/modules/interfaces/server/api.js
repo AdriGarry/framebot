@@ -99,7 +99,8 @@ function attachDefaultRoutes(ui) {
           memory: {
             framebot: Core.run('memory.framebot'),
             system: Core.run('memory.system')
-          }
+          },
+          diskSpace: Core.run('stats.diskSpace')
         },
         active: cpuTemperature > 55 || cpuUsage >= 20 ? true : false
       },
