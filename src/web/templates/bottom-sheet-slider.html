@@ -20,12 +20,10 @@
 	</div>
 	<br />
 	<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-		<md-button
-			class="md-raised md-primary md-grid-item-content"
-			data-ng-click="bottomSheetAction(bottomSheetSlider)"
-			title="Submit"
-			>Submit</md-button
-		>
-	</section>
+		<md-button class="md-raised md-grid-item-content" data-ng-show="bottomSheetSlider.extensible"
+			data-ng-click="increaseSlider()" title="Add 30 min">+30 min</md-button>
+		<md-button class="md-raised md-primary md-grid-item-content"
+			data-ng-click="bottomSheetAction(bottomSheetSlider)" title="Submit">Submit</md-button>
+		</section>
 	<br />
 </md-bottom-sheet>
