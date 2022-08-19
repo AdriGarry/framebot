@@ -89,10 +89,11 @@ function updateStatusForPlug(matchPlug) {
   let plugFamily = matchPlug.groups.plugFamily;
   let plugId = matchPlug.groups.plugId;
   let value = matchPlug.groups.positiveValue;
-  log.debug('parsing plug received signal:', plugId);
   let deviceName = getDevice(plugFamily, plugId);
-  if (deviceName) Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
-  else log.error('Unknow device: ' + deviceName, { plugFamily, plugId });
+  if (deviceName) {
+    Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
+    log.info(`Received plug signal parsed. PlugId: ${deviceName} [${plugId}], value: ${value ? true : false} [${value}]`);
+  } else log.error('Unknow device: ' + deviceName, { plugFamily, plugId });
 }
 
 function getDevice(plugFamily, plugId) {
