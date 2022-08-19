@@ -66,7 +66,7 @@ function sendStatus(args) {
 
 const PLUG_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/0b\S{6}(?<plugFamily>\S{8})\S(?<plugId>\S{1})(?<positiveValue>010f[56]0)?/);
 const MOTION_DETECT_SIGNAL = '0008c8970a010f',
-  MOTION_DETECT_END_SIGNAL = '0008c8970a0000';
+  MOTION_DETECT_END_SIGNAL = '0008c8970a0000'; // TODO faire une regex qui gère les plug et le motion sensor
 
 function parseReceivedSignal(receivedSignal) {
   let parsedReceivedSignal = Buffer.from(receivedSignal).toString('hex');

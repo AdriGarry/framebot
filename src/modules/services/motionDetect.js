@@ -95,7 +95,7 @@ function detectSleep(lastDetectionInSec) {
   let currentHour = new Date().getHours();
   log.test('currentHour', currentHour);
   if (currentHour >= 22 || currentHour <= 6) {
-    log.test('Condition currentHour >= 22 || currentHour <= 6 VALIDATED!');
+    log.test('Condition currentHour >= 22 || currentHour <= 6 VALIDATED! // TODO delete this log');
     new Flux('service|light|on', 120, { delay: 2, log: 'TRACE' });
   }
 }
