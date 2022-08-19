@@ -18,8 +18,6 @@ function contextHandler(flux) {
     restartCore(flux.value);
   } else if (flux.id == 'sleep') {
     restartCore('sleep');
-  } else if (flux.id == 'sleepForever') {
-    updateConf({ mode: 'sleep', alarms: { weekDay: null, weekEnd: null } }, true);
   } else if (flux.id == 'goToSleep') {
     goToSleep();
   } else if (flux.id == 'update') {
