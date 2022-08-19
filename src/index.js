@@ -48,3 +48,6 @@ if (Core.conf('mode') === 'test') {
     integrationTests.launch();
   }, 1000);
 }
+
+Core.conf('toto', 'titi');
+log.test(Core.conf('toto')); // TODO remove this!
