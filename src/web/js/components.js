@@ -437,11 +437,13 @@ app.component('alarms', {
         let now = new Date(),
           nextAlarms = {};
         Object.keys(ALARMS).forEach(key => {
-          let nextAlarm = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ALARMS[key].h, ALARMS[key].m);
-          while (!DAYS[key].includes(nextAlarm.getDay()) || nextAlarm < now) {
-            nextAlarm = _incrementDay(nextAlarm, ALARMS[key]);
+          if (ALARMS[key]) {
+            let nextAlarm = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ALARMS[key].h, ALARMS[key].m);
+            while (!DAYS[key].includes(nextAlarm.getDay()) || nextAlarm < now) {
+              nextAlarm = _incrementDay(nextAlarm, ALARMS[key]);
+            }
+            nextAlarms[key] = nextAlarm;
           }
-          nextAlarms[key] = nextAlarm;
         });
         let alarmToReturn;
         if (nextAlarms.weekDay < nextAlarms.weekEnd) alarmToReturn = nextAlarms.weekDay;
