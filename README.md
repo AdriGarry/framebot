@@ -11,41 +11,48 @@
 [![Last commit](https://img.shields.io/github/last-commit/adrigarry/framebot)](https://github.com/AdriGarry/framebot/commits/master)
 [![Build status](https://img.shields.io/github/workflow/status/adrigarry/framebot/CI)](https://github.com/AdriGarry/framebot/actions)
 
-**Framebot** is a NodeJS framework to automation & interaction.
+**Framebot** is a NodeJS framework for home automation & interaction.
 
-Based on a rolling release development approach, this is a homemade Raspberry Pi program, to run JavaScript modules, with an API (logger, tools...).
+Based on a rolling release development approach, this is a homemade Raspberry Pi program, to run JavaScript modules, with an API (scheduler, logger, tools...).
 
-Available modes: ready, sleep, test.
+Available modes: ready (active), sleep.
 
 ## Functionalities
 
 ### Main
 
-- Voice synthesizer (TTS)
-- Voicemail
-- Audio record from web user interface
-- Alarm (weekday & weekend)
+- Voice synthesizer (TTS), with voicemail
+- Audio record (from web user interface)
+- Alarm (weekday and weekend)
 - Time/Calendar
 - Timer
-- Radiator & power plugs management
+- Hardware and network monitoring
+- Radiator and power plugs management
 - Playlist (jukebox, low...)
 - Web radio (FIP)
 - Weather report
-- Exclamations, sounds...
+- Exclamations, sounds and expressive functionalities: child and birthday song, crazy...
 - Interactions with an Arduino (another robot: Max...)
-
-### Additional
-
-- Expressive functionalities: child and birthday song, crazy...
 - Ambiance sounds (cicadas)
-- Logger & cleaner
-- Hardware monitoring (CPU, memory, diskspace, temperature)
+
+#### Mood
+
+Mood level, from 0 to 5 is an indice to set expressive level of the bot.
+
+- 0: muted [volume = 0]
+- 1: system TTS: clock, and others human triggered functions (timer...) [volume = 30]
+- 2: [volume = 50]
+- 3: max + interactions [volume = 60]
+- 4: screen (diapo) [volume = 80]
+- 5: party mode + pirate [volume = 90]
+
+## Interfaces
 
 ### Input
 
 - Buttons (GPIO)
-- Cron
 - User interface / web API
+- Rfxcom
 
 ### Output
 
@@ -54,17 +61,6 @@ Available modes: ready, sleep, test.
 - Arduino (USB)
 - Screen (HDMI)
 - Rfxcom
-
-### Mood
-
-Mood level, from 0 to 5 is an indice to set expressive level of the bot.
-
-- 0: muted [volume = 0]
-- 1: system TTS: clock, and others human triggered functions (timer...) [volume = 30]
-- 2: [volume = 50]
-- 3: max + interaction [volume = 60]
-- 4: screen (diapo) [volume = 80]
-- 5: party mode + pirate [volume = 100]
 
 ## Installation / Usage
 
@@ -93,25 +89,28 @@ Mood level, from 0 to 5 is an indice to set expressive level of the bot.
 - Lock
 - ModuleLoader
 
+### Shared space
+
+Contains shared properties between modules. Accessible threw the 'Core' object, this object is isolated, with an accessors pattern :
+
+- One argument, like `Core.conf(propertyName)`: to get the property named _propertyName_
+- Two arguments, like `Core.conf(propertyName, value)`: to set the _value_ to property _propertyName_
+
 #### Core.conf
 
-The Core.conf holds cycle informations: _mode, alarms, version_...
+The Core.conf holds cycle informations: _mode, log level_...
 
-This object is isolated, with access methods.
+This object is file persisted.
 
-This object is file persisted and has a default version to reset.
+This object has a default version to reset.
 
 #### Core.run
 
-The Core.run holds runtime informations: _etat, volume, max, mood, music, alarms, timer, voicemail, cpu, memory, stats_.
-
-This object is isolated, with access methods.
+The Core.run holds runtime informations: _etat, volume, mood, music, timer, cpu, memory, stats_...
 
 #### Core.const
 
-The Core.const holds non-modifiable informations: _version, startDateTime, uptdateTime, totalLines_...
-
-This object is isolated, with access methods.
+The Core.const holds non-modifiable informations: _name, version, startDateTime, uptdateTime, totalLines_...
 
 This object's entries are not updatable.
 
