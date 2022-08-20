@@ -232,16 +232,12 @@ app.component('options', {
     const tileParams = {
       label: 'Options',
       actionList: [
-        { label: 'Log', icon: 'fa-solid fa-code', continu: true },
-        { label: '!Watcher', icon: 'fa-solid fa-eye', url: '/flux/interface/watcher/toggle' },
-        {
-          label: 'Test',
-          icon: 'fa-regular fa-caret-square-right',
-          url: '/flux/service/context/updateRestart',
-          value: { mode: 'test' }
-        },
+        { label: 'Renew Certbot', icon: 'fa-solid fa-lock', url: '/flux/service/task/certbot' },
+        { label: 'Test', icon: 'fa-solid fa-flask-vial', url: '/flux/service/context/updateRestart', value: { mode: 'test' } },
         { label: 'Demo', icon: 'fa-solid fa-play', url: '/flux/service/interaction/demo' },
-        { label: 'Core', icon: 'fa-solid fa-sitemap', continu: true }
+        { label: '!Watcher', icon: 'fa-solid fa-eye', url: '/flux/interface/watcher/toggle' },
+        { label: 'Log', icon: 'fa-solid fa-code', continu: true },
+        { label: 'Core', icon: 'fa-solid fa-circle-nodes', continu: true }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
@@ -850,7 +846,7 @@ app.component('max', {
         { label: 'RDM Led', icon: 'fa-regular fa-sun', url: '/flux/service/max/blinkRdmLed' },
         { label: 'All Led', icon: 'fa-solid fa-sun', url: '/flux/service/max/blinkAllLed' },
         { label: 'Melody', icon: 'fa-solid fa-music', url: '/flux/service/max/playOneMelody' },
-        { label: 'RDM Melody', icon: 'fa-solid fa-exchange-alt', url: '/flux/service/max/playRdmMelody' },
+        { label: 'RDM Melody', icon: 'fa-solid fa-shuffle', url: '/flux/service/max/playRdmMelody' },
         { label: 'Horn', icon: 'fa-solid fa-bullhorn', url: '/flux/service/max/hornRdm' },
         { label: 'Turn', icon: 'fa-solid fa-sync', url: '/flux/service/max/turn' }
       ]
@@ -1133,7 +1129,6 @@ app.component('tasks', {
     const tileParams = {
       label: 'Tasks',
       actionList: [
-        { label: 'Renew Certbot', icon: 'fa-solid fa-lock', url: '/flux/service/task/certbot' },
         { label: 'Mosquito', icon: 'fa-solid fa-mosquito', url: '/flux/service/mosquitoRepellent/toggle', continu: true },
         { label: 'HomeOffice', icon: 'fa-solid fa-laptop-code', url: '/flux/service/homeOffice/start' },
         { label: 'goToSleep', icon: 'fa-solid fa-bed', url: '/flux/service/task/goToSleep' }
