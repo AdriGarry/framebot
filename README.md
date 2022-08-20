@@ -86,17 +86,17 @@ Mood level, from 0 to 5 is an indice to set expressive level of the bot.
 ### Core engine
 
 - Core
-- Lock
 - ModuleLoader
+- SharedObject
 
-### Shared space
+#### SharedObject
 
 Contains shared properties between modules. Accessible threw the 'Core' object, this object is isolated, with an accessors pattern :
 
 - One argument, like `Core.conf(propertyName)`: to get the property named _propertyName_
 - Two arguments, like `Core.conf(propertyName, value)`: to set the _value_ to property _propertyName_
 
-#### Core.conf
+##### Core.conf
 
 The Core.conf holds cycle informations: _mode, log level_...
 
@@ -104,11 +104,11 @@ This object is file persisted.
 
 This object has a default version to reset.
 
-#### Core.run
+##### Core.run
 
 The Core.run holds runtime informations: _etat, volume, mood, music, timer, cpu, memory, stats_...
 
-#### Core.const
+##### Core.const
 
 The Core.const holds non-modifiable informations: _name, version, startDateTime, uptdateTime, totalLines_...
 
