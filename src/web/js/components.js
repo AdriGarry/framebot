@@ -616,6 +616,7 @@ app.component('music', {
     const tileParams = {
       label: 'Music',
       actionList: [
+        { label: 'Playlist childs', icon: 'fa-solid fa-child-reaching', url: '/flux/service/music/playlist', value: 'childs' },
         { label: 'Low', icon: 'fa-solid fa-kiwi-bird', url: '/flux/service/music/playlist', value: 'low' },
         { label: 'Jukebox', icon: 'fa-solid fa-compact-disc', url: '/flux/service/music/playlist' },
         { label: 'FIP Radio', icon: 'fa-solid fa-globe-europe', url: '/flux/service/music/radio', value: 'fip' }
@@ -702,8 +703,7 @@ app.component('childs', {
         { label: 'Survivaure', icon: 'fa-solid fa-space-shuttle', url: '/flux/service/music/story', value: 'survivaure' },
         { label: 'Yayou', icon: 'fa-solid fa-child-reaching', url: '/flux/service/childs/interact', value: 'Yayou' },
         { label: 'Zazou', icon: 'fa-solid fa-baby', url: '/flux/service/childs/interact', value: 'Zazou' },
-        { label: 'Bonne nuit', icon: 'fa-solid fa-moon', url: '/flux/service/childs/bonneNuit' },
-        { label: 'Playlist childs', icon: 'fa-solid fa-music', url: '/flux/service/music/playlist', value: 'childs' }
+        { label: 'Bonne nuit', icon: 'fa-solid fa-moon', url: '/flux/service/childs/bonneNuit' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
@@ -1133,7 +1133,7 @@ app.component('tasks', {
     const tileParams = {
       label: 'Tasks',
       actionList: [
-        { label: 'Renew Certbot', icon: 'fa-solid fa-tools', url: '/flux/service/task/certbot' },
+        { label: 'Renew Certbot', icon: 'fa-solid fa-lock', url: '/flux/service/task/certbot' },
         { label: 'Mosquito', icon: 'fa-solid fa-mosquito', url: '/flux/service/mosquitoRepellent/toggle', continu: true },
         { label: 'HomeOffice', icon: 'fa-solid fa-laptop-code', url: '/flux/service/homeOffice/start' },
         { label: 'goToSleep', icon: 'fa-solid fa-bed', url: '/flux/service/task/goToSleep' }
