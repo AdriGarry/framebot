@@ -3,13 +3,14 @@
 
 const fs = require('fs');
 
-const Logger = require('./../api/Logger');
+const Logger = require('../api/Logger');
 
 const log = new Logger(__filename);
 
 /** accessor: object([id, value]) */
-function Lock(obj, filePath) {
+function SharedObject(name, obj, filePath) {
   let self = this;
+  self._name = name;
   self._obj = obj;
   if (filePath) {
     self.filePath = filePath;
@@ -32,14 +33,14 @@ function Lock(obj, filePath) {
     } else if (self._obj.hasOwnProperty(id)) {
       return self._obj[id];
     } else {
-      log.error('_getObjValue ERROR:', id); // TODO improve this log?
+      log.error(`No entry for '${id}' property in ${self._name} object!`);
       return false;
     }
   }
 
   function _setter(id, newValue) {
     if (self.filePath) {
-      log.debug('Updating: ' + id + '=' + newValue); // TODO improve this log?
+      log.debug('Updating: ' + id + '=' + newValue);
       _setValue(self._obj, id, newValue);
       fs.writeFileSync(self.filePath, JSON.stringify(self._obj, null, 1));
     } else {
@@ -54,17 +55,13 @@ function Lock(obj, filePath) {
       id = keys[0];
       id2 = keys[1];
     }
-    if (object.hasOwnProperty(id)) {
-      if (Array.isArray(object[id])) {
-        object[id].push(newValue);
-      } else {
-        if (id2) object[id][id2] = newValue;
-        else object[id] = newValue;
-      }
+    if (Array.isArray(object[id])) {
+      object[id].push(newValue);
     } else {
-      log.error('ERROR can not set value for unknow property', id); // TODO improve this log?
+      if (id2) object[id][id2] = newValue;
+      else object[id] = newValue;
     }
   }
 }
 
-module.exports = Lock;
+module.exports = SharedObject;

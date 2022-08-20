@@ -5,7 +5,7 @@
 const fs = require('fs'),
   { spawn } = require('child_process');
 
-const Lock = require('./Lock');
+const SharedObject = require('./SharedObject');
 
 const logger = require('./../api/Logger'),
   Utils = require('./../api/Utils'),
@@ -29,9 +29,9 @@ function _setUpCoreObject(descriptor, startTime) {
   }
   Core.url = descriptor.url;
   Core._CONF = _PATH + 'bots/' + descriptor.name.toLowerCase() + '/';
-  Core.conf = new Lock(require(Core._TMP + 'conf.json'), Core._TMP + 'conf.json');
-  Core.run = new Lock(CORE_DEFAULT.runtime);
-  Core.const = new Lock(CORE_DEFAULT.const, null, true);
+  Core.conf = new SharedObject('conf', require(Core._TMP + 'conf.json'), Core._TMP + 'conf.json');
+  Core.run = new SharedObject('run', CORE_DEFAULT.runtime);
+  Core.const = new SharedObject('const', CORE_DEFAULT.const);
   Core.const('name', descriptor.name.trim().toLowerCase());
   Core.const('startDateTime', startTime);
   Core.isAwake = isAwake;
