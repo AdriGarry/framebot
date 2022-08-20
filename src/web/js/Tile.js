@@ -117,6 +117,10 @@ app.factory('DefaultTile', function ($rootScope, $mdDialog, $mdBottomSheet, UISe
 });
 
 app.controller('BottomSheetController', function ($scope, $mdBottomSheet) {
+  $scope.increaseSlider = function () {
+    $scope.bottomSheetSlider.max = $scope.bottomSheetSlider.max + 30;
+  };
+
   /** Function on click on bottom sheet **/
   $scope.bottomSheetAction = function (button) {
     $mdBottomSheet.hide(button);

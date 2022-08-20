@@ -262,7 +262,6 @@ app.component('options', {
     };
 
     const specificActions = function (button) {
-      console.log('button', button);
       if (button.label === 'Log') {
         ctrl.tile.openBottomSheet(logActionList);
       } else if (button.label === 'Core') {
@@ -349,12 +348,20 @@ app.component('alarms', {
   controller: function (DefaultTile, $rootScope, UIService, $mdpTimePicker) {
     const ctrl = this;
     const tileParams = {
-      label: 'Alarms',
+      label: 'Alarms & timer',
       actionList: [
-        { label: 'Sleep forever', icon: 'fa-solid fa-moon', url: '/flux/service/context/sleepForever' },
-        { label: 'Disable all', icon: 'fa-solid fa-ban', url: '/flux/service/alarm/off' },
         { label: 'weekDay', icon: 'fa-regular fa-frown', url: '/flux/service/alarm/set', continu: true },
-        { label: 'weekEnd', icon: 'fa-regular fa-smile', url: '/flux/service/alarm/set', continu: true }
+        { label: 'weekEnd', icon: 'fa-regular fa-smile', url: '/flux/service/alarm/set', continu: true },
+        { label: 'Disable all', icon: 'fa-solid fa-ban', url: '/flux/service/alarm/off' },
+        { label: 'Stop timer', icon: 'fa-solid fa-stop', url: '/flux/service/timer/stop' },
+        {
+          label: 'Manual',
+          icon: 'fa-solid fa-hourglass-half',
+          url: '/flux/service/timer/increase',
+          value: 5,
+          continu: true
+        },
+        { label: 'Timer +1', icon: 'fa-solid fa-plus', url: '/flux/service/timer/increase', value: 1 }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
@@ -365,16 +372,41 @@ app.component('alarms', {
     };
 
     /** Overwrite tile action */
-    ctrl.tile.click = function () {
+    ctrl.tile.click = function (arg) {
       if (!$rootScope.irda) {
         UIService.showErrorToast('Unauthorized action.');
       } else {
-        ctrl.tile.openBottomSheet(this.actionList, specificActions);
+        ctrl.tile.openBottomSheet(this.actionList, dispatcherAlarmTimer);
+      }
+    };
+
+    let dispatcherAlarmTimer = function (button) {
+      if (button.url.includes('alarm')) specificAlarmActions(button);
+      else specificTimerActions(button);
+    };
+
+    let specificTimerActions = function (button) {
+      if (button.label.indexOf('Manual') != -1) {
+        let slider = {
+          label: 'Manual timer',
+          url: '/flux/service/timer/increase',
+          legend: 'min',
+          min: 2,
+          max: 30,
+          extensible: true,
+          step: 1,
+          value: 5,
+          action: null,
+          formatTime: false
+        };
+        ctrl.tile.openSliderBottomSheet(slider);
+      } else {
+        ctrl.tile.action(button);
       }
     };
 
     let showTimePicker = function (ev) {
-      // A déplacer dans Tile.js ?
+      // TODO A déplacer dans Tile.js ?
       $mdpTimePicker(new Date(), {
         targetEvent: ev,
         autoSwitch: true
@@ -389,7 +421,7 @@ app.component('alarms', {
       });
     };
 
-    let specificActions = function (button) {
+    let specificAlarmActions = function (button) {
       if (button.label !== 'Disable all' && button.label !== 'Sleep forever') {
         ctrl.newAlarm = button;
         showTimePicker();
@@ -400,16 +432,18 @@ app.component('alarms', {
 
     const DAYS = { weekDay: [1, 2, 3, 4, 5], weekEnd: [6, 0] };
     let updateNextAlarm = function () {
-      let ALARMS = ctrl.data.value;
+      let ALARMS = ctrl.data.alarms.value;
       if (ALARMS.weekDay || ALARMS.weekEnd) {
         let now = new Date(),
           nextAlarms = {};
         Object.keys(ALARMS).forEach(key => {
-          let nextAlarm = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ALARMS[key].h, ALARMS[key].m);
-          while (!DAYS[key].includes(nextAlarm.getDay()) || nextAlarm < now) {
-            nextAlarm = _incrementDay(nextAlarm, ALARMS[key]);
+          if (ALARMS[key]) {
+            let nextAlarm = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ALARMS[key].h, ALARMS[key].m);
+            while (!DAYS[key].includes(nextAlarm.getDay()) || nextAlarm < now) {
+              nextAlarm = _incrementDay(nextAlarm, ALARMS[key]);
+            }
+            nextAlarms[key] = nextAlarm;
           }
-          nextAlarms[key] = nextAlarm;
         });
         let alarmToReturn;
         if (nextAlarms.weekDay < nextAlarms.weekEnd) alarmToReturn = nextAlarms.weekDay;
@@ -599,64 +633,6 @@ app.component('music', {
         return 'fa-solid fa-kiwi-bird';
       } else {
         return 'fa-solid fa-music';
-      }
-    };
-  }
-});
-
-/** Timer component */
-app.component('timer', {
-  bindings: {
-    data: '<',
-    access: '<',
-    odiState: '<'
-  },
-  templateUrl: 'templates/tiles.html',
-  controller: function (DefaultTile, $rootScope, UIService) {
-    const ctrl = this;
-    const tileParams = {
-      label: 'Timer',
-      actionList: [
-        { label: 'Stop timer', icon: 'fa-solid fa-stop', url: '/flux/service/timer/stop' },
-        {
-          label: 'Manual',
-          icon: 'fa-solid fa-hourglass-half',
-          url: '/flux/service/timer/increase',
-          value: 3,
-          continu: true
-        },
-        { label: 'Timer +3', icon: 'fa-solid fa-plus', url: '/flux/service/timer/increase', value: 3 },
-        { label: 'Timer +1', icon: 'fa-solid fa-plus', url: '/flux/service/timer/increase', value: 1 }
-      ]
-    };
-    ctrl.tile = new DefaultTile(tileParams);
-    ctrl.odiState = ctrl.odiState;
-
-    /** Overwrite tile action */
-    ctrl.tile.click = function () {
-      if (!$rootScope.irda) {
-        UIService.showErrorToast('Unauthorized action.');
-      } else {
-        ctrl.tile.openBottomSheet(this.actionList, specificActions);
-      }
-    };
-
-    let specificActions = function (button) {
-      if (button.label.indexOf('Manual') != -1) {
-        let slider = {
-          label: 'Manual timer',
-          url: '/flux/service/timer/increase',
-          legend: 'min',
-          min: 2,
-          max: 30,
-          step: 1,
-          value: 10,
-          action: null,
-          formatTime: false
-        };
-        ctrl.tile.openSliderBottomSheet(slider);
-      } else {
-        ctrl.tile.action(button);
       }
     };
   }
@@ -952,9 +928,10 @@ app.component('radiator', {
           url: '/flux/service/radiator/timeout',
           legend: 'h',
           min: 10,
-          max: 360,
-          step: 10,
-          value: 120,
+          max: 30,
+          extensible: true,
+          step: 1,
+          value: 30,
           action: null,
           formatTime: true,
           data: button.value
@@ -1080,7 +1057,8 @@ app.component('powerPlug', {
           url: button.url,
           legend: 'min',
           min: 1,
-          max: 120,
+          max: 30,
+          extensible: true,
           step: 1,
           value: 10,
           action: null,
