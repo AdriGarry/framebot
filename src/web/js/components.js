@@ -699,7 +699,8 @@ app.component('childs', {
         { label: 'Survivaure', icon: 'fa-solid fa-space-shuttle', url: '/flux/service/music/story', value: 'survivaure' },
         { label: 'Yayou', icon: 'fa-solid fa-child-reaching', url: '/flux/service/childs/interact', value: 'Yayou' },
         { label: 'Zazou', icon: 'fa-solid fa-baby', url: '/flux/service/childs/interact', value: 'Zazou' },
-        { label: 'Bonne nuit', icon: 'fa-solid fa-moon', url: '/flux/service/childs/bonneNuit' }
+        { label: 'Bonne nuit', icon: 'fa-solid fa-moon', url: '/flux/service/childs/bonneNuit' },
+        { label: 'Roulotte', icon: 'fa-solid fa-campground', url: '/flux/service/powerPlug/timeout', value: { plug: 'plug3', mode: true, timeout: 30 } }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
@@ -1136,15 +1137,6 @@ app.component('tasks', {
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
-
-    /** Overwrite tile action */
-    ctrl.tile.click = function () {
-      if (!$rootScope.irda) {
-        UIService.showErrorToast('Unauthorized action.');
-      } else {
-        ctrl.tile.openBottomSheet(this.actionList, specificActions);
-      }
-    };
   }
 });
 

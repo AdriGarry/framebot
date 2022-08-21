@@ -34,7 +34,7 @@ function okButtonAction(duration) {
     if (duration > 3) {
       new Flux('interface|rfxcom|send', { device: 'plug1', value: true });
     } else {
-      new Flux('service|powerPlug|timeout', { plug: 'plug3', mode: true, timeout: 60 });
+      new Flux('service|powerPlug|timeout', { plug: 'plug3', mode: true, timeout: 30 });
       return;
       if (Core.run('voicemail')) {
         new Flux('service|voicemail|check');
