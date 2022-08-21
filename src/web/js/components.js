@@ -344,11 +344,11 @@ app.component('alarms', {
   controller: function (DefaultTile, $rootScope, UIService, $mdpTimePicker) {
     const ctrl = this;
     const tileParams = {
-      label: 'Alarms & timer',
+      label: 'Alarm & timer',
       actionList: [
         { label: 'weekDay', icon: 'fa-regular fa-frown', url: '/flux/service/alarm/set', continu: true },
         { label: 'weekEnd', icon: 'fa-regular fa-smile', url: '/flux/service/alarm/set', continu: true },
-        { label: 'Disable all', icon: 'fa-solid fa-ban', url: '/flux/service/alarm/off' },
+        { label: 'Disable all', icon: 'fa-solid fa-bell-slash', url: '/flux/service/alarm/off' },
         { label: 'Stop timer', icon: 'fa-solid fa-stop', url: '/flux/service/timer/stop' },
         {
           label: 'Manual',
