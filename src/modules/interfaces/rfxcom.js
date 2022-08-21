@@ -58,13 +58,21 @@ function sendStatus(args) {
     value = args.value;
   if (!DEVICE_LIST.hasOwnProperty(deviceName)) log.error('Unknown device:', deviceName);
   else {
-    if (value) DEVICE.switchOn(`0x${DEVICE_LIST[deviceName].family}/${DEVICE_LIST[deviceName].id}`);
-    else DEVICE.switchOff(`0x${DEVICE_LIST[deviceName].family}/${DEVICE_LIST[deviceName].id}`);
+    if (value) DEVICE.switchOn(buildSequence(deviceName));
+    else DEVICE.switchOff(buildSequence(deviceName));
     Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
   }
 }
 
-const PLUG_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/0b\S{6}(?<plugFamily>\S{8})\S(?<plugId>\S{1})(?<positiveValue>010f[56]0)?/);
+function buildSequence(deviceName) {
+  return `0x${DEVICE_LIST[deviceName].family}/${getIdAsHex(deviceName)}`;
+}
+
+function getIdAsHex(deviceName) {
+  return `${parseInt(DEVICE_LIST[deviceName].id, 16)}`;
+}
+
+const PLUG_STATUS_REMOTE_COMMAND_REGEX = new RegExp(/0[bB]\S{6}(?<plugFamily>\S{8})\S(?<plugId>\S)(?<positiveValue>010f[56]0)?/);
 const MOTION_DETECT_SIGNAL = '0008c8970a010f',
   MOTION_DETECT_END_SIGNAL = '0008c8970a0000'; // TODO faire une regex qui gère les plug et le motion sensor
 
