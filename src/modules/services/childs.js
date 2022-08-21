@@ -23,5 +23,4 @@ function childInteract(name) {
   log.info(`${name}...`);
   new Flux('interface|tts|speak', `Coucou ma ${name} !`);
   new Flux('interface|tts|speak', Utils.rdm() ? "C'est moi Odi..." : "C'est moi le robot...");
-  Utils.rdm() ? new Flux('interface|tts|speak', 'Veux tu écouter une chanson avec moi ?') : null;
 }

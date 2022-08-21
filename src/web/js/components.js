@@ -1130,7 +1130,7 @@ app.component('tasks', {
       label: 'Tasks',
       actionList: [
         { label: 'Mosquito', icon: 'fa-solid fa-mosquito', url: '/flux/service/mosquitoRepellent/toggle', continu: true },
-        { label: 'Shower music', icon: 'fa-solid fa-shower', url: '/flux/service/powerPlug/timeout', value: { mode: 'on', timeout: 15, plug: 'plug11' } },
+        { label: 'Shower music', icon: 'fa-solid fa-shower', url: '/flux/service/powerPlug/timeout', value: { mode: 'on', timeout: 10, plug: 'plug11' } },
         { label: 'Fan Louloutes', icon: 'fa-solid fa-fan', url: '/flux/service/powerPlug/timeout', value: { mode: 'on', timeout: 60, plug: 'plug2' } },
         { label: 'HomeOffice', icon: 'fa-solid fa-laptop-code', url: '/flux/service/homeOffice/start' },
         { label: 'goToSleep', icon: 'fa-solid fa-bed', url: '/flux/service/task/goToSleep' }
