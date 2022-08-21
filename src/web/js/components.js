@@ -1129,7 +1129,6 @@ app.component('tasks', {
     const tileParams = {
       label: 'Tasks',
       actionList: [
-        { label: 'Mosquito', icon: 'fa-solid fa-mosquito', url: '/flux/service/mosquitoRepellent/toggle', continu: true },
         { label: 'Shower music', icon: 'fa-solid fa-shower', url: '/flux/service/powerPlug/timeout', value: { mode: 'on', timeout: 10, plug: 'plug11' } },
         { label: 'Fan Louloutes', icon: 'fa-solid fa-fan', url: '/flux/service/powerPlug/timeout', value: { mode: 'on', timeout: 60, plug: 'plug2' } },
         { label: 'HomeOffice', icon: 'fa-solid fa-laptop-code', url: '/flux/service/homeOffice/start' },
@@ -1137,25 +1136,6 @@ app.component('tasks', {
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
-
-    let specificActions = function (button) {
-      if (button.label === 'Mosquito') {
-        let slider = {
-          label: 'Interval',
-          url: '/flux/service/mosquitoRepellent/update',
-          legend: 'min/10',
-          min: 0,
-          max: 10,
-          step: 1,
-          value: ctrl.data.mosquitoRepellent.value,
-          action: null
-          //formatTime: false
-        };
-        ctrl.tile.openSliderBottomSheet(slider);
-      } else {
-        ctrl.tile.action(button);
-      }
-    };
 
     /** Overwrite tile action */
     ctrl.tile.click = function () {

@@ -109,7 +109,6 @@ function attachDefaultRoutes(ui) {
         active: true
       },
       weather: { value: Core.run('weather') },
-      mosquitoRepellent: { value: Core.run('mosquitoRepellent') },
       powerPlug: { value: Core.run('powerPlug') },
       rfxcom: { value: Core.run('rfxcom') },
       arduino: { value: Core.run('max') },
