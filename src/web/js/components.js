@@ -798,9 +798,9 @@ app.component('party', {
       label: 'Party',
       actionList: [
         { label: 'Cigales', icon: 'fa-solid fa-bug', url: '/flux/interface/sound/play', value: { file: 'system/cigales.mp3' } },
-        { label: 'Birthday song', icon: 'fa-solid fa-birthday-cake', url: '/flux/service/party/birthdaySong' },
         { label: 'Party mode', icon: 'fa-regular fa-grin-tongue', url: '/flux/service/party/start' },
         { label: 'Pirate', icon: 'fa-solid fa-beer', url: '/flux/service/party/pirate' },
+        { label: 'Birthday song', icon: 'fa-solid fa-birthday-cake', url: '/flux/service/party/birthdaySong' },
         { label: 'TTS', icon: 'fa-regular fa-comment-dots', url: '/flux/service/party/tts' }
       ]
     };
@@ -1130,6 +1130,7 @@ app.component('tasks', {
     const tileParams = {
       label: 'Tasks',
       actionList: [
+        { label: 'Cooking', icon: 'fa-solid fa-kitchen-set', continu: true },
         { label: 'Shower music', icon: 'fa-solid fa-shower', url: '/flux/service/powerPlug/timeout', value: { mode: 'on', timeout: 10, plug: 'plug11' } },
         { label: 'Fan Louloutes', icon: 'fa-solid fa-fan', url: '/flux/service/powerPlug/timeout', value: { mode: 'on', timeout: 60, plug: 'plug2' } },
         { label: 'HomeOffice', icon: 'fa-solid fa-laptop-code', url: '/flux/service/homeOffice/start' },
@@ -1137,6 +1138,26 @@ app.component('tasks', {
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
+
+    const cookActionList = [
+      { label: 'Egg 3m', icon: 'fa-solid fa-egg', url: '/flux/service/timer/increase', value: 3 },
+      { label: 'Egg 6m', icon: 'fa-solid fa-egg', url: '/flux/service/timer/increase', value: 6 },
+      { label: 'Pasta 10m', icon: 'fa-solid fa-spaghetti-monster-flying', url: '/flux/service/timer/increase', value: 10 },
+      { label: 'Cake 30m', icon: 'fa-solid fa-chart-pie', url: '/flux/service/timer/increase', value: 30 }
+    ];
+
+    /** Overwrite tile action */
+    ctrl.tile.click = function () {
+      ctrl.tile.openBottomSheet(this.actionList, specificActions);
+    };
+
+    const specificActions = function (button) {
+      if (button.label === 'Cooking') {
+        ctrl.tile.openBottomSheet(cookActionList);
+      } else {
+        ctrl.tile.action(button);
+      }
+    };
   }
 });
 
