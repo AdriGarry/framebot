@@ -870,18 +870,6 @@ app.component('radiator', {
       label: 'Radiator',
       actionList: [
         {
-          label: 'Radiator on',
-          icon: 'fa-solid fa-toggle-on',
-          url: '/flux/service/radiator/manual',
-          value: 'on'
-        },
-        {
-          label: 'Radiator off',
-          icon: 'fa-solid fa-toggle-off',
-          url: '/flux/service/radiator/manual',
-          value: 'off'
-        },
-        {
           label: 'On Timeout',
           icon: 'fa-solid fa-clock',
           url: '/flux/service/radiator/timeout',
@@ -899,6 +887,18 @@ app.component('radiator', {
           label: 'Auto',
           icon: 'fa-brands fa-adn',
           url: '/flux/service/radiator/auto'
+        },
+        {
+          label: 'Radiator on',
+          icon: 'fa-solid fa-toggle-on',
+          url: '/flux/service/radiator/manual',
+          value: 'on'
+        },
+        {
+          label: 'Radiator off',
+          icon: 'fa-solid fa-toggle-off',
+          url: '/flux/service/radiator/manual',
+          value: 'off'
         }
       ]
     };
@@ -1018,18 +1018,6 @@ app.component('powerPlug', {
     let specificplugActions = function (action) {
       let actionList = [
         {
-          label: action.label + ' ON',
-          icon: 'fa-solid fa-toggle-on',
-          url: '/flux/service/powerPlug/toggle',
-          value: { plug: action.value.device, mode: true }
-        },
-        {
-          label: action.label + ' OFF',
-          icon: 'fa-solid fa-toggle-off',
-          url: '/flux/service/powerPlug/toggle',
-          value: { plug: action.value.device, mode: false }
-        },
-        {
           label: action.label + ' ON timeout',
           icon: 'fa-solid fa-clock',
           url: '/flux/service/powerPlug/timeout',
@@ -1042,6 +1030,18 @@ app.component('powerPlug', {
           url: '/flux/service/powerPlug/timeout',
           value: { plug: action.value.device, mode: false },
           continu: true
+        },
+        {
+          label: action.label + ' ON',
+          icon: 'fa-solid fa-toggle-on',
+          url: '/flux/service/powerPlug/toggle',
+          value: { plug: action.value.device, mode: true }
+        },
+        {
+          label: action.label + ' OFF',
+          icon: 'fa-solid fa-toggle-off',
+          url: '/flux/service/powerPlug/toggle',
+          value: { plug: action.value.device, mode: false }
         }
       ];
       ctrl.tile.openBottomSheet(actionList, specificActions);
