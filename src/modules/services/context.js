@@ -57,7 +57,6 @@ function goToSleep() {
 
 /** Function to set/edit Core's config SYNC */
 function updateConf(newConf, restart) {
-  new Flux('interface|sound|mute');
   let updatedEntries = [];
   Object.keys(newConf).forEach(key => {
     updatedEntries.push(key);
@@ -65,6 +64,7 @@ function updateConf(newConf, restart) {
   });
   log.table(Core.conf(), 'CONFIG', updatedEntries);
   if (restart) {
+    new Flux('interface|sound|mute');
     processExit();
   }
 }
