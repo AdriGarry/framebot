@@ -102,7 +102,7 @@ function continuousScan() {
   Core.run('nmap', true);
   isContinuousScan = true;
   setTimeout(() => {
-    log.info('Continuous scan timeout!');
+    log.info('Continuous scan timeout, stopping...');
     stopContinuousScan();
   }, 60 * 60 * 1000);
   scan();
