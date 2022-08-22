@@ -83,7 +83,7 @@ const PARTY_TTS_LENGTH = Core.ttsMessages.party.length;
 let rdmNbParty,
   lastRdmNbParty = [];
 function getNewRdmPartyTTS() {
-  if (lastRdmNb.length == PARTY_TTS_LENGTH) {
+  if (lastRdmNbParty.length == PARTY_TTS_LENGTH) {
     lastRdmNbParty = [];
   }
   rdmNbParty = Utils.random(PARTY_TTS_LENGTH);
