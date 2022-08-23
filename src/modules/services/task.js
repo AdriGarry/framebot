@@ -29,6 +29,12 @@ function goToSleep() {
 
   // plug off
   new Flux('interface|rfxcom|send', { device: 'plug1', value: false }, { delay: 3 * 60 });
+  new Flux('interface|rfxcom|send', { device: 'plug2', value: false }, { delay: 3 * 60 });
+  new Flux('interface|rfxcom|send', { device: 'plug3', value: false }, { delay: 3 * 60 });
+  new Flux('interface|rfxcom|send', { device: 'plug11', value: false }, { delay: 3 * 60 });
+  new Flux('interface|rfxcom|send', { device: 'plug12', value: false }, { delay: 3 * 60 });
+  new Flux('interface|rfxcom|send', { device: 'plug13', value: false }, { delay: 3 * 60 });
+  new Flux('interface|rfxcom|send', { device: 'plug14', value: false }, { delay: 3 * 60 });
 
   if (Core.isAwake()) {
     new Flux('service|context|sleep', null, { delay: GO_TO_SLEEP_DELAY });
