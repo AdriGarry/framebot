@@ -23,21 +23,29 @@ Observers.attachFluxParseOptions('service', 'weather', FLUX_PARSE_OPTIONS);
 const FETCH_WEATHER_DATA_DELAY = Core.isAwake() ? 60 : 300;
 
 let WEATHER_STATUS_LIST;
-fs.readFile(Core._DATA + 'weatherStatus.json', function (err, data) {
-  if (err && err.code === 'ENOENT') {
-    log.debug(Core.error('No file : ' + filePath));
-  }
-  WEATHER_STATUS_LIST = JSON.parse(data);
 
-  fetchWeatherData().catch(err => {
-    Core.error('Error weather', err);
-  });
-  setInterval(() => {
+setTimeout(function () {
+  initWeatherService();
+}, 30 * 1000);
+
+function initWeatherService() {
+  log.info('init weather service...');
+  fs.readFile(Core._DATA + 'weatherStatus.json', function (err, data) {
+    if (err && err.code === 'ENOENT') {
+      log.debug(Core.error('No file : ' + filePath));
+    }
+    WEATHER_STATUS_LIST = JSON.parse(data);
+
     fetchWeatherData().catch(err => {
       Core.error('Error weather', err);
     });
-  }, FETCH_WEATHER_DATA_DELAY * 60 * 1000);
-});
+    setInterval(() => {
+      fetchWeatherData().catch(err => {
+        Core.error('Error weather', err);
+      });
+    }, FETCH_WEATHER_DATA_DELAY * 60 * 1000);
+  });
+}
 
 function randomTTS() {
   if (Utils.rdm()) {
