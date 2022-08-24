@@ -102,6 +102,17 @@
       ]
     }
   },
+  "knownHosts": {
+    "ADRI": "Pixel-3a",
+    "ADRI_PC": "adri-pc",
+    "ADRI_PC_WORK": "ENOVACOM-AGAR2-001",
+    "BBOX": "bbox.lan",
+    "CAM": "TODO",
+    "CAM_PC": "TODO",
+    "ODI": "raspberrypi",
+    "OLD_ANDROID": "android-38594d3ba13a4305",
+    "NULL": "null"
+  },
   "fallbackVoice": "espeak",
   "forcedVoice": null
 }

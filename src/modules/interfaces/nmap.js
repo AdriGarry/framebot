@@ -17,18 +17,8 @@ const FLUX_PARSE_OPTIONS = [
 
 Observers.attachFluxParseOptions('interface', 'nmap', FLUX_PARSE_OPTIONS);
 
-const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
-  KNOWN_HOSTS = {
-    ADRI: 'Pixel-3a',
-    ADRI_PC: 'adri-pc',
-    ADRI_PC_WORK: 'ENOVACOM-AGAR2-001',
-    BBOX: 'bbox.lan',
-    CAM: 'TODO',
-    CAM_PC: 'TODO',
-    ODI: 'raspberrypi',
-    OLD_ANDROID: 'android-38594d3ba13a4305',
-    NULL: 'null'
-  }; //TODO move to descriptor ?
+const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24';
+let KNOWN_HOSTS = Core.descriptor.knownHosts;
 
 let quickScan;
 let hostsList = {},
