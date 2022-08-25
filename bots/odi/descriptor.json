@@ -107,7 +107,7 @@
     { "hostname": "adri-pc", "label": "ADRI_PC" },
     { "hostname": "ENOVACOM-AGAR2-001", "label": "ADRI_PC_WORK", "flux": { "id": "interface|tts|speak", "value": "J'espère que ça bosse dur..." } },
     { "hostname": "bbox.lan", "label": "BBOX" },
-    { "hostname": "TODO", "label": "CAM" },
+    { "hostname": "TODO1", "label": "CAM" },
     { "hostname": "DESKTOP-OGMM0KS", "label": "CAM_PC", "forgetDelay": 3600 },
     { "hostname": "raspberrypi", "label": "ODI" },
     { "hostname": "android-38594d3ba13a4305", "label": "OLD_ANDROID", "flux": { "id": "interface|tts|speak", "value": "Héhé" } }

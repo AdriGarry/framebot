@@ -19,7 +19,7 @@ Observers.attachFluxParseOptions('interface', 'nmap', FLUX_PARSE_OPTIONS);
 
 const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
   INACTIVE_HOST_DELAY = 2 * 60 * 1000,
-  DEFAULT_FORGET_DELAY = 60 * 1000; // TODO 60 * 60 * 1000
+  DEFAULT_FORGET_DELAY = 60 * 60 * 1000;
 
 let detectedHostsMap = new Map(
   Core.descriptor.knownHosts.map(host => {
