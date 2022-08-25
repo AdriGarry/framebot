@@ -18,15 +18,13 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('interface', 'nmap', FLUX_PARSE_OPTIONS);
 
 const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
+  INACTIVE_HOST_DELAY = 2 * 60 * 1000,
   DEFAULT_FORGET_DELAY = 60 * 1000; // TODO 60 * 60 * 1000
-
-const KNOWN_HOSTS = new Array(Core.descriptor.knownHosts.map(host => host.hostname));
-
-log.test(KNOWN_HOSTS);
 
 let detectedHostsMap = new Map(
   Core.descriptor.knownHosts.map(host => {
     host['lastDetect'] = null;
+    host['active'] = false;
     return [host.hostname, host];
   })
 );
@@ -53,7 +51,6 @@ function scan() {
 
 function parseDetectedHosts(detectedHosts) {
   let hostsToReact = [];
-
   detectedHosts.forEach(detectedHost => {
     if (!detectedHostsMap.has(detectedHost.hostname)) {
       const newlyDetectedHost = {
@@ -61,6 +58,7 @@ function parseDetectedHosts(detectedHosts) {
         label: detectedHost.vendor || '',
         ip: detectedHost.ip,
         lastDetect: new Date(),
+        active: true,
         unknown: true
       };
       detectedHostsMap.set(detectedHost.hostname, newlyDetectedHost);
@@ -71,6 +69,7 @@ function parseDetectedHosts(detectedHosts) {
     if (hasNotBeenDetectedForMoreThanOneHour) {
       hostsToReact.push(alreadyDetectedHost);
     }
+    alreadyDetectedHost.active = true;
     alreadyDetectedHost.lastDetect = new Date();
     alreadyDetectedHost.ip = detectedHost.ip;
     detectedHostsMap.set(detectedHost.hostname, alreadyDetectedHost);
@@ -82,8 +81,15 @@ function parseDetectedHosts(detectedHosts) {
       hostsToReact.map(host => host.hostname)
     );
     newHostReaction(hostsToReact);
-    // log.table(hostsList, `${Object.keys(hostsList).length} Hosts`); // TODO deals with toString() method of Map
   }
+
+  disableInactiveHosts();
+}
+
+function disableInactiveHosts() {
+  detectedHostsMap.forEach(host => {
+    if (new Date() - host.lastDetect > INACTIVE_HOST_DELAY) host.active = false;
+  });
 }
 
 function newHostReaction(hostsToReact) {
@@ -104,7 +110,24 @@ function newHostReaction(hostsToReact) {
     log.warn('Unknown host(s) detected:', unknownHosts);
     const unknownHostsNames = unknownHosts.map(host => host.hostname);
     new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown device: ' + unknownHostsNames.join(', ') });
+    // TODO send notification (mail...) to persist, and log before restart.
   }
+
+  logTableActiveHosts();
+}
+
+function logTableActiveHosts() {
+  const hostsTable = convertMapToObjectWithIpAndLastDetectOnlyIfHostIsActive(detectedHostsMap);
+  log.table(hostsTable, `${Object.keys(hostsTable).length} Hosts`);
+}
+
+function convertMapToObjectWithIpAndLastDetectOnlyIfHostIsActive(map) {
+  let obj = {};
+  for (const item of [...map]) {
+    const [hostname, host] = item;
+    if (host.active) obj[hostname] = { ip: host.ip, lastDetect: host.lastDetect };
+  }
+  return obj;
 }
 
 function continuousScan() {

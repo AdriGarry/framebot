@@ -104,7 +104,7 @@
   },
   "knownHosts": [
     { "hostname": "Pixel-3a", "label": "ADRI", "flux": [{ "id": "interface|tts|speak", "value": { "lg": "ru", "voice": "google", "msg": "hey, a3" } }] },
-    { "hostname": "adri-pc", "label": "ADRI_PC", "flux": { "id": "interface|tts|speak", "value": "Es-tu en train de coder ?" } },
+    { "hostname": "adri-pc", "label": "ADRI_PC" },
     { "hostname": "ENOVACOM-AGAR2-001", "label": "ADRI_PC_WORK", "flux": { "id": "interface|tts|speak", "value": "J'espère que ça bosse dur..." } },
     { "hostname": "bbox.lan", "label": "BBOX" },
     { "hostname": "TODO", "label": "CAM" },
