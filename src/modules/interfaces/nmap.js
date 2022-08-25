@@ -17,17 +17,25 @@ const FLUX_PARSE_OPTIONS = [
 
 Observers.attachFluxParseOptions('interface', 'nmap', FLUX_PARSE_OPTIONS);
 
-const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24';
-let KNOWN_HOSTS = Core.descriptor.knownHosts;
+const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
+  INACTIVE_HOST_DELAY = 2 * 60 * 1000,
+  DEFAULT_FORGET_DELAY = 60 * 60 * 1000;
 
-let quickScan;
-let hostsList = {},
+let detectedHostsMap = new Map(
+  Core.descriptor.knownHosts.map(host => {
+    host['lastDetect'] = null;
+    host['active'] = false;
+    return [host.hostname, host];
+  })
+);
+
+let quickScan,
   isContinuousScan = false;
 
 function scan() {
   quickScan = new nmap.QuickScan(LOCAL_NETWORK_RANGE);
   quickScan.on('complete', hosts => {
-    parseFoundHosts(hosts);
+    parseDetectedHosts(hosts);
     if (isContinuousScan) scan();
     else log.table(hosts, `${hosts.length} Hosts`);
   });
@@ -41,50 +49,85 @@ function scan() {
   quickScan.startScan();
 }
 
-function parseFoundHosts(hosts) {
-  let oldHostsList = hostsList,
-    newDetectedHostsList = {};
-  hostsList = {};
-
-  hosts.forEach(host => {
-    if (!oldHostsList.hasOwnProperty(host.hostname)) {
-      newDetectedHostsList[host.hostname] = host.ip;
+function parseDetectedHosts(detectedHosts) {
+  let hostsToReact = [];
+  detectedHosts.forEach(detectedHost => {
+    if (!detectedHostsMap.has(detectedHost.hostname)) {
+      const newlyDetectedHost = {
+        hostname: detectedHost.hostname,
+        label: detectedHost.vendor || '',
+        ip: detectedHost.ip,
+        lastDetect: new Date(),
+        active: true,
+        unknown: true
+      };
+      detectedHostsMap.set(detectedHost.hostname, newlyDetectedHost);
+      hostsToReact.push(newlyDetectedHost);
     }
-    hostsList[host.hostname] = host.ip;
+    let alreadyDetectedHost = detectedHostsMap.get(detectedHost.hostname);
+    const hasNotBeenDetectedForMoreThanOneHour = !alreadyDetectedHost.lastDetect || new Date() - alreadyDetectedHost.lastDetect > DEFAULT_FORGET_DELAY;
+    if (hasNotBeenDetectedForMoreThanOneHour) {
+      hostsToReact.push(alreadyDetectedHost);
+    }
+    alreadyDetectedHost.active = true;
+    alreadyDetectedHost.lastDetect = new Date();
+    alreadyDetectedHost.ip = detectedHost.ip;
+    detectedHostsMap.set(detectedHost.hostname, alreadyDetectedHost);
   });
 
-  let newDetectedHosts = Object.keys(newDetectedHostsList);
-  if (Object.keys(newDetectedHosts).length && Object.keys(oldHostsList).length) {
-    log.info('New host(s) on network:', newDetectedHosts);
-    newHostReaction(newDetectedHosts);
-    log.table(hostsList, `${Object.keys(hostsList).length} Hosts`);
+  if (hostsToReact.length) {
+    log.info(
+      'New host(s) on network:',
+      hostsToReact.map(host => host.hostname)
+    );
+    newHostReaction(hostsToReact);
   }
+
+  disableInactiveHosts();
 }
 
-function newHostReaction(newDetectedHosts) {
+function disableInactiveHosts() {
+  detectedHostsMap.forEach(host => {
+    if (new Date() - host.lastDetect > INACTIVE_HOST_DELAY) host.active = false;
+  });
+}
+
+function newHostReaction(hostsToReact) {
   let unknownHosts = [];
-  newDetectedHosts.forEach(host => {
-    switch (host) {
-      case KNOWN_HOSTS.ADRI:
-        new Flux('interface|tts|speak', { msg: 'Oh! Salut Adri!' });
-        break;
-      case KNOWN_HOSTS.ADRI_PC:
-      // case KNOWN_HOSTS.CAM:
-      // case KNOWN_HOSTS.CAM_PC:
-      case KNOWN_HOSTS.BBOX:
-      case KNOWN_HOSTS.ODI:
-      case KNOWN_HOSTS.OLD_ANDROID:
-      case KNOWN_HOSTS.NULL:
-        break;
-      default:
-        unknownHosts.push(host);
-        break;
+  hostsToReact.forEach(host => {
+    if (host.unknown) {
+      unknownHosts.push(host);
+    } else if (Array.isArray(host.flux)) {
+      host.flux.forEach(flux => {
+        new Flux(flux.id, flux.value);
+      });
+    } else if (host.flux) {
+      new Flux(host.flux.id, host.flux.value);
     }
   });
+
   if (unknownHosts.length > 0) {
-    log.warn('Unknown host detected:', newDetectedHosts);
-    new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown device: ' + unknownHosts.join(', ') });
+    log.warn('Unknown host(s) detected:', unknownHosts);
+    const unknownHostsNames = unknownHosts.map(host => host.hostname);
+    new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown device: ' + unknownHostsNames.join(', ') });
+    // TODO send notification (mail...) to persist, and log before restart.
   }
+
+  logTableActiveHosts();
+}
+
+function logTableActiveHosts() {
+  const hostsTable = convertMapToObjectWithIpAndLastDetectOnlyIfHostIsActive(detectedHostsMap);
+  log.table(hostsTable, `${Object.keys(hostsTable).length} Hosts`);
+}
+
+function convertMapToObjectWithIpAndLastDetectOnlyIfHostIsActive(map) {
+  let obj = {};
+  for (const item of [...map]) {
+    const [hostname, host] = item;
+    if (host.active) obj[hostname] = { ip: host.ip, lastDetect: host.lastDetect };
+  }
+  return obj;
 }
 
 function continuousScan() {
