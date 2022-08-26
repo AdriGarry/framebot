@@ -11,11 +11,16 @@ const log = new Logger(__filename);
 
 const FLUX_PARSE_OPTIONS = [
   { id: 'scan', fn: scan },
-  { id: 'continuous', fn: continuousScan },
+  { id: 'continuous', fn: continuousScanForOneHour },
   { id: 'stop', fn: stopContinuousScan }
 ];
 
 Observers.attachFluxParseOptions('interface', 'nmap', FLUX_PARSE_OPTIONS);
+
+setTimeout(() => {
+  continuousScanForOneHour();
+  //scan();
+}, 10 * 1000);
 
 const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
   INACTIVE_HOST_DELAY = 2 * 60 * 1000,
@@ -37,7 +42,6 @@ function scan() {
   quickScan.on('complete', hosts => {
     parseDetectedHosts(hosts);
     if (isContinuousScan) scan();
-    else log.table(hosts, `${hosts.length} Hosts`);
   });
 
   quickScan.on('error', error => {
@@ -52,6 +56,9 @@ function scan() {
 function parseDetectedHosts(detectedHosts) {
   let hostsToReact = [];
   detectedHosts.forEach(detectedHost => {
+    if (!detectedHost.hostname) {
+      return log.warn('Hostnames not provided, skipping this scan result.');
+    }
     if (!detectedHostsMap.has(detectedHost.hostname)) {
       const newlyDetectedHost = {
         hostname: detectedHost.hostname,
@@ -63,16 +70,17 @@ function parseDetectedHosts(detectedHosts) {
       };
       detectedHostsMap.set(detectedHost.hostname, newlyDetectedHost);
       hostsToReact.push(newlyDetectedHost);
+    } else {
+      let alreadyDetectedHost = detectedHostsMap.get(detectedHost.hostname);
+      const hasNotBeenDetectedForMoreThanOneHour = !alreadyDetectedHost.lastDetect || new Date() - alreadyDetectedHost.lastDetect > DEFAULT_FORGET_DELAY;
+      if (hasNotBeenDetectedForMoreThanOneHour) {
+        hostsToReact.push(alreadyDetectedHost);
+      }
+      alreadyDetectedHost.active = true;
+      alreadyDetectedHost.lastDetect = new Date();
+      alreadyDetectedHost.ip = detectedHost.ip;
+      detectedHostsMap.set(detectedHost.hostname, alreadyDetectedHost);
     }
-    let alreadyDetectedHost = detectedHostsMap.get(detectedHost.hostname);
-    const hasNotBeenDetectedForMoreThanOneHour = !alreadyDetectedHost.lastDetect || new Date() - alreadyDetectedHost.lastDetect > DEFAULT_FORGET_DELAY;
-    if (hasNotBeenDetectedForMoreThanOneHour) {
-      hostsToReact.push(alreadyDetectedHost);
-    }
-    alreadyDetectedHost.active = true;
-    alreadyDetectedHost.lastDetect = new Date();
-    alreadyDetectedHost.ip = detectedHost.ip;
-    detectedHostsMap.set(detectedHost.hostname, alreadyDetectedHost);
   });
 
   if (hostsToReact.length) {
@@ -81,6 +89,8 @@ function parseDetectedHosts(detectedHosts) {
       hostsToReact.map(host => host.hostname)
     );
     newHostReaction(hostsToReact);
+  } else if (!isContinuousScan) {
+    logTableActiveHosts();
   }
 
   disableInactiveHosts();
@@ -130,7 +140,7 @@ function convertMapToObjectWithIpAndLastDetectOnlyIfHostIsActive(map) {
   return obj;
 }
 
-function continuousScan() {
+function continuousScanForOneHour() {
   log.info('Starting continuous scan for 1 hour...');
   Core.run('nmap', true);
   isContinuousScan = true;
@@ -142,7 +152,7 @@ function continuousScan() {
 }
 
 function stopContinuousScan() {
-  log.debug('Stopping continuous scan...');
+  if (Core.run('nmap')) log.info('Stopping continuous scan...');
   Core.run('nmap', false);
   isContinuousScan = false;
 }
