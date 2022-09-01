@@ -15,7 +15,10 @@ module.exports = {
   }
 };
 
-const FLUX_PARSE_OPTIONS = [{ id: 'netstat', fn: logNetstat }];
+const FLUX_PARSE_OPTIONS = [
+  { id: 'netstat', fn: logNetstat },
+  { id: 'testConnection', fn: testConnectionTwice }
+];
 
 Observers.attachFluxParseOptions('service', 'network', FLUX_PARSE_OPTIONS);
 
@@ -35,7 +38,6 @@ setImmediate(() => {
 // TODO refactor as Cron... with start/stop...
 setInterval(() => {
   if (Core.run('internetBox')) {
-    // TODO use Core.run('network.public') ?
     testConnectionTwice();
   } else {
     log.info('internetBox is off, no internet connection.');

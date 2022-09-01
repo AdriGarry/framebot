@@ -30,6 +30,9 @@ function goToSleep() {
   // plug off
   new Flux('interface|rfxcom|send', { device: 'plug1', value: false }, { delay: 3 * 60 });
 
+  // TODO switch off internetBox
+  // new Flux('interface|rfxcom|send', { device: 'plug13', value: false }, { delay: GO_TO_SLEEP_DELAY });
+
   // new Flux('interface|rfxcom|send', { device: 'plug2', value: false }, { delay: 3 * 60 });
   // new Flux('interface|rfxcom|send', { device: 'plug3', value: false }, { delay: 3 * 60 });
   // new Flux('interface|rfxcom|send', { device: 'plug11', value: false }, { delay: 3 * 60 });
