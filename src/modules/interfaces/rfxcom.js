@@ -81,12 +81,12 @@ function parseReceivedSignal(receivedSignal) {
   log.debug('Rfxcom receive:', parsedReceivedSignal, receivedSignal);
 
   let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(parsedReceivedSignal);
-  if (matchPlug) {
-    updateStatusForPlug(matchPlug);
-  } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_SIGNAL) > -1) {
+  if (parsedReceivedSignal.indexOf(MOTION_DETECT_SIGNAL) > -1) {
     new Flux('service|motionDetect|detect');
   } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_END_SIGNAL) > -1) {
     new Flux('service|motionDetect|end');
+  } else if (matchPlug) {
+    updateStatusForPlug(matchPlug);
   } else {
     log.warn('Unreconized rfxcom signal:', parsedReceivedSignal, receivedSignal);
   }
