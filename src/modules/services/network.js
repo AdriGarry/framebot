@@ -89,6 +89,7 @@ function getNetstatCommand(port) {
 
 function onlineCallback() {
   if (!isOnline || isRetrying) {
+    Core.run('internetBox', true);
     log.info("I'm on the internet!");
     getPublicIp().then(ip => Core.run('network.public', ip));
   }
