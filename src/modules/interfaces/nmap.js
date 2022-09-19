@@ -57,7 +57,7 @@ function parseDetectedHosts(detectedHosts) {
   let hostsToReact = [];
   detectedHosts.forEach(detectedHost => {
     if (!detectedHost.hostname) {
-      return log.warn('Hostnames not provided, skipping this scan result.');
+      return log.debug('Hostnames not provided, skipping this scan result.');
     }
     if (!detectedHostsMap.has(detectedHost.hostname)) {
       const newlyDetectedHost = {

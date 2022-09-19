@@ -27,17 +27,14 @@ const BOX_FLUX = {
   OFF: { id: 'interface|rfxcom|send', data: { device: BOX_PLUG, value: false } }
 };
 
-// const BOX_STRATEGY_CRON = [
-//     // TODO revoir les CRON. Crons de prod:
-//     // { cron: '0 55 * * * *', flux: BOX_FLUX.ON },
-//     // { cron: '0 10 * * * *', flux: BOX_FLUX.OFF }
-//     { cron: '0 55 * * * *', flux: BOX_FLUX.ON },
-//     { cron: '0 10 * * * *', flux: BOX_FLUX.OFF }
-//   ],
-//   boxStrategyCrons = new CronJobList(BOX_STRATEGY_CRON, 'internetBoxOffStrategy', true);
+const BOX_OFF_STRATEGY_CRON = [
+    { cron: '15 59 * * * *', flux: BOX_FLUX.ON },
+    { cron: '15 10 * * * *', flux: BOX_FLUX.OFF }
+  ],
+  boxOffStrategyCrons = new CronJobList(BOX_OFF_STRATEGY_CRON, 'internetBoxOffStrategy', true);
 
 setImmediate(() => {
-  // Scheduler.delay(10).then(() => boxStrategyOnIfAwake());
+  Scheduler.delay(10).then(() => boxStrategyOnIfAwake());
 });
 
 function boxStrategyOnIfAwake() {
@@ -59,8 +56,8 @@ function strategyOffIfNoActivity() {
 function boxStrategyOn() {
   log.info('Starting internet box strategy...');
   Core.run('internetBox', true);
+  boxOffStrategyCrons.stop();
   new Flux(BOX_FLUX.ON);
-  // boxStrategyCrons.start();
   new Flux('service|network|testConnection', null, { delay: 30, loop: 2 });
 }
 
@@ -69,9 +66,8 @@ function boxStrategyOff() {
   // // TODO test internetBoxStrategyCrons.nextDate value in more than 15 min ?
   // log.test('internetBoxStrategyOff', boxStrategyCrons.nextDate());
 
-  // return;
   log.info('Stopping internet box strategy');
-  // boxStrategyCrons.stop();
   new Flux(BOX_FLUX.OFF);
+  boxOffStrategyCrons.start();
   Core.run('internetBox', false);
 }
