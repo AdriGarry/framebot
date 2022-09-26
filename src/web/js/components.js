@@ -243,9 +243,9 @@ app.component('options', {
     ctrl.tile = new DefaultTile(tileParams);
 
     const logActionList = [
-        { label: '!Trace', icon: 'fa-regular fa-dot-circle', url: '/toggleTrace' },
-        { label: '!Debug', icon: 'fa-solid fa-circle', url: '/toggleDebug' }
-      ],
+      { label: '!Trace', icon: 'fa-regular fa-dot-circle', url: '/toggleTrace' },
+      { label: '!Debug', icon: 'fa-solid fa-circle', url: '/toggleDebug' }
+    ],
       coreActionList = [
         { label: 'Const', icon: 'fa-solid fa-hockey-puck', url: 'https://odi.adrigarry.com/const' },
         { label: 'Config', icon: 'fa-brands fa-whmcs', url: 'https://odi.adrigarry.com/config.json' },
@@ -963,7 +963,7 @@ app.component('powerPlug', {
         { label: 'Plug 2', icon: 'fa-solid fa-fan', value: { device: 'plug2', continu: true } },
         { label: 'Plug 3', icon: 'fa-solid fa-campground', value: { device: 'plug3', continu: true } },
         { label: 'Plug 11', icon: 'fa-solid fa-radio', value: { device: 'plug11', continu: true } },
-        { label: 'Plug 12', icon: 'fa-solid fa-laptop-code', value: { device: 'plug12', continu: true } },
+        { label: 'Plug 12', icon: 'fa-solid fa-plug', value: { device: 'plug12', continu: true } },
         { label: 'Plug 13', icon: 'fa-solid fa-plug', value: { device: 'plug13', continu: true } },
         { label: 'Plug 14', icon: 'fa-solid fa-plug', value: { device: 'plug14', continu: true } }
       ]

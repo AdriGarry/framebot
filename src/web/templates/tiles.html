@@ -96,7 +96,7 @@
 				<i class="fa-regular fa-bell-slash" data-ng-if="!$ctrl.nextAlarm"></i>
 				<span data-ng-show="$ctrl.nextAlarm">{{$ctrl.nextAlarm.h}}:{{$ctrl.nextAlarm.m | formatNumber:2}}</span>
 			</span>
-			</div>
+		</div>
 	</div>
 
 	<div class="tileContent" data-ng-switch-when="Hardware">
@@ -123,7 +123,8 @@
 				<tr>
 					<td style="line-height:2.5vw;">
 						<small>
-							<small>{{$ctrl.data.value.memory.system | limitTo:$ctrl.data.value.memory.system.length-4}}<small class="opacity70"><small>Mo&nbsp;</small>
+							<small>{{$ctrl.data.value.memory.system | limitTo:$ctrl.data.value.memory.system.length-4}}<small
+									class="opacity70"><small>Mo&nbsp;</small>
 								</small>
 							</small>
 							<small>{{$ctrl.getMemoryPerCent()}}
@@ -168,28 +169,32 @@
 				<small data-ng-if="$ctrl.plugs['plug2'].unknowMode"><small><sup>?</sup></small></small>
 				<sup data-ng-if="$ctrl.plugs['plug2'].timeout" class="ng-binding">{{$ctrl.plugs['plug2'].timeout}}</sup>
 			</small>&nbsp;
-			<i class="fa-solid  fa-campground" data-ng-class="$ctrl.plugs['plug3'].cssClass"></i>
+			<i class="fa-solid fa-campground" data-ng-class="$ctrl.plugs['plug3'].cssClass"></i>
 			<small class="badge" data-ng-if="$ctrl.plugs['plug3'].info" data-ng-class="$ctrl.plugs['plug3'].badgeOpacity">
 				<small data-ng-if="$ctrl.plugs['plug3'].unknowMode"><small><sup>?</sup></small></small>
 				<sup data-ng-if="$ctrl.plugs['plug3'].timeout" class="ng-binding">{{$ctrl.plugs['plug3'].timeout}}</sup>
 			</small>&nbsp;
-			<i class="fa-solid  fa-radio" data-ng-class="$ctrl.plugs['plug11'].cssClass"></i>
-			<small class="badge" data-ng-if="$ctrl.plugs['plug11'].info" data-ng-class="$ctrl.plugs['plug11'].badgeOpacity">
+			<i class="fa-solid fa-radio" data-ng-class="$ctrl.plugs['plug11'].cssClass"></i>
+			<small class="badge" data-ng-if="$ctrl.plugs['plug11'].info"
+				data-ng-class="$ctrl.plugs['plug11'].badgeOpacity">
 				<small data-ng-if="$ctrl.plugs['plug11'].unknowMode"><small><sup>?</sup></small></small>
 				<sup data-ng-if="$ctrl.plugs['plug11'].timeout" class="ng-binding">{{$ctrl.plugs['plug11'].timeout}}</sup>
 			</small>&nbsp;
-			<i class="fa-solid  fa-laptop-code" data-ng-class="$ctrl.plugs['plug12'].cssClass"></i>
-			<small class="badge" data-ng-if="$ctrl.plugs['plug12'].info" data-ng-class="$ctrl.plugs['plug12'].badgeOpacity">
+			<i class="fa-solid fa-plug" data-ng-class="$ctrl.plugs['plug12'].cssClass"></i>
+			<small class="badge" data-ng-if="$ctrl.plugs['plug12'].info"
+				data-ng-class="$ctrl.plugs['plug12'].badgeOpacity">
 				<small data-ng-if="$ctrl.plugs['plug12'].unknowMode"><small><sup>?</sup></small></small>
 				<sup data-ng-if="$ctrl.plugs['plug12'].timeout" class="ng-binding">{{$ctrl.plugs['plug12'].timeout}}</sup>
 			</small>&nbsp;
-			<i class="fa-solid  fa-plug" data-ng-class="$ctrl.plugs['plug13'].cssClass"></i>
-			<small class="badge" data-ng-if="$ctrl.plugs['plug13'].info" data-ng-class="$ctrl.plugs['plug13'].badgeOpacity">
+			<i class="fa-solid fa-plug" data-ng-class="$ctrl.plugs['plug13'].cssClass"></i>
+			<small class="badge" data-ng-if="$ctrl.plugs['plug13'].info"
+				data-ng-class="$ctrl.plugs['plug13'].badgeOpacity">
 				<small data-ng-if="$ctrl.plugs['plug13'].unknowMode"><small><sup>?</sup></small></small>
 				<sup data-ng-if="$ctrl.plugs['plug13'].timeout" class="ng-binding">{{$ctrl.plugs['plug13'].timeout}}</sup>
 			</small>&nbsp;
 			<i class="fa-solid fa-plug" data-ng-class="$ctrl.plugs['plug14'].cssClass"></i>
-			<small class="badge" data-ng-if="$ctrl.plugs['plug14'].info" data-ng-class="$ctrl.plugs['plug14'].badgeOpacity">
+			<small class="badge" data-ng-if="$ctrl.plugs['plug14'].info"
+				data-ng-class="$ctrl.plugs['plug14'].badgeOpacity">
 				<small data-ng-if="$ctrl.plugs['plug14'].unknowMode"><small><sup>?</sup></small></small>
 				<sup data-ng-if="$ctrl.plugs['plug14'].timeout" class="ng-binding">{{$ctrl.plugs['plug14'].timeout}}</sup>
 			</small>
