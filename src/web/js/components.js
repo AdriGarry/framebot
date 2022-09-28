@@ -615,7 +615,7 @@ app.component('music', {
         { label: 'Playlist childs', icon: 'fa-solid fa-child-reaching', url: '/flux/service/music/playlist', value: 'childs' },
         { label: 'Low', icon: 'fa-solid fa-kiwi-bird', url: '/flux/service/music/playlist', value: 'low' },
         { label: 'Jukebox', icon: 'fa-solid fa-compact-disc', url: '/flux/service/music/playlist' },
-        { label: 'FIP Radio', icon: 'fa-solid fa-globe-europe', url: '/flux/service/music/radio', value: 'fip' }
+        { label: 'FIP Radio', icon: 'fa-solid fa-radio', url: '/flux/service/music/radio', value: 'fip' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
