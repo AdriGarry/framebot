@@ -27,7 +27,8 @@ Observers.attachFluxParseOptions('service', 'music', FLUX_PARSE_OPTIONS);
 const AUTO_MUTE_TIMEOUT = 60 * 60;
 
 const RADIO_LIST = {
-  fip: { id: 'fip', url: 'http://icecast.radiofrance.fr/fip-midfi.mp3' }
+  fip: { id: 'fip', url: 'http://icecast.radiofrance.fr/fip-midfi.mp3' },
+  fipHipHop: { id: 'fipHipHop', url: 'http://icecast.radiofrance.fr/fiphiphop-midfi.mp3' }
 };
 
 let PLAYLIST = {

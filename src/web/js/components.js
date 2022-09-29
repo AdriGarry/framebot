@@ -615,7 +615,8 @@ app.component('music', {
         { label: 'Playlist childs', icon: 'fa-solid fa-child-reaching', url: '/flux/service/music/playlist', value: 'childs' },
         { label: 'Low', icon: 'fa-solid fa-kiwi-bird', url: '/flux/service/music/playlist', value: 'low' },
         { label: 'Jukebox', icon: 'fa-solid fa-compact-disc', url: '/flux/service/music/playlist' },
-        { label: 'FIP Radio', icon: 'fa-solid fa-radio', url: '/flux/service/music/radio', value: 'fip' }
+        { label: 'FIP', icon: 'fa-solid fa-radio', url: '/flux/service/music/radio', value: 'fip' },
+        { label: 'FIP Hip Hop', icon: 'fa-brands fa-napster', url: '/flux/service/music/radio', value: 'fipHipHop' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
@@ -625,7 +626,9 @@ app.component('music', {
       if (ctrl.data.value === 'jukebox') {
         return 'fa-solid fa-compact-disc';
       } else if (ctrl.data.value === 'fip') {
-        return 'fa-solid fa-globe-europe';
+        return 'fa-solid fa-radio';
+      } else if (ctrl.data.value === 'fipHipHop') {
+        return 'fa-brands fa-napster';
       } else if (ctrl.data.value === 'low') {
         return 'fa-solid fa-kiwi-bird';
       } else {
