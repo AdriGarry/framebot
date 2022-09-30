@@ -156,6 +156,7 @@ function attachDefaultRoutes(ui) {
   });
 
   ui.get('/const', function (req, res) {
+    log.table(Core.const(), 'CONST');
     res.end(JSON.stringify(Core.const()));
   });
 
