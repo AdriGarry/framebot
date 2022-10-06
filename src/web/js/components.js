@@ -1227,6 +1227,26 @@ app.component('nmap', {
   }
 });
 
+/** Router component */
+app.component('router', {
+  bindings: {
+    data: '<',
+    access: '<'
+  },
+  templateUrl: 'templates/tiles.html',
+  controller: function (DefaultTile) {
+    const ctrl = this;
+    const tileParams = {
+      label: 'Router',
+      actionList: [
+        { label: 'On', icon: 'fa-solid fa-toggle-on', url: '/flux/interface/internetBox/on' },
+        { label: 'Off', icon: 'fa-solid fa-toggle-off', url: '/flux/interface/internetBox/offStrategy' }
+      ]
+    };
+    ctrl.tile = new DefaultTile(tileParams);
+  }
+});
+
 /** About component */
 app.component('about', {
   bindings: {

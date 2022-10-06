@@ -315,17 +315,25 @@
 		</div>
 	</div>
 
-	<div class="tileContent" data-ng-switch-when="System">
-		<div class="main">
-			<i class="fa-solid fa-power-off"></i>
-		</div>
-	</div>
-
 	<div class="tileContent" data-ng-switch-when="Nmap">
 		<i class="fa-solid fa-rotate-270 fa-2x switch"
 			data-ng-class="$ctrl.data.run.nmap ? 'fa-solid fa-toggle-on' : 'fa-solid fa-toggle-off'"></i>
 		<div class="main">
 			<i class="fa-solid fa-broadcast-tower"></i>
+		</div>
+	</div>
+
+	<div class="tileContent" data-ng-switch-when="Router">
+		<i class="fa-solid fa-rotate-270 fa-2x switch"
+			data-ng-class="$ctrl.data.run.internetBox ? 'fa-solid fa-toggle-on' : 'fa-solid fa-toggle-off'"></i>
+		<div class="main">
+			<i class="fa-solid fa-network-wired"></i>
+		</div>
+	</div>
+
+	<div class="tileContent" data-ng-switch-when="System">
+		<div class="main">
+			<i class="fa-solid fa-power-off"></i>
 		</div>
 	</div>
 
