@@ -1239,8 +1239,8 @@ app.component('router', {
     const tileParams = {
       label: 'Router',
       actionList: [
-        { label: 'On', icon: 'fa-solid fa-toggle-on', url: '/flux/interface/internetBox/on' },
-        { label: 'Off', icon: 'fa-solid fa-toggle-off', url: '/flux/interface/internetBox/offStrategy' }
+        { label: 'On Manual', icon: 'fa-solid fa-toggle-on', url: '/flux/service/internetBox/on' },
+        { label: 'Off Strategy', icon: 'fa-solid fa-toggle-off', url: '/flux/service/internetBox/offStrategy' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
