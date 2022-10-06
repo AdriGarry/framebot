@@ -8,14 +8,14 @@ const log = new Logger(__filename);
 
 module.exports = {
   cron: {
-    base: [{ cron: '50 */20 0-5 * * *', flux: { id: 'service|internetBox|strategyOffIfNoActivity' } }]
+    // base: [{ cron: '50 */20 0-5 * * *', flux: { id: 'service|internetBox|offStrategyIfNoActivity' } }]
   }
 };
 
 const FLUX_PARSE_OPTIONS = [
-  { id: 'strategyOn', fn: boxStrategyOn },
-  { id: 'strategyOff', fn: boxStrategyOff },
-  { id: 'strategyOffIfNoActivity', fn: strategyOffIfNoActivity }
+  { id: 'on', fn: boxManualOn },
+  { id: 'offStrategy', fn: boxOffStrategy },
+  { id: 'offStrategyIfNoActivity', fn: offStrategyIfNoActivity }
 ];
 
 Observers.attachFluxParseOptions('service', 'internetBox', FLUX_PARSE_OPTIONS);
@@ -25,49 +25,41 @@ const BOX_PLUG = 'plug2';
 const BOX_FLUX = {
   ON: { id: 'interface|rfxcom|send', data: { device: BOX_PLUG, value: true } },
   OFF: { id: 'interface|rfxcom|send', data: { device: BOX_PLUG, value: false } }
-};
-
-const BOX_OFF_STRATEGY_CRON = [
+},  BOX_OFF_STRATEGY_CRON = [
     { cron: '15 59 * * * *', flux: BOX_FLUX.ON },
     { cron: '15 10 * * * *', flux: BOX_FLUX.OFF }
   ],
-  boxOffStrategyCrons = new CronJobList(BOX_OFF_STRATEGY_CRON, 'internetBoxOffStrategy', true);
-
-setImmediate(() => {
-  Scheduler.delay(10).then(() => boxStrategyOnIfAwake());
-});
-
-function boxStrategyOnIfAwake() {
-  if (Core.isAwake()) {
-    boxStrategyOn();
-  }
-}
+  BOX_OFF_STRATEGY_CRON_LIST = new CronJobList(BOX_OFF_STRATEGY_CRON, 'internetBoxOffStrategy', true);
 
 // boxStrategyOffIfNoMotionDetectedAfterMidnight
-function strategyOffIfNoActivity() {
+function offStrategyIfNoActivity() {
+  log.info('offStrategyIfNoActivity');
   if (Core.run('internetBox')) {
     // TODO if after midnight & lastMotionDetect > 1h
     if (!Core.isAwake()) {
-      boxStrategyOff();
+      boxOffStrategy();
     }
   }
 }
 
-function boxStrategyOn() {
-  log.info('Starting internet box strategy...');
-  Core.run('internetBox', true);
-  boxOffStrategyCrons.stop();
+function boxManualOn() {
+  log.info('Stopping internet box OFF strategy...');
+  BOX_OFF_STRATEGY_CRON_LIST.stop();
+
+  log.info('Starting internet box...');
   new Flux(BOX_FLUX.ON);
+  Core.run('internetBox', true);
   new Flux('service|network|testConnection', null, { delay: 30, loop: 2 });
 }
 
-function boxStrategyOff() {
+function boxOffStrategy() {
   // // TODO problem: parse receive from rfxcom instead of flux filter
   // // TODO test internetBoxStrategyCrons.nextDate value in more than 15 min ?
-  // log.test('internetBoxStrategyOff', boxStrategyCrons.nextDate());
 
-  log.info('Stopping internet box strategy');
+  log.info('Stopping internet box...');
   new Flux(BOX_FLUX.OFF);
-  boxOffStrategyCrons.start();
+
+  log.info('Starting internet box OFF strategy... Connexion will be available 10 first minutes of each hour');
+  BOX_OFF_STRATEGY_CRON_LIST.start();
   Core.run('internetBox', false);
 }
