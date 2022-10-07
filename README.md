@@ -1,10 +1,10 @@
 # Framebot
 
-[![Version](https://img.shields.io/github/package-json/v/adrigarry/framebot)](https://github.com/AdriGarry/framebot/tags)
-![Languages](https://img.shields.io/github/languages/count/adrigarry/framebot)
-![Top language](https://img.shields.io/github/languages/top/adrigarry/framebot)
-![Total lines](https://img.shields.io/tokei/lines/github/adrigarry/framebot)
-![Code size](https://img.shields.io/github/languages/code-size/adrigarry/framebot)
+[![Version](https://img.shields.io/github/package-json/v/adrigarry/framebot?style=flat-square)](https://github.com/AdriGarry/framebot/tags)
+![Languages](https://img.shields.io/github/languages/count/adrigarry/framebot?style=flat-square)
+![Top language](https://img.shields.io/github/languages/top/adrigarry/framebot?style=flat-square)
+![Total lines](https://img.shields.io/tokei/lines/github/adrigarry/framebot?style=flat-square)
+![Code size](https://img.shields.io/github/languages/code-size/adrigarry/framebot?style=flat-square)
 
 [![Pull request](https://img.shields.io/github/issues-pr/adrigarry/framebot?style=flat-square)](https://github.com/AdriGarry/framebot/pulls)
 [![Commit](https://img.shields.io/github/commit-activity/w/adrigarry/framebot?style=flat-square)](https://github.com/AdriGarry/framebot/commits/master)
