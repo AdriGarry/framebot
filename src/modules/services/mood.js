@@ -5,7 +5,13 @@ const { Core, Flux, Logger, Observers, Scheduler } = require('./../../api');
 
 const log = new Logger(__filename);
 
-module.exports = {};
+module.exports = {
+  cron: {
+    base: [
+      { cron: '0 0 22 * * *', flux: { id: 'service|mood|set', data: 2 } }
+    ]
+  }
+};
 
 const FLUX_PARSE_OPTIONS = [{ id: 'set', fn: setMoodLevel, condition: { isAwake: true } }];
 
