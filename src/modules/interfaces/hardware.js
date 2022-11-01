@@ -6,7 +6,7 @@ const { exec, spawn } = require('child_process');
 const fs = require('fs'),
   os = require('os');
 
-const { Core, Flux, Logger, Observers, Utils } = require('./../../api');
+const { Core, Files, Flux, Logger, Observers, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
@@ -188,12 +188,10 @@ function loadAverage() {
 /** Function to update last modified date & time of Program's files */
 function retreiveLastModifiedDate(paths) {
   return new Promise((resolve, reject) => {
-    paths = paths.join(' ');
-    Utils.execCmd('/usr/bin/find ' + paths + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
-      .then(data => {
-        let lastDate = data.match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}/g);
-        Core.const('updateDateTime', new Date(lastDate[0]));
-        resolve(lastDate[0]);
+    Files.getLastModifiedDate(paths)
+      .then(lastModifiedDate => {
+        Core.const('updateDateTime', lastModifiedDate);
+        resolve();
       })
       .catch(err => {
         Core.error('retreiveLastModifiedDate error', err);

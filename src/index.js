@@ -48,3 +48,7 @@ if (Core.conf('mode') === 'test') {
     integrationTests.launch();
   }, 1000);
 }
+
+Files.getLastModifiedDate(Core._TMP + 'conf.json').then(lastModifiedDate => {
+  log.test('const.json last modified date:', lastModifiedDate);
+});

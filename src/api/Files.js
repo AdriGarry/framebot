@@ -100,6 +100,25 @@ module.exports = class Files {
     return matchObj.groups.filename;
   }
 
+  /** Function to retreive last modified date & time of path(s) */
+  static getLastModifiedDate(path) {
+    if (Array.isArray(path)) {
+      path = path.join(' ');
+    }
+    return new Promise((resolve, reject) => {
+      Utils.execCmd('/usr/bin/find ' + path + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
+        .then(data => {
+          log.test('__getLastModifiedDate:', data);
+          let lastDate = data.match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/g);
+          resolve(lastDate[0]);
+        })
+        .catch(err => {
+          Core.error('getLastModifiedDate error', err);
+          reject(err);
+        });
+    });
+  }
+
   /** Function to retreive audio or video file duration. Return a Promise */
   static getDuration(soundFile) {
     return new Promise((resolve, reject) => {
