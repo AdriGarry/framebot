@@ -48,5 +48,3 @@ if (Core.conf('mode') === 'test') {
     integrationTests.launch();
   }, 1000);
 }
-
-log.test('From index... const.json last modified date:', Core.conf('_lastModified'));
