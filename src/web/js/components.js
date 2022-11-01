@@ -243,9 +243,9 @@ app.component('options', {
     ctrl.tile = new DefaultTile(tileParams);
 
     const logActionList = [
-        { label: '!Trace', icon: 'fa-regular fa-dot-circle', url: '/toggleTrace' },
-        { label: '!Debug', icon: 'fa-solid fa-circle', url: '/toggleDebug' }
-      ],
+      { label: '!Trace', icon: 'fa-regular fa-dot-circle', url: '/toggleTrace' },
+      { label: '!Debug', icon: 'fa-solid fa-circle', url: '/toggleDebug' }
+    ],
       coreActionList = [
         { label: 'Const', icon: 'fa-solid fa-hockey-puck', url: 'https://odi.adrigarry.com/const' },
         { label: 'Config', icon: 'fa-brands fa-whmcs', url: 'https://odi.adrigarry.com/config.json' },
@@ -615,7 +615,8 @@ app.component('music', {
         { label: 'Playlist childs', icon: 'fa-solid fa-child-reaching', url: '/flux/service/music/playlist', value: 'childs' },
         { label: 'Low', icon: 'fa-solid fa-kiwi-bird', url: '/flux/service/music/playlist', value: 'low' },
         { label: 'Jukebox', icon: 'fa-solid fa-compact-disc', url: '/flux/service/music/playlist' },
-        { label: 'FIP Radio', icon: 'fa-solid fa-globe-europe', url: '/flux/service/music/radio', value: 'fip' }
+        { label: 'FIP', icon: 'fa-solid fa-radio', url: '/flux/service/music/radio', value: 'fip' },
+        { label: 'FIP Hip Hop', icon: 'fa-brands fa-napster', url: '/flux/service/music/radio', value: 'fipHipHop' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
@@ -625,7 +626,9 @@ app.component('music', {
       if (ctrl.data.value === 'jukebox') {
         return 'fa-solid fa-compact-disc';
       } else if (ctrl.data.value === 'fip') {
-        return 'fa-solid fa-globe-europe';
+        return 'fa-solid fa-radio';
+      } else if (ctrl.data.value === 'fipHipHop') {
+        return 'fa-brands fa-napster';
       } else if (ctrl.data.value === 'low') {
         return 'fa-solid fa-kiwi-bird';
       } else {
@@ -963,7 +966,7 @@ app.component('powerPlug', {
         { label: 'Plug 2', icon: 'fa-solid fa-network-wired', value: { device: 'plug2', continu: true } },
         { label: 'Plug 3', icon: 'fa-solid fa-campground', value: { device: 'plug3', continu: true } },
         { label: 'Plug 11', icon: 'fa-solid fa-radio', value: { device: 'plug11', continu: true } },
-        { label: 'Plug 12', icon: 'fa-solid fa-laptop-code', value: { device: 'plug12', continu: true } },
+        { label: 'Plug 12', icon: 'fa-solid fa-plug', value: { device: 'plug12', continu: true } },
         { label: 'Plug 13', icon: 'fa-solid fa-plug', value: { device: 'plug13', continu: true } },
         { label: 'Plug 14', icon: 'fa-solid fa-plug', value: { device: 'plug14', continu: true } }
       ]

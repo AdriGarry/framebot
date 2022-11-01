@@ -35,6 +35,6 @@
   },
   "devDependencies": {
     "mocha": "^9.2.0",
-    "prettier": "^2.4.1"
+    "prettier": "^2.7.1"
   }
 }

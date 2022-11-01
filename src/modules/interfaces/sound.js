@@ -193,7 +193,7 @@ function ledFlag() {
 }
 
 function playErrorSound() {
-  playSound({ file: 'system/ressort.mp3', volume: 10, noLog: true, noLed: true });
+  playSound({ file: 'system/error.mp3', noLog: true, noLed: true });
 }
 
 function playUISound() {
