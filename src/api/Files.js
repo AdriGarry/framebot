@@ -108,7 +108,6 @@ module.exports = class Files {
     return new Promise((resolve, reject) => {
       Utils.execCmd('/usr/bin/find ' + path + ' -exec stat \\{} --printf="%y\\n" \\; | sort -n -r | head -n 1')
         .then(data => {
-          log.test('__getLastModifiedDate:', data);
           let lastDate = data.match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/g);
           resolve(lastDate[0]);
         })

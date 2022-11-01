@@ -49,6 +49,4 @@ if (Core.conf('mode') === 'test') {
   }, 1000);
 }
 
-Files.getLastModifiedDate(Core._TMP + 'conf.json').then(lastModifiedDate => {
-  log.test('const.json last modified date:', lastModifiedDate);
-});
+log.test('From index... const.json last modified date:', Core.conf('_lastModified'));

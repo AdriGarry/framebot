@@ -29,7 +29,7 @@ function _setUpCoreObject(descriptor, startTime) {
   }
   Core.url = descriptor.url;
   Core._CONF = _PATH + 'bots/' + descriptor.name.toLowerCase() + '/';
-  Core.conf = new SharedObject('conf', require(Core._TMP + 'conf.json'), Core._TMP + 'conf.json');
+  Core.conf = new SharedObject('conf', Core._TMP + 'conf.json');
   Core.run = new SharedObject('run', CORE_DEFAULT.runtime);
   Core.const = new SharedObject('const', CORE_DEFAULT.const);
   Core.const('name', descriptor.name.trim().toLowerCase());
