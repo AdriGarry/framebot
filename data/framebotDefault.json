@@ -23,7 +23,7 @@
     "alarms": ".",
     "radiator": ".",
     "flux": [],
-    "powerPlug": {}
+    "rfxcomDevices": {}
   },
   "const": {
     "name": null,
@@ -47,7 +47,6 @@
     "hdmi": null,
     "rfxcom": false,
     "radiator": false,
-    "powerPlug": {},
     "screen": null,
     "weather": {},
     "nmap": false,

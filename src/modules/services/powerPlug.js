@@ -22,15 +22,15 @@ setImmediate(() => {
 let PLUG_TIMEOUTS = {};
 
 function setupPlugTimeoutAtStartup() {
-  let existingPowerPlugValues = Core.conf('powerPlug');
-  if (existingPowerPlugValues && typeof existingPowerPlugValues === 'object' && Object.keys(existingPowerPlugValues).length > 0) {
-    log.info('setting plug timeout at startup...');
-    Object.keys(existingPowerPlugValues).forEach(plugId => {
-      let plugTimeoutData = existingPowerPlugValues[plugId];
-      plugTimeoutData['plug'] = plugId;
-      setPlugTimeout(plugTimeoutData);
-    });
-  }
+  let existingPowerPlugValues = Core.conf('rfxcomDevices');
+  log.info('setting plug timeout at startup...');
+  Object.keys(existingPowerPlugValues).forEach(deviceId => {
+    let device = existingPowerPlugValues[deviceId];
+    if (device.timeout) {
+      device.plug = deviceId;
+      setPlugTimeout(device);
+    }
+  });
 }
 
 function togglePlugManual(arg) {
@@ -42,9 +42,9 @@ function togglePlugManual(arg) {
 
 function removePlugTimeoutFromConf(plugId) {
   log.debug('removePlugTimeoutFromConf');
-  let powerPlugToUpdate = Core.conf('powerPlug');
+  let powerPlugToUpdate = Core.conf('rfxcomDevices');
   delete powerPlugToUpdate[plugId];
-  Core.conf('powerPlug', powerPlugToUpdate);
+  Core.conf('rfxcomDevices', powerPlugToUpdate);
 }
 
 function setPlugTimeout(arg) {
@@ -52,20 +52,20 @@ function setPlugTimeout(arg) {
   clearTimeout(PLUG_TIMEOUTS[arg.plug]);
   plugOrder(arg.plug, arg.mode);
 
-  let powerPlugToUpdate = Core.conf('powerPlug');
+  let powerPlugToUpdate = Core.conf('rfxcomDevices');
   powerPlugToUpdate[arg.plug] = { mode: arg.mode, timeout: arg.timeout };
-  Core.conf('powerPlug', powerPlugToUpdate);
+  Core.conf('rfxcomDevices', powerPlugToUpdate);
   Scheduler.decrement(arg.plug, arg.timeout, endPlugTimeout, 60, decrementPlugTimeout);
 }
 
 function decrementPlugTimeout(plugId) {
-  let arg = Core.conf('powerPlug.' + plugId);
+  let arg = Core.conf('rfxcomDevices.' + plugId);
   arg.timeout = --arg.timeout;
-  Core.conf('powerPlug.' + plugId, arg);
+  Core.conf('rfxcomDevices.' + plugId, arg);
 }
 
 function endPlugTimeout(plugId) {
-  let plugTimeoutMode = Core.conf('powerPlug.' + plugId).mode;
+  let plugTimeoutMode = Core.conf('rfxcomDevices.' + plugId).mode;
   removePlugTimeoutFromConf(plugId);
   let newPlugTimeoutMode = plugTimeoutMode == 'on' ? 'off' : 'on'; // invert mode
   plugOrder(plugId, newPlugTimeoutMode);

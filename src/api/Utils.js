@@ -108,6 +108,11 @@ module.exports = class Utils {
     });
   }
 
+  static getDifferenceInSec(dateToCompare, optionalDate) {
+    if (!optionalDate) optionalDate = new Date();
+    return Math.abs(dateToCompare.getTime() - optionalDate.getTime()) / 1000;
+  }
+
   /** Function to calculate execution time of something */
   static executionTime(startTime) {
     return new Date() - startTime;
