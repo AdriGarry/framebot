@@ -87,6 +87,16 @@ describe('Utils', function () {
     });
   });
 
+  describe('Utils.getDifferenceInSec: return difference in seconds between given date and optional date or now', function () {
+    it('should return 10 seconds', function () {
+      const given = new Date('1999-12-31T00:00:00'),
+        given2 = new Date('1999-12-31T00:00:10'),
+        expected = 10;
+      const result = Utils.getDifferenceInSec(given, given2);
+      assert.strictEqual(result, expected);
+    });
+  });
+
   describe('Utils.executionTime: should return execution time from given Date in millisec', function () {
     it('should return 10ms as elapsed time since given date initialization', function (done) {
       let startTime = new Date();
