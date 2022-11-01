@@ -18,6 +18,7 @@ let lastDetection = null;
 function motionDetect() {
   let lastDetectionInSec = getLastDetectionInSec();
   log.info('Motion detected', '[last motion detected', Utils.formatDuration(lastDetectionInSec) + ' ago]');
+  Core.conf('lastMotionDetect', new Date());
 
   if (Core.run('mood') > 0) {
     new Flux('service|light|motionDetect', null, { log: 'TRACE' });
