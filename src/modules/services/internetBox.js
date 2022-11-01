@@ -23,23 +23,30 @@ Observers.attachFluxParseOptions('service', 'internetBox', FLUX_PARSE_OPTIONS);
 const BOX_PLUG = 'plug2';
 
 const BOX_FLUX = {
-  ON: { id: 'interface|rfxcom|send', data: { device: BOX_PLUG, value: true } },
-  OFF: { id: 'interface|rfxcom|send', data: { device: BOX_PLUG, value: false } }
-},  BOX_OFF_STRATEGY_CRON = [
+    ON: { id: 'interface|rfxcom|send', data: { device: BOX_PLUG, value: true } },
+    OFF: { id: 'interface|rfxcom|send', data: { device: BOX_PLUG, value: false } }
+  },
+  BOX_OFF_STRATEGY_CRON = [
     { cron: '15 59 * * * *', flux: BOX_FLUX.ON },
     { cron: '15 10 * * * *', flux: BOX_FLUX.OFF }
   ],
   BOX_OFF_STRATEGY_CRON_LIST = new CronJobList(BOX_OFF_STRATEGY_CRON, 'internetBoxOffStrategy', true);
 
-// boxStrategyOffIfNoMotionDetectedAfterMidnight
-function offStrategyIfNoActivity() {
-  log.info('offStrategyIfNoActivity');
-  if (Core.run('internetBox')) {
-    // TODO if after midnight & lastMotionDetect > 1h
-    if (!Core.isAwake()) {
-      boxOffStrategy();
-    }
+setTimeout(function () {
+  setupBoxMode();
+}, 15 * 1000);
+
+function setupBoxMode() {
+  if (shouldSetBoxManualOn()) {
+    boxManualOn();
+  } else {
+    // boxOffStrategy();
   }
+}
+function shouldSetBoxManualOn() {
+  return true;
+  return Core.isAwake() && Core.run('internetBox');
+  // TODO && (isAnyoneAtHome || lastDetect < 1h)
 }
 
 function boxManualOn() {
@@ -62,4 +69,15 @@ function boxOffStrategy() {
   log.info('Starting internet box OFF strategy... Connexion will be available 10 first minutes of each hour');
   BOX_OFF_STRATEGY_CRON_LIST.start();
   Core.run('internetBox', false);
+}
+
+// boxStrategyOffIfNoMotionDetectedAfterMidnight
+function offStrategyIfNoActivity() {
+  log.info('offStrategyIfNoActivity');
+  if (Core.run('internetBox')) {
+    // TODO if after midnight & lastMotionDetect > 1h
+    if (!Core.isAwake()) {
+      boxOffStrategy();
+    }
+  }
 }
