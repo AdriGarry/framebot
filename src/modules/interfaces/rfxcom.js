@@ -28,9 +28,9 @@ const DEVICE_LIST = Core.descriptor.rfxcomDevices;
 
 let powerPlugStatus = {};
 Object.keys(DEVICE_LIST).forEach(key => {
-  powerPlugStatus[key] = { status: 'unknow' };
+  powerPlugStatus[key] = Core.conf('rfxcomDevices.' + key) || 'unknow';
 });
-Core.run('powerPlug', powerPlugStatus);
+Core.conf('rfxcomDevices', powerPlugStatus);
 
 rfxtrx.initialise(function () {
   Core.run('rfxcom', true);
@@ -62,7 +62,7 @@ function sendStatus(args) {
   else {
     if (value) DEVICE.switchOn(buildSequence(deviceName));
     else DEVICE.switchOff(buildSequence(deviceName));
-    Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
+    Core.conf('rfxcomDevices.' + deviceName, { mode: value ? 'on' : 'off' });
   }
 }
 
@@ -101,7 +101,7 @@ function updateStatusForPlug(matchPlug) {
   let value = matchPlug.groups.positiveValue;
   let deviceName = getDevice(plugFamily, plugId);
   if (deviceName) {
-    Core.run('powerPlug.' + deviceName, { status: value ? 'on' : 'off' });
+    Core.conf('rfxcomDevices.' + deviceName, { mode: value ? 'on' : 'off' });
     log.info(`Received plug signal parsed. PlugId: ${deviceName} [${plugId}], value: ${value ? true : false} [${value}]`);
   } else log.error('Unknow device: ' + deviceName, { plugFamily, plugId });
 }

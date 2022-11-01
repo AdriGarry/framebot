@@ -109,7 +109,7 @@ function attachDefaultRoutes(ui) {
         active: true
       },
       weather: { value: Core.run('weather') },
-      powerPlug: { value: Core.run('powerPlug') },
+      powerPlug: { value: Core.conf('rfxcomDevices') },
       rfxcom: { value: Core.run('rfxcom') },
       arduino: { value: Core.run('max') },
       video: { value: Core.run('hdmi') },
