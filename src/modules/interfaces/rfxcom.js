@@ -38,8 +38,10 @@ rfxtrx.initialise(function () {
   log.info('Rfxcom gateway ready', '[' + Utils.executionTime(Core.startTime) + 'ms]');
 
   rfxtrx.on('receive', function (evt) {
-    new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
-    parseReceivedSignal(evt);
+    if (Core.run('rfxcom')) {
+      new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
+      parseReceivedSignal(evt);
+    }
   });
 
   rfxtrx.on('disconnect', function (evt) {
@@ -50,7 +52,7 @@ rfxtrx.initialise(function () {
 function sendStatus(args) {
   if (!Core.run('rfxcom')) {
     new Flux('interface|tts|speak', { lg: 'en', msg: 'rfxcom not available' });
-    log.warn('rfxcom gateway not available!');
+    log.warn('Rfxcom gateway not available!');
     return;
   }
   log.debug('sendStatus', args);
