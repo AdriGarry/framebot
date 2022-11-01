@@ -27,8 +27,9 @@ const DEVICE = new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
 const DEVICE_LIST = Core.descriptor.rfxcomDevices;
 
 let powerPlugStatus = {};
+const isConfTrustable = Utils.getDifferenceInSec(Core.conf('_lastModified')) <= 10;
 Object.keys(DEVICE_LIST).forEach(key => {
-  powerPlugStatus[key] = Core.conf('rfxcomDevices.' + key) || 'unknow';
+  powerPlugStatus[key] = (isConfTrustable && Core.conf('rfxcomDevices.' + key)) || 'unknow';
 });
 Core.conf('rfxcomDevices', powerPlugStatus);
 
