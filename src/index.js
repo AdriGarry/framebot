@@ -48,3 +48,5 @@ if (Core.conf('mode') === 'test') {
     integrationTests.launch();
   }, 1000);
 }
+
+new Flux('service|presence|check', null, { delay: 15 });

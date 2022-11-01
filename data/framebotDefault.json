@@ -23,7 +23,8 @@
     "alarms": ".",
     "radiator": ".",
     "flux": [],
-    "rfxcomDevices": {}
+    "rfxcomDevices": {},
+    "lastMotionDetect":null
   },
   "const": {
     "name": null,

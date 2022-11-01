@@ -109,6 +109,7 @@ module.exports = class Utils {
   }
 
   static getDifferenceInSec(dateToCompare, optionalDate) {
+    if (!dateToCompare) return -1;
     if (!optionalDate) optionalDate = new Date();
     return Math.abs(dateToCompare.getTime() - optionalDate.getTime()) / 1000;
   }
