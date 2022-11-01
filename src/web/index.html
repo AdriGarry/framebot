@@ -290,10 +290,11 @@
 				<rfxcom data="dashboard.runningData.rfxcom" data-access="$root.irda" flex="33"></rfxcom>
 				<arduino data="dashboard.runningData.arduino" data-access="$root.irda" flex="33"
 					data-odi-state="dashboard.odiState"></arduino>
-				<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
+				<presence data="dashboard.runningData" data-access="$root.irda" flex="33"></presence>
 				<nmap data="dashboard.runningData" data-access="$root.irda" flex="33"></nmap>
 				<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
-				<about data="dashboard.runningData.about" data-access="true" flex="100"></about>
+				<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
+				<about data="dashboard.runningData.about" data-access="true" flex="66"></about>
 			</div>
 
 			<md-button data-ng-click="showLogs()" data-ng-show="$root.irda" data-ng-class="[{'active':fabButtonsVisible}]"

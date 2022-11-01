@@ -1230,8 +1230,8 @@ app.component('nmap', {
   }
 });
 
-/** Router component */
-app.component('router', {
+/** Presence component */
+app.component('presence', {
   bindings: {
     data: '<',
     access: '<'
@@ -1240,9 +1240,9 @@ app.component('router', {
   controller: function (DefaultTile) {
     const ctrl = this;
     const tileParams = {
-      label: 'Router',
+      label: 'Presence',
       actionList: [
-        { label: 'On Manual', icon: 'fa-solid fa-toggle-on', url: '/flux/service/internetBox/on' },
+        { label: 'Show data', icon: 'fa-solid fa-info', url: '/flux/service/presence/show' },
         { label: 'Off Strategy', icon: 'fa-solid fa-toggle-off', url: '/flux/service/internetBox/offStrategy' }
       ]
     };
