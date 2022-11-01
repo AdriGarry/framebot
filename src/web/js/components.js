@@ -243,9 +243,9 @@ app.component('options', {
     ctrl.tile = new DefaultTile(tileParams);
 
     const logActionList = [
-      { label: '!Trace', icon: 'fa-regular fa-dot-circle', url: '/toggleTrace' },
-      { label: '!Debug', icon: 'fa-solid fa-circle', url: '/toggleDebug' }
-    ],
+        { label: '!Trace', icon: 'fa-regular fa-dot-circle', url: '/toggleTrace' },
+        { label: '!Debug', icon: 'fa-solid fa-circle', url: '/toggleDebug' }
+      ],
       coreActionList = [
         { label: 'Const', icon: 'fa-solid fa-hockey-puck', url: 'https://odi.adrigarry.com/const' },
         { label: 'Config', icon: 'fa-brands fa-whmcs', url: 'https://odi.adrigarry.com/config.json' },
@@ -996,12 +996,12 @@ app.component('powerPlug', {
     }
 
     function getMode(plugId) {
-      return ctrl.data.powerPlug.value[plugId].status;
+      return ctrl.data.powerPlug.value[plugId].mode || ctrl.data.powerPlug.value[plugId];
     }
 
     function getPlugTimeoutIfExists(plugId) {
-      if (ctrl.data.config.powerPlug[plugId]) {
-        let plugTimeout = ctrl.data.config.powerPlug[plugId].timeout;
+      if (ctrl.data.config.rfxcomDevices[plugId]) {
+        let plugTimeout = ctrl.data.config.rfxcomDevices[plugId].timeout;
         if (plugTimeout) {
           return plugTimeout;
         }
