@@ -292,9 +292,8 @@
 					data-odi-state="dashboard.odiState"></arduino>
 				<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
 				<nmap data="dashboard.runningData" data-access="$root.irda" flex="33"></nmap>
-				<router data="dashboard.runningData" data-access="$root.irda" flex="33"></router>
 				<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
-				<about data="dashboard.runningData.about" data-access="true" flex="66"></about>
+				<about data="dashboard.runningData.about" data-access="true" flex="100"></about>
 			</div>
 
 			<md-button data-ng-click="showLogs()" data-ng-show="$root.irda" data-ng-class="[{'active':fabButtonsVisible}]"
