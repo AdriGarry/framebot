@@ -23,14 +23,14 @@ let PLUG_TIMEOUTS = {};
 
 function setupPlugTimeoutAtStartup() {
   let existingPowerPlugValues = Core.conf('rfxcomDevices');
-  if (existingPowerPlugValues && typeof existingPowerPlugValues === 'object' && Object.keys(existingPowerPlugValues).length > 0) {
-    log.info('setting plug timeout at startup...');
-    Object.keys(existingPowerPlugValues).forEach(plugId => {
-      let plugTimeoutData = existingPowerPlugValues[plugId];
-      plugTimeoutData['plug'] = plugId;
-      setPlugTimeout(plugTimeoutData);
-    });
-  }
+  log.info('setting plug timeout at startup...');
+  Object.keys(existingPowerPlugValues).forEach(deviceId => {
+    let device = existingPowerPlugValues[deviceId];
+    if (device.timeout) {
+      device.plug = deviceId;
+      setPlugTimeout(device);
+    }
+  });
 }
 
 function togglePlugManual(arg) {
