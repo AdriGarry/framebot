@@ -32,9 +32,9 @@ const BOX_FLUX = {
   ],
   BOX_OFF_STRATEGY_CRON_LIST = new CronJobList(BOX_OFF_STRATEGY_CRON, 'internetBoxOffStrategy', true);
 
-setTimeout(function () {
-  setupBoxMode();
-}, 15 * 1000);
+setImmediate(() => {
+  Scheduler.delay(10).then(setupBoxMode);
+});
 
 function setupBoxMode() {
   if (shouldSetBoxManualOn()) {
