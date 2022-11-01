@@ -5,7 +5,7 @@
 const dns = require('dns'),
   os = require('os');
 
-const { Core, CronJobList, Logger, Observers, Utils } = require('../../api');
+const { Core, Logger, Observers, Utils } = require('../../api');
 
 const log = new Logger(__filename);
 
@@ -16,20 +16,13 @@ module.exports = {
 };
 
 const FLUX_PARSE_OPTIONS = [
-  { id: 'strategy', fn: internetBoxStrategy },
-  { id: 'strategyOff', fn: internetBoxStrategyOff },
-  { id: 'netstat', fn: logNetstat }
+  { id: 'netstat', fn: logNetstat },
+  { id: 'testConnection', fn: testConnectionTwice }
 ];
 
 Observers.attachFluxParseOptions('service', 'network', FLUX_PARSE_OPTIONS);
 
 const LOCAL_CONNECTIONS_PATTERNS_REGEX = new RegExp(/192\.168.*|serv.*|locale.*/);
-
-const INTERNET_BOX_STRATEGY_CRON = [
-    { cron: '0 55 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plug2', value: true } } },
-    { cron: '0 10 * * * *', flux: { id: 'interface|rfxcom|send', data: { device: 'plug2', value: false } } }
-  ],
-  internetBoxStrategyCrons = new CronJobList(INTERNET_BOX_STRATEGY_CRON, 'internetBoxOffStrategy', true);
 
 const DELAY_BEFORE_RETRY = 60 * 1000;
 
@@ -38,10 +31,20 @@ let isOnline,
 
 setImmediate(() => {
   logNetstat();
+  testConnectionTwice();
   Core.run('network.local', getLocalIp());
 });
 
-let internetTestInterval = setInterval(() => {
+// TODO refactor as Cron... with start/stop...
+setInterval(() => {
+  if (Core.run('internetBox')) {
+    testConnectionTwice();
+  } else {
+    log.info('internetBox is off, no internet connection.');
+  }
+}, DELAY_BEFORE_RETRY);
+
+function testConnectionTwice() {
   testConnection()
     .then(onlineCallback)
     .catch(() => {
@@ -49,7 +52,7 @@ let internetTestInterval = setInterval(() => {
       log.info('Internet connection test failed, retrying...');
       testConnection().then(onlineCallback).catch(notConnectedCallback);
     });
-}, DELAY_BEFORE_RETRY);
+}
 
 function logNetstat(port = '*') {
   Utils.execCmd(getNetstatCommand(port))
@@ -86,6 +89,7 @@ function getNetstatCommand(port) {
 
 function onlineCallback() {
   if (!isOnline || isRetrying) {
+    Core.run('internetBox', true);
     log.info("I'm on the internet!");
     getPublicIp().then(ip => Core.run('network.public', ip));
   }
@@ -100,23 +104,6 @@ function notConnectedCallback(err) {
     Core.run('network.public', 'offline');
   }
   isOnline = false;
-}
-
-/** Function to get connected from 0 to 10 min of each hour */
-function internetBoxStrategy() {
-  log.info('Starting internet box strategy...');
-  internetBoxStrategyCrons.start();
-}
-
-function internetBoxStrategyOff() {
-  // TODO problem: parse receive from rfxcom instead of flux filter
-  // TODO test internetBoxStrategyCrons.nextDate value in more than 15 min ?
-  log.info('internetBoxStrategyOff', internetBoxStrategyCrons.nextDate());
-  if (false) {
-    log.info('Stopping internet box strategy');
-    internetBoxStrategyCrons.stop();
-    clearInterval(internetTestInterval);
-  }
 }
 
 /** Function to test internet connection */

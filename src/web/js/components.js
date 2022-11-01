@@ -963,7 +963,7 @@ app.component('powerPlug', {
       label: 'Power plug',
       actionList: [
         { label: 'Plug 1', icon: 'fa-solid fa-computer', value: { device: 'plug1', continu: true } },
-        { label: 'Plug 2', icon: 'fa-solid fa-plug', value: { device: 'plug2', continu: true } },
+        { label: 'Plug 2', icon: 'fa-solid fa-network-wired', value: { device: 'plug2', continu: true } },
         { label: 'Plug 3', icon: 'fa-solid fa-campground', value: { device: 'plug3', continu: true } },
         { label: 'Plug 11', icon: 'fa-solid fa-radio', value: { device: 'plug11', continu: true } },
         { label: 'Plug 12', icon: 'fa-solid fa-plug', value: { device: 'plug12', continu: true } },
@@ -1224,6 +1224,26 @@ app.component('nmap', {
         { label: 'Scan', icon: 'fa-solid fa-broadcast-tower', url: '/flux/interface/nmap/scan' },
         { label: 'Loop', icon: 'fa-solid fa-sync', url: '/flux/interface/nmap/continuous' },
         { label: 'Stop', icon: 'fa-solid fa-stop', url: '/flux/interface/nmap/stop' }
+      ]
+    };
+    ctrl.tile = new DefaultTile(tileParams);
+  }
+});
+
+/** Router component */
+app.component('router', {
+  bindings: {
+    data: '<',
+    access: '<'
+  },
+  templateUrl: 'templates/tiles.html',
+  controller: function (DefaultTile) {
+    const ctrl = this;
+    const tileParams = {
+      label: 'Router',
+      actionList: [
+        { label: 'On Manual', icon: 'fa-solid fa-toggle-on', url: '/flux/service/internetBox/on' },
+        { label: 'Off Strategy', icon: 'fa-solid fa-toggle-off', url: '/flux/service/internetBox/offStrategy' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);

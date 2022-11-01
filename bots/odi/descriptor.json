@@ -20,6 +20,7 @@
         "message",
         "voicemail",
         "audioRecord",
+        "internetBox",
         "light",
         "motionDetect",
         "radiator",
