@@ -1242,7 +1242,7 @@ app.component('presence', {
     const tileParams = {
       label: 'Presence',
       actionList: [
-        { label: 'Check', icon: 'fa-solid fa-info', url: '/flux/service/presence/check' },
+        { label: 'Check', icon: 'fa-solid fa-rotate', url: '/flux/service/presence/check' },
         { label: 'Off Strategy', icon: 'fa-solid fa-toggle-off', url: '/flux/service/internetBox/offStrategy' }
       ]
     };
