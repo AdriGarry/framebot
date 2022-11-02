@@ -29,7 +29,7 @@ let loopStart;
 function loop() {
   log.info('starting diapo loop...');
   if (!Core.run('hdmi')) {
-    new Flux('interface|hdmi|on');
+    Flux.do('interface|hdmi|on');
   }
   Core.run('screen', true);
   loopStart = new Date();

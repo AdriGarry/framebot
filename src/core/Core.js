@@ -89,14 +89,14 @@ function initializeContext(descriptor, forcedParams, startTime) {
   const Flux = require('../api/Flux.js'),
     ModuleLoader = require('./ModuleLoader.js');
 
-  new Flux('service|context|update', confUpdate, { delay: 0.1, log: 'debug' });
+  Flux.do('service|context|update', confUpdate, { delay: 0.1, log: 'debug' });
 
   log.info('Core context initialized [' + Utils.executionTime(startTime) + 'ms]');
   let moduleLoader = new ModuleLoader(descriptor.modules);
   moduleLoader.load();
   log.info('all modules loaded [' + Utils.executionTime(Core.startTime) + 'ms]');
 
-  new Flux('interface|server|start', null, { log: 'trace' });
+  Flux.do('interface|server|start', null, { log: 'trace' });
   moduleLoader.setupCron();
   Object.seal(Core);
   return Core;

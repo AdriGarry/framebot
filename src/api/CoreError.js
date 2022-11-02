@@ -41,8 +41,8 @@ module.exports = class CoreError extends Error {
   }
 
   notify() {
-    new Flux('interface|led|altLeds', { speed: 30, duration: 1.5 }, { log: 'trace' });
-    new Flux('interface|sound|error', null, { log: 'trace' });
+    Flux.do('interface|led|altLeds', { speed: 30, duration: 1.5 }, { log: 'trace' });
+    Flux.do('interface|sound|error', null, { log: 'trace' });
   }
 
   persist() {

@@ -60,14 +60,14 @@ Promise.all(promises).then(() => {
 
 /** Function playlist (repeat for one hour) */
 function playlist(playlistId) {
-  new Flux('interface|sound|mute', null, { log: 'trace' });
+  Flux.do('interface|sound|mute', null, { log: 'trace' });
   if (typeof playlistId !== 'string' || !Utils.searchStringInArray(playlistId, Object.keys(PLAYLIST))) {
     log.info("Playlist id '" + playlistId + "' not reconized, fallback to default playlist.");
     playlistId = 'jukebox';
   }
   log.info(`Playlist ${playlistId} in loop mode !`);
   Core.run('music', playlistId);
-  new Flux('interface|sound|mute', { message: 'Auto mute jukebox!', delay: AUTO_MUTE_TIMEOUT });
+  Flux.do('interface|sound|mute', { message: 'Auto mute jukebox!', delay: AUTO_MUTE_TIMEOUT });
   setTimeout(() => {
     nextSong(PLAYLIST[playlistId]);
   }, 1000);
@@ -78,7 +78,7 @@ function nextSong(playlistObj) {
   log.info('Playlist ' + playlistObj.id + ' next song:', song);
   Files.getDuration(playlistObj.path + song)
     .then(durationInSeconds => {
-      new Flux('interface|sound|play', { file: playlistObj.path + song });
+      Flux.do('interface|sound|play', { file: playlistObj.path + song });
       playlistObj.timeout = setTimeout(function () {
         nextSong(playlistObj);
       }, durationInSeconds * 1000);
@@ -95,7 +95,7 @@ function playRadio(radioId) {
       log.info('Already playing radio', Core.run('music'));
       return;
     }
-    new Flux('interface|sound|mute', null, { log: 'trace' });
+    Flux.do('interface|sound|mute', null, { log: 'trace' });
     let radio;
     if (radioId && RADIO_LIST.hasOwnProperty(radioId)) {
       radio = RADIO_LIST[radioId];
@@ -104,11 +104,11 @@ function playRadio(radioId) {
       radio = RADIO_LIST.fip;
     }
     log.info('Play radio ' + radio.id);
-    new Flux('interface|tts|speak', radio.id);
+    Flux.do('interface|tts|speak', radio.id);
 
-    new Flux('interface|sound|play', { url: radio.url }, { delay: 2 });
+    Flux.do('interface|sound|play', { url: radio.url }, { delay: 2 });
     Core.run('music', radio.id);
-    new Flux('interface|sound|mute', { message: 'Auto Mute radio!', delay: AUTO_MUTE_TIMEOUT });
+    Flux.do('interface|sound|mute', { message: 'Auto Mute radio!', delay: AUTO_MUTE_TIMEOUT });
   } else {
     log.info('No internet connexion, falling back to jukebox');
     playlist();
@@ -134,11 +134,11 @@ Core.const('stories', STORIES);
 function playStory(story) {
   let storyToPlay = Utils.searchStringInArray(story, STORIES);
   if (storyToPlay) {
-    new Flux('interface|sound|mute');
-    new Flux('interface|tts|speak', { lg: 'en', msg: 'story' });
+    Flux.do('interface|sound|mute');
+    Flux.do('interface|tts|speak', { lg: 'en', msg: 'story' });
     Core.run('music', 'story');
-    new Flux('interface|sound|playRandom', { file: storyToPlay });
+    Flux.do('interface|sound|playRandom', { file: storyToPlay });
   } else {
-    new Flux('interface|tts|speak', { lg: 'en', msg: 'error story' });
+    Flux.do('interface|tts|speak', { lg: 'en', msg: 'error story' });
   }
 }

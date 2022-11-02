@@ -54,7 +54,7 @@ function buildJobList(jobList) {
   jobList.forEach(job => {
     jobs.push(
       new CronJob(job.cron, () => {
-        new Flux(job.flux);
+        Flux.do(job.flux);
       })
     );
   });

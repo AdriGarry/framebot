@@ -76,10 +76,10 @@ function randomAction() {
   lastAction = nextAction;
   try {
     log.info('randomAction:', nextAction.id, '[' + nextAction.weight + ']');
-    new Flux(nextAction.id, nextAction.data);
+    Flux.do(nextAction.id, nextAction.data);
   } catch (err) {
-    new Flux('interface|sound|volume', 50);
-    new Flux('interface|tts|speak', 'sa i est, je suis tomber sur le fameux bug!');
+    Flux.do('interface|sound|volume', 50);
+    Flux.do('interface|tts|speak', 'sa i est, je suis tomber sur le fameux bug!');
     log.test('nextAction', nextAction);
     log.test('err', err);
     Core.error('ACTION TO DEBUG =>', { nextAction: nextAction, err: err }); // TODO
@@ -88,34 +88,34 @@ function randomAction() {
 
 function exclamation() {
   log.info('Exclamation');
-  new Flux('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { log: 'trace' });
+  Flux.do('interface|led|blink', { leds: ['eye'], speed: Utils.random(40, 100), loop: 6 }, { log: 'trace' });
   let newtExclamation = exclamationRandomBox.next();
-  new Flux('interface|sound|play', {
+  Flux.do('interface|sound|play', {
     file: 'exclamation/' + newtExclamation
   });
 }
 
 function civilHorn() {
   log.info('Civil Horn');
-  new Flux('interface|led|blink', { leds: ['eye', 'belly'], speed: 90, loop: 50 }, { log: 'trace' });
-  new Flux('interface|arduino|connect');
-  new Flux('interface|sound|play', {
+  Flux.do('interface|led|blink', { leds: ['eye', 'belly'], speed: 90, loop: 50 }, { log: 'trace' });
+  Flux.do('interface|arduino|connect');
+  Flux.do('interface|sound|play', {
     file: 'civilHorn.mp3'
   });
-  new Flux('service|max|hornSiren', null, { delay: 3.2 });
+  Flux.do('service|max|hornSiren', null, { delay: 3.2 });
 }
 
 function russia() {
   log.info('Russia !');
   let russiaExclamation = russiaExclamationRandomBox.next();
-  new Flux('interface|sound|play', {
+  Flux.do('interface|sound|play', {
     file: 'exclamation_russia/' + russiaExclamation
   });
 }
 
 function uneHeure() {
   log.info('Il est 1 heure et tout va bien !');
-  new Flux('interface|sound|play', {
+  Flux.do('interface|sound|play', {
     file: 'system/uneHeure.mp3',
     volume: 40
   });
@@ -124,7 +124,7 @@ function uneHeure() {
 function demo() {
   log.INFO('Starting Demo !');
   Core.ttsMessages.demo.forEach(tts => {
-    new Flux('interface|tts|speak', tts);
+    Flux.do('interface|tts|speak', tts);
   });
 }
 
@@ -132,6 +132,6 @@ function weekDayTTS() {
   let TTS_1 = "Si aujourdh'ui on est ";
   let TTS_2 = 'Alors, demain on sera ';
   let dayOfWeek = new Date().getDay();
-  new Flux('interface|tts|speak', TTS_1 + CALENDAR.days[dayOfWeek]);
-  new Flux('interface|tts|speak', TTS_2 + (CALENDAR.days[dayOfWeek + 1] || CALENDAR.days[0]));
+  Flux.do('interface|tts|speak', TTS_1 + CALENDAR.days[dayOfWeek]);
+  Flux.do('interface|tts|speak', TTS_2 + (CALENDAR.days[dayOfWeek + 1] || CALENDAR.days[0]));
 }

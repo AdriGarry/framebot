@@ -62,9 +62,9 @@ function runtime(shouldLogRuntime) {
 /** Function to reboot RPI */
 function reboot() {
   if (Core.isAwake()) {
-    new Flux('interface|sound|mute');
-    new Flux('interface|tts|speak', { msg: 'Je redaimarre' });
-    new Flux('interface|arduino|write', 'playHornOff', { delay: 2 });
+    Flux.do('interface|sound|mute');
+    Flux.do('interface|tts|speak', { msg: 'Je redaimarre' });
+    Flux.do('interface|arduino|write', 'playHornOff', { delay: 2 });
   }
   console.log('\n\n_/!\\__REBOOTING RASPBERRY PI !!\n');
   setTimeout(function () {
@@ -75,9 +75,9 @@ function reboot() {
 /** Function to shutdown RPI */
 function shutdown() {
   if (Core.isAwake()) {
-    new Flux('interface|sound|mute');
-    new Flux('interface|tts|speak', { msg: 'Arret system' });
-    new Flux('interface|arduino|write', 'playHornOff', { delay: 2 });
+    Flux.do('interface|sound|mute');
+    Flux.do('interface|tts|speak', { msg: 'Arret system' });
+    Flux.do('interface|arduino|write', 'playHornOff', { delay: 2 });
   }
   setTimeout(function () {
     console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!\n");
@@ -90,11 +90,11 @@ function cpuStatsTTS() {
   retreiveCpuTemperature()
     .then(retreiveCpuUsage)
     .then(() => {
-      new Flux('interface|tts|speak', {
+      Flux.do('interface|tts|speak', {
         lg: 'fr',
         msg: 'Mon ' + Utils.randomItem(['processeur', 'CPU']) + ' est a ' + Core.run('cpu.temperature')
       });
-      new Flux('interface|tts|speak', { lg: 'fr', msg: 'Et il tourne a ' + Core.run('cpu.usage') });
+      Flux.do('interface|tts|speak', { lg: 'fr', msg: 'Et il tourne a ' + Core.run('cpu.usage') });
     });
 }
 
@@ -149,7 +149,7 @@ let startMeasure = cpuAverage();
 function soulTTS() {
   let size = Math.round(Core.run('memory.framebot'));
   let ttsMsg = size + ' maiga octet, sait le poids de mon ame ' + (Utils.rdm() ? '' : 'en ce moment');
-  new Flux('interface|tts|speak', ttsMsg);
+  Flux.do('interface|tts|speak', ttsMsg);
 }
 
 /** Function to get memory usage stats (Core + system) */
@@ -205,7 +205,7 @@ function diskSpaceTTS() {
   getDiskSpace().then(() => {
     let diskSpace = parseInt(Core.run('stats.diskSpace'));
     let ttsMsg = Utils.rdm() ? "J'utilise " + diskSpace + '% de mon espace de stockage' : 'Mon disque est utiliser a ' + diskSpace + '%';
-    new Flux('interface|tts|speak', ttsMsg);
+    Flux.do('interface|tts|speak', ttsMsg);
   });
 }
 
@@ -222,7 +222,7 @@ function getDiskSpace() {
         if (parseInt(diskSpace) >= 80) {
           let logMessage = 'Warning: disk space almost full: ' + Core.run('stats.diskSpace') + '%';
           log.warn(logMessage);
-          new Flux('service|sms|send', logMessage);
+          Flux.do('service|sms|send', logMessage);
         }
         resolve(diskSpace[0]);
       })
@@ -236,7 +236,7 @@ function getDiskSpace() {
 /** Function to TTS program's program total lines */
 function totalLinesTTS() {
   let ttsMsg = 'Mon programme est composer de ' + Core.const('totalLines') + ' lignes de code';
-  new Flux('interface|tts|speak', ttsMsg);
+  Flux.do('interface|tts|speak', ttsMsg);
 }
 
 const TOTAL_LINES_REGEX = new RegExp(/(?<totalLines>\d*) total/);

@@ -72,9 +72,9 @@ function newEvent(event) {
 }
 
 function someoneAtHome() {
-  new Flux('service|internetBox|on');
+  Flux.do('service|internetBox|on');
 }
 
 function nooneAtHome() {
-  new Flux('service|internetBox|off');
+  Flux.do('service|internetBox|off');
 }

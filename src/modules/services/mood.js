@@ -7,9 +7,7 @@ const log = new Logger(__filename);
 
 module.exports = {
   cron: {
-    base: [
-      { cron: '0 0 22 * * *', flux: { id: 'service|mood|set', data: 2 } }
-    ]
+    base: [{ cron: '0 0 22 * * *', flux: { id: 'service|mood|set', data: 2 } }]
   }
 };
 
@@ -32,7 +30,7 @@ const DEFAULT_MOOD_LEVEL = Core.run('mood'),
 function setMoodLevel(newMoodLevelId) {
   log.info('Setting mood level to', newMoodLevelId);
   Core.run('mood', newMoodLevelId);
-  new Flux('interface|sound|volume', MOOD_LEVELS[newMoodLevelId].volume);
+  Flux.do('interface|sound|volume', MOOD_LEVELS[newMoodLevelId].volume);
   if (newMoodLevelId > DEFAULT_MOOD_LEVEL) schedulingBackToDefaultMoodLevel();
   additionalMoodSetup(newMoodLevelId);
 }
@@ -48,36 +46,36 @@ function backToDefaultMoodLevel() {
 }
 
 function additionalMoodSetup(moodLevelId) {
-  if (moodLevelId >= 2) new Flux('interface|tts|speak', { lg: 'en', voice: 'google', msg: 'Mood level ' + moodLevelId });
+  if (moodLevelId >= 2) Flux.do('interface|tts|speak', { lg: 'en', voice: 'google', msg: 'Mood level ' + moodLevelId });
 
   if (moodLevelId >= 3) {
     // Max + interaction
-    new Flux('interface|arduino|connect');
+    Flux.do('interface|arduino|connect');
     scheduleFluxWhileMoodLevel(3, 13, { id: 'service|interaction|random' });
   } else if (Core.run('max')) {
-    new Flux('interface|arduino|disconnect');
+    Flux.do('interface|arduino|disconnect');
   }
 
   if (moodLevelId >= 4) {
     // HDMI (video loop)
-    new Flux('interface|video|loop');
+    Flux.do('interface|video|loop');
     scheduleFluxWhileMoodLevel(4, 9, { id: 'service|interaction|random' });
   } else if (Core.run('screen')) {
-    new Flux('interface|hdmi|off');
+    Flux.do('interface|hdmi|off');
   }
 
   if (moodLevelId === 5) {
     // Party
-    new Flux('service|party|start');
+    Flux.do('service|party|start');
     scheduleFluxWhileMoodLevel(5, 7, { id: 'service|party|pirate' });
   }
 }
 
 function scheduleFluxWhileMoodLevel(moodLevelLimit, minutesInterval, flux) {
   log.info(`Scheduling flux '${flux.id}', at mood level limit ${moodLevelLimit}, each ${minutesInterval} minutes`);
-  new Flux(flux.id, flux.data);
+  Flux.do(flux.id, flux.data);
   let interval = setInterval(() => {
-    if (Core.run('mood') >= moodLevelLimit) new Flux(flux.id, flux.data);
+    if (Core.run('mood') >= moodLevelLimit) Flux.do(flux.id, flux.data);
     else clearInterval(interval);
   }, minutesInterval * 60 * 1000);
 }

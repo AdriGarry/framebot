@@ -13,19 +13,19 @@ log.info('Flux test sequence...');
 
 module.exports.runTest = function (succeedTest) {
   return new Promise((resolve, reject) => {
-    new Flux('service|max|blinkAllLed', null, { delay: 2, loop: 3 });
+    Flux.do('service|max|blinkAllLed', null, { delay: 2, loop: 3 });
 
     assert.strictEqual(Core.run('timer'), 0);
-    new Flux('service|timer|increase');
+    Flux.do('service|timer|increase');
     setImmediate(() => {
       assert.ok(Core.run('timer'));
     });
 
-    new Flux('service|max|playOneMelody');
+    Flux.do('service|max|playOneMelody');
 
-    new Flux('service|nmap|scan');
+    Flux.do('service|nmap|scan');
 
-    // new Flux('service|voicemail|new', {msg: 'are you there ?'}, 8);
+    // Flux.do('service|voicemail|new', {msg: 'are you there ?'}, 8);
     // let rdmTTS = Core.ttsMessages.random[Utils.random(Core.ttsMessages.random.length)];
     let rdmTTS = Utils.randomItem(Core.ttsMessages.random);
     while (Array.isArray(rdmTTS)) {
@@ -33,13 +33,13 @@ module.exports.runTest = function (succeedTest) {
     }
     // let rdmTTS = Utils.randomItem(Core.ttsMessages.random);
     log.DEBUG(rdmTTS);
-    new Flux('service|voicemail|new', rdmTTS, { delay: 8 });
-    new Flux('service|voicemail|check', null, { delay: 11 });
-    new Flux('service|voicemail|clear', null, { delay: 30 });
+    Flux.do('service|voicemail|new', rdmTTS, { delay: 8 });
+    Flux.do('service|voicemail|check', null, { delay: 11 });
+    Flux.do('service|voicemail|clear', null, { delay: 30 });
 
-    new Flux('service|max|hornRdm');
+    Flux.do('service|max|hornRdm');
 
-    new Flux('service|weather|report', 'random', { delay: 16 });
+    Flux.do('service|weather|report', 'random', { delay: 16 });
 
     setTimeout(() => {
       assert.strictEqual(Core.run('voicemail'), 0);

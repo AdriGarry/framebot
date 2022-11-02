@@ -16,6 +16,10 @@ const LOG_LEVELS = ['info', 'debug', 'trace'],
   FLUX_REGEX = new RegExp(/(?<type>\w+)\|(?<subject>\w+)\|(?<id>\w+)/);
 
 module.exports = class Flux {
+  static do(idParam, data, conf) {
+    new Flux(idParam, data, conf);
+  }
+
   constructor(idParam, data, conf) {
     if (!Observers.isReady()) {
       Core.error('Flux manager not yet ready');
@@ -24,13 +28,13 @@ module.exports = class Flux {
 
     if (Array.isArray(idParam)) {
       idParam.forEach(flux => {
-        new Flux(flux.id, flux.data, flux.conf);
+        Flux.do(flux.id, flux.data, flux.conf);
       });
       return;
     }
 
     if (typeof idParam === 'object' && idParam.hasOwnProperty('id')) {
-      new Flux(idParam.id, idParam.data, idParam.conf);
+      Flux.do(idParam.id, idParam.data, idParam.conf);
       return;
     }
 

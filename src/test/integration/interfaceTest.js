@@ -20,14 +20,14 @@ module.exports.runTest = function (succeedTest) {
     assert.strictEqual(Core.run('music'), false);
     assert.strictEqual(Core.run('alarm'), false);
 
-    new Flux('interface|sound|volume', 60);
-    new Flux('interface|sound|volume', 40, { delay: 4 });
+    Flux.do('interface|sound|volume', 60);
+    Flux.do('interface|sound|volume', 40, { delay: 4 });
 
-    new Flux('interface|hardware|cpuTTS', null, { delay: 1 });
+    Flux.do('interface|hardware|cpuTTS', null, { delay: 1 });
 
     setTimeout(() => {
       assert.strictEqual(Core.errors.length, 0);
-      new Flux('interface|sound|mute', { delay: 5, message: 'DELAY 3' });
+      Flux.do('interface|sound|mute', { delay: 5, message: 'DELAY 3' });
       setTimeout(() => {
         if (Core.errors.length > 0) reject('interfaceTest');
         resolve('interfaceTest');

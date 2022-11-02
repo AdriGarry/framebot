@@ -18,7 +18,7 @@ module.exports = {
 };
 
 let securityMiddleware = function (req, res, next) {
-  new Flux('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
+  Flux.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
 
   let requestData = getRequestData(req);
 
@@ -48,7 +48,7 @@ let securityMiddleware = function (req, res, next) {
   }
 
   log.info(requestData.ui + ' ' + decodeURI(req.url), requestData.log);
-  if (!Utils.searchStringInArray(req.url, NO_SOUND_URL)) new Flux('interface|sound|UI', null, { log: 'trace' });
+  if (!Utils.searchStringInArray(req.url, NO_SOUND_URL)) Flux.do('interface|sound|UI', null, { log: 'trace' });
   res.header('Content-Type', ' text/plain; charset=utf-8');
   res.statusCode = 200;
   next();
@@ -57,7 +57,7 @@ let securityMiddleware = function (req, res, next) {
 let throttleBadRequestTTS = Scheduler.throttle(badRequestTTS, BAD_REQUEST_TTS_THROTTLE, true, false, this);
 
 function badRequestTTS() {
-  new Flux('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });
+  Flux.do('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });
 }
 
 // Return a requestData object { ip, isLocalIp, position, log }
@@ -109,9 +109,9 @@ function rejectUnauthorizedRequest(res) {
 }
 
 function closingServerTemporary(breakDuration) {
-  new Flux('interface|server|closeUIServer', breakDuration);
+  Flux.do('interface|server|closeUIServer', breakDuration);
   setTimeout(function () {
     log.INFO('restarting UI server...');
-    new Flux('interface|server|startUIServer');
+    Flux.do('interface|server|startUIServer');
   }, breakDuration);
 }

@@ -62,8 +62,8 @@ function checkVoicemail(withTTSResult) {
       if (data) {
         let messages = JSON.parse(data);
         log.debug(messages);
-        new Flux('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Messages' });
-        new Flux('interface|tts|speak', messages);
+        Flux.do('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Messages' });
+        Flux.do('interface|tts|speak', messages);
         clearVoicemailLater();
       } else {
         log.debug(NO_VOICEMAIL);
@@ -81,7 +81,7 @@ function updateVoicemailMessage() {
     messages = JSON.parse(messages);
     Core.run('voicemail', messages.length);
     if (Core.run('voicemail') > 0) {
-      new Flux('interface|led|blink', { leds: ['belly'], speed: 200, loop: 1 }, { log: 'trace' });
+      Flux.do('interface|led|blink', { leds: ['belly'], speed: 200, loop: 1 }, { log: 'trace' });
     }
   } catch (e) {
     Core.run('voicemail', 0);
@@ -110,7 +110,7 @@ function clearVoicemail() {
       else Core.error('Error while deleting voicemail file', err);
     } else {
       updateVoicemailMessage();
-      new Flux('interface|tts|speak', { lg: 'en', msg: 'Voicemail Cleared' });
+      Flux.do('interface|tts|speak', { lg: 'en', msg: 'Voicemail Cleared' });
     }
   });
 }

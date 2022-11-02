@@ -73,7 +73,7 @@ function startHttpsServer() {
   httpsServer.listen(HTTPS_SERVER_PORT, () => {
     log.info('Https server started [' + Utils.executionTime(Core.startTime) + 'ms]');
     httpsServer = webSocket.init(httpsServer);
-    new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
+    Flux.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
   });
 }
 

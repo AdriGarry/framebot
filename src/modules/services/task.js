@@ -20,28 +20,28 @@ function goToSleep() {
   log.info(`goToSleep in ${GO_TO_SLEEP_DELAY / 60} min`);
 
   // light
-  new Flux('service|light|on', GO_TO_SLEEP_DELAY);
+  Flux.do('service|light|on', GO_TO_SLEEP_DELAY);
 
-  new Flux('service|mood|set', 0);
+  Flux.do('service|mood|set', 0);
 
   // radiator off
-  new Flux('interface|rfxcom|send', { device: 'radiator', value: true });
+  Flux.do('interface|rfxcom|send', { device: 'radiator', value: true });
 
   // plug off
-  new Flux('interface|rfxcom|send', { device: 'plug1', value: false }, { delay: 3 * 60 });
+  Flux.do('interface|rfxcom|send', { device: 'plug1', value: false }, { delay: 3 * 60 });
 
   // TODO switch off internetBox
-  // new Flux('interface|rfxcom|send', { device: 'plug13', value: false }, { delay: GO_TO_SLEEP_DELAY });
+  // Flux.do('interface|rfxcom|send', { device: 'plug13', value: false }, { delay: GO_TO_SLEEP_DELAY });
 
-  // new Flux('interface|rfxcom|send', { device: 'plug2', value: false }, { delay: 3 * 60 });
-  // new Flux('interface|rfxcom|send', { device: 'plug3', value: false }, { delay: 3 * 60 });
-  // new Flux('interface|rfxcom|send', { device: 'plug11', value: false }, { delay: 3 * 60 });
-  // new Flux('interface|rfxcom|send', { device: 'plug12', value: false }, { delay: 3 * 60 });
-  // new Flux('interface|rfxcom|send', { device: 'plug13', value: false }, { delay: 3 * 60 });
-  // new Flux('interface|rfxcom|send', { device: 'plug14', value: false }, { delay: 3 * 60 });
+  // Flux.do('interface|rfxcom|send', { device: 'plug2', value: false }, { delay: 3 * 60 });
+  // Flux.do('interface|rfxcom|send', { device: 'plug3', value: false }, { delay: 3 * 60 });
+  // Flux.do('interface|rfxcom|send', { device: 'plug11', value: false }, { delay: 3 * 60 });
+  // Flux.do('interface|rfxcom|send', { device: 'plug12', value: false }, { delay: 3 * 60 });
+  // Flux.do('interface|rfxcom|send', { device: 'plug13', value: false }, { delay: 3 * 60 });
+  // Flux.do('interface|rfxcom|send', { device: 'plug14', value: false }, { delay: 3 * 60 });
 
   if (Core.isAwake()) {
-    new Flux('service|context|sleep', null, { delay: GO_TO_SLEEP_DELAY });
+    Flux.do('service|context|sleep', null, { delay: GO_TO_SLEEP_DELAY });
   }
 }
 

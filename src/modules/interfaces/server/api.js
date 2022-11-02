@@ -34,7 +34,7 @@ function attachFluxRoutes(ui) {
   ui.post('/flux/:type/:subject/:id', function (req, res) {
     let value = req.body;
     if (typeof value === 'object' && value.hasOwnProperty('_wrapper')) value = value._wrapper;
-    new Flux(req.params.type + '|' + req.params.subject + '|' + req.params.id, value);
+    Flux.do(req.params.type + '|' + req.params.subject + '|' + req.params.id, value);
     res.end();
   });
   return ui;
@@ -53,7 +53,7 @@ function attachUnmappedRouteHandler(ui) {
 function attachDefaultRoutes(ui) {
   /** DASHBOARD SECTION */
   ui.get('/dashboard', function (req, res) {
-    new Flux('interface|hardware|runtime', false, { log: 'debug' });
+    Flux.do('interface|hardware|runtime', false, { log: 'debug' });
     let etatBtn = Core.run('etat');
     let cpuTemperature = Core.run('cpu.temperature');
     let cpuUsage = Core.run('cpu.usage');
@@ -149,7 +149,7 @@ function attachDefaultRoutes(ui) {
   });
 
   ui.get('/runtime', function (req, res) {
-    new Flux('interface|hardware|runtime', true);
+    Flux.do('interface|hardware|runtime', true);
     setTimeout(() => {
       res.end(JSON.stringify(Core.run()));
     }, 500);
@@ -205,7 +205,7 @@ function attachDefaultRoutes(ui) {
   ui.post('/audio', audioRecordUpload, function (req, res) {
     log.info('Audio received!');
     log.debug(req.file);
-    new Flux('service|audioRecord|new', req.file.path, { delay: 1 });
+    Flux.do('service|audioRecord|new', req.file.path, { delay: 1 });
     res.end();
   });
 
@@ -220,7 +220,7 @@ function attachDefaultRoutes(ui) {
     log.info('UI > Toggle trace');
     let newLogLevel = log.level() == 'trace' ? 'info' : 'trace';
     log.level(newLogLevel);
-    new Flux('service|context|update', {
+    Flux.do('service|context|update', {
       log: newLogLevel
     });
     res.end();
@@ -236,7 +236,7 @@ function attachDefaultRoutes(ui) {
       log.info('ip:', ip.local, typeof ip.public === 'string' ? '/ ' + ip.public.trim() : '');
     } else {
       Core.error('>> User NOT granted /!\\', pattern, false);
-      new Flux('interface|tts|speak', { lg: 'en', msg: 'User NOT granted' }, { delay: 0.5 });
+      Flux.do('interface|tts|speak', { lg: 'en', msg: 'User NOT granted' }, { delay: 0.5 });
     }
     res.send(granted);
     if (granted) granted = false;
@@ -246,13 +246,13 @@ function attachDefaultRoutes(ui) {
     let params = req.query;
     if (params.voice && params.lg && params.msg) {
       if (!Core.isAwake() || params.hasOwnProperty('voicemail')) {
-        new Flux('service|voicemail|new', {
+        Flux.do('service|voicemail|new', {
           voice: params.voice,
           lg: params.lg,
           msg: params.msg
         });
       } else {
-        new Flux('interface|tts|speak', {
+        Flux.do('interface|tts|speak', {
           voice: params.voice,
           lg: params.lg,
           msg: params.msg
@@ -261,7 +261,7 @@ function attachDefaultRoutes(ui) {
       params.timestamp = Utils.logTime('D/M h:m:s', new Date());
       Files.appendJsonFile(FILE_TTS_UI_HISTORY, params);
     } else {
-      new Flux('interface|tts|random');
+      Flux.do('interface|tts|random');
     }
     res.end();
   });

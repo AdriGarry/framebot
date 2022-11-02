@@ -116,7 +116,7 @@ function mute(args) {
   if (!args) args = {};
   if (args.hasOwnProperty('delay') && Number(args.delay)) {
     muteTimer = setTimeout(function () {
-      new Flux('interface|sound|play', { file: 'system/autoMute.mp3' });
+      Flux.do('interface|sound|play', { file: 'system/autoMute.mp3' });
       setTimeout(function () {
         muteAll(args.message || null);
       }, 1600);
@@ -129,16 +129,16 @@ function mute(args) {
 /** Function to stop all sounds & leds */
 function muteAll(message) {
   if (Core.run('max')) {
-    new Flux('interface|arduino|disconnect', null, { log: 'trace' });
-    new Flux('interface|arduino|connect', null, { log: 'trace' });
+    Flux.do('interface|arduino|disconnect', null, { log: 'trace' });
+    Flux.do('interface|arduino|connect', null, { log: 'trace' });
   }
-  new Flux('service|music|stop', null, { log: 'trace' });
-  new Flux('interface|tts|clearTTSQueue', null, { log: 'trace' });
+  Flux.do('service|music|stop', null, { log: 'trace' });
+  Flux.do('interface|tts|clearTTSQueue', null, { log: 'trace' });
   exec('/usr/bin/sudo /usr/bin/killall mpg321');
   exec('/usr/bin/sudo /usr/bin/killall espeak');
   log.info('>> MUTE', message ? '"' + message + '"' : '');
-  new Flux('interface|led|clearLeds', null, { log: 'trace' });
-  new Flux('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { log: 'trace' });
+  Flux.do('interface|led|clearLeds', null, { log: 'trace' });
+  Flux.do('interface|led|toggle', { leds: ['eye', 'belly'], value: 0 }, { log: 'trace' });
   Core.run('music', false);
 }
 
@@ -186,9 +186,9 @@ function getVolumeInstructions(newVolume) {
 }
 
 function ledFlag() {
-  new Flux('interface|led|blink', { leds: ['eye'], speed: 100, loop: 3 }, { log: 'trace' });
+  Flux.do('interface|led|blink', { leds: ['eye'], speed: 100, loop: 3 }, { log: 'trace' });
   return setInterval(function () {
-    new Flux('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
+    Flux.do('interface|led|altLeds', { speed: 100, duration: 1.3 }, { log: 'trace' });
   }, 10 * 1000);
 }
 

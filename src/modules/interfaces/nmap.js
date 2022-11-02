@@ -111,16 +111,16 @@ function newHostReaction(hostsToReact) {
       if (host.label.toUpperCase().indexOf('ADRI') || host.label.toUpperCase().indexOf('CAM')) hasPresenceHosts = true;
       if (Array.isArray(host.flux)) {
         host.flux.forEach(flux => {
-          new Flux(flux.id, flux.value);
+          Flux.do(flux.id, flux.value);
         });
       } else if (host.flux) {
-        new Flux(host.flux.id, host.flux.value);
+        Flux.do(host.flux.id, host.flux.value);
       }
     }
   });
 
   if (hasPresenceHosts) {
-    new Flux('service|presence|event', 'host');
+    Flux.do('service|presence|event', 'host');
   }
 
   if (unknownHosts.length > 0) {
@@ -129,7 +129,7 @@ function newHostReaction(hostsToReact) {
       unknownHosts.map(host => host.hostname)
     );
     const unknownHostsNames = unknownHosts.map(host => host.hostname);
-    new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown device: ' + unknownHostsNames.join(', ') });
+    Flux.do('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown device: ' + unknownHostsNames.join(', ') });
     // TODO send notification (mail...) to persist, and log before restart.
   }
 
