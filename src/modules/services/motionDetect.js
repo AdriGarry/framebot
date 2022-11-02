@@ -19,6 +19,7 @@ function motionDetect() {
   let lastDetectionInSec = getLastDetectionInSec();
   log.info('Motion detected', '[last motion detected', Utils.formatDuration(lastDetectionInSec) + ' ago]');
   Core.conf('lastMotionDetect', new Date());
+  new Flux('service|internetBox|on');
 
   if (Core.run('mood') > 0) {
     new Flux('service|light|motionDetect', null, { log: 'TRACE' });
