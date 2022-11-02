@@ -23,6 +23,7 @@
         "internetBox",
         "light",
         "motionDetect",
+        "presence",
         "radiator",
         "homeOffice",
         "powerPlug",
@@ -104,14 +105,14 @@
     }
   },
   "knownHosts": [
-    { "hostname": "Pixel-3a", "label": "ADRI", "flux": [{ "id": "interface|tts|speak", "value": { "lg": "ru", "voice": "google", "msg": "hey, a3" } }] },
-    { "hostname": "adri-pc", "label": "ADRI_PC" },
-    { "hostname": "ENOVACOM-AGAR2-001", "label": "ADRI_PC_WORK", "flux": { "id": "interface|tts|speak", "value": "J'espère que ça bosse dur..." } },
+    { "hostname": "Pixel-3a.lan", "label": "ADRI", "flux": [{ "id": "interface|tts|speak", "value": { "lg": "ru", "voice": "google", "msg": "hey, a3" } }] },
+    { "hostname": "adri-pc.lan", "label": "ADRI_PC" },
+    { "hostname": "ENOVACOM-AGAR2-001.lan", "label": "ADRI_PC_WORK", "flux": { "id": "interface|tts|speak", "value": "J'espère que ça bosse dur..." } },
     { "hostname": "bbox.lan", "label": "BBOX" },
-    { "hostname": "Host-001", "label": "CAM" },
-    { "hostname": "DESKTOP-OGMM0KS", "label": "CAM_PC", "forgetDelay": 3600 },
-    { "hostname": "raspberrypi", "label": "ODI" },
-    { "hostname": "android-38594d3ba13a4305", "label": "OLD_ANDROID", "flux": { "id": "interface|tts|speak", "value": "Héhé" } }
+    { "hostname": "Host-001.lan", "label": "CAM" },
+    { "hostname": "DESKTOP-OGMM0KS.lan", "label": "CAM_PC", "forgetDelay": 3600 },
+    { "hostname": "raspberrypi.lan", "label": "ODI" },
+    { "hostname": "android-38594d3ba13a4305.lan", "label": "OLD_ANDROID", "flux": { "id": "interface|tts|speak", "value": "Héhé" } }
   ],
   "fallbackVoice": "espeak",
   "forcedVoice": null

@@ -19,7 +19,6 @@ Observers.attachFluxParseOptions('interface', 'nmap', FLUX_PARSE_OPTIONS);
 
 setTimeout(() => {
   continuousScanForOneHour();
-  //scan();
 }, 10 * 1000);
 
 const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
@@ -38,11 +37,6 @@ let quickScan,
   isContinuousScan = false;
 
 function scan() {
-  if(!Core.run('internetBox')){
-    log.warn('Internet box is OFF');
-    stopContinuousScan();
-    return;
-  }
   quickScan = new nmap.QuickScan(LOCAL_NETWORK_RANGE);
   quickScan.on('complete', hosts => {
     parseDetectedHosts(hosts);
@@ -50,7 +44,7 @@ function scan() {
   });
 
   quickScan.on('error', error => {
-    log.error('Nmap error:', error);
+    log.debug('Nmap error:', error);
     if (isContinuousScan) scan();
   });
 
@@ -109,20 +103,31 @@ function disableInactiveHosts() {
 
 function newHostReaction(hostsToReact) {
   let unknownHosts = [];
+  let hasPresenceHosts = false;
   hostsToReact.forEach(host => {
     if (host.unknown) {
       unknownHosts.push(host);
-    } else if (Array.isArray(host.flux)) {
-      host.flux.forEach(flux => {
-        new Flux(flux.id, flux.value);
-      });
-    } else if (host.flux) {
-      new Flux(host.flux.id, host.flux.value);
+    } else {
+      if (host.label.toUpperCase().indexOf('ADRI') || host.label.toUpperCase().indexOf('CAM')) hasPresenceHosts = true;
+      if (Array.isArray(host.flux)) {
+        host.flux.forEach(flux => {
+          new Flux(flux.id, flux.value);
+        });
+      } else if (host.flux) {
+        new Flux(host.flux.id, host.flux.value);
+      }
     }
   });
 
+  if (hasPresenceHosts) {
+    new Flux('service|presence|event', 'host');
+  }
+
   if (unknownHosts.length > 0) {
-    log.warn('Unknown host(s) detected:', unknownHosts);
+    log.warn(
+      'Unknown host(s) detected:',
+      unknownHosts.map(host => host.hostname)
+    );
     const unknownHostsNames = unknownHosts.map(host => host.hostname);
     new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown device: ' + unknownHostsNames.join(', ') });
     // TODO send notification (mail...) to persist, and log before restart.

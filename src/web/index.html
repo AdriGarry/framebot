@@ -267,8 +267,7 @@
 				<music data="dashboard.runningData.music" data-access="$root.irda" flex="33"
 					data-odi-state="dashboard.odiState"></music>
 				<message data="dashboard.runningData" data-access="$root.irda" flex="33"></message>
-				<weather data="dashboard.runningData.weather" data-access="$root.irda" flex="33"
-					data-odi-state="dashboard.odiState"></weather>
+				<presence data="dashboard.runningData" data-access="$root.irda" flex="33"></presence>
 				<radiator data="dashboard.runningData" data-access="$root.irda" flex="33"></radiator>
 					<tasks data="dashboard.runningData" data-access="$root.irda" flex="33"></tasks>
 				<power-plug data="dashboard.runningData" data-access="$root.irda" flex="100"></power-plug>
@@ -276,24 +275,26 @@
 					data-odi-state="dashboard.odiState"></hardware>
 				<time data="dashboard.runningData.time" data-access="$root.irda" flex="33"
 					data-odi-state="dashboard.odiState"></time>
+				<weather data="dashboard.runningData.weather" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></weather>
 				<childs data-access="$root.irda" flex="33" data-odi-state="dashboard.odiState"></childs>
-				<party data="dashboard.runningData.party" data-access="$root.irda" flex="33"
-					data-odi-state="dashboard.odiState"></party>
 				<bad-boy data="dashboard.runningData.ideas" data-access="$root.irda" flex="33"
 					data-odi-state="dashboard.odiState"></bad-boy>
 				<idea data="dashboard.runningData.ideas" data-access="$root.irda" flex="33"
 					data-odi-state="dashboard.odiState"></idea>
-				<max data="dashboard.runningData.arduino" data-access="$root.irda" flex="33"
-					data-odi-state="dashboard.odiState"></max>
+				<party data="dashboard.runningData.party" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></party>
 				<videos data="dashboard.runningData.video" data-access="$root.irda" flex="33"
 					data-odi-state="dashboard.odiState"></videos>
+				<max data="dashboard.runningData.arduino" data-access="$root.irda" flex="33"
+					data-odi-state="dashboard.odiState"></max>
 				<rfxcom data="dashboard.runningData.rfxcom" data-access="$root.irda" flex="33"></rfxcom>
+				<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
 				<arduino data="dashboard.runningData.arduino" data-access="$root.irda" flex="33"
 					data-odi-state="dashboard.odiState"></arduino>
-				<history data="dashboard.runningData.logs" data-access="$root.irda" flex="33"></history>
 				<nmap data="dashboard.runningData" data-access="$root.irda" flex="33"></nmap>
 				<system data="dashboard.runningData.system" data-access="$root.irda" flex="33"></system>
-				<about data="dashboard.runningData.about" data-access="true" flex="100"></about>
+				<about data="dashboard.runningData.about" data-access="true" flex="66"></about>
 			</div>
 
 			<md-button data-ng-click="showLogs()" data-ng-show="$root.irda" data-ng-class="[{'active':fabButtonsVisible}]"

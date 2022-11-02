@@ -320,6 +320,12 @@
 		</div>
 	</div>
 
+	<div class="tileContent" data-ng-switch-when="Presence">
+		<div class="main">
+			<i class="fa-solid" data-ng-class="$ctrl.iconCssClass()"></i>
+		</div>
+	</div>
+
 	<div class="tileContent" data-ng-switch-when="Nmap">
 		<i class="fa-solid fa-rotate-270 fa-2x switch"
 			data-ng-class="$ctrl.data.run.nmap ? 'fa-toggle-on' : 'fa-toggle-off'"></i>

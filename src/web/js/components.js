@@ -1230,8 +1230,8 @@ app.component('nmap', {
   }
 });
 
-/** Router component */
-app.component('router', {
+/** Presence component */
+app.component('presence', {
   bindings: {
     data: '<',
     access: '<'
@@ -1240,13 +1240,22 @@ app.component('router', {
   controller: function (DefaultTile) {
     const ctrl = this;
     const tileParams = {
-      label: 'Router',
+      label: 'Presence',
       actionList: [
-        { label: 'On Manual', icon: 'fa-solid fa-toggle-on', url: '/flux/service/internetBox/on' },
+        { label: 'Check', icon: 'fa-solid fa-rotate', url: '/flux/service/presence/check' },
         { label: 'Off Strategy', icon: 'fa-solid fa-toggle-off', url: '/flux/service/internetBox/offStrategy' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
+
+    ctrl.iconCssClass = function () {
+      if (ctrl.data.run.presence === true) {
+        return 'fa-person-rays';
+      } else if (ctrl.data.run.presence === false) {
+        return 'fa-user-large-slash opacity70';
+      }
+      return 'fa-person-circle-question opacity70';
+    };
   }
 });
 
