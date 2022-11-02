@@ -35,11 +35,11 @@ function restartCore(mode) {
   if (typeof mode !== 'string') mode = 'ready';
   if (Core.run('timer')) {
     let timerRemaining = 'Minuterie ' + Core.run('timer') + ' secondes';
-    new Flux('interface|tts|speak', timerRemaining);
+    Flux.do('interface|tts|speak', timerRemaining);
     log.INFO(timerRemaining);
   }
   setTimeout(() => {
-    new Flux('service|context|updateRestart', { mode: mode });
+    Flux.do('service|context|updateRestart', { mode: mode });
   }, 100);
 }
 
@@ -47,10 +47,10 @@ function restartCore(mode) {
 function goToSleep() {
   if (Core.isAwake()) {
     let sleepTTS = Utils.randomItem(Core.ttsMessages.goToSleep);
-    new Flux('interface|tts|speak', sleepTTS);
+    Flux.do('interface|tts|speak', sleepTTS);
     log.info('AutoLifeCycle go to sleep !');
     setTimeout(function () {
-      new Flux('service|context|restart', 'sleep');
+      Flux.do('service|context|restart', 'sleep');
     }, sleepTTS.msg.length * 150);
   }
 }
@@ -64,21 +64,21 @@ function updateConf(newConf, restart) {
   });
   log.table(Core.conf(), 'CONFIG', updatedEntries);
   if (restart) {
-    new Flux('interface|sound|mute');
+    Flux.do('interface|sound|mute');
     processExit();
   }
 }
 
 /** Function to reset conf (& /tmp directory) */
 function resetConf() {
-  new Flux('interface|sound|reset');
+  Flux.do('interface|sound|reset');
   Files.deleteFolderRecursive(Core._TMP);
   log.INFO('reset conf and restart');
   processExit();
 }
 
 function processExit() {
-  new Flux('service|task|beforeRestart');
+  Flux.do('service|task|beforeRestart');
   log.info('buttonStats:', Core.run('stats.buttons'));
   log.info('fluxCount:', Core.run('stats.fluxCount'));
   log.info('badRequestCount:', Core.run('stats.badRequestCount'), '\n');

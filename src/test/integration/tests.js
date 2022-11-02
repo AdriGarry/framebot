@@ -34,8 +34,8 @@ function allTestSuceedFeedback(data) {
   log.info('-------------------------');
   log.INFO('>> All tests succeeded !!');
   log.info('-------------------------');
-  new Flux('service|sms|send', 'ALL TEST SUCCEED !!');
+  Flux.do('service|sms|send', 'ALL TEST SUCCEED !!');
   let testTTS = Utils.rdm() ? 'Je suis Ok !' : { lg: 'en', msg: 'all tests succeeded!' };
-  new Flux('interface|tts|speak', testTTS);
-  new Flux('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
+  Flux.do('interface|tts|speak', testTTS);
+  Flux.do('service|context|updateRestart', { mode: 'ready' }, { delay: 4 });
 }

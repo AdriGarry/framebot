@@ -26,7 +26,7 @@ function now() {
   let date = new Date();
   let hour = date.getHours();
   let min = date.getMinutes();
-  new Flux('interface|tts|speak', {
+  Flux.do('interface|tts|speak', {
     lg: 'fr',
     msg: 'Il est ' + hour + ' heure ' + (min > 0 ? min : '')
   });
@@ -52,7 +52,7 @@ function today() {
   }
 
   log.debug('time.today()' + annonceDate);
-  new Flux('interface|tts|speak', annonceDate);
+  Flux.do('interface|tts|speak', annonceDate);
 }
 
 function getSeason() {
@@ -82,5 +82,5 @@ function ttsAge() {
   let birthDay = rdm[Utils.random(rdm.length)];
   birthDay += "j'ai " + years + ' ans et ' + mouths + ' mois !';
   log.info("ttsAge() '" + birthDay + "'");
-  new Flux('interface|tts|speak', { lg: 'fr', msg: birthDay });
+  Flux.do('interface|tts|speak', { lg: 'fr', msg: birthDay });
 }

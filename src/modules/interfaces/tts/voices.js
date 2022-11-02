@@ -40,7 +40,7 @@ function google(tts) {
   let lg = tts.lg;
   let msg = encodeURI(tts.msg);
   let url = `http://translate.google.com/translate_tts?tl=${lg}&client=tw-ob&q=${msg}`;
-  new Flux('interface|sound|play', { url: url, volume: Core.run('volume'), noLog: true }, { log: 'trace' });
+  Flux.do('interface|sound|play', { url: url, volume: Core.run('volume'), noLog: true }, { log: 'trace' });
 }
 
 function pico(tts) {
@@ -50,7 +50,7 @@ function pico(tts) {
   Utils.execCmd(command)
     .then(stdout => {
       log.info(stdout);
-      new Flux('interface|sound|play', { file: Core._TMP + 'picoTTS.wav', volume: volume, noLog: false });
+      Flux.do('interface|sound|play', { file: Core._TMP + 'picoTTS.wav', volume: volume, noLog: false });
     })
     .catch(err => {
       Core.error(err);

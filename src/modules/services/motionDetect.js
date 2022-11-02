@@ -19,10 +19,10 @@ function motionDetect() {
   let lastDetectionInSec = getLastDetectionInSec();
   log.info('Motion detected', '[last motion detected', Utils.formatDuration(lastDetectionInSec) + ' ago]');
   Core.conf('lastMotionDetect', new Date());
-  new Flux('service|internetBox|on');
+  Flux.do('service|internetBox|on');
 
   if (Core.run('mood') > 0) {
-    new Flux('service|light|motionDetect', null, { log: 'TRACE' });
+    Flux.do('service|light|motionDetect', null, { log: 'TRACE' });
 
     if (shouldReact()) {
       if (Core.isAwake()) {
@@ -41,7 +41,7 @@ function motionDetectEnd() {
   log.info('Motion end', '[duration:', Utils.formatDuration(motionDuration) + ']');
 
   if (Core.run('mood') > 0) {
-    new Flux('service|light|blinkOff', null, { log: 'TRACE' });
+    Flux.do('service|light|blinkOff', null, { log: 'TRACE' });
 
     if (shouldReact()) {
       if (Core.isAwake()) {
@@ -69,18 +69,18 @@ function getLastDetectionInSec() {
 function detectAwake(lastDetectionInSec) {
   let moodLevel = Core.run('mood');
   if (moodLevel >= 2) {
-    new Flux('interface|sound|motionDetect', null, { log: 'TRACE' });
+    Flux.do('interface|sound|motionDetect', null, { log: 'TRACE' });
   }
 
   if (moodLevel >= 3) {
     let shouldReact2 = lastDetectionInSec > 300 ? true : false;
     if (shouldReact2) {
-      new Flux('service|interaction|random');
+      Flux.do('service|interaction|random');
     }
   }
 
   if (moodLevel >= 4) {
-    new Flux('service|interaction|random', null, { delay: 10 });
+    Flux.do('service|interaction|random', null, { delay: 10 });
   }
 }
 
@@ -88,7 +88,7 @@ function detectEndAwake(motionDuration) {
   let moodLevel = Core.run('mood');
 
   if (moodLevel >= 2) {
-    // if (motionDuration) new Flux('interface|tts|speak', motionDuration.toString(), { log: 'TRACE' });
+    // if (motionDuration) Flux.do('interface|tts|speak', motionDuration.toString(), { log: 'TRACE' });
   }
 }
 
@@ -98,7 +98,7 @@ function detectSleep(lastDetectionInSec) {
   log.test('currentHour', currentHour);
   if (currentHour >= 22 || currentHour <= 6) {
     log.test('Condition currentHour >= 22 || currentHour <= 6 VALIDATED! // TODO delete this log');
-    new Flux('service|light|on', 120, { delay: 2, log: 'TRACE' });
+    Flux.do('service|light|on', 120, { delay: 2, log: 'TRACE' });
   }
 }
 

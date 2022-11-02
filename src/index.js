@@ -43,7 +43,7 @@ Scheduler.delay(2).then(() => {
 ////////  TEST section  ////////
 if (Core.conf('mode') === 'test') {
   setTimeout(function () {
-    new Flux('interface|tts|speak', { lg: 'en', msg: 'Integration tests sequence' });
+    Flux.do('interface|tts|speak', { lg: 'en', msg: 'Integration tests sequence' });
     const integrationTests = require('./test/integration/tests');
     integrationTests.launch();
   }, 1000);

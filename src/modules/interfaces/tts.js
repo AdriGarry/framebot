@@ -75,7 +75,7 @@ function proceedQueue() {
 
 /** Function to play TTS message (espeak / google translate) */
 function playTTS(tts) {
-  new Flux('service|max|blinkRdmLed');
+  Flux.do('service|max|blinkRdmLed');
   log.info(tts.toString());
   tts.setMsgReplaced();
 
@@ -84,7 +84,7 @@ function playTTS(tts) {
 
   let blinkDuration = tts.getMsg().length / 2 + 2,
     speed = Utils.random(50, 150);
-  new Flux('interface|led|blink', { leds: ['eye'], speed: speed, loop: blinkDuration }, { log: 'trace' });
+  Flux.do('interface|led|blink', { leds: ['eye'], speed: speed, loop: blinkDuration }, { log: 'trace' });
 
   lastTtsMsg = tts;
 }

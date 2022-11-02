@@ -35,12 +35,12 @@ Core.conf('rfxcomDevices', powerPlugStatus);
 
 rfxtrx.initialise(function () {
   Core.run('rfxcom', true);
-  new Flux('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
+  Flux.do('interface|led|blink', { leds: ['satellite'], speed: 80, loop: 3 }, { log: 'trace' });
   log.info('Rfxcom gateway ready', '[' + Utils.executionTime(Core.startTime) + 'ms]');
 
   rfxtrx.on('receive', function (evt) {
     if (Core.run('rfxcom')) {
-      new Flux('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
+      Flux.do('interface|led|blink', { leds: ['satellite'], speed: 120, loop: 3 }, { log: 'trace' });
       parseReceivedSignal(evt);
     }
   });
@@ -52,7 +52,7 @@ rfxtrx.initialise(function () {
 
 function sendStatus(args) {
   if (!Core.run('rfxcom')) {
-    new Flux('interface|tts|speak', { lg: 'en', msg: 'rfxcom not available' });
+    Flux.do('interface|tts|speak', { lg: 'en', msg: 'rfxcom not available' });
     log.warn('Rfxcom gateway not available!');
     return;
   }
@@ -85,9 +85,9 @@ function parseReceivedSignal(receivedSignal) {
 
   let matchPlug = PLUG_STATUS_REMOTE_COMMAND_REGEX.exec(parsedReceivedSignal);
   if (parsedReceivedSignal.indexOf(MOTION_DETECT_SIGNAL) > -1) {
-    new Flux('service|motionDetect|detect');
+    Flux.do('service|motionDetect|detect');
   } else if (parsedReceivedSignal.indexOf(MOTION_DETECT_END_SIGNAL) > -1) {
-    new Flux('service|motionDetect|end');
+    Flux.do('service|motionDetect|end');
   } else if (matchPlug) {
     updateStatusForPlug(matchPlug);
   } else {

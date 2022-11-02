@@ -20,7 +20,7 @@ Observers.attachFluxParseOptions('interface', 'watcher', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
   if (Core.conf('watcher')) {
-    new Flux('interface|watcher|start');
+    Flux.do('interface|watcher|start');
   }
 });
 
@@ -89,5 +89,5 @@ function waitForUpdateEnd(action) {
 
 function relaunch() {
   log.INFO('>> relaunching...');
-  new Flux('service|context|restart', Core.conf('mode'));
+  Flux.do('service|context|restart', Core.conf('mode'));
 }

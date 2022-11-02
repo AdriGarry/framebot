@@ -44,9 +44,9 @@ function boxManualOn() {
   BOX_OFF_STRATEGY_CRON_LIST.stop();
 
   log.info('Starting internet box...');
-  new Flux(BOX_FLUX.ON);
+  Flux.do(BOX_FLUX.ON);
   Core.run('internetBox', true);
-  new Flux('service|network|testConnection', null, { delay: 30, loop: 2 });
+  Flux.do('service|network|testConnection', null, { delay: 30, loop: 2 });
 }
 
 function boxOffStrategy() {
@@ -54,7 +54,7 @@ function boxOffStrategy() {
   // // TODO test internetBoxStrategyCrons.nextDate value in more than 15 min ?
 
   log.info('Stopping internet box...');
-  new Flux(BOX_FLUX.OFF);
+  Flux.do(BOX_FLUX.OFF);
 
   log.info('Starting internet box OFF strategy... Connexion will be available 10 first minutes of each hour');
   BOX_OFF_STRATEGY_CRON_LIST.start();

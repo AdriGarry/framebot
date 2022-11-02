@@ -29,7 +29,7 @@ function screenOn() {
 /** Function to turn screen off */
 function screenOff() {
   spawn('/opt/vc/bin/tvservice', ['-o']);
-  new Flux('service|video|stopLoop', null, { log: 'debug' });
+  Flux.do('service|video|stopLoop', null, { log: 'debug' });
   Core.run('hdmi', false);
   log.info('Hdmi off');
 }

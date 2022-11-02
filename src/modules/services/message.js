@@ -25,18 +25,18 @@ setImmediate(() => {
 
 function playAllAudioRecordOrVoicemailIfAny() {
   log.debug('playAllAudioRecordOrVoicemail');
-  new Flux('service|audioRecord|check');
-  new Flux('service|voicemail|check', null, { delay: Core.run('audioRecord') * 15 });
+  Flux.do('service|audioRecord|check');
+  Flux.do('service|voicemail|check', null, { delay: Core.run('audioRecord') * 15 });
 }
 
 function playLastAudioRecordOrVoicemailOrTTS() {
   log.info('playLastAudioRecordOrMessageOrTTS');
-  if (Core.run('audioRecord')) new Flux('service|audioRecord|last');
-  else if (Core.run('voicemail')) new Flux('service|voicemail|check');
-  else new Flux('interface|tts|lastTTS');
+  if (Core.run('audioRecord')) Flux.do('service|audioRecord|last');
+  else if (Core.run('voicemail')) Flux.do('service|voicemail|check');
+  else Flux.do('interface|tts|lastTTS');
 }
 
 function clearVoicemailAndRecords() {
-  new Flux('service|voicemail|clear');
-  new Flux('service|audioRecord|clear');
+  Flux.do('service|voicemail|clear');
+  Flux.do('service|audioRecord|clear');
 }

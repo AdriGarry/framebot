@@ -37,39 +37,39 @@ const HORNS = [
 
 function blinkAllLed() {
   log.debug('blinkAllLed');
-  new Flux('interface|arduino|write', 'blinkAllLed');
+  Flux.do('interface|arduino|write', 'blinkAllLed');
 }
 
 function blinkRdmLed() {
   log.debug('blinkRdmLed');
-  new Flux('interface|arduino|write', 'blinkRdmLed');
+  Flux.do('interface|arduino|write', 'blinkRdmLed');
 }
 
 function playOneMelody() {
   log.debug('playOneMelody');
-  new Flux('interface|arduino|write', 'playOneMelody');
+  Flux.do('interface|arduino|write', 'playOneMelody');
 }
 
 function playRdmMelody() {
   log.debug('playRdmMelody');
-  new Flux('interface|arduino|write', 'playRdmMelody');
+  Flux.do('interface|arduino|write', 'playRdmMelody');
 }
 
 function turnNose() {
   log.debug('turnNose');
-  new Flux('interface|arduino|write', 'turnNose');
+  Flux.do('interface|arduino|write', 'turnNose');
 }
 
 let hornRandomBox = new RandomBox(HORNS);
 function hornRdm() {
   let horn = hornRandomBox.next();
   log.debug('hornRdm', horn);
-  new Flux('interface|arduino|write', horn);
+  Flux.do('interface|arduino|write', horn);
 }
 
 function hornSiren() {
   log.debug('playHornWarning');
-  new Flux('interface|arduino|write', 'playHornWarning');
+  Flux.do('interface|arduino|write', 'playHornWarning');
 }
 
 function parseDataFromMax(data) {
@@ -89,14 +89,14 @@ function maxCallbackAction(data) {
       maxCallbackTTS(Core.ttsMessages.maxCallback.sensor);
       break;
     case 'blinkLed_end':
-      if (Core.run('etat') == 'high') new Flux('interface|tts|speak', { lg: 'en', msg: 'blink led' });
+      if (Core.run('etat') == 'high') Flux.do('interface|tts|speak', { lg: 'en', msg: 'blink led' });
       break;
     case 'playOneMelody_end':
     case 'playRdmMelody_end':
       maxCallbackTTS(Core.ttsMessages.maxCallback.melody);
       break;
     case 'turnNose_end':
-      if (Core.run('etat') == 'high') new Flux('interface|tts|speak', { lg: 'en', msg: 'turn' });
+      if (Core.run('etat') == 'high') Flux.do('interface|tts|speak', { lg: 'en', msg: 'turn' });
       break;
     case 'playRdmHorn_end':
     case 'playHornDoUp_end':
@@ -111,11 +111,11 @@ function maxCallbackAction(data) {
       maxCallbackTTS(Core.ttsMessages.maxCallback.hornFire);
       break;
     case 'playHornOvni_end':
-      new Flux('interface|tts|speak', 'OVNI!');
+      Flux.do('interface|tts|speak', 'OVNI!');
       break;
     case 'playHornWarning_end':
     case 'playHornBombing_end':
-      new Flux('interface|tts|speak', 'A couvert !');
+      Flux.do('interface|tts|speak', 'A couvert !');
       break;
     // escape tous les '...'
     case 'Max initialization...':
@@ -132,9 +132,9 @@ function maxCallbackAction(data) {
 //const maxCallbackRandomBox = new RandomBox(); // TODO to implement
 function maxCallbackTTS(arg) {
   if (Array.isArray(arg)) {
-    new Flux('interface|tts|speak', Utils.randomItem(arg));
+    Flux.do('interface|tts|speak', Utils.randomItem(arg));
   } else if (typeof arg == 'string') {
-    new Flux('interface|tts|speak', arg);
+    Flux.do('interface|tts|speak', arg);
   } else {
     log.error('maxCallbackTTS: wrong arg [' + typeof arg + ']', arg);
   }
@@ -142,8 +142,8 @@ function maxCallbackTTS(arg) {
 
 // list of commands:
 //blinkAllLed();
-// new Flux('interface|arduino|write', 'hi', { delay: 3 });
-// new Flux('service|max|blinkAllLed', null, { delay: 6 });
+// Flux.do('interface|arduino|write', 'hi', { delay: 3 });
+// Flux.do('service|max|blinkAllLed', null, { delay: 6 });
 // playRdmHorn
 // playHornWarning();
 // playHornDoUp(random(1, 8));

@@ -75,7 +75,7 @@ function endPlugTimeout(plugId) {
 function plugOrder(plugId, mode) {
   let booleanMode = getBooleanValue(mode);
   log.info(`plugOrder: ${plugId} => ${booleanMode} [${mode}]`);
-  new Flux('interface|rfxcom|send', { device: plugId, value: booleanMode });
+  Flux.do('interface|rfxcom|send', { device: plugId, value: booleanMode });
 }
 
 function getBooleanValue(mode) {

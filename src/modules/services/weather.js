@@ -68,7 +68,7 @@ function reportTTS() {
         ' kilometre heure de vent'
     };
     log.debug('weatherSpeech', weatherSpeech);
-    new Flux('interface|tts|speak', weatherSpeech);
+    Flux.do('interface|tts|speak', weatherSpeech);
   });
 }
 
@@ -77,7 +77,7 @@ function alternativeReportTTS() {
   log.info('Alternative weather report...');
   fetchWeatherData().then(() => {
     log.debug('weatherReport', weatherReport);
-    new Flux('interface|tts|speak', getAlternativeWeatherReport(weatherReport));
+    Flux.do('interface|tts|speak', getAlternativeWeatherReport(weatherReport));
   });
 }
 
