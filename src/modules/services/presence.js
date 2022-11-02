@@ -59,7 +59,6 @@ function checkNmap() {
 }
 
 function checkLastMotionDetect() {
-  return false; // TODO remove this mock
   log.info('checkLastMotionDetect...');
   let lastMotionDetectInSec = Utils.getDifferenceInSec(Core.conf('lastMotionDetect'));
   return lastMotionDetectInSec > 0 && lastMotionDetectInSec <= LAST_MOTION_DETECT_TIMEOUT_IN_SEC;
