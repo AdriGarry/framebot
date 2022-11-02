@@ -35,13 +35,8 @@ setImmediate(() => {
   Core.run('network.local', getLocalIp());
 });
 
-// TODO refactor as Cron... with start/stop...
 setInterval(() => {
-  if (Core.run('internetBox')) {
-    testConnectionTwice();
-  } else {
-    log.info('internetBox is off, no internet connection.');
-  }
+  testConnectionTwice();
 }, DELAY_BEFORE_RETRY);
 
 function testConnectionTwice() {
@@ -89,7 +84,6 @@ function getNetstatCommand(port) {
 
 function onlineCallback() {
   if (!isOnline || isRetrying) {
-    Core.run('internetBox', true);
     log.info("I'm on the internet!");
     getPublicIp().then(ip => Core.run('network.public', ip));
   }
