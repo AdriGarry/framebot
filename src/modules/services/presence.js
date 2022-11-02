@@ -61,7 +61,7 @@ function checkNmap() {
 function checkLastMotionDetect() {
   log.info('checkLastMotionDetect...');
   let lastMotionDetectInSec = Utils.getDifferenceInSec(Core.conf('lastMotionDetect'));
-  return lastMotionDetectInSec > 0 && lastMotionDetectInSec <= LAST_MOTION_DETECT_TIMEOUT_IN_SEC;
+  return lastMotionDetectInSec <= LAST_MOTION_DETECT_TIMEOUT_IN_SEC;
 }
 
 function newEvent(event) {
