@@ -61,7 +61,7 @@ function setupRadiatorMode() {
 
 function onOrOffUntilNextOrder() {
   let nextAutoOrderDateTime = new Date(RADIATOR_JOB.AUTO.nextDates());
-  let secondsRemainingToNextOnOrder = Utils.getSecondesDifferenceFromNow(nextAutoOrderDateTime);
+  let secondsRemainingToNextOnOrder = Utils.getDifferenceInSec(nextAutoOrderDateTime);
   let order = secondsRemainingToNextOnOrder > 3600 ? 'off' : 'on';
   log.info('onOrOffUntilNextOrder:', order, '(' + Math.floor(secondsRemainingToNextOnOrder / 60) + 'm ' + (secondsRemainingToNextOnOrder % 60) + 's)');
   return order;

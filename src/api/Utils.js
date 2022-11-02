@@ -109,8 +109,8 @@ module.exports = class Utils {
   }
 
   static getDifferenceInSec(dateToCompare, optionalDate) {
-    if (!dateToCompare) return -1;
-    if (!optionalDate) optionalDate = new Date();
+    if (!dateToCompare || !util.types.isDate(dateToCompare)) return -1;
+    if (!optionalDate || !util.types.isDate(optionalDate)) optionalDate = new Date();
     return Math.abs(dateToCompare.getTime() - optionalDate.getTime()) / 1000;
   }
 
@@ -160,15 +160,6 @@ module.exports = class Utils {
       }
     }
     return now;
-  }
-
-  /** Function to return seconds difference from now */
-  static getSecondesDifferenceFromNow(givenDate) {
-    if (!util.types.isDate(givenDate)) {
-      log.error('Given date is not a valid Date instance', givenDate, typeof givenDate);
-    }
-    let diff = Math.abs(new Date() - givenDate);
-    return Math.floor(diff / 1000);
   }
 
   static isWeekend(date) {
