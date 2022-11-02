@@ -50,7 +50,7 @@ function goToSleep() {
     log.info('AutoLifeCycle go to sleep !');
     setTimeout(function () {
       Flux.do('service|context|restart', 'sleep');
-    }, sleepTTS.msg.length * 150);
+    }, 5 * 1000);
   }
 }
 
