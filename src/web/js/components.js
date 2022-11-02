@@ -1242,11 +1242,20 @@ app.component('presence', {
     const tileParams = {
       label: 'Presence',
       actionList: [
-        { label: 'Show data', icon: 'fa-solid fa-info', url: '/flux/service/presence/show' },
+        { label: 'Check', icon: 'fa-solid fa-info', url: '/flux/service/presence/check' },
         { label: 'Off Strategy', icon: 'fa-solid fa-toggle-off', url: '/flux/service/internetBox/offStrategy' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
+
+    ctrl.iconCssClass = function () {
+      if (ctrl.data.run.presence === true) {
+        return 'fa-person-rays';
+      } else if (ctrl.data.run.presence === false) {
+        return 'fa-user-large-slash opacity70';
+      }
+      return 'fa-person-circle-question opacity70';
+    };
   }
 });
 
