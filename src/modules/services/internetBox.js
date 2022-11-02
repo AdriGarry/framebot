@@ -36,16 +36,7 @@ setImmediate(() => {
 });
 
 function setupBoxMode() {
-  if (shouldSetBoxManualOn()) {
-    boxManualOn();
-  } else {
-    // boxOffStrategy();
-  }
-}
-function shouldSetBoxManualOn() {
-  return true;
-  return Core.isAwake() && Core.run('internetBox');
-  // TODO && (isAnyoneAtHome || lastDetect < 1h)
+  if (Core.isAwake()) boxManualOn();
 }
 
 function boxManualOn() {
