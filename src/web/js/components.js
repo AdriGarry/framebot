@@ -1121,49 +1121,6 @@ app.component('rfxcom', {
   }
 });
 
-/** Tasks component */
-app.component('tasks', {
-  bindings: {
-    data: '<',
-    access: '<'
-  },
-  templateUrl: 'templates/tiles.html',
-  controller: function ($rootScope, DefaultTile) {
-    const ctrl = this;
-    const tileParams = {
-      label: 'Tasks',
-      actionList: [
-        { label: 'Cooking', icon: 'fa-solid fa-kitchen-set', continu: true },
-        { label: 'Shower music', icon: 'fa-solid fa-shower', url: '/flux/service/powerPlug/timeout', value: { mode: 'on', timeout: 10, plug: 'plug11' } },
-        { label: 'Fan Louloutes', icon: 'fa-solid fa-fan', url: '/flux/service/powerPlug/timeout', value: { mode: 'on', timeout: 60, plug: 'plug2' } },
-        { label: 'HomeOffice', icon: 'fa-solid fa-laptop-code', url: '/flux/service/homeOffice/start' },
-        { label: 'goToSleep', icon: 'fa-solid fa-bed', url: '/flux/service/task/goToSleep' }
-      ]
-    };
-    ctrl.tile = new DefaultTile(tileParams);
-
-    const cookActionList = [
-      { label: 'Egg 3m', icon: 'fa-solid fa-egg', url: '/flux/service/timer/increase', value: 3 },
-      { label: 'Egg 6m', icon: 'fa-solid fa-egg', url: '/flux/service/timer/increase', value: 6 },
-      { label: 'Pasta 10m', icon: 'fa-solid fa-spaghetti-monster-flying', url: '/flux/service/timer/increase', value: 10 },
-      { label: 'Cake 30m', icon: 'fa-solid fa-chart-pie', url: '/flux/service/timer/increase', value: 30 }
-    ];
-
-    /** Overwrite tile action */
-    ctrl.tile.click = function () {
-      ctrl.tile.openBottomSheet(this.actionList, specificActions);
-    };
-
-    const specificActions = function (button) {
-      if (button.label === 'Cooking') {
-        ctrl.tile.openBottomSheet(cookActionList);
-      } else {
-        ctrl.tile.action(button);
-      }
-    };
-  }
-});
-
 /** Logs component */
 app.component('history', {
   bindings: {
@@ -1243,7 +1200,9 @@ app.component('presence', {
       label: 'Presence',
       actionList: [
         { label: 'Check', icon: 'fa-solid fa-rotate', url: '/flux/service/presence/check' },
-        { label: 'Off Strategy', icon: 'fa-solid fa-toggle-off', url: '/flux/service/internetBox/offStrategy' }
+        { label: 'Shower music', icon: 'fa-solid fa-shower', url: '/flux/service/powerPlug/timeout', value: { mode: 'on', timeout: 10, plug: 'plug11' } },
+        { label: 'HomeOffice', icon: 'fa-solid fa-laptop-code', url: '/flux/service/homeOffice/start' },
+        { label: 'goToSleep', icon: 'fa-solid fa-bed', url: '/flux/service/task/goToSleep' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
