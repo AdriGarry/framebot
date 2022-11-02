@@ -14,8 +14,7 @@ module.exports = {
 
 const FLUX_PARSE_OPTIONS = [
   { id: 'on', fn: boxManualOn },
-  { id: 'offStrategy', fn: boxOffStrategy },
-  { id: 'offStrategyIfNoActivity', fn: offStrategyIfNoActivity }
+  { id: 'off', fn: boxOffStrategy }
 ];
 
 Observers.attachFluxParseOptions('service', 'internetBox', FLUX_PARSE_OPTIONS);
@@ -69,15 +68,4 @@ function boxOffStrategy() {
   log.info('Starting internet box OFF strategy... Connexion will be available 10 first minutes of each hour');
   BOX_OFF_STRATEGY_CRON_LIST.start();
   Core.run('internetBox', false);
-}
-
-// boxStrategyOffIfNoMotionDetectedAfterMidnight
-function offStrategyIfNoActivity() {
-  log.info('offStrategyIfNoActivity');
-  if (Core.run('internetBox')) {
-    // TODO if after midnight & lastMotionDetect > 1h
-    if (!Core.isAwake()) {
-      boxOffStrategy();
-    }
-  }
 }
