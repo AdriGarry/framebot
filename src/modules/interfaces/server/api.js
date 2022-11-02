@@ -13,6 +13,7 @@ const admin = require(Core._SECURITY + 'admin.js').init(Core._SECURITY);
 
 const FILE_REQUEST_HISTORY = Core._LOG + Core.const('name') + '_requestHistory.log';
 const FILE_ERROR_HISTORY = Core._LOG + Core.const('name') + '_errorHistory.json';
+const UNKNOWN_HOST_HISTORY = Core._LOG + Core.const('name') + '_unknownHostHistory.json';
 const FILE_TTS_UI_HISTORY = Core._LOG + Core.const('name') + '_ttsUIHistory.json';
 const FILE_VOICEMAIL_HISTORY = Core._LOG + Core.const('name') + '_voicemailHistory.json';
 
@@ -166,6 +167,10 @@ function attachDefaultRoutes(ui) {
 
   ui.get('/errorHistory', function (req, res) {
     res.end(fs.readFileSync(FILE_ERROR_HISTORY, 'utf8').toString());
+  });
+
+  ui.get('/unknownHostHistory', function (req, res) {
+    res.end(fs.readFileSync(UNKNOWN_HOST_HISTORY, 'utf8').toString());
   });
 
   ui.get('/requestHistory', function (req, res) {

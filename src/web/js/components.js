@@ -1138,6 +1138,7 @@ app.component('history', {
         { label: 'TTS', icon: 'fa-regular fa-comment-dots', url: 'https://odi.adrigarry.com/ttsUIHistory' },
         { label: 'Voicemail', icon: 'fa-regular fa-envelope', url: 'https://odi.adrigarry.com/voicemailHistory' },
         { label: 'Request', icon: 'fa-solid fa-exchange-alt', url: 'https://odi.adrigarry.com/requestHistory' },
+        { label: 'Unknown hosts', icon: 'fa-solid fa-broadcast-tower', url: 'https://odi.adrigarry.com/unknownHostHistory' },
         { label: 'Errors', icon: 'fa-brands fa-sith', url: 'https://odi.adrigarry.com/errorHistory' }
       ]
     };

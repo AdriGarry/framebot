@@ -5,7 +5,7 @@
 const nmap = require('node-nmap');
 nmap.nmapLocation = 'nmap';
 
-const { Core, Flux, Logger, Observers, Scheduler, Utils } = require('../../api');
+const { Core, Flux, Files, Logger, Observers } = require('../../api');
 
 const log = new Logger(__filename);
 
@@ -130,7 +130,7 @@ function newHostReaction(hostsToReact) {
     );
     const unknownHostsNames = unknownHosts.map(host => host.hostname);
     Flux.do('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown device: ' + unknownHostsNames.join(', ') });
-    // TODO send notification (mail...) to persist, and log before restart.
+    Files.appendJsonFile(Core._LOG + Core.const('name') + '_unknownHostHistory.json', unknownHosts);
   }
 
   logTableActiveHosts();

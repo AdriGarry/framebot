@@ -21,7 +21,7 @@ module.exports = class Files {
     return new Promise((resolve, reject) => {
       fsPromises
         .readFile(filePath)
-        .catch(_fileNotExists)
+        .catch(_createFileIfNotExists)
         .then(data => _appendFileData(data, obj, filePath))
         .then(data => fsPromises.writeFile(filePath, data))
         .then(() => {
@@ -141,7 +141,7 @@ module.exports = class Files {
 
 const FILE_NOT_FOUND_EXCEPT = ['/home/odi/framebot/tmp/voicemail.json', '/home/odi/framebot/tmp/record.json'];
 
-function _fileNotExists(err) {
+function _createFileIfNotExists(err) {
   return new Promise((resolve, reject) => {
     if (err.code == 'ENOENT') resolve('[]');
     else reject(err);
