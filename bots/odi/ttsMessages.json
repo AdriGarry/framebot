@@ -151,17 +151,6 @@
     "Ouais, sa c'est cool en aitai avec le pastis !",
     "Et toi, comment t'appelle tu ?"
   ],
-  "goToSleep": [
-    {
-      "msg": "Je vous souhaite une bonne nuit"
-    },
-    {
-      "msg": "Je vais me coucher, faites de beaux raives"
-    },
-    {
-      "msg": "Bonne nuit mes loulous"
-    }
-  ],
   "party": [
     "Et, sa vous dit un concours de zizicoptaire ?",
     "Que dirais-tu d'une petite mousse ?",
