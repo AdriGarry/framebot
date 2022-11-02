@@ -16,7 +16,7 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('service', 'presence', FLUX_PARSE_OPTIONS);
 
 const LAST_MOTION_DETECT_TIMEOUT_IN_SEC = 10 * 60;
-const CHECK_PRESENCE_INTERVAL_MIN = 10; // TODO set to 30min
+const CHECK_PRESENCE_INTERVAL_MIN = 10; // TODO set to 20min
 
 setImmediate(() => {
   Scheduler.delay(10).then(() => {
@@ -27,7 +27,7 @@ setImmediate(() => {
 
 let checkPresenceInterval;
 function checkPresenceScheduler() {
-  log.info(`checkPresenceScheduler... [${CHECK_PRESENCE_INTERVAL_MIN}min]`);
+  log.info(`Schedule check presence... [${CHECK_PRESENCE_INTERVAL_MIN}min]`);
   clearInterval(checkPresenceInterval);
   checkPresenceInterval = setInterval(() => {
     checkPresence();
@@ -37,22 +37,29 @@ function checkPresenceScheduler() {
 function checkPresence() {
   let anyKnowHostAtHome = checkNmap();
   let wasThereAnyMovementInTheLast10Minutes = checkLastMotionDetect();
-  log.info(`Checking presence: anyKnowHostAtHome[${anyKnowHostAtHome}], wasThereAnyMovementInTheLast10Minutes[${wasThereAnyMovementInTheLast10Minutes}]`);
   let isSomeoneAtHome = anyKnowHostAtHome || wasThereAnyMovementInTheLast10Minutes;
-  Core.run('presence', isSomeoneAtHome);
-  if (!isSomeoneAtHome) {
-    // TODO switch internetBox on
-  } else {
-    // TODO switch internetBox off
+  log.info(
+    `Checking presence: ${isSomeoneAtHome} [anyKnowHostAtHome=${anyKnowHostAtHome}, wasThereAnyMovementInTheLast10Minutes=${wasThereAnyMovementInTheLast10Minutes}]`
+  );
+
+  if (isSomeoneAtHome !== Core.run('presence')) {
+    Core.run('presence', isSomeoneAtHome);
+    if (isSomeoneAtHome) {
+      someoneAtHome();
+    } else {
+      nooneAtHome();
+    }
   }
 }
 
 function checkNmap() {
   log.info('checkNmap...');
-  return true;
+  // TODO to implement...
+  return false;
 }
 
 function checkLastMotionDetect() {
+  return false; // TODO remove this mock
   log.info('checkLastMotionDetect...');
   let lastMotionDetectInSec = Utils.getDifferenceInSec(Core.conf('lastMotionDetect'));
   return lastMotionDetectInSec > 0 && lastMotionDetectInSec <= LAST_MOTION_DETECT_TIMEOUT_IN_SEC;
@@ -62,4 +69,13 @@ function newEvent(event) {
   log.info('newEvent', event);
   Core.run('presence', true);
   checkPresenceScheduler();
+  someoneAtHome();
+}
+
+function someoneAtHome() {
+  new Flux('service|internetBox|on');
+}
+
+function nooneAtHome() {
+  new Flux('service|internetBox|off');
 }

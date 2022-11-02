@@ -46,6 +46,7 @@
     "voicemail": 0,
     "audioRecord": 0,
     "hdmi": null,
+    "presence":null,
     "rfxcom": false,
     "radiator": false,
     "screen": null,

@@ -37,12 +37,6 @@ let quickScan,
   isContinuousScan = false;
 
 function scan() {
-  if (!Core.run('internetBox')) {
-    // TODO conflict with internetBox init ?
-    log.warn('Internet box is OFF');
-    stopContinuousScan();
-    return;
-  }
   quickScan = new nmap.QuickScan(LOCAL_NETWORK_RANGE);
   quickScan.on('complete', hosts => {
     parseDetectedHosts(hosts);
@@ -50,7 +44,7 @@ function scan() {
   });
 
   quickScan.on('error', error => {
-    log.error('Nmap error:', error);
+    log.debug('Nmap error:', error);
     if (isContinuousScan) scan();
   });
 
@@ -114,7 +108,6 @@ function newHostReaction(hostsToReact) {
     if (host.unknown) {
       unknownHosts.push(host);
     } else {
-      log.test(host.label);
       if (host.label.toUpperCase().indexOf('ADRI') || host.label.toUpperCase().indexOf('CAM')) hasPresenceHosts = true;
       if (Array.isArray(host.flux)) {
         host.flux.forEach(flux => {
@@ -131,7 +124,10 @@ function newHostReaction(hostsToReact) {
   }
 
   if (unknownHosts.length > 0) {
-    log.warn('Unknown host(s) detected:', unknownHosts);
+    log.warn(
+      'Unknown host(s) detected:',
+      unknownHosts.map(host => host.hostname)
+    );
     const unknownHostsNames = unknownHosts.map(host => host.hostname);
     new Flux('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown device: ' + unknownHostsNames.join(', ') });
     // TODO send notification (mail...) to persist, and log before restart.
