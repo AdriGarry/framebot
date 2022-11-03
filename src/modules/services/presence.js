@@ -53,13 +53,13 @@ function checkPresence() {
 }
 
 function checkNmap() {
-  log.info('checkNmap...');
+  log.debug('checkNmap...');
   // TODO to implement...
   return false;
 }
 
 function checkLastMotionDetect() {
-  log.info('checkLastMotionDetect...');
+  log.debug('checkLastMotionDetect...');
   let lastMotionDetectInSec = Utils.getDifferenceInSec(Core.conf('lastMotionDetect'));
   return lastMotionDetectInSec <= LAST_MOTION_DETECT_TIMEOUT_IN_SEC;
 }

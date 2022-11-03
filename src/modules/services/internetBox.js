@@ -43,7 +43,7 @@ function boxManualOn() {
   log.info('Stopping internet box OFF strategy...');
   BOX_OFF_STRATEGY_CRON_LIST.stop();
 
-  log.info('Starting internet box...');
+  log.info('Internet box manually ON');
   Flux.do(BOX_FLUX.ON);
   Core.run('internetBox', true);
   Flux.do('service|network|testConnection', null, { delay: 30, loop: 2 });
