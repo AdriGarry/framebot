@@ -53,19 +53,17 @@ function checkPresence() {
 }
 
 function checkNmap() {
-  log.debug('checkNmap...');
-  // TODO to implement...
-  return false;
+  let presenceHosts = Core.run('presenceHosts');
+  return presenceHosts && presenceHosts.length;
 }
 
 function checkLastMotionDetect() {
-  log.debug('checkLastMotionDetect...');
   let lastMotionDetectInSec = Utils.getDifferenceInSec(Core.conf('lastMotionDetect'));
   return lastMotionDetectInSec <= LAST_MOTION_DETECT_TIMEOUT_IN_SEC;
 }
 
 function newEvent(event) {
-  log.info('newEvent', event);
+  log.info('Event', event);
   Core.run('presence', true);
   checkPresenceScheduler();
   someoneAtHome();

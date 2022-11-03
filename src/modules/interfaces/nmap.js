@@ -55,9 +55,8 @@ function scan() {
 function parseDetectedHosts(detectedHosts) {
   let hostsToReact = [];
   detectedHosts.forEach(detectedHost => {
-    if (!detectedHost.hostname) {
-      return log.debug('Hostnames not provided, skipping this scan result.');
-    }
+    if (!detectedHost.hostname) return log.debug('Hostnames not provided, skipping this scan result.');
+
     if (!detectedHostsMap.has(detectedHost.hostname)) {
       const newlyDetectedHost = {
         hostname: detectedHost.hostname,
@@ -102,13 +101,14 @@ function disableInactiveHosts() {
 }
 
 function newHostReaction(hostsToReact) {
-  let unknownHosts = [];
-  let hasPresenceHosts = false;
+  let unknownHosts = [],
+    presenceHosts = [];
   hostsToReact.forEach(host => {
     if (host.unknown) {
       unknownHosts.push(host);
     } else {
-      if (host.label.toUpperCase().indexOf('ADRI') || host.label.toUpperCase().indexOf('CAM')) hasPresenceHosts = true;
+      if (host.label.toUpperCase().indexOf('ADRI') >= 0 || host.label.toUpperCase().indexOf('CAM') >= 0) presenceHosts.push(host.label);
+
       if (Array.isArray(host.flux)) {
         host.flux.forEach(flux => {
           Flux.do(flux.id, flux.value);
@@ -119,7 +119,10 @@ function newHostReaction(hostsToReact) {
     }
   });
 
-  if (hasPresenceHosts) Flux.do('service|presence|event', 'host');
+  if (presenceHosts.length) {
+    Core.run('presenceHosts', presenceHosts);
+    Flux.do('service|presence|event', 'host(s): ' + presenceHosts.join(', '));
+  }
 
   if (unknownHosts.length > 0) {
     log.warn(
