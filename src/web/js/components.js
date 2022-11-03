@@ -631,6 +631,8 @@ app.component('music', {
         return 'fa-brands fa-napster';
       } else if (ctrl.data.value === 'low') {
         return 'fa-solid fa-kiwi-bird';
+      } else if (ctrl.data.value === 'childs') {
+        return 'fa-solid fa-child-reaching';
       } else {
         return 'fa-solid fa-music';
       }
