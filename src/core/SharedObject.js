@@ -66,12 +66,8 @@ function SharedObject(name, obj) {
       id = keys[0];
       id2 = keys[1];
     }
-    if (Array.isArray(object[id])) {
-      object[id].push(newValue);
-    } else {
-      if (id2) object[id][id2] = newValue;
-      else object[id] = newValue;
-    }
+    if (id2) object[id][id2] = newValue;
+    else object[id] = newValue;
   }
 }
 
