@@ -441,11 +441,16 @@ app.component('alarms', {
             nextAlarms[key] = nextAlarm;
           }
         });
-        let alarmToReturn;
-        if (nextAlarms.weekDay < nextAlarms.weekEnd) alarmToReturn = nextAlarms.weekDay;
-        else alarmToReturn = nextAlarms.weekEnd;
+        let alarmToReturn = getAlarmToDisplay(nextAlarms);
         ctrl.nextAlarm = { h: alarmToReturn.getHours(), m: alarmToReturn.getMinutes() };
       } else ctrl.nextAlarm = false;
+    };
+
+    let getAlarmToDisplay = function (nextAlarms) {
+      if (!nextAlarms.weekDay) return nextAlarms.weekEnd;
+      if (!nextAlarms.weekEnd) return nextAlarms.weekDay;
+      if (nextAlarms.weekDay < nextAlarms.weekEnd) return nextAlarms.weekDay;
+      else return nextAlarms.weekEnd;
     };
 
     let _incrementDay = function (date, time) {
