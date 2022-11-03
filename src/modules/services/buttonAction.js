@@ -92,7 +92,7 @@ function etatButtonAction(value) {
   log.info('Etat button:', Core.run('etat'));
   Flux.do('interface|led|toggle', { leds: ['satellite'], value: value }, { log: 'trace' });
 
-  if (value) Flux.do('service|mood|set', 3);
+  if (value) Flux.do('service|mood|set', 4);
   else Flux.do('service|mood|set', 1);
 
   if (value) Flux.do('interface|nmap|continuous');

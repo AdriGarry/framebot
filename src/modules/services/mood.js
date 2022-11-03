@@ -46,11 +46,12 @@ function backToDefaultMoodLevel() {
 }
 
 function additionalMoodSetup(moodLevelId) {
-  if (moodLevelId >= 2) Flux.do('interface|tts|speak', { lg: 'en', voice: 'google', msg: 'Mood level ' + moodLevelId });
+  if (moodLevelId >= 2) {
+    Flux.do('interface|tts|speak', { lg: 'en', voice: 'google', msg: 'Mood level ' + moodLevelId });
+    Flux.do('interface|arduino|connect');
+  }
 
   if (moodLevelId >= 3) {
-    // Max + interaction
-    Flux.do('interface|arduino|connect');
     scheduleFluxWhileMoodLevel(3, 13, { id: 'service|interaction|random' });
   } else if (Core.run('max')) {
     Flux.do('interface|arduino|disconnect');

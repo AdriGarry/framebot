@@ -119,9 +119,7 @@ function newHostReaction(hostsToReact) {
     }
   });
 
-  if (hasPresenceHosts) {
-    Flux.do('service|presence|event', 'host');
-  }
+  if (hasPresenceHosts) Flux.do('service|presence|event', 'host');
 
   if (unknownHosts.length > 0) {
     log.warn(
