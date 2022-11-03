@@ -63,7 +63,7 @@ function checkLastMotionDetect() {
 }
 
 function newEvent(event) {
-  log.info('Event', event);
+  log.info('Presence event:', event);
   Core.run('presence', true);
   checkPresenceScheduler();
   someoneAtHome();
