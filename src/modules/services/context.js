@@ -46,7 +46,7 @@ function restartCore(mode) {
 /** Function to random TTS good night, and sleep */
 function goToSleep() {
   if (Core.isAwake()) {
-    new Flux('interface|tts|speak', 'Bonne nuit mes loulous');
+    Flux.do('interface|tts|speak', 'Bonne nuit mes loulous');
     log.info('AutoLifeCycle go to sleep !');
     setTimeout(function () {
       Flux.do('service|context|restart', 'sleep');
