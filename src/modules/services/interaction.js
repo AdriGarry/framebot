@@ -115,10 +115,7 @@ function russia() {
 
 function uneHeure() {
   log.info('Il est 1 heure et tout va bien !');
-  Flux.do('interface|sound|play', {
-    file: 'system/uneHeure.mp3',
-    volume: 40
-  });
+  Flux.do('interface|sound|play', { file: 'system/uneHeure.mp3' });
 }
 
 function demo() {
