@@ -36,9 +36,13 @@ function initWeatherService() {
     }
     WEATHER_STATUS_LIST = JSON.parse(data);
 
-    fetchWeatherData();
+    fetchWeatherData().catch(err => {
+      Core.error('Error weather', err);
+    });
     setInterval(() => {
-      fetchWeatherData();
+      fetchWeatherData().catch(err => {
+        Core.error('Error weather', err);
+      });
     }, FETCH_WEATHER_DATA_DELAY * 60 * 1000);
   });
 }
@@ -54,31 +58,39 @@ function randomTTS() {
 /** Official weather function */
 function reportTTS() {
   log.info('Weather report...');
-  fetchWeatherData().then(() => {
-    let weatherSpeech = {
-      voice: 'google',
-      lg: 'fr',
-      msg:
-        'Meteo Marseille : le temps est ' +
-        weatherReport.status.label +
-        ', il fait ' +
-        weatherReport.temperature +
-        ' degres avec ' +
-        (isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) +
-        ' kilometre heure de vent'
-    };
-    log.debug('weatherSpeech', weatherSpeech);
-    Flux.do('interface|tts|speak', weatherSpeech);
-  });
+  fetchWeatherData()
+    .then(() => {
+      let weatherSpeech = {
+        voice: 'google',
+        lg: 'fr',
+        msg:
+          'Meteo Marseille : le temps est ' +
+          weatherReport.status.label +
+          ', il fait ' +
+          weatherReport.temperature +
+          ' degres avec ' +
+          (isNaN(weatherReport.wind) ? '0' : Math.round(weatherReport.wind)) +
+          ' kilometre heure de vent'
+      };
+      log.debug('weatherSpeech', weatherSpeech);
+      Flux.do('interface|tts|speak', weatherSpeech);
+    })
+    .catch(err => {
+      Core.error('Error weather', err);
+    });
 }
 
 /** Official weather function */
 function alternativeReportTTS() {
   log.info('Alternative weather report...');
-  fetchWeatherData().then(() => {
-    log.debug('weatherReport', weatherReport);
-    Flux.do('interface|tts|speak', getAlternativeWeatherReport(weatherReport));
-  });
+  fetchWeatherData()
+    .then(() => {
+      log.debug('weatherReport', weatherReport);
+      Flux.do('interface|tts|speak', getAlternativeWeatherReport(weatherReport));
+    })
+    .catch(err => {
+      Core.error('Error weather', err);
+    });
 }
 
 let weatherReport;
