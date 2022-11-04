@@ -119,22 +119,21 @@ function newHostReaction(hostsToReact) {
     }
   });
 
-  if (presenceHosts.length) {
-    Core.run('presenceHosts', presenceHosts);
-    Flux.do('service|presence|event', 'host(s): ' + presenceHosts.join(', '));
-  }
+  if (presenceHosts.length) Core.run('presenceHosts', presenceHosts);
 
-  if (unknownHosts.length > 0) {
-    log.warn(
-      'Unknown host(s) detected:',
-      unknownHosts.map(host => host.hostname)
-    );
-    const unknownHostsNames = unknownHosts.map(host => host.hostname);
-    Flux.do('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown device: ' + unknownHostsNames.join(', ') });
-    Files.appendJsonFile(Core._LOG + Core.const('name') + '_unknownHostHistory.json', unknownHosts);
-  }
+  if (unknownHosts.length) logAndPersistUnknownHosts();
 
   logTableActiveHosts();
+}
+
+function logAndPersistUnknownHosts() {
+  log.warn(
+    'Unknown host(s) detected:',
+    unknownHosts.map(host => host.hostname)
+  );
+  const unknownHostsNames = unknownHosts.map(host => host.hostname);
+  Flux.do('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown device: ' + unknownHostsNames.join(', ') });
+  Files.appendJsonFile(Core._LOG + Core.const('name') + '_unknownHostHistory.json', unknownHosts);
 }
 
 function logTableActiveHosts() {
