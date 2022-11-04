@@ -6,11 +6,7 @@ const { Core, CronJobList, Flux, Logger, Observers, Scheduler } = require('../..
 
 const log = new Logger(__filename);
 
-module.exports = {
-  cron: {
-    // base: [{ cron: '50 */20 0-5 * * *', flux: { id: 'service|internetBox|offStrategyIfNoActivity' } }]
-  }
-};
+module.exports = {};
 
 const FLUX_PARSE_OPTIONS = [
   { id: 'on', fn: boxManualOn },
