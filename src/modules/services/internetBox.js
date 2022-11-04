@@ -22,8 +22,8 @@ const BOX_FLUX = {
     OFF: { id: 'interface|rfxcom|send', data: { device: BOX_PLUG, value: false } }
   },
   BOX_OFF_STRATEGY_CRON = [
-    { cron: '15 59 * * * *', flux: BOX_FLUX.ON },
-    { cron: '15 10 * * * *', flux: BOX_FLUX.OFF }
+    { cron: '0 59 * * * *', flux: BOX_FLUX.ON },
+    { cron: '0 10 * * * *', flux: BOX_FLUX.OFF }
   ],
   BOX_OFF_STRATEGY_CRON_LIST = new CronJobList(BOX_OFF_STRATEGY_CRON, 'internetBoxOffStrategy', true);
 
