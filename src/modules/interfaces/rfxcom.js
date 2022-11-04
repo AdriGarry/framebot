@@ -95,7 +95,7 @@ function parseReceivedSignal(receivedSignal) {
   }
 }
 
-// TODO mode to powerPlug service
+// TODO move to powerPlug service
 function updateStatusForPlug(matchPlug) {
   let plugFamily = matchPlug.groups.plugFamily;
   let plugId = matchPlug.groups.plugId;

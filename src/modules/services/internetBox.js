@@ -40,23 +40,18 @@ function setupBoxMode() {
 }
 
 function boxManualOn() {
-  log.info('Stopping internet box OFF strategy...');
   BOX_OFF_STRATEGY_CRON_LIST.stop();
-
-  log.info('Internet box manually ON');
   Flux.do(BOX_FLUX.ON);
   Core.run('internetBox', true);
-  Flux.do('service|network|testConnection', null, { delay: 30, loop: 2 });
+  log.info('Internet box switched ON, access strategy has been stopped.');
 }
 
 function boxOffStrategy() {
   // // TODO problem: parse receive from rfxcom instead of flux filter
   // // TODO test internetBoxStrategyCrons.nextDate value in more than 15 min ?
 
-  log.info('Stopping internet box...');
   Flux.do(BOX_FLUX.OFF);
-
-  log.info('Starting internet box OFF strategy... Connexion will be available 10 first minutes of each hour');
   BOX_OFF_STRATEGY_CRON_LIST.start();
   Core.run('internetBox', false);
+  log.info('Internet box switched OFF, access strategy has been started: connexion will be available 10 first minutes of each hour');
 }
