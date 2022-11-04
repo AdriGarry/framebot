@@ -223,7 +223,6 @@ function getDiskSpace() {
         if (parseInt(diskSpace) >= 80) {
           let logMessage = 'Warning: disk space almost full: ' + Core.run('stats.diskSpace') + '%';
           log.warn(logMessage);
-          Flux.do('service|sms|send', logMessage);
         }
         resolve(diskSpace[0]);
       })
