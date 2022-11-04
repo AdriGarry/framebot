@@ -30,6 +30,7 @@ function buttonHandler(flux) {
 }
 
 function okButtonAction(duration) {
+  Flux.do('interface|rfxcom|send', { device: 'plug2', value: true });
   if (Core.isAwake()) {
     if (duration > 3) {
       Flux.do('interface|rfxcom|send', { device: 'plug1', value: true });
