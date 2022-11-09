@@ -121,12 +121,12 @@ function newHostReaction(hostsToReact) {
 
   if (presenceHosts.length) Core.run('presenceHosts', presenceHosts);
 
-  if (unknownHosts.length) logAndPersistUnknownHosts();
+  if (unknownHosts.length) logAndPersistUnknownHosts(unknownHosts);
 
   logTableActiveHosts();
 }
 
-function logAndPersistUnknownHosts() {
+function logAndPersistUnknownHosts(unknownHosts) {
   log.warn(
     'Unknown host(s) detected:',
     unknownHosts.map(host => host.hostname)
