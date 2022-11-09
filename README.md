@@ -117,7 +117,7 @@ This object's entries are not updatable.
 #### Flux manager
 
 A flux manager, based on RxJS, can send or schedule (delay, repeat) orders.
-_Flux.do()_ function accepts flux object (full or detailled), or list of fluxs.
+_Flux.do()_ function accepts flux object (full or detailled), or list of flux.
 
 A flux is an Object with 3 properties:
 
