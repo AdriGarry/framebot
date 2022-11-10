@@ -15,8 +15,7 @@ const FLUX_PARSE_OPTIONS = [
 
 Observers.attachFluxParseOptions('service', 'presence', FLUX_PARSE_OPTIONS);
 
-const LAST_MOTION_DETECT_TIMEOUT_IN_SEC = 10 * 60;
-const CHECK_PRESENCE_INTERVAL_MIN = 10; // TODO set to 20min
+const CHECK_PRESENCE_INTERVAL_MIN = 10;
 
 setImmediate(() => {
   Scheduler.delay(10).then(() => {
@@ -35,8 +34,8 @@ function checkPresenceScheduler() {
 }
 
 function checkPresence() {
-  let anyKnowHostAtHome = checkNmap();
-  let wasThereAnyMovementInTheLast10Minutes = checkLastMotionDetect();
+  let anyKnowHostAtHome = isAnyKnowHostAtHome();
+  let wasThereAnyMovementInTheLast10Minutes = isAnyMovementInLastPeriod();
   let isSomeoneAtHome = anyKnowHostAtHome || wasThereAnyMovementInTheLast10Minutes;
   log.info(
     `Checking presence: ${isSomeoneAtHome} [anyKnowHostAtHome=${anyKnowHostAtHome}, wasThereAnyMovementInTheLast10Minutes=${wasThereAnyMovementInTheLast10Minutes}]`
@@ -52,14 +51,16 @@ function checkPresence() {
   }
 }
 
-function checkNmap() {
+function isAnyKnowHostAtHome() {
   let presenceHosts = Core.run('presenceHosts');
   return presenceHosts && presenceHosts.length;
 }
 
-function checkLastMotionDetect() {
+function isAnyMovementInLastPeriod() {
   let lastMotionDetectInSec = Utils.getDifferenceInSec(Core.conf('lastMotionDetect'));
-  return lastMotionDetectInSec <= LAST_MOTION_DETECT_TIMEOUT_IN_SEC;
+  log.test('lastMotionDetectInSec > CHECK_PRESENCE_INTERVAL_SEC:', lastMotionDetectInSec > CHECK_PRESENCE_INTERVAL_MIN, lastMotionDetectInSec);
+  log.test('lasMotionDetect', Core.conf('lastMotionDetect'));
+  return lastMotionDetectInSec > CHECK_PRESENCE_INTERVAL_MIN;
 }
 
 function newEvent(event) {
