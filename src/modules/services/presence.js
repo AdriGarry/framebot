@@ -57,10 +57,13 @@ function isAnyKnowHostAtHome() {
 }
 
 function isAnyMovementInLastPeriod() {
-  let lastMotionDetectInSec = Utils.getDifferenceInSec(Core.conf('lastMotionDetect'));
+  log.test('motionDetect:', Core.conf('motionDetect'));
+  let isStillSomeMovements = Core.conf('motionDetect.last').getTime() < Core.conf('motionDetect.end').getTime();
+  log.test('isStillSomeMovements', isStillSomeMovements);
+
+  let lastMotionDetectInSec = Utils.getDifferenceInSec(Core.conf('motionDetect.last'));
   log.test('lastMotionDetectInSec > CHECK_PRESENCE_INTERVAL_SEC:', lastMotionDetectInSec > CHECK_PRESENCE_INTERVAL_MIN, lastMotionDetectInSec);
-  log.test('lasMotionDetect', Core.conf('lastMotionDetect'));
-  return lastMotionDetectInSec > CHECK_PRESENCE_INTERVAL_MIN;
+  return isStillSomeMovements || lastMotionDetectInSec > CHECK_PRESENCE_INTERVAL_MIN * 60;
 }
 
 function newEvent(event) {

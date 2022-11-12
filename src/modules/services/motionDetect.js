@@ -18,7 +18,7 @@ let lastDetection = null;
 function motionDetect() {
   let lastDetectionInSec = getLastDetectionInSec();
   log.info('Motion detected', '[last motion detected', Utils.formatDuration(lastDetectionInSec) + ' ago]');
-  Core.conf('lastMotionDetect', new Date());
+  Core.conf('motionDetect.last', new Date());
   Flux.do('service|presence|event', 'motion');
 
   if (Core.run('mood') > 0) {
@@ -39,6 +39,7 @@ function motionDetectEnd() {
   if (!lastDetection) lastDetection = new Date();
   let motionDuration = Math.round((new Date() - lastDetection.getTime()) / 1000);
   log.info('Motion end', '[duration:', Utils.formatDuration(motionDuration) + ']');
+  Core.conf('motionDetect.end', new Date());
 
   if (Core.run('mood') > 0) {
     Flux.do('service|light|blinkOff', null, { log: 'TRACE' });

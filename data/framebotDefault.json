@@ -24,7 +24,7 @@
     "radiator": ".",
     "flux": [],
     "rfxcomDevices": {},
-    "lastMotionDetect": null
+    "motionDetect": {}
   },
   "const": {
     "name": null,
