@@ -18,7 +18,7 @@ Observers.attachFluxParseOptions('service', 'presence', FLUX_PARSE_OPTIONS);
 const CHECK_PRESENCE_INTERVAL_MIN = 10;
 
 setImmediate(() => {
-  Scheduler.delay(10).then(() => {
+  Scheduler.delay(15).then(() => {
     checkPresence();
     checkPresenceScheduler();
   });
