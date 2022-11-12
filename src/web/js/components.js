@@ -1028,27 +1028,27 @@ app.component('powerPlug', {
     let specificplugActions = function (action) {
       let actionList = [
         {
-          label: action.label + ' ON timeout',
+          label: 'ON timeout',
           icon: 'fa-solid fa-clock',
           url: '/flux/service/powerPlug/timeout',
           value: { plug: action.value.device, mode: true },
           continu: true
         },
         {
-          label: action.label + ' OFF timeout',
+          label: 'OFF timeout',
           icon: 'fa-regular fa-clock',
           url: '/flux/service/powerPlug/timeout',
           value: { plug: action.value.device, mode: false },
           continu: true
         },
         {
-          label: action.label + ' ON',
+          label: 'ON',
           icon: 'fa-solid fa-toggle-on',
           url: '/flux/service/powerPlug/toggle',
           value: { plug: action.value.device, mode: true }
         },
         {
-          label: action.label + ' OFF',
+          label: 'OFF',
           icon: 'fa-solid fa-toggle-off',
           url: '/flux/service/powerPlug/toggle',
           value: { plug: action.value.device, mode: false }
