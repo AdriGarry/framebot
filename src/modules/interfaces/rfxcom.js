@@ -3,7 +3,7 @@
 
 const rfxcom = require('rfxcom');
 
-const { Core, Flux, Logger, Observers, Scheduler, Utils } = require('./../../api');
+const { Core, Flux, Logger, Observers, Files, Scheduler, Utils } = require('./../../api');
 
 const log = new Logger(__filename);
 
