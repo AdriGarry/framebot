@@ -95,7 +95,6 @@ function parseReceivedSignal(receivedSignal) {
     log.warn('Unreconized rfxcom signal:', parsedReceivedSignal, receivedSignal);
     Files.appendJsonFile(Core._LOG + Core.const('name') + '_unreconizedRfxcomSignal.json', {
       signal: parsedReceivedSignal,
-      signalHex: receivedSignal,
       date: new Date()
     });
   }
