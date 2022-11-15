@@ -60,10 +60,11 @@ function isAnyMovementInLastPeriod() {
   let isStillSomeMovements = new Date(Core.conf('motionDetect.last')).getTime() > new Date(Core.conf('motionDetect.end')).getTime();
   log.test('isStillSomeMovements', isStillSomeMovements);
   let lastMotionDetectInSec = Utils.getDifferenceInSec(new Date(Core.conf('motionDetect.last')));
-  log.test(`lastMotionDetectInSec: ${lastMotionDetectInSec}`);
+  let isLastMotionDetectValid = isNaN(lastMotionDetectInSec);
+  log.test(`lastMotionDetectInSec: ${lastMotionDetectInSec} / isLastMotionDetectValid: ${isLastMotionDetectValid}`);
   let wasThereAnyMovementInTheLastPeriod = lastMotionDetectInSec < CHECK_PRESENCE_INTERVAL_MIN * 60;
   log.test(`wasThereAnyMovementInTheLastPeriod [period=${CHECK_PRESENCE_INTERVAL_MIN}min]: ${wasThereAnyMovementInTheLastPeriod}`);
-  return isStillSomeMovements || wasThereAnyMovementInTheLastPeriod;
+  return isStillSomeMovements || isLastMotionDetectValid || wasThereAnyMovementInTheLastPeriod;
 }
 
 function newEvent(event) {
