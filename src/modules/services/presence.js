@@ -38,7 +38,7 @@ function checkPresence() {
   let wasThereAnyMovementInTheLastPeriod = isAnyMovementInLastPeriod();
   let isSomeoneAtHome = anyKnowHostAtHome || wasThereAnyMovementInTheLastPeriod;
   log.info(
-    `Checking presence: ${isSomeoneAtHome} [anyKnowHostAtHome=${anyKnowHostAtHome}, wasThereAnyMovementInTheLastPeriod=${wasThereAnyMovementInTheLastPeriod}]`
+    `Presence check: ${isSomeoneAtHome} [anyKnowHostAtHome=${anyKnowHostAtHome}, wasThereAnyMovementInTheLastPeriod=${wasThereAnyMovementInTheLastPeriod}]`
   );
 
   if (isSomeoneAtHome !== Core.run('presence')) {
@@ -58,13 +58,13 @@ function isAnyKnowHostAtHome() {
 
 function isAnyMovementInLastPeriod() {
   let isStillSomeMovements = new Date(Core.conf('motionDetect.last')).getTime() > new Date(Core.conf('motionDetect.end')).getTime();
-  log.test('isStillSomeMovements', isStillSomeMovements);
   let lastMotionDetectInSec = Utils.getDifferenceInSec(new Date(Core.conf('motionDetect.last')));
-  let isLastMotionDetectValid = isNaN(lastMotionDetectInSec);
-  log.test(`lastMotionDetectInSec: ${lastMotionDetectInSec} / isLastMotionDetectValid: ${isLastMotionDetectValid}`);
+  let isLastMotionDetectTrustable = !isNaN(lastMotionDetectInSec);
   let wasThereAnyMovementInTheLastPeriod = lastMotionDetectInSec < CHECK_PRESENCE_INTERVAL_MIN * 60;
-  log.test(`wasThereAnyMovementInTheLastPeriod [period=${CHECK_PRESENCE_INTERVAL_MIN}min]: ${wasThereAnyMovementInTheLastPeriod}`);
-  return isStillSomeMovements || isLastMotionDetectValid || wasThereAnyMovementInTheLastPeriod;
+  log.test(
+    `isAnyMovementInLastPeriod?\r\nisStillSomeMovements=${isStillSomeMovements}\r\nlastMotionDetectInSec=${lastMotionDetectInSec}\r\isLastMotionDetectTrustable=${isLastMotionDetectTrustable}\r\nwasThereAnyMovementInTheLastPeriod=${wasThereAnyMovementInTheLastPeriod}`
+  );
+  return isStillSomeMovements || !isLastMotionDetectTrustable || wasThereAnyMovementInTheLastPeriod;
 }
 
 function newEvent(event) {
