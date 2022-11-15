@@ -18,7 +18,7 @@ Observers.attachFluxParseOptions('service', 'presence', FLUX_PARSE_OPTIONS);
 const CHECK_PRESENCE_INTERVAL_MIN = 10;
 
 setImmediate(() => {
-  Scheduler.delay(15).then(() => {
+  Scheduler.delay(13).then(() => {
     checkPresence();
     checkPresenceScheduler();
   });
@@ -35,10 +35,10 @@ function checkPresenceScheduler() {
 
 function checkPresence() {
   let anyKnowHostAtHome = isAnyKnowHostAtHome();
-  let wasThereAnyMovementInTheLast10Minutes = isAnyMovementInLastPeriod();
-  let isSomeoneAtHome = anyKnowHostAtHome || wasThereAnyMovementInTheLast10Minutes;
+  let wasThereAnyMovementInTheLastPeriod = isAnyMovementInLastPeriod();
+  let isSomeoneAtHome = anyKnowHostAtHome || wasThereAnyMovementInTheLastPeriod;
   log.info(
-    `Checking presence: ${isSomeoneAtHome} [anyKnowHostAtHome=${anyKnowHostAtHome}, wasThereAnyMovementInTheLast10Minutes=${wasThereAnyMovementInTheLast10Minutes}]`
+    `Checking presence: ${isSomeoneAtHome} [anyKnowHostAtHome=${anyKnowHostAtHome}, wasThereAnyMovementInTheLastPeriod=${wasThereAnyMovementInTheLastPeriod}]`
   );
 
   if (isSomeoneAtHome !== Core.run('presence')) {
@@ -53,14 +53,17 @@ function checkPresence() {
 
 function isAnyKnowHostAtHome() {
   let presenceHosts = Core.run('presenceHosts');
-  return presenceHosts && presenceHosts.length;
+  return presenceHosts && !!presenceHosts.length;
 }
 
 function isAnyMovementInLastPeriod() {
-  let lastMotionDetectInSec = Utils.getDifferenceInSec(Core.conf('lastMotionDetect'));
-  log.test('lastMotionDetectInSec > CHECK_PRESENCE_INTERVAL_SEC:', lastMotionDetectInSec > CHECK_PRESENCE_INTERVAL_MIN, lastMotionDetectInSec);
-  log.test('lasMotionDetect', Core.conf('lastMotionDetect'));
-  return lastMotionDetectInSec > CHECK_PRESENCE_INTERVAL_MIN;
+  let isStillSomeMovements = new Date(Core.conf('motionDetect.last')).getTime() > new Date(Core.conf('motionDetect.end')).getTime();
+  log.test('isStillSomeMovements', isStillSomeMovements);
+  let lastMotionDetectInSec = Utils.getDifferenceInSec(new Date(Core.conf('motionDetect.last')));
+  log.test(`lastMotionDetectInSec: ${lastMotionDetectInSec}`);
+  let wasThereAnyMovementInTheLastPeriod = lastMotionDetectInSec < CHECK_PRESENCE_INTERVAL_MIN * 60;
+  log.test(`wasThereAnyMovementInTheLastPeriod [period=${CHECK_PRESENCE_INTERVAL_MIN}min]: ${wasThereAnyMovementInTheLastPeriod}`);
+  return isStillSomeMovements || wasThereAnyMovementInTheLastPeriod;
 }
 
 function newEvent(event) {

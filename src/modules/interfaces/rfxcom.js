@@ -95,13 +95,11 @@ function parseReceivedSignal(receivedSignal) {
     log.warn('Unreconized rfxcom signal:', parsedReceivedSignal, receivedSignal);
     Files.appendJsonFile(Core._LOG + Core.const('name') + '_unreconizedRfxcomSignal.json', {
       signal: parsedReceivedSignal,
-      signalHex: receivedSignal,
       date: new Date()
     });
   }
 }
 
-// TODO move to powerPlug service
 function updateStatusForPlug(matchPlug) {
   let plugFamily = matchPlug.groups.plugFamily;
   let plugId = matchPlug.groups.plugId;
