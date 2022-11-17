@@ -10,6 +10,7 @@
 [![Commit](https://img.shields.io/github/commit-activity/w/adrigarry/framebot?style=flat-square)](https://github.com/AdriGarry/framebot/commits/master)
 [![Last commit](https://img.shields.io/github/last-commit/adrigarry/framebot?style=flat-square)](https://github.com/AdriGarry/framebot/commits/master)
 [![Build status](https://img.shields.io/github/workflow/status/adrigarry/framebot/CI?style=flat-square)](https://github.com/AdriGarry/framebot/actions)
+[![Quality gate](https://img.shields.io/sonar/quality_gate/adrigarry:framebot/master?style=flat-square)](https://sonarcloud.io/summary/overall?id=AdriGarry_core)
 
 **Framebot** is a NodeJS framework for home automation & interaction.
 
