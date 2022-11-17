@@ -87,9 +87,9 @@ Mood level, from 0 to 5 is an indice to set expressive level of the bot.
 
 - Core
 - ModuleLoader
-- SharedObject
+- AccessorObject
 
-#### SharedObject
+#### AccessorObject
 
 Contains shared properties between modules. Accessible threw the 'Core' object, this object is isolated, with an accessors pattern :
 
