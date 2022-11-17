@@ -36,13 +36,9 @@ function initWeatherService() {
     }
     WEATHER_STATUS_LIST = JSON.parse(data);
 
-    fetchWeatherData().catch(err => {
-      Core.error('Error weather', err);
-    });
+    fetchWeatherData().catch(fetchWeatherDataError);
     setInterval(() => {
-      fetchWeatherData().catch(err => {
-        Core.error('Error weather', err);
-      });
+      fetchWeatherData().catch(fetchWeatherDataError);
     }, FETCH_WEATHER_DATA_DELAY * 60 * 1000);
   });
 }
@@ -75,9 +71,7 @@ function reportTTS() {
       log.debug('weatherSpeech', weatherSpeech);
       Flux.do('interface|tts|speak', weatherSpeech);
     })
-    .catch(err => {
-      Core.error('Error weather', err);
-    });
+    .catch(fetchWeatherDataError);
 }
 
 /** Official weather function */
@@ -88,9 +82,7 @@ function alternativeReportTTS() {
       log.debug('weatherReport', weatherReport);
       Flux.do('interface|tts|speak', getAlternativeWeatherReport(weatherReport));
     })
-    .catch(err => {
-      Core.error('Error weather', err);
-    });
+    .catch(fetchWeatherDataError);
 }
 
 let weatherReport;
@@ -150,4 +142,9 @@ function getAlternativeWeatherReport(weatherReportData) {
           msg: 'Un temps plutot ' + weatherReportData.status.label
         }
       ];
+}
+
+function fetchWeatherDataError(err) {
+  Core.error('Error weather', err);
+  Flux.do('interface|tts|speak', { lg: 'en', msg: 'Weather error' });
 }
