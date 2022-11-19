@@ -11,19 +11,20 @@ const log = new Logger(__filename);
 
 const FLUX_PARSE_OPTIONS = [
   { id: 'scan', fn: scan },
-  { id: 'continuous', fn: continuousScanForOneHour },
+  { id: 'continuous', fn: startContinuousScan },
   { id: 'stop', fn: stopContinuousScan }
 ];
 
 Observers.attachFluxParseOptions('interface', 'nmap', FLUX_PARSE_OPTIONS);
 
 setTimeout(() => {
-  continuousScanForOneHour();
+  startContinuousScan();
 }, 10 * 1000);
 
 const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
   INACTIVE_HOST_DELAY = 2 * 60 * 1000,
-  DEFAULT_FORGET_DELAY = 60 * 60 * 1000;
+  DEFAULT_FORGET_DELAY = 60 * 60 * 1000,
+  SCAN_INTERVAL_SEC = 60;
 
 let detectedHostsMap = new Map(
   Core.descriptor.knownHosts.map(host => {
@@ -40,19 +41,28 @@ function scan() {
   quickScan = new nmap.QuickScan(LOCAL_NETWORK_RANGE);
   quickScan.on('complete', hosts => {
     parseDetectedHosts(hosts);
-    if (isContinuousScan) scan();
+    scheduleNextScanIfContinuous();
   });
 
   quickScan.on('error', error => {
     log.debug('Nmap error:', error);
-    if (isContinuousScan) scan();
+    scheduleNextScanIfContinuous();
   });
 
   log.debug('Nmap scan...');
   quickScan.startScan();
 }
 
+function scheduleNextScanIfContinuous() {
+  if (isContinuousScan) {
+    setTimeout(() => {
+      scan();
+    }, SCAN_INTERVAL_SEC * 1000);
+  }
+}
+
 function parseDetectedHosts(detectedHosts) {
+  log.debug('Nmap detectect hosts:', detectedHosts);
   let hostsToReact = [];
   detectedHosts.forEach(detectedHost => {
     if (!detectedHost.hostname) return log.debug('Hostnames not provided, skipping this scan result.');
@@ -150,14 +160,10 @@ function convertMapToObjectWithIpAndLastDetectOnlyIfHostIsActive(map) {
   return obj;
 }
 
-function continuousScanForOneHour() {
-  log.info('Starting continuous scan for 1 hour...');
+function startContinuousScan() {
+  log.info('Starting continuous scan');
   Core.run('nmap', true);
   isContinuousScan = true;
-  setTimeout(() => {
-    log.info('Continuous scan timeout, stopping...');
-    stopContinuousScan();
-  }, 60 * 60 * 1000);
   scan();
 }
 
