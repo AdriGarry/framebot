@@ -6,7 +6,11 @@ const { Core, Flux, Logger, Observers, Scheduler, Utils } = require('../../api')
 
 const log = new Logger(__filename);
 
-module.exports = {};
+module.exports = {
+  cron: {
+    base: [{ cron: '30 * * * * *', flux: { id: 'service|presence|check' } }] // '30 */20 * * * *'
+  }
+};
 
 const FLUX_PARSE_OPTIONS = [
   { id: 'check', fn: checkPresence },
@@ -20,35 +24,28 @@ const CHECK_PRESENCE_INTERVAL_MIN = 10;
 setImmediate(() => {
   Scheduler.delay(13).then(() => {
     checkPresence();
-    checkPresenceScheduler();
   });
 });
 
-let checkPresenceInterval;
-function checkPresenceScheduler() {
-  log.info(`Schedule check presence... [${CHECK_PRESENCE_INTERVAL_MIN}min]`);
-  clearInterval(checkPresenceInterval);
-  checkPresenceInterval = setInterval(() => {
-    checkPresence();
-  }, CHECK_PRESENCE_INTERVAL_MIN * 60 * 1000);
-}
-
 function checkPresence() {
-  let anyKnowHostAtHome = isAnyKnowHostAtHome();
-  let wasThereAnyMovementInTheLastPeriod = isAnyMovementInLastPeriod();
-  let isSomeoneAtHome = anyKnowHostAtHome || wasThereAnyMovementInTheLastPeriod;
-  log.info(
-    `Presence check: ${isSomeoneAtHome} [anyKnowHostAtHome=${anyKnowHostAtHome}, wasThereAnyMovementInTheLastPeriod=${wasThereAnyMovementInTheLastPeriod}]`
-  );
+  Flux.do('interface|nmap|scan');
+  Scheduler.delay(10).then(() => {
+    let anyKnowHostAtHome = isAnyKnowHostAtHome();
+    let wasThereAnyMovementInTheLastPeriod = isAnyMovementInLastPeriod();
+    let isSomeoneAtHome = anyKnowHostAtHome || wasThereAnyMovementInTheLastPeriod;
+    log.info(
+      `Presence check: ${isSomeoneAtHome} [anyKnowHostAtHome=${anyKnowHostAtHome}, wasThereAnyMovementInTheLastPeriod=${wasThereAnyMovementInTheLastPeriod}]`
+    );
 
-  if (isSomeoneAtHome !== Core.run('presence')) {
-    Core.run('presence', isSomeoneAtHome);
-    if (isSomeoneAtHome) {
-      someoneAtHome();
-    } else {
-      nooneAtHome();
+    if (isSomeoneAtHome !== Core.run('presence')) {
+      Core.run('presence', isSomeoneAtHome);
+      if (isSomeoneAtHome) {
+        someoneAtHome();
+      } else {
+        nooneAtHome();
+      }
     }
-  }
+  });
 }
 
 function isAnyKnowHostAtHome() {
@@ -70,7 +67,7 @@ function isAnyMovementInLastPeriod() {
 function newEvent(event) {
   log.info('Presence event:', event);
   Core.run('presence', true);
-  checkPresenceScheduler();
+  checkPresence();
   someoneAtHome();
 }
 
@@ -79,5 +76,6 @@ function someoneAtHome() {
 }
 
 function nooneAtHome() {
+  log.test('.......nooneAtHome !!');
   Flux.do('service|internetBox|off');
 }

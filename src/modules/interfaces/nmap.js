@@ -9,6 +9,8 @@ const { Core, Flux, Files, Logger, Observers } = require('../../api');
 
 const log = new Logger(__filename);
 
+module.exports = {};
+
 const FLUX_PARSE_OPTIONS = [
   { id: 'scan', fn: scan },
   { id: 'continuous', fn: startContinuousScan },
@@ -18,13 +20,12 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('interface', 'nmap', FLUX_PARSE_OPTIONS);
 
 setTimeout(() => {
-  startContinuousScan();
+  scan();
 }, 10 * 1000);
 
 const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
   INACTIVE_HOST_DELAY = 2 * 60 * 1000,
-  DEFAULT_FORGET_DELAY = 60 * 60 * 1000,
-  SCAN_INTERVAL_SEC = 60;
+  DEFAULT_FORGET_DELAY = 60 * 60 * 1000;
 
 let detectedHostsMap = new Map(
   Core.descriptor.knownHosts.map(host => {
@@ -41,24 +42,16 @@ function scan() {
   quickScan = new nmap.QuickScan(LOCAL_NETWORK_RANGE);
   quickScan.on('complete', hosts => {
     parseDetectedHosts(hosts);
-    scheduleNextScanIfContinuous();
+    if (isContinuousScan) scan();
   });
 
   quickScan.on('error', error => {
     log.debug('Nmap error:', error);
-    scheduleNextScanIfContinuous();
+    scan();
   });
 
   log.debug('Nmap scan...');
   quickScan.startScan();
-}
-
-function scheduleNextScanIfContinuous() {
-  if (isContinuousScan) {
-    setTimeout(() => {
-      scan();
-    }, SCAN_INTERVAL_SEC * 1000);
-  }
 }
 
 function parseDetectedHosts(detectedHosts) {
@@ -117,7 +110,7 @@ function newHostReaction(hostsToReact) {
     if (host.unknown) {
       unknownHosts.push(host);
     } else {
-      if (host.label.toUpperCase().indexOf('ADRI') >= 0 || host.label.toUpperCase().indexOf('CAM') >= 0) presenceHosts.push(host.label);
+      if (host.label.toUpperCase().includes('ADRI')) presenceHosts.push(host.label);
 
       if (Array.isArray(host.flux)) {
         host.flux.forEach(flux => {
