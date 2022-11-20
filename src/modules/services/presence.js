@@ -8,7 +8,7 @@ const log = new Logger(__filename);
 
 module.exports = {
   cron: {
-    base: [{ cron: '30 * * * * *', flux: { id: 'service|presence|check' } }] // '30 * * * * *'
+    base: [{ cron: '30 * * * * *', flux: { id: 'service|presence|check' } }] // '30 */20 * * * *'
   }
 };
 
@@ -24,18 +24,8 @@ const CHECK_PRESENCE_INTERVAL_MIN = 10;
 setImmediate(() => {
   Scheduler.delay(13).then(() => {
     checkPresence();
-    // checkPresenceScheduler();
   });
 });
-
-// let checkPresenceInterval;
-// function checkPresenceScheduler() {
-//   log.info(`Schedule check presence... [${CHECK_PRESENCE_INTERVAL_MIN}min]`);
-//   clearInterval(checkPresenceInterval);
-//   checkPresenceInterval = setInterval(() => {
-//     checkPresence();
-//   }, CHECK_PRESENCE_INTERVAL_MIN * 60 * 1000);
-// }
 
 function checkPresence() {
   let anyKnowHostAtHome = isAnyKnowHostAtHome();
