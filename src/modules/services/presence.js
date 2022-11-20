@@ -6,7 +6,11 @@ const { Core, Flux, Logger, Observers, Scheduler, Utils } = require('../../api')
 
 const log = new Logger(__filename);
 
-module.exports = {};
+module.exports = {
+  cron: {
+    full: [{ cron: '30 * * * * *', flux: { id: 'service|presence|checkPresence' } }]
+  }
+};
 
 const FLUX_PARSE_OPTIONS = [
   { id: 'check', fn: checkPresence },
@@ -20,7 +24,7 @@ const CHECK_PRESENCE_INTERVAL_MIN = 10;
 setImmediate(() => {
   Scheduler.delay(13).then(() => {
     checkPresence();
-    checkPresenceScheduler();
+    // checkPresenceScheduler();
   });
 });
 
@@ -70,7 +74,7 @@ function isAnyMovementInLastPeriod() {
 function newEvent(event) {
   log.info('Presence event:', event);
   Core.run('presence', true);
-  checkPresenceScheduler();
+  checkPresence();
   someoneAtHome();
 }
 
