@@ -8,7 +8,7 @@ const log = new Logger(__filename);
 
 module.exports = {
   cron: {
-    full: [{ cron: '30 * * * * *', flux: { id: 'service|presence|checkPresence' } }]
+    base: [{ cron: '30 * * * * *', flux: { id: 'service|presence|check' } }] // '30 * * * * *'
   }
 };
 
@@ -28,14 +28,14 @@ setImmediate(() => {
   });
 });
 
-let checkPresenceInterval;
-function checkPresenceScheduler() {
-  log.info(`Schedule check presence... [${CHECK_PRESENCE_INTERVAL_MIN}min]`);
-  clearInterval(checkPresenceInterval);
-  checkPresenceInterval = setInterval(() => {
-    checkPresence();
-  }, CHECK_PRESENCE_INTERVAL_MIN * 60 * 1000);
-}
+// let checkPresenceInterval;
+// function checkPresenceScheduler() {
+//   log.info(`Schedule check presence... [${CHECK_PRESENCE_INTERVAL_MIN}min]`);
+//   clearInterval(checkPresenceInterval);
+//   checkPresenceInterval = setInterval(() => {
+//     checkPresence();
+//   }, CHECK_PRESENCE_INTERVAL_MIN * 60 * 1000);
+// }
 
 function checkPresence() {
   let anyKnowHostAtHome = isAnyKnowHostAtHome();
@@ -83,5 +83,6 @@ function someoneAtHome() {
 }
 
 function nooneAtHome() {
+  log.test('.......nooneAtHome !!');
   Flux.do('service|internetBox|off');
 }
