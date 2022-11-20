@@ -9,11 +9,7 @@ const { Core, Flux, Files, Logger, Observers } = require('../../api');
 
 const log = new Logger(__filename);
 
-module.exports = {
-  cron: {
-    base: [{ cron: '20 * * * * *', flux: { id: 'interface|nmap|scan' } }]
-  }
-};
+module.exports = {};
 
 const FLUX_PARSE_OPTIONS = [
   { id: 'scan', fn: scan },
@@ -51,7 +47,7 @@ function scan() {
 
   quickScan.on('error', error => {
     log.debug('Nmap error:', error);
-    if (isContinuousScan) scan();
+    scan();
   });
 
   log.debug('Nmap scan...');

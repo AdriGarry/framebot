@@ -28,21 +28,24 @@ setImmediate(() => {
 });
 
 function checkPresence() {
-  let anyKnowHostAtHome = isAnyKnowHostAtHome();
-  let wasThereAnyMovementInTheLastPeriod = isAnyMovementInLastPeriod();
-  let isSomeoneAtHome = anyKnowHostAtHome || wasThereAnyMovementInTheLastPeriod;
-  log.info(
-    `Presence check: ${isSomeoneAtHome} [anyKnowHostAtHome=${anyKnowHostAtHome}, wasThereAnyMovementInTheLastPeriod=${wasThereAnyMovementInTheLastPeriod}]`
-  );
+  Flux.do('interface|nmap|scan');
+  Scheduler.delay(10).then(() => {
+    let anyKnowHostAtHome = isAnyKnowHostAtHome();
+    let wasThereAnyMovementInTheLastPeriod = isAnyMovementInLastPeriod();
+    let isSomeoneAtHome = anyKnowHostAtHome || wasThereAnyMovementInTheLastPeriod;
+    log.info(
+      `Presence check: ${isSomeoneAtHome} [anyKnowHostAtHome=${anyKnowHostAtHome}, wasThereAnyMovementInTheLastPeriod=${wasThereAnyMovementInTheLastPeriod}]`
+    );
 
-  if (isSomeoneAtHome !== Core.run('presence')) {
-    Core.run('presence', isSomeoneAtHome);
-    if (isSomeoneAtHome) {
-      someoneAtHome();
-    } else {
-      nooneAtHome();
+    if (isSomeoneAtHome !== Core.run('presence')) {
+      Core.run('presence', isSomeoneAtHome);
+      if (isSomeoneAtHome) {
+        someoneAtHome();
+      } else {
+        nooneAtHome();
+      }
     }
-  }
+  });
 }
 
 function isAnyKnowHostAtHome() {
