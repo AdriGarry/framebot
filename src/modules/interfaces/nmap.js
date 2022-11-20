@@ -11,7 +11,7 @@ const log = new Logger(__filename);
 
 module.exports = {
   cron: {
-    full: [{ cron: '20 * * * * *', flux: { id: 'interface|nmap|scan' } }]
+    base: [{ cron: '20 * * * * *', flux: { id: 'interface|nmap|scan' } }]
   }
 };
 
@@ -114,7 +114,7 @@ function newHostReaction(hostsToReact) {
     if (host.unknown) {
       unknownHosts.push(host);
     } else {
-      if (host.label.toUpperCase().indexOf('ADRI') >= 0 || host.label.toUpperCase().indexOf('CAM') >= 0) presenceHosts.push(host.label);
+      if (host.label.toUpperCase().includes('ADRI')) presenceHosts.push(host.label);
 
       if (Array.isArray(host.flux)) {
         host.flux.forEach(flux => {
