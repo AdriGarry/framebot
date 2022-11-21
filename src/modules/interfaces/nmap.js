@@ -19,9 +19,9 @@ const FLUX_PARSE_OPTIONS = [
 
 Observers.attachFluxParseOptions('interface', 'nmap', FLUX_PARSE_OPTIONS);
 
-setTimeout(() => {
+setImmediate(() => {
   scan();
-}, 10 * 1000);
+});
 
 const LOCAL_NETWORK_RANGE = '192.16' + '8.1.0/24',
   INACTIVE_HOST_DELAY = 2 * 60 * 1000,
@@ -41,7 +41,7 @@ let quickScan,
 function scan() {
   quickScan = new nmap.QuickScan(LOCAL_NETWORK_RANGE);
   quickScan.on('complete', hosts => {
-    parseDetectedHosts(hosts);
+    parseDetectedHosts(hosts, quickScan.scanTime);
     if (isContinuousScan) scan();
   });
 
@@ -50,12 +50,13 @@ function scan() {
     scan();
   });
 
+  Core.run('presenceHosts', []);
   log.debug('Nmap scan...');
   quickScan.startScan();
 }
 
-function parseDetectedHosts(detectedHosts) {
-  log.debug('Nmap detectect hosts:', detectedHosts);
+function parseDetectedHosts(detectedHosts, scanTime) {
+  log.debug(`Nmap detectect hosts in ${scanTime}ms:`, detectedHosts);
   let hostsToReact = [];
   detectedHosts.forEach(detectedHost => {
     if (!detectedHost.hostname) return log.debug('Hostnames not provided, skipping this scan result.');

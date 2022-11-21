@@ -77,5 +77,7 @@ function someoneAtHome() {
 
 function nooneAtHome() {
   log.test('.......nooneAtHome !!');
+  log.test('.......nooneAtHome !!');
+  log.test('.......nooneAtHome !!');
   Flux.do('service|internetBox|off');
 }
