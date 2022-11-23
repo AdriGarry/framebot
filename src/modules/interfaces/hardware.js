@@ -17,7 +17,7 @@ const PATHS = [Core._SRC, Core._DATA],
 module.exports = {
   cron: {
     base: [
-      { cron: '*/30 * * * * *', flux: { id: 'interface|hardware|runtime', conf: { log: 'trace' } } },
+      { cron: '0 * * * * *', flux: { id: 'interface|hardware|runtime', conf: { log: 'trace' } } },
       { cron: '0 13 13 * * 0', flux: { id: 'interface|hardware|reboot' } },
       { cron: '0 2 0 * * 1', flux: { id: 'interface|hardware|archiveLogs' } }
     ]
@@ -175,7 +175,7 @@ function loadAverage() {
       .then(data => {
         let matchObj = LOAD_AVERAGE_REGEX.exec(data);
         let loadAverageValue = matchObj && matchObj.groups.loadAverage ? matchObj.groups.loadAverage : -1;
-        log.trace('uptime:', loadAverageValue);
+        log.debug('uptime:', loadAverageValue);
         Core.run('cpu.loadAverage', loadAverageValue);
         resolve(loadAverageValue);
       })
