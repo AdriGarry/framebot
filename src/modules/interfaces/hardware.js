@@ -175,7 +175,7 @@ function loadAverage() {
       .then(data => {
         let matchObj = LOAD_AVERAGE_REGEX.exec(data);
         let loadAverageValue = matchObj && matchObj.groups.loadAverage ? matchObj.groups.loadAverage : -1;
-        log.debug('uptime:', loadAverageValue);
+        log.trace('uptime:', loadAverageValue);
         Core.run('cpu.loadAverage', loadAverageValue);
         resolve(loadAverageValue);
       })
