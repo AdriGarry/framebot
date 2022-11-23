@@ -8,7 +8,7 @@ const log = new Logger(__filename);
 
 module.exports = {
   cron: {
-    base: [{ cron: '30 2 * * * *', flux: { id: 'service|presence|check' } }] // '30 */20 * * * *'
+    base: [{ cron: '40 0,30,*/10 * * * *', flux: { id: 'service|presence|check' } }] // '40 0,30 * * * *'
   }
 };
 
@@ -67,7 +67,7 @@ function isAnyMovementInLastPeriod() {
 function newEvent(event) {
   log.info('Presence event:', event);
   Core.run('presence', true);
-  checkPresence();
+  //checkPresence();
   someoneAtHome();
 }
 
