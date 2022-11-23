@@ -111,7 +111,7 @@ function newHostReaction(hostsToReact) {
     if (host.unknown) {
       unknownHosts.push(host);
     } else {
-      if (host.label.toUpperCase().includes('ADRI') || host.label.toUpperCase().includes('CAM_PC')) presenceHosts.push(host.label);
+      if (host.label.toUpperCase().includes('ADRI') || host.label.toUpperCase().includes('CAM')) presenceHosts.push(host.label);
 
       if (Array.isArray(host.flux)) {
         host.flux.forEach(flux => {
