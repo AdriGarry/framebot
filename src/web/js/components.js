@@ -975,7 +975,7 @@ app.component('powerPlug', {
         { label: 'Plug 11', icon: 'fa-solid fa-radio', value: { device: 'plug11', continu: true } },
         { label: 'Plug 12', icon: 'fa-solid fa-plug', value: { device: 'plug12', continu: true } },
         { label: 'Plug 13', icon: 'fa-solid fa-plug', value: { device: 'plug13', continu: true } },
-        { label: 'Plug 14', icon: 'fa-solid fa-plug', value: { device: 'plug14', continu: true } }
+        { label: 'Plug 14', icon: 'fa-solid fa-tree', value: { device: 'plug14', continu: true } }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
