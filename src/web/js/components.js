@@ -894,11 +894,6 @@ app.component('radiator', {
           continu: true
         },
         {
-          label: 'Auto',
-          icon: 'fa-brands fa-adn',
-          url: '/flux/service/radiator/auto'
-        },
-        {
           label: 'Radiator on',
           icon: 'fa-solid fa-toggle-on',
           url: '/flux/service/radiator/manual',
@@ -909,6 +904,11 @@ app.component('radiator', {
           icon: 'fa-solid fa-toggle-off',
           url: '/flux/service/radiator/manual',
           value: 'off'
+        },
+        {
+          label: 'Auto',
+          icon: 'fa-brands fa-adn',
+          url: '/flux/service/radiator/auto'
         }
       ]
     };
