@@ -1,22 +1,7 @@
 'use strict';
 app.controller(
   'UIController',
-  function (
-    $rootScope,
-    $scope,
-    $location,
-    $http,
-    $filter,
-    $timeout,
-    $interval,
-    $sce,
-    $window,
-    $mdSidenav,
-    $mdDialog,
-    $mdBottomSheet,
-    CONSTANTS,
-    UIService
-  ) {
+  function ($rootScope, $scope, $location, $http, $filter, $timeout, $interval, $sce, $window, $mdSidenav, $mdDialog, $mdBottomSheet, CONSTANTS, UIService) {
     $scope.loading = false; /*true*/
     $scope.pauseUI = false;
     $rootScope.irda = false;
@@ -35,12 +20,6 @@ app.controller(
       loading: false,
       runningData: null
     };
-
-    UIService.getRequest(CONSTANTS.URL_ODI + '/const', data => {
-      if (data) {
-        $scope.dashboard.const = data;
-      }
-    });
 
     /** Function to refresh Dashboard **/
     $scope.readyToRefresh = true;
@@ -244,13 +223,6 @@ app.controller(
     $scope.expandTile = function (obj) {
       if (obj.hasOwnProperty('rowspan')) obj.rowspan = 2;
     };
-
-    // /** Function to reduce Tile */ // Deprecated
-    // $scope.reduceTile = function(obj) {
-    // 	console.log(obj);
-    // 	obj.rowspan = 1;
-    // 	console.log(obj);
-    // };
 
     $scope.toggleDebugMode = function () {
       let cmd = {
