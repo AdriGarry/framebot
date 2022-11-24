@@ -40,7 +40,7 @@ function restartCore(mode) {
   }
   setTimeout(() => {
     Flux.do('service|context|updateRestart', { mode: mode });
-  }, 100);
+  }, 200);
 }
 
 /** Function to random TTS good night, and sleep */

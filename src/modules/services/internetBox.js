@@ -43,8 +43,7 @@ function boxManualOn() {
 }
 
 function boxOffStrategy() {
-  // // TODO problem: parse receive from rfxcom instead of flux filter
-
+  // TODO problem: parse receive from rfxcom instead of flux filter
   Flux.do(BOX_FLUX.OFF);
   BOX_OFF_STRATEGY_CRON_LIST.start();
   Core.run('internetBox', false);

@@ -67,7 +67,6 @@ function isAnyMovementInLastPeriod() {
 function newEvent(event) {
   log.info('Presence event:', event);
   Core.run('presence', true);
-  //checkPresence();
   someoneAtHome();
 }
 
