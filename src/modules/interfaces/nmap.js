@@ -5,7 +5,7 @@
 const nmap = require('node-nmap');
 nmap.nmapLocation = 'nmap';
 
-const { Core, Flux, Files, Logger, Observers } = require('../../api');
+const { Core, Flux, Files, Logger, Observers, Utils } = require('../../api');
 
 const log = new Logger(__filename);
 
@@ -36,6 +36,7 @@ let detectedHostsMap = new Map(
 );
 
 let quickScan,
+  execScanTime,
   isContinuousScan = false;
 
 function scan() {
@@ -52,6 +53,7 @@ function scan() {
 
   Core.run('presenceHosts', []);
   log.debug('Nmap scan...');
+  execScanTime = new Date();
   quickScan.startScan();
 }
 
@@ -142,7 +144,7 @@ function logAndPersistUnknownHosts(unknownHosts) {
 
 function logTableActiveHosts() {
   const hostsTable = convertMapToObjectWithIpAndLastDetectOnlyIfHostIsActive(detectedHostsMap);
-  log.table(hostsTable, `${Object.keys(hostsTable).length} Hosts`);
+  log.table(hostsTable, `${Object.keys(hostsTable).length} Hosts  (${Utils.executionTime(execScanTime)}ms)`);
 }
 
 function convertMapToObjectWithIpAndLastDetectOnlyIfHostIsActive(map) {
