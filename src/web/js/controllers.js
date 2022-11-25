@@ -21,6 +21,12 @@ app.controller(
       runningData: null
     };
 
+    UIService.getRequest(CONSTANTS.URL_ODI + '/const', data => {
+      if (data) {
+        $scope.dashboard.const = data;
+      }
+    });
+
     /** Function to refresh Dashboard **/
     $scope.readyToRefresh = true;
     let failedRefreshs = 0;

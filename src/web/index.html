@@ -220,6 +220,22 @@
 					</md-list-item>
 					<md-divider></md-divider>
 				</div>
+				<div data-ng-if="$root.irda">
+					<md-subheader data-ng-click="$root.CoreConstCollapse = !$root.CoreConstCollapse"
+						style="cursor: pointer;">
+						Core.const
+						<i class="fa-solid fa-angle-down floatRight" data-ng-class="{'fa-rotate-90':!$root.CoreConstCollapse}"></i>
+					</md-subheader>
+					<md-list-item data-ng-show="$root.CoreConstCollapse">
+						<table>
+							<tr data-ng-repeat="(prop, value) in dashboard.const">
+								<td>{{prop}}</td>
+								<td>{{value | json}}</td>
+							</tr>
+						</table>
+					</md-list-item>
+					<md-divider></md-divider>
+				</div>
 
 				<md-subheader data-ng-if="$root.irda">Network</md-subheader>
 				<md-list-item data-ng-if="$root.irda" class="block centerText">
