@@ -8,7 +8,7 @@ const log = new Logger(__filename);
 
 module.exports = {
   cron: {
-    base: [{ cron: '40 0,30,*/10 * * * *', flux: { id: 'service|presence|check' } }] // '40 0,30 * * * *'
+    base: [{ cron: '40 0,30 * * * *', flux: { id: 'service|presence|check' } }] // '40 0,30 * * * *'
   }
 };
 
@@ -75,8 +75,7 @@ function someoneAtHome() {
 }
 
 function nooneAtHome() {
-  log.test('.......nooneAtHome !!');
-  log.test('.......nooneAtHome !!');
+  log.test();
   log.test('.......nooneAtHome !!');
   Flux.do('service|internetBox|off');
 }
