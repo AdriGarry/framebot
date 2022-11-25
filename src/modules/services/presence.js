@@ -71,11 +71,11 @@ function newEvent(event) {
 }
 
 function someoneAtHome() {
-  Flux.do('service|internetBox|on');
+  if (!Core.run('presence')) Flux.do('service|internetBox|on');
 }
 
 function nooneAtHome() {
-  log.test();
-  log.test('.......nooneAtHome !!');
-  Flux.do('service|internetBox|off');
+  log.info('No one at home...');
+  log.test('Is any websocket client connected ?', Core.run('wsClients'));
+  if (Core.run('presence') && !Core.run('wsClients')) Flux.do('service|internetBox|off');
 }
