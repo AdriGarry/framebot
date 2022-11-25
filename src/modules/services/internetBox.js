@@ -39,7 +39,7 @@ function boxManualOn() {
   BOX_OFF_STRATEGY_CRON_LIST.stop();
   Flux.do(BOX_FLUX.ON);
   Core.run('internetBox', true);
-  log.info('Internet box switched ON, access strategy has been stopped.');
+  log.info('Internet box switched ON (access strategy stopped)');
 }
 
 function boxOffStrategy() {
@@ -47,5 +47,5 @@ function boxOffStrategy() {
   Flux.do(BOX_FLUX.OFF);
   BOX_OFF_STRATEGY_CRON_LIST.start();
   Core.run('internetBox', false);
-  log.info('Internet box switched OFF, access strategy has been started: connexion will be available 10 first minutes of each hour');
+  log.info('Internet box switched OFF, access strategy has been started (connexion will be available 10 first minutes of each hour)');
 }
