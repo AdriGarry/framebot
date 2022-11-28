@@ -30,11 +30,11 @@ setImmediate(() => {
 function checkPresence() {
   Flux.do('interface|nmap|scan');
   Scheduler.delay(10).then(() => {
-    let anyKnowHostAtHome = isAnyKnowHostAtHome();
+    let anyKnownHostAtHome = isAnyKnownHostAtHome();
     let wasThereAnyMovementInTheLastPeriod = isAnyMovementInLastPeriod();
-    let isSomeoneAtHome = anyKnowHostAtHome || wasThereAnyMovementInTheLastPeriod;
+    let isSomeoneAtHome = anyKnownHostAtHome || wasThereAnyMovementInTheLastPeriod;
     log.info(
-      `Presence check: ${isSomeoneAtHome} [anyKnowHostAtHome=${anyKnowHostAtHome}, wasThereAnyMovementInTheLastPeriod=${wasThereAnyMovementInTheLastPeriod}]`
+      `Presence check: ${isSomeoneAtHome} [anyKnownHostAtHome=${anyKnownHostAtHome}, wasThereAnyMovementInTheLastPeriod=${wasThereAnyMovementInTheLastPeriod}]`
     );
 
     if (isSomeoneAtHome !== Core.run('presence')) {
@@ -48,7 +48,7 @@ function checkPresence() {
   });
 }
 
-function isAnyKnowHostAtHome() {
+function isAnyKnownHostAtHome() {
   let presenceHosts = Core.run('presenceHosts');
   return presenceHosts && !!presenceHosts.length;
 }
@@ -77,5 +77,5 @@ function someoneAtHome() {
 function nooneAtHome() {
   log.info('No one at home...');
   log.test('Is any websocket client connected ?', Core.run('wsClients'));
-  if (Core.run('presence') && !Core.run('wsClients')) Flux.do('service|internetBox|off');
+  if (!Core.run('wsClients')) Flux.do('service|internetBox|off');
 }
