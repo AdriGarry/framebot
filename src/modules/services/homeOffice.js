@@ -49,6 +49,7 @@ function setupHomeOffice() {
   // Radiator ON for 8 hours if not disabled
   if (Core.conf('radiator') !== 'off') Flux.do('service|radiator|timeout', { mode: 'on', timeout: 8 * 60 });
 
+  setQuietModeDuringDaily();
   setQuietModeDuringLunchTime();
   setInteractions();
 }
@@ -86,6 +87,15 @@ function setInteractions() {
   new CronJob('0,30 15,16 17 * * *', function () {
     Flux.do('service|max|hornSiren');
     Flux.do('interface|tts|speak', 'Go chercher les Louloutes!', { delay: 5 });
+  }).start();
+}
+
+function setQuietModeDuringDaily() {
+  new CronJob('0 32 9 * * *', function () {
+    Flux.do('interface|sound|volume', 10);
+  }).start();
+  new CronJob('0 10 10 * * *', function () {
+    Flux.do('interface|sound|volume', 60);
   }).start();
 }
 
