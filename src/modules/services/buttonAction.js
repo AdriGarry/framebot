@@ -27,6 +27,7 @@ function buttonHandler(flux) {
   let buttonStats = Core.run('stats.buttons');
   buttonStats[flux.id] = buttonStats[flux.id] + 1;
   Core.run('stats.buttons', buttonStats);
+  Flux.do('service|presence|event', 'buttonPush');
 }
 
 function okButtonAction(duration) {
