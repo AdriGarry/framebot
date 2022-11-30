@@ -21,6 +21,10 @@ Observers.attachFluxParseOptions('interface', 'watcher', FLUX_PARSE_OPTIONS);
 setImmediate(() => {
   if (Core.conf('watcher')) {
     Flux.do('interface|watcher|start');
+    setTimeout(() => {
+      log.info('Auto stopping watcher after one hour...');
+      Flux.do('interface|watcher|stop');
+    }, 60 * 60 * 1000);
   }
 });
 
@@ -82,6 +86,8 @@ function removeWatcher(watcher) {
 let watchTimeout;
 function waitForUpdateEnd(action) {
   log.debug('waiting for update end (' + SEC_TO_RESTART + 's)...');
+  // TODO use debounce or throttle
+  // EXAMPLE: let throttleBadRequestTTS = Scheduler.throttle(badRequestTTS, BAD_REQUEST_TTS_THROTTLE, true, false, this);
   clearTimeout(watchTimeout);
   watchTimeout = setTimeout(() => {
     action();
