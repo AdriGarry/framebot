@@ -59,7 +59,7 @@ function isAnyMovementInLastPeriod() {
   let isLastMotionDetectTrustable = !isNaN(lastMotionDetectInSec);
   let wasThereAnyMovementInTheLastPeriod = lastMotionDetectInSec < CHECK_PRESENCE_INTERVAL_MIN * 60;
   log.test(
-    `isAnyMovementInLastPeriod?\r\nisStillSomeMovements=${isStillSomeMovements}\r\nlastMotionDetectInSec=${lastMotionDetectInSec}\r\isLastMotionDetectTrustable=${isLastMotionDetectTrustable}\r\nwasThereAnyMovementInTheLastPeriod=${wasThereAnyMovementInTheLastPeriod}`
+    `isAnyMovementInLastPeriod?\r\nisStillSomeMovements=${isStillSomeMovements}\r\nlastMotionDetectInSec=${lastMotionDetectInSec} / ${CHECK_PRESENCE_INTERVAL_MIN}min\r\isLastMotionDetectTrustable=${isLastMotionDetectTrustable}\r\nwasThereAnyMovementInTheLastPeriod=${wasThereAnyMovementInTheLastPeriod}`
   );
   return isStillSomeMovements || !isLastMotionDetectTrustable || wasThereAnyMovementInTheLastPeriod;
 }
