@@ -26,7 +26,7 @@ let WEATHER_STATUS_LIST;
 
 setTimeout(function () {
   initWeatherService();
-}, 30 * 1000);
+}, 60 * 1000);
 
 function initWeatherService() {
   log.info('init weather service...');
