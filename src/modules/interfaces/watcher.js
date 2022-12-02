@@ -19,13 +19,7 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('interface', 'watcher', FLUX_PARSE_OPTIONS);
 
 setImmediate(() => {
-  if (Core.conf('watcher')) {
-    Flux.do('interface|watcher|start');
-    setTimeout(() => {
-      log.info('Auto stopping watcher after one hour...');
-      Flux.do('interface|watcher|stop');
-    }, 60 * 60 * 1000);
-  }
+  if (Core.conf('watcher')) startWatch();
 });
 
 const SEC_TO_RESTART = 3,
@@ -54,6 +48,10 @@ function startWatch() {
     watchers.push(addWatcher(path, relaunch));
   });
   Core.conf('watcher', true);
+  setTimeout(() => {
+    log.info('Auto stopping watcher after one hour...');
+    Flux.do('interface|watcher|stop');
+  }, 60 * 60 * 1000);
 }
 
 function stopWatch() {
