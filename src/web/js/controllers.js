@@ -149,6 +149,7 @@ app.controller(
         let wsData = JSON.parse(event.data);
         if (Array.isArray($scope.log.data)) $scope.log.data.push(wsData.data);
         $scope.$apply();
+        if ($scope.log.data.length > 5000 && !$scope.log.tail) $scope.clearLogs();
       };
       logTailWebSocket.onclose = function () {
         console.log('logTail web socket closed!');
