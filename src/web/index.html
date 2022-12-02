@@ -124,14 +124,12 @@
 	<md-sidenav data-ng-if="$root.position" class="md-sidenav-left" data-ng-class="{'fullScreen': log.fullScreen}"
 		data-md-component-id="logs" id="logs" data-md-whiteframe="4">
 		<div class="logs" data-ng-class="{'loading' : log.loading}" data-ng-dblclick="refreshLog()">
-			<i class="debugLog fa-solid fa-circle" data-ng-if="dashboard.odiState.debug && !dashboard.odiState.trace"
-				title="Debug mode"></i>
+			<i class="debugLog fa-solid fa-circle" data-ng-if="dashboard.odiState.debug && !dashboard.odiState.trace" title="Debug mode"></i>
 			<i class="debugLog fa-regular fa-dot-circle" data-ng-if="dashboard.odiState.trace" title="Trace mode"></i>
 			<md-button class="md-fab md-background clearLogsButton" data-ng-click="clearLogs()" title="Clear logs"
 				aria-label="Clear logs">
 				<i class="fa-solid fa-lg fa-2x fa-broom"></i>
 			</md-button>
-
 			<div class="center">
 				<md-progress-circular md-diameter="150" data-ng-show="log.loading"></md-progress-circular>
 			</div>
@@ -142,7 +140,7 @@
 				<a id="bottomLogs"></a>
 			</ul>
 		</div>
-		<div class="tools">
+		<div class="tools"><small data-ng-show="log.fullScreen">{{log.data.length}}</small>
 			<md-button class="md-fab" data-ng-class="log.wordwrap ? 'md-warn' : 'md-primary'"
 				data-ng-click="log.wordwrap = !log.wordwrap" title="Wordwrap" aria-label="Wordwrap">
 				<i class="fa-solid fa-2x" data-ng-class="log.wordwrap ? 'fa-align-left' : 'fa-align-justify'"></i>
