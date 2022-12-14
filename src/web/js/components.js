@@ -639,7 +639,7 @@ app.component('music', {
       ];
     }
     const specificActions = function (button) {
-      if (button.url.indexOf('playlist')) {
+      if (button.continu) {
         ctrl.tile.openBottomSheet(getPlaylistActionList(button.value));
       } else {
         ctrl.tile.action(button);
