@@ -17,4 +17,9 @@ Observers.attachFluxParseOptions('service', 'homeSimu', FLUX_PARSE_OPTIONS);
 
 function startHomeSimu() {
   log.info('Start homeSimu...');
+
+  // One song each 10 min
+  new CronJob('0 */10 * * * *', function () {
+    Flux.do('service|music|song');
+  }).start();
 }
