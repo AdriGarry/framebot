@@ -17,6 +17,7 @@ module.exports = {
 
 const FLUX_PARSE_OPTIONS = [
   { id: 'playlist', fn: playlist },
+  { id: 'song', fn: song },
   { id: 'radio', fn: playRadio },
   { id: 'story', fn: playStory },
   { id: 'stop', fn: stop }
@@ -69,19 +70,33 @@ function playlist(playlistId) {
   Core.run('music', playlistId);
   Flux.do('interface|sound|mute', { message: 'Auto mute jukebox!', delay: AUTO_MUTE_TIMEOUT });
   setTimeout(() => {
-    nextSong(PLAYLIST[playlistId]);
+    nextSong(PLAYLIST[playlistId], true);
   }, 1000);
 }
 
-function nextSong(playlistObj) {
+function song(playlistId) {
+  Flux.do('interface|sound|mute', null, { log: 'trace' });
+  if (typeof playlistId !== 'string' || !Utils.searchStringInArray(playlistId, Object.keys(PLAYLIST))) {
+    log.info("Playlist id '" + playlistId + "' not reconized, fallback to default playlist.");
+    playlistId = 'jukebox';
+  }
+  log.info(`One song from playlist: ${playlistId}`);
+  setTimeout(() => {
+    nextSong(PLAYLIST[playlistId], false);
+  }, 1000);
+}
+
+function nextSong(playlistObj, isLoop) {
   let song = playlistObj.randomBox.next();
   log.info('Playlist ' + playlistObj.id + ' next song:', song);
   Files.getDuration(playlistObj.path + song)
     .then(durationInSeconds => {
       Flux.do('interface|sound|play', { file: playlistObj.path + song });
-      playlistObj.timeout = setTimeout(function () {
-        nextSong(playlistObj);
-      }, durationInSeconds * 1000);
+      if (isLoop) {
+        playlistObj.timeout = setTimeout(function () {
+          nextSong(playlistObj);
+        }, durationInSeconds * 1000);
+      }
     })
     .catch(err => {
       Core.error('nextSong error', err);
