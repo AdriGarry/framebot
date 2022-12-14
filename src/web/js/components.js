@@ -617,15 +617,34 @@ app.component('music', {
     const tileParams = {
       label: 'Music',
       actionList: [
-        { label: 'Playlist childs', icon: 'fa-solid fa-child-reaching', url: '/flux/service/music/playlist', value: 'childs' },
-        { label: 'Low', icon: 'fa-solid fa-kiwi-bird', url: '/flux/service/music/playlist', value: 'low' },
-        { label: 'Jukebox', icon: 'fa-solid fa-compact-disc', url: '/flux/service/music/playlist' },
+        { label: 'Playlist childs', icon: 'fa-solid fa-child-reaching', url: '/flux/service/music/playlist', value: 'childs', continu: true },
+        { label: 'Low', icon: 'fa-solid fa-kiwi-bird', url: '/flux/service/music/playlist', value: 'low', continu: true },
+        { label: 'Jukebox', icon: 'fa-solid fa-compact-disc', url: '/flux/service/music/playlist', continu: true },
         { label: 'FIP', icon: 'fa-solid fa-radio', url: '/flux/service/music/radio', value: 'fip' },
         { label: 'FIP Hip Hop', icon: 'fa-brands fa-napster', url: '/flux/service/music/radio', value: 'fipHipHop' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);
     ctrl.odiState = ctrl.odiState;
+
+    /** Overwrite tile action */
+    ctrl.tile.click = function () {
+      ctrl.tile.openBottomSheet(this.actionList, specificActions);
+    };
+
+    function getPlaylistActionList(value) {
+      return [
+        { label: 'One song', icon: 'fa-solid fa-1', url: '/flux/service/music/song', value: value },
+        { label: 'Loop', icon: 'fa-solid fa-sync', url: '/flux/service/music/playlist', value: value }
+      ];
+    }
+    const specificActions = function (button) {
+      if (button.url.indexOf('playlist')) {
+        ctrl.tile.openBottomSheet(getPlaylistActionList(button.value));
+      } else {
+        ctrl.tile.action(button);
+      }
+    };
 
     ctrl.getIconClass = function () {
       if (ctrl.data.value === 'jukebox') {
