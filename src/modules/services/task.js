@@ -7,7 +7,6 @@ const { Core, Flux, Logger, Observers, Utils } = require('./../../api');
 const log = new Logger(__filename);
 
 const FLUX_PARSE_OPTIONS = [
-  { id: 'beforeRestart', fn: beforeRestart },
   { id: 'goToSleep', fn: goToSleep },
   { id: 'certbot', fn: renewCertbot }
 ];
@@ -36,10 +35,6 @@ function goToSleep() {
   if (Core.isAwake()) {
     Flux.do('service|context|sleep', null, { delay: GO_TO_SLEEP_DELAY + 10 });
   }
-}
-
-function beforeRestart() {
-  log.info('beforeRestart');
 }
 
 function renewCertbot() {

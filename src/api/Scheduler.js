@@ -5,6 +5,8 @@ const logger = require('./Logger');
 
 const log = new logger(__filename);
 
+let DECREMENT_TIMEOUTS = new Map();
+
 module.exports = class Scheduler {
   static delay(sec) {
     return new Promise(resolve => {
@@ -121,5 +123,3 @@ module.exports = class Scheduler {
     };
   }
 };
-
-let DECREMENT_TIMEOUTS = new Map();

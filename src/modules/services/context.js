@@ -77,7 +77,6 @@ function resetConf() {
 }
 
 function processExit() {
-  Flux.do('service|task|beforeRestart');
   log.info('buttonStats:', Core.run('stats.buttons'));
   log.info('fluxCount:', Core.run('stats.fluxCount'));
   log.info('badRequestCount:', Core.run('stats.badRequestCount'), '\n');
