@@ -1224,9 +1224,9 @@ app.component('presence', {
   controller: function (DefaultTile) {
     const ctrl = this;
     const tileParams = {
-      label: 'Presence',
+      label: 'Presence & tasks',
       actionList: [
-        { label: 'Check', icon: 'fa-solid fa-rotate', url: '/flux/service/presence/check' },
+        { label: 'Check presence', icon: 'fa-solid fa-rotate', url: '/flux/service/presence/check' },
         { label: 'Shower music', icon: 'fa-solid fa-shower', url: '/flux/service/powerPlug/timeout', value: { mode: 'on', timeout: 10, plug: 'plug11' } },
         { label: 'HomeOffice', icon: 'fa-solid fa-laptop-code', url: '/flux/service/homeOffice/start' },
         { label: 'goToSleep', icon: 'fa-solid fa-bed', url: '/flux/service/task/goToSleep' }
