@@ -9,14 +9,22 @@ const log = new Logger(__filename);
 
 module.exports = {
   cron: {
-    full: [{ cron: '0 30 8 * * 1,2', flux: { id: 'service|homeOffice|start' } }]
+    full: [{ cron: '0 30-40 8 * * 1,2,5', flux: { id: 'service|homeOffice|startHomeOfficeIfWorkLaptopConnected' } }]
   }
 };
 
-const FLUX_PARSE_OPTIONS = [{ id: 'start', fn: startHomeOffice }],
+const FLUX_PARSE_OPTIONS = [
+    { id: 'start', fn: startHomeOffice },
+    { id: 'startHomeOfficeIfWorkLaptopConnected', fn: startHomeOfficeIfWorkLaptopConnected }
+  ],
   HOME_OFFICE_MOOD_LEVEL = 3;
 
 Observers.attachFluxParseOptions('service', 'homeOffice', FLUX_PARSE_OPTIONS);
+
+function startHomeOfficeIfWorkLaptopConnected() {
+  if (Core.run('presenceHosts').includes('ADRI_PC_WORK')) startHomeOffice();
+  else log.info('Work laptop not connected.');
+}
 
 function startHomeOffice() {
   if (Core.run('homeOffice')) {
