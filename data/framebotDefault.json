@@ -46,6 +46,7 @@
     "voicemail": 0,
     "audioRecord": 0,
     "hdmi": null,
+    "homeOffice":false,
     "internetBox":null,
     "wsClients":0,
     "presence":null,
