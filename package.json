@@ -22,7 +22,7 @@
     "multer": "^1.4.5-lts.1",
     "node-nmap": "4.0.0",
     "oauth": "0.10.0",
-    "onoff": "6.0.2",
+    "onoff": "6.0.3",
     "randombox": "*",
     "rfxcom": "2.4.1",
     "rxjs": "7.8.0",
