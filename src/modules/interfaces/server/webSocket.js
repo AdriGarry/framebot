@@ -28,7 +28,8 @@ function logTailWebSocket(wss) {
     Core.run('wsClients', wss.clients.size);
 
     let wsInterval = setInterval(() => {
-      log.info('Active websocket client(s):', wss.clients.size);
+      // TODO now: mettre un loop et alterner les log.info & log.debug
+      log.debug('Active websocket client(s):', wss.clients.size);
       Core.run('wsClients', wss.clients.size);
       if (!wss.clients.size) clearInterval(wsInterval);
     }, 60 * 1000);
