@@ -71,10 +71,10 @@ function setInteractions() {
     Flux.do('interface|tts|speak', 'Daily avec les collègues dans 5 minutes');
     Flux.do('interface|tts|speak', 'Daily avec les collègues dans 4 minutes', { delay: 60 });
     Flux.do('interface|tts|speak', 'Daily avec les collègues dans 3 minutes', { delay: 2 * 60 });
-    Flux.do('interface|tts|speak', 'Daily avec les collègues dans 2 minutes', { delay: 3 * 60 });
-    Flux.do('interface|tts|speak', 'Daily avec les collègues dans 1 minute', { delay: 4 * 60 });
-    Flux.do('interface|tts|speak', 'Daily avec les collègues dans 30 secondes', { delay: 4 * 60 + 30 });
-    Flux.do('interface|tts|speak', "C'est l'heure du daily avec les collègues !", { delay: 5 * 60 });
+    Flux.do('interface|tts|speak', 'Daily avec les collègues dans 2 minutes', { delay: 3 * 60 }); // Useless
+    Flux.do('interface|tts|speak', 'Daily avec les collègues dans 1 minute', { delay: 4 * 60 }); // Useless
+    Flux.do('interface|tts|speak', 'Daily avec les collègues dans 30 secondes', { delay: 4 * 60 + 30 }); // Useless
+    Flux.do('interface|tts|speak', "C'est l'heure du daily avec les collègues !", { delay: 5 * 60 }); // Useless
   }).start();
 
   // Clockwork ~each 16min
@@ -99,11 +99,11 @@ function setInteractions() {
 }
 
 function setQuietModeDuringDaily() {
-  new CronJob('0 32 9 * * *', function () {
-    Flux.do('interface|sound|volume', 10);
+  new CronJob('0 33 9 * * *', function () {
+    Flux.do('service|mood|set', 0);
   }).start();
   new CronJob('0 10 10 * * *', function () {
-    Flux.do('interface|sound|volume', 60);
+    Flux.do('service|mood|set', HOME_OFFICE_MOOD_LEVEL);
   }).start();
 }
 
