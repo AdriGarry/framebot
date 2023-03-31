@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 sudo certbot certonly --webroot -w /home/odi/framebot/src/web -d odi.adrigarry.com
 

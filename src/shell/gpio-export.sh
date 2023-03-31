@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 sudo gpio export 14 out
 sudo gpio export 15 out
