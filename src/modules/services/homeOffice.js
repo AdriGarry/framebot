@@ -9,7 +9,7 @@ const log = new Logger(__filename);
 
 module.exports = {
   cron: {
-    full: [{ cron: '0 30-40 8 * * 1,2,5', flux: { id: 'service|homeOffice|startHomeOfficeIfWorkLaptopConnected' } }]
+    full: [{ cron: '0 0,30 8-14 * * 1,2,5', flux: { id: 'service|homeOffice|startHomeOfficeIfWorkLaptopConnected' } }]
   }
 };
 
