@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/bin/bash
 
 # Setup script
 echo
@@ -7,7 +6,6 @@ echo "setup script..."
 
 echo "OS release informations:"
 cat /etc/os-release
-
 
 # Create odi user
 # Operation to be handled performed, or test if odi user already exists

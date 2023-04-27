@@ -1,4 +1,4 @@
-#bin/bash
+#!/bin/bash
 # sudo fbi -a -T 2 *.jpg
 while true
 do
