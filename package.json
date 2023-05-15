@@ -1,6 +1,6 @@
 {
   "name": "framebot",
-  "version": "7.15.22",
+  "version": "7.15.23",
   "private": true,
   "description": "Framebot program to autorun, interact & manage stuff...",
   "main": "framebot",
@@ -29,7 +29,7 @@
     "rfxcom": "2.5.0",
     "rxjs": "7.8.0",
     "serialport": "10.0.0",
-    "socket.io": "4.5.3",
+    "socket.io": "4.6.1",
     "tail": "2.2.6",
     "traceback": "0.3.1",
     "weather-js": "2.0.0",
