@@ -21,7 +21,6 @@ cat /etc/os-release
 # TODO: add git clone last tag
 # Il restera toujours les répertoires /security /media absents !
 
-#sudo mkdir /home/odi/framebot/tmp
 cd /home/odi/framebot/tmp
 
 # Run the following command to fix the $HOME directory permissions for the current $USER:
@@ -29,17 +28,13 @@ cd /home/odi/framebot/tmp
 
 # Uninstall npm & nodejs
 sudo apt-get remove -y nodejs
-# sudo apt-get remove -y npm
 
 # Install npm & nodejs
-curl -sL https://deb.nodesource.com/setup_lts.x | sudo bash -
-sudo apt-get install -y nodejs
-# sudo apt-get install -y npm
-
-#wget https://nodejs.org/dist/v10.24.1/node-v10.24.1-linux-armv7l.tar.gz 
-#tar -xvf node-v10.24.1-linux-armv7l.tar.gz 
-#cd node-v10.24.1-linux-armv7l
-#sudo cp -R * /usr/local/
+sudo apt-get update && sudo apt-get install -y ca-certificates curl gnupg
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+NODE_MAJOR=20
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+sudo apt-get update && sudo apt-get install nodejs -y
 
 # Install sound tools & player
 sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg321 lame ffmpeg
@@ -89,18 +84,6 @@ sudo apt-get -y install nmap
 #sudo chown -R odi /root
 #sudo chown -R odi /dev/ttyUSB0
 #echo "odi user granted to needed repositories"
-
-# DEPRECATED
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
 
 # Test
 espeak -s 125 -v mb/mb-fr1 'Installation terminée.'
