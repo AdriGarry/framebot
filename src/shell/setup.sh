@@ -18,8 +18,6 @@ cat /etc/os-release
 #su odi
 
 #sudo mkdir /home/odi/framebot
-# TODO: add git clone last tag
-# Il restera toujours les répertoires /security /media absents !
 
 cd /home/odi/framebot/tmp
 
@@ -36,15 +34,18 @@ NODE_MAJOR=20
 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 sudo apt-get update && sudo apt-get install nodejs -y
 
-# Install sound tools & player
-sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg321 lame ffmpeg
+# Install sound drivers
+#sudo apt-get install -y alsa-utils alsa-tools pulseaudio
 
 # Set audio output to headphones
-amixer cset numid=3 1
+#amixer cset numid=3 1
 
 # Reset volume
-# sudo amixer set PCM 100%
-amixer sset 'Master' 100%
+#sudo amixer set PCM 100%
+#amixer sset 'Master' 100%
+
+# Install sound tools & player
+sudo apt-get install -y mpg321 lame ffmpeg
 
 # Install espeak
 sudo apt-get install -y espeak
@@ -97,7 +98,6 @@ exit 0
 ## After npm i ##
 #################
 
-# TODO put these lines in /etc/rc.local file (before 'exit 0')
 sudo adduser odi audio
 sudo adduser odi gpio
 
