@@ -34,7 +34,7 @@ sudo apt-get remove -y nodejs
 # Install npm & nodejs
 curl -sL https://deb.nodesource.com/setup_lts.x | sudo bash -
 sudo apt-get install -y nodejs
-# sudo apt-get install -y npm
+sudo apt-get install -y npm
 
 #wget https://nodejs.org/dist/v10.24.1/node-v10.24.1-linux-armv7l.tar.gz 
 #tar -xvf node-v10.24.1-linux-armv7l.tar.gz 
@@ -105,8 +105,8 @@ sudo apt-get -y install nmap
 # Test
 espeak -s 125 -v mb/mb-fr1 'Installation terminée.'
 
-node -v
-npm -v
+echo "node version:" $(node -v)
+echo "npm version:" $(npm -v)
 
 exit 0
 
