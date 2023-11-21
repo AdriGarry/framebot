@@ -1148,7 +1148,7 @@ app.component('rfxcom', {
 });
 
 /** Logs component */
-app.component('history', {
+app.component('logs', {
   bindings: {
     data: '<',
     access: '<'
@@ -1157,7 +1157,7 @@ app.component('history', {
   controller: function (DefaultTile) {
     const ctrl = this;
     const tileParams = {
-      label: 'History',
+      label: 'Logs',
       actionList: [
         { label: 'Trash uploads', icon: 'fa-solid fa-microphone', url: '/flux/service/audioRecord/trash' },
         { label: 'Archive logs', icon: 'fa-solid fa-file-archive', url: '/flux/interface/hardware/archiveLogs' },
