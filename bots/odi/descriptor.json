@@ -20,7 +20,6 @@
         "message",
         "voicemail",
         "audioRecord",
-        "internetBox",
         "light",
         "motionDetect",
         "presence",
@@ -110,7 +109,7 @@
     { "hostname": "ENOVACOM-AGAR2-001.lan", "label": "ADRI_PC_WORK", "flux": { "id": "interface|tts|speak", "value": "J'espère que ça bosse dur..." } },
     { "hostname": "Pixel-6a.lan", "label": "CAM_MOBILE" },
     { "hostname": "DESKTOP-OGMM0KS.lan", "label": "CAM_PC", "forgetDelay": 3600 },
-    { "hostname": "raspberrypi.lan", "label": "ODI" },
+    { "hostname": "raspberrypi-001.lan", "label": "ODI" },
     { "hostname": "bbox.lan", "label": "BBOX" }
   ],
   "fallbackVoice": "espeak",
