@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 # Setup script
 echo
 echo "setup script..."
@@ -36,11 +35,6 @@ curl -sL https://deb.nodesource.com/setup_lts.x | sudo bash -
 sudo apt-get install -y nodejs
 sudo apt-get install -y npm
 
-#wget https://nodejs.org/dist/v10.24.1/node-v10.24.1-linux-armv7l.tar.gz 
-#tar -xvf node-v10.24.1-linux-armv7l.tar.gz 
-#cd node-v10.24.1-linux-armv7l
-#sudo cp -R * /usr/local/
-
 # Install sound tools & player
 sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg321 lame ffmpeg
 
@@ -48,7 +42,6 @@ sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg321 lame f
 amixer cset numid=3 1
 
 # Reset volume
-# sudo amixer set PCM 100%
 amixer sset 'Master' 100%
 
 # Install espeak
@@ -83,24 +76,6 @@ sudo apt-get -y install fail2ban
 
 # Install sound tools & player
 sudo apt-get -y install nmap
-
-# DEPRECATED
-# Give odi user's access to needed repositories
-#sudo chown -R odi /root
-#sudo chown -R odi /dev/ttyUSB0
-#echo "odi user granted to needed repositories"
-
-# DEPRECATED
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
-# gpio export _pin_ in/out
 
 # Test
 espeak -s 125 -v mb/mb-fr1 'Installation terminée.'
