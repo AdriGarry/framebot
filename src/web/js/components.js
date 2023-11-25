@@ -828,7 +828,7 @@ app.component('party', {
       actionList: [
         { label: 'Cigales', icon: 'fa-solid fa-bug', url: '/flux/interface/sound/play', value: { file: 'system/cigales.mp3' } },
         { label: 'Party mode', icon: 'fa-regular fa-grin-tongue', url: '/flux/service/party/start' },
-        { label: 'Pirate', icon: 'fa-solid fa-beer', url: '/flux/service/party/pirate' },
+        { label: 'Pirate', icon: 'fa-solid fa-bottle-droplet', url: '/flux/service/party/pirate' },
         { label: 'Birthday song', icon: 'fa-solid fa-birthday-cake', url: '/flux/service/party/birthdaySong' },
         { label: 'TTS', icon: 'fa-regular fa-comment-dots', url: '/flux/service/party/tts' }
       ]
