@@ -25,14 +25,14 @@ function espeak(tts) {
 function espeakMbrolaFr1(tts) {
   let speed = Utils.random(130, 200); //130-200
   let pitch = Utils.random(30, 60); // 30-60
-  let volume = Core.run('volume');
+  let volume = Core.run('volume') * 2;
   spawn('/usr/bin/espeak', ['-v', 'mb/mb-fr1', '-s', speed, '-a', volume, '-p', pitch, tts.msg]);
 }
 
 function espeakMbrolaFr4(tts) {
   let speed = Utils.random(130, 160); //130-160
   let pitch = Utils.random(30, 60); // 30-60
-  let volume = Core.run('volume');
+  let volume = Core.run('volume') * 2;
   spawn('/usr/bin/espeak', ['-v', 'mb/mb-fr4', '-s', speed, '-a', volume, '-p', pitch, tts.msg]);
 }
 
