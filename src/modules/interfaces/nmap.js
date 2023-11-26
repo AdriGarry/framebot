@@ -138,7 +138,7 @@ function logAndPersistUnknownHosts(unknownHosts) {
     unknownHosts.map(host => host.hostname)
   );
   const unknownHostsNames = unknownHosts.map(host => host.hostname);
-  Flux.do('interface|tts|speak', { lg: 'en', voice: 'mbrolaFr1', msg: 'New unknown device: ' + unknownHostsNames.join(', ') });
+  Flux.do('interface|tts|speak', { lg: 'en', voice: 'espeak', msg: 'New unknown device: ' + unknownHostsNames.join(', ') });
   Files.appendJsonFile(Core._LOG + Core.const('name') + '_unknownHostHistory.json', unknownHosts);
 }
 
