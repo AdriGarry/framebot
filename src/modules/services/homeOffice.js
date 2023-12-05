@@ -9,7 +9,7 @@ const log = new Logger(__filename);
 
 module.exports = {
   cron: {
-    full: [{ cron: '0 0,30 8-14 * * 1,2,5', flux: { id: 'service|homeOffice|startHomeOfficeIfWorkLaptopConnected' } }]
+    full: [{ cron: '0 0,30 8-12 * * 1,2,5', flux: { id: 'service|homeOffice|startHomeOfficeIfWorkLaptopConnected' } }]
   }
 };
 
@@ -17,7 +17,7 @@ const FLUX_PARSE_OPTIONS = [
     { id: 'start', fn: startHomeOffice },
     { id: 'startHomeOfficeIfWorkLaptopConnected', fn: startHomeOfficeIfWorkLaptopConnected }
   ],
-  HOME_OFFICE_MOOD_LEVEL = 3;
+  HOME_OFFICE_MOOD_LEVEL = 2;
 
 Observers.attachFluxParseOptions('service', 'homeOffice', FLUX_PARSE_OPTIONS);
 
