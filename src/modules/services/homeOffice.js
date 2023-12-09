@@ -17,7 +17,7 @@ const FLUX_PARSE_OPTIONS = [
     { id: 'start', fn: startHomeOffice },
     { id: 'startHomeOfficeIfWorkLaptopConnected', fn: startHomeOfficeIfWorkLaptopConnected }
   ],
-  HOME_OFFICE_MOOD_LEVEL = 2;
+  HOME_OFFICE_MOOD_LEVEL = 1;
 
 Observers.attachFluxParseOptions('service', 'homeOffice', FLUX_PARSE_OPTIONS);
 
