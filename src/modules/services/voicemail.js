@@ -20,7 +20,7 @@ Observers.attachFluxParseOptions('service', 'voicemail', FLUX_PARSE_OPTIONS);
 const NO_VOICEMAIL = 'No voicemail message',
   FILE_VOICEMAIL = Core._TMP + 'voicemail.json',
   FILE_VOICEMAIL_HISTORY = Core._LOG + Core.const('name') + '_voicemailHistory.json',
-  HOURS_TO_CLEAR_VOICEMAIL = 6;
+  HOURS_TO_CLEAR_VOICEMAIL = 12;
 
 let clearVoicemailDelay;
 
