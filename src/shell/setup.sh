@@ -71,8 +71,11 @@ sudo apt-get -y install fbi
 # Install Certbot
 sudo apt install -y certbot
 
-# Install fail2ban
+# Install fail2ban & auto start
 sudo apt-get -y install fail2ban
+sudo echo "ignoreip = 127.0.0.1/8 192.168.0.0/16" > /etc/fail2ban/jail.local
+sudo systemctl enable fail2ban
+sudo systemctl start fail2ban
 
 # Install sound tools & player
 sudo apt-get -y install nmap
