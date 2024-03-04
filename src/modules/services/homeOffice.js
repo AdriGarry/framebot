@@ -69,27 +69,19 @@ function setInteractions() {
   // Daily meeting
   new CronJob('0 30 9 * * *', function () {
     Flux.do('interface|tts|speak', 'Daily avec les collègues dans 5 minutes');
-    Flux.do('interface|tts|speak', 'Daily avec les collègues dans 4 minutes', { delay: 60 });
     Flux.do('interface|tts|speak', 'Daily avec les collègues dans 3 minutes', { delay: 2 * 60 });
-    Flux.do('interface|tts|speak', 'Daily avec les collègues dans 2 minutes', { delay: 3 * 60 }); // Useless
-    Flux.do('interface|tts|speak', 'Daily avec les collègues dans 1 minute', { delay: 4 * 60 }); // Useless
-    Flux.do('interface|tts|speak', 'Daily avec les collègues dans 30 secondes', { delay: 4 * 60 + 30 }); // Useless
-    Flux.do('interface|tts|speak', "C'est l'heure du daily avec les collègues !", { delay: 5 * 60 }); // Useless
+    Flux.do('interface|tts|speak', 'Daily avec les collègues dans 2 minutes', { delay: 3 * 60 });
+    Flux.do('interface|tts|speak', 'Daily avec les collègues dans 1 minute', { delay: 4 * 60 });
   }).start();
 
   // Clockwork ~each 16min
   Flux.do('service|time|now', null, { delay: 16 * 60, loop: 30 });
 
   // Random TTS ~each 13min
-  Flux.do('interface|tts|speak', null, { delay: 13 * 60, loop: 20 });
+  // Flux.do('interface|tts|speak', null, { delay: 13 * 60, loop: 20 });
 
   // Exclamations ~each 19min
-  Flux.do('service|interaction|exclamation', null, { delay: 19 * 60, loop: 20 });
-
-  new CronJob('0 5 16 * * *', function () {
-    Flux.do('interface|tts|speak', 'Et un brin de toilette ?');
-    Flux.do('interface|tts|speak', 'Sans oublier les dents !');
-  }).start();
+  // Flux.do('service|interaction|exclamation', null, { delay: 19 * 60, loop: 20 });
 
   // Go pickup Louloutes
   new CronJob('0,30 15,16 17 * * *', function () {
@@ -99,7 +91,7 @@ function setInteractions() {
 }
 
 function setQuietModeDuringDaily() {
-  new CronJob('0 33 9 * * *', function () {
+  new CronJob('30 34 9 * * *', function () {
     Flux.do('service|mood|set', 0);
   }).start();
   new CronJob('0 10 10 * * *', function () {
