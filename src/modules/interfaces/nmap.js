@@ -157,7 +157,7 @@ function convertMapToObjectWithIpAndLastDetectOnlyIfHostIsActive(map) {
 }
 
 function startContinuousScan() {
-  log.info('Starting continuous scan');
+  log.info('Starting continuous scan...');
   Core.run('nmap', true);
   isContinuousScan = true;
   scan();
