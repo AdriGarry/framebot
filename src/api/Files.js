@@ -162,7 +162,7 @@ function _appendFileData(data, obj, filePath) {
 
       fileData.push(obj);
 
-      let jsonData = JSON.stringify(fileData, null, 2).replace(/\\/g, '').replace(/\"{/g, '{').replace(/\}"/g, '}');
+      let jsonData = JSON.stringify(fileData, null, 2).replace(/\\/g, '').replace(/"{/g, '{').replace(/\}"/g, '}');
 
       resolve(jsonData);
     } catch (err) {
