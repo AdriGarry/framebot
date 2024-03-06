@@ -7,7 +7,7 @@ const { Core, Flux, Logger, Observers, Files, Scheduler, Utils } = require('./..
 
 const log = new Logger(__filename);
 
-const rfxtrx = new rfxcom.RfxCom('/dev/ttyUSB0', { debug: Core.conf('log') == 'info' ? false : true });
+const rfxtrx = new rfxcom.RfxCom('/dev/ttyUSB0', { debug: Core.conf('log') === 'info' });
 
 module.exports = {};
 
@@ -124,9 +124,8 @@ function toggleLock(lockValue) {
   if (lockValue) {
     if (Core.run('rfxcom')) log.info('Rfccom gateway already available');
     else log.info('Rfccom gateway unlocked!');
-  } else {
-    if (Core.run('rfxcom')) log.info('Rfccom gateway locked!');
-    else log.info('Rfccom gateway already locked');
-  }
+  } else if (Core.run('rfxcom')) {
+    log.info('Rfccom gateway locked!');
+  } else log.info('Rfccom gateway already locked');
   Core.run('rfxcom', lockValue);
 }

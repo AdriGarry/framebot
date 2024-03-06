@@ -74,12 +74,10 @@ module.exports = class Utils {
       stringFormated;
     if (stringLength >= expectedLength) {
       stringFormated = inputString.substring(0, expectedLength);
+    } else if (isBefore) {
+      stringFormated = Utils.repeatString(characterToFill, expectedLength - stringLength) + inputString;
     } else {
-      if (isBefore) {
-        stringFormated = Utils.repeatString(characterToFill, expectedLength - stringLength) + inputString;
-      } else {
-        stringFormated = inputString + Utils.repeatString(characterToFill, expectedLength - stringLength);
-      }
+      stringFormated = inputString + Utils.repeatString(characterToFill, expectedLength - stringLength);
     }
     return stringFormated;
   }
