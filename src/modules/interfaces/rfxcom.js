@@ -107,7 +107,7 @@ function updateStatusForPlug(matchPlug) {
   let deviceName = getDevice(plugFamily, plugId);
   if (deviceName) {
     Core.conf('rfxcomDevices.' + deviceName, { mode: value ? 'on' : 'off' });
-    log.info(`Received plug signal parsed. PlugId: ${deviceName} [${plugId}], value: ${value ? true : false} [${value}]`);
+    log.info(`Received plug signal parsed. PlugId: ${deviceName} [${plugId}], value: ${value} [${value}]`);
   } else log.error('Unknow device: ' + deviceName, { plugFamily, plugId });
 }
 
