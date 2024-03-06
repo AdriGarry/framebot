@@ -22,13 +22,11 @@ module.exports = class TTS {
     if (FORCED_VOICE) {
       log.debug('Use forced voice:', FORCED_VOICE);
       this.voice = FORCED_VOICE;
+    } else if (voice) {
+      this.voice = voice;
     } else {
-      if (voice) {
-        this.voice = voice;
-      } else {
-        log.debug('No valid voice, fallback on', FALLBACK_LANGUAGE);
-        this.voice = FALLBACK_VOICE;
-      }
+      log.debug('No valid voice, fallback on', FALLBACK_LANGUAGE);
+      this.voice = FALLBACK_VOICE;
     }
   }
 
