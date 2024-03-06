@@ -124,8 +124,9 @@ function toggleLock(lockValue) {
   if (lockValue) {
     if (Core.run('rfxcom')) log.info('Rfccom gateway already available');
     else log.info('Rfccom gateway unlocked!');
-  } else {
-    if (Core.run('rfxcom')) log.info('Rfccom gateway locked!');
+  } else if (Core.run('rfxcom')){
+    log.info('Rfccom gateway locked!');
+  }
     else log.info('Rfccom gateway already locked');
   }
   Core.run('rfxcom', lockValue);
