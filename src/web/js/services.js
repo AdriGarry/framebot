@@ -26,7 +26,6 @@ app.service('UIService', [
           callback(res.data);
         },
         function errorCallback(res) {
-          // console.error(res);
           callback(res.data);
         }
       );
@@ -62,7 +61,6 @@ app.service('UIService', [
 
     /** Function to send command to Odi **/
     ctrl.sendCommand = function (cmd, callback) {
-      // console.log('UIService.sendCommand()', cmd);
       let uri = cmd.url;
       let value = cmd.value;
       if (value !== 'object') value = { _wrapper: value };
