@@ -150,7 +150,7 @@ function _formatLog(args) {
 function _formatObjectToTable(obj, updatedEntries) {
   let datas = {};
   Object.keys(obj).forEach(key => {
-    let updated = updatedEntries && Utils.searchStringInArray(key, updatedEntries) ? true : false;
+    let updated = updatedEntries && !!Utils.searchStringInArray(key, updatedEntries);
     let data = obj[key];
     if (!data || data == null || data === 0) return;
     if (typeof data == 'object' && !Array.isArray(data)) {
