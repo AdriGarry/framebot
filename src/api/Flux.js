@@ -58,11 +58,11 @@ module.exports = class Flux {
     if (!this.isValid()) return;
 
     if (this.delay) {
-      return this.schedule();
+      this.schedule();
+    } else {
+      Core.run('stats.fluxCount', Core.run('stats.fluxCount') + 1);
+      this.fire();
     }
-
-    Core.run('stats.fluxCount', Core.run('stats.fluxCount') + 1);
-    this.fire();
   }
 
   isValid() {
