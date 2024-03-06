@@ -69,7 +69,7 @@ function reboot() {
   }
   console.log('\n\n_/!\\__REBOOTING RASPBERRY PI !!\n');
   setTimeout(function () {
-    spawn('reboot');
+    spawn('/usr/sbin/reboot');
   }, DELAY_BEFORE_HALT);
 }
 
@@ -82,7 +82,7 @@ function shutdown() {
   }
   setTimeout(function () {
     console.log("\n\n /!\\  SHUTING DOWN RASPBERRY PI - DON'T FORGET TO SWITCH OFF POWER SUPPLY !!\n");
-    spawn('halt');
+    spawn('/usr/sbin/halt');
   }, DELAY_BEFORE_HALT);
 }
 
