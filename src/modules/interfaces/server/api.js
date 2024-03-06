@@ -72,26 +72,26 @@ function attachDefaultRoutes(ui) {
       },
       switch: {
         value: etatBtn,
-        active: etatBtn ? true : false
+        active: etatBtn
       },
       volume: {
         value: Core.run('volume'),
-        active: etatBtn == 1 ? true : false
+        active: etatBtn === 1
       },
       voicemail: {
         value: Core.run('voicemail'),
-        active: Core.run('voicemail') > 0 ? true : false
+        active: Core.run('voicemail') > 0
       },
       audioRecord: {
         value: Core.run('audioRecord'),
-        active: Core.run('audioRecord') > 0 ? true : false
+        active: Core.run('audioRecord') > 0
       },
       music: {
         value: Core.run('music')
       },
       timer: {
         value: Core.run('timer'),
-        active: Core.run('timer') > 0 ? true : false
+        active: Core.run('timer') > 0
       },
       hardware: {
         value: {
@@ -103,7 +103,7 @@ function attachDefaultRoutes(ui) {
           },
           diskSpace: Core.run('stats.diskSpace')
         },
-        active: cpuTemperature > 55 || cpuUsage >= 20 ? true : false
+        active: cpuTemperature > 55 || cpuUsage >= 20
       },
       alarms: {
         value: Core.conf('alarms'),
