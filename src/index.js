@@ -9,9 +9,9 @@ const argv = process.argv;
 console.log('argv', argv);
 const name = process.argv[2];
 const forcedParams = {
-  debug: argv.includes('debug') ? true : false,
-  sleep: argv.includes('sleep') ? true : false,
-  test: argv.includes('test') ? true : false
+  debug: argv.includes('debug'),
+  sleep: argv.includes('sleep'),
+  test: argv.includes('test')
 };
 
 global._PATH = __dirname.match(/\/.*\//g)[0];
