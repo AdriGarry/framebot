@@ -115,7 +115,7 @@ function _timeoutToInfoLevel(_instance, delay) {
 }
 
 function _formatLogPrefix(logLevelArg, sufix) {
-  return Utils.logTime(timestamp) + _formatLogLevel(logLevelArg) + _formatLogPosition() + ' |' + sufix;
+  return Utils.logTime(timestamp) + _formatLogLevel(logLevelArg) + _formatLogPosition() + ' |' + (sufix || '');
 }
 
 function _formatLogLevel(logLevelArg) {
