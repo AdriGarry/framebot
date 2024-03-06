@@ -74,7 +74,7 @@ function detectAwake(lastDetectionInSec) {
   }
 
   if (moodLevel >= 3) {
-    let shouldReact2 = lastDetectionInSec > 300 ? true : false;
+    let shouldReact2 = lastDetectionInSec > 300;
     if (shouldReact2) {
       Flux.do('service|interaction|random');
     }

@@ -40,12 +40,13 @@ function speak(tts) {
     ttsQueue.push(new TTS(tts));
   } else if (!tts || !Object.keys(tts).length > 0 || tts.msg.toUpperCase().indexOf('RANDOM') > -1) {
     randomTTS();
+  } else if (tts.hasOwnProperty('msg')) {
+    ttsQueue.push(new TTS(tts.msg, tts.lg, tts.voice));
+    log.debug('new TTS [' + (tts.voice || '') + ', ' + (tts.lg || '') + '] "' + tts.msg + '"');
   } else {
-    if (tts.hasOwnProperty('msg')) {
-      ttsQueue.push(new TTS(tts.msg, tts.lg, tts.voice));
-      log.debug('new TTS [' + (tts.voice || '') + ', ' + (tts.lg || '') + '] "' + tts.msg + '"');
-    } else log.debug(console.error('newTTS() Wrong TTS object...', tts));
+    log.debug(console.error('newTTS() Wrong TTS object...', tts));
   }
+
   if (ttsQueue.length > 0) proceedQueue();
 }
 

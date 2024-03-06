@@ -80,7 +80,7 @@ function radiatorOrder(mode) {
   }
   Core.run('radiator', mode);
   log.info('radiator order:', mode);
-  Flux.do('interface|rfxcom|send', { device: 'radiator', value: mode == 'on' ? false : true });
+  Flux.do('interface|rfxcom|send', { device: 'radiator', value: mode === 'on' });
 }
 
 function toggleManualRadiator(mode) {

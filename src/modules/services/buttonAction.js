@@ -35,22 +35,20 @@ function okButtonAction(duration) {
   if (Core.isAwake()) {
     if (duration > 3) {
       Flux.do('interface|rfxcom|send', { device: 'plug1', value: true });
-    } else {
-      if (Core.run('voicemail')) {
-        Flux.do('service|voicemail|check');
-      } else if (Core.run('audioRecord')) {
-        Flux.do('service|audioRecord|check');
-      } else if (Core.run('music')) {
-        Flux.do('service|music|playlist', Core.run('music'));
-      } else if (Core.run('mood') === 5) {
-        if (Utils.rdm()) {
-          Flux.do('service|party|tts');
-        } else {
-          Flux.do('service|party|badBoy');
-        }
+    } else if (Core.run('voicemail')) {
+      Flux.do('service|voicemail|check');
+    } else if (Core.run('audioRecord')) {
+      Flux.do('service|audioRecord|check');
+    } else if (Core.run('music')) {
+      Flux.do('service|music|playlist', Core.run('music'));
+    } else if (Core.run('mood') === 5) {
+      if (Utils.rdm()) {
+        Flux.do('service|party|tts');
       } else {
-        Flux.do('service|interaction|random');
+        Flux.do('service|party|badBoy');
       }
+    } else {
+      Flux.do('service|interaction|random');
     }
   } else {
     Flux.do('service|context|restart');
