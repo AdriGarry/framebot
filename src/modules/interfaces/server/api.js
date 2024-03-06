@@ -66,7 +66,7 @@ function attachDefaultRoutes(ui) {
         value: {
           mode: Core.conf('log') == 'trace' ? 'Trace' : Utils.firstLetterUpper(Core.conf('mode')),
           param: Utils.logTime('h:m (D/M)', Core.const('startDateTime')),
-          switch: etatBtn == 'high' ? true : false,
+          switch: etatBtn === 'high',
           mood: Core.run('mood')
         }
       },
