@@ -174,7 +174,7 @@ function loadAverage() {
     Utils.execCmd('/usr/bin/uptime')
       .then(data => {
         let matchObj = LOAD_AVERAGE_REGEX.exec(data);
-        let loadAverageValue = matchObj?.groups?.loadAverage;
+        let loadAverageValue = matchObj && matchObj.groups.loadAverage ? matchObj.groups.loadAverage : -1;
         log.trace('uptime:', loadAverageValue);
         Core.run('cpu.loadAverage', loadAverageValue);
         resolve(loadAverageValue);
@@ -253,7 +253,7 @@ function countSoftwareLines() {
       Utils.execCmd(command, 'noLog')
         .then(data => {
           let matchObj = TOTAL_LINES_REGEX.exec(data);
-          let t = matchObj?.groups?.totalLines;
+          let t = matchObj && matchObj.groups.totalLines ? matchObj.groups.totalLines : 0;
           totalLines = parseInt(totalLines) + parseInt(t);
           lines[extension] = parseInt(t);
           typesNb--;
