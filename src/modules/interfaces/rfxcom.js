@@ -7,7 +7,7 @@ const { Core, Flux, Logger, Observers, Files, Scheduler, Utils } = require('./..
 
 const log = new Logger(__filename);
 
-const rfxtrx = new rfxcom.RfxCom('/dev/ttyUSB0', { debug: Core.conf('log') == 'info' ? false : true });
+const rfxtrx = new rfxcom.RfxCom('/dev/ttyUSB0', { debug: Core.conf('log') === 'info' });
 
 module.exports = {};
 
