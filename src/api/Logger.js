@@ -4,7 +4,7 @@
 const util = require('util');
 
 const LEVEL = { INFO: 'info', DEBUG: 'debug', TRACE: 'trace' },
-  TIMEOUT_MIN = 60,
+  TIMEOUT_TO_INFO_LEVEL_IN_MIN = 6 * 60,
   LOG_LEVEL_LENGTH = 5,
   FILE_POSITION_LENGTH = 12,
   TIMESTAMP_PATTERN = { NORMAL: 'D/M h:m:s,x', SLEEP: 'D/M_h:m:s,x' };
@@ -32,7 +32,7 @@ module.exports = class Logger {
       Core.conf('log', logLevel);
       this.INFO('Logger level set to:', logLevel);
       if (newLogLevel == LEVEL.DEBUG || newLogLevel == LEVEL.TRACE) {
-        _timeoutToInfoLevel(this, TIMEOUT_MIN);
+        _timeoutToInfoLevel(this, TIMEOUT_TO_INFO_LEVEL_IN_MIN);
       }
     } else {
       return logLevel;
