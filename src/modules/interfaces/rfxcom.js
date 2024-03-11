@@ -53,7 +53,7 @@ rfxtrx.initialise(function () {
 
 function sendStatus(args) {
   if (!Core.run('rfxcom')) {
-    Flux.do('interface|tts|speak', { lg: 'en', msg: 'rfxcom not available' });
+    Flux.do('interface|tts|speak', { lg: 'en', msg: 'rfxcom off' });
     log.warn('Rfxcom gateway not available!');
     return;
   }
