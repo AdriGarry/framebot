@@ -52,7 +52,7 @@ function setupHomeOffice() {
   log.info('Setting up home office...');
 
   // play an Archive song...
-  Flux.do('interface|sound|play', { file: 'playlists/jukebox/Archive-ControllingCrowds.mp3.mp3', volume: 40 });
+  Flux.do('interface|sound|play', { file: 'playlists/jukebox/Archive-ControllingCrowds.mp3', volume: 40 });
 
   // Desktop plug ON
   Flux.do('service|powerPlug|toggle', { plug: 'plug1', mode: true });
