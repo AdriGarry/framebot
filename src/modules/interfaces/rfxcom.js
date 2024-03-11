@@ -92,7 +92,7 @@ function parseReceivedSignal(receivedSignal) {
   } else if (matchPlug) {
     updateStatusForPlug(matchPlug);
   } else {
-    log.warn('Unreconized rfxcom signal:', parsedReceivedSignal, receivedSignal);
+    log.info('Unreconized rfxcom signal:', parsedReceivedSignal, receivedSignal);
     Files.appendJsonFile(Core._LOG + Core.const('name') + '_unreconizedRfxcomSignal.json', {
       signal: parsedReceivedSignal,
       date: new Date()
@@ -107,7 +107,7 @@ function updateStatusForPlug(matchPlug) {
   let deviceName = getDevice(plugFamily, plugId);
   if (deviceName) {
     Core.conf('rfxcomDevices.' + deviceName, { mode: value ? 'on' : 'off' });
-    log.info(`Received plug signal parsed. PlugId: ${deviceName} [${plugId}], value: ${value} [${value}]`);
+    log.info(`Received plug signal parsed. PlugId: ${deviceName} [${plugId}], value: ${!!value} [${value}]`);
   } else log.error('Unknow device: ' + deviceName, { plugFamily, plugId });
 }
 
