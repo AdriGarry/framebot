@@ -66,9 +66,11 @@ function isAlarm() {
     if (h == alarms[alarmType].h && m == alarms[alarmType].m) {
       log.info('Alarm time...', alarms[alarmType].h + ':' + alarms[alarmType].m);
       if (!Core.isAwake()) {
+        log.info('Alarm time, restarting...');
         Flux.do('service|context|restart');
       } else {
         setImmediate(() => {
+          log.info('Alarm time...');
           startAlarmSequence();
         });
       }
@@ -80,6 +82,8 @@ function startAlarmSequence() {
   if (Core.run('etat') === 'low') {
     log.info('Escaping alarm sequence.');
     Flux.do('service|time|now');
+    Flux.do('service|time|now', null, { delay: 13 * 60, repeat: 3 });
+    Flux.do('interface|tts|speak', 'Allez allez, les Louloutes, le petit déjeuner', { delay: 13 * 60 });
     return;
   }
 
