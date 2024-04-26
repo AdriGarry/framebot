@@ -83,7 +83,6 @@ function startAlarmSequence() {
     log.info('Escaping alarm sequence.');
     Flux.do('service|time|now');
     Flux.do('service|time|now', null, { delay: 13 * 60, repeat: 3 });
-    Flux.do('interface|tts|speak', 'Allez allez, les Louloutes, le petit déjeuner', { delay: 13 * 60 });
     return;
   }
 
