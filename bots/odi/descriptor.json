@@ -106,7 +106,7 @@
   "knownHosts": [
     { "hostname": "Pixel-3a.lan", "label": "ADRI_MOBILE", "flux": [{ "id": "interface|tts|speak", "value": { "lg": "ru", "voice": "google", "msg": "hey, a3" } }] },
     { "hostname": "adri-pc.lan", "label": "ADRI_PC" },
-    { "hostname": "ENOVACOM-AGAR2-001.lan", "label": "ADRI_PC_WORK", "flux": { "id": "interface|tts|speak", "value": "Laptop EPC" } },
+    { "hostname": "ENOVACOM-AGAR2.lan", "label": "ADRI_PC_WORK", "flux": { "id": "interface|tts|speak", "value": "Laptop EPC" } },
     { "hostname": "Pixel-6a.lan", "label": "CAM_MOBILE" },
     { "hostname": "DESKTOP-OGMM0KS.lan", "label": "CAM_PC", "forgetDelay": 3600 },
     { "hostname": "raspberrypi-001.lan", "label": "ODI" },
