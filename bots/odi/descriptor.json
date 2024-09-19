@@ -104,13 +104,13 @@
     }
   },
   "knownHosts": [
-    { "hostname": "Pixel-3a.lan", "label": "ADRI_MOBILE", "flux": [{ "id": "interface|tts|speak", "value": { "lg": "ru", "voice": "google", "msg": "hey, a3" } }] },
-    { "hostname": "adri-pc.lan", "label": "ADRI_PC" },
-    { "hostname": "ENOVACOM-AGAR2.lan", "label": "ADRI_PC_WORK", "flux": { "id": "interface|tts|speak", "value": "Laptop EPC" } },
-    { "hostname": "Pixel-6a.lan", "label": "CAM_MOBILE" },
-    { "hostname": "DESKTOP-OGMM0KS.lan", "label": "CAM_PC", "forgetDelay": 3600 },
-    { "hostname": "raspberrypi-001.lan", "label": "ODI" },
-    { "hostname": "bbox.lan", "label": "BBOX" }
+    { "hostname": "Pixel-3a.home", "label": "ADRI_MOBILE", "flux": [{ "id": "interface|tts|speak", "value": { "lg": "ru", "voice": "google", "msg": "hey, a3" } }] },
+    { "hostname": "adri-pc.home", "label": "ADRI_PC" },
+    { "hostname": "ENOVACOM-AGAR2.home", "label": "ADRI_PC_WORK", "flux": { "id": "interface|tts|speak", "value": "Laptop EPC" } },
+    { "hostname": "Pixel-6a.home", "label": "CAM_MOBILE" },
+    { "hostname": "DESKTOP-OGMM0KS.home", "label": "CAM_PC", "forgetDelay": 3600 },
+    { "hostname": "raspberrypi-001.home", "label": "ODI" },
+    { "hostname": "lan.home", "label": "LiveBox" }
   ],
   "fallbackVoice": "espeak",
   "forcedVoice": null
