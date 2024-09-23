@@ -993,7 +993,7 @@ app.component('powerPlug', {
         { label: 'Plug 3', icon: 'fa-solid fa-plug', value: { device: 'plug3', continu: true } },
         { label: 'Plug 11', icon: 'fa-solid fa-lightbulb', value: { device: 'plug11', continu: true } },
         { label: 'Plug 12', icon: 'fa-solid fa-plug', value: { device: 'plug12', continu: true } },
-        { label: 'Plug 13', icon: 'fa-solid fa-plug', value: { device: 'plug13', continu: true } },
+        { label: 'Plug 13', icon: 'fa-solid fa-user-tie', value: { device: 'plug13', continu: true } },
         { label: 'Plug 14', icon: 'fa-solid fa-plug', value: { device: 'plug14', continu: true } }
       ]
     };
