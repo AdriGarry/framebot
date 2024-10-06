@@ -23,9 +23,6 @@ function goToSleep() {
 
   Flux.do('service|mood|set', 0);
 
-  // radiator off
-  Flux.do('interface|rfxcom|send', { device: 'radiator', value: true });
-
   // plug off
   Flux.do('interface|rfxcom|send', { device: 'plug1', value: false }, { delay: 3 * 60 });
 
