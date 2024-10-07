@@ -20,6 +20,7 @@ function goToSleep() {
 
   // light
   Flux.do('service|light|on', GO_TO_SLEEP_DELAY);
+  Flux.do('interface|rfxcom|send', { device: 'plug14', value: true });
 
   Flux.do('service|mood|set', 0);
 
@@ -28,7 +29,7 @@ function goToSleep() {
   Flux.do('interface|rfxcom|send', { device: 'plug11', value: false }, { delay: 3 * 60 });
   Flux.do('interface|rfxcom|send', { device: 'plug12', value: false }, { delay: 3 * 60 });
   Flux.do('interface|rfxcom|send', { device: 'plug13', value: false }, { delay: 3 * 60 });
-  Flux.do('interface|rfxcom|send', { device: 'plug14', value: false }, { delay: 3 * 60 });
+  Flux.do('interface|rfxcom|send', { device: 'plug14', value: false }, { delay: GO_TO_SLEEP_DELAY });
 
   // internetBox off
   Flux.do('service|internetBox|off', null, { delay: GO_TO_SLEEP_DELAY });

@@ -15,11 +15,11 @@ const FLUX_PARSE_OPTIONS = [
 Observers.attachFluxParseOptions('service', 'light', FLUX_PARSE_OPTIONS);
 
 const LIGTH_LEDS = ['eye', 'belly'];
-function lightOn(duration) {
-  log.info('light On', duration ? '[duration=' + duration + 's]' : '');
+function lightOn(durationSeconds) {
+  log.info('light On', durationSeconds ? '[duration=' + durationSeconds + 's]' : '');
   Flux.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 1 }, { log: 'TRACE' });
-  if (duration) {
-    Flux.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: duration });
+  if (durationSeconds) {
+    Flux.do('interface|led|toggle', { leds: LIGTH_LEDS, value: 0 }, { delay: durationSeconds });
   }
 }
 
