@@ -79,12 +79,12 @@ function isAlarm() {
 }
 
 function startAlarmSequence() {
-  if (Core.run('etat') === 'low') {
-    log.info('Escaping alarm sequence.');
-    Flux.do('service|time|now');
-    Flux.do('service|time|now', null, { delay: 13 * 60, repeat: 3 });
-    return;
-  }
+  // if (Core.run('etat') === 'low') {
+  //   log.info('Escaping alarm sequence.');
+  //   Flux.do('service|time|now');
+  //   Flux.do('service|time|now', null, { delay: 13 * 60, repeat: 3 });
+  //   return;
+  // }
 
   Core.run('alarm', true);
   alarmPart1()
@@ -121,6 +121,10 @@ function alarmPart2() {
     log.info('cocorico !!');
     Flux.do('interface|arduino|write', 'playHornDoUp');
     Flux.do('interface|sound|play', { file: 'system/cocorico.mp3', volume: 10 });
+
+    Flux.do('interface|rfxcom|send', { device: 'plug11', value: true });
+    Flux.do('interface|rfxcom|send', { device: 'plug11', value: false }, { delay: 30 * 60 });
+
     if (isBirthday()) {
       Flux.do('service|party|birthdaySong');
       setTimeout(function () {
@@ -137,6 +141,8 @@ function alarmPart3() {
   return new Promise((resolve, reject) => {
     let delay = 3;
     Flux.do('service|max|hornRdm');
+
+    // Flux.do('interface|sound|volume', 80);
     Flux.do('service|time|today', null, { delay: delay });
 
     delay += 3;
@@ -152,13 +158,15 @@ function alarmPart3() {
     Flux.do('service|audioRecord|check', null, { delay: delay });
 
     delay += Core.run('audioRecord') * 100;
+
+    // Flux.do('interface|sound|volume', 50, { delay: delay });
     Flux.do('service|music|radio', 'fip', { delay: delay });
 
     Flux.do('service|max|playOneMelody', null, { delay: 8 * 60, loop: 8 });
     Flux.do('service|max|hornRdm', null, { delay: 12 * 60, loop: 6 });
 
     if (!Utils.isWeekend()) {
-      Flux.do('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 120 });
+      Flux.do('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 120, repeat: 4 });
     }
 
     setTimeout(() => {
