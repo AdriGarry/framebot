@@ -123,7 +123,7 @@ function alarmPart2() {
     Flux.do('interface|sound|play', { file: 'system/cocorico.mp3', volume: 10 });
 
     Flux.do('interface|rfxcom|send', { device: 'plug11', value: true });
-    Flux.do('interface|rfxcom|send', { device: 'plug11', value: false }, { delay: 30 * 60 });
+    Flux.do('interface|rfxcom|send', { device: 'plug11', value: false }, { delay: 45 * 60 });
 
     if (isBirthday()) {
       Flux.do('service|party|birthdaySong');
