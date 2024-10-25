@@ -278,20 +278,6 @@
 		</div>
 	</div>
 
-	<div class="tileContent" data-ng-switch-when="Radiator">
-		<div class="main">
-			<i class="fa-solid fa-thermometer-half" data-ng-if="$ctrl.data.config.radiator == 'auto'"></i>
-			<i class="fa-solid fa-thermometer-full"
-				data-ng-if="$ctrl.data.config.radiator == 'on' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='on'"></i>
-			<i class="fa-solid fa-thermometer-empty"
-				data-ng-if="$ctrl.data.config.radiator == 'off' || $ctrl.isTimeout() && $ctrl.data.config.radiator.mode =='off'"></i>
-			<small>
-				<span data-ng-if="!$ctrl.isTimeout()">{{$ctrl.data.config.radiator}}</span>
-				<span data-ng-if="$ctrl.isTimeout()">{{$ctrl.data.config.radiator.timeout}}<small
-						class="opacity70">min</small></span></small>
-		</div>
-	</div>
-
 	<div class="tileContent" data-ng-switch-when="Arduino">
 		<i class="fa-solid fa-rotate-270 fa-2x switch"
 			data-ng-class="$ctrl.data.value ? 'fa-solid fa-toggle-on' : 'fa-solid fa-toggle-off'"></i>

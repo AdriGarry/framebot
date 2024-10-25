@@ -28,7 +28,7 @@ Available modes: ready (active), sleep.
 - Time/Calendar
 - Timer
 - Hardware and network monitoring
-- Radiator and power plugs management
+- Power plugs management
 - Playlist (jukebox, low...)
 - Web radio (FIP)
 - Weather report

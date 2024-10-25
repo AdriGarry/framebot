@@ -21,7 +21,6 @@
     "log": "info",
     "watcher": false,
     "alarms": ".",
-    "radiator": ".",
     "flux": [],
     "rfxcomDevices": {},
     "motionDetect": {}
@@ -51,7 +50,6 @@
     "wsClients":0,
     "presence":null,
     "rfxcom": false,
-    "radiator": false,
     "screen": null,
     "weather": {},
     "nmap": false,

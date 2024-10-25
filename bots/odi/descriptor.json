@@ -41,8 +41,7 @@
         "h": 10,
         "m": 0
       }
-    },
-    "radiator": "auto"
+    }
   },
   "runtime": {},
   "rfxcomDevices": {
@@ -73,33 +72,6 @@
     "plug14": {
       "id": "3",
       "family": "036D5002"
-    },
-    "radiator": {
-      "id": "4",
-      "family": "01F4BF8E",
-      "cron": [
-        {
-          "cron": "35 0 6-7,17-21 * * 1,2,4,5",
-          "flux": {
-            "id": "service|radiator|toggle",
-            "data": "on"
-          }
-        },
-        {
-          "cron": "35 0 6-21 * * 3",
-          "flux": {
-            "id": "service|radiator|toggle",
-            "data": "on"
-          }
-        },
-        {
-          "cron": "35 0 6-21 * * 0,6",
-          "flux": {
-            "id": "service|radiator|toggle",
-            "data": "on"
-          }
-        }
-      ]
     }
   },
   "knownHosts": [
