@@ -8,7 +8,7 @@ const log = new Logger(__filename);
 
 const FILE_REQUEST_HISTORY = Core._LOG + Core.const('name') + '_requestHistory.log';
 const NO_SOUND_URL = ['/dashboard', '/log'];
-const BAD_REQUEST_TTS_THROTTLE = 5000;
+const BAD_REQUEST_TTS_THROTTLE_DELAY = 10000;
 const BAD_REQUEST_CP_LIMIT = 5;
 
 module.exports = {
@@ -54,7 +54,7 @@ let securityMiddleware = function (req, res, next) {
   next();
 };
 
-let throttleBadRequestTTS = Scheduler.throttle(badRequestTTS, BAD_REQUEST_TTS_THROTTLE, true, false, this);
+let throttleBadRequestTTS = Scheduler.throttle(badRequestTTS, BAD_REQUEST_TTS_THROTTLE_DELAY, true, false, this);
 
 function badRequestTTS() {
   Flux.do('interface|tts|speak', { voice: 'google', lg: 'en', msg: 'Bad request' }, { delay: 0.5, log: 'trace' });
