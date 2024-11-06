@@ -81,7 +81,7 @@
     { "hostname": "pixel-6a.home", "label": "CAM_MOBILE" },
     { "hostname": "desktop-ogmm0ks.home", "label": "CAM_PC", "forgetDelay": 3600 },
     { "hostname": "odi.home", "label": "ODI" },
-    { "hostname": "lan.home", "label": "LiveBox" }
+    { "hostname": "livebox.home", "label": "LiveBox" }
   ],
   "fallbackVoice": "espeak",
   "forcedVoice": null
