@@ -66,6 +66,9 @@ function setInteractions() {
   // Mood
   Flux.do('service|mood|set', HOME_OFFICE_MOOD_LEVEL);
 
+  // Stand up
+  Flux.do('interface|tts|speak', 'Laive toi et marche !', { delay: 23 * 60, loop: 20 });
+
   // Daily meeting
   new CronJob('0 30 9 * * *', function () {
     Flux.do('interface|tts|speak', 'Daily avec les collègues dans 5 minutes');
