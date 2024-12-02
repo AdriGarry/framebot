@@ -16,6 +16,7 @@ const MOTION_DETECT_MINIMUM_SEC_TIMEOUT = { 0: Number.MAX_SAFE_INTEGER, 1: 300, 
 let lastDetection = null;
 
 function motionDetect() {
+  log.INFO('*** Escaliers Yay motion detect');
   let lastDetectionInSec = getLastDetectionInSec();
   log.info('Motion detected', '[last motion detected', Utils.formatDuration(lastDetectionInSec) + ' ago]');
   Core.conf('motionDetect.last', new Date());
@@ -36,6 +37,7 @@ function motionDetect() {
 }
 
 function motionDetectEnd() {
+  log.INFO('*** Escaliers Yay motion detect end !!!!!!!!!!');
   if (!lastDetection) lastDetection = new Date();
   let motionDuration = Math.round((new Date() - lastDetection.getTime()) / 1000);
   log.info('Motion end', '[duration:', Utils.formatDuration(motionDuration) + ']');
