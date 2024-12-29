@@ -26,6 +26,7 @@ function goToSleep() {
 
   // plug off
   Flux.do('interface|rfxcom|send', { device: 'plug1', value: false }, { delay: 3 * 60 });
+  Flux.do('interface|rfxcom|send', { device: 'plug3', value: false }, { delay: 3 * 60 });
   Flux.do('interface|rfxcom|send', { device: 'plug11', value: false }, { delay: 3 * 60 });
   Flux.do('interface|rfxcom|send', { device: 'plug12', value: false }, { delay: 3 * 60 });
   Flux.do('interface|rfxcom|send', { device: 'plug13', value: false }, { delay: 3 * 60 });
