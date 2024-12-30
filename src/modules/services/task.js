@@ -22,19 +22,24 @@ function idea() {
 }
 
 function blinkLivingRoom() {
-  log.info('Idea...');
+  log.info('blinkLivingRoom...');
+  // TODO Récupérer l'état des lampes pour la suite...
   let lightState = false;
   // Flux.do('service|task|switchLivingRoomOff', null, { loop: 5, delay: 0.3 });
   // Flux.do('service|task|switchLivingRoomOn', null, { loop: 5, delay: 0.8 });
   switchLivingRoom(lightState);
-  setInterval(() => {
+  const blinkInterval = setInterval(() => {
     lightState = !lightState;
     switchLivingRoom(lightState);
   }, 500);
+  setTimeout(() => {
+    clearInterval(blinkInterval);
+    switchLivingRoom(false);
+  }, 3000);
 }
 
 function switchLivingRoom(value) {
-  Flux.do('interface|rfxcom|send', { device: 'plug3', value: value });
+  // Flux.do('interface|rfxcom|send', { device: 'plug3', value: value });
   Flux.do('interface|rfxcom|send', { device: 'plug13', value: value });
   Flux.do('interface|rfxcom|send', { device: 'plug12', value: value });
   Flux.do('interface|rfxcom|send', { device: 'plug11', value: value });
