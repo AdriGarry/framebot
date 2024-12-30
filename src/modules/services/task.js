@@ -35,7 +35,7 @@ function blinkLivingRoom() {
   setTimeout(() => {
     clearInterval(blinkInterval);
     switchLivingRoom(false);
-  }, 3000);
+  }, 4000);
 }
 
 function switchLivingRoom(value) {
