@@ -75,10 +75,11 @@
     }
   },
   "knownHosts": [
-    { "hostname": "pixel-3a.home", "label": "ADRI_MOBILE", "flux": [{ "id": "interface|tts|speak", "value": { "lg": "ru", "voice": "google", "msg": "hey, a3" } }] },
+    { "hostname": "pixel-8a-1.home", "label": "ADRI_MOBILE", "flux": [{ "id": "interface|tts|speak", "value": { "lg": "ru", "voice": "google", "msg": "hey, a3" } }] },
+    { "hostname": "pixel-3a-1.home", "label": "ADRI_OLD_MOBILE" },
     { "hostname": "adri-pc.home", "label": "ADRI_PC" },
-    { "hostname": "enovacom-agar2.home", "label": "ADRI_PC_WORK", "flux": { "id": "interface|tts|speak", "value": "Laptop EPC" } },
-    { "hostname": "pixel-6a.home", "label": "CAM_MOBILE" },
+    { "hostname": "enovacom-agar2-1.home", "label": "ADRI_PC_WORK", "flux": { "id": "interface|tts|speak", "value": "Laptop EPC" } },
+    { "hostname": "pixel-8a.home", "label": "CAM_MOBILE" },
     { "hostname": "desktop-ogmm0ks.home", "label": "CAM_PC", "forgetDelay": 3600 },
     { "hostname": "odi.home", "label": "ODI" },
     { "hostname": "livebox.home", "label": "LiveBox" }
