@@ -26,6 +26,7 @@
         "homeOffice",
         "powerPlug",
         "weather",
+        "childNightLight",
         "task"
       ],
       "full": ["mood", "interaction", "timer", "music", "party", "video", "max", "childs"]
