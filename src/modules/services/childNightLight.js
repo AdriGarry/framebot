@@ -20,7 +20,7 @@ const CALC_SUN_TIMES_DELAY = 24 * 60;
 const LATITUDE = 43.2965;
 const LONGITUDE = 5.3698;
 
-let childNightLightOn = false;
+let isChildNightLightOn;
 
 setTimeout(function () {
   initChildNightLight();
@@ -29,26 +29,30 @@ setTimeout(function () {
 function initChildNightLight() {
   log.info('init child night light...');
   new CronJob('15 * * * * *', function () {
-    // '15 0,30 * * * *'
+    // TODO // '15 0,30 * * * *'
     toggleChildNightLightDependingOnSunPosition();
   }).start();
 }
 
 function toggleChildNightLightDependingOnSunPosition() {
   log.debug('toggleChildNightLightDependingOnSunPosition...');
+  log.INFO('toggleChildNightLightDependingOnSunPosition...', isChildNightLightOn);
   const times = SunCalc.getTimes(new Date(), LATITUDE, LONGITUDE);
+  log.INFO('times:', times);
   const now = new Date();
   if (now > times.sunset) {
     // night
-    if (!childNightLightOn) {
-      childNightLightOn = true;
+    if (isChildNightLightOn === false) {
+      log.info('Switching child night light on...');
       Flux.do('service|powerPlug|toggle', { plug: 'plug14', mode: true });
+      isChildNightLightOn = true;
     }
   } else if (now > times.sunrise) {
     // day
-    if (childNightLightOn) {
-      childNightLightOn = false;
+    if (isChildNightLightOn === true) {
+      log.info('Switching child night light off...');
       Flux.do('service|powerPlug|toggle', { plug: 'plug14', mode: false });
+      isChildNightLightOn = false;
     }
   }
 }
