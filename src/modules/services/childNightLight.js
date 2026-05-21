@@ -42,14 +42,14 @@ function toggleChildNightLightDependingOnSunPosition() {
   const now = new Date();
   if (now > times.sunset) {
     // night
-    if (isChildNightLightOn === false || isChildNightLightOn === undefined) {
+    if (isChildNightLightOn != true) {
       log.info('Switching child night light on...');
       Flux.do('service|powerPlug|toggle', { plug: 'plug14', mode: true });
       isChildNightLightOn = true;
     }
   } else if (now > times.sunrise) {
     // day
-    if (isChildNightLightOn === true || isChildNightLightOn === undefined) {
+    if (isChildNightLightOn != false) {
       log.info('Switching child night light off...');
       Flux.do('service|powerPlug|toggle', { plug: 'plug14', mode: false });
       isChildNightLightOn = false;
