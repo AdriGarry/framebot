@@ -38,18 +38,18 @@ function toggleChildNightLightDependingOnSunPosition() {
   log.debug('toggleChildNightLightDependingOnSunPosition...');
   log.INFO('toggleChildNightLightDependingOnSunPosition...', isChildNightLightOn);
   const times = SunCalc.getTimes(new Date(), LATITUDE, LONGITUDE);
-  log.INFO('times:', times);
+  log.info('times:', times);
   const now = new Date();
   if (now > times.sunset) {
     // night
-    if (isChildNightLightOn === false) {
+    if (isChildNightLightOn === false || isChildNightLightOn === undefined) {
       log.info('Switching child night light on...');
       Flux.do('service|powerPlug|toggle', { plug: 'plug14', mode: true });
       isChildNightLightOn = true;
     }
   } else if (now > times.sunrise) {
     // day
-    if (isChildNightLightOn === true) {
+    if (isChildNightLightOn === true || isChildNightLightOn === undefined) {
       log.info('Switching child night light off...');
       Flux.do('service|powerPlug|toggle', { plug: 'plug14', mode: false });
       isChildNightLightOn = false;
