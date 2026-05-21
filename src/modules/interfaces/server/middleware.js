@@ -8,7 +8,7 @@ const log = new Logger(__filename);
 
 const FILE_REQUEST_HISTORY = Core._LOG + Core.const('name') + '_requestHistory.log';
 const NO_SOUND_URL = ['/dashboard', '/log'];
-const BAD_REQUEST_TTS_THROTTLE_DELAY = 10000;
+const BAD_REQUEST_TTS_THROTTLE_DELAY = 30000;
 const BAD_REQUEST_CP_LIMIT = 5;
 
 module.exports = {
