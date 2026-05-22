@@ -36,16 +36,16 @@ function initChildNightLight() {
 
 function toggleChildNightLightDependingOnSunPosition() {
   log.debug('toggleChildNightLightDependingOnSunPosition...');
-  const times = SunCalc.getTimes(new Date(), LATITUDE, LONGITUDE);
   const now = new Date();
-  if (now > times.sunset) {
+  const sunTimes = SunCalc.getTimes(now, LATITUDE, LONGITUDE);
+  if (now > sunTimes.sunset) {
     // night
     if (isChildNightLightOn != true) {
       log.info('Switching child night light on...');
       Flux.do('service|powerPlug|toggle', { plug: 'plug14', mode: true });
       isChildNightLightOn = true;
     }
-  } else if (now > times.sunrise) {
+  } else if (now > sunTimes.sunrise) {
     // day
     if (isChildNightLightOn != false) {
       log.info('Switching child night light off...');
