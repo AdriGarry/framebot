@@ -28,7 +28,7 @@ setTimeout(function () {
 
 function initChildNightLight() {
   log.info('init child night light...');
-  new CronJob('15 * * * * *', function () {
+  new CronJob('15 0,30 * * * *', function () {
     // TODO // '15 0,30 * * * *'
     toggleChildNightLightDependingOnSunPosition();
   }).start();
@@ -36,9 +36,7 @@ function initChildNightLight() {
 
 function toggleChildNightLightDependingOnSunPosition() {
   log.debug('toggleChildNightLightDependingOnSunPosition...');
-  log.INFO('toggleChildNightLightDependingOnSunPosition...', isChildNightLightOn);
   const times = SunCalc.getTimes(new Date(), LATITUDE, LONGITUDE);
-  log.info('times:', times);
   const now = new Date();
   if (now > times.sunset) {
     // night
