@@ -28,7 +28,7 @@ setTimeout(function () {
 
 function initChildNightLight() {
   log.info('init child night light...');
-  new CronJob('15 0,30 * * * *', function () {
+  new CronJob('15 */10 * * * *', function () {
     // TODO // '15 0,30 * * * *'
     toggleChildNightLightDependingOnSunPosition();
   }).start();
