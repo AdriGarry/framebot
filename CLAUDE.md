@@ -18,7 +18,7 @@ Framebot est un framework Node.js (CommonJS) de domotique/robot qui tourne sur u
 
 **Règle : ne jamais faire de commit (ni de push).** Laisser les modifications dans l'arbre de travail ; c'est l'utilisateur qui commit lui-même. En fin de tâche, proposer un message de commit qui décrit les changements, préfixé par la version, et proposer de monter la version dans `package.json` (sans le faire sans son accord). La montée proposée doit correspondre à la nature des changements (semver) : majeure pour une rupture de compatibilité (format de flux, descripteur ou conf incompatibles, API supprimée), mineure pour une nouvelle fonctionnalité (nouveau module, nouveau flux...), patch pour une correction, un réglage ou de la documentation.
 
-Les messages de commit sont préfixés par la version de `package.json` (ex. `7.16.4 Reduce error sound volume`) ; incrémenter la version dans `package.json` avec les changements. La CI crée automatiquement le tag sur master à partir de cette version.
+Les messages de commit sont préfixés par la version de `package.json` (ex. `7.16.4 Reduce error sound volume`) ; incrémenter la version dans `package.json` avec les changements. La CI crée automatiquement le tag sur main à partir de cette version.
 
 ## Architecture
 
