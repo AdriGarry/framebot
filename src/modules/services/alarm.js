@@ -53,7 +53,7 @@ function setAlarm(alarm) {
 }
 
 /** Function to test if alarm now */
-const WEEK_DAYS = [1, 2, 3, 4, 5];
+const WEEK_DAYS = [1, 2, 4, 5]; // Wednesday uses weekEnd alarm
 function isAlarm() {
   let now = new Date(),
     d = now.getDay(),
@@ -166,7 +166,7 @@ function alarmPart3() {
     Flux.do('service|max|hornRdm', null, { delay: 12 * 60, loop: 6 });
 
     if (!Utils.isWeekend()) {
-      Flux.do('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 120, repeat: 4 });
+      Flux.do('interface|tts|speak', 'As-tu fais tes exercices ce matin ?', { delay: 120, repeat: 3 });
     }
 
     setTimeout(() => {

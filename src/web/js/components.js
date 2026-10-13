@@ -426,7 +426,7 @@ app.component('alarms', {
       }
     };
 
-    const DAYS = { weekDay: [1, 2, 3, 4, 5], weekEnd: [6, 0] };
+    const DAYS = { weekDay: [1, 2, 4, 5], weekEnd: [3, 6, 0] };
     let updateNextAlarm = function () {
       let ALARMS = ctrl.data.alarms.value;
       if (ALARMS.weekDay || ALARMS.weekEnd) {
