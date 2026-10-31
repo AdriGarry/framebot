@@ -3,13 +3,12 @@
 [![Version](https://img.shields.io/github/package-json/v/adrigarry/framebot?style=flat)](https://github.com/AdriGarry/framebot/tags)
 ![Languages](https://img.shields.io/github/languages/count/adrigarry/framebot?style=flat)
 ![Top language](https://img.shields.io/github/languages/top/adrigarry/framebot?style=flat)
-![Total lines](https://img.shields.io/tokei/lines/github/adrigarry/framebot?style=flat)
 ![Code size](https://img.shields.io/github/languages/code-size/adrigarry/framebot?style=flat)
 
 [![Pull request](https://img.shields.io/github/issues-pr/adrigarry/framebot?style=flat)](https://github.com/AdriGarry/framebot/pulls)
 [![Commit](https://img.shields.io/github/commit-activity/w/adrigarry/framebot?style=flat)](https://github.com/AdriGarry/framebot/commits/main)
 [![Last commit](https://img.shields.io/github/last-commit/adrigarry/framebot?style=flat)](https://github.com/AdriGarry/framebot/commits/main)
-[![Build status](https://img.shields.io/github/workflow/status/adrigarry/framebot/CI?style=flat)](https://github.com/AdriGarry/framebot/actions)
+[![Build status](https://img.shields.io/github/actions/workflow/status/adrigarry/framebot/ci.yml?branch=main&style=flat)](https://github.com/AdriGarry/framebot/actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=AdriGarry_core&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=AdriGarry_core)
 
 **Framebot** is a NodeJS framework for home automation & interaction.
