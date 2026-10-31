@@ -47,7 +47,7 @@ describe('Files', function () {
   describe('Files.directoryContent: return array of file in a given directory', function () {
     it('should return number of files in ' + UNIT_TEST_PATH, function (done) {
       Files.directoryContent(UNIT_TEST_PATH).then(files => {
-        assert.ok(5 === files.length);
+        assert.strictEqual(files.length, fs.readdirSync(UNIT_TEST_PATH).length);
         done();
       });
     });
