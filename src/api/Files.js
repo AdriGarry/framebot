@@ -5,6 +5,8 @@ const { exec } = require('child_process'),
   fs = require('fs'),
   fsPromises = fs.promises;
 
+const Core = require('./../core/Core').api;
+
 const Utils = require('./Utils');
 
 const logger = require('./Logger');
@@ -130,11 +132,11 @@ module.exports = class Files {
           durationInSec += (+matchObj.groups.h || 0) * 60 * 60;
           log.debug(`getDuration for file ${soundFile}: ${durationInSec} sec`);
           resolve(durationInSec);
-        } catch (err) {
+        } catch (error) {
           log.error('getDuration error', error);
+          reject(error);
         }
-        reject(durationInSec);
-      });
+      }).catch(reject);
     });
   }
 };
