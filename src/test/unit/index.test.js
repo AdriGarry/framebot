@@ -15,13 +15,10 @@ describe('Unit test sequence with Mocha', function () {
 });
 
 function loadUnitTestFiles() {
-  fs.readdir(__dirname, (err, files) => {
-    if (err) console.error(err);
-    files.forEach(testFile => {
-      if (UNIT_TEST_INDEX_FILENAME !== testFile && 'resources' !== testFile) {
-        require(__dirname + path.sep + testFile);
-        assert.ok(true);
-      }
-    });
+  fs.readdirSync(__dirname).forEach(testFile => {
+    if (UNIT_TEST_INDEX_FILENAME !== testFile && 'resources' !== testFile) {
+      require(__dirname + path.sep + testFile);
+      assert.ok(true);
+    }
   });
 }
