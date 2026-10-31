@@ -10,14 +10,15 @@ function stub(overrides) {
   const runValues = { 'stats.fluxCount': 0 };
   const calls = { errors: [], runValues: runValues };
 
-  const stubbed = Object.assign(
-    {
-      run: (key, value) => (typeof value === 'undefined' ? runValues[key] : (runValues[key] = value)),
-      error: (message, data) => calls.errors.push({ message: message, data: data }),
-      isAwake: () => true
+  const stubbed = {
+    run: (key, value) => {
+      if (value !== undefined) runValues[key] = value;
+      return runValues[key];
     },
-    overrides
-  );
+    error: (message, data) => calls.errors.push({ message: message, data: data }),
+    isAwake: () => true,
+    ...overrides
+  };
 
   Object.keys(stubbed).forEach(key => {
     if (!saved.hasOwnProperty(key)) saved[key] = { exists: key in Core, value: Core[key] };

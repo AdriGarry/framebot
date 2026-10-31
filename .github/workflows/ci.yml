@@ -13,26 +13,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
     - name: Install Node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v4
       with:
-          node-version: '12.x'
-    - name: Install mocha
-      run: npm install -g mocha
+          node-version: '22.x'
     - name: Install dependencies
       run: npm install --ignore-scripts
     - name: "Run Test"
-      run: mocha ./src/test/unit/index.test.js
+      run: ./node_modules/.bin/mocha ./src/test/unit/index.test.js
 
   auto-tag:
     needs: [unit-test]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
     - name: Auto tag version
-      uses: butlerlogic/action-autotag@stable
-      with:
-        GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+      run: |
+        VERSION=$(node -p "require('./package.json').version")
+        if git ls-remote --exit-code --tags origin "refs/tags/$VERSION" >/dev/null 2>&1; then
+          echo "Tag $VERSION already exists"
+        else
+          git tag "$VERSION"
+          git push origin "$VERSION"
+        fi
