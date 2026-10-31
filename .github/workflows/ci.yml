@@ -21,7 +21,7 @@ jobs:
     - name: Install mocha
       run: npm install -g mocha
     - name: Install dependencies
-      run: npm install 
+      run: npm install --ignore-scripts
     - name: "Run Test"
       run: mocha ./src/test/unit/index.test.js
 
