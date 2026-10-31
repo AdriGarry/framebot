@@ -26,14 +26,12 @@ cd /home/odi/framebot/tmp
 # Run the following command to fix the $HOME directory permissions for the current $USER:
 # sudo chown -R $USER:$USER $HOME/
 
-# Uninstall npm & nodejs
-sudo apt-get remove -y nodejs
-# sudo apt-get remove -y npm
+# Uninstall system nodejs (Node is managed by nvm, see below)
+sudo apt-get remove -y nodejs npm
 
-# Install npm & nodejs
-curl -sL https://deb.nodesource.com/setup_lts.x | sudo bash -
-sudo apt-get install -y nodejs
-sudo apt-get install -y npm
+# Install nvm & Node 22 for user odi
+sudo -u odi sh -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
+sudo -u odi bash -c '. /home/odi/.nvm/nvm.sh && nvm install 22 && nvm alias default 22'
 
 # Install sound tools & player
 sudo apt-get install -y alsa-base alsa-utils alsa-tools pulseaudio mpg321 lame ffmpeg
@@ -83,8 +81,7 @@ sudo apt-get -y install nmap
 # Test
 espeak -s 125 -v mb/mb-fr1 'Installation terminée.'
 
-echo "node version:" $(node -v)
-echo "npm version:" $(npm -v)
+sudo -u odi bash -c '. /home/odi/.nvm/nvm.sh && echo "node version:" $(node -v) && echo "npm version:" $(npm -v)'
 
 exit 0
 

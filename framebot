@@ -116,9 +116,13 @@ then
 	echo "framebot: log directory created"
 fi
 
+# Latest Node 22 installed with nvm, fallback on node from PATH
+_NODE=$(ls -d /home/odi/.nvm/versions/node/v22.*/bin/node 2>/dev/null | sort -V | tail -n 1)
+[ -z "$_NODE" ] && _NODE=$(command -v node)
+
 echo "\nStarting Wrapper... [$*]" | sudo tee -a "$_PATH/log/$_NAME.log"
 # echo "\nStarting Wrapper... [$*]" | tee -a "$_PATH/log/$_NAME.log"
 
 # sudo python /home/odi/framebot/src/python/buttons.py 2>&1 | sudo tee -a /home/odi/framebot/log/buttons.py.log &
-sudo node --trace-deprecation "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" 
+sudo "$_NODE" --trace-deprecation "$_PATH"/src/wrapper.js $* 2>&1 | sudo tee -a "$_PATH/log/$_NAME.log" 
 # node "$_PATH"/src/wrapper.js $* 2>&1 | tee -a "$_PATH/log/$_NAME.log" 
