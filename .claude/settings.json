@@ -1,0 +1,59 @@
+{
+    "attribution": {
+        "commit": "",
+        "pr": ""
+    },
+    "permissions": {
+        "deny": [
+            "Bash(git config user.name*)",
+            "Bash(git config user.email*)",
+            "Bash(git config --global user.name*)",
+            "Bash(git config --global user.email*)",
+            "Bash(git config --local user.name*)",
+            "Bash(git config --local user.email*)",
+            "Bash(git push *)",
+            "Bash(git push:*)",
+            "Bash(git reset --hard *)",
+            "Bash(git clean *)",
+            "Bash(rm *)",
+            "Bash(rm -rf *)",
+            "Bash(rmdir *)",
+            "Bash(mv *)",
+            "Bash(dd *)",
+            "Bash(truncate *)",
+            "Bash(> *)",
+
+            "Read(.env)",
+            "Read(.env.*)",
+            "Read(**/.env)",
+            "Read(**/.env.*)",
+            "Read(**/*.pem)",
+            "Read(**/*.key)",
+            "Read(**/node_modules/**)",
+            "Read(**/dist/**)",
+            "Read(**/backend/assets/documents/**)",
+            "Read(**/backend/data/documents/**)"
+        ]
+    },
+    "enabledPlugins": {
+        "superpowers@claude-plugins-official": true,
+        "playwright@claude-plugins-official": true,
+        "caveman@caveman": true
+    },
+    "extraKnownMarketplaces": {
+        "caveman": {
+            "source": {
+                "source": "github",
+                "repo": "JuliusBrussee/caveman"
+            }
+        }
+    },
+    "autoUpdatesChannel": "latest",
+    "theme": "dark",
+    "model": "sonnet",
+    "statusLine": {
+        "type": "command",
+        "command": "input=$(cat | tr -d '\\n'); m=$(echo \"$input\" | grep -o '\"display_name\":\"[^\"]*\"' | head -1 | cut -d'\"' -f4); p=$(echo \"$input\" | grep -o '\"context_window\".*' | grep -o '\"used_percentage\":[0-9.]*' | head -1 | cut -d: -f2); p=${p%.*}; p=${p:-0}; f=$((p/10)); b=''; for i in 1 2 3 4 5 6 7 8 9 10; do [ $i -le $f ] && b=\"$b#\" || b=\"$b-\"; done; echo \"$m [$b] $p%\"",
+        "padding": 0
+    }
+}

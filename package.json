@@ -1,11 +1,12 @@
 {
   "name": "framebot",
-  "version": "7.17.2",
+  "version": "7.17.4",
   "private": true,
   "description": "Framebot program to autorun, interact & manage stuff...",
   "main": "framebot",
   "scripts": {
     "test": "mocha ./src/test/unit/index.test.js -w ./src/api",
+    "coverage": "c8 --all --src src --exclude 'src/test/**' --exclude 'src/web/**' mocha ./src/test/unit/index.test.js",
     "clean": "rm -rf node_modules/",
     "clean:force": "rm -rf node_modules/ && rm -f package-lock.json",
     "pretty": "npx prettier --write ./"
@@ -37,6 +38,7 @@
     "ws": "8.13.0"
   },
   "devDependencies": {
+    "c8": "^12.0.0",
     "mocha": "^10.2.0",
     "prettier": "^2.8.8"
   }

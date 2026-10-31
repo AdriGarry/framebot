@@ -59,5 +59,6 @@ admin.js
 #*.png
 #*.gif
 /node_modules/*
+/coverage/
 .idea/*
 sftp.json
