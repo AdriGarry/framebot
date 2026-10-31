@@ -60,7 +60,6 @@ module.exports = class Flux {
     if (this.delay) {
       this.schedule();
     } else {
-      Core.run('stats.fluxCount', Core.run('stats.fluxCount') + 1);
       this.fire();
     }
   }
@@ -88,6 +87,7 @@ module.exports = class Flux {
   }
 
   fire() {
+    Core.run('stats.fluxCount', Core.run('stats.fluxCount') + 1);
     log[this.log]('> Flux', this.toString());
     Observers[this.type]()[this.subject].next({
       id: this.id,
