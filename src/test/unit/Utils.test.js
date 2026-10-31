@@ -89,10 +89,10 @@ describe('Utils', function () {
 
   describe('Utils.getDifferenceInSec: return difference in seconds between given date and optional date or now', function () {
     it('should return 3600 seconds', function () {
-      let now = new Date();
-      let nowPlusOneHour = new Date(now.setHours(now.getHours() + 1));
-      let result = Utils.getDifferenceInSec(nowPlusOneHour);
-      assert.strictEqual(3600, result);
+      const now = new Date(),
+        nowPlusOneHour = new Date(now.getTime() + 3600 * 1000);
+      const result = Utils.getDifferenceInSec(nowPlusOneHour, now);
+      assert.strictEqual(result, 3600);
     });
     it('should return 10 seconds', function () {
       const given = new Date('1999-12-31T00:00:00'),
