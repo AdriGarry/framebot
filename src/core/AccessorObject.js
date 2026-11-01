@@ -36,15 +36,16 @@ function SharedObject(name, obj) {
   function _getter(id) {
     if (id === '_lastModified') {
       return self.lastModified;
-    } else if (id.indexOf('.') > -1) {
-      let keys = id.split('.');
-      return self._obj[keys[0]][keys[1]];
-    } else if (self._obj.hasOwnProperty(id)) {
-      return self._obj[id];
-    } else {
-      log.error(`No entry for '${id}' property in ${self._name} object!`);
-      return false;
     }
+    let value = self._obj;
+    for (const key of id.split('.')) {
+      if (value === null || typeof value !== 'object' || !Object.prototype.hasOwnProperty.call(value, key)) {
+        log.error(`No entry for '${id}' property in ${self._name} object!`);
+        return false;
+      }
+      value = value[key];
+    }
+    return value;
   }
 
   function _setter(id, newValue) {
@@ -60,14 +61,13 @@ function SharedObject(name, obj) {
   }
 
   function _setValue(object, id, newValue) {
-    let id2;
-    if (id.indexOf('.') > -1) {
-      let keys = id.split('.');
-      id = keys[0];
-      id2 = keys[1];
-    }
-    if (id2) object[id][id2] = newValue;
-    else object[id] = newValue;
+    const keys = id.split('.');
+    const lastKey = keys.pop();
+    const parent = keys.reduce((obj, key) => {
+      if (obj[key] === null || typeof obj[key] !== 'object') obj[key] = {};
+      return obj[key];
+    }, object);
+    parent[lastKey] = newValue;
   }
 }
 

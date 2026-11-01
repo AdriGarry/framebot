@@ -37,6 +37,22 @@ describe('AccessorObject', function () {
       assert.strictEqual(accessor('unknown'), false);
     });
 
+    it('should return the value of a multi-level dotted key', function () {
+      accessor('nested.deep', { d: 3 });
+      assert.strictEqual(accessor('nested.deep.d'), 3);
+    });
+
+    it('should return false for an unknown dotted key', function () {
+      assert.strictEqual(accessor('unknown.x'), false);
+      assert.strictEqual(accessor('nested.x.y'), false);
+      assert.strictEqual(accessor('a.b'), false);
+    });
+
+    it('should create intermediate objects when setting a multi-level key', function () {
+      accessor('x.y.z', 7);
+      assert.strictEqual(accessor('x.y.z'), 7);
+    });
+
     it('should set the value of a key', function () {
       accessor('a', 5);
       assert.strictEqual(accessor('a'), 5);
