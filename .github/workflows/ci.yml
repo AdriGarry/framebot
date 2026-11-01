@@ -20,8 +20,8 @@ jobs:
           node-version: '22.x'
     - name: Install dependencies
       run: npm install --ignore-scripts
-    - name: "Run Test"
-      run: ./node_modules/.bin/mocha ./src/test/unit/index.test.js
+    - name: "Run Test with coverage threshold"
+      run: npm run coverage:check
 
   auto-tag:
     needs: [unit-test]
