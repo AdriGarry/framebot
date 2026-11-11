@@ -63,7 +63,7 @@ app.service('UIService', [
     ctrl.sendCommand = function (cmd, callback) {
       let uri = cmd.url;
       let value = cmd.value;
-      if (value !== 'object') value = { _wrapper: value };
+      if (typeof value !== 'object') value = { _wrapper: value };
       $http({
         headers: {
           'User-Interface': 'UIv5',
@@ -81,7 +81,7 @@ app.service('UIService', [
             } else if (cmd.label) {
               ctrl.showToast(cmd.label);
             }
-            callback(res.data);
+            if (typeof callback === 'function') callback(res.data);
           }
         },
         function errorCallback(res) {
@@ -238,7 +238,7 @@ app.service('audioService', [
       input = audioContext.createMediaStreamSource(stream);
 
       /* Create the Recorder object and configure to record mono sound (1 channel)
-				Recording 2 channels will double the file size */
+        Recording 2 channels will double the file size */
       rec = new Recorder(input, { numChannels: 2 });
       //start the recording process
       rec.record();
