@@ -233,7 +233,7 @@ app.component('options', {
       label: 'Options',
       actionList: [
         { label: 'Renew Certbot', icon: 'fa-solid fa-lock', url: '/flux/service/task/certbot' },
-        { label: 'Test', icon: 'fa-solid fa-flask-vial', url: '/flux/service/context/updateRestart', value: { mode: 'test' } },
+        { label: 'Tests', icon: 'fa-solid fa-flask-vial', url: '/flux/service/context/updateRestart', value: { mode: 'test' } },
         { label: 'Demo', icon: 'fa-solid fa-play', url: '/flux/service/interaction/demo' },
         { label: '!Watcher', icon: 'fa-solid fa-eye', url: '/flux/interface/watcher/toggle' },
         { label: 'Log', icon: 'fa-solid fa-code', continu: true },
@@ -243,9 +243,9 @@ app.component('options', {
     ctrl.tile = new DefaultTile(tileParams);
 
     const logActionList = [
-        { label: '!Trace', icon: 'fa-regular fa-dot-circle', url: '/toggleTrace' },
-        { label: '!Debug', icon: 'fa-solid fa-circle', url: '/toggleDebug' }
-      ],
+      { label: '!Trace', icon: 'fa-regular fa-dot-circle', url: '/toggleTrace' },
+      { label: '!Debug', icon: 'fa-solid fa-circle', url: '/toggleDebug' }
+    ],
       coreActionList = [
         { label: 'Const', icon: 'fa-solid fa-hockey-puck', url: 'https://odi.adrigarry.com/const' },
         { label: 'Config', icon: 'fa-brands fa-whmcs', url: 'https://odi.adrigarry.com/config.json' },
@@ -676,7 +676,6 @@ app.component('time', {
     const ctrl = this;
     const tileParams = {
       label: 'Time',
-      // actionList:[{url: '/time'}]
       actionList: [
         { label: 'Bot age', icon: 'fa-solid fa-birthday-cake', url: '/flux/service/time/age' },
         { label: 'Today', icon: 'fa-solid fa-calendar-day', url: '/flux/service/time/today' },
@@ -754,7 +753,7 @@ app.component('idea', {
         { label: 'Idea', icon: 'fa-regular fa-lightbulb', url: '/flux/interface/tts/speak', value: { lg: 'en', msg: "I've got an idea !" } },
         { label: 'Civil Horn', icon: 'fa-solid fa-bullhorn', url: '/flux/service/interaction/civilHorn' },
         { label: 'Subway / Street', icon: 'fa-solid fa-subway', url: '/flux/service/interaction/russia' },
-        { label: 'Test', icon: 'fa-solid fa-flag-checkered', url: '/test' }
+        { label: 'Test', icon: 'fa-solid fa-flag-checkered', url: '/flux/service/task/test' }
       ]
     };
     ctrl.tile = new DefaultTile(tileParams);

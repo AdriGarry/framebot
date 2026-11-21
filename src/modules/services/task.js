@@ -8,7 +8,8 @@ const log = new Logger(__filename);
 
 const FLUX_PARSE_OPTIONS = [
   { id: 'goToSleep', fn: goToSleep },
-  { id: 'certbot', fn: renewCertbot }
+  { id: 'certbot', fn: renewCertbot },
+  { id: 'test', fn: testFunction }
 ];
 
 Observers.attachFluxParseOptions('service', 'task', FLUX_PARSE_OPTIONS);
@@ -50,4 +51,8 @@ function renewCertbot() {
     .catch(err => {
       Core.error('Error renewing Certbot certificate', err);
     });
+}
+
+function testFunction() {
+  log.test('testFunction...', 'for testing stuff!');
 }
