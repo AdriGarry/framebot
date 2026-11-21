@@ -98,7 +98,15 @@ app.service('UIService', [
           'User-Interface': 'UIv5'
         },
         method: 'POST',
-        url: CONSTANTS.URL_ODI + '/tts?voice=' + tts.voice + '&lg=' + tts.lg + '&msg=' + tts.msg + (tts.voicemail ? '&voicemail' : '')
+        url:
+          CONSTANTS.URL_ODI +
+          '/tts?voice=' +
+          encodeURIComponent(tts.voice) +
+          '&lg=' +
+          encodeURIComponent(tts.lg) +
+          '&msg=' +
+          encodeURIComponent(tts.msg) +
+          (tts.voicemail ? '&voicemail' : '')
       }).then(
         function successCallback(res) {
           ctrl.showToast(tts.msg);

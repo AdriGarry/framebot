@@ -24,7 +24,6 @@ Points relevés en analysant `src/web` :
 - [ ] **6. Corriger le retry de géolocalisation** (`services.js`) : `getCurrentPosition(maPosition)` référence une fonction inexistante (`ReferenceError`), et un refus bloque l'écran d'accueil.
 - [ ] **8. Corriger la reconnexion du websocket de logs** (`controllers.js`) : `onclose` relance une connexion après 10 s même après `closeLogTailWebSocket` (impossible d'arrêter le tail), et chaque `requireGrantAccess` réussi rouvre une socket sans fermer la précédente.
 - [ ] **9. Borner `log.data`** : le tail le fait grossir sans limite (fuite mémoire).
-- [ ] **10. Encoder les paramètres de `sendTTS`** avec `encodeURIComponent` : `msg` casse l'URL sur `&`, `#` ou `?`.
 - [ ] **11. Fiabiliser le rafraîchissement du dashboard** : le polling est déclenché par le scroll et un `$timeout` récursif, et le seuil `failedRefreshs >= 2` est annulé par un `connexionLost = true` inconditionnel.
 - [ ] **12. Revoir l'authentification** : le mot de passe est envoyé dans l'en-tête `pwd` et le paramètre de grant est lu dans l'URL (`?param`), donc conservé dans l'historique et les logs. Supprimer aussi l'en-tête client `Access-Control-Allow-Origin` (inutile, c'est un en-tête de réponse). Voir aussi la position GPS envoyée à chaque requête et Google Analytics chargé en dur dans `index.html`.
 - [ ] **13. Nettoyer le code mort** : `Tile.js` et `models.js` en partie inutilisés, commentaire `pr.longpress`, `IP_REGEX_2` jamais utilisée (et invalide : tirets typographiques `–`, `b`/`d` à la place de `\b`/`\d`).
